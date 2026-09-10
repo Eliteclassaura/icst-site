@@ -1,6 +1,6 @@
 # Agency Site Factory — instructions for Claude sessions working in this repository
 
-This file is read by every Claude session (owner's or a designer's). It states what the repository is, how a change reaches the live site, and what a session must refuse. The long form is in `docs/`; the decisions are in `docs/decision-log.md` (ADR-001 … ADR-030).
+This file is read by every Claude session (owner's or a designer's). It states what the repository is, how a change reaches the live site, and what a session must refuse. The long form is in `docs/`; the decisions are in `docs/decision-log.md` (ADR-001 … ADR-031).
 
 ## What this is
 

@@ -77,7 +77,7 @@ All ADR-028 amendments (drafts-only Lane B, scope limited to `pages`/`posts`/`me
 
 - Lane B (service account) is not yet implemented — OGCS cannot write to any Factory site yet.
 - No `page-decisions` run has been consumed yet; the importer's parse/apply stages land in Release 4 against a synthetic fixture first.
-- The repository's first push to GitHub is pending the owner's history rewrite (`docs/runbooks/first-push.md`); until then contracts are consumed from a bundle, not a remote.
+- The repository's first push to GitHub is pending the owner's first push (`docs/runbooks/first-push.md`; ADR-031 — fresh history, no rewrite); until then contracts are consumed from a bundle, not a remote.
 - H2O inputs (OLD/NEW files, databases, SEO evidence) are not supplied; the H2O freeze crawl has not been run.
 
 ## 9. Exact files OGCS should consume

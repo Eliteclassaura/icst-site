@@ -1,55 +1,71 @@
-# First push to GitHub (ADR-027)
+# First push to GitHub (ADR-027, amended by ADR-031)
 
-Run once. **Nothing is pushed while the redacted literals still exist in history.**
+Run once, on the owner's machine. Four steps.
 
-## 1. Sanitisation (done in the working tree — commit `security: redact …`)
+> **This runbook changed on 2026-09-10.** It used to begin with a `git filter-repo` rewrite of the nine pre-sanitisation commits, run against an offline bundle. That bundle lived on a Mac that is no longer accessible, so **the first push now starts a fresh history** (ADR-031). Nothing is rewritten, because nothing carrying the literals is pushed at all.
+
+## What is being pushed
+
+The clean working tree at tag `c5.5` — the same content the handoff package carries — imported as a new repository. No commit from the pre-sanitisation era exists in it, so there is nothing to strip.
+
+The redactions themselves are already in the working tree and stay there:
 
 - `legacy-reference/syed-ai-site/{subscribers,diagnose}.php`: key → `<legacy-admin-key-redacted>`
-- `legacy-reference/search-evidence-suite/search-evidence-console/proxy.php`: client hosts → `redacted-client-host-NN.invalid`; hashes in `allowlist.sha256.json`
-- `docs/discovery/*.md`: same replacements
-- `packages/quality-gates`: scanner reads hashes; tests use a planted key; `pnpm gates:scan` clean
+- `legacy-reference/search-evidence-suite/search-evidence-console/proxy.php`: client hosts → `redacted-client-host-NN.invalid`, with hashes in `allowlist.sha256.json`
+- `docs/discovery/*.md`: the same replacements
+- `packages/quality-gates`: the scanner works from those hashes, never from the literals
 
-## 2. History rewrite (on the owner's Mac — a Claude session's safety classifier refuses to run `git filter-repo`)
+## 1. Import the working tree
 
-The literals still exist in the nine pre-sanitisation commits; the rules are derived from the repository's own pre-rewrite history (tag `c5`), so no pristine archive is needed.
+From the handoff package (`FACTORY_CURRENT_REPO_<date>.zip`), or from the existing working copy if you have one:
 
 ```bash
-brew install git-filter-repo                       # once
 cd ~/Projects
-git clone agency-site-factory-transfer/asf.bundle agency-site-factory-clean
-cd agency-site-factory-clean
-node tools/scripts/make-replacements.mjs --from-git c5 > /tmp/replacements.txt   # 18 rules
-git filter-repo --replace-text /tmp/replacements.txt --force                     # rewrites every commit (26 at the time of writing), re-points tags
-rm -P /tmp/replacements.txt                                                       # the rules file holds the literals
+unzip FACTORY_CURRENT_REPO_2026-09-10.zip     # → agency-site-factory/
+cd agency-site-factory
+git init
+git add -A
+git commit -m "import: Agency Site Factory at c5.5 (fresh history — ADR-031)"
+git tag c5.5
 ```
 
-## 3. Verify — every commit, every file, by hash
+One commit, one tag. The checkpoint tags that came before (`c3-r1` … `c8`) are not recreated: they pointed at commits that no longer exist. The full 31-commit log, with subjects, is in the handoff package's `GIT_STATE.md` and in `docs/handoff/` — that is where provenance lives now.
+
+## 2. Prove the history is clean before adding a remote
 
 ```bash
-node tools/scripts/verify-history-clean.mjs        # "history clean: <N> commits, no legacy key, no allowlist host" — N equals `git log --oneline | wc -l` before the rewrite
-git tag                                            # c3-r1 c4 c5
-git log --oneline | wc -l                          # same count as before the rewrite
+node tools/scripts/verify-history-clean.mjs
+pnpm install && pnpm gates:scan
 ```
 
-Keep the bundle and the pre-rewrite mirror (`agency-site-factory-prefilter.git`) **offline only**; delete them from any cloud workspace.
+The first walks every commit and every file, matching by SHA-256, and prints `history clean: 1 commits, no legacy key, no allowlist host`. The second scans the working tree. **Do not add the remote until both are green** — this is the whole safety property, and it now costs one command instead of a rewrite.
 
-## 4. Remote and protection
+## 3. Remote
 
 ```bash
-git remote add origin https://github.com/Eliteclassaura/agency-site-factory.git   # or the SSH URL
-git push -u origin main --tags                      # authenticates with your own GitHub login (gh auth login / credential helper)
+git remote add origin https://github.com/Eliteclassaura/agency-site-factory.git   # or SSH
+git push -u origin main --tags
 ```
 
-Then in GitHub (or via `gh api` with the token):
+Authenticates with your own GitHub login (`gh auth login`, or the credential helper).
 
-- Repository: **Private**. Settings → General → disable wiki, projects; enable "Automatically delete head branches".
-- Branch protection on `main`: require a pull request before merging; **required approving reviews: 0** (owner alone) / **1** with "Require review from Code Owners" (designer engaged); require status checks to pass (select the CI jobs after the first run: `checks`, `docker`, `guards`); require linear history; do not allow force pushes or deletions; include administrators.
-- Actions: allow GitHub-owned actions and the pinned third-party actions in `ci.yml` only. Secrets: **none** are needed for CI — the suite runs with mock providers. Coolify's preview webhook is configured on the Coolify side with a deploy key, not a repository secret.
-- Security: enable secret scanning and push protection; Dependabot alerts off (Renovate is configured).
+## 4. Repository settings
+
+In GitHub, or via `gh api`:
+
+- Repository: **Private**. Settings → General → disable wiki and projects; enable "Automatically delete head branches".
+- Branch protection on `main`: require a pull request; **required approving reviews: 0** while you work alone (the gates are the reviewer) or **1** with "Require review from Code Owners" once a designer is engaged; require status checks (select after the first run: `checks`, `docker`, `guards`); require linear history; no force pushes, no deletions; include administrators.
+- Actions: allow GitHub-owned actions and the pinned third-party actions in `ci.yml` only.
+- Security: enable secret scanning **and push protection**. Dependabot alerts off (Renovate is configured).
+- Environments: create `staging` and `production`; put `COOLIFY_WEBHOOK` and `COOLIFY_TOKEN` in each as secrets, `STAGING_URL` / `PRODUCTION_URL` as variables, and add a required reviewer to `production`.
 - Collaborators: none until a designer is engaged (`docs/designer-onboarding.md`).
 
-## 5. Afterwards
+## Afterwards
 
-- `agency-site-factory-clean` becomes the working copy on the Mac; the older `agency-site-factory-workspace/agency-site-factory` (pre-rewrite ids) is deleted or archived offline.
-- If a token was created for branch-protection setup, revoke it.
-- Close R42 in `docs/risks.md` (done in ADR-027); record the push date in the ledger's Security actions table.
+- **Watch the first CI run.** The `docker` job carries C8's remaining acceptance (`docker build`, non-root, image contains no `.env` / `legacy-reference` / tests / fixtures / `handoff`, readiness 200 and 503-on-database-down, Compose smoke test) and the five C5.5 steps. A red `docker` job is unfinished C8, not a new problem.
+- If you created a token for the settings step, revoke it.
+- Close R42 in `docs/risks.md` and record the push date in the ledger's Security actions table.
+
+## Still outstanding, and unrelated to git
+
+**`docs/runbooks/legacy-exposure.md` (R1).** The compromised admin key is live on the legacy host until you rotate it. Rewriting or abandoning git history never addressed that, and it is the more urgent of the two.
