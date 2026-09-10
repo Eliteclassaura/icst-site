@@ -1,0 +1,45 @@
+.blk-faq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+}
+
+.blk-faq__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--s-6);
+}
+
+.blk-faq__item {
+  border-block-start: 1px solid var(--color-border-soft);
+  padding-block: var(--s-5);
+}
+
+.blk-faq__item:nth-child(-n + 2) {
+  border-block-start-color: var(--color-border);
+}
+
+.blk-faq__q {
+  font-size: var(--fs-h3);
+  margin-block-end: var(--s-2);
+}
+
+.blk-faq__a {
+  font-size: var(--fs-sm);
+  line-height: 1.75;
+  color: var(--color-text-body);
+}
+
+@media (max-width: 900px) {
+  .blk-faq__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .blk-faq__item:nth-child(-n + 2) {
+    border-block-start-color: var(--color-border-soft);
+  }
+
+  .blk-faq__item:first-child {
+    border-block-start-color: var(--color-border);
+  }
+}

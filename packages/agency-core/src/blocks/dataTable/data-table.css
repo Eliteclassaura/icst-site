@@ -1,0 +1,28 @@
+.blk-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+}
+
+.blk-table__tbl--compare td:last-child {
+  color: var(--color-text-primary);
+  font-weight: var(--w-med);
+}
+
+.blk-table__tbl--compare td:nth-child(3) {
+  color: var(--color-text-primary);
+}
+
+.blk-table__price {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--w-semi);
+  color: var(--color-accent-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.blk-table__foot {
+  font-size: var(--fs-cap);
+  color: var(--color-text-muted);
+  margin: 0;
+}

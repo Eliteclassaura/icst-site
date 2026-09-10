@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://factory.seo/contracts/deploy-event/1.0.0",
+  "title": "factory.seo/deploy-event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "contract_version",
+    "produced_by",
+    "produced_at",
+    "project_id",
+    "run_id",
+    "inputs",
+    "payload"
+  ],
+  "properties": {
+    "contract": {
+      "const": "factory.seo/deploy-event"
+    },
+    "contract_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "produced_by": {
+      "type": "object",
+      "required": [
+        "system",
+        "version"
+      ],
+      "properties": {
+        "system": {
+          "enum": [
+            "ogcs",
+            "ses-adapter",
+            "factory-ci",
+            "wordpress-import",
+            "decisions-apply",
+            "factory-app"
+          ]
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "produced_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "ULID; idempotency key across systems"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "artefact",
+          "sha256"
+        ],
+        "properties": {
+          "artefact": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "environment",
+        "base_url",
+        "blueprint_sha256",
+        "git_sha",
+        "status"
+      ],
+      "properties": {
+        "environment": {
+          "enum": [
+            "staging",
+            "production"
+          ]
+        },
+        "base_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "blueprint_sha256": {
+          "type": "string"
+        },
+        "git_sha": {
+          "type": "string"
+        },
+        "migrations_applied": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "enum": [
+            "deployed",
+            "rolled_back"
+          ]
+        },
+        "previous_git_sha": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

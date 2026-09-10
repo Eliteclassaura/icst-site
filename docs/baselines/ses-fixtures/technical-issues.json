@@ -1,0 +1,324 @@
+[
+ {
+  "severity": "critical",
+  "code": "http_4xx",
+  "title": "Broken page",
+  "url": "https://example.com/services/chiller-servicing",
+  "detail": "HTTP 404, linked from 6 internal pages"
+ },
+ {
+  "severity": "critical",
+  "code": "noindex",
+  "title": "Page is set to noindex",
+  "url": "https://example.com/blog/closed-loop-system-guide",
+  "detail": "It is in the sitemap and also blocked from indexing. One of the two is wrong."
+ },
+ {
+  "severity": "serious",
+  "code": "thin",
+  "title": "Very little content",
+  "url": "https://example.com/contact",
+  "detail": "51 words in the body."
+ },
+ {
+  "severity": "serious",
+  "code": "orphan",
+  "title": "No internal links point here",
+  "url": "https://example.com/contact",
+  "detail": "It is in the sitemap but nothing on the site links to it."
+ },
+ {
+  "severity": "serious",
+  "code": "thin",
+  "title": "Very little content",
+  "url": "https://example.com/about",
+  "detail": "51 words in the body."
+ },
+ {
+  "severity": "serious",
+  "code": "orphan",
+  "title": "No internal links point here",
+  "url": "https://example.com/about",
+  "detail": "It is in the sitemap but nothing on the site links to it."
+ },
+ {
+  "severity": "serious",
+  "code": "thin",
+  "title": "Very little content",
+  "url": "https://example.com/blog/post-5",
+  "detail": "52 words in the body."
+ },
+ {
+  "severity": "serious",
+  "code": "orphan",
+  "title": "No internal links point here",
+  "url": "https://example.com/blog/post-5",
+  "detail": "It is in the sitemap but nothing on the site links to it."
+ },
+ {
+  "severity": "serious",
+  "code": "thin",
+  "title": "Very little content",
+  "url": "https://example.com/blog/post-6",
+  "detail": "52 words in the body."
+ },
+ {
+  "severity": "serious",
+  "code": "orphan",
+  "title": "No internal links point here",
+  "url": "https://example.com/blog/post-6",
+  "detail": "It is in the sitemap but nothing on the site links to it."
+ },
+ {
+  "severity": "serious",
+  "code": "thin",
+  "title": "Very little content",
+  "url": "https://example.com/blog/post-15",
+  "detail": "52 words in the body."
+ },
+ {
+  "severity": "serious",
+  "code": "orphan",
+  "title": "No internal links point here",
+  "url": "https://example.com/blog/post-15",
+  "detail": "It is in the sitemap but nothing on the site links to it."
+ },
+ {
+  "severity": "serious",
+  "code": "thin",
+  "title": "Very little content",
+  "url": "https://example.com/blog/post-16",
+  "detail": "52 words in the body."
+ },
+ {
+  "severity": "serious",
+  "code": "orphan",
+  "title": "No internal links point here",
+  "url": "https://example.com/blog/post-16",
+  "detail": "It is in the sitemap but nothing on the site links to it."
+ },
+ {
+  "severity": "serious",
+  "code": "thin",
+  "title": "Very little content",
+  "url": "https://example.com/blog/post-25",
+  "detail": "52 words in the body."
+ },
+ {
+  "severity": "serious",
+  "code": "orphan",
+  "title": "No internal links point here",
+  "url": "https://example.com/blog/post-25",
+  "detail": "It is in the sitemap but nothing on the site links to it."
+ },
+ {
+  "severity": "warning",
+  "code": "desc_missing",
+  "title": "No meta description",
+  "url": "https://example.com/contact",
+  "detail": "Google will write one for you, and it will usually be worse."
+ },
+ {
+  "severity": "warning",
+  "code": "desc_missing",
+  "title": "No meta description",
+  "url": "https://example.com/about",
+  "detail": "Google will write one for you, and it will usually be worse."
+ },
+ {
+  "severity": "warning",
+  "code": "desc_missing",
+  "title": "No meta description",
+  "url": "https://example.com/blog/post-5",
+  "detail": "Google will write one for you, and it will usually be worse."
+ },
+ {
+  "severity": "warning",
+  "code": "desc_missing",
+  "title": "No meta description",
+  "url": "https://example.com/blog/post-6",
+  "detail": "Google will write one for you, and it will usually be worse."
+ },
+ {
+  "severity": "warning",
+  "code": "desc_missing",
+  "title": "No meta description",
+  "url": "https://example.com/blog/post-15",
+  "detail": "Google will write one for you, and it will usually be worse."
+ },
+ {
+  "severity": "warning",
+  "code": "desc_missing",
+  "title": "No meta description",
+  "url": "https://example.com/blog/post-16",
+  "detail": "Google will write one for you, and it will usually be worse."
+ },
+ {
+  "severity": "warning",
+  "code": "desc_missing",
+  "title": "No meta description",
+  "url": "https://example.com/blog/post-25",
+  "detail": "Google will write one for you, and it will usually be worse."
+ },
+ {
+  "severity": "warning",
+  "code": "sitemap_missing_earners",
+  "title": "Pages earning clicks are not in the sitemap",
+  "url": "https://example.com/services/chiller-servicing",
+  "detail": "1 URLs with clicks in Search Console are absent from the sitemaps."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/services/cooling-tower-cleaning",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/services/water-treatment",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/what-does-water-treatment-cost",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/closed-loop-system-guide",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-1",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-2",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-4_Draft_Copy",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "url_case",
+  "title": "Uppercase characters in the URL",
+  "url": "https://example.com/blog/post-4_Draft_Copy",
+  "detail": "Invites duplicate URLs and split signals."
+ },
+ {
+  "severity": "notice",
+  "code": "url_underscore",
+  "title": "Underscores in the URL",
+  "url": "https://example.com/blog/post-4_Draft_Copy",
+  "detail": "Hyphens are what Google reads as word separators."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-7",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-8",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-10",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-11",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-13",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-14",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-17",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-19",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-20",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-22",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "img_dims",
+  "title": "Images without width and height",
+  "url": "https://example.com/blog/post-23",
+  "detail": "1 images, which invites layout shift."
+ },
+ {
+  "severity": "notice",
+  "code": "sitemap_unseen",
+  "title": "Sitemap URLs with no impressions",
+  "url": "https://example.com/blog/post-0",
+  "detail": "26 submitted URLs drew no impressions in the loaded Search Console period. Either they are new, or they are not worth submitting."
+ }
+]

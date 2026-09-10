@@ -1,0 +1,33 @@
+{
+  "name": "@factory/design-bundle",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "C5.5 \u2014 deterministic design-system bundle, design packs, artboards, asset safety and the truthful design-sync status model (ADR-026, ADR-027, ADR-030).",
+  "exports": {
+    ".": "./src/index.ts",
+    "./brand": "./src/brand.ts",
+    "./safety": "./src/safety/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src test --max-warnings 0",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@factory/agency-core": "workspace:*",
+    "@factory/design-contract": "workspace:*",
+    "@factory/quality-gates": "workspace:*",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@factory/eslint-config": "workspace:*",
+    "@types/node": "^22.15.0",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.4",
+    "esbuild": "0.28.2",
+    "tsx": "^4.20.0",
+    "vitest": "5.0.0"
+  }
+}

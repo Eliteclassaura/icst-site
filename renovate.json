@@ -1,0 +1,51 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "schedule": ["before 6am on monday"],
+  "rangeStrategy": "pin",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "packageRules": [
+    {
+      "description": "Payload + Next + React move together; review as one PR",
+      "groupName": "payload-next-react",
+      "matchPackageNames": ["payload", "next", "react", "react-dom", "@payloadcms/**"]
+    },
+    {
+      "description": "Toolchain",
+      "groupName": "toolchain",
+      "matchPackageNames": [
+        "typescript",
+        "eslint",
+        "typescript-eslint",
+        "prettier",
+        "turbo",
+        "vitest",
+        "@playwright/test",
+        "@axe-core/playwright",
+        "eslint-**"
+      ]
+    },
+    {
+      "description": "Design skills are prompts \u2014 read the diff before merging",
+      "groupName": "design-skills",
+      "matchPackageNames": ["ui-ux-pro-max-cli", "ux-ui-agent-skills"],
+      "automerge": false
+    },
+    {
+      "description": "Fonts",
+      "groupName": "fonts",
+      "matchPackageNames": ["@fontsource-variable/**"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
+  }
+}

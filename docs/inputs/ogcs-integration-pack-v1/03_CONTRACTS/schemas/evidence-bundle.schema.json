@@ -1,0 +1,443 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://factory.seo/contracts/evidence-bundle/1.0.0",
+  "title": "factory.seo/evidence-bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "contract_version",
+    "produced_by",
+    "produced_at",
+    "project_id",
+    "run_id",
+    "inputs",
+    "payload"
+  ],
+  "properties": {
+    "contract": {
+      "const": "factory.seo/evidence-bundle"
+    },
+    "contract_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "produced_by": {
+      "type": "object",
+      "required": [
+        "system",
+        "version"
+      ],
+      "properties": {
+        "system": {
+          "enum": [
+            "ogcs",
+            "ses-adapter",
+            "factory-ci",
+            "wordpress-import",
+            "decisions-apply",
+            "factory-app"
+          ]
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "produced_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "ULID; idempotency key across systems"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "artefact",
+          "sha256"
+        ],
+        "properties": {
+          "artefact": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_format",
+        "source_version",
+        "measurement_window",
+        "coverage",
+        "pages"
+      ],
+      "properties": {
+        "source_format": {
+          "enum": [
+            "search-evidence-console/project",
+            "search-evidence-suite/snapshot",
+            "gsc-api",
+            "manual-csv"
+          ]
+        },
+        "source_version": {
+          "type": "integer"
+        },
+        "measurement_window": {
+          "type": "object",
+          "required": [
+            "start",
+            "end",
+            "basis"
+          ],
+          "properties": {
+            "start": {
+              "type": "string",
+              "format": "date"
+            },
+            "end": {
+              "type": "string",
+              "format": "date"
+            },
+            "basis": {
+              "enum": [
+                "gsc_api",
+                "gsc_ui",
+                "semrush",
+                "crawl",
+                "mixed"
+              ]
+            }
+          }
+        },
+        "coverage": {
+          "type": "object",
+          "required": [
+            "gsc",
+            "semrush_positions",
+            "semrush_backlinks",
+            "crawl",
+            "surfer"
+          ],
+          "properties": {
+            "gsc": {
+              "type": "boolean"
+            },
+            "gsc_row_cap_hit": {
+              "type": "boolean"
+            },
+            "semrush_positions": {
+              "type": "boolean"
+            },
+            "semrush_backlinks": {
+              "type": "boolean"
+            },
+            "crawl": {
+              "type": "boolean"
+            },
+            "surfer": {
+              "type": "boolean"
+            },
+            "ai_observations": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "url",
+              "canonicalized_url"
+            ],
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "canonicalized_url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "gsc": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "required": [
+                  "provenance"
+                ],
+                "properties": {
+                  "clicks": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "impressions": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "ctr": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "position": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "provenance": {
+                    "enum": [
+                      "measured",
+                      "imported",
+                      "recorded",
+                      "estimated",
+                      "generated",
+                      "unknown"
+                    ]
+                  }
+                }
+              },
+              "backlinks": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "required": [
+                  "provenance"
+                ],
+                "properties": {
+                  "referring_domains": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "backlinks": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "follow_ratio": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "provenance": {
+                    "enum": [
+                      "measured",
+                      "imported",
+                      "recorded",
+                      "estimated",
+                      "generated",
+                      "unknown"
+                    ]
+                  }
+                }
+              },
+              "crawl": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "required": [
+                  "provenance"
+                ],
+                "properties": {
+                  "status": {
+                    "type": "integer"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "h1": {
+                    "type": "string"
+                  },
+                  "word_count": {
+                    "type": "integer"
+                  },
+                  "internal_inlinks": {
+                    "type": "integer"
+                  },
+                  "schema_types": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "hreflang": {
+                    "type": "array"
+                  },
+                  "indexable": {
+                    "type": "boolean"
+                  },
+                  "canonical": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "provenance": {
+                    "enum": [
+                      "measured",
+                      "imported",
+                      "recorded",
+                      "estimated",
+                      "generated",
+                      "unknown"
+                    ]
+                  }
+                }
+              },
+              "surfer": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "content_score": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "provenance": {
+                    "enum": [
+                      "measured",
+                      "imported",
+                      "recorded",
+                      "estimated",
+                      "generated",
+                      "unknown"
+                    ]
+                  }
+                }
+              },
+              "ai_visibility": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "mentioned": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "cited": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "recommended": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "provenance": {
+                    "enum": [
+                      "measured",
+                      "imported",
+                      "recorded",
+                      "estimated",
+                      "generated",
+                      "unknown"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "queries": {
+          "type": "array"
+        },
+        "page_query_ownership": {
+          "type": "array"
+        },
+        "findings": {
+          "type": "object",
+          "properties": {
+            "cannibalization": {
+              "type": "array"
+            },
+            "decay": {
+              "type": "array"
+            },
+            "striking_distance": {
+              "type": "array"
+            },
+            "technical": {
+              "type": "array"
+            }
+          }
+        },
+        "action_queue": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "rank",
+              "decision",
+              "target"
+            ],
+            "properties": {
+              "rank": {
+                "type": "integer"
+              },
+              "decision": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "impact": {
+                "type": "string"
+              },
+              "effort": {
+                "type": "string"
+              },
+              "basis": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "array"
+              }
+            }
+          }
+        },
+        "run_history_reference": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

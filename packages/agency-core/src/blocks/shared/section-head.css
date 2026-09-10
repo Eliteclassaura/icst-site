@@ -1,0 +1,23 @@
+.blk-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  max-inline-size: 840px;
+}
+
+.blk-head--center {
+  align-items: center;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.blk-head__eyebrow {
+  color: var(--color-accent);
+}
+
+.blk-head__lede {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  color: var(--color-text-body);
+  max-inline-size: 60ch;
+}

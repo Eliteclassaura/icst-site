@@ -1,0 +1,1646 @@
+{
+ "tracked": 90,
+ "features": [
+  {
+   "feature": "Local pack",
+   "count": 90,
+   "share": 1
+  },
+  {
+   "feature": "People also ask",
+   "count": 48,
+   "share": 0.5333333333333333
+  },
+  {
+   "feature": "AI overview",
+   "count": 38,
+   "share": 0.4222222222222222
+  },
+  {
+   "feature": "Featured snippet",
+   "count": 31,
+   "share": 0.34444444444444444
+  }
+ ],
+ "suppressed": [
+  {
+   "keyword": "cooling tower suppliers",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 4,
+   "volume": 902,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 6877,
+   "gscClicks": 218,
+   "gscPos": 4.01,
+   "gscCtr": 0.03169986912898066,
+   "expected": 0.07970757066280232,
+   "ratio": 0.39770211117190973,
+   "lost": 330.14896344809154
+  },
+  {
+   "keyword": "cooling tower installation",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 16,
+   "volume": 519,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 701,
+   "gscClicks": 111,
+   "gscPos": 1.16,
+   "gscCtr": 0.15834522111269614,
+   "expected": 0.4079601990049751,
+   "ratio": 0.38813889565429177,
+   "lost": 174.98009950248755
+  },
+  {
+   "keyword": "boiler descaling cost",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 26,
+   "volume": 1100,
+   "url": "https://example.com/services/chiller-servicing",
+   "gscImpr": 1872,
+   "gscClicks": 121,
+   "gscPos": 1.98,
+   "gscCtr": 0.06463675213675214,
+   "expected": 0.1362565455786004,
+   "ratio": 0.47437539137865525,
+   "lost": 134.07225332313993
+  },
+  {
+   "keyword": "industrial chiller price",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 19,
+   "volume": 68,
+   "url": "https://example.com/contact",
+   "gscImpr": 1678,
+   "gscClicks": 113,
+   "gscPos": 2.23,
+   "gscCtr": 0.06734207389749702,
+   "expected": 0.1362565455786004,
+   "ratio": 0.4942300100999577,
+   "lost": 115.63848348089147
+  },
+  {
+   "keyword": "cooling tower maintenance price",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 8,
+   "volume": 256,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 2603,
+   "gscClicks": 43,
+   "gscPos": 6.87,
+   "gscCtr": 0.016519400691509797,
+   "expected": 0.03186936936936937,
+   "ratio": 0.5183472725816501,
+   "lost": 39.95596846846847
+  },
+  {
+   "keyword": "boiler descaling near me",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 23,
+   "volume": 28,
+   "url": "https://example.com/blog/closed-loop-system-guide",
+   "gscImpr": 156,
+   "gscClicks": 35,
+   "gscPos": 1.02,
+   "gscCtr": 0.22435897435897437,
+   "expected": 0.4079601990049751,
+   "ratio": 0.5499530956848031,
+   "lost": 28.641791044776113
+  },
+  {
+   "keyword": "industrial chiller cost",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 2,
+   "volume": 2092,
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "gscImpr": 265,
+   "gscClicks": 18,
+   "gscPos": 1.86,
+   "gscCtr": 0.06792452830188679,
+   "expected": 0.1362565455786004,
+   "ratio": 0.49850469945096415,
+   "lost": 18.107984578329106
+  },
+  {
+   "keyword": "cooling tower maintenance near me",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 15,
+   "volume": 85,
+   "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "gscImpr": 114,
+   "gscClicks": 2,
+   "gscPos": 6.7,
+   "gscCtr": 0.017543859649122806,
+   "expected": 0.03186936936936937,
+   "ratio": 0.5504928398735354,
+   "lost": 1.6331081081081082
+  }
+ ],
+ "targets": [
+  {
+   "keyword": "legionella testing maintenance",
+   "features": [
+    "AI overview",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 1,
+   "volume": 24,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 7968,
+   "gscClicks": 255,
+   "gscPos": 5.57,
+   "gscCtr": 0.032003012048192774
+  },
+  {
+   "keyword": "legionella testing near me",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 2,
+   "volume": 599,
+   "url": "https://example.com/blog/closed-loop-system-guide",
+   "gscImpr": 6751,
+   "gscClicks": 324,
+   "gscPos": 5.61,
+   "gscCtr": 0.04799288994223078
+  },
+  {
+   "keyword": "legionella testing company",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 11,
+   "volume": 3194,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 4648,
+   "gscClicks": 325,
+   "gscPos": 6.21,
+   "gscCtr": 0.06992254733218589
+  },
+  {
+   "keyword": "boiler descaling uk",
+   "features": [
+    "AI overview",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 23,
+   "volume": 2753,
+   "url": "https://example.com/about",
+   "gscImpr": 3617,
+   "gscClicks": 351,
+   "gscPos": 5.19,
+   "gscCtr": 0.09704174730439591
+  },
+  {
+   "keyword": "boiler descaling vs alternatives",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 41,
+   "volume": 3055,
+   "url": "https://example.com/contact",
+   "gscImpr": 3393,
+   "gscClicks": 254,
+   "gscPos": 2.75,
+   "gscCtr": 0.07486000589448866
+  },
+  {
+   "keyword": "cooling tower maintenance price",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 8,
+   "volume": 256,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 2603,
+   "gscClicks": 43,
+   "gscPos": 6.87,
+   "gscCtr": 0.016519400691509797
+  },
+  {
+   "keyword": "industrial chiller price",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 19,
+   "volume": 68,
+   "url": "https://example.com/contact",
+   "gscImpr": 1678,
+   "gscClicks": 113,
+   "gscPos": 2.23,
+   "gscCtr": 0.06734207389749702
+  },
+  {
+   "keyword": "boiler descaling guide",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 2,
+   "volume": 1215,
+   "url": "https://example.com/blog/closed-loop-system-guide",
+   "gscImpr": 459,
+   "gscClicks": 129,
+   "gscPos": 2,
+   "gscCtr": 0.28104575163398693
+  },
+  {
+   "keyword": "water treatment uk",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 15,
+   "volume": 2011,
+   "url": "https://example.com/blog/closed-loop-system-guide",
+   "gscImpr": 439,
+   "gscClicks": 13,
+   "gscPos": 8.74,
+   "gscCtr": 0.029612756264236904
+  },
+  {
+   "keyword": "industrial chiller maintenance",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 25,
+   "volume": 255,
+   "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "gscImpr": 386,
+   "gscClicks": 35,
+   "gscPos": 4.44,
+   "gscCtr": 0.09067357512953368
+  },
+  {
+   "keyword": "cooling tower guide",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 13,
+   "volume": 1136,
+   "url": "https://example.com/blog/legionella-testing-explained",
+   "gscImpr": 202,
+   "gscClicks": 14,
+   "gscPos": 4.74,
+   "gscCtr": 0.06930693069306931
+  },
+  {
+   "keyword": "legionella testing installation",
+   "features": [
+    "AI overview",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 19,
+   "volume": 2234,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 138,
+   "gscClicks": 17,
+   "gscPos": 3.02,
+   "gscCtr": 0.12318840579710146
+  },
+  {
+   "keyword": "boiler descaling cleaning",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 37,
+   "volume": 156,
+   "url": "https://example.com/blog/legionella-testing-explained",
+   "gscImpr": 76,
+   "gscClicks": 7,
+   "gscPos": 4.11,
+   "gscCtr": 0.09210526315789473
+  }
+ ],
+ "items": [
+  {
+   "keyword": "cooling tower cost",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 7,
+   "volume": 1857,
+   "url": "https://example.com/blog/legionella-testing-explained",
+   "gscImpr": 527,
+   "gscClicks": 5,
+   "gscPos": 19.73,
+   "gscCtr": 0.009487666034155597
+  },
+  {
+   "keyword": "cooling tower services",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 3,
+   "volume": 45,
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "gscImpr": 7308,
+   "gscClicks": 14,
+   "gscPos": 36.51,
+   "gscCtr": 0.0019157088122605363
+  },
+  {
+   "keyword": "cooling tower company",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 14,
+   "volume": 564,
+   "url": "https://example.com/blog/legionella-testing-explained",
+   "gscImpr": 40,
+   "gscClicks": 0,
+   "gscPos": 45.45,
+   "gscCtr": 0
+  },
+  {
+   "keyword": "cooling tower near me",
+   "features": [
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 32,
+   "volume": 1083,
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "gscImpr": 5451,
+   "gscClicks": 32,
+   "gscPos": 40.34,
+   "gscCtr": 0.005870482480278848
+  },
+  {
+   "keyword": "cooling tower suppliers",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 4,
+   "volume": 902,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 6877,
+   "gscClicks": 218,
+   "gscPos": 4.01,
+   "gscCtr": 0.03169986912898066
+  },
+  {
+   "keyword": "cooling tower price",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 1,
+   "volume": 3180,
+   "url": "https://example.com/contact",
+   "gscImpr": 4382,
+   "gscClicks": 29,
+   "gscPos": 26.53,
+   "gscCtr": 0.006617982656321315
+  },
+  {
+   "keyword": "cooling tower installation",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 16,
+   "volume": 519,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 701,
+   "gscClicks": 111,
+   "gscPos": 1.16,
+   "gscCtr": 0.15834522111269614
+  },
+  {
+   "keyword": "cooling tower specialist",
+   "features": [
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 9,
+   "volume": 36,
+   "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "gscImpr": 584,
+   "gscClicks": 4,
+   "gscPos": 31.15,
+   "gscCtr": 0.00684931506849315
+  },
+  {
+   "keyword": "cooling tower contractor",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 25,
+   "volume": 4018,
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "gscImpr": 1121,
+   "gscClicks": 7,
+   "gscPos": 18.52,
+   "gscCtr": 0.006244424620874219
+  },
+  {
+   "keyword": "cooling tower maintenance",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 5,
+   "volume": 49,
+   "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "gscImpr": 479,
+   "gscClicks": 1,
+   "gscPos": 42.73,
+   "gscCtr": 0.0020876826722338203
+  },
+  {
+   "keyword": "cooling tower cleaning",
+   "features": [
+    "AI overview",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 6,
+   "volume": 1463,
+   "url": "https://example.com/about",
+   "gscImpr": 1948,
+   "gscClicks": 16,
+   "gscPos": 19.42,
+   "gscCtr": 0.008213552361396304
+  },
+  {
+   "keyword": "cooling tower uk",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 13,
+   "volume": 2001,
+   "url": "https://example.com/contact",
+   "gscImpr": 224,
+   "gscClicks": 0,
+   "gscPos": 29.93,
+   "gscCtr": 0
+  },
+  {
+   "keyword": "cooling tower checklist",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 30,
+   "volume": 909,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 349,
+   "gscClicks": 1,
+   "gscPos": 40.94,
+   "gscCtr": 0.0028653295128939827
+  },
+  {
+   "keyword": "cooling tower guide",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 13,
+   "volume": 1136,
+   "url": "https://example.com/blog/legionella-testing-explained",
+   "gscImpr": 202,
+   "gscClicks": 14,
+   "gscPos": 4.74,
+   "gscCtr": 0.06930693069306931
+  },
+  {
+   "keyword": "cooling tower vs alternatives",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 1,
+   "volume": 77,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 1231,
+   "gscClicks": 4,
+   "gscPos": 29.62,
+   "gscCtr": 0.003249390739236393
+  },
+  {
+   "keyword": "water treatment cost",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 9,
+   "volume": 986,
+   "url": "https://example.com/contact",
+   "gscImpr": 464,
+   "gscClicks": 2,
+   "gscPos": 34.69,
+   "gscCtr": 0.004310344827586207
+  },
+  {
+   "keyword": "water treatment services",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 23,
+   "volume": 103,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 166,
+   "gscClicks": 3,
+   "gscPos": 12.51,
+   "gscCtr": 0.018072289156626505
+  },
+  {
+   "keyword": "water treatment company",
+   "features": [
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 27,
+   "volume": 60,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 826,
+   "gscClicks": 1,
+   "gscPos": 30.16,
+   "gscCtr": 0.0012106537530266344
+  },
+  {
+   "keyword": "water treatment near me",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 16,
+   "volume": 2605,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 2425,
+   "gscClicks": 123,
+   "gscPos": 6.1,
+   "gscCtr": 0.050721649484536085
+  },
+  {
+   "keyword": "water treatment suppliers",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 6,
+   "volume": 723,
+   "url": "https://example.com/services/chiller-servicing",
+   "gscImpr": 286,
+   "gscClicks": 17,
+   "gscPos": 5.46,
+   "gscCtr": 0.05944055944055944
+  },
+  {
+   "keyword": "water treatment price",
+   "features": [
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 1,
+   "volume": 337,
+   "url": "https://example.com/",
+   "gscImpr": 4969,
+   "gscClicks": 22,
+   "gscPos": 41.8,
+   "gscCtr": 0.004427450191185349
+  },
+  {
+   "keyword": "water treatment installation",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 10,
+   "volume": 82,
+   "url": "https://example.com/blog/legionella-testing-explained",
+   "gscImpr": 1443,
+   "gscClicks": 5,
+   "gscPos": 37.82,
+   "gscCtr": 0.003465003465003465
+  },
+  {
+   "keyword": "water treatment specialist",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 13,
+   "volume": 43,
+   "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "gscImpr": 340,
+   "gscClicks": 29,
+   "gscPos": 3.45,
+   "gscCtr": 0.08529411764705883
+  },
+  {
+   "keyword": "water treatment contractor",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 38,
+   "volume": 2741,
+   "url": "https://example.com/about",
+   "gscImpr": 310,
+   "gscClicks": 1,
+   "gscPos": 32.81,
+   "gscCtr": 0.0032258064516129032
+  },
+  {
+   "keyword": "water treatment maintenance",
+   "features": [
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 3,
+   "volume": 149,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 7345,
+   "gscClicks": 50,
+   "gscPos": 22.23,
+   "gscCtr": 0.0068073519400953025
+  },
+  {
+   "keyword": "water treatment cleaning",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 2,
+   "volume": 284,
+   "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "gscImpr": 680,
+   "gscClicks": 2,
+   "gscPos": 33.34,
+   "gscCtr": 0.0029411764705882353
+  },
+  {
+   "keyword": "water treatment uk",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 15,
+   "volume": 2011,
+   "url": "https://example.com/blog/closed-loop-system-guide",
+   "gscImpr": 439,
+   "gscClicks": 13,
+   "gscPos": 8.74,
+   "gscCtr": 0.029612756264236904
+  },
+  {
+   "keyword": "water treatment checklist",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 26,
+   "volume": 69,
+   "url": "https://example.com/case-studies/manufacturing-plant",
+   "gscImpr": 8658,
+   "gscClicks": 52,
+   "gscPos": 12.56,
+   "gscCtr": 0.006006006006006006
+  },
+  {
+   "keyword": "water treatment guide",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 30,
+   "volume": 1448,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 4789,
+   "gscClicks": 24,
+   "gscPos": 20.31,
+   "gscCtr": 0.005011484652328252
+  },
+  {
+   "keyword": "water treatment vs alternatives",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 16,
+   "volume": 24,
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "gscImpr": 5712,
+   "gscClicks": 127,
+   "gscPos": 11.87,
+   "gscCtr": 0.02223389355742297
+  },
+  {
+   "keyword": "industrial chiller cost",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 2,
+   "volume": 2092,
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "gscImpr": 265,
+   "gscClicks": 18,
+   "gscPos": 1.86,
+   "gscCtr": 0.06792452830188679
+  },
+  {
+   "keyword": "industrial chiller services",
+   "features": [
+    "AI overview",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 23,
+   "volume": 38,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 1069,
+   "gscClicks": 462,
+   "gscPos": 1.03,
+   "gscCtr": 0.4321796071094481
+  },
+  {
+   "keyword": "industrial chiller company",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 1,
+   "volume": 20,
+   "url": "https://example.com/services/chiller-servicing",
+   "gscImpr": 2656,
+   "gscClicks": 321,
+   "gscPos": 3,
+   "gscCtr": 0.12085843373493976
+  },
+  {
+   "keyword": "industrial chiller near me",
+   "features": [
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 17,
+   "volume": 1882,
+   "url": "https://example.com/",
+   "gscImpr": 74,
+   "gscClicks": 1,
+   "gscPos": 35.43,
+   "gscCtr": 0.013513513513513514
+  },
+  {
+   "keyword": "industrial chiller suppliers",
+   "features": [
+    "AI overview",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 12,
+   "volume": 1839,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 1267,
+   "gscClicks": 7,
+   "gscPos": 24.98,
+   "gscCtr": 0.0055248618784530384
+  },
+  {
+   "keyword": "industrial chiller price",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 19,
+   "volume": 68,
+   "url": "https://example.com/contact",
+   "gscImpr": 1678,
+   "gscClicks": 113,
+   "gscPos": 2.23,
+   "gscCtr": 0.06734207389749702
+  },
+  {
+   "keyword": "industrial chiller installation",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 23,
+   "volume": 79,
+   "url": "https://example.com/blog/closed-loop-system-guide",
+   "gscImpr": 629,
+   "gscClicks": 46,
+   "gscPos": 4.24,
+   "gscCtr": 0.07313195548489666
+  },
+  {
+   "keyword": "industrial chiller specialist",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 8,
+   "volume": 755,
+   "url": "https://example.com/services/chiller-servicing",
+   "gscImpr": 137,
+   "gscClicks": 1,
+   "gscPos": 19.72,
+   "gscCtr": 0.0072992700729927005
+  },
+  {
+   "keyword": "industrial chiller contractor",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 3,
+   "volume": 964,
+   "url": "https://example.com/case-studies/manufacturing-plant",
+   "gscImpr": 4202,
+   "gscClicks": 936,
+   "gscPos": 1.71,
+   "gscCtr": 0.22275107091861018
+  },
+  {
+   "keyword": "industrial chiller maintenance",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 25,
+   "volume": 255,
+   "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "gscImpr": 386,
+   "gscClicks": 35,
+   "gscPos": 4.44,
+   "gscCtr": 0.09067357512953368
+  },
+  {
+   "keyword": "industrial chiller cleaning",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 6,
+   "volume": 575,
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "gscImpr": 1798,
+   "gscClicks": 4,
+   "gscPos": 35.84,
+   "gscCtr": 0.002224694104560623
+  },
+  {
+   "keyword": "industrial chiller uk",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 40,
+   "volume": 197,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 8747,
+   "gscClicks": 45,
+   "gscPos": 30.19,
+   "gscCtr": 0.005144621012918715
+  },
+  {
+   "keyword": "industrial chiller checklist",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 34,
+   "volume": 82,
+   "url": "https://example.com/about",
+   "gscImpr": 1728,
+   "gscClicks": 12,
+   "gscPos": 39.86,
+   "gscCtr": 0.006944444444444444
+  },
+  {
+   "keyword": "industrial chiller guide",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 13,
+   "volume": 481,
+   "url": "https://example.com/contact",
+   "gscImpr": 33,
+   "gscClicks": 0,
+   "gscPos": 17.19,
+   "gscCtr": 0
+  },
+  {
+   "keyword": "industrial chiller vs alternatives",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 6,
+   "volume": 308,
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "gscImpr": 30,
+   "gscClicks": 0,
+   "gscPos": 42.6,
+   "gscCtr": 0
+  },
+  {
+   "keyword": "boiler descaling cost",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 26,
+   "volume": 1100,
+   "url": "https://example.com/services/chiller-servicing",
+   "gscImpr": 1872,
+   "gscClicks": 121,
+   "gscPos": 1.98,
+   "gscCtr": 0.06463675213675214
+  },
+  {
+   "keyword": "boiler descaling services",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 3,
+   "volume": 1863,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 4967,
+   "gscClicks": 35,
+   "gscPos": 30.67,
+   "gscCtr": 0.007046506945842561
+  },
+  {
+   "keyword": "boiler descaling company",
+   "features": [
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 28,
+   "volume": 135,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 94,
+   "gscClicks": 1,
+   "gscPos": 15.41,
+   "gscCtr": 0.010638297872340425
+  },
+  {
+   "keyword": "boiler descaling near me",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 23,
+   "volume": 28,
+   "url": "https://example.com/blog/closed-loop-system-guide",
+   "gscImpr": 156,
+   "gscClicks": 35,
+   "gscPos": 1.02,
+   "gscCtr": 0.22435897435897437
+  },
+  {
+   "keyword": "boiler descaling suppliers",
+   "features": [
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 29,
+   "volume": 528,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 2465,
+   "gscClicks": 42,
+   "gscPos": 16.32,
+   "gscCtr": 0.017038539553752535
+  },
+  {
+   "keyword": "boiler descaling price",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 30,
+   "volume": 21,
+   "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "gscImpr": 56,
+   "gscClicks": 0,
+   "gscPos": 28.11,
+   "gscCtr": 0
+  },
+  {
+   "keyword": "boiler descaling installation",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 2,
+   "volume": 1275,
+   "url": "https://example.com/blog/legionella-testing-explained",
+   "gscImpr": 201,
+   "gscClicks": 82,
+   "gscPos": 1.06,
+   "gscCtr": 0.4079601990049751
+  },
+  {
+   "keyword": "boiler descaling specialist",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 36,
+   "volume": 250,
+   "url": "https://example.com/blog/closed-loop-system-guide",
+   "gscImpr": 34,
+   "gscClicks": 0,
+   "gscPos": 10.83,
+   "gscCtr": 0
+  },
+  {
+   "keyword": "boiler descaling contractor",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 16,
+   "volume": 2159,
+   "url": "https://example.com/contact",
+   "gscImpr": 299,
+   "gscClicks": 1,
+   "gscPos": 20.82,
+   "gscCtr": 0.0033444816053511705
+  },
+  {
+   "keyword": "boiler descaling maintenance",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 16,
+   "volume": 1997,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 989,
+   "gscClicks": 128,
+   "gscPos": 1.88,
+   "gscCtr": 0.12942366026289182
+  },
+  {
+   "keyword": "boiler descaling cleaning",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 37,
+   "volume": 156,
+   "url": "https://example.com/blog/legionella-testing-explained",
+   "gscImpr": 76,
+   "gscClicks": 7,
+   "gscPos": 4.11,
+   "gscCtr": 0.09210526315789473
+  },
+  {
+   "keyword": "boiler descaling uk",
+   "features": [
+    "AI overview",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 23,
+   "volume": 2753,
+   "url": "https://example.com/about",
+   "gscImpr": 3617,
+   "gscClicks": 351,
+   "gscPos": 5.19,
+   "gscCtr": 0.09704174730439591
+  },
+  {
+   "keyword": "boiler descaling checklist",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 13,
+   "volume": 46,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 5878,
+   "gscClicks": 62,
+   "gscPos": 18.93,
+   "gscCtr": 0.010547805375978225
+  },
+  {
+   "keyword": "boiler descaling guide",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 2,
+   "volume": 1215,
+   "url": "https://example.com/blog/closed-loop-system-guide",
+   "gscImpr": 459,
+   "gscClicks": 129,
+   "gscPos": 2,
+   "gscCtr": 0.28104575163398693
+  },
+  {
+   "keyword": "boiler descaling vs alternatives",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 41,
+   "volume": 3055,
+   "url": "https://example.com/contact",
+   "gscImpr": 3393,
+   "gscClicks": 254,
+   "gscPos": 2.75,
+   "gscCtr": 0.07486000589448866
+  },
+  {
+   "keyword": "cooling tower maintenance cost",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 41,
+   "volume": 1215,
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "gscImpr": 1882,
+   "gscClicks": 5,
+   "gscPos": 42.24,
+   "gscCtr": 0.002656748140276302
+  },
+  {
+   "keyword": "cooling tower maintenance services",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 2,
+   "volume": 20,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 3700,
+   "gscClicks": 139,
+   "gscPos": 8.91,
+   "gscCtr": 0.037567567567567565
+  },
+  {
+   "keyword": "cooling tower maintenance company",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 25,
+   "volume": 1187,
+   "url": "https://example.com/case-studies/manufacturing-plant",
+   "gscImpr": 137,
+   "gscClicks": 1,
+   "gscPos": 17.21,
+   "gscCtr": 0.0072992700729927005
+  },
+  {
+   "keyword": "cooling tower maintenance near me",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 15,
+   "volume": 85,
+   "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "gscImpr": 114,
+   "gscClicks": 2,
+   "gscPos": 6.7,
+   "gscCtr": 0.017543859649122806
+  },
+  {
+   "keyword": "cooling tower maintenance suppliers",
+   "features": [
+    "AI overview",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 1,
+   "volume": 20,
+   "url": "https://example.com/services/chiller-servicing",
+   "gscImpr": 7851,
+   "gscClicks": 20,
+   "gscPos": 36.9,
+   "gscCtr": 0.0025474461851993377
+  },
+  {
+   "keyword": "cooling tower maintenance price",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 8,
+   "volume": 256,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 2603,
+   "gscClicks": 43,
+   "gscPos": 6.87,
+   "gscCtr": 0.016519400691509797
+  },
+  {
+   "keyword": "cooling tower maintenance installation",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 19,
+   "volume": 139,
+   "url": "https://example.com/contact",
+   "gscImpr": 3324,
+   "gscClicks": 18,
+   "gscPos": 42.69,
+   "gscCtr": 0.005415162454873646
+  },
+  {
+   "keyword": "cooling tower maintenance specialist",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 3,
+   "volume": 3512,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 98,
+   "gscClicks": 9,
+   "gscPos": 3.71,
+   "gscCtr": 0.09183673469387756
+  },
+  {
+   "keyword": "cooling tower maintenance contractor",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 8,
+   "volume": 3017,
+   "url": "https://example.com/about",
+   "gscImpr": 2296,
+   "gscClicks": 5,
+   "gscPos": 23.12,
+   "gscCtr": 0.0021777003484320556
+  },
+  {
+   "keyword": "cooling tower maintenance maintenance",
+   "features": [
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 11,
+   "volume": 78,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 32,
+   "gscClicks": 11,
+   "gscPos": 1,
+   "gscCtr": 0.34375
+  },
+  {
+   "keyword": "cooling tower maintenance cleaning",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 2,
+   "volume": 427,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 130,
+   "gscClicks": 0,
+   "gscPos": 39.06,
+   "gscCtr": 0
+  },
+  {
+   "keyword": "cooling tower maintenance uk",
+   "features": [
+    "AI overview",
+    "Local pack"
+   ],
+   "pos": 4,
+   "volume": 25,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 1298,
+   "gscClicks": 572,
+   "gscPos": 1.02,
+   "gscCtr": 0.4406779661016949
+  },
+  {
+   "keyword": "cooling tower maintenance checklist",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 6,
+   "volume": 1088,
+   "url": "https://example.com/",
+   "gscImpr": 1579,
+   "gscClicks": 9,
+   "gscPos": 43.62,
+   "gscCtr": 0.005699810006333122
+  },
+  {
+   "keyword": "cooling tower maintenance guide",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 15,
+   "volume": 1471,
+   "url": "https://example.com/blog/closed-loop-system-guide",
+   "gscImpr": 799,
+   "gscClicks": 5,
+   "gscPos": 23.95,
+   "gscCtr": 0.006257822277847309
+  },
+  {
+   "keyword": "cooling tower maintenance vs alternatives",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 35,
+   "volume": 253,
+   "url": "https://example.com/case-studies/manufacturing-plant",
+   "gscImpr": 486,
+   "gscClicks": 1,
+   "gscPos": 40.81,
+   "gscCtr": 0.00205761316872428
+  },
+  {
+   "keyword": "legionella testing cost",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 2,
+   "volume": 329,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 3497,
+   "gscClicks": 124,
+   "gscPos": 9.8,
+   "gscCtr": 0.035458964826994566
+  },
+  {
+   "keyword": "legionella testing services",
+   "features": [
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 3,
+   "volume": 48,
+   "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "gscImpr": 103,
+   "gscClicks": 2,
+   "gscPos": 13.53,
+   "gscCtr": 0.019417475728155338
+  },
+  {
+   "keyword": "legionella testing company",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 11,
+   "volume": 3194,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 4648,
+   "gscClicks": 325,
+   "gscPos": 6.21,
+   "gscCtr": 0.06992254733218589
+  },
+  {
+   "keyword": "legionella testing near me",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 2,
+   "volume": 599,
+   "url": "https://example.com/blog/closed-loop-system-guide",
+   "gscImpr": 6751,
+   "gscClicks": 324,
+   "gscPos": 5.61,
+   "gscCtr": 0.04799288994223078
+  },
+  {
+   "keyword": "legionella testing suppliers",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 9,
+   "volume": 158,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 829,
+   "gscClicks": 12,
+   "gscPos": 15.25,
+   "gscCtr": 0.014475271411338963
+  },
+  {
+   "keyword": "legionella testing price",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 15,
+   "volume": 25,
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "gscImpr": 30,
+   "gscClicks": 0,
+   "gscPos": 10.3,
+   "gscCtr": 0
+  },
+  {
+   "keyword": "legionella testing installation",
+   "features": [
+    "AI overview",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 19,
+   "volume": 2234,
+   "url": "https://example.com/services/legionella-control",
+   "gscImpr": 138,
+   "gscClicks": 17,
+   "gscPos": 3.02,
+   "gscCtr": 0.12318840579710146
+  },
+  {
+   "keyword": "legionella testing specialist",
+   "features": [
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 36,
+   "volume": 1243,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 4305,
+   "gscClicks": 16,
+   "gscPos": 39.85,
+   "gscCtr": 0.003716608594657375
+  },
+  {
+   "keyword": "legionella testing contractor",
+   "features": [
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 4,
+   "volume": 1973,
+   "url": "https://example.com/about",
+   "gscImpr": 4213,
+   "gscClicks": 7,
+   "gscPos": 24.89,
+   "gscCtr": 0.001661523854735343
+  },
+  {
+   "keyword": "legionella testing maintenance",
+   "features": [
+    "AI overview",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 1,
+   "volume": 24,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 7968,
+   "gscClicks": 255,
+   "gscPos": 5.57,
+   "gscCtr": 0.032003012048192774
+  },
+  {
+   "keyword": "legionella testing cleaning",
+   "features": [
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 36,
+   "volume": 3975,
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "gscImpr": 197,
+   "gscClicks": 1,
+   "gscPos": 23.28,
+   "gscCtr": 0.005076142131979695
+  },
+  {
+   "keyword": "legionella testing uk",
+   "features": [
+    "AI overview",
+    "People also ask",
+    "Local pack"
+   ],
+   "pos": 22,
+   "volume": 24,
+   "url": "https://example.com/",
+   "gscImpr": 1891,
+   "gscClicks": 7,
+   "gscPos": 21.19,
+   "gscCtr": 0.0037017451084082496
+  },
+  {
+   "keyword": "legionella testing checklist",
+   "features": [
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ],
+   "pos": 18,
+   "volume": 30,
+   "url": "https://example.com/services/water-treatment",
+   "gscImpr": 1079,
+   "gscClicks": 444,
+   "gscPos": 1.2,
+   "gscCtr": 0.4114921223354958
+  },
+  {
+   "keyword": "legionella testing guide",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 18,
+   "volume": 232,
+   "url": "https://example.com/about",
+   "gscImpr": 1048,
+   "gscClicks": 2,
+   "gscPos": 27.46,
+   "gscCtr": 0.0019083969465648854
+  },
+  {
+   "keyword": "legionella testing vs alternatives",
+   "features": [
+    "Local pack"
+   ],
+   "pos": 21,
+   "volume": 3829,
+   "url": "https://example.com/services/chiller-servicing",
+   "gscImpr": 124,
+   "gscClicks": 1,
+   "gscPos": 14.14,
+   "gscCtr": 0.008064516129032258
+  }
+ ]
+}

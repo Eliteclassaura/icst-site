@@ -1,0 +1,78 @@
+name: Deploy
+# ADR-027 §3–4: merges to `main` deploy staging; **production deploys only from a tag**, behind a GitHub
+# Environment whose approval gate a person answers. No Claude session holds a deploy credential — this
+# workflow is the only thing that can trigger a deploy, and it runs from the repository, not from a chat.
+#
+# Coolify is the deploy target (docs/deployment-coolify-cloudflare.md). Each environment holds its own
+# `COOLIFY_WEBHOOK` and `COOLIFY_TOKEN` secrets; this file never sees a value, only a secret reference.
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        required: true
+        type: choice
+        options: [staging, production]
+
+permissions: { contents: read }
+concurrency: { group: 'deploy-${{ github.ref }}', cancel-in-progress: false }
+
+jobs:
+  staging:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: { name: staging, url: '${{ vars.STAGING_URL }}' }
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Trigger the Coolify deploy
+        env:
+          WEBHOOK: ${{ secrets.COOLIFY_WEBHOOK }}
+          TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $TOKEN" "$WEBHOOK" -o /dev/null -w 'coolify accepted: %{http_code}\n'
+      - name: Wait for readiness, then record a deploy-event (ADR-028 §5)
+        env: { BASE: '${{ vars.STAGING_URL }}' }
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS "$BASE/api/health" | grep -q '"status":"ok"'; then echo "ready after ${i} attempt(s)"; break; fi
+            sleep 10
+            if [ "$i" = 60 ]; then echo "staging did not become ready" >&2; exit 1; fi
+          done
+          node tools/parity/emit-deploy-event.mjs --site syed-ai --env staging --base "$BASE"
+      - uses: actions/upload-artifact@v4
+        with: { name: deploy-event-staging, path: apps/syed-ai/handoff/deploy, if-no-files-found: warn }
+
+  production:
+    # Tag-only, and the `production` environment's required reviewers make a person approve each release.
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: { name: production, url: '${{ vars.PRODUCTION_URL }}' }
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Refuse a tag that is not on main
+        run: |
+          git fetch origin main --depth=200
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main \
+            || { echo "tag ${GITHUB_REF_NAME} is not an ancestor of main — production deploys only from merged, gated code" >&2; exit 1; }
+      - name: Trigger the Coolify deploy
+        env:
+          WEBHOOK: ${{ secrets.COOLIFY_WEBHOOK }}
+          TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $TOKEN" "$WEBHOOK" -o /dev/null -w 'coolify accepted: %{http_code}\n'
+      - name: Wait for readiness, then record a deploy-event
+        env: { BASE: '${{ vars.PRODUCTION_URL }}' }
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS "$BASE/api/health" | grep -q '"status":"ok"'; then echo "ready after ${i} attempt(s)"; break; fi
+            sleep 10
+            if [ "$i" = 60 ]; then echo "production did not become ready" >&2; exit 1; fi
+          done
+          node tools/parity/emit-deploy-event.mjs --site syed-ai --env production --base "$BASE" --previous "$(git rev-parse HEAD~1)"
+      - uses: actions/upload-artifact@v4
+        with: { name: deploy-event-production, path: apps/syed-ai/handoff/deploy, if-no-files-found: warn }

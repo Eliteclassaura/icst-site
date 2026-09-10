@@ -1,0 +1,22 @@
+{
+  "name": "@factory/wordpress-import",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "WordPress → site-blueprint v2 importer (Release 4). Architecture and the boundary-safe primitives land first; the SQL/uploads pipeline follows once a fixture exists.",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src test --max-warnings 0",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@factory/seo-contracts": "workspace:*",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@factory/eslint-config": "workspace:*",
+    "@types/node": "^22.15.0",
+    "tsx": "^4.20.0",
+    "vitest": "5.0.0"
+  }
+}

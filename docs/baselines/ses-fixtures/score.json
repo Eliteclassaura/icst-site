@@ -1,0 +1,242 @@
+{
+ "pillars": [
+  {
+   "key": "crawl",
+   "name": "Crawl and indexation",
+   "weight": 18,
+   "needs": "a crawl",
+   "score": 96,
+   "metrics": [
+    {
+     "label": "Pages returning 200",
+     "value": 0.9736842105263158,
+     "detail": "37 of 38 crawled URLs answered 200. 1 did not.",
+     "weight": 3
+    },
+    {
+     "label": "Canonical present",
+     "value": 1,
+     "detail": "38 of 38 readable pages declare a canonical.",
+     "weight": 2
+    },
+    {
+     "label": "Reachable by internal links",
+     "value": 0.8157894736842105,
+     "detail": "7 pages have no internal links pointing at them.",
+     "weight": 2
+    },
+    {
+     "label": "Within three clicks",
+     "value": 1,
+     "detail": "38 of 38 reachable pages sit within three clicks of home.",
+     "weight": 1
+    },
+    {
+     "label": "Sitemap integrity",
+     "value": 1,
+     "detail": "No serious sitemap problems found.",
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "key": "onpage",
+   "name": "On-page fundamentals",
+   "weight": 17,
+   "needs": "a crawl",
+   "score": 93,
+   "metrics": [
+    {
+     "label": "Titles the right length",
+     "value": 1,
+     "detail": "37 of 37 titles are between 20 and 65 characters.",
+     "weight": 3
+    },
+    {
+     "label": "Titles are unique",
+     "value": 1,
+     "detail": "No duplicate titles.",
+     "weight": 2
+    },
+    {
+     "label": "Meta descriptions written",
+     "value": 0.8108108108108109,
+     "detail": "7 pages have none, so Google writes its own.",
+     "weight": 2
+    },
+    {
+     "label": "Exactly one H1",
+     "value": 1,
+     "detail": "37 of 37 pages have a single H1.",
+     "weight": 1
+    },
+    {
+     "label": "Body content substantial",
+     "value": 0.8108108108108109,
+     "detail": "7 pages carry under 300 words.",
+     "weight": 2
+    },
+    {
+     "label": "Images carry alt text",
+     "value": 1,
+     "detail": "Averaged across every image found in the crawl.",
+     "weight": 1
+    }
+   ]
+  },
+  {
+   "key": "topics",
+   "name": "Topic coverage",
+   "weight": 19,
+   "needs": "Search Console queries",
+   "score": 66,
+   "metrics": [
+    {
+     "label": "Topics with a clear owning page",
+     "value": 0.9,
+     "detail": "9 of 10 mapped topics have one page taking 60% or more of the impressions.",
+     "weight": 3
+    },
+    {
+     "label": "Topics not split across pages",
+     "value": 0.9,
+     "detail": "1 topics are split between two or more of your own URLs.",
+     "weight": 2
+    },
+    {
+     "label": "Competitor topics you cover",
+     "value": 0.7142857142857143,
+     "detail": "4 topics where a competitor ranks top ten and you are absent.",
+     "weight": 2
+    },
+    {
+     "label": "Topics ranking in the top ten",
+     "value": 0,
+     "detail": "Share of topic impressions where your weighted position is ten or better.",
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "key": "search",
+   "name": "Search performance",
+   "weight": 24,
+   "needs": "Search Console queries",
+   "score": 64,
+   "metrics": [
+    {
+     "label": "Clicks against what the rankings should return",
+     "value": 0.9787695492339867,
+     "detail": "You earn 19,800 clicks where the positions you hold typically return about 20,229.",
+     "weight": 3
+    },
+    {
+     "label": "Impressions in the top ten",
+     "value": 0.4176171492193473,
+     "detail": "42% of impressions come from positions ten or better.",
+     "weight": 3
+    },
+    {
+     "label": "Momentum against the previous period",
+     "value": 0.6838895684081775,
+     "detail": "Clicks moved from 17,169 to 19,800.",
+     "weight": 2
+    },
+    {
+     "label": "Little left stranded just outside",
+     "value": 0.22541187577282829,
+     "detail": "301,936 impressions sit on rows ranking below position three with real headroom.",
+     "weight": 1
+    }
+   ]
+  },
+  {
+   "key": "airead",
+   "name": "AI answer readiness",
+   "weight": 12,
+   "needs": "a crawl",
+   "score": 34,
+   "metrics": [
+    {
+     "label": "Retrieval crawlers are allowed in",
+     "value": null,
+     "detail": "No robots.txt was read, so crawler access is unknown.",
+     "weight": 3
+    },
+    {
+     "label": "Pages carrying quotable statistics",
+     "value": 0,
+     "detail": "0% of pages carry two or more concrete figures per 500 words. Adding statistics raised visibility 32% in the GEO experiment.",
+     "weight": 3
+    },
+    {
+     "label": "Pages quoting a named source",
+     "value": 0,
+     "detail": "0 of 30 pages quote someone by name. The strongest single lever measured: +40%.",
+     "weight": 3
+    },
+    {
+     "label": "Pages citing outside sources",
+     "value": 0.36666666666666664,
+     "detail": "37% of pages link out to at least two external sources. Worth up to +115% for pages already ranking fourth or fifth.",
+     "weight": 2
+    },
+    {
+     "label": "Headings that ask the reader’s question",
+     "value": 1,
+     "detail": "30 of 30 pages have at least one heading phrased as a question. Widely reported to help; no controlled test published, so this carries less weight than the measured levers.",
+     "weight": 1
+    },
+    {
+     "label": "Free of keyword stuffing",
+     "value": 1,
+     "detail": "No page over-repeats its target term.",
+     "weight": 2
+    }
+   ]
+  },
+  {
+   "key": "offpage",
+   "name": "Off-page",
+   "weight": 10,
+   "needs": "a Semrush backlinks export",
+   "score": 61,
+   "metrics": [
+    {
+     "label": "Referring domain base",
+     "value": 0.3873723333622007,
+     "detail": "12 referring domains across 260 links.",
+     "weight": 3
+    },
+    {
+     "label": "Anchor text diversity",
+     "value": 0.8207668585027076,
+     "detail": "The most common anchor accounts for 23% of links.",
+     "weight": 2
+    },
+    {
+     "label": "Followed link share",
+     "value": 0.8153846153846154,
+     "detail": "82% of links pass authority.",
+     "weight": 1
+    },
+    {
+     "label": "Link retention",
+     "value": 0.6515151515151515,
+     "detail": "43 new against 23 lost in the export.",
+     "weight": 2
+    },
+    {
+     "label": "Links spread across pages",
+     "value": 0.5348334822121344,
+     "detail": "12 distinct pages receive links.",
+     "weight": 1
+    }
+   ]
+  }
+ ],
+ "overall": 71,
+ "measured": 6,
+ "coverageNote": "All 6 pillars measured.",
+ "model": 2
+}

@@ -1,0 +1,22 @@
+{
+  "trust": "first-party",
+  "executes": "none",
+  "rationale": "A skill is instructions, not code. It may run repository scripts from this allow-list and nothing else; it ships no script of its own, so there is no code path a future edit could smuggle into a session (ADR-030 §3).",
+  "allowedCommands": [
+    "pnpm design:bundle",
+    "pnpm design:gates",
+    "pnpm design:sync-status",
+    "pnpm design:signature",
+    "git status",
+    "git diff"
+  ],
+  "writes": ["docs/content-verification-ledger.md", "apps/*/design/sync-state.json"],
+  "reads": ["apps/*/design/ds-bundle/**"],
+  "refuses": [
+    "publishing when design:sync-status is not ok/never-synced/stale",
+    "publishing a --neutral bundle into a client project",
+    "writing _ds_manifest.json",
+    "recording a sync without a remote manifest hash",
+    "any network call other than the design-system publish itself"
+  ]
+}

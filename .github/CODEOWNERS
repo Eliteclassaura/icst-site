@@ -1,0 +1,20 @@
+# Ownership for review routing (ADR-027). Required-reviewer count is a branch-protection setting:
+# 0 while the owner works alone (gates are the reviewer), 1 while a designer is engaged.
+
+# Design paths — the owner approves designer PRs here when required reviewers is on.
+apps/*/design/design-contract.json            @Eliteclassaura
+packages/agency-core/src/blocks/**            @Eliteclassaura
+packages/design-contract/**                   @Eliteclassaura
+docs/baselines/**                             @Eliteclassaura
+
+# Content model and data — never a design PR (path guard, `content-model` label).
+apps/*/src/migrations/**                      @Eliteclassaura
+packages/agency-core/src/cms/**               @Eliteclassaura
+packages/agency-core/src/blocks/payload.ts    @Eliteclassaura
+
+# Governance
+.github/**                                    @Eliteclassaura
+CLAUDE.md                                     @Eliteclassaura
+docs/decision-log.md                          @Eliteclassaura
+docs/risks.md                                 @Eliteclassaura
+legacy-reference/**                           @Eliteclassaura

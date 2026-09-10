@@ -1,0 +1,192 @@
+import type { ReactNode } from 'react'
+import type { ImageRef } from './types'
+import { HeroBlock, type HeroProps } from './hero/index'
+import { RichTextBlock, type RichTextProps } from './richText/index'
+import { TakeawayListBlock, type TakeawayListProps } from './takeawayList/index'
+import { EvidenceGridBlock, type EvidenceGridProps } from './evidenceGrid/index'
+import { FaqBlock, type FaqProps } from './faq/index'
+import { GlossaryListBlock, type GlossaryListProps } from './glossaryList/index'
+import { CtaBlock, type CtaProps } from './cta/index'
+import { BriefFormBlock, type BriefFormProps, type SelectField } from './briefForm/index'
+import { DataTableBlock, type DataTableProps } from './dataTable/index'
+import { StepsBlock, type StepsProps } from './steps/index'
+import { RelatedLinksBlock, type RelatedLinksProps } from './relatedLinks/index'
+import { BreadcrumbBlock, type BreadcrumbProps } from './breadcrumb/index'
+import { SubNavBlock, type SubNavProps } from './subNav/index'
+import { OfficesBlock, type OfficesProps } from './offices/index'
+
+/** The shape of one `pages.layout` row as Payload returns it (depth ≥ 1 so uploads are populated). */
+export type LayoutBlockData = { blockType: string; id?: string | null; blockName?: string | null } & Record<
+  string,
+  unknown
+>
+
+type MediaDoc = {
+  url?: string | null
+  alt?: string | null
+  width?: number | null
+  height?: number | null
+  decorative?: boolean | null
+  sizes?: Record<
+    string,
+    { url?: string | null; width?: number | null; mimeType?: string | null } | undefined
+  > | null
+}
+
+/** Map a populated Media document to the ImageRef blocks consume. Returns undefined for unpopulated ids. */
+export function resolveImage(m: unknown): ImageRef | undefined {
+  if (!m || typeof m !== 'object' || !('url' in m)) return undefined
+  const d = m as MediaDoc
+  if (!d.url || !d.width || !d.height) return undefined
+  const sources = Object.values(d.sizes ?? {})
+    .filter((s): s is { url: string; width: number; mimeType?: string | null } => Boolean(s?.url && s?.width))
+    .filter((s) => s.width < 1601) // 'og' is 1200×630 crop; all others are width-only resizes — fine for srcset
+    .sort((a, b) => a.width - b.width)
+    .map((s) => ({ url: s.url, width: s.width, type: s.mimeType ?? undefined }))
+  return {
+    url: d.url,
+    alt: d.alt ?? '',
+    width: d.width,
+    height: d.height,
+    decorative: Boolean(d.decorative),
+    sources,
+  }
+}
+
+const linkOf = (g: unknown) => {
+  const l = g as { label?: string | null; href?: string | null; external?: boolean | null } | null | undefined
+  return l?.label && l?.href ? { label: l.label, href: l.href, external: Boolean(l.external) } : undefined
+}
+const ctaOf = (g: unknown) => {
+  const c = g as { primary?: unknown; secondary?: unknown } | null | undefined
+  return { primary: linkOf(c?.primary), secondary: linkOf(c?.secondary) }
+}
+
+export type RenderContext = {
+  /** From the `form-config` global — select options shared by chat and form. */
+  formSelects?: SelectField[]
+  turnstileSiteKey?: string
+  formAction?: string
+  /** From the Offices collection (via contact-legal), shared by the footer and the offices block. */
+  offices?: OfficesProps['offices']
+  /** Path of the page being rendered — for aria-current in sub navigation. */
+  currentPath?: string
+}
+
+/**
+ * Renders a page's layout through the registry. Unknown block types render nothing and are reported
+ * through `onUnknown` so a stale document never breaks a page (and the gate can count them).
+ */
+const BLEED = new Set(['hero', 'cta', 'subNav'])
+
+/** Full-bleed blocks own their geometry; every other block sits in a band inside the container. */
+function Band({ id, children }: { id: string; children: ReactNode }) {
+  return (
+    <section className="ds-band" id={id}>
+      <div className="ds-container">{children}</div>
+    </section>
+  )
+}
+
+export function RenderBlocks({
+  layout,
+  ctx = {},
+  onUnknown,
+}: {
+  layout: LayoutBlockData[] | null | undefined
+  ctx?: RenderContext
+  onUnknown?: (blockType: string) => void
+}): ReactNode {
+  return (layout ?? []).map((b, i) => {
+    const key = b.id ?? `${b.blockType}-${i}`
+    const node = renderOne(b, key, ctx, onUnknown)
+    if (node === null || BLEED.has(b.blockType)) return node
+    return (
+      <Band key={key} id={b.blockName || `s-${b.blockType}-${i}`}>
+        {node}
+      </Band>
+    )
+  })
+}
+
+function renderOne(
+  b: LayoutBlockData,
+  key: string,
+  ctx: RenderContext,
+  onUnknown?: (blockType: string) => void,
+): ReactNode {
+  {
+    switch (b.blockType) {
+      case 'hero': {
+        const p = b as unknown as Omit<HeroProps, 'image' | 'cta'> & { image?: unknown; cta?: unknown }
+        return <HeroBlock key={key} {...p} image={resolveImage(p.image)} cta={ctaOf(p.cta)} />
+      }
+      case 'richText':
+        return <RichTextBlock key={key} {...(b as unknown as RichTextProps)} />
+      case 'takeawayList':
+        return <TakeawayListBlock key={key} {...(b as unknown as TakeawayListProps)} />
+      case 'evidenceGrid':
+        return <EvidenceGridBlock key={key} {...(b as unknown as EvidenceGridProps)} />
+      case 'faq':
+        return <FaqBlock key={key} {...(b as unknown as FaqProps)} />
+      case 'glossaryList': {
+        const p = b as unknown as Omit<GlossaryListProps, 'more'> & { more?: unknown }
+        return <GlossaryListBlock key={key} {...p} more={linkOf(p.more)} />
+      }
+      case 'cta': {
+        const p = b as unknown as Omit<CtaProps, 'image' | 'cta'> & { image?: unknown; cta?: unknown }
+        return <CtaBlock key={key} {...p} image={resolveImage(p.image)} cta={ctaOf(p.cta)} />
+      }
+      case 'briefForm': {
+        const p = b as unknown as Omit<BriefFormProps, 'selects' | 'action' | 'optIn'> & {
+          optIn?: { enabled?: boolean | null; label?: string | null; text?: string | null } | null
+        }
+        const optIn =
+          p.optIn?.enabled && p.optIn.label
+            ? { name: 'want_plan', label: p.optIn.label, text: p.optIn.text ?? '', defaultChecked: false }
+            : undefined
+        return (
+          <BriefFormBlock
+            key={key}
+            {...p}
+            optIn={optIn}
+            selects={ctx.formSelects ?? []}
+            action={ctx.formAction ?? '/api/forms/brief'}
+            turnstileSiteKey={ctx.turnstileSiteKey}
+          />
+        )
+      }
+      case 'dataTable': {
+        const p = b as unknown as Omit<DataTableProps, 'columns' | 'rows'> & {
+          columns: Array<{ label: string }>
+          rows: Array<{ label: string; cells: Array<{ text: string }> }>
+        }
+        return (
+          <DataTableBlock
+            key={key}
+            {...p}
+            columns={(p.columns ?? []).map((c) => c.label)}
+            rows={(p.rows ?? []).map((r) => ({ label: r.label, cells: (r.cells ?? []).map((c) => c.text) }))}
+          />
+        )
+      }
+      case 'steps':
+        return <StepsBlock key={key} {...(b as unknown as StepsProps)} />
+      case 'relatedLinks':
+        return <RelatedLinksBlock key={key} {...(b as unknown as RelatedLinksProps)} />
+      case 'breadcrumb':
+        return <BreadcrumbBlock key={key} {...(b as unknown as BreadcrumbProps)} />
+      case 'subNav': {
+        const p = b as unknown as SubNavProps
+        return <SubNavBlock key={key} {...p} currentHref={p.currentHref ?? ctx.currentPath} />
+      }
+      case 'offices': {
+        const p = b as unknown as Omit<OfficesProps, 'offices'>
+        return <OfficesBlock key={key} {...p} offices={ctx.offices ?? []} />
+      }
+      default:
+        onUnknown?.(b.blockType)
+        return null
+    }
+  }
+}

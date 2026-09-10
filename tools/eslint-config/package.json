@@ -1,0 +1,13 @@
+{
+  "name": "@factory/eslint-config",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./rules/no-hex-in-components": "./rules/no-hex-in-components.js"
+  },
+  "peerDependencies": {
+    "eslint": ">=9"
+  }
+}

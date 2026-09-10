@@ -1,0 +1,1387 @@
+[
+ {
+  "query": "water softener company",
+  "raw": "water softener company",
+  "impr": 2601,
+  "clicks": 99,
+  "urls": [
+   {
+    "url": "example.com/contact",
+    "raw": "https://example.com/contact",
+    "impr": 1431,
+    "clicks": 59,
+    "posW": 29693.25,
+    "share": 0.5501730103806228,
+    "pos": 20.75
+   },
+   {
+    "url": "example.com/blog/closed-loop-system-guide",
+    "raw": "https://example.com/blog/closed-loop-system-guide",
+    "impr": 1170,
+    "clicks": 40,
+    "posW": 26617.5,
+    "share": 0.44982698961937717,
+    "pos": 22.75
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/contact",
+  "drop": "https://example.com/blog/closed-loop-system-guide",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/contact, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "evaporative condenser contractor",
+  "raw": "evaporative condenser contractor",
+  "impr": 2571,
+  "clicks": 84,
+  "urls": [
+   {
+    "url": "example.com/case-studies/manufacturing-plant",
+    "raw": "https://example.com/case-studies/manufacturing-plant",
+    "impr": 1414,
+    "clicks": 50,
+    "posW": 7536.62,
+    "share": 0.5499805523142746,
+    "pos": 5.33
+   },
+   {
+    "url": "example.com/services/cooling-tower-cleaning",
+    "raw": "https://example.com/services/cooling-tower-cleaning",
+    "impr": 1157,
+    "clicks": 34,
+    "posW": 8480.81,
+    "share": 0.4500194476857254,
+    "pos": 7.329999999999999
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/case-studies/manufacturing-plant",
+  "drop": "https://example.com/services/cooling-tower-cleaning",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/case-studies/manufacturing-plant, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "legionella testing contractor",
+  "raw": "legionella testing contractor",
+  "impr": 2524,
+  "clicks": 91,
+  "urls": [
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 1388,
+    "clicks": 55,
+    "posW": 24637,
+    "share": 0.5499207606973059,
+    "pos": 17.75
+   },
+   {
+    "url": "example.com/case-studies/manufacturing-plant",
+    "raw": "https://example.com/case-studies/manufacturing-plant",
+    "impr": 1136,
+    "clicks": 36,
+    "posW": 22436,
+    "share": 0.4500792393026941,
+    "pos": 19.75
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/what-does-water-treatment-cost",
+  "drop": "https://example.com/case-studies/manufacturing-plant",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/what-does-water-treatment-cost, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "legionella testing specialist",
+  "raw": "legionella testing specialist",
+  "impr": 2422,
+  "clicks": 99,
+  "urls": [
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 1332,
+    "clicks": 59,
+    "posW": 12947.04,
+    "share": 0.5499587118084228,
+    "pos": 9.72
+   },
+   {
+    "url": "example.com/case-studies/manufacturing-plant",
+    "raw": "https://example.com/case-studies/manufacturing-plant",
+    "impr": 1090,
+    "clicks": 40,
+    "posW": 12774.800000000001,
+    "share": 0.4500412881915772,
+    "pos": 11.72
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/what-does-water-treatment-cost",
+  "drop": "https://example.com/case-studies/manufacturing-plant",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/what-does-water-treatment-cost, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "closed loop system installation",
+  "raw": "closed loop system installation",
+  "impr": 2348,
+  "clicks": 31,
+  "urls": [
+   {
+    "url": "example.com/about",
+    "raw": "https://example.com/about",
+    "impr": 1291,
+    "clicks": 19,
+    "posW": 4466.86,
+    "share": 0.5498296422487223,
+    "pos": 3.46
+   },
+   {
+    "url": "example.com",
+    "raw": "https://example.com/",
+    "impr": 1057,
+    "clicks": 12,
+    "posW": 5771.22,
+    "share": 0.45017035775127767,
+    "pos": 5.46
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/about",
+  "drop": "https://example.com/",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/about, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "industrial chiller vs alternatives",
+  "raw": "industrial chiller vs alternatives",
+  "impr": 2321,
+  "clicks": 84,
+  "urls": [
+   {
+    "url": "example.com/services/water-treatment",
+    "raw": "https://example.com/services/water-treatment",
+    "impr": 1277,
+    "clicks": 50,
+    "posW": 18912.37,
+    "share": 0.5501938819474365,
+    "pos": 14.809999999999999
+   },
+   {
+    "url": "example.com/blog/legionella-testing-explained",
+    "raw": "https://example.com/blog/legionella-testing-explained",
+    "impr": 1044,
+    "clicks": 34,
+    "posW": 17549.64,
+    "share": 0.44980611805256354,
+    "pos": 16.81
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/water-treatment",
+  "drop": "https://example.com/blog/legionella-testing-explained",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/water-treatment, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "cooling tower specialist",
+  "raw": "cooling tower specialist",
+  "impr": 2216,
+  "clicks": 67,
+  "urls": [
+   {
+    "url": "example.com",
+    "raw": "https://example.com/",
+    "impr": 1219,
+    "clicks": 40,
+    "posW": 9593.53,
+    "share": 0.5500902527075813,
+    "pos": 7.87
+   },
+   {
+    "url": "example.com/blog/cooling-tower-maintenance-checklist",
+    "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+    "impr": 997,
+    "clicks": 27,
+    "posW": 9840.39,
+    "share": 0.4499097472924188,
+    "pos": 9.87
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/",
+  "drop": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "legionella testing company",
+  "raw": "legionella testing company",
+  "impr": 2054,
+  "clicks": 39,
+  "urls": [
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 1130,
+    "clicks": 23,
+    "posW": 10893.2,
+    "share": 0.5501460564751705,
+    "pos": 9.64
+   },
+   {
+    "url": "example.com/case-studies/manufacturing-plant",
+    "raw": "https://example.com/case-studies/manufacturing-plant",
+    "impr": 924,
+    "clicks": 16,
+    "posW": 10755.36,
+    "share": 0.4498539435248296,
+    "pos": 11.64
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/what-does-water-treatment-cost",
+  "drop": "https://example.com/case-studies/manufacturing-plant",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/what-does-water-treatment-cost, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "industrial chiller specialist",
+  "raw": "industrial chiller specialist",
+  "impr": 2037,
+  "clicks": 29,
+  "urls": [
+   {
+    "url": "example.com/services/water-treatment",
+    "raw": "https://example.com/services/water-treatment",
+    "impr": 1120,
+    "clicks": 17,
+    "posW": 17942.399999999998,
+    "share": 0.5498281786941581,
+    "pos": 16.02
+   },
+   {
+    "url": "example.com/blog/legionella-testing-explained",
+    "raw": "https://example.com/blog/legionella-testing-explained",
+    "impr": 917,
+    "clicks": 12,
+    "posW": 16524.34,
+    "share": 0.45017182130584193,
+    "pos": 18.02
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/water-treatment",
+  "drop": "https://example.com/blog/legionella-testing-explained",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/water-treatment, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "water treatment cleaning",
+  "raw": "water treatment cleaning",
+  "impr": 2034,
+  "clicks": 46,
+  "urls": [
+   {
+    "url": "example.com/services/cooling-tower-cleaning",
+    "raw": "https://example.com/services/cooling-tower-cleaning",
+    "impr": 1119,
+    "clicks": 28,
+    "posW": 10015.05,
+    "share": 0.5501474926253688,
+    "pos": 8.95
+   },
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 915,
+    "clicks": 18,
+    "posW": 10019.25,
+    "share": 0.4498525073746313,
+    "pos": 10.95
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/cooling-tower-cleaning",
+  "drop": "https://example.com/blog/what-does-water-treatment-cost",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/cooling-tower-cleaning, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "cooling tower maintenance checklist",
+  "raw": "cooling tower maintenance checklist",
+  "impr": 2007,
+  "clicks": 27,
+  "urls": [
+   {
+    "url": "example.com/blog/cooling-tower-maintenance-checklist",
+    "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+    "impr": 1104,
+    "clicks": 16,
+    "posW": 13060.32,
+    "share": 0.5500747384155455,
+    "pos": 11.83
+   },
+   {
+    "url": "example.com/about",
+    "raw": "https://example.com/about",
+    "impr": 903,
+    "clicks": 11,
+    "posW": 12488.49,
+    "share": 0.4499252615844544,
+    "pos": 13.83
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "drop": "https://example.com/about",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/cooling-tower-maintenance-checklist, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "heat exchanger cleaning near me",
+  "raw": "heat exchanger cleaning near me",
+  "impr": 1975,
+  "clicks": 67,
+  "urls": [
+   {
+    "url": "example.com/blog/legionella-testing-explained",
+    "raw": "https://example.com/blog/legionella-testing-explained",
+    "impr": 1086,
+    "clicks": 40,
+    "posW": 9697.98,
+    "share": 0.549873417721519,
+    "pos": 8.93
+   },
+   {
+    "url": "example.com/services/chiller-servicing",
+    "raw": "https://example.com/services/chiller-servicing",
+    "impr": 889,
+    "clicks": 27,
+    "posW": 9716.77,
+    "share": 0.450126582278481,
+    "pos": 10.93
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/legionella-testing-explained",
+  "drop": "https://example.com/services/chiller-servicing",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/legionella-testing-explained, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "boiler descaling contractor",
+  "raw": "boiler descaling contractor",
+  "impr": 1955,
+  "clicks": 37,
+  "urls": [
+   {
+    "url": "example.com/services/legionella-control",
+    "raw": "https://example.com/services/legionella-control",
+    "impr": 1075,
+    "clicks": 22,
+    "posW": 7492.75,
+    "share": 0.5498721227621484,
+    "pos": 6.97
+   },
+   {
+    "url": "example.com/contact",
+    "raw": "https://example.com/contact",
+    "impr": 880,
+    "clicks": 15,
+    "posW": 7893.6,
+    "share": 0.45012787723785164,
+    "pos": 8.97
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/legionella-control",
+  "drop": "https://example.com/contact",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/legionella-control, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "legionella testing",
+  "raw": "legionella testing",
+  "impr": 1920,
+  "clicks": 64,
+  "urls": [
+   {
+    "url": "example.com/services/chiller-servicing",
+    "raw": "https://example.com/services/chiller-servicing",
+    "impr": 1056,
+    "clicks": 38,
+    "posW": 7212.4800000000005,
+    "share": 0.55,
+    "pos": 6.83
+   },
+   {
+    "url": "example.com/services/water-treatment",
+    "raw": "https://example.com/services/water-treatment",
+    "impr": 864,
+    "clicks": 26,
+    "posW": 7629.12,
+    "share": 0.45,
+    "pos": 8.83
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/chiller-servicing",
+  "drop": "https://example.com/services/water-treatment",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/chiller-servicing, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "legionella testing maintenance",
+  "raw": "legionella testing maintenance",
+  "impr": 1903,
+  "clicks": 49,
+  "urls": [
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 1047,
+    "clicks": 29,
+    "posW": 17212.68,
+    "share": 0.5501839201261166,
+    "pos": 16.44
+   },
+   {
+    "url": "example.com/case-studies/manufacturing-plant",
+    "raw": "https://example.com/case-studies/manufacturing-plant",
+    "impr": 856,
+    "clicks": 20,
+    "posW": 15784.640000000001,
+    "share": 0.44981607987388333,
+    "pos": 18.44
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/what-does-water-treatment-cost",
+  "drop": "https://example.com/case-studies/manufacturing-plant",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/what-does-water-treatment-cost, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "legionella testing uk",
+  "raw": "legionella testing uk",
+  "impr": 1894,
+  "clicks": 46,
+  "urls": [
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 1042,
+    "clicks": 28,
+    "posW": 20402.359999999997,
+    "share": 0.5501583949313622,
+    "pos": 19.58
+   },
+   {
+    "url": "example.com/case-studies/manufacturing-plant",
+    "raw": "https://example.com/case-studies/manufacturing-plant",
+    "impr": 852,
+    "clicks": 18,
+    "posW": 18386.16,
+    "share": 0.4498416050686378,
+    "pos": 21.58
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/what-does-water-treatment-cost",
+  "drop": "https://example.com/case-studies/manufacturing-plant",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/what-does-water-treatment-cost, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "industrial chiller",
+  "raw": "industrial chiller",
+  "impr": 1834,
+  "clicks": 59,
+  "urls": [
+   {
+    "url": "example.com/services/chiller-servicing",
+    "raw": "https://example.com/services/chiller-servicing",
+    "impr": 1009,
+    "clicks": 35,
+    "posW": 7466.6,
+    "share": 0.5501635768811342,
+    "pos": 7.4
+   },
+   {
+    "url": "example.com/services/water-treatment",
+    "raw": "https://example.com/services/water-treatment",
+    "impr": 825,
+    "clicks": 24,
+    "posW": 7755,
+    "share": 0.44983642311886585,
+    "pos": 9.4
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/chiller-servicing",
+  "drop": "https://example.com/services/water-treatment",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/chiller-servicing, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "industrial chiller price",
+  "raw": "industrial chiller price",
+  "impr": 1755,
+  "clicks": 61,
+  "urls": [
+   {
+    "url": "example.com/services/water-treatment",
+    "raw": "https://example.com/services/water-treatment",
+    "impr": 965,
+    "clicks": 37,
+    "posW": 5230.3,
+    "share": 0.5498575498575499,
+    "pos": 5.42
+   },
+   {
+    "url": "example.com/blog/legionella-testing-explained",
+    "raw": "https://example.com/blog/legionella-testing-explained",
+    "impr": 790,
+    "clicks": 24,
+    "posW": 5861.8,
+    "share": 0.45014245014245013,
+    "pos": 7.42
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/water-treatment",
+  "drop": "https://example.com/blog/legionella-testing-explained",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/water-treatment, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "closed loop system",
+  "raw": "closed loop system",
+  "impr": 1741,
+  "clicks": 29,
+  "urls": [
+   {
+    "url": "example.com/services/chiller-servicing",
+    "raw": "https://example.com/services/chiller-servicing",
+    "impr": 958,
+    "clicks": 17,
+    "posW": 7386.18,
+    "share": 0.5502584721424468,
+    "pos": 7.71
+   },
+   {
+    "url": "example.com/services/water-treatment",
+    "raw": "https://example.com/services/water-treatment",
+    "impr": 783,
+    "clicks": 12,
+    "posW": 7602.93,
+    "share": 0.4497415278575531,
+    "pos": 9.71
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/chiller-servicing",
+  "drop": "https://example.com/services/water-treatment",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/chiller-servicing, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "cooling tower maintenance near me",
+  "raw": "cooling tower maintenance near me",
+  "impr": 1718,
+  "clicks": 55,
+  "urls": [
+   {
+    "url": "example.com/blog/cooling-tower-maintenance-checklist",
+    "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+    "impr": 945,
+    "clicks": 33,
+    "posW": 3345.3,
+    "share": 0.5500582072176949,
+    "pos": 3.54
+   },
+   {
+    "url": "example.com/about",
+    "raw": "https://example.com/about",
+    "impr": 773,
+    "clicks": 22,
+    "posW": 4282.42,
+    "share": 0.449941792782305,
+    "pos": 5.54
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "drop": "https://example.com/about",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/cooling-tower-maintenance-checklist, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "water softener installation",
+  "raw": "water softener installation",
+  "impr": 1631,
+  "clicks": 58,
+  "urls": [
+   {
+    "url": "example.com/contact",
+    "raw": "https://example.com/contact",
+    "impr": 897,
+    "clicks": 35,
+    "posW": 14944.02,
+    "share": 0.5499693439607602,
+    "pos": 16.66
+   },
+   {
+    "url": "example.com/blog/closed-loop-system-guide",
+    "raw": "https://example.com/blog/closed-loop-system-guide",
+    "impr": 734,
+    "clicks": 23,
+    "posW": 13696.44,
+    "share": 0.45003065603923975,
+    "pos": 18.66
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/contact",
+  "drop": "https://example.com/blog/closed-loop-system-guide",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/contact, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "water treatment price",
+  "raw": "water treatment price",
+  "impr": 1476,
+  "clicks": 28,
+  "urls": [
+   {
+    "url": "example.com/services/cooling-tower-cleaning",
+    "raw": "https://example.com/services/cooling-tower-cleaning",
+    "impr": 812,
+    "clicks": 17,
+    "posW": 16434.879999999997,
+    "share": 0.5501355013550135,
+    "pos": 20.24
+   },
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 664,
+    "clicks": 11,
+    "posW": 14767.359999999999,
+    "share": 0.44986449864498645,
+    "pos": 22.24
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/cooling-tower-cleaning",
+  "drop": "https://example.com/blog/what-does-water-treatment-cost",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/cooling-tower-cleaning, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "heat exchanger cleaning installation",
+  "raw": "heat exchanger cleaning installation",
+  "impr": 1473,
+  "clicks": 40,
+  "urls": [
+   {
+    "url": "example.com/blog/legionella-testing-explained",
+    "raw": "https://example.com/blog/legionella-testing-explained",
+    "impr": 810,
+    "clicks": 24,
+    "posW": 12312,
+    "share": 0.5498981670061099,
+    "pos": 15.2
+   },
+   {
+    "url": "example.com/services/chiller-servicing",
+    "raw": "https://example.com/services/chiller-servicing",
+    "impr": 663,
+    "clicks": 16,
+    "posW": 11403.6,
+    "share": 0.45010183299389,
+    "pos": 17.2
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/legionella-testing-explained",
+  "drop": "https://example.com/services/chiller-servicing",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/legionella-testing-explained, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "evaporative condenser cost",
+  "raw": "evaporative condenser cost",
+  "impr": 1452,
+  "clicks": 31,
+  "urls": [
+   {
+    "url": "example.com/case-studies/manufacturing-plant",
+    "raw": "https://example.com/case-studies/manufacturing-plant",
+    "impr": 799,
+    "clicks": 19,
+    "posW": 9715.84,
+    "share": 0.550275482093664,
+    "pos": 12.16
+   },
+   {
+    "url": "example.com/services/cooling-tower-cleaning",
+    "raw": "https://example.com/services/cooling-tower-cleaning",
+    "impr": 653,
+    "clicks": 12,
+    "posW": 9246.48,
+    "share": 0.4497245179063361,
+    "pos": 14.16
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/case-studies/manufacturing-plant",
+  "drop": "https://example.com/services/cooling-tower-cleaning",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/case-studies/manufacturing-plant, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "boiler descaling price",
+  "raw": "boiler descaling price",
+  "impr": 1403,
+  "clicks": 46,
+  "urls": [
+   {
+    "url": "example.com/services/legionella-control",
+    "raw": "https://example.com/services/legionella-control",
+    "impr": 772,
+    "clicks": 28,
+    "posW": 3574.36,
+    "share": 0.5502494654312188,
+    "pos": 4.63
+   },
+   {
+    "url": "example.com/contact",
+    "raw": "https://example.com/contact",
+    "impr": 631,
+    "clicks": 18,
+    "posW": 4183.53,
+    "share": 0.44975053456878117,
+    "pos": 6.63
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/legionella-control",
+  "drop": "https://example.com/contact",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/legionella-control, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "water treatment maintenance",
+  "raw": "water treatment maintenance",
+  "impr": 1353,
+  "clicks": 16,
+  "urls": [
+   {
+    "url": "example.com/services/cooling-tower-cleaning",
+    "raw": "https://example.com/services/cooling-tower-cleaning",
+    "impr": 744,
+    "clicks": 10,
+    "posW": 4129.2,
+    "share": 0.549889135254989,
+    "pos": 5.55
+   },
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 609,
+    "clicks": 6,
+    "posW": 4597.95,
+    "share": 0.4501108647450111,
+    "pos": 7.55
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/cooling-tower-cleaning",
+  "drop": "https://example.com/blog/what-does-water-treatment-cost",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/cooling-tower-cleaning, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "cooling tower maintenance uk",
+  "raw": "cooling tower maintenance uk",
+  "impr": 1237,
+  "clicks": 34,
+  "urls": [
+   {
+    "url": "example.com/blog/cooling-tower-maintenance-checklist",
+    "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+    "impr": 680,
+    "clicks": 20,
+    "posW": 14844.4,
+    "share": 0.549717057396928,
+    "pos": 21.83
+   },
+   {
+    "url": "example.com/about",
+    "raw": "https://example.com/about",
+    "impr": 557,
+    "clicks": 14,
+    "posW": 13273.31,
+    "share": 0.45028294260307195,
+    "pos": 23.83
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "drop": "https://example.com/about",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/cooling-tower-maintenance-checklist, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "industrial chiller near me",
+  "raw": "industrial chiller near me",
+  "impr": 1178,
+  "clicks": 37,
+  "urls": [
+   {
+    "url": "example.com/services/water-treatment",
+    "raw": "https://example.com/services/water-treatment",
+    "impr": 648,
+    "clicks": 22,
+    "posW": 6797.52,
+    "share": 0.5500848896434635,
+    "pos": 10.49
+   },
+   {
+    "url": "example.com/blog/legionella-testing-explained",
+    "raw": "https://example.com/blog/legionella-testing-explained",
+    "impr": 530,
+    "clicks": 15,
+    "posW": 6619.7,
+    "share": 0.44991511035653653,
+    "pos": 12.49
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/water-treatment",
+  "drop": "https://example.com/blog/legionella-testing-explained",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/water-treatment, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "cooling tower maintenance",
+  "raw": "cooling tower maintenance",
+  "impr": 1119,
+  "clicks": 15,
+  "urls": [
+   {
+    "url": "example.com",
+    "raw": "https://example.com/",
+    "impr": 655,
+    "clicks": 8,
+    "posW": 2554.5,
+    "share": 0.5853440571939231,
+    "pos": 3.9
+   },
+   {
+    "url": "example.com/services/chiller-servicing",
+    "raw": "https://example.com/services/chiller-servicing",
+    "impr": 255,
+    "clicks": 4,
+    "posW": 5523.3,
+    "share": 0.22788203753351208,
+    "pos": 21.66
+   },
+   {
+    "url": "example.com/services/water-treatment",
+    "raw": "https://example.com/services/water-treatment",
+    "impr": 209,
+    "clicks": 3,
+    "posW": 4944.94,
+    "share": 0.1867739052725648,
+    "pos": 23.659999999999997
+   }
+  ],
+  "severity": "medium",
+  "action": "De-optimise the weaker page",
+  "keep": "https://example.com/",
+  "drop": "https://example.com/services/chiller-servicing",
+  "why": "https://example.com/ clearly leads. Pull the query's exact phrasing out of https://example.com/services/chiller-servicing's title, H1 and internal link anchors so it stops competing.",
+  "note": "One URL dominates; the second may simply be a related page."
+ },
+ {
+  "query": "closed loop system maintenance",
+  "raw": "closed loop system maintenance",
+  "impr": 923,
+  "clicks": 25,
+  "urls": [
+   {
+    "url": "example.com/about",
+    "raw": "https://example.com/about",
+    "impr": 508,
+    "clicks": 15,
+    "posW": 7523.4800000000005,
+    "share": 0.5503791982665223,
+    "pos": 14.81
+   },
+   {
+    "url": "example.com",
+    "raw": "https://example.com/",
+    "impr": 415,
+    "clicks": 10,
+    "posW": 6976.15,
+    "share": 0.4496208017334778,
+    "pos": 16.81
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/about",
+  "drop": "https://example.com/",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/about, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "cooling tower maintenance cleaning",
+  "raw": "cooling tower maintenance cleaning",
+  "impr": 908,
+  "clicks": 18,
+  "urls": [
+   {
+    "url": "example.com/blog/cooling-tower-maintenance-checklist",
+    "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+    "impr": 499,
+    "clicks": 11,
+    "posW": 8687.59,
+    "share": 0.5495594713656388,
+    "pos": 17.41
+   },
+   {
+    "url": "example.com/about",
+    "raw": "https://example.com/about",
+    "impr": 409,
+    "clicks": 7,
+    "posW": 7938.6900000000005,
+    "share": 0.45044052863436124,
+    "pos": 19.41
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "drop": "https://example.com/about",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/cooling-tower-maintenance-checklist, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "cooling tower services",
+  "raw": "cooling tower services",
+  "impr": 866,
+  "clicks": 16,
+  "urls": [
+   {
+    "url": "example.com",
+    "raw": "https://example.com/",
+    "impr": 476,
+    "clicks": 10,
+    "posW": 6859.16,
+    "share": 0.5496535796766744,
+    "pos": 14.41
+   },
+   {
+    "url": "example.com/blog/cooling-tower-maintenance-checklist",
+    "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+    "impr": 390,
+    "clicks": 6,
+    "posW": 6399.9,
+    "share": 0.4503464203233256,
+    "pos": 16.41
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/",
+  "drop": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "water treatment company",
+  "raw": "water treatment company",
+  "impr": 838,
+  "clicks": 28,
+  "urls": [
+   {
+    "url": "example.com/services/cooling-tower-cleaning",
+    "raw": "https://example.com/services/cooling-tower-cleaning",
+    "impr": 461,
+    "clicks": 17,
+    "posW": 5181.64,
+    "share": 0.5501193317422435,
+    "pos": 11.24
+   },
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 377,
+    "clicks": 11,
+    "posW": 4991.4800000000005,
+    "share": 0.4498806682577566,
+    "pos": 13.240000000000002
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/cooling-tower-cleaning",
+  "drop": "https://example.com/blog/what-does-water-treatment-cost",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/cooling-tower-cleaning, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "industrial chiller contractor",
+  "raw": "industrial chiller contractor",
+  "impr": 733,
+  "clicks": 29,
+  "urls": [
+   {
+    "url": "example.com/services/water-treatment",
+    "raw": "https://example.com/services/water-treatment",
+    "impr": 403,
+    "clicks": 17,
+    "posW": 2615.4700000000003,
+    "share": 0.5497953615279673,
+    "pos": 6.49
+   },
+   {
+    "url": "example.com/blog/legionella-testing-explained",
+    "raw": "https://example.com/blog/legionella-testing-explained",
+    "impr": 330,
+    "clicks": 12,
+    "posW": 2801.7000000000003,
+    "share": 0.45020463847203274,
+    "pos": 8.49
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/water-treatment",
+  "drop": "https://example.com/blog/legionella-testing-explained",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/water-treatment, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "boiler descaling specialist",
+  "raw": "boiler descaling specialist",
+  "impr": 662,
+  "clicks": 13,
+  "urls": [
+   {
+    "url": "example.com/services/legionella-control",
+    "raw": "https://example.com/services/legionella-control",
+    "impr": 364,
+    "clicks": 8,
+    "posW": 3243.2400000000002,
+    "share": 0.5498489425981873,
+    "pos": 8.91
+   },
+   {
+    "url": "example.com/contact",
+    "raw": "https://example.com/contact",
+    "impr": 298,
+    "clicks": 5,
+    "posW": 3251.18,
+    "share": 0.4501510574018127,
+    "pos": 10.91
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/legionella-control",
+  "drop": "https://example.com/contact",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/legionella-control, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "water treatment services",
+  "raw": "water treatment services",
+  "impr": 594,
+  "clicks": 15,
+  "urls": [
+   {
+    "url": "example.com/services/cooling-tower-cleaning",
+    "raw": "https://example.com/services/cooling-tower-cleaning",
+    "impr": 327,
+    "clicks": 9,
+    "posW": 4192.14,
+    "share": 0.5505050505050505,
+    "pos": 12.82
+   },
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 267,
+    "clicks": 6,
+    "posW": 3956.94,
+    "share": 0.4494949494949495,
+    "pos": 14.82
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/cooling-tower-cleaning",
+  "drop": "https://example.com/blog/what-does-water-treatment-cost",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/cooling-tower-cleaning, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "cooling tower installation",
+  "raw": "cooling tower installation",
+  "impr": 574,
+  "clicks": 22,
+  "urls": [
+   {
+    "url": "example.com",
+    "raw": "https://example.com/",
+    "impr": 316,
+    "clicks": 13,
+    "posW": 1033.32,
+    "share": 0.5505226480836237,
+    "pos": 3.27
+   },
+   {
+    "url": "example.com/blog/cooling-tower-maintenance-checklist",
+    "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+    "impr": 258,
+    "clicks": 9,
+    "posW": 1359.6599999999999,
+    "share": 0.44947735191637633,
+    "pos": 5.27
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/",
+  "drop": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "heat exchanger cleaning company",
+  "raw": "heat exchanger cleaning company",
+  "impr": 295,
+  "clicks": 11,
+  "urls": [
+   {
+    "url": "example.com/blog/legionella-testing-explained",
+    "raw": "https://example.com/blog/legionella-testing-explained",
+    "impr": 162,
+    "clicks": 7,
+    "posW": 3324.24,
+    "share": 0.5491525423728814,
+    "pos": 20.52
+   },
+   {
+    "url": "example.com/services/chiller-servicing",
+    "raw": "https://example.com/services/chiller-servicing",
+    "impr": 133,
+    "clicks": 4,
+    "posW": 2995.16,
+    "share": 0.45084745762711864,
+    "pos": 22.52
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/legionella-testing-explained",
+  "drop": "https://example.com/services/chiller-servicing",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/legionella-testing-explained, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "evaporative condenser specialist",
+  "raw": "evaporative condenser specialist",
+  "impr": 283,
+  "clicks": 9,
+  "urls": [
+   {
+    "url": "example.com/case-studies/manufacturing-plant",
+    "raw": "https://example.com/case-studies/manufacturing-plant",
+    "impr": 156,
+    "clicks": 5,
+    "posW": 2428.92,
+    "share": 0.5512367491166078,
+    "pos": 15.57
+   },
+   {
+    "url": "example.com/services/cooling-tower-cleaning",
+    "raw": "https://example.com/services/cooling-tower-cleaning",
+    "impr": 127,
+    "clicks": 4,
+    "posW": 2231.39,
+    "share": 0.44876325088339225,
+    "pos": 17.57
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/case-studies/manufacturing-plant",
+  "drop": "https://example.com/services/cooling-tower-cleaning",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/case-studies/manufacturing-plant, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "boiler descaling guide",
+  "raw": "boiler descaling guide",
+  "impr": 236,
+  "clicks": 7,
+  "urls": [
+   {
+    "url": "example.com/services/legionella-control",
+    "raw": "https://example.com/services/legionella-control",
+    "impr": 130,
+    "clicks": 4,
+    "posW": 1235,
+    "share": 0.5508474576271186,
+    "pos": 9.5
+   },
+   {
+    "url": "example.com/contact",
+    "raw": "https://example.com/contact",
+    "impr": 106,
+    "clicks": 3,
+    "posW": 1219,
+    "share": 0.4491525423728814,
+    "pos": 11.5
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/legionella-control",
+  "drop": "https://example.com/contact",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/legionella-control, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "cooling tower maintenance suppliers",
+  "raw": "cooling tower maintenance suppliers",
+  "impr": 229,
+  "clicks": 7,
+  "urls": [
+   {
+    "url": "example.com/blog/cooling-tower-maintenance-checklist",
+    "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+    "impr": 126,
+    "clicks": 4,
+    "posW": 1572.48,
+    "share": 0.5502183406113537,
+    "pos": 12.48
+   },
+   {
+    "url": "example.com/about",
+    "raw": "https://example.com/about",
+    "impr": 103,
+    "clicks": 3,
+    "posW": 1491.44,
+    "share": 0.4497816593886463,
+    "pos": 14.48
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "drop": "https://example.com/about",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/cooling-tower-maintenance-checklist, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "water treatment suppliers",
+  "raw": "water treatment suppliers",
+  "impr": 152,
+  "clicks": 3,
+  "urls": [
+   {
+    "url": "example.com/services/cooling-tower-cleaning",
+    "raw": "https://example.com/services/cooling-tower-cleaning",
+    "impr": 84,
+    "clicks": 2,
+    "posW": 782.88,
+    "share": 0.5526315789473685,
+    "pos": 9.32
+   },
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 68,
+    "clicks": 1,
+    "posW": 769.76,
+    "share": 0.4473684210526316,
+    "pos": 11.32
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/services/cooling-tower-cleaning",
+  "drop": "https://example.com/blog/what-does-water-treatment-cost",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/services/cooling-tower-cleaning, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ },
+ {
+  "query": "heat exchanger cleaning uk",
+  "raw": "heat exchanger cleaning uk",
+  "impr": 151,
+  "clicks": 5,
+  "urls": [
+   {
+    "url": "example.com/blog/legionella-testing-explained",
+    "raw": "https://example.com/blog/legionella-testing-explained",
+    "impr": 83,
+    "clicks": 3,
+    "posW": 588.47,
+    "share": 0.5496688741721855,
+    "pos": 7.090000000000001
+   },
+   {
+    "url": "example.com/services/chiller-servicing",
+    "raw": "https://example.com/services/chiller-servicing",
+    "impr": 68,
+    "clicks": 2,
+    "posW": 618.12,
+    "share": 0.4503311258278146,
+    "pos": 9.09
+   }
+  ],
+  "severity": "high",
+  "action": "Consolidate",
+  "keep": "https://example.com/blog/legionella-testing-explained",
+  "drop": "https://example.com/services/chiller-servicing",
+  "why": "The query is split almost evenly (55% / 45%) and both URLs surface at similar depth. Neither can build authority while the other exists. Keep https://example.com/blog/legionella-testing-explained, redirect the other into it and fold its unique content across.",
+  "note": "Both URLs surface at similar depth, which is the classic split-signal pattern."
+ }
+]

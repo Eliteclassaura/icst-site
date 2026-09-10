@@ -1,0 +1,193 @@
+name: CI
+on:
+  push: { branches: [main] }
+  pull_request:
+concurrency: { group: 'ci-${{ github.ref }}', cancel-in-progress: true }
+permissions: { contents: read }
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_USER: postgres, POSTGRES_PASSWORD: postgres, POSTGRES_DB: factory_ci }
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      DATABASE_URI: postgres://postgres:postgres@localhost:5432/factory_ci
+      PAYLOAD_SECRET: ci-only-placeholder-secret
+      NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+      NEXT_TELEMETRY_DISABLED: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10.28.0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Residue and secret scan
+        run: pnpm gates:scan
+      - name: Dependency audit (fail on high/critical)
+        run: pnpm audit --prod --audit-level high
+      - name: Install build-time skills and scan them
+        run: pnpm skills:install && pnpm --filter @factory/quality-gates scan -- ../../.claude/skills
+      - name: Skill trust and provenance (C5.5 workstream C — no executable content, hashes pinned)
+        run: pnpm skills:verify
+      - name: Versions record matches lockfile
+        run: pnpm versions:check
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm format:check
+      - name: Unit + integration tests (threat model runs against the Postgres service)
+        run: pnpm test
+      - name: No-AI mode — the full suite passes with AI disabled and no provider configured (C7)
+        env: { AI_ENABLED: 'false', AI_PROVIDER: 'none' }
+        run: pnpm test
+      - name: Database migrations from empty (twice — idempotent)
+        run: pnpm --filter @factory/syed-ai migrate && pnpm --filter @factory/syed-ai migrate && pnpm --filter @factory/syed-ai migrate:status
+      - name: Redirect map is reproducible from the blueprint
+        run: pnpm --filter @factory/syed-ai redirects:build && git diff --exit-code -- apps/syed-ai/content/redirects.json
+      - name: Design contract is reproducible from the legacy CSS and compiles clean
+        run: |
+          pnpm --filter @factory/syed-ai design:contract
+          pnpm --filter @factory/syed-ai design:compile
+          git diff --exit-code -- apps/syed-ai/design apps/syed-ai/src/design/generated apps/syed-ai/public/fonts
+      - name: Design system bundles deterministically and is distinct from every other client (C5.5)
+        run: |
+          pnpm design:bundle --site syed-ai --check
+          pnpm design:signature
+          git diff --exit-code -- apps/syed-ai/design/ds-bundle.manifest.json
+      - name: A preset bundle carries no client identity (ADR-026 §3)
+        run: |
+          pnpm design:bundle --site syed-ai --neutral --out /tmp/neutral-bundle
+          for lit in "Syed Abdul" "linkedin.com/in" "Celebration, Florida"; do
+            if grep -rqI "$lit" /tmp/neutral-bundle; then echo "::error::neutral bundle leaked '$lit'"; exit 1; fi
+          done
+          echo "neutral bundle carries no client identity"
+      - run: pnpm build
+      - name: Built bundle contains no .env
+        run: pnpm --filter @factory/quality-gates scan -- ../../apps/syed-ai/.next
+      - name: Seed, run worker once, smoke e2e (Chromium 1440 + admin)
+        run: |
+          pnpm --filter @factory/syed-ai blueprint:validate
+          pnpm --filter @factory/syed-ai seed
+          pnpm --filter @factory/syed-ai e2e:fixtures
+          pnpm --filter @factory/syed-ai worker --once
+          pnpm --filter @factory/syed-ai exec playwright install --with-deps chromium
+          mkdir -p apps/syed-ai/.next/standalone/apps/syed-ai/.next && cp -r apps/syed-ai/.next/static apps/syed-ai/.next/standalone/apps/syed-ai/.next/ && cp -r apps/syed-ai/public apps/syed-ai/.next/standalone/apps/syed-ai/
+          (cd apps/syed-ai/.next/standalone/apps/syed-ai && MEDIA_DIR=$GITHUB_WORKSPACE/apps/syed-ai/media DEV_ROUTES=1 TURNSTILE_REQUIRED=false VERIFICATION_ENFORCEMENT=warn TRUSTED_PROXY=xff HOSTNAME=127.0.0.1 node server.js &) ; sleep 6
+          pnpm --filter @factory/syed-ai exec playwright test --project=chromium-360 --project=chromium-1440 --project=admin-chromium
+      - name: Design bundle render check and responsive QA at 360/390/768/1024/1440 (C5.5 workstreams D, G)
+        run: |
+          pnpm --filter @factory/syed-ai exec playwright test --project=chromium-1440 design-cards design-qa
+          pnpm design:gates --site syed-ai
+      - name: Client approval pack renders from the running site (C5.5 workstream I)
+        run: |
+          pnpm preview:pack --site syed-ai --pages /,/geo-pricing/ --base http://localhost:3000 --out /tmp/pack
+          node -e "const m=require('/tmp/pack/pack-manifest.json'); if(m.blocking) { console.error(m.findings); process.exit(1) } console.log('pack ok:', m.artboards.length, 'artefacts')"
+      - name: Route parity gate against the legacy baseline (blocking)
+        run: pnpm parity:check --base http://localhost:3000 --json apps/syed-ai/test-results/parity.json
+      - name: qa-report artefact (ADR-028 §5) validates against the contract
+        run: |
+          pnpm qa:report --report apps/syed-ai/test-results/parity.json --site syed-ai --env ci --base http://localhost:3000
+          pnpm exec tsx packages/seo-contracts/src/cli.ts validate apps/syed-ai/handoff/qa/*.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: e2e-results, path: apps/syed-ai/test-results, if-no-files-found: ignore }
+
+  guards:
+    # ADR-027 §5 / R53: content-model paths may not change in a PR without the owner-applied `content-model` label.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: { contents: read, pull-requests: read }
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Migration / content-model path guard
+        env:
+          LABELS: "${{ join(github.event.pull_request.labels.*.name, ',') }}"
+          BASE: '${{ github.event.pull_request.base.sha }}'
+        run: |
+          changed=$(git diff --name-only "$BASE"...HEAD | grep -E '(^|/)migrations/|/blocks/payload\.ts$|/cms/collections/|/cms/globals/|/cms/fields/' || true)
+          if [ -n "$changed" ] && ! echo ",$LABELS," | grep -q ',content-model,'; then
+            echo "Content-model paths changed without the 'content-model' label:"; echo "$changed"; exit 1
+          fi
+          echo "guard ok"
+      - name: Baseline changes need a ledger row (R51)
+        env: { BASE: '${{ github.event.pull_request.base.sha }}' }
+        run: |
+          if git diff --name-only "$BASE"...HEAD | grep -q '^docs/baselines/screenshots/'; then
+            git diff --name-only "$BASE"...HEAD | grep -q '^docs/content-verification-ledger.md$' || { echo "Screenshot baselines changed without a ledger row (pnpm baselines:accept --reason)"; exit 1; }
+          fi
+          echo "baseline guard ok"
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build image (web + worker + migrate entrypoints)
+        uses: docker/build-push-action@v6
+        with: { context: ., file: apps/syed-ai/Dockerfile, push: false, load: true, tags: factory/syed-ai:ci }
+      - name: Image runs as non-root
+        run: test "$(docker run --rm factory/syed-ai:ci id -u)" = "1001"
+      - name: Image carries no .env, no legacy archive, no tests or fixtures (C8)
+        run: |
+          set -euo pipefail
+          fail=0
+          check() { # description, find-expression…
+            local what="$1"; shift
+            local hits
+            hits=$(docker run --rm --entrypoint sh factory/syed-ai:ci -c "$*" || true)
+            if [ -n "$hits" ]; then echo "::error::image contains $what:"; echo "$hits"; fail=1; else echo "ok: no $what"; fi
+          }
+          check ".env files"        'find / -name ".env" -o -name ".env.*" ! -name ".env.example" 2>/dev/null | grep -v /proc/ | head'
+          check "legacy-reference"  'find / -name "legacy-reference" -maxdepth 6 2>/dev/null | head'
+          check "test files"        'find /app -name "*.test.ts" -o -name "*.spec.ts" 2>/dev/null | head'
+          check "test directories"  'find /app -type d \( -name test -o -name e2e -o -name fixtures -o -name test-results \) -not -path "*/node_modules/*" 2>/dev/null | head'
+          check "handoff artefacts" 'find /app -type d -name handoff 2>/dev/null | head'
+          exit $fail
+      - name: Readiness and liveness answer correctly, and leak nothing (C8)
+        run: |
+          set -euo pipefail
+          docker network create factory-ci >/dev/null
+          docker run -d --name ci-db --network factory-ci \
+            -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=factory_ci postgres:16-alpine >/dev/null
+          for i in $(seq 1 30); do docker exec ci-db pg_isready -U postgres && break || sleep 2; done
+          docker run --rm --network factory-ci \
+            -e DATABASE_URI=postgres://postgres:postgres@ci-db:5432/factory_ci -e PAYLOAD_SECRET=ci-only-placeholder-secret \
+            --entrypoint node factory/syed-ai:ci node_modules/payload/bin.js migrate
+          docker run -d --name ci-web --network factory-ci -p 3100:3000 \
+            -e DATABASE_URI=postgres://postgres:postgres@ci-db:5432/factory_ci -e PAYLOAD_SECRET=ci-only-placeholder-secret \
+            -e NEXT_PUBLIC_SERVER_URL=http://localhost:3100 -e MEDIA_DIR=/tmp/media factory/syed-ai:ci >/dev/null
+          for i in $(seq 1 60); do curl -fsS http://localhost:3100/api/live >/dev/null 2>&1 && break || sleep 3; done
+          echo "liveness:"; curl -fsS http://localhost:3100/api/live; echo
+          health=$(curl -fsS http://localhost:3100/api/health); echo "readiness: $health"
+          echo "$health" | grep -q '"status":"ok"'
+          # The body is a fixed shape: exactly these keys, and nothing that describes the host.
+          test "$(echo "$health" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const j=JSON.parse(s);console.log([Object.keys(j).sort().join(","),Object.keys(j.checks).sort().join(",")].join("|"))})')" = "checks,status|database,storage"
+          for leak in ci-db postgres 5432 /app /tmp node_modules v22 Error; do
+            echo "$health" | grep -qi "$leak" && { echo "::error::readiness body leaked '$leak'"; exit 1; } || true
+          done
+          # Readiness must FAIL, not throw, when the database goes away.
+          docker stop ci-db >/dev/null
+          code=$(curl -s -o /tmp/h.json -w '%{http_code}' http://localhost:3100/api/health)
+          echo "readiness with the database down: $code $(cat /tmp/h.json)"
+          test "$code" = "503"
+          grep -q '"database":"fail"' /tmp/h.json
+          curl -fsS http://localhost:3100/api/live >/dev/null && echo "liveness still ok with the database down"
+          docker rm -f ci-web ci-db >/dev/null; docker network rm factory-ci >/dev/null
+      - name: Compose stack starts from a clean checkout and serves the site and admin (C8)
+        env: { PAYLOAD_SECRET: compose-ci-placeholder-secret }
+        run: |
+          set -euo pipefail
+          docker compose up -d --wait web worker
+          curl -fsS http://localhost:3000/api/live >/dev/null && echo "live ok"
+          curl -fsS -o /dev/null -w 'site: %{http_code}\n' http://localhost:3000/
+          curl -fsS -o /dev/null -w 'admin: %{http_code}\n' http://localhost:3000/admin
+          docker compose logs --no-color --tail=20 worker
+          docker compose down -v

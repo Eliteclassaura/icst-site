@@ -1,0 +1,15 @@
+{
+  "trust": "first-party",
+  "executes": "none",
+  "rationale": "The unsafe work (archive parsing, path checks, asset admission) lives in reviewed, unit-tested repository code. The skill only invokes it and interprets the report (ADR-030 §3).",
+  "allowedCommands": ["pnpm design:pull", "pnpm design:bundle", "pnpm design:gates"],
+  "writes": ["apps/*/design/design-contract.json", "docs/content-verification-ledger.md"],
+  "reads": ["apps/*/design/claude-design-export/**"],
+  "refuses": [
+    "extracting an archive with any tool other than pnpm design:pull",
+    "importing component HTML",
+    "importing copy",
+    "applying a token the contrast gate refused",
+    "keeping an export that carried an executable member"
+  ]
+}

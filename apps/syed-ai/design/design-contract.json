@@ -1,0 +1,1282 @@
+{
+  "$schema": "https://factory.local/schemas/design-contract-v1.json",
+  "version": 1,
+  "meta": {
+    "client": "syed-ai",
+    "name": "syed.ai design contract",
+    "sources": [
+      "../../legacy-reference/syed-ai-site/assets/css/site.css",
+      "../../legacy-reference/syed-ai-site/_private/docs/DESIGN-TOKENS.md"
+    ]
+  },
+  "brand": {
+    "name": "syed.ai",
+    "wordmark": {
+      "text": "syed",
+      "accentSuffix": ".ai",
+      "subline": "SYED ABDUL · AI SEARCH"
+    },
+    "logo": {
+      "svg": "/assets/img/logo.svg",
+      "png": "/assets/img/logo.png",
+      "monogramSvg": "/assets/img/favicon.svg"
+    },
+    "colorScheme": "dark"
+  },
+  "palette": {
+    "bg": {
+      "value": "#060504",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:13"
+      }
+    },
+    "surface-1": {
+      "value": "#0E0C09",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:14"
+      }
+    },
+    "surface-2": {
+      "value": "#191510",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:15"
+      }
+    },
+    "surface-3": {
+      "value": "#241F17",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:16"
+      }
+    },
+    "line": {
+      "value": "#443C2E",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:17"
+      }
+    },
+    "line-soft": {
+      "value": "#272219",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:18"
+      }
+    },
+    "text": {
+      "value": "#F7F5F0",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:19"
+      }
+    },
+    "text-2": {
+      "value": "#C9C3B6",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:20"
+      }
+    },
+    "text-3": {
+      "value": "#948D7B",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:21"
+      }
+    },
+    "gold": {
+      "value": "#CFAF67",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:22"
+      }
+    },
+    "gold-light": {
+      "value": "#EBD59F",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:23"
+      }
+    },
+    "gold-dark": {
+      "value": "#8A6A30",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:24"
+      }
+    },
+    "on-gold": {
+      "value": "#0A0806",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:25"
+      }
+    },
+    "alert": {
+      "value": "#D06A60",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:26"
+      }
+    },
+    "live": {
+      "value": "#7DAE8A",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:27"
+      }
+    }
+  },
+  "colors": {
+    "canvas": {
+      "value": "#060504",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:13"
+      }
+    },
+    "surface": {
+      "value": "#0E0C09",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:14"
+      }
+    },
+    "surfaceRaised": {
+      "value": "#191510",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:15"
+      }
+    },
+    "surfaceWell": {
+      "value": "#241F17",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:16"
+      }
+    },
+    "textPrimary": {
+      "value": "#F7F5F0",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:19"
+      }
+    },
+    "textBody": {
+      "value": "#C9C3B6",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:20"
+      }
+    },
+    "textMuted": {
+      "value": "#948D7B",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:21"
+      }
+    },
+    "accent": {
+      "value": "#CFAF67",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:22"
+      }
+    },
+    "accentLight": {
+      "value": "#EBD59F",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:23"
+      }
+    },
+    "accentDark": {
+      "value": "#8A6A30",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:24"
+      }
+    },
+    "accentContrast": {
+      "value": "#0A0806",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:25"
+      }
+    },
+    "border": {
+      "value": "#443C2E",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:17"
+      }
+    },
+    "borderSoft": {
+      "value": "#272219",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:18"
+      }
+    },
+    "controlBorder": {
+      "value": "#8A6A30",
+      "source": {
+        "kind": "declared",
+        "ref": "design-contract:a11y",
+        "note": "Legacy inputs used --c-line on --c-surface-2 (1.67:1, fails WCAG 1.4.11 non-text contrast 3:1). Quiet gold from the palette gives 3.62:1 on the input surface and 4.06:1 on canvas."
+      }
+    },
+    "success": {
+      "value": "#7DAE8A",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:27"
+      }
+    },
+    "warning": {
+      "value": "#CFAF67",
+      "source": {
+        "kind": "default",
+        "ref": "compiler",
+        "note": "no warning colour in legacy; accent reused"
+      }
+    },
+    "error": {
+      "value": "#D06A60",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:26"
+      }
+    }
+  },
+  "typography": {
+    "display": {
+      "family": "Bodoni Moda",
+      "fallbacks": ["Didot", "\"Times New Roman\"", "serif"],
+      "license": {
+        "name": "OFL-1.1",
+        "url": "https://openfontlicense.org",
+        "file": "/fonts/LICENSE-bodoni-moda.txt"
+      },
+      "files": [
+        {
+          "path": "/fonts/bodoni-moda-latin-standard-normal.woff2",
+          "origin": "@fontsource-variable/bodoni-moda@5.3.0/files/bodoni-moda-latin-standard-normal.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD",
+          "weight": "400 900",
+          "style": "normal",
+          "axes": ["opsz", "wght"],
+          "preload": true
+        },
+        {
+          "path": "/fonts/bodoni-moda-latin-ext-standard-normal.woff2",
+          "origin": "@fontsource-variable/bodoni-moda@5.3.0/files/bodoni-moda-latin-ext-standard-normal.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF",
+          "weight": "400 900",
+          "style": "normal",
+          "axes": ["opsz", "wght"],
+          "preload": false
+        }
+      ],
+      "opticalRules": {
+        "font-optical-sizing": "none",
+        "font-variation-settings": "\"opsz\" 14"
+      },
+      "display": "swap"
+    },
+    "text": {
+      "family": "Jost",
+      "fallbacks": ["-apple-system", "BlinkMacSystemFont", "\"Segoe UI\"", "Roboto", "sans-serif"],
+      "license": {
+        "name": "OFL-1.1",
+        "url": "https://openfontlicense.org",
+        "file": "/fonts/LICENSE-jost.txt"
+      },
+      "files": [
+        {
+          "path": "/fonts/jost-latin-wght-normal.woff2",
+          "origin": "@fontsource-variable/jost@5.3.0/files/jost-latin-wght-normal.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD",
+          "weight": "100 900",
+          "style": "normal",
+          "axes": ["wght"],
+          "preload": true
+        },
+        {
+          "path": "/fonts/jost-latin-ext-wght-normal.woff2",
+          "origin": "@fontsource-variable/jost@5.3.0/files/jost-latin-ext-wght-normal.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF",
+          "weight": "100 900",
+          "style": "normal",
+          "axes": ["wght"],
+          "preload": false
+        }
+      ],
+      "opticalRules": {},
+      "display": "swap"
+    },
+    "weights": {
+      "reg": {
+        "value": 400,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:54"
+        }
+      },
+      "med": {
+        "value": 500,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:54"
+        }
+      },
+      "semi": {
+        "value": 600,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:54"
+        }
+      },
+      "heading": {
+        "value": 600,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:106",
+          "note": "h1,h2 use var(--w-semi); DESIGN-TOKENS.md says 500 — CSS wins (A1)"
+        }
+      }
+    },
+    "scale": {
+      "d1": {
+        "value": "clamp(2.125rem, 4.6vw, 4.25rem)",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:36"
+        }
+      },
+      "d2": {
+        "value": "clamp(1.75rem, 3.2vw, 2.875rem)",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:37"
+        }
+      },
+      "d3": {
+        "value": "clamp(1.5rem, 2.4vw, 2.125rem)",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:38"
+        }
+      },
+      "h3": {
+        "value": "1.25rem",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:39"
+        }
+      },
+      "h4": {
+        "value": "1.125rem",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:40"
+        }
+      },
+      "lead": {
+        "value": "1.125rem",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:41"
+        }
+      },
+      "body": {
+        "value": "1.0625rem",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:42"
+        }
+      },
+      "sm": {
+        "value": "0.9375rem",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:43"
+        }
+      },
+      "cap": {
+        "value": "0.8125rem",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:44"
+        }
+      },
+      "label": {
+        "value": "0.6875rem",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:45"
+        }
+      },
+      "n1": {
+        "value": "clamp(2.75rem, 4.6vw, 3.875rem)",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:48"
+        }
+      },
+      "n2": {
+        "value": "2.125rem",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:49"
+        }
+      },
+      "n3": {
+        "value": "1.375rem",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:50"
+        }
+      },
+      "n4": {
+        "value": "0.875rem",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:51"
+        }
+      }
+    },
+    "lineHeights": {
+      "tight": {
+        "value": 1.1,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:55"
+        }
+      },
+      "snug": {
+        "value": 1.4,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:55"
+        }
+      },
+      "base": {
+        "value": 1.72,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:55"
+        }
+      },
+      "d1": {
+        "value": 1.1,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:.t-d1"
+        }
+      },
+      "d2": {
+        "value": 1.14,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:.t-d2"
+        }
+      },
+      "d3": {
+        "value": 1.2,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:.t-d3"
+        }
+      },
+      "lead": {
+        "value": 1.65,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:.t-lead"
+        }
+      }
+    },
+    "letterSpacing": {
+      "label": {
+        "value": ".14em",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:56"
+        }
+      },
+      "display": {
+        "value": ".01em",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:56"
+        }
+      }
+    },
+    "measure": {
+      "value": {
+        "min": 55,
+        "ideal": 66,
+        "max": 75
+      },
+      "source": {
+        "kind": "default",
+        "ref": "master-prompt",
+        "note": "readable prose measure 55–75ch; .takeaway ul uses 82ch max-width"
+      }
+    },
+    "headingWrap": {
+      "value": "balance",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:h1,h2 text-wrap:balance"
+      }
+    },
+    "uppercaseOnlyFor": ["label", "button", "table-head", "takeaway-eyebrow"]
+  },
+  "layout": {
+    "spacing": {
+      "1": {
+        "value": "4px",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:59"
+        }
+      },
+      "2": {
+        "value": "8px",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:59"
+        }
+      },
+      "3": {
+        "value": "12px",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:59"
+        }
+      },
+      "4": {
+        "value": "16px",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:59"
+        }
+      },
+      "5": {
+        "value": "24px",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:60"
+        }
+      },
+      "6": {
+        "value": "40px",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:60"
+        }
+      },
+      "7": {
+        "value": "64px",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:60"
+        }
+      },
+      "8": {
+        "value": "96px",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:60"
+        }
+      }
+    },
+    "containerMax": {
+      "value": "1400px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:63"
+      }
+    },
+    "navHeight": {
+      "value": "68px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:63"
+      }
+    },
+    "breakpoints": {
+      "keyboardHint": {
+        "value": 1500,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:@media",
+          "note": "1 rules at 1500px"
+        }
+      },
+      "wide": {
+        "value": 1180,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:@media",
+          "note": "1 rules at 1180px"
+        }
+      },
+      "tablet": {
+        "value": 900,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:@media",
+          "note": "5 rules at 900px"
+        }
+      },
+      "phone": {
+        "value": 600,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:@media",
+          "note": "4 rules at 600px"
+        }
+      }
+    },
+    "grids": {
+      "two": {
+        "value": {
+          "columns": 2,
+          "gap": "var(--s-6)"
+        },
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:.grid-2"
+        }
+      },
+      "three": {
+        "value": {
+          "columns": 3,
+          "gap": "var(--s-6)"
+        },
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:.grid-3"
+        }
+      }
+    },
+    "radii": {
+      "base": {
+        "value": "0",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:63"
+        }
+      }
+    },
+    "borders": {
+      "hair": {
+        "value": "1px solid var(--c-line-soft)",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:.rule"
+        }
+      },
+      "visible": {
+        "value": "1px solid var(--c-line)",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:.tbl-wrap"
+        }
+      },
+      "accent": {
+        "value": "2px solid var(--c-gold)",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:.takeaway"
+        }
+      }
+    },
+    "shadows": {
+      "float": {
+        "value": "0 30px 80px -30px #000",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:500",
+          "note": "literal in a rule; no shadow token existed"
+        }
+      },
+      "raised": {
+        "value": "0 10px 34px rgba(0,0,0,.55)",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:835",
+          "note": "literal in a rule; no shadow token existed"
+        }
+      },
+      "overlay": {
+        "value": "0 12px 36px rgba(0,0,0,.5)",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:853",
+          "note": "literal in a rule; no shadow token existed"
+        }
+      },
+      "modal": {
+        "value": "0 26px 70px rgba(0,0,0,.66)",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:867",
+          "note": "literal in a rule; no shadow token existed"
+        }
+      }
+    },
+    "zIndex": {
+      "rail": {
+        "value": 60,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:.scroll-rail"
+        }
+      },
+      "chat": {
+        "value": 70,
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:.chat-fab"
+        }
+      }
+    }
+  },
+  "motion": {
+    "durations": {
+      "base": {
+        "value": ".2s",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:64"
+        }
+      }
+    },
+    "easings": {
+      "base": {
+        "value": "cubic-bezier(.2,.8,.3,1)",
+        "source": {
+          "kind": "inferred",
+          "ref": "site.css:64"
+        }
+      }
+    },
+    "reducedMotion": {
+      "value": "disable-all",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:@media (prefers-reduced-motion:reduce)"
+      }
+    }
+  },
+  "focus": {
+    "outline": {
+      "value": "1px solid var(--c-gold)",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css::focus-visible"
+      }
+    },
+    "offset": {
+      "value": "3px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css::focus-visible"
+      }
+    }
+  },
+  "components": {
+    "button": {
+      "variants": ["solid", "ghost", "sm"],
+      "states": ["hover", "focus-visible", "disabled"]
+    },
+    "rule": {
+      "variants": ["hair", "gold", "gold-thin"],
+      "states": []
+    },
+    "table": {
+      "variants": ["compare", "price"],
+      "states": []
+    },
+    "pill": {
+      "variants": ["live", "beta", "wip"],
+      "states": []
+    },
+    "monogram": {
+      "variants": ["default", "sm"],
+      "states": ["hover"]
+    }
+  },
+  "images": {
+    "hero": {
+      "ratio": "16:9",
+      "note": "hero-1600 is 1600×900; served via <picture> with 760/1100/1600 widths"
+    },
+    "og": {
+      "ratio": "1.91:1",
+      "note": "1200×630"
+    },
+    "portrait": {
+      "ratio": "4:5",
+      "note": "desk-900 is 900×1129"
+    },
+    "cta": {
+      "ratio": "2.6:1",
+      "note": "cta-1600 is 1600×612"
+    }
+  },
+  "accessibility": {
+    "contrastPairs": [
+      {
+        "foreground": "textPrimary",
+        "background": "canvas",
+        "use": "body-text"
+      },
+      {
+        "foreground": "textBody",
+        "background": "canvas",
+        "use": "body-text"
+      },
+      {
+        "foreground": "textBody",
+        "background": "surfaceRaised",
+        "use": "body-text"
+      },
+      {
+        "foreground": "textMuted",
+        "background": "canvas",
+        "use": "caption-only"
+      },
+      {
+        "foreground": "accent",
+        "background": "canvas",
+        "use": "body-text"
+      },
+      {
+        "foreground": "accentContrast",
+        "background": "accent",
+        "use": "body-text"
+      },
+      {
+        "foreground": "error",
+        "background": "canvas",
+        "use": "body-text"
+      },
+      {
+        "foreground": "success",
+        "background": "canvas",
+        "use": "ui-component"
+      },
+      {
+        "foreground": "border",
+        "background": "canvas",
+        "use": "decorative"
+      },
+      {
+        "foreground": "controlBorder",
+        "background": "surfaceRaised",
+        "use": "ui-component"
+      },
+      {
+        "foreground": "controlBorder",
+        "background": "canvas",
+        "use": "ui-component"
+      }
+    ],
+    "notes": [
+      "Display face (Bodoni Moda) only at ≥28px: hairlines vanish on the dark ground below that.",
+      "Uppercase only on labels/buttons/table heads; headings are sentence case.",
+      "prefers-reduced-motion disables typewriter, counters, parallax, magnetic buttons and sheen.",
+      "Focus ring is a 1px accent outline offset 3px; never removed.",
+      "Hairline dividers (--c-line, --c-line-soft) are decorative and exempt from non-text contrast; form-control borders use controlBorder (≥3:1)."
+    ]
+  },
+  "legacyVars": {
+    "--c-bg": {
+      "value": "#060504",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:13"
+      }
+    },
+    "--c-surface-1": {
+      "value": "#0E0C09",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:14"
+      }
+    },
+    "--c-surface-2": {
+      "value": "#191510",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:15"
+      }
+    },
+    "--c-surface-3": {
+      "value": "#241F17",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:16"
+      }
+    },
+    "--c-line": {
+      "value": "#443C2E",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:17"
+      }
+    },
+    "--c-line-soft": {
+      "value": "#272219",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:18"
+      }
+    },
+    "--c-text": {
+      "value": "#F7F5F0",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:19"
+      }
+    },
+    "--c-text-2": {
+      "value": "#C9C3B6",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:20"
+      }
+    },
+    "--c-text-3": {
+      "value": "#948D7B",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:21"
+      }
+    },
+    "--c-gold": {
+      "value": "#CFAF67",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:22"
+      }
+    },
+    "--c-gold-light": {
+      "value": "#EBD59F",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:23"
+      }
+    },
+    "--c-gold-dark": {
+      "value": "#8A6A30",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:24"
+      }
+    },
+    "--c-on-gold": {
+      "value": "#0A0806",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:25"
+      }
+    },
+    "--c-alert": {
+      "value": "#D06A60",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:26"
+      }
+    },
+    "--c-live": {
+      "value": "#7DAE8A",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:27"
+      }
+    },
+    "--font-display": {
+      "value": "\"Bodoni Moda\", Didot, \"Times New Roman\", serif",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:32"
+      }
+    },
+    "--font-text": {
+      "value": "\"Jost\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:33"
+      }
+    },
+    "--fs-d1": {
+      "value": "clamp(2.125rem, 4.6vw, 4.25rem)",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:36"
+      }
+    },
+    "--fs-d2": {
+      "value": "clamp(1.75rem, 3.2vw, 2.875rem)",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:37"
+      }
+    },
+    "--fs-d3": {
+      "value": "clamp(1.5rem, 2.4vw, 2.125rem)",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:38"
+      }
+    },
+    "--fs-h3": {
+      "value": "1.25rem",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:39"
+      }
+    },
+    "--fs-h4": {
+      "value": "1.125rem",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:40"
+      }
+    },
+    "--fs-lead": {
+      "value": "1.125rem",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:41"
+      }
+    },
+    "--fs-body": {
+      "value": "1.0625rem",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:42"
+      }
+    },
+    "--fs-sm": {
+      "value": "0.9375rem",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:43"
+      }
+    },
+    "--fs-cap": {
+      "value": "0.8125rem",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:44"
+      }
+    },
+    "--fs-label": {
+      "value": "0.6875rem",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:45"
+      }
+    },
+    "--fs-n1": {
+      "value": "clamp(2.75rem, 4.6vw, 3.875rem)",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:48"
+      }
+    },
+    "--fs-n2": {
+      "value": "2.125rem",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:49"
+      }
+    },
+    "--fs-n3": {
+      "value": "1.375rem",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:50"
+      }
+    },
+    "--fs-n4": {
+      "value": "0.875rem",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:51"
+      }
+    },
+    "--w-reg": {
+      "value": "400",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:54"
+      }
+    },
+    "--w-med": {
+      "value": "500",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:54"
+      }
+    },
+    "--w-semi": {
+      "value": "600",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:54"
+      }
+    },
+    "--lh-tight": {
+      "value": "1.1",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:55"
+      }
+    },
+    "--lh-snug": {
+      "value": "1.4",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:55"
+      }
+    },
+    "--lh-base": {
+      "value": "1.72",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:55"
+      }
+    },
+    "--ls-label": {
+      "value": ".14em",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:56"
+      }
+    },
+    "--ls-display": {
+      "value": ".01em",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:56"
+      }
+    },
+    "--s-1": {
+      "value": "4px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:59"
+      }
+    },
+    "--s-2": {
+      "value": "8px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:59"
+      }
+    },
+    "--s-3": {
+      "value": "12px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:59"
+      }
+    },
+    "--s-4": {
+      "value": "16px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:59"
+      }
+    },
+    "--s-5": {
+      "value": "24px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:60"
+      }
+    },
+    "--s-6": {
+      "value": "40px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:60"
+      }
+    },
+    "--s-7": {
+      "value": "64px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:60"
+      }
+    },
+    "--s-8": {
+      "value": "96px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:60"
+      }
+    },
+    "--nav-h": {
+      "value": "68px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:63"
+      }
+    },
+    "--maxw": {
+      "value": "1400px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:63"
+      }
+    },
+    "--radius": {
+      "value": "0",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:63"
+      }
+    },
+    "--dur": {
+      "value": ".2s",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:64"
+      }
+    },
+    "--ease": {
+      "value": "cubic-bezier(.2,.8,.3,1)",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:64"
+      }
+    },
+    "--chat-w": {
+      "value": "392px",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:828"
+      }
+    },
+    "--chat-inset": {
+      "value": "var(--s-5)",
+      "source": {
+        "kind": "inferred",
+        "ref": "site.css:828"
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+LICENCE
+=======
+Search Evidence Suite
+(c) 2026 Syed.ai. All rights reserved.
+
+
+WHAT YOU ARE BUYING
+-------------------
+An annual licence for one installation, for use by you and your clients.
+
+  - Install it on your own server, as many times as your own team needs.
+  - Run audits for your clients and give them the reports.
+  - Rebrand the reports you produce with it.
+
+Not permitted: reselling or redistributing the tool itself, as your own
+product or under another name.
+
+
+THE LICENCE MARKER, PLAINLY
+---------------------------
+Enter your key from the sidebar. An unlicensed copy shows a marker there.
+
+The check runs in your browser, on your machine. It is not enforcement and
+is not presented as any: anyone who wants to remove it can, and no feature
+is gated behind it. What it does is make an unlicensed deployment visible
+to the staff and clients who open the page, which is what matters to a
+business that could be asked about its software licensing.
+
+This is how licensed browser software works generally -- AG Grid and Kendo
+UI both ship licensed JavaScript that runs entirely in the customer's
+browser, and neither blocks; an invalid key shows a watermark and warns in
+the console. The product keeps working.
+
+The key carries two check characters so a typo is caught and reported as a
+typo. That is deliberately not cryptographic and is not claimed to be.
+
+
+RENEWAL
+-------
+The licence covers the year it was issued. Past that the marker says the
+licence has lapsed and the tool keeps working exactly as before -- software
+that stops on a date costs someone their Monday, and that is not a thing we
+will do to you. Renewal is a billing conversation.
+
+
+SUPPORT
+-------
+Bug reports and questions about your own installation, by email, during the
+licence year. Not included: SEO consulting, custom development, or work on
+your clients' sites. Those are separate engagements.
+
+
+NO WARRANTY
+-----------
+The tool reports what your exports and Google's API contain. It does not
+guarantee rankings, traffic or revenue, and every stage is explicit about
+what it measured and what it could not. Supplied as is.
+
+
+CONTACT
+-------
+Copyright holder and publisher:  Syed.ai
+Licences and support:            websitecontentstrategy.com

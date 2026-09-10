@@ -1,0 +1,113 @@
+.blk-footer {
+  background: var(--color-canvas);
+  border-block-start: 1px solid var(--color-border-soft);
+  padding-block: var(--s-7);
+}
+
+.blk-footer__in {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+}
+
+.blk-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--s-6) var(--s-5);
+}
+
+.blk-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  align-items: flex-start;
+}
+
+.blk-footer__h {
+  font-size: var(--fs-label);
+  font-weight: var(--w-semi);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  line-height: var(--lh-snug);
+  margin: 0;
+}
+
+.blk-footer__col a {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  border-block-end: 1px solid transparent;
+  transition:
+    color var(--dur),
+    border-color var(--dur);
+}
+
+.blk-footer__col a:hover {
+  color: var(--color-text-primary);
+  border-block-end-color: var(--color-border);
+}
+
+.blk-footer__offices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.blk-footer__office-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-5);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.blk-footer__office {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-inline-start: 2px solid var(--color-accent-dark);
+  padding-inline-start: var(--s-4);
+}
+
+.blk-footer__city {
+  font-size: var(--fs-h4);
+  font-weight: var(--w-med);
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.blk-footer__region {
+  font-size: var(--fs-cap);
+  line-height: 1.5;
+  color: var(--color-text-body);
+}
+
+.blk-footer__hours {
+  font-size: var(--fs-label);
+  font-weight: var(--w-med);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-block-start: 2px;
+}
+
+.blk-footer__btm {
+  display: flex;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  align-items: center;
+  padding-block-start: var(--s-5);
+  border-block-start: 1px solid var(--color-border-soft);
+}
+
+.blk-footer__copy {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .blk-footer__office-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

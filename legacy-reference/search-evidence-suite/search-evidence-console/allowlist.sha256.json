@@ -1,0 +1,24 @@
+{
+  "source": "proxy.php $ALLOWED_HOSTS (lines 48–87 of the pristine archive)",
+  "note": "SHA-256 of each non-owner host, lowercased. The literals were redacted before the repository was first pushed (ADR-027); the pristine archive is held by the owner offline. The residue scanner hashes candidate hosts and compares against this list.",
+  "count": 17,
+  "sha256": [
+    "03c40ce154bf10ea5a8eb735509c9e9661e856de104e6e854c2d1e410717eac6",
+    "11721d8c4366e701583724ddf8f53775050de4714353f93816db8fc00a128314",
+    "2a75566674f29fe7b8979ab27764d5b54339621aab24ce2c5c82c3b21125f126",
+    "31d5c1d1d7c3087aff4e6ced26bf21031f329c7709958937d215660fc9ee964a",
+    "512e5c61df53989a963047b4ae2dc25abd9e7c3f244893cc4a492da19846451e",
+    "576dc903c1bdfddbdd0a3849edc6a040ee5846662556234bb8f0eee4a8b956c9",
+    "5eac0b3b275a540973cb8b29fa8ffdd8d9e584d7e4613139870448c7cd14888c",
+    "60a27142769fcdd2d8b4875a07a0ee6828fac7884951e19d23a1daf8adb0ebcd",
+    "6e5bfd6ae6242fe16cce5f1c44dc08140335e49b5bf0cecd95e38558d6b5d3b9",
+    "88fd7071c1689cc38b216d7223814bdc00cfb120b3a3776db64d317e20119c48",
+    "a1f629c1068fc1a90d6c8cbf91a63b429e17a6e9bc5ecf94878b2ff676e4f238",
+    "ad24a623cb7514c1e080bfa44ac9756ef6b332ab5e0b54e01f4442d8f150700b",
+    "b1af15a3e0e68d9d67f21d89004055f95ef68f049cefee6c8778ab180170d936",
+    "b9a96550764ab5687b1fb6e41ca9b31e6e593067c1d82ac005f9391528d43585",
+    "d27aa7b67a314a3502d1512328d129566acd52502db682ed4117bba3d69a684b",
+    "e400faa2ba1baa22b351d53ce7c2c5e20ce4356d37a22662c9d2b92642bb079d",
+    "f2c4f6d3546c08f6352a0bddf534d27b655052fbb2569de824f3615c75368027"
+  ]
+}

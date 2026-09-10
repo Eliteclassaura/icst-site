@@ -1,0 +1,21 @@
+{
+  "contract": "factory.seo/deploy-event",
+  "contract_version": "1.0.0",
+  "produced_by": {
+    "system": "factory-app",
+    "version": "0.1.0"
+  },
+  "produced_at": "2026-09-05T16:00:00Z",
+  "project_id": "client-example",
+  "run_id": "01J7Q0X9Z3K4M5N6P7Q8R9S0TV",
+  "inputs": [],
+  "payload": {
+    "environment": "production",
+    "base_url": "https://client-example.test",
+    "blueprint_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "git_sha": "88f5469",
+    "migrations_applied": ["20260920_101010_client_initial"],
+    "status": "deployed",
+    "previous_git_sha": null
+  }
+}

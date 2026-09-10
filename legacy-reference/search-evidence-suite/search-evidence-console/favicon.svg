@@ -1,0 +1,21 @@
+<!-- Search Evidence Suite — app icon
+     (c) 2026 Syed.ai. All rights reserved.
+
+     The old icon was a magnifying glass with a bar chart inside it: three
+     ideas competing inside sixteen pixels, which at favicon size resolved
+     into a grey smudge. This is one idea — a rising measurement — and it
+     survives being 16px in a browser tab, which is the only size that
+     actually matters.
+
+     The corner radius is 22.4% of the width, which is the proportion Apple
+     uses for a rounded app icon. The accent dot is the same blue as the
+     interface accent, so the icon and the app are visibly the same product. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Search Evidence Suite">
+  <rect width="64" height="64" rx="14.3" fill="#0e3b2e"/>
+  <g fill="#ffffff">
+    <rect x="14" y="38" width="7.5" height="12" rx="3.2"/>
+    <rect x="28.25" y="30" width="7.5" height="20" rx="3.2"/>
+    <rect x="42.5" y="22" width="7.5" height="28" rx="3.2"/>
+  </g>
+  <circle cx="46.25" cy="15.5" r="5" fill="#4ab58d"/>
+</svg>

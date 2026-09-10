@@ -1,0 +1,249 @@
+{
+  "$id": "https://factory.local/schemas/evidence-bundle.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "type": "string",
+      "const": "factory.seo/evidence-bundle"
+    },
+    "contract_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "produced_by": {
+      "type": "object",
+      "properties": {
+        "system": {
+          "type": "string",
+          "enum": ["ogcs", "ses-adapter", "factory-ci", "wordpress-import", "decisions-apply", "factory-app"]
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["system", "version"]
+    },
+    "produced_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "artefact": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": ["artefact", "sha256"]
+      }
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "source_format": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_version": {
+          "type": ["string", "number"]
+        },
+        "measurement_window": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "string"
+            },
+            "end": {
+              "type": "string"
+            },
+            "basis": {
+              "type": "string"
+            }
+          },
+          "required": ["start", "end"],
+          "additionalProperties": {}
+        },
+        "coverage": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": ["boolean", "number"]
+          }
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "canonicalized_url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "gsc": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "provenance": {
+                        "type": "string",
+                        "enum": ["measured", "imported", "recorded", "estimated", "generated", "unknown"]
+                      }
+                    },
+                    "required": ["provenance"],
+                    "additionalProperties": {}
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "backlinks": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "provenance": {
+                        "type": "string",
+                        "enum": ["measured", "imported", "recorded", "estimated", "generated", "unknown"]
+                      }
+                    },
+                    "required": ["provenance"],
+                    "additionalProperties": {}
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "crawl": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "provenance": {
+                        "type": "string",
+                        "enum": ["measured", "imported", "recorded", "estimated", "generated", "unknown"]
+                      }
+                    },
+                    "required": ["provenance"],
+                    "additionalProperties": {}
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "surfer": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "provenance": {
+                        "type": "string",
+                        "enum": ["measured", "imported", "recorded", "estimated", "generated", "unknown"]
+                      }
+                    },
+                    "required": ["provenance"],
+                    "additionalProperties": {}
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ai_visibility": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "provenance": {
+                        "type": "string",
+                        "enum": ["measured", "imported", "recorded", "estimated", "generated", "unknown"]
+                      }
+                    },
+                    "required": ["provenance"],
+                    "additionalProperties": {}
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": ["url"],
+            "additionalProperties": {}
+          }
+        },
+        "queries": {
+          "type": "array",
+          "items": {}
+        },
+        "page_query_ownership": {
+          "type": "array",
+          "items": {}
+        },
+        "findings": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {}
+            },
+            {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {
+                "type": "array",
+                "items": {}
+              }
+            }
+          ]
+        },
+        "action_queue": {
+          "type": "array",
+          "items": {}
+        },
+        "run_history_reference": {}
+      },
+      "required": ["source_format", "source_version", "measurement_window", "coverage", "pages"],
+      "additionalProperties": {}
+    }
+  },
+  "required": [
+    "contract",
+    "contract_version",
+    "produced_by",
+    "produced_at",
+    "project_id",
+    "run_id",
+    "inputs",
+    "payload"
+  ]
+}

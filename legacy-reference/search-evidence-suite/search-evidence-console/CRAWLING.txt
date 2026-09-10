@@ -1,0 +1,107 @@
+SWITCHING ON THE CRAWLER
+========================
+(c) 2026 Syed.ai. All rights reserved.
+
+There are two ways to give the crawler a way out to the internet, and
+both are fully supported:
+
+  SHARED HOSTING -- proxy.php, described in this file. Upload it next to
+  index.html, add your domains to its allowlist, done. Needs PHP 7.4+
+  with the cURL extension, which is standard on every host worth using.
+
+  A VPS -- the companion server (sec-server) does the same job natively,
+  with the same protections, and does not need PHP. If you run that, do
+  not also upload proxy.php: two implementations of one endpoint drift
+  apart, and only one of them can be the one you patched.
+
+Either way the protections are the same. Both resolve the hostname, check
+every address it answers with against the private and reserved ranges, and
+pin the connection to the address they checked so the name cannot resolve
+to something else a moment later. Both re-check every redirect hop. Both
+refuse rather than guess when a name will not resolve.
+
+Why a proxy is needed at all
+----------------------------
+Browsers refuse to let a page on yourdomain.com read the HTML of
+clientsite.com. That is the same-origin policy, and it is not something
+the console can work around. So there are three routes, and the console
+works out which one is open every time you open stage 3:
+
+  proxy    proxy.php answered next to index.html. Any domain in its
+           allowlist can be crawled. This is the full experience.
+  direct   No proxy, but the console is served from the same domain you
+           are auditing. It can crawl that one domain.
+  manual   Neither. Nothing is fetched. You paste sitemap XML on stage 3
+           and drop a Screaming Frog export in at stage 2 instead, and
+           everything downstream still works.
+
+
+Setting up the proxy
+--------------------
+1. Upload proxy.php next to index.html. Nothing happens yet: it refuses
+   every request until you configure it.
+
+2. Open proxy.php and edit $ALLOWED_HOSTS:
+
+       $ALLOWED_HOSTS = [
+           'yourdomain.com',
+           'clientsite.co.uk',
+       ];
+
+   Subdomains of each entry are included. An empty array means the proxy
+   is off, which is how it ships.
+
+3. Protect it. Anyone who finds the URL of proxy.php can otherwise make
+   your server fetch the domains on your allowlist -- not anything else,
+   and not fast, but still your bandwidth.
+
+   The easy and strong way, on shared hosting, is to password-protect
+   the whole folder: on Hostinger that is hPanel > Advanced >
+   Directory Privacy. The browser then sends your credentials with the
+   console's own requests, so the app keeps working and a stranger gets
+   a password box.
+
+   There is also a $SECRET in proxy.php. It works, but the console has
+   no field for a proxy key, so using it means editing one line in
+   index.html -- find PROXY_URL = 'proxy.php' and make it
+   'proxy.php?key=YOURSECRET'. The folder password is the better answer
+   for almost everyone.
+
+4. Reload the console, open stage 3 and press Re-check. It should say
+   "Proxy available".
+
+
+What the proxy will not do
+--------------------------
+  - Fetch a host that is not in your allowlist.
+  - Fetch anything that is not http or https.
+  - Fetch private or reserved IP addresses. Every hostname is resolved
+    and checked first, so it cannot be pointed at 127.0.0.1, 192.168.x.x,
+    169.254.169.254 or any other internal address.
+  - Follow a redirect off the allowlist. The hop is recorded and stopped.
+  - Return more than 3 MB, or spend more than 12 seconds on one request.
+
+Those limits are constants at the top of the file if you need to change
+them. Raise them knowingly: they are what stops the file becoming an open
+proxy.
+
+
+Crawl settings
+--------------
+Page limit          starts at 200. Raise it for a full site. Every page is
+                    one request through your server, so be considerate.
+Seed from sitemap   on by default, which is faster and finds orphans,
+                    because anything in the sitemap that nothing links to
+                    is then visible as an orphan.
+Obey robots.txt     on by default. Turning it off is for auditing your own
+                    staging site, not for crawling someone else's.
+
+The crawler runs four requests at a time, skips assets, and follows
+internal links breadth-first so click depth is measured correctly.
+
+
+Crawling a client site you do not host
+--------------------------------------
+Add their domain to $ALLOWED_HOSTS on your own install. You are fetching
+public pages the same way any crawler does, at a lower rate than most.
+Keep the page limit sensible and crawl outside their peak hours.

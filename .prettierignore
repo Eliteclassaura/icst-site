@@ -1,0 +1,15 @@
+legacy-reference/
+docs/baselines/
+docs/discovery/
+docs/*.html
+spike/
+pnpm-lock.yaml
+**/payload-types.ts
+**/migrations/*.json
+.next/
+node_modules/
+**/src/design/generated/
+**/public/fonts/
+.claude/skills/
+docs/inputs/ogcs-integration-pack-v1/
+apps/*/next-env.d.ts

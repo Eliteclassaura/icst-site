@@ -1,0 +1,41 @@
+{
+  "generatedBy": "tools/scripts/install-skills.mjs",
+  "skills": [
+    {
+      "name": "ui-ux-pro-max",
+      "package": "ui-ux-pro-max-cli@2.15.0",
+      "sha256": "45b4337e65e7100b7650cb832d9d9842cc11583e775f8308ab53de46e994097e",
+      "adopted": "design skill + search data/scripts",
+      "ignored": "ui-styling, design-system (Tailwind/shadcn), slides, banner-design, brand; scripts/{cip,icon,logo} (call Gemini API)"
+    },
+    {
+      "name": "ux-ui-agent-skills",
+      "package": "ux-ui-agent-skills@2.5.1",
+      "sha256": "41ecbc37e80a1c7f5595f0caedd11e1fc19927ff9d9f79b19bd252f6bc7e8094",
+      "adopted": "persona, accessibility, tokens, taste, workflows, scripts",
+      "ignored": "frameworks/, design-systems/library, examples/, templates/"
+    },
+    {
+      "name": "frontend-design",
+      "source": "https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md",
+      "sha256": "d75c1f4ccfe5cacb26626e18df2fad042c6da8151b062e1a3e275ba856902e28",
+      "adopted": "design-planning + critique process",
+      "note": "anti-pattern list is advisory; design-contract wins (ADR-021)"
+    },
+    {
+      "name": "fixers",
+      "status": "pending",
+      "note": "Fixing Accessibility / Fixing Motion+Performance / Baseline UI — listed in the Frontend Design Toolkit; add when their canonical repos are confirmed (docs/build-skills.md)."
+    }
+  ],
+  "firstParty": {
+    "design-change/SKILL.md": "52ea1f87886a036f0acbc5c27c4f46672a5422a51ef70adbf8f3685deaeff2b8",
+    "design-change/policy.json": "6a93a5aa944957569b9f505e7b6af5a885d7aeea8c68360f005dd9a0ab5b2551",
+    "design-pack/SKILL.md": "9d055c79569d1fd1a422456f3290462da01f2c79443c153cc92b0a05380893d8",
+    "design-pack/policy.json": "3505c1c4217855d944eb4f2d1c5c3a6f3814d721909fb978e125b46fd8154f8a",
+    "design-pull/SKILL.md": "0ca45171b7623fdff56ece46ce6480f79693cba4ea57c775f47bae699a0dc9f5",
+    "design-pull/policy.json": "ef230d11dac9b67584e648662e5de433e86087712b457718d674585e39fef20c",
+    "design-sync/SKILL.md": "4002f85421e329a226ef1d27138b2b96701fa3b5bcdca7be95db9c4dc6134a36",
+    "design-sync/policy.json": "6291047d3ae6f4a85066b918968ed9693901a0cdce5e908f3376df58f7da7a22"
+  }
+}

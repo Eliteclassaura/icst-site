@@ -1,0 +1,24 @@
+{
+  "name": "@factory/quality-gates",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "scan": "tsx src/cli.ts scan",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src test --max-warnings 0",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "fast-glob": "^3.3.3"
+  },
+  "devDependencies": {
+    "@factory/eslint-config": "workspace:*",
+    "@types/node": "^22.15.0",
+    "tsx": "^4.20.0",
+    "vitest": "5.0.0"
+  }
+}

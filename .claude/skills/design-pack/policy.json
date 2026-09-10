@@ -1,0 +1,14 @@
+{
+  "trust": "first-party",
+  "executes": "none",
+  "rationale": "Instructions only. The pack is produced by a repository script and published through the host's own artifact tool; the skill contributes no executable code (ADR-030 §3).",
+  "allowedCommands": ["pnpm preview:pack", "pnpm design:gates", "pnpm design:bundle"],
+  "writes": ["docs/content-verification-ledger.md"],
+  "reads": ["apps/*/design/packs/**"],
+  "refuses": [
+    "publishing a pack with blocking findings",
+    "publishing a pack whose residue scan failed",
+    "making a pack public",
+    "hand-editing generated pack files"
+  ]
+}

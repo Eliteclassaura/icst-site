@@ -1,0 +1,11 @@
+# This folder holds notes and templates, never anything the public should read.
+# The rules in the parent .htaccess already deny .md and .example.php by
+# extension; this denies the whole directory, which is one fewer thing to think
+# about if a file with a different extension ever lands here.
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>

@@ -1,0 +1,53 @@
+{
+ "pages": 37,
+ "withSchema": 30,
+ "invalid": 0,
+ "coverage": 0.8108108108108109,
+ "types": [
+  {
+   "type": "Service",
+   "count": 30
+  },
+  {
+   "type": "BreadcrumbList",
+   "count": 30
+  }
+ ],
+ "without": [
+  {
+   "url": "example.com/contact",
+   "raw": "https://example.com/contact",
+   "title": "Contact | Example water"
+  },
+  {
+   "url": "example.com/about",
+   "raw": "https://example.com/about",
+   "title": "About | Example water"
+  },
+  {
+   "url": "example.com/blog/post-5",
+   "raw": "https://example.com/blog/post-5",
+   "title": "Post 5 | Example water"
+  },
+  {
+   "url": "example.com/blog/post-6",
+   "raw": "https://example.com/blog/post-6",
+   "title": "Post 6 | Example water"
+  },
+  {
+   "url": "example.com/blog/post-15",
+   "raw": "https://example.com/blog/post-15",
+   "title": "Post 15 | Example water"
+  },
+  {
+   "url": "example.com/blog/post-16",
+   "raw": "https://example.com/blog/post-16",
+   "title": "Post 16 | Example water"
+  },
+  {
+   "url": "example.com/blog/post-25",
+   "raw": "https://example.com/blog/post-25",
+   "title": "Post 25 | Example water"
+  }
+ ]
+}

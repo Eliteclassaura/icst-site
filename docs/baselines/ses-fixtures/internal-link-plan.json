@@ -1,0 +1,162 @@
+{
+ "opportunities": [
+  {
+   "from": "example.com/blog/cooling-tower-maintenance-checklist",
+   "fromRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "fromTitle": "Cooling tower maintenance checklist | Example water",
+   "to": "example.com",
+   "toRaw": "https://example.com/",
+   "topic": "cooling tower maintenance suppliers",
+   "anchor": "cooling tower maintenance",
+   "context": "Cooling tower maintenance checklist typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8.",
+   "fromClicks": 80,
+   "fromInlinks": 14,
+   "targetHeadroom": 1547.1074786342951,
+   "targetInlinks": 11,
+   "score": 21.391952772042757
+  },
+  {
+   "from": "example.com/blog/legionella-testing-explained",
+   "fromRaw": "https://example.com/blog/legionella-testing-explained",
+   "fromTitle": "Legionella testing explained | Example water",
+   "to": "example.com/blog/what-does-water-treatment-cost",
+   "toRaw": "https://example.com/blog/what-does-water-treatment-cost",
+   "topic": "legionella testing maintenance",
+   "anchor": "legionella testing",
+   "context": "Legionella testing explained typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8.",
+   "fromClicks": 1247,
+   "fromInlinks": 4,
+   "targetHeadroom": 1733.418851478563,
+   "targetInlinks": 12,
+   "score": 20.327525863365082
+  },
+  {
+   "from": "example.com/blog/what-does-water-treatment-cost",
+   "fromRaw": "https://example.com/blog/what-does-water-treatment-cost",
+   "fromTitle": "What does water treatment cost | Example water",
+   "to": "example.com/services/cooling-tower-cleaning",
+   "toRaw": "https://example.com/services/cooling-tower-cleaning",
+   "topic": "water treatment checklist",
+   "anchor": "water treatment",
+   "context": "What does water treatment cost typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8.",
+   "fromClicks": 1460,
+   "fromInlinks": 12,
+   "targetHeadroom": 547.955849442998,
+   "targetInlinks": 12,
+   "score": 19.739498158109583
+  },
+  {
+   "from": "example.com/services/water-treatment",
+   "fromRaw": "https://example.com/services/water-treatment",
+   "fromTitle": "Industrial water treatment | Example water",
+   "to": "example.com/services/cooling-tower-cleaning",
+   "toRaw": "https://example.com/services/cooling-tower-cleaning",
+   "topic": "water treatment checklist",
+   "anchor": "water treatment",
+   "context": "Industrial water treatment typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8.",
+   "fromClicks": 580,
+   "fromInlinks": 18,
+   "targetHeadroom": 547.955849442998,
+   "targetInlinks": 12,
+   "score": 18.858224429650956
+  },
+  {
+   "from": "example.com/services/cooling-tower-cleaning",
+   "fromRaw": "https://example.com/services/cooling-tower-cleaning",
+   "fromTitle": "Cooling tower cleaning | Example water",
+   "to": "example.com",
+   "toRaw": "https://example.com/",
+   "topic": "cooling tower maintenance suppliers",
+   "anchor": "cooling tower",
+   "context": "Cooling tower cleaning typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8.",
+   "fromClicks": 202,
+   "fromInlinks": 12,
+   "targetHeadroom": 1547.1074786342951,
+   "targetInlinks": 11,
+   "score": 18.524951658950503
+  },
+  {
+   "from": "example.com",
+   "fromRaw": "https://example.com/",
+   "fromTitle": "Water treatment | Example water",
+   "to": "example.com/services/cooling-tower-cleaning",
+   "toRaw": "https://example.com/services/cooling-tower-cleaning",
+   "topic": "water treatment checklist",
+   "anchor": "water treatment",
+   "context": "Water treatment typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8.",
+   "fromClicks": 30,
+   "fromInlinks": 11,
+   "targetHeadroom": 547.955849442998,
+   "targetInlinks": 12,
+   "score": 13.352178923056316
+  }
+ ],
+ "orphanRescues": [
+  {
+   "url": "example.com/about",
+   "raw": "https://example.com/about",
+   "title": "About | Example water",
+   "depth": 1,
+   "clicks": 735,
+   "sources": []
+  },
+  {
+   "url": "example.com/contact",
+   "raw": "https://example.com/contact",
+   "title": "Contact | Example water",
+   "depth": 1,
+   "clicks": 239,
+   "sources": []
+  },
+  {
+   "url": "example.com/blog/post-5",
+   "raw": "https://example.com/blog/post-5",
+   "title": "Post 5 | Example water",
+   "depth": 3,
+   "clicks": 0,
+   "sources": []
+  },
+  {
+   "url": "example.com/blog/post-6",
+   "raw": "https://example.com/blog/post-6",
+   "title": "Post 6 | Example water",
+   "depth": 2,
+   "clicks": 0,
+   "sources": []
+  },
+  {
+   "url": "example.com/blog/post-15",
+   "raw": "https://example.com/blog/post-15",
+   "title": "Post 15 | Example water",
+   "depth": 2,
+   "clicks": 0,
+   "sources": []
+  },
+  {
+   "url": "example.com/blog/post-16",
+   "raw": "https://example.com/blog/post-16",
+   "title": "Post 16 | Example water",
+   "depth": 1,
+   "clicks": 0,
+   "sources": []
+  },
+  {
+   "url": "example.com/blog/post-25",
+   "raw": "https://example.com/blog/post-25",
+   "title": "Post 25 | Example water",
+   "depth": 2,
+   "clicks": 0,
+   "sources": []
+  }
+ ],
+ "overLinked": [],
+ "stats": {
+  "opportunities": 6,
+  "pagesWithText": 30,
+  "targets": 10,
+  "orphans": 7,
+  "medianLinks": 16,
+  "unlinkedTargets": 3
+ },
+ "hasText": true
+}

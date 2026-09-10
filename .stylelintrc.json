@@ -1,0 +1,43 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-use-logical"],
+  "rules": {
+    "csstools/use-logical": ["always", { "except": ["float", "clear", "resize"] }],
+    "selector-class-pattern": null,
+    "custom-property-pattern": null,
+    "no-descending-specificity": null,
+    "declaration-property-value-no-unknown": null,
+    "color-no-hex": true,
+    "declaration-property-value-disallowed-list": {
+      "/^(color|background|background-color|border|border-color|fill|stroke|outline|outline-color|box-shadow)$/": [
+        "/^#[0-9a-fA-F]{3,8}$/",
+        "/^rgb/",
+        "/^hsl/",
+        "/^oklch/"
+      ]
+    },
+    "comment-empty-line-before": null,
+    "rule-empty-line-before": null,
+    "media-feature-range-notation": null,
+    "value-keyword-case": null,
+    "font-family-name-quotes": null,
+    "property-no-vendor-prefix": null,
+    "import-notation": null,
+    "alpha-value-notation": null,
+    "color-function-notation": null,
+    "shorthand-property-no-redundant-values": null,
+    "length-zero-no-unit": null,
+    "number-max-precision": null,
+    "selector-not-notation": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "at-rule-no-unknown": null
+  },
+  "ignoreFiles": [
+    "**/src/design/generated/**",
+    "**/node_modules/**",
+    "**/.next/**",
+    "legacy-reference/**",
+    "spike/**",
+    "docs/**"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "contract": "factory.seo/qa-report",
+  "contract_version": "1.0.0",
+  "produced_by": {
+    "system": "factory-ci",
+    "version": "b500d15"
+  },
+  "produced_at": "2026-09-06T00:46:26.280Z",
+  "project_id": "syed-ai",
+  "run_id": "01M1T2WJZ897Q1NZ56DE8ECKSG",
+  "inputs": [
+    {
+      "artefact": "syed-ai.blueprint.json",
+      "sha256": "e4df379cfd98cfc635b318759cc13541cd091f8a1fe92699d257131718ac28bb"
+    },
+    {
+      "artefact": "docs/baselines/seo-baseline.json",
+      "sha256": "06068519ec6b1641156f186eecc15be21cce435fdb3f1a6b5f07116b71679e1b"
+    }
+  ],
+  "payload": {
+    "environment": "local",
+    "base_url": "http://localhost:3000",
+    "baseline": {
+      "kind": "frozen-old-site",
+      "sha256": "06068519ec6b1641156f186eecc15be21cce435fdb3f1a6b5f07116b71679e1b"
+    },
+    "blueprint_sha256": "e4df379cfd98cfc635b318759cc13541cd091f8a1fe92699d257131718ac28bb",
+    "page_decisions_run_id": null,
+    "result": "pass",
+    "blocking": [],
+    "advisory": [
+      {
+        "url": "/",
+        "check": "word_count",
+        "expected": 5191,
+        "actual": 7251,
+        "note": "39.7 %"
+      }
+    ],
+    "coverage": {
+      "routes_checked": 5,
+      "protect_urls_missing": 0
+    }
+  }
+}

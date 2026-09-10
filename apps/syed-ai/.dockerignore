@@ -1,0 +1,34 @@
+# Build context hygiene (C8). The production image must contain no environment file, no legacy archive,
+# no test fixtures and no local state — CI asserts this on every build.
+node_modules
+**/node_modules
+.next
+**/.next
+.turbo
+**/.turbo
+.git
+.env
+.env.*
+!.env.example
+
+# Never in an image: the preserved legacy archive (read-only reference, redacted but private — ADR-027).
+legacy-reference
+
+# Tests, fixtures and local tooling have no place in a runtime image.
+**/test
+**/e2e
+**/*.test.ts
+**/*.spec.ts
+**/test-results
+**/playwright-report
+**/fixtures
+docs
+spike
+tools/design-bundle
+**/design/ds-bundle*
+**/design/packs
+**/handoff
+media
+*.log
+*.zip
+*.tgz

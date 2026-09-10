@@ -1,0 +1,54 @@
+{
+  "contract": "factory.seo/qa-report",
+  "contract_version": "1.0.0",
+  "produced_by": {
+    "system": "factory-ci",
+    "version": "0.1.0"
+  },
+  "produced_at": "2026-09-05T16:00:00Z",
+  "project_id": "h2o-cooling",
+  "run_id": "01J7Q0X9Z3K4M5N6P7Q8R9S0TV",
+  "inputs": [
+    {
+      "artefact": "apps/h2o-cooling/content/h2o-cooling.blueprint.json",
+      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    }
+  ],
+  "payload": {
+    "environment": "staging",
+    "base_url": "https://staging.h2ocooling.com",
+    "baseline": {
+      "kind": "frozen-old-site",
+      "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    },
+    "blueprint_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "page_decisions_run_id": "01J7Q0X9Z3K4M5N6P7Q8R9S0TV",
+    "result": "fail",
+    "blocking": [
+      {
+        "url": "/services/cooling-tower-repair/",
+        "check": "canonical",
+        "expected": "/services/cooling-tower-repair/",
+        "actual": "/services/cooling-tower-repair"
+      }
+    ],
+    "advisory": [
+      {
+        "url": "/",
+        "check": "word_count",
+        "expected": 1820,
+        "actual": 2010,
+        "delta_pct": 10.4
+      }
+    ],
+    "coverage": {
+      "routes_checked": 412,
+      "routes_in_decisions": 412,
+      "protect_urls_missing": 0
+    },
+    "e2e": {
+      "passed": 91,
+      "failed": 0
+    }
+  }
+}

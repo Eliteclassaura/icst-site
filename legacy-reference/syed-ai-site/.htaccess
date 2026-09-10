@@ -1,0 +1,129 @@
+# ── syed.ai — Hostinger (LiteSpeed) performance & security ─────────────────
+# Hostinger Web and Cloud plans run LiteSpeed, which reads .htaccess and
+# reimplements the Apache directives below internally. mod_rewrite, mod_deflate
+# and mod_expires are enabled by default; brotli is handled by the server, so
+# there is no mod_brotli block here. Every block is wrapped in <IfModule>, so
+# anything unsupported is skipped rather than throwing a 500.
+
+# 1 ── Compression (gzip / deflate is on by default at Hostinger)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml application/xml application/manifest+json
+</IfModule>
+
+# 2 ── Cache headers. Fingerprint asset filenames (site.v2.css) when you edit
+#      them, or drop the CSS/JS TTL to something short.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp              "access plus 1 year"
+  ExpiresByType image/jpeg              "access plus 1 year"
+  ExpiresByType image/png               "access plus 1 year"
+  ExpiresByType image/svg+xml           "access plus 1 year"
+  ExpiresByType font/woff2              "access plus 1 year"
+  ExpiresByType text/css                "access plus 1 month"
+  ExpiresByType application/javascript  "access plus 1 month"
+  ExpiresByType application/manifest+json "access plus 1 week"
+  ExpiresByType text/html               "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp|jpe?g|png|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # CSS and JS are cached for a month, which is only safe because index.html
+  # requests them with a ?v= number. Bump that number in index.html and 404.html
+  # whenever you change either file, or returning visitors keep the old one for
+  # up to thirty days and your fix appears not to have worked.
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # 3 ── Security headers
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "DENY"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Cross-Origin-Opener-Policy "same-origin"
+  Header set Cross-Origin-Resource-Policy "same-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # 4 ── Content Security Policy
+  #
+  # This is the STRICT policy: no inline script, no inline style, no eval, and
+  # nothing may frame the page. The site is built to satisfy it — there is not
+  # one style="" attribute or inline handler in the markup, and the JavaScript
+  # only ever touches element.style.* through the CSSOM, which CSP allows.
+  #
+  # Two edits you may need:
+  #   • Self-hosting fonts (README §2)? Drop the two fonts.* hosts.
+  #   • Enabling Cloudflare Turnstile? Replace this line with the one below it.
+  Header set Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+  # Turnstile variant — its widget needs a frame and injects its own styles:
+  # Header set Content-Security-Policy "default-src 'none'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self'; base-uri 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+</IfModule>
+
+# 5 ── Correct MIME types (some shared hosts still miss these)
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+  AddType image/svg+xml .svg
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# 6 ── Never serve the private folder, its config, or anything spooled.
+#      Belt and braces: config and spool live ABOVE the web root, so these
+#      rules only matter if something got uploaded to the wrong place.
+<IfModule mod_authz_core.c>
+  <FilesMatch "(^\.|\.(jsonl|log|md|ts|example\.php)$|composer\.(json|lock))">
+    Require all denied
+  </FilesMatch>
+  <FilesMatch "^(subs|email-check)\.php$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  <FilesMatch "(^\.|\.(jsonl|log|md|ts|example\.php)$|composer\.(json|lock))">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+</IfModule>
+Options -Indexes
+
+# 7 ── Canonical host + HTTPS. Live — DNS is pointed and SSL is issued.
+#
+#      Cloudflare terminates TLS in front of this server, so the origin very
+#      often sees plain HTTP even when the visitor is on HTTPS. Redirecting on
+#      %{HTTPS} alone behind a proxy is the classic way to build an infinite
+#      redirect loop: the origin says "go to https", Cloudflare fetches over
+#      http again, and round it goes. So trust X-Forwarded-Proto, which
+#      Cloudflare always sets, and fall back to the origin's own flag only when
+#      the header is absent (direct hit, proxy off).
+#
+#      If the site ever answers ERR_TOO_MANY_REDIRECTS, comment out this whole
+#      block first — it is the only redirecting rule in the file — then check
+#      that Cloudflare's SSL mode is Full (strict), not Flexible.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # http → https
+  RewriteCond %{HTTP:X-Forwarded-Proto} =http [OR]
+  RewriteCond %{HTTP:X-Forwarded-Proto} ^$
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^(.*)$ https://syed.ai/$1 [R=301,L]
+
+  # www → apex, so one URL carries the authority rather than two
+  RewriteCond %{HTTP_HOST} ^www\.syed\.ai$ [NC]
+  RewriteRule ^(.*)$ https://syed.ai/$1 [R=301,L]
+</IfModule>
+
+# 8 ── Error pages.
+#      A real 404 page, served WITH a 404 status. Redirecting every bad URL to
+#      the homepage instead is a "soft 404": search engines index the redirect,
+#      the visitor loses the context of what they were looking for, and a typo
+#      becomes indistinguishable from a working page.
+ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html

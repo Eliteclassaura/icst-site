@@ -1,0 +1,47 @@
+[
+ {
+  "state": "pass",
+  "title": "Files loaded",
+  "detail": "15 files parsed, 1,123 usable rows."
+ },
+ {
+  "state": "pass",
+  "title": "Domain matches the data",
+  "detail": "100% of exported page URLs sit on example.com."
+ },
+ {
+  "state": "pass",
+  "title": "Comparison period present",
+  "detail": "A previous period is loaded, so decay and momentum can be measured."
+ },
+ {
+  "state": "pass",
+  "title": "Periods are the same length",
+  "detail": "Current range 2026-08-07 to 2026-09-03 (28 days). Previous range 2026-07-10 to 2026-08-06 (28 days)."
+ },
+ {
+  "state": "pass",
+  "title": "Exports are not truncated",
+  "detail": "No export hit the 1,000-row report cap."
+ },
+ {
+  "state": "pass",
+  "title": "Numbers parsed cleanly",
+  "detail": "Reported click-through rates agree with clicks divided by impressions."
+ },
+ {
+  "state": "pass",
+  "title": "Your column found in the keyword gap export",
+  "detail": "Matched column \"example.com\". The other 2 are treated as competitors."
+ },
+ {
+  "state": "warn",
+  "title": "Scope agreement between sources",
+  "detail": "Semrush volume, difficulty and traffic are modelled estimates for one database and location. Search Console figures are your measured results under whatever filters you applied. Confirm both cover the same country and device before trusting any side-by-side number."
+ },
+ {
+  "state": "warn",
+  "title": "Enough rows to generalise",
+  "detail": "164 query rows in the current period. Small samples make position averages jumpy. Treat single-row findings as leads, not conclusions."
+ }
+]

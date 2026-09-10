@@ -1,0 +1,37 @@
+{
+  "trust": "first-party",
+  "executes": "none",
+  "rationale": "Instructions only; every command is an existing, reviewed repository script (ADR-030 \u00a73).",
+  "allowedCommands": [
+    "pnpm check",
+    "pnpm lint:css",
+    "pnpm gates:scan",
+    "pnpm design:bundle",
+    "pnpm design:gates",
+    "pnpm design:signature",
+    "pnpm preview:pack",
+    "pnpm parity:check",
+    "git checkout -b",
+    "git add",
+    "git commit",
+    "git push",
+    "gh pr create"
+  ],
+  "writes": [
+    "apps/*/design/design-contract.json",
+    "packages/agency-core/src/blocks/**"
+  ],
+  "reads": [
+    "**"
+  ],
+  "refuses": [
+    "external font link or @import",
+    "raw HTML, inline script or third-party embed",
+    "migrations/** or payload.ts in a design PR without the content-model label",
+    "copy changes in code",
+    "baseline updates without a ledger row",
+    "committing .env, credentials or client hostnames",
+    "hand-editing generated files",
+    "any deploy or any database command against staging or production"
+  ]
+}

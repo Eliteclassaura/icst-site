@@ -1,0 +1,223 @@
+[
+ {
+  "name": "Queries.csv  (sample)",
+  "kind": "gsc_query",
+  "source": "gsc",
+  "period": "current",
+  "rows": 164,
+  "headers": [
+   "Top queries",
+   "Clicks",
+   "Impressions",
+   "CTR",
+   "Position"
+  ]
+ },
+ {
+  "name": "Queries-previous.csv  (sample)",
+  "kind": "gsc_query",
+  "source": "gsc",
+  "period": "previous",
+  "rows": 164,
+  "headers": [
+   "Top queries",
+   "Clicks",
+   "Impressions",
+   "CTR",
+   "Position"
+  ]
+ },
+ {
+  "name": "Pages.csv  (sample)",
+  "kind": "gsc_page",
+  "source": "gsc",
+  "period": "current",
+  "rows": 12,
+  "headers": [
+   "Top pages",
+   "Clicks",
+   "Impressions",
+   "CTR",
+   "Position"
+  ]
+ },
+ {
+  "name": "Pages-previous.csv  (sample)",
+  "kind": "gsc_page",
+  "source": "gsc",
+  "period": "previous",
+  "rows": 12,
+  "headers": [
+   "Top pages",
+   "Clicks",
+   "Impressions",
+   "CTR",
+   "Position"
+  ]
+ },
+ {
+  "name": "page-query-api.csv  (sample)",
+  "kind": "gsc_page_query",
+  "source": "gsc",
+  "period": "current",
+  "rows": 207,
+  "headers": [
+   "Page",
+   "Query",
+   "Clicks",
+   "Impressions",
+   "CTR",
+   "Position"
+  ]
+ },
+ {
+  "name": "Dates.csv  (sample)",
+  "kind": "gsc_date",
+  "source": "gsc",
+  "period": "current",
+  "rows": 28,
+  "headers": [
+   "Date",
+   "Clicks",
+   "Impressions",
+   "CTR",
+   "Position"
+  ]
+ },
+ {
+  "name": "Dates-previous.csv  (sample)",
+  "kind": "gsc_date",
+  "source": "gsc",
+  "period": "previous",
+  "rows": 28,
+  "headers": [
+   "Date",
+   "Clicks",
+   "Impressions",
+   "CTR",
+   "Position"
+  ]
+ },
+ {
+  "name": "example.com-organic.Positions.csv  (sample)",
+  "kind": "semrush_positions",
+  "source": "semrush",
+  "period": "current",
+  "rows": 90,
+  "headers": [
+   "Keyword",
+   "Position",
+   "Previous position",
+   "Search Volume",
+   "Keyword Difficulty",
+   "CPC",
+   "URL",
+   "Traffic",
+   "Keyword Intents",
+   "SERP Features by Keyword"
+  ]
+ },
+ {
+  "name": "example.com-keyword-gap.csv  (sample)",
+  "kind": "semrush_gap",
+  "source": "semrush",
+  "period": "current",
+  "rows": 98,
+  "headers": [
+   "Keyword",
+   "Search Volume",
+   "Keyword Difficulty",
+   "CPC",
+   "Competition",
+   "Results",
+   "Keyword Intents",
+   "example.com",
+   "watertechpros.com",
+   "coolingsystems.co"
+  ]
+ },
+ {
+  "name": "example.com-backlinks.csv  (sample)",
+  "kind": "semrush_backlinks",
+  "source": "semrush",
+  "period": "current",
+  "rows": 260,
+  "headers": [
+   "Source url",
+   "Target url",
+   "Anchor",
+   "Page ascore",
+   "Nofollow",
+   "First seen",
+   "New",
+   "Lost"
+  ]
+ },
+ {
+  "name": "internal_all.csv  (sample crawl)",
+  "kind": "sf_crawl",
+  "source": "sf",
+  "period": "current",
+  "rows": 38,
+  "headers": [
+   "Address",
+   "Status Code",
+   "Title 1",
+   "Meta Description 1",
+   "H1-1",
+   "Word Count",
+   "Canonical Link Element 1",
+   "Indexability",
+   "Indexability Status",
+   "Inlinks",
+   "Crawl Depth",
+   "Size (bytes)",
+   "Response Time",
+   "Content Type"
+  ]
+ },
+ {
+  "name": "Generative-AI-pages.csv  (sample)",
+  "kind": "gsc_genai_page",
+  "source": "gsc",
+  "period": "current",
+  "rows": 8,
+  "headers": [
+   "Top pages",
+   "Impressions"
+  ]
+ },
+ {
+  "name": "Generative-AI-pages-previous.csv  (sample)",
+  "kind": "gsc_genai_page",
+  "source": "gsc",
+  "period": "previous",
+  "rows": 8,
+  "headers": [
+   "Top pages",
+   "Impressions"
+  ]
+ },
+ {
+  "name": "Generative-AI-devices.csv  (sample)",
+  "kind": "gsc_genai_device",
+  "source": "gsc",
+  "period": "current",
+  "rows": 3,
+  "headers": [
+   "Device",
+   "Impressions"
+  ]
+ },
+ {
+  "name": "Generative-AI-countries.csv  (sample)",
+  "kind": "gsc_genai_country",
+  "source": "gsc",
+  "period": "current",
+  "rows": 3,
+  "headers": [
+   "Country",
+   "Impressions"
+  ]
+ }
+]

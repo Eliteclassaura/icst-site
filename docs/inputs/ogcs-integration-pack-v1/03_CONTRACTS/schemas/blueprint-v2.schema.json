@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://factory.seo/contracts/blueprint/2.0.0",
+  "title": "factory.seo/blueprint v2 (additions over v1)",
+  "type": "object",
+  "required": [
+    "version",
+    "generatedAt",
+    "source",
+    "site",
+    "pages",
+    "redirects",
+    "media",
+    "parity"
+  ],
+  "properties": {
+    "version": {
+      "const": 2
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "archive",
+        "files",
+        "extractor"
+      ],
+      "properties": {
+        "archive": {
+          "type": "string"
+        },
+        "files": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "extractor": {
+          "type": "string"
+        },
+        "decisions_run_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "site": {
+      "type": "object",
+      "required": [
+        "name",
+        "url",
+        "trailingSlash"
+      ]
+    },
+    "parity": {
+      "type": "object",
+      "required": [
+        "baseline"
+      ],
+      "properties": {
+        "baseline": {
+          "enum": [
+            "frozen-old-site",
+            "approved-staging"
+          ]
+        },
+        "accept": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "check",
+              "reason"
+            ]
+          }
+        },
+        "wordCountBlocking": {
+          "type": "boolean"
+        }
+      }
+    },
+    "redirects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "status"
+        ],
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              301,
+              308,
+              410
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "media": {
+      "type": "array"
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "slug",
+          "pageType",
+          "title",
+          "seo",
+          "layout"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "pageType": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "seo": {
+            "type": "object"
+          },
+          "layout": {
+            "type": "array"
+          },
+          "decision_ref": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "run_id",
+              "source_url",
+              "action"
+            ],
+            "properties": {
+              "run_id": {
+                "type": "string"
+              },
+              "source_url": {
+                "type": "string"
+              },
+              "action": {
+                "enum": [
+                  "PROTECT",
+                  "IMPROVE",
+                  "REWRITE",
+                  "REPOSITION",
+                  "CONSOLIDATE",
+                  "REDIRECT",
+                  "NOINDEX",
+                  "PRUNE",
+                  "REVIEW"
+                ]
+              }
+            }
+          },
+          "migration": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "sourceUrl": {
+                "type": "string"
+              },
+              "sourceId": {
+                "type": "string"
+              },
+              "originalTitle": {
+                "type": "string"
+              },
+              "originalMetaDescription": {
+                "type": "string"
+              },
+              "originalH1": {
+                "type": "string"
+              },
+              "originalWordCount": {
+                "type": "integer"
+              },
+              "originalHtmlHash": {
+                "type": "string"
+              },
+              "importedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "seoLocked": {
+                "type": "boolean"
+              },
+              "finalMigrationAction": {
+                "enum": [
+                  "PROTECT",
+                  "IMPROVE",
+                  "REWRITE",
+                  "REPOSITION",
+                  "CONSOLIDATE",
+                  "REDIRECT",
+                  "NOINDEX",
+                  "PRUNE",
+                  "REVIEW"
+                ]
+              },
+              "decisionsVersion": {
+                "type": "string"
+              },
+              "sourceArchivePath": {
+                "type": "string"
+              }
+            }
+          },
+          "verification": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

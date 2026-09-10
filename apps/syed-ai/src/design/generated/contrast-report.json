@@ -1,0 +1,115 @@
+{
+  "pass": true,
+  "results": [
+    {
+      "foreground": "textPrimary",
+      "background": "canvas",
+      "use": "body-text",
+      "fg": "#F7F5F0",
+      "bg": "#060504",
+      "ratio": 18.69,
+      "required": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "textBody",
+      "background": "canvas",
+      "use": "body-text",
+      "fg": "#C9C3B6",
+      "bg": "#060504",
+      "ratio": 11.6,
+      "required": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "textBody",
+      "background": "surfaceRaised",
+      "use": "body-text",
+      "fg": "#C9C3B6",
+      "bg": "#191510",
+      "ratio": 10.35,
+      "required": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "textMuted",
+      "background": "canvas",
+      "use": "caption-only",
+      "fg": "#948D7B",
+      "bg": "#060504",
+      "ratio": 6.16,
+      "required": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "accent",
+      "background": "canvas",
+      "use": "body-text",
+      "fg": "#CFAF67",
+      "bg": "#060504",
+      "ratio": 9.68,
+      "required": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "accentContrast",
+      "background": "accent",
+      "use": "body-text",
+      "fg": "#0A0806",
+      "bg": "#CFAF67",
+      "ratio": 9.5,
+      "required": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "error",
+      "background": "canvas",
+      "use": "body-text",
+      "fg": "#D06A60",
+      "bg": "#060504",
+      "ratio": 5.73,
+      "required": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "success",
+      "background": "canvas",
+      "use": "ui-component",
+      "fg": "#7DAE8A",
+      "bg": "#060504",
+      "ratio": 8.04,
+      "required": 3,
+      "pass": true
+    },
+    {
+      "foreground": "border",
+      "background": "canvas",
+      "use": "decorative",
+      "fg": "#443C2E",
+      "bg": "#060504",
+      "ratio": 1.87,
+      "required": 0,
+      "pass": true
+    },
+    {
+      "foreground": "controlBorder",
+      "background": "surfaceRaised",
+      "use": "ui-component",
+      "fg": "#8A6A30",
+      "bg": "#191510",
+      "ratio": 3.62,
+      "required": 3,
+      "pass": true
+    },
+    {
+      "foreground": "controlBorder",
+      "background": "canvas",
+      "use": "ui-component",
+      "fg": "#8A6A30",
+      "bg": "#060504",
+      "ratio": 4.06,
+      "required": 3,
+      "pass": true
+    }
+  ]
+}

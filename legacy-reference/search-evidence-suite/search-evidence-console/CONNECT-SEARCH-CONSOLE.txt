@@ -1,0 +1,134 @@
+CONNECTING SEARCH CONSOLE
+=========================
+(c) 2026 Syed.ai. All rights reserved.
+Ten minutes, once. After this the Connect Search Console stage pulls your
+data directly and you stop exporting CSVs by hand.
+
+You need a Google OAuth client ID. It identifies YOUR Google Cloud project.
+There is no shared credential to lend you, and a client ID is not a secret --
+it is designed to sit in a public page.
+
+
+WHY THIS IS SAFE, IN ONE PARAGRAPH
+----------------------------------
+Google Identity Services issues a short-lived, read-only access token
+inside the page, and the Search Console REST endpoints accept it directly
+from a browser. So your data goes from Google to your tab. No server sits
+in the middle, no refresh token is stored, and closing the page ends the
+connection. That is what lets a tool promising "nothing is uploaded" talk
+to an API at all.
+
+
+STEP 1 -- A GOOGLE CLOUD PROJECT
+--------------------------------
+1. Go to console.cloud.google.com and sign in with the Google account that
+   can see your Search Console properties.
+2. Top-left project picker -> New project. Name it anything ("SEO console").
+   Create, then make sure it is the selected project.
+
+
+STEP 2 -- ENABLE THE API
+------------------------
+1. Search the console for "Google Search Console API".
+2. Open it and press Enable. This is the API named exactly that -- not
+   "Search Console API for Web Search", not Custom Search.
+
+
+STEP 3 -- CONSENT SCREEN
+------------------------
+1. APIs & Services -> OAuth consent screen.
+2. User type: External is fine. Internal only if you are on Workspace and
+   only your own organisation will use it.
+3. Fill in an app name and your support email. Nothing else is required.
+4. Scopes: add
+      https://www.googleapis.com/auth/webmasters.readonly
+   Read-only. This tool never writes to Search Console.
+5. If the app stays in Testing, add your own Google address under Test
+   users -- otherwise Google refuses your own sign-in. Publishing is only
+   needed if people outside your test list will connect.
+
+
+STEP 4 -- THE OAUTH CLIENT
+--------------------------
+1. APIs & Services -> Credentials -> Create credentials -> OAuth client ID.
+2. Application type: Web application.
+3. Authorised JavaScript origins -- this is the step people get wrong. Add
+   the EXACT origin the tool is served from, scheme included, no path and
+   no trailing slash:
+
+      https://yourdomain.com          not  https://yourdomain.com/seo/
+      https://www.yourdomain.com      www and non-www are different origins
+      http://localhost:8000           for local testing, if you use it
+
+   Leave Authorised redirect URIs empty. This flow does not redirect.
+4. Create. Copy the client ID -- it ends .apps.googleusercontent.com.
+
+
+STEP 5 -- CONNECT
+-----------------
+1. Open the tool, go to Connect Search Console.
+2. Paste the client ID. It saves with the project.
+3. Press Connect Search Console. Accept the read-only permission.
+4. Pick the property. Then choose what to import and press Import.
+
+
+WHAT IT IMPORTS
+---------------
+  Queries              the top-queries table
+  Pages                the top-pages table
+  Pages and queries    both on one row -- the export UI will not give you
+                       this, and it is what unlocks page ownership,
+                       cannibalisation and the internal link planner
+  Dates                the daily series, for trend
+  Countries, Devices   optional
+  Search appearance    optional; cannot be combined with other dimensions
+
+Up to 25,000 rows per request, paged automatically, capped at 100,000 rows
+per table. Tick "also fetch the previous period" and trends work with no
+further steps.
+
+The window ends two days back and asks Google only for settled data,
+because the last day or two is still filling in and would read as a drop
+that never happened.
+
+
+WHEN IT GOES WRONG
+------------------
+"Google could not start the sign-in"
+    The origin is not on the client. Compare it character for character,
+    including https and www. This is the cause nine times out of ten.
+
+"has not granted read access"
+    The webmasters.readonly scope is missing from the consent screen, or
+    you declined it. Connect again and accept.
+
+"no verified Search Console properties"
+    That Google account cannot see any property. Sign in with the account
+    that actually owns them.
+
+"does not recognise that property"
+    Pick from the list rather than typing. A domain property
+    (sc-domain:example.com) and a URL-prefix property
+    (https://example.com/) are different things with different data.
+
+Rate limited
+    1,200 queries a minute per property. You will not hit it by hand.
+
+Nothing happens when you press Connect
+    A popup blocker. Allow popups for your own domain.
+
+
+WHAT IT WILL NOT DO
+-------------------
+There is no AI Overview or AI Mode dimension in this API, and
+searchAppearance does not expose one. The AI Search stage's observation
+recorder is not a stopgap waiting for an endpoint -- it is the only way to
+capture that, which is why it is manual.
+
+Nothing is written to your Search Console account. The scope is read-only.
+
+The token is not remembered. Reloading means connecting again, on purpose.
+
+Search Console keeps roughly 16 months of history. Import on a schedule and
+the project's own record outlives that window -- each import is kept as its
+own dataset, named with its date range.

@@ -1,0 +1,25 @@
+.blk-rich-text--prose {
+  max-inline-size: var(--measure);
+}
+
+.blk-rich-text--wide {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5) var(--s-7);
+}
+
+.blk-rich-text--wide > * + * {
+  margin-block-start: 0;
+}
+
+.blk-rich-text--wide p {
+  font-size: var(--fs-body);
+  line-height: 1.78;
+  color: var(--color-text-body);
+}
+
+@media (max-width: 900px) {
+  .blk-rich-text--wide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

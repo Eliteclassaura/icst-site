@@ -1,0 +1,4604 @@
+{
+  "capturedAt": "2026-09-04T02:15:37.916Z",
+  "source": "legacy-reference/search-evidence-suite/search-evidence-console/app.js",
+  "method": "sampleData() (seeded LCG, seed 7) through the run() pipeline with Date.now pinned to 2026-09-03T12:00:00Z",
+  "scoreModel": 2,
+  "augmentError": null,
+  "datasets": [
+    {
+      "name": "Queries.csv  (sample)",
+      "kind": "gsc_query",
+      "source": "gsc",
+      "period": "current",
+      "rows": 164,
+      "headers": [
+        "Top queries",
+        "Clicks",
+        "Impressions",
+        "CTR",
+        "Position"
+      ]
+    },
+    {
+      "name": "Queries-previous.csv  (sample)",
+      "kind": "gsc_query",
+      "source": "gsc",
+      "period": "previous",
+      "rows": 164,
+      "headers": [
+        "Top queries",
+        "Clicks",
+        "Impressions",
+        "CTR",
+        "Position"
+      ]
+    },
+    {
+      "name": "Pages.csv  (sample)",
+      "kind": "gsc_page",
+      "source": "gsc",
+      "period": "current",
+      "rows": 12,
+      "headers": [
+        "Top pages",
+        "Clicks",
+        "Impressions",
+        "CTR",
+        "Position"
+      ]
+    },
+    {
+      "name": "Pages-previous.csv  (sample)",
+      "kind": "gsc_page",
+      "source": "gsc",
+      "period": "previous",
+      "rows": 12,
+      "headers": [
+        "Top pages",
+        "Clicks",
+        "Impressions",
+        "CTR",
+        "Position"
+      ]
+    },
+    {
+      "name": "page-query-api.csv  (sample)",
+      "kind": "gsc_page_query",
+      "source": "gsc",
+      "period": "current",
+      "rows": 207,
+      "headers": [
+        "Page",
+        "Query",
+        "Clicks",
+        "Impressions",
+        "CTR",
+        "Position"
+      ]
+    },
+    {
+      "name": "Dates.csv  (sample)",
+      "kind": "gsc_date",
+      "source": "gsc",
+      "period": "current",
+      "rows": 28,
+      "headers": [
+        "Date",
+        "Clicks",
+        "Impressions",
+        "CTR",
+        "Position"
+      ]
+    },
+    {
+      "name": "Dates-previous.csv  (sample)",
+      "kind": "gsc_date",
+      "source": "gsc",
+      "period": "previous",
+      "rows": 28,
+      "headers": [
+        "Date",
+        "Clicks",
+        "Impressions",
+        "CTR",
+        "Position"
+      ]
+    },
+    {
+      "name": "example.com-organic.Positions.csv  (sample)",
+      "kind": "semrush_positions",
+      "source": "semrush",
+      "period": "current",
+      "rows": 90,
+      "headers": [
+        "Keyword",
+        "Position",
+        "Previous position",
+        "Search Volume",
+        "Keyword Difficulty",
+        "CPC",
+        "URL",
+        "Traffic",
+        "Keyword Intents",
+        "SERP Features by Keyword"
+      ]
+    },
+    {
+      "name": "example.com-keyword-gap.csv  (sample)",
+      "kind": "semrush_gap",
+      "source": "semrush",
+      "period": "current",
+      "rows": 98,
+      "headers": [
+        "Keyword",
+        "Search Volume",
+        "Keyword Difficulty",
+        "CPC",
+        "Competition",
+        "Results",
+        "Keyword Intents",
+        "example.com",
+        "watertechpros.com",
+        "coolingsystems.co"
+      ]
+    },
+    {
+      "name": "example.com-backlinks.csv  (sample)",
+      "kind": "semrush_backlinks",
+      "source": "semrush",
+      "period": "current",
+      "rows": 260,
+      "headers": [
+        "Source url",
+        "Target url",
+        "Anchor",
+        "Page ascore",
+        "Nofollow",
+        "First seen",
+        "New",
+        "Lost"
+      ]
+    },
+    {
+      "name": "internal_all.csv  (sample crawl)",
+      "kind": "sf_crawl",
+      "source": "sf",
+      "period": "current",
+      "rows": 38,
+      "headers": [
+        "Address",
+        "Status Code",
+        "Title 1",
+        "Meta Description 1",
+        "H1-1",
+        "Word Count",
+        "Canonical Link Element 1",
+        "Indexability",
+        "Indexability Status",
+        "Inlinks",
+        "Crawl Depth",
+        "Size (bytes)",
+        "Response Time",
+        "Content Type"
+      ]
+    },
+    {
+      "name": "Generative-AI-pages.csv  (sample)",
+      "kind": "gsc_genai_page",
+      "source": "gsc",
+      "period": "current",
+      "rows": 8,
+      "headers": [
+        "Top pages",
+        "Impressions"
+      ]
+    },
+    {
+      "name": "Generative-AI-pages-previous.csv  (sample)",
+      "kind": "gsc_genai_page",
+      "source": "gsc",
+      "period": "previous",
+      "rows": 8,
+      "headers": [
+        "Top pages",
+        "Impressions"
+      ]
+    },
+    {
+      "name": "Generative-AI-devices.csv  (sample)",
+      "kind": "gsc_genai_device",
+      "source": "gsc",
+      "period": "current",
+      "rows": 3,
+      "headers": [
+        "Device",
+        "Impressions"
+      ]
+    },
+    {
+      "name": "Generative-AI-countries.csv  (sample)",
+      "kind": "gsc_genai_country",
+      "source": "gsc",
+      "period": "current",
+      "rows": 3,
+      "headers": [
+        "Country",
+        "Impressions"
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "state": "pass",
+      "title": "Files loaded",
+      "detail": "15 files parsed, 1,123 usable rows."
+    },
+    {
+      "state": "pass",
+      "title": "Domain matches the data",
+      "detail": "100% of exported page URLs sit on example.com."
+    },
+    {
+      "state": "pass",
+      "title": "Comparison period present",
+      "detail": "A previous period is loaded, so decay and momentum can be measured."
+    },
+    {
+      "state": "pass",
+      "title": "Periods are the same length",
+      "detail": "Current range 2026-08-07 to 2026-09-03 (28 days). Previous range 2026-07-10 to 2026-08-06 (28 days)."
+    },
+    {
+      "state": "pass",
+      "title": "Exports are not truncated",
+      "detail": "No export hit the 1,000-row report cap."
+    },
+    {
+      "state": "pass",
+      "title": "Numbers parsed cleanly",
+      "detail": "Reported click-through rates agree with clicks divided by impressions."
+    },
+    {
+      "state": "pass",
+      "title": "Your column found in the keyword gap export",
+      "detail": "Matched column \"example.com\". The other 2 are treated as competitors."
+    },
+    {
+      "state": "warn",
+      "title": "Scope agreement between sources",
+      "detail": "Semrush volume, difficulty and traffic are modelled estimates for one database and location. Search Console figures are your measured results under whatever filters you applied. Confirm both cover the same country and device before trusting any side-by-side number."
+    },
+    {
+      "state": "warn",
+      "title": "Enough rows to generalise",
+      "detail": "164 query rows in the current period. Small samples make position averages jumpy. Treat single-row findings as leads, not conclusions."
+    }
+  ],
+  "curve": {
+    "1": 0.4079601990049751,
+    "2": 0.1362565455786004,
+    "3": 0.11569913974664725,
+    "4": 0.07970757066280232,
+    "5": 0.06035001778755032,
+    "6": 0.04668586281678421,
+    "7": 0.03186936936936937,
+    "8": 0.02704067704067704,
+    "9": 0.023177723177723177,
+    "10": 0.02028050778050778,
+    "11": 0.016417553917553916,
+    "12": 0.014486076986076983,
+    "13": 0.012554600054600051,
+    "14": 0.011588861588861587,
+    "15": 0.010623123123123121,
+    "16": 0.009657384657384655,
+    "17": 0.008691646191646188,
+    "18": 0.008208776958776956,
+    "19": 0.0077259077259077226,
+    "20": 0.00724303849303849
+  },
+  "findingsSnapshot": {
+    "snapshot": {
+      "current": {
+        "clicks": 19800,
+        "impr": 389802,
+        "ctr": 0.050795019009651055,
+        "pos": 17.888988178613754,
+        "n": 164
+      },
+      "previous": {
+        "clicks": 17169,
+        "impr": 419860,
+        "ctr": 0.04089220216262564,
+        "pos": 18.434979040632584,
+        "n": 164
+      },
+      "yoy": null,
+      "basis": "query"
+    },
+    "branded": {
+      "clicks": 653,
+      "impr": 20524,
+      "n": 4,
+      "share": 0.03297979797979798
+    },
+    "distribution": [
+      {
+        "label": "1-3",
+        "impr": 61837,
+        "clicks": 14180,
+        "n": 31
+      },
+      {
+        "label": "4-10",
+        "impr": 96703,
+        "clicks": 3942,
+        "n": 33
+      },
+      {
+        "label": "11-20",
+        "impr": 48295,
+        "clicks": 527,
+        "n": 29
+      },
+      {
+        "label": "21-50",
+        "impr": 178010,
+        "clicks": 778,
+        "n": 63
+      },
+      {
+        "label": "51+",
+        "impr": 0,
+        "clicks": 0,
+        "n": 0
+      }
+    ]
+  },
+  "findingsCounts": {
+    "striking": 112,
+    "ctrGap": 12,
+    "decay": 43,
+    "risers": 35,
+    "cannibal": 43,
+    "gaps": 49,
+    "smrDrops": 5,
+    "reconcile": 0
+  },
+  "actions": 261,
+  "clusters": {
+    "n": 14,
+    "stats": {
+      "total": 14,
+      "owned": 9,
+      "split": 1,
+      "weak": 0,
+      "unmapped": 0,
+      "missing": 4,
+      "impr": 389802,
+      "opportunity": 9138.122441018291,
+      "coverage": 0.9
+    }
+  },
+  "issues": 46,
+  "score": {
+    "pillars": [
+      {
+        "key": "crawl",
+        "name": "Crawl and indexation",
+        "weight": 18,
+        "needs": "a crawl",
+        "score": 96,
+        "metrics": [
+          {
+            "label": "Pages returning 200",
+            "value": 0.9736842105263158,
+            "detail": "37 of 38 crawled URLs answered 200. 1 did not.",
+            "weight": 3
+          },
+          {
+            "label": "Canonical present",
+            "value": 1,
+            "detail": "38 of 38 readable pages declare a canonical.",
+            "weight": 2
+          },
+          {
+            "label": "Reachable by internal links",
+            "value": 0.8157894736842105,
+            "detail": "7 pages have no internal links pointing at them.",
+            "weight": 2
+          },
+          {
+            "label": "Within three clicks",
+            "value": 1,
+            "detail": "38 of 38 reachable pages sit within three clicks of home.",
+            "weight": 1
+          },
+          {
+            "label": "Sitemap integrity",
+            "value": 1,
+            "detail": "No serious sitemap problems found.",
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "key": "onpage",
+        "name": "On-page fundamentals",
+        "weight": 17,
+        "needs": "a crawl",
+        "score": 93,
+        "metrics": [
+          {
+            "label": "Titles the right length",
+            "value": 1,
+            "detail": "37 of 37 titles are between 20 and 65 characters.",
+            "weight": 3
+          },
+          {
+            "label": "Titles are unique",
+            "value": 1,
+            "detail": "No duplicate titles.",
+            "weight": 2
+          },
+          {
+            "label": "Meta descriptions written",
+            "value": 0.8108108108108109,
+            "detail": "7 pages have none, so Google writes its own.",
+            "weight": 2
+          },
+          {
+            "label": "Exactly one H1",
+            "value": 1,
+            "detail": "37 of 37 pages have a single H1.",
+            "weight": 1
+          },
+          {
+            "label": "Body content substantial",
+            "value": 0.8108108108108109,
+            "detail": "7 pages carry under 300 words.",
+            "weight": 2
+          },
+          {
+            "label": "Images carry alt text",
+            "value": 1,
+            "detail": "Averaged across every image found in the crawl.",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "key": "topics",
+        "name": "Topic coverage",
+        "weight": 19,
+        "needs": "Search Console queries",
+        "score": 66,
+        "metrics": [
+          {
+            "label": "Topics with a clear owning page",
+            "value": 0.9,
+            "detail": "9 of 10 mapped topics have one page taking 60% or more of the impressions.",
+            "weight": 3
+          },
+          {
+            "label": "Topics not split across pages",
+            "value": 0.9,
+            "detail": "1 topics are split between two or more of your own URLs.",
+            "weight": 2
+          },
+          {
+            "label": "Competitor topics you cover",
+            "value": 0.7142857142857143,
+            "detail": "4 topics where a competitor ranks top ten and you are absent.",
+            "weight": 2
+          },
+          {
+            "label": "Topics ranking in the top ten",
+            "value": 0,
+            "detail": "Share of topic impressions where your weighted position is ten or better.",
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "key": "search",
+        "name": "Search performance",
+        "weight": 24,
+        "needs": "Search Console queries",
+        "score": 64,
+        "metrics": [
+          {
+            "label": "Clicks against what the rankings should return",
+            "value": 0.9787695492339867,
+            "detail": "You earn 19,800 clicks where the positions you hold typically return about 20,229.",
+            "weight": 3
+          },
+          {
+            "label": "Impressions in the top ten",
+            "value": 0.4176171492193473,
+            "detail": "42% of impressions come from positions ten or better.",
+            "weight": 3
+          },
+          {
+            "label": "Momentum against the previous period",
+            "value": 0.6838895684081775,
+            "detail": "Clicks moved from 17,169 to 19,800.",
+            "weight": 2
+          },
+          {
+            "label": "Little left stranded just outside",
+            "value": 0.22541187577282829,
+            "detail": "301,936 impressions sit on rows ranking below position three with real headroom.",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "key": "airead",
+        "name": "AI answer readiness",
+        "weight": 12,
+        "needs": "a crawl",
+        "score": 34,
+        "metrics": [
+          {
+            "label": "Retrieval crawlers are allowed in",
+            "value": null,
+            "detail": "No robots.txt was read, so crawler access is unknown.",
+            "weight": 3
+          },
+          {
+            "label": "Pages carrying quotable statistics",
+            "value": 0,
+            "detail": "0% of pages carry two or more concrete figures per 500 words. Adding statistics raised visibility 32% in the GEO experiment.",
+            "weight": 3
+          },
+          {
+            "label": "Pages quoting a named source",
+            "value": 0,
+            "detail": "0 of 30 pages quote someone by name. The strongest single lever measured: +40%.",
+            "weight": 3
+          },
+          {
+            "label": "Pages citing outside sources",
+            "value": 0.36666666666666664,
+            "detail": "37% of pages link out to at least two external sources. Worth up to +115% for pages already ranking fourth or fifth.",
+            "weight": 2
+          },
+          {
+            "label": "Headings that ask the reader’s question",
+            "value": 1,
+            "detail": "30 of 30 pages have at least one heading phrased as a question. Widely reported to help; no controlled test published, so this carries less weight than the measured levers.",
+            "weight": 1
+          },
+          {
+            "label": "Free of keyword stuffing",
+            "value": 1,
+            "detail": "No page over-repeats its target term.",
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "key": "offpage",
+        "name": "Off-page",
+        "weight": 10,
+        "needs": "a Semrush backlinks export",
+        "score": 61,
+        "metrics": [
+          {
+            "label": "Referring domain base",
+            "value": 0.3873723333622007,
+            "detail": "12 referring domains across 260 links.",
+            "weight": 3
+          },
+          {
+            "label": "Anchor text diversity",
+            "value": 0.8207668585027076,
+            "detail": "The most common anchor accounts for 23% of links.",
+            "weight": 2
+          },
+          {
+            "label": "Followed link share",
+            "value": 0.8153846153846154,
+            "detail": "82% of links pass authority.",
+            "weight": 1
+          },
+          {
+            "label": "Link retention",
+            "value": 0.6515151515151515,
+            "detail": "43 new against 23 lost in the export.",
+            "weight": 2
+          },
+          {
+            "label": "Links spread across pages",
+            "value": 0.5348334822121344,
+            "detail": "12 distinct pages receive links.",
+            "weight": 1
+          }
+        ]
+      }
+    ],
+    "overall": 71,
+    "measured": 6,
+    "coverageNote": "All 6 pillars measured.",
+    "model": 2
+  },
+  "grade": {
+    "label": "Solid",
+    "tone": "pass"
+  },
+  "backlinks": {
+    "domains": 12,
+    "anchorDiversity": 0.8207668585027076,
+    "targetSpread": 0.5348334822121344
+  },
+  "linkplan": {
+    "opportunities": 6,
+    "orphanRescues": 7,
+    "overLinked": 0,
+    "stats": {
+      "opportunities": 6,
+      "pagesWithText": 30,
+      "targets": 10,
+      "orphans": 7,
+      "medianLinks": 16,
+      "unlinkedTargets": 3
+    },
+    "hasText": true
+  },
+  "briefs": 14,
+  "media": {
+    "total": 109,
+    "pages": 37,
+    "images": [
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com",
+        "pageRaw": "https://example.com/",
+        "pageClicks": 30,
+        "alt": "water treatment",
+        "altLen": 15,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com",
+        "pageRaw": "https://example.com/",
+        "pageClicks": 30,
+        "alt": "water treatment",
+        "altLen": 15,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com",
+        "pageRaw": "https://example.com/",
+        "pageClicks": 30,
+        "alt": "water treatment",
+        "altLen": 15,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com",
+        "pageRaw": "https://example.com/",
+        "pageClicks": 30,
+        "alt": "water treatment",
+        "altLen": 15,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com",
+        "pageRaw": "https://example.com/",
+        "pageClicks": 30,
+        "alt": "water treatment",
+        "altLen": 15,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/services/cooling-tower-cleaning",
+        "pageRaw": "https://example.com/services/cooling-tower-cleaning",
+        "pageClicks": 202,
+        "alt": "cooling tower cleaning",
+        "altLen": 22,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/services/cooling-tower-cleaning",
+        "pageRaw": "https://example.com/services/cooling-tower-cleaning",
+        "pageClicks": 202,
+        "alt": "cooling tower cleaning",
+        "altLen": 22,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/services/cooling-tower-cleaning",
+        "pageRaw": "https://example.com/services/cooling-tower-cleaning",
+        "pageClicks": 202,
+        "alt": "cooling tower cleaning",
+        "altLen": 22,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/services/cooling-tower-cleaning",
+        "pageRaw": "https://example.com/services/cooling-tower-cleaning",
+        "pageClicks": 202,
+        "alt": "cooling tower cleaning",
+        "altLen": 22,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/services/water-treatment",
+        "pageRaw": "https://example.com/services/water-treatment",
+        "pageClicks": 580,
+        "alt": "industrial water treatment",
+        "altLen": 26,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/services/water-treatment",
+        "pageRaw": "https://example.com/services/water-treatment",
+        "pageClicks": 580,
+        "alt": "industrial water treatment",
+        "altLen": 26,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/services/water-treatment",
+        "pageRaw": "https://example.com/services/water-treatment",
+        "pageClicks": 580,
+        "alt": "industrial water treatment",
+        "altLen": 26,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/services/legionella-control",
+        "pageRaw": "https://example.com/services/legionella-control",
+        "pageClicks": 33,
+        "alt": "legionella control",
+        "altLen": 18,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/services/legionella-control",
+        "pageRaw": "https://example.com/services/legionella-control",
+        "pageClicks": 33,
+        "alt": "legionella control",
+        "altLen": 18,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/services/legionella-control",
+        "pageRaw": "https://example.com/services/legionella-control",
+        "pageClicks": 33,
+        "alt": "legionella control",
+        "altLen": 18,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/services/legionella-control",
+        "pageRaw": "https://example.com/services/legionella-control",
+        "pageClicks": 33,
+        "alt": "legionella control",
+        "altLen": 18,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/cooling-tower-maintenance-checklist",
+        "pageRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "pageClicks": 80,
+        "alt": "cooling tower maintenance checklist",
+        "altLen": 35,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/cooling-tower-maintenance-checklist",
+        "pageRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "pageClicks": 80,
+        "alt": "cooling tower maintenance checklist",
+        "altLen": 35,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/cooling-tower-maintenance-checklist",
+        "pageRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "pageClicks": 80,
+        "alt": "cooling tower maintenance checklist",
+        "altLen": 35,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/cooling-tower-maintenance-checklist",
+        "pageRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "pageClicks": 80,
+        "alt": "cooling tower maintenance checklist",
+        "altLen": 35,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/what-does-water-treatment-cost",
+        "pageRaw": "https://example.com/blog/what-does-water-treatment-cost",
+        "pageClicks": 1460,
+        "alt": "what does water treatment cost",
+        "altLen": 30,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/what-does-water-treatment-cost",
+        "pageRaw": "https://example.com/blog/what-does-water-treatment-cost",
+        "pageClicks": 1460,
+        "alt": "what does water treatment cost",
+        "altLen": 30,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/legionella-testing-explained",
+        "pageRaw": "https://example.com/blog/legionella-testing-explained",
+        "pageClicks": 1247,
+        "alt": "legionella testing explained",
+        "altLen": 28,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/legionella-testing-explained",
+        "pageRaw": "https://example.com/blog/legionella-testing-explained",
+        "pageClicks": 1247,
+        "alt": "legionella testing explained",
+        "altLen": 28,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/legionella-testing-explained",
+        "pageRaw": "https://example.com/blog/legionella-testing-explained",
+        "pageClicks": 1247,
+        "alt": "legionella testing explained",
+        "altLen": 28,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/case-studies/manufacturing-plant",
+        "pageRaw": "https://example.com/case-studies/manufacturing-plant",
+        "pageClicks": 269,
+        "alt": "manufacturing plant",
+        "altLen": 19,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/case-studies/manufacturing-plant",
+        "pageRaw": "https://example.com/case-studies/manufacturing-plant",
+        "pageClicks": 269,
+        "alt": "manufacturing plant",
+        "altLen": 19,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/case-studies/manufacturing-plant",
+        "pageRaw": "https://example.com/case-studies/manufacturing-plant",
+        "pageClicks": 269,
+        "alt": "manufacturing plant",
+        "altLen": 19,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/case-studies/manufacturing-plant",
+        "pageRaw": "https://example.com/case-studies/manufacturing-plant",
+        "pageClicks": 269,
+        "alt": "manufacturing plant",
+        "altLen": 19,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/closed-loop-system-guide",
+        "pageRaw": "https://example.com/blog/closed-loop-system-guide",
+        "pageClicks": 3,
+        "alt": "closed loop system guide",
+        "altLen": 24,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/closed-loop-system-guide",
+        "pageRaw": "https://example.com/blog/closed-loop-system-guide",
+        "pageClicks": 3,
+        "alt": "closed loop system guide",
+        "altLen": 24,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/closed-loop-system-guide",
+        "pageRaw": "https://example.com/blog/closed-loop-system-guide",
+        "pageClicks": 3,
+        "alt": "closed loop system guide",
+        "altLen": 24,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/closed-loop-system-guide",
+        "pageRaw": "https://example.com/blog/closed-loop-system-guide",
+        "pageClicks": 3,
+        "alt": "closed loop system guide",
+        "altLen": 24,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/closed-loop-system-guide",
+        "pageRaw": "https://example.com/blog/closed-loop-system-guide",
+        "pageClicks": 3,
+        "alt": "closed loop system guide",
+        "altLen": 24,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-0",
+        "pageRaw": "https://example.com/blog/post-0",
+        "pageClicks": 0,
+        "alt": "post 0",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-0",
+        "pageRaw": "https://example.com/blog/post-0",
+        "pageClicks": 0,
+        "alt": "post 0",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-0",
+        "pageRaw": "https://example.com/blog/post-0",
+        "pageClicks": 0,
+        "alt": "post 0",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-0",
+        "pageRaw": "https://example.com/blog/post-0",
+        "pageClicks": 0,
+        "alt": "post 0",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-0",
+        "pageRaw": "https://example.com/blog/post-0",
+        "pageClicks": 0,
+        "alt": "post 0",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-1",
+        "pageRaw": "https://example.com/blog/post-1",
+        "pageClicks": 0,
+        "alt": "post 1",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-1",
+        "pageRaw": "https://example.com/blog/post-1",
+        "pageClicks": 0,
+        "alt": "post 1",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-1",
+        "pageRaw": "https://example.com/blog/post-1",
+        "pageClicks": 0,
+        "alt": "post 1",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-2",
+        "pageRaw": "https://example.com/blog/post-2",
+        "pageClicks": 0,
+        "alt": "post 2",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-2",
+        "pageRaw": "https://example.com/blog/post-2",
+        "pageClicks": 0,
+        "alt": "post 2",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-2",
+        "pageRaw": "https://example.com/blog/post-2",
+        "pageClicks": 0,
+        "alt": "post 2",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-3",
+        "pageRaw": "https://example.com/blog/post-3",
+        "pageClicks": 0,
+        "alt": "post 3",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-3",
+        "pageRaw": "https://example.com/blog/post-3",
+        "pageClicks": 0,
+        "alt": "post 3",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-3",
+        "pageRaw": "https://example.com/blog/post-3",
+        "pageClicks": 0,
+        "alt": "post 3",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-3",
+        "pageRaw": "https://example.com/blog/post-3",
+        "pageClicks": 0,
+        "alt": "post 3",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-3",
+        "pageRaw": "https://example.com/blog/post-3",
+        "pageClicks": 0,
+        "alt": "post 3",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-4_draft_copy",
+        "pageRaw": "https://example.com/blog/post-4_Draft_Copy",
+        "pageClicks": 0,
+        "alt": "post 4 draft copy",
+        "altLen": 17,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-4_draft_copy",
+        "pageRaw": "https://example.com/blog/post-4_Draft_Copy",
+        "pageClicks": 0,
+        "alt": "post 4 draft copy",
+        "altLen": 17,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-4_draft_copy",
+        "pageRaw": "https://example.com/blog/post-4_Draft_Copy",
+        "pageClicks": 0,
+        "alt": "post 4 draft copy",
+        "altLen": 17,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-4_draft_copy",
+        "pageRaw": "https://example.com/blog/post-4_Draft_Copy",
+        "pageClicks": 0,
+        "alt": "post 4 draft copy",
+        "altLen": 17,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-4_draft_copy",
+        "pageRaw": "https://example.com/blog/post-4_Draft_Copy",
+        "pageClicks": 0,
+        "alt": "post 4 draft copy",
+        "altLen": 17,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-7",
+        "pageRaw": "https://example.com/blog/post-7",
+        "pageClicks": 0,
+        "alt": "post 7",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-7",
+        "pageRaw": "https://example.com/blog/post-7",
+        "pageClicks": 0,
+        "alt": "post 7",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-7",
+        "pageRaw": "https://example.com/blog/post-7",
+        "pageClicks": 0,
+        "alt": "post 7",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-7",
+        "pageRaw": "https://example.com/blog/post-7",
+        "pageClicks": 0,
+        "alt": "post 7",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-8",
+        "pageRaw": "https://example.com/blog/post-8",
+        "pageClicks": 0,
+        "alt": "post 8",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-8",
+        "pageRaw": "https://example.com/blog/post-8",
+        "pageClicks": 0,
+        "alt": "post 8",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-8",
+        "pageRaw": "https://example.com/blog/post-8",
+        "pageClicks": 0,
+        "alt": "post 8",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-8",
+        "pageRaw": "https://example.com/blog/post-8",
+        "pageClicks": 0,
+        "alt": "post 8",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-9",
+        "pageRaw": "https://example.com/blog/post-9",
+        "pageClicks": 0,
+        "alt": "post 9",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-9",
+        "pageRaw": "https://example.com/blog/post-9",
+        "pageClicks": 0,
+        "alt": "post 9",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-9",
+        "pageRaw": "https://example.com/blog/post-9",
+        "pageClicks": 0,
+        "alt": "post 9",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-9",
+        "pageRaw": "https://example.com/blog/post-9",
+        "pageClicks": 0,
+        "alt": "post 9",
+        "altLen": 6,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-10",
+        "pageRaw": "https://example.com/blog/post-10",
+        "pageClicks": 0,
+        "alt": "post 10",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-10",
+        "pageRaw": "https://example.com/blog/post-10",
+        "pageClicks": 0,
+        "alt": "post 10",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-11",
+        "pageRaw": "https://example.com/blog/post-11",
+        "pageClicks": 0,
+        "alt": "post 11",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-11",
+        "pageRaw": "https://example.com/blog/post-11",
+        "pageClicks": 0,
+        "alt": "post 11",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-11",
+        "pageRaw": "https://example.com/blog/post-11",
+        "pageClicks": 0,
+        "alt": "post 11",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-11",
+        "pageRaw": "https://example.com/blog/post-11",
+        "pageClicks": 0,
+        "alt": "post 11",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-11",
+        "pageRaw": "https://example.com/blog/post-11",
+        "pageClicks": 0,
+        "alt": "post 11",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-12",
+        "pageRaw": "https://example.com/blog/post-12",
+        "pageClicks": 0,
+        "alt": "post 12",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-12",
+        "pageRaw": "https://example.com/blog/post-12",
+        "pageClicks": 0,
+        "alt": "post 12",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-13",
+        "pageRaw": "https://example.com/blog/post-13",
+        "pageClicks": 0,
+        "alt": "post 13",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-13",
+        "pageRaw": "https://example.com/blog/post-13",
+        "pageClicks": 0,
+        "alt": "post 13",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-14",
+        "pageRaw": "https://example.com/blog/post-14",
+        "pageClicks": 0,
+        "alt": "post 14",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-14",
+        "pageRaw": "https://example.com/blog/post-14",
+        "pageClicks": 0,
+        "alt": "post 14",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-17",
+        "pageRaw": "https://example.com/blog/post-17",
+        "pageClicks": 0,
+        "alt": "post 17",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-17",
+        "pageRaw": "https://example.com/blog/post-17",
+        "pageClicks": 0,
+        "alt": "post 17",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-17",
+        "pageRaw": "https://example.com/blog/post-17",
+        "pageClicks": 0,
+        "alt": "post 17",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-17",
+        "pageRaw": "https://example.com/blog/post-17",
+        "pageClicks": 0,
+        "alt": "post 17",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-17",
+        "pageRaw": "https://example.com/blog/post-17",
+        "pageClicks": 0,
+        "alt": "post 17",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-18",
+        "pageRaw": "https://example.com/blog/post-18",
+        "pageClicks": 0,
+        "alt": "post 18",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-18",
+        "pageRaw": "https://example.com/blog/post-18",
+        "pageClicks": 0,
+        "alt": "post 18",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-19",
+        "pageRaw": "https://example.com/blog/post-19",
+        "pageClicks": 0,
+        "alt": "post 19",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-19",
+        "pageRaw": "https://example.com/blog/post-19",
+        "pageClicks": 0,
+        "alt": "post 19",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-19",
+        "pageRaw": "https://example.com/blog/post-19",
+        "pageClicks": 0,
+        "alt": "post 19",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-19",
+        "pageRaw": "https://example.com/blog/post-19",
+        "pageClicks": 0,
+        "alt": "post 19",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-20",
+        "pageRaw": "https://example.com/blog/post-20",
+        "pageClicks": 0,
+        "alt": "post 20",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-20",
+        "pageRaw": "https://example.com/blog/post-20",
+        "pageClicks": 0,
+        "alt": "post 20",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-20",
+        "pageRaw": "https://example.com/blog/post-20",
+        "pageClicks": 0,
+        "alt": "post 20",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-20",
+        "pageRaw": "https://example.com/blog/post-20",
+        "pageClicks": 0,
+        "alt": "post 20",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-21",
+        "pageRaw": "https://example.com/blog/post-21",
+        "pageClicks": 0,
+        "alt": "post 21",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-21",
+        "pageRaw": "https://example.com/blog/post-21",
+        "pageClicks": 0,
+        "alt": "post 21",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-21",
+        "pageRaw": "https://example.com/blog/post-21",
+        "pageClicks": 0,
+        "alt": "post 21",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-22",
+        "pageRaw": "https://example.com/blog/post-22",
+        "pageClicks": 0,
+        "alt": "post 22",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-22",
+        "pageRaw": "https://example.com/blog/post-22",
+        "pageClicks": 0,
+        "alt": "post 22",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-22",
+        "pageRaw": "https://example.com/blog/post-22",
+        "pageClicks": 0,
+        "alt": "post 22",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-23",
+        "pageRaw": "https://example.com/blog/post-23",
+        "pageClicks": 0,
+        "alt": "post 23",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-23",
+        "pageRaw": "https://example.com/blog/post-23",
+        "pageClicks": 0,
+        "alt": "post 23",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-23",
+        "pageRaw": "https://example.com/blog/post-23",
+        "pageClicks": 0,
+        "alt": "post 23",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-24",
+        "pageRaw": "https://example.com/blog/post-24",
+        "pageClicks": 0,
+        "alt": "post 24",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": true,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-24",
+        "pageRaw": "https://example.com/blog/post-24",
+        "pageClicks": 0,
+        "alt": "post 24",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-24",
+        "pageRaw": "https://example.com/blog/post-24",
+        "pageClicks": 0,
+        "alt": "post 24",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-24",
+        "pageRaw": "https://example.com/blog/post-24",
+        "pageClicks": 0,
+        "alt": "post 24",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      },
+      {
+        "src": "/img.webp",
+        "file": "img",
+        "ext": "webp",
+        "page": "example.com/blog/post-24",
+        "pageRaw": "https://example.com/blog/post-24",
+        "pageClicks": 0,
+        "alt": "post 24",
+        "altLen": 7,
+        "loading": "",
+        "fetchpriority": "",
+        "srcset": false,
+        "first": false,
+        "issues": [
+          "no alt attribute",
+          "generic filename",
+          "no width and height",
+          "no srcset"
+        ]
+      }
+    ],
+    "withoutAlt": 109,
+    "emptyAlt": 0,
+    "noDims": 109,
+    "noSrcset": 109,
+    "badFilename": 109,
+    "oldFormat": 0,
+    "lazyFirst": 0,
+    "formats": {
+      "webp": 109
+    },
+    "reused": [
+      {
+        "src": "/img.webp",
+        "n": 109
+      }
+    ],
+    "worstPages": []
+  },
+  "schema": {
+    "pages": 37,
+    "withSchema": 30,
+    "invalid": 0,
+    "coverage": 0.8108108108108109,
+    "types": [
+      {
+        "type": "Service",
+        "count": 30
+      },
+      {
+        "type": "BreadcrumbList",
+        "count": 30
+      }
+    ],
+    "without": [
+      {
+        "url": "example.com/contact",
+        "raw": "https://example.com/contact",
+        "title": "Contact | Example water"
+      },
+      {
+        "url": "example.com/about",
+        "raw": "https://example.com/about",
+        "title": "About | Example water"
+      },
+      {
+        "url": "example.com/blog/post-5",
+        "raw": "https://example.com/blog/post-5",
+        "title": "Post 5 | Example water"
+      },
+      {
+        "url": "example.com/blog/post-6",
+        "raw": "https://example.com/blog/post-6",
+        "title": "Post 6 | Example water"
+      },
+      {
+        "url": "example.com/blog/post-15",
+        "raw": "https://example.com/blog/post-15",
+        "title": "Post 15 | Example water"
+      },
+      {
+        "url": "example.com/blog/post-16",
+        "raw": "https://example.com/blog/post-16",
+        "title": "Post 16 | Example water"
+      },
+      {
+        "url": "example.com/blog/post-25",
+        "raw": "https://example.com/blog/post-25",
+        "title": "Post 25 | Example water"
+      }
+    ]
+  },
+  "hreflang": null,
+  "serp": {
+    "tracked": 90,
+    "features": [
+      {
+        "feature": "Local pack",
+        "count": 90,
+        "share": 1
+      },
+      {
+        "feature": "People also ask",
+        "count": 48,
+        "share": 0.5333333333333333
+      },
+      {
+        "feature": "AI overview",
+        "count": 38,
+        "share": 0.4222222222222222
+      },
+      {
+        "feature": "Featured snippet",
+        "count": 31,
+        "share": 0.34444444444444444
+      }
+    ],
+    "suppressed": [
+      {
+        "keyword": "cooling tower suppliers",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 4,
+        "volume": 902,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 6877,
+        "gscClicks": 218,
+        "gscPos": 4.01,
+        "gscCtr": 0.03169986912898066,
+        "expected": 0.07970757066280232,
+        "ratio": 0.39770211117190973,
+        "lost": 330.14896344809154
+      },
+      {
+        "keyword": "cooling tower installation",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 16,
+        "volume": 519,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 701,
+        "gscClicks": 111,
+        "gscPos": 1.16,
+        "gscCtr": 0.15834522111269614,
+        "expected": 0.4079601990049751,
+        "ratio": 0.38813889565429177,
+        "lost": 174.98009950248755
+      },
+      {
+        "keyword": "boiler descaling cost",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 26,
+        "volume": 1100,
+        "url": "https://example.com/services/chiller-servicing",
+        "gscImpr": 1872,
+        "gscClicks": 121,
+        "gscPos": 1.98,
+        "gscCtr": 0.06463675213675214,
+        "expected": 0.1362565455786004,
+        "ratio": 0.47437539137865525,
+        "lost": 134.07225332313993
+      },
+      {
+        "keyword": "industrial chiller price",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 19,
+        "volume": 68,
+        "url": "https://example.com/contact",
+        "gscImpr": 1678,
+        "gscClicks": 113,
+        "gscPos": 2.23,
+        "gscCtr": 0.06734207389749702,
+        "expected": 0.1362565455786004,
+        "ratio": 0.4942300100999577,
+        "lost": 115.63848348089147
+      },
+      {
+        "keyword": "cooling tower maintenance price",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 8,
+        "volume": 256,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 2603,
+        "gscClicks": 43,
+        "gscPos": 6.87,
+        "gscCtr": 0.016519400691509797,
+        "expected": 0.03186936936936937,
+        "ratio": 0.5183472725816501,
+        "lost": 39.95596846846847
+      },
+      {
+        "keyword": "boiler descaling near me",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 23,
+        "volume": 28,
+        "url": "https://example.com/blog/closed-loop-system-guide",
+        "gscImpr": 156,
+        "gscClicks": 35,
+        "gscPos": 1.02,
+        "gscCtr": 0.22435897435897437,
+        "expected": 0.4079601990049751,
+        "ratio": 0.5499530956848031,
+        "lost": 28.641791044776113
+      },
+      {
+        "keyword": "industrial chiller cost",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 2,
+        "volume": 2092,
+        "url": "https://example.com/services/cooling-tower-cleaning",
+        "gscImpr": 265,
+        "gscClicks": 18,
+        "gscPos": 1.86,
+        "gscCtr": 0.06792452830188679,
+        "expected": 0.1362565455786004,
+        "ratio": 0.49850469945096415,
+        "lost": 18.107984578329106
+      },
+      {
+        "keyword": "cooling tower maintenance near me",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 15,
+        "volume": 85,
+        "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "gscImpr": 114,
+        "gscClicks": 2,
+        "gscPos": 6.7,
+        "gscCtr": 0.017543859649122806,
+        "expected": 0.03186936936936937,
+        "ratio": 0.5504928398735354,
+        "lost": 1.6331081081081082
+      }
+    ],
+    "targets": [
+      {
+        "keyword": "legionella testing maintenance",
+        "features": [
+          "AI overview",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 1,
+        "volume": 24,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 7968,
+        "gscClicks": 255,
+        "gscPos": 5.57,
+        "gscCtr": 0.032003012048192774
+      },
+      {
+        "keyword": "legionella testing near me",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 2,
+        "volume": 599,
+        "url": "https://example.com/blog/closed-loop-system-guide",
+        "gscImpr": 6751,
+        "gscClicks": 324,
+        "gscPos": 5.61,
+        "gscCtr": 0.04799288994223078
+      },
+      {
+        "keyword": "legionella testing company",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 11,
+        "volume": 3194,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 4648,
+        "gscClicks": 325,
+        "gscPos": 6.21,
+        "gscCtr": 0.06992254733218589
+      },
+      {
+        "keyword": "boiler descaling uk",
+        "features": [
+          "AI overview",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 23,
+        "volume": 2753,
+        "url": "https://example.com/about",
+        "gscImpr": 3617,
+        "gscClicks": 351,
+        "gscPos": 5.19,
+        "gscCtr": 0.09704174730439591
+      },
+      {
+        "keyword": "boiler descaling vs alternatives",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 41,
+        "volume": 3055,
+        "url": "https://example.com/contact",
+        "gscImpr": 3393,
+        "gscClicks": 254,
+        "gscPos": 2.75,
+        "gscCtr": 0.07486000589448866
+      },
+      {
+        "keyword": "cooling tower maintenance price",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 8,
+        "volume": 256,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 2603,
+        "gscClicks": 43,
+        "gscPos": 6.87,
+        "gscCtr": 0.016519400691509797
+      },
+      {
+        "keyword": "industrial chiller price",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 19,
+        "volume": 68,
+        "url": "https://example.com/contact",
+        "gscImpr": 1678,
+        "gscClicks": 113,
+        "gscPos": 2.23,
+        "gscCtr": 0.06734207389749702
+      },
+      {
+        "keyword": "boiler descaling guide",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 2,
+        "volume": 1215,
+        "url": "https://example.com/blog/closed-loop-system-guide",
+        "gscImpr": 459,
+        "gscClicks": 129,
+        "gscPos": 2,
+        "gscCtr": 0.28104575163398693
+      },
+      {
+        "keyword": "water treatment uk",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 15,
+        "volume": 2011,
+        "url": "https://example.com/blog/closed-loop-system-guide",
+        "gscImpr": 439,
+        "gscClicks": 13,
+        "gscPos": 8.74,
+        "gscCtr": 0.029612756264236904
+      },
+      {
+        "keyword": "industrial chiller maintenance",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 25,
+        "volume": 255,
+        "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "gscImpr": 386,
+        "gscClicks": 35,
+        "gscPos": 4.44,
+        "gscCtr": 0.09067357512953368
+      },
+      {
+        "keyword": "cooling tower guide",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 13,
+        "volume": 1136,
+        "url": "https://example.com/blog/legionella-testing-explained",
+        "gscImpr": 202,
+        "gscClicks": 14,
+        "gscPos": 4.74,
+        "gscCtr": 0.06930693069306931
+      },
+      {
+        "keyword": "legionella testing installation",
+        "features": [
+          "AI overview",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 19,
+        "volume": 2234,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 138,
+        "gscClicks": 17,
+        "gscPos": 3.02,
+        "gscCtr": 0.12318840579710146
+      },
+      {
+        "keyword": "boiler descaling cleaning",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 37,
+        "volume": 156,
+        "url": "https://example.com/blog/legionella-testing-explained",
+        "gscImpr": 76,
+        "gscClicks": 7,
+        "gscPos": 4.11,
+        "gscCtr": 0.09210526315789473
+      }
+    ],
+    "items": [
+      {
+        "keyword": "cooling tower cost",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 7,
+        "volume": 1857,
+        "url": "https://example.com/blog/legionella-testing-explained",
+        "gscImpr": 527,
+        "gscClicks": 5,
+        "gscPos": 19.73,
+        "gscCtr": 0.009487666034155597
+      },
+      {
+        "keyword": "cooling tower services",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 3,
+        "volume": 45,
+        "url": "https://example.com/services/cooling-tower-cleaning",
+        "gscImpr": 7308,
+        "gscClicks": 14,
+        "gscPos": 36.51,
+        "gscCtr": 0.0019157088122605363
+      },
+      {
+        "keyword": "cooling tower company",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 14,
+        "volume": 564,
+        "url": "https://example.com/blog/legionella-testing-explained",
+        "gscImpr": 40,
+        "gscClicks": 0,
+        "gscPos": 45.45,
+        "gscCtr": 0
+      },
+      {
+        "keyword": "cooling tower near me",
+        "features": [
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 32,
+        "volume": 1083,
+        "url": "https://example.com/services/cooling-tower-cleaning",
+        "gscImpr": 5451,
+        "gscClicks": 32,
+        "gscPos": 40.34,
+        "gscCtr": 0.005870482480278848
+      },
+      {
+        "keyword": "cooling tower suppliers",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 4,
+        "volume": 902,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 6877,
+        "gscClicks": 218,
+        "gscPos": 4.01,
+        "gscCtr": 0.03169986912898066
+      },
+      {
+        "keyword": "cooling tower price",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 1,
+        "volume": 3180,
+        "url": "https://example.com/contact",
+        "gscImpr": 4382,
+        "gscClicks": 29,
+        "gscPos": 26.53,
+        "gscCtr": 0.006617982656321315
+      },
+      {
+        "keyword": "cooling tower installation",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 16,
+        "volume": 519,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 701,
+        "gscClicks": 111,
+        "gscPos": 1.16,
+        "gscCtr": 0.15834522111269614
+      },
+      {
+        "keyword": "cooling tower specialist",
+        "features": [
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 9,
+        "volume": 36,
+        "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "gscImpr": 584,
+        "gscClicks": 4,
+        "gscPos": 31.15,
+        "gscCtr": 0.00684931506849315
+      },
+      {
+        "keyword": "cooling tower contractor",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 25,
+        "volume": 4018,
+        "url": "https://example.com/services/cooling-tower-cleaning",
+        "gscImpr": 1121,
+        "gscClicks": 7,
+        "gscPos": 18.52,
+        "gscCtr": 0.006244424620874219
+      },
+      {
+        "keyword": "cooling tower maintenance",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 5,
+        "volume": 49,
+        "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "gscImpr": 479,
+        "gscClicks": 1,
+        "gscPos": 42.73,
+        "gscCtr": 0.0020876826722338203
+      },
+      {
+        "keyword": "cooling tower cleaning",
+        "features": [
+          "AI overview",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 6,
+        "volume": 1463,
+        "url": "https://example.com/about",
+        "gscImpr": 1948,
+        "gscClicks": 16,
+        "gscPos": 19.42,
+        "gscCtr": 0.008213552361396304
+      },
+      {
+        "keyword": "cooling tower uk",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 13,
+        "volume": 2001,
+        "url": "https://example.com/contact",
+        "gscImpr": 224,
+        "gscClicks": 0,
+        "gscPos": 29.93,
+        "gscCtr": 0
+      },
+      {
+        "keyword": "cooling tower checklist",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 30,
+        "volume": 909,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 349,
+        "gscClicks": 1,
+        "gscPos": 40.94,
+        "gscCtr": 0.0028653295128939827
+      },
+      {
+        "keyword": "cooling tower guide",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 13,
+        "volume": 1136,
+        "url": "https://example.com/blog/legionella-testing-explained",
+        "gscImpr": 202,
+        "gscClicks": 14,
+        "gscPos": 4.74,
+        "gscCtr": 0.06930693069306931
+      },
+      {
+        "keyword": "cooling tower vs alternatives",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 1,
+        "volume": 77,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 1231,
+        "gscClicks": 4,
+        "gscPos": 29.62,
+        "gscCtr": 0.003249390739236393
+      },
+      {
+        "keyword": "water treatment cost",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 9,
+        "volume": 986,
+        "url": "https://example.com/contact",
+        "gscImpr": 464,
+        "gscClicks": 2,
+        "gscPos": 34.69,
+        "gscCtr": 0.004310344827586207
+      },
+      {
+        "keyword": "water treatment services",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 23,
+        "volume": 103,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 166,
+        "gscClicks": 3,
+        "gscPos": 12.51,
+        "gscCtr": 0.018072289156626505
+      },
+      {
+        "keyword": "water treatment company",
+        "features": [
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 27,
+        "volume": 60,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 826,
+        "gscClicks": 1,
+        "gscPos": 30.16,
+        "gscCtr": 0.0012106537530266344
+      },
+      {
+        "keyword": "water treatment near me",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 16,
+        "volume": 2605,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 2425,
+        "gscClicks": 123,
+        "gscPos": 6.1,
+        "gscCtr": 0.050721649484536085
+      },
+      {
+        "keyword": "water treatment suppliers",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 6,
+        "volume": 723,
+        "url": "https://example.com/services/chiller-servicing",
+        "gscImpr": 286,
+        "gscClicks": 17,
+        "gscPos": 5.46,
+        "gscCtr": 0.05944055944055944
+      },
+      {
+        "keyword": "water treatment price",
+        "features": [
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 1,
+        "volume": 337,
+        "url": "https://example.com/",
+        "gscImpr": 4969,
+        "gscClicks": 22,
+        "gscPos": 41.8,
+        "gscCtr": 0.004427450191185349
+      },
+      {
+        "keyword": "water treatment installation",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 10,
+        "volume": 82,
+        "url": "https://example.com/blog/legionella-testing-explained",
+        "gscImpr": 1443,
+        "gscClicks": 5,
+        "gscPos": 37.82,
+        "gscCtr": 0.003465003465003465
+      },
+      {
+        "keyword": "water treatment specialist",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 13,
+        "volume": 43,
+        "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "gscImpr": 340,
+        "gscClicks": 29,
+        "gscPos": 3.45,
+        "gscCtr": 0.08529411764705883
+      },
+      {
+        "keyword": "water treatment contractor",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 38,
+        "volume": 2741,
+        "url": "https://example.com/about",
+        "gscImpr": 310,
+        "gscClicks": 1,
+        "gscPos": 32.81,
+        "gscCtr": 0.0032258064516129032
+      },
+      {
+        "keyword": "water treatment maintenance",
+        "features": [
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 3,
+        "volume": 149,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 7345,
+        "gscClicks": 50,
+        "gscPos": 22.23,
+        "gscCtr": 0.0068073519400953025
+      },
+      {
+        "keyword": "water treatment cleaning",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 2,
+        "volume": 284,
+        "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "gscImpr": 680,
+        "gscClicks": 2,
+        "gscPos": 33.34,
+        "gscCtr": 0.0029411764705882353
+      },
+      {
+        "keyword": "water treatment uk",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 15,
+        "volume": 2011,
+        "url": "https://example.com/blog/closed-loop-system-guide",
+        "gscImpr": 439,
+        "gscClicks": 13,
+        "gscPos": 8.74,
+        "gscCtr": 0.029612756264236904
+      },
+      {
+        "keyword": "water treatment checklist",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 26,
+        "volume": 69,
+        "url": "https://example.com/case-studies/manufacturing-plant",
+        "gscImpr": 8658,
+        "gscClicks": 52,
+        "gscPos": 12.56,
+        "gscCtr": 0.006006006006006006
+      },
+      {
+        "keyword": "water treatment guide",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 30,
+        "volume": 1448,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 4789,
+        "gscClicks": 24,
+        "gscPos": 20.31,
+        "gscCtr": 0.005011484652328252
+      },
+      {
+        "keyword": "water treatment vs alternatives",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 16,
+        "volume": 24,
+        "url": "https://example.com/services/cooling-tower-cleaning",
+        "gscImpr": 5712,
+        "gscClicks": 127,
+        "gscPos": 11.87,
+        "gscCtr": 0.02223389355742297
+      },
+      {
+        "keyword": "industrial chiller cost",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 2,
+        "volume": 2092,
+        "url": "https://example.com/services/cooling-tower-cleaning",
+        "gscImpr": 265,
+        "gscClicks": 18,
+        "gscPos": 1.86,
+        "gscCtr": 0.06792452830188679
+      },
+      {
+        "keyword": "industrial chiller services",
+        "features": [
+          "AI overview",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 23,
+        "volume": 38,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 1069,
+        "gscClicks": 462,
+        "gscPos": 1.03,
+        "gscCtr": 0.4321796071094481
+      },
+      {
+        "keyword": "industrial chiller company",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 1,
+        "volume": 20,
+        "url": "https://example.com/services/chiller-servicing",
+        "gscImpr": 2656,
+        "gscClicks": 321,
+        "gscPos": 3,
+        "gscCtr": 0.12085843373493976
+      },
+      {
+        "keyword": "industrial chiller near me",
+        "features": [
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 17,
+        "volume": 1882,
+        "url": "https://example.com/",
+        "gscImpr": 74,
+        "gscClicks": 1,
+        "gscPos": 35.43,
+        "gscCtr": 0.013513513513513514
+      },
+      {
+        "keyword": "industrial chiller suppliers",
+        "features": [
+          "AI overview",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 12,
+        "volume": 1839,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 1267,
+        "gscClicks": 7,
+        "gscPos": 24.98,
+        "gscCtr": 0.0055248618784530384
+      },
+      {
+        "keyword": "industrial chiller price",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 19,
+        "volume": 68,
+        "url": "https://example.com/contact",
+        "gscImpr": 1678,
+        "gscClicks": 113,
+        "gscPos": 2.23,
+        "gscCtr": 0.06734207389749702
+      },
+      {
+        "keyword": "industrial chiller installation",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 23,
+        "volume": 79,
+        "url": "https://example.com/blog/closed-loop-system-guide",
+        "gscImpr": 629,
+        "gscClicks": 46,
+        "gscPos": 4.24,
+        "gscCtr": 0.07313195548489666
+      },
+      {
+        "keyword": "industrial chiller specialist",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 8,
+        "volume": 755,
+        "url": "https://example.com/services/chiller-servicing",
+        "gscImpr": 137,
+        "gscClicks": 1,
+        "gscPos": 19.72,
+        "gscCtr": 0.0072992700729927005
+      },
+      {
+        "keyword": "industrial chiller contractor",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 3,
+        "volume": 964,
+        "url": "https://example.com/case-studies/manufacturing-plant",
+        "gscImpr": 4202,
+        "gscClicks": 936,
+        "gscPos": 1.71,
+        "gscCtr": 0.22275107091861018
+      },
+      {
+        "keyword": "industrial chiller maintenance",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 25,
+        "volume": 255,
+        "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "gscImpr": 386,
+        "gscClicks": 35,
+        "gscPos": 4.44,
+        "gscCtr": 0.09067357512953368
+      },
+      {
+        "keyword": "industrial chiller cleaning",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 6,
+        "volume": 575,
+        "url": "https://example.com/services/cooling-tower-cleaning",
+        "gscImpr": 1798,
+        "gscClicks": 4,
+        "gscPos": 35.84,
+        "gscCtr": 0.002224694104560623
+      },
+      {
+        "keyword": "industrial chiller uk",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 40,
+        "volume": 197,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 8747,
+        "gscClicks": 45,
+        "gscPos": 30.19,
+        "gscCtr": 0.005144621012918715
+      },
+      {
+        "keyword": "industrial chiller checklist",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 34,
+        "volume": 82,
+        "url": "https://example.com/about",
+        "gscImpr": 1728,
+        "gscClicks": 12,
+        "gscPos": 39.86,
+        "gscCtr": 0.006944444444444444
+      },
+      {
+        "keyword": "industrial chiller guide",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 13,
+        "volume": 481,
+        "url": "https://example.com/contact",
+        "gscImpr": 33,
+        "gscClicks": 0,
+        "gscPos": 17.19,
+        "gscCtr": 0
+      },
+      {
+        "keyword": "industrial chiller vs alternatives",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 6,
+        "volume": 308,
+        "url": "https://example.com/services/cooling-tower-cleaning",
+        "gscImpr": 30,
+        "gscClicks": 0,
+        "gscPos": 42.6,
+        "gscCtr": 0
+      },
+      {
+        "keyword": "boiler descaling cost",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 26,
+        "volume": 1100,
+        "url": "https://example.com/services/chiller-servicing",
+        "gscImpr": 1872,
+        "gscClicks": 121,
+        "gscPos": 1.98,
+        "gscCtr": 0.06463675213675214
+      },
+      {
+        "keyword": "boiler descaling services",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 3,
+        "volume": 1863,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 4967,
+        "gscClicks": 35,
+        "gscPos": 30.67,
+        "gscCtr": 0.007046506945842561
+      },
+      {
+        "keyword": "boiler descaling company",
+        "features": [
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 28,
+        "volume": 135,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 94,
+        "gscClicks": 1,
+        "gscPos": 15.41,
+        "gscCtr": 0.010638297872340425
+      },
+      {
+        "keyword": "boiler descaling near me",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 23,
+        "volume": 28,
+        "url": "https://example.com/blog/closed-loop-system-guide",
+        "gscImpr": 156,
+        "gscClicks": 35,
+        "gscPos": 1.02,
+        "gscCtr": 0.22435897435897437
+      },
+      {
+        "keyword": "boiler descaling suppliers",
+        "features": [
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 29,
+        "volume": 528,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 2465,
+        "gscClicks": 42,
+        "gscPos": 16.32,
+        "gscCtr": 0.017038539553752535
+      },
+      {
+        "keyword": "boiler descaling price",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 30,
+        "volume": 21,
+        "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "gscImpr": 56,
+        "gscClicks": 0,
+        "gscPos": 28.11,
+        "gscCtr": 0
+      },
+      {
+        "keyword": "boiler descaling installation",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 2,
+        "volume": 1275,
+        "url": "https://example.com/blog/legionella-testing-explained",
+        "gscImpr": 201,
+        "gscClicks": 82,
+        "gscPos": 1.06,
+        "gscCtr": 0.4079601990049751
+      },
+      {
+        "keyword": "boiler descaling specialist",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 36,
+        "volume": 250,
+        "url": "https://example.com/blog/closed-loop-system-guide",
+        "gscImpr": 34,
+        "gscClicks": 0,
+        "gscPos": 10.83,
+        "gscCtr": 0
+      },
+      {
+        "keyword": "boiler descaling contractor",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 16,
+        "volume": 2159,
+        "url": "https://example.com/contact",
+        "gscImpr": 299,
+        "gscClicks": 1,
+        "gscPos": 20.82,
+        "gscCtr": 0.0033444816053511705
+      },
+      {
+        "keyword": "boiler descaling maintenance",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 16,
+        "volume": 1997,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 989,
+        "gscClicks": 128,
+        "gscPos": 1.88,
+        "gscCtr": 0.12942366026289182
+      },
+      {
+        "keyword": "boiler descaling cleaning",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 37,
+        "volume": 156,
+        "url": "https://example.com/blog/legionella-testing-explained",
+        "gscImpr": 76,
+        "gscClicks": 7,
+        "gscPos": 4.11,
+        "gscCtr": 0.09210526315789473
+      },
+      {
+        "keyword": "boiler descaling uk",
+        "features": [
+          "AI overview",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 23,
+        "volume": 2753,
+        "url": "https://example.com/about",
+        "gscImpr": 3617,
+        "gscClicks": 351,
+        "gscPos": 5.19,
+        "gscCtr": 0.09704174730439591
+      },
+      {
+        "keyword": "boiler descaling checklist",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 13,
+        "volume": 46,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 5878,
+        "gscClicks": 62,
+        "gscPos": 18.93,
+        "gscCtr": 0.010547805375978225
+      },
+      {
+        "keyword": "boiler descaling guide",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 2,
+        "volume": 1215,
+        "url": "https://example.com/blog/closed-loop-system-guide",
+        "gscImpr": 459,
+        "gscClicks": 129,
+        "gscPos": 2,
+        "gscCtr": 0.28104575163398693
+      },
+      {
+        "keyword": "boiler descaling vs alternatives",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 41,
+        "volume": 3055,
+        "url": "https://example.com/contact",
+        "gscImpr": 3393,
+        "gscClicks": 254,
+        "gscPos": 2.75,
+        "gscCtr": 0.07486000589448866
+      },
+      {
+        "keyword": "cooling tower maintenance cost",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 41,
+        "volume": 1215,
+        "url": "https://example.com/services/cooling-tower-cleaning",
+        "gscImpr": 1882,
+        "gscClicks": 5,
+        "gscPos": 42.24,
+        "gscCtr": 0.002656748140276302
+      },
+      {
+        "keyword": "cooling tower maintenance services",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 2,
+        "volume": 20,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 3700,
+        "gscClicks": 139,
+        "gscPos": 8.91,
+        "gscCtr": 0.037567567567567565
+      },
+      {
+        "keyword": "cooling tower maintenance company",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 25,
+        "volume": 1187,
+        "url": "https://example.com/case-studies/manufacturing-plant",
+        "gscImpr": 137,
+        "gscClicks": 1,
+        "gscPos": 17.21,
+        "gscCtr": 0.0072992700729927005
+      },
+      {
+        "keyword": "cooling tower maintenance near me",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 15,
+        "volume": 85,
+        "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "gscImpr": 114,
+        "gscClicks": 2,
+        "gscPos": 6.7,
+        "gscCtr": 0.017543859649122806
+      },
+      {
+        "keyword": "cooling tower maintenance suppliers",
+        "features": [
+          "AI overview",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 1,
+        "volume": 20,
+        "url": "https://example.com/services/chiller-servicing",
+        "gscImpr": 7851,
+        "gscClicks": 20,
+        "gscPos": 36.9,
+        "gscCtr": 0.0025474461851993377
+      },
+      {
+        "keyword": "cooling tower maintenance price",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 8,
+        "volume": 256,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 2603,
+        "gscClicks": 43,
+        "gscPos": 6.87,
+        "gscCtr": 0.016519400691509797
+      },
+      {
+        "keyword": "cooling tower maintenance installation",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 19,
+        "volume": 139,
+        "url": "https://example.com/contact",
+        "gscImpr": 3324,
+        "gscClicks": 18,
+        "gscPos": 42.69,
+        "gscCtr": 0.005415162454873646
+      },
+      {
+        "keyword": "cooling tower maintenance specialist",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 3,
+        "volume": 3512,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 98,
+        "gscClicks": 9,
+        "gscPos": 3.71,
+        "gscCtr": 0.09183673469387756
+      },
+      {
+        "keyword": "cooling tower maintenance contractor",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 8,
+        "volume": 3017,
+        "url": "https://example.com/about",
+        "gscImpr": 2296,
+        "gscClicks": 5,
+        "gscPos": 23.12,
+        "gscCtr": 0.0021777003484320556
+      },
+      {
+        "keyword": "cooling tower maintenance maintenance",
+        "features": [
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 11,
+        "volume": 78,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 32,
+        "gscClicks": 11,
+        "gscPos": 1,
+        "gscCtr": 0.34375
+      },
+      {
+        "keyword": "cooling tower maintenance cleaning",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 2,
+        "volume": 427,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 130,
+        "gscClicks": 0,
+        "gscPos": 39.06,
+        "gscCtr": 0
+      },
+      {
+        "keyword": "cooling tower maintenance uk",
+        "features": [
+          "AI overview",
+          "Local pack"
+        ],
+        "pos": 4,
+        "volume": 25,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 1298,
+        "gscClicks": 572,
+        "gscPos": 1.02,
+        "gscCtr": 0.4406779661016949
+      },
+      {
+        "keyword": "cooling tower maintenance checklist",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 6,
+        "volume": 1088,
+        "url": "https://example.com/",
+        "gscImpr": 1579,
+        "gscClicks": 9,
+        "gscPos": 43.62,
+        "gscCtr": 0.005699810006333122
+      },
+      {
+        "keyword": "cooling tower maintenance guide",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 15,
+        "volume": 1471,
+        "url": "https://example.com/blog/closed-loop-system-guide",
+        "gscImpr": 799,
+        "gscClicks": 5,
+        "gscPos": 23.95,
+        "gscCtr": 0.006257822277847309
+      },
+      {
+        "keyword": "cooling tower maintenance vs alternatives",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 35,
+        "volume": 253,
+        "url": "https://example.com/case-studies/manufacturing-plant",
+        "gscImpr": 486,
+        "gscClicks": 1,
+        "gscPos": 40.81,
+        "gscCtr": 0.00205761316872428
+      },
+      {
+        "keyword": "legionella testing cost",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 2,
+        "volume": 329,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 3497,
+        "gscClicks": 124,
+        "gscPos": 9.8,
+        "gscCtr": 0.035458964826994566
+      },
+      {
+        "keyword": "legionella testing services",
+        "features": [
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 3,
+        "volume": 48,
+        "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+        "gscImpr": 103,
+        "gscClicks": 2,
+        "gscPos": 13.53,
+        "gscCtr": 0.019417475728155338
+      },
+      {
+        "keyword": "legionella testing company",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 11,
+        "volume": 3194,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 4648,
+        "gscClicks": 325,
+        "gscPos": 6.21,
+        "gscCtr": 0.06992254733218589
+      },
+      {
+        "keyword": "legionella testing near me",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 2,
+        "volume": 599,
+        "url": "https://example.com/blog/closed-loop-system-guide",
+        "gscImpr": 6751,
+        "gscClicks": 324,
+        "gscPos": 5.61,
+        "gscCtr": 0.04799288994223078
+      },
+      {
+        "keyword": "legionella testing suppliers",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 9,
+        "volume": 158,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 829,
+        "gscClicks": 12,
+        "gscPos": 15.25,
+        "gscCtr": 0.014475271411338963
+      },
+      {
+        "keyword": "legionella testing price",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 15,
+        "volume": 25,
+        "url": "https://example.com/services/cooling-tower-cleaning",
+        "gscImpr": 30,
+        "gscClicks": 0,
+        "gscPos": 10.3,
+        "gscCtr": 0
+      },
+      {
+        "keyword": "legionella testing installation",
+        "features": [
+          "AI overview",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 19,
+        "volume": 2234,
+        "url": "https://example.com/services/legionella-control",
+        "gscImpr": 138,
+        "gscClicks": 17,
+        "gscPos": 3.02,
+        "gscCtr": 0.12318840579710146
+      },
+      {
+        "keyword": "legionella testing specialist",
+        "features": [
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 36,
+        "volume": 1243,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 4305,
+        "gscClicks": 16,
+        "gscPos": 39.85,
+        "gscCtr": 0.003716608594657375
+      },
+      {
+        "keyword": "legionella testing contractor",
+        "features": [
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 4,
+        "volume": 1973,
+        "url": "https://example.com/about",
+        "gscImpr": 4213,
+        "gscClicks": 7,
+        "gscPos": 24.89,
+        "gscCtr": 0.001661523854735343
+      },
+      {
+        "keyword": "legionella testing maintenance",
+        "features": [
+          "AI overview",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 1,
+        "volume": 24,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 7968,
+        "gscClicks": 255,
+        "gscPos": 5.57,
+        "gscCtr": 0.032003012048192774
+      },
+      {
+        "keyword": "legionella testing cleaning",
+        "features": [
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 36,
+        "volume": 3975,
+        "url": "https://example.com/blog/what-does-water-treatment-cost",
+        "gscImpr": 197,
+        "gscClicks": 1,
+        "gscPos": 23.28,
+        "gscCtr": 0.005076142131979695
+      },
+      {
+        "keyword": "legionella testing uk",
+        "features": [
+          "AI overview",
+          "People also ask",
+          "Local pack"
+        ],
+        "pos": 22,
+        "volume": 24,
+        "url": "https://example.com/",
+        "gscImpr": 1891,
+        "gscClicks": 7,
+        "gscPos": 21.19,
+        "gscCtr": 0.0037017451084082496
+      },
+      {
+        "keyword": "legionella testing checklist",
+        "features": [
+          "People also ask",
+          "Featured snippet",
+          "Local pack"
+        ],
+        "pos": 18,
+        "volume": 30,
+        "url": "https://example.com/services/water-treatment",
+        "gscImpr": 1079,
+        "gscClicks": 444,
+        "gscPos": 1.2,
+        "gscCtr": 0.4114921223354958
+      },
+      {
+        "keyword": "legionella testing guide",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 18,
+        "volume": 232,
+        "url": "https://example.com/about",
+        "gscImpr": 1048,
+        "gscClicks": 2,
+        "gscPos": 27.46,
+        "gscCtr": 0.0019083969465648854
+      },
+      {
+        "keyword": "legionella testing vs alternatives",
+        "features": [
+          "Local pack"
+        ],
+        "pos": 21,
+        "volume": 3829,
+        "url": "https://example.com/services/chiller-servicing",
+        "gscImpr": 124,
+        "gscClicks": 1,
+        "gscPos": 14.14,
+        "gscCtr": 0.008064516129032258
+      }
+    ]
+  },
+  "ai": {
+    "available": true,
+    "visibility": "object",
+    "opportunities": 38,
+    "ctrGap": 6,
+    "pages": 38,
+    "fanout": 10,
+    "observations": 0,
+    "eligibility": null,
+    "gate": "included",
+    "aioQueryCount": 38,
+    "ctrGapTotal": 707.4732905230442,
+    "summary": "object"
+  },
+  "aiReadinessPillar": [
+    {
+      "label": "Retrieval crawlers are allowed in",
+      "value": null,
+      "detail": "No robots.txt was read, so crawler access is unknown.",
+      "weight": 3
+    },
+    {
+      "label": "Pages carrying quotable statistics",
+      "value": 0,
+      "detail": "0% of pages carry two or more concrete figures per 500 words. Adding statistics raised visibility 32% in the GEO experiment.",
+      "weight": 3
+    },
+    {
+      "label": "Pages quoting a named source",
+      "value": 0,
+      "detail": "0 of 30 pages quote someone by name. The strongest single lever measured: +40%.",
+      "weight": 3
+    },
+    {
+      "label": "Pages citing outside sources",
+      "value": 0.36666666666666664,
+      "detail": "37% of pages link out to at least two external sources. Worth up to +115% for pages already ranking fourth or fifth.",
+      "weight": 2
+    },
+    {
+      "label": "Headings that ask the reader’s question",
+      "value": 1,
+      "detail": "30 of 30 pages have at least one heading phrased as a question. Widely reported to help; no controlled test published, so this carries less weight than the measured levers.",
+      "weight": 1
+    },
+    {
+      "label": "Free of keyword stuffing",
+      "value": 1,
+      "detail": "No page over-repeats its target term.",
+      "weight": 2
+    }
+  ]
+}

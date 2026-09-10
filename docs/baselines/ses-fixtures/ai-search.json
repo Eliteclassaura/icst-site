@@ -1,0 +1,6327 @@
+{
+ "available": true,
+ "visibility": {
+  "total": 9030,
+  "totalBefore": 8741,
+  "delta": 289,
+  "pct": 0.03306257865232811,
+  "urls": 8,
+  "newUrls": 1,
+  "lostUrls": 1,
+  "concentration": 0.2875968992248062,
+  "rows": [
+   {
+    "url": "example.com/about",
+    "raw": "https://example.com/about",
+    "impr": 2597,
+    "before": 1711,
+    "delta": 886,
+    "pct": 0.5178258328462887,
+    "state": "up"
+   },
+   {
+    "url": "example.com/services/water-treatment",
+    "raw": "https://example.com/services/water-treatment",
+    "impr": 1892,
+    "before": 2213,
+    "delta": -321,
+    "pct": -0.14505196565747855,
+    "state": "down"
+   },
+   {
+    "url": "example.com/blog/what-does-water-treatment-cost",
+    "raw": "https://example.com/blog/what-does-water-treatment-cost",
+    "impr": 1729,
+    "before": 2235,
+    "delta": -506,
+    "pct": -0.22639821029082774,
+    "state": "down"
+   },
+   {
+    "url": "example.com/blog/cooling-tower-maintenance-checklist",
+    "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+    "impr": 1061,
+    "before": 1001,
+    "delta": 60,
+    "pct": 0.059940059940059943,
+    "state": "up"
+   },
+   {
+    "url": "example.com",
+    "raw": "https://example.com/",
+    "impr": 864,
+    "before": 632,
+    "delta": 232,
+    "pct": 0.3670886075949367,
+    "state": "up"
+   },
+   {
+    "url": "example.com/services/cooling-tower-cleaning",
+    "raw": "https://example.com/services/cooling-tower-cleaning",
+    "impr": 387,
+    "before": 400,
+    "delta": -13,
+    "pct": -0.0325,
+    "state": "down"
+   },
+   {
+    "url": "example.com/blog/legionella-testing-explained",
+    "raw": "https://example.com/blog/legionella-testing-explained",
+    "impr": 362,
+    "before": 461,
+    "delta": -99,
+    "pct": -0.21475054229934923,
+    "state": "down"
+   },
+   {
+    "url": "example.com/contact",
+    "raw": "https://example.com/contact",
+    "impr": 138,
+    "before": 0,
+    "delta": 138,
+    "pct": null,
+    "state": "new"
+   },
+   {
+    "url": "example.com/services/legionella-control",
+    "raw": "https://example.com/services/legionella-control",
+    "impr": 0,
+    "before": 88,
+    "delta": -88,
+    "pct": -1,
+    "state": "lost"
+   }
+  ],
+  "hasPrevious": true,
+  "byDevice": [
+   {
+    "key": "MOBILE",
+    "impr": 3606,
+    "share": 0.6215098241985523
+   },
+   {
+    "key": "DESKTOP",
+    "impr": 2052,
+    "share": 0.3536711478800414
+   },
+   {
+    "key": "TABLET",
+    "impr": 144,
+    "share": 0.02481902792140641
+   }
+  ],
+  "byCountry": [
+   {
+    "key": "gbr",
+    "impr": 5354,
+    "share": 0.8160341411370218
+   },
+   {
+    "key": "irl",
+    "impr": 670,
+    "share": 0.10211857948483463
+   },
+   {
+    "key": "usa",
+    "impr": 537,
+    "share": 0.08184727937814358
+   }
+  ],
+  "byDate": []
+ },
+ "opportunities": [
+  {
+   "query": "boiler descaling uk",
+   "impr": 3617,
+   "clicks": 351,
+   "ctr": 0.09704174730439591,
+   "pos": 5.19,
+   "volume": 2753,
+   "ownerUrl": "example.com/services/legionella-control",
+   "ownerRaw": "https://example.com/services/legionella-control",
+   "aiVisible": false,
+   "priority": "high",
+   "reason": "You rank in the top ten and the page has no recorded generative visibility."
+  },
+  {
+   "query": "boiler descaling near me",
+   "impr": 156,
+   "clicks": 35,
+   "ctr": 0.22435897435897437,
+   "pos": 1.02,
+   "volume": 28,
+   "ownerUrl": "example.com/services/legionella-control",
+   "ownerRaw": "https://example.com/services/legionella-control",
+   "aiVisible": false,
+   "priority": "high",
+   "reason": "You rank in the top ten and the page has no recorded generative visibility."
+  },
+  {
+   "query": "industrial chiller uk",
+   "impr": 8747,
+   "clicks": 45,
+   "ctr": 0.005144621012918715,
+   "pos": 30.19,
+   "volume": 197,
+   "ownerUrl": "example.com/services/water-treatment",
+   "ownerRaw": "https://example.com/services/water-treatment",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "legionella testing maintenance",
+   "impr": 7968,
+   "clicks": 255,
+   "ctr": 0.032003012048192774,
+   "pos": 5.57,
+   "volume": 24,
+   "ownerUrl": "example.com/blog/what-does-water-treatment-cost",
+   "ownerRaw": "https://example.com/blog/what-does-water-treatment-cost",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower maintenance suppliers",
+   "impr": 7851,
+   "clicks": 20,
+   "ctr": 0.0025474461851993377,
+   "pos": 36.9,
+   "volume": 20,
+   "ownerUrl": "example.com/blog/cooling-tower-maintenance-checklist",
+   "ownerRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower suppliers",
+   "impr": 6877,
+   "clicks": 218,
+   "ctr": 0.03169986912898066,
+   "pos": 4.01,
+   "volume": 902,
+   "ownerUrl": "example.com",
+   "ownerRaw": "https://example.com/",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "water treatment vs alternatives",
+   "impr": 5712,
+   "clicks": 127,
+   "ctr": 0.02223389355742297,
+   "pos": 11.87,
+   "volume": 24,
+   "ownerUrl": "example.com/services/cooling-tower-cleaning",
+   "ownerRaw": "https://example.com/services/cooling-tower-cleaning",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "water treatment guide",
+   "impr": 4789,
+   "clicks": 24,
+   "ctr": 0.005011484652328252,
+   "pos": 20.31,
+   "volume": 1448,
+   "ownerUrl": "example.com/services/cooling-tower-cleaning",
+   "ownerRaw": "https://example.com/services/cooling-tower-cleaning",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "legionella testing cost",
+   "impr": 3497,
+   "clicks": 124,
+   "ctr": 0.035458964826994566,
+   "pos": 9.8,
+   "volume": 329,
+   "ownerUrl": "example.com/blog/what-does-water-treatment-cost",
+   "ownerRaw": "https://example.com/blog/what-does-water-treatment-cost",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower maintenance price",
+   "impr": 2603,
+   "clicks": 43,
+   "ctr": 0.016519400691509797,
+   "pos": 6.87,
+   "volume": 256,
+   "ownerUrl": "example.com/blog/cooling-tower-maintenance-checklist",
+   "ownerRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower maintenance contractor",
+   "impr": 2296,
+   "clicks": 5,
+   "ctr": 0.0021777003484320556,
+   "pos": 23.12,
+   "volume": 3017,
+   "ownerUrl": "example.com/blog/cooling-tower-maintenance-checklist",
+   "ownerRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower cleaning",
+   "impr": 1948,
+   "clicks": 16,
+   "ctr": 0.008213552361396304,
+   "pos": 19.42,
+   "volume": 1463,
+   "ownerUrl": "example.com",
+   "ownerRaw": "https://example.com/",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "legionella testing uk",
+   "impr": 1891,
+   "clicks": 7,
+   "ctr": 0.0037017451084082496,
+   "pos": 21.19,
+   "volume": 24,
+   "ownerUrl": "example.com/blog/what-does-water-treatment-cost",
+   "ownerRaw": "https://example.com/blog/what-does-water-treatment-cost",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "industrial chiller cleaning",
+   "impr": 1798,
+   "clicks": 4,
+   "ctr": 0.002224694104560623,
+   "pos": 35.84,
+   "volume": 575,
+   "ownerUrl": "example.com/services/water-treatment",
+   "ownerRaw": "https://example.com/services/water-treatment",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "industrial chiller checklist",
+   "impr": 1728,
+   "clicks": 12,
+   "ctr": 0.006944444444444444,
+   "pos": 39.86,
+   "volume": 82,
+   "ownerUrl": "example.com/services/water-treatment",
+   "ownerRaw": "https://example.com/services/water-treatment",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "industrial chiller price",
+   "impr": 1678,
+   "clicks": 113,
+   "ctr": 0.06734207389749702,
+   "pos": 2.23,
+   "volume": 68,
+   "ownerUrl": "example.com/services/water-treatment",
+   "ownerRaw": "https://example.com/services/water-treatment",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "water treatment installation",
+   "impr": 1443,
+   "clicks": 5,
+   "ctr": 0.003465003465003465,
+   "pos": 37.82,
+   "volume": 82,
+   "ownerUrl": "example.com/services/cooling-tower-cleaning",
+   "ownerRaw": "https://example.com/services/cooling-tower-cleaning",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower maintenance uk",
+   "impr": 1298,
+   "clicks": 572,
+   "ctr": 0.4406779661016949,
+   "pos": 1.02,
+   "volume": 25,
+   "ownerUrl": "example.com/blog/cooling-tower-maintenance-checklist",
+   "ownerRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "industrial chiller suppliers",
+   "impr": 1267,
+   "clicks": 7,
+   "ctr": 0.0055248618784530384,
+   "pos": 24.98,
+   "volume": 1839,
+   "ownerUrl": "example.com/services/water-treatment",
+   "ownerRaw": "https://example.com/services/water-treatment",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower vs alternatives",
+   "impr": 1231,
+   "clicks": 4,
+   "ctr": 0.003249390739236393,
+   "pos": 29.62,
+   "volume": 77,
+   "ownerUrl": "example.com",
+   "ownerRaw": "https://example.com/",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower contractor",
+   "impr": 1121,
+   "clicks": 7,
+   "ctr": 0.006244424620874219,
+   "pos": 18.52,
+   "volume": 4018,
+   "ownerUrl": "example.com",
+   "ownerRaw": "https://example.com/",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "industrial chiller services",
+   "impr": 1069,
+   "clicks": 462,
+   "ctr": 0.4321796071094481,
+   "pos": 1.03,
+   "volume": 38,
+   "ownerUrl": "example.com/services/water-treatment",
+   "ownerRaw": "https://example.com/services/water-treatment",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower installation",
+   "impr": 701,
+   "clicks": 111,
+   "ctr": 0.15834522111269614,
+   "pos": 1.16,
+   "volume": 519,
+   "ownerUrl": "example.com",
+   "ownerRaw": "https://example.com/",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower maintenance vs alternatives",
+   "impr": 486,
+   "clicks": 1,
+   "ctr": 0.00205761316872428,
+   "pos": 40.81,
+   "volume": 253,
+   "ownerUrl": "example.com/blog/cooling-tower-maintenance-checklist",
+   "ownerRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "water treatment cost",
+   "impr": 464,
+   "clicks": 2,
+   "ctr": 0.004310344827586207,
+   "pos": 34.69,
+   "volume": 986,
+   "ownerUrl": "example.com/services/cooling-tower-cleaning",
+   "ownerRaw": "https://example.com/services/cooling-tower-cleaning",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "water treatment suppliers",
+   "impr": 286,
+   "clicks": 17,
+   "ctr": 0.05944055944055944,
+   "pos": 5.46,
+   "volume": 723,
+   "ownerUrl": "example.com/services/cooling-tower-cleaning",
+   "ownerRaw": "https://example.com/services/cooling-tower-cleaning",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "industrial chiller cost",
+   "impr": 265,
+   "clicks": 18,
+   "ctr": 0.06792452830188679,
+   "pos": 1.86,
+   "volume": 2092,
+   "ownerUrl": "example.com/services/water-treatment",
+   "ownerRaw": "https://example.com/services/water-treatment",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "water treatment services",
+   "impr": 166,
+   "clicks": 3,
+   "ctr": 0.018072289156626505,
+   "pos": 12.51,
+   "volume": 103,
+   "ownerUrl": "example.com/services/cooling-tower-cleaning",
+   "ownerRaw": "https://example.com/services/cooling-tower-cleaning",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "legionella testing installation",
+   "impr": 138,
+   "clicks": 17,
+   "ctr": 0.12318840579710146,
+   "pos": 3.02,
+   "volume": 2234,
+   "ownerUrl": "example.com/blog/what-does-water-treatment-cost",
+   "ownerRaw": "https://example.com/blog/what-does-water-treatment-cost",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "industrial chiller specialist",
+   "impr": 137,
+   "clicks": 1,
+   "ctr": 0.0072992700729927005,
+   "pos": 19.72,
+   "volume": 755,
+   "ownerUrl": "example.com/services/water-treatment",
+   "ownerRaw": "https://example.com/services/water-treatment",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower maintenance company",
+   "impr": 137,
+   "clicks": 1,
+   "ctr": 0.0072992700729927005,
+   "pos": 17.21,
+   "volume": 1187,
+   "ownerUrl": "example.com/blog/cooling-tower-maintenance-checklist",
+   "ownerRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower maintenance specialist",
+   "impr": 98,
+   "clicks": 9,
+   "ctr": 0.09183673469387756,
+   "pos": 3.71,
+   "volume": 3512,
+   "ownerUrl": "example.com/blog/cooling-tower-maintenance-checklist",
+   "ownerRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "cooling tower company",
+   "impr": 40,
+   "clicks": 0,
+   "ctr": 0,
+   "pos": 45.45,
+   "volume": 564,
+   "ownerUrl": "example.com",
+   "ownerRaw": "https://example.com/",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "legionella testing price",
+   "impr": 30,
+   "clicks": 0,
+   "ctr": 0,
+   "pos": 10.3,
+   "volume": 25,
+   "ownerUrl": "example.com/blog/what-does-water-treatment-cost",
+   "ownerRaw": "https://example.com/blog/what-does-water-treatment-cost",
+   "aiVisible": true,
+   "priority": "protect",
+   "reason": "The owning page already draws generative impressions on this topic."
+  },
+  {
+   "query": "boiler descaling checklist",
+   "impr": 5878,
+   "clicks": 62,
+   "ctr": 0.010547805375978225,
+   "pos": 18.93,
+   "volume": 46,
+   "ownerUrl": "example.com/services/legionella-control",
+   "ownerRaw": "https://example.com/services/legionella-control",
+   "aiVisible": false,
+   "priority": "medium",
+   "reason": "Close to the first page. Conventional position usually comes first."
+  },
+  {
+   "query": "boiler descaling specialist",
+   "impr": 34,
+   "clicks": 0,
+   "ctr": 0,
+   "pos": 10.83,
+   "volume": 250,
+   "ownerUrl": "example.com/services/legionella-control",
+   "ownerRaw": "https://example.com/services/legionella-control",
+   "aiVisible": false,
+   "priority": "medium",
+   "reason": "Close to the first page. Conventional position usually comes first."
+  },
+  {
+   "query": "boiler descaling services",
+   "impr": 4967,
+   "clicks": 35,
+   "ctr": 0.007046506945842561,
+   "pos": 30.67,
+   "volume": 1863,
+   "ownerUrl": "example.com/services/legionella-control",
+   "ownerRaw": "https://example.com/services/legionella-control",
+   "aiVisible": false,
+   "priority": "organic",
+   "reason": "Too far down for generative work to be the bottleneck. Fix the ranking first."
+  },
+  {
+   "query": "boiler descaling contractor",
+   "impr": 299,
+   "clicks": 1,
+   "ctr": 0.0033444816053511705,
+   "pos": 20.82,
+   "volume": 2159,
+   "ownerUrl": "example.com/services/legionella-control",
+   "ownerRaw": "https://example.com/services/legionella-control",
+   "aiVisible": false,
+   "priority": "organic",
+   "reason": "Too far down for generative work to be the bottleneck. Fix the ranking first."
+  }
+ ],
+ "ctrGap": [
+  {
+   "query": "cooling tower suppliers",
+   "pos": 4.01,
+   "impr": 6877,
+   "ctr": 0.03169986912898066,
+   "expected": 0.07970757066280232,
+   "ratio": 0.39770211117190973,
+   "gap": 330.14896344809154,
+   "otherFeatures": [
+    "Local pack"
+   ]
+  },
+  {
+   "query": "cooling tower installation",
+   "pos": 1.16,
+   "impr": 701,
+   "ctr": 0.15834522111269614,
+   "expected": 0.4079601990049751,
+   "ratio": 0.38813889565429177,
+   "gap": 174.98009950248755,
+   "otherFeatures": [
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ]
+  },
+  {
+   "query": "industrial chiller price",
+   "pos": 2.23,
+   "impr": 1678,
+   "ctr": 0.06734207389749702,
+   "expected": 0.1362565455786004,
+   "ratio": 0.4942300100999577,
+   "gap": 115.63848348089147,
+   "otherFeatures": [
+    "People also ask",
+    "Local pack"
+   ]
+  },
+  {
+   "query": "cooling tower maintenance price",
+   "pos": 6.87,
+   "impr": 2603,
+   "ctr": 0.016519400691509797,
+   "expected": 0.03186936936936937,
+   "ratio": 0.5183472725816501,
+   "gap": 39.95596846846847,
+   "otherFeatures": [
+    "People also ask",
+    "Featured snippet",
+    "Local pack"
+   ]
+  },
+  {
+   "query": "boiler descaling near me",
+   "pos": 1.02,
+   "impr": 156,
+   "ctr": 0.22435897435897437,
+   "expected": 0.4079601990049751,
+   "ratio": 0.5499530956848031,
+   "gap": 28.641791044776113,
+   "otherFeatures": [
+    "Local pack"
+   ]
+  },
+  {
+   "query": "industrial chiller cost",
+   "pos": 1.86,
+   "impr": 265,
+   "ctr": 0.06792452830188679,
+   "expected": 0.1362565455786004,
+   "ratio": 0.49850469945096415,
+   "gap": 18.107984578329106,
+   "otherFeatures": [
+    "Local pack"
+   ]
+  }
+ ],
+ "pages": [
+  {
+   "url": "example.com/services/chiller-servicing",
+   "raw": "https://example.com/services/chiller-servicing",
+   "webImpr": 10579,
+   "webClicks": 659,
+   "webPos": 3.07,
+   "webDelta": -155,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 60,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 0.55,
+     "note": "1 blocking check failed."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "16 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": 0.25,
+     "note": "1 of 4 queries in this topic appear in the page's own words."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "3 subheadings, median paragraph 55 words, 1 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "3 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.701838730514401,
+     "note": "6 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "fail",
+      "detail": "HTTP 404"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1171 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 1,
+    "state": "blocked"
+   },
+   "cluster": "example water contact",
+   "decision": "blocked",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/closed-loop-system-guide",
+   "raw": "https://example.com/blog/closed-loop-system-guide",
+   "webImpr": 201,
+   "webClicks": 3,
+   "webPos": 13.82,
+   "webDelta": 0,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 65,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 0.55,
+     "note": "1 blocking check failed."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 46 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "22 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "3 subheadings, median paragraph 70 words, 1 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "5 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.8304820237218405,
+     "note": "9 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "fail",
+      "detail": "A robots meta tag says noindex."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1177 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 1,
+    "state": "blocked"
+   },
+   "cluster": "",
+   "decision": "blocked",
+   "crawled": true
+  },
+  {
+   "url": "example.com/services/water-treatment",
+   "raw": "https://example.com/services/water-treatment",
+   "webImpr": 6307,
+   "webClicks": 580,
+   "webPos": 3.66,
+   "webDelta": -61,
+   "aiImpr": 1892,
+   "aiBefore": 2213,
+   "aiDelta": -321,
+   "aiState": "down",
+   "aioQueries": 8,
+   "readiness": 67,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.8,
+     "note": "Opening paragraph is 45 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "26 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": 0,
+     "note": "0 of 16 queries in this topic appear in the page's own words."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.8,
+     "note": "2 subheadings, median paragraph 56 words, 1 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "3 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 1,
+     "note": "18 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1345 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "industrial chiller uk",
+   "decision": "recover",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/what-does-water-treatment-cost",
+   "raw": "https://example.com/blog/what-does-water-treatment-cost",
+   "webImpr": 14036,
+   "webClicks": 1460,
+   "webPos": 3.51,
+   "webDelta": -38,
+   "aiImpr": 1729,
+   "aiBefore": 2235,
+   "aiDelta": -506,
+   "aiState": "down",
+   "aioQueries": 5,
+   "readiness": 66,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 47 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "15 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": 0,
+     "note": "0 of 16 queries in this topic appear in the page's own words."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "3 subheadings, median paragraph 65 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.35,
+     "note": "2 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.925109929535273,
+     "note": "12 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1203 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "legionella testing maintenance",
+   "decision": "recover",
+   "crawled": true
+  },
+  {
+   "url": "example.com/services/cooling-tower-cleaning",
+   "raw": "https://example.com/services/cooling-tower-cleaning",
+   "webImpr": 8857,
+   "webClicks": 202,
+   "webPos": 9.7,
+   "webDelta": -15,
+   "aiImpr": 387,
+   "aiBefore": 400,
+   "aiDelta": -13,
+   "aiState": "down",
+   "aioQueries": 6,
+   "readiness": 68,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 45 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "32 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": 0,
+     "note": "0 of 16 queries in this topic appear in the page's own words."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "3 subheadings, median paragraph 70 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "4 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.925109929535273,
+     "note": "12 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1042 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "water treatment checklist",
+   "decision": "recover",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/legionella-testing-explained",
+   "raw": "https://example.com/blog/legionella-testing-explained",
+   "webImpr": 3210,
+   "webClicks": 1247,
+   "webPos": 1.27,
+   "webDelta": 154,
+   "aiImpr": 362,
+   "aiBefore": 461,
+   "aiDelta": -99,
+   "aiState": "down",
+   "aioQueries": 0,
+   "readiness": 84,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 45 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 1,
+     "note": "Contains first-party study or experience language."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 1,
+     "note": "16 figures, 3 outbound citations, 1 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": 0,
+     "note": "0 of 16 queries in this topic appear in the page's own words."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "4 subheadings, median paragraph 60 words, 1 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 1,
+     "note": "Most recent year mentioned is 2026."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 1,
+     "note": "3 images, 1 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.5804820237218407,
+     "note": "4 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1145 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "heat exchanger cleaning specialist",
+   "decision": "recover",
+   "crawled": true
+  },
+  {
+   "url": "example.com/services/legionella-control",
+   "raw": "https://example.com/services/legionella-control",
+   "webImpr": 2246,
+   "webClicks": 33,
+   "webPos": 11.98,
+   "webDelta": -7,
+   "aiImpr": 0,
+   "aiBefore": 88,
+   "aiDelta": -88,
+   "aiState": "lost",
+   "aioQueries": 6,
+   "readiness": 86,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 1,
+     "note": "Contains first-party study or experience language."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 1,
+     "note": "29 figures, 3 outbound citations, 1 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": 0,
+     "note": "0 of 16 queries in this topic appear in the page's own words."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "4 subheadings, median paragraph 46 words, 3 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 1,
+     "note": "Most recent year mentioned is 2026."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 1,
+     "note": "4 images, 1 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 1,
+     "note": "17 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1018 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "boiler descaling checklist",
+   "decision": "recover",
+   "crawled": true
+  },
+  {
+   "url": "example.com/about",
+   "raw": "https://example.com/about",
+   "webImpr": 13733,
+   "webClicks": 735,
+   "webPos": 6.11,
+   "webDelta": 311,
+   "aiImpr": 2597,
+   "aiBefore": 1711,
+   "aiDelta": 886,
+   "aiState": "up",
+   "aioQueries": 0,
+   "readiness": 38,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 0.92,
+     "note": "1 check could not be confirmed."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.2,
+     "note": "Opening paragraph is 6 words, probably too short to answer anything."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.5,
+     "note": "1 figures, 0 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": 0,
+     "note": "0 of 16 queries in this topic appear in the page's own words."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.35,
+     "note": "0 subheadings, median paragraph 14 words, 0 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0,
+     "note": "Most recent year mentioned is 2023."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0,
+     "note": "0 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0,
+     "note": "0 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "check",
+      "detail": "Only 51 words in the served HTML. If the content is rendered by JavaScript, a first-pass crawler will not see it."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "partial"
+   },
+   "cluster": "closed loop system installation",
+   "decision": "protect",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/cooling-tower-maintenance-checklist",
+   "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "webImpr": 5957,
+   "webClicks": 80,
+   "webPos": 9.34,
+   "webDelta": 29,
+   "aiImpr": 1061,
+   "aiBefore": 1001,
+   "aiDelta": 60,
+   "aiState": "up",
+   "aioQueries": 7,
+   "readiness": 70,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.55,
+     "note": "Opening paragraph is 46 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "20 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.8,
+     "note": "2 subheadings, median paragraph 55 words, 1 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "4 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.9767226489021297,
+     "note": "14 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1144 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "protect",
+   "crawled": true
+  },
+  {
+   "url": "example.com",
+   "raw": "https://example.com/",
+   "webImpr": 1510,
+   "webClicks": 30,
+   "webPos": 8.58,
+   "webDelta": -2,
+   "aiImpr": 864,
+   "aiBefore": 632,
+   "aiDelta": 232,
+   "aiState": "up",
+   "aioQueries": 6,
+   "readiness": 86,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 1,
+     "note": "Contains first-party study or experience language."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 1,
+     "note": "21 figures, 3 outbound citations, 1 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": 0,
+     "note": "0 of 32 queries in this topic appear in the page's own words."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "4 subheadings, median paragraph 52 words, 1 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 1,
+     "note": "Most recent year mentioned is 2026."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 1,
+     "note": "5 images, 1 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.8962406251802891,
+     "note": "11 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1132 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "cooling tower maintenance suppliers",
+   "decision": "protect",
+   "crawled": true
+  },
+  {
+   "url": "example.com/contact",
+   "raw": "https://example.com/contact",
+   "webImpr": 949,
+   "webClicks": 239,
+   "webPos": 1.13,
+   "webDelta": -127,
+   "aiImpr": 138,
+   "aiBefore": 0,
+   "aiDelta": 138,
+   "aiState": "new",
+   "aioQueries": 0,
+   "readiness": 38,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 0.92,
+     "note": "1 check could not be confirmed."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.2,
+     "note": "Opening paragraph is 6 words, probably too short to answer anything."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.5,
+     "note": "1 figures, 0 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": 0,
+     "note": "0 of 16 queries in this topic appear in the page's own words."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.35,
+     "note": "0 subheadings, median paragraph 14 words, 0 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0,
+     "note": "Most recent year mentioned is 2023."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0,
+     "note": "0 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0,
+     "note": "0 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "check",
+      "detail": "Only 51 words in the served HTML. If the content is rendered by JavaScript, a first-pass crawler will not see it."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "partial"
+   },
+   "cluster": "water softener vs alternatives",
+   "decision": "protect",
+   "crawled": true
+  },
+  {
+   "url": "example.com/case-studies/manufacturing-plant",
+   "raw": "https://example.com/case-studies/manufacturing-plant",
+   "webImpr": 3823,
+   "webClicks": 269,
+   "webPos": 3.04,
+   "webDelta": 67,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 86,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 1,
+     "note": "Contains first-party study or experience language."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 1,
+     "note": "26 figures, 3 outbound citations, 1 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": 0,
+     "note": "0 of 16 queries in this topic appear in the page's own words."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "4 subheadings, median paragraph 64 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 1,
+     "note": "Most recent year mentioned is 2026."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 1,
+     "note": "4 images, 1 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.9767226489021297,
+     "note": "14 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1048 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "evaporative condenser cleaning",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-0",
+   "raw": "https://example.com/blog/post-0",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 96,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 1,
+     "note": "Contains first-party study or experience language."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 1,
+     "note": "22 figures, 3 outbound citations, 1 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "4 subheadings, median paragraph 59 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 1,
+     "note": "Most recent year mentioned is 2026."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 1,
+     "note": "5 images, 1 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 1,
+     "note": "19 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1363 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-1",
+   "raw": "https://example.com/blog/post-1",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 68,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.55,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "21 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.8,
+     "note": "2 subheadings, median paragraph 49 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "3 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.701838730514401,
+     "note": "6 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1105 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-2",
+   "raw": "https://example.com/blog/post-2",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 75,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "22 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "3 subheadings, median paragraph 58 words, 1 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "3 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.8962406251802891,
+     "note": "11 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "758 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-3",
+   "raw": "https://example.com/blog/post-3",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 95,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 1,
+     "note": "Contains first-party study or experience language."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 1,
+     "note": "17 figures, 3 outbound citations, 1 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "4 subheadings, median paragraph 66 words, 3 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 1,
+     "note": "Most recent year mentioned is 2026."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 1,
+     "note": "5 images, 1 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.8304820237218405,
+     "note": "9 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "882 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-4_draft_copy",
+   "raw": "https://example.com/blog/post-4_Draft_Copy",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 67,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.55,
+     "note": "Opening paragraph is 46 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "19 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.8,
+     "note": "2 subheadings, median paragraph 61 words, 3 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "5 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.5,
+     "note": "3 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1123 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-5",
+   "raw": "https://example.com/blog/post-5",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 42,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 0.92,
+     "note": "1 check could not be confirmed."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.2,
+     "note": "Opening paragraph is 7 words, probably too short to answer anything."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.5,
+     "note": "1 figures, 0 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.35,
+     "note": "0 subheadings, median paragraph 14 words, 0 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0,
+     "note": "Most recent year mentioned is 2023."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0,
+     "note": "0 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0,
+     "note": "0 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "check",
+      "detail": "Only 52 words in the served HTML. If the content is rendered by JavaScript, a first-pass crawler will not see it."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "partial"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-6",
+   "raw": "https://example.com/blog/post-6",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 42,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 0.92,
+     "note": "1 check could not be confirmed."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.2,
+     "note": "Opening paragraph is 7 words, probably too short to answer anything."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.5,
+     "note": "1 figures, 0 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.35,
+     "note": "0 subheadings, median paragraph 14 words, 0 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0,
+     "note": "Most recent year mentioned is 2023."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0,
+     "note": "0 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0,
+     "note": "0 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "check",
+      "detail": "Only 52 words in the served HTML. If the content is rendered by JavaScript, a first-pass crawler will not see it."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "partial"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-7",
+   "raw": "https://example.com/blog/post-7",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 74,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "25 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "3 subheadings, median paragraph 52 words, 3 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "4 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.646240625180289,
+     "note": "5 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1154 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-8",
+   "raw": "https://example.com/blog/post-8",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 74,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "27 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "3 subheadings, median paragraph 70 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "4 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.701838730514401,
+     "note": "6 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1375 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-9",
+   "raw": "https://example.com/blog/post-9",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 95,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 1,
+     "note": "Contains first-party study or experience language."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 1,
+     "note": "20 figures, 3 outbound citations, 1 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "4 subheadings, median paragraph 68 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 1,
+     "note": "Most recent year mentioned is 2026."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 1,
+     "note": "4 images, 1 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.792481250360578,
+     "note": "8 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "899 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-10",
+   "raw": "https://example.com/blog/post-10",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 67,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.55,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "23 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.8,
+     "note": "2 subheadings, median paragraph 64 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.35,
+     "note": "2 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.75,
+     "note": "7 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1244 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-11",
+   "raw": "https://example.com/blog/post-11",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 76,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "25 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "3 subheadings, median paragraph 44 words, 1 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "5 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 1,
+     "note": "20 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "789 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-12",
+   "raw": "https://example.com/blog/post-12",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 92,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 1,
+     "note": "Contains first-party study or experience language."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 1,
+     "note": "20 figures, 3 outbound citations, 1 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "4 subheadings, median paragraph 45 words, 1 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 1,
+     "note": "Most recent year mentioned is 2026."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.75,
+     "note": "2 images, 1 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.5,
+     "note": "3 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1375 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-13",
+   "raw": "https://example.com/blog/post-13",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 74,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "26 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "3 subheadings, median paragraph 45 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.35,
+     "note": "2 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.9767226489021297,
+     "note": "14 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "925 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-14",
+   "raw": "https://example.com/blog/post-14",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 73,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "22 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "3 subheadings, median paragraph 57 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.35,
+     "note": "2 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.75,
+     "note": "7 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "994 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-15",
+   "raw": "https://example.com/blog/post-15",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 42,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 0.92,
+     "note": "1 check could not be confirmed."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.2,
+     "note": "Opening paragraph is 7 words, probably too short to answer anything."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.5,
+     "note": "1 figures, 0 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.35,
+     "note": "0 subheadings, median paragraph 14 words, 0 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0,
+     "note": "Most recent year mentioned is 2023."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0,
+     "note": "0 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0,
+     "note": "0 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "check",
+      "detail": "Only 52 words in the served HTML. If the content is rendered by JavaScript, a first-pass crawler will not see it."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "partial"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-16",
+   "raw": "https://example.com/blog/post-16",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 42,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 0.92,
+     "note": "1 check could not be confirmed."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.2,
+     "note": "Opening paragraph is 7 words, probably too short to answer anything."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.5,
+     "note": "1 figures, 0 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.35,
+     "note": "0 subheadings, median paragraph 14 words, 0 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0,
+     "note": "Most recent year mentioned is 2023."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0,
+     "note": "0 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0,
+     "note": "0 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "check",
+      "detail": "Only 52 words in the served HTML. If the content is rendered by JavaScript, a first-pass crawler will not see it."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "partial"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-17",
+   "raw": "https://example.com/blog/post-17",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 70,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.55,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "20 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.8,
+     "note": "2 subheadings, median paragraph 43 words, 3 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "5 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 1,
+     "note": "20 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "751 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-18",
+   "raw": "https://example.com/blog/post-18",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 94,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 1,
+     "note": "Contains first-party study or experience language."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 1,
+     "note": "19 figures, 3 outbound citations, 1 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "4 subheadings, median paragraph 54 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 1,
+     "note": "Most recent year mentioned is 2026."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.75,
+     "note": "2 images, 1 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.9518387305144009,
+     "note": "13 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "847 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-19",
+   "raw": "https://example.com/blog/post-19",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 69,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.55,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "30 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.8,
+     "note": "2 subheadings, median paragraph 46 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "4 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.792481250360578,
+     "note": "8 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1397 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-20",
+   "raw": "https://example.com/blog/post-20",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 69,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.55,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "20 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.8,
+     "note": "2 subheadings, median paragraph 66 words, 1 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "4 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.8304820237218405,
+     "note": "9 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1371 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-21",
+   "raw": "https://example.com/blog/post-21",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 94,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 1,
+     "note": "Contains first-party study or experience language."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 1,
+     "note": "29 figures, 3 outbound citations, 1 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "4 subheadings, median paragraph 65 words, 2 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 1,
+     "note": "Most recent year mentioned is 2026."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 1,
+     "note": "3 images, 1 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.5804820237218407,
+     "note": "4 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1271 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-22",
+   "raw": "https://example.com/blog/post-22",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 70,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.55,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "26 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.8,
+     "note": "2 subheadings, median paragraph 62 words, 3 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "3 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.9767226489021297,
+     "note": "14 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1060 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-23",
+   "raw": "https://example.com/blog/post-23",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 70,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.55,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.6799999999999999,
+     "note": "31 figures, 1 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.8,
+     "note": "2 subheadings, median paragraph 45 words, 3 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0.6599999999999999,
+     "note": "Most recent year mentioned is 2025."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0.6,
+     "note": "3 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0.925109929535273,
+     "note": "12 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1231 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-24",
+   "raw": "https://example.com/blog/post-24",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 96,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 1,
+     "note": "All eligibility checks pass."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.75,
+     "note": "Opening paragraph is 44 words, which is a usable direct answer."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 1,
+     "note": "Contains first-party study or experience language."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 1,
+     "note": "22 figures, 3 outbound citations, 1 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 1,
+     "note": "4 subheadings, median paragraph 48 words, 3 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 1,
+     "note": "Most recent year mentioned is 2026."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 1,
+     "note": "5 images, 1 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 1,
+     "note": "17 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "pass",
+      "detail": "1102 words read from the server response."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "eligible"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  },
+  {
+   "url": "example.com/blog/post-25",
+   "raw": "https://example.com/blog/post-25",
+   "webImpr": 0,
+   "webClicks": 0,
+   "webPos": null,
+   "webDelta": null,
+   "aiImpr": 0,
+   "aiBefore": null,
+   "aiDelta": null,
+   "aiState": "none",
+   "aioQueries": 0,
+   "readiness": 42,
+   "readinessRows": [
+    {
+     "key": "eligibility",
+     "label": "Eligibility and technical access",
+     "weight": 20,
+     "value": 0.92,
+     "note": "1 check could not be confirmed."
+    },
+    {
+     "key": "task",
+     "label": "Answers the task quickly",
+     "weight": 15,
+     "value": 0.2,
+     "note": "Opening paragraph is 7 words, probably too short to answer anything."
+    },
+    {
+     "key": "unique",
+     "label": "Non-commodity information",
+     "weight": 15,
+     "value": 0.35,
+     "note": "Written in the first person, but no first-party evidence detected."
+    },
+    {
+     "key": "evidence",
+     "label": "Evidence and factual support",
+     "weight": 15,
+     "value": 0.5,
+     "note": "1 figures, 0 outbound citations, 0 tables."
+    },
+    {
+     "key": "coverage",
+     "label": "Covers the related subtopics",
+     "weight": 10,
+     "value": null,
+     "note": "No topic mapped to this page."
+    },
+    {
+     "key": "structure",
+     "label": "Clear organisation and passages",
+     "weight": 10,
+     "value": 0.35,
+     "note": "0 subheadings, median paragraph 14 words, 0 lists."
+    },
+    {
+     "key": "fresh",
+     "label": "Freshness where it matters",
+     "weight": 5,
+     "value": 0,
+     "note": "Most recent year mentioned is 2023."
+    },
+    {
+     "key": "media",
+     "label": "Relevant images or tables",
+     "weight": 5,
+     "value": 0,
+     "note": "0 images, 0 tables."
+    },
+    {
+     "key": "links",
+     "label": "Internal link support",
+     "weight": 5,
+     "value": 0,
+     "note": "0 internal links point here."
+    }
+   ],
+   "readinessUnscored": null,
+   "eligibility": {
+    "checks": [
+     {
+      "name": "Returns 200",
+      "state": "pass",
+      "detail": "HTTP 200"
+     },
+     {
+      "name": "Indexable",
+      "state": "pass",
+      "detail": "No noindex directive found."
+     },
+     {
+      "name": "Canonical consistent",
+      "state": "pass",
+      "detail": "Self-referencing."
+     },
+     {
+      "name": "Snippets permitted",
+      "state": "pass",
+      "detail": "No nosnippet directive."
+     },
+     {
+      "name": "max-snippet not restrictive",
+      "state": "pass",
+      "detail": "No max-snippet limit set."
+     },
+     {
+      "name": "Crawlable by robots.txt",
+      "state": "pass",
+      "detail": "Not disallowed."
+     },
+     {
+      "name": "Main content in the served HTML",
+      "state": "check",
+      "detail": "Only 52 words in the served HTML. If the content is rendered by JavaScript, a first-pass crawler will not see it."
+     },
+     {
+      "name": "Search generative AI control",
+      "state": "pass",
+      "detail": "Set to include, per the project settings."
+     }
+    ],
+    "blockers": 0,
+    "state": "partial"
+   },
+   "cluster": "",
+   "decision": "monitor",
+   "crawled": true
+  }
+ ],
+ "fanout": [
+  {
+   "topic": "cooling tower maintenance suppliers",
+   "url": "https://example.com/",
+   "covered": 0,
+   "total": 32,
+   "missing": [
+    {
+     "q": "cooling tower maintenance suppliers",
+     "impr": 7851
+    },
+    {
+     "q": "cooling tower services",
+     "impr": 7308
+    },
+    {
+     "q": "cooling tower suppliers",
+     "impr": 6877
+    },
+    {
+     "q": "cooling tower near me",
+     "impr": 5451
+    },
+    {
+     "q": "cooling tower price",
+     "impr": 4382
+    },
+    {
+     "q": "cooling tower maintenance services",
+     "impr": 3700
+    },
+    {
+     "q": "cooling tower maintenance installation",
+     "impr": 3324
+    },
+    {
+     "q": "cooling tower maintenance price",
+     "impr": 2603
+    },
+    {
+     "q": "cooling tower maintenance",
+     "impr": 2535
+    },
+    {
+     "q": "cooling tower",
+     "impr": 2387
+    },
+    {
+     "q": "cooling tower maintenance contractor",
+     "impr": 2296
+    },
+    {
+     "q": "cooling tower cleaning",
+     "impr": 1948
+    },
+    {
+     "q": "cooling tower maintenance cost",
+     "impr": 1882
+    },
+    {
+     "q": "cooling tower maintenance checklist",
+     "impr": 1579
+    },
+    {
+     "q": "cooling tower maintenance uk",
+     "impr": 1298
+    },
+    {
+     "q": "cooling tower vs alternatives",
+     "impr": 1231
+    },
+    {
+     "q": "cooling tower contractor",
+     "impr": 1121
+    },
+    {
+     "q": "cooling tower maintenance guide",
+     "impr": 799
+    },
+    {
+     "q": "cooling tower installation",
+     "impr": 701
+    },
+    {
+     "q": "cooling tower specialist",
+     "impr": 584
+    }
+   ],
+   "impr": 62675
+  },
+  {
+   "topic": "closed loop system installation",
+   "url": "https://example.com/about",
+   "covered": 0,
+   "total": 16,
+   "missing": [
+    {
+     "q": "closed loop system installation",
+     "impr": 7572
+    },
+    {
+     "q": "closed loop system checklist",
+     "impr": 7319
+    },
+    {
+     "q": "closed loop system maintenance",
+     "impr": 7158
+    },
+    {
+     "q": "closed loop system near me",
+     "impr": 6912
+    },
+    {
+     "q": "closed loop system specialist",
+     "impr": 6783
+    },
+    {
+     "q": "closed loop system cleaning",
+     "impr": 5890
+    },
+    {
+     "q": "closed loop system uk",
+     "impr": 5871
+    },
+    {
+     "q": "closed loop system cost",
+     "impr": 5721
+    },
+    {
+     "q": "closed loop system price",
+     "impr": 5264
+    },
+    {
+     "q": "closed loop system suppliers",
+     "impr": 3502
+    },
+    {
+     "q": "closed loop system guide",
+     "impr": 2723
+    },
+    {
+     "q": "closed loop system",
+     "impr": 293
+    },
+    {
+     "q": "closed loop system contractor",
+     "impr": 230
+    },
+    {
+     "q": "closed loop system vs alternatives",
+     "impr": 202
+    },
+    {
+     "q": "closed loop system services",
+     "impr": 166
+    },
+    {
+     "q": "closed loop system company",
+     "impr": 74
+    }
+   ],
+   "impr": 65680
+  },
+  {
+   "topic": "evaporative condenser cleaning",
+   "url": "https://example.com/case-studies/manufacturing-plant",
+   "covered": 0,
+   "total": 16,
+   "missing": [
+    {
+     "q": "evaporative condenser cleaning",
+     "impr": 8864
+    },
+    {
+     "q": "evaporative condenser near me",
+     "impr": 8297
+    },
+    {
+     "q": "evaporative condenser services",
+     "impr": 7735
+    },
+    {
+     "q": "evaporative condenser maintenance",
+     "impr": 7143
+    },
+    {
+     "q": "evaporative condenser uk",
+     "impr": 6203
+    },
+    {
+     "q": "evaporative condenser price",
+     "impr": 4068
+    },
+    {
+     "q": "evaporative condenser company",
+     "impr": 2438
+    },
+    {
+     "q": "evaporative condenser specialist",
+     "impr": 2025
+    },
+    {
+     "q": "evaporative condenser",
+     "impr": 1965
+    },
+    {
+     "q": "evaporative condenser suppliers",
+     "impr": 1403
+    },
+    {
+     "q": "evaporative condenser guide",
+     "impr": 1330
+    },
+    {
+     "q": "evaporative condenser installation",
+     "impr": 1252
+    },
+    {
+     "q": "evaporative condenser vs alternatives",
+     "impr": 978
+    },
+    {
+     "q": "evaporative condenser contractor",
+     "impr": 274
+    },
+    {
+     "q": "evaporative condenser checklist",
+     "impr": 271
+    },
+    {
+     "q": "evaporative condenser cost",
+     "impr": 30
+    }
+   ],
+   "impr": 54276
+  },
+  {
+   "topic": "water treatment checklist",
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "covered": 0,
+   "total": 16,
+   "missing": [
+    {
+     "q": "water treatment checklist",
+     "impr": 8658
+    },
+    {
+     "q": "water treatment maintenance",
+     "impr": 7345
+    },
+    {
+     "q": "water treatment vs alternatives",
+     "impr": 5712
+    },
+    {
+     "q": "water treatment price",
+     "impr": 4969
+    },
+    {
+     "q": "water treatment guide",
+     "impr": 4789
+    },
+    {
+     "q": "water treatment near me",
+     "impr": 2425
+    },
+    {
+     "q": "water treatment installation",
+     "impr": 1443
+    },
+    {
+     "q": "water treatment",
+     "impr": 1337
+    },
+    {
+     "q": "water treatment company",
+     "impr": 826
+    },
+    {
+     "q": "water treatment cleaning",
+     "impr": 680
+    },
+    {
+     "q": "water treatment cost",
+     "impr": 464
+    },
+    {
+     "q": "water treatment uk",
+     "impr": 439
+    },
+    {
+     "q": "water treatment specialist",
+     "impr": 340
+    },
+    {
+     "q": "water treatment contractor",
+     "impr": 310
+    },
+    {
+     "q": "water treatment suppliers",
+     "impr": 286
+    },
+    {
+     "q": "water treatment services",
+     "impr": 166
+    }
+   ],
+   "impr": 40189
+  },
+  {
+   "topic": "legionella testing maintenance",
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "covered": 0,
+   "total": 16,
+   "missing": [
+    {
+     "q": "legionella testing maintenance",
+     "impr": 7968
+    },
+    {
+     "q": "legionella testing near me",
+     "impr": 6751
+    },
+    {
+     "q": "legionella testing company",
+     "impr": 4648
+    },
+    {
+     "q": "legionella testing specialist",
+     "impr": 4305
+    },
+    {
+     "q": "legionella testing contractor",
+     "impr": 4213
+    },
+    {
+     "q": "legionella testing cost",
+     "impr": 3497
+    },
+    {
+     "q": "legionella testing uk",
+     "impr": 1891
+    },
+    {
+     "q": "legionella testing",
+     "impr": 1309
+    },
+    {
+     "q": "legionella testing checklist",
+     "impr": 1079
+    },
+    {
+     "q": "legionella testing guide",
+     "impr": 1048
+    },
+    {
+     "q": "legionella testing suppliers",
+     "impr": 829
+    },
+    {
+     "q": "legionella testing cleaning",
+     "impr": 197
+    },
+    {
+     "q": "legionella testing installation",
+     "impr": 138
+    },
+    {
+     "q": "legionella testing vs alternatives",
+     "impr": 124
+    },
+    {
+     "q": "legionella testing services",
+     "impr": 103
+    },
+    {
+     "q": "legionella testing price",
+     "impr": 30
+    }
+   ],
+   "impr": 38130
+  },
+  {
+   "topic": "heat exchanger cleaning specialist",
+   "url": "https://example.com/blog/legionella-testing-explained",
+   "covered": 0,
+   "total": 16,
+   "missing": [
+    {
+     "q": "heat exchanger cleaning specialist",
+     "impr": 7404
+    },
+    {
+     "q": "heat exchanger cleaning installation",
+     "impr": 4937
+    },
+    {
+     "q": "heat exchanger cleaning company",
+     "impr": 4298
+    },
+    {
+     "q": "heat exchanger cleaning maintenance",
+     "impr": 3382
+    },
+    {
+     "q": "heat exchanger cleaning",
+     "impr": 2423
+    },
+    {
+     "q": "heat exchanger cleaning price",
+     "impr": 2196
+    },
+    {
+     "q": "heat exchanger cleaning services",
+     "impr": 2184
+    },
+    {
+     "q": "heat exchanger cleaning suppliers",
+     "impr": 1372
+    },
+    {
+     "q": "heat exchanger cleaning contractor",
+     "impr": 1246
+    },
+    {
+     "q": "heat exchanger cleaning checklist",
+     "impr": 1184
+    },
+    {
+     "q": "heat exchanger cleaning cleaning",
+     "impr": 923
+    },
+    {
+     "q": "heat exchanger cleaning guide",
+     "impr": 615
+    },
+    {
+     "q": "heat exchanger cleaning uk",
+     "impr": 444
+    },
+    {
+     "q": "heat exchanger cleaning vs alternatives",
+     "impr": 345
+    },
+    {
+     "q": "heat exchanger cleaning cost",
+     "impr": 269
+    },
+    {
+     "q": "heat exchanger cleaning near me",
+     "impr": 157
+    }
+   ],
+   "impr": 33379
+  },
+  {
+   "topic": "industrial chiller uk",
+   "url": "https://example.com/services/water-treatment",
+   "covered": 0,
+   "total": 16,
+   "missing": [
+    {
+     "q": "industrial chiller uk",
+     "impr": 8747
+    },
+    {
+     "q": "industrial chiller contractor",
+     "impr": 4202
+    },
+    {
+     "q": "industrial chiller",
+     "impr": 3181
+    },
+    {
+     "q": "industrial chiller company",
+     "impr": 2656
+    },
+    {
+     "q": "industrial chiller cleaning",
+     "impr": 1798
+    },
+    {
+     "q": "industrial chiller checklist",
+     "impr": 1728
+    },
+    {
+     "q": "industrial chiller price",
+     "impr": 1678
+    },
+    {
+     "q": "industrial chiller suppliers",
+     "impr": 1267
+    },
+    {
+     "q": "industrial chiller services",
+     "impr": 1069
+    },
+    {
+     "q": "industrial chiller installation",
+     "impr": 629
+    },
+    {
+     "q": "industrial chiller maintenance",
+     "impr": 386
+    },
+    {
+     "q": "industrial chiller cost",
+     "impr": 265
+    },
+    {
+     "q": "industrial chiller specialist",
+     "impr": 137
+    },
+    {
+     "q": "industrial chiller near me",
+     "impr": 74
+    },
+    {
+     "q": "industrial chiller guide",
+     "impr": 33
+    },
+    {
+     "q": "industrial chiller vs alternatives",
+     "impr": 30
+    }
+   ],
+   "impr": 27880
+  },
+  {
+   "topic": "boiler descaling checklist",
+   "url": "https://example.com/services/legionella-control",
+   "covered": 0,
+   "total": 16,
+   "missing": [
+    {
+     "q": "boiler descaling checklist",
+     "impr": 5878
+    },
+    {
+     "q": "boiler descaling services",
+     "impr": 4967
+    },
+    {
+     "q": "boiler descaling uk",
+     "impr": 3617
+    },
+    {
+     "q": "boiler descaling vs alternatives",
+     "impr": 3393
+    },
+    {
+     "q": "boiler descaling",
+     "impr": 2622
+    },
+    {
+     "q": "boiler descaling suppliers",
+     "impr": 2465
+    },
+    {
+     "q": "boiler descaling cost",
+     "impr": 1872
+    },
+    {
+     "q": "boiler descaling maintenance",
+     "impr": 989
+    },
+    {
+     "q": "boiler descaling guide",
+     "impr": 459
+    },
+    {
+     "q": "boiler descaling contractor",
+     "impr": 299
+    },
+    {
+     "q": "boiler descaling installation",
+     "impr": 201
+    },
+    {
+     "q": "boiler descaling near me",
+     "impr": 156
+    },
+    {
+     "q": "boiler descaling company",
+     "impr": 94
+    },
+    {
+     "q": "boiler descaling cleaning",
+     "impr": 76
+    },
+    {
+     "q": "boiler descaling price",
+     "impr": 56
+    },
+    {
+     "q": "boiler descaling specialist",
+     "impr": 34
+    }
+   ],
+   "impr": 27178
+  },
+  {
+   "topic": "water softener vs alternatives",
+   "url": "https://example.com/contact",
+   "covered": 0,
+   "total": 16,
+   "missing": [
+    {
+     "q": "water softener vs alternatives",
+     "impr": 5472
+    },
+    {
+     "q": "water softener uk",
+     "impr": 4063
+    },
+    {
+     "q": "water softener guide",
+     "impr": 2635
+    },
+    {
+     "q": "water softener suppliers",
+     "impr": 1874
+    },
+    {
+     "q": "water softener checklist",
+     "impr": 1241
+    },
+    {
+     "q": "water softener cost",
+     "impr": 1059
+    },
+    {
+     "q": "water softener specialist",
+     "impr": 1047
+    },
+    {
+     "q": "water softener company",
+     "impr": 885
+    },
+    {
+     "q": "water softener maintenance",
+     "impr": 836
+    },
+    {
+     "q": "water softener price",
+     "impr": 235
+    },
+    {
+     "q": "water softener",
+     "impr": 200
+    },
+    {
+     "q": "water softener contractor",
+     "impr": 121
+    },
+    {
+     "q": "water softener cleaning",
+     "impr": 110
+    },
+    {
+     "q": "water softener services",
+     "impr": 44
+    },
+    {
+     "q": "water softener near me",
+     "impr": 38
+    },
+    {
+     "q": "water softener installation",
+     "impr": 31
+    }
+   ],
+   "impr": 19891
+  },
+  {
+   "topic": "example water contact",
+   "url": "https://example.com/services/chiller-servicing",
+   "covered": 0,
+   "total": 4,
+   "missing": [
+    {
+     "q": "example water contact",
+     "impr": 7513
+    },
+    {
+     "q": "example water",
+     "impr": 6139
+    },
+    {
+     "q": "example water reviews",
+     "impr": 4862
+    },
+    {
+     "q": "example water cooling towers",
+     "impr": 2010
+    }
+   ],
+   "impr": 20524
+  }
+ ],
+ "observations": [],
+ "eligibility": null,
+ "gate": "included",
+ "aioQueryCount": 38,
+ "ctrGapTotal": 707.4732905230442,
+ "summary": {
+  "genaiLoaded": true,
+  "aioQueries": 38,
+  "opportunitiesHigh": 2,
+  "ctrGapTotal": 707.4732905230442,
+  "blocked": 2,
+  "protect": 4,
+  "recover": 5,
+  "opportunity": 0,
+  "medianReadiness": 70
+ }
+}

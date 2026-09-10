@@ -1,0 +1,100 @@
+# Local stack (C8) — and the designer's environment (ADR-027 §8, docs/designer-onboarding.md).
+# One command from a clean machine:
+#
+#   cp apps/syed-ai/.env.example apps/syed-ai/.env   # then set PAYLOAD_SECRET
+#   docker compose up
+#
+# Then the site is on http://localhost:3000 and the admin on http://localhost:3000/admin.
+# `migrate` runs to completion first; `web` and `worker` wait for it. Media lives in a named volume so a
+# rebuild does not lose uploads. Nothing here is production: production is the multi-stage image plus
+# managed Postgres and object storage (docs/deployment-coolify-cloudflare.md).
+name: agency-site-factory
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: apps/syed-ai/Dockerfile.dev
+  environment:
+    DATABASE_URI: postgres://postgres:postgres@db:5432/factory_dev
+    PAYLOAD_SECRET: ${PAYLOAD_SECRET:?set PAYLOAD_SECRET in your shell or a .env beside compose.yaml}
+    NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+    MEDIA_DIR: /repo/apps/syed-ai/media
+    # Local defaults mirror staging, not production: AI off, Turnstile not required, verification warns.
+    AI_ENABLED: 'false'
+    TURNSTILE_REQUIRED: 'false'
+    VERIFICATION_ENFORCEMENT: warn
+    DEV_ROUTES: '1'
+    # Nothing sits in front of this container, so no forwarded-address header is trusted (C8).
+    TRUSTED_PROXY: none
+    NEXT_TELEMETRY_DISABLED: '1'
+  volumes:
+    - .:/repo
+    - node_modules_root:/repo/node_modules
+    - node_modules_app:/repo/apps/syed-ai/node_modules
+    - next_cache:/repo/apps/syed-ai/.next
+    - media:/repo/apps/syed-ai/media
+  depends_on:
+    db:
+      condition: service_healthy
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: factory_dev
+    ports: ['5432:5432']
+    volumes: ['pgdata:/var/lib/postgresql/data']
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d factory_dev']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # Runs the committed migrations, then exits. Everything else waits for it to finish successfully.
+  migrate:
+    <<: *app
+    command: ['pnpm', 'exec', 'payload', 'migrate']
+    restart: 'no'
+
+  web:
+    <<: *app
+    ports: ['3000:3000']
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -fsS http://127.0.0.1:3000/api/live || exit 1']
+      interval: 15s
+      timeout: 5s
+      start_period: 90s
+      retries: 10
+
+  worker:
+    <<: *app
+    command: ['pnpm', 'worker']
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+
+  # Opt-in: `docker compose --profile seed up seed` loads syed.ai from its blueprint.
+  seed:
+    <<: *app
+    command: ['pnpm', 'seed']
+    profiles: ['seed']
+    restart: 'no'
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:
+  media:
+  node_modules_root:
+  node_modules_app:
+  next_cache:

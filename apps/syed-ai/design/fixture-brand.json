@@ -1,0 +1,26 @@
+{
+  "$comment": "Identity injected into shared registry fixtures at render time (ADR-026 §3, ADR-030). Fields the blueprint owns (siteName, siteUrl, personName) are asserted against apps/syed-ai/content/syed-ai.blueprint.json by a unit test and must not drift. The rest are the strings a blueprint cannot express: the wordmark's accent split, the role line, the monogram path, office rows and the hero's alt text.",
+  "siteName": "syed.ai",
+  "siteUrl": "https://syed.ai",
+  "wordmark": "syed",
+  "accent": ".ai",
+  "personName": "Syed Abdul",
+  "role": "Syed Abdul · AI Search",
+  "copyrightHolder": "syed.ai — Syed Abdul",
+  "heroAlt": "Syed Abdul of syed.ai, generative engine optimization and AI search consultant, in a corner office at dusk",
+  "monogramPath": "M27.4 11.6c-2.7-2.3-6.7-2.7-9.4-1-3.1 2-3 5.8.4 7.4 2.2 1.1 5.5 1.4 7.5 2.7 3.1 2.1 2.7 6.2-.7 8-3.1 1.7-7.4 1-10-1.4",
+  "social": [{ "label": "LinkedIn", "href": "https://www.linkedin.com/in/syed", "external": true }],
+  "offices": [
+    {
+      "city": "Celebration, Florida",
+      "region": "United States · Strategy & client work",
+      "hours": "Mon–Fri · 9–6 ET (UTC−5)"
+    },
+    {
+      "city": "Abu Dhabi",
+      "region": "United Arab Emirates · Gulf & EMEA",
+      "hours": "Sun–Thu · 9–6 GST (UTC+4)"
+    },
+    { "city": "Lahore", "region": "Pakistan · Engineering", "hours": "Mon–Fri · 10–7 PKT (UTC+5)" }
+  ]
+}

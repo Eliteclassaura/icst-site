@@ -1,0 +1,109 @@
+{
+  "contract": "factory.seo/page-decisions",
+  "contract_version": "1.0.0",
+  "produced_by": {
+    "system": "ogcs",
+    "version": "0.1.0"
+  },
+  "produced_at": "2026-09-05T16:00:00Z",
+  "project_id": "client-example",
+  "run_id": "01J7Q0X9Z3K4M5N6P7Q8R9S0TV",
+  "inputs": [
+    {
+      "artefact": "h2ocooling-2026-09-05-1400.seoproject.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "artefact": "evidence-bundle/01J7Q0X9Z3K4M5N6P7Q8R9S0TV.json",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  ],
+  "payload": {
+    "site": {
+      "source_origin": "https://client-example.test",
+      "target_origin": "https://client-example.test"
+    },
+    "decisions_status": "approved",
+    "evidence_bundle_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "review_window_days": 480,
+    "pages": [
+      {
+        "source_url": "https://client-example.test/services/cooling-tower-repair/",
+        "action": "PROTECT",
+        "target_url": null,
+        "status_code": null,
+        "page_type": "service",
+        "project_scale_fit": "industrial",
+        "strategic_fit_score": 36,
+        "seo_equity_score": 31,
+        "seo_lock": true,
+        "prune_blocked": true,
+        "reason": "Core service; 412 clicks; 9 RDs.",
+        "why_should_this_exist": "Primary commercial entry for repair enquiries from plant maintenance managers.",
+        "collection_hint": "services",
+        "parity": {
+          "accept": [],
+          "word_count_blocking": true
+        }
+      },
+      {
+        "source_url": "https://client-example.test/blog/keep-your-home-cool-this-summer/",
+        "action": "PRUNE",
+        "target_url": null,
+        "status_code": 410,
+        "page_type": "article",
+        "project_scale_fit": "consumer",
+        "strategic_fit_score": 2,
+        "seo_equity_score": 0,
+        "seo_lock": false,
+        "prune_blocked": false,
+        "reason": "Residential audience; 0 clicks, 14 impressions, 0 RDs over 16 months.",
+        "why_should_this_exist": "It should not; archived in frozen source.",
+        "collection_hint": "none"
+      },
+      {
+        "source_url": "https://client-example.test/blog/data-center-cooling-basics/",
+        "action": "REDIRECT",
+        "target_url": "https://client-example.test/resources/industrial-heat-rejection-for-data-centers/",
+        "status_code": 301,
+        "page_type": "article",
+        "project_scale_fit": "adjacent",
+        "strategic_fit_score": 18,
+        "seo_equity_score": 12,
+        "seo_lock": false,
+        "prune_blocked": true,
+        "reason": "3 RDs and 60 clicks; topic adjacent; equity moves to repositioned industrial page.",
+        "collection_hint": "posts"
+      }
+    ],
+    "redirects": [
+      {
+        "from": "/blog/data-center-cooling-basics/",
+        "to": "/resources/industrial-heat-rejection-for-data-centers/",
+        "status": 301,
+        "reason": "REDIRECT decision",
+        "source": "migration"
+      },
+      {
+        "from": "/blog/keep-your-home-cool-this-summer/",
+        "to": null,
+        "status": 410,
+        "reason": "PRUNE decision",
+        "source": "migration"
+      }
+    ],
+    "information_architecture": {
+      "collections": [
+        "services",
+        "projects",
+        "parts",
+        "part-categories",
+        "posts",
+        "locations",
+        "people",
+        "media",
+        "redirects"
+      ]
+    }
+  }
+}

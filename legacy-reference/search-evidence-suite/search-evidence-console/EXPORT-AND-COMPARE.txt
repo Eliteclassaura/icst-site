@@ -1,0 +1,163 @@
+EXPORT AND COMPARE
+==================
+Syed.ai - Search Evidence Suite
+(c) 2026 Syed.ai. All rights reserved.
+
+Stage 17, "Export and compare", produces four files. They do four
+different jobs and are not substitutes for one another. This file says
+which to use when, and what each one costs you if you skip it.
+
+The reason the stage exists: everything the tool knows lives in this
+browser, in IndexedDB. That survives closing the tab, restarting the
+browser and rebooting the machine. It does not survive clearing site
+data, and it does not follow you to another machine or another browser.
+So the files below are not a convenience. They are the archive.
+
+
+-------------------------------------------------------------------
+1. SNAPSHOT  ->  one small dated .json
+-------------------------------------------------------------------
+What it holds: the totals (clicks, impressions, click-through,
+impression-weighted position), the health score, every pillar with its
+weight, the counts, the top hundred actions, and the list of files the
+figures came from.
+
+What it is for: measuring change. A snapshot is the unit of "what did
+this look like in March". It is a few kilobytes, so keep one per data
+refresh forever.
+
+Filename: <host>-snapshot-YYYY-MM-DD-HHMM.json - so a folder of them
+sorts itself into chronological order with no effort.
+
+Take one:
+  - every time you load fresh Search Console data
+  - before and after any significant change to the site
+  - at the end of each month, as a matter of routine
+
+A snapshot is NOT a backup. It cannot rebuild a project: it holds the
+findings, not the underlying rows. That is section 4.
+
+
+-------------------------------------------------------------------
+2. COMPARE  ->  two points in time, side by side
+-------------------------------------------------------------------
+Compare works across two kinds of point:
+
+  - a SAVED RUN, recorded automatically every time you press Run
+    analysis, and stored in the project
+  - a SNAPSHOT FILE, loaded back from disk at any time
+
+Pick two and it reports the change in every measure, every pillar, the
+volumes, and what moved on the action queue: closed, new and carried
+over. Three things it does that a spreadsheet subtraction does not:
+
+  a) IT ORDERS BY DATE, not by which dropdown you used. Picking them in
+     the wrong order cannot invert the result.
+
+  b) A MEASURE MISSING FROM EITHER SIDE READS "NOT MEASURED". It is
+     never treated as a zero, so a metric you did not import last time
+     can never appear as a 100% collapse. The exported CSV writes an
+     empty field for it, not a 0, for the same reason.
+
+  c) IT WARNS WHEN THE TWO ARE NOT COMPARABLE - different domains, or
+     one measured from a Queries export and the other from a Pages
+     export. Those warnings sit above the numbers, not below them.
+
+Position is handled correctly in both directions: average position
+falling from 20.6 to 18.2 is an improvement, and is coloured as one.
+
+YEAR OVER YEAR
+  Any two points a year apart are labelled as year over year. To get a
+  clean one, use the Connect Search Console stage and set the comparison
+  to include "the same window last year": it fetches the window shifted
+  by 364 days, not 365, so Monday still lines up with Monday. Search
+  traffic is strongly weekly, and a 365-day shift compares a Tuesday to
+  a Wednesday and calls the difference a trend.
+
+  The year-ago window is kept in its own bucket and is never averaged
+  with the previous period. They answer different questions, and on a
+  seasonal site they routinely disagree. Both are reported; neither
+  corrects the other.
+
+
+-------------------------------------------------------------------
+3. THE FILES FOR OTHER PEOPLE
+-------------------------------------------------------------------
+REPORT, AS PDF
+  Save as PDF opens the report in the browser's own print dialogue.
+  Choose "Save as PDF" as the destination. It is laid out for A4: the
+  cover gets its own page, headings do not strand at the bottom of one,
+  long tables repeat their header row on every page, and no table row
+  splits across a break.
+
+  The logo travels inside the file as data, not as a link, so the report
+  is still branded when it is opened offline, in six months, or by
+  someone behind a corporate proxy. There is no script in it and it
+  fetches nothing from the network.
+
+  It names, in a table at the end, every file the figures came from.
+  An unmeasured pillar prints as an em dash and the report explains why
+  that is not a penalty.
+
+REPORT, AS HTML
+  The same document as a single .html file. Use it when the recipient
+  will read it in a browser or you want it to stay searchable and
+  copy-pasteable. It prints identically.
+
+EXCEL WORKBOOK
+  Seven sheets: Summary, Scorecard, Action queue, Technical issues,
+  Topics, Sources and Run history. Filters on, header row frozen,
+  numbers written as numbers so they chart and sum.
+
+  The one rule to know: AN UNMEASURED VALUE IS AN EMPTY CELL. Not a
+  zero. A spreadsheet is precisely where a null written as 0 gets summed
+  into a total and believed, so it is never written at all.
+
+EVERY TABLE AS CSV
+  The same seven sheets as a zip of CSVs, for anything that wants CSV.
+  Empty fields, same rule.
+
+
+-------------------------------------------------------------------
+4. PROJECT BACKUP  ->  one dated .seoproject.json, everything in it
+-------------------------------------------------------------------
+What it holds: the project settings, every parsed export, the crawl
+results, and the FULL RUN HISTORY.
+
+That last one is the point. Everything else in a project can be rebuilt
+from the original files on your disk. The run history cannot be rebuilt
+at all: it is the record of what the site looked like on the days you
+measured it, and once it is gone the only way to get it back is to wait
+another year and measure again.
+
+Filename: <project>-YYYY-MM-DD-HHMM.seoproject.json
+
+Take one:
+  - before clearing your browser data, for any reason
+  - before moving to another machine or another browser
+  - before handing the project to a colleague
+  - before deleting anything
+
+Import it from the same stage, or from the Project stage. It restores
+the project exactly, run history included.
+
+DELETING A PROJECT
+  The delete dialogue lists what will be destroyed, offers to write a
+  backup first, and does not enable the delete button until you have
+  typed the project name exactly. This is deliberate friction: there is
+  no server-side copy and no recycle bin, so a mis-click is permanent.
+
+
+-------------------------------------------------------------------
+5. WHICH FILE, WHEN
+-------------------------------------------------------------------
+  I want to prove something improved   ->  snapshot, one per refresh
+  I want to send a client a document   ->  report, as PDF
+  I want to re-cut the numbers myself  ->  Excel workbook
+  I am about to clear my browser       ->  project backup
+  I am moving to a new laptop          ->  project backup
+  I am deleting this project           ->  project backup, first
+
+A snapshot is small and permanent. A backup is large and complete.
+Keep snapshots forever; keep the latest backup, and one from before any
+change you might want to undo.

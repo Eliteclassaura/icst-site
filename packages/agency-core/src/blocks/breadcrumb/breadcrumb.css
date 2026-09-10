@@ -1,0 +1,24 @@
+.blk-crumb__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  font-size: var(--fs-cap);
+  color: var(--color-text-muted);
+}
+
+.blk-crumb__list li + li::before {
+  content: '/';
+  margin-inline-end: var(--s-2);
+  color: var(--color-border);
+}
+
+.blk-crumb__list a {
+  color: var(--color-text-body);
+}
+
+.blk-crumb__list a:hover {
+  color: var(--color-accent);
+}

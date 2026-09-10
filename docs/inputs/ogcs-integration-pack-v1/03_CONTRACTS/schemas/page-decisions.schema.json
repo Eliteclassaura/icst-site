@@ -1,0 +1,353 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://factory.seo/contracts/page-decisions/1.0.0",
+  "title": "factory.seo/page-decisions",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "contract_version",
+    "produced_by",
+    "produced_at",
+    "project_id",
+    "run_id",
+    "inputs",
+    "payload"
+  ],
+  "properties": {
+    "contract": {
+      "const": "factory.seo/page-decisions"
+    },
+    "contract_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "produced_by": {
+      "type": "object",
+      "required": [
+        "system",
+        "version"
+      ],
+      "properties": {
+        "system": {
+          "enum": [
+            "ogcs",
+            "ses-adapter",
+            "factory-ci",
+            "wordpress-import",
+            "decisions-apply",
+            "factory-app"
+          ]
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "produced_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "ULID; idempotency key across systems"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "artefact",
+          "sha256"
+        ],
+        "properties": {
+          "artefact": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "site",
+        "decisions_status",
+        "evidence_bundle_sha256",
+        "pages",
+        "redirects"
+      ],
+      "properties": {
+        "site": {
+          "type": "object",
+          "required": [
+            "source_origin",
+            "target_origin"
+          ],
+          "properties": {
+            "source_origin": {
+              "type": "string",
+              "format": "uri"
+            },
+            "target_origin": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "decisions_status": {
+          "enum": [
+            "draft",
+            "approved"
+          ]
+        },
+        "approved_by": {
+          "type": "string"
+        },
+        "approved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "evidence_bundle_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "review_window_days": {
+          "type": "integer",
+          "minimum": 28
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source_url",
+              "action",
+              "page_type",
+              "project_scale_fit",
+              "strategic_fit_score",
+              "seo_equity_score",
+              "seo_lock",
+              "prune_blocked",
+              "reason"
+            ],
+            "properties": {
+              "source_url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "action": {
+                "enum": [
+                  "PROTECT",
+                  "IMPROVE",
+                  "REWRITE",
+                  "REPOSITION",
+                  "CONSOLIDATE",
+                  "REDIRECT",
+                  "NOINDEX",
+                  "PRUNE",
+                  "REVIEW"
+                ]
+              },
+              "target_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              },
+              "status_code": {
+                "enum": [
+                  301,
+                  308,
+                  410,
+                  null
+                ]
+              },
+              "page_type": {
+                "type": "string"
+              },
+              "project_scale_fit": {
+                "enum": [
+                  "mega_industrial",
+                  "industrial",
+                  "adjacent",
+                  "small_commercial",
+                  "consumer",
+                  "irrelevant",
+                  "unknown"
+                ]
+              },
+              "strategic_fit_score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 40
+              },
+              "seo_equity_score": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 40
+              },
+              "seo_lock": {
+                "type": "boolean"
+              },
+              "prune_blocked": {
+                "type": "boolean"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "why_should_this_exist": {
+                "type": "string"
+              },
+              "collection_hint": {
+                "type": "string"
+              },
+              "parity": {
+                "type": "object",
+                "properties": {
+                  "accept": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "title",
+                        "description",
+                        "h1",
+                        "word_count",
+                        "schema_type",
+                        "internal_links",
+                        "og",
+                        "canonical"
+                      ]
+                    }
+                  },
+                  "word_count_blocking": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "action": {
+                      "enum": [
+                        "REDIRECT",
+                        "CONSOLIDATE"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "target_url",
+                    "status_code"
+                  ],
+                  "properties": {
+                    "target_url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "action": {
+                      "const": "PRUNE"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "prune_blocked": {
+                      "const": false
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "redirects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "from",
+              "to",
+              "status",
+              "reason",
+              "source"
+            ],
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "enum": [
+                  301,
+                  308,
+                  410
+                ]
+              },
+              "reason": {
+                "type": "string"
+              },
+              "source": {
+                "enum": [
+                  "migration",
+                  "manual",
+                  "slug-change",
+                  "legacy-hash",
+                  "automation"
+                ]
+              }
+            }
+          }
+        },
+        "information_architecture": {
+          "type": "object"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "decisions_status": {
+                "const": "approved"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "approved_by",
+              "approved_at"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

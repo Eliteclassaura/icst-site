@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://factory.seo/contracts/qa-report/1.0.0",
+  "title": "factory.seo/qa-report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "contract_version",
+    "produced_by",
+    "produced_at",
+    "project_id",
+    "run_id",
+    "inputs",
+    "payload"
+  ],
+  "properties": {
+    "contract": {
+      "const": "factory.seo/qa-report"
+    },
+    "contract_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "produced_by": {
+      "type": "object",
+      "required": [
+        "system",
+        "version"
+      ],
+      "properties": {
+        "system": {
+          "enum": [
+            "ogcs",
+            "ses-adapter",
+            "factory-ci",
+            "wordpress-import",
+            "decisions-apply",
+            "factory-app"
+          ]
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "produced_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "ULID; idempotency key across systems"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "artefact",
+          "sha256"
+        ],
+        "properties": {
+          "artefact": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "environment",
+        "base_url",
+        "baseline",
+        "blueprint_sha256",
+        "result",
+        "blocking",
+        "advisory",
+        "coverage"
+      ],
+      "properties": {
+        "environment": {
+          "enum": [
+            "staging",
+            "production"
+          ]
+        },
+        "base_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "baseline": {
+          "type": "object",
+          "required": [
+            "kind",
+            "sha256"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "frozen-old-site",
+                "approved-staging"
+              ]
+            },
+            "sha256": {
+              "type": "string"
+            }
+          }
+        },
+        "blueprint_sha256": {
+          "type": "string"
+        },
+        "page_decisions_run_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "fail"
+          ]
+        },
+        "blocking": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "url",
+              "check",
+              "expected",
+              "actual"
+            ],
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "check": {
+                "enum": [
+                  "status",
+                  "title",
+                  "description",
+                  "canonical",
+                  "robots",
+                  "og",
+                  "twitter",
+                  "h1",
+                  "schema_type",
+                  "schema_id",
+                  "anchor",
+                  "internal_link",
+                  "redirect",
+                  "noindex",
+                  "protect_missing"
+                ]
+              },
+              "expected": {},
+              "actual": {}
+            }
+          }
+        },
+        "advisory": {
+          "type": "array"
+        },
+        "coverage": {
+          "type": "object",
+          "required": [
+            "routes_checked",
+            "protect_urls_missing"
+          ],
+          "properties": {
+            "routes_checked": {
+              "type": "integer"
+            },
+            "routes_in_decisions": {
+              "type": "integer"
+            },
+            "protect_urls_missing": {
+              "type": "integer"
+            }
+          }
+        },
+        "e2e": {
+          "type": "object",
+          "properties": {
+            "passed": {
+              "type": "integer"
+            },
+            "failed": {
+              "type": "integer"
+            }
+          }
+        },
+        "lighthouse": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

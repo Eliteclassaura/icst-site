@@ -1,0 +1,250 @@
+{
+  "$id": "https://factory.local/schemas/qa-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "type": "string",
+      "const": "factory.seo/qa-report"
+    },
+    "contract_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "produced_by": {
+      "type": "object",
+      "properties": {
+        "system": {
+          "type": "string",
+          "enum": ["ogcs", "ses-adapter", "factory-ci", "wordpress-import", "decisions-apply", "factory-app"]
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["system", "version"]
+    },
+    "produced_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "artefact": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": ["artefact", "sha256"]
+      }
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "environment": {
+          "type": "string",
+          "enum": ["local", "ci", "staging", "production"]
+        },
+        "base_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "baseline": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": ["frozen-old-site", "approved-staging"]
+            },
+            "sha256": {
+              "type": "string"
+            }
+          },
+          "required": ["kind", "sha256"]
+        },
+        "blueprint_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "page_decisions_run_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result": {
+          "type": "string",
+          "enum": ["pass", "fail"]
+        },
+        "blocking": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "check": {
+                "type": "string",
+                "enum": [
+                  "status",
+                  "title",
+                  "description",
+                  "canonical",
+                  "robots",
+                  "og",
+                  "twitter",
+                  "h1",
+                  "schema_type",
+                  "schema_id",
+                  "anchor",
+                  "internal_link",
+                  "redirect",
+                  "noindex",
+                  "protect_missing",
+                  "word_count",
+                  "glossary_anchors"
+                ]
+              },
+              "expected": {},
+              "actual": {},
+              "note": {
+                "type": "string"
+              }
+            },
+            "required": ["url", "check", "expected", "actual"]
+          }
+        },
+        "advisory": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "check": {
+                "type": "string",
+                "enum": [
+                  "status",
+                  "title",
+                  "description",
+                  "canonical",
+                  "robots",
+                  "og",
+                  "twitter",
+                  "h1",
+                  "schema_type",
+                  "schema_id",
+                  "anchor",
+                  "internal_link",
+                  "redirect",
+                  "noindex",
+                  "protect_missing",
+                  "word_count",
+                  "glossary_anchors"
+                ]
+              },
+              "expected": {},
+              "actual": {},
+              "note": {
+                "type": "string"
+              }
+            },
+            "required": ["url", "check", "expected", "actual"]
+          }
+        },
+        "coverage": {
+          "type": "object",
+          "properties": {
+            "routes_checked": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "routes_in_decisions": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "protect_urls_missing": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": ["routes_checked", "protect_urls_missing"]
+        },
+        "e2e": {
+          "type": "object",
+          "properties": {
+            "passed": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "failed": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": ["passed", "failed"]
+        },
+        "lighthouse": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "environment",
+        "base_url",
+        "baseline",
+        "blueprint_sha256",
+        "result",
+        "blocking",
+        "advisory",
+        "coverage"
+      ]
+    }
+  },
+  "required": [
+    "contract",
+    "contract_version",
+    "produced_by",
+    "produced_at",
+    "project_id",
+    "run_id",
+    "inputs",
+    "payload"
+  ]
+}

@@ -1,0 +1,3705 @@
+[
+ {
+  "target": "https://example.com/services/chiller-servicing",
+  "targetRaw": "https://example.com/services/chiller-servicing",
+  "kind": "technical",
+  "decision": "fix",
+  "impact": 0,
+  "effort": "Low",
+  "basis": "observed",
+  "band": "blocking",
+  "severity": "critical",
+  "evidence": [
+   "Cannot participate in generative results: returns 200."
+  ]
+ },
+ {
+  "target": "https://example.com/blog/closed-loop-system-guide",
+  "targetRaw": "https://example.com/blog/closed-loop-system-guide",
+  "kind": "technical",
+  "decision": "fix",
+  "impact": 0,
+  "effort": "Low",
+  "basis": "observed",
+  "band": "blocking",
+  "severity": "critical",
+  "evidence": [
+   "Cannot participate in generative results: indexable."
+  ]
+ },
+ {
+  "target": "tech:http_4xx",
+  "targetRaw": "Broken page",
+  "kind": "technical",
+  "decision": "fix",
+  "impact": 0,
+  "effort": "Low",
+  "basis": "observed",
+  "band": "blocking",
+  "severity": "critical",
+  "urls": 1,
+  "evidence": [
+   "1 URL affected. First: https://example.com/services/chiller-servicing"
+  ]
+ },
+ {
+  "target": "tech:noindex",
+  "targetRaw": "Page is set to noindex",
+  "kind": "technical",
+  "decision": "fix",
+  "impact": 0,
+  "effort": "Low",
+  "basis": "observed",
+  "band": "blocking",
+  "severity": "critical",
+  "urls": 1,
+  "evidence": [
+   "1 URL affected. First: https://example.com/blog/closed-loop-system-guide"
+  ]
+ },
+ {
+  "target": "cooling tower maintenance suppliers",
+  "targetRaw": "cooling tower maintenance suppliers",
+  "kind": "topic",
+  "decision": "consolidate",
+  "impact": 1547.1074786342951,
+  "effort": "Medium",
+  "basis": "observed",
+  "band": "opportunity",
+  "evidence": [
+   "Topic \"cooling tower maintenance suppliers\" (32 queries, 62,675 impressions) is split across 2 of your URLs. Lead page holds only 47%."
+  ]
+ },
+ {
+  "target": "legionella testing maintenance",
+  "targetRaw": "legionella testing maintenance",
+  "decision": "refresh",
+  "impact": 666.9,
+  "evidence": [
+   "Position 5.6 on 7,968 impressions. Reaching position 3 would add roughly 667 clicks in a period this length.",
+   "coolingsystems.co ranks 8 and you rank 60. Estimated volume 40 a month, difficulty 59, and you already draw 7,968 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser near me",
+  "targetRaw": "evaporative condenser near me",
+  "decision": "ctr",
+  "impact": 661,
+  "evidence": [
+   "Ranks 1.6 but converts 7.9% of 8,297 impressions against 13.6% expected at that rank. About 478 clicks left on the table.",
+   "Click-through fell at a stable rank. Clicks 1,314 to 653 (-661), average position moved up 1.6."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser near me",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser services",
+  "targetRaw": "evaporative condenser services",
+  "decision": "refresh",
+  "impact": 645.9,
+  "evidence": [
+   "Position 4.5 on 7,735 impressions. Reaching position 3 would add roughly 646 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser services",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system near me",
+  "targetRaw": "closed loop system near me",
+  "decision": "refresh",
+  "impact": 633.7,
+  "evidence": [
+   "Position 7.0 on 6,912 impressions. Reaching position 3 would add roughly 634 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system near me",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system installation",
+  "targetRaw": "closed loop system installation",
+  "decision": "protect",
+  "impact": 587.7,
+  "evidence": [
+   "Clicks up 1,959 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system installation",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower suppliers",
+  "targetRaw": "cooling tower suppliers",
+  "decision": "refresh",
+  "impact": 577.7,
+  "evidence": [
+   "Position 4.0 on 6,877 impressions. Reaching position 3 would add roughly 578 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower suppliers",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning specialist",
+  "targetRaw": "heat exchanger cleaning specialist",
+  "decision": "refresh",
+  "impact": 532.6,
+  "evidence": [
+   "Position 8.0 on 7,404 impressions. Reaching position 3 would add roughly 533 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller",
+  "targetRaw": "industrial chiller",
+  "decision": "ctr",
+  "impact": 503,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 768 to 265 (-503), average position moved down 0.2."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system cost",
+  "targetRaw": "closed loop system cost",
+  "decision": "refresh",
+  "impact": 501.9,
+  "evidence": [
+   "Position 9.7 on 5,721 impressions. Reaching position 3 would add roughly 502 clicks in a period this length.",
+   "Impressions fell at a stable rank. Clicks 219 to 160 (-59), average position moved down 0.2.",
+   "coolingsystems.co ranks 2 and you do not rank. Estimated volume 82 a month, difficulty 46, and you already draw 5,721 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system cost",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing near me",
+  "targetRaw": "legionella testing near me",
+  "decision": "refresh",
+  "impact": 457.1,
+  "evidence": [
+   "Position 5.6 on 6,751 impressions. Reaching position 3 would add roughly 457 clicks in a period this length.",
+   "coolingsystems.co ranks 6 and you do not rank. Estimated volume 3,405 a month, difficulty 13, and you already draw 6,751 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing near me",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser maintenance",
+  "targetRaw": "evaporative condenser maintenance",
+  "decision": "refresh",
+  "impact": 392.4,
+  "evidence": [
+   "Position 4.6 on 7,143 impressions. Reaching position 3 would add roughly 392 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning installation",
+  "targetRaw": "heat exchanger cleaning installation",
+  "decision": "refresh",
+  "impact": 364.2,
+  "evidence": [
+   "Position 7.1 on 4,937 impressions. Reaching position 3 would add roughly 364 clicks in a period this length.",
+   "watertechpros.com ranks 4 and you do not rank. Estimated volume 280 a month, difficulty 49, and you already draw 4,937 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning installation",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower suppliers",
+  "targetRaw": "cooling tower suppliers",
+  "decision": "ctr",
+  "impact": 330.1,
+  "evidence": [
+   "Ranks 4.0 but converts 3.2% of 6,877 impressions against 8.0% expected at that rank. About 330 clicks left on the table."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower suppliers",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system cleaning",
+  "targetRaw": "closed loop system cleaning",
+  "decision": "protect",
+  "impact": 305.4,
+  "evidence": [
+   "Clicks up 1,018 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system cleaning",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance services",
+  "targetRaw": "cooling tower maintenance services",
+  "decision": "refresh",
+  "impact": 289.1,
+  "evidence": [
+   "Position 8.9 on 3,700 impressions. Reaching position 3 would add roughly 289 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance services",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing cost",
+  "targetRaw": "legionella testing cost",
+  "decision": "refresh",
+  "impact": 280.6,
+  "evidence": [
+   "Position 9.8 on 3,497 impressions. Reaching position 3 would add roughly 281 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing cost",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning suppliers",
+  "targetRaw": "heat exchanger cleaning suppliers",
+  "decision": "refresh",
+  "impact": 277.5,
+  "evidence": [
+   "Position 23.6 on 1,372 impressions. Reaching position 15 would add roughly 11 clicks in a period this length.",
+   "coolingsystems.co ranks 8 and you do not rank. Estimated volume 4,993 a month, difficulty 30, and you already draw 1,372 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning suppliers",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system specialist",
+  "targetRaw": "closed loop system specialist",
+  "decision": "refresh",
+  "impact": 263.3,
+  "evidence": [
+   "Position 31.2 on 6,783 impressions. Reaching position 15 would add roughly 37 clicks in a period this length.",
+   "coolingsystems.co ranks 2 and you do not rank. Estimated volume 4,737 a month, difficulty 50, and you already draw 6,783 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance price",
+  "targetRaw": "cooling tower maintenance price",
+  "decision": "refresh",
+  "impact": 258.2,
+  "evidence": [
+   "Position 6.9 on 2,603 impressions. Reaching position 3 would add roughly 258 clicks in a period this length.",
+   "Ranking loss. Clicks 67 to 43 (-24), average position moved down 1.2.",
+   "watertechpros.com ranks 5 and you do not rank. Estimated volume 959 a month, difficulty 17, and you already draw 2,603 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance price",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning",
+  "targetRaw": "heat exchanger cleaning",
+  "decision": "refresh",
+  "impact": 254.3,
+  "evidence": [
+   "Position 9.0 on 2,423 impressions. Reaching position 3 would add roughly 254 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/blog/legionella-testing-explained",
+  "targetRaw": "https://example.com/blog/legionella-testing-explained",
+  "kind": "page",
+  "decision": "refresh",
+  "impact": 249.4,
+  "effort": "Medium",
+  "basis": "observed",
+  "band": "opportunity",
+  "evidence": [
+   "Generative impressions fell from 461 to 362 against the previous period. Check what changed on the page and on the result."
+  ]
+ },
+ {
+  "target": "heat exchanger cleaning company",
+  "targetRaw": "heat exchanger cleaning company",
+  "decision": "refresh",
+  "impact": 247.6,
+  "evidence": [
+   "watertechpros.com ranks 6 and you do not rank. Estimated volume 4,454 a month, difficulty 57, and you already draw 4,298 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "heat exchanger cleaning company",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing contractor",
+  "targetRaw": "legionella testing contractor",
+  "decision": "refresh",
+  "impact": 239.7,
+  "evidence": [
+   "Position 24.9 on 4,213 impressions. Reaching position 15 would add roughly 38 clicks in a period this length.",
+   "Ranking loss. Clicks 11 to 7 (-4), average position moved down 1.3.",
+   "coolingsystems.co ranks 8 and you do not rank. Estimated volume 4,313 a month, difficulty 31, and you already draw 4,213 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water hygiene audit",
+  "targetRaw": "water hygiene audit",
+  "decision": "create",
+  "impact": 237.5,
+  "evidence": [
+   "coolingsystems.co ranks 8 and you do not rank. Estimated volume 4,273 a month, difficulty 64."
+  ],
+  "basis": "estimated",
+  "raw": "water hygiene audit",
+  "kind": "keyword",
+  "effort": "High",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning services",
+  "targetRaw": "heat exchanger cleaning services",
+  "decision": "refresh",
+  "impact": 227.7,
+  "evidence": [
+   "Position 8.0 on 2,184 impressions. Reaching position 3 would add roughly 228 clicks in a period this length.",
+   "watertechpros.com ranks 7 and you rank 26. Estimated volume 2,201 a month, difficulty 55, and you already draw 2,184 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning services",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener maintenance",
+  "targetRaw": "water softener maintenance",
+  "decision": "refresh",
+  "impact": 225.3,
+  "evidence": [
+   "Position 16.4 on 836 impressions. Reaching position 8 would add roughly 12 clicks in a period this length.",
+   "coolingsystems.co ranks 4 and you rank 42. Estimated volume 4,054 a month, difficulty 72, and you already draw 836 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "water softener maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling specialist",
+  "targetRaw": "boiler descaling specialist",
+  "decision": "refresh",
+  "impact": 221.6,
+  "evidence": [
+   "coolingsystems.co ranks 6 and you do not rank. Estimated volume 3,986 a month, difficulty 54, and you already draw 34 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "boiler descaling specialist",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser services",
+  "targetRaw": "evaporative condenser services",
+  "decision": "ctr",
+  "impact": 217.8,
+  "evidence": [
+   "Ranks 4.5 but converts 3.2% of 7,735 impressions against 6.0% expected at that rank. About 218 clicks left on the table.",
+   "Click-through fell at a stable rank. Clicks 437 to 249 (-188), average position moved up 0.9."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser services",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing company",
+  "targetRaw": "legionella testing company",
+  "decision": "refresh",
+  "impact": 212.8,
+  "evidence": [
+   "Position 6.2 on 4,648 impressions. Reaching position 3 would add roughly 213 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing company",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener guide",
+  "targetRaw": "water softener guide",
+  "decision": "refresh",
+  "impact": 210.4,
+  "evidence": [
+   "coolingsystems.co ranks 8 and you do not rank. Estimated volume 3,786 a month, difficulty 65, and you already draw 2,635 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "water softener guide",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system maintenance",
+  "targetRaw": "closed loop system maintenance",
+  "decision": "refresh",
+  "impact": 183,
+  "evidence": [
+   "Position 35.4 on 7,158 impressions. Reaching position 15 would add roughly 59 clicks in a period this length.",
+   "watertechpros.com ranks 7 and you do not rank. Estimated volume 3,292 a month, difficulty 10, and you already draw 7,158 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment checklist",
+  "targetRaw": "water treatment checklist",
+  "decision": "refresh",
+  "impact": 182.1,
+  "evidence": [
+   "Position 12.6 on 8,658 impressions. Reaching position 8 would add roughly 182 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment checklist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower installation",
+  "targetRaw": "cooling tower installation",
+  "decision": "ctr",
+  "impact": 175,
+  "evidence": [
+   "Ranks 1.2 but converts 15.8% of 701 impressions against 40.8% expected at that rank. About 175 clicks left on the table."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower installation",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning uk",
+  "targetRaw": "heat exchanger cleaning uk",
+  "decision": "refresh",
+  "impact": 174.3,
+  "evidence": [
+   "Position 11.2 on 444 impressions. Reaching position 8 would add roughly 3 clicks in a period this length.",
+   "watertechpros.com ranks 10 and you do not rank. Estimated volume 3,136 a month, difficulty 76, and you already draw 444 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning uk",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing uk",
+  "targetRaw": "legionella testing uk",
+  "decision": "refresh",
+  "impact": 167,
+  "evidence": [
+   "Position 21.2 on 1,891 impressions. Reaching position 15 would add roughly 13 clicks in a period this length.",
+   "watertechpros.com ranks 7 and you rank 59. Estimated volume 3,005 a month, difficulty 34, and you already draw 1,891 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing uk",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment near me",
+  "targetRaw": "water treatment near me",
+  "decision": "refresh",
+  "impact": 157.6,
+  "evidence": [
+   "Position 6.1 on 2,425 impressions. Reaching position 3 would add roughly 158 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment near me",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing checklist",
+  "targetRaw": "legionella testing checklist",
+  "decision": "refresh",
+  "impact": 156,
+  "evidence": [
+   "Impressions fell at a stable rank. Clicks 600 to 444 (-156), average position moved down 0.2."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing checklist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system contractor",
+  "targetRaw": "closed loop system contractor",
+  "decision": "refresh",
+  "impact": 152.9,
+  "evidence": [
+   "Position 16.6 on 230 impressions. Reaching position 8 would add roughly 5 clicks in a period this length.",
+   "coolingsystems.co ranks 5 and you do not rank. Estimated volume 2,750 a month, difficulty 27, and you already draw 230 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener checklist",
+  "targetRaw": "water softener checklist",
+  "decision": "refresh",
+  "impact": 148,
+  "evidence": [
+   "Impressions fell at a stable rank. Clicks 451 to 303 (-148), average position moved up 0.6.",
+   "watertechpros.com ranks 3 and you rank 24. Estimated volume 45 a month, difficulty 16, and you already draw 1,241 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "water softener checklist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling cost",
+  "targetRaw": "boiler descaling cost",
+  "decision": "ctr",
+  "impact": 134.1,
+  "evidence": [
+   "Ranks 2.0 but converts 6.5% of 1,872 impressions against 13.6% expected at that rank. About 134 clicks left on the table.",
+   "Click-through fell at a stable rank. Clicks 240 to 121 (-119), average position moved down 0.4."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling cost",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller uk",
+  "targetRaw": "industrial chiller uk",
+  "decision": "refresh",
+  "impact": 131.1,
+  "evidence": [
+   "Position 30.2 on 8,747 impressions. Reaching position 15 would add roughly 48 clicks in a period this length.",
+   "coolingsystems.co ranks 2 and you rank 42. Estimated volume 2,358 a month, difficulty 35, and you already draw 8,747 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller uk",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/contact",
+  "targetRaw": "https://example.com/contact",
+  "decision": "refresh",
+  "impact": 127,
+  "evidence": [
+   "Impressions fell at a stable rank. Clicks 366 to 239 (-127), average position moved up 1.3."
+  ],
+  "basis": "observed",
+  "raw": "https://example.com/contact",
+  "kind": "page",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser price",
+  "targetRaw": "evaporative condenser price",
+  "decision": "refresh",
+  "impact": 119.7,
+  "evidence": [
+   "Position 3.6 on 4,068 impressions. Reaching position 3 would add roughly 120 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser price",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/services/water-treatment",
+  "targetRaw": "https://example.com/services/water-treatment",
+  "kind": "page",
+  "decision": "refresh",
+  "impact": 116,
+  "effort": "Medium",
+  "basis": "observed",
+  "band": "opportunity",
+  "evidence": [
+   "Generative impressions fell from 2,213 to 1,892 against the previous period. Check what changed on the page and on the result."
+  ]
+ },
+ {
+  "target": "industrial chiller price",
+  "targetRaw": "industrial chiller price",
+  "decision": "ctr",
+  "impact": 115.6,
+  "evidence": [
+   "Ranks 2.2 but converts 6.7% of 1,678 impressions against 13.6% expected at that rank. About 116 clicks left on the table."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller price",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener specialist",
+  "targetRaw": "water softener specialist",
+  "decision": "refresh",
+  "impact": 113.5,
+  "evidence": [
+   "Position 15.9 on 1,047 impressions. Reaching position 8 would add roughly 13 clicks in a period this length.",
+   "watertechpros.com ranks 5 and you rank 46. Estimated volume 2,041 a month, difficulty 69, and you already draw 1,047 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "water softener specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system price",
+  "targetRaw": "closed loop system price",
+  "decision": "refresh",
+  "impact": 106.3,
+  "evidence": [
+   "Position 14.3 on 5,264 impressions. Reaching position 8 would add roughly 106 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system price",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener price",
+  "targetRaw": "water softener price",
+  "decision": "refresh",
+  "impact": 104.3,
+  "evidence": [
+   "Position 8.6 on 235 impressions. Reaching position 3 would add roughly 21 clicks in a period this length.",
+   "watertechpros.com ranks 9 and you rank 44. Estimated volume 1,877 a month, difficulty 29, and you already draw 235 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "water softener price",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning maintenance",
+  "targetRaw": "heat exchanger cleaning maintenance",
+  "decision": "refresh",
+  "impact": 101.1,
+  "evidence": [
+   "Position 27.8 on 3,382 impressions. Reaching position 15 would add roughly 25 clicks in a period this length.",
+   "watertechpros.com ranks 8 and you rank 51. Estimated volume 1,818 a month, difficulty 28, and you already draw 3,382 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning checklist",
+  "targetRaw": "heat exchanger cleaning checklist",
+  "decision": "refresh",
+  "impact": 101,
+  "evidence": [
+   "Position 7.5 on 1,184 impressions. Reaching position 3 would add roughly 101 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning checklist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser guide",
+  "targetRaw": "evaporative condenser guide",
+  "decision": "refresh",
+  "impact": 97.9,
+  "evidence": [
+   "Position 6.7 on 1,330 impressions. Reaching position 3 would add roughly 98 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser guide",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling checklist",
+  "targetRaw": "boiler descaling checklist",
+  "decision": "refresh",
+  "impact": 96.9,
+  "evidence": [
+   "Position 18.9 on 5,878 impressions. Reaching position 8 would add roughly 97 clicks in a period this length.",
+   "coolingsystems.co ranks 5 and you rank 47. Estimated volume 590 a month, difficulty 31, and you already draw 5,878 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling checklist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing installation",
+  "targetRaw": "legionella testing installation",
+  "decision": "refresh",
+  "impact": 96.3,
+  "evidence": [
+   "watertechpros.com ranks 1 and you do not rank. Estimated volume 1,733 a month, difficulty 14, and you already draw 138 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "legionella testing installation",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/about",
+  "targetRaw": "https://example.com/about",
+  "decision": "protect",
+  "impact": 93.3,
+  "evidence": [
+   "Clicks up 311 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "https://example.com/about",
+  "kind": "page",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller services",
+  "targetRaw": "industrial chiller services",
+  "decision": "protect",
+  "impact": 88.5,
+  "evidence": [
+   "Clicks up 295 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller services",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling price",
+  "targetRaw": "boiler descaling price",
+  "decision": "refresh",
+  "impact": 80.2,
+  "evidence": [
+   "coolingsystems.co ranks 2 and you do not rank. Estimated volume 1,443 a month, difficulty 20, and you already draw 56 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "boiler descaling price",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing services",
+  "targetRaw": "legionella testing services",
+  "decision": "refresh",
+  "impact": 78.4,
+  "evidence": [
+   "watertechpros.com ranks 2 and you do not rank. Estimated volume 1,411 a month, difficulty 52, and you already draw 103 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "legionella testing services",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener company",
+  "targetRaw": "water softener company",
+  "decision": "consolidate",
+  "impact": 75.2,
+  "evidence": [
+   "2 URLs split 2,601 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "water softener company",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser contractor",
+  "targetRaw": "evaporative condenser contractor",
+  "decision": "consolidate",
+  "impact": 74.4,
+  "evidence": [
+   "2 URLs split 2,571 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing contractor",
+  "targetRaw": "legionella testing contractor",
+  "decision": "consolidate",
+  "impact": 73,
+  "evidence": [
+   "2 URLs split 2,524 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning near me",
+  "targetRaw": "heat exchanger cleaning near me",
+  "decision": "refresh",
+  "impact": 72.3,
+  "evidence": [
+   "Position 7.7 on 157 impressions. Reaching position 3 would add roughly 14 clicks in a period this length.",
+   "watertechpros.com ranks 6 and you rank 15. Estimated volume 1,301 a month, difficulty 19, and you already draw 157 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning near me",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing specialist",
+  "targetRaw": "legionella testing specialist",
+  "decision": "consolidate",
+  "impact": 70.1,
+  "evidence": [
+   "2 URLs split 2,422 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling installation",
+  "targetRaw": "boiler descaling installation",
+  "decision": "refresh",
+  "impact": 68,
+  "evidence": [
+   "watertechpros.com ranks 9 and you do not rank. Estimated volume 1,224 a month, difficulty 45, and you already draw 201 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "boiler descaling installation",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system installation",
+  "targetRaw": "closed loop system installation",
+  "decision": "consolidate",
+  "impact": 67.9,
+  "evidence": [
+   "2 URLs split 2,348 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system installation",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling uk",
+  "targetRaw": "boiler descaling uk",
+  "decision": "refresh",
+  "impact": 67.5,
+  "evidence": [
+   "Position 5.2 on 3,617 impressions. Reaching position 3 would add roughly 67 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling uk",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser cleaning",
+  "targetRaw": "evaporative condenser cleaning",
+  "decision": "refresh",
+  "impact": 67.2,
+  "evidence": [
+   "Position 26.9 on 8,864 impressions. Reaching position 15 would add roughly 67 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser cleaning",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller vs alternatives",
+  "targetRaw": "industrial chiller vs alternatives",
+  "decision": "consolidate",
+  "impact": 67.1,
+  "evidence": [
+   "2 URLs split 2,321 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller vs alternatives",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling cleaning",
+  "targetRaw": "boiler descaling cleaning",
+  "decision": "refresh",
+  "impact": 64.7,
+  "evidence": [
+   "Position 4.1 on 76 impressions. Reaching position 3 would add roughly 2 clicks in a period this length.",
+   "watertechpros.com ranks 3 and you rank 21. Estimated volume 1,164 a month, difficulty 68, and you already draw 76 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling cleaning",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower specialist",
+  "targetRaw": "cooling tower specialist",
+  "decision": "consolidate",
+  "impact": 64.1,
+  "evidence": [
+   "2 URLs split 2,216 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower services",
+  "targetRaw": "cooling tower services",
+  "decision": "refresh",
+  "impact": 63.6,
+  "evidence": [
+   "Position 36.5 on 7,308 impressions. Reaching position 15 would add roughly 64 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower services",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance suppliers",
+  "targetRaw": "cooling tower maintenance suppliers",
+  "decision": "refresh",
+  "impact": 63.4,
+  "evidence": [
+   "Position 36.9 on 7,851 impressions. Reaching position 15 would add roughly 63 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance suppliers",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower",
+  "targetRaw": "cooling tower",
+  "decision": "ctr",
+  "impact": 63,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 77 to 14 (-63), average position moved up 0.1."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing company",
+  "targetRaw": "legionella testing company",
+  "decision": "consolidate",
+  "impact": 59.4,
+  "evidence": [
+   "2 URLs split 2,054 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing company",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller specialist",
+  "targetRaw": "industrial chiller specialist",
+  "decision": "consolidate",
+  "impact": 58.9,
+  "evidence": [
+   "2 URLs split 2,037 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment cleaning",
+  "targetRaw": "water treatment cleaning",
+  "decision": "consolidate",
+  "impact": 58.8,
+  "evidence": [
+   "2 URLs split 2,034 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "water treatment cleaning",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance checklist",
+  "targetRaw": "cooling tower maintenance checklist",
+  "decision": "consolidate",
+  "impact": 58.1,
+  "evidence": [
+   "2 URLs split 2,007 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance checklist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning near me",
+  "targetRaw": "heat exchanger cleaning near me",
+  "decision": "consolidate",
+  "impact": 57.1,
+  "evidence": [
+   "2 URLs split 1,975 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning near me",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling contractor",
+  "targetRaw": "boiler descaling contractor",
+  "decision": "consolidate",
+  "impact": 56.5,
+  "evidence": [
+   "2 URLs split 1,955 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing",
+  "targetRaw": "legionella testing",
+  "decision": "consolidate",
+  "impact": 55.5,
+  "evidence": [
+   "2 URLs split 1,920 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance installation",
+  "targetRaw": "cooling tower maintenance installation",
+  "decision": "refresh",
+  "impact": 55.4,
+  "evidence": [
+   "watertechpros.com ranks 2 and you rank 17. Estimated volume 996 a month, difficulty 51, and you already draw 3,324 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "cooling tower maintenance installation",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing maintenance",
+  "targetRaw": "legionella testing maintenance",
+  "decision": "consolidate",
+  "impact": 55,
+  "evidence": [
+   "2 URLs split 1,903 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing uk",
+  "targetRaw": "legionella testing uk",
+  "decision": "consolidate",
+  "impact": 54.8,
+  "evidence": [
+   "2 URLs split 1,894 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing uk",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance near me",
+  "targetRaw": "cooling tower maintenance near me",
+  "decision": "refresh",
+  "impact": 54.3,
+  "evidence": [
+   "Position 6.7 on 114 impressions. Reaching position 3 would add roughly 11 clicks in a period this length.",
+   "coolingsystems.co ranks 5 and you do not rank. Estimated volume 977 a month, difficulty 62, and you already draw 114 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance near me",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "example water cooling towers",
+  "targetRaw": "example water cooling towers",
+  "decision": "protect",
+  "impact": 54,
+  "evidence": [
+   "Clicks up 180 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "example water cooling towers",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller",
+  "targetRaw": "industrial chiller",
+  "decision": "consolidate",
+  "impact": 53,
+  "evidence": [
+   "2 URLs split 1,834 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling near me",
+  "targetRaw": "boiler descaling near me",
+  "decision": "ctr",
+  "impact": 51,
+  "evidence": [
+   "Ranks 1.0 but converts 22.4% of 156 impressions against 40.8% expected at that rank. About 29 clicks left on the table.",
+   "Click-through fell at a stable rank. Clicks 86 to 35 (-51), average position moved down 0.0."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling near me",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system checklist",
+  "targetRaw": "closed loop system checklist",
+  "decision": "refresh",
+  "impact": 50.8,
+  "evidence": [
+   "Position 26.6 on 7,319 impressions. Reaching position 15 would add roughly 51 clicks in a period this length.",
+   "Ranking loss. Clicks 44 to 27 (-17), average position moved down 1.0."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system checklist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller price",
+  "targetRaw": "industrial chiller price",
+  "decision": "consolidate",
+  "impact": 50.8,
+  "evidence": [
+   "2 URLs split 1,755 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller price",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower",
+  "targetRaw": "cooling tower",
+  "decision": "refresh",
+  "impact": 50.5,
+  "evidence": [
+   "Position 11.6 on 2,387 impressions. Reaching position 8 would add roughly 51 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system",
+  "targetRaw": "closed loop system",
+  "decision": "consolidate",
+  "impact": 50.4,
+  "evidence": [
+   "2 URLs split 1,741 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance near me",
+  "targetRaw": "cooling tower maintenance near me",
+  "decision": "consolidate",
+  "impact": 49.7,
+  "evidence": [
+   "2 URLs split 1,718 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance near me",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener installation",
+  "targetRaw": "water softener installation",
+  "decision": "consolidate",
+  "impact": 47.2,
+  "evidence": [
+   "2 URLs split 1,631 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "water softener installation",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling uk",
+  "targetRaw": "boiler descaling uk",
+  "decision": "protect",
+  "impact": 46.8,
+  "evidence": [
+   "Clicks up 156 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling uk",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller company",
+  "targetRaw": "industrial chiller company",
+  "decision": "protect",
+  "impact": 45.9,
+  "evidence": [
+   "Clicks up 153 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller company",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning cleaning",
+  "targetRaw": "heat exchanger cleaning cleaning",
+  "decision": "refresh",
+  "impact": 45.8,
+  "evidence": [
+   "Position 5.5 on 923 impressions. Reaching position 3 would add roughly 46 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning cleaning",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "example water contact",
+  "targetRaw": "example water contact",
+  "decision": "refresh",
+  "impact": 44.8,
+  "evidence": [
+   "Position 21.9 on 7,513 impressions. Reaching position 15 would add roughly 45 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "example water contact",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser price",
+  "targetRaw": "evaporative condenser price",
+  "decision": "protect",
+  "impact": 43.2,
+  "evidence": [
+   "Clicks up 144 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser price",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller installation",
+  "targetRaw": "industrial chiller installation",
+  "decision": "refresh",
+  "impact": 43,
+  "evidence": [
+   "Position 4.2 on 629 impressions. Reaching position 3 would add roughly 27 clicks in a period this length.",
+   "Impressions fell at a stable rank. Clicks 89 to 46 (-43), average position moved up 0.2."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller installation",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing near me",
+  "targetRaw": "legionella testing near me",
+  "decision": "protect",
+  "impact": 42.9,
+  "evidence": [
+   "Clicks up 143 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing near me",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment price",
+  "targetRaw": "water treatment price",
+  "decision": "consolidate",
+  "impact": 42.7,
+  "evidence": [
+   "2 URLs split 1,476 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "water treatment price",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning installation",
+  "targetRaw": "heat exchanger cleaning installation",
+  "decision": "consolidate",
+  "impact": 42.6,
+  "evidence": [
+   "2 URLs split 1,473 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning installation",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning guide",
+  "targetRaw": "heat exchanger cleaning guide",
+  "decision": "ctr",
+  "impact": 42,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 130 to 88 (-42), average position moved down 0.2."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning guide",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser cost",
+  "targetRaw": "evaporative condenser cost",
+  "decision": "consolidate",
+  "impact": 42,
+  "evidence": [
+   "2 URLs split 1,452 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser cost",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser uk",
+  "targetRaw": "evaporative condenser uk",
+  "decision": "refresh",
+  "impact": 40.9,
+  "evidence": [
+   "Position 25.9 on 6,203 impressions. Reaching position 15 would add roughly 41 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser uk",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling price",
+  "targetRaw": "boiler descaling price",
+  "decision": "consolidate",
+  "impact": 40.6,
+  "evidence": [
+   "2 URLs split 1,403 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling price",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance price",
+  "targetRaw": "cooling tower maintenance price",
+  "decision": "ctr",
+  "impact": 40,
+  "evidence": [
+   "Ranks 6.9 but converts 1.7% of 2,603 impressions against 3.2% expected at that rank. About 40 clicks left on the table."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance price",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment maintenance",
+  "targetRaw": "water treatment maintenance",
+  "decision": "consolidate",
+  "impact": 39.1,
+  "evidence": [
+   "2 URLs split 1,353 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "water treatment maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system guide",
+  "targetRaw": "closed loop system guide",
+  "decision": "protect",
+  "impact": 38.7,
+  "evidence": [
+   "Clicks up 129 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system guide",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment uk",
+  "targetRaw": "water treatment uk",
+  "decision": "refresh",
+  "impact": 37.8,
+  "evidence": [
+   "Position 8.7 on 439 impressions. Reaching position 3 would add roughly 38 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment uk",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower cleaning",
+  "targetRaw": "cooling tower cleaning",
+  "decision": "refresh",
+  "impact": 36.7,
+  "evidence": [
+   "Position 19.4 on 1,948 impressions. Reaching position 8 would add roughly 37 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower cleaning",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance uk",
+  "targetRaw": "cooling tower maintenance uk",
+  "decision": "consolidate",
+  "impact": 35.8,
+  "evidence": [
+   "2 URLs split 1,237 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance uk",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling cost",
+  "targetRaw": "boiler descaling cost",
+  "decision": "refresh",
+  "impact": 35.3,
+  "evidence": [
+   "coolingsystems.co ranks 8 and you rank 24. Estimated volume 635 a month, difficulty 58, and you already draw 1,872 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "boiler descaling cost",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener uk",
+  "targetRaw": "water softener uk",
+  "decision": "protect",
+  "impact": 35.1,
+  "evidence": [
+   "Clicks up 117 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "water softener uk",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning services",
+  "targetRaw": "heat exchanger cleaning services",
+  "decision": "ctr",
+  "impact": 35,
+  "evidence": [
+   "Ranks 8.0 but converts 1.1% of 2,184 impressions against 2.7% expected at that rank. About 34 clicks left on the table.",
+   "Click-through fell at a stable rank. Clicks 60 to 25 (-35), average position moved up 0.1."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning services",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller near me",
+  "targetRaw": "industrial chiller near me",
+  "decision": "consolidate",
+  "impact": 34.1,
+  "evidence": [
+   "2 URLs split 1,178 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller near me",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance",
+  "targetRaw": "cooling tower maintenance",
+  "decision": "consolidate",
+  "impact": 32.4,
+  "evidence": [
+   "3 URLs split 1,119 impressions for this query (59% / 23%). One URL dominates; the second may simply be a related page."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener vs alternatives",
+  "targetRaw": "water softener vs alternatives",
+  "decision": "refresh",
+  "impact": 32.1,
+  "evidence": [
+   "Position 32.6 on 5,472 impressions. Reaching position 15 would add roughly 32 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water softener vs alternatives",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment guide",
+  "targetRaw": "water treatment guide",
+  "decision": "refresh",
+  "impact": 32,
+  "evidence": [
+   "Position 20.3 on 4,789 impressions. Reaching position 15 would add roughly 27 clicks in a period this length.",
+   "Ranking loss. Clicks 56 to 24 (-32), average position moved down 1.3."
+  ],
+  "basis": "observed",
+  "raw": "water treatment guide",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower suppliers",
+  "targetRaw": "cooling tower suppliers",
+  "decision": "protect",
+  "impact": 30.9,
+  "evidence": [
+   "Clicks up 103 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower suppliers",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning",
+  "targetRaw": "heat exchanger cleaning",
+  "decision": "ctr",
+  "impact": 30.2,
+  "evidence": [
+   "Ranks 9.0 but converts 1.1% of 2,423 impressions against 2.3% expected at that rank. About 30 clicks left on the table."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing specialist",
+  "targetRaw": "legionella testing specialist",
+  "decision": "refresh",
+  "impact": 29.7,
+  "evidence": [
+   "Position 39.9 on 4,305 impressions. Reaching position 15 would add roughly 30 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning specialist",
+  "targetRaw": "heat exchanger cleaning specialist",
+  "decision": "protect",
+  "impact": 29.7,
+  "evidence": [
+   "Clicks up 99 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning specialist",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system uk",
+  "targetRaw": "closed loop system uk",
+  "decision": "refresh",
+  "impact": 29.4,
+  "evidence": [
+   "Position 25.7 on 5,871 impressions. Reaching position 15 would add roughly 29 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system uk",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment maintenance",
+  "targetRaw": "water treatment maintenance",
+  "decision": "refresh",
+  "impact": 28,
+  "evidence": [
+   "Position 22.2 on 7,345 impressions. Reaching position 15 would add roughly 28 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing installation",
+  "targetRaw": "legionella testing installation",
+  "decision": "ctr",
+  "impact": 28,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 45 to 17 (-28), average position moved down 0.9."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing installation",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment vs alternatives",
+  "targetRaw": "water treatment vs alternatives",
+  "decision": "refresh",
+  "impact": 27.5,
+  "evidence": [
+   "Position 11.9 on 5,712 impressions. Reaching position 8 would add roughly 27 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment vs alternatives",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "example water",
+  "targetRaw": "example water",
+  "decision": "refresh",
+  "impact": 27.2,
+  "evidence": [
+   "Position 26.1 on 6,139 impressions. Reaching position 15 would add roughly 27 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "example water",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment specialist",
+  "targetRaw": "water treatment specialist",
+  "decision": "refresh",
+  "impact": 27,
+  "evidence": [
+   "Ranking loss. Clicks 56 to 29 (-27), average position moved down 1.3."
+  ],
+  "basis": "observed",
+  "raw": "water treatment specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment checklist",
+  "targetRaw": "water treatment checklist",
+  "decision": "ctr",
+  "impact": 27,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 79 to 52 (-27), average position moved up 0.4."
+  ],
+  "basis": "observed",
+  "raw": "water treatment checklist",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning vs alternatives",
+  "targetRaw": "heat exchanger cleaning vs alternatives",
+  "decision": "refresh",
+  "impact": 26.7,
+  "evidence": [
+   "Position 10.9 on 345 impressions. Reaching position 8 would add roughly 1 clicks in a period this length.",
+   "coolingsystems.co ranks 9 and you do not rank. Estimated volume 480 a month, difficulty 67, and you already draw 345 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning vs alternatives",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system maintenance",
+  "targetRaw": "closed loop system maintenance",
+  "decision": "consolidate",
+  "impact": 26.7,
+  "evidence": [
+   "2 URLs split 923 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance cleaning",
+  "targetRaw": "cooling tower maintenance cleaning",
+  "decision": "consolidate",
+  "impact": 26.3,
+  "evidence": [
+   "2 URLs split 908 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance cleaning",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "dry cooler servicing",
+  "targetRaw": "dry cooler servicing",
+  "decision": "create",
+  "impact": 26.1,
+  "evidence": [
+   "watertechpros.com ranks 4 and you do not rank. Estimated volume 470 a month, difficulty 30."
+  ],
+  "basis": "estimated",
+  "raw": "dry cooler servicing",
+  "kind": "keyword",
+  "effort": "High",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/services/water-treatment",
+  "targetRaw": "https://example.com/services/water-treatment",
+  "decision": "investigate",
+  "impact": 26.1,
+  "evidence": [
+   "Semrush shows water treatment near me falling from position 13 to 16. Confirm against Search Console before acting.",
+   "Semrush shows boiler descaling maintenance falling from position 13 to 16. Confirm against Search Console before acting."
+  ],
+  "basis": "estimated",
+  "raw": "https://example.com/services/water-treatment",
+  "kind": "keyword",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower services",
+  "targetRaw": "cooling tower services",
+  "decision": "consolidate",
+  "impact": 25,
+  "evidence": [
+   "2 URLs split 866 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower services",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling suppliers",
+  "targetRaw": "boiler descaling suppliers",
+  "decision": "refresh",
+  "impact": 24.7,
+  "evidence": [
+   "Position 16.3 on 2,465 impressions. Reaching position 8 would add roughly 25 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling suppliers",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment company",
+  "targetRaw": "water treatment company",
+  "decision": "consolidate",
+  "impact": 24.2,
+  "evidence": [
+   "2 URLs split 838 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "water treatment company",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system near me",
+  "targetRaw": "closed loop system near me",
+  "decision": "protect",
+  "impact": 23.7,
+  "evidence": [
+   "Clicks up 79 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system near me",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower contractor",
+  "targetRaw": "cooling tower contractor",
+  "decision": "refresh",
+  "impact": 23.3,
+  "evidence": [
+   "Position 18.5 on 1,121 impressions. Reaching position 8 would add roughly 23 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller cost",
+  "targetRaw": "industrial chiller cost",
+  "decision": "ctr",
+  "impact": 23,
+  "evidence": [
+   "Ranks 1.9 but converts 6.8% of 265 impressions against 13.6% expected at that rank. About 18 clicks left on the table.",
+   "Click-through fell at a stable rank. Clicks 41 to 18 (-23), average position moved up 1.0."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller cost",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling vs alternatives",
+  "targetRaw": "boiler descaling vs alternatives",
+  "decision": "protect",
+  "impact": 21.9,
+  "evidence": [
+   "Clicks up 73 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling vs alternatives",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "example water reviews",
+  "targetRaw": "example water reviews",
+  "decision": "refresh",
+  "impact": 21.6,
+  "evidence": [
+   "Position 32.5 on 4,862 impressions. Reaching position 15 would add roughly 22 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "example water reviews",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller contractor",
+  "targetRaw": "industrial chiller contractor",
+  "decision": "consolidate",
+  "impact": 21.2,
+  "evidence": [
+   "2 URLs split 733 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning installation",
+  "targetRaw": "heat exchanger cleaning installation",
+  "decision": "protect",
+  "impact": 21,
+  "evidence": [
+   "Clicks up 70 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning installation",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling",
+  "targetRaw": "boiler descaling",
+  "decision": "refresh",
+  "impact": 20.9,
+  "evidence": [
+   "Position 12.8 on 2,622 impressions. Reaching position 8 would add roughly 21 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/case-studies/manufacturing-plant",
+  "targetRaw": "https://example.com/case-studies/manufacturing-plant",
+  "decision": "protect",
+  "impact": 20.1,
+  "evidence": [
+   "Clicks up 67 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "https://example.com/case-studies/manufacturing-plant",
+  "kind": "page",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance contractor",
+  "targetRaw": "cooling tower maintenance contractor",
+  "decision": "refresh",
+  "impact": 19.4,
+  "evidence": [
+   "Position 23.1 on 2,296 impressions. Reaching position 15 would add roughly 19 clicks in a period this length.",
+   "coolingsystems.co ranks 6 and you do not rank. Estimated volume 48 a month, difficulty 35, and you already draw 2,296 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning cost",
+  "targetRaw": "heat exchanger cleaning cost",
+  "decision": "ctr",
+  "impact": 19.1,
+  "evidence": [
+   "Ranks 3.1 but converts 4.5% of 269 impressions against 11.6% expected at that rank. About 19 clicks left on the table.",
+   "Click-through fell at a stable rank. Clicks 29 to 12 (-17), average position moved up 0.8."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning cost",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling specialist",
+  "targetRaw": "boiler descaling specialist",
+  "decision": "consolidate",
+  "impact": 19.1,
+  "evidence": [
+   "2 URLs split 662 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance specialist",
+  "targetRaw": "cooling tower maintenance specialist",
+  "decision": "refresh",
+  "impact": 19,
+  "evidence": [
+   "Position 3.7 on 98 impressions. Reaching position 3 would add roughly 2 clicks in a period this length.",
+   "Ranking loss. Clicks 28 to 9 (-19), average position moved down 1.2.",
+   "watertechpros.com ranks 6 and you do not rank. Estimated volume 82 a month, difficulty 27, and you already draw 98 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser company",
+  "targetRaw": "evaporative condenser company",
+  "decision": "refresh",
+  "impact": 17.9,
+  "evidence": [
+   "Position 33.2 on 2,438 impressions. Reaching position 15 would add roughly 18 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser company",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling services",
+  "targetRaw": "boiler descaling services",
+  "decision": "refresh",
+  "impact": 17.8,
+  "evidence": [
+   "Position 30.7 on 4,967 impressions. Reaching position 15 would add roughly 18 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling services",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance vs alternatives",
+  "targetRaw": "cooling tower maintenance vs alternatives",
+  "decision": "refresh",
+  "impact": 17.8,
+  "evidence": [
+   "coolingsystems.co ranks 7 and you rank 29. Estimated volume 320 a month, difficulty 28, and you already draw 486 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "cooling tower maintenance vs alternatives",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling maintenance",
+  "targetRaw": "boiler descaling maintenance",
+  "decision": "protect",
+  "impact": 17.7,
+  "evidence": [
+   "Clicks up 59 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling maintenance",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower price",
+  "targetRaw": "cooling tower price",
+  "decision": "refresh",
+  "impact": 17.6,
+  "evidence": [
+   "Position 26.5 on 4,382 impressions. Reaching position 15 would add roughly 18 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower price",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment services",
+  "targetRaw": "water treatment services",
+  "decision": "consolidate",
+  "impact": 17.2,
+  "evidence": [
+   "2 URLs split 594 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "water treatment services",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance",
+  "targetRaw": "cooling tower maintenance",
+  "decision": "refresh",
+  "impact": 16.9,
+  "evidence": [
+   "Position 26.6 on 2,535 impressions. Reaching position 15 would add roughly 17 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower installation",
+  "targetRaw": "cooling tower installation",
+  "decision": "consolidate",
+  "impact": 16.6,
+  "evidence": [
+   "2 URLs split 574 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower installation",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment suppliers",
+  "targetRaw": "water treatment suppliers",
+  "decision": "refresh",
+  "impact": 16.1,
+  "evidence": [
+   "Position 5.5 on 286 impressions. Reaching position 3 would add roughly 16 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment suppliers",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning maintenance",
+  "targetRaw": "heat exchanger cleaning maintenance",
+  "decision": "ctr",
+  "impact": 16,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 27 to 11 (-16), average position moved up 1.5."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning maintenance",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system",
+  "targetRaw": "closed loop system",
+  "decision": "protect",
+  "impact": 15.6,
+  "evidence": [
+   "Clicks up 52 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller cleaning",
+  "targetRaw": "industrial chiller cleaning",
+  "decision": "refresh",
+  "impact": 15.1,
+  "evidence": [
+   "Position 35.8 on 1,798 impressions. Reaching position 15 would add roughly 15 clicks in a period this length.",
+   "watertechpros.com ranks 5 and you rank 53. Estimated volume 36 a month, difficulty 38, and you already draw 1,798 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller cleaning",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system maintenance",
+  "targetRaw": "closed loop system maintenance",
+  "decision": "ctr",
+  "impact": 15,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 32 to 17 (-15), average position moved down 0.5."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system maintenance",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener suppliers",
+  "targetRaw": "water softener suppliers",
+  "decision": "refresh",
+  "impact": 14.9,
+  "evidence": [
+   "Position 24.2 on 1,874 impressions. Reaching position 15 would add roughly 15 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water softener suppliers",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller price",
+  "targetRaw": "industrial chiller price",
+  "decision": "protect",
+  "impact": 14.7,
+  "evidence": [
+   "Clicks up 49 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller price",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser vs alternatives",
+  "targetRaw": "evaporative condenser vs alternatives",
+  "decision": "refresh",
+  "impact": 14.4,
+  "evidence": [
+   "Position 12.6 on 978 impressions. Reaching position 8 would add roughly 14 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser vs alternatives",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower guide",
+  "targetRaw": "cooling tower guide",
+  "decision": "refresh",
+  "impact": 14,
+  "evidence": [
+   "Position 4.7 on 202 impressions. Reaching position 3 would add roughly 9 clicks in a period this length.",
+   "Ranking loss. Clicks 28 to 14 (-14), average position moved down 1.4."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower guide",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser cleaning",
+  "targetRaw": "evaporative condenser cleaning",
+  "decision": "ctr",
+  "impact": 14,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 41 to 27 (-14), average position moved up 1.1."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser cleaning",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener cost",
+  "targetRaw": "water softener cost",
+  "decision": "refresh",
+  "impact": 13.6,
+  "evidence": [
+   "Position 17.1 on 1,059 impressions. Reaching position 8 would add roughly 14 clicks in a period this length.",
+   "coolingsystems.co ranks 7 and you rank 28. Estimated volume 32 a month, difficulty 44, and you already draw 1,059 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "water softener cost",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser company",
+  "targetRaw": "evaporative condenser company",
+  "decision": "ctr",
+  "impact": 13,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 21 to 8 (-13), average position moved down 0.3."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser company",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing cleaning",
+  "targetRaw": "legionella testing cleaning",
+  "decision": "refresh",
+  "impact": 12.8,
+  "evidence": [
+   "Position 23.3 on 197 impressions. Reaching position 15 would add roughly 1 clicks in a period this length.",
+   "coolingsystems.co ranks 1 and you rank 55. Estimated volume 230 a month, difficulty 40, and you already draw 197 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing cleaning",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling guide",
+  "targetRaw": "boiler descaling guide",
+  "decision": "protect",
+  "impact": 12.3,
+  "evidence": [
+   "Clicks up 41 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling guide",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing specialist",
+  "targetRaw": "legionella testing specialist",
+  "decision": "ctr",
+  "impact": 12,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 28 to 16 (-12), average position moved up 0.5."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing specialist",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance uk",
+  "targetRaw": "cooling tower maintenance uk",
+  "decision": "refresh",
+  "impact": 11.9,
+  "evidence": [
+   "coolingsystems.co ranks 7 and you rank 52. Estimated volume 214 a month, difficulty 38, and you already draw 1,298 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "cooling tower maintenance uk",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener cleaning",
+  "targetRaw": "water softener cleaning",
+  "decision": "refresh",
+  "impact": 11.7,
+  "evidence": [
+   "watertechpros.com ranks 5 and you do not rank. Estimated volume 211 a month, difficulty 54, and you already draw 110 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "water softener cleaning",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning price",
+  "targetRaw": "heat exchanger cleaning price",
+  "decision": "refresh",
+  "impact": 11.3,
+  "evidence": [
+   "Position 29.6 on 2,196 impressions. Reaching position 15 would add roughly 11 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning price",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning contractor",
+  "targetRaw": "heat exchanger cleaning contractor",
+  "decision": "refresh",
+  "impact": 11.2,
+  "evidence": [
+   "Position 21.2 on 1,246 impressions. Reaching position 15 would add roughly 11 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment",
+  "targetRaw": "water treatment",
+  "decision": "refresh",
+  "impact": 11.2,
+  "evidence": [
+   "Position 25.5 on 1,337 impressions. Reaching position 15 would add roughly 11 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing",
+  "targetRaw": "legionella testing",
+  "decision": "refresh",
+  "impact": 10.9,
+  "evidence": [
+   "Position 24.7 on 1,309 impressions. Reaching position 15 would add roughly 11 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing suppliers",
+  "targetRaw": "legionella testing suppliers",
+  "decision": "refresh",
+  "impact": 10.4,
+  "evidence": [
+   "Position 15.3 on 829 impressions. Reaching position 8 would add roughly 10 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing suppliers",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment installation",
+  "targetRaw": "water treatment installation",
+  "decision": "refresh",
+  "impact": 10.3,
+  "evidence": [
+   "Position 37.8 on 1,443 impressions. Reaching position 15 would add roughly 10 clicks in a period this length.",
+   "Impressions fell at a stable rank. Clicks 13 to 5 (-8), average position moved up 0.9."
+  ],
+  "basis": "observed",
+  "raw": "water treatment installation",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance maintenance",
+  "targetRaw": "cooling tower maintenance maintenance",
+  "decision": "refresh",
+  "impact": 10.1,
+  "evidence": [
+   "watertechpros.com ranks 2 and you do not rank. Estimated volume 182 a month, difficulty 79, and you already draw 32 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "cooling tower maintenance maintenance",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser vs alternatives",
+  "targetRaw": "evaporative condenser vs alternatives",
+  "decision": "ctr",
+  "impact": 10,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 22 to 12 (-10), average position moved down 0.5."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser vs alternatives",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller maintenance",
+  "targetRaw": "industrial chiller maintenance",
+  "decision": "refresh",
+  "impact": 9.7,
+  "evidence": [
+   "Position 4.4 on 386 impressions. Reaching position 3 would add roughly 10 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller maintenance",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower cost",
+  "targetRaw": "cooling tower cost",
+  "decision": "refresh",
+  "impact": 9.3,
+  "evidence": [
+   "Position 19.7 on 527 impressions. Reaching position 8 would add roughly 9 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower cost",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment maintenance",
+  "targetRaw": "water treatment maintenance",
+  "decision": "protect",
+  "impact": 9.3,
+  "evidence": [
+   "Clicks up 31 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "water treatment maintenance",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing guide",
+  "targetRaw": "legionella testing guide",
+  "decision": "refresh",
+  "impact": 9.1,
+  "evidence": [
+   "Position 27.5 on 1,048 impressions. Reaching position 15 would add roughly 9 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing guide",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower vs alternatives",
+  "targetRaw": "cooling tower vs alternatives",
+  "decision": "refresh",
+  "impact": 9.1,
+  "evidence": [
+   "Position 29.6 on 1,231 impressions. Reaching position 15 would add roughly 9 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower vs alternatives",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment",
+  "targetRaw": "water treatment",
+  "decision": "ctr",
+  "impact": 9,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 12 to 3 (-9), average position moved up 0.0."
+  ],
+  "basis": "observed",
+  "raw": "water treatment",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser",
+  "targetRaw": "evaporative condenser",
+  "decision": "refresh",
+  "impact": 8.9,
+  "evidence": [
+   "Position 23.8 on 1,965 impressions. Reaching position 15 would add roughly 9 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "targetRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "decision": "protect",
+  "impact": 8.7,
+  "evidence": [
+   "Clicks up 29 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "kind": "page",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning company",
+  "targetRaw": "heat exchanger cleaning company",
+  "decision": "consolidate",
+  "impact": 8.5,
+  "evidence": [
+   "2 URLs split 295 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning company",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser specialist",
+  "targetRaw": "evaporative condenser specialist",
+  "decision": "consolidate",
+  "impact": 8.2,
+  "evidence": [
+   "2 URLs split 283 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower installation",
+  "targetRaw": "cooling tower installation",
+  "decision": "protect",
+  "impact": 8.1,
+  "evidence": [
+   "Clicks up 27 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower installation",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment uk",
+  "targetRaw": "water treatment uk",
+  "decision": "ctr",
+  "impact": 8,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 21 to 13 (-8), average position moved up 0.1."
+  ],
+  "basis": "observed",
+  "raw": "water treatment uk",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser suppliers",
+  "targetRaw": "evaporative condenser suppliers",
+  "decision": "refresh",
+  "impact": 7.9,
+  "evidence": [
+   "Position 27.1 on 1,403 impressions. Reaching position 15 would add roughly 8 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser suppliers",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment company",
+  "targetRaw": "water treatment company",
+  "decision": "refresh",
+  "impact": 7.8,
+  "evidence": [
+   "Position 30.2 on 826 impressions. Reaching position 15 would add roughly 8 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment company",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling installation",
+  "targetRaw": "boiler descaling installation",
+  "decision": "protect",
+  "impact": 7.2,
+  "evidence": [
+   "Clicks up 24 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling installation",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/services/chiller-servicing",
+  "targetRaw": "https://example.com/services/chiller-servicing",
+  "decision": "investigate",
+  "impact": 7.2,
+  "evidence": [
+   "Semrush shows water treatment suppliers falling from position 3 to 6. Confirm against Search Console before acting."
+  ],
+  "basis": "estimated",
+  "raw": "https://example.com/services/chiller-servicing",
+  "kind": "keyword",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance suppliers",
+  "targetRaw": "cooling tower maintenance suppliers",
+  "decision": "ctr",
+  "impact": 7,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 27 to 20 (-7), average position moved up 1.6."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance suppliers",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "heat exchanger cleaning near me",
+  "targetRaw": "heat exchanger cleaning near me",
+  "decision": "ctr",
+  "impact": 7,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 11 to 4 (-7), average position moved down 0.3."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning near me",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling guide",
+  "targetRaw": "boiler descaling guide",
+  "decision": "consolidate",
+  "impact": 6.8,
+  "evidence": [
+   "2 URLs split 236 impressions for this query (55% / 45%). Both URLs surface at similar depth, which is the classic split-signal pattern."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling guide",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/services/legionella-control",
+  "targetRaw": "https://example.com/services/legionella-control",
+  "kind": "page",
+  "decision": "refresh",
+  "impact": 6.6000000000000005,
+  "effort": "Medium",
+  "basis": "observed",
+  "band": "opportunity",
+  "evidence": [
+   "Generative impressions fell from 88 to 0 against the previous period. Check what changed on the page and on the result."
+  ]
+ },
+ {
+  "target": "heat exchanger cleaning cleaning",
+  "targetRaw": "heat exchanger cleaning cleaning",
+  "decision": "protect",
+  "impact": 6.6,
+  "evidence": [
+   "Clicks up 22 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "heat exchanger cleaning cleaning",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system uk",
+  "targetRaw": "closed loop system uk",
+  "decision": "protect",
+  "impact": 6.6,
+  "evidence": [
+   "Clicks up 22 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system uk",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser specialist",
+  "targetRaw": "evaporative condenser specialist",
+  "decision": "refresh",
+  "impact": 6.5,
+  "evidence": [
+   "Position 28.2 on 2,025 impressions. Reaching position 15 would add roughly 7 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller suppliers",
+  "targetRaw": "industrial chiller suppliers",
+  "decision": "refresh",
+  "impact": 6.5,
+  "evidence": [
+   "Position 25.0 on 1,267 impressions. Reaching position 15 would add roughly 6 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller suppliers",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller checklist",
+  "targetRaw": "industrial chiller checklist",
+  "decision": "refresh",
+  "impact": 6.4,
+  "evidence": [
+   "Position 39.9 on 1,728 impressions. Reaching position 15 would add roughly 6 clicks in a period this length.",
+   "Impressions fell at a stable rank. Clicks 16 to 12 (-4), average position moved up 1.6."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller checklist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing uk",
+  "targetRaw": "legionella testing uk",
+  "decision": "ctr",
+  "impact": 6,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 13 to 7 (-6), average position moved down 0.5."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing uk",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "biocide dosing system",
+  "targetRaw": "biocide dosing system",
+  "decision": "create",
+  "impact": 5.8,
+  "evidence": [
+   "coolingsystems.co ranks 3 and you do not rank. Estimated volume 105 a month, difficulty 16."
+  ],
+  "basis": "estimated",
+  "raw": "biocide dosing system",
+  "kind": "keyword",
+  "effort": "High",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener company",
+  "targetRaw": "water softener company",
+  "decision": "refresh",
+  "impact": 5.4,
+  "evidence": [
+   "Position 30.8 on 885 impressions. Reaching position 15 would add roughly 5 clicks in a period this length.",
+   "watertechpros.com ranks 5 and you rank 21. Estimated volume 58 a month, difficulty 22, and you already draw 885 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "water softener company",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment cleaning",
+  "targetRaw": "water treatment cleaning",
+  "decision": "refresh",
+  "impact": 5.2,
+  "evidence": [
+   "Position 33.3 on 680 impressions. Reaching position 15 would add roughly 5 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment cleaning",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling contractor",
+  "targetRaw": "boiler descaling contractor",
+  "decision": "refresh",
+  "impact": 5,
+  "evidence": [
+   "Position 20.8 on 299 impressions. Reaching position 15 would add roughly 2 clicks in a period this length.",
+   "Ranking loss. Clicks 6 to 1 (-5), average position moved down 1.4."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller cleaning",
+  "targetRaw": "industrial chiller cleaning",
+  "decision": "ctr",
+  "impact": 5,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 9 to 4 (-5), average position moved up 0.6."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller cleaning",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system company",
+  "targetRaw": "closed loop system company",
+  "decision": "refresh",
+  "impact": 4.6,
+  "evidence": [
+   "Position 6.8 on 74 impressions. Reaching position 3 would add roughly 5 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system company",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling vs alternatives",
+  "targetRaw": "boiler descaling vs alternatives",
+  "decision": "refresh",
+  "impact": 4.6,
+  "evidence": [
+   "watertechpros.com ranks 4 and you rank 58. Estimated volume 82 a month, difficulty 33, and you already draw 3,393 impressions for it."
+  ],
+  "basis": "estimated",
+  "raw": "boiler descaling vs alternatives",
+  "kind": "keyword",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "closed loop system vs alternatives",
+  "targetRaw": "closed loop system vs alternatives",
+  "decision": "refresh",
+  "impact": 4.5,
+  "evidence": [
+   "Position 12.2 on 202 impressions. Reaching position 8 would add roughly 4 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "closed loop system vs alternatives",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling",
+  "targetRaw": "boiler descaling",
+  "decision": "protect",
+  "impact": 4.5,
+  "evidence": [
+   "Clicks up 15 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment company",
+  "targetRaw": "water treatment company",
+  "decision": "ctr",
+  "impact": 4,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 5 to 1 (-4), average position moved down 0.1."
+  ],
+  "basis": "observed",
+  "raw": "water treatment company",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance near me",
+  "targetRaw": "cooling tower maintenance near me",
+  "decision": "ctr",
+  "impact": 4,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 6 to 2 (-4), average position moved up 1.3."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance near me",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener services",
+  "targetRaw": "water softener services",
+  "decision": "ctr",
+  "impact": 4,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 6 to 2 (-4), average position moved up 0.0."
+  ],
+  "basis": "observed",
+  "raw": "water softener services",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance guide",
+  "targetRaw": "cooling tower maintenance guide",
+  "decision": "refresh",
+  "impact": 3.5,
+  "evidence": [
+   "Position 23.9 on 799 impressions. Reaching position 15 would add roughly 3 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance guide",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser contractor",
+  "targetRaw": "evaporative condenser contractor",
+  "decision": "refresh",
+  "impact": 3.4,
+  "evidence": [
+   "Position 13.1 on 274 impressions. Reaching position 8 would add roughly 3 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment contract pricing",
+  "targetRaw": "water treatment contract pricing",
+  "decision": "create",
+  "impact": 3.4,
+  "evidence": [
+   "watertechpros.com ranks 4 and you do not rank. Estimated volume 62 a month, difficulty 82."
+  ],
+  "basis": "estimated",
+  "raw": "water treatment contract pricing",
+  "kind": "keyword",
+  "effort": "High",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener guide",
+  "targetRaw": "water softener guide",
+  "decision": "protect",
+  "impact": 3.3,
+  "evidence": [
+   "Clicks up 11 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "water softener guide",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "example water contact",
+  "targetRaw": "example water contact",
+  "decision": "protect",
+  "impact": 3.3,
+  "evidence": [
+   "Clicks up 11 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "example water contact",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener services",
+  "targetRaw": "water softener services",
+  "decision": "refresh",
+  "impact": 3.1,
+  "evidence": [
+   "Position 3.7 on 44 impressions. Reaching position 3 would add roughly 3 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water softener services",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling cleaning",
+  "targetRaw": "boiler descaling cleaning",
+  "decision": "ctr",
+  "impact": 3,
+  "evidence": [
+   "Click-through fell at a stable rank. Clicks 10 to 7 (-3), average position moved down 0.4."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling cleaning",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener cost",
+  "targetRaw": "water softener cost",
+  "decision": "protect",
+  "impact": 3,
+  "evidence": [
+   "Clicks up 10 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "water softener cost",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment cost",
+  "targetRaw": "water treatment cost",
+  "decision": "refresh",
+  "impact": 2.9,
+  "evidence": [
+   "Position 34.7 on 464 impressions. Reaching position 15 would add roughly 3 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment cost",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "industrial chiller specialist",
+  "targetRaw": "industrial chiller specialist",
+  "decision": "refresh",
+  "impact": 2.7,
+  "evidence": [
+   "Position 19.7 on 137 impressions. Reaching position 8 would add roughly 3 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "industrial chiller specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance company",
+  "targetRaw": "cooling tower maintenance company",
+  "decision": "refresh",
+  "impact": 2.7,
+  "evidence": [
+   "Position 17.2 on 137 impressions. Reaching position 8 would add roughly 3 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance company",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing suppliers",
+  "targetRaw": "legionella testing suppliers",
+  "decision": "protect",
+  "impact": 2.7,
+  "evidence": [
+   "Clicks up 9 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing suppliers",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "evaporative condenser cost",
+  "targetRaw": "evaporative condenser cost",
+  "decision": "refresh",
+  "impact": 2.5,
+  "evidence": [
+   "Position 6.9 on 30 impressions. Reaching position 3 would add roughly 2 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "evaporative condenser cost",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener near me",
+  "targetRaw": "water softener near me",
+  "decision": "refresh",
+  "impact": 2.4,
+  "evidence": [
+   "Position 3.8 on 38 impressions. Reaching position 3 would add roughly 2 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water softener near me",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower uk",
+  "targetRaw": "cooling tower uk",
+  "decision": "refresh",
+  "impact": 2.4,
+  "evidence": [
+   "Position 29.9 on 224 impressions. Reaching position 15 would add roughly 2 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower uk",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "legionella testing vs alternatives",
+  "targetRaw": "legionella testing vs alternatives",
+  "decision": "refresh",
+  "impact": 2.4,
+  "evidence": [
+   "Position 14.1 on 124 impressions. Reaching position 8 would add roughly 2 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "legionella testing vs alternatives",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower cleaning",
+  "targetRaw": "cooling tower cleaning",
+  "decision": "protect",
+  "impact": 2.4,
+  "evidence": [
+   "Clicks up 8 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower cleaning",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener vs alternatives",
+  "targetRaw": "water softener vs alternatives",
+  "decision": "protect",
+  "impact": 2.4,
+  "evidence": [
+   "Clicks up 8 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "water softener vs alternatives",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment contractor",
+  "targetRaw": "water treatment contractor",
+  "decision": "refresh",
+  "impact": 2.3,
+  "evidence": [
+   "Position 32.8 on 310 impressions. Reaching position 15 would add roughly 2 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower specialist",
+  "targetRaw": "cooling tower specialist",
+  "decision": "refresh",
+  "impact": 2.2,
+  "evidence": [
+   "Position 31.1 on 584 impressions. Reaching position 15 would add roughly 2 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower specialist",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "cooling tower maintenance maintenance",
+  "targetRaw": "cooling tower maintenance maintenance",
+  "decision": "protect",
+  "impact": 2.1,
+  "evidence": [
+   "Clicks up 7 against the previous period. Log the current version before anyone edits it, and check what changed."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance maintenance",
+  "kind": "query",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener contractor",
+  "targetRaw": "water softener contractor",
+  "decision": "refresh",
+  "impact": 1.9,
+  "evidence": [
+   "Position 14.9 on 121 impressions. Reaching position 8 would add roughly 1 clicks in a period this length.",
+   "watertechpros.com ranks 8 and you do not rank. Estimated volume 34 a month, difficulty 28, and you already draw 121 impressions for it."
+  ],
+  "basis": "observed",
+  "raw": "water softener contractor",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "boiler descaling company",
+  "targetRaw": "boiler descaling company",
+  "decision": "refresh",
+  "impact": 1.5,
+  "evidence": [
+   "Position 15.4 on 94 impressions. Reaching position 8 would add roughly 2 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "boiler descaling company",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "water treatment services",
+  "targetRaw": "water treatment services",
+  "decision": "refresh",
+  "impact": 1.5,
+  "evidence": [
+   "Position 12.5 on 166 impressions. Reaching position 8 would add roughly 1 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water treatment services",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/services/cooling-tower-cleaning",
+  "targetRaw": "https://example.com/services/cooling-tower-cleaning",
+  "kind": "internal links",
+  "decision": "refresh",
+  "impact": 1.5,
+  "effort": "Low",
+  "basis": "observed",
+  "band": "opportunity",
+  "evidence": [
+   "3 pages already mention this topic without linking here. First: https://example.com/blog/what-does-water-treatment-cost, anchor \"water treatment\"."
+  ]
+ },
+ {
+  "target": "cooling tower maintenance cleaning",
+  "targetRaw": "cooling tower maintenance cleaning",
+  "decision": "refresh",
+  "impact": 1.4,
+  "evidence": [
+   "Position 39.1 on 130 impressions. Reaching position 15 would add roughly 1 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "cooling tower maintenance cleaning",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/contact",
+  "targetRaw": "https://example.com/contact",
+  "decision": "investigate",
+  "impact": 1.4,
+  "evidence": [
+   "Semrush shows cooling tower maintenance installation falling from position 16 to 19. Confirm against Search Console before acting."
+  ],
+  "basis": "estimated",
+  "raw": "https://example.com/contact",
+  "kind": "keyword",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "water softener",
+  "targetRaw": "water softener",
+  "decision": "refresh",
+  "impact": 1.1,
+  "evidence": [
+   "Position 37.2 on 200 impressions. Reaching position 15 would add roughly 1 clicks in a period this length."
+  ],
+  "basis": "observed",
+  "raw": "water softener",
+  "kind": "query",
+  "effort": "Medium",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/",
+  "targetRaw": "https://example.com/",
+  "kind": "internal links",
+  "decision": "refresh",
+  "impact": 1,
+  "effort": "Low",
+  "basis": "observed",
+  "band": "opportunity",
+  "evidence": [
+   "2 pages already mention this topic without linking here. First: https://example.com/blog/cooling-tower-maintenance-checklist, anchor \"cooling tower maintenance\"."
+  ]
+ },
+ {
+  "target": "https://example.com/blog/legionella-testing-explained",
+  "targetRaw": "https://example.com/blog/legionella-testing-explained",
+  "decision": "investigate",
+  "impact": 0.8,
+  "evidence": [
+   "Semrush shows water treatment installation falling from position 7 to 10. Confirm against Search Console before acting."
+  ],
+  "basis": "estimated",
+  "raw": "https://example.com/blog/legionella-testing-explained",
+  "kind": "keyword",
+  "effort": "Low",
+  "band": "opportunity"
+ },
+ {
+  "target": "https://example.com/blog/what-does-water-treatment-cost",
+  "targetRaw": "https://example.com/blog/what-does-water-treatment-cost",
+  "kind": "internal links",
+  "decision": "refresh",
+  "impact": 0.5,
+  "effort": "Low",
+  "basis": "observed",
+  "band": "opportunity",
+  "evidence": [
+   "1 page already mention this topic without linking here. First: https://example.com/blog/legionella-testing-explained, anchor \"legionella testing\"."
+  ]
+ },
+ {
+  "target": "tech:thin",
+  "targetRaw": "Very little content",
+  "kind": "technical",
+  "decision": "fix",
+  "impact": 0,
+  "effort": "Low",
+  "basis": "observed",
+  "band": "opportunity",
+  "severity": "serious",
+  "urls": 7,
+  "evidence": [
+   "7 URLs affected. First: https://example.com/contact"
+  ]
+ },
+ {
+  "target": "tech:orphan",
+  "targetRaw": "No internal links point here",
+  "kind": "technical",
+  "decision": "fix",
+  "impact": 0,
+  "effort": "Low",
+  "basis": "observed",
+  "band": "opportunity",
+  "severity": "serious",
+  "urls": 7,
+  "evidence": [
+   "7 URLs affected. First: https://example.com/contact"
+  ]
+ },
+ {
+  "target": "tech:desc_missing",
+  "targetRaw": "No meta description",
+  "kind": "technical",
+  "decision": "fix",
+  "impact": 0,
+  "effort": "Low",
+  "basis": "observed",
+  "band": "opportunity",
+  "severity": "warning",
+  "urls": 7,
+  "evidence": [
+   "7 URLs affected. First: https://example.com/contact"
+  ]
+ },
+ {
+  "target": "tech:sitemap_missing_earners",
+  "targetRaw": "Pages earning clicks are not in the sitemap",
+  "kind": "technical",
+  "decision": "fix",
+  "impact": 0,
+  "effort": "Low",
+  "basis": "observed",
+  "band": "opportunity",
+  "severity": "warning",
+  "urls": 1,
+  "evidence": [
+   "1 URL affected. First: https://example.com/services/chiller-servicing"
+  ]
+ }
+]

@@ -1,0 +1,38 @@
+[
+ {
+  "label": "Retrieval crawlers are allowed in",
+  "value": null,
+  "detail": "No robots.txt was read, so crawler access is unknown.",
+  "weight": 3
+ },
+ {
+  "label": "Pages carrying quotable statistics",
+  "value": 0,
+  "detail": "0% of pages carry two or more concrete figures per 500 words. Adding statistics raised visibility 32% in the GEO experiment.",
+  "weight": 3
+ },
+ {
+  "label": "Pages quoting a named source",
+  "value": 0,
+  "detail": "0 of 30 pages quote someone by name. The strongest single lever measured: +40%.",
+  "weight": 3
+ },
+ {
+  "label": "Pages citing outside sources",
+  "value": 0.36666666666666664,
+  "detail": "37% of pages link out to at least two external sources. Worth up to +115% for pages already ranking fourth or fifth.",
+  "weight": 2
+ },
+ {
+  "label": "Headings that ask the reader’s question",
+  "value": 1,
+  "detail": "30 of 30 pages have at least one heading phrased as a question. Widely reported to help; no controlled test published, so this carries less weight than the measured levers.",
+  "weight": 1
+ },
+ {
+  "label": "Free of keyword stuffing",
+  "value": 1,
+  "detail": "No page over-repeats its target term.",
+  "weight": 2
+ }
+]

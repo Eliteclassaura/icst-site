@@ -1,0 +1,226 @@
+{
+ "total": 260,
+ "refDomains": 12,
+ "followRatio": 0.8153846153846154,
+ "gained": 43,
+ "lost": 23,
+ "anchors": [
+  {
+   "anchor": "click here",
+   "count": 59,
+   "share": 0.22692307692307692
+  },
+  {
+   "anchor": "https://example.com",
+   "count": 56,
+   "share": 0.2153846153846154
+  },
+  {
+   "anchor": "example water",
+   "count": 56,
+   "share": 0.2153846153846154
+  },
+  {
+   "anchor": "industrial water treatment",
+   "count": 26,
+   "share": 0.1
+  },
+  {
+   "anchor": "cooling tower cleaning",
+   "count": 23,
+   "share": 0.08846153846153847
+  },
+  {
+   "anchor": "water treatment services",
+   "count": 22,
+   "share": 0.08461538461538462
+  },
+  {
+   "anchor": "legionella testing",
+   "count": 18,
+   "share": 0.06923076923076923
+  }
+ ],
+ "anchorTypes": {
+  "generic": 59,
+  "naked URL": 56,
+  "branded": 104,
+  "descriptive": 41
+ },
+ "topAnchorShare": 0.22692307692307692,
+ "anchorDiversity": 0.8207668585027076,
+ "targets": 12,
+ "targetSpread": 0.5348334822121344,
+ "topTargets": [
+  {
+   "url": "example.com/case-studies/manufacturing-plant",
+   "count": 27
+  },
+  {
+   "url": "example.com/blog/what-does-water-treatment-cost",
+   "count": 27
+  },
+  {
+   "url": "example.com/blog/closed-loop-system-guide",
+   "count": 26
+  },
+  {
+   "url": "example.com/services/chiller-servicing",
+   "count": 25
+  },
+  {
+   "url": "example.com/blog/cooling-tower-maintenance-checklist",
+   "count": 24
+  },
+  {
+   "url": "example.com",
+   "count": 24
+  },
+  {
+   "url": "example.com/services/water-treatment",
+   "count": 21
+  },
+  {
+   "url": "example.com/services/cooling-tower-cleaning",
+   "count": 19
+  },
+  {
+   "url": "example.com/about",
+   "count": 19
+  },
+  {
+   "url": "example.com/services/legionella-control",
+   "count": 18
+  },
+  {
+   "url": "example.com/contact",
+   "count": 16
+  },
+  {
+   "url": "example.com/blog/legionella-testing-explained",
+   "count": 14
+  }
+ ],
+ "domains": [
+  {
+   "host": "waterhygieneforum.com",
+   "links": 24,
+   "score": 77,
+   "follow": 19,
+   "targets": 10,
+   "anchors": 6
+  },
+  {
+   "host": "tradesdirectory.uk",
+   "links": 20,
+   "score": 77,
+   "follow": 19,
+   "targets": 10,
+   "anchors": 6
+  },
+  {
+   "host": "ukmanufacturing.net",
+   "links": 17,
+   "score": 77,
+   "follow": 12,
+   "targets": 9,
+   "anchors": 7
+  },
+  {
+   "host": "engineeringnews.io",
+   "links": 25,
+   "score": 76,
+   "follow": 22,
+   "targets": 11,
+   "anchors": 7
+  },
+  {
+   "host": "greenbuildingblog.com",
+   "links": 22,
+   "score": 76,
+   "follow": 21,
+   "targets": 11,
+   "anchors": 7
+  },
+  {
+   "host": "hvac-directory.org",
+   "links": 24,
+   "score": 75,
+   "follow": 21,
+   "targets": 10,
+   "anchors": 7
+  },
+  {
+   "host": "watertechjournal.com",
+   "links": 23,
+   "score": 75,
+   "follow": 20,
+   "targets": 11,
+   "anchors": 6
+  },
+  {
+   "host": "facilitiesweek.com",
+   "links": 19,
+   "score": 75,
+   "follow": 19,
+   "targets": 10,
+   "anchors": 7
+  },
+  {
+   "host": "plantengineer.co.uk",
+   "links": 21,
+   "score": 73,
+   "follow": 13,
+   "targets": 10,
+   "anchors": 7
+  },
+  {
+   "host": "buildingservicesnews.co.uk",
+   "links": 21,
+   "score": 72,
+   "follow": 15,
+   "targets": 11,
+   "anchors": 6
+  },
+  {
+   "host": "localchamber.org.uk",
+   "links": 25,
+   "score": 68,
+   "follow": 17,
+   "targets": 12,
+   "anchors": 7
+  },
+  {
+   "host": "industrytoday.eu",
+   "links": 19,
+   "score": 67,
+   "follow": 14,
+   "targets": 11,
+   "anchors": 6
+  }
+ ],
+ "velocity": [
+  {
+   "month": "2025-10",
+   "gained": 125,
+   "lost": 0
+  },
+  {
+   "month": "2025-11",
+   "gained": 135,
+   "lost": 0
+  }
+ ],
+ "hostRows": [
+  {
+   "host": "example.com",
+   "links": 260,
+   "refDomains": 12
+  }
+ ],
+ "prospects": [],
+ "hasCompetitors": false,
+ "avgScore": 74,
+ "ownHost": "example.com",
+ "unlinkedEarners": []
+}

@@ -1,0 +1,326 @@
+EXTRACTING THE DATA
+===================
+Syed.ai - Search Evidence Suite
+(c) 2026 Syed.ai. All rights reserved.
+
+Stage 2 of the console, "Getting the data", carries this same material
+with a tick-list you can work through. This file is for printing or for
+sending to whoever pulls the exports.
+
+A rule that applies to every export below: write down the filters that
+were active when you pulled it. An export without its filters cannot be
+compared to anything you pull later.
+
+
+===================================================================
+WHICH FILES YOU ACTUALLY NEED
+===================================================================
+This tool reads about twenty exports. You need one. Here is the honest
+ordering, and the column that matters most: [C] marks the files the
+Connect Search Console stage fetches for you, so that connecting once
+replaces six downloads forever.
+
+START HERE -- one file, and nothing works without it
+  [C]  Search Console -> Queries
+       The baseline. There is no score without it, because there is
+       nothing observed to score.
+       Unlocks: everything.
+
+WORTH IT -- cheap to add, and each changes what the tool can say
+  [C]  Search Console -> Pages
+       Which URLs earn the clicks. Comes free in the same ZIP.
+       Unlocks: page-level findings, decay by page.
+  [C]  The previous period, OR the same window last year
+       One export says where you stand; two say which way you are
+       going, which is the only thing anyone acts on. The year-ago
+       window is shifted 364 days, not 365, so weekdays still align.
+       Unlocks: trend, decay, momentum, year over year.
+  [ ]  A crawl -- the built-in crawler, or a Screaming Frog export
+       The only source of on-page state. The built-in crawler needs
+       proxy.php or same-origin hosting.
+       Unlocks: technical, on-page, internal links, media, schema.
+
+WHEN NEEDED -- each buys one named stage, and nothing else
+  [C]  Search Console page-and-query on one row (API or BigQuery)
+       The most valuable addition, and the one the export screen will
+       not give you. The connector will.
+       Unlocks: topic ownership, cannibalisation, page dilution.
+  [C]  Search Console -> Generative AI report
+       Unlocks: AI Search. Without it that stage reads UNKNOWN, which
+       is not the same as zero.
+  [ ]  Semrush -> Organic positions
+       Unlocks: SERP features, snippet targets, reconciliation.
+  [ ]  Semrush -> Keyword gap
+       Unlocks: competitor gap.
+  [ ]  Semrush -> Backlinks
+       Unlocks: off-page pillar, link gap, page link profiles.
+
+WHAT YOU CAN SKIP ENTIRELY IF YOU CONNECT SEARCH CONSOLE
+  Sections 1, 2 and 3 below -- Queries, Pages, Countries, Devices,
+  Dates, the generative AI report, and the page-and-query table. All
+  six [C] rows above. That is every Search Console download.
+  It costs a Google OAuth client ID of your own: about ten minutes,
+  once, and it is not a subscription or a paid API. See
+  CONNECT-SEARCH-CONSOLE.txt.
+  What connecting does NOT cover: the crawl, and every Semrush file.
+  Semrush authenticates with a key in the URL, which cannot be done
+  safely from a browser, so those stay manual exports.
+
+NOTHING ABOVE IS MANDATORY EXCEPT THE FIRST ROW
+  A stage with no data reads NOT MEASURED and drops out of the score,
+  with its weight shared across the pillars that were measured. It is
+  never scored as a zero. A project with one file gets an honest score
+  out of what it knows, rather than a bad score for the files you did
+  not have.
+
+
+-------------------------------------------------------------------
+0. BEFORE YOU EXPORT ANYTHING: CONNECT INSTEAD
+
+   Everything in sections 1 to 3 below can be pulled straight from the
+   Search Console API by the Connect Search Console stage, including the
+   page-and-query table that the export UI will not give you. It takes a
+   Google OAuth client ID of your own -- ten minutes, once. See
+   CONNECT-SEARCH-CONSOLE.txt.
+
+   The manual click paths below still work and are still the fastest way to
+   get one table in a hurry. Sections 4 onward are Semrush and are export
+   only -- Semrush authenticates with a key in the URL, which cannot be
+   done safely from a browser.
+
+
+1. SEARCH CONSOLE - PERFORMANCE, SEARCH RESULTS
+   Unlocks: the baseline, striking distance, snippet gaps, topics, decay.
+-------------------------------------------------------------------
+1. Open Search Console and pick the exact property. A domain property
+   and a URL-prefix property are different datasets.
+2. Performance -> Search results.
+3. Set Search type FIRST (Web, Image, Video, News). Everything after
+   this inherits it.
+4. Set the date range. 28 days is the usual working window.
+5. Apply any country or device filter you intend to analyse under.
+6. Export (top right) -> Download CSV. You get a ZIP.
+7. Drop the ZIP into the console whole. Queries, Pages, Countries,
+   Devices, Dates and the filter sheet are read out of it in one go.
+8. For a comparison, change the range to the previous period, export
+   again, and set that file to "Previous period" in the file list.
+
+Note: report exports cap at about 1,000 rows and follow whatever filters
+and grouping are active. Fine for a first read, wrong for long-tail work.
+
+
+-------------------------------------------------------------------
+2. SEARCH CONSOLE - GENERATIVE AI REPORT
+   Unlocks: the AI Search stage.
+-------------------------------------------------------------------
+1. In Search Console, open Performance and look for the generative AI
+   report alongside Search results and Discover.
+2. Set the date range, then Export -> Download CSV.
+3. Export the current period and the previous period separately, and
+   label the second one "Previous period" in the console.
+4. Drop them in. They are recognised by shape: an impressions column
+   with a page, date, country or device dimension and no clicks or
+   position column.
+
+Note: this report is rolling out and not every property has it. It is
+page level - there is no query dimension, and it does not separate AI
+Overviews from AI Mode. If your property does not have it, the AI stage
+reports visibility as UNKNOWN rather than zero. That distinction is
+deliberate: zero would be a claim the data does not support.
+
+
+-------------------------------------------------------------------
+3. SEARCH CONSOLE API - PAGE AND QUERY ON THE SAME ROW
+   Unlocks: topic ownership, cannibalisation, page dilution, internal
+   link targets. The single most valuable file you can add.
+-------------------------------------------------------------------
+The standard report cannot export page and query together. Two routes:
+
+  a) Search Analytics API, dimensions=["page","query"], one day per
+     request, paging at 25,000 rows. Save as CSV or JSON. The console
+     reads a raw API response directly, including the
+     { "rows": [ { "keys": [...] } ] } shape, and works out which
+     dimension is which from the values.
+
+  b) BigQuery bulk export: Search Console -> Settings -> Bulk data
+     export. The first export is prospective and can take up to 48
+     hours, so set it up before you need it.
+
+Without this file, topics still form from vocabulary alone, but no page
+can be assigned an owner, and the affected stages say so plainly rather
+than guessing.
+
+
+-------------------------------------------------------------------
+4. SEMRUSH - ORGANIC RESEARCH, POSITIONS
+   Unlocks: estimated volume and difficulty, rank changes, and the SERP
+   features that drive the AI Search and SERP stages.
+-------------------------------------------------------------------
+1. Organic Research -> enter the domain -> Positions tab.
+2. Pick the database matching your country. It must match the country
+   set on the project stage.
+3. Apply any intent, position or subfolder filters, then Export ->
+   CSV or Excel.
+4. KEEP THE "SERP Features by Keyword" COLUMN. It is what tells the
+   console which queries carry an AI Overview.
+5. Repeat for each competitor if you want a comparison.
+
+Note: volume, difficulty and traffic are modelled estimates for one
+database and location. They are drawn in orange throughout the console
+for that reason, and never mixed with Search Console figures.
+
+
+-------------------------------------------------------------------
+5. SEMRUSH - KEYWORD GAP
+   Unlocks: topics a competitor holds and you do not.
+-------------------------------------------------------------------
+1. Keyword Gap.
+2. Enter your domain FIRST, then up to four competitors.
+3. Choose the database matching your market and the Organic keyword type.
+4. Export the Missing, Weak and Untapped views SEPARATELY, not merged.
+5. Keep the per-domain position columns. The console finds your column
+   by matching the domain set on the project stage.
+
+If the gap file has no column matching your domain, the data gate fails
+that check and tells you which columns it did find.
+
+
+-------------------------------------------------------------------
+6. SEMRUSH - BACKLINKS
+   Unlocks: link profile, anchor mix, velocity, competitor link gap.
+-------------------------------------------------------------------
+1. Backlink Analytics -> enter the domain -> Backlinks tab.
+2. Apply follow, new, lost, authority or anchor filters as needed.
+3. Export above the table, CSV or Excel.
+4. Keep the anchor, authority score, first seen, new and lost columns.
+   Velocity and the anchor mix depend on them.
+5. For the competitor link gap, export competitor backlinks too and drop
+   them in alongside yours. The console splits them by target host.
+
+
+-------------------------------------------------------------------
+6b. SEMRUSH - BACKLINKS, ONE EXPORT PER URL  (Page link profiles)
+
+   The Page link profiles stage compares your page against the pages
+   outranking it, so it needs one export per URL -- yours and theirs.
+
+   Semrush -> Backlink Analytics
+   -> enter the exact URL, not the domain
+   -> set the scope selector to "Exact URL"   <- the step that matters
+   -> Backlinks tab -> Export -> CSV
+
+   Repeat for each competing page. Drop them all in together; the stage
+   groups by target URL on its own. Keep the Type column in the export --
+   without it the text/image ratio reads "n/a" rather than zero.
+
+   Find the competing URLs in Semrush's SERP view for the keyword, or in
+   Keyword Overview. The tool does not scrape Google, so it cannot know
+   the ranking pages by itself and does not pretend to.
+
+   One caveat worth knowing: a backlinks export carries an Authority Score
+   for each LINKING page, never for the target. The target's own score is
+   therefore typed in by hand on the stage and labelled as recorded. It is
+   Semrush's Authority Score -- not Moz's Domain Authority, which comes
+   from a different index on a different scale.
+
+
+7. SEMRUSH - SITE AUDIT, CRAWLED PAGES
+   Unlocks: a technical inventory without running the built-in crawler.
+-------------------------------------------------------------------
+1. Site Audit -> open the project -> Crawled Pages.
+2. Export with ABSOLUTE URLs selected.
+3. Drop it in.
+
+It carries no body text, so the internal link planner, the image audit
+and the AI readiness score still need a live crawl. Those stages say
+"not scored" rather than scoring you zero on evidence they do not have.
+
+
+-------------------------------------------------------------------
+8. SCREAMING FROG OR SITEBULB
+   Unlocks: the technical stage without the crawler or proxy.php.
+-------------------------------------------------------------------
+1. Crawl the site as usual.
+2. Export internal_all.csv (Screaming Frog: Internal tab -> Export).
+3. Keep Address, Status Code, Title 1, Meta Description 1, H1-1,
+   Word Count, Canonical Link Element 1, Indexability, Inlinks and
+   Crawl Depth.
+4. Drop it in. It is recognised as a crawl automatically.
+
+Same caveat as above: a crawler export has no page text.
+
+
+-------------------------------------------------------------------
+9. ANYTHING ELSE
+-------------------------------------------------------------------
+Accepted directly: CSV, TSV, PSV, TXT, XLSX, ZIP, JSON, newline-
+delimited JSON, and .gz. ZIPs are opened; every sheet in an XLSX is read
+as its own dataset.
+
+Search Console exports in any interface language are recognised. Column
+names are matched against aliases in English, German, Spanish, French,
+Portuguese, Italian, Dutch, Turkish, Polish, Russian, Japanese and
+Indonesian, and files are also classified by the SHAPE of their columns,
+so an unusual header set is usually still understood.
+
+If a file still shows as "Unrecognised": press "Map columns" beside it,
+say what kind of report it is and what each column holds. The mapping is
+saved with the file and travels with the project export.
+
+
+-------------------------------------------------------------------
+RECORDING AN AI OVERVIEW BY HAND
+-------------------------------------------------------------------
+No export tells you what an AI Overview actually said or who it cited.
+If you want that, you record it yourself: AI Search stage -> "Record an
+AI Overview", then paste the query, date, country, device, whether an
+overview appeared, the text, the URLs it cited, the follow-up questions
+it offered, and the People Also Ask entries.
+
+The follow-ups and PAA are worth the extra thirty seconds: they are the
+input to the citation pack's FAQ prompt, and nothing else supplies them.
+
+These are kept as RECORDED evidence and are never averaged together with
+OBSERVED Search Console figures or REPORTED Semrush ones. Three kinds of
+evidence, kept apart on purpose, because they are not the same claim.
+
+
+-------------------------------------------------------------------
+THE CITATION PACK
+-------------------------------------------------------------------
+Every recorded overview gets a "Citation pack" button. It assembles a
+set of rewrite prompts already filled in with your data: the query, the
+overview text, who it cited, your owning page's current opening, the
+other queries in the same topic, and the images on the page.
+
+Seven packs, and you choose which to include:
+  Opening rewrite      the first 60 words, shaped to the kind of answer
+                       this query produces (definition, how-to,
+                       comparison or list - detected, and overridable)
+  Information gain     what the cited pages have that you do not, and
+                       what you can say that none of them can
+  Follow-up harvester  the follow-ups and PAA turned into answers built
+                       to be quoted, plus FAQPage markup
+  Entity gap           entities every cited source names and you do not
+  Schema               Article, FAQ and the type-appropriate block
+  Images               filenames, alt text and captions
+  Freshness            where a real update would help, and where it
+                       would just be a date change
+
+Two things the pack will NOT do, deliberately:
+
+1. It will not invent evidence. Where a rewrite needs a statistic or a
+   first-party result you have not supplied, the prompt is instructed to
+   emit [SUPPLY: what is needed] instead of writing a plausible number.
+   An invented "in our analysis of 47 sites" is the one error that
+   destroys the trust everything else here is built on.
+
+2. It will not fetch the pages an overview cited. Open them and paste
+   the copy in under CITED SOURCE 1, CITED SOURCE 2 and so on. Fetching
+   Google result pages to scrape overviews is against their terms and
+   does not work reliably in any case, which is why the recorder is
+   manual in the first place.
+
+Record the same query again after the rewrite ships. Two observations of
+one query, either side of an edit, is the only before-and-after evidence
+that exists on this surface - and the console shows them side by side.

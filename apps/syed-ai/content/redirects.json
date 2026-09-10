@@ -1,0 +1,37 @@
+{
+  "generatedFrom": "syed-ai.blueprint.json",
+  "redirects": {
+    "/index.html": {
+      "to": "/",
+      "status": 308
+    },
+    "/geo-pricing/index.html": {
+      "to": "/geo-pricing/",
+      "status": 308
+    },
+    "/geo-vs-seo/index.html": {
+      "to": "/geo-vs-seo/",
+      "status": 308
+    },
+    "/cited-not-recommended/index.html": {
+      "to": "/cited-not-recommended/",
+      "status": 308
+    },
+    "/glossary/index.html": {
+      "to": "/glossary/",
+      "status": 308
+    },
+    "/send.php": {
+      "to": null,
+      "status": 410
+    }
+  },
+  "gone": {
+    "/diagnose.php": 404,
+    "/subscribers.php": 404,
+    "/subs.php": 404,
+    "/confirm.php": 404,
+    "/email-check.php": 404,
+    "/roadmap.php": 404
+  }
+}

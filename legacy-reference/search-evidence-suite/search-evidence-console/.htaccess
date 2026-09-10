@@ -1,0 +1,63 @@
+# Apache configuration for the Search Evidence Suite.
+# (c) 2026 Syed.ai. All rights reserved.
+# Ignore this file if your server runs nginx, Caddy or IIS -- it is read
+# only by Apache and LiteSpeed, which is what most shared hosting runs.
+
+DirectoryIndex index.html
+
+# No directory listing if index.html is ever missing or renamed.
+Options -Indexes
+
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg
+  AddType text/html .html
+</IfModule>
+
+# index.html carries all the code, so it must not be cached hard.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|css|js)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(svg|ico|png|webmanifest)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "no-referrer"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>
+
+# Dotfiles are not content. Apache 2.4 blocks .htaccess itself already; this
+# covers .env and anything else that arrives by accident.
+<IfModule mod_authz_core.c>
+  <FilesMatch "^\.">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+
+# ---------------------------------------------------------------
+# Force HTTPS. Uncomment if your host has SSL switched on -- and it
+# should: Search Console will not accept an http:// origin, so the
+# connector cannot work without it. Most shared hosts now include a
+# free certificate.
+# ---------------------------------------------------------------
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} !=on
+#   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+# </IfModule>
+
+# ---------------------------------------------------------------
+# Password protection. Recommended: this page holds your own Search
+# Console data and is not meant to be public.
+# 1. Create the password file OUTSIDE your web root:
+#      htpasswd -c /home/youruser/.htpasswd yourname
+# 2. Uncomment the four lines below and correct the path.
+# ---------------------------------------------------------------
+# AuthType Basic
+# AuthName "Search Evidence Suite"
+# AuthUserFile /home/youruser/.htpasswd
+# Require valid-user

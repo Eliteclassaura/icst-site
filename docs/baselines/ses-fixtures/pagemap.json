@@ -1,0 +1,4810 @@
+[
+ {
+  "url": "example.com/about",
+  "raw": "https://example.com/about",
+  "owned": [
+   {
+    "id": "c0",
+    "name": "closed loop system installation",
+    "size": 16,
+    "members": [
+     {
+      "i": 126,
+      "query": "closed loop system installation",
+      "queryRaw": "closed loop system installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 3561,
+      "impr": 7572,
+      "ctr": 0.4702852614896989,
+      "ctrReported": 0.4703,
+      "pos": 1.22,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 0.5498296422487223
+      }
+     },
+     {
+      "i": 132,
+      "query": "closed loop system checklist",
+      "queryRaw": "closed loop system checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 27,
+      "impr": 7319,
+      "ctr": 0.0036890285558136356,
+      "ctrReported": 0.0037,
+      "pos": 26.61,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 129,
+      "query": "closed loop system maintenance",
+      "queryRaw": "closed loop system maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 17,
+      "impr": 7158,
+      "ctr": 0.002374965074043029,
+      "ctrReported": 0.0024,
+      "pos": 35.39,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 0.5503791982665223
+      }
+     },
+     {
+      "i": 123,
+      "query": "closed loop system near me",
+      "queryRaw": "closed loop system near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 166,
+      "impr": 6912,
+      "ctr": 0.024016203703703703,
+      "ctrReported": 0.024,
+      "pos": 6.99,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 127,
+      "query": "closed loop system specialist",
+      "queryRaw": "closed loop system specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 35,
+      "impr": 6783,
+      "ctr": 0.005159958720330237,
+      "ctrReported": 0.0052,
+      "pos": 31.22,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 130,
+      "query": "closed loop system cleaning",
+      "queryRaw": "closed loop system cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2473,
+      "impr": 5890,
+      "ctr": 0.4198641765704584,
+      "ctrReported": 0.4199,
+      "pos": 1.09,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 131,
+      "query": "closed loop system uk",
+      "queryRaw": "closed loop system uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 33,
+      "impr": 5871,
+      "ctr": 0.005620848237097598,
+      "ctrReported": 0.005600000000000001,
+      "pos": 25.67,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 120,
+      "query": "closed loop system cost",
+      "queryRaw": "closed loop system cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 160,
+      "impr": 5721,
+      "ctr": 0.027967138612130748,
+      "ctrReported": 0.027999999999999997,
+      "pos": 9.71,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 125,
+      "query": "closed loop system price",
+      "queryRaw": "closed loop system price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 36,
+      "impr": 5264,
+      "ctr": 0.006838905775075988,
+      "ctrReported": 0.0068000000000000005,
+      "pos": 14.34,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 124,
+      "query": "closed loop system suppliers",
+      "queryRaw": "closed loop system suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 500,
+      "impr": 3502,
+      "ctr": 0.1427755568246716,
+      "ctrReported": 0.14279999999999998,
+      "pos": 2.96,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 133,
+      "query": "closed loop system guide",
+      "queryRaw": "closed loop system guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 301,
+      "impr": 2723,
+      "ctr": 0.11053984575835475,
+      "ctrReported": 0.1105,
+      "pos": 3.41,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 158,
+      "query": "closed loop system",
+      "queryRaw": "closed loop system",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 65,
+      "impr": 293,
+      "ctr": 0.22184300341296928,
+      "ctrReported": 0.2218,
+      "pos": 2.37,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 0.5502584721424468
+      }
+     },
+     {
+      "i": 128,
+      "query": "closed loop system contractor",
+      "queryRaw": "closed loop system contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 230,
+      "ctr": 0.004347826086956522,
+      "ctrReported": 0.0043,
+      "pos": 16.57,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 134,
+      "query": "closed loop system vs alternatives",
+      "queryRaw": "closed loop system vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 202,
+      "ctr": 0.0049504950495049506,
+      "ctrReported": 0.005,
+      "pos": 12.2,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 121,
+      "query": "closed loop system services",
+      "queryRaw": "closed loop system services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 22,
+      "impr": 166,
+      "ctr": 0.13253012048192772,
+      "ctrReported": 0.1325,
+      "pos": 2.58,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     },
+     {
+      "i": 122,
+      "query": "closed loop system company",
+      "queryRaw": "closed loop system company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 74,
+      "ctr": 0.05405405405405406,
+      "ctrReported": 0.0541,
+      "pos": 6.84,
+      "dom": {
+       "url": "example.com/about",
+       "raw": "https://example.com/about",
+       "share": 1
+      }
+     }
+    ],
+    "impr": 65680,
+    "clicks": 7402,
+    "ctr": 0.1126979293544458,
+    "pos": 15.72958632764921,
+    "bestPos": 1.09,
+    "urls": [
+     {
+      "url": "example.com/about",
+      "raw": "https://example.com/about",
+      "impr": 19124,
+      "clicks": 502,
+      "queries": 15,
+      "share": 0.8561579442181134
+     },
+     {
+      "url": "example.com",
+      "raw": "https://example.com/",
+      "impr": 1472,
+      "clicks": 22,
+      "queries": 2,
+      "share": 0.06589962841921476
+     },
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 958,
+      "clicks": 17,
+      "queries": 1,
+      "share": 0.04288848099565743
+     },
+     {
+      "url": "example.com/services/water-treatment",
+      "raw": "https://example.com/services/water-treatment",
+      "impr": 783,
+      "clicks": 12,
+      "queries": 1,
+      "share": 0.03505394636701437
+     }
+    ],
+    "owner": {
+     "url": "example.com/about",
+     "raw": "https://example.com/about",
+     "impr": 19124,
+     "clicks": 502,
+     "queries": 15,
+     "share": 0.8561579442181134
+    },
+    "status": "owned",
+    "opportunity": 1432.4286186377963,
+    "intent": "informational",
+    "source": "gsc"
+   }
+  ],
+  "contested": [],
+  "impr": 65680,
+  "clicks": 7402,
+  "distinct": 1,
+  "intents": [
+   "informational"
+  ],
+  "verdict": "focused",
+  "opportunity": 1432.4286186377963
+ },
+ {
+  "url": "example.com",
+  "raw": "https://example.com/",
+  "owned": [
+   {
+    "id": "c1",
+    "name": "cooling tower maintenance suppliers",
+    "size": 32,
+    "members": [
+     {
+      "i": 64,
+      "query": "cooling tower maintenance suppliers",
+      "queryRaw": "cooling tower maintenance suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 20,
+      "impr": 7851,
+      "ctr": 0.0025474461851993377,
+      "ctrReported": 0.0025,
+      "pos": 36.9,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 0.5502183406113537
+      }
+     },
+     {
+      "i": 1,
+      "query": "cooling tower services",
+      "queryRaw": "cooling tower services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 14,
+      "impr": 7308,
+      "ctr": 0.0019157088122605363,
+      "ctrReported": 0.0019,
+      "pos": 36.51,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 0.5496535796766744
+      }
+     },
+     {
+      "i": 4,
+      "query": "cooling tower suppliers",
+      "queryRaw": "cooling tower suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 218,
+      "impr": 6877,
+      "ctr": 0.03169986912898066,
+      "ctrReported": 0.0317,
+      "pos": 4.01,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 3,
+      "query": "cooling tower near me",
+      "queryRaw": "cooling tower near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 32,
+      "impr": 5451,
+      "ctr": 0.005870482480278848,
+      "ctrReported": 0.0059,
+      "pos": 40.34,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 5,
+      "query": "cooling tower price",
+      "queryRaw": "cooling tower price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 29,
+      "impr": 4382,
+      "ctr": 0.006617982656321315,
+      "ctrReported": 0.0066,
+      "pos": 26.53,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 61,
+      "query": "cooling tower maintenance services",
+      "queryRaw": "cooling tower maintenance services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 139,
+      "impr": 3700,
+      "ctr": 0.037567567567567565,
+      "ctrReported": 0.037599999999999995,
+      "pos": 8.91,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 66,
+      "query": "cooling tower maintenance installation",
+      "queryRaw": "cooling tower maintenance installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 18,
+      "impr": 3324,
+      "ctr": 0.005415162454873646,
+      "ctrReported": 0.0054,
+      "pos": 42.69,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 65,
+      "query": "cooling tower maintenance price",
+      "queryRaw": "cooling tower maintenance price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 43,
+      "impr": 2603,
+      "ctr": 0.016519400691509797,
+      "ctrReported": 0.0165,
+      "pos": 6.87,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 9,
+      "query": "cooling tower maintenance",
+      "queryRaw": "cooling tower maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 10,
+      "impr": 2535,
+      "ctr": 0.0039447731755424065,
+      "ctrReported": 0.0039000000000000003,
+      "pos": 26.59,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 0.5853440571939231
+      }
+     },
+     {
+      "i": 150,
+      "query": "cooling tower",
+      "queryRaw": "cooling tower",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 14,
+      "impr": 2387,
+      "ctr": 0.005865102639296188,
+      "ctrReported": 0.0059,
+      "pos": 11.62,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     },
+     {
+      "i": 68,
+      "query": "cooling tower maintenance contractor",
+      "queryRaw": "cooling tower maintenance contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 5,
+      "impr": 2296,
+      "ctr": 0.0021777003484320556,
+      "ctrReported": 0.0022,
+      "pos": 23.12,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 10,
+      "query": "cooling tower cleaning",
+      "queryRaw": "cooling tower cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 16,
+      "impr": 1948,
+      "ctr": 0.008213552361396304,
+      "ctrReported": 0.008199999999999999,
+      "pos": 19.42,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 60,
+      "query": "cooling tower maintenance cost",
+      "queryRaw": "cooling tower maintenance cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 5,
+      "impr": 1882,
+      "ctr": 0.002656748140276302,
+      "ctrReported": 0.0027,
+      "pos": 42.24,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 72,
+      "query": "cooling tower maintenance checklist",
+      "queryRaw": "cooling tower maintenance checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 9,
+      "impr": 1579,
+      "ctr": 0.005699810006333122,
+      "ctrReported": 0.005699999999999999,
+      "pos": 43.62,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 0.5500747384155455
+      }
+     },
+     {
+      "i": 71,
+      "query": "cooling tower maintenance uk",
+      "queryRaw": "cooling tower maintenance uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 572,
+      "impr": 1298,
+      "ctr": 0.4406779661016949,
+      "ctrReported": 0.4407,
+      "pos": 1.02,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 0.549717057396928
+      }
+     },
+     {
+      "i": 14,
+      "query": "cooling tower vs alternatives",
+      "queryRaw": "cooling tower vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 1231,
+      "ctr": 0.003249390739236393,
+      "ctrReported": 0.0032,
+      "pos": 29.62,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 8,
+      "query": "cooling tower contractor",
+      "queryRaw": "cooling tower contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 7,
+      "impr": 1121,
+      "ctr": 0.006244424620874219,
+      "ctrReported": 0.0062,
+      "pos": 18.52,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 73,
+      "query": "cooling tower maintenance guide",
+      "queryRaw": "cooling tower maintenance guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 5,
+      "impr": 799,
+      "ctr": 0.006257822277847309,
+      "ctrReported": 0.0063,
+      "pos": 23.95,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 6,
+      "query": "cooling tower installation",
+      "queryRaw": "cooling tower installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 111,
+      "impr": 701,
+      "ctr": 0.15834522111269614,
+      "ctrReported": 0.1583,
+      "pos": 1.16,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 0.5505226480836237
+      }
+     },
+     {
+      "i": 7,
+      "query": "cooling tower specialist",
+      "queryRaw": "cooling tower specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 584,
+      "ctr": 0.00684931506849315,
+      "ctrReported": 0.0068000000000000005,
+      "pos": 31.15,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 0.5500902527075813
+      }
+     },
+     {
+      "i": 0,
+      "query": "cooling tower cost",
+      "queryRaw": "cooling tower cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 5,
+      "impr": 527,
+      "ctr": 0.009487666034155597,
+      "ctrReported": 0.0095,
+      "pos": 19.73,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 74,
+      "query": "cooling tower maintenance vs alternatives",
+      "queryRaw": "cooling tower maintenance vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 486,
+      "ctr": 0.00205761316872428,
+      "ctrReported": 0.0021,
+      "pos": 40.81,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 154,
+      "query": "cooling tower maintenance",
+      "queryRaw": "cooling tower maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 479,
+      "ctr": 0.0020876826722338203,
+      "ctrReported": 0.0021,
+      "pos": 42.73,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 0.5853440571939231
+      }
+     },
+     {
+      "i": 12,
+      "query": "cooling tower checklist",
+      "queryRaw": "cooling tower checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 349,
+      "ctr": 0.0028653295128939827,
+      "ctrReported": 0.0029,
+      "pos": 40.94,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 11,
+      "query": "cooling tower uk",
+      "queryRaw": "cooling tower uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 224,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 29.93,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 13,
+      "query": "cooling tower guide",
+      "queryRaw": "cooling tower guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 14,
+      "impr": 202,
+      "ctr": 0.06930693069306931,
+      "ctrReported": 0.0693,
+      "pos": 4.74,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 62,
+      "query": "cooling tower maintenance company",
+      "queryRaw": "cooling tower maintenance company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 137,
+      "ctr": 0.0072992700729927005,
+      "ctrReported": 0.0073,
+      "pos": 17.21,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 70,
+      "query": "cooling tower maintenance cleaning",
+      "queryRaw": "cooling tower maintenance cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 130,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 39.06,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 0.5495594713656388
+      }
+     },
+     {
+      "i": 63,
+      "query": "cooling tower maintenance near me",
+      "queryRaw": "cooling tower maintenance near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2,
+      "impr": 114,
+      "ctr": 0.017543859649122806,
+      "ctrReported": 0.0175,
+      "pos": 6.7,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 0.5500582072176949
+      }
+     },
+     {
+      "i": 67,
+      "query": "cooling tower maintenance specialist",
+      "queryRaw": "cooling tower maintenance specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 9,
+      "impr": 98,
+      "ctr": 0.09183673469387756,
+      "ctrReported": 0.09179999999999999,
+      "pos": 3.71,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 2,
+      "query": "cooling tower company",
+      "queryRaw": "cooling tower company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 40,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 45.45,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 69,
+      "query": "cooling tower maintenance maintenance",
+      "queryRaw": "cooling tower maintenance maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 11,
+      "impr": 32,
+      "ctr": 0.34375,
+      "ctrReported": 0.34380000000000005,
+      "pos": 1,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     }
+    ],
+    "impr": 62675,
+    "clicks": 1320,
+    "ctr": 0.02106102911846829,
+    "pos": 25.962032867969683,
+    "bestPos": 1,
+    "urls": [
+     {
+      "url": "example.com",
+      "raw": "https://example.com/",
+      "impr": 19836,
+      "clicks": 499,
+      "queries": 16,
+      "share": 0.47295009656422116
+     },
+     {
+      "url": "example.com/blog/cooling-tower-maintenance-checklist",
+      "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+      "impr": 18196,
+      "clicks": 446,
+      "queries": 18,
+      "share": 0.4338475477456427
+     },
+     {
+      "url": "example.com/about",
+      "raw": "https://example.com/about",
+      "impr": 2745,
+      "clicks": 57,
+      "queries": 5,
+      "share": 0.06544908323597434
+     },
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 746,
+      "clicks": 12,
+      "queries": 3,
+      "share": 0.017786891108938746
+     },
+     {
+      "url": "example.com/services/water-treatment",
+      "raw": "https://example.com/services/water-treatment",
+      "impr": 418,
+      "clicks": 6,
+      "queries": 2,
+      "share": 0.009966381345223051
+     }
+    ],
+    "owner": {
+     "url": "example.com",
+     "raw": "https://example.com/",
+     "impr": 19836,
+     "clicks": 499,
+     "queries": 16,
+     "share": 0.47295009656422116
+    },
+    "status": "split",
+    "opportunity": 1547.1074786342951,
+    "intent": "informational",
+    "source": "gsc"
+   }
+  ],
+  "contested": [],
+  "impr": 62675,
+  "clicks": 1320,
+  "distinct": 1,
+  "intents": [
+   "informational"
+  ],
+  "verdict": "focused",
+  "opportunity": 1547.1074786342951
+ },
+ {
+  "url": "example.com/case-studies/manufacturing-plant",
+  "raw": "https://example.com/case-studies/manufacturing-plant",
+  "owned": [
+   {
+    "id": "c2",
+    "name": "evaporative condenser cleaning",
+    "size": 16,
+    "members": [
+     {
+      "i": 145,
+      "query": "evaporative condenser cleaning",
+      "queryRaw": "evaporative condenser cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 27,
+      "impr": 8864,
+      "ctr": 0.003046028880866426,
+      "ctrReported": 0.003,
+      "pos": 26.94,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 138,
+      "query": "evaporative condenser near me",
+      "queryRaw": "evaporative condenser near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 653,
+      "impr": 8297,
+      "ctr": 0.07870314571531879,
+      "ctrReported": 0.0787,
+      "pos": 1.65,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 136,
+      "query": "evaporative condenser services",
+      "queryRaw": "evaporative condenser services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 249,
+      "impr": 7735,
+      "ctr": 0.03219133807369101,
+      "ctrReported": 0.0322,
+      "pos": 4.52,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 144,
+      "query": "evaporative condenser maintenance",
+      "queryRaw": "evaporative condenser maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 434,
+      "impr": 7143,
+      "ctr": 0.06075878482430351,
+      "ctrReported": 0.0608,
+      "pos": 4.63,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 146,
+      "query": "evaporative condenser uk",
+      "queryRaw": "evaporative condenser uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 25,
+      "impr": 6203,
+      "ctr": 0.004030307915524746,
+      "ctrReported": 0.004,
+      "pos": 25.85,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 140,
+      "query": "evaporative condenser price",
+      "queryRaw": "evaporative condenser price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 351,
+      "impr": 4068,
+      "ctr": 0.08628318584070796,
+      "ctrReported": 0.0863,
+      "pos": 3.6,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 137,
+      "query": "evaporative condenser company",
+      "queryRaw": "evaporative condenser company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 8,
+      "impr": 2438,
+      "ctr": 0.003281378178835111,
+      "ctrReported": 0.0033,
+      "pos": 33.17,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 142,
+      "query": "evaporative condenser specialist",
+      "queryRaw": "evaporative condenser specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 15,
+      "impr": 2025,
+      "ctr": 0.007407407407407408,
+      "ctrReported": 0.0074,
+      "pos": 28.23,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 0.5512367491166078
+      }
+     },
+     {
+      "i": 159,
+      "query": "evaporative condenser",
+      "queryRaw": "evaporative condenser",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 12,
+      "impr": 1965,
+      "ctr": 0.0061068702290076335,
+      "ctrReported": 0.0060999999999999995,
+      "pos": 23.84,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     },
+     {
+      "i": 139,
+      "query": "evaporative condenser suppliers",
+      "queryRaw": "evaporative condenser suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 7,
+      "impr": 1403,
+      "ctr": 0.004989308624376337,
+      "ctrReported": 0.005,
+      "pos": 27.15,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 148,
+      "query": "evaporative condenser guide",
+      "queryRaw": "evaporative condenser guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 56,
+      "impr": 1330,
+      "ctr": 0.042105263157894736,
+      "ctrReported": 0.0421,
+      "pos": 6.7,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 141,
+      "query": "evaporative condenser installation",
+      "queryRaw": "evaporative condenser installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 474,
+      "impr": 1252,
+      "ctr": 0.37859424920127793,
+      "ctrReported": 0.3786,
+      "pos": 1.32,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 149,
+      "query": "evaporative condenser vs alternatives",
+      "queryRaw": "evaporative condenser vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 12,
+      "impr": 978,
+      "ctr": 0.012269938650306749,
+      "ctrReported": 0.0123,
+      "pos": 12.64,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 143,
+      "query": "evaporative condenser contractor",
+      "queryRaw": "evaporative condenser contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 274,
+      "ctr": 0.014598540145985401,
+      "ctrReported": 0.0146,
+      "pos": 13.05,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 0.5499805523142746
+      }
+     },
+     {
+      "i": 147,
+      "query": "evaporative condenser checklist",
+      "queryRaw": "evaporative condenser checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 271,
+      "ctr": 0.0036900369003690036,
+      "ctrReported": 0.0037,
+      "pos": 42.7,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 1
+      }
+     },
+     {
+      "i": 135,
+      "query": "evaporative condenser cost",
+      "queryRaw": "evaporative condenser cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 30,
+      "ctr": 0.03333333333333333,
+      "ctrReported": 0.0333,
+      "pos": 6.93,
+      "dom": {
+       "url": "example.com/case-studies/manufacturing-plant",
+       "raw": "https://example.com/case-studies/manufacturing-plant",
+       "share": 0.550275482093664
+      }
+     }
+    ],
+    "impr": 54276,
+    "clicks": 2329,
+    "ctr": 0.04291031026604761,
+    "pos": 13.94290238779571,
+    "bestPos": 1.32,
+    "urls": [
+     {
+      "url": "example.com/case-studies/manufacturing-plant",
+      "raw": "https://example.com/case-studies/manufacturing-plant",
+      "impr": 16201,
+      "clicks": 452,
+      "queries": 15,
+      "share": 0.8320152013147083
+     },
+     {
+      "url": "example.com/services/cooling-tower-cleaning",
+      "raw": "https://example.com/services/cooling-tower-cleaning",
+      "impr": 1937,
+      "clicks": 50,
+      "queries": 3,
+      "share": 0.09947617091207889
+     },
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 1334,
+      "clicks": 49,
+      "queries": 1,
+      "share": 0.06850862777321282
+     }
+    ],
+    "owner": {
+     "url": "example.com/case-studies/manufacturing-plant",
+     "raw": "https://example.com/case-studies/manufacturing-plant",
+     "impr": 16201,
+     "clicks": 452,
+     "queries": 15,
+     "share": 0.8320152013147083
+    },
+    "status": "owned",
+    "opportunity": 1427.3687989899865,
+    "intent": "informational",
+    "source": "gsc"
+   }
+  ],
+  "contested": [],
+  "impr": 54276,
+  "clicks": 2329,
+  "distinct": 1,
+  "intents": [
+   "informational"
+  ],
+  "verdict": "focused",
+  "opportunity": 1427.3687989899865
+ },
+ {
+  "url": "example.com/services/cooling-tower-cleaning",
+  "raw": "https://example.com/services/cooling-tower-cleaning",
+  "owned": [
+   {
+    "id": "c3",
+    "name": "water treatment checklist",
+    "size": 16,
+    "members": [
+     {
+      "i": 27,
+      "query": "water treatment checklist",
+      "queryRaw": "water treatment checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 52,
+      "impr": 8658,
+      "ctr": 0.006006006006006006,
+      "ctrReported": 0.006,
+      "pos": 12.56,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 1
+      }
+     },
+     {
+      "i": 24,
+      "query": "water treatment maintenance",
+      "queryRaw": "water treatment maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 50,
+      "impr": 7345,
+      "ctr": 0.0068073519400953025,
+      "ctrReported": 0.0068000000000000005,
+      "pos": 22.23,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 0.549889135254989
+      }
+     },
+     {
+      "i": 29,
+      "query": "water treatment vs alternatives",
+      "queryRaw": "water treatment vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 127,
+      "impr": 5712,
+      "ctr": 0.02223389355742297,
+      "ctrReported": 0.0222,
+      "pos": 11.87,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 1
+      }
+     },
+     {
+      "i": 20,
+      "query": "water treatment price",
+      "queryRaw": "water treatment price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 22,
+      "impr": 4969,
+      "ctr": 0.004427450191185349,
+      "ctrReported": 0.0044,
+      "pos": 41.8,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 0.5501355013550135
+      }
+     },
+     {
+      "i": 28,
+      "query": "water treatment guide",
+      "queryRaw": "water treatment guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 24,
+      "impr": 4789,
+      "ctr": 0.005011484652328252,
+      "ctrReported": 0.005,
+      "pos": 20.31,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 1
+      }
+     },
+     {
+      "i": 18,
+      "query": "water treatment near me",
+      "queryRaw": "water treatment near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 123,
+      "impr": 2425,
+      "ctr": 0.050721649484536085,
+      "ctrReported": 0.0507,
+      "pos": 6.1,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 1
+      }
+     },
+     {
+      "i": 21,
+      "query": "water treatment installation",
+      "queryRaw": "water treatment installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 5,
+      "impr": 1443,
+      "ctr": 0.003465003465003465,
+      "ctrReported": 0.0034999999999999996,
+      "pos": 37.82,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 1
+      }
+     },
+     {
+      "i": 151,
+      "query": "water treatment",
+      "queryRaw": "water treatment",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 3,
+      "impr": 1337,
+      "ctr": 0.002243829468960359,
+      "ctrReported": 0.0022,
+      "pos": 25.54,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     },
+     {
+      "i": 17,
+      "query": "water treatment company",
+      "queryRaw": "water treatment company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 826,
+      "ctr": 0.0012106537530266344,
+      "ctrReported": 0.0012,
+      "pos": 30.16,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 0.5501193317422435
+      }
+     },
+     {
+      "i": 25,
+      "query": "water treatment cleaning",
+      "queryRaw": "water treatment cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2,
+      "impr": 680,
+      "ctr": 0.0029411764705882353,
+      "ctrReported": 0.0029,
+      "pos": 33.34,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 0.5501474926253688
+      }
+     },
+     {
+      "i": 15,
+      "query": "water treatment cost",
+      "queryRaw": "water treatment cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2,
+      "impr": 464,
+      "ctr": 0.004310344827586207,
+      "ctrReported": 0.0043,
+      "pos": 34.69,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 1
+      }
+     },
+     {
+      "i": 26,
+      "query": "water treatment uk",
+      "queryRaw": "water treatment uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 13,
+      "impr": 439,
+      "ctr": 0.029612756264236904,
+      "ctrReported": 0.0296,
+      "pos": 8.74,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 1
+      }
+     },
+     {
+      "i": 22,
+      "query": "water treatment specialist",
+      "queryRaw": "water treatment specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 29,
+      "impr": 340,
+      "ctr": 0.08529411764705883,
+      "ctrReported": 0.08529999999999999,
+      "pos": 3.45,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 1
+      }
+     },
+     {
+      "i": 23,
+      "query": "water treatment contractor",
+      "queryRaw": "water treatment contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 310,
+      "ctr": 0.0032258064516129032,
+      "ctrReported": 0.0032,
+      "pos": 32.81,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 1
+      }
+     },
+     {
+      "i": 19,
+      "query": "water treatment suppliers",
+      "queryRaw": "water treatment suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 17,
+      "impr": 286,
+      "ctr": 0.05944055944055944,
+      "ctrReported": 0.0594,
+      "pos": 5.46,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 0.5526315789473685
+      }
+     },
+     {
+      "i": 16,
+      "query": "water treatment services",
+      "queryRaw": "water treatment services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 3,
+      "impr": 166,
+      "ctr": 0.018072289156626505,
+      "ctrReported": 0.0181,
+      "pos": 12.51,
+      "dom": {
+       "url": "example.com/services/cooling-tower-cleaning",
+       "raw": "https://example.com/services/cooling-tower-cleaning",
+       "share": 0.5505050505050505
+      }
+     }
+    ],
+    "impr": 40189,
+    "clicks": 474,
+    "ctr": 0.01179427206449526,
+    "pos": 20.672485008335613,
+    "bestPos": 3.45,
+    "urls": [
+     {
+      "url": "example.com/services/cooling-tower-cleaning",
+      "raw": "https://example.com/services/cooling-tower-cleaning",
+      "impr": 19761,
+      "clicks": 458,
+      "queries": 15,
+      "share": 0.8116400377869963
+     },
+     {
+      "url": "example.com/blog/what-does-water-treatment-cost",
+      "raw": "https://example.com/blog/what-does-water-treatment-cost",
+      "impr": 2900,
+      "clicks": 53,
+      "queries": 6,
+      "share": 0.11911118412946153
+     },
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 1686,
+      "clicks": 28,
+      "queries": 1,
+      "share": 0.06924877808354211
+     }
+    ],
+    "owner": {
+     "url": "example.com/services/cooling-tower-cleaning",
+     "raw": "https://example.com/services/cooling-tower-cleaning",
+     "impr": 19761,
+     "clicks": 458,
+     "queries": 15,
+     "share": 0.8116400377869963
+    },
+    "status": "owned",
+    "opportunity": 547.955849442998,
+    "intent": "commercial",
+    "source": "gsc"
+   }
+  ],
+  "contested": [],
+  "impr": 40189,
+  "clicks": 474,
+  "distinct": 1,
+  "intents": [
+   "commercial"
+  ],
+  "verdict": "focused",
+  "opportunity": 547.955849442998
+ },
+ {
+  "url": "example.com/blog/what-does-water-treatment-cost",
+  "raw": "https://example.com/blog/what-does-water-treatment-cost",
+  "owned": [
+   {
+    "id": "c4",
+    "name": "legionella testing maintenance",
+    "size": 16,
+    "members": [
+     {
+      "i": 84,
+      "query": "legionella testing maintenance",
+      "queryRaw": "legionella testing maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 255,
+      "impr": 7968,
+      "ctr": 0.032003012048192774,
+      "ctrReported": 0.032,
+      "pos": 5.57,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 0.5501839201261166
+      }
+     },
+     {
+      "i": 78,
+      "query": "legionella testing near me",
+      "queryRaw": "legionella testing near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 324,
+      "impr": 6751,
+      "ctr": 0.04799288994223078,
+      "ctrReported": 0.048,
+      "pos": 5.61,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 1
+      }
+     },
+     {
+      "i": 77,
+      "query": "legionella testing company",
+      "queryRaw": "legionella testing company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 325,
+      "impr": 4648,
+      "ctr": 0.06992254733218589,
+      "ctrReported": 0.0699,
+      "pos": 6.21,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 0.5501460564751705
+      }
+     },
+     {
+      "i": 82,
+      "query": "legionella testing specialist",
+      "queryRaw": "legionella testing specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 16,
+      "impr": 4305,
+      "ctr": 0.003716608594657375,
+      "ctrReported": 0.0037,
+      "pos": 39.85,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 0.5499587118084228
+      }
+     },
+     {
+      "i": 83,
+      "query": "legionella testing contractor",
+      "queryRaw": "legionella testing contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 7,
+      "impr": 4213,
+      "ctr": 0.001661523854735343,
+      "ctrReported": 0.0017000000000000001,
+      "pos": 24.89,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 0.5499207606973059
+      }
+     },
+     {
+      "i": 75,
+      "query": "legionella testing cost",
+      "queryRaw": "legionella testing cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 124,
+      "impr": 3497,
+      "ctr": 0.035458964826994566,
+      "ctrReported": 0.0355,
+      "pos": 9.8,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 1
+      }
+     },
+     {
+      "i": 86,
+      "query": "legionella testing uk",
+      "queryRaw": "legionella testing uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 7,
+      "impr": 1891,
+      "ctr": 0.0037017451084082496,
+      "ctrReported": 0.0037,
+      "pos": 21.19,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 0.5501583949313622
+      }
+     },
+     {
+      "i": 155,
+      "query": "legionella testing",
+      "queryRaw": "legionella testing",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 3,
+      "impr": 1309,
+      "ctr": 0.002291825821237586,
+      "ctrReported": 0.0023,
+      "pos": 24.67,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 0.55
+      }
+     },
+     {
+      "i": 87,
+      "query": "legionella testing checklist",
+      "queryRaw": "legionella testing checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 444,
+      "impr": 1079,
+      "ctr": 0.4114921223354958,
+      "ctrReported": 0.4115,
+      "pos": 1.2,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 1
+      }
+     },
+     {
+      "i": 88,
+      "query": "legionella testing guide",
+      "queryRaw": "legionella testing guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2,
+      "impr": 1048,
+      "ctr": 0.0019083969465648854,
+      "ctrReported": 0.0019,
+      "pos": 27.46,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 1
+      }
+     },
+     {
+      "i": 79,
+      "query": "legionella testing suppliers",
+      "queryRaw": "legionella testing suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 12,
+      "impr": 829,
+      "ctr": 0.014475271411338963,
+      "ctrReported": 0.014499999999999999,
+      "pos": 15.25,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 1
+      }
+     },
+     {
+      "i": 85,
+      "query": "legionella testing cleaning",
+      "queryRaw": "legionella testing cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 197,
+      "ctr": 0.005076142131979695,
+      "ctrReported": 0.0051,
+      "pos": 23.28,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 1
+      }
+     },
+     {
+      "i": 81,
+      "query": "legionella testing installation",
+      "queryRaw": "legionella testing installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 17,
+      "impr": 138,
+      "ctr": 0.12318840579710146,
+      "ctrReported": 0.1232,
+      "pos": 3.02,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 1
+      }
+     },
+     {
+      "i": 89,
+      "query": "legionella testing vs alternatives",
+      "queryRaw": "legionella testing vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 124,
+      "ctr": 0.008064516129032258,
+      "ctrReported": 0.008100000000000001,
+      "pos": 14.14,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 1
+      }
+     },
+     {
+      "i": 76,
+      "query": "legionella testing services",
+      "queryRaw": "legionella testing services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2,
+      "impr": 103,
+      "ctr": 0.019417475728155338,
+      "ctrReported": 0.0194,
+      "pos": 13.53,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 1
+      }
+     },
+     {
+      "i": 80,
+      "query": "legionella testing price",
+      "queryRaw": "legionella testing price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 30,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 10.3,
+      "dom": {
+       "url": "example.com/blog/what-does-water-treatment-cost",
+       "raw": "https://example.com/blog/what-does-water-treatment-cost",
+       "share": 1
+      }
+     }
+    ],
+    "impr": 38130,
+    "clicks": 1540,
+    "ctr": 0.04038814581694204,
+    "pos": 14.302194859690534,
+    "bestPos": 1.2,
+    "urls": [
+     {
+      "url": "example.com/blog/what-does-water-treatment-cost",
+      "raw": "https://example.com/blog/what-does-water-treatment-cost",
+      "impr": 20210,
+      "clicks": 628,
+      "queries": 15,
+      "share": 0.7488513413368905
+     },
+     {
+      "url": "example.com/case-studies/manufacturing-plant",
+      "raw": "https://example.com/case-studies/manufacturing-plant",
+      "impr": 4858,
+      "clicks": 130,
+      "queries": 5,
+      "share": 0.18000592856084185
+     },
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 1056,
+      "clicks": 38,
+      "queries": 1,
+      "share": 0.03912850155624722
+     },
+     {
+      "url": "example.com/services/water-treatment",
+      "raw": "https://example.com/services/water-treatment",
+      "impr": 864,
+      "clicks": 26,
+      "queries": 1,
+      "share": 0.03201422854602046
+     }
+    ],
+    "owner": {
+     "url": "example.com/blog/what-does-water-treatment-cost",
+     "raw": "https://example.com/blog/what-does-water-treatment-cost",
+     "impr": 20210,
+     "clicks": 628,
+     "queries": 15,
+     "share": 0.7488513413368905
+    },
+    "status": "owned",
+    "opportunity": 1733.418851478563,
+    "intent": "commercial",
+    "source": "gsc"
+   }
+  ],
+  "contested": [],
+  "impr": 38130,
+  "clicks": 1540,
+  "distinct": 1,
+  "intents": [
+   "commercial"
+  ],
+  "verdict": "focused",
+  "opportunity": 1733.418851478563
+ },
+ {
+  "url": "example.com/blog/legionella-testing-explained",
+  "raw": "https://example.com/blog/legionella-testing-explained",
+  "owned": [
+   {
+    "id": "c5",
+    "name": "heat exchanger cleaning specialist",
+    "size": 16,
+    "members": [
+     {
+      "i": 97,
+      "query": "heat exchanger cleaning specialist",
+      "queryRaw": "heat exchanger cleaning specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 324,
+      "impr": 7404,
+      "ctr": 0.04376012965964344,
+      "ctrReported": 0.0438,
+      "pos": 7.97,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 96,
+      "query": "heat exchanger cleaning installation",
+      "queryRaw": "heat exchanger cleaning installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 207,
+      "impr": 4937,
+      "ctr": 0.041928296536358114,
+      "ctrReported": 0.04190000000000001,
+      "pos": 7.07,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 0.5498981670061099
+      }
+     },
+     {
+      "i": 92,
+      "query": "heat exchanger cleaning company",
+      "queryRaw": "heat exchanger cleaning company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1130,
+      "impr": 4298,
+      "ctr": 0.2629129827826896,
+      "ctrReported": 0.26289999999999997,
+      "pos": 1.01,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 0.5491525423728814
+      }
+     },
+     {
+      "i": 99,
+      "query": "heat exchanger cleaning maintenance",
+      "queryRaw": "heat exchanger cleaning maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 11,
+      "impr": 3382,
+      "ctr": 0.003252513305736251,
+      "ctrReported": 0.0033,
+      "pos": 27.84,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 156,
+      "query": "heat exchanger cleaning",
+      "queryRaw": "heat exchanger cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 26,
+      "impr": 2423,
+      "ctr": 0.010730499380932727,
+      "ctrReported": 0.010700000000000001,
+      "pos": 9.02,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     },
+     {
+      "i": 95,
+      "query": "heat exchanger cleaning price",
+      "queryRaw": "heat exchanger cleaning price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 12,
+      "impr": 2196,
+      "ctr": 0.00546448087431694,
+      "ctrReported": 0.0055000000000000005,
+      "pos": 29.56,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 91,
+      "query": "heat exchanger cleaning services",
+      "queryRaw": "heat exchanger cleaning services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 25,
+      "impr": 2184,
+      "ctr": 0.011446886446886446,
+      "ctrReported": 0.011399999999999999,
+      "pos": 8,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 94,
+      "query": "heat exchanger cleaning suppliers",
+      "queryRaw": "heat exchanger cleaning suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 1372,
+      "ctr": 0.0029154518950437317,
+      "ctrReported": 0.0029,
+      "pos": 23.57,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 98,
+      "query": "heat exchanger cleaning contractor",
+      "queryRaw": "heat exchanger cleaning contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2,
+      "impr": 1246,
+      "ctr": 0.0016051364365971107,
+      "ctrReported": 0.0016,
+      "pos": 21.16,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 102,
+      "query": "heat exchanger cleaning checklist",
+      "queryRaw": "heat exchanger cleaning checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 36,
+      "impr": 1184,
+      "ctr": 0.030405405405405407,
+      "ctrReported": 0.0304,
+      "pos": 7.47,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 100,
+      "query": "heat exchanger cleaning cleaning",
+      "queryRaw": "heat exchanger cleaning cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 61,
+      "impr": 923,
+      "ctr": 0.06608884073672806,
+      "ctrReported": 0.0661,
+      "pos": 5.46,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 103,
+      "query": "heat exchanger cleaning guide",
+      "queryRaw": "heat exchanger cleaning guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 88,
+      "impr": 615,
+      "ctr": 0.14308943089430895,
+      "ctrReported": 0.1431,
+      "pos": 2.33,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 101,
+      "query": "heat exchanger cleaning uk",
+      "queryRaw": "heat exchanger cleaning uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 9,
+      "impr": 444,
+      "ctr": 0.02027027027027027,
+      "ctrReported": 0.0203,
+      "pos": 11.18,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 0.5496688741721855
+      }
+     },
+     {
+      "i": 104,
+      "query": "heat exchanger cleaning vs alternatives",
+      "queryRaw": "heat exchanger cleaning vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 8,
+      "impr": 345,
+      "ctr": 0.02318840579710145,
+      "ctrReported": 0.0232,
+      "pos": 10.95,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 90,
+      "query": "heat exchanger cleaning cost",
+      "queryRaw": "heat exchanger cleaning cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 12,
+      "impr": 269,
+      "ctr": 0.04460966542750929,
+      "ctrReported": 0.0446,
+      "pos": 3.06,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 93,
+      "query": "heat exchanger cleaning near me",
+      "queryRaw": "heat exchanger cleaning near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 157,
+      "ctr": 0.025477707006369428,
+      "ctrReported": 0.0255,
+      "pos": 7.7,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 0.549873417721519
+      }
+     }
+    ],
+    "impr": 33379,
+    "clicks": 1959,
+    "ctr": 0.058689595254501334,
+    "pos": 11.427714131639654,
+    "bestPos": 1.01,
+    "urls": [
+     {
+      "url": "example.com/blog/legionella-testing-explained",
+      "raw": "https://example.com/blog/legionella-testing-explained",
+      "impr": 16952,
+      "clicks": 442,
+      "queries": 15,
+      "share": 0.7957938221763214
+     },
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 4350,
+      "clicks": 139,
+      "queries": 5,
+      "share": 0.20420617782367853
+     }
+    ],
+    "owner": {
+     "url": "example.com/blog/legionella-testing-explained",
+     "raw": "https://example.com/blog/legionella-testing-explained",
+     "impr": 16952,
+     "clicks": 442,
+     "queries": 15,
+     "share": 0.7957938221763214
+    },
+    "status": "owned",
+    "opportunity": 1602.2140841147984,
+    "intent": "commercial",
+    "source": "gsc"
+   }
+  ],
+  "contested": [],
+  "impr": 33379,
+  "clicks": 1959,
+  "distinct": 1,
+  "intents": [
+   "commercial"
+  ],
+  "verdict": "focused",
+  "opportunity": 1602.2140841147984
+ },
+ {
+  "url": "example.com/services/water-treatment",
+  "raw": "https://example.com/services/water-treatment",
+  "owned": [
+   {
+    "id": "c6",
+    "name": "industrial chiller uk",
+    "size": 16,
+    "members": [
+     {
+      "i": 41,
+      "query": "industrial chiller uk",
+      "queryRaw": "industrial chiller uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 45,
+      "impr": 8747,
+      "ctr": 0.005144621012918715,
+      "ctrReported": 0.0051,
+      "pos": 30.19,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 1
+      }
+     },
+     {
+      "i": 38,
+      "query": "industrial chiller contractor",
+      "queryRaw": "industrial chiller contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 936,
+      "impr": 4202,
+      "ctr": 0.22275107091861018,
+      "ctrReported": 0.2228,
+      "pos": 1.71,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 0.5497953615279673
+      }
+     },
+     {
+      "i": 152,
+      "query": "industrial chiller",
+      "queryRaw": "industrial chiller",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 265,
+      "impr": 3181,
+      "ctr": 0.08330713612071676,
+      "ctrReported": 0.0833,
+      "pos": 1.89,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 0.5501635768811342
+      }
+     },
+     {
+      "i": 32,
+      "query": "industrial chiller company",
+      "queryRaw": "industrial chiller company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 321,
+      "impr": 2656,
+      "ctr": 0.12085843373493976,
+      "ctrReported": 0.1209,
+      "pos": 3,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 1
+      }
+     },
+     {
+      "i": 40,
+      "query": "industrial chiller cleaning",
+      "queryRaw": "industrial chiller cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 1798,
+      "ctr": 0.002224694104560623,
+      "ctrReported": 0.0022,
+      "pos": 35.84,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 1
+      }
+     },
+     {
+      "i": 42,
+      "query": "industrial chiller checklist",
+      "queryRaw": "industrial chiller checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 12,
+      "impr": 1728,
+      "ctr": 0.006944444444444444,
+      "ctrReported": 0.0069,
+      "pos": 39.86,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 1
+      }
+     },
+     {
+      "i": 35,
+      "query": "industrial chiller price",
+      "queryRaw": "industrial chiller price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 113,
+      "impr": 1678,
+      "ctr": 0.06734207389749702,
+      "ctrReported": 0.0673,
+      "pos": 2.23,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 0.5498575498575499
+      }
+     },
+     {
+      "i": 34,
+      "query": "industrial chiller suppliers",
+      "queryRaw": "industrial chiller suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 7,
+      "impr": 1267,
+      "ctr": 0.0055248618784530384,
+      "ctrReported": 0.0055000000000000005,
+      "pos": 24.98,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 1
+      }
+     },
+     {
+      "i": 31,
+      "query": "industrial chiller services",
+      "queryRaw": "industrial chiller services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 462,
+      "impr": 1069,
+      "ctr": 0.4321796071094481,
+      "ctrReported": 0.4322,
+      "pos": 1.03,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 1
+      }
+     },
+     {
+      "i": 36,
+      "query": "industrial chiller installation",
+      "queryRaw": "industrial chiller installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 46,
+      "impr": 629,
+      "ctr": 0.07313195548489666,
+      "ctrReported": 0.0731,
+      "pos": 4.24,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 1
+      }
+     },
+     {
+      "i": 39,
+      "query": "industrial chiller maintenance",
+      "queryRaw": "industrial chiller maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 35,
+      "impr": 386,
+      "ctr": 0.09067357512953368,
+      "ctrReported": 0.0907,
+      "pos": 4.44,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 1
+      }
+     },
+     {
+      "i": 30,
+      "query": "industrial chiller cost",
+      "queryRaw": "industrial chiller cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 18,
+      "impr": 265,
+      "ctr": 0.06792452830188679,
+      "ctrReported": 0.0679,
+      "pos": 1.86,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 1
+      }
+     },
+     {
+      "i": 37,
+      "query": "industrial chiller specialist",
+      "queryRaw": "industrial chiller specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 137,
+      "ctr": 0.0072992700729927005,
+      "ctrReported": 0.0073,
+      "pos": 19.72,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 0.5498281786941581
+      }
+     },
+     {
+      "i": 33,
+      "query": "industrial chiller near me",
+      "queryRaw": "industrial chiller near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 74,
+      "ctr": 0.013513513513513514,
+      "ctrReported": 0.013500000000000002,
+      "pos": 35.43,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 0.5500848896434635
+      }
+     },
+     {
+      "i": 43,
+      "query": "industrial chiller guide",
+      "queryRaw": "industrial chiller guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 33,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 17.19,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 1
+      }
+     },
+     {
+      "i": 44,
+      "query": "industrial chiller vs alternatives",
+      "queryRaw": "industrial chiller vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 30,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 42.6,
+      "dom": {
+       "url": "example.com/services/water-treatment",
+       "raw": "https://example.com/services/water-treatment",
+       "share": 0.5501938819474365
+      }
+     }
+    ],
+    "impr": 27880,
+    "clicks": 2266,
+    "ctr": 0.08127690100430417,
+    "pos": 16.753620516499286,
+    "bestPos": 1.03,
+    "urls": [
+     {
+      "url": "example.com/services/water-treatment",
+      "raw": "https://example.com/services/water-treatment",
+      "impr": 19135,
+      "clicks": 600,
+      "queries": 16,
+      "share": 0.8055146284992634
+     },
+     {
+      "url": "example.com/blog/legionella-testing-explained",
+      "raw": "https://example.com/blog/legionella-testing-explained",
+      "impr": 3611,
+      "clicks": 97,
+      "queries": 5,
+      "share": 0.15201010313618185
+     },
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 1009,
+      "clicks": 35,
+      "queries": 1,
+      "share": 0.04247526836455483
+     }
+    ],
+    "owner": {
+     "url": "example.com/services/water-treatment",
+     "raw": "https://example.com/services/water-treatment",
+     "impr": 19135,
+     "clicks": 600,
+     "queries": 16,
+     "share": 0.8055146284992634
+    },
+    "status": "owned",
+    "opportunity": 116.1873227205428,
+    "intent": "informational",
+    "source": "gsc"
+   }
+  ],
+  "contested": [],
+  "impr": 27880,
+  "clicks": 2266,
+  "distinct": 1,
+  "intents": [
+   "informational"
+  ],
+  "verdict": "focused",
+  "opportunity": 116.1873227205428
+ },
+ {
+  "url": "example.com/services/legionella-control",
+  "raw": "https://example.com/services/legionella-control",
+  "owned": [
+   {
+    "id": "c7",
+    "name": "boiler descaling checklist",
+    "size": 16,
+    "members": [
+     {
+      "i": 57,
+      "query": "boiler descaling checklist",
+      "queryRaw": "boiler descaling checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 62,
+      "impr": 5878,
+      "ctr": 0.010547805375978225,
+      "ctrReported": 0.0105,
+      "pos": 18.93,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 1
+      }
+     },
+     {
+      "i": 46,
+      "query": "boiler descaling services",
+      "queryRaw": "boiler descaling services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 35,
+      "impr": 4967,
+      "ctr": 0.007046506945842561,
+      "ctrReported": 0.006999999999999999,
+      "pos": 30.67,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 1
+      }
+     },
+     {
+      "i": 56,
+      "query": "boiler descaling uk",
+      "queryRaw": "boiler descaling uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 351,
+      "impr": 3617,
+      "ctr": 0.09704174730439591,
+      "ctrReported": 0.09699999999999999,
+      "pos": 5.19,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 1
+      }
+     },
+     {
+      "i": 59,
+      "query": "boiler descaling vs alternatives",
+      "queryRaw": "boiler descaling vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 254,
+      "impr": 3393,
+      "ctr": 0.07486000589448866,
+      "ctrReported": 0.07490000000000001,
+      "pos": 2.75,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 1
+      }
+     },
+     {
+      "i": 153,
+      "query": "boiler descaling",
+      "queryRaw": "boiler descaling",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 50,
+      "impr": 2622,
+      "ctr": 0.01906941266209001,
+      "ctrReported": 0.0191,
+      "pos": 12.84,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     },
+     {
+      "i": 49,
+      "query": "boiler descaling suppliers",
+      "queryRaw": "boiler descaling suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 42,
+      "impr": 2465,
+      "ctr": 0.017038539553752535,
+      "ctrReported": 0.017,
+      "pos": 16.32,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 1
+      }
+     },
+     {
+      "i": 45,
+      "query": "boiler descaling cost",
+      "queryRaw": "boiler descaling cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 121,
+      "impr": 1872,
+      "ctr": 0.06463675213675214,
+      "ctrReported": 0.0646,
+      "pos": 1.98,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 1
+      }
+     },
+     {
+      "i": 54,
+      "query": "boiler descaling maintenance",
+      "queryRaw": "boiler descaling maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 128,
+      "impr": 989,
+      "ctr": 0.12942366026289182,
+      "ctrReported": 0.1294,
+      "pos": 1.88,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 1
+      }
+     },
+     {
+      "i": 58,
+      "query": "boiler descaling guide",
+      "queryRaw": "boiler descaling guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 129,
+      "impr": 459,
+      "ctr": 0.28104575163398693,
+      "ctrReported": 0.281,
+      "pos": 2,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 0.5508474576271186
+      }
+     },
+     {
+      "i": 53,
+      "query": "boiler descaling contractor",
+      "queryRaw": "boiler descaling contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 299,
+      "ctr": 0.0033444816053511705,
+      "ctrReported": 0.0033,
+      "pos": 20.82,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 0.5498721227621484
+      }
+     },
+     {
+      "i": 51,
+      "query": "boiler descaling installation",
+      "queryRaw": "boiler descaling installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 82,
+      "impr": 201,
+      "ctr": 0.4079601990049751,
+      "ctrReported": 0.408,
+      "pos": 1.06,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 1
+      }
+     },
+     {
+      "i": 48,
+      "query": "boiler descaling near me",
+      "queryRaw": "boiler descaling near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 35,
+      "impr": 156,
+      "ctr": 0.22435897435897437,
+      "ctrReported": 0.22440000000000002,
+      "pos": 1.02,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 1
+      }
+     },
+     {
+      "i": 47,
+      "query": "boiler descaling company",
+      "queryRaw": "boiler descaling company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 94,
+      "ctr": 0.010638297872340425,
+      "ctrReported": 0.0106,
+      "pos": 15.41,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 1
+      }
+     },
+     {
+      "i": 55,
+      "query": "boiler descaling cleaning",
+      "queryRaw": "boiler descaling cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 7,
+      "impr": 76,
+      "ctr": 0.09210526315789473,
+      "ctrReported": 0.09210000000000002,
+      "pos": 4.11,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 1
+      }
+     },
+     {
+      "i": 50,
+      "query": "boiler descaling price",
+      "queryRaw": "boiler descaling price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 56,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 28.11,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 0.5502494654312188
+      }
+     },
+     {
+      "i": 52,
+      "query": "boiler descaling specialist",
+      "queryRaw": "boiler descaling specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 34,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 10.83,
+      "dom": {
+       "url": "example.com/services/legionella-control",
+       "raw": "https://example.com/services/legionella-control",
+       "share": 0.5498489425981873
+      }
+     }
+    ],
+    "impr": 27178,
+    "clicks": 1298,
+    "ctr": 0.04775921701376113,
+    "pos": 14.069880417985129,
+    "bestPos": 1.02,
+    "urls": [
+     {
+      "url": "example.com/services/legionella-control",
+      "raw": "https://example.com/services/legionella-control",
+      "impr": 18295,
+      "clicks": 475,
+      "queries": 15,
+      "share": 0.8640721673829878
+     },
+     {
+      "url": "example.com/contact",
+      "raw": "https://example.com/contact",
+      "impr": 1915,
+      "clicks": 41,
+      "queries": 4,
+      "share": 0.09044537854815095
+     },
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 963,
+      "clicks": 36,
+      "queries": 1,
+      "share": 0.04548245406886128
+     }
+    ],
+    "owner": {
+     "url": "example.com/services/legionella-control",
+     "raw": "https://example.com/services/legionella-control",
+     "impr": 18295,
+     "clicks": 475,
+     "queries": 15,
+     "share": 0.8640721673829878
+    },
+    "status": "owned",
+    "opportunity": 234.77541475785995,
+    "intent": "informational",
+    "source": "gsc"
+   }
+  ],
+  "contested": [],
+  "impr": 27178,
+  "clicks": 1298,
+  "distinct": 1,
+  "intents": [
+   "informational"
+  ],
+  "verdict": "focused",
+  "opportunity": 234.77541475785995
+ },
+ {
+  "url": "example.com/services/chiller-servicing",
+  "raw": "https://example.com/services/chiller-servicing",
+  "owned": [
+   {
+    "id": "c8",
+    "name": "example water contact",
+    "size": 4,
+    "members": [
+     {
+      "i": 162,
+      "query": "example water contact",
+      "queryRaw": "example water contact",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 35,
+      "impr": 7513,
+      "ctr": 0.004658591774257953,
+      "ctrReported": 0.004699999999999999,
+      "pos": 21.86,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     },
+     {
+      "i": 160,
+      "query": "example water",
+      "queryRaw": "example water",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 38,
+      "impr": 6139,
+      "ctr": 0.006189933213878482,
+      "ctrReported": 0.0062,
+      "pos": 26.07,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     },
+     {
+      "i": 161,
+      "query": "example water reviews",
+      "queryRaw": "example water reviews",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 30,
+      "impr": 4862,
+      "ctr": 0.006170300287947347,
+      "ctrReported": 0.0062,
+      "pos": 32.55,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     },
+     {
+      "i": 163,
+      "query": "example water cooling towers",
+      "queryRaw": "example water cooling towers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 550,
+      "impr": 2010,
+      "ctr": 0.2736318407960199,
+      "ctrReported": 0.2736,
+      "pos": 1.79,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     }
+    ],
+    "impr": 20524,
+    "clicks": 653,
+    "ctr": 0.031816410056519195,
+    "pos": 23.68611917754824,
+    "bestPos": 1.79,
+    "urls": [
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 5648,
+      "clicks": 110,
+      "queries": 4,
+      "share": 1
+     }
+    ],
+    "owner": {
+     "url": "example.com/services/chiller-servicing",
+     "raw": "https://example.com/services/chiller-servicing",
+     "impr": 5648,
+     "clicks": 110,
+     "queries": 4,
+     "share": 1
+    },
+    "status": "owned",
+    "opportunity": 93.67650150150146,
+    "intent": "navigational",
+    "source": "gsc"
+   }
+  ],
+  "contested": [
+   {
+    "id": "c5",
+    "name": "heat exchanger cleaning specialist",
+    "size": 16,
+    "members": [
+     {
+      "i": 97,
+      "query": "heat exchanger cleaning specialist",
+      "queryRaw": "heat exchanger cleaning specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 324,
+      "impr": 7404,
+      "ctr": 0.04376012965964344,
+      "ctrReported": 0.0438,
+      "pos": 7.97,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 96,
+      "query": "heat exchanger cleaning installation",
+      "queryRaw": "heat exchanger cleaning installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 207,
+      "impr": 4937,
+      "ctr": 0.041928296536358114,
+      "ctrReported": 0.04190000000000001,
+      "pos": 7.07,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 0.5498981670061099
+      }
+     },
+     {
+      "i": 92,
+      "query": "heat exchanger cleaning company",
+      "queryRaw": "heat exchanger cleaning company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1130,
+      "impr": 4298,
+      "ctr": 0.2629129827826896,
+      "ctrReported": 0.26289999999999997,
+      "pos": 1.01,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 0.5491525423728814
+      }
+     },
+     {
+      "i": 99,
+      "query": "heat exchanger cleaning maintenance",
+      "queryRaw": "heat exchanger cleaning maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 11,
+      "impr": 3382,
+      "ctr": 0.003252513305736251,
+      "ctrReported": 0.0033,
+      "pos": 27.84,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 156,
+      "query": "heat exchanger cleaning",
+      "queryRaw": "heat exchanger cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 26,
+      "impr": 2423,
+      "ctr": 0.010730499380932727,
+      "ctrReported": 0.010700000000000001,
+      "pos": 9.02,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     },
+     {
+      "i": 95,
+      "query": "heat exchanger cleaning price",
+      "queryRaw": "heat exchanger cleaning price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 12,
+      "impr": 2196,
+      "ctr": 0.00546448087431694,
+      "ctrReported": 0.0055000000000000005,
+      "pos": 29.56,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 91,
+      "query": "heat exchanger cleaning services",
+      "queryRaw": "heat exchanger cleaning services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 25,
+      "impr": 2184,
+      "ctr": 0.011446886446886446,
+      "ctrReported": 0.011399999999999999,
+      "pos": 8,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 94,
+      "query": "heat exchanger cleaning suppliers",
+      "queryRaw": "heat exchanger cleaning suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 1372,
+      "ctr": 0.0029154518950437317,
+      "ctrReported": 0.0029,
+      "pos": 23.57,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 98,
+      "query": "heat exchanger cleaning contractor",
+      "queryRaw": "heat exchanger cleaning contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2,
+      "impr": 1246,
+      "ctr": 0.0016051364365971107,
+      "ctrReported": 0.0016,
+      "pos": 21.16,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 102,
+      "query": "heat exchanger cleaning checklist",
+      "queryRaw": "heat exchanger cleaning checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 36,
+      "impr": 1184,
+      "ctr": 0.030405405405405407,
+      "ctrReported": 0.0304,
+      "pos": 7.47,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 100,
+      "query": "heat exchanger cleaning cleaning",
+      "queryRaw": "heat exchanger cleaning cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 61,
+      "impr": 923,
+      "ctr": 0.06608884073672806,
+      "ctrReported": 0.0661,
+      "pos": 5.46,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 103,
+      "query": "heat exchanger cleaning guide",
+      "queryRaw": "heat exchanger cleaning guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 88,
+      "impr": 615,
+      "ctr": 0.14308943089430895,
+      "ctrReported": 0.1431,
+      "pos": 2.33,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 101,
+      "query": "heat exchanger cleaning uk",
+      "queryRaw": "heat exchanger cleaning uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 9,
+      "impr": 444,
+      "ctr": 0.02027027027027027,
+      "ctrReported": 0.0203,
+      "pos": 11.18,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 0.5496688741721855
+      }
+     },
+     {
+      "i": 104,
+      "query": "heat exchanger cleaning vs alternatives",
+      "queryRaw": "heat exchanger cleaning vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 8,
+      "impr": 345,
+      "ctr": 0.02318840579710145,
+      "ctrReported": 0.0232,
+      "pos": 10.95,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 90,
+      "query": "heat exchanger cleaning cost",
+      "queryRaw": "heat exchanger cleaning cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 12,
+      "impr": 269,
+      "ctr": 0.04460966542750929,
+      "ctrReported": 0.0446,
+      "pos": 3.06,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 1
+      }
+     },
+     {
+      "i": 93,
+      "query": "heat exchanger cleaning near me",
+      "queryRaw": "heat exchanger cleaning near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 157,
+      "ctr": 0.025477707006369428,
+      "ctrReported": 0.0255,
+      "pos": 7.7,
+      "dom": {
+       "url": "example.com/blog/legionella-testing-explained",
+       "raw": "https://example.com/blog/legionella-testing-explained",
+       "share": 0.549873417721519
+      }
+     }
+    ],
+    "impr": 33379,
+    "clicks": 1959,
+    "ctr": 0.058689595254501334,
+    "pos": 11.427714131639654,
+    "bestPos": 1.01,
+    "urls": [
+     {
+      "url": "example.com/blog/legionella-testing-explained",
+      "raw": "https://example.com/blog/legionella-testing-explained",
+      "impr": 16952,
+      "clicks": 442,
+      "queries": 15,
+      "share": 0.7957938221763214
+     },
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 4350,
+      "clicks": 139,
+      "queries": 5,
+      "share": 0.20420617782367853
+     }
+    ],
+    "owner": {
+     "url": "example.com/blog/legionella-testing-explained",
+     "raw": "https://example.com/blog/legionella-testing-explained",
+     "impr": 16952,
+     "clicks": 442,
+     "queries": 15,
+     "share": 0.7957938221763214
+    },
+    "status": "owned",
+    "opportunity": 1602.2140841147984,
+    "intent": "commercial",
+    "source": "gsc"
+   }
+  ],
+  "impr": 20524,
+  "clicks": 653,
+  "distinct": 1,
+  "intents": [
+   "navigational"
+  ],
+  "verdict": "focused",
+  "opportunity": 93.67650150150146
+ },
+ {
+  "url": "example.com/contact",
+  "raw": "https://example.com/contact",
+  "owned": [
+   {
+    "id": "c9",
+    "name": "water softener vs alternatives",
+    "size": 16,
+    "members": [
+     {
+      "i": 119,
+      "query": "water softener vs alternatives",
+      "queryRaw": "water softener vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 26,
+      "impr": 5472,
+      "ctr": 0.004751461988304093,
+      "ctrReported": 0.0048,
+      "pos": 32.63,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 116,
+      "query": "water softener uk",
+      "queryRaw": "water softener uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 147,
+      "impr": 4063,
+      "ctr": 0.036180162441545656,
+      "ctrReported": 0.0362,
+      "pos": 10.23,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 118,
+      "query": "water softener guide",
+      "queryRaw": "water softener guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 19,
+      "impr": 2635,
+      "ctr": 0.007210626185958254,
+      "ctrReported": 0.0072,
+      "pos": 40.06,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 109,
+      "query": "water softener suppliers",
+      "queryRaw": "water softener suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 5,
+      "impr": 1874,
+      "ctr": 0.0026680896478121665,
+      "ctrReported": 0.0027,
+      "pos": 24.19,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 117,
+      "query": "water softener checklist",
+      "queryRaw": "water softener checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 303,
+      "impr": 1241,
+      "ctr": 0.24415793714746173,
+      "ctrReported": 0.24420000000000003,
+      "pos": 1.6,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 105,
+      "query": "water softener cost",
+      "queryRaw": "water softener cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 15,
+      "impr": 1059,
+      "ctr": 0.014164305949008499,
+      "ctrReported": 0.014199999999999999,
+      "pos": 17.06,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 112,
+      "query": "water softener specialist",
+      "queryRaw": "water softener specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 15,
+      "impr": 1047,
+      "ctr": 0.014326647564469915,
+      "ctrReported": 0.0143,
+      "pos": 15.9,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 107,
+      "query": "water softener company",
+      "queryRaw": "water softener company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 885,
+      "ctr": 0.004519774011299435,
+      "ctrReported": 0.0045000000000000005,
+      "pos": 30.82,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 0.5501730103806228
+      }
+     },
+     {
+      "i": 114,
+      "query": "water softener maintenance",
+      "queryRaw": "water softener maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 11,
+      "impr": 836,
+      "ctr": 0.013157894736842105,
+      "ctrReported": 0.0132,
+      "pos": 16.45,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 110,
+      "query": "water softener price",
+      "queryRaw": "water softener price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 6,
+      "impr": 235,
+      "ctr": 0.02553191489361702,
+      "ctrReported": 0.0255,
+      "pos": 8.58,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 157,
+      "query": "water softener",
+      "queryRaw": "water softener",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 200,
+      "ctr": 0.005,
+      "ctrReported": 0.005,
+      "pos": 37.23,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     },
+     {
+      "i": 113,
+      "query": "water softener contractor",
+      "queryRaw": "water softener contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2,
+      "impr": 121,
+      "ctr": 0.01652892561983471,
+      "ctrReported": 0.0165,
+      "pos": 14.95,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 115,
+      "query": "water softener cleaning",
+      "queryRaw": "water softener cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 110,
+      "ctr": 0.00909090909090909,
+      "ctrReported": 0.0091,
+      "pos": 20.48,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 106,
+      "query": "water softener services",
+      "queryRaw": "water softener services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2,
+      "impr": 44,
+      "ctr": 0.045454545454545456,
+      "ctrReported": 0.0455,
+      "pos": 3.67,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 108,
+      "query": "water softener near me",
+      "queryRaw": "water softener near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2,
+      "impr": 38,
+      "ctr": 0.05263157894736842,
+      "ctrReported": 0.0526,
+      "pos": 3.81,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 1
+      }
+     },
+     {
+      "i": 111,
+      "query": "water softener installation",
+      "queryRaw": "water softener installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 31,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 10.78,
+      "dom": {
+       "url": "example.com/contact",
+       "raw": "https://example.com/contact",
+       "share": 0.5499693439607602
+      }
+     }
+    ],
+    "impr": 19891,
+    "clicks": 559,
+    "ctr": 0.02810316223417626,
+    "pos": 23.271722889749135,
+    "bestPos": 1.6,
+    "urls": [
+     {
+      "url": "example.com/contact",
+      "raw": "https://example.com/contact",
+      "impr": 19433,
+      "clicks": 517,
+      "queries": 15,
+      "share": 0.8977640210662478
+     },
+     {
+      "url": "example.com/blog/closed-loop-system-guide",
+      "raw": "https://example.com/blog/closed-loop-system-guide",
+      "impr": 1904,
+      "clicks": 63,
+      "queries": 2,
+      "share": 0.08796082417074748
+     },
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 309,
+      "clicks": 11,
+      "queries": 1,
+      "share": 0.014275154763004711
+     }
+    ],
+    "owner": {
+     "url": "example.com/contact",
+     "raw": "https://example.com/contact",
+     "impr": 19433,
+     "clicks": 517,
+     "queries": 15,
+     "share": 0.8977640210662478
+    },
+    "status": "owned",
+    "opportunity": 130.06450608756597,
+    "intent": "informational",
+    "source": "gsc"
+   }
+  ],
+  "contested": [],
+  "impr": 19891,
+  "clicks": 559,
+  "distinct": 1,
+  "intents": [
+   "informational"
+  ],
+  "verdict": "focused",
+  "opportunity": 130.06450608756597
+ },
+ {
+  "url": "example.com/blog/cooling-tower-maintenance-checklist",
+  "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+  "owned": [],
+  "contested": [
+   {
+    "id": "c1",
+    "name": "cooling tower maintenance suppliers",
+    "size": 32,
+    "members": [
+     {
+      "i": 64,
+      "query": "cooling tower maintenance suppliers",
+      "queryRaw": "cooling tower maintenance suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 20,
+      "impr": 7851,
+      "ctr": 0.0025474461851993377,
+      "ctrReported": 0.0025,
+      "pos": 36.9,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 0.5502183406113537
+      }
+     },
+     {
+      "i": 1,
+      "query": "cooling tower services",
+      "queryRaw": "cooling tower services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 14,
+      "impr": 7308,
+      "ctr": 0.0019157088122605363,
+      "ctrReported": 0.0019,
+      "pos": 36.51,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 0.5496535796766744
+      }
+     },
+     {
+      "i": 4,
+      "query": "cooling tower suppliers",
+      "queryRaw": "cooling tower suppliers",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 218,
+      "impr": 6877,
+      "ctr": 0.03169986912898066,
+      "ctrReported": 0.0317,
+      "pos": 4.01,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 3,
+      "query": "cooling tower near me",
+      "queryRaw": "cooling tower near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 32,
+      "impr": 5451,
+      "ctr": 0.005870482480278848,
+      "ctrReported": 0.0059,
+      "pos": 40.34,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 5,
+      "query": "cooling tower price",
+      "queryRaw": "cooling tower price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 29,
+      "impr": 4382,
+      "ctr": 0.006617982656321315,
+      "ctrReported": 0.0066,
+      "pos": 26.53,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 61,
+      "query": "cooling tower maintenance services",
+      "queryRaw": "cooling tower maintenance services",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 139,
+      "impr": 3700,
+      "ctr": 0.037567567567567565,
+      "ctrReported": 0.037599999999999995,
+      "pos": 8.91,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 66,
+      "query": "cooling tower maintenance installation",
+      "queryRaw": "cooling tower maintenance installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 18,
+      "impr": 3324,
+      "ctr": 0.005415162454873646,
+      "ctrReported": 0.0054,
+      "pos": 42.69,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 65,
+      "query": "cooling tower maintenance price",
+      "queryRaw": "cooling tower maintenance price",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 43,
+      "impr": 2603,
+      "ctr": 0.016519400691509797,
+      "ctrReported": 0.0165,
+      "pos": 6.87,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 9,
+      "query": "cooling tower maintenance",
+      "queryRaw": "cooling tower maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 10,
+      "impr": 2535,
+      "ctr": 0.0039447731755424065,
+      "ctrReported": 0.0039000000000000003,
+      "pos": 26.59,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 0.5853440571939231
+      }
+     },
+     {
+      "i": 150,
+      "query": "cooling tower",
+      "queryRaw": "cooling tower",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 14,
+      "impr": 2387,
+      "ctr": 0.005865102639296188,
+      "ctrReported": 0.0059,
+      "pos": 11.62,
+      "dom": {
+       "url": "example.com/services/chiller-servicing",
+       "raw": "https://example.com/services/chiller-servicing",
+       "share": 1
+      }
+     },
+     {
+      "i": 68,
+      "query": "cooling tower maintenance contractor",
+      "queryRaw": "cooling tower maintenance contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 5,
+      "impr": 2296,
+      "ctr": 0.0021777003484320556,
+      "ctrReported": 0.0022,
+      "pos": 23.12,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 10,
+      "query": "cooling tower cleaning",
+      "queryRaw": "cooling tower cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 16,
+      "impr": 1948,
+      "ctr": 0.008213552361396304,
+      "ctrReported": 0.008199999999999999,
+      "pos": 19.42,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 60,
+      "query": "cooling tower maintenance cost",
+      "queryRaw": "cooling tower maintenance cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 5,
+      "impr": 1882,
+      "ctr": 0.002656748140276302,
+      "ctrReported": 0.0027,
+      "pos": 42.24,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 72,
+      "query": "cooling tower maintenance checklist",
+      "queryRaw": "cooling tower maintenance checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 9,
+      "impr": 1579,
+      "ctr": 0.005699810006333122,
+      "ctrReported": 0.005699999999999999,
+      "pos": 43.62,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 0.5500747384155455
+      }
+     },
+     {
+      "i": 71,
+      "query": "cooling tower maintenance uk",
+      "queryRaw": "cooling tower maintenance uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 572,
+      "impr": 1298,
+      "ctr": 0.4406779661016949,
+      "ctrReported": 0.4407,
+      "pos": 1.02,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 0.549717057396928
+      }
+     },
+     {
+      "i": 14,
+      "query": "cooling tower vs alternatives",
+      "queryRaw": "cooling tower vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 1231,
+      "ctr": 0.003249390739236393,
+      "ctrReported": 0.0032,
+      "pos": 29.62,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 8,
+      "query": "cooling tower contractor",
+      "queryRaw": "cooling tower contractor",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 7,
+      "impr": 1121,
+      "ctr": 0.006244424620874219,
+      "ctrReported": 0.0062,
+      "pos": 18.52,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 73,
+      "query": "cooling tower maintenance guide",
+      "queryRaw": "cooling tower maintenance guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 5,
+      "impr": 799,
+      "ctr": 0.006257822277847309,
+      "ctrReported": 0.0063,
+      "pos": 23.95,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 6,
+      "query": "cooling tower installation",
+      "queryRaw": "cooling tower installation",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 111,
+      "impr": 701,
+      "ctr": 0.15834522111269614,
+      "ctrReported": 0.1583,
+      "pos": 1.16,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 0.5505226480836237
+      }
+     },
+     {
+      "i": 7,
+      "query": "cooling tower specialist",
+      "queryRaw": "cooling tower specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 4,
+      "impr": 584,
+      "ctr": 0.00684931506849315,
+      "ctrReported": 0.0068000000000000005,
+      "pos": 31.15,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 0.5500902527075813
+      }
+     },
+     {
+      "i": 0,
+      "query": "cooling tower cost",
+      "queryRaw": "cooling tower cost",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 5,
+      "impr": 527,
+      "ctr": 0.009487666034155597,
+      "ctrReported": 0.0095,
+      "pos": 19.73,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 74,
+      "query": "cooling tower maintenance vs alternatives",
+      "queryRaw": "cooling tower maintenance vs alternatives",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 486,
+      "ctr": 0.00205761316872428,
+      "ctrReported": 0.0021,
+      "pos": 40.81,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 154,
+      "query": "cooling tower maintenance",
+      "queryRaw": "cooling tower maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 479,
+      "ctr": 0.0020876826722338203,
+      "ctrReported": 0.0021,
+      "pos": 42.73,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 0.5853440571939231
+      }
+     },
+     {
+      "i": 12,
+      "query": "cooling tower checklist",
+      "queryRaw": "cooling tower checklist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 349,
+      "ctr": 0.0028653295128939827,
+      "ctrReported": 0.0029,
+      "pos": 40.94,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 11,
+      "query": "cooling tower uk",
+      "queryRaw": "cooling tower uk",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 224,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 29.93,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 13,
+      "query": "cooling tower guide",
+      "queryRaw": "cooling tower guide",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 14,
+      "impr": 202,
+      "ctr": 0.06930693069306931,
+      "ctrReported": 0.0693,
+      "pos": 4.74,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 62,
+      "query": "cooling tower maintenance company",
+      "queryRaw": "cooling tower maintenance company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 1,
+      "impr": 137,
+      "ctr": 0.0072992700729927005,
+      "ctrReported": 0.0073,
+      "pos": 17.21,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 70,
+      "query": "cooling tower maintenance cleaning",
+      "queryRaw": "cooling tower maintenance cleaning",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 130,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 39.06,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 0.5495594713656388
+      }
+     },
+     {
+      "i": 63,
+      "query": "cooling tower maintenance near me",
+      "queryRaw": "cooling tower maintenance near me",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 2,
+      "impr": 114,
+      "ctr": 0.017543859649122806,
+      "ctrReported": 0.0175,
+      "pos": 6.7,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 0.5500582072176949
+      }
+     },
+     {
+      "i": 67,
+      "query": "cooling tower maintenance specialist",
+      "queryRaw": "cooling tower maintenance specialist",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 9,
+      "impr": 98,
+      "ctr": 0.09183673469387756,
+      "ctrReported": 0.09179999999999999,
+      "pos": 3.71,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     },
+     {
+      "i": 2,
+      "query": "cooling tower company",
+      "queryRaw": "cooling tower company",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 0,
+      "impr": 40,
+      "ctr": 0,
+      "ctrReported": 0,
+      "pos": 45.45,
+      "dom": {
+       "url": "example.com",
+       "raw": "https://example.com/",
+       "share": 1
+      }
+     },
+     {
+      "i": 69,
+      "query": "cooling tower maintenance maintenance",
+      "queryRaw": "cooling tower maintenance maintenance",
+      "url": "",
+      "urlRaw": "",
+      "date": "",
+      "dim": "",
+      "clicks": 11,
+      "impr": 32,
+      "ctr": 0.34375,
+      "ctrReported": 0.34380000000000005,
+      "pos": 1,
+      "dom": {
+       "url": "example.com/blog/cooling-tower-maintenance-checklist",
+       "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+       "share": 1
+      }
+     }
+    ],
+    "impr": 62675,
+    "clicks": 1320,
+    "ctr": 0.02106102911846829,
+    "pos": 25.962032867969683,
+    "bestPos": 1,
+    "urls": [
+     {
+      "url": "example.com",
+      "raw": "https://example.com/",
+      "impr": 19836,
+      "clicks": 499,
+      "queries": 16,
+      "share": 0.47295009656422116
+     },
+     {
+      "url": "example.com/blog/cooling-tower-maintenance-checklist",
+      "raw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+      "impr": 18196,
+      "clicks": 446,
+      "queries": 18,
+      "share": 0.4338475477456427
+     },
+     {
+      "url": "example.com/about",
+      "raw": "https://example.com/about",
+      "impr": 2745,
+      "clicks": 57,
+      "queries": 5,
+      "share": 0.06544908323597434
+     },
+     {
+      "url": "example.com/services/chiller-servicing",
+      "raw": "https://example.com/services/chiller-servicing",
+      "impr": 746,
+      "clicks": 12,
+      "queries": 3,
+      "share": 0.017786891108938746
+     },
+     {
+      "url": "example.com/services/water-treatment",
+      "raw": "https://example.com/services/water-treatment",
+      "impr": 418,
+      "clicks": 6,
+      "queries": 2,
+      "share": 0.009966381345223051
+     }
+    ],
+    "owner": {
+     "url": "example.com",
+     "raw": "https://example.com/",
+     "impr": 19836,
+     "clicks": 499,
+     "queries": 16,
+     "share": 0.47295009656422116
+    },
+    "status": "split",
+    "opportunity": 1547.1074786342951,
+    "intent": "informational",
+    "source": "gsc"
+   }
+  ],
+  "impr": 0,
+  "clicks": 0,
+  "distinct": 0,
+  "intents": [],
+  "verdict": "competing only",
+  "opportunity": 0
+ }
+]

@@ -1,0 +1,20 @@
+.blk-actions {
+  display: flex;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.blk-actions--center {
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .blk-actions {
+    inline-size: 100%;
+  }
+
+  .blk-actions > .ds-btn {
+    inline-size: 100%;
+  }
+}

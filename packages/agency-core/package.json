@@ -1,0 +1,42 @@
+{
+  "name": "@factory/agency-core",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./design-system": "./src/design-system/index.ts",
+    "./design-system/global.css": "./src/design-system/global.css",
+    "./design-system/primitives.css": "./src/design-system/primitives.css",
+    "./cms": "./src/cms/index.ts",
+    "./blocks": "./src/blocks/index.ts",
+    "./blocks/payload": "./src/blocks/payload.ts",
+    "./blocks/fixtures": "./src/blocks/fixtures/index.ts",
+    "./blocks/manifest": "./src/blocks/manifest.ts",
+    "./intake": "./src/intake/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --max-warnings 0",
+    "test": "vitest run --passWithNoTests"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19",
+    "payload": "^3.88.0",
+    "@payloadcms/richtext-lexical": "^3.88.0"
+  },
+  "devDependencies": {
+    "@factory/eslint-config": "workspace:*",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "vitest": "5.0.0",
+    "payload": "3.88.0",
+    "@payloadcms/richtext-lexical": "3.88.0",
+    "graphql": "^16.11.0"
+  },
+  "dependencies": {
+    "zod": "^4.5.4"
+  }
+}

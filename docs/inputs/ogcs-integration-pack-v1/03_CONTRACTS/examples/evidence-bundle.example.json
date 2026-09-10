@@ -1,0 +1,132 @@
+{
+  "contract": "factory.seo/evidence-bundle",
+  "contract_version": "1.0.0",
+  "produced_by": {
+    "system": "ses-adapter",
+    "version": "0.1.0"
+  },
+  "produced_at": "2026-09-05T16:00:00Z",
+  "project_id": "h2o-cooling",
+  "run_id": "01J7Q0X9Z3K4M5N6P7Q8R9S0TV",
+  "inputs": [
+    {
+      "artefact": "h2ocooling-2026-09-05-1400.seoproject.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "payload": {
+    "source_format": "search-evidence-console/project",
+    "source_version": 1,
+    "measurement_window": {
+      "start": "2025-05-03",
+      "end": "2026-09-03",
+      "basis": "gsc_api"
+    },
+    "coverage": {
+      "gsc": true,
+      "gsc_row_cap_hit": false,
+      "semrush_positions": true,
+      "semrush_backlinks": true,
+      "crawl": true,
+      "surfer": false,
+      "ai_observations": 0
+    },
+    "pages": [
+      {
+        "url": "https://h2ocooling.com/services/cooling-tower-repair/",
+        "canonicalized_url": "https://h2ocooling.com/services/cooling-tower-repair/",
+        "gsc": {
+          "clicks": 412,
+          "impressions": 18900,
+          "ctr": 0.0218,
+          "position": 6.4,
+          "provenance": "measured"
+        },
+        "backlinks": {
+          "referring_domains": 9,
+          "backlinks": 23,
+          "follow_ratio": 0.78,
+          "provenance": "imported"
+        },
+        "crawl": {
+          "status": 200,
+          "title": "Cooling Tower Repair | H2O Cooling",
+          "h1": "Cooling Tower Repair",
+          "word_count": 1420,
+          "internal_inlinks": 31,
+          "schema_types": [
+            "WebPage",
+            "Service"
+          ],
+          "hreflang": [],
+          "indexable": true,
+          "canonical": "https://h2ocooling.com/services/cooling-tower-repair/",
+          "provenance": "measured"
+        },
+        "surfer": null,
+        "ai_visibility": null
+      },
+      {
+        "url": "https://h2ocooling.com/blog/keep-your-home-cool-this-summer/",
+        "canonicalized_url": "https://h2ocooling.com/blog/keep-your-home-cool-this-summer/",
+        "gsc": {
+          "clicks": 0,
+          "impressions": 14,
+          "ctr": 0.0,
+          "position": 58.2,
+          "provenance": "measured"
+        },
+        "backlinks": {
+          "referring_domains": 0,
+          "backlinks": 0,
+          "follow_ratio": null,
+          "provenance": "imported"
+        },
+        "crawl": {
+          "status": 200,
+          "title": "Keep Your Home Cool This Summer",
+          "h1": "Keep Your Home Cool This Summer",
+          "word_count": 640,
+          "internal_inlinks": 2,
+          "schema_types": [
+            "WebPage",
+            "Article"
+          ],
+          "hreflang": [],
+          "indexable": true,
+          "canonical": null,
+          "provenance": "measured"
+        },
+        "surfer": null,
+        "ai_visibility": null
+      }
+    ],
+    "queries": [],
+    "page_query_ownership": [],
+    "findings": {
+      "cannibalization": [],
+      "decay": [],
+      "striking_distance": [],
+      "technical": []
+    },
+    "action_queue": [
+      {
+        "rank": 1,
+        "decision": "protect",
+        "target": "https://h2ocooling.com/services/cooling-tower-repair/",
+        "impact": "high",
+        "effort": "low",
+        "basis": "measured",
+        "evidence": [
+          "412 clicks / 16m",
+          "9 referring domains"
+        ]
+      }
+    ],
+    "run_history_reference": {
+      "ses_run_id": "run_2026-09-05",
+      "score_model": 2,
+      "overall": 71
+    }
+  }
+}

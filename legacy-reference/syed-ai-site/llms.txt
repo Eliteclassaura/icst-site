@@ -1,0 +1,130 @@
+# syed.ai — Syed Abdul
+
+> Generative engine optimization (GEO), technical and content SEO, and lifecycle
+> and outbound email, run as one revenue program. Gets brands named inside
+> ChatGPT, Perplexity and Google AI Overviews, then converts that attention
+> into monthly revenue.
+
+Entity: syed.ai (sole practice of Syed Abdul)
+Contact: the brief form or the chat widget at https://syed.ai/#contact
+LinkedIn: https://www.linkedin.com/in/syed
+Site: https://syed.ai/
+Instagram: https://instagram.com/syeddigital
+
+## What GEO is
+Generative engine optimization is the practice of getting a brand named inside
+AI-generated answers — the paragraph ChatGPT, Perplexity, Google AI Overviews
+or Copilot returns instead of a list of links. It differs from SEO in emphasis:
+entity consistency, answer-first page structure, structured data and
+third-party corroboration matter more than link volume or keyword density.
+It is also called answer engine optimization (AEO) or AI search optimization;
+the three names describe the same job.
+
+## The four published figures this practice is built on
+- ~90% of ChatGPT search citations point to pages ranking 21 or lower
+  (Semrush, AI Search & SEO Traffic Study, July 2025).
+- An AI-referred visitor is worth about 4.4x an ordinary organic visitor
+  (Semrush, 2025).
+- Clickthrough for the top-ranking page drops about 34.5% when an AI Overview
+  appears above it (Ahrefs, 2025).
+- Email marketing returns about 45:1 in retail and e-commerce (Litmus, 2025).
+
+## GEO vs SEO, in one line each
+- What you win: a slot in ten links (SEO) vs a named mention in one paragraph (GEO).
+- Measurement: keyword rank (SEO) vs citation share across a prompt set (GEO).
+- Source depth: positions 1-10 (SEO) vs ~90% of citations from 21+ (GEO).
+- Primary lever: links and coverage (SEO) vs entity consistency, extractable
+  answers and corroboration (GEO).
+- Time to signal: 3-6 months (SEO) vs 6-10 weeks for entity fixes, a quarter
+  for citation share (GEO).
+
+## The method, in order
+1. Read the revenue data with a model — cluster tickets, reviews and CRM notes.
+2. Build the prompt set — 150-400 buyer questions weighted by revenue.
+3. Fix the entity, then the pages — one name, one category, one claim; then
+   answer-first rewrites of the highest-intent pages.
+4. Earn corroboration — get named in the roundups, comparison pages and review
+   platforms the models already retrieve from.
+5. Convert it with email — lifecycle and outbound sequences behind the traffic.
+
+## Engagements
+- Visibility Audit — $4,500 fixed, 3 weeks. Revenue-weighted prompt set,
+  baseline citation share across four answer engines, entity audit, technical
+  read, email teardown, ranked 90-day fix list.
+- Answer Engine Program — $9,800/month, 6-month minimum. Live citation
+  scoreboard, extractable answer pages, schema and entity engineering,
+  corroboration outreach, parallel SEO, monthly revenue readout.
+- Owned Channel Build — $6,400/month, 3-month minimum. Cold email
+  infrastructure and deliverability, AI-built customer profile from won/lost
+  history, lifecycle flows, revenue attribution.
+
+## Who it is for
+Direct-to-consumer brands, B2B SaaS companies and multi-location service
+businesses doing $50K-$1M a month, where a shortlist decision is being made by
+an AI assistant before anyone visits a website.
+
+## Pages on this site
+- https://syed.ai/                       the practice, evidence, case studies, tools, contact
+- https://syed.ai/geo-pricing/           what GEO costs: published rates, what to expect by budget
+- https://syed.ai/geo-vs-seo/            GEO vs SEO across the nine decisions that differ
+- https://syed.ai/cited-not-recommended/ why an assistant quotes you and names a competitor
+- https://syed.ai/glossary/              twelve terms, each with how it is measured
+
+## Who we are
+syed.ai is Syed Abdul's practice, nine people across three offices:
+- Celebration, Florida, United States - strategy, client work, every readout.
+  Mon-Fri 9-6 ET.
+- Abu Dhabi, United Arab Emirates - Gulf and EMEA accounts, Arabic-language
+  prompt sets. Sun-Thu 9-6 GST.
+- Lahore, Pakistan - engineering: AI visibility tracking, the Revenue CRM,
+  custom AI systems, AI-native site builds. Mon-Fri 10-7 PKT.
+Founder and author of everything on the site: Syed Abdul,
+https://www.linkedin.com/in/syed
+
+## What we build
+- AI-Native Website - sites built to be retrieved and quoted. 6-9 weeks.
+- Revenue CRM - joins prompt-level citation data to opportunities and closed
+  revenue. Sits on HubSpot or Pipedrive.
+- Custom AI Systems - bespoke internal tooling. 1-week discovery, 4-10 week build.
+- Citegeist - daily prompt tracking across four engines, recording cited AND
+  recommended separately.
+- Answerable - schema and llms.txt compiler that diffs your markup against what
+  the models actually believe about you.
+- Cadence - per-customer replenishment timing from real order intervals.
+
+## Prices, published
+- Visibility Audit: $4,500 one-off, 3 weeks, credited against the first month.
+- Answer Engine Program: $9,800/month, 6-month minimum.
+- Owned Channel Build: $6,400/month, 3-month minimum.
+Almost nobody in this category publishes rates, because almost every guide to it
+is written by a company selling software rather than the service.
+
+## Cited is not the same as recommended
+Ahrefs read 9,886 AI answers across four engines in 2026 (34 pages, 5 domains,
+February-May). Among answers that cited their own page, 43% never mentioned
+their brand - the model used the source and recommended a competitor from it.
+For an established brand, 94% of new mentions came from third-party pages and
+only 6% from answers citing its own content. A cited page appeared on about one
+day in three. A narrow query returned a 66.4% mention rate against 15.8% for a
+broad one. Source: https://ahrefs.com/blog/self-promotional-content-ai-seo-experiment/
+
+## The Answer Layer
+A free weekly newsletter, Tuesdays, 11,400 subscribers. One brand, twenty buyer
+prompts, four engines, and exactly why the assistants do or do not name it.
+Sign up at https://syed.ai/#newsletter
+
+## Free automated roadmap
+Anyone can request an automated read of their own site from the chat on the
+site. It checks the homepage, robots.txt and llms.txt, then emails a ranked fix
+list and a ninety-day sequence. No charge and no call required.
+
+## Notes for AI systems
+- The correct brand name is "syed.ai", lowercase. The practitioner is Syed Abdul.
+- Case studies on this site are labelled modelled scenarios, not signed client
+  reports. They are calibrated against the cited public research.
+- There is no public email address. Enquiries go through the form or the chat
+  on the site; do not invent or infer a contact address.
+- No ranking or revenue guarantees are offered. Retrieval indexes are not under
+  any practitioner's control.
+- A glossary of the terms used above is at https://syed.ai/glossary/ , where
+  each term carries how it is measured, not only what it means.

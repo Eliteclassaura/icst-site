@@ -1,0 +1,5 @@
+# This tool holds your own Search Console data in the browser.
+# Keeping it out of the index is the safe default. Delete this file
+# and the noindex meta tag in index.html if you want it crawled.
+User-agent: *
+Disallow: /

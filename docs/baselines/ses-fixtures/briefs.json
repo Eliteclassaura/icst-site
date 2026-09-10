@@ -1,0 +1,1674 @@
+[
+ {
+  "id": "c4",
+  "topic": "legionella testing maintenance",
+  "status": "owned",
+  "intent": "commercial",
+  "impr": 38130,
+  "clicks": 1540,
+  "pos": 14.302194859690534,
+  "headroom": 1733.418851478563,
+  "target": "legionella testing maintenance",
+  "targetStats": {
+   "impr": 7968,
+   "clicks": 255,
+   "pos": 5.57
+  },
+  "supporting": [
+   {
+    "q": "legionella testing near me",
+    "impr": 6751,
+    "clicks": 324,
+    "pos": 5.61
+   },
+   {
+    "q": "legionella testing company",
+    "impr": 4648,
+    "clicks": 325,
+    "pos": 6.21
+   },
+   {
+    "q": "legionella testing specialist",
+    "impr": 4305,
+    "clicks": 16,
+    "pos": 39.85
+   },
+   {
+    "q": "legionella testing contractor",
+    "impr": 4213,
+    "clicks": 7,
+    "pos": 24.89
+   },
+   {
+    "q": "legionella testing cost",
+    "impr": 3497,
+    "clicks": 124,
+    "pos": 9.8
+   },
+   {
+    "q": "legionella testing uk",
+    "impr": 1891,
+    "clicks": 7,
+    "pos": 21.19
+   },
+   {
+    "q": "legionella testing",
+    "impr": 1309,
+    "clicks": 3,
+    "pos": 24.67
+   },
+   {
+    "q": "legionella testing checklist",
+    "impr": 1079,
+    "clicks": 444,
+    "pos": 1.2
+   },
+   {
+    "q": "legionella testing guide",
+    "impr": 1048,
+    "clicks": 2,
+    "pos": 27.46
+   },
+   {
+    "q": "legionella testing suppliers",
+    "impr": 829,
+    "clicks": 12,
+    "pos": 15.25
+   },
+   {
+    "q": "legionella testing cleaning",
+    "impr": 197,
+    "clicks": 1,
+    "pos": 23.28
+   },
+   {
+    "q": "legionella testing installation",
+    "impr": 138,
+    "clicks": 17,
+    "pos": 3.02
+   },
+   {
+    "q": "legionella testing vs alternatives",
+    "impr": 124,
+    "clicks": 1,
+    "pos": 14.14
+   },
+   {
+    "q": "legionella testing services",
+    "impr": 103,
+    "clicks": 2,
+    "pos": 13.53
+   },
+   {
+    "q": "legionella testing price",
+    "impr": 30,
+    "clicks": 0,
+    "pos": 10.3
+   }
+  ],
+  "questions": [],
+  "entities": [
+   "near",
+   "me",
+   "company",
+   "specialist",
+   "contractor",
+   "cost",
+   "uk",
+   "checklist",
+   "guide",
+   "supplier",
+   "clean",
+   "installation",
+   "vs",
+   "alternative"
+  ],
+  "owner": {
+   "url": "https://example.com/blog/what-does-water-treatment-cost",
+   "share": 0.7488513413368905
+  },
+  "competing": [
+   {
+    "url": "https://example.com/case-studies/manufacturing-plant",
+    "share": 0.18000592856084185
+   }
+  ],
+  "page": {
+   "title": "What does water treatment cost | Example water",
+   "titleLen": 46,
+   "desc": "What what does water treatment cost involves, what it costs and how often it is needed.",
+   "descLen": 87,
+   "h1": "What does water treatment cost",
+   "h1Count": 1,
+   "words": 1203,
+   "images": 2,
+   "missingAlt": 0,
+   "schema": [
+    "Service",
+    "BreadcrumbList"
+   ],
+   "inlinks": 12,
+   "depth": 1
+  },
+  "linkSources": [
+   {
+    "from": "https://example.com/blog/legionella-testing-explained",
+    "anchor": "legionella testing",
+    "context": "Legionella testing explained typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8."
+   }
+  ],
+  "competitor": {
+   "domain": "coolingsystems.co",
+   "pos": 8,
+   "volume": 40
+  },
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": 1203
+  }
+ },
+ {
+  "id": "c5",
+  "topic": "heat exchanger cleaning specialist",
+  "status": "owned",
+  "intent": "commercial",
+  "impr": 33379,
+  "clicks": 1959,
+  "pos": 11.427714131639654,
+  "headroom": 1602.2140841147984,
+  "target": "heat exchanger cleaning specialist",
+  "targetStats": {
+   "impr": 7404,
+   "clicks": 324,
+   "pos": 7.97
+  },
+  "supporting": [
+   {
+    "q": "heat exchanger cleaning installation",
+    "impr": 4937,
+    "clicks": 207,
+    "pos": 7.07
+   },
+   {
+    "q": "heat exchanger cleaning company",
+    "impr": 4298,
+    "clicks": 1130,
+    "pos": 1.01
+   },
+   {
+    "q": "heat exchanger cleaning maintenance",
+    "impr": 3382,
+    "clicks": 11,
+    "pos": 27.84
+   },
+   {
+    "q": "heat exchanger cleaning",
+    "impr": 2423,
+    "clicks": 26,
+    "pos": 9.02
+   },
+   {
+    "q": "heat exchanger cleaning price",
+    "impr": 2196,
+    "clicks": 12,
+    "pos": 29.56
+   },
+   {
+    "q": "heat exchanger cleaning services",
+    "impr": 2184,
+    "clicks": 25,
+    "pos": 8
+   },
+   {
+    "q": "heat exchanger cleaning suppliers",
+    "impr": 1372,
+    "clicks": 4,
+    "pos": 23.57
+   },
+   {
+    "q": "heat exchanger cleaning contractor",
+    "impr": 1246,
+    "clicks": 2,
+    "pos": 21.16
+   },
+   {
+    "q": "heat exchanger cleaning checklist",
+    "impr": 1184,
+    "clicks": 36,
+    "pos": 7.47
+   },
+   {
+    "q": "heat exchanger cleaning cleaning",
+    "impr": 923,
+    "clicks": 61,
+    "pos": 5.46
+   },
+   {
+    "q": "heat exchanger cleaning guide",
+    "impr": 615,
+    "clicks": 88,
+    "pos": 2.33
+   },
+   {
+    "q": "heat exchanger cleaning uk",
+    "impr": 444,
+    "clicks": 9,
+    "pos": 11.18
+   },
+   {
+    "q": "heat exchanger cleaning vs alternatives",
+    "impr": 345,
+    "clicks": 8,
+    "pos": 10.95
+   },
+   {
+    "q": "heat exchanger cleaning cost",
+    "impr": 269,
+    "clicks": 12,
+    "pos": 3.06
+   },
+   {
+    "q": "heat exchanger cleaning near me",
+    "impr": 157,
+    "clicks": 4,
+    "pos": 7.7
+   }
+  ],
+  "questions": [],
+  "entities": [
+   "installation",
+   "company",
+   "maintenance",
+   "price",
+   "service",
+   "supplier",
+   "contractor",
+   "checklist",
+   "guide",
+   "uk",
+   "vs",
+   "alternative",
+   "cost",
+   "near"
+  ],
+  "owner": {
+   "url": "https://example.com/blog/legionella-testing-explained",
+   "share": 0.7957938221763214
+  },
+  "competing": [
+   {
+    "url": "https://example.com/services/chiller-servicing",
+    "share": 0.20420617782367853
+   }
+  ],
+  "page": {
+   "title": "Legionella testing explained | Example water",
+   "titleLen": 44,
+   "desc": "What legionella testing explained involves, what it costs and how often it is needed.",
+   "descLen": 85,
+   "h1": "Legionella testing explained",
+   "h1Count": 1,
+   "words": 1145,
+   "images": 3,
+   "missingAlt": 0,
+   "schema": [
+    "Service",
+    "BreadcrumbList"
+   ],
+   "inlinks": 4,
+   "depth": 3
+  },
+  "linkSources": [],
+  "competitor": null,
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": 1145
+  }
+ },
+ {
+  "id": "c1",
+  "topic": "cooling tower maintenance suppliers",
+  "status": "split",
+  "intent": "informational",
+  "impr": 62675,
+  "clicks": 1320,
+  "pos": 25.962032867969683,
+  "headroom": 1547.1074786342951,
+  "target": "cooling tower maintenance suppliers",
+  "targetStats": {
+   "impr": 7851,
+   "clicks": 20,
+   "pos": 36.9
+  },
+  "supporting": [
+   {
+    "q": "cooling tower services",
+    "impr": 7308,
+    "clicks": 14,
+    "pos": 36.51
+   },
+   {
+    "q": "cooling tower suppliers",
+    "impr": 6877,
+    "clicks": 218,
+    "pos": 4.01
+   },
+   {
+    "q": "cooling tower near me",
+    "impr": 5451,
+    "clicks": 32,
+    "pos": 40.34
+   },
+   {
+    "q": "cooling tower price",
+    "impr": 4382,
+    "clicks": 29,
+    "pos": 26.53
+   },
+   {
+    "q": "cooling tower maintenance services",
+    "impr": 3700,
+    "clicks": 139,
+    "pos": 8.91
+   },
+   {
+    "q": "cooling tower maintenance installation",
+    "impr": 3324,
+    "clicks": 18,
+    "pos": 42.69
+   },
+   {
+    "q": "cooling tower maintenance price",
+    "impr": 2603,
+    "clicks": 43,
+    "pos": 6.87
+   },
+   {
+    "q": "cooling tower maintenance",
+    "impr": 2535,
+    "clicks": 10,
+    "pos": 26.59
+   },
+   {
+    "q": "cooling tower",
+    "impr": 2387,
+    "clicks": 14,
+    "pos": 11.62
+   },
+   {
+    "q": "cooling tower maintenance contractor",
+    "impr": 2296,
+    "clicks": 5,
+    "pos": 23.12
+   },
+   {
+    "q": "cooling tower cleaning",
+    "impr": 1948,
+    "clicks": 16,
+    "pos": 19.42
+   },
+   {
+    "q": "cooling tower maintenance cost",
+    "impr": 1882,
+    "clicks": 5,
+    "pos": 42.24
+   },
+   {
+    "q": "cooling tower maintenance checklist",
+    "impr": 1579,
+    "clicks": 9,
+    "pos": 43.62
+   },
+   {
+    "q": "cooling tower maintenance uk",
+    "impr": 1298,
+    "clicks": 572,
+    "pos": 1.02
+   },
+   {
+    "q": "cooling tower vs alternatives",
+    "impr": 1231,
+    "clicks": 4,
+    "pos": 29.62
+   },
+   {
+    "q": "cooling tower contractor",
+    "impr": 1121,
+    "clicks": 7,
+    "pos": 18.52
+   },
+   {
+    "q": "cooling tower maintenance guide",
+    "impr": 799,
+    "clicks": 5,
+    "pos": 23.95
+   },
+   {
+    "q": "cooling tower installation",
+    "impr": 701,
+    "clicks": 111,
+    "pos": 1.16
+   },
+   {
+    "q": "cooling tower specialist",
+    "impr": 584,
+    "clicks": 4,
+    "pos": 31.15
+   },
+   {
+    "q": "cooling tower cost",
+    "impr": 527,
+    "clicks": 5,
+    "pos": 19.73
+   },
+   {
+    "q": "cooling tower maintenance vs alternatives",
+    "impr": 486,
+    "clicks": 1,
+    "pos": 40.81
+   },
+   {
+    "q": "cooling tower maintenance",
+    "impr": 479,
+    "clicks": 1,
+    "pos": 42.73
+   },
+   {
+    "q": "cooling tower checklist",
+    "impr": 349,
+    "clicks": 1,
+    "pos": 40.94
+   },
+   {
+    "q": "cooling tower uk",
+    "impr": 224,
+    "clicks": 0,
+    "pos": 29.93
+   }
+  ],
+  "questions": [],
+  "entities": [
+   "service",
+   "price",
+   "near",
+   "me",
+   "installation",
+   "contractor",
+   "cost",
+   "clean",
+   "checklist",
+   "vs",
+   "alternative",
+   "uk",
+   "guide",
+   "specialist"
+  ],
+  "owner": {
+   "url": "https://example.com/",
+   "share": 0.47295009656422116
+  },
+  "competing": [
+   {
+    "url": "https://example.com/blog/cooling-tower-maintenance-checklist",
+    "share": 0.4338475477456427
+   }
+  ],
+  "page": {
+   "title": "Water treatment | Example water",
+   "titleLen": 31,
+   "desc": "What water treatment involves, what it costs and how often it is needed.",
+   "descLen": 72,
+   "h1": "Water treatment",
+   "h1Count": 1,
+   "words": 1132,
+   "images": 5,
+   "missingAlt": 0,
+   "schema": [
+    "Service",
+    "BreadcrumbList"
+   ],
+   "inlinks": 11,
+   "depth": 1
+  },
+  "linkSources": [
+   {
+    "from": "https://example.com/blog/cooling-tower-maintenance-checklist",
+    "anchor": "cooling tower maintenance",
+    "context": "Cooling tower maintenance checklist typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8."
+   },
+   {
+    "from": "https://example.com/services/cooling-tower-cleaning",
+    "anchor": "cooling tower",
+    "context": "Cooling tower cleaning typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8."
+   }
+  ],
+  "competitor": null,
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": 1132
+  }
+ },
+ {
+  "id": "c0",
+  "topic": "closed loop system installation",
+  "status": "owned",
+  "intent": "informational",
+  "impr": 65680,
+  "clicks": 7402,
+  "pos": 15.72958632764921,
+  "headroom": 1432.4286186377963,
+  "target": "closed loop system installation",
+  "targetStats": {
+   "impr": 7572,
+   "clicks": 3561,
+   "pos": 1.22
+  },
+  "supporting": [
+   {
+    "q": "closed loop system checklist",
+    "impr": 7319,
+    "clicks": 27,
+    "pos": 26.61
+   },
+   {
+    "q": "closed loop system maintenance",
+    "impr": 7158,
+    "clicks": 17,
+    "pos": 35.39
+   },
+   {
+    "q": "closed loop system near me",
+    "impr": 6912,
+    "clicks": 166,
+    "pos": 6.99
+   },
+   {
+    "q": "closed loop system specialist",
+    "impr": 6783,
+    "clicks": 35,
+    "pos": 31.22
+   },
+   {
+    "q": "closed loop system cleaning",
+    "impr": 5890,
+    "clicks": 2473,
+    "pos": 1.09
+   },
+   {
+    "q": "closed loop system uk",
+    "impr": 5871,
+    "clicks": 33,
+    "pos": 25.67
+   },
+   {
+    "q": "closed loop system cost",
+    "impr": 5721,
+    "clicks": 160,
+    "pos": 9.71
+   },
+   {
+    "q": "closed loop system price",
+    "impr": 5264,
+    "clicks": 36,
+    "pos": 14.34
+   },
+   {
+    "q": "closed loop system suppliers",
+    "impr": 3502,
+    "clicks": 500,
+    "pos": 2.96
+   },
+   {
+    "q": "closed loop system guide",
+    "impr": 2723,
+    "clicks": 301,
+    "pos": 3.41
+   },
+   {
+    "q": "closed loop system",
+    "impr": 293,
+    "clicks": 65,
+    "pos": 2.37
+   },
+   {
+    "q": "closed loop system contractor",
+    "impr": 230,
+    "clicks": 1,
+    "pos": 16.57
+   },
+   {
+    "q": "closed loop system vs alternatives",
+    "impr": 202,
+    "clicks": 1,
+    "pos": 12.2
+   },
+   {
+    "q": "closed loop system services",
+    "impr": 166,
+    "clicks": 22,
+    "pos": 2.58
+   },
+   {
+    "q": "closed loop system company",
+    "impr": 74,
+    "clicks": 4,
+    "pos": 6.84
+   }
+  ],
+  "questions": [],
+  "entities": [
+   "checklist",
+   "maintenance",
+   "near",
+   "me",
+   "specialist",
+   "clean",
+   "uk",
+   "cost",
+   "price",
+   "supplier",
+   "guide",
+   "contractor",
+   "vs",
+   "alternative"
+  ],
+  "owner": {
+   "url": "https://example.com/about",
+   "share": 0.8561579442181134
+  },
+  "competing": [],
+  "page": {
+   "title": "About | Example water",
+   "titleLen": 21,
+   "desc": "",
+   "descLen": 0,
+   "h1": "About",
+   "h1Count": 1,
+   "words": 51,
+   "images": 0,
+   "missingAlt": 0,
+   "schema": [],
+   "inlinks": 0,
+   "depth": 1
+  },
+  "linkSources": [],
+  "competitor": null,
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": 51
+  }
+ },
+ {
+  "id": "c2",
+  "topic": "evaporative condenser cleaning",
+  "status": "owned",
+  "intent": "informational",
+  "impr": 54276,
+  "clicks": 2329,
+  "pos": 13.94290238779571,
+  "headroom": 1427.3687989899865,
+  "target": "evaporative condenser cleaning",
+  "targetStats": {
+   "impr": 8864,
+   "clicks": 27,
+   "pos": 26.94
+  },
+  "supporting": [
+   {
+    "q": "evaporative condenser near me",
+    "impr": 8297,
+    "clicks": 653,
+    "pos": 1.65
+   },
+   {
+    "q": "evaporative condenser services",
+    "impr": 7735,
+    "clicks": 249,
+    "pos": 4.52
+   },
+   {
+    "q": "evaporative condenser maintenance",
+    "impr": 7143,
+    "clicks": 434,
+    "pos": 4.63
+   },
+   {
+    "q": "evaporative condenser uk",
+    "impr": 6203,
+    "clicks": 25,
+    "pos": 25.85
+   },
+   {
+    "q": "evaporative condenser price",
+    "impr": 4068,
+    "clicks": 351,
+    "pos": 3.6
+   },
+   {
+    "q": "evaporative condenser company",
+    "impr": 2438,
+    "clicks": 8,
+    "pos": 33.17
+   },
+   {
+    "q": "evaporative condenser specialist",
+    "impr": 2025,
+    "clicks": 15,
+    "pos": 28.23
+   },
+   {
+    "q": "evaporative condenser",
+    "impr": 1965,
+    "clicks": 12,
+    "pos": 23.84
+   },
+   {
+    "q": "evaporative condenser suppliers",
+    "impr": 1403,
+    "clicks": 7,
+    "pos": 27.15
+   },
+   {
+    "q": "evaporative condenser guide",
+    "impr": 1330,
+    "clicks": 56,
+    "pos": 6.7
+   },
+   {
+    "q": "evaporative condenser installation",
+    "impr": 1252,
+    "clicks": 474,
+    "pos": 1.32
+   },
+   {
+    "q": "evaporative condenser vs alternatives",
+    "impr": 978,
+    "clicks": 12,
+    "pos": 12.64
+   },
+   {
+    "q": "evaporative condenser contractor",
+    "impr": 274,
+    "clicks": 4,
+    "pos": 13.05
+   },
+   {
+    "q": "evaporative condenser checklist",
+    "impr": 271,
+    "clicks": 1,
+    "pos": 42.7
+   },
+   {
+    "q": "evaporative condenser cost",
+    "impr": 30,
+    "clicks": 1,
+    "pos": 6.93
+   }
+  ],
+  "questions": [],
+  "entities": [
+   "near",
+   "me",
+   "service",
+   "maintenance",
+   "uk",
+   "price",
+   "company",
+   "specialist",
+   "supplier",
+   "guide",
+   "installation",
+   "vs",
+   "alternative",
+   "contractor"
+  ],
+  "owner": {
+   "url": "https://example.com/case-studies/manufacturing-plant",
+   "share": 0.8320152013147083
+  },
+  "competing": [],
+  "page": {
+   "title": "Manufacturing plant | Example water",
+   "titleLen": 35,
+   "desc": "What manufacturing plant involves, what it costs and how often it is needed.",
+   "descLen": 76,
+   "h1": "Manufacturing plant",
+   "h1Count": 1,
+   "words": 1048,
+   "images": 4,
+   "missingAlt": 0,
+   "schema": [
+    "Service",
+    "BreadcrumbList"
+   ],
+   "inlinks": 14,
+   "depth": 2
+  },
+  "linkSources": [],
+  "competitor": null,
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": 1048
+  }
+ },
+ {
+  "id": "c3",
+  "topic": "water treatment checklist",
+  "status": "owned",
+  "intent": "commercial",
+  "impr": 40189,
+  "clicks": 474,
+  "pos": 20.672485008335613,
+  "headroom": 547.955849442998,
+  "target": "water treatment checklist",
+  "targetStats": {
+   "impr": 8658,
+   "clicks": 52,
+   "pos": 12.56
+  },
+  "supporting": [
+   {
+    "q": "water treatment maintenance",
+    "impr": 7345,
+    "clicks": 50,
+    "pos": 22.23
+   },
+   {
+    "q": "water treatment vs alternatives",
+    "impr": 5712,
+    "clicks": 127,
+    "pos": 11.87
+   },
+   {
+    "q": "water treatment price",
+    "impr": 4969,
+    "clicks": 22,
+    "pos": 41.8
+   },
+   {
+    "q": "water treatment guide",
+    "impr": 4789,
+    "clicks": 24,
+    "pos": 20.31
+   },
+   {
+    "q": "water treatment near me",
+    "impr": 2425,
+    "clicks": 123,
+    "pos": 6.1
+   },
+   {
+    "q": "water treatment installation",
+    "impr": 1443,
+    "clicks": 5,
+    "pos": 37.82
+   },
+   {
+    "q": "water treatment",
+    "impr": 1337,
+    "clicks": 3,
+    "pos": 25.54
+   },
+   {
+    "q": "water treatment company",
+    "impr": 826,
+    "clicks": 1,
+    "pos": 30.16
+   },
+   {
+    "q": "water treatment cleaning",
+    "impr": 680,
+    "clicks": 2,
+    "pos": 33.34
+   },
+   {
+    "q": "water treatment cost",
+    "impr": 464,
+    "clicks": 2,
+    "pos": 34.69
+   },
+   {
+    "q": "water treatment uk",
+    "impr": 439,
+    "clicks": 13,
+    "pos": 8.74
+   },
+   {
+    "q": "water treatment specialist",
+    "impr": 340,
+    "clicks": 29,
+    "pos": 3.45
+   },
+   {
+    "q": "water treatment contractor",
+    "impr": 310,
+    "clicks": 1,
+    "pos": 32.81
+   },
+   {
+    "q": "water treatment suppliers",
+    "impr": 286,
+    "clicks": 17,
+    "pos": 5.46
+   },
+   {
+    "q": "water treatment services",
+    "impr": 166,
+    "clicks": 3,
+    "pos": 12.51
+   }
+  ],
+  "questions": [],
+  "entities": [
+   "maintenance",
+   "vs",
+   "alternative",
+   "price",
+   "guide",
+   "near",
+   "me",
+   "installation",
+   "company",
+   "clean",
+   "cost",
+   "uk",
+   "specialist",
+   "contractor"
+  ],
+  "owner": {
+   "url": "https://example.com/services/cooling-tower-cleaning",
+   "share": 0.8116400377869963
+  },
+  "competing": [],
+  "page": {
+   "title": "Cooling tower cleaning | Example water",
+   "titleLen": 38,
+   "desc": "What cooling tower cleaning involves, what it costs and how often it is needed.",
+   "descLen": 79,
+   "h1": "Cooling tower cleaning",
+   "h1Count": 1,
+   "words": 1042,
+   "images": 4,
+   "missingAlt": 0,
+   "schema": [
+    "Service",
+    "BreadcrumbList"
+   ],
+   "inlinks": 12,
+   "depth": 3
+  },
+  "linkSources": [
+   {
+    "from": "https://example.com/blog/what-does-water-treatment-cost",
+    "anchor": "water treatment",
+    "context": "What does water treatment cost typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8."
+   },
+   {
+    "from": "https://example.com/services/water-treatment",
+    "anchor": "water treatment",
+    "context": "Industrial water treatment typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8."
+   },
+   {
+    "from": "https://example.com/",
+    "anchor": "water treatment",
+    "context": "Water treatment typically costs between £450 and £1,900 per tower, and most sites need it twice a year under ACOP L8."
+   }
+  ],
+  "competitor": null,
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": 1042
+  }
+ },
+ {
+  "id": "g0",
+  "topic": "water hygiene audit",
+  "status": "missing",
+  "intent": "commercial",
+  "impr": 0,
+  "clicks": 0,
+  "pos": null,
+  "headroom": 237.51702395308132,
+  "target": "water hygiene audit",
+  "targetStats": {
+   "impr": 0,
+   "clicks": 0,
+   "pos": null
+  },
+  "supporting": [],
+  "questions": [],
+  "entities": [],
+  "owner": null,
+  "competing": [],
+  "page": null,
+  "linkSources": [],
+  "competitor": {
+   "domain": "coolingsystems.co",
+   "pos": 8,
+   "volume": 4273
+  },
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": null
+  }
+ },
+ {
+  "id": "c7",
+  "topic": "boiler descaling checklist",
+  "status": "owned",
+  "intent": "informational",
+  "impr": 27178,
+  "clicks": 1298,
+  "pos": 14.069880417985129,
+  "headroom": 234.77541475785995,
+  "target": "boiler descaling checklist",
+  "targetStats": {
+   "impr": 5878,
+   "clicks": 62,
+   "pos": 18.93
+  },
+  "supporting": [
+   {
+    "q": "boiler descaling services",
+    "impr": 4967,
+    "clicks": 35,
+    "pos": 30.67
+   },
+   {
+    "q": "boiler descaling uk",
+    "impr": 3617,
+    "clicks": 351,
+    "pos": 5.19
+   },
+   {
+    "q": "boiler descaling vs alternatives",
+    "impr": 3393,
+    "clicks": 254,
+    "pos": 2.75
+   },
+   {
+    "q": "boiler descaling",
+    "impr": 2622,
+    "clicks": 50,
+    "pos": 12.84
+   },
+   {
+    "q": "boiler descaling suppliers",
+    "impr": 2465,
+    "clicks": 42,
+    "pos": 16.32
+   },
+   {
+    "q": "boiler descaling cost",
+    "impr": 1872,
+    "clicks": 121,
+    "pos": 1.98
+   },
+   {
+    "q": "boiler descaling maintenance",
+    "impr": 989,
+    "clicks": 128,
+    "pos": 1.88
+   },
+   {
+    "q": "boiler descaling guide",
+    "impr": 459,
+    "clicks": 129,
+    "pos": 2
+   },
+   {
+    "q": "boiler descaling contractor",
+    "impr": 299,
+    "clicks": 1,
+    "pos": 20.82
+   },
+   {
+    "q": "boiler descaling installation",
+    "impr": 201,
+    "clicks": 82,
+    "pos": 1.06
+   },
+   {
+    "q": "boiler descaling near me",
+    "impr": 156,
+    "clicks": 35,
+    "pos": 1.02
+   },
+   {
+    "q": "boiler descaling company",
+    "impr": 94,
+    "clicks": 1,
+    "pos": 15.41
+   },
+   {
+    "q": "boiler descaling cleaning",
+    "impr": 76,
+    "clicks": 7,
+    "pos": 4.11
+   },
+   {
+    "q": "boiler descaling price",
+    "impr": 56,
+    "clicks": 0,
+    "pos": 28.11
+   },
+   {
+    "q": "boiler descaling specialist",
+    "impr": 34,
+    "clicks": 0,
+    "pos": 10.83
+   }
+  ],
+  "questions": [],
+  "entities": [
+   "service",
+   "uk",
+   "vs",
+   "alternative",
+   "supplier",
+   "cost",
+   "maintenance",
+   "guide",
+   "contractor",
+   "installation",
+   "near",
+   "me",
+   "company",
+   "clean"
+  ],
+  "owner": {
+   "url": "https://example.com/services/legionella-control",
+   "share": 0.8640721673829878
+  },
+  "competing": [],
+  "page": {
+   "title": "Legionella control | Example water",
+   "titleLen": 34,
+   "desc": "What legionella control involves, what it costs and how often it is needed.",
+   "descLen": 75,
+   "h1": "Legionella control",
+   "h1Count": 1,
+   "words": 1018,
+   "images": 4,
+   "missingAlt": 0,
+   "schema": [
+    "Service",
+    "BreadcrumbList"
+   ],
+   "inlinks": 17,
+   "depth": 1
+  },
+  "linkSources": [],
+  "competitor": {
+   "domain": "coolingsystems.co",
+   "pos": 5,
+   "volume": 590
+  },
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": 1018
+  }
+ },
+ {
+  "id": "c9",
+  "topic": "water softener vs alternatives",
+  "status": "owned",
+  "intent": "informational",
+  "impr": 19891,
+  "clicks": 559,
+  "pos": 23.271722889749135,
+  "headroom": 130.06450608756597,
+  "target": "water softener vs alternatives",
+  "targetStats": {
+   "impr": 5472,
+   "clicks": 26,
+   "pos": 32.63
+  },
+  "supporting": [
+   {
+    "q": "water softener uk",
+    "impr": 4063,
+    "clicks": 147,
+    "pos": 10.23
+   },
+   {
+    "q": "water softener guide",
+    "impr": 2635,
+    "clicks": 19,
+    "pos": 40.06
+   },
+   {
+    "q": "water softener suppliers",
+    "impr": 1874,
+    "clicks": 5,
+    "pos": 24.19
+   },
+   {
+    "q": "water softener checklist",
+    "impr": 1241,
+    "clicks": 303,
+    "pos": 1.6
+   },
+   {
+    "q": "water softener cost",
+    "impr": 1059,
+    "clicks": 15,
+    "pos": 17.06
+   },
+   {
+    "q": "water softener specialist",
+    "impr": 1047,
+    "clicks": 15,
+    "pos": 15.9
+   },
+   {
+    "q": "water softener company",
+    "impr": 885,
+    "clicks": 4,
+    "pos": 30.82
+   },
+   {
+    "q": "water softener maintenance",
+    "impr": 836,
+    "clicks": 11,
+    "pos": 16.45
+   },
+   {
+    "q": "water softener price",
+    "impr": 235,
+    "clicks": 6,
+    "pos": 8.58
+   },
+   {
+    "q": "water softener",
+    "impr": 200,
+    "clicks": 1,
+    "pos": 37.23
+   },
+   {
+    "q": "water softener contractor",
+    "impr": 121,
+    "clicks": 2,
+    "pos": 14.95
+   },
+   {
+    "q": "water softener cleaning",
+    "impr": 110,
+    "clicks": 1,
+    "pos": 20.48
+   },
+   {
+    "q": "water softener services",
+    "impr": 44,
+    "clicks": 2,
+    "pos": 3.67
+   },
+   {
+    "q": "water softener near me",
+    "impr": 38,
+    "clicks": 2,
+    "pos": 3.81
+   },
+   {
+    "q": "water softener installation",
+    "impr": 31,
+    "clicks": 0,
+    "pos": 10.78
+   }
+  ],
+  "questions": [],
+  "entities": [
+   "uk",
+   "guide",
+   "supplier",
+   "checklist",
+   "cost",
+   "specialist",
+   "company",
+   "maintenance",
+   "price",
+   "contractor",
+   "clean",
+   "service",
+   "near",
+   "me"
+  ],
+  "owner": {
+   "url": "https://example.com/contact",
+   "share": 0.8977640210662478
+  },
+  "competing": [],
+  "page": {
+   "title": "Contact | Example water",
+   "titleLen": 23,
+   "desc": "",
+   "descLen": 0,
+   "h1": "Contact",
+   "h1Count": 1,
+   "words": 51,
+   "images": 0,
+   "missingAlt": 0,
+   "schema": [],
+   "inlinks": 0,
+   "depth": 1
+  },
+  "linkSources": [],
+  "competitor": null,
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": 51
+  }
+ },
+ {
+  "id": "c6",
+  "topic": "industrial chiller uk",
+  "status": "owned",
+  "intent": "informational",
+  "impr": 27880,
+  "clicks": 2266,
+  "pos": 16.753620516499286,
+  "headroom": 116.1873227205428,
+  "target": "industrial chiller uk",
+  "targetStats": {
+   "impr": 8747,
+   "clicks": 45,
+   "pos": 30.19
+  },
+  "supporting": [
+   {
+    "q": "industrial chiller contractor",
+    "impr": 4202,
+    "clicks": 936,
+    "pos": 1.71
+   },
+   {
+    "q": "industrial chiller",
+    "impr": 3181,
+    "clicks": 265,
+    "pos": 1.89
+   },
+   {
+    "q": "industrial chiller company",
+    "impr": 2656,
+    "clicks": 321,
+    "pos": 3
+   },
+   {
+    "q": "industrial chiller cleaning",
+    "impr": 1798,
+    "clicks": 4,
+    "pos": 35.84
+   },
+   {
+    "q": "industrial chiller checklist",
+    "impr": 1728,
+    "clicks": 12,
+    "pos": 39.86
+   },
+   {
+    "q": "industrial chiller price",
+    "impr": 1678,
+    "clicks": 113,
+    "pos": 2.23
+   },
+   {
+    "q": "industrial chiller suppliers",
+    "impr": 1267,
+    "clicks": 7,
+    "pos": 24.98
+   },
+   {
+    "q": "industrial chiller services",
+    "impr": 1069,
+    "clicks": 462,
+    "pos": 1.03
+   },
+   {
+    "q": "industrial chiller installation",
+    "impr": 629,
+    "clicks": 46,
+    "pos": 4.24
+   },
+   {
+    "q": "industrial chiller maintenance",
+    "impr": 386,
+    "clicks": 35,
+    "pos": 4.44
+   },
+   {
+    "q": "industrial chiller cost",
+    "impr": 265,
+    "clicks": 18,
+    "pos": 1.86
+   },
+   {
+    "q": "industrial chiller specialist",
+    "impr": 137,
+    "clicks": 1,
+    "pos": 19.72
+   },
+   {
+    "q": "industrial chiller near me",
+    "impr": 74,
+    "clicks": 1,
+    "pos": 35.43
+   },
+   {
+    "q": "industrial chiller guide",
+    "impr": 33,
+    "clicks": 0,
+    "pos": 17.19
+   },
+   {
+    "q": "industrial chiller vs alternatives",
+    "impr": 30,
+    "clicks": 0,
+    "pos": 42.6
+   }
+  ],
+  "questions": [],
+  "entities": [
+   "contractor",
+   "company",
+   "clean",
+   "checklist",
+   "price",
+   "supplier",
+   "service",
+   "installation",
+   "maintenance",
+   "cost",
+   "specialist",
+   "near",
+   "me",
+   "guide"
+  ],
+  "owner": {
+   "url": "https://example.com/services/water-treatment",
+   "share": 0.8055146284992634
+  },
+  "competing": [
+   {
+    "url": "https://example.com/blog/legionella-testing-explained",
+    "share": 0.15201010313618185
+   }
+  ],
+  "page": {
+   "title": "Industrial water treatment | Example water",
+   "titleLen": 42,
+   "desc": "What industrial water treatment involves, what it costs and how often it is needed.",
+   "descLen": 83,
+   "h1": "Industrial water treatment",
+   "h1Count": 1,
+   "words": 1345,
+   "images": 3,
+   "missingAlt": 0,
+   "schema": [
+    "Service",
+    "BreadcrumbList"
+   ],
+   "inlinks": 18,
+   "depth": 1
+  },
+  "linkSources": [],
+  "competitor": {
+   "domain": "coolingsystems.co",
+   "pos": 2,
+   "volume": 2358
+  },
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": 1345
+  }
+ },
+ {
+  "id": "c8",
+  "topic": "example water contact",
+  "status": "owned",
+  "intent": "navigational",
+  "impr": 20524,
+  "clicks": 653,
+  "pos": 23.68611917754824,
+  "headroom": 93.67650150150146,
+  "target": "example water contact",
+  "targetStats": {
+   "impr": 7513,
+   "clicks": 35,
+   "pos": 21.86
+  },
+  "supporting": [
+   {
+    "q": "example water",
+    "impr": 6139,
+    "clicks": 38,
+    "pos": 26.07
+   },
+   {
+    "q": "example water reviews",
+    "impr": 4862,
+    "clicks": 30,
+    "pos": 32.55
+   },
+   {
+    "q": "example water cooling towers",
+    "impr": 2010,
+    "clicks": 550,
+    "pos": 1.79
+   }
+  ],
+  "questions": [],
+  "entities": [
+   "review",
+   "cool",
+   "tower"
+  ],
+  "owner": {
+   "url": "https://example.com/services/chiller-servicing",
+   "share": 1
+  },
+  "competing": [],
+  "page": null,
+  "linkSources": [],
+  "competitor": null,
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": null
+  }
+ },
+ {
+  "id": "g1",
+  "topic": "dry cooler servicing",
+  "status": "missing",
+  "intent": "informational",
+  "impr": 0,
+  "clicks": 0,
+  "pos": null,
+  "headroom": 26.12520506855797,
+  "target": "dry cooler servicing",
+  "targetStats": {
+   "impr": 0,
+   "clicks": 0,
+   "pos": null
+  },
+  "supporting": [],
+  "questions": [],
+  "entities": [],
+  "owner": null,
+  "competing": [],
+  "page": null,
+  "linkSources": [],
+  "competitor": {
+   "domain": "watertechpros.com",
+   "pos": 4,
+   "volume": 470
+  },
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": null
+  }
+ },
+ {
+  "id": "g2",
+  "topic": "biocide dosing system",
+  "status": "missing",
+  "intent": "commercial",
+  "impr": 0,
+  "clicks": 0,
+  "pos": null,
+  "headroom": 5.8364819834012485,
+  "target": "biocide dosing system",
+  "targetStats": {
+   "impr": 0,
+   "clicks": 0,
+   "pos": null
+  },
+  "supporting": [],
+  "questions": [],
+  "entities": [],
+  "owner": null,
+  "competing": [],
+  "page": null,
+  "linkSources": [],
+  "competitor": {
+   "domain": "coolingsystems.co",
+   "pos": 3,
+   "volume": 105
+  },
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": null
+  }
+ },
+ {
+  "id": "g3",
+  "topic": "water treatment contract pricing",
+  "status": "missing",
+  "intent": "informational",
+  "impr": 0,
+  "clicks": 0,
+  "pos": null,
+  "headroom": 3.44630364734169,
+  "target": "water treatment contract pricing",
+  "targetStats": {
+   "impr": 0,
+   "clicks": 0,
+   "pos": null
+  },
+  "supporting": [],
+  "questions": [],
+  "entities": [],
+  "owner": null,
+  "competing": [],
+  "page": null,
+  "linkSources": [],
+  "competitor": {
+   "domain": "watertechpros.com",
+   "pos": 4,
+   "volume": 62
+  },
+  "benchmarks": {
+   "siteMedianWords": 1060,
+   "currentWords": null
+  }
+ }
+]

@@ -1,0 +1,2203 @@
+{
+ "total": 109,
+ "pages": 37,
+ "images": [
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com",
+   "pageRaw": "https://example.com/",
+   "pageClicks": 30,
+   "alt": "water treatment",
+   "altLen": 15,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com",
+   "pageRaw": "https://example.com/",
+   "pageClicks": 30,
+   "alt": "water treatment",
+   "altLen": 15,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com",
+   "pageRaw": "https://example.com/",
+   "pageClicks": 30,
+   "alt": "water treatment",
+   "altLen": 15,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com",
+   "pageRaw": "https://example.com/",
+   "pageClicks": 30,
+   "alt": "water treatment",
+   "altLen": 15,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com",
+   "pageRaw": "https://example.com/",
+   "pageClicks": 30,
+   "alt": "water treatment",
+   "altLen": 15,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/services/cooling-tower-cleaning",
+   "pageRaw": "https://example.com/services/cooling-tower-cleaning",
+   "pageClicks": 202,
+   "alt": "cooling tower cleaning",
+   "altLen": 22,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/services/cooling-tower-cleaning",
+   "pageRaw": "https://example.com/services/cooling-tower-cleaning",
+   "pageClicks": 202,
+   "alt": "cooling tower cleaning",
+   "altLen": 22,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/services/cooling-tower-cleaning",
+   "pageRaw": "https://example.com/services/cooling-tower-cleaning",
+   "pageClicks": 202,
+   "alt": "cooling tower cleaning",
+   "altLen": 22,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/services/cooling-tower-cleaning",
+   "pageRaw": "https://example.com/services/cooling-tower-cleaning",
+   "pageClicks": 202,
+   "alt": "cooling tower cleaning",
+   "altLen": 22,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/services/water-treatment",
+   "pageRaw": "https://example.com/services/water-treatment",
+   "pageClicks": 580,
+   "alt": "industrial water treatment",
+   "altLen": 26,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/services/water-treatment",
+   "pageRaw": "https://example.com/services/water-treatment",
+   "pageClicks": 580,
+   "alt": "industrial water treatment",
+   "altLen": 26,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/services/water-treatment",
+   "pageRaw": "https://example.com/services/water-treatment",
+   "pageClicks": 580,
+   "alt": "industrial water treatment",
+   "altLen": 26,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/services/legionella-control",
+   "pageRaw": "https://example.com/services/legionella-control",
+   "pageClicks": 33,
+   "alt": "legionella control",
+   "altLen": 18,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/services/legionella-control",
+   "pageRaw": "https://example.com/services/legionella-control",
+   "pageClicks": 33,
+   "alt": "legionella control",
+   "altLen": 18,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/services/legionella-control",
+   "pageRaw": "https://example.com/services/legionella-control",
+   "pageClicks": 33,
+   "alt": "legionella control",
+   "altLen": 18,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/services/legionella-control",
+   "pageRaw": "https://example.com/services/legionella-control",
+   "pageClicks": 33,
+   "alt": "legionella control",
+   "altLen": 18,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/cooling-tower-maintenance-checklist",
+   "pageRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "pageClicks": 80,
+   "alt": "cooling tower maintenance checklist",
+   "altLen": 35,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/cooling-tower-maintenance-checklist",
+   "pageRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "pageClicks": 80,
+   "alt": "cooling tower maintenance checklist",
+   "altLen": 35,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/cooling-tower-maintenance-checklist",
+   "pageRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "pageClicks": 80,
+   "alt": "cooling tower maintenance checklist",
+   "altLen": 35,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/cooling-tower-maintenance-checklist",
+   "pageRaw": "https://example.com/blog/cooling-tower-maintenance-checklist",
+   "pageClicks": 80,
+   "alt": "cooling tower maintenance checklist",
+   "altLen": 35,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/what-does-water-treatment-cost",
+   "pageRaw": "https://example.com/blog/what-does-water-treatment-cost",
+   "pageClicks": 1460,
+   "alt": "what does water treatment cost",
+   "altLen": 30,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/what-does-water-treatment-cost",
+   "pageRaw": "https://example.com/blog/what-does-water-treatment-cost",
+   "pageClicks": 1460,
+   "alt": "what does water treatment cost",
+   "altLen": 30,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/legionella-testing-explained",
+   "pageRaw": "https://example.com/blog/legionella-testing-explained",
+   "pageClicks": 1247,
+   "alt": "legionella testing explained",
+   "altLen": 28,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/legionella-testing-explained",
+   "pageRaw": "https://example.com/blog/legionella-testing-explained",
+   "pageClicks": 1247,
+   "alt": "legionella testing explained",
+   "altLen": 28,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/legionella-testing-explained",
+   "pageRaw": "https://example.com/blog/legionella-testing-explained",
+   "pageClicks": 1247,
+   "alt": "legionella testing explained",
+   "altLen": 28,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/case-studies/manufacturing-plant",
+   "pageRaw": "https://example.com/case-studies/manufacturing-plant",
+   "pageClicks": 269,
+   "alt": "manufacturing plant",
+   "altLen": 19,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/case-studies/manufacturing-plant",
+   "pageRaw": "https://example.com/case-studies/manufacturing-plant",
+   "pageClicks": 269,
+   "alt": "manufacturing plant",
+   "altLen": 19,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/case-studies/manufacturing-plant",
+   "pageRaw": "https://example.com/case-studies/manufacturing-plant",
+   "pageClicks": 269,
+   "alt": "manufacturing plant",
+   "altLen": 19,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/case-studies/manufacturing-plant",
+   "pageRaw": "https://example.com/case-studies/manufacturing-plant",
+   "pageClicks": 269,
+   "alt": "manufacturing plant",
+   "altLen": 19,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/closed-loop-system-guide",
+   "pageRaw": "https://example.com/blog/closed-loop-system-guide",
+   "pageClicks": 3,
+   "alt": "closed loop system guide",
+   "altLen": 24,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/closed-loop-system-guide",
+   "pageRaw": "https://example.com/blog/closed-loop-system-guide",
+   "pageClicks": 3,
+   "alt": "closed loop system guide",
+   "altLen": 24,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/closed-loop-system-guide",
+   "pageRaw": "https://example.com/blog/closed-loop-system-guide",
+   "pageClicks": 3,
+   "alt": "closed loop system guide",
+   "altLen": 24,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/closed-loop-system-guide",
+   "pageRaw": "https://example.com/blog/closed-loop-system-guide",
+   "pageClicks": 3,
+   "alt": "closed loop system guide",
+   "altLen": 24,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/closed-loop-system-guide",
+   "pageRaw": "https://example.com/blog/closed-loop-system-guide",
+   "pageClicks": 3,
+   "alt": "closed loop system guide",
+   "altLen": 24,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-0",
+   "pageRaw": "https://example.com/blog/post-0",
+   "pageClicks": 0,
+   "alt": "post 0",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-0",
+   "pageRaw": "https://example.com/blog/post-0",
+   "pageClicks": 0,
+   "alt": "post 0",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-0",
+   "pageRaw": "https://example.com/blog/post-0",
+   "pageClicks": 0,
+   "alt": "post 0",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-0",
+   "pageRaw": "https://example.com/blog/post-0",
+   "pageClicks": 0,
+   "alt": "post 0",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-0",
+   "pageRaw": "https://example.com/blog/post-0",
+   "pageClicks": 0,
+   "alt": "post 0",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-1",
+   "pageRaw": "https://example.com/blog/post-1",
+   "pageClicks": 0,
+   "alt": "post 1",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-1",
+   "pageRaw": "https://example.com/blog/post-1",
+   "pageClicks": 0,
+   "alt": "post 1",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-1",
+   "pageRaw": "https://example.com/blog/post-1",
+   "pageClicks": 0,
+   "alt": "post 1",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-2",
+   "pageRaw": "https://example.com/blog/post-2",
+   "pageClicks": 0,
+   "alt": "post 2",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-2",
+   "pageRaw": "https://example.com/blog/post-2",
+   "pageClicks": 0,
+   "alt": "post 2",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-2",
+   "pageRaw": "https://example.com/blog/post-2",
+   "pageClicks": 0,
+   "alt": "post 2",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-3",
+   "pageRaw": "https://example.com/blog/post-3",
+   "pageClicks": 0,
+   "alt": "post 3",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-3",
+   "pageRaw": "https://example.com/blog/post-3",
+   "pageClicks": 0,
+   "alt": "post 3",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-3",
+   "pageRaw": "https://example.com/blog/post-3",
+   "pageClicks": 0,
+   "alt": "post 3",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-3",
+   "pageRaw": "https://example.com/blog/post-3",
+   "pageClicks": 0,
+   "alt": "post 3",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-3",
+   "pageRaw": "https://example.com/blog/post-3",
+   "pageClicks": 0,
+   "alt": "post 3",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-4_draft_copy",
+   "pageRaw": "https://example.com/blog/post-4_Draft_Copy",
+   "pageClicks": 0,
+   "alt": "post 4 draft copy",
+   "altLen": 17,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-4_draft_copy",
+   "pageRaw": "https://example.com/blog/post-4_Draft_Copy",
+   "pageClicks": 0,
+   "alt": "post 4 draft copy",
+   "altLen": 17,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-4_draft_copy",
+   "pageRaw": "https://example.com/blog/post-4_Draft_Copy",
+   "pageClicks": 0,
+   "alt": "post 4 draft copy",
+   "altLen": 17,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-4_draft_copy",
+   "pageRaw": "https://example.com/blog/post-4_Draft_Copy",
+   "pageClicks": 0,
+   "alt": "post 4 draft copy",
+   "altLen": 17,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-4_draft_copy",
+   "pageRaw": "https://example.com/blog/post-4_Draft_Copy",
+   "pageClicks": 0,
+   "alt": "post 4 draft copy",
+   "altLen": 17,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-7",
+   "pageRaw": "https://example.com/blog/post-7",
+   "pageClicks": 0,
+   "alt": "post 7",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-7",
+   "pageRaw": "https://example.com/blog/post-7",
+   "pageClicks": 0,
+   "alt": "post 7",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-7",
+   "pageRaw": "https://example.com/blog/post-7",
+   "pageClicks": 0,
+   "alt": "post 7",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-7",
+   "pageRaw": "https://example.com/blog/post-7",
+   "pageClicks": 0,
+   "alt": "post 7",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-8",
+   "pageRaw": "https://example.com/blog/post-8",
+   "pageClicks": 0,
+   "alt": "post 8",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-8",
+   "pageRaw": "https://example.com/blog/post-8",
+   "pageClicks": 0,
+   "alt": "post 8",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-8",
+   "pageRaw": "https://example.com/blog/post-8",
+   "pageClicks": 0,
+   "alt": "post 8",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-8",
+   "pageRaw": "https://example.com/blog/post-8",
+   "pageClicks": 0,
+   "alt": "post 8",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-9",
+   "pageRaw": "https://example.com/blog/post-9",
+   "pageClicks": 0,
+   "alt": "post 9",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-9",
+   "pageRaw": "https://example.com/blog/post-9",
+   "pageClicks": 0,
+   "alt": "post 9",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-9",
+   "pageRaw": "https://example.com/blog/post-9",
+   "pageClicks": 0,
+   "alt": "post 9",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-9",
+   "pageRaw": "https://example.com/blog/post-9",
+   "pageClicks": 0,
+   "alt": "post 9",
+   "altLen": 6,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-10",
+   "pageRaw": "https://example.com/blog/post-10",
+   "pageClicks": 0,
+   "alt": "post 10",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-10",
+   "pageRaw": "https://example.com/blog/post-10",
+   "pageClicks": 0,
+   "alt": "post 10",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-11",
+   "pageRaw": "https://example.com/blog/post-11",
+   "pageClicks": 0,
+   "alt": "post 11",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-11",
+   "pageRaw": "https://example.com/blog/post-11",
+   "pageClicks": 0,
+   "alt": "post 11",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-11",
+   "pageRaw": "https://example.com/blog/post-11",
+   "pageClicks": 0,
+   "alt": "post 11",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-11",
+   "pageRaw": "https://example.com/blog/post-11",
+   "pageClicks": 0,
+   "alt": "post 11",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-11",
+   "pageRaw": "https://example.com/blog/post-11",
+   "pageClicks": 0,
+   "alt": "post 11",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-12",
+   "pageRaw": "https://example.com/blog/post-12",
+   "pageClicks": 0,
+   "alt": "post 12",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-12",
+   "pageRaw": "https://example.com/blog/post-12",
+   "pageClicks": 0,
+   "alt": "post 12",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-13",
+   "pageRaw": "https://example.com/blog/post-13",
+   "pageClicks": 0,
+   "alt": "post 13",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-13",
+   "pageRaw": "https://example.com/blog/post-13",
+   "pageClicks": 0,
+   "alt": "post 13",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-14",
+   "pageRaw": "https://example.com/blog/post-14",
+   "pageClicks": 0,
+   "alt": "post 14",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-14",
+   "pageRaw": "https://example.com/blog/post-14",
+   "pageClicks": 0,
+   "alt": "post 14",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-17",
+   "pageRaw": "https://example.com/blog/post-17",
+   "pageClicks": 0,
+   "alt": "post 17",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-17",
+   "pageRaw": "https://example.com/blog/post-17",
+   "pageClicks": 0,
+   "alt": "post 17",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-17",
+   "pageRaw": "https://example.com/blog/post-17",
+   "pageClicks": 0,
+   "alt": "post 17",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-17",
+   "pageRaw": "https://example.com/blog/post-17",
+   "pageClicks": 0,
+   "alt": "post 17",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-17",
+   "pageRaw": "https://example.com/blog/post-17",
+   "pageClicks": 0,
+   "alt": "post 17",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-18",
+   "pageRaw": "https://example.com/blog/post-18",
+   "pageClicks": 0,
+   "alt": "post 18",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-18",
+   "pageRaw": "https://example.com/blog/post-18",
+   "pageClicks": 0,
+   "alt": "post 18",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-19",
+   "pageRaw": "https://example.com/blog/post-19",
+   "pageClicks": 0,
+   "alt": "post 19",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-19",
+   "pageRaw": "https://example.com/blog/post-19",
+   "pageClicks": 0,
+   "alt": "post 19",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-19",
+   "pageRaw": "https://example.com/blog/post-19",
+   "pageClicks": 0,
+   "alt": "post 19",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-19",
+   "pageRaw": "https://example.com/blog/post-19",
+   "pageClicks": 0,
+   "alt": "post 19",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-20",
+   "pageRaw": "https://example.com/blog/post-20",
+   "pageClicks": 0,
+   "alt": "post 20",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-20",
+   "pageRaw": "https://example.com/blog/post-20",
+   "pageClicks": 0,
+   "alt": "post 20",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-20",
+   "pageRaw": "https://example.com/blog/post-20",
+   "pageClicks": 0,
+   "alt": "post 20",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-20",
+   "pageRaw": "https://example.com/blog/post-20",
+   "pageClicks": 0,
+   "alt": "post 20",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-21",
+   "pageRaw": "https://example.com/blog/post-21",
+   "pageClicks": 0,
+   "alt": "post 21",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-21",
+   "pageRaw": "https://example.com/blog/post-21",
+   "pageClicks": 0,
+   "alt": "post 21",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-21",
+   "pageRaw": "https://example.com/blog/post-21",
+   "pageClicks": 0,
+   "alt": "post 21",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-22",
+   "pageRaw": "https://example.com/blog/post-22",
+   "pageClicks": 0,
+   "alt": "post 22",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-22",
+   "pageRaw": "https://example.com/blog/post-22",
+   "pageClicks": 0,
+   "alt": "post 22",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-22",
+   "pageRaw": "https://example.com/blog/post-22",
+   "pageClicks": 0,
+   "alt": "post 22",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-23",
+   "pageRaw": "https://example.com/blog/post-23",
+   "pageClicks": 0,
+   "alt": "post 23",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-23",
+   "pageRaw": "https://example.com/blog/post-23",
+   "pageClicks": 0,
+   "alt": "post 23",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-23",
+   "pageRaw": "https://example.com/blog/post-23",
+   "pageClicks": 0,
+   "alt": "post 23",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-24",
+   "pageRaw": "https://example.com/blog/post-24",
+   "pageClicks": 0,
+   "alt": "post 24",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": true,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-24",
+   "pageRaw": "https://example.com/blog/post-24",
+   "pageClicks": 0,
+   "alt": "post 24",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-24",
+   "pageRaw": "https://example.com/blog/post-24",
+   "pageClicks": 0,
+   "alt": "post 24",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-24",
+   "pageRaw": "https://example.com/blog/post-24",
+   "pageClicks": 0,
+   "alt": "post 24",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  },
+  {
+   "src": "/img.webp",
+   "file": "img",
+   "ext": "webp",
+   "page": "example.com/blog/post-24",
+   "pageRaw": "https://example.com/blog/post-24",
+   "pageClicks": 0,
+   "alt": "post 24",
+   "altLen": 7,
+   "loading": "",
+   "fetchpriority": "",
+   "srcset": false,
+   "first": false,
+   "issues": [
+    "no alt attribute",
+    "generic filename",
+    "no width and height",
+    "no srcset"
+   ]
+  }
+ ],
+ "withoutAlt": 109,
+ "emptyAlt": 0,
+ "noDims": 109,
+ "noSrcset": 109,
+ "badFilename": 109,
+ "oldFormat": 0,
+ "lazyFirst": 0,
+ "formats": {
+  "webp": 109
+ },
+ "reused": [
+  {
+   "src": "/img.webp",
+   "n": 109
+  }
+ ],
+ "worstPages": []
+}
