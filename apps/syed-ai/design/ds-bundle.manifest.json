@@ -69,7 +69,10 @@
     {
       "embedded": true,
       "family": "Jost",
-      "files": ["/fonts/jost-latin-wght-normal.woff2", "/fonts/jost-latin-ext-wght-normal.woff2"],
+      "files": [
+        "/fonts/jost-latin-wght-normal.woff2",
+        "/fonts/jost-latin-ext-wght-normal.woff2"
+      ],
       "license": "OFL-1.1",
       "role": "text"
     }
@@ -93,5 +96,8 @@
     "summary": "accent hsl(42 52%) · dark ground · Bodoni Moda / Jost · radius 0px · scale ×4.00"
   },
   "site": "syed-ai",
-  "viewports": [1440, 390]
+  "viewports": [
+    1440,
+    390
+  ]
 }

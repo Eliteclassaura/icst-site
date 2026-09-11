@@ -147,7 +147,11 @@ jobs:
           }
           check ".env files"        'find / -name ".env" -o -name ".env.*" ! -name ".env.example" 2>/dev/null | grep -v /proc/ | head'
           check "legacy-reference"  'find / -name "legacy-reference" -maxdepth 6 2>/dev/null | head'
-          check "test files"        'find /app -name "*.test.ts" -o -name "*.spec.ts" 2>/dev/null | head'
+          # First-party residue only: .dockerignore is what keeps Factory tests out of the image
+          # (docs/deployment-coolify-cloudflare.md), and it cannot reach inside published npm packages.
+          # A dependency that ships its own test/ directory is not Factory residue — the directory check
+          # below already excludes node_modules for exactly this reason.
+          check "test files"        'find /app \( -name "*.test.ts" -o -name "*.spec.ts" \) -not -path "*/node_modules/*" 2>/dev/null | head'
           check "test directories"  'find /app -type d \( -name test -o -name e2e -o -name fixtures -o -name test-results \) -not -path "*/node_modules/*" 2>/dev/null | head'
           check "handoff artefacts" 'find /app -type d -name handoff 2>/dev/null | head'
           exit $fail
