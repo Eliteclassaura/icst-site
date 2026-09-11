@@ -178,7 +178,7 @@ jobs:
             --entrypoint node factory/syed-ai:ci node_modules/payload/bin.js migrate
           docker run -d --name ci-web --network factory-ci -p 3100:3000 \
             -e DATABASE_URI=postgres://postgres:postgres@ci-db:5432/factory_ci -e PAYLOAD_SECRET=ci-only-placeholder-secret \
-            -e NEXT_PUBLIC_SERVER_URL=http://localhost:3100 -e MEDIA_DIR=/tmp/media factory/syed-ai:ci >/dev/null
+            -e NEXT_PUBLIC_SERVER_URL=http://localhost:3100 -e MEDIA_DIR=/tmp/media --tmpfs /tmp/media factory/syed-ai:ci >/dev/null
           for i in $(seq 1 60); do curl -fsS http://localhost:3100/api/live >/dev/null 2>&1 && break || sleep 3; done
           echo "liveness:"; curl -fsS http://localhost:3100/api/live; echo
           health=$(curl -fsS http://localhost:3100/api/health); echo "readiness: $health"
