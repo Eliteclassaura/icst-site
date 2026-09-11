@@ -18,6 +18,7 @@ COPY apps/syed-ai ./apps/syed-ai
 # next build needs no database; placeholders satisfy config validation
 ENV DATABASE_URI=postgres://build:build@localhost:5432/build PAYLOAD_SECRET=build-time-placeholder
 RUN pnpm --filter @factory/syed-ai build
+RUN rm -rf /repo/deploy && pnpm --filter @factory/syed-ai deploy --prod --legacy /repo/deploy
 
 FROM base AS runner
 WORKDIR /app
@@ -26,11 +27,17 @@ RUN groupadd -g 1001 app && useradd -u 1001 -g app -m app
 COPY --from=build --chown=app:app /repo/apps/syed-ai/.next/standalone ./
 COPY --from=build --chown=app:app /repo/apps/syed-ai/.next/static ./apps/syed-ai/.next/static
 COPY --from=build --chown=app:app /repo/apps/syed-ai/public ./apps/syed-ai/public
+COPY --from=build --chown=app:app /repo/deploy/node_modules ./apps/syed-ai/node_modules
 # `src` is needed at runtime for the worker (tsx) and the migrations; tests and fixtures are excluded by
 # .dockerignore, and CI asserts the image carries no test file, no legacy archive and no .env.
 COPY --from=build --chown=app:app /repo/apps/syed-ai/src ./apps/syed-ai/src
 COPY --from=build --chown=app:app /repo/apps/syed-ai/tsconfig.json ./apps/syed-ai/tsconfig.json
 COPY --from=build --chown=app:app /repo/tsconfig.base.json ./tsconfig.base.json
+# pnpm's virtual-store metadata contains unused links to workspace/optional platform entries
+# that are not present in the production closure; remove only those known dangling links.
+RUN rm -f /app/node_modules/.pnpm/node_modules/@esbuild/linux-arm64 \
+  /app/apps/syed-ai/node_modules/.pnpm/node_modules/@factory/syed-ai \
+  /app/apps/syed-ai/node_modules/.pnpm/node_modules/@esbuild/linux-arm64
 USER app
 WORKDIR /app/apps/syed-ai
 EXPOSE 3000

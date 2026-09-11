@@ -155,6 +155,17 @@ jobs:
           check "test directories"  'find /app -type d \( -name test -o -name e2e -o -name fixtures -o -name test-results \) -not -path "*/node_modules/*" 2>/dev/null | head'
           check "handoff artefacts" 'find /app -type d -name handoff 2>/dev/null | head'
           exit $fail
+      - name: Production entrypoints resolve and initialize in the final image (R3)
+        # The image-content assertions are all negative — an image missing a required CLI satisfies
+        # every one of them, which is how a broken migrate seam reached the readiness step. These two
+        # run the real documented entrypoints (docs/deployment-coolify-cloudflare.md) from the image's
+        # own WORKDIR, as the non-root user, with no database: resolution and initialization only.
+        run: |
+          set -euo pipefail
+          docker run --rm --entrypoint node factory/syed-ai:ci node_modules/payload/bin.js migrate --help > /dev/null
+          echo "ok: payload migration CLI resolves and initializes without database execution"
+          docker run --rm --entrypoint node factory/syed-ai:ci node_modules/tsx/dist/cli.mjs --version > /dev/null
+          echo "ok: worker tsx runtime initializes"
       - name: Readiness and liveness answer correctly, and leak nothing (C8)
         run: |
           set -euo pipefail
