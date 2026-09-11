@@ -31,6 +31,14 @@ x-app: &app
     - .:/repo
     - node_modules_root:/repo/node_modules
     - node_modules_app:/repo/apps/syed-ai/node_modules
+    # The repository bind mount hides package-local installs copied into the image.
+    # Keep the workspace runtime closure visible from clean-checkout mounts.
+    - node_modules_agency_core:/repo/packages/agency-core/node_modules
+    - node_modules_design_contract:/repo/packages/design-contract/node_modules
+    - node_modules_providers:/repo/packages/providers/node_modules
+    - node_modules_quality_gates:/repo/packages/quality-gates/node_modules
+    - node_modules_seo_contracts:/repo/packages/seo-contracts/node_modules
+    - node_modules_design_bundle:/repo/tools/design-bundle/node_modules
     - next_cache:/repo/apps/syed-ai/.next
     - media:/repo/apps/syed-ai/media
   depends_on:
@@ -97,4 +105,10 @@ volumes:
   media:
   node_modules_root:
   node_modules_app:
+  node_modules_agency_core:
+  node_modules_design_contract:
+  node_modules_providers:
+  node_modules_quality_gates:
+  node_modules_seo_contracts:
+  node_modules_design_bundle:
   next_cache:

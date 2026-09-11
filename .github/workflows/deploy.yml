@@ -22,12 +22,33 @@ concurrency: { group: 'deploy-${{ github.ref }}', cancel-in-progress: false }
 
 jobs:
   staging:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Staging is opt-in. Until the repository variable `STAGING_DEPLOY_ENABLED` is set to 'true' this
+    # job is skipped: no Coolify request is attempted, and a push to main is not red merely because
+    # staging infrastructure does not exist yet. When it IS enabled the required configuration is checked
+    # by name before any network call — the repository variable `STAGING_URL`, and the `staging`
+    # environment secrets `COOLIFY_WEBHOOK` and `COOLIFY_TOKEN` — so a missing value fails as a clear
+    # configuration error rather than as a malformed request.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.STAGING_DEPLOY_ENABLED == 'true'
     runs-on: ubuntu-latest
     environment: { name: staging, url: '${{ vars.STAGING_URL }}' }
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
+      - name: Required staging configuration is present
+        env:
+          WEBHOOK: ${{ secrets.COOLIFY_WEBHOOK }}
+          TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+          BASE: ${{ vars.STAGING_URL }}
+        run: |
+          missing=''
+          [ -n "$WEBHOOK" ] || missing="$missing COOLIFY_WEBHOOK"
+          [ -n "$TOKEN" ] || missing="$missing COOLIFY_TOKEN"
+          [ -n "$BASE" ] || missing="$missing STAGING_URL"
+          if [ -n "$missing" ]; then
+            echo "::error::STAGING_DEPLOY_ENABLED is true but required staging configuration is missing:$missing"
+            exit 1
+          fi
+          echo "staging deploy configuration present"
       - name: Trigger the Coolify deploy
         env:
           WEBHOOK: ${{ secrets.COOLIFY_WEBHOOK }}

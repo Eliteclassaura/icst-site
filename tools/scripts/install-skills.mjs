@@ -15,6 +15,8 @@ import { createHash } from 'node:crypto'
 import { createRequire } from 'node:module'
 import { dirname, join, resolve } from 'node:path'
 
+import { buildManifest } from './lib/manifest.mjs'
+
 const root = resolve(import.meta.dirname, '../..')
 const require = createRequire(import.meta.url)
 const out = resolve(root, '.claude/skills')
@@ -120,9 +122,7 @@ manifest.push({
 // upstream change is a prompt-injection channel (ADR-023). Renovate bumps land here for a human to read.
 const manifestPath = join(out, 'MANIFEST.json')
 const acceptNew = process.argv.includes('--accept-new-hash')
-const previousManifest = existsSync(manifestPath)
-  ? JSON.parse(readFileSync(manifestPath, 'utf8'))
-  : {}
+const previousManifest = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, 'utf8')) : {}
 if (existsSync(manifestPath)) {
   const prev = previousManifest.skills ?? []
   const drift = []
@@ -145,8 +145,6 @@ if (existsSync(manifestPath)) {
   if (drift.length) console.warn('Accepted new skill hashes:\n  ' + drift.join('\n  '))
 }
 
-const outputManifest = { generatedBy: 'tools/scripts/install-skills.mjs', skills: manifest }
-if (previousManifest.firstParty && typeof previousManifest.firstParty === 'object')
-  outputManifest.firstParty = previousManifest.firstParty
+const outputManifest = buildManifest(previousManifest, manifest)
 writeFileSync(manifestPath, JSON.stringify(outputManifest, null, 2) + '\n')
 console.log(manifest.map((m) => `${m.name}: ${m.package ?? m.source ?? m.status}`).join('\n'))

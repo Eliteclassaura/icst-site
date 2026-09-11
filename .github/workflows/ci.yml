@@ -147,10 +147,25 @@ jobs:
           }
           check ".env files"        'find / -name ".env" -o -name ".env.*" ! -name ".env.example" 2>/dev/null | grep -v /proc/ | head'
           check "legacy-reference"  'find / -name "legacy-reference" -maxdepth 6 2>/dev/null | head'
-          check "test files"        'find /app -name "*.test.ts" -o -name "*.spec.ts" 2>/dev/null | head'
+          # First-party residue only: .dockerignore is what keeps Factory tests out of the image
+          # (docs/deployment-coolify-cloudflare.md), and it cannot reach inside published npm packages.
+          # A dependency that ships its own test/ directory is not Factory residue — the directory check
+          # below already excludes node_modules for exactly this reason.
+          check "test files"        'find /app \( -name "*.test.ts" -o -name "*.spec.ts" \) -not -path "*/node_modules/*" 2>/dev/null | head'
           check "test directories"  'find /app -type d \( -name test -o -name e2e -o -name fixtures -o -name test-results \) -not -path "*/node_modules/*" 2>/dev/null | head'
           check "handoff artefacts" 'find /app -type d -name handoff 2>/dev/null | head'
           exit $fail
+      - name: Production entrypoints resolve and initialize in the final image (R3)
+        # The image-content assertions are all negative — an image missing a required CLI satisfies
+        # every one of them, which is how a broken migrate seam reached the readiness step. These two
+        # run the real documented entrypoints (docs/deployment-coolify-cloudflare.md) from the image's
+        # own WORKDIR, as the non-root user, with no database: resolution and initialization only.
+        run: |
+          set -euo pipefail
+          docker run --rm --entrypoint node factory/syed-ai:ci node_modules/payload/bin.js migrate --help > /dev/null
+          echo "ok: payload migration CLI resolves and initializes without database execution"
+          docker run --rm --entrypoint node factory/syed-ai:ci node_modules/tsx/dist/cli.mjs --version > /dev/null
+          echo "ok: worker tsx runtime initializes"
       - name: Readiness and liveness answer correctly, and leak nothing (C8)
         run: |
           set -euo pipefail
@@ -163,7 +178,7 @@ jobs:
             --entrypoint node factory/syed-ai:ci node_modules/payload/bin.js migrate
           docker run -d --name ci-web --network factory-ci -p 3100:3000 \
             -e DATABASE_URI=postgres://postgres:postgres@ci-db:5432/factory_ci -e PAYLOAD_SECRET=ci-only-placeholder-secret \
-            -e NEXT_PUBLIC_SERVER_URL=http://localhost:3100 -e MEDIA_DIR=/tmp/media factory/syed-ai:ci >/dev/null
+            -e NEXT_PUBLIC_SERVER_URL=http://localhost:3100 -e MEDIA_DIR=/tmp/media --tmpfs /tmp/media factory/syed-ai:ci >/dev/null
           for i in $(seq 1 60); do curl -fsS http://localhost:3100/api/live >/dev/null 2>&1 && break || sleep 3; done
           echo "liveness:"; curl -fsS http://localhost:3100/api/live; echo
           health=$(curl -fsS http://localhost:3100/api/health); echo "readiness: $health"
@@ -181,10 +196,16 @@ jobs:
           grep -q '"database":"fail"' /tmp/h.json
           curl -fsS http://localhost:3100/api/live >/dev/null && echo "liveness still ok with the database down"
           docker rm -f ci-web ci-db >/dev/null; docker network rm factory-ci >/dev/null
+      - name: Bound BuildKit cleanup before Compose (R3.2)
+        run: |
+          set -euo pipefail
+          docker builder prune -af
+          docker image rm -f factory/syed-ai:ci || true
       - name: Compose stack starts from a clean checkout and serves the site and admin (C8)
         env: { PAYLOAD_SECRET: compose-ci-placeholder-secret }
         run: |
           set -euo pipefail
+          docker compose --profile seed run --rm seed
           docker compose up -d --wait web worker
           curl -fsS http://localhost:3000/api/live >/dev/null && echo "live ok"
           curl -fsS -o /dev/null -w 'site: %{http_code}\n' http://localhost:3000/

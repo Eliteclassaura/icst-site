@@ -2,17 +2,17 @@
 
 Run once, on the new Mac. **You are restoring a git history that already exists in the handoff package — you are not creating one.**
 
-> **Two corrections, both on 2026-09-10.** First, the `git filter-repo` rewrite left the plan: the machine holding the only offline copy of the pre-rewrite history is gone, and shipping that history anywhere to enable a rewrite would move live secrets through a hosted surface to run a rewrite whose only purpose is removing them (ADR-031). Second, an earlier draft of *this* runbook told you to import the current tree as one commit and tag it `c5.5`. **Do not do that.** The current tree is C5.5 *plus* the ADR-031 recovery changes; labelling it `c5.5` would make the checkpoint tag mean two different sets of bytes. The package therefore ships a pre-built, already-verified two-commit history with the tag in the right place.
+> **Two corrections, both on 2026-09-10.** First, the `git filter-repo` rewrite left the plan: the machine holding the only offline copy of the pre-rewrite history is gone, and shipping that history anywhere to enable a rewrite would move live secrets through a hosted surface to run a rewrite whose only purpose is removing them (ADR-031). Second, an earlier draft of _this_ runbook told you to import the current tree as one commit and tag it `c5.5`. **Do not do that.** The current tree is C5.5 _plus_ the ADR-031 recovery changes; labelling it `c5.5` would make the checkpoint tag mean two different sets of bytes. The package therefore ships a pre-built, already-verified two-commit history with the tag in the right place.
 
 ## What you are restoring
 
 A freshly constructed sanitized history with no pre-sanitisation object in it:
 
-| | Commit | Tree |
-| --- | --- | --- |
-| 1 | `import: Agency Site Factory C5.5 exact tree — fresh sanitized history` · **tag `c5.5`** | byte-identical to the historical C5.5 checkpoint `aaa7652` |
-| 2 | `docs(adr-031): new-Mac recovery and fresh-history first-push procedure` | byte-identical to historical `61ffb5f` |
-| 3 | `docs(first-push): restore the clean bundle rather than relabelling the current tree` | this correction |
+|     | Commit                                                                                   | Tree                                                       |
+| --- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| 1   | `import: Agency Site Factory C5.5 exact tree — fresh sanitized history` · **tag `c5.5`** | byte-identical to the historical C5.5 checkpoint `aaa7652` |
+| 2   | `docs(adr-031): new-Mac recovery and fresh-history first-push procedure`                 | byte-identical to historical `61ffb5f`                     |
+| 3   | `docs(first-push): restore the clean bundle rather than relabelling the current tree`    | this correction                                            |
 
 Commit SHAs differ from the historical ones — a new history always produces new SHAs. **What was verified is the tree content**, by git tree-object SHA and by a full per-file SHA-256 manifest, both recorded in the package's `VERIFICATION_REPORT.md`.
 
