@@ -30,7 +30,7 @@
     "design:pull": "node tools/design-bundle/run.mjs pull",
     "preview:pack": "node tools/design-pack/pack.mjs",
     "residue:scan": "pnpm --filter @factory/quality-gates scan --",
-    "skills:verify": "node tools/scripts/verify-skills.mjs",
+    "skills:verify": "node --test tools/scripts/test/*.test.mjs && node tools/scripts/verify-skills.mjs",
     "design:gates": "node tools/design-bundle/run.mjs gates"
   },
   "devDependencies": {

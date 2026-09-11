@@ -10,6 +10,9 @@ WORKDIR /repo
 COPY pnpm-workspace.yaml pnpm-lock.yaml package.json .npmrc tsconfig.base.json ./
 COPY apps/syed-ai/package.json apps/syed-ai/package.json
 COPY packages ./packages
+# tools/* are workspace packages too (pnpm-workspace.yaml). @factory/syed-ai depends on
+# @factory/design-bundle, and --frozen-lockfile requires every lockfile importer to exist.
+COPY tools ./tools
 RUN pnpm install --frozen-lockfile --filter @factory/syed-ai...
 COPY apps/syed-ai ./apps/syed-ai
 # next build needs no database; placeholders satisfy config validation
