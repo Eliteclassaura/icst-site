@@ -196,10 +196,16 @@ jobs:
           grep -q '"database":"fail"' /tmp/h.json
           curl -fsS http://localhost:3100/api/live >/dev/null && echo "liveness still ok with the database down"
           docker rm -f ci-web ci-db >/dev/null; docker network rm factory-ci >/dev/null
+      - name: Bound BuildKit cleanup before Compose (R3.2)
+        run: |
+          set -euo pipefail
+          docker builder prune -af
+          docker image rm -f factory/syed-ai:ci || true
       - name: Compose stack starts from a clean checkout and serves the site and admin (C8)
         env: { PAYLOAD_SECRET: compose-ci-placeholder-secret }
         run: |
           set -euo pipefail
+          docker compose --profile seed run --rm seed
           docker compose up -d --wait web worker
           curl -fsS http://localhost:3000/api/live >/dev/null && echo "live ok"
           curl -fsS -o /dev/null -w 'site: %{http_code}\n' http://localhost:3000/
