@@ -120,8 +120,11 @@ manifest.push({
 // upstream change is a prompt-injection channel (ADR-023). Renovate bumps land here for a human to read.
 const manifestPath = join(out, 'MANIFEST.json')
 const acceptNew = process.argv.includes('--accept-new-hash')
+const previousManifest = existsSync(manifestPath)
+  ? JSON.parse(readFileSync(manifestPath, 'utf8'))
+  : {}
 if (existsSync(manifestPath)) {
-  const prev = JSON.parse(readFileSync(manifestPath, 'utf8')).skills ?? []
+  const prev = previousManifest.skills ?? []
   const drift = []
   for (const m of manifest) {
     const before = prev.find((p) => p.name === m.name)
@@ -142,8 +145,8 @@ if (existsSync(manifestPath)) {
   if (drift.length) console.warn('Accepted new skill hashes:\n  ' + drift.join('\n  '))
 }
 
-writeFileSync(
-  manifestPath,
-  JSON.stringify({ generatedBy: 'tools/scripts/install-skills.mjs', skills: manifest }, null, 2) + '\n',
-)
+const outputManifest = { generatedBy: 'tools/scripts/install-skills.mjs', skills: manifest }
+if (previousManifest.firstParty && typeof previousManifest.firstParty === 'object')
+  outputManifest.firstParty = previousManifest.firstParty
+writeFileSync(manifestPath, JSON.stringify(outputManifest, null, 2) + '\n')
 console.log(manifest.map((m) => `${m.name}: ${m.package ?? m.source ?? m.status}`).join('\n'))
