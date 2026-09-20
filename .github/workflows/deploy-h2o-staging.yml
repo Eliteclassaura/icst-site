@@ -1,0 +1,119 @@
+name: Deploy H2O Staging
+
+# This workflow is intentionally manual and staging-only. It has no tag trigger, production
+# environment, production configuration, or production deployment path. The pre-existing
+# Syed.ai deployment workflow remains the sole owner of its own deployment semantics.
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: Confirm the approved H2O staging deployment
+        required: true
+        type: choice
+        options:
+          - deploy-h2o-staging
+
+permissions:
+  contents: read
+
+concurrency:
+  group: h2o-staging-deploy
+  cancel-in-progress: false
+
+env:
+  H2O_APPLICATION_CANDIDATE: 6889f2f882b225ea8875e7b0f395ac514fb9bb9a
+  H2O_SOURCE_PATH: apps/h2o
+
+jobs:
+  staging:
+    # A dispatch from another ref cannot run. The main ref is compared against the pinned
+    # candidate below, so an infrastructure-only commit is allowed but any H2O source drift fails.
+    if: github.ref == 'refs/heads/main' && inputs.confirmation == 'deploy-h2o-staging'
+    name: H2O staging only
+    runs-on: ubuntu-latest
+    environment:
+      name: h2o-staging
+      url: ${{ vars.H2O_STAGING_URL }}
+    steps:
+      - name: Check out the infrastructure ref
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: binding
+
+      - name: Prove the H2O application is the accepted candidate
+        run: |
+          test -d "binding/$H2O_SOURCE_PATH"
+          test -f "binding/$H2O_SOURCE_PATH/package.json"
+          git -C binding cat-file -e "$H2O_APPLICATION_CANDIDATE^{commit}"
+          git -C binding diff --quiet "$H2O_APPLICATION_CANDIDATE" -- "$H2O_SOURCE_PATH"
+          echo "H2O application candidate: $H2O_APPLICATION_CANDIDATE"
+          echo "H2O deployment source: $H2O_SOURCE_PATH"
+
+      # Build the pinned tree itself, not the workflow commit. The preceding diff gate proves
+      # that the H2O tree at the workflow ref is byte-equivalent to this checked-out candidate.
+      - name: Check out the accepted H2O application candidate
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.H2O_APPLICATION_CANDIDATE }}
+          fetch-depth: 1
+          path: h2o-candidate
+
+      - name: Install locked dependencies
+        working-directory: h2o-candidate
+        run: corepack enable && pnpm install --frozen-lockfile
+
+      - name: Typecheck H2O candidate
+        working-directory: h2o-candidate
+        run: pnpm --filter @factory/h2o typecheck
+
+      - name: Lint H2O candidate with zero warnings
+        working-directory: h2o-candidate
+        run: pnpm --filter @factory/h2o lint
+
+      - name: Run accepted H2O integrated test baseline
+        working-directory: h2o-candidate/apps/h2o
+        run: env -u H2O_TYPEFORM_FORM_ID -u H2O_TYPEFORM_ORIGIN pnpm exec vitest run --config vitest.integrated.config.ts
+
+      - name: Build the accepted H2O candidate in production mode
+        working-directory: h2o-candidate
+        env:
+          DATABASE_URI: postgres://postgres:postgres@127.0.0.1:5432/h2o_stage_build
+          PAYLOAD_SECRET: local-h2o-stage-build-only-not-a-secret
+          NEXT_PUBLIC_SERVER_URL: https://h2o-staging.invalid
+          MEDIA_DIR: /tmp/h2o-stage-media
+          H2O_TYPEFORM_FORM_ID: F22cAgx3
+          H2O_TYPEFORM_ORIGIN: https://form.typeform.com
+        run: pnpm --filter @factory/h2o build
+
+      - name: Require an explicit H2O staging binding
+        env:
+          ENABLED: ${{ vars.H2O_STAGING_DEPLOY_ENABLED }}
+          BASE: ${{ vars.H2O_STAGING_URL }}
+          RESOURCE_ID: ${{ vars.H2O_COOLIFY_RESOURCE_ID }}
+          WEBHOOK: ${{ secrets.H2O_COOLIFY_WEBHOOK }}
+          TOKEN: ${{ secrets.H2O_COOLIFY_TOKEN }}
+        run: |
+          missing=''
+          [ "$ENABLED" = 'true' ] || missing="$missing H2O_STAGING_DEPLOY_ENABLED=true"
+          [ -n "$BASE" ] || missing="$missing H2O_STAGING_URL"
+          [ -n "$RESOURCE_ID" ] || missing="$missing H2O_COOLIFY_RESOURCE_ID"
+          [ -n "$WEBHOOK" ] || missing="$missing H2O_COOLIFY_WEBHOOK"
+          [ -n "$TOKEN" ] || missing="$missing H2O_COOLIFY_TOKEN"
+          if [ -n "$missing" ]; then
+            echo "::error::H2O staging binding is incomplete:$missing"
+            exit 1
+          fi
+          echo "H2O Coolify staging resource configured: $RESOURCE_ID"
+          echo 'H2O staging binding configuration is present'
+
+      - name: Trigger the H2O staging Coolify deployment
+        env:
+          WEBHOOK: ${{ secrets.H2O_COOLIFY_WEBHOOK }}
+          TOKEN: ${{ secrets.H2O_COOLIFY_TOKEN }}
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $TOKEN" \
+            "$WEBHOOK" \
+            --output /dev/null \
+            --write-out 'H2O Coolify accepted: %{http_code}\n'
