@@ -1,19 +1,11 @@
 import type { CollectionConfig } from 'payload'
+import { Users, Media, Pages, Locations, People, Citations, AuditLog } from './foundation'
 import {
-  Users,
-  Media,
-  PrivateFiles,
-  Pages,
   Posts,
   Categories,
   Tags,
   Topics,
   Industries,
-  Locations,
-  AuditLog,
-} from './core'
-import {
-  People,
   Services,
   Offices,
   CaseStudies,
@@ -21,7 +13,6 @@ import {
   Testimonials,
   FAQs,
   GlossaryTerms,
-  Citations,
   EvidenceStats,
   CTAs,
   SimulatorPrompts,
@@ -31,8 +22,9 @@ import {
   Notices,
   SchemaEntities,
   SEOTemplates,
-} from './business'
+} from './editorial'
 import {
+  PrivateFiles,
   Redirects,
   Forms,
   Submissions,
@@ -45,8 +37,16 @@ import {
   LeadScoreRules,
   Outbox,
   RateEvents,
-} from './operations'
+} from './crm'
 
+/**
+ * The full registration used by `apps/syed-ai`.
+ *
+ * This array is written out member by member, in the order it has always had, rather than composed from
+ * `foundationCollections`/`editorialCollections`/`crmCollections`. The layers are a dependency statement;
+ * this order is a schema fact. Composing from the layers would reorder the array and change what
+ * `payload migrate:create` emits, so the literal stays literal.
+ */
 export const allCollections: CollectionConfig[] = [
   Users,
   Media,
@@ -108,6 +108,6 @@ export const SENSITIVE_COLLECTIONS = [
   'users',
 ] as const
 
-export * from './core'
-export * from './business'
-export * from './operations'
+export * from './foundation'
+export * from './editorial'
+export * from './crm'

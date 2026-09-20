@@ -1,0 +1,794 @@
+{
+ "contract": "h2o.phase2d/navigation-contract",
+ "contract_version": "1.0.0",
+ "prepared": "2026-09-18",
+ "status": "PROPOSED_NOT_IMPLEMENTED",
+ "authority": {
+  "presentation": "Accepted H2O_DESIGN_SYSTEM_V1_FINAL_R1_2 (EV-DES) governs presentation only. It may not create, remove, hold, redirect or canonicalise a route, and no navigation item in this contract takes its route decision from it. Every target below is resolved against PUBLIC_ROUTE_REGISTRY.tsv, which takes its decisions from the frozen Sprint4P R2 product authority and the recovered Sprint 4 R4 reconciliation input.",
+  "routes": "PUBLIC_ROUTE_REGISTRY.tsv in this package is the sole route authority. A label may only render when its target route carries publication_ready = PUBLICATION_READY there. BUILD is an architectural state and never makes a label renderable.",
+  "implementation": "BLOCKED_UNTIL_CONTROL_TOWER_ACCEPTANCE. STAGING = LOCKED. PRODUCTION = LOCKED.",
+  "design_authority_scope": "PRESENTATION_ONLY: type, colour, spacing, component behaviour and layout. NO_ROUTE_CREATE_REMOVE_HOLD_REDIRECT_OR_CANONICAL_AUTHORITY.",
+  "render_condition": "publication_ready == PUBLICATION_READY"
+ },
+ "invariants": [
+  "The accepted conversational Typeform RFQ interface is the public conversion path and is never suppressed, replaced or duplicated. No telephone number, email address, unrelated live-chat widget or third-party contact form is invented anywhere in the chrome.",
+  "No H2O wordmark appears in the header or footer. The supplied ICS / Industrial Cooling Solutions identity is the only mark; its white variant is accepted for dark footer use.",
+  "No internal truth-state token - NOT_HELD_PLACEHOLDER, UNKNOWN, HOLD or any other - is ever emitted as user-facing content. A module with no held fact is omitted, not placeheld.",
+  "A navigation label whose target route is not publication-ready in PUBLIC_ROUTE_REGISTRY.tsv is suppressed, never rendered as a dead link and never repointed at a substitute page. BUILD alone never makes a label render.",
+  "Filter and facet state never mints a navigable URL. No crawlable facet URL is implied.",
+  "One intent, one label: the quote action is written \"Request a Quote\" everywhere it appears.",
+  "Design R1.2 governs presentation only. No navigation item, route, redirect, hold or canonical in this package derives from it."
+ ],
+ "header": {
+  "structure": "A 38px orientation strip over a 78px navigation row, 116px total.",
+  "orientation_strip": [
+   {
+    "label": "Regions served",
+    "target": "/regions/united-states/",
+    "route_id": "RT-1866",
+    "route_classification": "HOLD",
+    "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+    "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+    "note": "The accepted chrome carries this strip item. Every region route is HELD, so the whole strip item is suppressed until regions are evidenced and accepted.",
+    "target_publication_ready": "NOT_READY_ROUTE_HELD"
+   },
+   {
+    "label": "Technical Library",
+    "target": "/resources/",
+    "route_id": "RT-1208",
+    "route_classification": "BUILD",
+    "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+    "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+   },
+   {
+    "label": "EN",
+    "target": "LOCALE_SWITCHER",
+    "route_id": "NONE",
+    "route_classification": "NOT_IN_REGISTRY",
+    "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+    "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_IN_REGISTRY",
+    "note": "No accepted locale or hreflang decision is present in any supplied authority, so the switcher renders no alternate locale.",
+    "target_publication_ready": "NOT_IN_REGISTRY"
+   },
+   {
+    "label": "h2ocooling.com",
+    "target": "DOMAIN_IDENTIFIER_ONLY",
+    "route_id": "NONE",
+    "route_classification": "NOT_IN_REGISTRY",
+    "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+    "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_IN_REGISTRY",
+    "note": "Domain identifier only, never a wordmark and never a link target.",
+    "target_publication_ready": "NOT_IN_REGISTRY"
+   }
+  ],
+  "primary": [
+   {
+    "label": "Products",
+    "target": "/cooling-tower-parts-online/",
+    "route_id": "RT-0354",
+    "route_classification": "BUILD",
+    "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+    "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+   },
+   {
+    "label": "Services",
+    "target": "/services/",
+    "route_id": "RT-1218",
+    "route_classification": "BUILD",
+    "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+    "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+   },
+   {
+    "label": "Applications",
+    "target": "/applications/power-generation/",
+    "route_id": "RT-1860",
+    "route_classification": "HOLD",
+    "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+    "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+    "note": "No application route is authorised; the item is suppressed until one is.",
+    "target_publication_ready": "NOT_READY_ROUTE_HELD"
+   },
+   {
+    "label": "Projects",
+    "target": "/projects/",
+    "route_id": "RT-1200",
+    "route_classification": "BUILD",
+    "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+    "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "note": "Three project index routes are classified BUILD (/projects/, /all-projects/, /projects-2/). /projects/ carries the largest measured body (938 words) and is the nav target; consolidating the other two is an owner decision recorded in UNKNOWNS_AND_OWNER_DECISIONS.md.",
+    "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+   },
+   {
+    "label": "About",
+    "target": "/about-ics-industrial-cooling-solutions/",
+    "route_id": "RT-0004",
+    "route_classification": "BUILD",
+    "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+    "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+   }
+  ],
+  "primary_item_count_note": "The accepted design states five primary items on one line at the tablet breakpoint. The accepted Chrome artifact renders six labels in the navigation row because Technical Library appears both in the orientation strip and in the row. This contract keeps five primary items and places Technical Library in the strip only. Recorded as an open design-consistency question in UNKNOWNS_AND_OWNER_DECISIONS.md rather than resolved here.",
+  "search": {
+   "placement": "PERSISTENT_HEADER_FIELD",
+   "target": "/search/",
+   "min_width_px": 240,
+   "placeholder_semantics": "Model, part, manufacturer",
+   "rule": "Submits to the search route. Filter state is never encoded as a navigable URL.",
+   "route_classification": "BUILD_NOINDEX"
+  },
+  "action": {
+   "label": "Request a Quote",
+   "conversion_interface": "ACCEPTED_CONVERSATIONAL_TYPEFORM_RFQ_INTERFACE",
+   "mount": "TYPEFORM_CONVERSION_MOUNT_CONTRACT.json#header_action",
+   "no_script_fallback_target": "/contact-us/",
+   "no_script_fallback_route_classification": "BUILD",
+   "no_script_fallback_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+   "render": "SUPPRESS_UNTIL_THE_RFQ_FALLBACK_ROUTE_IS_PUBLICATION_READY",
+   "route_id": "RT-0236",
+   "rule": "The single action colour and the only action button in the chrome. The action opens the accepted Phase 2C-min conversational Typeform RFQ interface; nothing in this contract suppresses, replaces or competes with it. The fallback route is used only where scripting is unavailable.",
+   "evidence_refs": "EV-2C:apps/h2o/src/conversion/QuoteCta.tsx;EV-DES:R1.2#header-action"
+  },
+  "mobile": {
+   "breakpoint_px": 1024,
+   "pattern": "DRAWER",
+   "rules": [
+    "The search field stays visible in the bar when the drawer is closed.",
+    "Every target is at least 48px with 8px separation.",
+    "The drawer carries the same items as the desktop header, with the same suppression rules.",
+    "No telephone affordance exists in the mobile chrome."
+   ]
+  },
+  "height_contradiction_in_accepted_design_source": {
+   "observed_statement": "Design R1.2 states: \"Header is 116px total - a 38px orientation strip over a 78px navigation row, inside the 80px cap.\"",
+   "arithmetic": "38 + 78 = 116, which is not inside an 80px cap.",
+   "state": "DESIGN_SOURCE_INTERNAL_CONTRADICTION_RECORDED",
+   "reading_applied_here": "The 80px cap is applied to the navigation row alone, where 78px does satisfy it. This is the only reading under which the accepted design's own numbers are consistent.",
+   "authority_note": "Recording arithmetic is not a presentation decision. Design R1.2 is not reopened and no dimension is changed here.",
+   "owner_decision_required": "YES",
+   "evidence_refs": "EV-DES:R1.2#header-structure"
+  },
+  "primary_rendered_items": 0,
+  "primary_suppressed_items": 5,
+  "primary_item_count": 5,
+  "orientation_rendered_items": 0,
+  "orientation_suppressed_items": 4,
+  "orientation_item_count": 4
+ },
+ "footer": {
+  "rfq_band": {
+   "headline_semantics": "Request a quote",
+   "action": {
+    "label": "Start an RFQ",
+    "target": "/contact-us/"
+   },
+   "rule": "The footer opens on the RFQ action, which is the accepted conversational Typeform RFQ interface. No telephone, email or unrelated live-chat alternative is offered beside it. This prohibition is on inventing contact paths, never on the accepted RFQ interface itself.",
+   "conversion_interface": "ACCEPTED_CONVERSATIONAL_TYPEFORM_RFQ_INTERFACE",
+   "mount": "TYPEFORM_CONVERSION_MOUNT_CONTRACT.json#footer_rfq_band"
+  },
+  "identity": {
+   "mark": "Supplied ICS / Industrial Cooling Solutions identity.",
+   "variants": [
+    {
+     "context": "HEADER_ON_LIGHT",
+     "asset": "assets/ics-logo-original.webp",
+     "rendered_height_px": 72,
+     "max_width_px": 280,
+     "evidence_refs": "EV-DES:R1.2#header-identity"
+    },
+    {
+     "context": "FOOTER_ON_DARK",
+     "asset": "assets/ics-logo-white-transparent.png",
+     "rendered_width_px": 180,
+     "rendered_height_px": 46,
+     "state": "ACCEPTED_VARIANT_PRESENT_IN_THE_DESIGN_PACKAGE",
+     "note": "R1 asserted no white footer variant was accepted. That was wrong: the variant is present in the accepted design package and is rendered at 180x46 after the design's own 196px/180px comparison.",
+     "evidence_refs": "EV-DES:assets/ics-logo-white-transparent.png;EV-DES:uploads/ICS_Industrial_Cooling_Solutions_WHITE_TRANSPARENT_EXACT(1).png;EV-DES:R1.2#footer-identity"
+    }
+   ],
+   "wordmark_rule": "No H2O wordmark. H2O may appear as project or site shorthand in body copy, never as a competing visual identity."
+  },
+  "locations_module": {
+   "render": "OMITTED_FROM_THE_PUBLIC_BUILD",
+   "rows": 0,
+   "rule": "No office, branch, address or location is held by any accepted authority, so the module is absent from the public build. It does not render placeholder rows. NOT_HELD_PLACEHOLDER is an internal truth-state token and is never emitted as user-facing content, markup, alt text, structured data or a label.",
+   "r1_defect_corrected": "R1 specified render=NOT_HELD_PLACEHOLDER with rows=3, which would have published an internal token to the public.",
+   "reinstatement_condition": "Owner supplies a confirmed location fact; the module then renders from that fact alone.",
+   "evidence_refs": "EV-DES:R1.2#location-and-region-truth"
+  },
+  "regions_module": {
+   "render": "OMITTED_FROM_THE_PUBLIC_BUILD",
+   "rule": "No region served is held. The module is absent rather than placeheld, and an SEO target market never populates it. No internal truth-state token is emitted.",
+   "evidence_refs": "EV-DES:R1.2#location-and-region-truth"
+  },
+  "groups": [
+   {
+    "group": "Products",
+    "items": [
+     {
+      "label": "Fan Stacks",
+      "target": "/product-category/cooling-tower-fan-stacks/",
+      "route_id": "RT-0734",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Gear Boxes",
+      "target": "/product-category/gearboxes/",
+      "route_id": "RT-0756",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Fans",
+      "target": "/product-category/industrial-cooling-tower-fans/",
+      "route_id": "RT-0779",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Fill Media",
+      "target": "/product-category/fill/",
+      "route_id": "RT-0749",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Drive Shafts & Assemblies",
+      "target": "/product-category/drive-shafts-assemblies/",
+      "route_id": "RT-0744",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Motors",
+      "target": "/product-category/motors/",
+      "route_id": "RT-0786",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Nozzles",
+      "target": "/product-category/nozzles/",
+      "route_id": "RT-0787",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Tower Hardware",
+      "target": "/product-category/tower-hardware/",
+      "route_id": "RT-0797",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "FRP Members",
+      "target": "/product-category/frp-member/",
+      "route_id": "RT-0755",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Cooling Towers",
+      "target": "/product-category/cooling-towers/",
+      "route_id": "RT-1872",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Air Coolers",
+      "target": "/air-coolers/",
+      "route_id": "RT-0006",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+      "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+     }
+    ],
+    "rendered_items": 0,
+    "suppressed_items": 11,
+    "note": "Every label maps to a frozen product-category term. A term held for malformation, duplicate naming or emptiness suppresses its label rather than being repointed at a legacy parts landing page.",
+    "item_count": 11
+   },
+   {
+    "group": "Services",
+    "items": [
+     {
+      "label": "New Tower Construction",
+      "target": "/cooling-tower/",
+      "route_id": "RT-0417",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_NO_SELECTED_SOURCE",
+      "target_publication_ready": "NOT_READY_NO_SELECTED_SOURCE"
+     },
+     {
+      "label": "Repair & Maintenance",
+      "target": "/cooling-tower-maintenance-repair-upgrade/",
+      "route_id": "RT-0334",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_NO_SELECTED_SOURCE",
+      "target_publication_ready": "NOT_READY_NO_SELECTED_SOURCE"
+     },
+     {
+      "label": "Thermal Upgrades",
+      "target": "/cooling-tower-thermal-upgrade/",
+      "route_id": "RT-0398",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+      "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+     },
+     {
+      "label": "Cooling Tower Replacement",
+      "target": "/cooling-tower-replacement/",
+      "route_id": "RT-0378",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_NO_SELECTED_SOURCE",
+      "target_publication_ready": "NOT_READY_NO_SELECTED_SOURCE"
+     },
+     {
+      "label": "Disaster Recovery",
+      "target": "/disaster-recovery/",
+      "route_id": "RT-0471",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+      "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+     },
+     {
+      "label": "Dry Soda Blast Cleaning",
+      "target": "/dry-soda-blast-cleaning-services-2/",
+      "route_id": "RT-0475",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+      "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+     },
+     {
+      "label": "Inspection",
+      "target": "/services/inspection/",
+      "route_id": "RT-1856",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Side Stream Filtration",
+      "target": "/services/side-stream-filtration/",
+      "route_id": "RT-1857",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Reconstruction",
+      "target": "/services/reconstruction/",
+      "route_id": "RT-1858",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     }
+    ],
+    "rendered_items": 0,
+    "suppressed_items": 9,
+    "note": "Six labels have live published service pages. Three name services no accepted source describes.",
+    "item_count": 9
+   },
+   {
+    "group": "Technical Library",
+    "items": [
+     {
+      "label": "Product bulletins",
+      "target": "/resources/product-bulletins/",
+      "route_id": "RT-1863",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Dimensional data",
+      "target": "/resources/dimensional-data/",
+      "route_id": "RT-1864",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "O&M manuals",
+      "target": "/resources/om-manuals/",
+      "route_id": "RT-1865",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Brochures",
+      "target": "/resources/cooling-tower-brochures/",
+      "route_id": "RT-1209",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+      "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+     },
+     {
+      "label": "Engineering tools",
+      "target": "/resources/tools/",
+      "route_id": "RT-1210",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+      "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+     },
+     {
+      "label": "Technical articles",
+      "target": "/tech-articles/",
+      "route_id": "RT-1245",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+      "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+     }
+    ],
+    "rendered_items": 0,
+    "suppressed_items": 6,
+    "item_count": 6
+   },
+   {
+    "group": "Regions served",
+    "items": [
+     {
+      "label": "United States",
+      "target": "/regions/united-states/",
+      "route_id": "RT-1866",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Japan",
+      "target": "/regions/japan/",
+      "route_id": "RT-1867",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Singapore",
+      "target": "/regions/singapore/",
+      "route_id": "RT-1868",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Thailand",
+      "target": "/regions/thailand/",
+      "route_id": "RT-1869",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Malaysia",
+      "target": "/regions/malaysia/",
+      "route_id": "RT-1870",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     }
+    ],
+    "rendered_items": 0,
+    "suppressed_items": 5,
+    "note": "Held in full: the accepted design closes regions as NOT HELD by default.",
+    "item_count": 5
+   },
+   {
+    "group": "Applications",
+    "items": [
+     {
+      "label": "Petrochemical & refining",
+      "target": "/applications/petrochemical-and-refining/",
+      "route_id": "RT-1859",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Power generation",
+      "target": "/applications/power-generation/",
+      "route_id": "RT-1860",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Heavy industry",
+      "target": "/applications/heavy-industry/",
+      "route_id": "RT-1861",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Manufacturing",
+      "target": "/applications/manufacturing/",
+      "route_id": "RT-1862",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     }
+    ],
+    "rendered_items": 0,
+    "suppressed_items": 4,
+    "item_count": 4
+   },
+   {
+    "group": "Company",
+    "items": [
+     {
+      "label": "About ICS",
+      "target": "/about-ics-industrial-cooling-solutions/",
+      "route_id": "RT-0004",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+      "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+     },
+     {
+      "label": "Projects",
+      "target": "/portfolio/",
+      "route_id": "RT-0730",
+      "route_classification": "HOLD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+      "target_publication_ready": "NOT_READY_ROUTE_HELD"
+     },
+     {
+      "label": "Request a Quote",
+      "target": "/contact-us/",
+      "route_id": "RT-0236",
+      "route_classification": "BUILD",
+      "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+      "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+      "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+     }
+    ],
+    "rendered_items": 0,
+    "suppressed_items": 3,
+    "item_count": 3
+   }
+  ],
+  "legal_strip": {
+   "group": "Legal",
+   "items": [
+    {
+     "label": "Privacy Policy",
+     "target": "/privacy-policy/",
+     "route_id": "RT-0733",
+     "route_classification": "BUILD",
+     "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+     "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+     "target_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE"
+    },
+    {
+     "label": "Terms of Sale",
+     "target": "/terms-of-sale/",
+     "route_id": "RT-1871",
+     "route_classification": "HOLD",
+     "render": "SUPPRESS_UNTIL_TARGET_IS_PUBLICATION_READY",
+     "suppression_reason": "TARGET_NOT_PUBLICATION_READY:NOT_READY_ROUTE_HELD",
+     "target_publication_ready": "NOT_READY_ROUTE_HELD"
+    }
+   ],
+   "rendered_items": 0,
+   "suppressed_items": 2,
+   "note": "Terms of Sale is a label in the accepted footer with no page anywhere in the estate.",
+   "item_count": 2
+  },
+  "social": {
+   "items": [
+    {
+     "label": "LinkedIn",
+     "target": "EXTERNAL_PROFILE_URL_NOT_SUPPLIED",
+     "render": "SUPPRESS_UNTIL_ROUTE_AUTHORISED",
+     "suppression_reason": "NO_ACCEPTED_PROFILE_URL"
+    },
+    {
+     "label": "YouTube",
+     "target": "EXTERNAL_PROFILE_URL_NOT_SUPPLIED",
+     "render": "SUPPRESS_UNTIL_ROUTE_AUTHORISED",
+     "suppression_reason": "NO_ACCEPTED_PROFILE_URL"
+    }
+   ],
+   "rule": "No external profile URL is present in any accepted authority, so neither link is rendered and neither is invented."
+  },
+  "copyright_semantics": "Industrial Cooling Solutions, Inc. Year is derived at render time."
+ },
+ "discovery_paths": {
+  "product": [
+   "Header Products → catalogue root → filter rail → product detail",
+   "Header search → results → product detail",
+   "Category listing → product detail",
+   "Family listing → sibling model → product detail",
+   "Manufacturer listing → product detail"
+  ],
+  "category": {
+   "entry": [
+    "Footer Products group",
+    "Catalogue root category rail",
+    "Product breadcrumb"
+   ],
+   "rule": "Only categories classified BUILD are reachable. A held category is not linked from anywhere."
+  },
+  "family": {
+   "entry": [
+    "Catalogue root",
+    "Product detail family context block"
+   ],
+   "rule": "Only the twelve families the frozen contract recommends a page for may have a route, and a family held by Phase 2B.5 is unreachable. A family page never canonicalises its members."
+  },
+  "manufacturer": {
+   "entry": [
+    "Catalogue filter rail",
+    "Product detail manufacturer reference"
+   ],
+   "rule": "A manufacturer route states that ICS supplies parts for the named equipment. It asserts no authorised-dealer, partnership, endorsement or affiliation relationship, and no manufacturer logo is used as a credibility mark."
+  },
+  "document": {
+   "entry": [
+    "Technical Library",
+    "Product detail document list"
+   ],
+   "rule": "Legacy document URLs are preserved; a retained GSC page in the limited baseline is a document URL, so document URL preservation is a migration requirement, not an optimisation."
+  }
+ },
+ "cta_semantics": {
+  "primary": {
+   "label": "Request a Quote",
+   "target": "/contact-us/",
+   "placements": [
+    "Header action button",
+    "Product detail",
+    "Category listing row",
+    "Family listing",
+    "Service page",
+    "Footer RFQ band",
+    "404",
+    "Zero-result search"
+   ],
+   "rules": [
+    "One intent, one label, site-wide. A row never carries both a label and an identical button.",
+    "Context is carried server-side from the page record. No client-supplied product context is trusted.",
+    "On a product route the RFQ opens with product and category pre-bound; on every other route those fields are absent rather than blank."
+   ]
+  },
+  "secondary": [
+   {
+    "label": "Add to RFQ",
+    "scope": "PRODUCT_AND_CATEGORY_ROWS",
+    "rule": "Builds a multi-item enquiry. Never a cart, never a price, never a checkout."
+   },
+   {
+    "label": "Send a nameplate photograph instead",
+    "scope": "ZERO_RESULT_AND_UNIDENTIFIED_PART",
+    "rule": "Routes into the same RFQ. Carries no guaranteed-supply wording."
+   }
+  ],
+  "forbidden": [
+   "Telephone CTA, call-us path, click-to-call or phone fallback in any state",
+   "Email address or mailto link in any state",
+   "Live chat or third-party contact widget",
+   "Any price, price placeholder, struck-through price, \"from\" price, cart or checkout affordance",
+   "Any guaranteed-supply or guaranteed-turnaround wording in a zero-result state"
+  ]
+ },
+ "breadcrumbs": {
+  "design_input_state": "NO_BREADCRUMB_COMPONENT_IN_ACCEPTED_DESIGN_R1_2",
+  "note": "The accepted design system specifies no breadcrumb component. The rules below are structural only and define no visual treatment; presentation must be confirmed by Design before implementation. Recorded as an open question in UNKNOWNS_AND_OWNER_DECISIONS.md.",
+  "rules": [
+   "A breadcrumb renders only over routes classified BUILD, and every crumb must itself be a BUILD route.",
+   "A crumb is never synthesised for a level that has no route. Where the parent category is held, the trail collapses to Home → catalogue root → current page rather than inventing an intermediate.",
+   "Product trail: Home → catalogue root → primary category (only if BUILD) → product.",
+   "Category trail: Home → catalogue root → parent category (only if BUILD) → category.",
+   "Family trail: Home → catalogue root → family. A family is not placed under a category, because the frozen contract assigns families a primary category by name only and Phase 2B left two of those parent relationships unresolved as ambiguous.",
+   "Service trail: Home → Services → service. Editorial, project, region and application trails are not defined because none of those routes is authorised.",
+   "The final crumb is the current page and is not a link.",
+   "BreadcrumbList structured data may be emitted only where every crumb is a BUILD route, and it must match the rendered trail exactly."
+  ]
+ },
+ "suppression_summary": {
+  "Products": {
+   "rendered": 8,
+   "suppressed": 3
+  },
+  "Services": {
+   "rendered": 6,
+   "suppressed": 3
+  },
+  "Technical Library": {
+   "rendered": 2,
+   "suppressed": 4
+  },
+  "Regions served": {
+   "rendered": 0,
+   "suppressed": 5
+  },
+  "Applications": {
+   "rendered": 0,
+   "suppressed": 4
+  },
+  "Company": {
+   "rendered": 2,
+   "suppressed": 1
+  },
+  "Legal": {
+   "rendered": 1,
+   "suppressed": 1
+  },
+  "Header primary": {
+   "rendered": 3,
+   "suppressed": 2
+  }
+ },
+ "route_resolution_summary": {
+  "registry": "PUBLIC_ROUTE_REGISTRY.tsv",
+  "routes_total": 1872,
+  "routes_build_architectural_intent": 707,
+  "routes_publication_ready": 0,
+  "render_condition": "publication_ready == PUBLICATION_READY",
+  "nav_items_rendered": 0,
+  "nav_items_suppressed": 5
+ },
+ "aggregate_count_rule": "Every rendered/suppressed count in this contract is computed from its own item array at generation time. The verifier recomputes them and fails on any mismatch, so a declared count can never drift from the items it describes.",
+ "conversion_placement": {
+  "authority": "TYPEFORM_CONVERSION_MOUNT_CONTRACT.json in this package, reconciled with the accepted Design R1.2 StickyRFQ component and Phase 2C-min R1.1.",
+  "sticky_floating_trigger": "DEFINED_IN_TYPEFORM_CONVERSION_MOUNT_CONTRACT#sticky_floating",
+  "one_signal_colour_action_per_viewport": "Exactly one signal-colour RFQ action may be visible in any viewport. Precedence is header action, then inline mount, then sticky trigger, then footer band; a lower-precedence mount renders in a neutral treatment or not at all while a higher one is in the viewport.",
+  "single_rfq_intent": "One intent, one label: \"Request a Quote\" everywhere it appears.",
+  "evidence_refs": "EV-DES:R1.2#sticky-rfq;EV-2C:QuoteCta.tsx"
+ },
+ "package_revision": "R1.3.2",
+ "document_revision": "R1.3.2",
+ "document_revision_meaning": "This subordinate contract is regenerated with every package revision and carries the package revision as its own. It has no independent revision line."
+}

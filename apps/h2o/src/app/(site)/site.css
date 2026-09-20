@@ -1,0 +1,531 @@
+/*
+ * H2O Phase 2D — the accepted design system, as tokens.
+ *
+ * Every value here is read from H2O_DESIGN_SYSTEM_V1_FINAL_R1_2 (EV-DES). Presentation only: the
+ * design authority creates, removes, holds, redirects and canonicalises nothing.
+ *
+ * Type families are declared with system fallbacks and no @import or <link>. The repository's
+ * font policy is `font-src 'self'` with licensed files entering through the contract's font
+ * pipeline; no Archivo or IBM Plex file is supplied by the design package, so the webfont binaries
+ * are an open input and the stack degrades to the system faces until they arrive.
+ */
+
+:root {
+  /* Colour roles — named by job, not hue. One action colour only. */
+  --ink: #0c1317;
+  --ink-2: #16232a;
+  --steel: #243038;
+  --steel-2: #3e4a53;
+  --mute: #55616a;
+  --line: #cfd5d2;
+  --line-2: #e4e8e5;
+  --paper: #f3f5f3;
+  --surface: #ffffff;
+  --wash: #e7ebe8;
+  --blue: #0a4a6e;
+  --blue-dark: #06354f;
+  --blue-wash: #e5edf3;
+  --signal: #ae441c;
+  --signal-dark: #8a3315;
+  --ok: #1b5e3c;
+  --pend: #725708;
+  --err: #95121d;
+
+  --r: 2px;
+  --fd: 'Archivo', 'Helvetica Neue', Helvetica, sans-serif;
+  --fm: 'IBM Plex Mono', ui-monospace, monospace;
+  --ft: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Seven-step type scale. Reading body is 17px and never drops below it. */
+  --d1: 56px;
+  --d2: 40px;
+  --d3: 28px;
+  --d4: 21px;
+  --t1: 19px;
+  --t2: 17px;
+  --m1: 13px;
+
+  /* Space scale */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 44px;
+  --s8: 60px;
+  --s9: 84px;
+  --s10: 120px;
+
+  --content: 1440px;
+  --gutter: var(--s7);
+  --header-strip: 38px;
+  --header-row: 78px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ft);
+  font-size: var(--t2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Data — every number, code, model, dimension and status word — is mono. */
+code,
+kbd,
+samp {
+  font-family: var(--fm);
+  font-size: var(--m1);
+}
+
+a {
+  color: var(--blue);
+  text-underline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}
+
+:where(h1, h2, h3) {
+  font-family: var(--fd);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.shell {
+  margin-inline: auto;
+  max-inline-size: var(--content);
+  padding-inline: var(--gutter);
+}
+
+@media (max-width: 1024px) {
+  .shell {
+    padding-inline: var(--s5);
+  }
+}
+
+/* ---------- header: a 38px orientation strip over a 78px navigation row ---------- */
+
+.header {
+  background: var(--surface);
+  border-block-end: 1px solid var(--line);
+}
+
+.strip {
+  align-items: center;
+  block-size: var(--header-strip);
+  border-block-end: 1px solid var(--line-2);
+  color: var(--mute);
+  display: flex;
+  font-size: var(--m1);
+  gap: var(--s5);
+}
+
+.row {
+  align-items: center;
+  block-size: var(--header-row);
+  display: flex;
+  gap: var(--s5);
+  justify-content: space-between;
+}
+
+.identity {
+  display: inline-flex;
+}
+
+.identity img {
+  block-size: auto;
+  max-inline-size: 100%;
+  object-fit: contain;
+}
+
+.nav {
+  display: flex;
+  gap: var(--s5);
+}
+
+.nav a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ---------- content ---------- */
+
+.main {
+  display: block;
+  padding-block: var(--s9) var(--s10);
+}
+
+.article {
+  max-inline-size: 72ch;
+}
+
+.article h1 {
+  font-size: var(--d2);
+  margin-block-end: var(--s5);
+}
+
+.article h2 {
+  border-block-start: 2px solid var(--ink);
+  font-size: var(--d3);
+  margin-block: var(--s9) var(--s4);
+  padding-block-start: var(--s5);
+}
+
+.article h3 {
+  font-size: var(--d4);
+  margin-block: var(--s6) var(--s3);
+}
+
+.article p {
+  margin-block: 0 var(--s4);
+}
+
+.article ul {
+  margin-block: 0 var(--s5);
+  padding-inline-start: var(--s5);
+}
+
+.article li {
+  margin-block-end: var(--s2);
+}
+
+.article strong {
+  font-weight: 600;
+}
+
+.lede {
+  font-size: var(--t1);
+}
+
+.byline {
+  border-block-end: 1px solid var(--line);
+  color: var(--mute);
+  font-size: var(--m1);
+  font-family: var(--fm);
+  margin-block-end: var(--s6);
+  padding-block-end: var(--s4);
+}
+
+@media (max-width: 1024px) {
+  .article h1 {
+    font-size: var(--d3);
+  }
+
+  .article h2 {
+    font-size: var(--d4);
+    margin-block-start: var(--s7);
+  }
+
+  .main {
+    padding-block: var(--s7) var(--s9);
+  }
+}
+
+/* ---------- footer ---------- */
+
+.footer {
+  background: var(--ink);
+  color: var(--line-2);
+  padding-block: var(--s9);
+}
+
+.footer a {
+  color: var(--line-2);
+}
+
+.footer-identity img {
+  block-size: 46px;
+  inline-size: 180px;
+  max-inline-size: 100%;
+  object-fit: contain;
+}
+
+.legal {
+  border-block-start: 1px solid var(--steel);
+  /*
+    --mute on --ink measured 2.94:1 in the browser, below the WCAG AA 4.5:1 threshold for body
+    text. --line is the dimmest accepted token that clears it, at 12.58:1, so the legal line stays
+    visually secondary without failing contrast. One declaration changed; no new palette value and
+    no other footer change.
+  */
+  color: var(--line);
+  font-size: var(--m1);
+  margin-block-start: var(--s6);
+  padding-block-start: var(--s4);
+}
+
+@media (max-width: 1024px) {
+  .footer-identity img {
+    block-size: 41px;
+    inline-size: 160px;
+  }
+
+  .footer {
+    padding-block: var(--s7);
+  }
+}
+
+/* ---------- preview banner: private implementation content, never published ---------- */
+
+.preview {
+  background: var(--blue-wash);
+  border-block-end: 1px solid var(--blue);
+  color: var(--blue-dark);
+  font-family: var(--fm);
+  font-size: var(--m1);
+  padding-block: var(--s3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- RFQ mount treatments ---------- */
+/*
+  The accepted mount contract permits exactly one signal-colour RFQ action in a viewport, with a
+  precedence order, and allows a lower-precedence mount to render in a neutral treatment instead.
+  This build takes the neutral-treatment option, because it is decidable without observing a
+  viewport. `--signal` is the only action colour in the accepted design; `--blue` is orientation
+  and is never an action, so the neutral treatment is a line and ink, not a second accent.
+
+  Nothing carries these classes today: every mount is gated shut.
+*/
+.rfq-signal a {
+  background: var(--signal);
+  border: 1px solid var(--signal);
+  border-radius: var(--r);
+  color: var(--surface);
+  display: inline-block;
+  font-family: var(--fd);
+  font-size: 17px;
+  min-block-size: 44px;
+  padding: 11px 20px;
+  text-decoration: none;
+}
+
+.rfq-signal a:hover {
+  background: var(--signal-dark);
+  border-color: var(--signal-dark);
+}
+
+.rfq-neutral a {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  color: var(--ink);
+  display: inline-block;
+  font-family: var(--fd);
+  font-size: 17px;
+  min-block-size: 44px;
+  padding: 11px 20px;
+  text-decoration: none;
+}
+
+.rfq-neutral a:hover {
+  border-color: var(--steel-2);
+}
+
+/*
+  Recovered cohort media. Each image keeps its own aspect ratio and is capped at its native width by
+  an inline max-width the authority computes, so nothing is cropped at a narrow viewport and nothing
+  is upscaled at a wide one. `block-size: auto` with the intrinsic `width`/`height` attributes gives
+  the browser the ratio up front, so no layout shift accompanies the load.
+*/
+.media {
+  margin-block: 28px;
+  margin-inline: 0;
+}
+
+/*
+  The hairline is an `outline`, not a `border`. A border joins the image's box, so the rendered
+  box is two pixels wider and two taller than the picture — enough to move the measured aspect
+  ratio off the file's own ratio on a wide banner, and to make an automated distortion check
+  report a distortion that is not there. An outline is painted outside the box and changes no
+  geometry, so what the browser measures is the image.
+*/
+.media img {
+  background: var(--wash);
+  block-size: auto;
+  border: 0;
+  border-radius: var(--r);
+  display: block;
+  inline-size: 100%;
+  outline: 1px solid var(--line-2);
+  outline-offset: -1px;
+}
+
+.media-hero {
+  margin-block-start: 20px;
+}
+
+.media-inline img {
+  margin-inline: auto;
+}
+
+/*
+  Recovered resource documents. A list of links, not a gallery: the only evidenced facts about these
+  files are their name, their format and their length, so those are the only things shown.
+*/
+.docs {
+  margin-block-start: 36px;
+}
+
+.docs ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.docs li {
+  border-block-start: 1px solid var(--line-2);
+  padding-block: 12px;
+}
+
+.docs li a {
+  display: inline-block;
+  font-family: var(--fd);
+  min-block-size: 24px;
+}
+
+.docs-meta {
+  color: var(--mute);
+  display: block;
+  font-size: 15px;
+  margin-block-start: 2px;
+}
+
+/*
+  The V1 floating quote launcher.
+
+  One control, fixed bottom-right, that opens the accepted conversational Typeform dialog. The
+  element inside `.launcher` is the accepted `QuoteCta` anchor — this block positions it and dresses
+  it as a chat affordance, and owns nothing else.
+
+  The chat mark is an inline `data:` URI applied as a mask, so its colour follows `currentColor`
+  through both treatments and no request leaves the origin to fetch it. A floating widget that
+  pulls an icon from a third-party host is the pattern this build refuses; the CSP is `img-src
+  'self' data:` and this stays inside it.
+
+  The launcher is out of flow, so it can produce no layout shift and no horizontal overflow, and it
+  is rendered after the footer so the tab order reaches it last.
+*/
+.launcher {
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  position: fixed;
+  right: calc(20px + env(safe-area-inset-right, 0px));
+  z-index: 900;
+}
+
+.launcher a {
+  align-items: center;
+  border-radius: 28px;
+  box-shadow: 0 2px 10px rgb(12 19 23 / 18%);
+  display: inline-flex;
+  font-family: var(--fd);
+  font-size: 16px;
+  gap: 10px;
+  line-height: 1;
+  min-block-size: 48px;
+  padding: 0 20px 0 16px;
+  text-decoration: none;
+}
+
+.launcher a::before {
+  background-color: currentColor;
+  content: '';
+  display: block;
+  flex: none;
+  block-size: 22px;
+  inline-size: 22px;
+  /* A speech bubble with two lines of text. Stroked, so it reads at 22px. */
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M4 5.5h16A1.5 1.5 0 0 1 21.5 7v9a1.5 1.5 0 0 1-1.5 1.5H9.6L5.5 21v-3.5H4A1.5 1.5 0 0 1 2.5 16V7A1.5 1.5 0 0 1 4 5.5Z'/%3E%3Cpath d='M7 10h10M7 13h6'/%3E%3C/svg%3E");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: 22px 22px;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M4 5.5h16A1.5 1.5 0 0 1 21.5 7v9a1.5 1.5 0 0 1-1.5 1.5H9.6L5.5 21v-3.5H4A1.5 1.5 0 0 1 2.5 16V7A1.5 1.5 0 0 1 4 5.5Z'/%3E%3Cpath d='M7 10h10M7 13h6'/%3E%3C/svg%3E");
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 22px 22px;
+}
+
+.launcher-signal a {
+  background: var(--signal);
+  border: 1px solid var(--signal);
+  color: var(--surface);
+}
+
+.launcher-signal a:hover {
+  background: var(--signal-dark);
+  border-color: var(--signal-dark);
+}
+
+/*
+  The neutral treatment, used on every route that already carries a signal-colour action. It is a
+  solid surface rather than a transparent one, because the launcher floats over page content and a
+  transparent control over an image is unreadable.
+*/
+.launcher-neutral a {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.launcher-neutral a:hover {
+  border-color: var(--steel-2);
+}
+
+.launcher a:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 3px;
+}
+
+.launcher-signal a:focus-visible {
+  outline-color: var(--ink);
+}
+
+/*
+  Narrow viewports: the mark alone, in a circle, so the launcher covers as little of the page as
+  possible. The label is not removed — `font-size: 0` stops it being painted while it stays in the
+  DOM and in the accessibility tree, so the control keeps its accessible name.
+*/
+@media (max-width: 40rem) {
+  .launcher {
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    right: calc(14px + env(safe-area-inset-right, 0px));
+  }
+
+  .launcher a {
+    block-size: 52px;
+    border-radius: 26px;
+    font-size: 0;
+    gap: 0;
+    inline-size: 52px;
+    justify-content: center;
+    min-block-size: 52px;
+    padding: 0;
+  }
+}

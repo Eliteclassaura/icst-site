@@ -72,7 +72,11 @@ export const auditAfterChange: CollectionAfterChangeHook = async ({
   collection,
   req,
 }) => {
-  const slug = collection.slug
+  // Typed as `string` on purpose. `collection.slug` is `CollectionSlug`, and comparing it against a
+  // literal below would force 'redirects' and 'users' into the generated union of every app that
+  // compiles this file — including apps that register neither. Widening the local binding changes no
+  // branch and no runtime value; it only stops a type from leaking across an app boundary.
+  const slug: string = collection.slug
   const prevStatus = (previousDoc as { _status?: string } | undefined)?._status
   const status = (doc as { _status?: string })._status
   let action: AuditAction = operation === 'create' ? 'create' : 'update'

@@ -1,0 +1,43 @@
+{
+  "name": "@factory/h2o",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "payload": "payload",
+    "generate:types": "payload generate:types",
+    "migrate": "payload migrate",
+    "migrate:create": "payload migrate:create",
+    "migrate:status": "payload migrate:status",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --max-warnings 0",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@factory/agency-core": "workspace:*",
+    "@payloadcms/db-postgres": "3.88.0",
+    "@payloadcms/next": "3.88.0",
+    "@payloadcms/richtext-lexical": "3.88.0",
+    "graphql": "^16.11.0",
+    "next": "16.3.4",
+    "payload": "3.88.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "sharp": "^0.35.4"
+  },
+  "devDependencies": {
+    "@factory/eslint-config": "workspace:*",
+    "@types/node": "^22.15.0",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "pg": "^8.23.0",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

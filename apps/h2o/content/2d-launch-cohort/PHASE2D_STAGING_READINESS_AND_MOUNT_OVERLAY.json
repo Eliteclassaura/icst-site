@@ -1,0 +1,362 @@
+{
+ "contract": "h2o.phase2d/staging-readiness-and-mount-overlay",
+ "contract_version": "1.0.0",
+ "overlay_id": "SR-2026-09-20-R1",
+ "overlay_class": "BOUNDED_OVERLAY_DOES_NOT_ALTER_ANY_FROZEN_HISTORICAL_AUTHORITY",
+ "prepared": "2026-09-20",
+ "authorized_by": "Control Tower ruling H2O_PHASE2_2D_FINAL_PRESTAGING_HARDENING_R1_CORE_ACCEPTED_TYPEFORM_FLOATING_LAUNCHER_GATE_REQUIRED_BEFORE_STAGING",
+ "what_this_overlay_means": "READY_FOR_PRIVATE_STAGING_VALIDATION",
+ "what_this_overlay_does_not_mean": [
+  "NOT production-published.",
+  "NOT a change to any route's historical publication_ready or publication_condition value.",
+  "NOT permission to index. Staging noindex protections are retained in full and are asserted by test.",
+  "NOT permission to deploy to staging, production or DNS. STAGING = LOCKED. PRODUCTION = LOCKED.",
+  "NOT permission to submit to the production Typeform form."
+ ],
+ "historical_authority_preserved": {
+  "rule": "The historical frozen fields are read, never written, and never reinterpreted. This overlay is a SECOND and SEPARATE reading that answers a different question.",
+  "PUBLIC_ROUTE_REGISTRY.tsv#publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE on all 29 cohort rows - unchanged, still the authority for publication and indexing",
+  "PAGE_CONTENT_INDEX.tsv#publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING on all 29 rows - unchanged",
+  "the_two_questions": {
+   "is_this_route_published_and_indexable": "answered ONLY by the historical publication_ready / publication_condition fields. Answer today: NO, for all 29.",
+   "may_the_accepted_typeform_interface_be_exercised_in_private_staging_validation": "answered by this overlay. Answer today: YES, for all 29."
+  }
+ },
+ "derivation": [
+  {
+   "closure": "OWNER_SME_APPROVAL",
+   "state": "CLOSED",
+   "source": "Control Tower ruling, this directive"
+  },
+  {
+   "closure": "OD-05",
+   "state": "CLOSED",
+   "source": "Control Tower ruling, this directive"
+  },
+  {
+   "closure": "CONTENT_REMEDIATION_AUTHORITY",
+   "state": "ACCEPTED",
+   "source": "H2O_PHASE2_2D_LAUNCH_COHORT_CONTENT_REMEDIATION_AUTHORITY_2026-09-19_R1_3.zip",
+   "sha256": "44fd70c34bbbf79d28c54d4fe60a7c3a72ea7b6225843c84f098ae35ffdbc536"
+  },
+  {
+   "closure": "MEDIA",
+   "state": "FROZEN_COMPLETE",
+   "source": "H2O_PHASE2_2D_SALMON_MEDIA_WINNER_COMPARISON_2026-09-20_R1_1.zip",
+   "sha256": "3be986142edd41ceb18ebcc6bdb955e8dfc7b2b220e01686b00e9f88b4c247cd"
+  },
+  {
+   "closure": "PV-02",
+   "state": "CLOSED",
+   "source": "H2O_PHASE2_2D_FINAL_PRESTAGING_HARDENING_2026-09-20_R1.zip#ledgers/PV02_HEADING_CLOSURE_LEDGER.tsv"
+  },
+  {
+   "closure": "PV-05",
+   "state": "CLOSED",
+   "source": "H2O_PHASE2_2D_FINAL_PRESTAGING_HARDENING_2026-09-20_R1.zip#ledgers/PV05_URL_FORM_LEDGER.tsv"
+  },
+  {
+   "closure": "DOCUMENT_AND_RESOURCE_QA",
+   "state": "CLOSED",
+   "source": "H2O_PHASE2_2D_FINAL_PRESTAGING_HARDENING_2026-09-20_R1.zip#ledgers/RESOURCE_DOCUMENT_SERVE_LEDGER.tsv"
+  },
+  {
+   "closure": "NAVIGATION",
+   "state": "CLOSED",
+   "source": "H2O_PHASE2_2D_FINAL_PRESTAGING_HARDENING_2026-09-20_R1.zip#ledgers/NAVIGATION_LINK_LEDGER.tsv"
+  },
+  {
+   "closure": "OD-15_BOUNDED_ALT_TEXT",
+   "state": "COMPLETE",
+   "source": "H2O_PHASE2_2D_FINAL_PRESTAGING_HARDENING_2026-09-20_R1.zip#ledgers/OD15_ALT_TEXT_WRITE_LEDGER.tsv"
+  },
+  {
+   "closure": "TECHNICAL_AND_BROWSER_QA",
+   "state": "CLEAN",
+   "source": "H2O_PHASE2_2D_FINAL_PRESTAGING_HARDENING_2026-09-20_R1.zip#evidence/browser_qa.txt (87 loads, 0 findings)"
+  }
+ ],
+ "accepted_pre_staging_package": {
+  "name": "H2O_PHASE2_2D_FINAL_PRESTAGING_HARDENING_2026-09-20_R1.zip",
+  "bytes": 10453103,
+  "sha256": "60fe2a9a6807151cd500cc33051a1d24ba19b81f44c1de931eaefc2d9b5a8575",
+  "internal_replay": "57/57 PASS"
+ },
+ "protections_retained": [
+  "PAGE_ROBOTS_NOINDEX: every route's page metadata continues to read the historical publication gate and continues to emit noindex, nofollow.",
+  "X_ROBOTS_TAG_NOINDEX: the response header continues to read the same historical gate on all 29 routes.",
+  "PRIVATE_PREVIEW_NOTICE: continues to render on every route, bound to the historical gate.",
+  "NAVIGATION_LABEL_SUPPRESSION: navigation labels continue to be decided by the historical gate. Navigation is accepted and is not reopened by this overlay.",
+  "NO_SITEMAP_EMITTED: unchanged.",
+  "STAGING_AND_PRODUCTION_LOCKED: unchanged."
+ ],
+ "staging_readiness": {
+  "state": "READY_FOR_PRIVATE_STAGING_VALIDATION",
+  "applies_to": "the 29 accepted launch-cohort routes, enumerated below and required to equal the cohort exactly",
+  "routes": [
+   {
+    "route_id": "RT-0001",
+    "canonical_path": "/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0004",
+    "canonical_path": "/about-ics-industrial-cooling-solutions/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0236",
+    "canonical_path": "/contact-us/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0241",
+    "canonical_path": "/cooling-tower-algae-prevention/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0275",
+    "canonical_path": "/cooling-tower-design-parameters/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0292",
+    "canonical_path": "/cooling-tower-fan-blade-pitch-adjustment/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0303",
+    "canonical_path": "/cooling-tower-fill-media-replacement/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0314",
+    "canonical_path": "/cooling-tower-heat-load/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0318",
+    "canonical_path": "/cooling-tower-inspection-checklist/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0321",
+    "canonical_path": "/cooling-tower-inspection-steps/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0325",
+    "canonical_path": "/cooling-tower-lifespan-factors-failures-fixes/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0335",
+    "canonical_path": "/cooling-tower-maintenance/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0350",
+    "canonical_path": "/cooling-tower-overflow-issues/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0354",
+    "canonical_path": "/cooling-tower-parts-online/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0356",
+    "canonical_path": "/cooling-tower-performance-curve/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0358",
+    "canonical_path": "/cooling-tower-performance-testing/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0360",
+    "canonical_path": "/cooling-tower-ph-control/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0361",
+    "canonical_path": "/cooling-tower-piping-design/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0398",
+    "canonical_path": "/cooling-tower-thermal-upgrade/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0400",
+    "canonical_path": "/cooling-tower-ton-calculation/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0403",
+    "canonical_path": "/cooling-tower-vibrations/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0426",
+    "canonical_path": "/crossflow-vs-counterflow-cooling-tower-2/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0480",
+    "canonical_path": "/evaporative-vs-dry-cooling/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0495",
+    "canonical_path": "/frp-fan-blades-guide/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-0732",
+    "canonical_path": "/power-plant-cooling-towers/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-1203",
+    "canonical_path": "/reduce-cooling-tower-vibration/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-1208",
+    "canonical_path": "/resources/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-1236",
+    "canonical_path": "/signs-of-cooling-tower-failure/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   },
+   {
+    "route_id": "RT-1245",
+    "canonical_path": "/tech-articles/",
+    "historical_publication_condition": "PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING",
+    "historical_publication_ready": "NOT_READY_CONTENT_REMEDIATION_INCOMPLETE",
+    "staging_readiness": "READY_FOR_PRIVATE_STAGING_VALIDATION"
+   }
+  ]
+ },
+ "mounts_added": [
+  {
+   "mount_id": "floating_quote_launcher",
+   "surface": "SITE_WIDE_FLOATING",
+   "pattern": "DIALOG",
+   "applies_to": "EVERY_BUILD_ROUTE",
+   "label": "Request a Quote",
+   "context_keys": [
+    "page_path",
+    "cta_placement"
+   ],
+   "no_script_fallback_target": "/contact-us/",
+   "position": "FIXED_BOTTOM_RIGHT",
+   "affordance": "CHAT_MESSAGE_QUOTE_ICON_WITH_ACCESSIBLE_LABEL",
+   "context_keys_outside_the_adapter_allowlist": "NONE",
+   "adapter": "ACCEPTED_PHASE_2C_MIN_R1_1",
+   "rationale": "The owner's V1 conversion UX: a persistent site-wide affordance that opens the accepted conversational Typeform dialog. It introduces no chatbot, no chat-form engine, no CRM, no Revenue Engine, no native RFQ persistence and no custom email handling. Typeform remains the form and notification engine.",
+   "precedence": "LOWEST. The launcher renders in a neutral treatment whenever a higher-precedence signal-colour action exists on the route, so the accepted single-signal-action rule is preserved."
+  }
+ ],
+ "mount_pattern_decisions": [
+  {
+   "mount_id": "rfq_page",
+   "historical_pattern": "EMBEDDED_IN_PAGE",
+   "v1_pattern": "DIALOG",
+   "decision": "BOUNDED_V1_DECISION",
+   "reason": "No accepted authority supplies an embedded-in-page RFQ surface, and the accepted Phase 2C-min R1.1 adapter supplies only the QuoteCta dialog interface. Rather than fabricate a new embedded implementation or leave the Contact page with no conversion path, V1 opens the same accepted conversational Typeform dialog from the Contact page. The historical EMBEDDED_IN_PAGE intent is preserved above and is not deleted.",
+   "deferred": "The embedded-in-page surface, and the future custom CRM / chat-form architecture, remain deferred and unauthorised."
+  }
+ ],
+ "viewport_precedence_addition": {
+  "rule": "The accepted rule is unchanged: exactly one signal-colour RFQ action may be visible in any viewport at any time. floating_quote_launcher is appended at the END of the accepted precedence order, so it never displaces an accepted mount and never becomes a second signal-colour action.",
+  "order_after_addition": [
+   "header_action",
+   "product_detail_primary",
+   "category_and_family",
+   "editorial_inline",
+   "project_inline",
+   "rfq_page",
+   "sticky_floating",
+   "footer_rfq_band",
+   "floating_quote_launcher"
+  ]
+ },
+ "typeform_configuration": {
+  "production_form_id": "F22cAgx3",
+  "canonical_embed_origin": "https://form.typeform.com",
+  "production_use_in_this_pass": "NOT_USED_FOR_ANY_SUBMISSION",
+  "required_for_real_dialog_validation": "A NON-PRODUCTION Typeform form id, supplied externally. Not present in any accepted input. NOT INVENTED HERE.",
+  "rule": "No test submission is sent into the production lead flow. No form id, origin, notification recipient or analytics destination is invented, proposed or changed by this overlay."
+ },
+ "not_authorised_by_this_overlay": [
+  "Git commit, push, branch or pull request",
+  "Staging deployment, production deployment or DNS",
+  "Any Payload, database or media mutation",
+  "Any Typeform account, workspace or form change",
+  "Any live or test submission to the production form",
+  "A custom CRM, Revenue Engine, chatbot, chat-form backend, SMTP/email infrastructure or native RFQ persistence",
+  "Any change to indexing, robots direction, navigation, media, accepted content or design"
+ ]
+}
