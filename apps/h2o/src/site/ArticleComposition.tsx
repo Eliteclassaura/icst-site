@@ -29,6 +29,7 @@ import type { CohortPage } from './cohort'
 import { featuresForRoute } from './feature-media'
 import type { Block } from './markdown'
 import type { PlacedMedia } from './media'
+import { heroIsPresentable } from './r3-hero-policy'
 import { DocumentList, FeatureFigure, Figure, renderBlocks, renderInline } from './render'
 import type { ResourceDocument } from './resources'
 import { RfqMount } from './RfqMount'
@@ -101,6 +102,13 @@ export const ArticleComposition = ({
     .slice(1)
     .filter((section) => !(discoveryList !== null && section.title === DISCOVERY))
 
+  const articleIndexLinks = (keyPrefix: string): ReactNode =>
+    bodySections.map((section, i) => (
+      <a href={`#article-section-${i + 1}`} key={`${keyPrefix}-${i}`}>
+        {section.title}
+      </a>
+    ))
+
   /**
    * Inline images are distributed over the body's own section boundaries: the first goes before
    * the second section, the next before the third, and so on.
@@ -121,30 +129,54 @@ export const ArticleComposition = ({
       adds to it rather than replacing it, so every one of the 68 still renders somewhere on the
       route it is assigned to. The 87-load QA measures that directly.
     */
-    const placed = feature !== null && hero !== null ? [hero, ...inline] : inline
+    /*
+      R3 extends the same rule to the branded-card policy. A hero the policy will not present at
+      hero scale is not discarded — it joins the inline distribution exactly as a hero displaced by
+      a recovered feature image already did. Every one of the 68 frozen placements still renders on
+      the route it is assigned to, and the 87-load QA still measures that directly.
+    */
+    const displaced = feature !== null || !heroIsPresentable(page.routeId)
+    const placed = displaced && hero !== null ? [hero, ...inline] : inline
     const { head, tail } = splitMedia(placed, list.length)
     return (
       <>
         {list.map((section, i) => {
           const image = i > 0 ? head[i - 1] : undefined
+          const isBrandedEditorialCard = image === hero && !heroIsPresentable(page.routeId)
           return (
-            <div className="article-section" key={`sec-${i}`}>
+            <section className="article-section" id={`article-section-${i + 1}`} key={`sec-${i}`}>
               {image === undefined ? null : (
-                <div className="article-wide">
+                <div
+                  className={
+                    isBrandedEditorialCard
+                      ? 'article-wide article-displaced-branded-card'
+                      : 'article-wide'
+                  }
+                >
                   <Figure media={image} />
                 </div>
               )}
               {renderBlocks(
                 section.heading === null ? section.body : [section.heading, ...section.body],
               )}
+            </section>
+          )
+        })}
+        {tail.map((image, i) => {
+          const isBrandedEditorialCard = image === hero && !heroIsPresentable(page.routeId)
+          return (
+            <div
+              className={
+                isBrandedEditorialCard
+                  ? 'article-wide article-displaced-branded-card'
+                  : 'article-wide'
+              }
+              key={`tail-media-${i}`}
+            >
+              <Figure media={image} />
             </div>
           )
         })}
-        {tail.map((image, i) => (
-          <div className="article-wide" key={`tail-media-${i}`}>
-            <Figure media={image} />
-          </div>
-        ))}
       </>
     )
   }
@@ -161,7 +193,6 @@ export const ArticleComposition = ({
   return (
     <article className="article">
       <header className="masthead">
-        <p className="hero-eyebrow">Technical article</p>
         <h1>{renderInline(h1?.text ?? [])}</h1>
         {byline === null ? null : (
           <p className="byline">
@@ -171,43 +202,62 @@ export const ArticleComposition = ({
         )}
       </header>
 
+      {/*
+        R3: the route opens on a recovered photograph where the overlay carries one, on its frozen
+        hero where that hero is a photograph, and on the typographic masthead alone where the frozen
+        hero is a branded editorial card. See r3-hero-policy.ts for the per-route decision and why.
+      */}
       {feature !== null ? (
         <div className="article-wide article-hero">
           <FeatureFigure media={feature} priority />
         </div>
-      ) : hero === null ? null : (
+      ) : hero === null || !heroIsPresentable(page.routeId) ? null : (
         <div className="article-wide article-hero">
           <Figure media={hero} />
         </div>
       )}
 
-      <div className="article-body">{withMedia(bodySections)}</div>
+      <div className="article-reading">
+        <nav aria-label="Article sections" className="article-index article-index--desktop">
+          {articleIndexLinks('desktop-index')}
+        </nav>
 
-      {documents.length === 0 ? null : (
-        <div className="article-wide">
-          <DocumentList documents={documents} />
-        </div>
-      )}
+        <details className="article-index article-index--mobile">
+          <summary>On this page</summary>
+          <nav aria-label="Article sections">{articleIndexLinks('mobile-index')}</nav>
+        </details>
 
-      {discoveryList === null ? null : (
-        <section aria-labelledby="related" className="article-wide discovery">
-          <h2 className="section-title" id="related">
-            {renderInline(discovery?.heading?.text ?? [])}
-          </h2>
-          <ul className="discovery-grid">
-            {discoveryList.items.map((item, i) => (
-              <li key={`disc-${i}`}>{renderInline(item)}</li>
-            ))}
-          </ul>
-        </section>
-      )}
+        <div className="article-body">{withMedia(bodySections)}</div>
+
+        <aside className="article-rail">
+          {byline === null ? null : (
+            <p className="byline">
+              {byline}
+              {date === null ? null : <> · {date}</>}
+            </p>
+          )}
+          {documents.length === 0 ? null : <DocumentList documents={documents} />}
+          {discoveryList === null ? null : (
+            <section aria-labelledby="related" className="discovery">
+              <h2 className="section-title" id="related">
+                {renderInline(discovery?.heading?.text ?? [])}
+              </h2>
+              <ul className="discovery-grid">
+                {discoveryList.items.map((item, i) => (
+                  <li key={`disc-${i}`}>{renderInline(item)}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+          <RfqMount mountId="editorial_inline" page={page} />
+        </aside>
+      </div>
 
       {/*
         The two in-page conversion surfaces. Each self-gates on its own accepted `applies_to`
         token, so exactly one can render on a given route: `editorial_inline` on the 22 editorial
         routes, `rfq_page` on `/contact-us/`.
       */}
-      <RfqMount mountId="editorial_inline" page={page} />
       <RfqMount mountId="rfq_page" page={page} />
     </article>
   )

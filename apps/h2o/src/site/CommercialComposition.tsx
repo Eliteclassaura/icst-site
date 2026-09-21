@@ -30,6 +30,8 @@ import type { PlacedMedia } from './media'
 import { DocumentList, FeatureFigure, Figure, renderBlocks, renderInline } from './render'
 import type { ResourceDocument } from './resources'
 import { RfqMount } from './RfqMount'
+import { ContactDirectory } from './ContactDirectory'
+import { PrivateStagingVisual } from './private-staging-ai'
 import {
   assertTotal,
   partitionByHeading,
@@ -185,6 +187,10 @@ export const CommercialComposition = ({
         {media === null ? null : <FeatureFigure className="commercial-masthead-media" media={media} priority />}
       </header>
 
+      {variant === 'service' ? <PrivateStagingVisual kind="service" /> : null}
+      {variant === 'catalogue' ? <PrivateStagingVisual kind="parts" /> : null}
+      {variant === 'library' ? <PrivateStagingVisual kind="resources" /> : null}
+
       <div className="commercial-body">
         {openingRemainder === null ? null : (
           <SectionBlock catalogue={variant === 'catalogue'} index={0} section={openingRemainder} />
@@ -198,6 +204,10 @@ export const CommercialComposition = ({
           />
         ))}
       </div>
+
+      {variant === 'company' || variant === 'rfq' ? (
+        <ContactDirectory variant="page" />
+      ) : null}
 
       {placements.length === 0 ? null : (
         <section aria-label="Media" className="commercial-media">

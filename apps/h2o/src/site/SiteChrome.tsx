@@ -14,9 +14,8 @@
  *     derivative on the dark footer at 180x46 (160x41 on mobile), per the accepted design;
  *   - no navigation links at all, because the accepted contract suppresses every label whose target
  *     is not publication-ready and no route is;
- *   - the accepted RFQ actions on the header and footer surfaces, and the V1 floating launcher
- *     after the footer, each gated on the bounded staging-readiness overlay and on the no-script
- *     fallback route being staging-validation-ready under that same overlay;
+ *   - the accepted RFQ actions on the header and footer surfaces, plus a mobile-only fixed RFQ
+ *     bar after the footer; the legacy floating launcher wrapper is intentionally not mounted;
  *   - the private-preview notice, because this route is not publication-ready — bound to the same
  *     gate as robots, so a published route would not carry it;
  *   - no telephone, email, live chat, location or region module anywhere, because no such fact is
@@ -29,22 +28,47 @@
  */
 import type { ReactNode } from 'react'
 import type { CohortPage } from './cohort'
-import { FloatingQuoteLauncher } from './FloatingQuoteLauncher'
 import { showsPreviewNotice } from './gate'
 import {
   renderableFooterGroups,
   renderableHeaderItems,
-  renderableOrientationItems,
 } from './navigation'
 import { RfqMount } from './RfqMount'
+import { shellFooter, shellPrimary } from './r3-shell'
+import { ContactDirectory } from './ContactDirectory'
 
 export const PREVIEW_NOTICE =
   'Private implementation preview. This route is not publication-ready and nothing here is published.'
 
-export const SiteChrome = ({ children, page }: { children: ReactNode; page: CohortPage }) => {
-  const orientation = renderableOrientationItems()
-  const primary = renderableHeaderItems()
+export const SiteChrome = ({
+  bleed,
+  children,
+  page,
+}: {
+  /** R3: the composition owns its own full-bleed bands, so the chrome must not wrap it in a shell. */
+  bleed?: boolean
+  children: ReactNode
+  page: CohortPage
+}) => {
+  const contractPrimary = renderableHeaderItems()
   const groups = renderableFooterGroups()
+
+  /*
+   * R3 header navigation.
+   *
+   * The accepted contract's own renderable items come first and are never dropped. R3 then adds the
+   * cohort-backed shell links for any destination the contract does not already carry, so the four
+   * commercial pathways and the company pages are reachable from every route. `shellPrimary()`
+   * intersects its wish list with the accepted 29-route table, so a label exists only where the
+   * route does — no invented route, no dead link.
+   */
+  const contractHrefs = new Set(contractPrimary.map((item) => item.href))
+  const primary = [
+    ...contractPrimary.map((item) => ({ href: item.href, label: item.label })),
+    ...shellPrimary().filter((link) => !contractHrefs.has(link.href)),
+  ]
+  const footerGroups = shellFooter()
+  const year = new Date().getFullYear()
 
   return (
     <>
@@ -55,18 +79,6 @@ export const SiteChrome = ({ children, page }: { children: ReactNode; page: Coho
       ) : null}
 
       <header className="header">
-        {orientation.length > 0 ? (
-          <div className="strip">
-            <nav aria-label="Orientation" className="shell">
-              {orientation.map((item) => (
-                <a href={item.href} key={item.href}>
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-          </div>
-        ) : null}
-
         {/*
           The small-screen navigation.
 
@@ -107,28 +119,45 @@ export const SiteChrome = ({ children, page }: { children: ReactNode; page: Coho
           {primary.length > 0 ? (
             <nav aria-label="Primary" className="nav">
               {primary.map((item) => (
-                <a href={item.href} key={item.href}>
+                <a
+                  aria-current={item.href === page.canonicalPath ? 'page' : undefined}
+                  href={item.href}
+                  key={item.href}
+                >
                   {item.label}
                 </a>
               ))}
             </nav>
           ) : null}
           <RfqMount mountId="header_action" page={page} />
-          {primary.length === 0 && orientation.length === 0 ? null : (
+          {primary.length === 0 ? null : (
             <details className="nav-disclosure">
               <summary className="nav-button">
                 <span aria-hidden="true" className="nav-bars" />
-                Menu
+                <span className="nav-label">Menu</span>
               </summary>
               <div className="nav-panel">
                 {/* Decorative. The dimmed backdrop, not a second unlabelled control. */}
                 <span aria-hidden="true" className="nav-scrim" />
+                {/*
+                  R3 mobile navigation is composed, not collapsed: the drawer leads with the
+                  commercial pathways as a titled group, then orientation, then the RFQ action as a
+                  full-width block. Touch targets are set in CSS at 48px minimum.
+                */}
                 <nav aria-label="Primary, small screen" className="nav-drawer">
-                  {[...orientation, ...primary].map((item) => (
-                    <a href={item.href} key={`m-${item.href}`}>
+                  <span className="nav-drawer-title">Capability &amp; company</span>
+                  {primary.map((item) => (
+                    <a
+                      aria-current={item.href === page.canonicalPath ? 'page' : undefined}
+                      href={item.href}
+                      key={`m-${item.href}`}
+                    >
                       {item.label}
                     </a>
                   ))}
+                  <span className="nav-drawer-rfq">
+                    <RfqMount mountId="header_action" page={page} />
+                  </span>
                 </nav>
               </div>
             </details>
@@ -136,17 +165,67 @@ export const SiteChrome = ({ children, page }: { children: ReactNode; page: Coho
         </div>
       </header>
 
-      <main className="main">
-        <div className="shell">{children}</div>
-      </main>
+      {bleed === true ? (
+        <main className="main main--bleed" id="main">
+          {children}
+        </main>
+      ) : (
+        <main className="main" id="main">
+          <div className="shell">{children}</div>
+        </main>
+      )}
 
-      <footer className="footer">
+      <footer className="footer r3footer">
         <div className="shell">
+          {/* Brand block: the approved white-transparent derivative, and positioning drawn from the
+              accepted body rather than a written slogan. */}
+          <div className="r3footer-top">
+            <div className="r3footer-brand">
+              <img
+                alt="Industrial Cooling Solutions"
+                height={46}
+                src="/brand/ics-logo-white-transparent.png"
+                width={180}
+              />
+              <p>
+                Field-erected industrial cooling towers: new construction, repair, thermal upgrade
+                and replacement parts.
+              </p>
+              <div className="r3footer-cta">
+                <RfqMount mountId="footer_rfq_band" page={page} />
+              </div>
+            </div>
+
+            {footerGroups.length === 0 ? null : (
+              <nav aria-label="Footer" className="r3footer-nav">
+                {footerGroups.map((group) => (
+                  <div key={group.title}>
+                    <h2>{group.title}</h2>
+                    <ul>
+                      {group.items.map((item) => (
+                        <li key={item.href}>
+                          <a href={item.href}>{item.label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </nav>
+            )}
+            <ContactDirectory variant="footer" />
+          </div>
+
+          {/*
+            The contract's own footer groups, preserved. R2.2 rendered these and R3 does not drop
+            them: any item whose target became renderable still appears, under its contract group
+            name, below the R3 groups. Today the contract's renderable set is small; it is kept
+            rather than silently removed.
+          */}
           {groups.length === 0 ? null : (
-            <nav aria-label="Footer" className="footer-nav">
+            <nav aria-label="Footer, accepted contract" className="r3footer-contract">
               {groups.map((group) => (
-                <div className="footer-group" key={group.group}>
-                  <h2 className="footer-group-title">{group.group}</h2>
+                <div key={group.group}>
+                  <h2>{group.group}</h2>
                   <ul>
                     {group.items.map((item) => (
                       <li key={item.href}>
@@ -158,41 +237,38 @@ export const SiteChrome = ({ children, page }: { children: ReactNode; page: Coho
               ))}
             </nav>
           )}
-          <div className="footer-top">
-            <span className="footer-identity">
-              <img
-                alt="Industrial Cooling Solutions"
-                height={46}
-                src="/brand/ics-logo-white-transparent.png"
-                width={180}
-              />
-            </span>
-            {/*
-              The footer quote band. It sits on the dark ground, so it renders in the inverted
-              neutral treatment: the shared neutral style is ink-on-transparent, which on this
-              background would be ink on ink and therefore invisible. That was a real contrast
-              defect on the staging baseline, not a new risk introduced by the visual pass.
-            */}
-            <div className="footer-cta">
-              <RfqMount mountId="footer_rfq_band" page={page} />
-            </div>
-          </div>
+
           {/*
-            Domain identifier only, never a wordmark and never a link. The locations and regions
-            modules are absent entirely: the accepted contract omits them from the public build
-            because no office, address or served region is held, and an internal truth-state token
-            is never emitted as user-facing content.
+            The legal bar.
+
+            R2.2 rendered a bare production domain string here. R3 removes it: it is a production
+            URL on a public surface, the public brand is Industrial Cooling Solutions, and the
+            accepted chrome notes the domain was never a mark. The removal is recorded in the R3
+            diff ledger rather than made silently.
+
+            The contact directory is rendered from the owner-authorized contact record. It provides
+            only the three confirmed office records and telephone affordances; it does not infer an
+            email address, map, social profile, served region or additional location.
+
+            The year is computed at render, so the bar cannot go stale.
           */}
-          <p className="legal">h2ocooling.com</p>
+          <div className="r3legal">
+            <span>© {year} Industrial Cooling Solutions</span>
+            <span className="r3legal-note">
+              Private implementation preview — not a published site.
+            </span>
+          </div>
         </div>
       </footer>
 
       {/*
-        The V1 floating launcher, last in document order on purpose: it is a persistent
-        site-wide affordance, so the tab order should reach it after the page's own content and
-        the footer, not before them. It is out of flow, so its position here costs no layout.
+        The mobile action bar is last in document order. It replaces the legacy floating launcher
+        and is visible only on the small-screen composition, where its full-width label makes the
+        conversion path clear without competing with the header action.
       */}
-      <FloatingQuoteLauncher page={page} />
+      <div className="mobile-rfq-bar">
+        <RfqMount mountId="header_action" page={page} />
+      </div>
     </>
   )
 }

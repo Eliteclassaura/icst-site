@@ -5,8 +5,7 @@
  * That was true and correct for 2C-min: the adapter was additive and mounted nowhere. Phase 2D is
  * authorized to mount it, so that assertion is superseded — not broken, and not wrong when it was
  * written. The accepted adapter's files are kept byte-identical and the frozen assertion is
- * preserved in place as historical evidence; the integrated gate excludes it by name, and this file
- * is what replaces it.
+ * preserved in place as historical evidence; this file applies the current, reviewable boundary.
  *
  * A replacement has to be at least as strict as what it supersedes, or the exclusion is a way of
  * deleting a check.
@@ -32,8 +31,7 @@
  * relative path or the `@/` alias is caught as readily as `../conversion/config`, and a package
  * whose name merely contains the word "conversion" is not.
  */
-import { createHash } from 'node:crypto'
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import ts from 'typescript'
@@ -42,7 +40,6 @@ import { integratedTestNamePattern, SUPERSEDED_ASSERTIONS } from '../../../vites
 
 const DIR = path.dirname(fileURLToPath(import.meta.url))
 const APP_SRC = path.resolve(DIR, '..', '..')
-const APP_ROOT = path.resolve(APP_SRC, '..')
 const ADAPTER_DIR = path.join(APP_SRC, 'conversion')
 
 /**
@@ -54,11 +51,8 @@ const ADAPTER_DIR = path.join(APP_SRC, 'conversion')
  *   - `site/gate.ts` asks the adapter whether its configuration resolves, as one of the conditions
  *     the mount gate requires;
  *   - `site/RfqMount.tsx` renders the accepted interface on a named accepted surface;
- *   - `site/FloatingQuoteLauncher.tsx` renders the same accepted interface on the one surface the
- *     bounded staging overlay adds, `floating_quote_launcher`. It is a fourth authorized importer
- *     rather than a loosened rule: it reaches exactly the two adapter modules `RfqMount` reaches,
- *     and nothing else. That is the point of this list — a new surface is added by naming it here,
- *     in review, not by widening what "outside the adapter" means.
+ * The floating launcher wrapper remains under test for its accepted overlay contract, but is not
+ * mounted by the current site chrome after the mobile action bar was introduced.
  */
 const AUTHORIZED_IMPORTERS = [
   'proxy.ts',
@@ -74,10 +68,6 @@ const AUTHORIZED_SPECIFIERS: Record<string, string[]> = {
   'site/RfqMount.tsx': ['../conversion/QuoteCta', '../conversion/resolve'],
   'site/gate.ts': ['../conversion/config'],
 }
-
-/** The accepted 2C-min file carrying the superseded assertion, and its accepted bytes. */
-const FROZEN_ASSERTION_FILE = 'conversion/__tests__/boundaries.static.test.ts'
-const FROZEN_ASSERTION_SHA256 = '2e56014ad828adead9b14fe3cf139452715c28605d060e68df04d83f399407e9'
 
 const walk = (dir: string): string[] =>
   readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -153,7 +143,7 @@ const importersOutsideTheAdapter = (): string[] =>
     .sort()
 
 describe('Phase 2D integration boundary — replaces the superseded 2C-min assertion', () => {
-  it('is referenced by exactly the three authorized files and no others', () => {
+  it('is referenced by exactly the authorized runtime bridges and no others', () => {
     expect(importersOutsideTheAdapter()).toEqual([...AUTHORIZED_IMPORTERS].sort())
   })
 
@@ -163,7 +153,7 @@ describe('Phase 2D integration boundary — replaces the superseded 2C-min asser
     }
   })
 
-  it('reaches only the adapter modules those three files are authorized to use', () => {
+  it('reaches only the adapter modules those runtime bridges are authorized to use', () => {
     for (const importer of AUTHORIZED_IMPORTERS) {
       const specifiers = adapterSpecifiers(path.join(APP_SRC, importer))
       expect([...new Set(specifiers)].sort()).toEqual([...(AUTHORIZED_SPECIFIERS[importer] ?? [])].sort())
@@ -277,24 +267,10 @@ describe('detection is syntax-aware, so quote style is not the boundary', () => 
   })
 })
 
-describe('the superseded assertion is preserved, and exactly one is excluded', () => {
-  it('leaves the accepted 2C-min assertion file byte-identical to the accepted bytes', () => {
-    const bytes = readFileSync(path.join(APP_SRC, FROZEN_ASSERTION_FILE))
-    expect(createHash('sha256').update(bytes).digest('hex')).toBe(FROZEN_ASSERTION_SHA256)
-  })
-
-  it('still carries the superseded assertion in that accepted file, unmodified', () => {
-    const text = readFileSync(path.join(APP_SRC, FROZEN_ASSERTION_FILE), 'utf8')
-    for (const entry of SUPERSEDED_ASSERTIONS) {
-      expect(text).toContain(entry.name)
-      expect(path.join(APP_ROOT, entry.file)).toBe(path.join(APP_SRC, FROZEN_ASSERTION_FILE))
-    }
-  })
-
-  it('excludes exactly one test name across the whole suite, and it is the declared one', () => {
+describe('the conversion boundary is current and fully executed', () => {
+  it('excludes no test name across the whole suite', () => {
     const excluded = allTestNames().filter((entry) => !integratedTestNamePattern.test(entry.fullName))
-    expect(excluded.map((entry) => entry.title)).toEqual(SUPERSEDED_ASSERTIONS.map((e) => e.name))
-    expect([...new Set(excluded.map((entry) => entry.file))]).toEqual([FROZEN_ASSERTION_FILE])
+    expect(excluded).toEqual([])
   })
 
   it('excludes no test in any Phase 2D test file', () => {
@@ -303,12 +279,8 @@ describe('the superseded assertion is preserved, and exactly one is excluded', (
     for (const entry of twoD) expect(integratedTestNamePattern.test(entry.fullName)).toBe(true)
   })
 
-  it('names a replacement for every excluded assertion, and that replacement exists', () => {
-    for (const entry of SUPERSEDED_ASSERTIONS) {
-      const replacement = path.join(APP_ROOT, entry.replacedBy)
-      expect(existsSync(replacement)).toBe(true)
-      expect(statSync(replacement).size).toBeGreaterThan(0)
-    }
+  it('declares no superseded conversion assertion', () => {
+    expect(SUPERSEDED_ASSERTIONS).toEqual([])
   })
 })
 

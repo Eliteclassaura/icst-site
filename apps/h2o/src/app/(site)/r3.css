@@ -1,0 +1,2025 @@
+/*
+ * H2O R3 — the fast-track visual layer.
+ *
+ * Loaded after site.css. It adds; it does not fork. Every R2.2 token stays authoritative and every
+ * R2.2 class keeps working. R3 introduces the editorial scale, the full-bleed band system, the
+ * asymmetric grids and the technical index furniture that the accepted R3-B art direction asks for.
+ *
+ * Font policy is unchanged and deliberate: the repository CSP is `font-src 'self'` and no licensed
+ * webfont binary ships with any accepted package, so the declared stacks resolve to system faces.
+ * R3 therefore earns its typographic character from scale, weight, tracking, measure and rhythm
+ * rather than from a typeface that is not present. There is no @import and no <link>; adding one
+ * would be refused at review. The webfont binaries remain an open input, recorded as debt.
+ *
+ * No gradient, no backdrop-filter, no box-shadow, no decorative icon. The radius stays 2px.
+ */
+
+:root {
+  /* R3 editorial scale. The hero sits above the R2.2 seven-step scale rather than replacing it. */
+  --d0: clamp(46px, 8.6vw, 124px);
+  --d0-tight: clamp(40px, 7vw, 92px);
+  --d1-r3: clamp(32px, 4.4vw, 60px);
+  --d2-r3: clamp(26px, 3vw, 42px);
+  --lede: clamp(17px, 1.45vw, 22px);
+
+  /* Structural rules. Two weights only: a hairline for grouping, a heavy rule for section breaks. */
+  --rule: 1px solid var(--line);
+  --rule-strong: 2px solid var(--ink);
+  --rule-dark: 1px solid rgba(255, 255, 255, 0.18);
+
+  --band-dark: #0a1014;
+  --band-dark-2: #101a20;
+  --on-dark: #eef2f0;
+  --on-dark-mute: #93a3ab;
+}
+
+/* ---------- accessibility ---------- */
+
+.skip {
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--fm);
+  font-size: var(--m1);
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  padding: var(--s3) var(--s5);
+  position: absolute;
+  transform: translateY(-120%);
+  z-index: 50;
+}
+
+.skip:focus {
+  position: fixed;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------- band system ---------- */
+
+.band {
+  border-block-start: var(--rule);
+  padding-block: var(--s9);
+}
+
+.band--flush {
+  border-block-start: 0;
+}
+
+.band--tight {
+  padding-block: var(--s8);
+}
+
+.band--tall {
+  padding-block: var(--s10);
+}
+
+.band--dark {
+  background: var(--band-dark);
+  border-block-start: 0;
+  color: var(--on-dark);
+}
+
+.band--dark h2,
+.band--dark h3 {
+  color: #fff;
+}
+
+.band--dark a {
+  color: var(--on-dark);
+}
+
+.band--wash {
+  background: var(--surface);
+}
+
+/* ---------- section furniture ---------- */
+
+.sec-head {
+  align-items: end;
+  border-block-end: var(--rule-strong);
+  display: grid;
+  gap: var(--s4);
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-block-end: var(--s7);
+  padding-block-end: var(--s4);
+}
+
+.band--dark .sec-head {
+  border-block-end-color: rgba(255, 255, 255, 0.5);
+}
+
+.sec-index {
+  color: var(--mute);
+  font-family: var(--fm);
+  font-size: var(--m1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.band--dark .sec-index {
+  color: var(--on-dark-mute);
+}
+
+.sec-title {
+  font-family: var(--fd);
+  font-size: var(--d2-r3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  margin: 0;
+}
+
+.sec-note {
+  color: var(--mute);
+  font-size: var(--t2);
+  max-inline-size: 46ch;
+}
+
+.band--dark .sec-note {
+  color: var(--on-dark-mute);
+}
+
+/* A short accent rule. The only place the signal colour appears as decoration. */
+.tick {
+  background: var(--signal);
+  block-size: 3px;
+  display: block;
+  inline-size: 56px;
+}
+
+/* ---------- hero ---------- */
+
+.r3hero {
+  background: var(--band-dark);
+  color: var(--on-dark);
+  overflow: clip;
+  position: relative;
+}
+
+/*
+ * The media column is pinned to 691px — the exact pixel width of the accepted HOME_HERO crop.
+ *
+ * That number is not a taste decision. The native binary is a 1440x810 branded editorial slide
+ * carrying an ICS logo plate, a baked "What is a Cooling Tower?" headline and a bar containing the
+ * production domain. The accepted crop window [0.52,0,1,1] exists to remove all three, and it
+ * yields 691px. Widening the window to give the photograph more scale would put a production URL
+ * back into the page; stretching the frame past 691 would upscale a frozen binary. Both are
+ * refused, so the hero earns its scale from type and the photograph sits at its honest size.
+ */
+.r3hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 691px);
+  margin-inline: auto;
+  max-inline-size: var(--content);
+}
+
+.r3hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+  justify-content: center;
+  padding-block: clamp(var(--s8), 7vw, 132px);
+  padding-inline-end: var(--s8);
+  padding-inline-start: var(--gutter);
+}
+
+.r3hero-eyebrow {
+  align-items: center;
+  color: var(--on-dark-mute);
+  display: flex;
+  font-family: var(--fm);
+  font-size: var(--m1);
+  gap: var(--s4);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.r3hero h1 {
+  font-family: var(--fd);
+  font-size: var(--d0);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.r3hero h1 em {
+  color: var(--on-dark-mute);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.r3hero-lede {
+  color: var(--on-dark);
+  font-size: var(--lede);
+  line-height: 1.5;
+  margin: 0;
+  max-inline-size: 48ch;
+}
+
+.r3hero-sub {
+  color: var(--on-dark-mute);
+  font-size: var(--t2);
+  margin: 0;
+  max-inline-size: 52ch;
+}
+
+.r3hero-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s5);
+}
+
+/* The image bleeds to the viewport edge and runs the full height of the hero. */
+.r3hero-media {
+  overflow: clip;
+  position: relative;
+}
+
+/* The accepted FeatureFigure frame caps itself at the crop's native width; inside the hero it is
+   allowed to fill the column height, which never widens it past that cap. */
+.r3hero-media .feature-frame {
+  block-size: 100%;
+  inline-size: 100%;
+}
+
+.r3hero-media img {
+  block-size: 100%;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+.r3hero-media::after {
+  background: var(--band-dark);
+  content: '';
+  inset: 0;
+  opacity: 0.18;
+  pointer-events: none;
+  position: absolute;
+}
+
+.r3hero-spec {
+  border-block-start: var(--rule-dark);
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-inline: auto;
+  max-inline-size: var(--content);
+  padding-inline: var(--gutter);
+}
+
+.r3hero-spec div {
+  border-inline-start: var(--rule-dark);
+  padding: var(--s5) var(--s4);
+}
+
+.r3hero-spec div:first-child {
+  border-inline-start: 0;
+  padding-inline-start: 0;
+}
+
+.r3hero-spec dt {
+  color: var(--on-dark-mute);
+  font-family: var(--fm);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  margin: 0 0 var(--s2);
+  text-transform: uppercase;
+}
+
+.r3hero-spec dd {
+  font-family: var(--fd);
+  font-size: var(--t1);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* ---------- pathways: an indexed technical list, not a card grid ---------- */
+
+.pathways {
+  border-block-start: var(--rule-strong);
+}
+
+.pathway {
+  align-items: baseline;
+  border-block-end: var(--rule);
+  column-gap: var(--s6);
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 15rem) minmax(0, 1fr) auto;
+  padding-block: var(--s6);
+  text-decoration: none;
+}
+
+a.pathway {
+  color: inherit;
+}
+
+.pathway-n {
+  color: var(--mute);
+  font-family: var(--fm);
+  font-size: var(--m1);
+}
+
+.pathway-t {
+  font-family: var(--fd);
+  font-size: var(--d4);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+}
+
+.pathway-d {
+  color: var(--mute);
+  font-size: var(--t2);
+  line-height: 1.5;
+}
+
+.pathway-go {
+  color: var(--blue);
+  font-family: var(--fm);
+  font-size: var(--m1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+a.pathway:hover .pathway-t {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.pathway--mute .pathway-go {
+  color: var(--mute);
+}
+
+/* ---------- capability blocks: three different compositions ---------- */
+
+.cap {
+  align-items: center;
+  display: grid;
+  gap: var(--s8);
+}
+
+/* A: image bleeds off the left viewport edge, copy in a narrow right column. */
+.cap--bleed-left {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+}
+
+.cap--bleed-left .cap-media {
+  margin-inline-start: calc((100vw - min(100vw, var(--content))) / -2 - var(--gutter));
+}
+
+/* B: copy left, image large right, bleeding off the right edge. */
+.cap--bleed-right {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+}
+
+.cap--bleed-right .cap-media {
+  margin-inline-end: calc((100vw - min(100vw, var(--content))) / -2 - var(--gutter));
+}
+
+/* C: index-led. The parts table is the subject; the image is a tall narrow plate beside it. */
+.cap--index {
+  align-items: start;
+  grid-template-columns: minmax(0, 1.9fr) minmax(0, 0.75fr);
+}
+
+.cap-media {
+  overflow: clip;
+}
+
+.cap-media img {
+  display: block;
+  inline-size: 100%;
+}
+
+.cap-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+}
+
+.cap-kicker {
+  color: var(--mute);
+  font-family: var(--fm);
+  font-size: var(--m1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cap-title {
+  font-family: var(--fd);
+  font-size: var(--d1-r3);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.0;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.cap-body p {
+  margin: 0;
+  max-inline-size: 60ch;
+}
+
+/* ---------- technical index table (parts families) ---------- */
+
+.tindex {
+  border-block-start: var(--rule-strong);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tindex span {
+  border-block-end: var(--rule);
+  border-inline-start: var(--rule);
+  font-family: var(--fm);
+  font-size: var(--m1);
+  line-height: 1.4;
+  padding: var(--s4) var(--s4);
+}
+
+.tindex span:nth-child(3n + 1) {
+  border-inline-start: 0;
+}
+
+/* ---------- duty conditions ---------- */
+
+.duty {
+  display: grid;
+  gap: var(--s8);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+}
+
+.duty-list {
+  border-block-start: var(--rule-dark);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.duty-list span {
+  border-block-end: var(--rule-dark);
+  border-inline-start: var(--rule-dark);
+  font-family: var(--fm);
+  font-size: var(--m1);
+  padding: var(--s4);
+}
+
+.duty-list span:nth-child(3n + 1) {
+  border-inline-start: 0;
+}
+
+/* ---------- discovery index ---------- */
+
+.disc {
+  border-block-start: var(--rule-strong);
+}
+
+.disc-row {
+  align-items: baseline;
+  border-block-end: var(--rule);
+  column-gap: var(--s5);
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  padding-block: var(--s5);
+}
+
+.disc-t a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.disc-t a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.disc-n {
+  color: var(--mute);
+  font-family: var(--fm);
+  font-size: var(--m1);
+}
+
+.disc-t {
+  font-family: var(--fd);
+  font-size: var(--d4);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.disc-k {
+  color: var(--mute);
+  font-family: var(--fm);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---------- conversion band ---------- */
+
+.conv {
+  display: grid;
+  gap: var(--s8);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+}
+
+.conv h2 {
+  font-family: var(--fd);
+  font-size: var(--d1-r3);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.0;
+  margin: 0 0 var(--s5);
+}
+
+.conv-aside {
+  border-inline-start: var(--rule-dark);
+  padding-inline-start: var(--s6);
+}
+
+/* ---------- responsive art direction ---------- */
+
+@media (max-width: 1100px) {
+  .r3hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .r3hero-copy {
+    padding-block: var(--s9) var(--s8);
+    padding-inline: var(--s5);
+  }
+
+  .r3hero-media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .r3hero-spec {
+    padding-inline: var(--s5);
+  }
+
+  .cap--bleed-left,
+  .cap--bleed-right,
+  .cap--index,
+  .duty,
+  .conv {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s6);
+  }
+
+  .cap--bleed-left .cap-media,
+  .cap--bleed-right .cap-media {
+    margin-inline: calc(var(--s5) * -1);
+  }
+
+  /* Mobile order is a decision, not a stack: the image leads, the copy follows. */
+  .cap--bleed-right .cap-media {
+    order: -1;
+  }
+
+  .conv-aside {
+    border-inline-start: 0;
+    border-block-start: var(--rule-dark);
+    padding-block-start: var(--s5);
+    padding-inline-start: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .pathway {
+    grid-template-columns: 3rem minmax(0, 1fr);
+    row-gap: var(--s3);
+  }
+
+  .pathway-d {
+    grid-column: 2;
+  }
+
+  .pathway-go {
+    grid-column: 2;
+  }
+
+  .tindex,
+  .duty-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tindex span:nth-child(3n + 1),
+  .duty-list span:nth-child(3n + 1) {
+    border-inline-start: var(--rule);
+  }
+
+  .duty-list span:nth-child(3n + 1) {
+    border-inline-start: var(--rule-dark);
+  }
+
+  .tindex span:nth-child(2n + 1) {
+    border-inline-start: 0;
+  }
+
+  .duty-list span:nth-child(2n + 1) {
+    border-inline-start: 0;
+  }
+
+  .r3hero-spec {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .r3hero-spec div:nth-child(3) {
+    border-inline-start: 0;
+  }
+
+  .sec-head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .band {
+    padding-block: var(--s8);
+  }
+
+  .band--tall {
+    padding-block: var(--s8);
+  }
+
+  .r3hero h1 {
+    letter-spacing: -0.028em;
+  }
+
+  .disc-row {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    row-gap: var(--s2);
+  }
+
+  .tindex,
+  .duty-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tindex span,
+  .duty-list span {
+    border-inline-start: 0 !important;
+  }
+}
+
+/* ---------- R3 global shell ---------- */
+
+.main--bleed > * {
+  /* The composition owns its own bands; the chrome adds no shell and no padding. */
+  margin: 0;
+}
+
+.header .nav a[aria-current='page'] {
+  border-block-end: 2px solid var(--signal);
+  padding-block-end: 2px;
+}
+
+.nav-drawer-title {
+  border-block-end: var(--rule);
+  color: var(--mute);
+  display: block;
+  font-family: var(--fm);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  margin-block: var(--s5) var(--s2);
+  padding-block-end: var(--s2);
+  text-transform: uppercase;
+}
+
+.nav-drawer-title:first-child {
+  margin-block-start: 0;
+}
+
+/* Touch targets: every drawer link is at least 48px tall. */
+.nav-drawer a {
+  align-items: center;
+  display: flex;
+  min-block-size: 48px;
+}
+
+.nav-drawer-rfq {
+  display: block;
+  margin-block-start: var(--s6);
+}
+
+.r3footer {
+  background: var(--band-dark);
+  color: var(--on-dark);
+}
+
+.r3footer-top {
+  display: grid;
+  gap: var(--s8);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.55fr) minmax(15rem, 0.9fr);
+  padding-block: var(--s9) var(--s8);
+}
+
+.r3footer-brand img {
+  block-size: auto;
+  max-inline-size: 180px;
+}
+
+.r3footer-brand p {
+  color: var(--on-dark-mute);
+  font-size: var(--t2);
+  line-height: 1.5;
+  margin: var(--s5) 0 0;
+  max-inline-size: 34ch;
+}
+
+.r3footer-cta {
+  margin-block-start: var(--s6);
+}
+
+.r3footer-nav,
+.r3footer-contract {
+  display: grid;
+  gap: var(--s6);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.r3footer-contract {
+  border-block-start: var(--rule-dark);
+  padding-block: var(--s7);
+}
+
+.r3footer-nav h2,
+.r3footer-contract h2 {
+  color: var(--on-dark-mute);
+  font-family: var(--fm);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  margin: 0 0 var(--s4);
+  text-transform: uppercase;
+}
+
+.r3footer-nav ul,
+.r3footer-contract ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.r3footer-nav li,
+.r3footer-contract li {
+  margin-block-end: var(--s3);
+}
+
+.r3footer-nav a,
+.r3footer-contract a {
+  color: var(--on-dark);
+  font-size: var(--t2);
+  text-decoration: none;
+}
+
+.r3footer-nav a:hover,
+.r3footer-contract a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contact-directory h2 {
+  color: var(--mute);
+  font-family: var(--fm);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  margin: 0 0 var(--s4);
+  text-transform: uppercase;
+}
+
+.contact-directory-list {
+  display: grid;
+  gap: var(--s5);
+}
+
+.contact-office {
+  color: var(--ink);
+  display: grid;
+  font-size: var(--t1);
+  font-style: normal;
+  gap: 0.1rem;
+  line-height: 1.45;
+}
+
+.contact-office strong {
+  font-family: var(--fm);
+  font-size: var(--m1);
+  letter-spacing: 0.12em;
+  margin-block-end: var(--s1);
+  text-transform: uppercase;
+}
+
+.contact-office a {
+  color: inherit;
+  font-weight: 600;
+  margin-block-start: var(--s1);
+  overflow-wrap: anywhere;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.contact-directory--footer h2,
+.contact-directory--footer .contact-office {
+  color: var(--on-dark-mute);
+}
+
+.contact-directory--footer .contact-office strong,
+.contact-directory--footer .contact-office a {
+  color: var(--on-dark);
+}
+
+.commercial .contact-directory--page {
+  border-block: var(--rule);
+  margin-block: var(--s8);
+  padding-block: var(--s7);
+}
+
+.contact-directory--page .contact-directory-list {
+  gap: var(--s7);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.testimonials {
+  background: var(--wash);
+}
+
+.testimonial-feature {
+  border-block: var(--rule);
+  display: grid;
+  gap: var(--s7);
+  grid-template-columns: minmax(0, 2fr) minmax(12rem, 0.75fr);
+  margin-block-start: var(--s6);
+  padding-block: var(--s8);
+}
+
+.testimonials blockquote {
+  margin: 0;
+}
+
+.testimonials blockquote p {
+  margin: 0;
+}
+
+.testimonials blockquote p + p {
+  margin-block-start: var(--s3);
+}
+
+.testimonial-feature blockquote p:first-child {
+  font-family: var(--fd);
+  font-size: clamp(1.6rem, 2.4vw, 2.8rem);
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+.testimonial-feature blockquote p + p {
+  font-size: var(--t2);
+  line-height: 1.55;
+  max-inline-size: 58ch;
+}
+
+.testimonial-attribution {
+  align-self: end;
+  border-inline-start: 1px solid var(--line);
+  display: grid;
+  gap: var(--s1);
+  padding-inline-start: var(--s5);
+}
+
+.testimonial-attribution strong {
+  font-family: var(--fm);
+  font-size: var(--m1);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.testimonial-attribution span {
+  color: var(--mute);
+  font-size: var(--t1);
+}
+
+.testimonial-rows {
+  border-block-end: var(--rule);
+}
+
+.testimonial-row {
+  align-items: start;
+  border-block-start: var(--rule);
+  display: grid;
+  gap: var(--s6);
+  grid-template-columns: minmax(0, 2fr) minmax(12rem, 0.75fr);
+  padding-block: var(--s6);
+}
+
+.testimonial-row blockquote {
+  font-size: var(--t2);
+  line-height: 1.55;
+  max-inline-size: 66ch;
+}
+
+.r3legal {
+  border-block-start: var(--rule-dark);
+  color: var(--on-dark-mute);
+  display: flex;
+  flex-wrap: wrap;
+  font-family: var(--fm);
+  font-size: var(--m1);
+  gap: var(--s5);
+  justify-content: space-between;
+  padding-block: var(--s6);
+}
+
+@media (max-width: 1024px) {
+  .r3footer-top {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s7);
+  }
+
+  .contact-directory--page .contact-directory-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .r3footer-nav,
+  .r3footer-contract {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .r3footer-nav,
+  .r3footer-contract {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .r3legal {
+    flex-direction: column;
+    gap: var(--s3);
+  }
+
+  .contact-directory--page .contact-directory-list,
+  .testimonial-feature,
+  .testimonial-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .testimonial-feature {
+    gap: var(--s5);
+    padding-block: var(--s7);
+  }
+
+  .testimonial-attribution {
+    border-block-start: 1px solid var(--line);
+    border-inline-start: 0;
+    padding-block-start: var(--s4);
+    padding-inline-start: 0;
+  }
+}
+
+/*
+ * R3 header breakpoint.
+ *
+ * R2.2 switched the desktop nav for the disclosure drawer at 40rem, which fitted its two rendered
+ * labels. R3 renders the full commercial-pathway set, so the row no longer fits at 768 and the RFQ
+ * action was pushed 9px past the viewport — a real horizontal overflow, measured, not theoretical.
+ * The switch therefore moves to 1024: at and below it the drawer owns navigation, and the header
+ * row is identity + RFQ + Menu. The RFQ action stays in the row (it is the primary commercial
+ * action and must not be one tap deeper) and is also present inside the drawer.
+ */
+@media (max-width: 1024px) {
+  .header .nav {
+    display: none;
+  }
+
+  .nav-disclosure {
+    display: block;
+  }
+
+  .header .row {
+    column-gap: var(--s4);
+  }
+}
+
+/* Below 40rem R2.2 already compacts the row; keep its treatment and only cap the action width. */
+@media (max-width: 40rem) {
+  .header .row .rfq a {
+    max-inline-size: 42vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* ---------- R3 corrections found by rendered QA ---------- */
+
+/*
+ * 1. Bleed mode must not inherit the shell's block padding, or a strip of paper sits between the
+ *    header and the hero. Measured at 1440: ~90px of dead ground above the dark band.
+ */
+.main--bleed {
+  padding-block: 0;
+}
+
+/*
+ * 2. The hero figure has to fill its column, not sit at its intrinsic height with the figure's own
+ *    ground showing above it. The frame still caps the image at the crop's native width, so filling
+ *    the column height cannot upscale it.
+ */
+.r3hero-media,
+.r3hero-media.feature {
+  block-size: 100%;
+  margin: 0;
+}
+
+.r3hero-media .feature-frame {
+  block-size: 100%;
+  inline-size: 100%;
+  max-inline-size: none;
+}
+
+/*
+ * 3. CTA hierarchy.
+ *
+ * The accepted mount emits `rfq-neutral` for every surface except the header. Neutral is
+ * ink-on-transparent, which on R3's dark bands is ink on ink — a real contrast failure, measured on
+ * the rendered page, not a theoretical one. On dark ground the neutral mount is inverted; at the
+ * conversion moment it is promoted to the solid signal treatment, because Request a Quote is the
+ * site's primary commercial action and it should not read as a secondary control.
+ */
+.band--dark .rfq-neutral a,
+.r3footer .rfq-neutral a,
+.r3hero .rfq-neutral a {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fff;
+}
+
+.band--dark .rfq-neutral a:hover,
+.r3footer .rfq-neutral a:hover,
+.r3hero .rfq-neutral a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+}
+
+/* Primary action: hero and conversion band get the solid signal block at a larger size. */
+.r3hero-actions .rfq a,
+.conv .rfq a {
+  background: var(--signal);
+  border: 1px solid var(--signal);
+  color: #fff;
+  font-size: var(--t1);
+  font-weight: 600;
+  min-block-size: 52px;
+  padding: 14px 28px;
+}
+
+.r3hero-actions .rfq a:hover,
+.conv .rfq a:hover {
+  background: var(--signal-dark);
+  border-color: var(--signal-dark);
+}
+
+.conv .rfq {
+  display: inline-block;
+  margin-block-start: var(--s6);
+}
+
+/* Secondary action on the hero: a quiet inline link, not a second button. */
+.r3hero-actions .hero-secondary {
+  color: var(--on-dark);
+  font-family: var(--fm);
+  font-size: var(--m1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-underline-offset: 4px;
+}
+
+/*
+ * 4. The hero pathway strip was rendering blue-on-near-black. Invert it and let the numeral carry
+ *    the muted tone instead.
+ */
+.r3hero-spec dd a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.r3hero-spec dd a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/*
+ * 5. Parts block. The accepted PARTS crop is 730x886, and the index-led layout gave it a column
+ *    narrow enough that it rendered as a stamp. Widen the media column and let the plate run tall;
+ *    the frame's own cap still prevents upscaling.
+ */
+.cap--index {
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+}
+
+.cap--index .cap-media {
+  align-self: stretch;
+}
+
+.cap--index .cap-media .feature-frame {
+  inline-size: 100%;
+}
+
+/* 6. Dark-band section titles were undersized against the band they sit in. */
+.band--dark .cap-title {
+  font-size: var(--d1-r3);
+}
+
+.duty > div:first-child .sec-note {
+  color: var(--on-dark-mute);
+  max-inline-size: 34ch;
+}
+
+/*
+ * 7. Hero media vertical fit.
+ *
+ * The accepted HOME_HERO crop is 691x810. Stretching the figure to the copy column's height would
+ * scale that region past its native size — upscaling a frozen binary by arithmetic, which is the
+ * same fault the accepted frame cap exists to prevent. So the figure keeps its native aspect and is
+ * centred in the column instead, and the hero's own block padding is tuned so the dark matting
+ * above and below is even and small rather than a one-sided gap that reads as a bug.
+ */
+.r3hero-media,
+.r3hero-media.feature {
+  align-self: center;
+  block-size: auto;
+}
+
+.r3hero-media .feature-frame {
+  block-size: auto;
+}
+
+.r3hero-copy {
+  padding-block: clamp(var(--s7), 4.2vw, 72px);
+}
+
+/*
+ * 8. Cascade order correction.
+ *
+ * The corrections above are appended after the responsive block, so at equal specificity they were
+ * winning inside media queries too: `.cap--index` kept its two-column template below 1100 and the
+ * parts plate collapsed to a 122px stamp on a phone. Measured, not inferred. The responsive rules
+ * are therefore re-asserted last, which is where they have to live in a single appended layer.
+ */
+@media (max-width: 1100px) {
+  .cap--index {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* On a phone the parts plate leads, then the index it illustrates. */
+  .cap--index .cap-media {
+    order: -1;
+  }
+
+  .cap--index .cap-media .feature-frame {
+    inline-size: 100%;
+  }
+
+  .r3hero-copy {
+    padding-block: var(--s8) var(--s7);
+  }
+}
+
+/* ---------- R3 archetype differentiation ---------- */
+
+/*
+ * A service page must not read like an article, and an article must not read like the homepage.
+ * The three archetypes are separated by opening treatment, measure and metadata, on one shared
+ * type and colour system.
+ */
+
+/* COMMERCIAL: a tight, asymmetric masthead. R2.2's version opened with a large empty quadrant and
+   floated the photograph inside a pale card; both are removed. */
+.commercial-masthead {
+  align-items: center;
+  border-block-end: var(--rule-strong);
+  column-gap: var(--s8);
+  padding-block: var(--s7) var(--s7);
+}
+
+.commercial-masthead-copy h1 {
+  font-size: var(--d1-r3);
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  margin-block: var(--s4) var(--s5);
+  text-wrap: balance;
+}
+
+.commercial-masthead-copy p {
+  font-size: var(--lede);
+  line-height: 1.5;
+  max-inline-size: 46ch;
+}
+
+.commercial-masthead-media,
+.commercial-masthead-media.feature {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.commercial-masthead-media .feature-frame {
+  inline-size: 100%;
+}
+
+/* A service page carries the primary action in its masthead, not only at the foot. */
+.commercial-masthead-copy .rfq a {
+  background: var(--signal);
+  border: 1px solid var(--signal);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ARTICLE: a serious reading experience. Narrow measure, mono metadata, quiet rules, and a title
+   that sits on the page rather than on a picture. */
+.article .masthead {
+  border-block-end: var(--rule-strong);
+  margin-block-end: var(--s7);
+  padding-block: var(--s7) var(--s5);
+}
+
+.article .masthead h1 {
+  font-size: var(--d2-r3);
+  letter-spacing: -0.028em;
+  line-height: 1.04;
+  margin-block: var(--s4) var(--s5);
+  max-inline-size: 22ch;
+  text-wrap: balance;
+}
+
+.article .byline {
+  color: var(--mute);
+  font-family: var(--fm);
+  font-size: var(--m1);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.article .article-section > h2 {
+  border-block-start: var(--rule);
+  font-size: var(--d3);
+  letter-spacing: -0.02em;
+  margin-block-start: var(--s8);
+  padding-block-start: var(--s5);
+}
+
+.article .article-body p {
+  max-inline-size: 68ch;
+}
+
+/*
+ * 9. Commercial masthead, corrected from rendered measurement.
+ *
+ * Measured at 1440: the masthead was 833px tall because the media column is 743px while the copy
+ * is 341px, and `align-items: center` split the 400px difference into two voids. The frame's own
+ * wash ground also showed as pale bands where the image did not cover. Both are presentation
+ * faults, not content faults. The copy now sits at the top of the column, which makes the height
+ * difference read as intended asymmetry rather than as empty space, and the frame ground is
+ * transparent so only the photograph is visible.
+ */
+.commercial-masthead {
+  align-items: start;
+  padding-block: var(--s6) var(--s7);
+}
+
+.commercial-masthead-media .feature-frame {
+  background: transparent;
+}
+
+.commercial-masthead-copy {
+  padding-block-start: var(--s5);
+}
+
+/*
+ * 10. Hero pathway strip touch targets.
+ *
+ * Measured at 768: the four strip links were 21px tall. They are standalone navigation, not links
+ * inline in a paragraph, so the WCAG 2.2 inline exception does not cover them. They are given a
+ * 44px target without changing the strip's visual rhythm.
+ */
+.r3hero-spec dd a {
+  align-items: center;
+  display: inline-flex;
+  min-block-size: 44px;
+}
+
+/* ---------- R3 continuation: accepted Control Tower correction ---------- */
+
+/* The homepage earns scale from composition, not from rights-constrained photography. */
+.r3hero {
+  min-block-size: 760px;
+}
+
+/* Control Tower-approved private-staging visual support. It is a deliberately subordinate layer:
+   the existing type-led hero and its four-path index remain the composition's primary content. */
+.private-staging-visual {
+  margin: 0;
+  overflow: clip;
+}
+
+.r3hero > .private-staging-visual--hero {
+  block-size: 100%;
+  inset-block: 0;
+  inset-inline-end: 0;
+  opacity: 0.68;
+  pointer-events: none;
+  position: absolute;
+  inline-size: min(52vw, 760px);
+  z-index: 0;
+}
+
+.r3hero > .private-staging-visual--hero img {
+  block-size: 100%;
+  inline-size: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+
+.r3hero-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.commercial > .private-staging-visual {
+  border-block-end: var(--rule-strong);
+  border-block-start: var(--rule-strong);
+  inline-size: 100%;
+  margin-block: var(--s7);
+}
+
+.commercial > .private-staging-visual img {
+  block-size: 100%;
+  display: block;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+.private-staging-visual--service {
+  background: var(--band-dark);
+  block-size: clamp(260px, 30vw, 440px);
+}
+
+.private-staging-visual--service img {
+  object-position: center;
+}
+
+.private-staging-visual--parts {
+  background: var(--band-dark);
+  block-size: clamp(240px, 24vw, 360px);
+}
+
+.private-staging-visual--parts img {
+  object-position: center 46%;
+}
+
+.private-staging-visual--resources {
+  background: var(--band-dark);
+  block-size: clamp(220px, 21vw, 330px);
+}
+
+.private-staging-visual--resources img {
+  object-position: center;
+}
+
+.r3hero-grid {
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr) minmax(480px, 0.92fr);
+  min-block-size: 760px;
+  overflow: visible;
+}
+
+.r3hero-copy {
+  gap: 20px;
+  justify-content: start;
+  padding-block: 112px;
+  padding-inline-end: var(--s8);
+}
+
+.r3hero h1 {
+  font-size: 76px;
+  font-weight: 600;
+  letter-spacing: -0.034em;
+  line-height: 1.02;
+  max-inline-size: 15ch;
+  text-wrap: pretty;
+}
+
+.r3hero-lede {
+  font-size: 21px;
+  line-height: 1.55;
+  margin-block-start: 8px;
+  max-inline-size: 46ch;
+}
+
+.r3hero-sub {
+  font-size: 17px;
+  line-height: 1.55;
+  margin-block-start: 0;
+}
+
+.r3hero-actions {
+  gap: 32px;
+  margin-block-start: 24px;
+}
+
+.r3hero-actions .rfq a {
+  min-block-size: 64px;
+  padding-inline: 32px;
+}
+
+.r3hero-panel {
+  align-self: stretch;
+  background: #16232a;
+  border-inline-start: 1px solid var(--signal);
+  margin-block: 56px -96px;
+  margin-inline-end: calc((100vw - min(100vw, var(--content))) / -2);
+  min-block-size: 700px;
+  position: relative;
+  z-index: 1;
+}
+
+.r3hero-spec {
+  border-block: 0;
+  display: block;
+  margin: 0;
+  max-inline-size: none;
+  padding: 0;
+}
+
+.r3hero-spec div {
+  align-items: center;
+  border-block-end: 1px solid #243038;
+  border-inline-start: 0;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  min-block-size: 88px;
+  padding: 0 28px;
+}
+
+.r3hero-spec div:first-child {
+  border-block-start: 1px solid #243038;
+  padding-inline: 28px;
+}
+
+.r3hero-spec dt {
+  margin: 0;
+}
+
+.r3hero-spec dd {
+  margin: 0;
+}
+
+.r3hero-spec dd a {
+  font-size: 22px;
+  font-weight: 600;
+  min-block-size: 88px;
+}
+
+.r3hero-spec div > span {
+  color: var(--signal);
+  font-size: 22px;
+}
+
+.home-scale-statement {
+  background: var(--ink);
+  color: #fff;
+  min-block-size: 520px;
+  padding-block: 120px;
+}
+
+.home-scale-statement p {
+  font-family: var(--fd);
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  margin: 0;
+  max-inline-size: 24ch;
+  text-wrap: pretty;
+}
+
+.home-cap--1 {
+  background: var(--band-dark);
+  border-block-start: 0;
+  color: var(--on-dark);
+}
+
+.home-cap--1 .cap-body,
+.home-cap--1 .cap-link {
+  color: var(--on-dark);
+}
+
+.home-close .conv {
+  align-items: center;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+}
+
+.home-close .conv-aside {
+  border-inline-start-color: var(--line);
+}
+
+.home-close .conv .rfq a {
+  min-block-size: 56px;
+}
+
+/* One white header band. The removed utility strip stays absent at every breakpoint. */
+.header .row {
+  min-block-size: 80px;
+}
+
+.nav-button {
+  border-radius: 2px;
+}
+
+.mobile-rfq-bar {
+  display: none;
+}
+
+/* Service pages read as scoped engineering engagements; parts read as procurement rows. */
+.commercial-service .commercial-masthead {
+  background: var(--ink);
+  border-block-end: 0;
+  color: #fff;
+  margin-inline: calc((100vw - min(100vw, var(--content))) / -2);
+  padding: 96px max(var(--gutter), calc((100vw - min(100vw, var(--content))) / 2 + var(--gutter)));
+}
+
+.commercial-service .commercial-masthead-copy p,
+.commercial-service .hero-eyebrow {
+  color: var(--on-dark-mute);
+}
+
+.commercial-catalogue .commercial-masthead {
+  min-block-size: 240px;
+}
+
+.catalogue-grid {
+  border-block-start: var(--rule-strong);
+  display: block;
+}
+
+.catalogue-card {
+  background: transparent;
+  border-block-end: var(--rule);
+  border-block-start: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  min-block-size: 96px;
+  outline: 0;
+  padding: 20px 0;
+}
+
+.catalogue-card h3,
+.catalogue-card p {
+  grid-column: 1;
+}
+
+.catalogue-card h3 {
+  margin-block: 0 8px;
+}
+
+.catalogue-card::after {
+  align-self: center;
+  color: var(--signal);
+  content: 'Request a Quote';
+  font-family: var(--fm);
+  font-size: var(--m1);
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* The current site is private: a 404 still belongs to the visual system. */
+.main:not(.main--bleed) > .shell > .article:only-child {
+  min-block-size: 420px;
+  padding-block: 96px;
+}
+
+/* Articles become an engineered reading surface: index, measure, evidence rail. */
+.article-reading {
+  align-items: start;
+  display: grid;
+  gap: var(--s7);
+  grid-template-columns: 220px minmax(0, 680px) minmax(0, 300px);
+  margin-inline: auto;
+  max-inline-size: 1280px;
+}
+
+.article-index {
+  align-self: start;
+  border-block-start: var(--rule-strong);
+  position: sticky;
+  top: 120px;
+}
+
+.article-index a {
+  border-block-end: var(--rule);
+  color: var(--steel, var(--ink));
+  display: block;
+  font-size: 16px;
+  line-height: 1.35;
+  padding: 10px 0;
+  text-decoration: none;
+}
+
+.article-index a:hover,
+.article-index a:focus-visible {
+  border-inline-start: 2px solid var(--signal);
+  color: var(--ink);
+  padding-inline-start: 10px;
+}
+
+.article-index--mobile {
+  display: none;
+}
+
+/* Branded legacy title cards remain on their accepted route, but never retake hero scale. */
+.article-displaced-branded-card {
+  inline-size: min(400px, 100%);
+  justify-self: start;
+  margin-block: var(--s7);
+  max-inline-size: min(400px, 100%);
+}
+
+.article-displaced-branded-card img {
+  inline-size: 100%;
+}
+
+.article-reading .article-body {
+  min-inline-size: 0;
+}
+
+.article-reading .article-section > h2 {
+  margin-block-start: 64px;
+}
+
+.article-reading .article-section:first-child > h2 {
+  margin-block-start: 0;
+}
+
+.article-reading .article-body p {
+  font-size: 18px;
+  line-height: 1.75;
+  max-inline-size: 68ch;
+}
+
+.article-rail {
+  align-self: start;
+  display: grid;
+  gap: var(--s5);
+}
+
+.article-rail > * {
+  border-block-start: var(--rule);
+  margin: 0;
+  padding-block-start: var(--s4);
+}
+
+.article-rail .docs,
+.article-rail .discovery-grid {
+  display: block;
+}
+
+.article-rail .discovery-grid li {
+  border-block-end: var(--rule);
+  padding-block: var(--s3);
+}
+
+@media (max-width: 1280px) {
+  .article-reading {
+    grid-template-columns: 200px minmax(0, 680px);
+    max-inline-size: 920px;
+  }
+
+  .article-rail {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 1100px) {
+  .r3hero,
+  .r3hero-grid {
+    min-block-size: auto;
+  }
+
+  .r3hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .r3hero-panel {
+    margin-inline-end: calc((100vw - min(100vw, var(--content))) / -2);
+    min-block-size: 620px;
+  }
+
+  .r3hero-copy {
+    padding-inline-start: var(--gutter);
+  }
+
+  .home-close .conv {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .header .row {
+    min-block-size: 64px;
+  }
+
+  .header .nav-button {
+    align-items: center;
+    border: 1px solid var(--line);
+    display: inline-flex;
+    justify-content: center;
+    min-block-size: 48px;
+    min-inline-size: 48px;
+    padding: 0;
+  }
+
+  .header .nav-label {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .r3hero > .private-staging-visual--hero {
+    block-size: 240px;
+    inline-size: 100%;
+    opacity: 1;
+    position: relative;
+  }
+
+  .r3hero > .private-staging-visual--hero img {
+    object-position: right center;
+  }
+
+  .r3hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .r3hero-copy {
+    padding-block: 72px 64px;
+  }
+
+  .r3hero h1 {
+    font-size: 44px;
+  }
+
+  .r3hero-panel {
+    margin: 0;
+    min-block-size: 320px;
+  }
+
+  .r3hero-spec div,
+  .r3hero-spec dd a {
+    min-block-size: 80px;
+  }
+
+  .home-scale-statement {
+    min-block-size: 360px;
+    padding-block: 96px;
+  }
+
+  .home-scale-statement p {
+    font-size: 36px;
+  }
+
+  .article-reading {
+    display: block;
+  }
+
+  .article-index {
+    border-block-end: var(--rule);
+    margin-block-end: var(--s6);
+    position: static;
+  }
+
+  .article-index a {
+    min-block-size: 44px;
+  }
+
+  .article-index--desktop {
+    display: none;
+  }
+
+  .article-index--mobile {
+    display: block;
+  }
+
+  .article-index--mobile summary {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: space-between;
+    min-block-size: 48px;
+  }
+
+  .article-index--mobile summary::after {
+    color: var(--signal);
+    content: '+';
+    font-size: 22px;
+  }
+
+  .article-index--mobile[open] summary::after {
+    content: '−';
+  }
+
+  .article-index--mobile summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .article-index--mobile summary::marker {
+    content: '';
+  }
+
+  .article-index--mobile summary:focus-visible {
+    outline: 3px solid var(--h2o-focus-ring, var(--signal));
+    outline-offset: 3px;
+  }
+
+  .article-index--mobile nav {
+    border-block-start: var(--rule);
+  }
+
+  .article-rail {
+    margin-block-start: var(--s8);
+  }
+}
+
+@media (max-width: 600px) {
+  .r3hero > .private-staging-visual--hero {
+    block-size: 190px;
+  }
+
+  body {
+    padding-block-end: 64px;
+  }
+
+  .header .row {
+    min-block-size: 60px;
+  }
+
+  .header .identity img {
+    block-size: auto;
+    inline-size: 118px;
+  }
+
+  .header .row > .rfq {
+    display: none;
+  }
+
+  .r3hero {
+    min-block-size: 520px;
+  }
+
+  .r3hero-copy {
+    min-block-size: 520px;
+    padding-block: 64px;
+  }
+
+  .r3hero h1 {
+    font-size: 34px;
+    max-inline-size: 14ch;
+  }
+
+  .r3hero-lede {
+    font-size: 17px;
+    max-inline-size: 40ch;
+  }
+
+  .r3hero-panel {
+    display: none;
+  }
+
+  .r3hero-actions .rfq a {
+    inline-size: 100%;
+    justify-content: center;
+  }
+
+  .r3hero-actions .hero-secondary {
+    display: none;
+  }
+
+  .mobile-rfq-bar {
+    align-items: center;
+    background: var(--ink);
+    border-block-start: 1px solid var(--line);
+    bottom: 0;
+    display: flex;
+    inset-inline: 0;
+    justify-content: center;
+    min-block-size: 64px;
+    padding-inline: 16px;
+    position: fixed;
+    z-index: 20;
+  }
+
+  .mobile-rfq-bar .rfq,
+  .mobile-rfq-bar .rfq a {
+    inline-size: 100%;
+  }
+
+  .mobile-rfq-bar .rfq a {
+    align-items: center;
+    background: var(--signal);
+    border-color: var(--signal);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    min-block-size: 48px;
+  }
+
+  .home-scale-statement {
+    min-block-size: 300px;
+    padding-block: 64px;
+  }
+
+  .home-scale-statement p {
+    font-size: 32px;
+  }
+
+  .catalogue-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .catalogue-card::after {
+    grid-column: 1;
+    grid-row: auto;
+    margin-block-start: 12px;
+  }
+}
+
+/* ---------- R3 R1.1 final visual / responsive correction ---------- */
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .r3hero h1 {
+    font-size: 58px;
+  }
+}
+
+/* The disclosure switches at 1024px, so its three CSS-drawn rules must switch with it. */
+@media (max-width: 1024px) {
+  .header .nav-button::-webkit-details-marker {
+    display: none;
+  }
+
+  .header .nav-button::marker {
+    content: '';
+  }
+
+  .header .nav-button:focus-visible {
+    outline: 3px solid var(--h2o-focus-ring, var(--signal));
+    outline-offset: 2px;
+  }
+
+  .header .nav-bars {
+    background: var(--ink);
+    block-size: 2px;
+    box-shadow:
+      0 -6px 0 var(--ink),
+      0 6px 0 var(--ink);
+    display: block;
+    inline-size: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding-block-end: 0;
+  }
+
+  body:has(.mobile-rfq-bar > .rfq) {
+    padding-block-end: 64px;
+  }
+
+  .mobile-rfq-bar {
+    display: none;
+  }
+
+  .mobile-rfq-bar:has(> .rfq) {
+    display: flex;
+  }
+}

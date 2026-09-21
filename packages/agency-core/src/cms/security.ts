@@ -14,7 +14,7 @@ export function securityDefaults(opts: { serverURL: string; extraOrigins?: strin
       disableIntrospectionInProduction: true,
     },
     // Rate-limit key for form/auth endpoints, applied by the app's proxy (Cloudflare adds the edge layer).
-    rateLimit: { window: 60_000, max: 300, trustProxy: true, skip: () => false },
+    rateLimit: { window: 60_000, max: 300, trustProxy: true },
     telemetry: false,
   }
 }

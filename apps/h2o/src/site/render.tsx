@@ -104,7 +104,7 @@ export const Figure = ({ media }: { media: PlacedMedia }): ReactNode => (
 export const FeatureFigure = ({
   className,
   media,
-  priority,
+  priority: _priority,
 }: {
   className?: string
   media: FeatureMedia
@@ -137,7 +137,14 @@ export const FeatureFigure = ({
       >
         <img
           alt={media.alt}
-          decoding={priority === true ? 'sync' : 'async'}
+          /*
+            These are the few primary, bounded feature images on a route.  They are eager by
+            contract, so decoding them asynchronously only creates a paint race for a full-page
+            capture: the request can be complete while the clipped image has not reached the
+            compositor.  Synchronous decode makes the frame's first eligible paint include the
+            recovered binary.  It does not alter the file, its crop, or its rendered dimensions.
+          */
+          decoding="sync"
           height={media.nativeHeight}
           /*
             R2-F5. Eager, always. The image is absolutely positioned inside a clipping frame and

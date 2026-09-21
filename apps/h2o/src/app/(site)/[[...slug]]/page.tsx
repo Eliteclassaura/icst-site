@@ -59,7 +59,7 @@ const Page = async ({ params }: Params) => {
   // restructures.
   if (page.canonicalPath === '/') {
     return (
-      <SiteChrome page={page}>
+      <SiteChrome bleed page={page}>
         {jsonLd.map((node, i) => (
           <script
             dangerouslySetInnerHTML={{ __html: JSON.stringify(node) }}

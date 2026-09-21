@@ -137,7 +137,15 @@ describe('the overlay supersedes exactly seven routes and nothing else', () => {
         expect(at).toBeGreaterThanOrEqual(0)
         expect(replayed.indexOf(edit.removed, at + 1)).toBe(-1)
         replayed = replayed.slice(0, at) + edit.replaced_with + replayed.slice(at + edit.removed.length)
-        if (edit.replaced_with !== '') expect(after).toContain(edit.replaced_with)
+        /*
+          There is deliberately NO `after.toContain(edit.replaced_with)` here. Once a body carries
+          edits from several passes, a later edit may rewrite text an earlier one inserted, and an
+          earlier `removed` phrase may legitimately reappear inside a later replacement. Both make
+          a per-edit containment check against the FINAL text wrong rather than strict. The replay
+          above is the stronger property and subsumes it: it requires each `removed` string to be
+          present and unique at the moment its edit is applied, and the whole chain to reproduce
+          the rendered body byte for byte.
+        */
         expect(edit.reason.length).toBeGreaterThan(8)
         totalRecordedEdits += 1
       }

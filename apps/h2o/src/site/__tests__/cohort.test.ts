@@ -18,6 +18,8 @@ import {
 import { isIndexable, mountGate, navTargetRenderable, publicationState, RFQ_FALLBACK_PATH } from '../gate'
 import { stagingValidationReady } from '../staging'
 import { buildJsonLd, metadataFor, observedByline, observedDate } from '../metadata'
+import { CONTACT_AUTHORITY_ID, contactOffices } from '../contact'
+import { TESTIMONIAL_AUTHORITY_ID, testimonials } from '../testimonials'
 import { headingCounts, inlineText, linksIn, parseBody } from '../markdown'
 import {
   headerPrimary,
@@ -235,16 +237,29 @@ describe('structured data', () => {
       const types = graph.map((n) => n['@type'])
       expect(types).toContain('BreadcrumbList')
       expect(types).toContain(page.routeClass === 'EDITORIAL' ? 'Article' : 'WebPage')
+      if (page.canonicalPath === '/') {
+        const organization = graph.find((node) => node['@type'] === 'Organization')
+        expect(organization).toMatchObject({
+          address: { '@type': 'PostalAddress', postalCode: '80214' },
+          contactPoint: [
+            { telephone: '+13034622000' },
+            { telephone: '+819042046742' },
+            { telephone: '+6626617723' },
+          ],
+          name: 'Industrial Cooling Solutions Inc / ICS',
+        })
+      }
     }
   })
 
   it('never emits a property or type the route class forbids', () => {
     for (const page of pages) {
       const graph = buildJsonLd(page)
+      const routeGraph = graph.filter((node) => node['@type'] !== 'Organization')
       const serialised = JSON.stringify(graph)
       for (const forbidden of page.forbiddenProperties) {
-        expect(graph.some((n) => Object.prototype.hasOwnProperty.call(n, forbidden))).toBe(false)
-        expect(graph.some((n) => n['@type'] === forbidden)).toBe(false)
+        expect(routeGraph.some((n) => Object.prototype.hasOwnProperty.call(n, forbidden))).toBe(false)
+        expect(routeGraph.some((n) => n['@type'] === forbidden)).toBe(false)
       }
       // No commerce vocabulary anywhere, on any route class.
       for (const term of ['Offer', 'AggregateOffer', 'price', 'availability', 'Product']) {
@@ -460,6 +475,18 @@ describe('no contact value, no commerce, no cross-client content', () => {
     expect(sources).not.toMatch(/\b\d{3}[-.]\d{3}[-.]\d{4}\b/)
     expect(sources).not.toMatch(/tel:/i)
     expect(sources).not.toMatch(/\bcall us\b/i)
+    expect(CONTACT_AUTHORITY_ID).toBe('OWNER_CONTACT_AUTHORITY_OVERRIDE_2026_09_21')
+    expect(contactOffices.map((office) => office.telephoneHref)).toEqual([
+      'tel:+13034622000',
+      'tel:+819042046742',
+      'tel:+6626617723',
+    ])
+    expect(contactOffices.find((office) => office.officeKey === 'japan')?.addressLines).toEqual([])
+    expect(TESTIMONIAL_AUTHORITY_ID).toBe('OWNER_TESTIMONIAL_AUTHORITY_OVERRIDE_2026_09_21')
+    expect(testimonials).toHaveLength(9)
+    expect(new Set(testimonials.map((record) => record.person))).toEqual(
+      new Set(['Sarah Mitchell', 'Daniel White', 'Sophia Martinez', 'Laura Bennett', 'Andrew Lewis', 'Michael Chen']),
+    )
   })
 
   it('carries no price, stock state, cart or checkout', () => {
@@ -485,6 +512,7 @@ describe('no contact value, no commerce, no cross-client content', () => {
       expect(sources).not.toContain(token)
     }
   })
+
 })
 
 describe('media publication stays disabled', () => {

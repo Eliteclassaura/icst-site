@@ -105,13 +105,22 @@ describe('commerce boundary — quote/contact only', () => {
     expect(allAdapterText).not.toMatch(/\.\.\/collections/)
   })
 
-  it('leaves every accepted collection and hook untouched by this increment', () => {
-    // The adapter is additive: nothing outside src/conversion imports it yet, so no existing
-    // module's behaviour can have changed because of it.
+  it('is imported only by the reviewed runtime bridges', () => {
+    // The adapter is mounted only through the approved public-surface bridges and its CSP/config
+    // integration. Test files are deliberately excluded: importing a module in a test does not
+    // make it part of the public runtime surface.
     const importers = walk(APP_SRC)
       .filter((file) => !file.startsWith(ADAPTER_DIR))
+      .filter((file) => !file.includes(`${path.sep}__tests__${path.sep}`))
       .filter((file) => /from\s+'[^']*conversion/.test(readFileSync(file, 'utf8')))
-    expect(importers).toEqual([])
+      .map((file) => path.relative(APP_SRC, file).replaceAll(path.sep, '/'))
+      .sort()
+    expect(importers).toEqual([
+      'proxy.ts',
+      'site/FloatingQuoteLauncher.tsx',
+      'site/RfqMount.tsx',
+      'site/gate.ts',
+    ])
   })
 })
 

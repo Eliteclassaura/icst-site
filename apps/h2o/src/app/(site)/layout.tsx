@@ -14,6 +14,7 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { estateHasPublicationReadyRoute } from '../../site/gate'
 import './site.css'
+import './r3.css'
 
 export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }
@@ -25,7 +26,13 @@ export const metadata: Metadata = {
 
 const SiteLayout = ({ children }: { children: ReactNode }) => (
   <html lang="en">
-    <body>{children}</body>
+    <body>
+      {/* R3: a skip link is the first focusable thing on every route. */}
+      <a className="skip" href="#main">
+        Skip to content
+      </a>
+      {children}
+    </body>
   </html>
 )
 

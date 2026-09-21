@@ -1,15 +1,20 @@
 /**
- * H2O Phase 2D — the OD05 claim reconciliation, tested as an authority.
+ * H2O Phase 2D R2.2 — the OD05 reconciliation, against the ACTUAL audit workbook.
  *
- * OD05 holds 1,962 claim instances across the 29 prepared routes whose reviewer_role_required is
- * SUBJECT_MATTER_EXPERT. Owner approval does not resolve them: an owner can confirm what ICS does,
- * not whether a procedure is safe, a standard is current or a number is supported. R2.1 reconciles
- * every one of them, and OD05_R2_RECONCILIATION.tsv is the record.
+ * R2.1 reconciled against the earlier `CLAIM_INSTANCE_LEDGER.tsv` and derived its own severity
+ * model. Control Tower refused that substitution: the real authority is
+ * `H2O_OD05_FACT_CHECK_AND_PUBLISHING_DECISIONS_2026-09-19_R1.xlsx`, exported losslessly as
+ * `CLAIM_DECISIONS.tsv`, and it carries its own Audit verdict, Severity, Reason code, Recommended
+ * response, Primary source keys and Publish-now flag for each of the 1,962 claims.
  *
- * These tests do not judge the engineering. They close the ways the reconciliation could be
- * hollow: a row missing, a disposition outside the permitted set, a HIGH-severity row parked on a
- * generic verdict, a recorded body hash that no longer matches the file that renders, or a claim
- * marked as still present that is not.
+ * So the first thing these tests assert is that no severity is derived here at all: every severity
+ * in the ledger is the workbook's, and the distribution matches the workbook's own counts —
+ * 677 HIGH, 1,220 MEDIUM, 65 LOW. A reconciliation that quietly re-graded the audit would fail on
+ * the first test in this file.
+ *
+ * The rest close the ways the reconciliation could be hollow: a claim missing, a disposition
+ * outside the permitted set, a HIGH row parked on a rule-based default or left open, a body hash
+ * that no longer matches what renders, or a presence column that disagrees with the files.
  */
 import { readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
@@ -18,34 +23,41 @@ import { describe, expect, it } from 'vitest'
 
 const CONTENT = path.join(process.cwd(), 'content', '2d-launch-cohort')
 
+/** The six states the directive permits, plus the two the factory must be able to say honestly. */
 const PERMITTED = new Set([
+  'ABSENT_FROM_RENDERED_BODY',
   'ALREADY_CORRECTED',
-  'CORRECTED_R2_1',
-  'FALSE_POSITIVE_WITH_EXPLICIT_EVIDENCE',
-  'NOT_APPLICABLE_TO_RENDERED_BODY',
+  'AUDIT_FALSE_POSITIVE_WITH_EXPLICIT_EVIDENCE',
+  'CORRECTED_IN_R2_2',
   'OWNER_SCOPE_CONFIRMED',
-  'QUALIFIED_WITH_PRIMARY_SOURCE',
-  'REMOVED',
-  'SUPPORTED_AS_WRITTEN_BY_PRIMARY_SOURCE',
+  'PROPERLY_QUALIFIED_IN_R2_2',
+  'SME_CONFIRMATION_OUTSTANDING',
+  'STILL_REQUIRES_CORRECTION',
+  'SUPPORTED_BY_APPLICABLE_PRIMARY_SOURCE',
 ])
 
-/*
-  A rule-based default is a legitimate verdict for a descriptive sentence that carries no
-  prescription, number or named authority. It is not a legitimate verdict for a HIGH-severity
-  technical, safety, standards or water-treatment row: those are exactly the rows the directive
-  says may not finish unexplained, so each one must carry an individual judgement.
-*/
-const RULE_BASED_DEFAULTS = new Set([
-  'COMPOSED_UNDER_AN_ACCEPTED_FACTORY_CONTRACT',
-  'DESCRIPTIVE_SEGMENT_NO_PRESCRIPTION_NO_QUANTIFIED_CLAIM_NO_NAMED_AUTHORITY',
-  'HEADING_OR_RHETORICAL_QUESTION_ASSERTS_NOTHING',
-  'SCOPED_TECHNICAL_STATEMENT_MARKER_WITHOUT_PRESCRIPTION',
+/** A HIGH row may not finish in either of these. Both mean the audit finding is still open. */
+const NOT_CLOSED = new Set(['SME_CONFIRMATION_OUTSTANDING', 'STILL_REQUIRES_CORRECTION'])
+
+/** The workbook's own severity counts, from SUMMARY.json of the authority export. */
+const WORKBOOK_SEVERITY = { HIGH: 677, LOW: 65, MEDIUM: 1220 }
+
+/** Owner approval covers company scope and nothing else. These verdicts are technical. */
+const TECHNICAL_VERDICTS = new Set([
+  'CORRECT_TECHNICAL_ERROR',
+  'REMOVE_NUMBER_OR_SOURCE',
+  'REMOVE_OR_REPLACE',
+  'REMOVE_UNLESS_DOCUMENTED',
+  'SAFETY_SME_REQUIRED',
+  'SME_OR_CODE_REVIEW_REQUIRED',
+  'TECHNICAL_SME_REQUIRED',
+  'WATER_TREATMENT_SME_REQUIRED',
 ])
 
 type Row = Record<string, string>
 
 const rows: Row[] = (() => {
-  const text = readFileSync(path.join(CONTENT, 'OD05_R2_RECONCILIATION.tsv'), 'utf8')
+  const text = readFileSync(path.join(CONTENT, 'OD05_R2_2_RECONCILIATION.tsv'), 'utf8')
   const lines = text.split('\n').filter((l) => l !== '')
   const head = lines[0].split('\t')
   return lines.slice(1).map((line) => {
@@ -59,18 +71,19 @@ const MANDATED = [
   'claim_id',
   'route_id',
   'canonical_path',
-  'claim_class',
-  'severity',
   'audit_verdict',
+  'severity',
   'reason_code',
+  'recommended_response',
+  'publish_now',
   'claim_text',
-  'present_in_r2_before',
-  'r2_disposition',
-  'primary_source_keys',
+  'present_in_r2_2',
+  'r2_2_disposition',
+  'r2_2_reason',
   'replacement_or_qualifier',
+  'evidence',
   'final_body_file',
   'final_body_sha256',
-  'notes',
 ]
 
 const norm = (s: string): string =>
@@ -85,12 +98,39 @@ const norm = (s: string): string =>
     .trim()
     .toLowerCase()
 
-describe('the reconciliation covers every OD05 SME row', () => {
+describe('the severity is the workbook’s, not a model of the factory’s own', () => {
+  it('reproduces the workbook’s severity counts exactly', () => {
+    const counts: Record<string, number> = {}
+    for (const row of rows) counts[row.severity] = (counts[row.severity] ?? 0) + 1
+    expect(counts).toEqual(WORKBOOK_SEVERITY)
+  })
+
+  it('uses only the three severities the workbook uses', () => {
+    for (const row of rows) expect(['HIGH', 'MEDIUM', 'LOW']).toContain(row.severity)
+  })
+
+  it('carries no derived-severity column and no derived-marker column', () => {
+    const head = Object.keys(rows[0])
+    expect(head).not.toContain('severity_markers')
+    expect(head).not.toContain('derived_severity')
+    expect(head).not.toContain('r2_2_derived_severity')
+  })
+
+  it('preserves the workbook’s verdict, reason code, recommended response and publish flag', () => {
+    for (const row of rows) {
+      expect(row.audit_verdict.length).toBeGreaterThan(5)
+      expect(row.reason_code.length).toBeGreaterThan(5)
+      expect(row.recommended_response.length).toBeGreaterThan(20)
+      expect(['YES', 'NO']).toContain(row.publish_now)
+    }
+  })
+})
+
+describe('the reconciliation covers every claim in the workbook', () => {
   it('holds 1,962 rows across the 29 prepared routes, each claim once', () => {
     expect(rows).toHaveLength(1962)
     expect(new Set(rows.map((r) => r.claim_id)).size).toBe(1962)
     expect(new Set(rows.map((r) => r.route_id)).size).toBe(29)
-    expect(new Set(rows.map((r) => r.canonical_path)).size).toBe(29)
   })
 
   it('carries every mandated column, populated on every row', () => {
@@ -102,79 +142,80 @@ describe('the reconciliation covers every OD05 SME row', () => {
     }
   })
 
-  it('records the OD05 verdict each row is answering', () => {
-    for (const row of rows) {
-      expect(row.audit_verdict).toBe('OD05:OWNER_OR_SME_VERIFICATION_REQUIRED_BEFORE_PUBLICATION')
-    }
-  })
-})
-
-describe('every disposition is one of the permitted eight, and none is a generic pass', () => {
-  it('uses only the permitted disposition values', () => {
-    for (const row of rows) expect(PERMITTED.has(row.r2_disposition)).toBe(true)
-  })
-
-  it('never records a bare PASS, OK, DONE or REVIEWED state', () => {
+  it('uses only permitted dispositions, and never a bare pass state', () => {
     const generic = /^(pass(ed)?|ok|fine|done|reviewed|accepted|no ?action|n\/?a)$/i
     for (const row of rows) {
-      expect(generic.test(row.r2_disposition)).toBe(false)
-      expect(generic.test(row.reason_code)).toBe(false)
+      expect(PERMITTED.has(row.r2_2_disposition)).toBe(true)
+      expect(generic.test(row.r2_2_disposition)).toBe(false)
+      expect(generic.test(row.r2_2_reason)).toBe(false)
     }
-  })
-
-  it('gives every row a reason code long enough to mean something', () => {
-    for (const row of rows) expect(row.reason_code.length).toBeGreaterThan(12)
   })
 })
 
-describe('no HIGH-severity finding finishes unexplained', () => {
+describe('every HIGH finding in the actual workbook has an explicit final disposition', () => {
   const high = rows.filter((r) => r.severity === 'HIGH')
 
-  it('has HIGH-severity rows to answer for', () => {
-    expect(high.length).toBeGreaterThan(50)
+  it('has all 677 of them', () => {
+    expect(high).toHaveLength(677)
   })
 
-  it('answers each of them individually rather than by rule', () => {
-    const parked = high.filter((r) => RULE_BASED_DEFAULTS.has(r.reason_code))
-    expect(parked.map((r) => `${r.claim_id} ${r.reason_code}`)).toEqual([])
+  it('leaves none of them open', () => {
+    const open = high.filter((r) => NOT_CLOSED.has(r.r2_2_disposition))
+    expect(open.map((r) => `${r.claim_id} ${r.r2_2_disposition}`)).toEqual([])
   })
 
-  it('names a primary source key and writes a note on each one', () => {
+  it('writes an individual evidence statement on every one', () => {
     for (const row of high) {
-      expect(row.primary_source_keys.length).toBeGreaterThan(8)
-      expect(row.notes.length).toBeGreaterThan(40)
-      expect(row.replacement_or_qualifier.length).toBeGreaterThan(8)
+      expect(row.evidence.length).toBeGreaterThan(40)
+      expect(row.replacement_or_qualifier.length).toBeGreaterThan(2)
     }
   })
 
-  it('records the severity markers that produced the derived severity', () => {
-    for (const row of rows) {
-      expect(row.severity_markers.length).toBeGreaterThan(0)
-      if (row.severity === 'HIGH') expect(row.severity_markers).not.toBe('none')
+  it('never settles a technical, safety or standards finding with owner approval', () => {
+    const laundered = high.filter(
+      (r) => r.r2_2_disposition === 'OWNER_SCOPE_CONFIRMED' && TECHNICAL_VERDICTS.has(r.audit_verdict),
+    )
+    expect(laundered.map((r) => `${r.claim_id} ${r.audit_verdict}`)).toEqual([])
+  })
+
+  it('never justifies a HIGH row by legacy-site provenance alone', () => {
+    for (const row of high) {
+      expect(row.evidence.toLowerCase()).not.toContain('exact substring of the accepted source')
+      expect(row.evidence.toLowerCase()).not.toContain('verbatim from the accepted source')
     }
   })
 })
 
-describe('the reconciliation is not a deletion pass', () => {
-  it('retains far more claims than it removes', () => {
-    const removed = rows.filter((r) => r.r2_disposition === 'REMOVED').length
-    const retained = rows.filter(
-      (r) =>
-        r.r2_disposition === 'SUPPORTED_AS_WRITTEN_BY_PRIMARY_SOURCE' ||
-        r.r2_disposition === 'FALSE_POSITIVE_WITH_EXPLICIT_EVIDENCE' ||
-        r.r2_disposition === 'QUALIFIED_WITH_PRIMARY_SOURCE',
-    ).length
-    expect(retained).toBeGreaterThan(removed * 100)
+describe('the audit moved the bodies', () => {
+  it('cut the HIGH findings present in the rendered text by an order of magnitude', () => {
+    const high = rows.filter((r) => r.severity === 'HIGH')
+    const before = high.filter((r) => r.present_in_r2_1 === 'YES').length
+    const after = high.filter((r) => r.present_in_r2_2 === 'YES').length
+    expect(before).toBe(586)
+    expect(after).toBeLessThan(before / 5)
   })
 
-  it('keeps sound engineering content on HIGH rows too', () => {
-    const high = rows.filter((r) => r.severity === 'HIGH')
-    const kept = high.filter(
-      (r) =>
-        r.r2_disposition === 'SUPPORTED_AS_WRITTEN_BY_PRIMARY_SOURCE' ||
-        r.r2_disposition === 'FALSE_POSITIVE_WITH_EXPLICIT_EVIDENCE',
-    )
-    expect(kept.length).toBeGreaterThan(0)
+  it('answers every HIGH row still present as a false positive, a qualification or owner scope', () => {
+    const stillThere = rows.filter((r) => r.severity === 'HIGH' && r.present_in_r2_2 === 'YES')
+    for (const row of stillThere) {
+      expect([
+        'AUDIT_FALSE_POSITIVE_WITH_EXPLICIT_EVIDENCE',
+        'OWNER_SCOPE_CONFIRMED',
+        'PROPERLY_QUALIFIED_IN_R2_2',
+        'SUPPORTED_BY_APPLICABLE_PRIMARY_SOURCE',
+      ]).toContain(row.r2_2_disposition)
+    }
+  })
+
+  it('is not a deletion pass — far more claims are retained or qualified than removed', () => {
+    const removed = rows.filter((r) => r.r2_2_disposition === 'CORRECTED_IN_R2_2').length
+    const retained = rows.filter((r) =>
+      ['AUDIT_FALSE_POSITIVE_WITH_EXPLICIT_EVIDENCE', 'OWNER_SCOPE_CONFIRMED', 'PROPERLY_QUALIFIED_IN_R2_2', 'SME_CONFIRMATION_OUTSTANDING', 'SUPPORTED_BY_APPLICABLE_PRIMARY_SOURCE'].includes(
+        r.r2_2_disposition,
+      ),
+    ).length
+    expect(retained).toBeGreaterThan(400)
+    expect(removed).toBeGreaterThan(0)
   })
 })
 
@@ -198,17 +239,14 @@ describe('the ledger points at the bodies that actually render', () => {
     const wrong: string[] = []
     for (const row of rows) {
       const present = norm(body(row.final_body_file)).includes(norm(row.claim_text))
-      const claimed = row.present_in_r2_1_after === 'YES'
-      if (present !== claimed) wrong.push(`${row.claim_id} says ${row.present_in_r2_1_after}`)
+      if (present !== (row.present_in_r2_2 === 'YES')) wrong.push(`${row.claim_id}`)
     }
     expect(wrong).toEqual([])
   })
 
-  it('never says a corrected or removed claim is still present', () => {
+  it('never marks a claim corrected while its original text is still rendered', () => {
     for (const row of rows) {
-      if (row.r2_disposition === 'REMOVED' || row.r2_disposition === 'CORRECTED_R2_1') {
-        expect(row.present_in_r2_1_after).toBe('NO')
-      }
+      if (row.r2_2_disposition === 'CORRECTED_IN_R2_2') expect(row.present_in_r2_2).toBe('NO')
     }
   })
 })

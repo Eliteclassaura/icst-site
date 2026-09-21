@@ -13,6 +13,7 @@
 import type { Metadata } from 'next'
 import type { CohortPage } from './cohort'
 import { robotsFor } from './robots'
+import { organizationContactJsonLd } from './contact'
 
 export class ForbiddenSchemaPropertyError extends Error {}
 
@@ -87,7 +88,12 @@ export const buildJsonLd = (page: CohortPage): JsonLd[] => {
 
   graph.push(breadcrumb)
 
+  if (page.canonicalPath === '/') graph.push(organizationContactJsonLd())
+
   for (const node of graph) {
+    // The owner-authorized Organization record is shared corporate data, not a page-class schema
+    // recommendation. Route-level legacy prohibitions remain enforced for every route-owned node.
+    if (node['@type'] === 'Organization') continue
     for (const key of Object.keys(node)) {
       if (forbidden.has(key)) {
         throw new ForbiddenSchemaPropertyError(

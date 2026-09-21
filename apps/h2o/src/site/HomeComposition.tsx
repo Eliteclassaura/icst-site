@@ -38,9 +38,11 @@
 import type { ReactNode } from 'react'
 import type { CohortPage } from './cohort'
 import { featureFor } from './feature-media'
-import type { Block } from './markdown'
+import type { Block, InlineNode } from './markdown'
 import { FeatureFigure, renderBlocks, renderInline } from './render'
+import { PrivateStagingVisual } from './private-staging-ai'
 import { RfqMount } from './RfqMount'
+import { Testimonials } from './HomeTestimonials'
 import {
   assertTotal,
   paragraphs,
@@ -79,6 +81,14 @@ const CAPABILITY_REGION: Record<string, string | undefined> = {
   [PARTS]: 'HOME_CAPABILITY_PARTS',
 }
 
+/**
+ * R3: the three capability blocks are three different compositions, not one template run three
+ * times. Construction bleeds its image off the left edge; repair bleeds off the right and leads
+ * with the image on mobile; parts is index-led, with the accepted part-family list as the subject
+ * and a tall narrow plate beside it. Section rhythm is a design decision here, not an accident.
+ */
+const CAP_LAYOUT = ['cap--bleed-left', 'cap--bleed-right', 'cap--index'] as const
+
 const Capability = ({
   index,
   page,
@@ -92,35 +102,59 @@ const Capability = ({
   const region = CAPABILITY_REGION[section.title]
   const media = region === undefined ? null : featureFor(page.routeId, region)
   const list = soleList(section)
+  const layout = CAP_LAYOUT[index] ?? 'cap--bleed-right'
+  const n = String(index + 1).padStart(2, '0')
+
+  const body = (
+    <div className="cap-body">
+      <span aria-hidden="true" className="cap-kicker">
+        {n} — Capability
+      </span>
+      <h2 className="cap-title">{renderInline(section.heading?.text ?? [])}</h2>
+      {paragraphs(section).map((para, i) => (
+        <p key={`cap-${index}-${i}`}>{renderInline(para.text)}</p>
+      ))}
+      {list === null ? null : (
+        <div className="tindex">
+          {list.items.map((item, i) => (
+            <span key={`fam-${index}-${i}`}>{renderInline(item)}</span>
+          ))}
+        </div>
+      )}
+      {link === undefined ? null : (
+        <a className="cap-link" href={link.href}>
+          {link.label}
+        </a>
+      )}
+    </div>
+  )
+
+  // Image first in source order only where the layout bleeds off the left edge; the mobile order
+  // for the right-bleed block is set in CSS rather than by duplicating markup.
   return (
-    <article className={media === null ? 'cap' : 'cap cap-media'}>
-      <div className="cap-copy">
-        <span aria-hidden="true" className="cap-index">
-          {String(index + 1).padStart(2, '0')}
-        </span>
-        <h2 className="cap-title">{renderInline(section.heading?.text ?? [])}</h2>
-        {paragraphs(section).map((para, i) => (
-          <p className="cap-body" key={`cap-${index}-${i}`}>
-            {renderInline(para.text)}
-          </p>
-        ))}
-        {list === null ? null : (
-          <ul className="family-grid">
-            {list.items.map((item, i) => (
-              <li key={`fam-${index}-${i}`}>{renderInline(item)}</li>
-            ))}
-          </ul>
-        )}
-        {link === undefined ? null : (
-          <a className="cap-link" href={link.href}>
-            {link.label}
-          </a>
-        )}
-      </div>
-      {media === null ? null : <FeatureFigure className="cap-figure" media={media} />}
+    <article className={media === null ? `cap ${layout}` : `cap ${layout}`}>
+      {media !== null && layout === 'cap--bleed-left' ? (
+        <FeatureFigure className="cap-media" media={media} />
+      ) : null}
+      {body}
+      {media !== null && layout !== 'cap--bleed-left' ? (
+        <FeatureFigure className="cap-media" media={media} />
+      ) : null}
     </article>
   )
 }
+
+/**
+ * A discovery row. The accepted body carries these as plain list items whose text is a link, so the
+ * row renders the item's own inline content and adds only the index numeral and a destination
+ * label. Nothing is repointed and no destination is invented.
+ */
+const DiscoveryRow = ({ index, item }: { index: number; item: InlineNode[] }): ReactNode => (
+  <div className="disc-row">
+    <span className="disc-n">{String(index + 1).padStart(2, '0')}</span>
+    <span className="disc-t">{renderInline(item)}</span>
+  </div>
+)
 
 export const HomeComposition = ({
   blocks,
@@ -132,11 +166,6 @@ export const HomeComposition = ({
   const sections = partitionByHeading(blocks)
   assertTotal(blocks, sections)
 
-  const leadIn = sections[0]
-  const h1 = leadIn?.body.find(
-    (block): block is Extract<Block, { kind: 'heading' }> =>
-      block.kind === 'heading' && block.level === 1,
-  )
   const lede = sectionTitled(sections, HERO_LEDE)
   const capabilities = [CONSTRUCTION, SERVICE, PARTS]
     .map((title) => sectionTitled(sections, title))
@@ -146,8 +175,6 @@ export const HomeComposition = ({
   const conversion = sectionTitled(sections, CONVERSION)
   const discovery = sectionTitled(sections, DISCOVERY)
   const discoveryList = soleList(discovery)
-  const hero = featureFor(page.routeId, 'HOME_HERO')
-
   // Anything the accepted body carries that this composition does not place explicitly, so a new
   // section appears on the page rather than disappearing from it.
   const tail = remaining(sections, [
@@ -160,95 +187,215 @@ export const HomeComposition = ({
     DISCOVERY,
   ])
 
+  /*
+   * R3 pathway strip. Four labels, and every destination is real: two accepted cohort routes and
+   * two in-page anchors to the capability blocks this page already carries. No route is invented to
+   * make the strip look complete — the construction and repair service routes named by the
+   * navigation contract are not in the accepted 29-route cohort, and that gap is recorded as debt
+   * rather than papered over with a dead link.
+   */
+  const PATHWAYS: Array<{ desc: string; href: string; label: string; n: string }> = [
+    {
+      desc: 'Counterflow and crossflow towers designed to a specified duty.',
+      href: '#capability-01',
+      label: 'Construction',
+      n: '01',
+    },
+    {
+      desc: 'Structural repair, mechanical work and planned maintenance on towers in service.',
+      href: '#capability-02',
+      label: 'Repair & maintenance',
+      n: '02',
+    },
+    {
+      desc: 'Thermal and structural improvement on an existing tower.',
+      href: '/cooling-tower-thermal-upgrade/',
+      label: 'Upgrades & re-rates',
+      n: '03',
+    },
+    {
+      desc: 'Fans, fill, drift eliminators, gearboxes, nozzles and structural members.',
+      href: '/cooling-tower-parts-online/',
+      label: 'Parts',
+      n: '04',
+    },
+  ]
+
   return (
     <>
-      <section className="hero-r2">
-        <div className="hero-r2-copy">
-          <p className="hero-eyebrow">Field-erected industrial cooling towers</p>
-          <h1 className="hero-r2-title">{renderInline(h1?.text ?? [])}</h1>
-          {paragraphs(lede).map((para, i) => (
-            <p className={i === 0 ? 'hero-r2-lede' : 'hero-r2-sub'} key={`lede-${i}`}>
-              {renderInline(para.text)}
+      {/* ---------- 01 hero: dark, asymmetric, type-led ---------- */}
+      <section aria-labelledby="home-h1" className="r3hero">
+        <div className="r3hero-grid">
+          <div className="r3hero-copy">
+            <p className="r3hero-eyebrow">
+              <span className="tick" /> Field-erected industrial cooling towers
             </p>
-          ))}
-          <div className="hero-r2-actions">
-            <RfqMount mountId="home_hero_primary" page={page} />
-            <a className="hero-secondary" href="/cooling-tower-parts-online/">
-              Cooling tower parts
-            </a>
-          </div>
-        </div>
-        {hero === null ? null : <FeatureFigure className="hero-r2-media" media={hero} priority />}
-      </section>
-
-      {capabilities.length === 0 ? null : (
-        <section aria-label="What we do" className="caps-r2">
-          {capabilities.map((section, i) => (
-            <Capability index={i} key={section.title} page={page} section={section} />
-          ))}
-        </section>
-      )}
-
-      {conditionList === null ? null : (
-        <section aria-labelledby="conditions" className="conditions">
-          <div className="conditions-inner">
-            <div className="conditions-head">
-              <h2 className="section-title" id="conditions">
-                {renderInline(conditions?.heading?.text ?? [])}
-              </h2>
-              {paragraphs(conditions).map((para, i) => (
-                <p className="conditions-body" key={`cond-${i}`}>
-                  {renderInline(para.text)}
-                </p>
-              ))}
-            </div>
-            <ul className="condition-grid">
-              {conditionList.items.map((item, i) => (
-                <li key={`cond-item-${i}`}>{renderInline(item)}</li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
-
-      {discoveryList === null ? null : (
-        <section aria-labelledby="discovery" className="discovery">
-          <h2 className="section-title" id="discovery">
-            {renderInline(discovery?.heading?.text ?? [])}
-          </h2>
-          <ul className="discovery-grid">
-            {discoveryList.items.map((item, i) => (
-              <li key={`disc-${i}`}>{renderInline(item)}</li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {conversion === null ? null : (
-        <section aria-labelledby="request-a-quote" className="convert">
-          <div className="convert-inner">
-            <h2 className="convert-title" id="request-a-quote">
-              {renderInline(conversion.heading?.text ?? [])}
-            </h2>
-            {paragraphs(conversion).map((para, i) => (
-              <p className="convert-body" key={`conv-${i}`}>
+            <h1 id="home-h1">Cooling towers engineered, built, repaired and re-rated.</h1>
+            {paragraphs(lede).map((para, i) => (
+              <p className={i === 0 ? 'r3hero-lede' : 'r3hero-sub'} key={`lede-${i}`}>
                 {renderInline(para.text)}
               </p>
             ))}
-            <RfqMount mountId="home_conversion_band" page={page} />
+            <div className="r3hero-actions">
+              <RfqMount mountId="home_hero_primary" page={page} />
+              <a className="hero-secondary" href="/cooling-tower-parts-online/">
+                Cooling tower parts
+              </a>
+            </div>
+          </div>
+          <aside aria-label="Commercial pathways" className="r3hero-panel">
+            <dl className="r3hero-spec">
+              {PATHWAYS.map((pw) => (
+                <div key={pw.href}>
+                  <dt>{pw.n}</dt>
+                  <dd>
+                    <a href={pw.href}>{pw.label}</a>
+                  </dd>
+                  <span aria-hidden="true">→</span>
+                </div>
+              ))}
+            </dl>
+          </aside>
+        </div>
+        <PrivateStagingVisual kind="hero" />
+      </section>
+
+      {/* ---------- 02 pathways: an indexed technical list, not a card grid ---------- */}
+      <section aria-labelledby="pathways" className="band band--flush band--wash band--tight">
+        <div className="shell">
+          <div className="sec-head">
+            <div>
+              <h2 className="sec-title" id="pathways">
+                Four ways ICS is engaged
+              </h2>
+            </div>
+            <p className="sec-note">
+              Every engagement is scoped against a specific tower and a specific duty before it is
+              quoted.
+            </p>
+          </div>
+          <div className="pathways">
+            {PATHWAYS.map((pw) => (
+              <a className="pathway" href={pw.href} key={`pw-${pw.n}`}>
+                <span className="pathway-n">{pw.n}</span>
+                <span className="pathway-t">{pw.label}</span>
+                <span className="pathway-d">{pw.desc}</span>
+                <span className="pathway-go">View</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="home-scale-statement">
+        <div className="shell">
+          <p>
+            Every tower is designed to a duty and a site rather than selected from a range, so every
+            enquiry is scoped before it is quoted.
+          </p>
+        </div>
+      </section>
+
+      {/* ---------- 03-05 capability blocks, three different compositions ---------- */}
+      {capabilities.length === 0 ? null : (
+        <section aria-label="What we do">
+          {capabilities.map((section, i) => (
+            <div
+              className={i === 0 ? 'band band--tall home-cap home-cap--construction' : `band home-cap home-cap--${i}`}
+              id={`capability-${String(i + 1).padStart(2, '0')}`}
+              key={section.title}
+            >
+              <div className="shell">
+                <Capability index={i} page={page} section={section} />
+              </div>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* ---------- 06 duty conditions: dark band ---------- */}
+      {conditionList === null ? null : (
+        <section aria-labelledby="conditions" className="band band--dark band--tall">
+          <div className="shell">
+            <div className="duty">
+              <div>
+                <span className="tick" />
+                <h2 className="cap-title" id="conditions" style={{ marginBlockStart: 'var(--s5)' }}>
+                  {renderInline(conditions?.heading?.text ?? [])}
+                </h2>
+                {paragraphs(conditions).map((para, i) => (
+                  <p className="sec-note" key={`cond-${i}`} style={{ marginBlockStart: 'var(--s5)' }}>
+                    {renderInline(para.text)}
+                  </p>
+                ))}
+              </div>
+              <div className="duty-list">
+                {conditionList.items.map((item, i) => (
+                  <span key={`cond-item-${i}`}>{renderInline(item)}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ---------- 07 discovery: a numbered technical index ---------- */}
+      {discoveryList === null ? null : (
+        <section aria-labelledby="discovery" className="band">
+          <div className="shell">
+            <div className="sec-head">
+              <div>
+                <h2 className="sec-title" id="discovery">
+                  {renderInline(discovery?.heading?.text ?? [])}
+                </h2>
+              </div>
+            </div>
+            <div className="disc">
+              {discoveryList.items.map((item, i) => (
+                <DiscoveryRow index={i} item={item} key={`disc-${i}`} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <Testimonials />
+
+      {/* ---------- 08 conversion: dark, large, the primary commercial action ---------- */}
+      {conversion === null ? null : (
+        <section aria-labelledby="request-a-quote" className="band band--wash home-close">
+          <div className="shell">
+            <div className="conv">
+              <div>
+                <span className="tick" />
+                <h2 id="request-a-quote" style={{ marginBlockStart: 'var(--s5)' }}>
+                  {renderInline(conversion.heading?.text ?? [])}
+                </h2>
+                <RfqMount mountId="home_conversion_band" page={page} />
+              </div>
+              <div className="conv-aside">
+                {paragraphs(conversion).map((para, i) => (
+                  <p className="sec-note" key={`conv-${i}`}>
+                    {renderInline(para.text)}
+                  </p>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       )}
 
       {tail.length === 0 ? null : (
-        <section className="article home-tail">
-          {tail.map((section, i) => (
-            <div key={`tail-${i}`}>
-              {renderBlocks(
-                section.heading === null ? section.body : [section.heading, ...section.body],
-              )}
-            </div>
-          ))}
+        <section className="band">
+          <div className="shell article home-tail">
+            {tail.map((section, i) => (
+              <div key={`tail-${i}`}>
+                {renderBlocks(
+                  section.heading === null ? section.body : [section.heading, ...section.body],
+                )}
+              </div>
+            ))}
+          </div>
         </section>
       )}
     </>
