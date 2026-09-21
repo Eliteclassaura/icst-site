@@ -27,13 +27,19 @@ import { registryRow } from '../registry'
 const byId = () => new Map(mountApplicability().map((mount) => [mount.mountId, mount]))
 
 describe('every mount in the accepted contract is reconciled', () => {
-  it('reconciles all nine — the accepted eight plus the one the overlay adds', () => {
+  it('reconciles all twelve — the accepted eight plus the four the overlay adds', () => {
+    /*
+      Eight accepted mounts, unchanged, plus four the bounded overlay adds: the floating
+      launcher from R1, the two homepage surfaces, and the commercial-page action. The
+      accepted document still defines exactly its own eight — the test below asserts that — so
+      reconciliation, not the frozen contract, is where the total grows.
+    */
     const all = mountApplicability()
     expect(mountContract().mounts.length).toBe(8)
-    expect(overlayMounts().length).toBe(1)
+    expect(overlayMounts().length).toBe(4)
     expect(all.length).toBe(mountDefinitions().length)
-    expect(all.length).toBe(9)
-    expect(implementedMounts().length + dormantMounts().length + undeterminedMounts().length).toBe(9)
+    expect(all.length).toBe(12)
+    expect(implementedMounts().length + dormantMounts().length + undeterminedMounts().length).toBe(12)
   })
 
   it('leaves the accepted contract file itself defining exactly its own eight mounts', () => {
@@ -185,9 +191,16 @@ describe('precedence and treatment', () => {
     // The accepted order is the prefix, unmodified — not reordered, not shortened.
     expect(order.slice(0, accepted.length)).toEqual(accepted)
     expect(accepted.at(-1)).toBe('footer_rfq_band')
-    // The launcher is last, so it can never displace an accepted mount's treatment.
+    // The launcher is last, so it can never displace an accepted mount's treatment. The two
+    // homepage mounts the visual implementation added sit between the accepted prefix and it,
+    // so both of those properties still hold with three overlay mounts instead of one.
     expect(order.at(-1)).toBe('floating_quote_launcher')
-    expect(order.length).toBe(accepted.length + 1)
+    expect(order.slice(accepted.length, -1)).toEqual([
+      'home_hero_primary',
+      'home_conversion_band',
+      'commercial_page_cta',
+    ])
+    expect(order.length).toBe(accepted.length + overlayMounts().length)
   })
 
   it('refuses an overlay precedence order that reorders or drops an accepted mount', () => {

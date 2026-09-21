@@ -31,7 +31,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { cohort, type CohortPage } from './cohort'
-import { navTargetRenderable } from './gate'
+import { navTargetRenderable, navTargetStagingRenderable } from './gate'
 
 const CONTENT_ROOT = path.join(process.cwd(), 'content', '2d-launch-cohort')
 
@@ -45,8 +45,10 @@ type ContractItem = {
   target_publication_ready?: string
 }
 
+type ContractGroup = { group: string; items: ContractItem[] }
+
 type NavigationContract = {
-  footer: Record<string, unknown>
+  footer: { groups: ContractGroup[] } & Record<string, unknown>
   header: { orientation_strip: ContractItem[]; primary: ContractItem[] } & Record<string, unknown>
   invariants: string[]
 }
@@ -67,6 +69,8 @@ export type ResolvedNavItem = {
   label: string
   rendered: boolean
   /** Why it is not rendered. Kept for the evidence ledger; never emitted to the page. */
+  /** Which reading made this label render: publication, bounded staging, or neither. */
+  renderBasis: string
   suppressionReason: string
 }
 
@@ -80,19 +84,47 @@ const resolve = (item: ContractItem, pages: CohortPage[]): ResolvedNavItem => {
   // No route to point at — a locale switcher and a domain identifier are not links, and no future
   // readiness decision makes them one.
   if (!target.startsWith('/')) {
-    return { href: target, label, rendered: false, suppressionReason: 'TARGET_IS_NOT_A_ROUTE' }
+    return {
+      href: target,
+      label,
+      renderBasis: 'NOT_RENDERED',
+      rendered: false,
+      suppressionReason: 'TARGET_IS_NOT_A_ROUTE',
+    }
   }
 
   // The instruction is conditional, so the condition is what is evaluated. An item whose render
   // instruction is something else entirely is not silently rendered either: only the accepted
   // conditional instruction is understood here, and anything else stays suppressed and says so.
   const conditional = item.render === SUPPRESS_UNTIL_READY
-  const rendered = conditional && navTargetRenderable(target, pages)
+
+  /*
+    Two readings, asked in order, and the order is the governance.
+
+    `navTargetRenderable` is the historical publication gate and is asked first. When it says yes,
+    the label renders because the route is publication-ready — the accepted rule, unchanged.
+
+    When it says no, the bounded staging authorization is asked. It renders a label only on a
+    target inside the accepted cohort that is ready for private staging validation, and only when
+    the overlay carries the authorization by name. Nothing about publication moves: the route is
+    still not publication-ready, still noindex, and still carries the private-preview notice.
+
+    A label that renders under the staging reading says so in its own reason string rather than
+    reporting itself as publication-ready, so the evidence never conflates the two.
+  */
+  const publicationReady = conditional && navTargetRenderable(target, pages)
+  const stagingReady = conditional && !publicationReady && navTargetStagingRenderable(target, pages)
+  const rendered = publicationReady || stagingReady
 
   return {
     href: target,
     label,
     rendered,
+    renderBasis: publicationReady
+      ? 'TARGET_IS_PUBLICATION_READY'
+      : stagingReady
+        ? 'BOUNDED_STAGING_NAVIGATION_TARGET_IS_STAGING_VALIDATION_READY'
+        : 'NOT_RENDERED',
     suppressionReason: rendered ? '' : (item.suppression_reason ?? 'TARGET_NOT_PUBLICATION_READY'),
   }
 }
@@ -130,3 +162,41 @@ export const omittedFooterModules = (): string[] => {
     })
     .map(([key]) => key)
 }
+
+export type ResolvedNavGroup = {
+  group: string
+  items: ResolvedNavItem[]
+  renderedCount: number
+  suppressedCount: number
+}
+
+/**
+ * Footer groups, with the same two readings applied item by item.
+ *
+ * Every group in the accepted contract is resolved and reported, including the ones where nothing
+ * renders — a group is not silently dropped from the reconciliation just because all six of its
+ * targets are held routes. What the chrome then renders is only the groups that have at least one
+ * item, which is `renderableFooterGroups` below.
+ *
+ * The accepted footer is six groups of mostly product-category, region and application routes,
+ * none of which are in the cohort. So the honest outcome on staging is a small footer: Services,
+ * Technical Library and Company each contribute one or two links, and Products, Regions served and
+ * Applications contribute none at all. That is the estate as it actually stands, and an invented
+ * destination to fill a column is exactly what the contract's first invariant forbids.
+ */
+export const footerGroups = (pages: CohortPage[] = cohort()): ResolvedNavGroup[] =>
+  navigationContract().footer.groups.map((group) => {
+    const items = group.items.map((item) => resolve(item, pages))
+    return {
+      group: group.group,
+      items,
+      renderedCount: items.filter((item) => item.rendered).length,
+      suppressedCount: items.filter((item) => !item.rendered).length,
+    }
+  })
+
+/** Only the groups with something to show, each reduced to the items that render. */
+export const renderableFooterGroups = (pages: CohortPage[] = cohort()): ResolvedNavGroup[] =>
+  footerGroups(pages)
+    .map((group) => ({ ...group, items: group.items.filter((item) => item.rendered) }))
+    .filter((group) => group.items.length > 0)

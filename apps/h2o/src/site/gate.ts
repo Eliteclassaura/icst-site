@@ -33,7 +33,7 @@
  */
 import { cohort, type CohortPage } from './cohort'
 import { mountAppliesToRoute } from './mounts'
-import { stagingValidationReady } from './staging'
+import { stagingNavigationAuthorized, stagingValidationReady } from './staging'
 import { resolveTypeformConfig } from '../conversion/config'
 
 /** The RFQ no-script fallback route named by the accepted mount contract. */
@@ -168,4 +168,31 @@ export const mountGate = (page: CohortPage | null, options: MountGateOptions = {
 export const navTargetRenderable = (targetPath: string, pages: CohortPage[] = cohort()): boolean => {
   const page = pages.find((candidate) => candidate.canonicalPath === targetPath) ?? null
   return page !== null && publicationState(page).ready
+}
+
+/**
+ * May a navigation label render on **private staging**?
+ *
+ * This is the second reading, and it is deliberately a different function from the one above
+ * rather than a flag inside it. `navTargetRenderable` answers the publication question from the
+ * historical frozen field and is unchanged; this answers the staging question from the bounded
+ * overlay. Merging them would be the reinterpretation the whole two-readings discipline exists to
+ * prevent — the same field governs indexing.
+ *
+ * Both conditions the directive names are evaluated here, against the live cohort on every call:
+ *
+ *   1. the target is a canonical path of the accepted cohort — a label pointing anywhere else,
+ *      including every held route, stays suppressed exactly as before;
+ *   2. that route is ready for private staging validation under the overlay.
+ *
+ * The authorization itself is read from the overlay rather than assumed, so a build whose overlay
+ * does not carry it renders no navigation at all and says why.
+ */
+export const navTargetStagingRenderable = (
+  targetPath: string,
+  pages: CohortPage[] = cohort(),
+): boolean => {
+  if (!stagingNavigationAuthorized()) return false
+  const page = pages.find((candidate) => candidate.canonicalPath === targetPath) ?? null
+  return page !== null && stagingValidationReady(page)
 }

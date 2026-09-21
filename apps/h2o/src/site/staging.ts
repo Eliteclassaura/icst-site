@@ -53,7 +53,11 @@ export const REQUIRED_PROTECTIONS = [
   'PRIVATE_PREVIEW_NOTICE',
   'NAVIGATION_LABEL_SUPPRESSION',
   'NO_SITEMAP_EMITTED',
-  'STAGING_AND_PRODUCTION_LOCKED',
+  // R2.1: staging was activated under later authority, so the overlay no longer claims a staging
+  // lock it does not hold. The production lock is unchanged and still required here, and the
+  // deployment_state block below is checked as well, so this is a rename plus an addition — the
+  // overlay can no longer drop the production lock or quietly declare production unlocked.
+  'PRODUCTION_LOCKED',
 ] as const
 
 export type StagingRoute = {
@@ -92,6 +96,10 @@ export type StagingOverlay = {
 
 let cache: StagingOverlay | null = null
 
+/** The overlay document as parsed JSON, for readers that need a key the typed view does not carry. */
+const rawOverlay = (): Record<string, unknown> =>
+  JSON.parse(readFileSync(path.join(CONTENT_ROOT, OVERLAY), 'utf8')) as Record<string, unknown>
+
 const load = (): StagingOverlay => {
   const raw = JSON.parse(readFileSync(path.join(CONTENT_ROOT, OVERLAY), 'utf8')) as Record<
     string,
@@ -115,6 +123,20 @@ const load = (): StagingOverlay => {
           'overlay may not loosen an indexing, robots, notice or navigation protection.',
       )
     }
+  }
+
+  const deployment = (raw.deployment_state ?? {}) as Record<string, string>
+  if (deployment.PRODUCTION !== 'LOCKED') {
+    throw new StagingOverlayError(
+      `${OVERLAY} declares deployment_state.PRODUCTION "${String(deployment.PRODUCTION)}". ` +
+        'Production is locked and this overlay may not say otherwise, so it fails closed.',
+    )
+  }
+  if (deployment.STAGING !== 'ACTIVE' && deployment.STAGING !== 'LOCKED') {
+    throw new StagingOverlayError(
+      `${OVERLAY} declares deployment_state.STAGING "${String(deployment.STAGING)}", which is ` +
+        'neither ACTIVE nor LOCKED. The overlay must state a staging state it can be held to.',
+    )
   }
 
   const rows = (raw.staging_readiness?.routes ?? []) as Array<Record<string, string>>
@@ -203,3 +225,17 @@ export const overlayMounts = (): OverlayMount[] => stagingOverlay().mountsAdded
 export const effectivePattern = (mountId: string, historicalPattern: string): string =>
   stagingOverlay().mountPatternDecisions.find((entry) => entry.mount_id === mountId)?.v1_pattern ??
   historicalPattern
+
+/**
+ * Is bounded staging navigation authorized by the overlay?
+ *
+ * Read from the overlay rather than assumed, and read strictly: the entry must be present and must
+ * say its scope is private staging navigation. A build whose overlay does not carry it renders no
+ * navigation — which is the R1 behaviour, and the correct default.
+ */
+export const stagingNavigationAuthorized = (): boolean => {
+  const raw = rawOverlay() as {
+    staging_navigation_authorization?: { scope?: string }
+  }
+  return raw.staging_navigation_authorization?.scope === 'PRIVATE_STAGING_NAVIGATION_ONLY'
+}

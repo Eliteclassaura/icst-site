@@ -31,7 +31,11 @@ import type { ReactNode } from 'react'
 import type { CohortPage } from './cohort'
 import { FloatingQuoteLauncher } from './FloatingQuoteLauncher'
 import { showsPreviewNotice } from './gate'
-import { renderableHeaderItems, renderableOrientationItems } from './navigation'
+import {
+  renderableFooterGroups,
+  renderableHeaderItems,
+  renderableOrientationItems,
+} from './navigation'
 import { RfqMount } from './RfqMount'
 
 export const PREVIEW_NOTICE =
@@ -40,6 +44,7 @@ export const PREVIEW_NOTICE =
 export const SiteChrome = ({ children, page }: { children: ReactNode; page: CohortPage }) => {
   const orientation = renderableOrientationItems()
   const primary = renderableHeaderItems()
+  const groups = renderableFooterGroups()
 
   return (
     <>
@@ -62,6 +67,28 @@ export const SiteChrome = ({ children, page }: { children: ReactNode; page: Coho
           </div>
         ) : null}
 
+        {/*
+          The small-screen navigation.
+
+          The first cut of the R2 layer hid `.nav` below 40rem and put nothing in its place, which
+          made parts, services, resources and about unreachable from the chrome on a phone. The
+          second cut replaced it with a visually hidden checkbox and two labels. That worked with
+          a pointer and failed with a keyboard: on desktop the checkbox stayed in the tab order
+          while its visible label was `display: none`, so a sighted keyboard user hit an invisible
+          stop; and on mobile the accessible control was the checkbox while the thing that looked
+          like a button was `aria-hidden`.
+
+          This is the replacement, and it is native `<details>` and `<summary>`. The summary IS the
+          button: it is focusable only where it is visible, it carries its own name, and the
+          browser reports expanded and collapsed state and handles Enter and Space without a line
+          of script. The CSP is hash-based and unchanged, and the menu still works with scripting
+          off.
+
+          Above the breakpoint the whole `<details>` is `display: none`, so nothing inside it is
+          focusable and there is no phantom tab stop. The scrim is a plain decorative element and
+          is not a control: on a phone the menu closes with the same summary that opened it, which
+          is where the focus already is.
+        */}
         <div className="row shell">
           <span className="identity">
             {/*
@@ -87,6 +114,25 @@ export const SiteChrome = ({ children, page }: { children: ReactNode; page: Coho
             </nav>
           ) : null}
           <RfqMount mountId="header_action" page={page} />
+          {primary.length === 0 && orientation.length === 0 ? null : (
+            <details className="nav-disclosure">
+              <summary className="nav-button">
+                <span aria-hidden="true" className="nav-bars" />
+                Menu
+              </summary>
+              <div className="nav-panel">
+                {/* Decorative. The dimmed backdrop, not a second unlabelled control. */}
+                <span aria-hidden="true" className="nav-scrim" />
+                <nav aria-label="Primary, small screen" className="nav-drawer">
+                  {[...orientation, ...primary].map((item) => (
+                    <a href={item.href} key={`m-${item.href}`}>
+                      {item.label}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </details>
+          )}
         </div>
       </header>
 
@@ -96,15 +142,41 @@ export const SiteChrome = ({ children, page }: { children: ReactNode; page: Coho
 
       <footer className="footer">
         <div className="shell">
-          <span className="footer-identity">
-            <img
-              alt="Industrial Cooling Solutions"
-              height={46}
-              src="/brand/ics-logo-white-transparent.png"
-              width={180}
-            />
-          </span>
-          <RfqMount mountId="footer_rfq_band" page={page} />
+          {groups.length === 0 ? null : (
+            <nav aria-label="Footer" className="footer-nav">
+              {groups.map((group) => (
+                <div className="footer-group" key={group.group}>
+                  <h2 className="footer-group-title">{group.group}</h2>
+                  <ul>
+                    {group.items.map((item) => (
+                      <li key={item.href}>
+                        <a href={item.href}>{item.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </nav>
+          )}
+          <div className="footer-top">
+            <span className="footer-identity">
+              <img
+                alt="Industrial Cooling Solutions"
+                height={46}
+                src="/brand/ics-logo-white-transparent.png"
+                width={180}
+              />
+            </span>
+            {/*
+              The footer quote band. It sits on the dark ground, so it renders in the inverted
+              neutral treatment: the shared neutral style is ink-on-transparent, which on this
+              background would be ink on ink and therefore invisible. That was a real contrast
+              defect on the staging baseline, not a new risk introduced by the visual pass.
+            */}
+            <div className="footer-cta">
+              <RfqMount mountId="footer_rfq_band" page={page} />
+            </div>
+          </div>
           {/*
             Domain identifier only, never a wordmark and never a link. The locations and regions
             modules are absent entirely: the accepted contract omits them from the public build

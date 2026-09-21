@@ -12,6 +12,8 @@
  * changing the one field under test. No accepted authority file is altered, no route is made
  * publication-ready in the build, and nothing synthetic reaches the rendered output.
  */
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { cohort, type CohortPage } from '../cohort'
 import {
@@ -19,6 +21,7 @@ import {
   isIndexable,
   mountGate,
   navTargetRenderable,
+  navTargetStagingRenderable,
   publicationState,
   RFQ_FALLBACK_PATH,
   showsPreviewNotice,
@@ -95,9 +98,18 @@ describe('present state — nothing in this build is publication-ready', () => {
     for (const page of accepted()) expect(showsPreviewNotice(page)).toBe(true)
   })
 
-  it('suppresses every navigation label', () => {
-    expect(renderableHeaderItems(accepted())).toEqual([])
-    expect(orientationStrip(accepted()).filter((item) => item.rendered)).toEqual([])
+  it('renders no navigation label on the strength of publication readiness', () => {
+    /*
+      This block is about the publication state, and the publication state has not moved: no route
+      is publication-ready, so no label may render for that reason. Labels that render here do so
+      under the bounded staging authorization, which is a different question and is asserted
+      separately below. The property that matters in this block is that the two never merge.
+    */
+    for (const item of [...renderableHeaderItems(accepted()), ...orientationStrip(accepted())]) {
+      if (!item.rendered) continue
+      expect(item.renderBasis).toBe('BOUNDED_STAGING_NAVIGATION_TARGET_IS_STAGING_VALIDATION_READY')
+      expect(navTargetRenderable(item.href, accepted())).toBe(false)
+    }
   })
 
   it('mounts no RFQ surface on any route', () => {
@@ -188,10 +200,21 @@ describe('synthetic publication-ready state — the gate opens, and nothing is h
 })
 
 describe('navigation suppression is conditional, not permanent', () => {
-  it('suppresses a label whose target route is in the cohort but not ready', () => {
+  it('renders an in-cohort label under the staging reading while publication still says no', () => {
     const products = headerPrimary(accepted()).find((item) => item.label === 'Products')
-    expect(products?.rendered).toBe(false)
+    expect(products?.rendered).toBe(true)
+    expect(products?.renderBasis).toBe('BOUNDED_STAGING_NAVIGATION_TARGET_IS_STAGING_VALIDATION_READY')
+    // The historical gate is untouched and still answers no for the same route.
     expect(navTargetRenderable('/cooling-tower-parts-online/', accepted())).toBe(false)
+  })
+
+  it('still suppresses a label whose target is outside the accepted cohort', () => {
+    const cohortPaths = new Set(accepted().map((p) => p.canonicalPath))
+    const outside = headerPrimary(accepted()).filter(
+      (item) => item.href.startsWith('/') && !cohortPaths.has(item.href),
+    )
+    expect(outside.length).toBeGreaterThan(0)
+    for (const item of outside) expect(item.rendered).toBe(false)
   })
 
   it('renders that same label once its target route is publication-ready', () => {
@@ -232,5 +255,121 @@ describe('navigation suppression is conditional, not permanent', () => {
         expect(item.suppressionReason).toBe('TARGET_IS_NOT_A_ROUTE')
       }
     }
+  })
+})
+
+/**
+ * R2.1 §5 and §6 — the overlay's two disputed numbers, recomputed rather than trusted.
+ *
+ * R2 said nine cohort targets were renderable on staging and then listed seven. R2.1 states both
+ * numbers and says what each one counts. These tests recompute them from the accepted navigation
+ * contract, so the overlay cannot drift away from the contract it claims to measure.
+ */
+describe('the staging navigation counts are recomputed from the accepted contract', () => {
+  const CONTENT = path.join(process.cwd(), 'content', '2d-launch-cohort')
+  const contract = JSON.parse(
+    readFileSync(path.join(CONTENT, 'NAVIGATION_CONTRACT.json'), 'utf8'),
+  ) as unknown
+  const overlayDoc = JSON.parse(
+    readFileSync(path.join(CONTENT, 'PHASE2D_STAGING_READINESS_AND_MOUNT_OVERLAY.json'), 'utf8'),
+  ) as {
+    deployment_state: { PRODUCTION: string; STAGING: string }
+    staging_navigation_authorization: {
+      measured_consequence: {
+        conversion_path_entries_not_rendered_as_navigation_labels: number
+        contract_occurrences_with_a_target_inside_the_cohort: number
+        count_reconciliation: string
+        labels_in_the_accepted_contract: number
+        navigation_labels_rendered_on_staging: number
+        renderable_items: Array<{ label: string; surface: string; target: string }>
+        targets_outside_the_cohort_still_suppressed: number
+      }
+    }
+  }
+
+  const CONVERSION_SURFACES = new Set(['footer/rfq_band/action', 'cta_semantics/primary'])
+
+  type Item = { label: string; surface: string; target: string }
+  const walk = (node: unknown, surface: string, out: Item[]): void => {
+    if (Array.isArray(node)) {
+      for (const child of node) walk(child, surface, out)
+      return
+    }
+    if (node === null || typeof node !== 'object') return
+    const row = node as Record<string, unknown>
+    const target = row.target ?? row.href ?? row.target_path
+    if (typeof row.label === 'string' && typeof target === 'string') {
+      out.push({ label: row.label, surface, target })
+    }
+    for (const [key, value] of Object.entries(row)) {
+      walk(value, surface === '' ? key : `${surface}/${key}`, out)
+    }
+  }
+
+  const items: Item[] = []
+  walk(contract, '', items)
+  const cohortPaths = new Set(cohort().map((p) => p.canonicalPath))
+  const inside = items.filter((i) => cohortPaths.has(i.target))
+  const navLabels = inside.filter((i) => !CONVERSION_SURFACES.has(i.surface))
+  const conversion = inside.filter((i) => CONVERSION_SURFACES.has(i.surface))
+  const mc = overlayDoc.staging_navigation_authorization.measured_consequence
+
+  it('counts every label occurrence in the contract', () => {
+    expect(mc.labels_in_the_accepted_contract).toBe(items.length)
+  })
+
+  it('states the nine and the seven as different quantities, and both are right', () => {
+    expect(mc.contract_occurrences_with_a_target_inside_the_cohort).toBe(inside.length)
+    expect(mc.navigation_labels_rendered_on_staging).toBe(navLabels.length)
+    expect(mc.conversion_path_entries_not_rendered_as_navigation_labels).toBe(conversion.length)
+    expect(navLabels.length + conversion.length).toBe(inside.length)
+    expect(mc.count_reconciliation.length).toBeGreaterThan(120)
+  })
+
+  it('suppresses every contract target outside the cohort', () => {
+    expect(mc.targets_outside_the_cohort_still_suppressed).toBe(items.length - inside.length)
+  })
+
+  it('enumerates exactly the navigation labels it counts, and invents none', () => {
+    const enumerated = mc.renderable_items
+      .map((r) => `${r.surface}|${r.label}|${r.target}`)
+      .sort()
+    const computed = navLabels.map((r) => `${r.surface}|${r.label}|${r.target}`).sort()
+    expect(enumerated).toEqual(computed)
+    for (const row of mc.renderable_items) expect(cohortPaths.has(row.target)).toBe(true)
+  })
+
+  it('every one of them resolves through the staging gate, not the publication gate', () => {
+    const pages = cohort()
+    for (const row of mc.renderable_items) {
+      expect(navTargetStagingRenderable(row.target, pages)).toBe(true)
+      expect(navTargetRenderable(row.target, pages)).toBe(false)
+    }
+  })
+})
+
+describe('the overlay states a deployment state it can be held to', () => {
+  const overlayDoc = JSON.parse(
+    readFileSync(
+      path.join(process.cwd(), 'content', '2d-launch-cohort', 'PHASE2D_STAGING_READINESS_AND_MOUNT_OVERLAY.json'),
+      'utf8',
+    ),
+  ) as { deployment_state: Record<string, string>; protections_retained: string[] }
+
+  it('says production is locked and staging is active', () => {
+    expect(overlayDoc.deployment_state.PRODUCTION).toBe('LOCKED')
+    expect(overlayDoc.deployment_state.STAGING).toBe('ACTIVE')
+  })
+
+  it('no longer claims a staging lock it does not hold', () => {
+    const text = JSON.stringify(overlayDoc.protections_retained)
+    expect(text).not.toContain('STAGING_AND_PRODUCTION_LOCKED')
+    expect(text).toContain('PRODUCTION_LOCKED')
+  })
+
+  it('separates staging readiness from publication readiness in its own words', () => {
+    expect(overlayDoc.deployment_state.staging_readiness_is_not_publication_readiness.length)
+      .toBeGreaterThan(80)
+    expect(overlayDoc.deployment_state.what_this_overlay_authorizes).toContain('does not authorize deployment')
   })
 })

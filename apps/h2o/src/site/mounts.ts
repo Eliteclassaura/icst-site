@@ -97,7 +97,24 @@ export const mountDefinitions = (): MountDefinition[] => {
  * from a route's name, its path, or the wording of the token.
  */
 const selectorFor = (appliesTo: string): ((page: CohortPage) => boolean) => {
-  if (appliesTo.startsWith('/')) return (page) => page.canonicalPath === appliesTo
+  if (appliesTo.startsWith('/')) {
+    /*
+      A literal path, or a comma-separated list of them. The list form is still an exact match on
+      each canonical path — it does not infer a surface from a route's name, a prefix or a pattern,
+      which is the property every selector here is required to have. It exists because a mount can
+      legitimately apply to a named handful of routes that share no registry column: the five
+      commercial routes that are neither editorial nor the RFQ page are exactly that case.
+    */
+    const paths = appliesTo.split(',').map((p) => p.trim()).filter((p) => p !== '')
+    for (const candidate of paths) {
+      if (!candidate.startsWith('/') || !candidate.endsWith('/')) {
+        throw new MountSurfaceUndeterminedError(
+          `Mount surface undetermined: "${candidate}" in "${appliesTo}" is not a rooted directory path`,
+        )
+      }
+    }
+    return (page) => paths.includes(page.canonicalPath)
+  }
 
   switch (appliesTo) {
     case 'CATEGORY_AND_FAMILY_ROUTES_CLASSIFIED_BUILD':

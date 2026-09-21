@@ -19,7 +19,13 @@ import { isIndexable, mountGate, navTargetRenderable, publicationState, RFQ_FALL
 import { stagingValidationReady } from '../staging'
 import { buildJsonLd, metadataFor, observedByline, observedDate } from '../metadata'
 import { headingCounts, inlineText, linksIn, parseBody } from '../markdown'
-import { headerPrimary, omittedFooterModules, orientationStrip, renderableHeaderItems } from '../navigation'
+import {
+  headerPrimary,
+  omittedFooterModules,
+  orientationStrip,
+  renderableHeaderItems,
+  renderableOrientationItems,
+} from '../navigation'
 import { basePolicy, policyFor } from '../../proxy'
 
 const CONTENT_ROOT = path.join(process.cwd(), 'content', '2d-launch-cohort')
@@ -34,12 +40,36 @@ describe('route and body one-to-one', () => {
     expect(pages).toHaveLength(29)
   })
 
-  it('gives every route exactly one accepted body, verified against its accepted hash', () => {
+  it('gives every route exactly one body, verified against the hash that governs it', () => {
+    /*
+      Every route still renders exactly one body and that body is still hash-gated. The hash it is
+      gated against depends on which authority governs it: the frozen index on the 22 unchanged
+      routes, the content overlay's recovered hash on the seven it supersedes. Both are checked at
+      load time by `cohort()` itself; this asserts the outcome, and that all 29 remain distinct.
+    */
     for (const page of pages) {
-      expect(page.bodySha256).toBe(page.bodySha256Accepted)
       expect(page.bodyMarkdown.length).toBeGreaterThan(0)
+      const rem = overlay.remediated_bodies.find((r) => r.route_id === page.routeId)
+      if (rem !== undefined) {
+        expect(page.bodyRecovered).toBe(true)
+        expect(page.bodySha256).toBe(rem.remediated_sha256)
+        expect(page.bodySha256Accepted).toBe(rem.accepted_sha256)
+        continue
+      }
+      const rec = recoveredRow(page.routeId)
+      if (rec === null) {
+        expect(page.bodyRecovered).toBe(false)
+        expect(page.bodySha256).toBe(page.bodySha256Accepted)
+      } else {
+        expect(page.bodyRecovered).toBe(true)
+        expect(page.bodySha256).toBe(rec.recovered_body_sha256)
+        // The supersession is of the body it claims: the accepted hash is unchanged underneath.
+        expect(page.bodySha256Accepted).toBe(rec.superseded_body_sha256)
+      }
     }
     expect(new Set(pages.map((p) => p.bodySha256)).size).toBe(29)
+    // Seven rewritten commercial bodies plus 22 claim-level remediations of the frozen articles.
+    expect(pages.filter((p) => p.bodyRecovered)).toHaveLength(29)
   })
 
   it('resolves every accepted canonical path, and nothing else', () => {
@@ -62,15 +92,66 @@ describe('route and body one-to-one', () => {
   })
 
   it('matches the accepted heading counts on every route', () => {
+    /*
+      Each route is measured against whichever authority actually governs its rendered body. The
+      22 untouched routes are measured against the frozen index, exactly as before. The seven the
+      content-recovery overlay supersedes are measured against the overlay's own recorded counts,
+      which is the same strictness applied to the document that is actually rendering — not a
+      relaxation. A recovered body whose structure drifted from what the overlay recorded fails
+      here just as a frozen body that drifted from the index does.
+    */
     for (const page of pages) {
       const counts = headingCounts(blocksFor(page))
-      const row = rawIndexRow(page.routeId)
       expect(counts.h1).toBe(1)
-      expect(String(counts.h2)).toBe(row.h2_count)
-      expect(String(counts.h3)).toBe(row.h3_count)
+      const rec = recoveredRow(page.routeId)
+      if (rec === null) {
+        const row = rawIndexRow(page.routeId)
+        expect(String(counts.h2)).toBe(row.h2_count)
+        expect(String(counts.h3)).toBe(row.h3_count)
+      } else {
+        expect(counts.h2).toBe(rec.h2_after)
+        expect(counts.h3).toBe(rec.h3_after)
+      }
+    }
+  })
+
+  it('leaves the frozen index untouched on every one of the 29 routes', () => {
+    // The overlay supersedes what renders. It may not edit the authority it supersedes.
+    for (const page of pages) {
+      const row = rawIndexRow(page.routeId)
+      expect(row.final_body_sha256).toBe(page.bodySha256Accepted)
+      expect(row.canonical_path).toBe(page.canonicalPath)
+      expect(row.h1).toBe(page.h1)
+      expect(row.title_tag).toBe(page.titleTag)
+      expect(row.publication_condition).toBe(page.publicationCondition)
     }
   })
 })
+
+type RecoveredBodyRow = {
+  canonical_path: string
+  h2_after: number
+  h3_after: number
+  internal_links_after: number
+  recovered_body_file: string
+  recovered_body_sha256: string
+  route_id: string
+  superseded_body_sha256: string
+  words_after: number
+  words_before: number
+}
+
+const overlay = JSON.parse(
+  readFileSync(path.join(CONTENT_ROOT, 'PHASE2D_VISUAL_R2_CONTENT_OVERLAY.json'), 'utf8'),
+) as {
+  recovered_bodies: RecoveredBodyRow[]
+  recovered_internal_links: Array<{ anchor: string; from_route: string; to_route: string }>
+  remediated_bodies: Array<{ accepted_sha256: string; remediated_sha256: string; route_id: string }>
+}
+
+/** The content-overlay row for a route, or null when the route renders its frozen body. */
+const recoveredRow = (routeId: string): RecoveredBodyRow | null =>
+  overlay.recovered_bodies.find((r) => r.route_id === routeId) ?? null
 
 const rawIndex = (() => {
   const text = readFileSync(path.join(CONTENT_ROOT, 'PAGE_CONTENT_INDEX.tsv'), 'utf8')
@@ -197,13 +278,28 @@ describe('internal links', () => {
   })
 
   it('emits exactly the accepted internal-link plan — no link more, no link fewer', () => {
+    /*
+      The link plan stays a checked authority. What changed is that two authorities now govern it:
+      the frozen 128-row plan for the 22 routes whose bodies are unchanged, and the content
+      overlay's own recorded link plan for the seven it supersedes. The expected set is the union
+      of the two, restricted to each authority's own routes, and the emitted set must equal it
+      exactly — no link more, no link fewer, as before.
+    */
     const emitted = new Set<string>()
     for (const page of pages) {
       for (const href of linksIn(blocksFor(page))) emitted.add(`${page.canonicalPath} -> ${href}`)
     }
-    const planned = new Set(plan.map((row) => `${row.from_route} -> ${row.to_route}`))
+    const recoveredPaths = new Set(overlay.recovered_bodies.map((r) => r.canonical_path))
+    const expected = new Set<string>()
+    for (const row of plan) {
+      if (!recoveredPaths.has(row.from_route)) expected.add(`${row.from_route} -> ${row.to_route}`)
+    }
+    for (const row of overlay.recovered_internal_links) {
+      expect(recoveredPaths.has(row.from_route)).toBe(true)
+      expected.add(`${row.from_route} -> ${row.to_route}`)
+    }
     expect(plan).toHaveLength(128)
-    expect([...emitted].sort()).toEqual([...planned].sort())
+    expect([...emitted].sort()).toEqual([...expected].sort())
   })
 
   it('finds every planned target inside the implemented cohort', () => {
@@ -226,7 +322,10 @@ describe('internal links', () => {
 
   it('matches the accepted internal-link count on every route', () => {
     for (const page of pages) {
-      expect(linksIn(blocksFor(page)).length).toBe(Number(rawIndexRow(page.routeId).internal_link_count))
+      const rec = recoveredRow(page.routeId)
+      const expected =
+        rec === null ? Number(rawIndexRow(page.routeId).internal_link_count) : rec.internal_links_after
+      expect(linksIn(blocksFor(page)).length).toBe(expected)
     }
   })
 })
@@ -259,11 +358,36 @@ describe('no held or product route is exposed', () => {
 })
 
 describe('navigation suppression', () => {
-  it('suppresses every routed navigation label, because no target is publication-ready', () => {
-    expect(renderableHeaderItems()).toEqual([])
+  it('renders a label only under the bounded staging reading, never as publication-ready', () => {
+    /*
+      Control Tower authorized bounded staging navigation: a label may render when its target is
+      in the accepted cohort and that route is staging-validation-ready. What must remain true is
+      that no label renders because a route became publication-ready — nothing did. So every
+      rendered label has to carry the staging basis, and the publication gate has to still answer
+      no for every one of them.
+    */
     expect(headerPrimary()).toHaveLength(5)
     expect(orientationStrip()).toHaveLength(4)
-    for (const item of [...headerPrimary(), ...orientationStrip()]) expect(item.rendered).toBe(false)
+    for (const item of [...headerPrimary(), ...orientationStrip()]) {
+      if (!item.rendered) continue
+      expect(item.renderBasis).toBe('BOUNDED_STAGING_NAVIGATION_TARGET_IS_STAGING_VALIDATION_READY')
+      expect(navTargetRenderable(item.href)).toBe(false)
+    }
+  })
+
+  it('renders exactly the in-cohort header labels and suppresses every held target', () => {
+    const rendered = renderableHeaderItems().map((i) => `${i.label} -> ${i.href}`)
+    expect(rendered.sort()).toEqual([
+      'About -> /about-ics-industrial-cooling-solutions/',
+      'Products -> /cooling-tower-parts-online/',
+    ])
+    const orientation = renderableOrientationItems().map((i) => `${i.label} -> ${i.href}`)
+    expect(orientation).toEqual(['Technical Library -> /resources/'])
+    const cohortPaths = new Set(pages.map((p) => p.canonicalPath))
+    for (const item of [...headerPrimary(), ...orientationStrip()]) {
+      if (item.rendered) expect(cohortPaths.has(item.href)).toBe(true)
+      else expect(item.href.startsWith('/') && cohortPaths.has(item.href)).toBe(false)
+    }
   })
 
   it('renders no label whose target route is not publication-ready', () => {

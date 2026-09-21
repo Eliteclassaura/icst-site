@@ -161,8 +161,23 @@ describe('the historical authority is untouched, and publication has not moved',
 
 describe('the floating launcher mount', () => {
   it('is added by the overlay, not by the accepted contract', () => {
-    expect(overlayMounts().map((mount) => mount.mount_id)).toEqual([FLOATING_LAUNCHER_MOUNT_ID])
+    /*
+      The overlay is the only place a mount is added, and the launcher is the first of them. The
+      visual implementation added two more through the same seam — `home_hero_primary` and
+      `home_conversion_band`, both homepage-only — so this asserts the whole overlay set rather
+      than a count, and asserts the launcher's position in it. A mount appearing here that this
+      list does not name is exactly the change this test exists to fail on.
+    */
+    expect(overlayMounts().map((mount) => mount.mount_id)).toEqual([
+      FLOATING_LAUNCHER_MOUNT_ID,
+      'home_hero_primary',
+      'home_conversion_band',
+      'commercial_page_cta',
+    ])
     expect(mountContract().mounts.map((mount) => mount.mount_id)).not.toContain(FLOATING_LAUNCHER_MOUNT_ID)
+    for (const added of overlayMounts()) {
+      expect(mountContract().mounts.map((mount) => mount.mount_id)).not.toContain(added.mount_id)
+    }
   })
 
   it('is implemented on all 29 routes', () => {

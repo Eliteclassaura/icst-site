@@ -39,7 +39,9 @@ export type IndexabilityInstruction = 'INDEX_ON_PUBLICATION_READY'
 
 export type CohortPage = {
   bodyMarkdown: string
-  /** SHA-256 of the body as loaded. Equal to `bodySha256Accepted` or the build has already failed. */
+  /** True when the bounded content-recovery overlay supersedes the accepted body for rendering. */
+  bodyRecovered: boolean
+  /** SHA-256 of the body as rendered: the accepted hash, or the overlay's recovered-body hash. */
   bodySha256: string
   bodySha256Accepted: string
   bylineInstruction: string
@@ -95,6 +97,120 @@ export const assertAcceptedBody = (
   return measured
 }
 
+export class ContentOverlayError extends Error {}
+
+type RecoveredRow = {
+  canonical_path: string
+  recovered_body_file: string
+  recovered_body_sha256: string
+  route_id: string
+  superseded_body_sha256: string
+}
+
+type RemediatedRow = {
+  accepted_sha256: string
+  body_file: string
+  remediated_sha256: string
+  route_id: string
+}
+
+let recoveredCache: Map<string, { markdown: string; sha256: string; supersedes: string }> | null = null
+
+/**
+ * The bounded content-recovery overlay, loaded and self-checked.
+ *
+ * Two hashes per row, and both matter. `superseded_body_sha256` proves the overlay is superseding
+ * the body it says it is — if the accepted body were ever changed, the overlay would refuse rather
+ * than silently apply to different content. `recovered_body_sha256` proves the recovered file on
+ * disk is the one the overlay was written against.
+ */
+const recoveredBodies = (): Map<string, { markdown: string; sha256: string; supersedes: string }> => {
+  if (recoveredCache !== null) return recoveredCache
+  const file = path.join(CONTENT_ROOT, 'PHASE2D_VISUAL_R2_CONTENT_OVERLAY.json')
+  let doc: { recovered_bodies?: RecoveredRow[]; remediated_bodies?: RemediatedRow[] }
+  try {
+    doc = JSON.parse(readFileSync(file, 'utf8')) as {
+      recovered_bodies?: RecoveredRow[]
+      remediated_bodies?: RemediatedRow[]
+    }
+  } catch {
+    recoveredCache = new Map()
+    return recoveredCache
+  }
+  const out = new Map<string, { markdown: string; sha256: string; supersedes: string }>()
+  /*
+    Two kinds of supersession, loaded through one path because they need the same two gates.
+
+    A RECOVERED body is a rewrite: seven commercial routes whose accepted bodies held 1,195 words
+    between them. A REMEDIATED body is not a rewrite at all — it is a frozen technical article with
+    specific unsupported claims removed, one string at a time, with the paragraph around each one
+    kept. The directive draws that distinction explicitly and so does this loader: the overlay
+    records the edits for a remediated body, and the file on disk is the accepted body with those
+    edits applied and nothing else.
+  */
+  for (const row of doc.remediated_bodies ?? []) {
+    let markdown: string
+    try {
+      markdown = readFileSync(path.join(CONTENT_ROOT, 'bodies-r2', row.body_file), 'utf8')
+    } catch {
+      throw new ContentOverlayError(
+        `Remediated body ${row.body_file} for route ${row.route_id} is missing`,
+      )
+    }
+    const measured = sha256(markdown)
+    if (measured !== row.remediated_sha256) {
+      throw new ContentOverlayError(
+        `Remediated body ${row.body_file} for route ${row.route_id} does not match its overlay ` +
+          `hash (expected ${row.remediated_sha256}, measured ${measured})`,
+      )
+    }
+    out.set(row.route_id, {
+      markdown,
+      sha256: measured,
+      supersedes: row.accepted_sha256,
+    })
+  }
+  for (const row of doc.recovered_bodies ?? []) {
+    let markdown: string
+    try {
+      markdown = readFileSync(path.join(CONTENT_ROOT, 'bodies-r2', row.recovered_body_file), 'utf8')
+    } catch {
+      throw new ContentOverlayError(
+        `Recovered body ${row.recovered_body_file} for route ${row.route_id} is missing`,
+      )
+    }
+    const measured = sha256(markdown)
+    if (measured !== row.recovered_body_sha256) {
+      throw new ContentOverlayError(
+        `Recovered body ${row.recovered_body_file} for route ${row.route_id} does not match its ` +
+          `overlay hash (expected ${row.recovered_body_sha256}, measured ${measured})`,
+      )
+    }
+    out.set(row.route_id, {
+      markdown,
+      sha256: measured,
+      supersedes: row.superseded_body_sha256,
+    })
+  }
+  recoveredCache = out
+  return out
+}
+
+const recoveredBodyFor = (
+  routeId: string,
+  acceptedSha: string,
+): { markdown: string; sha256: string } | null => {
+  const row = recoveredBodies().get(routeId)
+  if (row === undefined) return null
+  if (row.supersedes !== acceptedSha) {
+    throw new ContentOverlayError(
+      `The content overlay supersedes ${row.supersedes} on route ${routeId}, but the accepted ` +
+        `body now hashes to ${acceptedSha}. Refusing to apply a recovery to different content.`,
+    )
+  }
+  return { markdown: row.markdown, sha256: row.sha256 }
+}
+
 let cached: CohortPage[] | null = null
 
 /**
@@ -132,6 +248,19 @@ export const cohort = (): CohortPage[] => {
     const accepted = row.final_body_sha256 ?? ''
     const bodySha256 = assertAcceptedBody(file, row.route_id ?? '', bodyMarkdown, accepted)
 
+    /*
+      The bounded content-recovery overlay. The frozen body above is still read and still gated by
+      its accepted hash — that check runs first and is not conditional — and only then may a
+      recovered body supersede it for rendering.
+
+      That order is the whole design. The accepted body is not deleted, not edited and not
+      un-gated; it remains on disk at its accepted hash, and a change to it still fails the build.
+      The overlay names which routes carry a recovered body, records the hash of the superseded
+      body so the supersession is provably of the body it claims, and carries its own hash for the
+      recovered file. Both hashes are checked, so neither file can drift.
+    */
+    const recovered = recoveredBodyFor(row.route_id ?? '', bodySha256)
+
     const canonicalPath = row.canonical_path ?? ''
     if (!canonicalPath.startsWith('/') || !canonicalPath.endsWith('/')) {
       throw new CohortIntegrityError(
@@ -140,8 +269,9 @@ export const cohort = (): CohortPage[] => {
     }
 
     return {
-      bodyMarkdown,
-      bodySha256,
+      bodyMarkdown: recovered?.markdown ?? bodyMarkdown,
+      bodyRecovered: recovered !== null,
+      bodySha256: recovered?.sha256 ?? bodySha256,
       bodySha256Accepted: accepted,
       bylineInstruction: row.byline_instruction ?? '',
       canonical: row.canonical ?? '',

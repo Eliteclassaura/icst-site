@@ -8,6 +8,8 @@
  *
  * A guard that cannot be shown to fire is not a guard. These tests exercise each one directly.
  */
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { assertAcceptedBody, cohort, CohortIntegrityError, type CohortPage } from '../cohort'
 import { linksIn, parseBody } from '../markdown'
@@ -57,10 +59,38 @@ describe('the accepted content loads and parses', () => {
   })
 })
 
+/** The accepted index row for a route, read from the frozen file rather than from the loader. */
+const acceptedIndexRow = (routeId: string): Record<string, string> => {
+  const text = readFileSync(
+    path.join(process.cwd(), 'content', '2d-launch-cohort', 'PAGE_CONTENT_INDEX.tsv'),
+    'utf8',
+  )
+  const lines = text.split('\n').filter((l) => l !== '')
+  const header = (lines[0] ?? '').split('\t')
+  for (const line of lines.slice(1)) {
+    const cells = line.split('\t')
+    const row = Object.fromEntries(header.map((h, i) => [h, cells[i] ?? ''])) as Record<string, string>
+    if (row.route_id === routeId) return row
+  }
+  throw new Error(`no accepted index row for ${routeId}`)
+}
+
 describe('the body-hash gate fires', () => {
   it('accepts a body whose hash matches the accepted value', () => {
+    /*
+      Read the accepted body from disk rather than from the loaded page. On the seven routes the
+      bounded content-recovery overlay supersedes, `page.bodyMarkdown` is the recovered body and
+      would not hash to the accepted value — which is correct, and is asserted in
+      `content-recovery.test.ts`. What this test is for is the gate itself: an accepted body file
+      still has to hash to its accepted value, on every route, recovered or not.
+    */
     const page = accepted()[0] as CohortPage
-    expect(assertAcceptedBody('f.md', page.routeId, page.bodyMarkdown, page.bodySha256Accepted)).toBe(
+    const row = acceptedIndexRow(page.routeId)
+    const onDisk = readFileSync(
+      path.join(process.cwd(), 'content', '2d-launch-cohort', 'bodies', row.final_body_file),
+      'utf8',
+    )
+    expect(assertAcceptedBody('f.md', page.routeId, onDisk, page.bodySha256Accepted)).toBe(
       page.bodySha256Accepted,
     )
   })
