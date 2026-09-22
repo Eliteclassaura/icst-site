@@ -4,12 +4,14 @@ import path from 'node:path'
 import {SalmonSeo,renderSalmonNode} from './SalmonCanonical'
 import {ownerText,ownerHref,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {LuxuryHeader,LuxuryFooter,LuxurySearch} from './LuxuryShell'
+import {pageForSegments} from './cohort'
 import {ClientTestimonials,clientReviewAuthority} from './ClientReview'
 type LayoutNode={tag:string;style?:CSSProperties;id?:number;children?:LayoutNode[];ref?:string;refs?:string[];slice?:{ref:string;start:number;end:number};decor?:string;action?:string;src?:string;alt?:string;key?:string}
 type Model={route:string;sourceId:string;tree:LayoutNode[];remaining:Array<{sourceSection:string;tree:LayoutNode}>}
 export const luxuryIds=new Set(['SALMON-pages-48','SALMON-pages-1230','SALMON-pages-1446','SALMON-pages-1534','SALMON-pages-1555','SALMON-pages-1572','SALMON-pages-1668','SALMON-pages-1722','SALMON-pages-411'])
 const safe=(href:string)=>/^(https?:|mailto:|tel:|\/|#)/i.test(href)?href:undefined
 export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
+ const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
  const model=JSON.parse(readFileSync(path.join(process.cwd(),'content/luxury',doc.routeId.split('-').at(-1)+'.json'),'utf8')) as Model
  const nodes=new Map<string,SalmonNode>(),ancestors=new Map<string,string[]>(),usedImages=new Set<string>()
  function index(n:SalmonNode,key:string,parents:string[]){nodes.set(key,n);ancestors.set(key,parents);if(typeof n!=='string')n.children.forEach((c,i)=>index(c,key+'.'+i,[...parents,key]))}
@@ -63,9 +65,9 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  const placement=new Map<number,typeof model.remaining>()
  for(const r of model.remaining){let best=0,score=0;model.tree.forEach((t,i)=>{let count=0;function walk(n:LayoutNode){count+=(n.ref?.startsWith(r.sourceSection+'.')?1:0)+(n.refs??[]).filter(k=>k.startsWith(r.sourceSection+'.')).length;n.children?.forEach(walk)}walk(t);if(count>score){best=i;score=count}});placement.set(best,[...(placement.get(best)??[]),r])}
  return <div className={'luxury-site luxury-'+doc.routeId.split('-').at(-1)} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
-  <SalmonSeo doc={doc}/><LuxuryHeader/>
+  <SalmonSeo doc={doc}/><LuxuryHeader page={page}/>
   <main id="main" data-luxury-body>
    {model.tree.map((n,i)=><div className="lux-section-wrap" key={i}>{design(n,'design.'+i,true)}{i===0&&doc.targetPath==='/disaster-recovery/'?<div className="lux-recovery-media"><img src="/media/luxury/ics-storm-damage.jpeg" alt="Cooling tower storm damage"/><img src="/media/luxury/ics-slep-complete.jpeg" alt="Completed cooling tower structure"/></div>:null}{(placement.get(i)??[]).map((r,j)=><div className="lux-remainder" key={j}>{['SALMON-pages-48','SALMON-pages-411'].includes(doc.routeId)&&JSON.stringify(r.tree).length>2000?productRemainder(r.tree):remainder(r.tree,'remainder.'+j)}</div>)}</div>)}
-  </main><LuxuryFooter/>
+  </main><LuxuryFooter page={page}/>
  </div>
 }

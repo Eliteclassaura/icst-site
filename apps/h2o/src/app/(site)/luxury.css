@@ -14,8 +14,8 @@
 .client-testimonial-grid figcaption{display:flex;gap:16px;align-items:center;margin-top:auto;color:#b6c2c9;font-size:14px;line-height:1.5}
 .client-testimonial-grid figcaption img{width:56px;height:57px;object-fit:contain;flex:0 0 56px}.client-testimonial-grid figcaption strong,.client-testimonial-grid figcaption span{display:block}.client-testimonial-grid figcaption strong{color:#fff;font-size:17px;margin-bottom:3px}
 .client-country-flag{font-size:22px;vertical-align:middle;margin-right:5px}
-.client-rfq{padding:48px 6.111vw 80px;background:#f2f0ec}.client-rfq h2{font-size:36px;line-height:1.2}.client-rfq>div{display:flex;flex-wrap:wrap;gap:20px}.client-rfq p{margin:20px 0 28px}.client-rfq .lux-button{font-size:17px}
-@media(max-width:768px){.client-rfq{padding:32px 20px 56px}.client-rfq .lux-button{width:100%}}
+.client-rfq{padding:48px 6.111vw 80px;background:#f2f0ec}.client-rfq h2{font-size:36px;line-height:1.2}.client-rfq>div{display:flex;flex-wrap:wrap;gap:20px}.client-rfq p{margin:20px 0 28px}.client-rfq .lux-button,.client-rfq .rfq a{font-size:17px}
+@media(max-width:768px){.client-rfq{padding:32px 20px 56px}.client-rfq .lux-button,.client-rfq .rfq a{width:100%}}
 .client-socials{padding-top:28px}.client-socials>div{display:flex;flex-wrap:wrap;gap:12px 32px}.client-socials a{display:inline-flex;align-items:center;gap:8px;min-height:44px}.client-socials h2{max-width:100%;margin-bottom:12px}
 @media(max-width:1024px){.client-testimonial-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px}}
 @media(max-width:768px){.client-testimonials{padding:64px 20px}.client-testimonials h2{font-size:32px;margin-bottom:32px}.client-testimonial-grid{grid-template-columns:1fr;gap:32px}.client-testimonial-grid blockquote{font-size:18px}.client-testimonial-grid figure{gap:22px}.client-socials>div{gap:8px 24px}}
@@ -41,13 +41,13 @@
 .lux-logo{flex:0 0 196px}.lux-logo img{width:196px;height:50px;object-fit:contain}
 .lux-desktop-nav{display:flex;gap:clamp(14px,2vw,32px);align-items:center;font-size:16px;font-weight:500;white-space:nowrap}
 .lux-desktop-nav a{padding:12px 0}
-.lux-button{display:inline-flex;justify-content:center;align-items:center;min-height:56px;padding:12px 28px;background:var(--signal);color:#fff!important;border-radius:2px;font-weight:600;line-height:1.3}
+.lux-button,.lux-header-rfq .rfq a,.lux-footer-rfq .rfq a,.lux-menu-rfq .rfq a,.client-rfq .rfq a{display:inline-flex;justify-content:center;align-items:center;min-height:56px;padding:12px 28px;background:var(--signal);color:#fff!important;border:0;border-radius:2px;font-weight:600;line-height:1.3;text-decoration:none}
 .lux-header-rfq{margin-left:auto;white-space:nowrap;font-size:16px}
 .lux-menu{display:none}.lux-menu summary{list-style:none;width:48px;height:48px;border:1px solid #0b1114;display:flex;align-items:center;justify-content:center;cursor:pointer}.lux-menu summary::-webkit-details-marker{display:none}
-.lux-menu nav{position:absolute;left:0;right:0;top:100%;background:#fff;padding:20px;box-shadow:0 14px 24px #0b111422;display:grid;z-index:20}.lux-menu nav a{padding:12px;border-bottom:1px solid #d3d8d3;min-height:48px}
+.lux-menu nav{position:absolute;left:0;right:0;top:100%;background:#fff;padding:20px;box-shadow:0 14px 24px #0b111422;display:grid;z-index:20}.lux-menu nav a{padding:12px;border-bottom:1px solid #d3d8d3;min-height:48px}.lux-menu-rfq .rfq a{width:100%}
 .lux-footer{padding:96px 6.111vw 40px;background:#0b1114;color:#b6c2c9;font-size:16px}
 .lux-footer-grid{display:grid;grid-template-columns:1.65fr 1fr 1fr .8fr 1.2fr;gap:36px;padding-bottom:64px;border-bottom:1px solid #2a363d}
-.lux-footer-brand img{width:180px;height:46px;object-fit:contain}.lux-footer-brand .lux-button{margin-top:36px}
+.lux-footer-brand img{width:180px;height:46px;object-fit:contain}.lux-footer-brand .lux-button,.lux-footer-brand .lux-footer-rfq{margin-top:36px}.lux-footer-rfq{display:inline-flex}
 .lux-footer h2{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#d9603a;border-bottom:1px solid #2a363d;padding-bottom:16px;margin:0 0 18px}
 .lux-footer nav>a{display:block;margin-bottom:12px}.lux-offices address{font-style:normal;line-height:1.55;margin:0 0 22px}.lux-offices address>*{display:block}.lux-offices strong{color:#fff}.lux-offices address>a{margin-top:6px;font-size:14px}
 .lux-legal{display:flex;gap:32px;padding-top:28px;font-size:13px;color:#b6c2c9}.lux-legal span{margin-left:auto}

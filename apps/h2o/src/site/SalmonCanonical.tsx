@@ -1,7 +1,8 @@
 import {createElement,type ReactNode} from 'react'
 import {Testimonials} from './HomeTestimonials'
 import {LuxuryHeader,LuxuryFooter} from './LuxuryShell'
-import {contactOffices} from './contact'
+import {pageForSegments} from './cohort'
+import {RfqMount} from './RfqMount'
 import {commerceException,commerceMetaException,ownerHref,ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 const allowed=new Set('div section article header footer nav p h1 h2 h3 h4 h5 h6 a span b strong i em u s figure figcaption img ul ol li table thead tbody tfoot tr th td br hr blockquote cite time sup sub small details summary label output search'.split(' '))
 const voids=new Set(['img','br','hr'])
@@ -63,12 +64,13 @@ export function SalmonSeo({doc}:{doc:SalmonDocument}){
   </>
 }
 export function SalmonCanonical({doc}:{doc:SalmonDocument}){
+  const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
   return <div className="salmon-canonical" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc}/>
-    <div className="luxury-site"><LuxuryHeader/></div>
+    <div className="luxury-site"><LuxuryHeader page={page}/></div>
     <main className="shell article" id="main" data-salmon-region="body">{doc.children.map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</main>
-    {doc.targetPath==='/contact-us/'?<section className="luxury-site client-rfq" aria-label="Request a Quote" data-owner-override="OWNER_CONTACT_AUTHORITY_OVERRIDE_2026_09_21"><h2>Request a Quote</h2><p>Contact an ICS office by phone to discuss your requirements.</p><div>{contactOffices.map(o=><a className="lux-button" key={o.officeKey} href={o.telephoneHref}>{o.displayLabel} · {o.telephoneDisplay}</a>)}</div></section>:null}
+    {doc.targetPath==='/contact-us/'&&page?<section className="luxury-site client-rfq" aria-label="Request a Quote" data-owner-override="OWNER_CONTACT_AUTHORITY_OVERRIDE_2026_09_21"><RfqMount mountId="rfq_page" page={page}/></section>:null}
     {doc.targetPath==='/'?<section className="shell" data-owner-override="OWNER_TESTIMONIAL_AUTHORITY_OVERRIDE_2026_09_21"><Testimonials/></section>:null}
-    <div className="luxury-site"><LuxuryFooter/></div>
+    <div className="luxury-site"><LuxuryFooter page={page}/></div>
   </div>
 }
