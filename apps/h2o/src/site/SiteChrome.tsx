@@ -16,8 +16,9 @@
  *     is not publication-ready and no route is;
  *   - the accepted RFQ actions on the header and footer surfaces, plus a mobile-only fixed RFQ
  *     bar after the footer; the legacy floating launcher wrapper is intentionally not mounted;
- *   - the private-preview notice, because this route is not publication-ready — bound to the same
- *     gate as robots, so a published route would not carry it;
+ *   - the private-preview notice, because this route is not publication-ready — except when the
+ *     explicit private client-review display override is enabled; robots remain independently
+ *     protected by their own gate;
  *   - no telephone, email, live chat, location or region module anywhere, because no such fact is
  *     held by any accepted authority and inventing one is forbidden;
  *   - no H2O wordmark: the supplied ICS mark is the only identity, and h2ocooling.com is a domain
@@ -39,6 +40,8 @@ import { ContactDirectory } from './ContactDirectory'
 
 export const PREVIEW_NOTICE =
   'Private implementation preview. This route is not publication-ready and nothing here is published.'
+
+const clientReviewMode = process.env.H2O_CLIENT_REVIEW_MODE === '1'
 
 export const SiteChrome = ({
   bleed,
@@ -72,7 +75,7 @@ export const SiteChrome = ({
 
   return (
     <>
-      {showsPreviewNotice(page) ? (
+      {!clientReviewMode && showsPreviewNotice(page) ? (
         <p className="preview">
           <span className="shell">{PREVIEW_NOTICE}</span>
         </p>
