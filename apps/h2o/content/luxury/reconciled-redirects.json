@@ -1,0 +1,22 @@
+[
+  {
+    "source": "/cooling-tower-fan-parts/",
+    "destination": "/cooling-tower-parts-online/",
+    "evidence": "Observed source HTTP redirect to https://h2ocooling.com/cooling-tower-parts-online/; exact accepted canonical target."
+  },
+  {
+    "source": "/cooling-tower-parts/",
+    "destination": "/cooling-tower-parts-online/",
+    "evidence": "Observed source HTTP redirect to https://h2ocooling.com/cooling-tower-parts-online/; exact accepted canonical target."
+  },
+  {
+    "source": "/cooling-tower-repair-upgrade-maintenance/",
+    "destination": "/cooling-tower-maintenance-repair-upgrade/",
+    "evidence": "Observed source HTTP redirect to https://h2ocooling.com/cooling-tower-maintenance-repair-upgrade/; exact accepted canonical target."
+  },
+  {
+    "source": "/tower-repair/",
+    "destination": "/cooling-tower-maintenance-and-repair/",
+    "evidence": "Observed source HTTP redirect to https://h2ocooling.com/cooling-tower-repair/; exact accepted canonical target."
+  }
+]

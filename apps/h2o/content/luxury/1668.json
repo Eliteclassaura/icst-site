@@ -1,0 +1,1153 @@
+{
+  "route": "/air-coolers/",
+  "sourceId": "SALMON-pages-1668",
+  "designFile": "ICS Air Coolers 1440.dc.html",
+  "tree": [
+    {
+      "tag": "section",
+      "style": {
+        "position": "relative",
+        "background": "#0B1114",
+        "padding": "150px 88px 130px"
+      },
+      "id": 1,
+      "children": [
+        {
+          "tag": "div",
+          "style": {
+            "display": "grid",
+            "gridTemplateColumns": "1fr 520px",
+            "gap": "88px",
+            "alignItems": "start"
+          },
+          "id": 2,
+          "children": [
+            {
+              "tag": "div",
+              "style": {},
+              "id": 3,
+              "children": [
+                {
+                  "tag": "div",
+                  "style": {
+                    "display": "flex",
+                    "alignItems": "center",
+                    "gap": "20px"
+                  },
+                  "id": 4,
+                  "children": [
+                    {
+                      "tag": "span",
+                      "style": {
+                        "display": "block",
+                        "width": "56px",
+                        "height": "2px",
+                        "background": "#D9603A"
+                      },
+                      "id": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "tag": "h1",
+                  "style": {
+                    "margin": "34px 0 0",
+                    "fontFamily": "Archivo,sans-serif",
+                    "fontSize": "76px",
+                    "lineHeight": "1.02",
+                    "fontWeight": "600",
+                    "letterSpacing": "-.038em",
+                    "color": "#FFFFFF",
+                    "maxWidth": "14ch"
+                  },
+                  "id": 7,
+                  "children": [],
+                  "ref": "body.1.1.1.1.1"
+                },
+                {
+                  "tag": "p",
+                  "style": {
+                    "margin": "36px 0 0",
+                    "fontSize": "20px",
+                    "lineHeight": "1.72",
+                    "color": "#B6C2C9",
+                    "maxWidth": "58ch"
+                  },
+                  "id": 8,
+                  "children": [],
+                  "ref": "body.1.1.1.3.1.0"
+                },
+                {
+                  "tag": "div",
+                  "style": {
+                    "marginTop": "40px",
+                    "display": "flex",
+                    "alignItems": "center",
+                    "justifyContent": "center",
+                    "width": "320px",
+                    "height": "68px",
+                    "background": "#B2461C",
+                    "color": "#FFFFFF",
+                    "fontSize": "17.5px",
+                    "fontWeight": "600",
+                    "borderRadius": "2px"
+                  },
+                  "id": 9,
+                  "children": [],
+                  "ref": "body.1.1.1.5.1.1.1"
+                }
+              ]
+            },
+            {
+              "tag": "img",
+              "style": {
+                "display": "block",
+                "width": "520px",
+                "height": "560px",
+                "objectFit": "cover",
+                "objectPosition": "50% 50%",
+                "marginTop": "64px"
+              },
+              "id": 10,
+              "children": [],
+              "src": "/media/luxury/0219f2c88f282884-aircooler-bank.png",
+              "alt": "",
+              "canonicalSource": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/06/6937a87d19cc70e9f732f669a29393eba4bc256f.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "section",
+      "style": {
+        "background": "#F2F0EC",
+        "padding": "130px 88px"
+      },
+      "id": 11,
+      "children": [
+        {
+          "tag": "div",
+          "style": {
+            "display": "grid",
+            "gridTemplateColumns": "96px 1fr",
+            "gap": "0"
+          },
+          "id": 12,
+          "children": [
+            {
+              "tag": "span",
+              "style": {
+                "fontFamily": "'IBM Plex Mono',monospace",
+                "fontSize": "13px",
+                "color": "#B2461C",
+                "paddingTop": "16px"
+              },
+              "id": 13,
+              "children": [],
+              "decor": "01"
+            },
+            {
+              "tag": "div",
+              "style": {
+                "borderTop": "2px solid #0B1114",
+                "paddingTop": "14px"
+              },
+              "id": 14,
+              "children": [
+                {
+                  "tag": "h2",
+                  "style": {
+                    "margin": "0",
+                    "fontFamily": "Archivo,sans-serif",
+                    "fontSize": "50px",
+                    "lineHeight": "1.1",
+                    "fontWeight": "600",
+                    "letterSpacing": "-.03em",
+                    "color": "#0B1114",
+                    "maxWidth": "22ch"
+                  },
+                  "id": 15,
+                  "children": [],
+                  "ref": "body.3.1.1.1.1.1"
+                },
+                {
+                  "tag": "div",
+                  "style": {
+                    "marginTop": "40px",
+                    "display": "grid",
+                    "gridTemplateColumns": "repeat(3,1fr)",
+                    "gap": "56px",
+                    "fontSize": "18.5px",
+                    "lineHeight": "1.74",
+                    "color": "#2A363D"
+                  },
+                  "id": 16,
+                  "children": [
+                    {
+                      "tag": "p",
+                      "style": {
+                        "margin": "0"
+                      },
+                      "id": 17,
+                      "children": [],
+                      "ref": "body.3.1.1.1.3.1.0"
+                    },
+                    {
+                      "tag": "p",
+                      "style": {
+                        "margin": "0"
+                      },
+                      "id": 18,
+                      "children": [],
+                      "ref": "body.3.1.1.1.3.2.0"
+                    },
+                    {
+                      "tag": "p",
+                      "style": {
+                        "margin": "0"
+                      },
+                      "id": 19,
+                      "children": [],
+                      "ref": "body.3.1.1.1.3.3.0"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "section",
+      "style": {
+        "background": "#FFFFFF",
+        "padding": "130px 88px"
+      },
+      "id": 20,
+      "children": [
+        {
+          "tag": "div",
+          "style": {
+            "display": "grid",
+            "gridTemplateColumns": "1fr 520px",
+            "gap": "88px",
+            "alignItems": "end",
+            "paddingBottom": "34px",
+            "borderBottom": "2px solid #0B1114"
+          },
+          "id": 21,
+          "children": [
+            {
+              "tag": "h2",
+              "style": {
+                "margin": "0",
+                "fontFamily": "Archivo,sans-serif",
+                "fontSize": "50px",
+                "lineHeight": "1.1",
+                "fontWeight": "600",
+                "letterSpacing": "-.03em",
+                "color": "#0B1114",
+                "maxWidth": "20ch"
+              },
+              "id": 22,
+              "children": [],
+              "ref": "body.5.1.1.1.1.1"
+            },
+            {
+              "tag": "p",
+              "style": {
+                "margin": "0",
+                "fontSize": "18.5px",
+                "lineHeight": "1.7",
+                "color": "#46535C"
+              },
+              "id": 23,
+              "children": [],
+              "ref": "body.5.1.1.1.3.1.0"
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "style": {
+            "display": "grid",
+            "gridTemplateColumns": "repeat(3,1fr)",
+            "columnGap": "64px"
+          },
+          "id": 24,
+          "children": [
+            {
+              "tag": "div",
+              "style": {
+                "padding": "34px 0",
+                "borderBottom": "1px solid #E6E9E5"
+              },
+              "id": 25,
+              "children": [
+                {
+                  "tag": "h3",
+                  "style": {
+                    "margin": "0",
+                    "fontFamily": "Archivo,sans-serif",
+                    "fontSize": "28px",
+                    "fontWeight": "600",
+                    "letterSpacing": "-.018em",
+                    "color": "#0B1114"
+                  },
+                  "id": 26,
+                  "children": [],
+                  "ref": "body.5.1.1.1.5.1.1.1.3.1"
+                },
+                {
+                  "tag": "p",
+                  "style": {
+                    "margin": "14px 0 0",
+                    "fontSize": "17.5px",
+                    "lineHeight": "1.68",
+                    "color": "#46535C"
+                  },
+                  "id": 27,
+                  "children": [],
+                  "ref": "body.5.1.1.1.5.1.1.1.3.3"
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "style": {
+                "padding": "34px 0",
+                "borderBottom": "1px solid #E6E9E5"
+              },
+              "id": 28,
+              "children": [
+                {
+                  "tag": "h3",
+                  "style": {
+                    "margin": "0",
+                    "fontFamily": "Archivo,sans-serif",
+                    "fontSize": "28px",
+                    "fontWeight": "600",
+                    "letterSpacing": "-.018em",
+                    "color": "#0B1114"
+                  },
+                  "id": 29,
+                  "children": [],
+                  "ref": "body.5.1.1.1.5.3.1.1.3.1"
+                },
+                {
+                  "tag": "p",
+                  "style": {
+                    "margin": "14px 0 0",
+                    "fontSize": "17.5px",
+                    "lineHeight": "1.68",
+                    "color": "#46535C"
+                  },
+                  "id": 30,
+                  "children": [],
+                  "ref": "body.5.1.1.1.5.3.1.1.3.3"
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "style": {
+                "padding": "34px 0",
+                "borderBottom": "1px solid #E6E9E5"
+              },
+              "id": 31,
+              "children": [
+                {
+                  "tag": "h3",
+                  "style": {
+                    "margin": "0",
+                    "fontFamily": "Archivo,sans-serif",
+                    "fontSize": "28px",
+                    "fontWeight": "600",
+                    "letterSpacing": "-.018em",
+                    "color": "#0B1114"
+                  },
+                  "id": 32,
+                  "children": [],
+                  "ref": "body.5.1.1.1.5.5.1.1.3.1"
+                },
+                {
+                  "tag": "p",
+                  "style": {
+                    "margin": "14px 0 0",
+                    "fontSize": "17.5px",
+                    "lineHeight": "1.68",
+                    "color": "#46535C"
+                  },
+                  "id": 33,
+                  "children": [],
+                  "ref": "body.5.1.1.1.5.5.1.1.3.3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "style": {
+            "marginTop": "56px",
+            "display": "grid",
+            "gridTemplateColumns": "1fr 320px",
+            "gap": "88px",
+            "alignItems": "end"
+          },
+          "id": 34,
+          "children": [
+            {
+              "tag": "p",
+              "style": {
+                "margin": "0",
+                "fontSize": "19.5px",
+                "lineHeight": "1.74",
+                "color": "#2A363D",
+                "maxWidth": "80ch"
+              },
+              "id": 35,
+              "children": [],
+              "refs": [
+                "body.5.1.1.1.7.1.1.1.0.0",
+                "body.5.1.1.1.7.1.3.1.0.0"
+              ]
+            },
+            {
+              "tag": "div",
+              "style": {
+                "display": "flex",
+                "alignItems": "center",
+                "justifyContent": "center",
+                "height": "66px",
+                "background": "#B2461C",
+                "color": "#FFFFFF",
+                "fontSize": "17.5px",
+                "fontWeight": "600",
+                "borderRadius": "2px"
+              },
+              "id": 36,
+              "children": [],
+              "ref": "body.5.1.1.1.7.1.5.1.1.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "section",
+      "style": {
+        "background": "#0B1114",
+        "padding": "130px 88px"
+      },
+      "id": 37,
+      "children": [
+        {
+          "tag": "h2",
+          "style": {
+            "margin": "0",
+            "fontFamily": "Archivo,sans-serif",
+            "fontSize": "50px",
+            "lineHeight": "1.1",
+            "fontWeight": "600",
+            "letterSpacing": "-.03em",
+            "color": "#FFFFFF",
+            "paddingBottom": "34px",
+            "borderBottom": "2px solid #2A363D"
+          },
+          "id": 38,
+          "children": [],
+          "ref": "body.7.1.1.1.1"
+        },
+        {
+          "tag": "div",
+          "style": {
+            "marginTop": "48px",
+            "display": "grid",
+            "gridTemplateColumns": "repeat(3,1fr)",
+            "gap": "56px"
+          },
+          "id": 39,
+          "children": [
+            {
+              "tag": "div",
+              "style": {},
+              "id": 40,
+              "children": [
+                {
+                  "tag": "img",
+                  "style": {
+                    "display": "block",
+                    "width": "100%",
+                    "height": "240px",
+                    "objectFit": "cover",
+                    "background": "#151F24"
+                  },
+                  "id": 41,
+                  "children": [],
+                  "src": "/media/luxury/be7524ff7128e7ae-fan-replacement.png",
+                  "alt": "",
+                  "canonicalSource": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/2201760615e96098113730ac4827ca85eb2f8d99-1024x564.webp"
+                },
+                {
+                  "tag": "h3",
+                  "style": {
+                    "margin": "24px 0 0",
+                    "fontFamily": "Archivo,sans-serif",
+                    "fontSize": "28px",
+                    "fontWeight": "600",
+                    "letterSpacing": "-.018em",
+                    "color": "#FFFFFF"
+                  },
+                  "id": 42,
+                  "children": [],
+                  "ref": "body.7.3.1.1.1.1"
+                },
+                {
+                  "tag": "div",
+                  "style": {
+                    "marginTop": "18px",
+                    "fontSize": "17px",
+                    "lineHeight": "1.6",
+                    "color": "#B6C2C9"
+                  },
+                  "id": 43,
+                  "children": [
+                    {
+                      "tag": "div",
+                      "style": {
+                        "padding": "13px 0",
+                        "borderTop": "1px solid #1E2A31"
+                      },
+                      "id": 44,
+                      "children": [],
+                      "ref": "body.7.3.1.1.3.1.1.3"
+                    },
+                    {
+                      "tag": "div",
+                      "style": {
+                        "padding": "13px 0",
+                        "borderTop": "1px solid #1E2A31"
+                      },
+                      "id": 45,
+                      "children": [],
+                      "ref": "body.7.3.1.1.3.1.3.3"
+                    },
+                    {
+                      "tag": "div",
+                      "style": {
+                        "padding": "13px 0",
+                        "borderTop": "1px solid #1E2A31",
+                        "borderBottom": "1px solid #1E2A31"
+                      },
+                      "id": 46,
+                      "children": [],
+                      "ref": "body.7.3.1.1.3.1.5.3"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "style": {},
+              "id": 47,
+              "children": [
+                {
+                  "tag": "img",
+                  "style": {
+                    "display": "block",
+                    "width": "100%",
+                    "height": "240px",
+                    "objectFit": "cover",
+                    "background": "#151F24"
+                  },
+                  "id": 48,
+                  "children": [],
+                  "src": "/media/luxury/4752fe427b3400eb-frp-conversion.png",
+                  "alt": "",
+                  "canonicalSource": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/06/848846df7454cad88191f340b4f46b551c24ba40.png"
+                },
+                {
+                  "tag": "h3",
+                  "style": {
+                    "margin": "24px 0 0",
+                    "fontFamily": "Archivo,sans-serif",
+                    "fontSize": "28px",
+                    "fontWeight": "600",
+                    "letterSpacing": "-.018em",
+                    "color": "#FFFFFF"
+                  },
+                  "id": 49,
+                  "children": [],
+                  "ref": "body.7.5.1.1.1.1"
+                },
+                {
+                  "tag": "div",
+                  "style": {
+                    "marginTop": "18px",
+                    "fontSize": "17px",
+                    "lineHeight": "1.6",
+                    "color": "#B6C2C9"
+                  },
+                  "id": 50,
+                  "children": [
+                    {
+                      "tag": "div",
+                      "style": {
+                        "padding": "13px 0",
+                        "borderTop": "1px solid #1E2A31"
+                      },
+                      "id": 51,
+                      "children": [],
+                      "ref": "body.7.5.1.1.3.1.1.3"
+                    },
+                    {
+                      "tag": "div",
+                      "style": {
+                        "padding": "13px 0",
+                        "borderTop": "1px solid #1E2A31"
+                      },
+                      "id": 52,
+                      "children": [],
+                      "ref": "body.7.5.1.1.3.1.3.3"
+                    },
+                    {
+                      "tag": "div",
+                      "style": {
+                        "padding": "13px 0",
+                        "borderTop": "1px solid #1E2A31"
+                      },
+                      "id": 53,
+                      "children": [],
+                      "ref": "body.7.5.1.1.3.1.5.3"
+                    },
+                    {
+                      "tag": "div",
+                      "style": {
+                        "padding": "13px 0",
+                        "borderTop": "1px solid #1E2A31",
+                        "borderBottom": "1px solid #1E2A31"
+                      },
+                      "id": 54,
+                      "children": [],
+                      "ref": "body.7.5.1.1.3.1.7.3"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "style": {},
+              "id": 55,
+              "children": [
+                {
+                  "tag": "img",
+                  "style": {
+                    "display": "block",
+                    "width": "100%",
+                    "height": "240px",
+                    "objectFit": "cover",
+                    "background": "#151F24"
+                  },
+                  "id": 56,
+                  "children": [],
+                  "src": "/media/luxury/0c6ed8bf109940cb-tube-cleaning.png",
+                  "alt": "",
+                  "canonicalSource": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/06/b5a78164ff55fa7f233ae0c5ec9e5efa97be6929.png"
+                },
+                {
+                  "tag": "h3",
+                  "style": {
+                    "margin": "24px 0 0",
+                    "fontFamily": "Archivo,sans-serif",
+                    "fontSize": "28px",
+                    "fontWeight": "600",
+                    "letterSpacing": "-.018em",
+                    "color": "#FFFFFF"
+                  },
+                  "id": 57,
+                  "children": [],
+                  "ref": "body.7.7.1.1.1.1"
+                },
+                {
+                  "tag": "div",
+                  "style": {
+                    "marginTop": "18px",
+                    "fontSize": "17px",
+                    "lineHeight": "1.6",
+                    "color": "#B6C2C9"
+                  },
+                  "id": 58,
+                  "children": [
+                    {
+                      "tag": "div",
+                      "style": {
+                        "padding": "13px 0",
+                        "borderTop": "1px solid #1E2A31"
+                      },
+                      "id": 59,
+                      "children": [],
+                      "ref": "body.7.7.1.1.3.1.1.3"
+                    },
+                    {
+                      "tag": "div",
+                      "style": {
+                        "padding": "13px 0",
+                        "borderTop": "1px solid #1E2A31",
+                        "borderBottom": "1px solid #1E2A31"
+                      },
+                      "id": 60,
+                      "children": [],
+                      "ref": "body.7.7.1.1.3.1.3.3"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "section",
+      "style": {
+        "background": "#FFFFFF",
+        "padding": "130px 88px"
+      },
+      "id": 61,
+      "children": [
+        {
+          "tag": "div",
+          "style": {
+            "display": "grid",
+            "gridTemplateColumns": "400px 1fr",
+            "gap": "88px",
+            "alignItems": "start"
+          },
+          "id": 62,
+          "children": [
+            {
+              "tag": "div",
+              "style": {},
+              "id": 63,
+              "children": [
+                {
+                  "tag": "h2",
+                  "style": {
+                    "margin": "0",
+                    "fontFamily": "Archivo,sans-serif",
+                    "fontSize": "44px",
+                    "lineHeight": "1.1",
+                    "fontWeight": "600",
+                    "letterSpacing": "-.028em",
+                    "color": "#0B1114"
+                  },
+                  "id": 64,
+                  "children": [],
+                  "ref": "body.9.1.1.1.1.1.1"
+                },
+                {
+                  "tag": "img",
+                  "style": {
+                    "display": "block",
+                    "width": "100%",
+                    "height": "320px",
+                    "objectFit": "cover",
+                    "marginTop": "36px",
+                    "background": "#F7F8F6"
+                  },
+                  "id": 65,
+                  "children": [],
+                  "src": "/media/luxury/250a76bc50923728-preventive-maint.png",
+                  "alt": "",
+                  "canonicalSource": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/06/ccb60aa5b38ea56e2f1d3f37fe0f4412318d4249.png"
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "style": {
+                "borderTop": "2px solid #0B1114"
+              },
+              "id": 66,
+              "children": [
+                {
+                  "tag": "div",
+                  "style": {
+                    "padding": "34px 0",
+                    "borderBottom": "1px solid #E6E9E5"
+                  },
+                  "id": 67,
+                  "children": [
+                    {
+                      "tag": "h3",
+                      "style": {
+                        "margin": "0",
+                        "fontFamily": "Archivo,sans-serif",
+                        "fontSize": "30px",
+                        "fontWeight": "600",
+                        "letterSpacing": "-.02em",
+                        "color": "#0B1114"
+                      },
+                      "id": 68,
+                      "children": [],
+                      "ref": "body.9.1.1.1.1.3.1.1.1.3.1"
+                    },
+                    {
+                      "tag": "p",
+                      "style": {
+                        "margin": "14px 0 0",
+                        "fontSize": "18px",
+                        "lineHeight": "1.7",
+                        "color": "#46535C",
+                        "maxWidth": "70ch"
+                      },
+                      "id": 69,
+                      "children": [],
+                      "ref": "body.9.1.1.1.1.3.1.1.1.3.3"
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "style": {
+                    "padding": "34px 0",
+                    "borderBottom": "1px solid #E6E9E5"
+                  },
+                  "id": 70,
+                  "children": [
+                    {
+                      "tag": "h3",
+                      "style": {
+                        "margin": "0",
+                        "fontFamily": "Archivo,sans-serif",
+                        "fontSize": "30px",
+                        "fontWeight": "600",
+                        "letterSpacing": "-.02em",
+                        "color": "#0B1114"
+                      },
+                      "id": 71,
+                      "children": [],
+                      "ref": "body.9.1.1.1.1.3.3.1.1.3.1"
+                    },
+                    {
+                      "tag": "p",
+                      "style": {
+                        "margin": "14px 0 0",
+                        "fontSize": "18px",
+                        "lineHeight": "1.7",
+                        "color": "#46535C",
+                        "maxWidth": "70ch"
+                      },
+                      "id": 72,
+                      "children": [],
+                      "ref": "body.9.1.1.1.1.3.3.1.1.3.3"
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "style": {
+                    "padding": "34px 0",
+                    "borderBottom": "1px solid #E6E9E5"
+                  },
+                  "id": 73,
+                  "children": [
+                    {
+                      "tag": "h3",
+                      "style": {
+                        "margin": "0",
+                        "fontFamily": "Archivo,sans-serif",
+                        "fontSize": "30px",
+                        "fontWeight": "600",
+                        "letterSpacing": "-.02em",
+                        "color": "#0B1114"
+                      },
+                      "id": 74,
+                      "children": [],
+                      "ref": "body.9.1.1.1.1.3.5.1.1.3.1"
+                    },
+                    {
+                      "tag": "p",
+                      "style": {
+                        "margin": "14px 0 0",
+                        "fontSize": "18px",
+                        "lineHeight": "1.7",
+                        "color": "#46535C",
+                        "maxWidth": "70ch"
+                      },
+                      "id": 75,
+                      "children": [],
+                      "ref": "body.9.1.1.1.1.3.5.1.1.3.3"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "section",
+      "style": {
+        "background": "#F2F0EC",
+        "padding": "130px 88px"
+      },
+      "id": 76,
+      "children": [
+        {
+          "tag": "div",
+          "style": {
+            "display": "grid",
+            "gridTemplateColumns": "1fr 520px",
+            "gap": "88px",
+            "alignItems": "end",
+            "paddingBottom": "34px",
+            "borderBottom": "2px solid #0B1114"
+          },
+          "id": 77,
+          "children": [
+            {
+              "tag": "h2",
+              "style": {
+                "margin": "0",
+                "fontFamily": "Archivo,sans-serif",
+                "fontSize": "50px",
+                "lineHeight": "1.1",
+                "fontWeight": "600",
+                "letterSpacing": "-.03em",
+                "color": "#0B1114"
+              },
+              "id": 78,
+              "children": [],
+              "ref": "body.11.1.1.1.1.1"
+            },
+            {
+              "tag": "p",
+              "style": {
+                "margin": "0",
+                "fontSize": "18.5px",
+                "lineHeight": "1.7",
+                "color": "#46535C"
+              },
+              "id": 79,
+              "children": [],
+              "ref": "body.11.1.1.1.3.1.0"
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "style": {
+            "display": "grid",
+            "gridTemplateColumns": "repeat(3,1fr)",
+            "columnGap": "64px",
+            "fontFamily": "Archivo,sans-serif",
+            "fontSize": "28px",
+            "fontWeight": "500",
+            "letterSpacing": "-.018em",
+            "color": "#0B1114"
+          },
+          "id": 80,
+          "children": [
+            {
+              "tag": "div",
+              "style": {
+                "padding": "24px 0",
+                "borderBottom": "1px solid #C6CCC7"
+              },
+              "id": 81,
+              "children": [],
+              "ref": "body.11.1.1.1.5.1.1.1.1.1.0"
+            },
+            {
+              "tag": "div",
+              "style": {
+                "padding": "24px 0",
+                "borderBottom": "1px solid #C6CCC7"
+              },
+              "id": 82,
+              "children": [],
+              "ref": "body.11.1.1.1.5.1.1.3.1.1.0"
+            },
+            {
+              "tag": "div",
+              "style": {
+                "padding": "24px 0",
+                "borderBottom": "1px solid #C6CCC7"
+              },
+              "id": 83,
+              "children": [],
+              "ref": "body.11.1.1.1.5.1.1.5.1.1.0"
+            },
+            {
+              "tag": "div",
+              "style": {
+                "padding": "24px 0",
+                "borderBottom": "1px solid #C6CCC7"
+              },
+              "id": 84,
+              "children": [],
+              "ref": "body.11.1.1.1.5.1.1.7.1.1.0"
+            },
+            {
+              "tag": "div",
+              "style": {
+                "padding": "24px 0",
+                "borderBottom": "1px solid #C6CCC7"
+              },
+              "id": 85,
+              "children": [],
+              "ref": "body.11.1.1.1.5.1.1.9.1.1.0"
+            },
+            {
+              "tag": "div",
+              "style": {
+                "padding": "24px 0",
+                "borderBottom": "1px solid #C6CCC7"
+              },
+              "id": 86,
+              "children": [],
+              "ref": "body.11.1.1.1.5.1.3.1.1.1.0"
+            },
+            {
+              "tag": "div",
+              "style": {
+                "padding": "24px 0",
+                "borderBottom": "1px solid #C6CCC7"
+              },
+              "id": 87,
+              "children": [],
+              "ref": "body.11.1.1.1.5.1.3.3.1.1.0"
+            },
+            {
+              "tag": "div",
+              "style": {
+                "padding": "24px 0",
+                "borderBottom": "1px solid #C6CCC7"
+              },
+              "id": 88,
+              "children": [],
+              "ref": "body.11.1.1.1.5.1.3.5.1.1.0"
+            },
+            {
+              "tag": "div",
+              "style": {
+                "padding": "24px 0",
+                "borderBottom": "1px solid #C6CCC7"
+              },
+              "id": 89,
+              "children": [],
+              "ref": "body.11.1.1.1.5.1.3.7.1.1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "section",
+      "style": {
+        "background": "#0B1114",
+        "padding": "150px 88px"
+      },
+      "id": 90,
+      "children": [
+        {
+          "tag": "div",
+          "style": {
+            "display": "grid",
+            "gridTemplateColumns": "1fr 360px",
+            "gap": "96px",
+            "alignItems": "end"
+          },
+          "id": 91,
+          "children": [
+            {
+              "tag": "div",
+              "style": {},
+              "id": 92,
+              "children": [
+                {
+                  "tag": "h2",
+                  "style": {
+                    "margin": "0",
+                    "fontFamily": "Archivo,sans-serif",
+                    "fontSize": "58px",
+                    "lineHeight": "1.06",
+                    "fontWeight": "600",
+                    "letterSpacing": "-.034em",
+                    "color": "#FFFFFF",
+                    "maxWidth": "18ch"
+                  },
+                  "id": 93,
+                  "children": [],
+                  "ref": "body.13.1.1.1.1.1"
+                },
+                {
+                  "tag": "div",
+                  "style": {
+                    "marginTop": "32px",
+                    "display": "grid",
+                    "gap": "18px",
+                    "fontSize": "20px",
+                    "lineHeight": "1.74",
+                    "color": "#B6C2C9",
+                    "maxWidth": "66ch"
+                  },
+                  "id": 94,
+                  "children": [
+                    {
+                      "tag": "p",
+                      "style": {
+                        "margin": "0"
+                      },
+                      "id": 95,
+                      "children": [],
+                      "ref": "body.13.1.1.1.3.1.0"
+                    },
+                    {
+                      "tag": "p",
+                      "style": {
+                        "margin": "0"
+                      },
+                      "id": 96,
+                      "children": [],
+                      "ref": "body.13.1.1.1.3.1.3"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "style": {
+                "display": "flex",
+                "alignItems": "center",
+                "justifyContent": "center",
+                "textAlign": "center",
+                "height": "78px",
+                "padding": "0 20px",
+                "background": "#B2461C",
+                "color": "#FFFFFF",
+                "fontSize": "18px",
+                "fontWeight": "600",
+                "lineHeight": "1.3",
+                "borderRadius": "2px"
+              },
+              "id": 97,
+              "children": [],
+              "ref": "body.13.1.1.1.5.1.1.1"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "remaining": []
+}

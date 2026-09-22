@@ -1,0 +1,8 @@
+import {readFileSync,writeFileSync} from 'node:fs'
+const read=p=>JSON.parse(readFileSync(p)),root='../luxury-evidence/',decisions=read(root+'link-target-decisions.json'),occurrences=read('../salmon-activation-evidence/internal-link-occurrences.json').filter(o=>o.state==='BROKEN_INTERNAL_LINK')
+for(const d of decisions)if(d.target==='/'){d.state='SOURCE_LEGACY_BROKEN';d.target='';d.evidence='Observed legacy redirect to homepage is a catch-all, not evidence of equivalent content; not propagated into candidate.'}
+const map=new Map(decisions.map(d=>[d.source,d])),groups=new Map()
+for(const o of occurrences){const key=o.route+'\t'+o.source_target,r=map.get(o.path);if(groups.has(key))groups.get(key).OCCURRENCES++;else groups.set(key,{SOURCE_ROUTE:o.route,SOURCE_HREF:o.source_target,OCCURRENCES:1,RESOLUTION:r.target?'Verified redirect in application routing layer':'No content-equivalent destination proven; source record retained',TARGET:r.target,EVIDENCE:r.evidence,STATE:r.state})}
+const rows=[...groups.values()],keys=Object.keys(rows[0]);writeFileSync(root+'INTERNAL_LINK_RECONCILIATION.tsv',[keys.join('\t'),...rows.map(r=>keys.map(k=>String(r[k]).replace(/[\t\r\n]/g,' ')).join('\t'))].join('\n')+'\n')
+const redirects=[...new Map(decisions.filter(d=>d.target).map(d=>[d.source.replace(/\/?$/,'/'),{source:d.source.replace(/\/?$/,'/'),destination:d.target,evidence:d.evidence}])).values()]
+writeFileSync('apps/h2o/content/luxury/reconciled-redirects.json',JSON.stringify(redirects,null,2));writeFileSync(root+'link-target-decisions.json',JSON.stringify(decisions,null,2));console.log({targets:decisions.length,resolved:decisions.filter(d=>d.target).length,unresolved:decisions.filter(d=>!d.target).length,routingRules:redirects})

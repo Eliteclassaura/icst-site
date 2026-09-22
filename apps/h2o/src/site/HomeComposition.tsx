@@ -40,7 +40,8 @@ import type { CohortPage } from './cohort'
 import { featureFor } from './feature-media'
 import type { Block, InlineNode } from './markdown'
 import { FeatureFigure, renderBlocks, renderInline } from './render'
-import { PrivateStagingVisual } from './private-staging-ai'
+import { R4Media } from './R4Media'
+import { SalmonMedia } from './SalmonMedia'
 import { RfqMount } from './RfqMount'
 import { Testimonials } from './HomeTestimonials'
 import {
@@ -238,11 +239,13 @@ export const HomeComposition = ({
             ))}
             <div className="r3hero-actions">
               <RfqMount mountId="home_hero_primary" page={page} />
+              <a className="r4-rfq-link" href="/contact-us/">Discuss your tower</a>
               <a className="hero-secondary" href="/cooling-tower-parts-online/">
                 Cooling tower parts
               </a>
             </div>
           </div>
+          <R4Media className="r4-hero-media" kind="tower" />
           <aside aria-label="Commercial pathways" className="r3hero-panel">
             <dl className="r3hero-spec">
               {PATHWAYS.map((pw) => (
@@ -257,7 +260,6 @@ export const HomeComposition = ({
             </dl>
           </aside>
         </div>
-        <PrivateStagingVisual kind="hero" />
       </section>
 
       {/* ---------- 02 pathways: an indexed technical list, not a card grid ---------- */}
@@ -289,6 +291,7 @@ export const HomeComposition = ({
 
       <section className="home-scale-statement">
         <div className="shell">
+          <SalmonMedia id="tower-scale" />
           <p>
             Every tower is designed to a duty and a site rather than selected from a range, so every
             enquiry is scoped before it is quoted.

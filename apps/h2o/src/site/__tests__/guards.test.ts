@@ -15,6 +15,7 @@ import { assertAcceptedBody, cohort, CohortIntegrityError, type CohortPage } fro
 import { linksIn, parseBody } from '../markdown'
 import { buildJsonLd, ForbiddenSchemaPropertyError } from '../metadata'
 import { generateStaticParams } from '../../app/(site)/[[...slug]]/page'
+import {salmonRoutes, salmonRedirects, salmonRouteFor} from '../salmon'
 
 const accepted = (): CohortPage[] => cohort()
 
@@ -135,19 +136,19 @@ describe('the forbidden-schema-property check fires', () => {
   })
 })
 
-describe('the route set is the accepted table', () => {
-  it('enumerates exactly the 29 accepted routes', () => {
+describe('the route set is the Control Tower-authorized Salmon estate', () => {
+  it('enumerates exactly the 1205 effective Salmon routes', () => {
     const params = generateStaticParams()
-    expect(params.length).toBe(29)
+    expect(params.length).toBe(1205)
     expect(params.map((entry) => `/${entry.slug.join('/')}/`.replace('//', '/')).sort()).toEqual(
-      accepted()
-        .map((page) => page.canonicalPath)
+      salmonRoutes()
+        .map((page) => decodeURIComponent(page.targetPath))
         .sort(),
     )
   })
 
   it('enumerates no route the accepted table does not carry', () => {
-    const acceptedPaths = new Set(accepted().map((page) => page.canonicalPath))
+    const acceptedPaths = new Set(salmonRoutes().map((page) => decodeURIComponent(page.targetPath)))
     for (const entry of generateStaticParams()) {
       const path = `/${entry.slug.join('/')}/`.replace('//', '/')
       expect(acceptedPaths.has(path)).toBe(true)
@@ -158,6 +159,12 @@ describe('the route set is the accepted table', () => {
     const enumerated = new Set(
       generateStaticParams().map((entry) => `/${entry.slug.join('/')}/`.replace('//', '/')),
     )
-    for (const page of accepted()) expect(enumerated.has(page.canonicalPath)).toBe(true)
+    for (const page of salmonRoutes()) expect(enumerated.has(decodeURIComponent(page.targetPath))).toBe(true)
+    expect(salmonRedirects()).toHaveLength(44)
+    for(const alias of salmonRedirects())expect(enumerated.has(decodeURIComponent(alias.source))).toBe(false)
+    const disabled=readFileSync(path.join(process.cwd(),'content/salmon/CANDIDATE_ONLY_ROUTE_DECISIONS.tsv'),'utf8').trim().split('\n').slice(1)
+    expect(disabled).toHaveLength(7)
+    for(const line of disabled)expect(salmonRouteFor(line.split('\t')[0]!.split('/').filter(Boolean))).toBeNull()
+    expect(salmonRouteFor(['home'])).toBeNull()
   })
 })

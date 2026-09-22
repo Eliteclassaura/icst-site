@@ -31,13 +31,24 @@ export const Testimonials = () => {
           <Attribution testimonial={featured} />
         </article>
         <div className="testimonial-rows">
-          {rows.map((testimonial) => (
+          {rows.slice(0, 3).map((testimonial) => (
             <article className="testimonial-row" key={testimonial.recordId}>
               <Quote testimonial={testimonial} />
               <Attribution testimonial={testimonial} />
             </article>
           ))}
         </div>
+        <details className="testimonial-more">
+          <summary>More customer perspectives ({rows.length - 3})</summary>
+          <div className="testimonial-rows testimonial-rows--more">
+            {rows.slice(3).map((testimonial) => (
+              <article className="testimonial-row" key={testimonial.recordId}>
+                <Quote testimonial={testimonial} />
+                <Attribution testimonial={testimonial} />
+              </article>
+            ))}
+          </div>
+        </details>
       </div>
     </section>
   )

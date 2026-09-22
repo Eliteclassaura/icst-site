@@ -102,7 +102,7 @@ export const SiteChrome = ({
           is where the focus already is.
         */}
         <div className="row shell">
-          <span className="identity">
+          <a aria-label="Industrial Cooling Solutions — home" className="identity" href="/">
             {/*
               A plain <img>, not next/image: the optimiser would emit a resized, re-encoded
               derivative of an accepted brand asset, and the accepted design forbids producing
@@ -115,7 +115,7 @@ export const SiteChrome = ({
               src="/brand/ics-logo-original.webp"
               width={172}
             />
-          </span>
+          </a>
           {primary.length > 0 ? (
             <nav aria-label="Primary" className="nav">
               {primary.map((item) => (
@@ -181,12 +181,14 @@ export const SiteChrome = ({
               accepted body rather than a written slogan. */}
           <div className="r3footer-top">
             <div className="r3footer-brand">
+              <a aria-label="Industrial Cooling Solutions — home" className="r4-footer-home" href="/">
               <img
                 alt="Industrial Cooling Solutions"
                 height={46}
                 src="/brand/ics-logo-white-transparent.png"
                 width={180}
               />
+              </a>
               <p>
                 Field-erected industrial cooling towers: new construction, repair, thermal upgrade
                 and replacement parts.

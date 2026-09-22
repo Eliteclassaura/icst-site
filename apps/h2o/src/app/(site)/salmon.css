@@ -1,0 +1,10 @@
+/* Content-safety constraints only; canonical structure/order is data-owned. */
+.salmon-canonical { overflow-wrap: anywhere; }
+.salmon-canonical *, .salmon-canonical *::before, .salmon-canonical *::after { box-sizing: border-box; min-width: 0; }
+.salmon-canonical img { display: block; max-width: 100% !important; height: auto; }
+.salmon-canonical table { max-width: 100%; }
+.salmon-canonical .technical-table { overflow-x: auto; max-width: 100%; }
+.salmon-canonical .salmon-chrome { padding-block: 1.5rem; }
+.salmon-canonical [data-salmon-region="header"] img { width: 172px; }
+.salmon-canonical [data-source-media-unavailable] { display: block; border: 1px solid currentColor; padding: 1rem; }
+.salmon-canonical details > summary { cursor: pointer; }

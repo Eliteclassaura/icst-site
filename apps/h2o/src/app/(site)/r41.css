@@ -1,0 +1,112 @@
+/* R4.1: bounded editorial grid; source hierarchy and full body are not a layout variable. */
+.source-article { max-inline-size: 1320px; margin-inline: auto; display: block; }
+.source-article > * { max-inline-size: none; }
+.source-masthead { border-block-start: 4px solid var(--signal); padding: 40px 0 32px; max-inline-size: 1040px; }
+.source-masthead h1 { font-size: clamp(34px, 3.7vw, 58px); line-height: 1.06; letter-spacing: -.035em; max-inline-size: 27ch; margin: 12px 0 20px; }
+.source-masthead .byline { font-size: 14px; margin: 0; }
+.source-reading-entry { display: inline-block; margin-block-start: 20px; font-size: 14px; }
+.source-article .source-masthead { display: grid; grid-template-columns: 1.15fr 1fr; gap: 0 40px; max-inline-size: none; margin-block-end: 32px; }
+.source-masthead > :not(.salmon-media) { grid-column: 1; }
+.source-article .source-opening-image { grid-column: 2; grid-row: 1 / 7; align-self: center; margin: 0; border-block-end: 3px solid var(--signal); }
+.source-lede p { font-size: 17px; line-height: 1.65; margin-block: 20px 0; max-inline-size: 65ch; }
+.salmon-media img { display: block; inline-size: 100%; block-size: auto; }
+/* The source has green presentation bars outside the photograph: crop those in CSS only. */
+.salmon-media[data-salmon-id="deck-team"] .salmon-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.salmon-media[data-salmon-id="deck-team"] .salmon-photo img { position: absolute; inset-inline-start: 0; inset-block-start: -20%; inline-size: 100%; block-size: auto; }
+.salmon-media figcaption { padding-block: 12px; font-size: 12px; line-height: 1.5; }
+.salmon-media figcaption span { display: block; font-size: 9px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-block-end: 4px; }
+.source-article .article-reading { grid-template-columns: 190px minmax(0, 1fr) 240px; gap: 32px; max-inline-size: 100%; }
+.source-article .article-reading > * { min-inline-size: 0; }
+.source-article .article-body { inline-size: 100%; max-inline-size: 760px; }
+.source-article .article-index--desktop { position: sticky; top: 28px; max-block-size: calc(100vh - 56px); overflow-y: auto; font-size: 12px; line-height: 1.45; }
+.source-article .article-index a { display: flex; gap: 10px; border-block-end: 1px solid #d9e0e3; padding: 12px 0; }
+.source-article .article-index a span { color: var(--signal); font-variant-numeric: tabular-nums; font-size: 11px; }
+.source-rail-label { text-transform: uppercase; letter-spacing: .13em; font-size: 11px; font-weight: 700; }
+.source-article .article-body p, .source-article .article-body li { font-size: 17px; line-height: 1.72; max-inline-size: 75ch; }
+.source-article .article-body p { margin: 0 0 22px; }
+.source-article .source-introduction { padding: 24px 0 32px; border-block-start: 1px solid var(--ink); }
+.source-introduction > p:first-child { font-size: 19px; line-height: 1.65; }
+.source-section { position: relative; padding-block: 36px 16px; border-block-start: 1px solid #cad4da; scroll-margin-top: 24px; }
+.source-article .source-section > * { max-inline-size: 100%; }
+.source-article .source-section > h2 { margin: 14px 0 24px; font-size: clamp(25px, 2.2vw, 33px); line-height: 1.18; letter-spacing: -.02em; max-width: none; max-inline-size: none; }
+.source-article .source-section h3 { margin: 30px 0 12px; font-size: 21px; line-height: 1.35; }
+.chapter-number { display: block; color: var(--signal); font-size: 13px; letter-spacing: .16em; font-variant-numeric: tabular-nums; }
+.source-article figure { margin: 28px 0; }
+.source-article .article-body { counter-reset: technical-figure; }
+.source-article .source-section figure:has(img):not(:has([data-source-fallback])) { counter-increment: technical-figure; padding-block: 18px; border-block: 1px solid #99adb9; }
+.source-article .source-section figure:has(img):not(:has([data-source-fallback]))::before { content: 'FIG. ' counter(technical-figure, decimal-leading-zero) ' / SOURCE ILLUSTRATION'; display: block; font-size: 10px; letter-spacing: .14em; padding-block-end: 14px; color: var(--muted); }
+.source-article img { display: block; inline-size: 100%; block-size: auto; }
+.source-article .source-title-card { max-inline-size: 320px; margin: 0; }
+.source-article .article-rail { grid-column: auto; grid-row: auto; }
+.source-article .article-rail p, .source-article .article-rail li { font-size: 14px; line-height: 1.6; }
+.source-article .source-related h2 { font-size: 19px; margin-block: 0 18px; }
+.source-related ul { list-style: none; padding: 0; }
+.source-related li { padding-block: 12px; border-block-end: 1px solid #cad4da; }
+.technical-table { overflow-x: auto; max-inline-size: 100%; margin-block: 24px; border: 1px solid #cad4da; }
+.technical-table table { border-collapse: collapse; inline-size: 100%; font-size: 14px; line-height: 1.5; min-inline-size: 480px; }
+.technical-table td, .technical-table th { border: 1px solid #cad4da; padding: 12px; vertical-align: top; text-align: start; }
+.technical-table thead, .technical-table tr:first-child { background: #e9eef0; }
+.source-article blockquote { border-inline-start: 4px solid var(--signal); margin-inline: 0; padding: 20px 28px; background: #edf1f2; }
+.source-close { margin-block: 48px; padding: 40px; background: var(--band-dark); color: var(--on-dark); }
+.source-close h2 { color: inherit; font-size: 32px; margin: 14px 0 24px; }
+.source-close a { color: inherit; }
+.source-media-unavailable { display: block; border-block: 1px solid #cad4da; padding: 20px; font-size: 13px; }
+/* Shared R4.1 devices: datum rules, numbered editorial chapters, component plates. */
+.r3hero .r4-hero-media { position: relative; border-inline-start: 1px solid #52646d; padding-inline-start: 20px; }
+.r3hero .r4-hero-media::before { content: ''; position: absolute; inline-size: 72px; block-size: 72px; border-block-start: 1px solid var(--signal); border-inline-end: 1px solid var(--signal); inset-block-start: -18px; inset-inline-end: -18px; pointer-events: none; }
+.home-scale-statement .shell { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; }
+.home-scale-statement .salmon-media { margin: 0; }
+.home-scale-statement .salmon-media img { inline-size: 100%; block-size: auto; }
+.home-scale-statement p { font-size: clamp(26px, 2.5vw, 40px); }
+.testimonials .testimonial-feature { max-inline-size: 1040px; margin-block-end: 48px; border-block-start: 3px solid var(--signal); }
+.testimonials .testimonial-rows { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 28px; }
+.testimonials .testimonial-row { display: flex; flex-direction: column; gap: 20px; padding-block: 24px; border-block-start: 1px solid #bac8cf; }
+.testimonials .testimonial-row blockquote { margin: 0; }
+.testimonials .testimonial-row .testimonial-attribution { margin-block-start: auto; }
+.testimonial-more { border-block: 1px solid #bac8cf; margin-block-start: 28px; padding-block: 20px; }
+.testimonial-more summary { cursor: pointer; font-size: 16px; font-weight: 650; }
+.component-plates { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; padding-block: 40px; border-block: 1px solid #bac8cf; }
+.component-plates .salmon-media { margin: 0; padding: 20px; background: white; }
+.component-plates img { inline-size: 100%; block-size: 220px; object-fit: contain; }
+.company-field-strip { display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px; align-items: end; padding-block: 40px; }
+.company-field-strip .salmon-media { margin: 0; }
+.commercial-company .commercial-masthead { grid-template-columns: .85fr 1.4fr; }
+.contact-directory--page { border-block-start: 3px solid var(--signal); padding: 36px; background: #e8eef1; }
+.contact-directory--page .contact-directory-list { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 32px; }
+.contact-directory--page .contact-office { border-inline-start: 1px solid #99adb9; padding-inline-start: 24px; }
+.contact-directory--page .contact-office > strong { font-size: 27px; margin-block-end: 22px; }
+@media(max-width: 1279px) {
+  .source-article .article-reading { grid-template-columns: 190px minmax(0,1fr); gap: 28px; }
+  .source-article .article-rail { grid-column: 2; grid-row: 2; display: grid; grid-template-columns: 1fr 1fr; }
+  .source-related { grid-column: 1 / -1; }
+}
+@media(max-width: 900px) {
+  .home-scale-statement .shell, .company-field-strip, .commercial-company .commercial-masthead { grid-template-columns: 1fr; }
+  .testimonials .testimonial-rows { grid-template-columns: 1fr; }
+  .contact-directory--page .contact-directory-list { grid-template-columns: 1fr; }
+  .component-plates { grid-template-columns: 1fr; }
+  .component-plates img { block-size: 240px; }
+  .r3hero .r4-hero-media { padding-inline-start: 0; border-inline-start: 0; }
+  .r3hero .r4-hero-media::before { display: none; }
+  .source-article .source-masthead { display: flex; flex-direction: column; }
+  .source-masthead > .hero-eyebrow { order: 0; }
+  .source-masthead > h1 { order: 1; }
+  .source-masthead > .byline { order: 2; }
+  .source-masthead > .source-opening-image { order: 3; }
+  .source-masthead > .source-reading-entry { order: 4; }
+  .source-masthead > .source-lede { order: 5; }
+  .source-article .source-opening-image { margin-block-start: 24px; max-inline-size: 600px; }
+  .source-article .article-reading { display: flex; flex-direction: column; gap: 24px; }
+  .source-article .article-index--desktop { display: none; }
+  .source-article .article-index--mobile { display: block; inline-size: 100%; border-block: 1px solid #cad4da; padding: 16px 0; }
+  .source-article .article-index--mobile summary { cursor: pointer; font-size: 15px; }
+  .source-article .article-rail { inline-size: 100%; }
+  .source-masthead { padding-block: 28px; }
+}
+@media(max-width: 480px) {
+  .source-masthead h1 { font-size: 34px; }
+  .source-article .article-body p, .source-article .article-body li { font-size: 17px; }
+  .source-article .article-rail { display: block; }
+  .source-article .article-rail > * { margin-block-end: 24px; }
+  .source-close { padding: 28px 20px; }
+}

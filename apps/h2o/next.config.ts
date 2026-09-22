@@ -1,5 +1,7 @@
 import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
+import {readFileSync} from 'node:fs'
+import path from 'node:path'
 
 // Phase 2 increment 2A.1 left trailing-slash behaviour unset, as a catalog concern for the routing
 // increment. PV-05 is that increment, and this is its one line.
@@ -17,5 +19,13 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   trailingSlash: true,
+  async headers() {
+    return [{source:'/:path*',headers:[{key:'X-Robots-Tag',value:'noindex, nofollow'}]}]
+  },
+  async redirects() {
+    const rows=JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon/redirects.json'),'utf8')) as Array<{source:string;destination:string}>
+    const reconciled=JSON.parse(readFileSync(path.join(process.cwd(),'content/luxury/reconciled-redirects.json'),'utf8')) as Array<{source:string;destination:string}>
+    return [...rows,...reconciled].map(row=>({source:row.source,destination:row.destination,permanent:true}))
+  },
 }
 export default withPayload(nextConfig)

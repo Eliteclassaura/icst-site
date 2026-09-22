@@ -31,7 +31,8 @@ import { DocumentList, FeatureFigure, Figure, renderBlocks, renderInline } from 
 import type { ResourceDocument } from './resources'
 import { RfqMount } from './RfqMount'
 import { ContactDirectory } from './ContactDirectory'
-import { PrivateStagingVisual } from './private-staging-ai'
+import { R4Media } from './R4Media'
+import { SalmonMedia } from './SalmonMedia'
 import {
   assertTotal,
   partitionByHeading,
@@ -184,12 +185,20 @@ export const CommercialComposition = ({
                 opening.body.filter((b) => b.kind === 'paragraph').slice(0, 1),
               )}
         </div>
-        {media === null ? null : <FeatureFigure className="commercial-masthead-media" media={media} priority />}
+        {variant === 'company' || variant === 'library' || variant === 'catalogue' ? (
+          <SalmonMedia className="commercial-masthead-media" id={variant === 'company' ? 'deck-team' : variant === 'library' ? 'mechanical-deck' : 'drive-shaft'} priority />
+        ) : variant === 'service' ? (
+          <R4Media
+            className="commercial-masthead-media"
+            kind="tower"
+          />
+        ) : media === null ? null : <FeatureFigure className="commercial-masthead-media" media={media} priority />}
       </header>
 
-      {variant === 'service' ? <PrivateStagingVisual kind="service" /> : null}
-      {variant === 'catalogue' ? <PrivateStagingVisual kind="parts" /> : null}
-      {variant === 'library' ? <PrivateStagingVisual kind="resources" /> : null}
+      {variant === 'catalogue' ? <section className="component-plates" aria-label="Component identification">
+        <SalmonMedia id="gearbox" /><SalmonMedia id="water-nozzle" /><SalmonMedia id="fan-assembly" />
+      </section> : null}
+      {variant === 'company' ? <div className="company-field-strip"><SalmonMedia id="construction" /><SalmonMedia id="structure" /></div> : null}
 
       <div className="commercial-body">
         {openingRemainder === null ? null : (

@@ -102,6 +102,14 @@ export function proxy(req: NextRequest): NextResponse {
   const { policy } = policyFor(scriptHashesFor(req.nextUrl.pathname))
   const robots = xRobotsTagForPath(req.nextUrl.pathname)
 
+  if (req.nextUrl.pathname === '/' && req.nextUrl.searchParams.has('s')) {
+    const target = req.nextUrl.clone()
+    target.pathname = '/search/'
+    target.search = ''
+    target.searchParams.set('q', req.nextUrl.searchParams.get('s') ?? '')
+    return securityHeaders(NextResponse.redirect(target, 307), policy, robots)
+  }
+
   return securityHeaders(NextResponse.next(), policy, robots)
 }
 

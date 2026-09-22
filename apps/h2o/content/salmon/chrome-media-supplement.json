@@ -1,0 +1,24 @@
+[
+  {
+    "url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/06/23d33269604d54bf4dda7dde93262cfd719116a8-1.png",
+    "state": "SOURCE_BINARY_HELD",
+    "file": "media/a8f4b38d0f7ede838b277c9bcd00a3b75a268ce23a5fccfb86ec263774e3b844.png",
+    "sha256": "a8f4b38d0f7ede838b277c9bcd00a3b75a268ce23a5fccfb86ec263774e3b844",
+    "bytes": 162394,
+    "width": 1000,
+    "height": 256,
+    "format": "png",
+    "authority": "EXACT_PATH_SALMON_BACKUP_CHROME_SUPPLEMENT"
+  },
+  {
+    "url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/06/CTI-Logo.png",
+    "state": "SOURCE_BINARY_HELD",
+    "file": "media/c0060d855e27dfa01cb59100bba1dd217e2e6796d995aaa0e4ef4fa73d9b006c.png",
+    "sha256": "c0060d855e27dfa01cb59100bba1dd217e2e6796d995aaa0e4ef4fa73d9b006c",
+    "bytes": 37725,
+    "width": 952,
+    "height": 272,
+    "format": "png",
+    "authority": "EXACT_PATH_SALMON_BACKUP_CHROME_SUPPLEMENT"
+  }
+]

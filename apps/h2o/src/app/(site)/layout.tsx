@@ -15,6 +15,11 @@ import type { ReactNode } from 'react'
 import { estateHasPublicationReadyRoute } from '../../site/gate'
 import './site.css'
 import './r3.css'
+import './r4.css'
+import './r41.css'
+import './salmon.css'
+import './luxury-fonts.css'
+import './luxury.css'
 
 export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }

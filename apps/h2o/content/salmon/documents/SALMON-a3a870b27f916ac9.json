@@ -1,0 +1,37 @@
+{
+  "routeId": "SALMON-a3a870b27f916ac9",
+  "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/home/",
+  "targetPath": "/home/",
+  "type": "link-discovered",
+  "wordpressId": null,
+  "sourceIdentity": {
+    "snapshot": "raw/a3a870b27f916ac95662257d89eaccee0c93f0b519a666a6071426b714b69a66.body",
+    "status": 404,
+    "effectiveUrl": "https://salmon-rhinoceros-754457.hostingersite.com/home/",
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "restEvidence": null
+  },
+  "publicationStatus": "SOURCE_UNAVAILABLE",
+  "title": "",
+  "authorId": null,
+  "published": null,
+  "modified": null,
+  "bodySelector": "REST_FALLBACK",
+  "contentHtml": "",
+  "text": "",
+  "children": [],
+  "chrome": [],
+  "seo": {
+    "title": "",
+    "meta": [],
+    "canonical": [],
+    "h1": [],
+    "schema": []
+  },
+  "structures": [],
+  "images": [],
+  "links": [],
+  "downloads": [],
+  "author": null,
+  "date": null
+}

@@ -227,7 +227,10 @@ export const ArticleComposition = ({
           <nav aria-label="Article sections">{articleIndexLinks('mobile-index')}</nav>
         </details>
 
-        <div className="article-body">{withMedia(bodySections)}</div>
+        <div className="article-body">
+          {renderBlocks((leadIn?.body ?? []).filter((block) => block !== h1))}
+          {withMedia(bodySections)}
+        </div>
 
         <aside className="article-rail">
           {byline === null ? null : (
