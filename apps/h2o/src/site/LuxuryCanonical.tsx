@@ -38,7 +38,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
    const recoveredIndex=doc.targetPath==='/'?({2:0,51:2,164:1} as Record<number,number>)[n.id??-1]:undefined
    const recovered=recoveredIndex===undefined?undefined:clientReviewAuthority.hero[recoveredIndex]
    const alt=recoveredIndex===0?'Industrial cooling tower fan deck viewed from above':recoveredIndex===1?'Industrial cooling installation with multiple tower cells':'Cooling tower structures and access walkways'
-   return <img {...props} key={key} style={recovered&&n.id===164?{...n.style,height:'auto',objectFit:'contain',alignSelf:'center'}:n.style} src={recovered?.src??n.src} alt={recovered?alt:n.alt??''} data-recovered-media={recovered?.sha256} loading={n.id===2?'eager':'lazy'}/>
+   return <img {...props} key={key} style={recovered&&n.id===164?{...n.style,height:'auto',objectFit:'contain',alignSelf:'center'}:n.style} src={recovered?.src??n.src} alt={recovered?alt:n.alt??''} width={recovered?.width} height={recovered?.height} data-recovered-media={recovered?.sha256} loading={n.id===2?'eager':'lazy'} fetchPriority={n.id===2?'high':undefined}/>
   }
   if(n.action==='rfq')return <a {...props} href="/contact-us/">Request a Quote</a>
   if(n.action==='search')return null
@@ -64,10 +64,12 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  function productRemainder(n:LayoutNode):ReactNode{const refs:LayoutNode[]=[];function collect(v:LayoutNode){if(v.ref||v.slice)refs.push(v);v.children?.forEach(collect)}collect(n);const groups:LayoutNode[][]=[];for(const item of refs){const text=item.ref?salmonNodeText(nodes.get(item.ref)!):'';if(text.trim()==='Buy Now'&&groups.length)groups.at(-1)!.push(item);else groups.push([item])}return <div className="lux-complete-product-index">{groups.map((items,i)=><div key={i}>{items.map((item,j)=>remainder(item,'product-remainder.'+i+'.'+j))}</div>)}</div>}
  const placement=new Map<number,typeof model.remaining>()
  for(const r of model.remaining){let best=0,score=0;model.tree.forEach((t,i)=>{let count=0;function walk(n:LayoutNode){count+=(n.ref?.startsWith(r.sourceSection+'.')?1:0)+(n.refs??[]).filter(k=>k.startsWith(r.sourceSection+'.')).length;n.children?.forEach(walk)}walk(t);if(count>score){best=i;score=count}});placement.set(best,[...(placement.get(best)??[]),r])}
- return <div className={'luxury-site luxury-'+doc.routeId.split('-').at(-1)} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
-  <SalmonSeo doc={doc}/><LuxuryHeader page={page}/>
-  <main id="main" data-luxury-body>
-   {model.tree.map((n,i)=><div className="lux-section-wrap" key={i}>{design(n,'design.'+i,true)}{i===0&&doc.targetPath==='/disaster-recovery/'?<div className="lux-recovery-media"><img src="/media/luxury/ics-storm-damage.jpeg" alt="Cooling tower storm damage"/><img src="/media/luxury/ics-slep-complete.jpeg" alt="Completed cooling tower structure"/></div>:null}{(placement.get(i)??[]).map((r,j)=><div className="lux-remainder" key={j}>{['SALMON-pages-48','SALMON-pages-411'].includes(doc.routeId)&&JSON.stringify(r.tree).length>2000?productRemainder(r.tree):remainder(r.tree,'remainder.'+j)}</div>)}</div>)}
+ const home=doc.targetPath==='/'
+ const sectionAt=(i:number)=><div className="lux-section-wrap" key={i}>{design(model.tree[i],'design.'+i,true)}{i===0&&doc.targetPath==='/disaster-recovery/'?<div className="lux-recovery-media"><img src="/media/luxury/ics-storm-damage.jpeg" alt="Cooling tower storm damage"/><img src="/media/luxury/ics-slep-complete.jpeg" alt="Completed cooling tower structure"/></div>:null}{(placement.get(i)??[]).map((r,j)=><div className="lux-remainder" key={j}>{['SALMON-pages-48','SALMON-pages-411'].includes(doc.routeId)&&JSON.stringify(r.tree).length>2000?productRemainder(r.tree):remainder(r.tree,'remainder.'+j)}</div>)}</div>
+ return <div className={'luxury-site luxury-'+doc.routeId.split('-').at(-1)+(home?' figma-home':'')} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
+  <SalmonSeo doc={doc}/>{home?<><link rel="preload" href="/fonts/figma-home/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><link rel="preload" href="/fonts/figma-home/dm-sans-latin-400-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/></>:null}<LuxuryHeader page={page}/>
+  <main id="main" data-luxury-body className={home?'figma-home-main':undefined}>
+   {home?<><div className="figma-home-hero-stage">{sectionAt(0)}<div className="figma-home-hero-side">{sectionAt(3)}{sectionAt(1)}</div></div>{[2,4,5,6,7,8].map(sectionAt)}</>:model.tree.map((_,i)=>sectionAt(i))}
   </main><LuxuryFooter page={page}/>
  </div>
 }

@@ -20,6 +20,7 @@ import './r41.css'
 import './salmon.css'
 import './luxury-fonts.css'
 import './luxury.css'
+import './figma-home.css'
 
 export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }
