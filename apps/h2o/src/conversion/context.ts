@@ -91,15 +91,19 @@ const IDENTIFIER_KEYS = new Set<SafeContextKey>([
  *   - `/a/../../etc/passwd` is traversal made only of allowed characters. A `..` segment is refused
  *     outright rather than normalised, because normalising would forward a path nobody wrote.
  */
-const SITE_PATH_CHARACTERS = /^\/[A-Za-z0-9\-._~/]*$/
+const SITE_PATH_CHARACTERS = /^\/(?:[A-Za-z0-9\-._~/]|%[0-9A-Fa-f]{2})*$/
 
 const isSiteRelativePath = (value: string): boolean => {
   if (!SITE_PATH_CHARACTERS.test(value)) return false
   if (value.startsWith('//')) return false
-  return !value.split('/').includes('..')
+  try{
+    const decoded=decodeURIComponent(value)
+    return !decoded.startsWith('//')&&!decoded.includes('\\')&&!decoded.split('/').includes('..')&&!hasControlCharacter(decoded)
+  }catch{return false}
 }
 /** Identifiers and attribution tokens: letters, digits and a few separators. Nothing else. */
 const IDENTIFIER = /^[A-Za-z0-9._~-]+$/
+const ENCODED_PRODUCT_SLUG = /^(?:[A-Za-z0-9._~-]|%[0-9A-Fa-f]{2})+$/
 /** A human-readable title: printable, single-line, no angle brackets, no URL scheme. */
 const TITLE_FORBIDDEN = /[<>]|:\/\//
 
@@ -154,7 +158,7 @@ export const buildSafeContext = (input: Readonly<Record<string, unknown>>): Safe
       dropped.push({ key, reason: 'SENSITIVE_VALUE' })
       continue
     }
-    if (IDENTIFIER_KEYS.has(key) && !IDENTIFIER.test(value)) {
+    if (IDENTIFIER_KEYS.has(key) && !(key==='product_slug'?ENCODED_PRODUCT_SLUG:IDENTIFIER).test(value)) {
       dropped.push({ key, reason: 'UNSAFE_CHARACTERS' })
       continue
     }

@@ -4,8 +4,13 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node release/build.mjs",
+    "build:cms": "next build",
+    "build:public": "node release/build.mjs",
+    "prepare:public": "node release/prepare.mjs",
+    "qa:public": "node release/verify.mjs",
     "start": "next start",
+    "start:cms": "next start",
     "payload": "payload",
     "generate:types": "payload generate:types",
     "migrate": "payload migrate",
@@ -33,6 +38,7 @@
     "@types/pg": "^8.23.1",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
+    "pagefind": "^1.5.2",
     "pg": "^8.23.0",
     "typescript": "5.9.3",
     "vitest": "5.0.0"

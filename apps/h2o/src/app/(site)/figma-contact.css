@@ -1,0 +1,161 @@
+/* Contact/RFQ extension of the accepted Wave 1 ICS visual system. */
+.figma-contact-main {
+  color: var(--figma-ink);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: #fff;
+}
+
+.figma-contact-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(135deg, #00366a 0%, #0b55a5 65%, #164579 100%);
+  color: #fff;
+}
+
+.figma-contact-hero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: '';
+  background-image: linear-gradient(rgb(255 255 255 / 6%) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 6%) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+/* Keep the existing RFQ dialog above sticky chrome while its isolated hero owns it. */
+.figma-contact-hero:has([role="dialog"]) { z-index: 1001; }
+
+.figma-contact-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: clamp(32px, 5vw, 80px);
+  width: min(1188px, calc(100% - 80px));
+  min-height: 460px;
+  margin: auto;
+  padding: 92px 0 90px;
+}
+
+.figma-contact-title h1 {
+  max-width: 10ch;
+  margin: 0;
+  color: #fff;
+  font-family: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
+  font-size: clamp(64px, 7vw, 96px);
+  font-weight: 400;
+  line-height: .98;
+  letter-spacing: .005em;
+}
+
+.figma-contact-action.client-rfq {
+  display: flex;
+  align-items: flex-end;
+  min-width: 255px;
+  margin: 0;
+  padding: 0 0 10px;
+  background: transparent;
+}
+
+.figma-contact-action .rfq,
+.figma-contact-action .rfq a {
+  width: 100%;
+}
+
+.figma-contact-main .figma-contact-action .rfq a {
+  min-height: 58px;
+  border-color: rgb(255 255 255 / 85%);
+  box-shadow: 0 6px 20px rgb(0 20 45 / 22%);
+}
+
+.figma-contact-offices {
+  padding: 100px 0 110px;
+  background: #fafafb;
+}
+
+.figma-contact-offices-inner {
+  width: min(1188px, calc(100% - 80px));
+  margin: auto;
+}
+
+.figma-contact-offices h2 {
+  margin: 0 0 38px;
+  color: var(--figma-ink);
+  font-family: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
+  font-size: clamp(38px, 3.5vw, 48px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: .005em;
+}
+
+.figma-contact-office-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 34px;
+}
+
+.figma-contact-office-list address {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  margin: 0;
+  padding: 23px 0 0;
+  border-top: 1px solid #b6c7d7;
+  color: #3b3b3b;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.figma-contact-office-list h3 {
+  margin: 0 0 13px;
+  color: var(--figma-ink);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.figma-contact-office-list a {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 12px;
+  color: var(--figma-blue-deep);
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+
+.figma-contact-office-list a:hover { text-decoration: underline; }
+
+@media (max-width: 1024px) {
+  .figma-contact-hero-inner,
+  .figma-contact-offices-inner { width: min(100% - 64px, 1188px); }
+  .figma-contact-hero-inner { min-height: 400px; }
+  .figma-contact-office-list { gap: 26px; }
+}
+
+@media (max-width: 768px) {
+  .figma-contact-hero-inner,
+  .figma-contact-offices-inner { width: calc(100% - 40px); }
+  .figma-contact-hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    min-height: 0;
+    padding: 76px 0 72px;
+  }
+  .figma-contact-title h1 { font-size: clamp(56px, 10vw, 76px); }
+  .figma-contact-action.client-rfq { width: min(100%, 320px); padding: 0; }
+  .figma-contact-offices { padding: 72px 0 80px; }
+  .figma-contact-office-list { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+}
+
+@media (max-width: 390px) {
+  .figma-contact-hero-inner { padding: 64px 0; }
+  .figma-contact-title h1 { font-size: 56px; }
+  .figma-contact-action.client-rfq { width: 100%; }
+}

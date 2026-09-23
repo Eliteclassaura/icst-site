@@ -15,6 +15,6 @@
     "noUncheckedIndexedAccess": false
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
-  "exclude": ["node_modules", ".next", "src/migrations/*.json"],
+  "exclude": ["node_modules", ".next", ".public-renderer", "release", "src/migrations/*.json"],
   "extends": "../../tsconfig.base.json"
 }

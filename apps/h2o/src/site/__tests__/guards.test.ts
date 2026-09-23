@@ -136,19 +136,18 @@ describe('the forbidden-schema-property check fires', () => {
   })
 })
 
-describe('the route set is the Control Tower-authorized Salmon estate', () => {
-  it('enumerates exactly the 1205 effective Salmon routes', () => {
+describe('the route set is the Control Tower-authorized Salmon estate plus the Wave 4 Resources canonical', () => {
+  it('enumerates exactly the 1205 effective Salmon routes and the single authorized Resources route', () => {
     const params = generateStaticParams()
-    expect(params.length).toBe(1205)
+    expect(params.length).toBe(1206)
     expect(params.map((entry) => `/${entry.slug.join('/')}/`.replace('//', '/')).sort()).toEqual(
-      salmonRoutes()
-        .map((page) => decodeURIComponent(page.targetPath))
+      [...salmonRoutes().map((page) => decodeURIComponent(page.targetPath)), '/resources/']
         .sort(),
     )
   })
 
   it('enumerates no route the accepted table does not carry', () => {
-    const acceptedPaths = new Set(salmonRoutes().map((page) => decodeURIComponent(page.targetPath)))
+    const acceptedPaths = new Set([...salmonRoutes().map((page) => decodeURIComponent(page.targetPath)), '/resources/'])
     for (const entry of generateStaticParams()) {
       const path = `/${entry.slug.join('/')}/`.replace('//', '/')
       expect(acceptedPaths.has(path)).toBe(true)

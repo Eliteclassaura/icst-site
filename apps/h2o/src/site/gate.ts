@@ -35,6 +35,8 @@ import { cohort, type CohortPage } from './cohort'
 import { mountAppliesToRoute } from './mounts'
 import { stagingNavigationAuthorized, stagingValidationReady } from './staging'
 import { resolveTypeformConfig } from '../conversion/config'
+import {productIdentityValid,productSlug} from './Wave3Products'
+import type {SalmonDocument} from './salmon'
 
 /** The RFQ no-script fallback route named by the accepted mount contract. */
 export const RFQ_FALLBACK_PATH = '/contact-us/'
@@ -153,6 +155,16 @@ export const mountGate = (page: CohortPage | null, options: MountGateOptions = {
     origin: config.value.origin,
     reason: 'MOUNTED',
   }
+}
+
+/** Wave 3 product-only private-staging extension; publication readiness is untouched. */
+export const productMountGate = (doc:SalmonDocument,env:Record<string,string|undefined>=process.env):MountGate=>{
+  if(!productIdentityValid(doc)||!productSlug(doc)||!/^[0-9]+$/.test(doc.routeId.split('-').at(-1)??''))return {mounted:false,reason:'ROUTE_NOT_IN_COHORT'}
+  const fallback=cohort().find(page=>page.canonicalPath===RFQ_FALLBACK_PATH)
+  if(!fallback||!stagingValidationReady(fallback))return {mounted:false,reason:'FALLBACK_ROUTE_NOT_STAGING_VALIDATION_READY'}
+  const config=resolveTypeformConfig({H2O_TYPEFORM_FORM_ID:env.H2O_TYPEFORM_FORM_ID,H2O_TYPEFORM_ORIGIN:env.H2O_TYPEFORM_ORIGIN})
+  if(!config.ok)return {mounted:false,reason:'CONFIGURATION_UNRESOLVED'}
+  return {mounted:true,formUrl:`${config.value.origin}/to/${config.value.formId}`,origin:config.value.origin,reason:'MOUNTED'}
 }
 
 /**

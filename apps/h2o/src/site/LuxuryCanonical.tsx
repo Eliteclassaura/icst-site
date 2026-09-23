@@ -6,6 +6,7 @@ import {ownerText,ownerHref,salmonMedia,salmonMediaPath,salmonNodeText,type Salm
 import {LuxuryHeader,LuxuryFooter,LuxurySearch} from './LuxuryShell'
 import {pageForSegments} from './cohort'
 import {ClientTestimonials,clientReviewAuthority} from './ClientReview'
+import {ServiceImage,ServicePage,serviceCompositions} from './ServiceComposition'
 type LayoutNode={tag:string;style?:CSSProperties;id?:number;children?:LayoutNode[];ref?:string;refs?:string[];slice?:{ref:string;start:number;end:number};decor?:string;action?:string;src?:string;alt?:string;key?:string}
 type Model={route:string;sourceId:string;tree:LayoutNode[];remaining:Array<{sourceSection:string;tree:LayoutNode}>}
 export const luxuryIds=new Set(['SALMON-pages-48','SALMON-pages-1230','SALMON-pages-1446','SALMON-pages-1534','SALMON-pages-1555','SALMON-pages-1572','SALMON-pages-1668','SALMON-pages-1722','SALMON-pages-411'])
@@ -13,6 +14,7 @@ const safe=(href:string)=>/^(https?:|mailto:|tel:|\/|#)/i.test(href)?href:undefi
 export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
  const model=JSON.parse(readFileSync(path.join(process.cwd(),'content/luxury',doc.routeId.split('-').at(-1)+'.json'),'utf8')) as Model
+ const serviceComposition=serviceCompositions[doc.routeId]
  const nodes=new Map<string,SalmonNode>(),ancestors=new Map<string,string[]>(),usedImages=new Set<string>()
  function index(n:SalmonNode,key:string,parents:string[]){nodes.set(key,n);ancestors.set(key,parents);if(typeof n!=='string')n.children.forEach((c,i)=>index(c,key+'.'+i,[...parents,key]))}
  doc.children.forEach((n,i)=>index(n,'body.'+i,[]))
@@ -35,10 +37,15 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
   const size=Number.parseFloat(String(n.style?.fontSize??0))
   const props:Record<string,unknown>={key,style:n.style,className:['lux-node',root?'lux-section':'',size>=65?'lux-display-1':size>=40?'lux-display-2':size>=23?'lux-display-3':size>0?'lux-reading-type':'',n.style?.display==='grid'?'lux-grid':'',/^(44|96|110)px /.test(String(n.style?.gridTemplateColumns??''))?'lux-index-row':'',n.style?.display==='flex'?'lux-flex':'',n.style?.position==='absolute'?'lux-absolute':'',n.style?.fontFamily?.includes('Mono')?'lux-mono':'',n.style?.background==='#0B1114'?'lux-dark':'',n.style?.background==='#B2461C'?'lux-signal':''].filter(Boolean).join(' '),'data-layout-node':n.id}
   if(n.tag==='img'){
-   const recoveredIndex=doc.targetPath==='/'?({2:0,51:2,164:1} as Record<number,number>)[n.id??-1]:undefined
-   const recovered=recoveredIndex===undefined?undefined:clientReviewAuthority.hero[recoveredIndex]
-   const alt=recoveredIndex===0?'Industrial cooling tower fan deck viewed from above':recoveredIndex===1?'Industrial cooling installation with multiple tower cells':'Cooling tower structures and access walkways'
-   return <img {...props} key={key} style={recovered&&n.id===164?{...n.style,height:'auto',objectFit:'contain',alignSelf:'center'}:n.style} src={recovered?.src??n.src} alt={recovered?alt:n.alt??''} width={recovered?.width} height={recovered?.height} data-recovered-media={recovered?.sha256} loading={n.id===2?'eager':'lazy'} fetchPriority={n.id===2?'high':undefined}/>
+   if(serviceComposition?.suppress?.includes(n.id??-1))return null
+   const serviceMedia=serviceComposition?.replace[n.id??-1]
+   if(serviceMedia)return <ServiceImage key={key} media={serviceMedia} layoutNode={n.id}/>
+   const figmaMedia=doc.targetPath==='/'?({
+    2:{src:'/media/figma-home/21-1045-f28c7430.png',alt:'Industrial cooling infrastructure at a large plant',width:2880,height:2160,node:'21:1045',sha256:'06c98dd9e29f402ce348e0636c73955a938faedab6b982518635d25140f0c107'},
+    51:{src:'/media/figma-home/21-1055-aa90dce1.jpg',alt:'Industrial cooling tower construction site',width:1280,height:960,node:'21:1055',sha256:'f3f4a80cef5bfa1020981c19487cca105b7975d12b1139a01fb6d89fddc63019'},
+    164:{src:'/media/figma-home/21-1295-fcf10d82.png',alt:'',width:1024,height:1024,node:'21:1295',sha256:'f62d34f4682140c43b139496033912587283d692fe0568b61cb395cc8731b27f'},
+   } as Record<number,{src:string;alt:string;width:number;height:number;node:string;sha256:string}>)[n.id??-1]:undefined
+   return <img {...props} key={key} style={figmaMedia&&n.id===164?{...n.style,height:'auto',objectFit:'contain',alignSelf:'center'}:n.style} src={figmaMedia?.src??n.src} alt={figmaMedia?.alt??n.alt??''} width={figmaMedia?.width} height={figmaMedia?.height} data-figma-node={figmaMedia?.node} data-figma-media-sha256={figmaMedia?.sha256} loading={n.id===2?'eager':'lazy'} fetchPriority={n.id===2?'high':undefined}/>
   }
   if(n.action==='rfq')return <a {...props} href="/contact-us/">Request a Quote</a>
   if(n.action==='search')return null
@@ -58,9 +65,11 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
    }
    return createElement(semantic,props,...children)
   }
-  return createElement(n.tag==='section'?'section':'div',props,...(n.children??[]).map((c,i)=>design(c,key+'.'+i)))
+  const inside=serviceComposition?.inside[n.id??-1]
+  const after=serviceComposition?.after[n.id??-1]
+  return createElement(n.tag==='section'?'section':'div',props,...(inside?[<ServiceImage key={key+'.media'} media={inside} layer="inside"/>]:[]),...(n.children??[]).map((c,i)=>design(c,key+'.'+i)),...(after?[<div key={key+'.after'} className="wave2-media-group">{after.map((asset,i)=><ServiceImage key={asset.node+'.'+i} media={asset} layer="after"/>)}</div>]:[]))
  }
- function remainder(n:LayoutNode,key:string):ReactNode{if(n.ref)return source(n.ref);if(n.slice){const value=nodes.get(n.slice.ref);return typeof value==='string'?leaf(value.slice(n.slice.start,n.slice.end),n.slice.ref,n.slice.start,n.slice.end):null}const tag=['h1','h2','h3','h4','h5','h6','p','ul','ol','li','strong','em','table','tbody','tr','td','th'].includes(n.tag)?n.tag:'div';return createElement(tag,{key,className:'lux-remainder-node'},...(n.children??[]).map((c,i)=>remainder(c,key+'.'+i)))}
+ function remainder(n:LayoutNode,key:string,inParagraph=false):ReactNode{if(n.ref)return source(n.ref);if(n.slice){const value=nodes.get(n.slice.ref);return typeof value==='string'?leaf(value.slice(n.slice.start,n.slice.end),n.slice.ref,n.slice.start,n.slice.end):null}const tag=['h1','h2','h3','h4','h5','h6','p','ul','ol','li','strong','em','table','tbody','tr','td','th'].includes(n.tag)?n.tag:inParagraph?'span':'div';return createElement(tag,{key,className:'lux-remainder-node'},...(n.children??[]).map((c,i)=>remainder(c,key+'.'+i,inParagraph||tag==='p')))}
  function productRemainder(n:LayoutNode):ReactNode{const refs:LayoutNode[]=[];function collect(v:LayoutNode){if(v.ref||v.slice)refs.push(v);v.children?.forEach(collect)}collect(n);const groups:LayoutNode[][]=[];for(const item of refs){const text=item.ref?salmonNodeText(nodes.get(item.ref)!):'';if(text.trim()==='Buy Now'&&groups.length)groups.at(-1)!.push(item);else groups.push([item])}return <div className="lux-complete-product-index">{groups.map((items,i)=><div key={i}>{items.map((item,j)=>remainder(item,'product-remainder.'+i+'.'+j))}</div>)}</div>}
  const placement=new Map<number,typeof model.remaining>()
  for(const r of model.remaining){let best=0,score=0;model.tree.forEach((t,i)=>{let count=0;function walk(n:LayoutNode){count+=(n.ref?.startsWith(r.sourceSection+'.')?1:0)+(n.refs??[]).filter(k=>k.startsWith(r.sourceSection+'.')).length;n.children?.forEach(walk)}walk(t);if(count>score){best=i;score=count}});placement.set(best,[...(placement.get(best)??[]),r])}
@@ -69,7 +78,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  return <div className={'luxury-site luxury-'+doc.routeId.split('-').at(-1)+(home?' figma-home':'')} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
   <SalmonSeo doc={doc}/>{home?<><link rel="preload" href="/fonts/figma-home/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><link rel="preload" href="/fonts/figma-home/dm-sans-latin-400-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/></>:null}<LuxuryHeader page={page}/>
   <main id="main" data-luxury-body className={home?'figma-home-main':undefined}>
-   {home?<><div className="figma-home-hero-stage">{sectionAt(0)}<div className="figma-home-hero-side">{sectionAt(3)}{sectionAt(1)}</div></div>{[2,4,5,6,7,8].map(sectionAt)}</>:model.tree.map((_,i)=>sectionAt(i))}
+   {home?<><div className="figma-home-hero-stage">{sectionAt(0)}<div className="figma-home-hero-side">{sectionAt(3)}{sectionAt(1)}</div></div>{[2,4,5,6,7,8].map(sectionAt)}</>:serviceComposition?<ServicePage routeId={doc.routeId} sections={model.tree.map((_,i)=>sectionAt(i))}/>:model.tree.map((_,i)=>sectionAt(i))}
   </main><LuxuryFooter page={page}/>
  </div>
 }

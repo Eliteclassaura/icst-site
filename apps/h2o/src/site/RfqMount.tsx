@@ -26,17 +26,35 @@
  */
 import type { CohortPage } from './cohort'
 import { mountGate } from './gate'
+import { productMountGate } from './gate'
 import { implementedMounts, mountTreatment } from './mounts'
 import { QuoteCta } from '../conversion/QuoteCta'
 import { resolveQuoteCta } from '../conversion/resolve'
+import {productSlug} from './Wave3Products'
+import type {SalmonDocument} from './salmon'
 
 export type RfqMountProps = {
   /** The accepted `mount_id` this surface renders. */
   mountId: string
   page: CohortPage
-}
+  product?:never
+}|{mountId:'rfq_page';product:SalmonDocument;page?:never}
 
-export const RfqMount = ({ mountId, page }: RfqMountProps) => {
+export const RfqMount = (props: RfqMountProps) => {
+  const {mountId}=props
+  if(props.product){
+    const product=props.product
+    const gate=productMountGate(product)
+    if(!gate.mounted)return null
+    const slug=productSlug(product)
+    const id=product.routeId.split('-').at(-1)
+    if(!slug||!id)return null
+    const context={page_path:product.targetPath,product_slug:slug,product_id:id,cta_placement:mountId}
+    const resolved=resolveQuoteCta(context)
+    if(!resolved.available||!resolved.contextIncluded||resolved.dropped.length!==0)return null
+    return <span className="rfq rfq-signal wave3-product-rfq"><QuoteCta ctaPlacement={mountId} formUrl={resolved.formUrl} label="Request a Quote" origin={resolved.origin} pagePath={product.targetPath} productId={id} productSlug={slug} title="Request a Quote"/></span>
+  }
+  const {page}=props
   // A route with no accepted CTA never mounts one, whatever the surface says.
   if (!page.ctaPresent) return null
 

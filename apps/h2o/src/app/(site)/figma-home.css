@@ -37,7 +37,7 @@ body:has(.figma-home) .skip{font-family:'DM Sans',system-ui,sans-serif}
 .figma-home-hero-stage{width:min(1188px,calc(100% - 80px));margin:42px auto 0;display:grid;grid-template-columns:minmax(0,1.36fr) minmax(0,1fr);gap:32px;align-items:stretch}
 .figma-home-hero-stage>.lux-section-wrap:first-child{min-width:0}
 .figma-home .figma-home-hero-stage [data-layout-node="1"]{height:744px!important;min-height:0!important;padding:0!important;border-radius:56px;overflow:hidden!important;isolation:isolate}
-.figma-home .figma-home-hero-stage [data-layout-node="2"]{inset:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:48% 50%!important}
+.figma-home .figma-home-hero-stage [data-layout-node="2"]{inset:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:50% 50%!important}
 .figma-home .figma-home-hero-stage [data-layout-node="3"]{inset:0!important;width:100%!important;height:100%!important;background:linear-gradient(180deg,rgba(0,30,54,.03) 0%,rgba(0,22,42,.36) 38%,rgba(0,15,34,.95) 100%)!important;z-index:1}
 .figma-home .figma-home-hero-stage [data-layout-node="4"]{top:auto!important;bottom:54px!important;left:48px!important;right:48px!important;width:auto!important;z-index:2}
 .figma-home .figma-home-hero-stage [data-layout-node="5"]{gap:12px!important}.figma-home .figma-home-hero-stage [data-layout-node="6"]{background:#5c9bcd!important;border-radius:50%!important}
@@ -48,7 +48,7 @@ body:has(.figma-home) .skip{font-family:'DM Sans',system-ui,sans-serif}
 .figma-home-hero-side{display:flex;min-width:0;flex-direction:column;gap:30px}
 .figma-home .figma-home-hero-side [data-layout-node="50"]{height:433px;padding:0!important;overflow:hidden!important;border-radius:56px;position:relative}
 .figma-home .figma-home-hero-side [data-layout-node="50"]::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,30,54,.24));pointer-events:none}
-.figma-home .figma-home-hero-side [data-layout-node="51"]{width:100%!important;height:100%!important;object-fit:cover!important;object-position:0% 36%!important;transform:scale(1.3);transform-origin:0 50%}
+.figma-home .figma-home-hero-side [data-layout-node="51"]{width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 50%!important}
 .figma-home .figma-home-hero-side [data-layout-node="16"]{padding:0!important;background:transparent!important}
 .figma-home .figma-home-hero-side [data-layout-node="17"]{display:block!important}
 .figma-home .figma-home-hero-side [data-layout-node="19"]{font-family:'Bebas Neue',sans-serif!important;font-size:38px!important;font-weight:400!important;line-height:1.04!important;letter-spacing:.005em!important;max-width:18ch!important;color:var(--figma-ink)!important}
@@ -111,7 +111,7 @@ body:has(.figma-home) .skip{font-family:'DM Sans',system-ui,sans-serif}
 .figma-home [data-layout-node="158"]>span,.figma-home [data-layout-node="158"]>div{display:inline-flex!important;align-items:center;justify-content:center;min-height:48px!important;height:auto!important;padding:12px 24px!important;border:1px solid rgba(255,255,255,.8)!important;border-radius:999px!important;color:#fff!important;background:rgba(255,255,255,.16)!important;font-family:'DM Sans',sans-serif!important;font-size:15px!important;font-weight:600!important;line-height:1.3!important}
 .figma-home.luxury-site [data-layout-node="158"]>span.lux-node,.figma-home.luxury-site [data-layout-node="158"]>div.lux-node{padding:12px 24px!important}
 .figma-home [data-layout-node="158"] :is(a,button){display:inline-flex;align-items:center;justify-content:center;min-height:44px;color:#fff!important;font-family:'DM Sans',sans-serif!important;font-size:15px!important;font-weight:600!important;text-decoration:none!important}.figma-home [data-layout-node="163"]{color:currentColor!important}
-.figma-home [data-layout-node="164"]{display:block!important;width:min(951px,100%)!important;height:auto!important;min-height:0!important;max-width:951px!important;margin:46px auto 0;object-fit:contain!important;filter:saturate(.9)}
+.figma-home [data-layout-node="164"]{display:block!important;width:min(951px,100%)!important;height:auto!important;min-height:0!important;max-width:951px!important;margin:46px auto 0;object-fit:contain!important}
 
 /* Accepted projects: bento presentation, never Figma's project facts or imagery. */
 .figma-home [data-layout-node="165"]{padding:106px max(40px,calc((100vw - 1188px)/2))!important;background:#fff!important}

@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     const rows=JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon/redirects.json'),'utf8')) as Array<{source:string;destination:string}>
     const reconciled=JSON.parse(readFileSync(path.join(process.cwd(),'content/luxury/reconciled-redirects.json'),'utf8')) as Array<{source:string;destination:string}>
-    return [...rows,...reconciled].map(row=>({source:row.source,destination:row.destination,permanent:true}))
+    return [...rows,...reconciled,{source:'/cooling-tower-resources/',destination:'/resources/'}].map(row=>({source:row.source,destination:row.destination,permanent:true}))
   },
 }
 export default withPayload(nextConfig)
