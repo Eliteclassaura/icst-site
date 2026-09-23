@@ -1,0 +1,8 @@
+**/node_modules
+**/.next
+**/.public-renderer
+**/release/evidence
+**/.env
+**/.env.*
+.git
+**/*.zip
