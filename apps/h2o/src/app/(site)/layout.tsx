@@ -13,6 +13,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { estateHasPublicationReadyRoute } from '../../site/gate'
+import {QuietMotion} from '../../site/QuietMotion'
 import './site.css'
 import './r3.css'
 import './r4.css'
@@ -25,11 +26,13 @@ import './figma-services.css'
 import './figma-contact.css'
 import './figma-parts.css'
 import './figma-wave4.css'
+import './final-polish.css'
 
 export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }
 
 export const metadata: Metadata = {
+  icons: {icon: {url: '/favicon.ico', type: 'image/x-icon'}},
   robots: defaultRobots(estateHasPublicationReadyRoute()),
   title: 'Industrial Cooling Solutions',
 }
@@ -42,6 +45,7 @@ const SiteLayout = ({ children }: { children: ReactNode }) => (
         Skip to content
       </a>
       {children}
+      <QuietMotion/>
     </body>
   </html>
 )

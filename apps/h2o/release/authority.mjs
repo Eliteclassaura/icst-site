@@ -46,12 +46,17 @@ export function releaseAuthority(root){
     const indexable=!held&&self&&sameOrigin&&!/\bnoindex\b/i.test(sourceRobots)
     return {path:row.targetPath,routeId:row.routeId,sourceFile:row.file,sourceSha256:row.sha256,routeClass:doc.type,state:held?'REVIEW_HOLD':'PUBLIC',export:!held,indexable,sitemap:indexable,searchable:indexable&&['pages','product','posts'].includes(doc.type),canonical:canonical.href,previousCanonical,sourceRobots,matchedArticle:matched.has(row.routeId),releaseOverride:row.targetPath===releaseOverride?'USER_AUTHORIZED_EXACT_ARTICLE_2026_09_23':null,redirect:null}
   })
+  // Owner-authorized canonical migration, 2026-09-24. Keep frozen Salmon bytes intact.
+  const about=routes.find(row=>row.routeId==='SALMON-pages-1931')
+  if(!about||about.path!=='/about-ics/')throw new Error('About source authority missing')
+  about.path='/about-ics-industrial-cooling-solutions/'
+  about.canonical=origin+about.path
   const resource=routes.find(row=>row.routeId==='SALMON-pages-1761')
   if(!resource)throw new Error('Resources authority missing')
   routes.push({...resource,path:'/resources/',canonical:origin+'/resources/',previousCanonical:resource.previousCanonical,state:'PUBLIC',indexable:true,sitemap:true})
   resource.state='REDIRECT';resource.export=false;resource.indexable=false;resource.sitemap=false;resource.searchable=false;resource.redirect='/resources/'
   routes.push({path:'/search/',routeId:'RELEASE-SEARCH',routeClass:'search',state:'PUBLIC',export:true,indexable:false,sitemap:false,canonical:origin+'/search/',previousCanonical:'',sourceRobots:'noindex, follow',matchedArticle:false,sourceFile:'release/templates/search.tsx',sourceSha256:null,redirect:null})
-  const redirectRows=[...read('content/salmon/redirects.json'),...read('content/luxury/reconciled-redirects.json'),{source:'/cooling-tower-resources/',destination:'/resources/'}]
+  const redirectRows=[...read('content/salmon/redirects.json'),...read('content/luxury/reconciled-redirects.json'),{source:'/cooling-tower-resources/',destination:'/resources/'},{source:'/about-ics/',destination:about.path}]
   const redirects=[];const bySource=new Map()
   for(const row of redirectRows){
     const previous=bySource.get(pathKey(row.source))

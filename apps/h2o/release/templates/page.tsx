@@ -21,4 +21,12 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
   const doc=salmonDocument(source)
   return {title:{absolute:doc.seo.title},description:doc.seo.meta.find(meta=>meta.name==='description')?.value,alternates:{canonical:row.canonical},robots:{index:row.indexable,follow:row.indexable}}
 }
-export default async function Page({params}:Props){return <AcceptedPage params={params} searchParams={Promise.resolve({})}/>}
+export default async function Page({params}:Props){
+  const value=await params
+  const requested='/'+(value.slug??[]).join('/')+((value.slug??[]).length?'/':'')
+  const row=rows().find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(requested))
+  if(!row?.export)notFound()
+  const source=salmonRoutes().find(candidate=>candidate.routeId===row.routeId)
+  const sourceParams=source?{slug:source.targetPath.split('/').filter(Boolean).map(decodeURIComponent)}:value
+  return <AcceptedPage params={Promise.resolve(sourceParams)} searchParams={Promise.resolve({})}/>
+}

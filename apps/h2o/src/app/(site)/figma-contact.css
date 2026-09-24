@@ -1,161 +1,33 @@
-/* Contact/RFQ extension of the accepted Wave 1 ICS visual system. */
-.figma-contact-main {
-  color: var(--figma-ink);
-  font-family: 'DM Sans', system-ui, sans-serif;
-  background: #fff;
-}
-
-.figma-contact-hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: linear-gradient(135deg, #00366a 0%, #0b55a5 65%, #164579 100%);
-  color: #fff;
-}
-
-.figma-contact-hero::before {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  content: '';
-  background-image: linear-gradient(rgb(255 255 255 / 6%) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 6%) 1px, transparent 1px);
-  background-size: 80px 80px;
-  pointer-events: none;
-}
-
-/* Keep the existing RFQ dialog above sticky chrome while its isolated hero owns it. */
-.figma-contact-hero:has([role="dialog"]) { z-index: 1001; }
-
-.figma-contact-hero-inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: clamp(32px, 5vw, 80px);
-  width: min(1188px, calc(100% - 80px));
-  min-height: 460px;
-  margin: auto;
-  padding: 92px 0 90px;
-}
-
-.figma-contact-title h1 {
-  max-width: 10ch;
-  margin: 0;
-  color: #fff;
-  font-family: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
-  font-size: clamp(64px, 7vw, 96px);
-  font-weight: 400;
-  line-height: .98;
-  letter-spacing: .005em;
-}
-
-.figma-contact-action.client-rfq {
-  display: flex;
-  align-items: flex-end;
-  min-width: 255px;
-  margin: 0;
-  padding: 0 0 10px;
-  background: transparent;
-}
-
-.figma-contact-action .rfq,
-.figma-contact-action .rfq a {
-  width: 100%;
-}
-
-.figma-contact-main .figma-contact-action .rfq a {
-  min-height: 58px;
-  border-color: rgb(255 255 255 / 85%);
-  box-shadow: 0 6px 20px rgb(0 20 45 / 22%);
-}
-
-.figma-contact-offices {
-  padding: 100px 0 110px;
-  background: #fafafb;
-}
-
-.figma-contact-offices-inner {
-  width: min(1188px, calc(100% - 80px));
-  margin: auto;
-}
-
-.figma-contact-offices h2 {
-  margin: 0 0 38px;
-  color: var(--figma-ink);
-  font-family: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
-  font-size: clamp(38px, 3.5vw, 48px);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: .005em;
-}
-
-.figma-contact-office-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 34px;
-}
-
-.figma-contact-office-list address {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  min-width: 0;
-  margin: 0;
-  padding: 23px 0 0;
-  border-top: 1px solid #b6c7d7;
-  color: #3b3b3b;
-  font-size: 16px;
-  font-style: normal;
-  line-height: 1.5;
-}
-
-.figma-contact-office-list h3 {
-  margin: 0 0 13px;
-  color: var(--figma-ink);
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.figma-contact-office-list a {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  margin-top: 12px;
-  color: var(--figma-blue-deep);
-  font-size: 18px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  text-decoration: none;
-}
-
-.figma-contact-office-list a:hover { text-decoration: underline; }
-
-@media (max-width: 1024px) {
-  .figma-contact-hero-inner,
-  .figma-contact-offices-inner { width: min(100% - 64px, 1188px); }
-  .figma-contact-hero-inner { min-height: 400px; }
-  .figma-contact-office-list { gap: 26px; }
-}
-
-@media (max-width: 768px) {
-  .figma-contact-hero-inner,
-  .figma-contact-offices-inner { width: calc(100% - 40px); }
-  .figma-contact-hero-inner {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 40px;
-    min-height: 0;
-    padding: 76px 0 72px;
-  }
-  .figma-contact-title h1 { font-size: clamp(56px, 10vw, 76px); }
-  .figma-contact-action.client-rfq { width: min(100%, 320px); padding: 0; }
-  .figma-contact-offices { padding: 72px 0 80px; }
-  .figma-contact-office-list { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-}
-
-@media (max-width: 390px) {
-  .figma-contact-hero-inner { padding: 64px 0; }
-  .figma-contact-title h1 { font-size: 56px; }
-  .figma-contact-action.client-rfq { width: 100%; }
-}
+/* Accepted Contact/RFQ composition, using the existing ICS palette and RFQ mount. */
+.figma-contact-main{color:var(--figma-ink);font-family:'DM Sans',system-ui,sans-serif;background:#fafafb}
+.figma-contact-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#00366a 0%,#0b55a5 65%,#164579 100%);color:#fff}
+.figma-contact-hero::before{position:absolute;inset:0;content:'';background-image:linear-gradient(rgb(255 255 255 / 6%) 1px,transparent 1px),linear-gradient(90deg,rgb(255 255 255 / 6%) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
+.figma-contact-hero-inner{position:relative;width:min(1164px,calc(100% - 80px));min-height:430px;margin:auto;padding:96px 0 116px}
+.figma-contact-title h1{max-width:10ch;margin:0;color:#fff;font-family:'Bebas Neue','Arial Narrow',Impact,sans-serif;font-size:clamp(64px,7vw,96px);font-weight:400;line-height:.98;letter-spacing:.005em}
+.figma-contact-lead{max-width:38ch;margin:24px 0 0;color:#e6eef8;font-size:clamp(18px,2vw,23px);line-height:1.5}
+.figma-contact-rfq{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(36px,5vw,72px);width:min(1164px,calc(100% - 80px));margin:-48px auto 0;padding:48px;border:1px solid #dce5ed;border-radius:28px;background:#fff;box-shadow:0 20px 48px rgb(8 42 73 / 10%)}
+.figma-contact-rfq:has([role="dialog"]){z-index:41}
+.figma-contact-rfq-copy h2,.figma-contact-offices h2{margin:0 0 24px;color:var(--figma-ink);font-family:'Bebas Neue','Arial Narrow',Impact,sans-serif;font-size:clamp(38px,3.5vw,50px);font-weight:400;line-height:1;letter-spacing:.005em}
+.figma-contact-rfq-copy p{max-width:54ch;margin:0 0 26px;color:#3b4c5b;font-size:17px;line-height:1.65}
+.figma-contact-rfq-copy h3{margin:0 0 12px;font-size:18px;line-height:1.3}
+.figma-contact-rfq-copy ul{margin:0;padding-left:20px}
+.figma-contact-rfq-copy li{padding:5px 0;color:#3b4c5b;font-size:16px;line-height:1.55}
+.figma-contact-rfq-action{min-width:0;padding:32px;border-radius:20px;background:#edf4fa}
+.figma-contact-action.client-rfq{display:block;margin:0;padding:0;background:transparent}
+.figma-contact-action .rfq,.figma-contact-action .rfq a{display:flex;width:100%}
+.figma-contact-main .figma-contact-action .rfq a{justify-content:center;min-height:60px;border-color:#0b55a5;box-shadow:0 6px 20px rgb(0 43 91 / 14%)}
+.figma-contact-rfq-action>p{margin:32px 0 10px;color:#3b4c5b;font-size:15px;font-weight:700}
+.figma-contact-rfq-phones{display:grid;gap:0}
+.figma-contact-rfq-phones a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:50px;border-top:1px solid #c8d8e7;color:#124e82;font-size:15px;text-decoration:none}
+.figma-contact-rfq-phones a strong{font-size:16px;font-variant-numeric:tabular-nums}
+.figma-contact-rfq-phones a:hover{text-decoration:underline}
+.figma-contact-offices{padding:100px 0 110px;background:#fafafb}
+.figma-contact-offices-inner{width:min(1164px,calc(100% - 80px));margin:auto}
+.figma-contact-office-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.figma-contact-office-list address{display:flex;flex-direction:column;gap:5px;min-width:0;min-height:300px;margin:0;padding:32px;border:1px solid #d5e0e9;border-radius:18px;background:#fff;color:#3b3b3b;font-size:16px;font-style:normal;line-height:1.5}
+.figma-contact-office-list h3{margin:0 0 16px;color:var(--figma-ink);font-size:25px;font-weight:700;line-height:1.2}
+.figma-contact-office-list address a{align-self:flex-start;display:inline-flex;align-items:center;min-height:44px;margin-top:auto;color:var(--figma-blue-deep);font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;text-decoration:none}
+.figma-contact-office-list a:hover{text-decoration:underline}
+@media(max-width:1024px){.figma-contact-hero-inner,.figma-contact-rfq,.figma-contact-offices-inner{width:calc(100% - 64px)}.figma-contact-rfq{gap:30px;padding:36px}.figma-contact-rfq-action{padding:26px}.figma-contact-office-list address{padding:24px}}
+@media(max-width:768px){.figma-contact-hero-inner,.figma-contact-rfq,.figma-contact-offices-inner{width:calc(100% - 40px)}.figma-contact-hero-inner{min-height:0;padding:76px 0 104px}.figma-contact-title h1{font-size:clamp(56px,10vw,76px)}.figma-contact-rfq{grid-template-columns:minmax(0,1fr);gap:32px;margin-top:-48px;padding:30px}.figma-contact-rfq-action{grid-row:1}.figma-contact-offices{padding:72px 0 80px}.figma-contact-office-list{grid-template-columns:minmax(0,1fr);gap:18px}.figma-contact-office-list address{min-height:0;padding:28px}.figma-contact-office-list address a{margin-top:18px}}
+@media(max-width:390px){.figma-contact-hero-inner{padding:64px 0 98px}.figma-contact-title h1{font-size:56px}.figma-contact-rfq{padding:20px;gap:28px}.figma-contact-rfq-action{padding:22px}.figma-contact-rfq-phones a{align-items:flex-start;flex-direction:column;justify-content:center;gap:2px;min-height:64px}}

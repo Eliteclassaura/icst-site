@@ -3081,7 +3081,7 @@
       "redirect": null
     },
     {
-      "path": "/about-ics/",
+      "path": "/about-ics-industrial-cooling-solutions/",
       "routeId": "SALMON-pages-1931",
       "sourceFile": "documents/SALMON-pages-1931.json",
       "sourceSha256": "0a2618175376d53e39e0286936a92b83ec933659e1e0b8ac059721a43007433a",
@@ -3091,7 +3091,7 @@
       "indexable": true,
       "sitemap": true,
       "searchable": true,
-      "canonical": "https://h2ocooling.com/about-ics/",
+      "canonical": "https://h2ocooling.com/about-ics-industrial-cooling-solutions/",
       "previousCanonical": "https://salmon-rhinoceros-754457.hostingersite.com/about-ics/",
       "sourceRobots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
       "matchedArticle": false,
@@ -22019,6 +22019,12 @@
     {
       "source": "/cooling-tower-resources/",
       "destination": "/resources/",
+      "status": 308,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/about-ics/",
+      "destination": "/about-ics-industrial-cooling-solutions/",
       "status": 308,
       "targetState": "PUBLIC"
     }

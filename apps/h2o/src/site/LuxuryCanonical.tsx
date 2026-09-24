@@ -37,6 +37,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
   const size=Number.parseFloat(String(n.style?.fontSize??0))
   const props:Record<string,unknown>={key,style:n.style,className:['lux-node',root?'lux-section':'',size>=65?'lux-display-1':size>=40?'lux-display-2':size>=23?'lux-display-3':size>0?'lux-reading-type':'',n.style?.display==='grid'?'lux-grid':'',/^(44|96|110)px /.test(String(n.style?.gridTemplateColumns??''))?'lux-index-row':'',n.style?.display==='flex'?'lux-flex':'',n.style?.position==='absolute'?'lux-absolute':'',n.style?.fontFamily?.includes('Mono')?'lux-mono':'',n.style?.background==='#0B1114'?'lux-dark':'',n.style?.background==='#B2461C'?'lux-signal':''].filter(Boolean).join(' '),'data-layout-node':n.id}
   if(n.tag==='img'){
+   if(doc.targetPath==='/'&&n.id===164)return <img {...props} key={key} src="/media/client-review/d88ec30b8ddc425c-ICS-PTT-PO-July-16.jpeg" alt="Large industrial cooling tower installation with multiple fan cells" width={1334} height={1001} loading="lazy" data-precision-media="OWNER_OVERRIDE" data-source-sha256="d88ec30b8ddc425c6b27429b27637a9baebefc43a188ac9668ed3ef8d50f3d35"/>
    if(serviceComposition?.suppress?.includes(n.id??-1))return null
    const serviceMedia=serviceComposition?.replace[n.id??-1]
    if(serviceMedia)return <ServiceImage key={key} media={serviceMedia} layoutNode={n.id}/>
@@ -55,7 +56,9 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
   const refs=n.ref?[n.ref]:n.refs??[]
   if(refs.length){
    const sourceNode=n.ref?nodes.get(n.ref):undefined
-   const semantic=sourceNode&&typeof sourceNode!=='string'&&/^h[1-6]$/.test(sourceNode.tag)?sourceNode.tag:n.tag
+   // Node 114 contains two source paragraphs: a <p> wrapper is invalid HTML
+   // and gets repaired by the browser before hydration (React #418).
+   const semantic=doc.routeId==='SALMON-pages-1230'&&n.id===114?'div':sourceNode&&typeof sourceNode!=='string'&&/^h[1-6]$/.test(sourceNode.tag)?sourceNode.tag:n.tag
    const children=n.ref&&sourceNode&&typeof sourceNode!=='string'?sourceNode.children.map((c,i)=>content(c,n.ref+'.'+i)):refs.map(source)
    const text=refs.map(k=>salmonNodeText(nodes.get(k)!)).join(' ')
    const link=n.ref?hrefFor(n.ref):undefined

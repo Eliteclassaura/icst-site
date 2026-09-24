@@ -2,7 +2,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import type {SalmonDocument,SalmonNode} from './salmon'
 
-type ReleaseRow={path:string;state:string;canonical:string;indexable:boolean;redirect:string|null}
+type ReleaseRow={path:string;routeId:string;state:string;canonical:string;indexable:boolean;redirect:string|null}
 type ReleaseAuthority={origin:string;routes:ReleaseRow[];redirects:Array<{source:string;destination:string}>}
 let ledger:ReleaseAuthority|undefined
 function authority(){
@@ -12,7 +12,7 @@ function authority(){
 export function publicReleaseDocument(doc:SalmonDocument):SalmonDocument{
   if(process.env.H2O_PUBLIC_EXPORT!=='1')return doc
   const {origin,routes,redirects}=authority()
-  const row=routes.find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(doc.targetPath))
+  const row=routes.find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(doc.targetPath))??routes.find(candidate=>candidate.routeId===doc.routeId&&candidate.state==='PUBLIC')
   if(!row)throw new Error(`Public route authority absent: ${doc.targetPath}`)
   const canonical=row.redirect?origin+row.redirect:row.canonical
   const normalizeSchema=(value:unknown):unknown=>{
@@ -42,5 +42,5 @@ export function publicReleaseDocument(doc:SalmonDocument):SalmonDocument{
     }
     return {...node,attrs,children:node.children.map(adaptNode)}
   }
-  return {...doc,children:doc.children.map(adaptNode),seo:{...doc.seo,canonical:[canonical],meta:doc.seo.meta.map(meta=>meta.name==='og:url'?{...meta,value:canonical}:meta),schema:doc.seo.schema.map(raw=>JSON.stringify(normalizeSchema(JSON.parse(raw))))}}
+  return {...doc,targetPath:row.path,children:doc.children.map(adaptNode),seo:{...doc.seo,canonical:[canonical],meta:doc.seo.meta.map(meta=>meta.name==='og:url'?{...meta,value:canonical}:meta),schema:doc.seo.schema.map(raw=>JSON.stringify(normalizeSchema(JSON.parse(raw))))}}
 }

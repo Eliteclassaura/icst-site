@@ -39,7 +39,7 @@ export function createWorker(manifest){
     if(!manifest.assets[key])return respond('Not found',404)
     const object=await env.RELEASE_BUCKET.get(`releases/${manifest.releaseId}${key}`)
     if(!object)return respond('Not found',404)
-    headers.set('Content-Type',mime(key))
+    headers.set('Content-Type',key.endsWith('.ico')?'image/x-icon':mime(key))
     headers.set('Content-Length',String(manifest.assets[key].bytes))
     headers.set('ETag',`"${manifest.assets[key].sha256}"`)
     headers.set('Cache-Control',preview?'private, no-store':key.startsWith('/_next/')?'public, max-age=31536000, immutable':'public, max-age=300')
