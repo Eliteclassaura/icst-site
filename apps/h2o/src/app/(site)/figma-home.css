@@ -37,7 +37,7 @@ body:has(.figma-home) .skip{font-family:'DM Sans',system-ui,sans-serif}
 .figma-home-hero-stage{width:min(1188px,calc(100% - 80px));margin:42px auto 0;display:grid;grid-template-columns:minmax(0,1.36fr) minmax(0,1fr);gap:32px;align-items:stretch}
 .figma-home-hero-stage>.lux-section-wrap:first-child{min-width:0}
 .figma-home .figma-home-hero-stage [data-layout-node="1"]{height:744px!important;min-height:0!important;padding:0!important;border-radius:56px;overflow:hidden!important;isolation:isolate}
-.figma-home .figma-home-hero-stage [data-layout-node="2"]{inset:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:50% 50%!important}
+.figma-home .figma-home-hero-stage [data-layout-node="2"]{inset:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:50% 50%!important;transform:scale(1.18);transform-origin:50% 100%}
 .figma-home .figma-home-hero-stage [data-layout-node="3"]{inset:0!important;width:100%!important;height:100%!important;background:linear-gradient(180deg,rgba(0,30,54,.03) 0%,rgba(0,22,42,.36) 38%,rgba(0,15,34,.95) 100%)!important;z-index:1}
 .figma-home .figma-home-hero-stage [data-layout-node="4"]{top:auto!important;bottom:54px!important;left:48px!important;right:48px!important;width:auto!important;z-index:2}
 .figma-home .figma-home-hero-stage [data-layout-node="5"]{gap:12px!important}.figma-home .figma-home-hero-stage [data-layout-node="6"]{background:#5c9bcd!important;border-radius:50%!important}
@@ -160,6 +160,8 @@ body:has(.figma-home) .skip{font-family:'DM Sans',system-ui,sans-serif}
  .luxury-site .lux-footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 50px}.luxury-site .lux-footer-brand,.luxury-site .lux-offices{grid-column:auto}
 }
 @media(max-width:800px){
+ .figma-home .figma-home-hero-stage [data-layout-node="2"]{object-position:58% 72%!important;transform:scale(1.22);transform-origin:58% 100%}
+ .figma-home .figma-home-hero-side [data-layout-node="51"]{object-position:58% 65%!important}
  .figma-home-hero-stage{width:min(680px,calc(100% - 40px));display:block;margin-top:26px}
  .figma-home .figma-home-hero-stage [data-layout-node="1"]{height:570px!important;border-radius:32px}
  .figma-home-hero-side{margin-top:24px;gap:22px}.figma-home .figma-home-hero-side [data-layout-node="50"]{height:320px!important;border-radius:32px}
