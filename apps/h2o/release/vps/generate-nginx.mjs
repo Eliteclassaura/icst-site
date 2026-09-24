@@ -3,7 +3,7 @@ import {readFileSync, writeFileSync} from 'node:fs'
 import {fileURLToPath} from 'node:url'
 const evidence = fileURLToPath(new URL('../evidence/', import.meta.url))
 const manifest = JSON.parse(readFileSync(evidence + 'edge-manifest.json', 'utf8'))
-if (manifest.routes.filter(r => r.export).length !== 801 || manifest.redirects.length !== 49) throw new Error('Release count mismatch')
+if (manifest.routes.filter(r => r.export).length !== 801 || manifest.redirects.length !== 50) throw new Error('Release count mismatch')
 const quote = value => '"' + value.replaceAll('\\', '\\\\').replaceAll('"', '\\"').replaceAll('$', '\\$') + '"'
 const fileValue = value => quote(value).replaceAll('\\$', '${literal_dollar}')
 const files = new Map()
