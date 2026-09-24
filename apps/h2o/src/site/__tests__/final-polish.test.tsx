@@ -45,11 +45,11 @@ describe('final polish authority and semantic safety',()=>{
     for(const phone of ['tel:+13034622000','tel:+819042046742','tel:+6626617723'])expect(html).toContain(phone)
     expect(html).not.toContain('+66-2-260-6598')
   })
-  it('uses only the 22 accepted project detail identities without invented photography',()=>{
+  it('uses only the 22 accepted project detail identities and source-backed excerpts without invented photography',()=>{
     const html=renderToStaticMarkup(<ProjectAuthorityIndex doc={documentFor('SALMON-pages-1353')}/> )
     expect(html.match(/data-project-source=/g)).toHaveLength(22)
     expect(html).not.toContain('<img')
-    expect(html).not.toContain('2011')
+    expect(html).toContain('The PTT Cracker Project in Rayong, Thailand, is a major petrochemical cooling infrastructure project completed in 2011 for TTCL Corp.')
     expect(html).toContain('href="/all-projects/kbr/"')
   })
   it('renders the counterflow source paragraphs in a block wrapper, not a nested paragraph',()=>{

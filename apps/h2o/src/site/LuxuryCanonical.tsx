@@ -7,6 +7,9 @@ import {LuxuryHeader,LuxuryFooter,LuxurySearch} from './LuxuryShell'
 import {pageForSegments} from './cohort'
 import {ClientTestimonials,clientReviewAuthority} from './ClientReview'
 import {ServiceImage,ServicePage,serviceCompositions} from './ServiceComposition'
+import {TowerDisclosure} from './TowerDisclosure'
+import {HomePartsCatalog} from './HomePartsCatalog'
+import {homePartCatalogData} from './HomePartsData'
 type LayoutNode={tag:string;style?:CSSProperties;id?:number;children?:LayoutNode[];ref?:string;refs?:string[];slice?:{ref:string;start:number;end:number};decor?:string;action?:string;src?:string;alt?:string;key?:string}
 type Model={route:string;sourceId:string;tree:LayoutNode[];remaining:Array<{sourceSection:string;tree:LayoutNode}>}
 export const luxuryIds=new Set(['SALMON-pages-48','SALMON-pages-1230','SALMON-pages-1446','SALMON-pages-1534','SALMON-pages-1555','SALMON-pages-1572','SALMON-pages-1668','SALMON-pages-1722','SALMON-pages-411'])
@@ -15,6 +18,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
  const model=JSON.parse(readFileSync(path.join(process.cwd(),'content/luxury',doc.routeId.split('-').at(-1)+'.json'),'utf8')) as Model
  const serviceComposition=serviceCompositions[doc.routeId]
+ const homeParts=doc.targetPath==='/'?homePartCatalogData():null
  const nodes=new Map<string,SalmonNode>(),ancestors=new Map<string,string[]>(),usedImages=new Set<string>()
  function index(n:SalmonNode,key:string,parents:string[]){nodes.set(key,n);ancestors.set(key,parents);if(typeof n!=='string')n.children.forEach((c,i)=>index(c,key+'.'+i,[...parents,key]))}
  doc.children.forEach((n,i)=>index(n,'body.'+i,[]))
@@ -33,10 +37,13 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  function source(key:string):ReactNode {const n=nodes.get(key);return n===undefined?null:content(n,key)}
  function design(n:LayoutNode,key:string,root=false):ReactNode{
   if(doc.targetPath==='/'&&n.id===clientReviewAuthority.testimonialOverride.layoutNode)return <ClientTestimonials key={key}/>
+  if(homeParts&&n.id===56)return <HomePartsCatalog key={key} data={homeParts}/>
+  if(homeParts&&n.id===67)return null
   if(n.ref&&typeof nodes.get(n.ref)==='string')return source(n.ref)
   const size=Number.parseFloat(String(n.style?.fontSize??0))
   const props:Record<string,unknown>={key,style:n.style,className:['lux-node',root?'lux-section':'',size>=65?'lux-display-1':size>=40?'lux-display-2':size>=23?'lux-display-3':size>0?'lux-reading-type':'',n.style?.display==='grid'?'lux-grid':'',/^(44|96|110)px /.test(String(n.style?.gridTemplateColumns??''))?'lux-index-row':'',n.style?.display==='flex'?'lux-flex':'',n.style?.position==='absolute'?'lux-absolute':'',n.style?.fontFamily?.includes('Mono')?'lux-mono':'',n.style?.background==='#0B1114'?'lux-dark':'',n.style?.background==='#B2461C'?'lux-signal':''].filter(Boolean).join(' '),'data-layout-node':n.id}
   if(n.tag==='img'){
+   if(doc.routeId==='SALMON-pages-1230'&&n.id===2)return <img {...props} key={key} src="/media/client-review/d88ec30b8ddc425c-ICS-PTT-PO-July-16.jpeg" alt={n.alt??''} width={1334} height={1001} loading="eager" fetchPriority="high" data-source-sha256="d88ec30b8ddc425c6b27429b27637a9baebefc43a188ac9668ed3ef8d50f3d35" data-project-attribution="none"/>
    if(doc.targetPath==='/'&&n.id===164)return <img {...props} key={key} src="/media/client-review/d88ec30b8ddc425c-ICS-PTT-PO-July-16.jpeg" alt="Large industrial cooling tower installation with multiple fan cells" width={1334} height={1001} loading="lazy" data-precision-media="OWNER_OVERRIDE" data-source-sha256="d88ec30b8ddc425c6b27429b27637a9baebefc43a188ac9668ed3ef8d50f3d35"/>
    if(serviceComposition?.suppress?.includes(n.id??-1))return null
    const serviceMedia=serviceComposition?.replace[n.id??-1]
@@ -59,7 +66,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
    // Node 114 contains two source paragraphs: a <p> wrapper is invalid HTML
    // and gets repaired by the browser before hydration (React #418).
    const semantic=doc.routeId==='SALMON-pages-1230'&&n.id===114?'div':sourceNode&&typeof sourceNode!=='string'&&/^h[1-6]$/.test(sourceNode.tag)?sourceNode.tag:n.tag
-   const children=n.ref&&sourceNode&&typeof sourceNode!=='string'?sourceNode.children.map((c,i)=>content(c,n.ref+'.'+i)):refs.map(source)
+   const children=n.ref&&sourceNode&&typeof sourceNode!=='string'?sourceNode.children.map((c,i)=>content(c,n.ref+'.'+i)):refs.flatMap((ref,i)=>doc.targetPath==='/'&&n.id===55&&i?[<span key="home-parts-boundary"> </span>,source(ref)]:[source(ref)])
    const text=refs.map(k=>salmonNodeText(nodes.get(k)!)).join(' ')
    const link=n.ref?hrefFor(n.ref):undefined
    if(/^(Contact|Request|Talk to|Explore Our Services|View Product|Download Specifications|See all projects|Learn more|Load More)/i.test(text)&&!link){
@@ -77,7 +84,11 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  const placement=new Map<number,typeof model.remaining>()
  for(const r of model.remaining){let best=0,score=0;model.tree.forEach((t,i)=>{let count=0;function walk(n:LayoutNode){count+=(n.ref?.startsWith(r.sourceSection+'.')?1:0)+(n.refs??[]).filter(k=>k.startsWith(r.sourceSection+'.')).length;n.children?.forEach(walk)}walk(t);if(count>score){best=i;score=count}});placement.set(best,[...(placement.get(best)??[]),r])}
  const home=doc.targetPath==='/'
- const sectionAt=(i:number)=><div className="lux-section-wrap" key={i}>{design(model.tree[i],'design.'+i,true)}{i===0&&doc.targetPath==='/disaster-recovery/'?<div className="lux-recovery-media"><img src="/media/luxury/ics-storm-damage.jpeg" alt="Cooling tower storm damage"/><img src="/media/luxury/ics-slep-complete.jpeg" alt="Completed cooling tower structure"/></div>:null}{(placement.get(i)??[]).map((r,j)=><div className="lux-remainder" key={j}>{['SALMON-pages-48','SALMON-pages-411'].includes(doc.routeId)&&JSON.stringify(r.tree).length>2000?productRemainder(r.tree):remainder(r.tree,'remainder.'+j)}</div>)}</div>
+ const sectionAt=(i:number)=>{
+  const body=<div className="lux-section-wrap" key={i}>{design(model.tree[i],'design.'+i,true)}{i===0&&doc.targetPath==='/disaster-recovery/'?<div className="lux-recovery-media"><img src="/media/luxury/ics-storm-damage.jpeg" alt="Cooling tower storm damage"/><img src="/media/luxury/ics-slep-complete.jpeg" alt="Completed cooling tower structure"/></div>:null}{(placement.get(i)??[]).map((r,j)=><div className="lux-remainder" key={j}>{['SALMON-pages-48','SALMON-pages-411'].includes(doc.routeId)&&JSON.stringify(r.tree).length>2000?productRemainder(r.tree):remainder(r.tree,'remainder.'+j)}</div>)}</div>
+  const labels:Record<number,string>={3:'Industrial cooling tower applications',4:'Cooling tower configurations',5:'Materials and system design'}
+  return doc.routeId==='SALMON-pages-1230'&&labels[i]?<TowerDisclosure label={labels[i]} key={i}>{body}</TowerDisclosure>:body
+ }
  return <div className={'luxury-site luxury-'+doc.routeId.split('-').at(-1)+(home?' figma-home':'')} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
   <SalmonSeo doc={doc}/>{home?<><link rel="preload" href="/fonts/figma-home/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><link rel="preload" href="/fonts/figma-home/dm-sans-latin-400-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/></>:null}<LuxuryHeader page={page}/>
   <main id="main" data-luxury-body className={home?'figma-home-main':undefined}>

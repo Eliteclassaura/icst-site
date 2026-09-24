@@ -38,7 +38,7 @@ export const serviceCompositions:Record<string,Composition>={
  },
  'SALMON-pages-1668':{
   roles:['hero','intro','overview','types','benefits','services','closing'],
-  replace:{41:media('5:1445','figma-image-7659adeb32007d56.png',886,806,356,328,undefined,'circle','33% 0%'),48:media('5:1446','figma-image-b0e6f0cc16b07069.png',1024,931,356,328,undefined,'circle'),56:media('5:1447','figma-image-e9082ebf6338457c.png',1024,931,363,336,undefined,'circle')},inside:{1:media('5:1655','figma-image-d01e70f05845e3dd.png',1102,960,1098,593,1098,'card','50% 10%')},suppress:[10],
+  replace:{41:media('5:1445','figma-image-7659adeb32007d56.png',886,806,356,328,undefined,'circle','33% 0%'),48:media('5:1446','figma-image-b0e6f0cc16b07069.png',1024,931,356,328,undefined,'circle'),56:media('5:1447','figma-image-e9082ebf6338457c.png',1024,931,363,336,undefined,'circle')},inside:{},suppress:[10],
   after:{11:[media('5:1449','figma-image-31184c20cdd8c6d5.png',908,826,426,355,undefined,'card','50% 99%')],76:[media('5:1444','figma-image-37e0077b2a820ba5.png',1024,931,312,374,undefined,'card')]}
  },
  'SALMON-pages-1722':{
@@ -61,7 +61,7 @@ export function ServiceHero({children}:{children:ReactNode}){return <div classNa
 export function ServiceClosing({children}:{children:ReactNode}){return <div className="wave2-stage wave2-stage--closing">{children}</div>}
 export function ServicePage({routeId,sections}:{routeId:string;sections:ReactNode[]}){
  const config=serviceCompositions[routeId]
- return <div className="wave2-service" data-wave2-route={routeId}>{sections.map((section,i)=>{
+ return <div className="wave2-service" data-wave2-route={routeId} data-air-cooler-hero={routeId==='SALMON-pages-1668'?'TYPE_LED':undefined}>{sections.map((section,i)=>{
   const role=config.roles[i]
   const content=<div key={i} className={`wave2-stage wave2-stage--${role}`} data-wave2-section={role}>{section}</div>
   return i===0?<ServiceHero key={i}>{content}</ServiceHero>:i===sections.length-1?<ServiceClosing key={i}>{content}</ServiceClosing>:content

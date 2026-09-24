@@ -27,6 +27,7 @@ import './figma-contact.css'
 import './figma-parts.css'
 import './figma-wave4.css'
 import './final-polish.css'
+import './site-completion.css'
 
 export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }

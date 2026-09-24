@@ -6,6 +6,7 @@ import {RfqMount} from './RfqMount'
 import {contactOffices} from './contact'
 import {AuthorityEditorial} from './AuthorityEditorial'
 import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
+import {ProjectDetail} from './ProjectDetail'
 import {commerceException,commerceMetaException,ownerHref,ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 const allowed=new Set('div section article header footer nav p h1 h2 h3 h4 h5 h6 a span b strong i em u s figure figcaption img ul ol li table thead tbody tfoot tr th td br hr blockquote cite time sup sub small details summary label output search'.split(' '))
 const voids=new Set(['img','br','hr'])
@@ -35,6 +36,20 @@ export const aboutGeographyCorrections=new Map([
 ])
 export const normalizeWave3IndexEditorial=(value:string):string=>value.replace(INDEX_HEADING_SOURCE,INDEX_HEADING_RENDERED).replace(INDEX_PARAGRAPH_SOURCE,INDEX_PARAGRAPH_RENDERED)
 export const normalizeWave3ProductDescription=(value:string):string=>value.replace(/^((?:[^?]+\?\s+)?)(?:Buy|Order|Shop)\b/i,(_,opening:string)=>`${opening}Request a quote for`)
+// Owner-confirmed industrial business scope; retain source-backed product compatibility.
+export const reconcileCommercialScope=(doc:SalmonDocument,value:string):string=>{
+  switch(doc.targetPath){
+    case '/product/high-efficiency-fill/':
+      return value.replaceAll('Commercial HVAC cooling towers','Product compatibility: commercial HVAC cooling towers')
+    case '/cooling-tower-rehabilitation-services/':
+      return value.replaceAll('power generation, manufacturing, chemical processing, and commercial HVAC sectors','power generation, manufacturing, and chemical processing sectors')
+    case '/cooling-tower-singapore/':
+      return value.replaceAll('Manufacturing plants, data centers, and commercial HVAC systems all depend','Manufacturing plants and data centers depend').replaceAll('humid climates, space-limited facilities, HVAC integration, maintenance, and industrial cooling systems','humid climates, maintenance demands, and industrial cooling systems')
+    case '/hvac-cooling-tower-systems/':
+      return value.replaceAll('We specialize in engineering and retrofitting HVAC cooling tower systems','Our engineering and retrofit work focuses on industrial cooling tower systems')
+    default:return value
+  }
+}
 const priceSpecLabel=(node:Exclude<SalmonNode,string>,doc:SalmonDocument):string|null|undefined=>{
   if(!PRICE_SPEC_ROUTES.has(doc.targetPath)||!['p','li'].includes(node.tag)||node.children.length!==2)return undefined
   const [label,price]=node.children
@@ -51,7 +66,7 @@ function sourceImage(source:string,alt:string|undefined,key:string,doc:SalmonDoc
   return createElement('img',{key,src:local,alt,'data-source-src':source,'data-source-kind':kind,'data-source-sha256':media.sha256,width:media.width,height:media.height,loading:'lazy',style:{maxWidth:media.width??'100%',height:'auto'}})
 }
 export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode{
-  if(typeof node==='string')return doc.type==='product'&&/[$€£]\s*\d/.test(node)?<span data-salmon-exception="NO_PUBLIC_PRICE" data-source-node={key} key={key}/>:/^(?:Buy|Order|Purchase) Now$/i.test(node.trim())?<span data-salmon-exception="RFQ_ONLY" data-source-node={key} key={key}>Request a Quote</span>:ownerText(doc.routeId==='SALMON-pages-1931'?(aboutGeographyCorrections.get(node.trim())??node):doc.routeId==='SALMON-pages-411'?normalizeWave3IndexEditorial(node):node)
+  if(typeof node==='string')return doc.type==='product'&&/[$€£]\s*\d/.test(node)?<span data-salmon-exception="NO_PUBLIC_PRICE" data-source-node={key} key={key}/>:/^(?:Buy|Order|Purchase) Now$/i.test(node.trim())?<span data-salmon-exception="RFQ_ONLY" data-source-node={key} key={key}>Request a Quote</span>:ownerText(reconcileCommercialScope(doc,doc.routeId==='SALMON-pages-1931'?(aboutGeographyCorrections.get(node.trim())??node):doc.routeId==='SALMON-pages-411'?normalizeWave3IndexEditorial(node):node))
   if(commerceException(node))return <span data-salmon-exception="NO_PUBLIC_COMMERCE" data-source-node={key} key={key}/>
   if(['script','style','iframe','svg','template'].includes(node.tag))return null
   const priceLabel=priceSpecLabel(node,doc)
@@ -94,8 +109,9 @@ export function SalmonSeo({doc,canonicalOverride}:{doc:SalmonDocument;canonicalO
   const metaValue=(name:string,value:string)=>{
     if(name==='og:url'&&canonicalOverride&&value===doc.seo.canonical[0])return canonicalOverride
     if(!/^(?:description|og:description|twitter:description)$/.test(name))return value
-    if(doc.type==='product')return normalizeWave3ProductDescription(value)
-    return doc.routeId==='SALMON-pages-411'?value.replace(/^Shop\b/i,'Explore'):value
+    const scoped=reconcileCommercialScope(doc,value)
+    if(doc.type==='product')return normalizeWave3ProductDescription(scoped)
+    return doc.routeId==='SALMON-pages-411'?scoped.replace(/^Shop\b/i,'Explore'):scoped
   }
   return <>
     {doc.seo.meta.filter(m=>!['robots','googlebot','viewport'].includes(m.name)&&!commerceMetaException(m,doc)).map((m,i)=>m.name.startsWith('og:')||m.name.startsWith('article:')?<meta key={i} property={m.name} content={metaValue(m.name,m.value)}/>:<meta key={i} name={m.name} content={metaValue(m.name,m.value)}/>)}
@@ -155,7 +171,7 @@ export function SalmonCanonical({doc}:{doc:SalmonDocument}){
           </address>)}</div>
         </div>
       </section>
-    </main>:isEditorial?<AuthorityEditorial doc={doc}/>:doc.routeId==='SALMON-pages-1353'?<ProjectAuthorityIndex doc={doc}/>:<main className="shell article" id="main" data-salmon-region="body">{doc.children.map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</main>}
+    </main>:isEditorial?<AuthorityEditorial doc={doc}/>:doc.routeId==='SALMON-pages-1353'?<ProjectAuthorityIndex doc={doc}/>:doc.targetPath.startsWith('/all-projects/')?<ProjectDetail doc={doc}/>:<main className="shell article" id="main" data-salmon-region="body">{doc.children.map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</main>}
     {doc.targetPath==='/'?<section className="shell" data-owner-override="OWNER_TESTIMONIAL_AUTHORITY_OVERRIDE_2026_09_21"><Testimonials/></section>:null}
     <div className="luxury-site"><LuxuryFooter page={page}/></div>
   </div>

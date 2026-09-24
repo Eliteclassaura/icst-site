@@ -10,14 +10,21 @@ function pieces(node:SalmonNode,key:string):Piece[]{
   return node.children.flatMap((child,i)=>pieces(child,`${key}.${i}`))
 }
 export function AuthorityEditorial({doc}:{doc:SalmonDocument}){
-  const sections=doc.children.map((node,i)=>pieces(node,`body.${i}`).filter(piece=>doc.routeId!=='SALMON-pages-1931'||!/^((?:Industrial Cooling Solutions in Saudi Arabia)|(?:Saudi Arabia is ICS’s newest regional office)|(?:ICS is a registered company in the Kingdom of Saudi Arabia))/.test(salmonNodeText(piece.node).trim()))).filter(group=>group.length)
-  return <main id="main" className="luxury-site authority-editorial" data-salmon-region="body">
+  const about=doc.routeId==='SALMON-pages-1931'
+  const sections=doc.children.map((node,i)=>pieces(node,`body.${i}`).filter(piece=>{
+    if(!about)return true
+    const value=salmonNodeText(piece.node).trim()
+    // Historical location tabs are bare decorative strings, not office claims.
+    if(i===13&&typeof piece.node==='string'&&['USA','Thailand','Japan','Saudi Arabia'].includes(value))return false
+    return !/^((?:Industrial Cooling Solutions in Saudi Arabia)|(?:Saudi Arabia is ICS’s newest regional office)|(?:ICS is a registered company in the Kingdom of Saudi Arabia))/.test(value)
+  })).filter(group=>group.length)
+  return <main id="main" className={`luxury-site authority-editorial${about?' authority-about':''}`} data-salmon-region="body">
     {sections.map((group,i)=>{
       const heading=group.find(piece=>typeof piece.node!=='string'&&/^h[1-6]$/.test(piece.node.tag))
       const rest=group.filter(piece=>piece!==heading)
-      return <section className={`authority-section${i===0?' authority-opening':''}`} key={i}>
+      return <section className={`authority-section${i===0?' authority-opening':''}`} key={i} data-authority-section={i}>
         <div className="authority-heading">{heading?renderSalmonNode(heading.node,heading.key,doc):null}</div>
-        <div className="authority-content">{rest.map(piece=>renderSalmonNode(piece.node,piece.key,doc))}</div>
+        <div className="authority-content">{rest.map(piece=>renderSalmonNode(piece.node,piece.key,doc))}{about&&i===1?<div className="about-presence-list" aria-label="Confirmed ICS presence"><span>Lakewood, Colorado <small>Main office</small></span><span>Japan <small>Confirmed presence</small></span><span>Bangkok, Thailand <small>Confirmed presence</small></span></div>:null}</div>
       </section>
     })}
   </main>
