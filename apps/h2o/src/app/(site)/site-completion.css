@@ -216,3 +216,31 @@
 /* The accepted Air Coolers photograph shows a cooling tower; keep this hero truthful. */
 .wave2-service[data-air-cooler-hero="TYPE_LED"] .wave2-stage--hero .lux-section{background:#073761!important}
 .wave2-service[data-air-cooler-hero="TYPE_LED"] .wave2-stage--hero .lux-section::after{background:linear-gradient(90deg,rgba(4,33,64,.96),rgba(7,55,97,.86) 65%,rgba(15,77,124,.7)),linear-gradient(0deg,transparent 97%,rgba(218,235,247,.2) 98%),linear-gradient(90deg,transparent 97%,rgba(218,235,247,.2) 98%);background-size:auto,44px 44px,44px 44px}
+
+/* Figma 21:991 / 21:1026 / 21:1008: owner-approved Salmon testimonial facts in the original split presentation. */
+.figma-home .client-testimonials{padding:0;background:#fff;color:#090914}
+.figma-home .client-testimonial-grid{display:block}
+.figma-home .client-testimonial-grid .client-testimonial-split{display:grid;grid-template-columns:minmax(0,1fr);align-items:center;gap:0;min-height:668px;margin:0;padding:96px max(24px,calc((100vw - 1164px)/2));border:0;border-radius:0;background:#fff}
+.figma-home .client-testimonial-grid .client-testimonial-split:nth-child(even){background:rgba(0,54,106,.03)}
+.figma-home .client-testimonial-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(40px,6.25vw,90px);width:100%;max-width:1164px;margin:0 auto}
+.figma-home .client-testimonial-copy{min-width:0;padding-top:20px}
+.figma-home .client-testimonial-quote-mark{display:block;width:38px;height:31px;object-fit:contain}
+.figma-home .client-testimonial-grid .client-testimonial-copy h3{max-width:300px;margin:42px 0 14px;font:700 25px/1.36 'DM Sans',sans-serif;letter-spacing:-.02em;color:#090914;text-wrap:balance}
+.figma-home .client-testimonial-grid .client-testimonial-split:first-child h3{max-width:235px}
+.figma-home .client-testimonial-grid .client-testimonial-split:nth-child(2) h3{max-width:255px}
+.figma-home .client-testimonial-grid .client-testimonial-split:nth-child(3) h3{max-width:271px}
+.figma-home .client-testimonial-copy h3 .client-testimonial-accent{color:#0b55a5}
+.figma-home .client-testimonial-grid .client-testimonial-copy blockquote{max-width:540px;margin:0;color:#52525b;font:400 19px/1.62 'DM Sans',sans-serif}
+.figma-home .client-testimonial-copy blockquote p{margin:0}
+.figma-home .client-testimonial-media{position:relative;width:100%;aspect-ratio:537/436;overflow:hidden;border-radius:18px;background:#dae2e7}
+.figma-home .client-testimonial-media>img{display:block;width:100%;height:100%;object-fit:cover}
+.figma-home .client-testimonial-split--reverse .client-testimonial-media>img{object-position:center 26%}
+.figma-home .client-testimonial-media::after{content:"";position:absolute;inset:auto 0 0;height:28%;background:linear-gradient(0deg,#000,rgba(0,0,0,0));pointer-events:none}
+.figma-home .client-testimonial-grid .client-testimonial-media figcaption{position:absolute;z-index:1;right:24px;bottom:22px;left:32px;display:block;margin:0;color:#a1a1aa;font:400 13px/1.5 'DM Sans',sans-serif}
+.figma-home .client-testimonial-media figcaption strong{display:block;margin:0 0 2px;color:#fff;font:700 16px/1.35 'DM Sans',sans-serif}
+.figma-home .client-testimonial-media figcaption span{display:block;color:#a1a1aa}
+.figma-home .client-testimonial-split--reverse .client-testimonial-media{grid-column:1;grid-row:1}
+.figma-home .client-testimonial-split--reverse .client-testimonial-copy{grid-column:2;grid-row:1}
+@media(min-width:1101px){.figma-home .client-testimonial-inner{position:relative;top:-8px}.figma-home .client-testimonial-split--reverse .client-testimonial-inner{top:-11px}.figma-home .client-testimonial-copy{align-self:start;padding-top:22px}.figma-home .client-testimonial-split--reverse .client-testimonial-copy{padding-top:21px}.figma-home .client-testimonial-split:nth-child(3) .client-testimonial-copy{padding-top:13px}.figma-home .client-testimonial-grid .client-testimonial-copy h3{margin-bottom:18px;text-wrap:normal}.figma-home .client-testimonial-heading-line{display:block;white-space:nowrap}}
+@media(max-width:1100px){.figma-home .client-testimonial-grid .client-testimonial-split{min-height:0;padding:78px 40px}.figma-home .client-testimonial-inner{gap:40px}.figma-home .client-testimonial-grid .client-testimonial-copy blockquote{font-size:17px}}
+@media(max-width:720px){.figma-home .client-testimonial-grid .client-testimonial-split{padding:68px 20px}.figma-home .client-testimonial-inner{grid-template-columns:minmax(0,1fr);gap:32px}.figma-home .client-testimonial-copy{padding:0}.figma-home .client-testimonial-grid .client-testimonial-copy h3{max-width:30ch!important;margin:26px 0 12px;font-size:24px}.figma-home .client-testimonial-grid .client-testimonial-copy blockquote{font-size:17px;line-height:1.55}.figma-home .client-testimonial-split--reverse .client-testimonial-media,.figma-home .client-testimonial-split--reverse .client-testimonial-copy{grid-column:1;grid-row:auto}.figma-home .client-testimonial-media{max-width:537px}.figma-home .client-testimonial-grid .client-testimonial-media figcaption{bottom:18px;left:22px}}
