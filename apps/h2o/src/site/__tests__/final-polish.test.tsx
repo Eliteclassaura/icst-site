@@ -12,10 +12,17 @@ import {commercialNavigation} from '../LuxuryShell'
 
 const documentFor=(id:string)=>salmonDocument(salmonRoutes().find(row=>row.routeId===id)!)
 describe('final polish authority and semantic safety',()=>{
-  it('bounds the owner Precision override to its slot and preserves the original Figma binary',()=>{
-    const html=renderToStaticMarkup(<LuxuryCanonical doc={documentFor('SALMON-pages-48')}/> )
-    expect(html.match(/data-precision-media="OWNER_OVERRIDE"/g)).toHaveLength(1)
-    expect(html).toContain('/media/client-review/d88ec30b8ddc425c-ICS-PTT-PO-July-16.jpeg')
+  it('renders current Salmon-approved homepage media with source provenance and preserves the historical Figma binary',()=>{
+    const doc=documentFor('SALMON-pages-48')
+    const html=renderToStaticMarkup(<LuxuryCanonical doc={doc}/> )
+    expect(html).toContain('data-salmon-document="SALMON-pages-48"')
+    expect(html).toContain(`data-salmon-source-sha256="${doc.sourceIdentity.sha256}"`)
+    for(const sha of ['db4b499ce9310eb66da11a8706dada37bd0a0df146c012ca255db7379bbfd49a','fb14bc285279428f429cda3a3574f91351b020f2d48814820b496b3589bd8504']){
+      expect(html).toContain(`src="/media/salmon/${sha}.jpg"`)
+      expect(html).toContain(`data-source-sha256="${sha}"`)
+      const bytes=readFileSync(path.join(process.cwd(),`public/media/salmon/${sha}.jpg`))
+      expect(createHash('sha256').update(bytes).digest('hex')).toBe(sha)
+    }
     const bytes=readFileSync(path.join(process.cwd(),'public/media/figma-home/21-1295-fcf10d82.png'))
     expect(createHash('sha256').update(bytes).digest('hex')).toBe('f62d34f4682140c43b139496033912587283d692fe0568b61cb395cc8731b27f')
   })
@@ -52,11 +59,13 @@ describe('final polish authority and semantic safety',()=>{
     expect(html).toContain('The PTT Cracker Project in Rayong, Thailand, is a major petrochemical cooling infrastructure project completed in 2011 for TTCL Corp.')
     expect(html).toContain('href="/all-projects/kbr/"')
   })
-  it('renders the counterflow source paragraphs in a block wrapper, not a nested paragraph',()=>{
-    const html=renderToStaticMarkup(<LuxuryCanonical doc={documentFor('SALMON-pages-1230')}/> )
-    expect(html).toMatch(/<div[^>]+data-layout-node="114"/)
-    expect(html).not.toMatch(/<p[^>]+data-layout-node="114"/)
-    expect(html).toContain('Counterflow cooling towers move air vertically')
+  it('renders approved counterflow copy with semantic paragraphs and exactly one page H1',()=>{
+    const doc=documentFor('SALMON-pages-1230')
+    const html=renderToStaticMarkup(<LuxuryCanonical doc={doc}/> )
+    expect(html).toContain(`data-salmon-source-sha256="${doc.sourceIdentity.sha256}"`)
+    expect((html.match(/<h1\b/g)??[])).toHaveLength(1)
+    expect(html).toMatch(/<p\b[^>]*>[^]*?Counterflow cooling towers move air vertically against the downward flow of warm water\.[^]*?<\/p>/)
+    expect(html).not.toMatch(/<p\b[^>]*>(?:(?!<\/p>)[\s\S])*<p\b/)
   })
   it('uses the owner-authorized About URL and keeps Tim out of primary navigation',()=>{
     expect(commercialNavigation).toContainEqual(['About','/about-ics-industrial-cooling-solutions/'])

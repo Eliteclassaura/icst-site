@@ -3,7 +3,7 @@ import {notFound} from 'next/navigation'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import AcceptedPage from '../../../accepted-page'
-import {salmonDocument,salmonRoutes} from '../../../site/salmon'
+import {salmonDocument,releaseRoutes} from '../../../site/salmon'
 
 type Row={path:string;routeId:string;export:boolean;state:string;indexable:boolean;canonical:string}
 const rows=()=>JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')).routes as Row[]
@@ -16,7 +16,7 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
   const key='/'+slug.join('/')+(slug.length?'/':'')
   const row=rows().find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(key))
   if(!row)notFound()
-  const source=salmonRoutes().find(candidate=>candidate.routeId===row.routeId)
+  const source=releaseRoutes().find(candidate=>candidate.routeId===row.routeId)
   if(!source)notFound()
   const doc=salmonDocument(source)
   return {title:{absolute:doc.seo.title},description:doc.seo.meta.find(meta=>meta.name==='description')?.value,alternates:{canonical:row.canonical},robots:{index:row.indexable,follow:row.indexable}}
@@ -26,7 +26,7 @@ export default async function Page({params}:Props){
   const requested='/'+(value.slug??[]).join('/')+((value.slug??[]).length?'/':'')
   const row=rows().find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(requested))
   if(!row?.export)notFound()
-  const source=salmonRoutes().find(candidate=>candidate.routeId===row.routeId)
+  const source=releaseRoutes().find(candidate=>candidate.routeId===row.routeId)
   const sourceParams=source?{slug:source.targetPath.split('/').filter(Boolean).map(decodeURIComponent)}:value
   return <AcceptedPage params={Promise.resolve(sourceParams)} searchParams={Promise.resolve({})}/>
 }

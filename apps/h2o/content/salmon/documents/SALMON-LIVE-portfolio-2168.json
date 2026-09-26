@@ -1,0 +1,207 @@
+{
+  "routeId": "LIVE-portfolio-2168",
+  "sourceUrl": "https://h2ocooling.com/rt-portfolios/ptt-gsp3-fan-upgrade/",
+  "targetPath": "/rt-portfolios/ptt-gsp3-fan-upgrade/",
+  "type": "pages",
+  "title": "PTT GSP3 Fan Upgrade",
+  "wordpressId": 2168,
+  "sourceIdentity": {
+    "sha256": "39155f998cd1b574eae7958a5c55e236fe3e02b5a2c343149f82e89144e9e46c",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/portfolio?slug=ptt-gsp3-fan-upgrade",
+    "status": 200
+  },
+  "publicationStatus": "publish",
+  "published": "2021-10-28T18:58:43",
+  "modified": "2022-05-05T21:52:13",
+  "text": "PTT GSP3 selected ICS Thailand (ICST) for fan upgrade. ICST was awarded a contract to upgrade and install new Moore Brand Aluminum fans in PTT’s Gas Separation Plant #3. ICS Thailand (ICST) specializes in performance fan upgrades with Proven Performance engineering and products. No “Magic Fans” that fail testing, ICS’s fan upgrade solutions work first time and every time. ICS chose Moore Aluminum fans as the best solution to this site’s fan upgrade concerns and successfully removed the old fans and completed installation of new fans on schedule and on budget. ICS’s project met and exceeded PTT’s performance criteria. Contact ICS and or ICS Thailand’s ACHE Teams to learn more about how ICS can help you upgrade your plant performance and achieve greater plant reliability. Project : PTT GSP3 Industry : Gas Separation Client : PTT GSP3 Location : Thailand Tower Type : Induced Draft ACHE Year : 2018 New Moore fans installed, performance criteria met & customer satisfied. Contact ICS to see how we can help you achieve successful project results. Contact Us",
+  "children": [
+    {
+      "tag": "div",
+      "attrs": {},
+      "children": [
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            "PTT GSP3 selected ICS Thailand (ICST) for fan upgrade. ICST was awarded a contract to upgrade and install new Moore Brand Aluminum fans in PTT’s Gas Separation Plant #3. ICS Thailand (ICST) specializes in performance fan upgrades with Proven Performance engineering and products. No “Magic Fans” that fail testing, ICS’s fan upgrade solutions work first time and every time."
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            "ICS chose Moore Aluminum fans as the best solution to this site’s fan upgrade concerns and successfully removed the old fans and completed installation of new fans on schedule and on budget. ICS’s project met and exceeded PTT’s performance criteria. Contact ICS and or ICS Thailand’s ACHE Teams to learn more about how ICS can help you upgrade your plant performance and achieve greater plant reliability."
+          ]
+        },
+        "\n"
+      ]
+    },
+    "\n",
+    {
+      "tag": "div",
+      "attrs": {},
+      "children": [
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Project"
+              ]
+            },
+            ": PTT GSP3"
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Industry"
+              ]
+            },
+            ": Gas Separation"
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Client"
+              ]
+            },
+            ": PTT GSP3"
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Location"
+              ]
+            },
+            ": Thailand"
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Tower Type"
+              ]
+            },
+            ": Induced Draft ACHE"
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Year"
+              ]
+            },
+            ": 2018"
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            "New Moore fans installed, performance criteria met & customer satisfied."
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            "Contact ICS to see how we can help you achieve successful project results."
+          ]
+        },
+        "\n"
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "/contact-us/"
+          },
+          "children": [
+            {
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            "\nContact Us ",
+            {
+              "tag": "i",
+              "attrs": {},
+              "children": []
+            },
+            {
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            "\n"
+          ]
+        }
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "PTT GSP3 Fan Upgrade - Industrial Cooling Solutions",
+    "meta": [
+      {
+        "name": "description",
+        "value": "PTT GSP3 selected ICS Thailand (ICST) for fan upgrade. ICST was awarded a contract to upgrade and install new Moore Brand Aluminum fans in PTT’s Gas Separation "
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/rt-portfolios/ptt-gsp3-fan-upgrade/"
+    ],
+    "h1": [
+      "PTT GSP3 Fan Upgrade"
+    ],
+    "schema": []
+  },
+  "images": []
+}

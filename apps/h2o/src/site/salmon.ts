@@ -16,11 +16,17 @@ export type SalmonMedia = {url:string;state:string;file?:string;sha256?:string;w
 const root=path.join(process.cwd(),'content/salmon')
 const read=<T,>(file:string):T=>JSON.parse(readFileSync(path.join(root,file),'utf8')) as T
 export const salmonRoutes=():SalmonRoute[]=>read('active-routes.json')
+export const liveRoutes=():SalmonRoute[]=>read('r2-live-routes.json')
+export const releaseRoutes=():SalmonRoute[]=>[...salmonRoutes(),...liveRoutes()]
 export const salmonRedirects=():Array<{source:string;destination:string}>=>read('redirects.json')
 export const salmonPathKey=(value:string):string=>decodeURIComponent(value)
 export const salmonRouteFor=(segments:string[]=[]):SalmonRoute|null=>{
   const wanted=salmonPathKey(segments.length?`/${segments.join('/')}/`:'/')
   return salmonRoutes().find(r=>salmonPathKey(r.targetPath)===wanted)??null
+}
+export const releaseRouteFor=(segments:string[]=[]):SalmonRoute|null=>{
+  const wanted=salmonPathKey(segments.length?`/${segments.join('/')}/`:'/')
+  return releaseRoutes().find(r=>salmonPathKey(r.targetPath)===wanted)??null
 }
 export const salmonDocument=(route:SalmonRoute):SalmonDocument=>{
   if(!/^documents\/SALMON-[a-zA-Z0-9_-]+\.json$/.test(route.file))throw new Error('Unsafe canonical document path')
@@ -35,7 +41,7 @@ let mediaAliases:Map<string,SalmonMedia|null>|undefined
 const mediaIdentityKey=(url:string):string=>decodeURI(url)
 export const salmonMedia=(source:string,base:string):SalmonMedia|undefined=>{
   if(!mediaIndex){
-    const rows=read<SalmonMedia[]>('media-identities.json')
+    const rows=[...read<SalmonMedia[]>('media-identities.json'),...read<SalmonMedia[]>('r2-live-media-identities.json')]
     mediaIndex=new Map(rows.map(row=>[row.url,row]))
     mediaAliases=new Map()
     for(const row of rows){

@@ -2,6 +2,7 @@ import {describe,it,expect} from 'vitest'
 import {renderToStaticMarkup} from 'react-dom/server'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
+import {createHash} from 'node:crypto'
 import {LuxuryHeader} from '../LuxuryShell'
 import {siteNavigation} from '../SiteNavigation'
 import {salmonDocument,salmonRoutes} from '../salmon'
@@ -24,14 +25,27 @@ describe('site completion authority and structure',()=>{
     expect(html).not.toContain('/author/tbozic/')
     expect(html).not.toContain('/admin/')
   })
-  it('preserves the accepted New Towers H1 and authentic selected source image',()=>{
+  it('preserves the approved New Towers H1, exact Salmon images, provenance and responsive structure',()=>{
     const doc=documentFor('SALMON-pages-1230'),html=renderToStaticMarkup(<LuxuryCanonical doc={doc}/>)
-    expect(html).toContain('New Cooling Tower Systems for High-Performance Industrial Cooling')
+    expect(html).toMatch(/<h1\b[^>]*>New Cooling Tower Systems for High-Performance Industrial Cooling<\/h1>/)
     expect((html.match(/<h1\b/g)??[])).toHaveLength(1)
-    expect(html).toContain('d88ec30b8ddc425c-ICS-PTT-PO-July-16.jpeg')
-    expect(html).toContain('data-project-attribution="none"')
-    expect((html.match(/class="tower-mobile-disclosure"/g)??[])).toHaveLength(3)
-    for(const label of ['Industrial cooling tower applications','Cooling tower configurations','Materials and system design'])expect(html).toContain(`<summary>${label}`)
+    expect(html).toContain('data-salmon-document="SALMON-pages-1230"')
+    expect(html).toContain(`data-salmon-source-sha256="${doc.sourceIdentity.sha256}"`)
+    expect(html).toContain('data-salmon-region="body"')
+    for(const [sha,extension] of [
+      ['0d1039c0be35c5134f2141a079f8fa71896dc0f91c060d5d2e35d8f1422fe940','jpg'],
+      ['4d50140513f4a8fdd05e9266d1028c695e23c072f4f4928dab50aeac37ab7a46','webp'],
+      ['0558dfd628dbdd7c46e5132e7f45f0af7b44a34147993b574da0253a379077ca','png'],
+    ]){
+      expect(html).toContain(`src="/media/salmon/${sha}.${extension}"`)
+      expect(html).toContain(`data-source-sha256="${sha}"`)
+      const bytes=readFileSync(path.join(process.cwd(),`public/media/salmon/${sha}.${extension}`))
+      expect(createHash('sha256').update(bytes).digest('hex')).toBe(sha)
+    }
+    const css=readFileSync(path.join(process.cwd(),'src/app/(site)/salmon-parity-overrides.css'),'utf8')
+    for(const width of ['1100','600'])expect(css).toContain(`max-width:${width}px`)
+    expect(css).toContain('.salmon-copy .site-mobile-nav{display:block')
+    expect(css).toMatch(/@media\(max-width:600px\)\{[^]*?\.salmon-copy \.salmon-footer-main\{[^}]*grid-template-columns:minmax\(0,1fr\)/)
   })
   it('preserves About geography corrections while presenting three confirmed locations',()=>{
     const html=renderToStaticMarkup(<AuthorityEditorial doc={documentFor('SALMON-pages-1931')}/>)

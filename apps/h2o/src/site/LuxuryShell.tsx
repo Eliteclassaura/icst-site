@@ -7,9 +7,10 @@ import {SiteNavigation} from './SiteNavigation'
 const countryFlags:Record<string,string>={usa:'🇺🇸',japan:'🇯🇵',thailand:'🇹🇭'}
 export const commercialNavigation=[['Cooling Towers','/cooling-tower/'],['Repair & Upgrades','/cooling-tower-maintenance-repair-upgrade/'],['Parts','/cooling-tower-parts-online/'],['Air Coolers','/air-coolers/'],['Projects','/all-projects/'],['Resources','/resources/'],['About','/about-ics-industrial-cooling-solutions/']]
 const quoteAction=(mountId:string,page:CohortPage|null,wrapperClass?:string)=>page?<span className={wrapperClass}><RfqMount mountId={mountId} page={page}/></span>:<a className={['lux-button',wrapperClass].filter(Boolean).join(' ')} href="/contact-us/">Request a Quote</a>
-export function LuxuryHeader({page=null}:{page?:CohortPage|null}){return <header className="lux-header">
-  <a href="/" className="lux-logo" aria-label="ICS homepage"><img src="/media/luxury/ics-logo-original.webp" width="196" height="50" alt="ICS — Industrial Cooling Solutions"/></a>
-  <SiteNavigation mobileQuote={quoteAction('header_action',page,'lux-menu-rfq')}/>
+export function LuxuryHeader({page=null,salmonParity=false}:{page?:CohortPage|null;salmonParity?:boolean}){return <header className="lux-header">
+  <a href="/" className="lux-logo" aria-label="ICS homepage"><img src={salmonParity?'/media/salmon/a8f4b38d0f7ede838b277c9bcd00a3b75a268ce23a5fccfb86ec263774e3b844.png':'/media/luxury/ics-logo-original.webp'} width="196" height="50" alt="ICS — Industrial Cooling Solutions"/></a>
+  <SiteNavigation mobileQuote={quoteAction('header_action',page,'lux-menu-rfq')} salmonParity={salmonParity}/>
+  {salmonParity?<span className="salmon-header-language"><img src="/media/salmon-parity/en-us.png" width="16" height="16" alt=""/> English</span>:null}
   {quoteAction('header_action',page,'lux-header-rfq')}
 </header>}
 export function LuxurySearch({label,submit}:{label?:ReactNode;submit?:ReactNode}){return <form className="lux-search" action="/search/" role="search"><label className={label?'lux-search-label':'sr-only'} htmlFor="lux-query">{label??'Search ICS'}</label><input id="lux-query" name="q" type="search" placeholder="Search" required maxLength={200}/><button type="submit">{submit??'Search'}</button></form>}

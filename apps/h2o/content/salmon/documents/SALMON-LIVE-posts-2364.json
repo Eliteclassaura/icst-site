@@ -1,0 +1,495 @@
+{
+  "routeId": "LIVE-posts-2364",
+  "sourceUrl": "https://h2ocooling.com/look-cooling-tower-fan-efficiences/",
+  "targetPath": "/look-cooling-tower-fan-efficiences/",
+  "type": "posts",
+  "title": "A Look At Cooling Tower Fan Efficiency",
+  "wordpressId": 2364,
+  "sourceIdentity": {
+    "status": 200,
+    "effectiveUrl": "https://h2ocooling.com/look-cooling-tower-fan-efficiences/",
+    "sha256": "c82e15f28d3970f631ed546f022f52958c37b831f0c39cdde38e3d89f2728be0",
+    "htmlSha256": "635f5304be97c11cd7988507e8acd09f22ced564b793bcf0a5cd111629ffbada",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/posts/2364"
+  },
+  "publicationStatus": "publish",
+  "published": "2017-09-27T09:00:24",
+  "modified": "2025-03-06T11:28:41",
+  "text": "Table of Contents Toggle Is Your Cooling Tower Fan as Efficient as Possible? Fan System Efficiency is of the Utmost Importance How can a Fan be Efficient While the System isn’t? Is Your Cooling Tower Fan as Efficient as Possible? In the world of industrial cooling towers, many tower components are necessary to ensure that the tower is mitigating heat as efficiently as possible. Proper water flow is important in making sure that the fill material is properly saturated and is able to impede the rising heat, clean surfaces are necessary to ensure that scaling does not affect the evaporation rate of the water, and proper airflow is needed to make sure that the heat does not stagnate in the body of the cooling tower. While all of these components play a part in the overall efficiency of the cooling tower, the fan assembly, if not properly optimized, can negate the positive components by greatly diminishing the amount of heat that is able to be exchanged. In the first of a multi part blog series, here at Industrial Cooling Solutions wanted to take a look at the efficiency of cooling tower fans in relation to both dry cooling towers and wet cooling towers. While different in the way that they exchange heat, both cooling towers have some commonalities that make them worthy of assessment. Continue reading below to learn more. Fan System Efficiency is of the Utmost Importance Although dry cooling towers and wet cooling towers are different in the ways that they provide heat mitigation, they also have a few things in common. Both industrial cooling tower types contain an axial fan to move the air inside of the tower, both have a shroud or other covering to simultaneously contain the fan and funnel air into the fan, and both have plenums that direct air so that heat can be transferred by direct or indirect contact. When designing fan systems for these types of cooling towers, the first step is to develop a fan performance curve. Using this curve, engineers can determine an operating point at which the fan performance exactly matches the system requirements of the cooling tower itself. Typically, performance curves as they relate to cooling tower fans are obtained under ideal, reproducible conditions. They are obtained this way so that engineers can be certain that they will be able to reproduce the efficiency levels in the real world, not just in the research lab. To illustrate this point, consider the following example: Test conditions for cooling tower fans usually require a blade tip clearance on a five foot fan blade of about 0.040 inches with a large inlet bell. Under these ideal conditions, total fan efficiency is typically in the 75 percent to 85 percent range. However, as most people who have experience with cooling towers know, in most full-scale fan tests, “real life” performance tends to fall in the 55 percent to 75 percent range. What happened to the efficiency level? The answer, quite simply, is that while the fan efficiency is exactly the same (75 to 85 percent efficient) the system efficiency is much, much lower. How can a Fan be Efficient While the System isn’t? Answering this question, once again, requires an example. Let’s assume that we have to design a forced draft air cooled exchanger whose function is to make sure that a factory is able to properly eliminate heat. The tower has been designed to move 200,000 Cubic Feet per Minute (CFM) of air while operating against a system static pressure of 0.42 inches of water. The initial fan performance curve showed that a cooling tower fan with a diameter of 14 feet coupled with a 21 horsepower motor would be sufficient for the job. Using a little math, the engineers find that the Total Fan Efficiency at this operating point is 87 percent, a number that falls well within the acceptable range. Unfortunately, when the system is activated, it is found that it is insufficient in cooling and unable to meet the 87 percent efficiency benchmark that the math showed it was capable of. When trying to determine what caused the sharp decrease in efficiency, it was found that recirculation loss, top losses, and reverse flow at the hub all lead to a decrease in system efficiency. All of these losses, when combined, reduced the efficiency of the fan system by 20 percent, meaning that the real fan efficiency was closer to 67 percent. Additionally, some simple math shows that the design should have called for a motor closer to 27 horsepower in strength instead of the 21 horsepower unit called for by the initial ideal fan curve. As you can see, not taking the entirety of the fan system into consideration when trying to determine efficiency levels can be frustrating when the end result is less than nominal. Join us again next time as we further expound upon the topic of cooling tower fan efficiencies and go over some of the small factors that can increase efficiency in these systems. Additionally, if you are in need of cooling tower construction services , cooling tower replacement parts , repair of your current cooling tower , or simply want someone to talk to about your cooling tower, contact us today at Industrial Cooling Solutions, Inc.",
+  "children": [
+    {
+      "tag": "div",
+      "attrs": {
+        "id": "ez-toc-container"
+      },
+      "children": [
+        "\n",
+        {
+          "tag": "div",
+          "attrs": {},
+          "children": [
+            "\n",
+            {
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                "Table of Contents"
+              ]
+            },
+            "\n",
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "a",
+                  "attrs": {
+                    "href": "#"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                "Toggle"
+                              ]
+                            },
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "\n",
+        {
+          "tag": "nav",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "ul",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/look-cooling-tower-fan-efficiences/#Is_Your_Cooling_Tower_Fan_as_Efficient_as_Possible"
+                      },
+                      "children": [
+                        "Is Your Cooling Tower Fan as Efficient as Possible?"
+                      ]
+                    },
+                    {
+                      "tag": "ul",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/look-cooling-tower-fan-efficiences/#Fan_System_Efficiency_is_of_the_Utmost_Importance"
+                              },
+                              "children": [
+                                "Fan System Efficiency is of the Utmost Importance"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/look-cooling-tower-fan-efficiences/#How_can_a_Fan_be_Efficient_While_the_System_isnt"
+                              },
+                              "children": [
+                                "How can a Fan be Efficient While the System isn’t?"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Is_Your_Cooling_Tower_Fan_as_Efficient_as_Possible"
+          },
+          "children": []
+        },
+        {
+          "tag": "b",
+          "attrs": {},
+          "children": [
+            "Is Your Cooling Tower Fan as Efficient as Possible?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "In the world of industrial cooling towers, many ",
+            {
+              "tag": "a",
+              "attrs": {
+                "href": "https://h2ocooling.com/cooling-tower-parts/"
+              },
+              "children": [
+                "tower components"
+              ]
+            },
+            " are necessary to ensure that the tower is mitigating heat as efficiently as possible. Proper water flow is important in making sure that the fill material is properly saturated and is able to impede the rising heat, clean surfaces are necessary to ensure that scaling does not affect the evaporation rate of the water, and proper airflow is needed to make sure that the heat does not stagnate in the body of the cooling tower. While all of these components play a part in the overall efficiency of the cooling tower, the fan assembly, if not properly optimized, can negate the positive components by greatly diminishing the amount of heat that is able to be exchanged. In the first of a multi part blog series, here at Industrial Cooling Solutions wanted to take a look at the efficiency of ",
+            {
+              "tag": "a",
+              "attrs": {
+                "href": "https://h2ocooling.com/product-category/fans/"
+              },
+              "children": [
+                "cooling tower fans"
+              ]
+            },
+            " in relation to both dry cooling towers and wet cooling towers. While different in the way that they exchange heat, both cooling towers have some commonalities that make them worthy of assessment. Continue reading below to learn more."
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Fan_System_Efficiency_is_of_the_Utmost_Importance"
+          },
+          "children": []
+        },
+        {
+          "tag": "b",
+          "attrs": {},
+          "children": [
+            "Fan "
+          ]
+        },
+        {
+          "tag": "b",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "i",
+              "attrs": {},
+              "children": [
+                "System"
+              ]
+            }
+          ]
+        },
+        " ",
+        {
+          "tag": "b",
+          "attrs": {},
+          "children": [
+            "Efficiency is of the Utmost Importance"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Although dry cooling towers and wet cooling towers are different in the ways that they provide heat mitigation, they also have a few things in common. Both industrial cooling tower types contain an axial fan to move the air inside of the tower, both have a shroud or other covering to simultaneously contain the fan and funnel air into the fan, and both have plenums that direct air so that heat can be transferred by direct or indirect contact. When designing fan systems for these types of cooling towers, the first step is to develop a fan performance curve. Using this curve, engineers can determine an operating point at which the fan performance exactly matches the system requirements of the cooling tower itself. Typically, performance curves as they relate to cooling tower fans are obtained under ideal, reproducible conditions. They are obtained this way so that engineers can be certain that they will be able to reproduce the efficiency levels in the real world, not just in the research lab. To illustrate this point, consider the following example: Test conditions for cooling tower fans usually require a blade tip clearance on a five foot fan blade of about 0.040 inches with a large inlet bell. Under these ideal conditions, total fan efficiency is typically in the 75 percent to 85 percent range. However, as most people who have experience with cooling towers know, in most full-scale fan tests, “real life” performance tends to fall in the 55 percent to 75 percent range. What happened to the efficiency level? The answer, quite simply, is that while the fan efficiency is exactly the same (75 to 85 percent efficient) the "
+          ]
+        },
+        {
+          "tag": "i",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                "system "
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "efficiency is much, much lower."
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "How_can_a_Fan_be_Efficient_While_the_System_isnt"
+          },
+          "children": []
+        },
+        {
+          "tag": "b",
+          "attrs": {},
+          "children": [
+            "How can a Fan be Efficient While the System isn’t?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Answering this question, once again, requires an example. Let’s assume that we have to design a forced draft air cooled exchanger whose function is to make sure that a factory is able to properly eliminate heat. The tower has been designed to move 200,000 Cubic Feet per Minute (CFM) of air while operating against a system static pressure of 0.42 inches of water. The initial fan performance curve showed that a cooling tower fan with a diameter of 14 feet coupled with a 21 horsepower motor would be sufficient for the job. Using a little math, the engineers find that the Total Fan Efficiency at this operating point is 87 percent, a number that falls well within the acceptable range. Unfortunately, when the system is activated, it is found that it is insufficient in cooling and unable to meet the 87 percent efficiency benchmark that the math showed it was capable of. When trying to determine what caused the sharp decrease in efficiency, it was found that recirculation loss, top losses, and reverse flow at the hub all lead to a decrease in system efficiency. "
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "All of these losses, when combined, reduced the efficiency of the fan system by 20 percent, meaning that the real fan efficiency was closer to 67 percent. Additionally, some simple math shows that the design should have called for a motor closer to 27 horsepower in strength instead of the 21 horsepower unit called for by the initial ideal fan curve. As you can see, not taking the entirety of the fan system into consideration when trying to determine efficiency levels can be frustrating when the end result is less than nominal. "
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Join us again next time as we further expound upon the topic of cooling tower fan efficiencies and go over some of the small factors that can increase efficiency in these systems. Additionally, if you are in need of ",
+            {
+              "tag": "a",
+              "attrs": {
+                "href": "https://h2ocooling.com/cooling-tower/"
+              },
+              "children": [
+                "cooling tower construction services"
+              ]
+            },
+            ", ",
+            {
+              "tag": "a",
+              "attrs": {
+                "href": "https://h2ocooling.com/cooling-tower-parts/"
+              },
+              "children": [
+                "cooling tower replacement parts"
+              ]
+            },
+            ", ",
+            {
+              "tag": "a",
+              "attrs": {
+                "href": "https://h2ocooling.com/cooling-tower-repair-upgrade/"
+              },
+              "children": [
+                "repair of your current cooling tower"
+              ]
+            },
+            ", or simply want someone to talk to about your cooling tower, contact us today at Industrial Cooling Solutions, Inc. "
+          ]
+        }
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc.",
+    "meta": [
+      {
+        "name": "description",
+        "value": "In the world of industrial cooling towers, many tower components are necessary to ensure that the tower is mitigating heat as efficiently as possible. Proper"
+      },
+      {
+        "name": "robots",
+        "value": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      {
+        "name": "og:locale",
+        "value": "en_US"
+      },
+      {
+        "name": "og:type",
+        "value": "article"
+      },
+      {
+        "name": "og:title",
+        "value": "Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc."
+      },
+      {
+        "name": "og:description",
+        "value": "In the world of industrial cooling towers, many tower components are necessary to ensure that the tower is mitigating heat as efficiently as possible. Proper"
+      },
+      {
+        "name": "og:url",
+        "value": "https://h2ocooling.com/look-cooling-tower-fan-efficiences/"
+      },
+      {
+        "name": "og:site_name",
+        "value": "New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "og:updated_time",
+        "value": "2025-03-06T11:28:41+00:00"
+      },
+      {
+        "name": "og:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "og:image:secure_url",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "og:image:width",
+        "value": "1219"
+      },
+      {
+        "name": "og:image:height",
+        "value": "1035"
+      },
+      {
+        "name": "og:image:alt",
+        "value": "Industrial Cooling Solutions"
+      },
+      {
+        "name": "og:image:type",
+        "value": "image/jpeg"
+      },
+      {
+        "name": "twitter:card",
+        "value": "summary_large_image"
+      },
+      {
+        "name": "twitter:title",
+        "value": "Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc."
+      },
+      {
+        "name": "twitter:description",
+        "value": "In the world of industrial cooling towers, many tower components are necessary to ensure that the tower is mitigating heat as efficiently as possible. Proper"
+      },
+      {
+        "name": "twitter:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "twitter:label1",
+        "value": "Written by"
+      },
+      {
+        "name": "twitter:data1",
+        "value": "Tim Bozic"
+      },
+      {
+        "name": "twitter:label2",
+        "value": "Time to read"
+      },
+      {
+        "name": "twitter:data2",
+        "value": "4 minutes"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/look-cooling-tower-fan-efficiences/"
+    ],
+    "h1": [
+      "Is Your Cooling Tower Fan as Efficient as Possible?"
+    ],
+    "schema": [
+      "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"Organization\", \"@id\": \"https://h2ocooling.com/#organization\", \"name\": \"Industrial Cooling Solutions\", \"url\": \"http://h2ocooling.com\", \"logo\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/#logo\", \"url\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"contentUrl\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"caption\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"inLanguage\": \"en-US\", \"width\": \"267\", \"height\": \"57\"}}, {\"@type\": \"WebSite\", \"@id\": \"https://h2ocooling.com/#website\", \"url\": \"https://h2ocooling.com\", \"name\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"inLanguage\": \"en-US\"}, {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\", \"url\": \"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\", \"width\": \"1219\", \"height\": \"1035\", \"caption\": \"Industrial Cooling Solutions\", \"inLanguage\": \"en-US\"}, {\"@type\": \"BreadcrumbList\", \"@id\": \"https://h2ocooling.com/look-cooling-tower-fan-efficiences/#breadcrumb\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": \"1\", \"item\": {\"@id\": \"https://h2ocooling.com\", \"name\": \"Home\"}}, {\"@type\": \"ListItem\", \"position\": \"2\", \"item\": {\"@id\": \"https://h2ocooling.com/look-cooling-tower-fan-efficiences/\", \"name\": \"A Look At Cooling Tower Fan Efficiency\"}}]}, {\"@type\": \"WebPage\", \"@id\": \"https://h2ocooling.com/look-cooling-tower-fan-efficiences/#webpage\", \"url\": \"https://h2ocooling.com/look-cooling-tower-fan-efficiences/\", \"name\": \"Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc.\", \"datePublished\": \"2017-09-27T09:00:24+00:00\", \"dateModified\": \"2025-03-06T11:28:41+00:00\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/#website\"}, \"primaryImageOfPage\": {\"@id\": \"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\"}, \"inLanguage\": \"en-US\", \"breadcrumb\": {\"@id\": \"https://h2ocooling.com/look-cooling-tower-fan-efficiences/#breadcrumb\"}}, {\"@type\": \"Person\", \"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\", \"description\": \"Tim Bozic is a seasoned leader with over two decades of experience in the industrial and manufacturing sectors. As the President of Industrial Cooling Solutions, he specializes in driving innovation and operational excellence in cooling technologies, ensuring sustainable and efficient solutions for clients worldwide. With a proven track record in strategic planning, team leadership, and customer-focused growth, Tim is passionate about delivering cutting-edge solutions that meet the evolving needs of the industry.\", \"url\": \"https://h2ocooling.com/author/tbozic/\", \"image\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"url\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"caption\": \"Tim Bozic\", \"inLanguage\": \"en-US\"}, \"sameAs\": [\"https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/\", \"https://www.linkedin.com/in/tim-bozic-417a65a/\"], \"worksFor\": {\"@id\": \"https://h2ocooling.com/#organization\"}}, {\"@type\": \"BlogPosting\", \"headline\": \"Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc.\", \"datePublished\": \"2017-09-27T09:00:24+00:00\", \"dateModified\": \"2025-03-06T11:28:41+00:00\", \"author\": {\"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\"}, \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"description\": \"In the world of industrial cooling towers, many tower components are necessary to ensure that the tower is mitigating heat as efficiently as possible. Proper\", \"name\": \"Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc.\", \"@id\": \"https://h2ocooling.com/look-cooling-tower-fan-efficiences/#richSnippet\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/look-cooling-tower-fan-efficiences/#webpage\"}, \"image\": {\"@id\": \"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\"}, \"inLanguage\": \"en-US\", \"mainEntityOfPage\": {\"@id\": \"https://h2ocooling.com/look-cooling-tower-fan-efficiences/#webpage\"}}]}"
+    ]
+  },
+  "images": []
+}

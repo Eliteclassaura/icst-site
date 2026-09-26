@@ -28,6 +28,9 @@ import './figma-parts.css'
 import './figma-wave4.css'
 import './final-polish.css'
 import './site-completion.css'
+import './salmon-parity.css'
+import './salmon-parity-overrides.css'
+import './r2-discovery.css'
 
 export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }

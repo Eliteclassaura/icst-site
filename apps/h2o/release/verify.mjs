@@ -43,7 +43,7 @@ for(const row of manifest.routes){
 const bucket={async get(key){const prefix=`releases/${manifest.releaseId}/`;if(!key.startsWith(prefix))return null;const file=path.join(out,key.slice(prefix.length));return existsSync(file)?{body:readFileSync(file)}:null}}
 const worker=createWorker(manifest)
 const fetch=(url,stage='production',method='GET')=>worker.fetch(new Request('https://h2ocooling.com'+url,{method}),{RELEASE_STAGE:stage,RELEASE_ID:manifest.releaseId,RELEASE_BUCKET:bucket})
-for(const redirect of manifest.redirects){const response=await fetch(redirect.source);check(response.status===308&&response.headers.get('location')===redirect.destination,`Edge redirect mismatch: ${redirect.source}`);check(!redirectMap.has(decodeURIComponent(redirect.destination)),`Redirect chain: ${redirect.source}`)}
+for(const redirect of manifest.redirects){const response=await fetch(redirect.source);check(response.status===redirect.status&&response.headers.get('location')===redirect.destination,`Edge redirect mismatch: ${redirect.source}`);check(!redirectMap.has(decodeURIComponent(redirect.destination)),`Redirect chain: ${redirect.source}`)}
 const search=await fetch('/?s=cooling+tower');check(search.status===307&&search.headers.get('location')==='/search/?q=cooling+tower','Legacy search mapping')
 const headers=[]
 for(const route of ['/','/resources/','/search/','/robots.txt','/sitemap.xml','/not-a-release-route/','/admin/','/api/live/']){

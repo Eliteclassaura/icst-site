@@ -1,0 +1,453 @@
+{
+  "routeId": "LIVE-portfolio-2174",
+  "sourceUrl": "https://h2ocooling.com/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/",
+  "targetPath": "/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/",
+  "type": "pages",
+  "title": "PTT GSP6 96-Fan ACHE Performance Upgrade",
+  "wordpressId": 2174,
+  "sourceIdentity": {
+    "sha256": "7e116056aef9f3d43811644ea0102a980700598a0aaf8a0f4edcc6dd7816d6f2",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/portfolio?slug=ptt-gsp6-96-fan-ache-performance-upgrade",
+    "status": 200
+  },
+  "publicationStatus": "publish",
+  "published": "2021-10-28T19:06:10",
+  "modified": "2022-05-05T21:23:51",
+  "text": " Ready to install Hudson’s KW High Performance Blades Sunrise over the plant & ICS ICST are ready A view from the top Standing by with materials at the ready Inspection time Final installation steps Project : PTTGSP Industry : Gas Separation Plant Client : PTT Gas Separation Plant Location : Rayong, Thailand Tower Type : 96-Bay, Air Cooled Heat Exchanger (ACHE) Year : 2018 Scope of Work : In 2018, ICS & ICS Thailand (ICST) were selected by PTT Gas to upgrade their Air Cooled Heat Exchangers (ACHE) by a guaranteed minimum of 15% increased airflow. Also, associated static pressure and thermal performance guarantees were included in the tender. ICS and ICST’s Air Cooler thermal and airflow upgrades were successful . For this project, ICS & ICST selected Hudson fans for the best performance and reliability over the life of the project. PTT had previously upgraded from the factory original Moore fans to a new Cofimco Tandem aluminum fan which simply failed to give the performance PTT required. ICS & ICST were able to analyze the situation from the original fans to the Cofimco fans & knew how to best meet and exceed PTT’s expectations. When you need the job done right, ICS is your go to company. Are your air coolers or fin fan coolers thermally restricted? Ask ICS & ICST how we can help you improve your plant performance with ICS design upgrades and ACHE dry soda cleaning. ICS is the right company for your upgrade projects, we are your Cooling Solutions company. Contact Us ",
+  "children": [
+    {
+      "tag": "div",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            "",
+            {
+              "tag": "figure",
+              "attrs": {
+                "id": "attachment_3333"
+              },
+              "children": [
+                {
+                  "tag": "img",
+                  "attrs": {
+                    "src": "https://h2ocooling.com/wp-content/uploads/2021/10/GSP-6-Fan-Upgrade-scaled.jpg",
+                    "alt": "",
+                    "width": "2560",
+                    "height": "1920"
+                  },
+                  "children": []
+                },
+                {
+                  "tag": "figcaption",
+                  "attrs": {
+                    "id": "caption-attachment-3333"
+                  },
+                  "children": [
+                    "Ready to install Hudson’s KW High Performance Blades"
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            "\n",
+            {
+              "tag": "figure",
+              "attrs": {
+                "id": "attachment_3334"
+              },
+              "children": [
+                {
+                  "tag": "img",
+                  "attrs": {
+                    "alt": "",
+                    "width": "2560",
+                    "height": "1920",
+                    "src": "https://h2ocooling.com/wp-content/uploads/2021/10/P1190097-scaled.jpg"
+                  },
+                  "children": []
+                },
+                {
+                  "tag": "figcaption",
+                  "attrs": {
+                    "id": "caption-attachment-3334"
+                  },
+                  "children": [
+                    "Sunrise over the plant & ICS ICST are ready"
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            "\n",
+            {
+              "tag": "figure",
+              "attrs": {
+                "id": "attachment_3335"
+              },
+              "children": [
+                {
+                  "tag": "img",
+                  "attrs": {
+                    "alt": "",
+                    "width": "2560",
+                    "height": "1920",
+                    "src": "https://h2ocooling.com/wp-content/uploads/2021/10/P1190099-scaled.jpg"
+                  },
+                  "children": []
+                },
+                {
+                  "tag": "figcaption",
+                  "attrs": {
+                    "id": "caption-attachment-3335"
+                  },
+                  "children": [
+                    "A view from the top"
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            "\n",
+            {
+              "tag": "figure",
+              "attrs": {
+                "id": "attachment_3337"
+              },
+              "children": [
+                {
+                  "tag": "img",
+                  "attrs": {
+                    "alt": "",
+                    "width": "2560",
+                    "height": "1920",
+                    "src": "https://h2ocooling.com/wp-content/uploads/2021/10/P1260237-scaled.jpg"
+                  },
+                  "children": []
+                },
+                {
+                  "tag": "figcaption",
+                  "attrs": {
+                    "id": "caption-attachment-3337"
+                  },
+                  "children": [
+                    "Standing by with materials at the ready"
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            "\n",
+            {
+              "tag": "figure",
+              "attrs": {
+                "id": "attachment_3338"
+              },
+              "children": [
+                {
+                  "tag": "img",
+                  "attrs": {
+                    "alt": "",
+                    "width": "1920",
+                    "height": "1080",
+                    "src": "https://h2ocooling.com/wp-content/uploads/2021/10/P1121012.jpg"
+                  },
+                  "children": []
+                },
+                {
+                  "tag": "figcaption",
+                  "attrs": {
+                    "id": "caption-attachment-3338"
+                  },
+                  "children": [
+                    "Inspection time"
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            "\n",
+            {
+              "tag": "figure",
+              "attrs": {
+                "id": "attachment_3339"
+              },
+              "children": [
+                {
+                  "tag": "img",
+                  "attrs": {
+                    "alt": "",
+                    "width": "2560",
+                    "height": "1920",
+                    "src": "https://h2ocooling.com/wp-content/uploads/2021/10/PB121040-scaled.jpg"
+                  },
+                  "children": []
+                },
+                {
+                  "tag": "figcaption",
+                  "attrs": {
+                    "id": "caption-attachment-3339"
+                  },
+                  "children": [
+                    "Final installation steps"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Project"
+              ]
+            },
+            ": PTTGSP"
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Industry"
+              ]
+            },
+            ": Gas Separation Plant"
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Client"
+              ]
+            },
+            ": PTT Gas Separation Plant",
+            {
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            "\n",
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                "\nLocation"
+              ]
+            },
+            ": Rayong, Thailand"
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Tower Type"
+              ]
+            },
+            ": 96-Bay, Air Cooled Heat Exchanger (ACHE)"
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Year"
+              ]
+            },
+            ": 2018"
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "img",
+                  "attrs": {
+                    "alt": "",
+                    "width": "300",
+                    "height": "225",
+                    "src": "https://h2ocooling.com/wp/content/uploads/2019/08/PC261114-300x225.jpg"
+                  },
+                  "children": []
+                },
+                "Scope of Work"
+              ]
+            },
+            ": In 2018, ICS & ICS Thailand (ICST) were selected by PTT Gas to upgrade their Air Cooled Heat Exchangers (ACHE) by a guaranteed minimum of 15% increased airflow. Also, associated static pressure and thermal performance guarantees were included in the tender. ",
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "ICS and ICST’s Air Cooler thermal and airflow upgrades were successful"
+              ]
+            },
+            ". For this project, ICS & ICST selected Hudson fans for the best performance and reliability over the life of the project. PTT had previously upgraded from the factory original Moore fans to a new Cofimco Tandem aluminum fan which simply failed to give the performance PTT required. ICS & ICST were able to analyze the situation from the original fans to the Cofimco fans & knew how to best meet and exceed PTT’s expectations. When you need the job done right, ICS is your go to company."
+          ]
+        },
+        "\n",
+        {
+          "tag": "p",
+          "attrs": {},
+          "children": [
+            "Are your air coolers or fin fan coolers thermally restricted? Ask ICS & ICST how we can help you improve your plant performance with ICS design upgrades and ACHE dry soda cleaning. ICS is the right company for your upgrade projects, we are your Cooling Solutions company.",
+            {
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            "\n",
+            {
+              "tag": "a",
+              "attrs": {
+                "href": "/contact-us/"
+              },
+              "children": [
+                {
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                "\nContact Us ",
+                {
+                  "tag": "i",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                "\n"
+              ]
+            },
+            ""
+          ]
+        },
+        "\n"
+      ]
+    }
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "PTT GSP6 96-Fan ACHE Performance Upgrade - Industrial Cooling Solutions",
+    "meta": [
+      {
+        "name": "description",
+        "value": "[vc_row][vc_column][vc_column_text] Ready to install Hudson’s KW High Performance Blades Sunrise over the plant & ICS ICST are ready A view from the top Standin"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/"
+    ],
+    "h1": [
+      "PTT GSP6 96-Fan ACHE Performance Upgrade"
+    ],
+    "schema": []
+  },
+  "images": [
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2021/10/GSP-6-Fan-Upgrade-scaled.jpg",
+      "section": "live-portfolio",
+      "order": 0,
+      "alt": ""
+    },
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2021/10/P1190097-scaled.jpg",
+      "section": "live-portfolio",
+      "order": 1,
+      "alt": ""
+    },
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2021/10/P1190099-scaled.jpg",
+      "section": "live-portfolio",
+      "order": 2,
+      "alt": ""
+    },
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2021/10/P1260237-scaled.jpg",
+      "section": "live-portfolio",
+      "order": 3,
+      "alt": ""
+    },
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2021/10/P1121012.jpg",
+      "section": "live-portfolio",
+      "order": 4,
+      "alt": ""
+    },
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2021/10/PB121040-scaled.jpg",
+      "section": "live-portfolio",
+      "order": 5,
+      "alt": ""
+    },
+    {
+      "src": "https://h2ocooling.com/wp/content/uploads/2019/08/PC261114-300x225.jpg",
+      "section": "live-portfolio",
+      "order": 6,
+      "alt": ""
+    }
+  ]
+}

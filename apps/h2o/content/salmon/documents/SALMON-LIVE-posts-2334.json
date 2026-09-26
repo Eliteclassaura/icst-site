@@ -1,0 +1,197 @@
+{
+  "routeId": "LIVE-posts-2334",
+  "sourceUrl": "https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/",
+  "targetPath": "/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/",
+  "type": "posts",
+  "title": "ICS Completes 40 Day Outage At Palinpinon Geothermal On Time",
+  "wordpressId": 2334,
+  "sourceIdentity": {
+    "status": 200,
+    "effectiveUrl": "https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/",
+    "sha256": "0e4b19f91776d70bd4f429f22adff814da909052f6a9b378febc1677171cc0b1",
+    "htmlSha256": "408d6b904bf643903d97b432684e3e9a3eb7593e7d4e0df5054a99e89a8501a2",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/posts/2334"
+  },
+  "publicationStatus": "publish",
+  "published": "2012-04-03T20:33:15",
+  "modified": "2025-03-11T01:49:56",
+  "text": "ICS successfully completed the Palinpinon Unit 1 total turnkey demolition and rebuild project in 40 days at Energy Development Corporation’s (EDC) Palinpinon Site in December 2011. The project was completed under a very tight time schedule with and successfully turned over to EDC 2 days early and is operating at full capacity now. ICS’s scope was total turnkey demolition of the existing Marley wood crossflow tower and replacement with a new ICS FRP crossflow cooling tower within the existing basin. ICS’s cooling tower provided a thermal design over the previous Marley design. ICS is proud to be part of EDC’s renewal program and a partner in their success of providing reliable power sources to the Philippines islands. For further information, contact ICS.",
+  "children": [
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ICS successfully completed the Palinpinon Unit 1 total turnkey demolition and rebuild project in 40 days at Energy Development Corporation’s (EDC) Palinpinon Site in December 2011. The project was completed under a very tight time schedule with and successfully turned over to EDC 2 days early and is operating at full capacity now.",
+        {
+          "tag": "br",
+          "attrs": {},
+          "children": []
+        },
+        "\n",
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://h2ocooling.com/assets/P1000978.jpg"
+          },
+          "children": [
+            {
+              "tag": "img",
+              "attrs": {
+                "src": "https://h2ocooling.com/assets/P1000978-300x225.jpg",
+                "alt": "",
+                "width": "300",
+                "height": "225"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://h2ocooling.com/wp-admin/media.php?attachment_id=519&action=edit"
+          },
+          "children": [
+            "    "
+          ]
+        },
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://h2ocooling.com/assets/Palinpinon-Site.jpg"
+          },
+          "children": [
+            {
+              "tag": "img",
+              "attrs": {
+                "alt": "",
+                "width": "300",
+                "height": "200",
+                "src": "https://h2ocooling.com/assets/Palinpinon-Site-300x200.jpg"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "tag": "br",
+          "attrs": {},
+          "children": []
+        },
+        "\nICS’s scope was total turnkey demolition of the existing Marley wood crossflow tower and replacement with a new ICS FRP crossflow cooling tower within the existing basin. ICS’s cooling tower provided a thermal design over the previous Marley design. ICS is proud to be part of EDC’s renewal program and a partner in their success of providing reliable power sources to the Philippines islands.",
+        {
+          "tag": "br",
+          "attrs": {},
+          "children": []
+        },
+        "\nFor further information, contact ICS."
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "ICS Completes 40 Day Outage At Palinpinon Geothermal On Time - H2O Cooling",
+    "meta": [
+      {
+        "name": "description",
+        "value": "ICS successfully completed the Palinpinon Unit 1 total turnkey demolition and rebuild project in 40 days at Energy Development Corporation's (EDC) Palinpinon"
+      },
+      {
+        "name": "robots",
+        "value": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      {
+        "name": "og:locale",
+        "value": "en_US"
+      },
+      {
+        "name": "og:type",
+        "value": "article"
+      },
+      {
+        "name": "og:title",
+        "value": "ICS Completes 40 Day Outage At Palinpinon Geothermal On Time - H2O Cooling"
+      },
+      {
+        "name": "og:description",
+        "value": "ICS successfully completed the Palinpinon Unit 1 total turnkey demolition and rebuild project in 40 days at Energy Development Corporation's (EDC) Palinpinon"
+      },
+      {
+        "name": "og:url",
+        "value": "https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/"
+      },
+      {
+        "name": "og:site_name",
+        "value": "New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "og:updated_time",
+        "value": "2025-03-11T01:49:56+00:00"
+      },
+      {
+        "name": "og:image",
+        "value": "http://h2ocooling.com/assets/P1000978-300x225.jpg"
+      },
+      {
+        "name": "og:image:alt",
+        "value": "ICS Completes 40 Day Outage At Palinpinon Geothermal On Time"
+      },
+      {
+        "name": "twitter:card",
+        "value": "summary_large_image"
+      },
+      {
+        "name": "twitter:title",
+        "value": "ICS Completes 40 Day Outage At Palinpinon Geothermal On Time - H2O Cooling"
+      },
+      {
+        "name": "twitter:description",
+        "value": "ICS successfully completed the Palinpinon Unit 1 total turnkey demolition and rebuild project in 40 days at Energy Development Corporation's (EDC) Palinpinon"
+      },
+      {
+        "name": "twitter:image",
+        "value": "http://h2ocooling.com/assets/P1000978-300x225.jpg"
+      },
+      {
+        "name": "twitter:label1",
+        "value": "Written by"
+      },
+      {
+        "name": "twitter:data1",
+        "value": "Tim Bozic"
+      },
+      {
+        "name": "twitter:label2",
+        "value": "Time to read"
+      },
+      {
+        "name": "twitter:data2",
+        "value": "Less than a minute"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/"
+    ],
+    "h1": [
+      "ICS Completes 40 Day Outage At Palinpinon Geothermal On Time"
+    ],
+    "schema": [
+      "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"Organization\", \"@id\": \"https://h2ocooling.com/#organization\", \"name\": \"Industrial Cooling Solutions\", \"url\": \"http://h2ocooling.com\", \"logo\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/#logo\", \"url\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"contentUrl\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"caption\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"inLanguage\": \"en-US\", \"width\": \"267\", \"height\": \"57\"}}, {\"@type\": \"WebSite\", \"@id\": \"https://h2ocooling.com/#website\", \"url\": \"https://h2ocooling.com\", \"name\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"inLanguage\": \"en-US\"}, {\"@type\": \"ImageObject\", \"@id\": \"http://h2ocooling.com/assets/Palinpinon-Site-300x200.jpg\", \"url\": \"http://h2ocooling.com/assets/Palinpinon-Site-300x200.jpg\", \"width\": \"200\", \"height\": \"200\", \"inLanguage\": \"en-US\"}, {\"@type\": \"BreadcrumbList\", \"@id\": \"https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/#breadcrumb\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": \"1\", \"item\": {\"@id\": \"https://h2ocooling.com\", \"name\": \"Home\"}}, {\"@type\": \"ListItem\", \"position\": \"2\", \"item\": {\"@id\": \"https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/\", \"name\": \"ICS Completes 40 Day Outage At Palinpinon Geothermal On Time\"}}]}, {\"@type\": \"WebPage\", \"@id\": \"https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/#webpage\", \"url\": \"https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/\", \"name\": \"ICS Completes 40 Day Outage At Palinpinon Geothermal On Time - H2O Cooling\", \"datePublished\": \"2012-04-03T20:33:15+00:00\", \"dateModified\": \"2025-03-11T01:49:56+00:00\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/#website\"}, \"primaryImageOfPage\": {\"@id\": \"http://h2ocooling.com/assets/Palinpinon-Site-300x200.jpg\"}, \"inLanguage\": \"en-US\", \"breadcrumb\": {\"@id\": \"https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/#breadcrumb\"}}, {\"@type\": \"Person\", \"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\", \"description\": \"Tim Bozic is a seasoned leader with over two decades of experience in the industrial and manufacturing sectors. As the President of Industrial Cooling Solutions, he specializes in driving innovation and operational excellence in cooling technologies, ensuring sustainable and efficient solutions for clients worldwide. With a proven track record in strategic planning, team leadership, and customer-focused growth, Tim is passionate about delivering cutting-edge solutions that meet the evolving needs of the industry.\", \"url\": \"https://h2ocooling.com/author/tbozic/\", \"image\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"url\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"caption\": \"Tim Bozic\", \"inLanguage\": \"en-US\"}, \"sameAs\": [\"https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/\", \"https://www.linkedin.com/in/tim-bozic-417a65a/\"], \"worksFor\": {\"@id\": \"https://h2ocooling.com/#organization\"}}, {\"@type\": \"BlogPosting\", \"headline\": \"ICS Completes 40 Day Outage At Palinpinon Geothermal On Time - H2O Cooling\", \"datePublished\": \"2012-04-03T20:33:15+00:00\", \"dateModified\": \"2025-03-11T01:49:56+00:00\", \"author\": {\"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\"}, \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"description\": \"ICS successfully completed the Palinpinon Unit 1 total turnkey demolition and rebuild project in 40 days at Energy Development Corporation&#039;s (EDC) Palinpinon\", \"name\": \"ICS Completes 40 Day Outage At Palinpinon Geothermal On Time - H2O Cooling\", \"@id\": \"https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/#richSnippet\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/#webpage\"}, \"image\": {\"@id\": \"http://h2ocooling.com/assets/Palinpinon-Site-300x200.jpg\"}, \"inLanguage\": \"en-US\", \"mainEntityOfPage\": {\"@id\": \"https://h2ocooling.com/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/#webpage\"}}]}"
+    ]
+  },
+  "images": [
+    {
+      "src": "https://h2ocooling.com/assets/P1000978-300x225.jpg",
+      "section": "live-body",
+      "order": 0,
+      "alt": ""
+    },
+    {
+      "src": "https://h2ocooling.com/assets/Palinpinon-Site-300x200.jpg",
+      "section": "live-body",
+      "order": 1,
+      "alt": ""
+    }
+  ]
+}

@@ -5,6 +5,8 @@ import {pageForSegments} from './cohort'
 import {RfqMount} from './RfqMount'
 import {contactOffices} from './contact'
 import {AuthorityEditorial} from './AuthorityEditorial'
+import {articleHeadingNodes} from './wave4'
+import {R2Discovery} from './R2Discovery'
 import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
 import {ProjectDetail} from './ProjectDetail'
 import {commerceException,commerceMetaException,ownerHref,ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
@@ -62,6 +64,7 @@ const priceSpecLabel=(node:Exclude<SalmonNode,string>,doc:SalmonDocument):string
 function sourceImage(source:string,alt:string|undefined,key:string,doc:SalmonDocument,kind='img'):ReactNode{
   const media=salmonMedia(source,doc.sourceUrl)
   const local=media&&salmonMediaPath(media)
+  if(!local&&doc.routeId.startsWith('LIVE-'))return <span key={key} className="r2-media-unavailable" role="img" aria-label={alt||'Historical source image unavailable'} data-source-src={source} data-source-media="UNAVAILABLE">Historical source image unavailable</span>
   if(!local)return null
   return createElement('img',{key,src:local,alt,'data-source-src':source,'data-source-kind':kind,'data-source-sha256':media.sha256,width:media.width,height:media.height,loading:'lazy',style:{maxWidth:media.width??'100%',height:'auto'}})
 }
@@ -171,7 +174,8 @@ export function SalmonCanonical({doc}:{doc:SalmonDocument}){
           </address>)}</div>
         </div>
       </section>
-    </main>:isEditorial?<AuthorityEditorial doc={doc}/>:doc.routeId==='SALMON-pages-1353'?<ProjectAuthorityIndex doc={doc}/>:doc.targetPath.startsWith('/all-projects/')?<ProjectDetail doc={doc}/>:<main className="shell article" id="main" data-salmon-region="body">{doc.children.map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</main>}
+    </main>:isEditorial?<AuthorityEditorial doc={doc}/>:doc.routeId==='SALMON-pages-1353'?<ProjectAuthorityIndex doc={doc}/>:doc.targetPath.startsWith('/all-projects/')?<ProjectDetail doc={doc}/>:<main className="shell article" id="main" data-salmon-region="body">{(doc.routeId==='SALMON-pages-5792'?articleHeadingNodes(doc.children):doc.children).map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</main>}
+    {doc.routeId==='SALMON-pages-1761'?<R2Discovery kind="pages"/>:null}
     {doc.targetPath==='/'?<section className="shell" data-owner-override="OWNER_TESTIMONIAL_AUTHORITY_OVERRIDE_2026_09_21"><Testimonials/></section>:null}
     <div className="luxury-site"><LuxuryFooter page={page}/></div>
   </div>

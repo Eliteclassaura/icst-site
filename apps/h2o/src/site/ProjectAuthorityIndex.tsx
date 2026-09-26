@@ -3,6 +3,7 @@ import path from 'node:path'
 import {salmonRoutes,salmonDocument,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {renderSalmonNode} from './SalmonCanonical'
 import {sourceIntroduction,sourceProjectName} from './AuthorityEditorial'
+import {R2Discovery} from './R2Discovery'
 
 function firstDescription(node:SalmonNode):string|undefined{
   if(typeof node==='string')return undefined
@@ -30,5 +31,6 @@ export function ProjectAuthorityIndex({doc}:{doc:SalmonDocument}){
     <nav className="authority-project-list" aria-label="Project detail records">{projects.map(({row,doc:project,summary},index)=><a href={row.path} key={row.routeId} data-project-source={row.routeId}>
       <span className="project-record-number">{String(index+1).padStart(2,'0')}</span><span className="project-record-body"><strong>{sourceProjectName(project)}</strong>{summary?<small>{summary}</small>:null}</span><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>
     </a>)}</nav>
+    <R2Discovery kind="projects"/>
   </main>
 }

@@ -1,0 +1,2302 @@
+{
+  "routeId": "LIVE-posts-2384",
+  "sourceUrl": "https://h2ocooling.com/guide-about-cooling-tower/",
+  "targetPath": "/guide-about-cooling-tower/",
+  "type": "posts",
+  "title": "A DETAILED GUIDE ABOUT COOLING TOWER",
+  "wordpressId": 2384,
+  "sourceIdentity": {
+    "status": 200,
+    "effectiveUrl": "https://h2ocooling.com/guide-about-cooling-tower/",
+    "sha256": "6efcb27f66d9ea79d01292fa95d3e725faff5b548e2c33a1aae7df6d8d7eb735",
+    "htmlSha256": "cbde74bd402cc4578275f4c1f570e59e233087a9406bfb9b63768db27baadcf5",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/posts/2384"
+  },
+  "publicationStatus": "publish",
+  "published": "2020-11-24T16:19:25",
+  "modified": "2025-03-06T11:28:31",
+  "text": "What is a Cooling Tower? A cooling tower is a heat exchanger which, through evaporation, removes heat from the water and that rejected heat energy is transferred to the atmosphere. The cooling process occurs when the hot water contacts the air drawn through the cooling tower, this reduces the temperature of the hot water.  To improve upon the efficiency of the cooling process, the effective surface area of the water running through the cooling tower is often increased by spraying, splashing or filming of the water to expose more of the water surface area to the air. Evaporative cooling is commonly seen when one steps out of the shower, the water drops still on your body evaporate quickly, leaving one with a cooling sensation.  When a person sweats on a hot summer day, it is to help the body cool down. Sweat glands release sweat onto the skin, which then evaporates and helps reduce the body’s internal temperature. Table of Contents Toggle How Do Cooling Towers Work? Where Are Cooling Towers Used? What Are The Different Types of Cooling Towers? Natural Drafts or Atmospheric Cooling Towers: Mechanical Draft: Induced Draft: Forced Draft: Counterflow Cooling Towers: Crossflow Cooling Towers: Cooling Tower Parts and Functions: Fill Distribution System Drift Eliminators Louvers Casing Fan, Motor, Driveshaft, and Speed Reducer Fan Stack Fan Deck Valves Collection Basin Distribution Basin Tower Structural Frame Factors Affecting Performance Cooling Range and Approach Wet-Bulb Temperature Consumer Heat Load Is a Cooling Tower Right for Your Business? How to Choose the Right Cooling Tower? Assess Your Cooling Needs Consider Energy Efficiency Evaluate Reliability and Lifespan How Do Cooling Towers Work? Large Cooling towers hot water intakes spray hot water, usually pumped through FRP or PVC pipe headers, over PVC fill media. The fill acts as a heat energy transfer enhancer by providing the maximum amount of water surface area to transfer heat. The water and the air passing through come together, creating evaporative cooling. There is a small amount of water loss through evaporation, which is the result of cooling down the water. The remaining water falls into a water basin to be reused or pumped back into the cooling system. The cooling towers ICS builds are custom heat exchangers to meet industrial customer needs. Where Are Cooling Towers Used? Cooling towers are often used in commercial and industrial applications, but in this section, we will focus on industrial applications. Power plants like biomass, gas – fired, nuclear, and geothermal power all use industrial cooling towers to cool-down processes. Additionally, petrochemicals, oil refineries, pulp and paper plants also use cooling towers to cool process water. What Are The Different Types of Cooling Towers? Natural Drafts or Atmospheric Cooling Towers: This type of cooling tower does not require mechanical components to operate, instead, the hot water is sprayed and the airflow through the tower is produced by the density difference between the less dense air inside the cooling tower stack and the more dense air outside the tower. The natural draft cooling tower can be designed and erected as counterflow or crossflow as well. Mechanical Draft: Mechanical draft cooling towers are categorized into an induced or forced draft cooling tower type. These types of towers are usually driven by motors coupled to gear reducers connected to axial fans. It is common to see the water cooled systems with a single fan but there are cases where the need of two fans per cell is required to meet the airflow volume. Induced Draft: These types of large cooling towers have axial fans on top of the cell. The fans move the air by suction instead of forcing (pushing) the airflow through the cooling tower. These types of cooling towers have air discharge velocity higher than the entrance velocity. Because of the high discharge velocity, the induced draft cooling towers are less probable to experience recirculation. Forced Draft: These types are characterized by high airspeed at the air inlet (entrance) and low exit velocities. This makes them susceptible to recirculation and therefore are considered less efficient. Additionally, due to the location of the fans, these types are subject to developing severe icing during the winter months. Induced and forced draft cooling towers can be built in counterflow or crossflow configurations. Counterflow Cooling Towers: Air moves vertically upward, entering the cooling tower through the air inlets, then passing through the fill and counter to the down spray of the hot water. Due to the enclosed nature of these types of cooling towers, water is not exposed to the environment; thereby retarding the growth of algae. Crossflow Cooling Towers: On this type of cooling towers, air moves through the fill positioned horizontally across the downward fall of water. The hot water is poured into hot water basins located at the top of the fill and it is distributed by gravity through nozzles on the floor of the hot water basins. Cooling Tower Parts and Functions: Cooling tower components can be categorized into structural, mechanical, and electrical parts. Structural components are stationary elements like the basin, tower framework, fan deck, casing, and louvers. Mechanical parts consist of moving equipment such as fans, driveshafts, and speed reducers. Electrical parts include motors and their controls. Fill Also known as wet deck or surface, fill increases the surface area within the cooling tower, optimizing contact time between air and water while minimizing airflow restriction. Distribution System The distribution system varies based on the cooling tower’s air-to-water flow type. Cross-flow towers use a gravity-flow distribution system where water is elevated above the fill. Counter-flow towers employ pressurized water spray systems. Drift Eliminators These components prevent water droplets from escaping by altering the path of the air stream. As the air passes through, larger water droplets hit the eliminator walls and fall back into the tower. Louvers Air intake louvers prevent water splash-out, noise, and debris. Common in cross-flow towers, they are located above the cold water basin and around the fill-packed bottom panel. Casing The casing provides housing, transmits loads to the tower frame, and contains water within the cooling tower. Fan, Motor, Driveshaft, and Speed Reducer Fans drive air through the cooling tower, with the motor acting as the primary driver. The driveshaft transfers torque from the motor to the fan or gearbox. Gearboxes in large towers increase torque, allowing for smaller motors and reducing structural requirements. Sometimes, belt and pulley assemblies replace gearboxes. Fan Stack Also known as the fan cylinder or cover, the fan stack improves fan efficiency by shaping the air inlet for smooth airflow and aiding in the discharge of air at higher elevations to minimize recirculation. Fan Deck This structure supports the fan cylinders and helps transmit loads throughout the tower frame. Valves Valves control water levels within the cooling tower. Types include: · Isolation Valves: Regulate flow from a multi-riser tower or isolate a tower cell for maintenance. · Flow-Control Valves: Equalize flow from different distribution basins or water levels in multi-cell towers. · Make-Up Regulator Valves: Automatically add water to compensate for losses due to evaporation, drift, and blowdown. Collection Basin Located at the tower’s base, the collection basin gathers water that hasn’t evaporated or been lost to drift, often serving as the tower’s foundation and the site for chemical treatments. Distribution Basin In cross-flow towers, this deep pan or small basin, equipped with holes or nozzles, distributes hot water evenly across the fill material using gravity. Tower Structural Frame The frame supports the entire cooling tower and transmits all loads to the foundation. Common materials for the frame include concrete and wood, with fiberglass and stainless steel also frequently used. Factors Affecting Performance When designing a cooling tower, numerous factors need to be considered, including psychrometry and heat and mass balance. Beyond analyzing the properties of air and water entering and exiting the system, it’s essential to evaluate the physical characteristics of the tower, such as its ability to create a natural draft, structural integrity, and susceptibility to fouling and corrosion. This chapter focuses on common parameters that impact cooling tower performance. Cooling Range and Approach The range is defined as the temperature difference between the water entering (CW return) and leaving (CW supply) the tower. The approach is the difference between the temperature of the water leaving the tower and the wet-bulb temperature of the air entering. Cooling tower efficiency is calculated using the formula: Cooling tower efficiency=CW return temperature−CW supply temperatureCW return temperature−Air wet-bulb temperature×100%\\text{Cooling tower efficiency} = \\frac{\\text{CW return temperature} – \\text{CW supply temperature}}{\\text{CW return temperature} – \\text{Air wet-bulb temperature}} \\times 100\\%Cooling tower efficiency=CW return temperature−Air wet-bulb temperatureCW return temperature−CW supply temperature​×100% This can also be expressed as: Cooling tower system efficiency=RangeRange+Approach×100%\\text{Cooling tower efficiency} = \\frac{\\text{Range}}{\\text{Range} + \\text{Approach}} \\times 100\\%Cooling tower efficiency=Range+ApproachRange​×100% From these formulas, it is evident that a cooling tower with a smaller approach is more efficient. Typically, water cooling towers have a 5 to 10°F approach. While a smaller approach is desirable, the investment cost may become impractical since the size of the cooling tower increases exponentially as the approach decreases. The range and cooling water flow rate are usually balanced parameters, as the heat load is determined by consumer demand, and the ambient air wet-bulb temperature cannot be controlled. Increasing the range improves cooling tower efficiency, which can be achieved by raising the cooling water return temperature or lowering the cooling water supply temperature. Generally, one temperature remains constant due to end-user requirements. Increasing the cooling water return temperature is more practical, as the larger temperature difference between air and water in contact allows more heat to dissipate. If lowering the cooling water supply temperature is the only option, the approach will also be lowered, necessitating a much larger tower. Wet-Bulb Temperature This is a crucial parameter for delta cooling towers that rely on evaporative cooling. Design wet-bulb temperatures are based on site conditions, making careful site surveys essential, especially during summer when ambient temperature and relative humidity are high. Designers should refer to publications from organizations like the American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE) and the National Oceanic and Atmospheric Administration for the worst-case design conditions for a specific location. A high ambient wet-bulb temperature decreases the approach, requiring larger cooling towers in areas with high wet-bulb temperatures for a given cooling load. Consumer Heat Load The size and cost of a cooling tower are proportional to the heat load. Cooling towers are usually designed to meet the maximum consumer heat load or cooling demand, which sets the rated capacity of the cooling tower. However, during periods of low demand, the tower operates at lower efficiency. To save energy, one method is to use fan speed control. Higher air velocity increases the heat transfer rate. If less heat transfer or evaporative cooling is needed, fan speeds can be reduced using variable speed drive motors, two- or three-speed fan motors, and adjustable pitch fan blades. Another option is to design a multi-cell cooling tower, where one cell can be on standby during off-hours or low demand periods. Is a Cooling Tower Right for Your Business? Deciding whether to invest in a cooling tower hinges on several critical factors. First, consider your business’s heat load. Does your operation generate significant heat? Businesses such as data centers, shopping malls, or large office buildings can benefit greatly from cooling towers. Next, evaluate your existing HVAC system. If it includes components like chillers or heat exchangers that are compatible with a draft cooling tower, installation is more feasible. Otherwise, the cost of replacing the entire system may make this option impractical. Finally, the financial aspect is crucial. Factory assembled Cooling towers come with a high installation cost. If your budget can accommodate this initial investment and you seek long-term savings, a cooling tower could be a worthwhile choice. How to Choose the Right Cooling Tower? Selecting the right cooling tower for your commercial building involves a thorough analysis of your needs and resources. This process ensures you choose a system that is efficient, reliable, and suitable for your specific requirements. Assess Your Cooling Needs The first step in choosing a cooling tower is to assess your cooling needs. Key factors to consider include: Heat Load: Determine the amount of heat your facility generates. High heat loads, common in data centers, shopping malls, and large office buildings, necessitate a robust cooling system. Water Quality: Evaluate the quality of water available for cooling purposes. Poor water quality can affect the efficiency and longevity of the cooling tower. Environmental Conditions: Consider the climate and weather conditions in your area. These factors influence the cooling tower’s performance and operational costs. This analysis will guide you in selecting the appropriate type and size of cooling tower. Most commercial buildings typically use either forced draft or induced draft cooling towers, each offering distinct advantages depending on your specific needs. Consider Energy Efficiency Energy efficiency is a crucial consideration when selecting a cooling tower. Key points to keep in mind include: Efficiency Variability: Not all cooling towers offer the same level of efficiency. More efficient models often come with a higher initial cost. Cost-Benefit Analysis: It’s important to find a balance between upfront costs and long-term savings. Investing in a more efficient cooling tower can lead to substantial energy savings over time, reducing overall operational costs. By prioritizing energy efficiency, you can achieve significant financial benefits and reduce your environmental footprint. Evaluate Reliability and Lifespan The reliability and lifespan of a cooling tower are vital factors that impact its long-term viability. Consider the following: Maintenance Requirements: Regular maintenance is essential to ensure the cooling tower operates effectively and to prevent issues such as legionella growth. Assess whether you have the necessary resources and commitment to perform ongoing maintenance. Durability and Longevity: Reliable cooling towers, although potentially more expensive initially, offer better performance and a longer service life. This can result in overall cost savings and improved operational stability. Ensuring that your cooling tower is both reliable and long-lasting will contribute to the efficient and uninterrupted operation of your facility. Conclusion By thoroughly assessing your cooling needs, considering energy efficiency, and evaluating the reliability and lifespan of potential cooling towers, you can make an informed decision that best meets your business’s requirements. A well-chosen cooling tower will enhance your building’s operational efficiency, reduce costs, and provide a reliable cooling solution for years to come. Whether you need to repair , upgrade or rebuild your tower , we customize solutions to restore your tower to its optimal condition and operational performance. Our innovative designs will increase tower efficiency, boost profitability, and ensure safety and longevity. Contact us today to request a quote!",
+  "children": [
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "What is a Cooling Tower? A cooling tower is a heat exchanger which, through evaporation, removes heat from the water and that rejected heat energy is transferred to the atmosphere."
+      ]
+    },
+    "\n",
+    {
+      "tag": "figure",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "img",
+          "attrs": {
+            "alt": "industrial processes and industrial facilities realted to induced draft cooling tower",
+            "src": "https://lh7-us.googleusercontent.com/Ro2cQ7Nr5R9pNmWLXhvrQY8qT8Dr6oU5dIDytHQXnLpc6EGolKw-8KCNxM0rdf5bpG3jc-FeRQJtCyvAvTXNNOFT4LMtLQj94jGjkBXdZHHBgHrWgcUTc73EMkNPSBub41xWh40Je-f7YPmF7Lh_At4"
+          },
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "The cooling process occurs when the hot water contacts the air drawn through the cooling tower, this reduces the temperature of the hot water.  To improve upon the efficiency of the cooling process, the effective surface area of the water running through the cooling tower is often increased by spraying, splashing or filming of the water to expose more of the water surface area to the air."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Evaporative cooling is commonly seen when one steps out of the shower, the water drops still on your body evaporate quickly, leaving one with a cooling sensation.  When a person sweats on a hot summer day, it is to help the body cool down. Sweat glands release sweat onto the skin, which then evaporates and helps reduce the body’s internal temperature."
+      ]
+    },
+    "\n",
+    {
+      "tag": "div",
+      "attrs": {
+        "id": "ez-toc-container"
+      },
+      "children": [
+        "\n",
+        {
+          "tag": "div",
+          "attrs": {},
+          "children": [
+            "\n",
+            {
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                "Table of Contents"
+              ]
+            },
+            "\n",
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "a",
+                  "attrs": {
+                    "href": "#"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                "Toggle"
+                              ]
+                            },
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "\n",
+        {
+          "tag": "nav",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "ul",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/guide-about-cooling-tower/#How_Do_Cooling_Towers_Work"
+                      },
+                      "children": [
+                        "How Do Cooling Towers Work?"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/guide-about-cooling-tower/#Where_Are_Cooling_Towers_Used"
+                      },
+                      "children": [
+                        "Where Are Cooling Towers Used?"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/guide-about-cooling-tower/#What_Are_The_Different_Types_of_Cooling_Towers"
+                      },
+                      "children": [
+                        "What Are The Different Types of Cooling Towers?"
+                      ]
+                    },
+                    {
+                      "tag": "ul",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Natural_Drafts_or_Atmospheric_Cooling_Towers"
+                              },
+                              "children": [
+                                "Natural Drafts or Atmospheric Cooling Towers: "
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Mechanical_Draft"
+                              },
+                              "children": [
+                                "Mechanical Draft: "
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Induced_Draft"
+                              },
+                              "children": [
+                                "Induced Draft: "
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Forced_Draft"
+                              },
+                              "children": [
+                                "Forced Draft: "
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Counterflow_Cooling_Towers"
+                              },
+                              "children": [
+                                "Counterflow Cooling Towers: "
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Crossflow_Cooling_Towers"
+                              },
+                              "children": [
+                                "Crossflow Cooling Towers: "
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/guide-about-cooling-tower/#Cooling_Tower_Parts_and_Functions"
+                      },
+                      "children": [
+                        "Cooling Tower Parts and Functions:"
+                      ]
+                    },
+                    {
+                      "tag": "ul",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Fill"
+                              },
+                              "children": [
+                                "Fill"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Distribution_System"
+                              },
+                              "children": [
+                                "Distribution System"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Drift_Eliminators"
+                              },
+                              "children": [
+                                "Drift Eliminators"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Louvers"
+                              },
+                              "children": [
+                                "Louvers"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Casing"
+                              },
+                              "children": [
+                                "Casing"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Fan_Motor_Driveshaft_and_Speed_Reducer"
+                              },
+                              "children": [
+                                "Fan, Motor, Driveshaft, and Speed Reducer"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Fan_Stack"
+                              },
+                              "children": [
+                                "Fan Stack"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Fan_Deck"
+                              },
+                              "children": [
+                                "Fan Deck"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Valves"
+                              },
+                              "children": [
+                                "Valves"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Collection_Basin"
+                              },
+                              "children": [
+                                "Collection Basin"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Distribution_Basin"
+                              },
+                              "children": [
+                                "Distribution Basin"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Tower_Structural_Frame"
+                              },
+                              "children": [
+                                "Tower Structural Frame"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/guide-about-cooling-tower/#Factors_Affecting_Performance"
+                      },
+                      "children": [
+                        "Factors Affecting Performance"
+                      ]
+                    },
+                    {
+                      "tag": "ul",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Cooling_Range_and_Approach"
+                              },
+                              "children": [
+                                "Cooling Range and Approach"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Wet-Bulb_Temperature"
+                              },
+                              "children": [
+                                "Wet-Bulb Temperature"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Consumer_Heat_Load"
+                              },
+                              "children": [
+                                "Consumer Heat Load"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/guide-about-cooling-tower/#Is_a_Cooling_Tower_Right_for_Your_Business"
+                      },
+                      "children": [
+                        "Is a Cooling Tower Right for Your Business?"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/guide-about-cooling-tower/#How_to_Choose_the_Right_Cooling_Tower"
+                      },
+                      "children": [
+                        "How to Choose the Right Cooling Tower?"
+                      ]
+                    },
+                    {
+                      "tag": "ul",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Assess_Your_Cooling_Needs"
+                              },
+                              "children": [
+                                "Assess Your Cooling Needs"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Consider_Energy_Efficiency"
+                              },
+                              "children": [
+                                "Consider Energy Efficiency"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/guide-about-cooling-tower/#Evaluate_Reliability_and_Lifespan"
+                              },
+                              "children": [
+                                "Evaluate Reliability and Lifespan"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "How_Do_Cooling_Towers_Work"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "How Do Cooling Towers Work?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "figure",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "img",
+          "attrs": {
+            "width": "1024",
+            "height": "538",
+            "src": "https://h2ocooling.com/wp-content/uploads/2024/05/How-Do-Cooling-Towers-Work-min-1024x538.jpg",
+            "alt": "Cooling Tower"
+          },
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Large Cooling towers hot water intakes spray hot water, usually pumped through FRP or PVC pipe headers, over PVC fill media. The fill acts as a heat energy transfer enhancer by providing the maximum amount of water surface area to transfer heat. The water and the air passing through come together, creating evaporative cooling. There is a small amount of water loss through evaporation, which is the result of cooling down the water. The remaining water falls into a water basin to be reused or pumped back into the cooling system. The cooling towers ICS builds are custom heat exchangers to meet industrial customer needs."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Where_Are_Cooling_Towers_Used"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Where Are Cooling Towers Used?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Cooling towers are often used in commercial and industrial applications, but in this section, we will focus on industrial applications."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Power plants like biomass, gas – fired, nuclear, and geothermal power all use industrial cooling towers to cool-down processes. Additionally, petrochemicals, oil refineries, pulp and paper plants also use cooling towers to cool process water."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "What_Are_The_Different_Types_of_Cooling_Towers"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "What Are The Different Types of Cooling Towers?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "figure",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "img",
+          "attrs": {
+            "alt": "specialized heat exchanger and water treatment chemicals in hvac systems",
+            "src": "https://lh7-us.googleusercontent.com/Mjsm0pzVrbVLdlxCoFzKs081JspsdlvzXxgB8-bcF6hh2HvkBH-ywzjA7xtvVAPziqNqPmD5JOTd6QWWCvwh3OLEytDh_ld_Rpbh1oSCfu0SNGkT90gS40S5cYJ8t2-OwLDA4xz0ubiXZhb9zXPdPrQ"
+          },
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Natural_Drafts_or_Atmospheric_Cooling_Towers"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Natural Drafts or Atmospheric Cooling Towers: "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "This type of cooling tower does not require mechanical components to operate, instead, the hot water is sprayed and the airflow through the tower is produced by the density difference between the less dense air inside the cooling tower stack and the more dense air outside the tower.",
+        {
+          "tag": "br",
+          "attrs": {},
+          "children": []
+        },
+        "The natural draft ",
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://en.wikipedia.org/wiki/Cooling_tower"
+          },
+          "children": [
+            "cooling tower"
+          ]
+        },
+        " can be designed and erected as counterflow or crossflow as well."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Mechanical_Draft"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Mechanical Draft: "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Mechanical draft cooling towers are categorized into an induced or forced draft cooling tower type. These types of towers are usually driven by motors coupled to gear reducers connected to axial fans. It is common to see the water cooled systems with a single fan but there are cases where the need of two fans per cell is required to meet the airflow volume."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Induced_Draft"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Induced Draft: "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "These types of large cooling towers have axial fans on top of the cell. The fans move the air by suction instead of forcing (pushing) the airflow through the cooling tower. These types of cooling towers have air discharge velocity higher than the entrance velocity. Because of the high discharge velocity, the induced draft cooling towers are less probable to experience recirculation."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Forced_Draft"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Forced Draft: "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "These types are characterized by high airspeed at the air inlet (entrance) and low exit velocities. This makes them susceptible to recirculation and therefore are considered less efficient. Additionally, due to the location of the fans, these types are subject to developing severe icing during the winter months."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Induced and forced draft cooling towers can be built in counterflow or crossflow configurations."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Counterflow_Cooling_Towers"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Counterflow Cooling Towers: "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Air moves vertically upward, entering the cooling tower through the air inlets, then passing through the fill and counter to the down spray of the hot water. Due to the enclosed nature of these types of cooling towers, water is not exposed to the environment; thereby retarding the growth of algae."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Crossflow_Cooling_Towers"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Crossflow Cooling Towers: "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "On this type of cooling towers, air moves through the fill positioned horizontally across the downward fall of water. The hot water is poured into hot water basins located at the top of the fill and it is distributed by gravity through nozzles on the floor of the hot water basins."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Cooling_Tower_Parts_and_Functions"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Cooling Tower Parts and Functions:"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Cooling tower components can be categorized into structural, mechanical, and electrical parts. Structural components are stationary elements like the basin, tower framework, fan deck, casing, and louvers. Mechanical parts consist of moving equipment such as fans, driveshafts, and speed reducers. Electrical parts include motors and their controls."
+      ]
+    },
+    "\n",
+    {
+      "tag": "figure",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "img",
+          "attrs": {
+            "width": "1024",
+            "height": "538",
+            "alt": "Cooling Tower Parts and Functions",
+            "src": "https://h2ocooling.com/wp-content/uploads/2024/05/Cooling-Tower-Parts-and-Functions-min-1024x538.jpg"
+          },
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Fill"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Fill"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Also known as wet deck or surface, fill increases the surface area within the cooling tower, optimizing contact time between air and water while minimizing airflow restriction."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Distribution_System"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Distribution System"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "The distribution system varies based on the cooling tower’s air-to-water flow type. Cross-flow towers use a gravity-flow distribution system where water is elevated above the fill. Counter-flow towers employ pressurized water spray systems."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Drift_Eliminators"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Drift Eliminators"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "These components prevent water droplets from escaping by altering the path of the air stream. As the air passes through, larger water droplets hit the eliminator walls and fall back into the tower."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Louvers"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Louvers"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "figure",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "img",
+          "attrs": {
+            "width": "1024",
+            "height": "538",
+            "alt": "Cooling Tower Louvers",
+            "src": "https://h2ocooling.com/wp-content/uploads/2024/05/Cooling-Tower-Louvers-min-1024x538.jpg"
+          },
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Air intake louvers prevent water splash-out, noise, and debris. Common in cross-flow towers, they are located above the cold water basin and around the fill-packed bottom panel."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Casing"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Casing"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            }
+          ]
+        },
+        "The casing provides housing, transmits loads to the tower frame, and contains water within the cooling tower."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Fan_Motor_Driveshaft_and_Speed_Reducer"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Fan, Motor, Driveshaft, and Speed Reducer"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Fans drive air through the cooling tower, with the motor acting as the primary driver. The driveshaft transfers torque from the motor to the fan or gearbox. Gearboxes in large towers increase torque, allowing for smaller motors and reducing structural requirements. Sometimes, belt and pulley assemblies replace gearboxes."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Fan_Stack"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Fan Stack"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Also known as the fan cylinder or cover, the fan stack improves fan efficiency by shaping the air inlet for smooth airflow and aiding in the discharge of air at higher elevations to minimize recirculation."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Fan_Deck"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Fan Deck"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "This structure supports the fan cylinders and helps transmit loads throughout the tower frame."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Valves"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Valves"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            }
+          ]
+        },
+        "Valves control water levels within the cooling tower. Types include:"
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "·     ",
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Isolation Valves:"
+          ]
+        },
+        " Regulate flow from a multi-riser tower or isolate a tower cell for maintenance."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "·     ",
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Flow-Control Valves:"
+          ]
+        },
+        " Equalize flow from different distribution basins or water levels in multi-cell towers."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "·     ",
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Make-Up Regulator Valves:"
+          ]
+        },
+        " Automatically add water to compensate for losses due to evaporation, drift, and blowdown."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Collection_Basin"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Collection Basin"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Located at the tower’s base, the collection basin gathers water that hasn’t evaporated or been lost to drift, often serving as the tower’s foundation and the site for chemical treatments."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Distribution_Basin"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Distribution Basin"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "In cross-flow towers, this deep pan or small basin, equipped with holes or nozzles, distributes hot water evenly across the fill material using gravity."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Tower_Structural_Frame"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Tower Structural Frame"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "The frame supports the entire cooling tower and transmits all loads to the foundation. Common materials for the frame include concrete and wood, with fiberglass and stainless steel also frequently used."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Factors_Affecting_Performance"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Factors Affecting Performance"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "When designing a cooling tower, numerous factors need to be considered, including psychrometry and heat and mass balance. Beyond analyzing the properties of air and water entering and exiting the system, it’s essential to evaluate the physical characteristics of the tower, such as its ability to create a natural draft, structural integrity, and susceptibility to fouling and corrosion. This chapter focuses on common parameters that impact cooling tower performance."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Cooling_Range_and_Approach"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Cooling Range and Approach"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "The range is defined as the temperature difference between the water entering (CW return) and leaving (CW supply) the tower. The approach is the difference between the temperature of the water leaving the tower and the wet-bulb temperature of the air entering. Cooling tower efficiency is calculated using the formula:"
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Cooling tower efficiency=CW return temperature−CW supply temperatureCW return temperature−Air wet-bulb temperature×100%\\text{Cooling tower efficiency} = \\frac{\\text{CW return temperature} – \\text{CW supply temperature}}{\\text{CW return temperature} – \\text{Air wet-bulb temperature}} \\times 100\\%Cooling tower efficiency=CW return temperature−Air wet-bulb temperatureCW return temperature−CW supply temperature​×100%"
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "This can also be expressed as:"
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Cooling tower system efficiency=RangeRange+Approach×100%\\text{Cooling tower efficiency} = \\frac{\\text{Range}}{\\text{Range} + \\text{Approach}} \\times 100\\%Cooling tower efficiency=Range+ApproachRange​×100%"
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "From these formulas, it is evident that a cooling tower with a smaller approach is more efficient. Typically, water cooling towers have a 5 to 10°F approach. While a smaller approach is desirable, the investment cost may become impractical since the size of the cooling tower increases exponentially as the approach decreases."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "The range and cooling water flow rate are usually balanced parameters, as the heat load is determined by consumer demand, and the ambient air wet-bulb temperature cannot be controlled. Increasing the range improves cooling tower efficiency, which can be achieved by raising the cooling water return temperature or lowering the cooling water supply temperature. Generally, one temperature remains constant due to end-user requirements. Increasing the cooling water return temperature is more practical, as the larger temperature difference between air and water in contact allows more heat to dissipate."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "If lowering the cooling water supply temperature is the only option, the approach will also be lowered, necessitating a much larger tower."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Wet-Bulb_Temperature"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Wet-Bulb Temperature"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "This is a crucial parameter for delta cooling towers that rely on evaporative cooling. Design wet-bulb temperatures are based on site conditions, making careful site surveys essential, especially during summer when ambient temperature and relative humidity are high. Designers should refer to publications from organizations like the American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE) and the National Oceanic and Atmospheric Administration for the worst-case design conditions for a specific location."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "A high ambient wet-bulb temperature decreases the approach, requiring larger cooling towers in areas with high wet-bulb temperatures for a given cooling load."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Consumer_Heat_Load"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Consumer Heat Load"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "The size and cost of a cooling tower are proportional to the heat load. Cooling towers are usually designed to meet the maximum consumer heat load or cooling demand, which sets the rated capacity of the cooling tower. However, during periods of low demand, the tower operates at lower efficiency."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "To save energy, one method is to use fan speed control. Higher air velocity increases the heat transfer rate. If less heat transfer or evaporative cooling is needed, fan speeds can be reduced using variable speed drive motors, two- or three-speed fan motors, and adjustable pitch fan blades. Another option is to design a multi-cell cooling tower, where one cell can be on standby during off-hours or low demand periods."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Is_a_Cooling_Tower_Right_for_Your_Business"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Is a Cooling Tower Right for Your Business?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "figure",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "img",
+          "attrs": {
+            "width": "1024",
+            "height": "538",
+            "alt": "Cooling Tower Right for Your Business",
+            "src": "https://h2ocooling.com/wp-content/uploads/2024/05/Is-a-Cooling-Tower-Right-for-Your-Business-min-1024x538.jpg"
+          },
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Deciding whether to invest in a cooling tower hinges on several critical factors."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "First, consider your business’s heat load. Does your operation generate significant heat? Businesses such as data centers, shopping malls, or large office buildings can benefit greatly from cooling towers."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Next, evaluate your existing HVAC system. If it includes components like chillers or heat exchangers that are compatible with a draft cooling tower, installation is more feasible. Otherwise, the cost of replacing the entire system may make this option impractical."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Finally, the financial aspect is crucial. Factory assembled Cooling towers come with a high installation cost. If your budget can accommodate this initial investment and you seek long-term savings, a cooling tower could be a worthwhile choice."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "How_to_Choose_the_Right_Cooling_Tower"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "How to Choose the Right Cooling Tower?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Selecting the right cooling tower for your commercial building involves a thorough analysis of your needs and resources. This process ensures you choose a system that is efficient, reliable, and suitable for your specific requirements."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Assess_Your_Cooling_Needs"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Assess Your Cooling Needs"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "The first step in choosing a cooling tower is to assess your cooling needs. Key factors to consider include:"
+      ]
+    },
+    "\n",
+    {
+      "tag": "ul",
+      "attrs": {},
+      "children": [
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Heat Load:"
+              ]
+            },
+            " Determine the amount of heat your facility generates. High heat loads, common in data centers, shopping malls, and large office buildings, necessitate a robust cooling system."
+          ]
+        },
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Water Quality:"
+              ]
+            },
+            " Evaluate the quality of water available for cooling purposes. Poor water quality can affect the efficiency and longevity of the cooling tower."
+          ]
+        },
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Environmental Conditions:"
+              ]
+            },
+            " Consider the climate and weather conditions in your area. These factors influence the cooling tower’s performance and operational costs."
+          ]
+        },
+        "\n"
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "This analysis will guide you in selecting the appropriate type and size of cooling tower. Most commercial buildings typically use either forced draft or induced draft cooling towers, each offering distinct advantages depending on your specific needs."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Consider_Energy_Efficiency"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Consider Energy Efficiency"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Energy efficiency is a crucial consideration when selecting a cooling tower. Key points to keep in mind include:"
+      ]
+    },
+    "\n",
+    {
+      "tag": "ul",
+      "attrs": {},
+      "children": [
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Efficiency Variability:"
+              ]
+            },
+            " Not all cooling towers offer the same level of efficiency. More efficient models often come with a higher initial cost."
+          ]
+        },
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Cost-Benefit Analysis:"
+              ]
+            },
+            " It’s important to find a balance between upfront costs and long-term savings. Investing in a more efficient cooling tower can lead to substantial energy savings over time, reducing overall operational costs."
+          ]
+        },
+        "\n"
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "By prioritizing energy efficiency, you can achieve significant financial benefits and reduce your environmental footprint."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Evaluate_Reliability_and_Lifespan"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Evaluate Reliability and Lifespan"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "The reliability and lifespan of a cooling tower are vital factors that impact its long-term viability. Consider the following:"
+      ]
+    },
+    "\n",
+    {
+      "tag": "ul",
+      "attrs": {},
+      "children": [
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Maintenance Requirements:"
+              ]
+            },
+            " Regular maintenance is essential to ensure the cooling tower operates effectively and to prevent issues such as legionella growth. Assess whether you have the necessary resources and commitment to perform ongoing maintenance."
+          ]
+        },
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Durability and Longevity:"
+              ]
+            },
+            " Reliable cooling towers, although potentially more expensive initially, offer better performance and a longer service life. This can result in overall cost savings and improved operational stability."
+          ]
+        },
+        "\n"
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Ensuring that your cooling tower is both reliable and long-lasting will contribute to the efficient and uninterrupted operation of your facility."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h4",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Conclusion"
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "By thoroughly assessing your cooling needs, considering energy efficiency, and evaluating the reliability and lifespan of potential cooling towers, you can make an informed decision that best meets your business’s requirements. A well-chosen cooling tower will enhance your building’s operational efficiency, reduce costs, and provide a reliable cooling solution for years to come."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Whether you need to ",
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://h2ocooling.com/cooling-tower-repair-upgrade-maintenance/"
+          },
+          "children": [
+            "repair"
+          ]
+        },
+        ", upgrade or ",
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://h2ocooling.com/cooling-tower/"
+          },
+          "children": [
+            "rebuild your tower"
+          ]
+        },
+        ", we customize solutions to restore your tower to its optimal condition and operational performance. Our innovative designs will increase tower efficiency, boost profitability, and ensure safety and longevity. ",
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://h2ocooling.com/contact/"
+          },
+          "children": [
+            "Contact us today to request a quote!"
+          ]
+        }
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "What is a Cooling Tower? - H2O Cooling - ICS",
+    "meta": [
+      {
+        "name": "description",
+        "value": "What is a Cooling Tower? A cooling tower is a heat exchanger which, through evaporation, removes heat from the water and that rejected heat is transferred to the atmosphere."
+      },
+      {
+        "name": "robots",
+        "value": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      {
+        "name": "og:locale",
+        "value": "en_US"
+      },
+      {
+        "name": "og:type",
+        "value": "article"
+      },
+      {
+        "name": "og:title",
+        "value": "What is a Cooling Tower? - H2O Cooling - ICS"
+      },
+      {
+        "name": "og:description",
+        "value": "What is a Cooling Tower? A cooling tower is a heat exchanger which, through evaporation, removes heat from the water and that rejected heat is transferred to the atmosphere."
+      },
+      {
+        "name": "og:url",
+        "value": "https://h2ocooling.com/guide-about-cooling-tower/"
+      },
+      {
+        "name": "og:site_name",
+        "value": "New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "og:updated_time",
+        "value": "2025-03-06T11:28:31+00:00"
+      },
+      {
+        "name": "og:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2024/05/A-DETAILED-GUIDE-ABOUT-COOLING-TOWER-min.jpg"
+      },
+      {
+        "name": "og:image:secure_url",
+        "value": "https://h2ocooling.com/wp-content/uploads/2024/05/A-DETAILED-GUIDE-ABOUT-COOLING-TOWER-min.jpg"
+      },
+      {
+        "name": "og:image:width",
+        "value": "1200"
+      },
+      {
+        "name": "og:image:height",
+        "value": "630"
+      },
+      {
+        "name": "og:image:alt",
+        "value": "GUIDE ABOUT COOLING TOWER"
+      },
+      {
+        "name": "og:image:type",
+        "value": "image/jpeg"
+      },
+      {
+        "name": "twitter:card",
+        "value": "summary_large_image"
+      },
+      {
+        "name": "twitter:title",
+        "value": "What is a Cooling Tower? - H2O Cooling - ICS"
+      },
+      {
+        "name": "twitter:description",
+        "value": "What is a Cooling Tower? A cooling tower is a heat exchanger which, through evaporation, removes heat from the water and that rejected heat is transferred to the atmosphere."
+      },
+      {
+        "name": "twitter:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2024/05/A-DETAILED-GUIDE-ABOUT-COOLING-TOWER-min.jpg"
+      },
+      {
+        "name": "twitter:label1",
+        "value": "Written by"
+      },
+      {
+        "name": "twitter:data1",
+        "value": "Tim Bozic"
+      },
+      {
+        "name": "twitter:label2",
+        "value": "Time to read"
+      },
+      {
+        "name": "twitter:data2",
+        "value": "12 minutes"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/guide-about-cooling-tower/"
+    ],
+    "h1": [
+      "A DETAILED GUIDE ABOUT COOLING TOWER"
+    ],
+    "schema": [
+      "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"Organization\", \"@id\": \"https://h2ocooling.com/#organization\", \"name\": \"Industrial Cooling Solutions\", \"url\": \"http://h2ocooling.com\", \"logo\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/#logo\", \"url\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"contentUrl\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"caption\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"inLanguage\": \"en-US\", \"width\": \"267\", \"height\": \"57\"}}, {\"@type\": \"WebSite\", \"@id\": \"https://h2ocooling.com/#website\", \"url\": \"https://h2ocooling.com\", \"name\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"inLanguage\": \"en-US\"}, {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/wp-content/uploads/2024/05/A-DETAILED-GUIDE-ABOUT-COOLING-TOWER-min.jpg\", \"url\": \"https://h2ocooling.com/wp-content/uploads/2024/05/A-DETAILED-GUIDE-ABOUT-COOLING-TOWER-min.jpg\", \"width\": \"1200\", \"height\": \"630\", \"caption\": \"GUIDE ABOUT COOLING TOWER\", \"inLanguage\": \"en-US\"}, {\"@type\": \"BreadcrumbList\", \"@id\": \"https://h2ocooling.com/guide-about-cooling-tower/#breadcrumb\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": \"1\", \"item\": {\"@id\": \"https://h2ocooling.com\", \"name\": \"Home\"}}, {\"@type\": \"ListItem\", \"position\": \"2\", \"item\": {\"@id\": \"https://h2ocooling.com/guide-about-cooling-tower/\", \"name\": \"A DETAILED GUIDE ABOUT COOLING TOWER\"}}]}, {\"@type\": \"WebPage\", \"@id\": \"https://h2ocooling.com/guide-about-cooling-tower/#webpage\", \"url\": \"https://h2ocooling.com/guide-about-cooling-tower/\", \"name\": \"What is a Cooling Tower? - H2O Cooling - ICS\", \"datePublished\": \"2020-11-24T16:19:25+00:00\", \"dateModified\": \"2025-03-06T11:28:31+00:00\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/#website\"}, \"primaryImageOfPage\": {\"@id\": \"https://h2ocooling.com/wp-content/uploads/2024/05/A-DETAILED-GUIDE-ABOUT-COOLING-TOWER-min.jpg\"}, \"inLanguage\": \"en-US\", \"breadcrumb\": {\"@id\": \"https://h2ocooling.com/guide-about-cooling-tower/#breadcrumb\"}}, {\"@type\": \"Person\", \"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\", \"description\": \"Tim Bozic is a seasoned leader with over two decades of experience in the industrial and manufacturing sectors. As the President of Industrial Cooling Solutions, he specializes in driving innovation and operational excellence in cooling technologies, ensuring sustainable and efficient solutions for clients worldwide. With a proven track record in strategic planning, team leadership, and customer-focused growth, Tim is passionate about delivering cutting-edge solutions that meet the evolving needs of the industry.\", \"url\": \"https://h2ocooling.com/author/tbozic/\", \"image\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"url\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"caption\": \"Tim Bozic\", \"inLanguage\": \"en-US\"}, \"sameAs\": [\"https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/\", \"https://www.linkedin.com/in/tim-bozic-417a65a/\"], \"worksFor\": {\"@id\": \"https://h2ocooling.com/#organization\"}}, {\"@type\": \"BlogPosting\", \"headline\": \"What is a Cooling Tower? - H2O Cooling - ICS\", \"keywords\": \"Cooling Tower,GUIDE ABOUT COOLING TOWER\", \"datePublished\": \"2020-11-24T16:19:25+00:00\", \"dateModified\": \"2025-03-06T11:28:31+00:00\", \"author\": {\"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\"}, \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"description\": \"What is a Cooling Tower? A cooling tower is a heat exchanger which, through evaporation, removes heat from the water and that rejected heat is transferred to the atmosphere.\", \"name\": \"What is a Cooling Tower? - H2O Cooling - ICS\", \"@id\": \"https://h2ocooling.com/guide-about-cooling-tower/#richSnippet\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/guide-about-cooling-tower/#webpage\"}, \"image\": {\"@id\": \"https://h2ocooling.com/wp-content/uploads/2024/05/A-DETAILED-GUIDE-ABOUT-COOLING-TOWER-min.jpg\"}, \"inLanguage\": \"en-US\", \"mainEntityOfPage\": {\"@id\": \"https://h2ocooling.com/guide-about-cooling-tower/#webpage\"}}]}"
+    ]
+  },
+  "images": [
+    {
+      "src": "https://lh7-us.googleusercontent.com/Ro2cQ7Nr5R9pNmWLXhvrQY8qT8Dr6oU5dIDytHQXnLpc6EGolKw-8KCNxM0rdf5bpG3jc-FeRQJtCyvAvTXNNOFT4LMtLQj94jGjkBXdZHHBgHrWgcUTc73EMkNPSBub41xWh40Je-f7YPmF7Lh_At4",
+      "section": "live-body",
+      "order": 0,
+      "alt": "industrial processes and industrial facilities realted to induced draft cooling tower"
+    },
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2024/05/How-Do-Cooling-Towers-Work-min-1024x538.jpg",
+      "section": "live-body",
+      "order": 1,
+      "alt": "Cooling Tower"
+    },
+    {
+      "src": "https://lh7-us.googleusercontent.com/Mjsm0pzVrbVLdlxCoFzKs081JspsdlvzXxgB8-bcF6hh2HvkBH-ywzjA7xtvVAPziqNqPmD5JOTd6QWWCvwh3OLEytDh_ld_Rpbh1oSCfu0SNGkT90gS40S5cYJ8t2-OwLDA4xz0ubiXZhb9zXPdPrQ",
+      "section": "live-body",
+      "order": 2,
+      "alt": "specialized heat exchanger and water treatment chemicals in hvac systems"
+    },
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2024/05/Cooling-Tower-Parts-and-Functions-min-1024x538.jpg",
+      "section": "live-body",
+      "order": 3,
+      "alt": "Cooling Tower Parts and Functions"
+    },
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2024/05/Cooling-Tower-Louvers-min-1024x538.jpg",
+      "section": "live-body",
+      "order": 4,
+      "alt": "Cooling Tower Louvers"
+    },
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2024/05/Is-a-Cooling-Tower-Right-for-Your-Business-min-1024x538.jpg",
+      "section": "live-body",
+      "order": 5,
+      "alt": "Cooling Tower Right for Your Business"
+    }
+  ]
+}

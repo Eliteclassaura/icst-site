@@ -1,0 +1,1482 @@
+{
+  "routeId": "LIVE-posts-17981",
+  "sourceUrl": "https://h2ocooling.com/cooling-tower-water-treatment/",
+  "targetPath": "/cooling-tower-water-treatment/",
+  "type": "posts",
+  "title": "Cooling Tower Water Treatment Strategies for 2026 | ICS",
+  "wordpressId": 17981,
+  "sourceIdentity": {
+    "status": 200,
+    "effectiveUrl": "https://h2ocooling.com/cooling-tower-water-treatment/",
+    "sha256": "ddf9575623e588bc8e19fd685b1cf3b9444dfd2485ea650c0288ae9f39e00737",
+    "htmlSha256": "35f19df5a96caa9d60a1d0d4ae70cda33aa22f04d2b0688e9b92463f6cb51ff0",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/posts/17981"
+  },
+  "publicationStatus": "publish",
+  "published": "2026-01-21T10:58:11",
+  "modified": "2026-01-21T10:58:12",
+  "text": "Cooling tower water treatment has evolved far beyond a simple commodity purchase. In 2026, it is a critical engineering discipline that directly impacts your operational costs, regulatory compliance, and system efficiency. A seemingly minuscule 0.001-inch layer of biofilm can insulate heat exchange surfaces more effectively than a 0.05-inch layer of mineral scale, crippling your system’s performance. This post outlines outcome-based water treatment strategies that prioritise heat transfer efficiency and operational excellence over mere chemical sales volume. We will explore the science, best practices, and compliance requirements that define modern cooling water system management. Table of Contents Toggle The Science of Recirculating Water Systems Scale: Corrosion: Biofouling: High-Performance Chemical Treatment Programs Scale and Corrosion Prevention Precision Biocide Application Operational Excellence: Best Practices for 2026 Optimising Cycles of Concentration (CoC) Automated Monitoring & Digital Dosing Mechanical Integration for Peak Performance Compliance and Environmental Resilience Conclusion: The Foundation for Total System Health Frequently Asked Questions (FAQs) What is cooling tower water treatment? Why is water quality important in cooling towers? How do scale inhibitors work in cooling water systems? What are the benefits of side-stream filtration in cooling towers? How can cooling tower water treatment reduce energy consumption? The Science of Recirculating Water Systems Understanding the dynamics within your cooling tower is the first step toward optimising its performance. As water evaporates from a cooling tower, it leaves behind minerals, sediment, and other dissolved solids. This process steadily increases the concentration of impurities in the remaining water, creating what is essentially a concentrated brine. This concentration effect is the root cause of the three primary threats to your cooling water system. Scale: As mineral concentration rises, elements like calcium and silica begin to precipitate out of the solution. They form hard, insulating scale deposits on heat exchange surfaces. This “plating” effect reduces system efficiency and forces your equipment to work harder, increasing energy consumption. Corrosion: The concentrated water becomes more conductive and can initiate an electrochemical attack on the various metals within your system, such as steel, copper, and galvanised components. This corrosion weakens structural integrity, leading to costly repairs and potential equipment failure. Biofouling: The warm, oxygen-rich environment of a cooling tower is a perfect breeding ground for microbiological growth. Bacteria, algae, and fungi form slime, or biofilm, that not only reduces heat transfer but also creates a habitat for dangerous pathogens like Legionella bacteria. This biological growth can cause significant system fouling and presents a serious health risk. High-Performance Chemical Treatment Programs An effective water treatment program uses a precise combination of specialised chemicals to combat scale, corrosion, and biological growth simultaneously. This is not about adding more chemicals; it is about applying the right chemistry at the right time for maximum impact. A modern treatment system is a multifaceted defence against damaging impurities. Scale and Corrosion Prevention Preventing scale and corrosion is fundamental to maintaining system efficiency and longevity. Scale inhibitors and corrosion inhibitors are the primary tools for this task. Threshold Inhibitors: These advanced chemicals, including phosphonates and polymers, work at a molecular level. They interfere with the formation of mineral crystals, preventing them from growing and adhering to surfaces as hard scale. Crystal Modification: Some treatment programs use chemicals that alter the structure of scale-forming minerals. They turn hard scale into a soft sludge that remains suspended in the water, allowing for easy removal through routine blowdown. Corrosion Inhibitors: These chemicals form a microscopic, protective film on metal surfaces. This barrier shields the equipment from the corrosive effects of the water, preventing pitting and general metal loss. Precision Biocide Application Controlling microbial growth is essential for both efficiency and safety. A strategic biocide program uses a dual approach to disinfect the water and penetrate stubborn biofilms, preventing microbial resistance from developing. Oxidising Biocides: Chemicals like chlorine and bromine are used for continuous, bulk water disinfection. They effectively neutralise free-floating bacteria and algae in the cooling water. Non-Oxidising Biocides: These specialised agents are typically “slug-dosed” into the system periodically. They are designed to penetrate and break down the protective layers of deep biofilms where Legionella can thrive. Biodispersants: Think of these as a “penetrant” for organic material. Biodispersants break open the slimy shielding that microbes create, exposing the bacteria underneath to the biocides and increasing the effectiveness of the entire treatment program. Operational Excellence: Best Practices for 2026 Chemicals alone are not enough. Operational excellence requires integrating your chemical treatment with smart mechanical and monitoring practices. This holistic approach ensures you are not just treating problems but preventing them in the first place, leading to a more cost-effective solution. Optimising Cycles of Concentration (CoC) Cycles of Concentration is a critical metric for water efficiency. It is the ratio of dissolved solids in the tower water compared to the fresh makeup water. You can calculate it by dividing the conductivity of the basin water by the conductivity of the makeup water. Managing CoC is a balancing act. Allowing it to get too high increases the risk of scaling. Keeping it too low wastes water and chemicals. By carefully managing your water quality, you can safely increase your CoC. For example, Moving from a CoC of 3 to 6 can reduce your makeup water demand by 20% and significantly lower your blowdown volume. Automated Monitoring & Digital Dosing Human error is one of the biggest variables in any water treatment program. Automated systems remove the guesswork and provide a level of precision that manual testing cannot match. Conductivity-Based Blowdown Control: An automated controller continuously monitors the water’s conductivity. When it reaches a preset limit, the controller automatically initiates a blowdown cycle to drain some of the concentrated water and replace it with fresh makeup water. This maintains optimal CoC without manual intervention. Cloud-Based Dashboards: Modern systems provide facility managers and engineers with real-time access to system data. These dashboards offer a complete overview of water quality, chemical levels, and system performance, creating a digital audit trail for compliance and simplifying risk management. Mechanical Integration for Peak Performance Your water treatment program is directly linked to the mechanical health of your cooling tower system. Integrating mechanical filtration is a key strategy for enhancing chemical effectiveness and overall system efficiency. Side-stream filtration, for instance, continuously diverts a portion of the tower water through a filter to remove suspended solids like dirt, debris, and organic matter. These are the very particles that can “seed” the growth of scale and harbour microbes. Removing them reduces the overall demand on your treatment chemicals and helps keep heat exchanger surfaces clean. Compliance and Environmental Resilience In 2026, managing a cooling tower is as much about compliance and environmental stewardship as it is about HVAC performance. New standards and a growing focus on sustainability demand a more forward-thinking approach. The 2026 update to ASHRAE Standard 188 places a greater emphasis on Legionella risk management, particularly the need for automated data logging and comprehensive water management plans. Facility managers must be able to provide a clear and consistent record of their water treatment activities to ensure compliance with local health authorities and mitigate the risk of a Legionnaires’ disease outbreak. Beyond chemical treatment, facilities are also exploring non-chemical adjuncts like Ultraviolet (UV) light and ozone systems to reduce their chemical footprint. Furthermore, strategies for wastewater recovery, such as using blowdown water for non-potable applications like irrigation, are becoming more common as facilities seek to improve their environmental impact and reduce operational costs. Conclusion: The Foundation for Total System Health Effective water treatment is not an isolated task; it is the foundation upon which all other cooling tower maintenance rests. Poor water quality accelerates corrosion, fouls equipment, and drives up energy and maintenance costs. By implementing a strategic, outcome-based water program, you are not just protecting your heat exchanger; you are ensuring the long-term structural integrity and efficiency of your entire cooling system. Is your cooling tower water treatment program optimised for the demands of 2026? Contact an engineering team today for a comprehensive system chemistry audit to ensure your facility is efficient, compliant, and resilient at ICS . Frequently Asked Questions (FAQs) What is cooling tower water treatment? Cooling tower water treatment involves processes and chemicals to manage water quality, prevent scale deposits, control biological growth, and reduce corrosion in cooling water systems. It ensures system efficiency and minimises maintenance costs. Why is water quality important in cooling towers? Good water quality prevents scaling, corrosion, and microbial growth, which can lead to equipment failure, reduced efficiency, and costly repairs. Properly treated water enhances heat transfer and lowers operational costs. How do scale inhibitors work in cooling water systems? Scale inhibitors, like phosphonates and polymers, prevent mineral deposits by interfering with crystal growth. This keeps the system free from hard scale and improves heat exchanger performance. What are the benefits of side-stream filtration in cooling towers? Side-stream filtration removes suspended solids, such as dirt and organic matter, from the water. This reduces chemical demand, prevents microbial growth, and improves overall system efficiency. How can cooling tower water treatment reduce energy consumption? Effective water treatment minimises scale and biofilm buildup, which improves heat transfer efficiency. This reduces the energy required to maintain optimal cooling, lowering energy consumption and operational costs.",
+  "children": [
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Cooling tower water treatment"
+          ]
+        },
+        " has evolved far beyond a simple commodity purchase. In 2026, it is a critical engineering discipline that directly impacts your operational costs, regulatory compliance, and system efficiency. A seemingly minuscule 0.001-inch layer of biofilm can insulate heat exchange surfaces more effectively than a 0.05-inch layer of mineral scale, crippling your system’s performance. "
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "This post outlines outcome-based water treatment strategies that prioritise heat transfer efficiency and operational excellence over mere chemical sales volume. We will explore the science, best practices, and compliance requirements that define modern cooling water system management."
+      ]
+    },
+    "\n",
+    {
+      "tag": "div",
+      "attrs": {
+        "id": "ez-toc-container"
+      },
+      "children": [
+        "\n",
+        {
+          "tag": "div",
+          "attrs": {},
+          "children": [
+            "\n",
+            {
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                "Table of Contents"
+              ]
+            },
+            "\n",
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "a",
+                  "attrs": {
+                    "href": "#"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                "Toggle"
+                              ]
+                            },
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "\n",
+        {
+          "tag": "nav",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "ul",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/cooling-tower-water-treatment/#The_Science_of_Recirculating_Water_Systems"
+                      },
+                      "children": [
+                        "The Science of Recirculating Water Systems"
+                      ]
+                    },
+                    {
+                      "tag": "ul",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Scale"
+                              },
+                              "children": [
+                                "Scale: "
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Corrosion"
+                              },
+                              "children": [
+                                "Corrosion: "
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Biofouling"
+                              },
+                              "children": [
+                                "Biofouling: "
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/cooling-tower-water-treatment/#High-Performance_Chemical_Treatment_Programs"
+                      },
+                      "children": [
+                        "High-Performance Chemical Treatment Programs"
+                      ]
+                    },
+                    {
+                      "tag": "ul",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Scale_and_Corrosion_Prevention"
+                              },
+                              "children": [
+                                "Scale and Corrosion Prevention"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Precision_Biocide_Application"
+                              },
+                              "children": [
+                                "Precision Biocide Application"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Operational_Excellence_Best_Practices_for_2026"
+                      },
+                      "children": [
+                        "Operational Excellence: Best Practices for 2026"
+                      ]
+                    },
+                    {
+                      "tag": "ul",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Optimising_Cycles_of_Concentration_CoC"
+                              },
+                              "children": [
+                                "Optimising Cycles of Concentration (CoC)"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Automated_Monitoring_Digital_Dosing"
+                              },
+                              "children": [
+                                "Automated Monitoring & Digital Dosing"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Mechanical_Integration_for_Peak_Performance"
+                              },
+                              "children": [
+                                "Mechanical Integration for Peak Performance"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Compliance_and_Environmental_Resilience"
+                      },
+                      "children": [
+                        "Compliance and Environmental Resilience"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Conclusion_The_Foundation_for_Total_System_Health"
+                      },
+                      "children": [
+                        "Conclusion: The Foundation for Total System Health"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Frequently_Asked_Questions_FAQs"
+                      },
+                      "children": [
+                        "Frequently Asked Questions (FAQs)"
+                      ]
+                    },
+                    {
+                      "tag": "ul",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#What_is_cooling_tower_water_treatment"
+                              },
+                              "children": [
+                                "What is cooling tower water treatment?"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#Why_is_water_quality_important_in_cooling_towers"
+                              },
+                              "children": [
+                                "Why is water quality important in cooling towers?"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#How_do_scale_inhibitors_work_in_cooling_water_systems"
+                              },
+                              "children": [
+                                "How do scale inhibitors work in cooling water systems?"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#What_are_the_benefits_of_side-stream_filtration_in_cooling_towers"
+                              },
+                              "children": [
+                                "What are the benefits of side-stream filtration in cooling towers?"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/cooling-tower-water-treatment/#How_can_cooling_tower_water_treatment_reduce_energy_consumption"
+                              },
+                              "children": [
+                                "How can cooling tower water treatment reduce energy consumption?"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "The_Science_of_Recirculating_Water_Systems"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "The Science of Recirculating Water Systems"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Understanding the dynamics within your cooling tower is the first step toward optimising its performance. As water evaporates from a cooling tower, it leaves behind minerals, sediment, and other dissolved solids. "
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "This process steadily increases the concentration of impurities in the remaining water, creating what is essentially a concentrated brine. This concentration effect is the root cause of the three primary threats to your cooling water system."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Scale"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Scale: "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "As mineral concentration rises, elements like calcium and silica begin to precipitate out of the solution. They form hard, insulating scale deposits on heat exchange surfaces. This “plating” effect reduces system efficiency and forces your equipment to work harder, increasing energy consumption."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Corrosion"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Corrosion: "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "The concentrated water becomes more conductive and can initiate an electrochemical attack on the various metals within your system, such as steel, copper, and galvanised components. This corrosion weakens structural integrity, leading to costly repairs and potential equipment failure."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Biofouling"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Biofouling: "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "The warm, oxygen-rich environment of a cooling tower is a perfect breeding ground for microbiological growth. Bacteria, algae, and fungi form slime, or biofilm, that not only reduces heat transfer but also creates a habitat for dangerous pathogens like Legionella bacteria. This biological growth can cause significant system fouling and presents a serious health risk."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "High-Performance_Chemical_Treatment_Programs"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "High-Performance Chemical Treatment Programs"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "An effective water treatment program uses a precise combination of specialised chemicals to combat scale, corrosion, and biological growth simultaneously. "
+      ]
+    },
+    "\n",
+    {
+      "tag": "figure",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "img",
+          "attrs": {
+            "width": "1170",
+            "height": "694",
+            "src": "https://h2ocooling.com/wp-content/uploads/2026/01/image-11-1170x694.jpeg",
+            "alt": ""
+          },
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "This is not about adding more chemicals; it is about applying the right chemistry at the right time for maximum impact. A modern treatment system is a multifaceted defence against damaging impurities."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Scale_and_Corrosion_Prevention"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Scale and Corrosion Prevention"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Preventing scale and corrosion is fundamental to maintaining system efficiency and longevity. Scale inhibitors and corrosion inhibitors are the primary tools for this task."
+      ]
+    },
+    "\n",
+    {
+      "tag": "ul",
+      "attrs": {},
+      "children": [
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Threshold Inhibitors:"
+              ]
+            },
+            " These advanced chemicals, including phosphonates and polymers, work at a molecular level. They interfere with the formation of mineral crystals, preventing them from growing and adhering to surfaces as hard scale."
+          ]
+        },
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Crystal Modification:"
+              ]
+            },
+            " Some treatment programs use chemicals that alter the structure of scale-forming minerals. They turn hard scale into a soft sludge that remains suspended in the water, allowing for easy removal through routine blowdown."
+          ]
+        },
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Corrosion Inhibitors:"
+              ]
+            },
+            " These chemicals form a microscopic, protective film on metal surfaces. This barrier shields the equipment from the corrosive effects of the water, preventing pitting and general metal loss."
+          ]
+        },
+        "\n"
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Precision_Biocide_Application"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Precision Biocide Application"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Controlling microbial growth is essential for both efficiency and safety. A strategic biocide program uses a dual approach to disinfect the water and penetrate stubborn biofilms, preventing microbial resistance from developing."
+      ]
+    },
+    "\n",
+    {
+      "tag": "ul",
+      "attrs": {},
+      "children": [
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Oxidising Biocides:"
+              ]
+            },
+            " Chemicals like chlorine and bromine are used for continuous, bulk water disinfection. They effectively neutralise free-floating bacteria and algae in the cooling water."
+          ]
+        },
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Non-Oxidising Biocides:"
+              ]
+            },
+            " These specialised agents are typically “slug-dosed” into the system periodically. They are designed to penetrate and break down the protective layers of deep biofilms where Legionella can thrive."
+          ]
+        },
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Biodispersants:"
+              ]
+            },
+            " Think of these as a “penetrant” for organic material. Biodispersants break open the slimy shielding that microbes create, exposing the bacteria underneath to the biocides and increasing the effectiveness of the entire treatment program."
+          ]
+        },
+        "\n"
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Operational_Excellence_Best_Practices_for_2026"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Operational Excellence: Best Practices for 2026"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Chemicals alone are not enough. Operational excellence requires integrating your chemical treatment with smart mechanical and monitoring practices. This holistic approach ensures you are not just treating problems but preventing them in the first place, leading to a more cost-effective solution."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Optimising_Cycles_of_Concentration_CoC"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Optimising Cycles of Concentration (CoC)"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://www.chemstarwater.com/understanding-cycles-of-concentration-coc/"
+          },
+          "children": [
+            "Cycles of Concentration"
+          ]
+        },
+        " is a critical metric for water efficiency. It is the ratio of dissolved solids in the tower water compared to the fresh makeup water. You can calculate it by dividing the conductivity of the basin water by the conductivity of the makeup water."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Managing CoC is a balancing act. Allowing it to get too high increases the risk of scaling. Keeping it too low wastes water and chemicals. By carefully managing your water quality, you can safely increase your CoC. "
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "For example, "
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Moving from a CoC of 3 to 6 can reduce your makeup water demand by 20% and significantly lower your blowdown volume."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Automated_Monitoring_Digital_Dosing"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Automated Monitoring & Digital Dosing"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Human error is one of the biggest variables in any water treatment program. Automated systems remove the guesswork and provide a level of precision that manual testing cannot match."
+      ]
+    },
+    "\n",
+    {
+      "tag": "ul",
+      "attrs": {},
+      "children": [
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Conductivity-Based Blowdown Control:"
+              ]
+            },
+            " An automated controller continuously monitors the water’s conductivity. When it reaches a preset limit, the controller automatically initiates a blowdown cycle to drain some of the concentrated water and replace it with fresh makeup water. This maintains optimal CoC without manual intervention."
+          ]
+        },
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Cloud-Based Dashboards:"
+              ]
+            },
+            " Modern systems provide facility managers and engineers with real-time access to system data. These dashboards offer a complete overview of water quality, chemical levels, and system performance, creating a digital audit trail for compliance and simplifying risk management."
+          ]
+        },
+        "\n"
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Mechanical_Integration_for_Peak_Performance"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Mechanical Integration for Peak Performance"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Your water treatment program is directly linked to the mechanical health of your cooling tower system. Integrating mechanical filtration is a key strategy for enhancing chemical effectiveness and overall system efficiency. "
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Side-stream filtration, for instance, continuously diverts a portion of the tower water through a filter to remove suspended solids like dirt, debris, and organic matter. These are the very particles that can “seed” the growth of scale and harbour microbes. Removing them reduces the overall demand on your treatment chemicals and helps keep heat exchanger surfaces clean."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Compliance_and_Environmental_Resilience"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Compliance and Environmental Resilience"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "In 2026, managing a cooling tower is as much about compliance and environmental stewardship as it is about HVAC performance. New standards and a growing focus on sustainability demand a more forward-thinking approach."
+      ]
+    },
+    "\n",
+    {
+      "tag": "figure",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "img",
+          "attrs": {
+            "width": "1170",
+            "height": "694",
+            "alt": "",
+            "src": "https://h2ocooling.com/wp-content/uploads/2026/01/image-10-1170x694.jpeg"
+          },
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "The 2026 update to ASHRAE Standard 188 places a greater emphasis on Legionella risk management, particularly the need for automated data logging and comprehensive water management plans. Facility managers must be able to provide a clear and consistent record of their water treatment activities to ensure compliance with local health authorities and mitigate the risk of a Legionnaires’ disease outbreak."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Beyond chemical treatment, facilities are also exploring non-chemical adjuncts like Ultraviolet (UV) light and ",
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://www.watertechnologies.com/knowledge-hub/what-is-ozone-water-treatment"
+          },
+          "children": [
+            "ozone systems"
+          ]
+        },
+        " to reduce their chemical footprint. Furthermore, strategies for wastewater recovery, such as using blowdown water for non-potable applications like irrigation, are becoming more common as facilities seek to improve their environmental impact and reduce operational costs."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Conclusion_The_Foundation_for_Total_System_Health"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Conclusion: The Foundation for Total System Health"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Effective water treatment is not an isolated task; it is the foundation upon which all other cooling tower maintenance rests. Poor water quality accelerates corrosion, fouls equipment, and drives up energy and maintenance costs. "
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "By implementing a strategic, outcome-based water program, you are not just protecting your heat exchanger; you are ensuring the long-term structural integrity and efficiency of your entire cooling system."
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Is your cooling tower water treatment program optimised for the demands of 2026? Contact an engineering team today for a comprehensive system chemistry audit to ensure your facility is efficient, compliant, and resilient at ",
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://h2ocooling.com/"
+          },
+          "children": [
+            "ICS"
+          ]
+        },
+        "."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Frequently_Asked_Questions_FAQs"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                "Frequently Asked Questions (FAQs)"
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "What_is_cooling_tower_water_treatment"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "What is cooling tower water treatment?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Cooling tower water treatment involves processes and chemicals to manage water quality, prevent scale deposits, control biological growth, and reduce corrosion in cooling water systems. It ensures system efficiency and minimises maintenance costs."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Why_is_water_quality_important_in_cooling_towers"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "Why is water quality important in cooling towers?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Good water quality prevents scaling, corrosion, and microbial growth, which can lead to equipment failure, reduced efficiency, and costly repairs. Properly treated water enhances heat transfer and lowers operational costs."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "How_do_scale_inhibitors_work_in_cooling_water_systems"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "How do scale inhibitors work in cooling water systems?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Scale inhibitors, like phosphonates and polymers, prevent mineral deposits by interfering with crystal growth. This keeps the system free from hard scale and improves heat exchanger performance."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "What_are_the_benefits_of_side-stream_filtration_in_cooling_towers"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "What are the benefits of side-stream filtration in cooling towers?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Side-stream filtration removes suspended solids, such as dirt and organic matter, from the water. This reduces chemical demand, prevents microbial growth, and improves overall system efficiency."
+      ]
+    },
+    "\n",
+    {
+      "tag": "h3",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "How_can_cooling_tower_water_treatment_reduce_energy_consumption"
+          },
+          "children": []
+        },
+        {
+          "tag": "strong",
+          "attrs": {},
+          "children": [
+            "How can cooling tower water treatment reduce energy consumption?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "Effective water treatment minimises scale and biofilm buildup, which improves heat transfer efficiency. This reduces the energy required to maintain optimal cooling, lowering energy consumption and operational costs."
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "Cooling Tower Water Treatment Strategies for 2026 | ICS - New Cooling Tower Construction, Parts, Maintenance, Upgrades",
+    "meta": [
+      {
+        "name": "description",
+        "value": "Master your cooling tower water treatment with our 2026 guide. Learn strategies for scale control, Legionella prevention, and operational efficiency."
+      },
+      {
+        "name": "robots",
+        "value": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      {
+        "name": "og:locale",
+        "value": "en_US"
+      },
+      {
+        "name": "og:type",
+        "value": "article"
+      },
+      {
+        "name": "og:title",
+        "value": "Cooling Tower Water Treatment Strategies for 2026 | ICS - New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "og:description",
+        "value": "Master your cooling tower water treatment with our 2026 guide. Learn strategies for scale control, Legionella prevention, and operational efficiency."
+      },
+      {
+        "name": "og:url",
+        "value": "https://h2ocooling.com/cooling-tower-water-treatment/"
+      },
+      {
+        "name": "og:site_name",
+        "value": "New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "og:updated_time",
+        "value": "2026-01-21T10:58:12+00:00"
+      },
+      {
+        "name": "og:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2026/01/image-9.jpeg"
+      },
+      {
+        "name": "og:image:secure_url",
+        "value": "https://h2ocooling.com/wp-content/uploads/2026/01/image-9.jpeg"
+      },
+      {
+        "name": "og:image:width",
+        "value": "1600"
+      },
+      {
+        "name": "og:image:height",
+        "value": "900"
+      },
+      {
+        "name": "og:image:alt",
+        "value": "cooling tower water treatment"
+      },
+      {
+        "name": "og:image:type",
+        "value": "image/jpeg"
+      },
+      {
+        "name": "twitter:card",
+        "value": "summary_large_image"
+      },
+      {
+        "name": "twitter:title",
+        "value": "Cooling Tower Water Treatment Strategies for 2026 | ICS - New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "twitter:description",
+        "value": "Master your cooling tower water treatment with our 2026 guide. Learn strategies for scale control, Legionella prevention, and operational efficiency."
+      },
+      {
+        "name": "twitter:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2026/01/image-9.jpeg"
+      },
+      {
+        "name": "twitter:label1",
+        "value": "Written by"
+      },
+      {
+        "name": "twitter:data1",
+        "value": "Tim Bozic"
+      },
+      {
+        "name": "twitter:label2",
+        "value": "Time to read"
+      },
+      {
+        "name": "twitter:data2",
+        "value": "7 minutes"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/cooling-tower-water-treatment/"
+    ],
+    "h1": [
+      "Cooling Tower Water Treatment Strategies for 2026 | ICS"
+    ],
+    "schema": [
+      "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"Organization\", \"@id\": \"https://h2ocooling.com/#organization\", \"name\": \"Industrial Cooling Solutions\", \"url\": \"http://h2ocooling.com\", \"logo\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/#logo\", \"url\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"contentUrl\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"caption\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"inLanguage\": \"en-US\", \"width\": \"267\", \"height\": \"57\"}}, {\"@type\": \"WebSite\", \"@id\": \"https://h2ocooling.com/#website\", \"url\": \"https://h2ocooling.com\", \"name\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"inLanguage\": \"en-US\"}, {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/wp-content/uploads/2026/01/image-9.jpeg\", \"url\": \"https://h2ocooling.com/wp-content/uploads/2026/01/image-9.jpeg\", \"width\": \"1600\", \"height\": \"900\", \"caption\": \"cooling tower water treatment\", \"inLanguage\": \"en-US\"}, {\"@type\": \"BreadcrumbList\", \"@id\": \"https://h2ocooling.com/cooling-tower-water-treatment/#breadcrumb\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": \"1\", \"item\": {\"@id\": \"https://h2ocooling.com\", \"name\": \"Home\"}}, {\"@type\": \"ListItem\", \"position\": \"2\", \"item\": {\"@id\": \"https://h2ocooling.com/cooling-tower-water-treatment/\", \"name\": \"Cooling Tower Water Treatment Strategies for 2026 | ICS\"}}]}, {\"@type\": \"WebPage\", \"@id\": \"https://h2ocooling.com/cooling-tower-water-treatment/#webpage\", \"url\": \"https://h2ocooling.com/cooling-tower-water-treatment/\", \"name\": \"Cooling Tower Water Treatment Strategies for 2026 | ICS - New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"datePublished\": \"2026-01-21T10:58:11+00:00\", \"dateModified\": \"2026-01-21T10:58:12+00:00\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/#website\"}, \"primaryImageOfPage\": {\"@id\": \"https://h2ocooling.com/wp-content/uploads/2026/01/image-9.jpeg\"}, \"inLanguage\": \"en-US\", \"breadcrumb\": {\"@id\": \"https://h2ocooling.com/cooling-tower-water-treatment/#breadcrumb\"}}, {\"@type\": \"Person\", \"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\", \"description\": \"Tim Bozic is a seasoned leader with over two decades of experience in the industrial and manufacturing sectors. As the President of Industrial Cooling Solutions, he specializes in driving innovation and operational excellence in cooling technologies, ensuring sustainable and efficient solutions for clients worldwide. With a proven track record in strategic planning, team leadership, and customer-focused growth, Tim is passionate about delivering cutting-edge solutions that meet the evolving needs of the industry.\", \"url\": \"https://h2ocooling.com/author/tbozic/\", \"image\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"url\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"caption\": \"Tim Bozic\", \"inLanguage\": \"en-US\"}, \"sameAs\": [\"https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/\", \"https://www.linkedin.com/in/tim-bozic-417a65a/\"], \"worksFor\": {\"@id\": \"https://h2ocooling.com/#organization\"}}, {\"@type\": \"BlogPosting\", \"headline\": \"Cooling Tower Water Treatment Strategies for 2026 | ICS - New Cooling Tower Construction, Parts,\", \"keywords\": \"cooling tower water treatment\", \"datePublished\": \"2026-01-21T10:58:11+00:00\", \"dateModified\": \"2026-01-21T10:58:12+00:00\", \"author\": {\"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\"}, \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"description\": \"Master your cooling tower water treatment with our 2026 guide. Learn strategies for scale control, Legionella prevention, and operational efficiency.\", \"name\": \"Cooling Tower Water Treatment Strategies for 2026 | ICS - New Cooling Tower Construction, Parts,\", \"@id\": \"https://h2ocooling.com/cooling-tower-water-treatment/#richSnippet\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/cooling-tower-water-treatment/#webpage\"}, \"image\": {\"@id\": \"https://h2ocooling.com/wp-content/uploads/2026/01/image-9.jpeg\"}, \"inLanguage\": \"en-US\", \"mainEntityOfPage\": {\"@id\": \"https://h2ocooling.com/cooling-tower-water-treatment/#webpage\"}}]}"
+    ]
+  },
+  "images": [
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2026/01/image-11-1170x694.jpeg",
+      "section": "live-body",
+      "order": 0,
+      "alt": ""
+    },
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2026/01/image-10-1170x694.jpeg",
+      "section": "live-body",
+      "order": 1,
+      "alt": ""
+    }
+  ]
+}

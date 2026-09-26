@@ -1,0 +1,721 @@
+{
+  "routeId": "LIVE-posts-2373",
+  "sourceUrl": "https://h2ocooling.com/inspect-cooling-tower-part-2/",
+  "targetPath": "/inspect-cooling-tower-part-2/",
+  "type": "posts",
+  "title": "How To Inspect A Cooling Tower – Part 2",
+  "wordpressId": 2373,
+  "sourceIdentity": {
+    "status": 200,
+    "effectiveUrl": "https://h2ocooling.com/inspect-cooling-tower-part-2/",
+    "sha256": "2eb959decd3cc50fc541fc83d18ba26c54cd2614d6a8245494a7a8f70732f46d",
+    "htmlSha256": "602fc8fc71da44835d2b4a9c4d086619546010d1578c0482f41553063b0cbe52",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/posts/2373"
+  },
+  "publicationStatus": "publish",
+  "published": "2018-03-10T22:07:26",
+  "modified": "2025-03-06T11:28:33",
+  "text": "Hello, and welcome back to our blog here at Industrial Cooling Solutions. ICS is located in Lakewood, Colorado with offices around the world. Our highest priority is to provide our clients with innovative cooling solutions that are both environmentally sustainable and feasible for any business. If you recall from last time, we talked about how to inspect a cooling tower. If you haven’t yet read our first blog on this subject, you can read it here . This time, we’re going to cover the rest of the procedure. If you’ve never done a cooling tower inspection before, you should know that there is no set-in-stone way of going about it. However, there are some general ideas that you should keep in mind as you do it. Once you’ve done your first inspection, you can develop a procedure that will work best for your company and the type of cooling tower you have. Table of Contents Toggle Louvers Cold and Hot Water Basins Mechanical Equipment Water Treatment Other inspections Contact Industrial Cooling Solutions Louvers A louver is a component that allows air to pass through it while preventing water, dirt, and other debris from entering. If your Louver is removable, you should check for effectiveness and structural integrity. Cold and Hot Water Basins One of the most challenging aspects of maintaining a cooling tower is keeping the cold water basin clean and free of other debris like biological growth. Airborne debris may pass through the louvers and sit in the basin, exposed to sunlight. Once this happens, water treatment chemicals may be your only option to combat the biological growth. Take note of this as you perform your inspections. Hot water basins in crossflow towers may corrode and result in inadequate spray distribution over the fill material. You should check the basin for holes and a sagging fill caused by excessive water force on a specific area. The nozzles on the basin can also become clogged due to rusting sheet metal or piping. You may be able to replace your hot water basin with galvanized or stainless steel. Mechanical Equipment Like with all components, you’ll want to check for structural integrity, unusual noises, and vibration. If you’re able to, check the RPMs, airflow, and amperage. Any leaks should be noted and documented. Water Treatment Your water treatment methods and results should be well documented. It is best practice to manage these processes regularly and perform tests to ensure efficiency and safety. Other inspections If you can think of any other inspections that need to be done on your cooling tower, don’t hesitate to add them to your list. Depending on your system, you may need to check hardware, circulating water percentage, fire protection systems and more. Every company will have different needs so you should continue to refine your inspections as you see fit. Contact Industrial Cooling Solutions Industrial Cooling Solutions combines American-based engineering with localized engineering and field service to provide each client with world-class industrial cooling services at a competitive price. We provide solutions for Power Generation, Geothermal Power, Refining, Petrochemical, Chemical industries, and more. When you contact Industrial Cooling Solutions, we’ll work closely with you to determine what issue you’re having. We’ll help you decide whether you need cooling tower replacement components , upgrades, a complete system install, or a simple repair. No matter which services you trust us with, you’ll be guaranteed to see increased tower efficiency, improved profitability, safety, and longevity. Our dedicated staff has an immense amount of experience with applications in all industries. The quality of our products and services are unmatched by our competitors, so give us a call today or browse our site to learn more.",
+  "children": [
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Hello, and welcome back to our blog here at Industrial Cooling Solutions. ICS is located in Lakewood, Colorado with offices around the world. Our highest priority is to provide our clients with innovative cooling solutions that are both environmentally sustainable and feasible for any business. "
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "If you recall from last time, we talked about how to inspect a cooling tower. If you haven’t yet read our first blog on this subject, you can read it "
+          ]
+        },
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://h2ocooling.com/blog/inspect-cooling-tower/"
+          },
+          "children": [
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                "here"
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "."
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            " This time, we’re going to cover the rest of the procedure. If you’ve never done a cooling tower inspection before, you should know that there is no set-in-stone way of going about it. However, there are some general ideas that you should keep in mind as you do it. Once you’ve done your first inspection, you can develop a procedure that will work best for your company and the type of cooling tower you have."
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "div",
+      "attrs": {
+        "id": "ez-toc-container"
+      },
+      "children": [
+        "\n",
+        {
+          "tag": "div",
+          "attrs": {},
+          "children": [
+            "\n",
+            {
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                "Table of Contents"
+              ]
+            },
+            "\n",
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "a",
+                  "attrs": {
+                    "href": "#"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                "Toggle"
+                              ]
+                            },
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "\n",
+        {
+          "tag": "nav",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "ul",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/inspect-cooling-tower-part-2/#Louvers"
+                      },
+                      "children": [
+                        "Louvers"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/inspect-cooling-tower-part-2/#Cold_and_Hot_Water_Basins"
+                      },
+                      "children": [
+                        "Cold and Hot Water Basins"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/inspect-cooling-tower-part-2/#Mechanical_Equipment"
+                      },
+                      "children": [
+                        "Mechanical Equipment"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/inspect-cooling-tower-part-2/#Water_Treatment"
+                      },
+                      "children": [
+                        "Water Treatment"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/inspect-cooling-tower-part-2/#Other_inspections"
+                      },
+                      "children": [
+                        "Other inspections"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/inspect-cooling-tower-part-2/#Contact_Industrial_Cooling_Solutions"
+                      },
+                      "children": [
+                        "Contact Industrial Cooling Solutions"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Louvers"
+          },
+          "children": []
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Louvers"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "img",
+              "attrs": {
+                "src": "https://h2ocooling.com/wp-content/uploads/2018/03/Louvers-min-300x158.jpg",
+                "alt": "louvers",
+                "width": "830",
+                "height": "437"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "A louver is a component that allows air to pass through it while preventing water, dirt, and other debris from entering. If your Louver is removable, you should check for effectiveness and structural integrity."
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Cold_and_Hot_Water_Basins"
+          },
+          "children": []
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Cold and Hot Water Basins"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "One of the most challenging aspects of ",
+            {
+              "tag": "a",
+              "attrs": {
+                "href": "https://h2ocooling.com/cooling-tower-repair-upgrade/"
+              },
+              "children": [
+                "maintaining a cooling tower"
+              ]
+            },
+            " is keeping the cold water basin clean and free of other debris like biological growth. Airborne debris may pass through the louvers and sit in the basin, exposed to sunlight. Once this happens, water treatment chemicals may be your only option to combat the biological growth. Take note of this as you perform your inspections. "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Hot water basins in crossflow towers may corrode and result in inadequate spray distribution over the fill material. You should check the basin for holes and a sagging fill caused by excessive water force on a specific area. The nozzles on the basin can also become clogged due to rusting sheet metal or piping. You may be able to replace your hot water basin with galvanized or stainless steel."
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Mechanical_Equipment"
+          },
+          "children": []
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Mechanical Equipment"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Like with all components, you’ll want to check for structural integrity, unusual noises, and vibration. If you’re able to, check the RPMs, airflow, and amperage. Any leaks should be noted and documented."
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Water_Treatment"
+          },
+          "children": []
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Water Treatment"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Your water treatment methods and results should be well documented. It is best practice to manage these processes regularly and perform tests to ensure efficiency and safety."
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Other_inspections"
+          },
+          "children": []
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Other inspections"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "If you can think of any other inspections that need to be done on your cooling tower, don’t hesitate to add them to your list. Depending on your system, you may need to check hardware, circulating water percentage, fire protection systems and more. Every company will have different needs so you should continue to refine your inspections as you see fit."
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Contact_Industrial_Cooling_Solutions"
+          },
+          "children": []
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Contact Industrial Cooling Solutions"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "img",
+              "attrs": {
+                "alt": "Contact Industrial Cooling Solutions",
+                "width": "807",
+                "height": "425",
+                "src": "https://h2ocooling.com/wp-content/uploads/2018/03/Contact-Industrial-Cooling-Solutions-min-300x158.jpg"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Industrial Cooling Solutions combines American-based engineering with localized engineering and field service to provide each client with world-class industrial cooling services at a competitive price. We provide solutions for Power Generation, Geothermal Power, Refining, Petrochemical, Chemical industries, and more. "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "When you contact Industrial Cooling Solutions, we’ll work closely with you to determine what issue you’re having. We’ll help you decide whether you need ",
+            {
+              "tag": "a",
+              "attrs": {
+                "href": "https://h2ocooling.com/cooling-tower-parts/"
+              },
+              "children": [
+                "cooling tower replacement components"
+              ]
+            },
+            ", upgrades, a complete system install, or a simple repair. No matter which services you trust us with, you’ll be guaranteed to see increased tower efficiency, improved profitability, safety, and longevity. Our dedicated staff has an immense amount of experience with applications in all industries. The quality of our products and services are unmatched by our competitors, so "
+          ]
+        },
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://h2ocooling.com/contact/"
+          },
+          "children": [
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                "give us a call today"
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            " or "
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "browse our site"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            " to learn more."
+          ]
+        }
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "Cooling Tower Services: How To Inspect A Cooling Tower",
+    "meta": [
+      {
+        "name": "description",
+        "value": "Regular cooling tower inspections are necessary for maintaining your cooling system. Contact Industrial Cooling Solutions today to learn more."
+      },
+      {
+        "name": "robots",
+        "value": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      {
+        "name": "og:locale",
+        "value": "en_US"
+      },
+      {
+        "name": "og:type",
+        "value": "article"
+      },
+      {
+        "name": "og:title",
+        "value": "Cooling Tower Services: How To Inspect A Cooling Tower"
+      },
+      {
+        "name": "og:description",
+        "value": "Regular cooling tower inspections are necessary for maintaining your cooling system. Contact Industrial Cooling Solutions today to learn more."
+      },
+      {
+        "name": "og:url",
+        "value": "https://h2ocooling.com/inspect-cooling-tower-part-2/"
+      },
+      {
+        "name": "og:site_name",
+        "value": "New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "og:updated_time",
+        "value": "2025-03-06T11:28:33+00:00"
+      },
+      {
+        "name": "og:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2018/03/HOW-TO-INSPECT-A-COOLING-TOWER-–-PART-2-min.jpg"
+      },
+      {
+        "name": "og:image:secure_url",
+        "value": "https://h2ocooling.com/wp-content/uploads/2018/03/HOW-TO-INSPECT-A-COOLING-TOWER-–-PART-2-min.jpg"
+      },
+      {
+        "name": "og:image:width",
+        "value": "1200"
+      },
+      {
+        "name": "og:image:height",
+        "value": "630"
+      },
+      {
+        "name": "og:image:alt",
+        "value": "INSPECT A COOLING TOWER"
+      },
+      {
+        "name": "og:image:type",
+        "value": "image/jpeg"
+      },
+      {
+        "name": "twitter:card",
+        "value": "summary_large_image"
+      },
+      {
+        "name": "twitter:title",
+        "value": "Cooling Tower Services: How To Inspect A Cooling Tower"
+      },
+      {
+        "name": "twitter:description",
+        "value": "Regular cooling tower inspections are necessary for maintaining your cooling system. Contact Industrial Cooling Solutions today to learn more."
+      },
+      {
+        "name": "twitter:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2018/03/HOW-TO-INSPECT-A-COOLING-TOWER-–-PART-2-min.jpg"
+      },
+      {
+        "name": "twitter:label1",
+        "value": "Written by"
+      },
+      {
+        "name": "twitter:data1",
+        "value": "Tim Bozic"
+      },
+      {
+        "name": "twitter:label2",
+        "value": "Time to read"
+      },
+      {
+        "name": "twitter:data2",
+        "value": "3 minutes"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/inspect-cooling-tower-part-2/"
+    ],
+    "h1": [
+      "How To Inspect A Cooling Tower – Part 2"
+    ],
+    "schema": [
+      "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"Organization\", \"@id\": \"https://h2ocooling.com/#organization\", \"name\": \"Industrial Cooling Solutions\", \"url\": \"http://h2ocooling.com\", \"logo\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/#logo\", \"url\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"contentUrl\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"caption\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"inLanguage\": \"en-US\", \"width\": \"267\", \"height\": \"57\"}}, {\"@type\": \"WebSite\", \"@id\": \"https://h2ocooling.com/#website\", \"url\": \"https://h2ocooling.com\", \"name\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"inLanguage\": \"en-US\"}, {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/wp-content/uploads/2018/03/HOW-TO-INSPECT-A-COOLING-TOWER-–-PART-2-min.jpg\", \"url\": \"https://h2ocooling.com/wp-content/uploads/2018/03/HOW-TO-INSPECT-A-COOLING-TOWER-–-PART-2-min.jpg\", \"width\": \"1200\", \"height\": \"630\", \"caption\": \"INSPECT A COOLING TOWER\", \"inLanguage\": \"en-US\"}, {\"@type\": \"BreadcrumbList\", \"@id\": \"https://h2ocooling.com/inspect-cooling-tower-part-2/#breadcrumb\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": \"1\", \"item\": {\"@id\": \"https://h2ocooling.com\", \"name\": \"Home\"}}, {\"@type\": \"ListItem\", \"position\": \"2\", \"item\": {\"@id\": \"https://h2ocooling.com/inspect-cooling-tower-part-2/\", \"name\": \"How To Inspect A Cooling Tower &#8211; Part 2\"}}]}, {\"@type\": \"WebPage\", \"@id\": \"https://h2ocooling.com/inspect-cooling-tower-part-2/#webpage\", \"url\": \"https://h2ocooling.com/inspect-cooling-tower-part-2/\", \"name\": \"Cooling Tower Services: How To Inspect A Cooling Tower\", \"datePublished\": \"2018-03-10T22:07:26+00:00\", \"dateModified\": \"2025-03-06T11:28:33+00:00\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/#website\"}, \"primaryImageOfPage\": {\"@id\": \"https://h2ocooling.com/wp-content/uploads/2018/03/HOW-TO-INSPECT-A-COOLING-TOWER-–-PART-2-min.jpg\"}, \"inLanguage\": \"en-US\", \"breadcrumb\": {\"@id\": \"https://h2ocooling.com/inspect-cooling-tower-part-2/#breadcrumb\"}}, {\"@type\": \"Person\", \"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\", \"description\": \"Tim Bozic is a seasoned leader with over two decades of experience in the industrial and manufacturing sectors. As the President of Industrial Cooling Solutions, he specializes in driving innovation and operational excellence in cooling technologies, ensuring sustainable and efficient solutions for clients worldwide. With a proven track record in strategic planning, team leadership, and customer-focused growth, Tim is passionate about delivering cutting-edge solutions that meet the evolving needs of the industry.\", \"url\": \"https://h2ocooling.com/author/tbozic/\", \"image\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"url\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"caption\": \"Tim Bozic\", \"inLanguage\": \"en-US\"}, \"sameAs\": [\"https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/\", \"https://www.linkedin.com/in/tim-bozic-417a65a/\"], \"worksFor\": {\"@id\": \"https://h2ocooling.com/#organization\"}}, {\"@type\": \"BlogPosting\", \"headline\": \"Cooling Tower Services: How To Inspect A Cooling Tower\", \"datePublished\": \"2018-03-10T22:07:26+00:00\", \"dateModified\": \"2025-03-06T11:28:33+00:00\", \"author\": {\"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\"}, \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"description\": \"Regular cooling tower inspections are necessary for maintaining your cooling system. Contact Industrial Cooling Solutions today to learn more.\", \"name\": \"Cooling Tower Services: How To Inspect A Cooling Tower\", \"@id\": \"https://h2ocooling.com/inspect-cooling-tower-part-2/#richSnippet\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/inspect-cooling-tower-part-2/#webpage\"}, \"image\": {\"@id\": \"https://h2ocooling.com/wp-content/uploads/2018/03/HOW-TO-INSPECT-A-COOLING-TOWER-–-PART-2-min.jpg\"}, \"inLanguage\": \"en-US\", \"mainEntityOfPage\": {\"@id\": \"https://h2ocooling.com/inspect-cooling-tower-part-2/#webpage\"}}]}"
+    ]
+  },
+  "images": [
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2018/03/Louvers-min-300x158.jpg",
+      "section": "live-body",
+      "order": 0,
+      "alt": "louvers"
+    },
+    {
+      "src": "https://h2ocooling.com/wp-content/uploads/2018/03/Contact-Industrial-Cooling-Solutions-min-300x158.jpg",
+      "section": "live-body",
+      "order": 1,
+      "alt": "Contact Industrial Cooling Solutions"
+    }
+  ]
+}

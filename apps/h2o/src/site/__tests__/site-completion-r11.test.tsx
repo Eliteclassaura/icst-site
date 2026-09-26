@@ -25,9 +25,9 @@ describe('site completion R1.1 boundaries',()=>{
     expect(html).not.toContain('figma-image-d01e70f05845e3dd.png')
     expect(html).toContain('High-Performance Industrial Air Cooler Solutions')
   })
-  it('repairs only the homepage Parts intro word boundary',()=>{
+  it('preserves the exact Salmon homepage Parts intro word boundary',()=>{
     const html=renderToStaticMarkup(<LuxuryCanonical doc={documentFor('SALMON-pages-48')}/>)
-    expect(html.replace(/<[^>]*>/g,'')).toContain('ready to ship. Reliable')
+    expect(html.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ')).toContain('ready to ship. Reliable')
     expect(html).not.toContain('ship.Reliable')
   })
   it('removes business-scope positioning but labels product compatibility',()=>{

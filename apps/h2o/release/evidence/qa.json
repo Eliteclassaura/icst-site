@@ -1,0 +1,161 @@
+{
+  "pass": true,
+  "failures": [],
+  "counts": {
+    "routes": 1294,
+    "exported": 884,
+    "indexable": 563,
+    "products": 183,
+    "matchedArticles": 177,
+    "held": 405,
+    "redirects": 81,
+    "pdfCount": 8
+  },
+  "classCounts": {
+    "pages": {
+      "total": 83,
+      "exported": 82,
+      "indexable": 74
+    },
+    "posts": {
+      "total": 655,
+      "exported": 250,
+      "indexable": 245
+    },
+    "link-discovered": {
+      "total": 89,
+      "exported": 89,
+      "indexable": 61
+    },
+    "categories": {
+      "total": 34,
+      "exported": 30,
+      "indexable": 0
+    },
+    "product_cat": {
+      "total": 43,
+      "exported": 43,
+      "indexable": 0
+    },
+    "product_tag": {
+      "total": 170,
+      "exported": 170,
+      "indexable": 0
+    },
+    "product": {
+      "total": 183,
+      "exported": 183,
+      "indexable": 183
+    },
+    "tags": {
+      "total": 36,
+      "exported": 36,
+      "indexable": 0
+    },
+    "search": {
+      "total": 1,
+      "exported": 1,
+      "indexable": 0
+    }
+  },
+  "missingLinks": [],
+  "nonPublicLinks": [],
+  "headers": [
+    {
+      "route": "/",
+      "stage": "production",
+      "status": 200,
+      "robots": null
+    },
+    {
+      "route": "/",
+      "stage": "preview",
+      "status": 200,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "route": "/resources/",
+      "stage": "production",
+      "status": 200,
+      "robots": null
+    },
+    {
+      "route": "/resources/",
+      "stage": "preview",
+      "status": 200,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "route": "/search/",
+      "stage": "production",
+      "status": 200,
+      "robots": "noindex, follow"
+    },
+    {
+      "route": "/search/",
+      "stage": "preview",
+      "status": 200,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "route": "/robots.txt",
+      "stage": "production",
+      "status": 200,
+      "robots": null
+    },
+    {
+      "route": "/robots.txt",
+      "stage": "preview",
+      "status": 200,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "route": "/sitemap.xml",
+      "stage": "production",
+      "status": 200,
+      "robots": null
+    },
+    {
+      "route": "/sitemap.xml",
+      "stage": "preview",
+      "status": 200,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "route": "/not-a-release-route/",
+      "stage": "production",
+      "status": 404,
+      "robots": null
+    },
+    {
+      "route": "/not-a-release-route/",
+      "stage": "preview",
+      "status": 404,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "route": "/admin/",
+      "stage": "production",
+      "status": 404,
+      "robots": null
+    },
+    {
+      "route": "/admin/",
+      "stage": "preview",
+      "status": 404,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "route": "/api/live/",
+      "stage": "production",
+      "status": 404,
+      "robots": null
+    },
+    {
+      "route": "/api/live/",
+      "stage": "preview",
+      "status": 404,
+      "robots": "noindex, nofollow"
+    }
+  ]
+}

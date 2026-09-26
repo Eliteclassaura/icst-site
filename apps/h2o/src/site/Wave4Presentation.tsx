@@ -3,6 +3,7 @@ import {pageForSegments} from './cohort'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {renderSalmonNode,SalmonSeo} from './SalmonCanonical'
 import {articleCardImage,articleHeadingNodes,firstText,matchedWave4Documents,paragraphTexts,wave4LibraryItems,type Wave4Item} from './wave4'
+import {R2Discovery} from './R2Discovery'
 
 const exactImage='/media/figma-wave4/figma-w4-e7d87492.png'
 const resourcePath=(doc:SalmonDocument)=>doc.routeId==='SALMON-pages-1761'?'/resources/':doc.targetPath
@@ -39,6 +40,7 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
         <div className="wave4-document-list">{primaryItems.map(renderRow)}</div>
         {technicalItems.length?<section className="wave4-tool-panel" aria-labelledby="wave4-tool-panel-heading"><h2 id="wave4-tool-panel-heading">Industrial Cooling Tower Tools &amp; Technical Charts</h2><p>{paragraphs[3]}</p><div className="wave4-document-list">{technicalItems.map((item,index)=>renderRow(item,index))}</div></section>:null}
         <div className="wave4-library-crosslinks"><a href="/resources/">Resources</a><a href="/cooling-tower-brochures/">Brochures</a><a href="/cooling-tower-resources/tools/">Tools</a><a href="/tech-articles/">Technical Articles</a></div>
+        {path==='/resources/'?<R2Discovery kind="pages"/>:null}
       </section>
     </main>
     <LuxuryFooter page={pageFor(doc)}/>
@@ -65,6 +67,7 @@ export function Wave4ArticleIndex({doc}:{doc:SalmonDocument}){
       <header className="wave4-index-header"><h1>Tech Articles</h1><p>{firstText(doc,'p')}</p><form action="/search/" role="search"><label htmlFor="wave4-article-query">Search technical articles</label><div><input id="wave4-article-query" type="search" name="q" placeholder="Search articles and technical resources" required maxLength={200}/><button type="submit">Search</button></div></form></header>
       <section className="wave4-index-content" aria-labelledby="wave4-latest"><h2 id="wave4-latest">Technical reading</h2><div className="wave4-article-grid">{articles.slice(0,12).map(renderCard)}</div>
         <details className="wave4-more-articles"><summary>Browse all {articles.length} matched articles</summary><div className="wave4-article-grid">{articles.slice(12).map(renderCard)}</div></details>
+        <R2Discovery kind="articles"/>
       </section>
     </main>
     <LuxuryFooter page={pageFor(doc)}/>
@@ -77,6 +80,21 @@ export function Wave4ArticleDetail({doc}:{doc:SalmonDocument}){
     <main id="main" className="wave4-detail"><nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tech-articles/">Tech Articles</a></nav>
       <article className="wave4-detail-body">{articleHeadingNodes(doc.children).map((node,index)=>renderSalmonNode(node,`body.${index}`,doc))}</article>
       <div className="wave4-detail-return"><a href="/tech-articles/">← Back to technical articles</a></div>
+    </main>
+    <LuxuryFooter page={pageFor(doc)}/>
+  </div>
+}
+
+/** R2 live-English restoration: exact source content in the accepted article shell. */
+export function LiveEnglishDetail({doc}:{doc:SalmonDocument}){
+  const isPost=doc.type==='posts'
+  const isProject=doc.routeId.startsWith('LIVE-portfolio-')
+  return <div className="luxury-site figma-wave4" data-live-english={doc.routeId} data-source-rest-sha256={doc.sourceIdentity.sha256}>
+    <SalmonSeo doc={doc}/><LuxuryHeader page={pageFor(doc)}/>
+    <main id="main" className="wave4-detail">
+      <nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{isProject?<a href="/all-projects/">Projects</a>:isPost?<a href="/tech-articles/">Tech Articles</a>:<a href="/resources/">Resources</a>}</nav>
+      <article className="wave4-detail-body"><h1>{doc.seo.h1[0]||doc.title}</h1>{doc.children.map((node,index)=>renderSalmonNode(node,`body.${index}`,doc))}</article>
+      <div className="wave4-detail-return"><a href={isProject?'/all-projects/':isPost?'/tech-articles/':'/resources/'}>← Back to {isProject?'projects':isPost?'technical articles':'resources'}</a></div>
     </main>
     <LuxuryFooter page={pageFor(doc)}/>
   </div>

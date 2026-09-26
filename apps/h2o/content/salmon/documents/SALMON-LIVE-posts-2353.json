@@ -1,0 +1,407 @@
+{
+  "routeId": "LIVE-posts-2353",
+  "sourceUrl": "https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/",
+  "targetPath": "/concrete-versus-frp-cooling-towers-pt-2/",
+  "type": "posts",
+  "title": "Concrete Versus FRP Cooling Towers Pt. 2",
+  "wordpressId": 2353,
+  "sourceIdentity": {
+    "status": 200,
+    "effectiveUrl": "https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/",
+    "sha256": "a813c62803da63ff6a464182169bb45e46f9f52f8bb1485e4ee15b3833a81856",
+    "htmlSha256": "9cce8a3fbd20d5b48b0a9ae900872454912910cc086a61123556e31c55c1c677",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/posts/2353"
+  },
+  "publicationStatus": "publish",
+  "published": "2017-03-29T21:16:31",
+  "modified": "2025-03-06T11:28:50",
+  "text": "Table of Contents Toggle Is an FRP Cooling Tower the Right Choice for Your Project? Maintenance is a Necessary Part of Industrial Cooling Towers Is an FRP Cooling Tower the Right Choice for Your Project? Hello, dear reader, and welcome to part two of our blog series highlighting the advantages that FRP materials have over concrete in industrial cooling tower design. While we aren’t suggesting that certain applications won’t call for a concrete tower design, overall we are confident that FRP materials are a better choice in the majority of cases. In our last post, we listed a couple of advantages FRP has during the construction and design phase and, in today’s post, we are going to highlight some of the maintenance benefits associated with FRP cooling towers. We hope that by the end of this blog you feel more confident in your decision between these two materials. Maintenance is a Necessary Part of Industrial Cooling Towers All machines, no matter how well they are designed and manufactured, require maintenance. Industrial cooling towers are no exception to this rule and, often, maintenance costs over the life of the tower can become quite an expense. Below, we have listed a few ways that FRP cooling towers are easier to maintain than concrete cooling towers. Cleaning: If you have spent time around an industrial cooling tower, you are well aware that they require routine, thorough cleaning. Scale buildup and biological growth can quickly inhibit the efficacy of a cooling tower and must be handled accordingly. FRP cooling towers allow for scale build-up and algae to be washed or brushed away with ease. Concrete cooling towers, on the other hand, are porous and tend to hold onto undesirable particles and growth that must be thoroughly scrubbed away. Not only do concrete cooling towers require more frequent cleanings, the amount of labor required to complete those cleanings is much more when compared to an FRP tower.Further, the closer spacing of the structure in the FRP cooling tower allows for easier cleaning without excessive scaffolding. Concrete towers have large spans in structure, thus requiring substantial pre-cleaning safety planning and large amounts of costly scaffolding to allow cleaning teams to safely access and clean the structure. General Maintenance: Every industrial cooling tower requires maintenance at some point. FRP cooling towers are one of the easiest designs to maintain. If the tower structure becomes damaged in any way, the identified components can simply be removed and replaced and the tower is good as new. If a concrete cooling tower becomes damaged, however, things aren’t as easy. Concrete tends to crack and corrode over time and repairs can be costly, expensive, and time consuming. Especially in brackish or seawater conditions which can be very aggressive to concrete structures. Where FRP cooling towers can be repaired in a matter of hours, concrete cooling towers require substantial time for preparation, chipping, patching and time for the concrete to cure, a process which can take days. We hope that this short blog series has done an adequate job in explaining the reasons we believe that FRP cooling towers are superior to concrete cooling towers for the majority of applications. FRP towers are much faster and easier to assemble, require less maintenance, and perform better than concrete cooling towers over their lifespan. If you would like to learn more about our FRP cooling tower options, please visit our website today. At Industrial Cooling Solutions Inc. we are experts in the design, construction, and maintenance of FRP industrial cooling towers and we would love to leverage our experience to help you with your next cooling tower project.",
+  "children": [
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "img",
+          "attrs": {
+            "src": "https://h2ocooling.com/content/uploads/cooling2.jpg",
+            "alt": "cooling2",
+            "width": "1200",
+            "height": "628"
+          },
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "div",
+      "attrs": {
+        "id": "ez-toc-container"
+      },
+      "children": [
+        "\n",
+        {
+          "tag": "div",
+          "attrs": {},
+          "children": [
+            "\n",
+            {
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                "Table of Contents"
+              ]
+            },
+            "\n",
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "a",
+                  "attrs": {
+                    "href": "#"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                "Toggle"
+                              ]
+                            },
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "\n",
+        {
+          "tag": "nav",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "ul",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/#Is_an_FRP_Cooling_Tower_the_Right_Choice_for_Your_Project"
+                      },
+                      "children": [
+                        "Is an FRP Cooling Tower the Right Choice for Your Project?"
+                      ]
+                    },
+                    {
+                      "tag": "ul",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "href": "https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/#Maintenance_is_a_Necessary_Part_of_Industrial_Cooling_Towers"
+                              },
+                              "children": [
+                                "Maintenance is a Necessary Part of Industrial Cooling Towers"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Is_an_FRP_Cooling_Tower_the_Right_Choice_for_Your_Project"
+          },
+          "children": []
+        },
+        {
+          "tag": "b",
+          "attrs": {},
+          "children": [
+            "Is an FRP Cooling Tower the Right Choice for Your Project?"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "Hello, dear reader, and welcome to part two of our blog series highlighting the advantages that FRP materials have over concrete in industrial cooling tower design. While we aren’t suggesting that certain applications won’t call for a concrete tower design, overall we are confident that FRP materials are a better choice in the majority of cases. In our last post, we listed a couple of advantages FRP has during the construction and design phase and, in today’s post, we are going to highlight some of the maintenance benefits associated with FRP cooling towers. We hope that by the end of this blog you feel more confident in your decision between these two materials. "
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Maintenance_is_a_Necessary_Part_of_Industrial_Cooling_Towers"
+          },
+          "children": []
+        },
+        {
+          "tag": "b",
+          "attrs": {},
+          "children": [
+            "Maintenance is a Necessary Part of Industrial Cooling Towers"
+          ]
+        },
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "All machines, no matter how well they are designed and manufactured, require maintenance. Industrial cooling towers are no exception to this rule and, often, maintenance costs over the life of the tower can become quite an expense. Below, we have listed a few ways that FRP cooling towers are easier to maintain than concrete cooling towers."
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "ul",
+      "attrs": {},
+      "children": [
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "Cleaning: "
+              ]
+            },
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                "If you have spent time around an industrial cooling tower, you are well aware that they require routine, thorough cleaning. Scale buildup and biological growth can quickly inhibit the efficacy of a cooling tower and must be handled accordingly. FRP cooling towers allow for scale build-up and algae to be washed or brushed away with ease. Concrete cooling towers, on the other hand, are porous and tend to hold onto undesirable particles and growth that must be thoroughly scrubbed away. Not only do concrete cooling towers require more frequent cleanings, the amount of labor required to complete those cleanings is much more when compared to an FRP tower.Further, the closer spacing of the structure in the FRP cooling tower allows for easier cleaning without excessive scaffolding. Concrete towers have large spans in structure, thus requiring substantial pre-cleaning safety planning and large amounts of costly scaffolding to allow cleaning teams to safely access and clean the structure.",
+                {
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                "\n"
+              ]
+            }
+          ]
+        },
+        "\n"
+      ]
+    },
+    "\n",
+    {
+      "tag": "ul",
+      "attrs": {},
+      "children": [
+        "\n",
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "b",
+              "attrs": {},
+              "children": [
+                "General Maintenance: "
+              ]
+            },
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                "Every industrial cooling tower requires maintenance at some point. FRP cooling towers are one of the easiest designs to maintain. If the tower structure becomes damaged in any way, the identified components can simply be removed and replaced and the tower is good as new. If a concrete cooling tower becomes damaged, however, things aren’t as easy. Concrete tends to crack and corrode over time and repairs can be costly, expensive, and time consuming. Especially in brackish or seawater conditions which can be very aggressive to concrete structures. Where FRP cooling towers can be repaired in a matter of hours, concrete cooling towers require substantial time for preparation, chipping, patching and time for the concrete to cure, a process which can take days. "
+              ]
+            }
+          ]
+        },
+        "\n"
+      ]
+    },
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": [
+            "We hope that this short blog series has done an adequate job in explaining the reasons we believe that FRP cooling towers are superior to concrete cooling towers for the majority of applications. FRP towers are much faster and easier to assemble, require less maintenance, and perform better than concrete cooling towers over their lifespan. If you would like to learn more about our FRP cooling tower options, please visit our website today. At Industrial Cooling Solutions Inc. we are experts in the design, construction, and maintenance of FRP industrial cooling towers and we would love to leverage our experience to help you with your next cooling tower project. "
+          ]
+        }
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "Industrial Cooling Tower: FRP Offers Multiple Benefits",
+    "meta": [
+      {
+        "name": "description",
+        "value": "FRP material is quickly becoming commonplace in the world of industrial cooling tower design. Visit Industrial Cooling Solutions today to learn more."
+      },
+      {
+        "name": "robots",
+        "value": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      {
+        "name": "og:locale",
+        "value": "en_US"
+      },
+      {
+        "name": "og:type",
+        "value": "article"
+      },
+      {
+        "name": "og:title",
+        "value": "Industrial Cooling Tower: FRP Offers Multiple Benefits"
+      },
+      {
+        "name": "og:description",
+        "value": "FRP material is quickly becoming commonplace in the world of industrial cooling tower design. Visit Industrial Cooling Solutions today to learn more."
+      },
+      {
+        "name": "og:url",
+        "value": "https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/"
+      },
+      {
+        "name": "og:site_name",
+        "value": "New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "og:updated_time",
+        "value": "2025-03-06T11:28:50+00:00"
+      },
+      {
+        "name": "og:image",
+        "value": "http://h2ocooling.com/content/uploads/cooling2.jpg"
+      },
+      {
+        "name": "og:image:alt",
+        "value": "Concrete Versus FRP Cooling Towers Pt. 2"
+      },
+      {
+        "name": "twitter:card",
+        "value": "summary_large_image"
+      },
+      {
+        "name": "twitter:title",
+        "value": "Industrial Cooling Tower: FRP Offers Multiple Benefits"
+      },
+      {
+        "name": "twitter:description",
+        "value": "FRP material is quickly becoming commonplace in the world of industrial cooling tower design. Visit Industrial Cooling Solutions today to learn more."
+      },
+      {
+        "name": "twitter:image",
+        "value": "http://h2ocooling.com/content/uploads/cooling2.jpg"
+      },
+      {
+        "name": "twitter:label1",
+        "value": "Written by"
+      },
+      {
+        "name": "twitter:data1",
+        "value": "Tim Bozic"
+      },
+      {
+        "name": "twitter:label2",
+        "value": "Time to read"
+      },
+      {
+        "name": "twitter:data2",
+        "value": "2 minutes"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/"
+    ],
+    "h1": [
+      "Is an FRP Cooling Tower the Right Choice for Your Project?"
+    ],
+    "schema": [
+      "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"Organization\", \"@id\": \"https://h2ocooling.com/#organization\", \"name\": \"Industrial Cooling Solutions\", \"url\": \"http://h2ocooling.com\", \"logo\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/#logo\", \"url\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"contentUrl\": \"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\", \"caption\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"inLanguage\": \"en-US\", \"width\": \"267\", \"height\": \"57\"}}, {\"@type\": \"WebSite\", \"@id\": \"https://h2ocooling.com/#website\", \"url\": \"https://h2ocooling.com\", \"name\": \"New Cooling Tower Construction, Parts, Maintenance, Upgrades\", \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"inLanguage\": \"en-US\"}, {\"@type\": \"ImageObject\", \"@id\": \"http://h2ocooling.com/content/uploads/cooling2.jpg\", \"url\": \"http://h2ocooling.com/content/uploads/cooling2.jpg\", \"width\": \"200\", \"height\": \"200\", \"inLanguage\": \"en-US\"}, {\"@type\": \"BreadcrumbList\", \"@id\": \"https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/#breadcrumb\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": \"1\", \"item\": {\"@id\": \"https://h2ocooling.com\", \"name\": \"Home\"}}, {\"@type\": \"ListItem\", \"position\": \"2\", \"item\": {\"@id\": \"https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/\", \"name\": \"Concrete Versus FRP Cooling Towers Pt. 2\"}}]}, {\"@type\": \"WebPage\", \"@id\": \"https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/#webpage\", \"url\": \"https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/\", \"name\": \"Industrial Cooling Tower: FRP Offers Multiple Benefits\", \"datePublished\": \"2017-03-29T21:16:31+00:00\", \"dateModified\": \"2025-03-06T11:28:50+00:00\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/#website\"}, \"primaryImageOfPage\": {\"@id\": \"http://h2ocooling.com/content/uploads/cooling2.jpg\"}, \"inLanguage\": \"en-US\", \"breadcrumb\": {\"@id\": \"https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/#breadcrumb\"}}, {\"@type\": \"Person\", \"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\", \"description\": \"Tim Bozic is a seasoned leader with over two decades of experience in the industrial and manufacturing sectors. As the President of Industrial Cooling Solutions, he specializes in driving innovation and operational excellence in cooling technologies, ensuring sustainable and efficient solutions for clients worldwide. With a proven track record in strategic planning, team leadership, and customer-focused growth, Tim is passionate about delivering cutting-edge solutions that meet the evolving needs of the industry.\", \"url\": \"https://h2ocooling.com/author/tbozic/\", \"image\": {\"@type\": \"ImageObject\", \"@id\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"url\": \"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790004844\", \"caption\": \"Tim Bozic\", \"inLanguage\": \"en-US\"}, \"sameAs\": [\"https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/\", \"https://www.linkedin.com/in/tim-bozic-417a65a/\"], \"worksFor\": {\"@id\": \"https://h2ocooling.com/#organization\"}}, {\"@type\": \"BlogPosting\", \"headline\": \"Industrial Cooling Tower: FRP Offers Multiple Benefits\", \"datePublished\": \"2017-03-29T21:16:31+00:00\", \"dateModified\": \"2025-03-06T11:28:50+00:00\", \"author\": {\"@id\": \"https://h2ocooling.com/author/tbozic/\", \"name\": \"Tim Bozic\"}, \"publisher\": {\"@id\": \"https://h2ocooling.com/#organization\"}, \"description\": \"FRP material is quickly becoming commonplace in the world of industrial cooling tower design. Visit Industrial Cooling Solutions today to learn more.\", \"name\": \"Industrial Cooling Tower: FRP Offers Multiple Benefits\", \"@id\": \"https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/#richSnippet\", \"isPartOf\": {\"@id\": \"https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/#webpage\"}, \"image\": {\"@id\": \"http://h2ocooling.com/content/uploads/cooling2.jpg\"}, \"inLanguage\": \"en-US\", \"mainEntityOfPage\": {\"@id\": \"https://h2ocooling.com/concrete-versus-frp-cooling-towers-pt-2/#webpage\"}}]}"
+    ]
+  },
+  "images": [
+    {
+      "src": "https://h2ocooling.com/content/uploads/cooling2.jpg",
+      "section": "live-body",
+      "order": 0,
+      "alt": "cooling2"
+    }
+  ]
+}

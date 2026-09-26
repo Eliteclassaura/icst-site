@@ -30,11 +30,12 @@ export function releaseAuthority(root){
   const heldIds=new Set(articleRows.filter(r=>r.FINAL_DISPOSITION==='REVIEW_HOLD').map(r=>r.SOURCE_ROUTE_ID).filter(Boolean))
   const heldPaths=new Set(articleRows.filter(r=>r.FINAL_DISPOSITION==='REVIEW_HOLD').flatMap(r=>[r.SOURCE_PATH,r.SALMON_PATH]).filter(Boolean).map(pathKey))
   if(matched.size!==177||articleRows.filter(r=>r.FINAL_DISPOSITION==='REVIEW_HOLD').length!==653)throw new Error('Frozen article accounting changed')
-  const routes=read('content/salmon/active-routes.json').map(row=>{
+  const sourceRoutes=[...read('content/salmon/active-routes.json'),...read('content/salmon/r2-live-routes.json')]
+  const routes=sourceRoutes.map(row=>{
     const bytes=readFileSync(path.join(root,'content/salmon',row.file))
     if(hash(bytes)!==row.sha256)throw new Error(`Source changed: ${row.routeId}`)
     const doc=JSON.parse(bytes)
-    const held=(heldIds.has(row.routeId)||heldPaths.has(pathKey(row.targetPath)))&&row.targetPath!==releaseOverride
+    const held=!row.routeId.startsWith('LIVE-')&&(heldIds.has(row.routeId)||heldPaths.has(pathKey(row.targetPath)))&&row.targetPath!==releaseOverride
     if(matched.has(row.routeId)&&matched.get(row.routeId)!==row.targetPath)throw new Error(`Article path mismatch: ${row.routeId}`)
     const previousCanonical=doc.seo.canonical[0]??''
     const canonical=new URL(previousCanonical||row.targetPath,origin)
@@ -56,12 +57,20 @@ export function releaseAuthority(root){
   routes.push({...resource,path:'/resources/',canonical:origin+'/resources/',previousCanonical:resource.previousCanonical,state:'PUBLIC',indexable:true,sitemap:true})
   resource.state='REDIRECT';resource.export=false;resource.indexable=false;resource.sitemap=false;resource.searchable=false;resource.redirect='/resources/'
   routes.push({path:'/search/',routeId:'RELEASE-SEARCH',routeClass:'search',state:'PUBLIC',export:true,indexable:false,sitemap:false,canonical:origin+'/search/',previousCanonical:'',sourceRobots:'noindex, follow',matchedArticle:false,sourceFile:'release/templates/search.tsx',sourceSha256:null,redirect:null})
-  const redirectRows=[...read('content/salmon/redirects.json'),...read('content/luxury/reconciled-redirects.json'),{source:'/cooling-tower-resources/',destination:'/resources/'},{source:'/about-ics/',destination:about.path}]
+  // These four source taxonomy shells render no substantive body and were already noindex.
+  const privateBlankArchives=new Set(['/category/indicators-of-cooling-tower-trouble/','/category/tech-articles/','/category/uncategorized-ja/','/category/uncategorized-th/'])
+  for(const route of routes)if(privateBlankArchives.has(route.path)){route.state='PRIVATE_ARCHIVE';route.export=false;route.indexable=false;route.sitemap=false;route.searchable=false}
+  // Generated taxonomy listing shells duplicate their linked content; retain them for compatibility, not indexing.
+  const duplicateNonindex=new Set(['/thank-you/','/testimonial-detail/','/hello-world-2/'])
+  for(const route of routes)if(['categories','product_cat'].includes(route.routeClass)||duplicateNonindex.has(route.path)){route.indexable=false;route.sitemap=false;route.searchable=false}
+  const r2ExactRedirects=read('content/release/r2-exact-redirects.json')
+  const redirectRows=[...read('content/salmon/redirects.json'),...read('content/luxury/reconciled-redirects.json'),...r2ExactRedirects,{source:'/cooling-tower-resources/',destination:'/resources/'},{source:'/about-ics/',destination:about.path}]
+  const r2ExactSources=new Set(r2ExactRedirects.map(row=>pathKey(row.source)))
   const redirects=[];const bySource=new Map()
   for(const row of redirectRows){
     const previous=bySource.get(pathKey(row.source))
     if(previous&&previous.destination!==row.destination)throw new Error(`Conflicting redirects: ${row.source}`)
-    if(!previous){const redirect={source:row.source,destination:row.destination,status:308};bySource.set(pathKey(row.source),redirect);redirects.push(redirect)}
+    if(!previous){const redirect={source:row.source,destination:row.destination,status:r2ExactSources.has(pathKey(row.source))?301:308};bySource.set(pathKey(row.source),redirect);redirects.push(redirect)}
   }
   for(const row of redirects){
     const seen=new Set([pathKey(row.source)]);let destination=row.destination
@@ -69,6 +78,7 @@ export function releaseAuthority(root){
     if(destination!==row.destination)throw new Error(`Redirect chain needs authority: ${row.source}`)
     const target=routes.find(route=>pathKey(route.path)===pathKey(destination))
     row.targetState=target?.state??'MISSING'
+    if(r2ExactSources.has(pathKey(row.source))&&row.targetState!=='PUBLIC')throw new Error(`R2 exact redirect target not public: ${row.source}`)
   }
   const duplicates=routes.filter((row,i)=>routes.findIndex(other=>pathKey(other.path)===pathKey(row.path))!==i)
   if(duplicates.length)throw new Error(`Duplicate route: ${duplicates[0].path}`)

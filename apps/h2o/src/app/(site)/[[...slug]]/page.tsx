@@ -1,10 +1,10 @@
 import type {Metadata} from 'next'
 import {notFound} from 'next/navigation'
-import {salmonDocument,salmonRouteFor,salmonRoutes} from '../../../site/salmon'
+import {salmonDocument,releaseRouteFor,salmonRoutes} from '../../../site/salmon'
 import {SalmonCanonical} from '../../../site/SalmonCanonical'
 import {LuxuryCanonical,luxuryIds} from '../../../site/LuxuryCanonical'
 import {PartsIndex,ProductDetail} from '../../../site/Wave3Presentation'
-import {Wave4ArticleDetail,Wave4ArticleIndex,Wave4Library} from '../../../site/Wave4Presentation'
+import {LiveEnglishDetail,Wave4ArticleDetail,Wave4ArticleIndex,Wave4Library} from '../../../site/Wave4Presentation'
 import {matchedWave4Article} from '../../../site/wave4'
 // The manifest lookup remains fail-closed. Runtime lookup accepts Salmon's original
 // lowercase percent escapes as well as Next's equivalent uppercase encoded form.
@@ -21,7 +21,7 @@ export async function generateMetadata({params}:Params):Promise<Metadata>{
     const doc=salmonDocument(source)
     return {title:{absolute:doc.seo.title},description:doc.seo.meta.find(meta=>meta.name==='description')?.value,alternates:{canonical:'https://h2ocooling.com/resources/'},robots:{index:false,follow:false}}
   }
-  const row=salmonRouteFor(slug)
+  const row=releaseRouteFor(slug)
   if(!row)return {robots:{index:false,follow:false}}
   const doc=salmonDocument(row)
   return {title:{absolute:doc.seo.title},alternates:{canonical:doc.seo.canonical[0]},robots:{index:false,follow:false}}
@@ -33,9 +33,10 @@ export default async function Page({params,searchParams}:Params){
     if(!source)notFound()
     return <Wave4Library doc={salmonDocument(source)}/>
   }
-  const row=salmonRouteFor(slug)
+  const row=releaseRouteFor(slug)
   if(!row)notFound()
   const doc=salmonDocument(row)
+  if(doc.routeId.startsWith('LIVE-'))return <LiveEnglishDetail doc={doc}/>
   if(doc.targetPath==='/cooling-tower-parts-online/'){
     const search=await searchParams??{}
     return <PartsIndex doc={doc} query={typeof search.q==='string'?search.q:''} pageNumber={Number(search.page)||1}/>
