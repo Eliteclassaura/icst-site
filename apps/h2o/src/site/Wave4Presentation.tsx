@@ -18,6 +18,7 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
   const intro=isTools?paragraphs[1]:paragraphs[2]
   const heading=doc.routeId==='SALMON-pages-1761'?'Cooling Tower Knowledge Center':doc.routeId==='SALMON-pages-1870'?'Industrial Cooling Tower Tools & Engineering Resources':'Cooling Tower Brochures'
   const path=resourcePath(doc)
+  const isResources=path==='/resources/'
   const primaryItems=isTools?items.slice(0,-1):items
   const technicalItems=isTools?items.slice(-1):[]
   const renderRow=(item:Wave4Item,index:number)=>item.description?<details className="wave4-document" key={`${item.title}-${index}`} open={index===0}>
@@ -36,11 +37,17 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
         <div className="wave4-hero-content"><h1 id="wave4-title">{title}</h1><p>{lead}</p><a href="/contact-us/" className="wave4-action">Contact Our Team <span aria-hidden="true">→</span></a></div>
       </section>
       <section className="wave4-library-content" aria-labelledby="wave4-library-heading">
+        {isResources?<nav className="wave4-resource-pathways" aria-label="Explore technical resources">
+          <a href="/cooling-tower-brochures/"><span>01 / Documents</span><strong>Brochures</strong><small>Explore the public brochure library and its own verified document identities.</small><em aria-hidden="true">↗</em></a>
+          <a href="/cooling-tower-resources/tools/"><span>02 / Engineering</span><strong>Tools</strong><small>Find the separate tools and technical-chart collection.</small><em aria-hidden="true">↗</em></a>
+          <a href="/tech-articles/"><span>03 / Reading</span><strong>Technical Articles</strong><small>Browse source-reconciled industrial cooling articles.</small><em aria-hidden="true">↗</em></a>
+        </nav>:null}
         <div className="wave4-library-intro"><h2 id="wave4-library-heading">{heading}</h2>{intro?<p>{intro}</p>:null}</div>
+        {isResources?<p className="wave4-resource-count">RESOURCE LIBRARY / {items.length} source-listed documents</p>:null}
         <div className="wave4-document-list">{primaryItems.map(renderRow)}</div>
         {technicalItems.length?<section className="wave4-tool-panel" aria-labelledby="wave4-tool-panel-heading"><h2 id="wave4-tool-panel-heading">Industrial Cooling Tower Tools &amp; Technical Charts</h2><p>{paragraphs[3]}</p><div className="wave4-document-list">{technicalItems.map((item,index)=>renderRow(item,index))}</div></section>:null}
         <div className="wave4-library-crosslinks"><a href="/resources/">Resources</a><a href="/cooling-tower-brochures/">Brochures</a><a href="/cooling-tower-resources/tools/">Tools</a><a href="/tech-articles/">Technical Articles</a></div>
-        {path==='/resources/'?<R2Discovery kind="pages"/>:null}
+        {isResources?<R2Discovery kind="pages"/>:null}
       </section>
     </main>
     <LuxuryFooter page={pageFor(doc)}/>

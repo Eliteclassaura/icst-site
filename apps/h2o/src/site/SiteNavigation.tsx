@@ -10,14 +10,14 @@ export const siteNavigation=[
   {label:'Resources',items:[['Resources','/resources/'],['Technical Articles','/tech-articles/'],['Brochures','/cooling-tower-brochures/'],['Search','/search/']]},
   {label:'Company',items:[['About ICS','/about-ics-industrial-cooling-solutions/'],['Contact Us','/contact-us/']]},
 ] as const
-const salmonNavigation=[
-  {label:'New Towers',href:'/cooling-tower/'},
-  {label:'Repair Upgrades And Maintenance',href:'/cooling-tower-maintenance-repair-upgrade/'},
+export const salmonNavigation=[
+  {label:'New Towers',href:'/cooling-tower/',items:[['New Cooling Towers','/cooling-tower/'],['Cooling Tower Replacement','/cooling-tower-replacement/'],['Thermal Upgrade','/thermal-upgrade/']]},
+  {label:'Repair Upgrades And Maintenance',href:'/cooling-tower-maintenance-repair-upgrade/',items:[['All repair and maintenance','/cooling-tower-maintenance-repair-upgrade/'],['Crossflow towers','/crossflow-cooling-tower-repair-maintenance/'],['Counterflow towers','/counterflow-cooling-tower-repair-maintenance/'],['Wet, hybrid and dry towers','/wet-hybrid-dry-cooling-tower-repair/'],['Low drift solutions','/low-drift-cooling-tower-solutions/'],['Emergency repair','/emergency-cooling-tower-repair/'],['Rebuilds and new towers','/cooling-tower-rebuilds-new-towers/'],['Disaster Recovery','/disaster-recovery/'],['Dry Soda Blasting','/dry-soda-blasting/']]},
   {label:'Air Coolers',href:'/air-coolers/'},
   {label:'Parts',href:'/cooling-tower-parts-online/'},
   {label:'Projects',href:'/all-projects/'},
-  {label:'About ICS',href:'/about-ics-industrial-cooling-solutions/'},
-  {label:'Cooling Towers Resources',href:'/resources/'},
+  {label:'About ICS',href:'/about-ics-industrial-cooling-solutions/',items:[['About ICS','/about-ics-industrial-cooling-solutions/'],['Contact Us','/contact-us/']]},
+  {label:'Cooling Towers Resources',href:'/resources/',items:[['Resources','/resources/'],['Brochures','/cooling-tower-brochures/'],['Tools','/cooling-tower-resources/tools/'],['Technical articles','/tech-articles/'],['Search','/search/']]},
 ] as const
 
 export function SiteNavigation({mobileQuote,salmonParity=false}:{mobileQuote:ReactNode;salmonParity?:boolean}){

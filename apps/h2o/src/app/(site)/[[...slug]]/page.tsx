@@ -6,15 +6,18 @@ import {LuxuryCanonical,luxuryIds} from '../../../site/LuxuryCanonical'
 import {PartsIndex,ProductDetail} from '../../../site/Wave3Presentation'
 import {LiveEnglishDetail,Wave4ArticleDetail,Wave4ArticleIndex,Wave4Library} from '../../../site/Wave4Presentation'
 import {matchedWave4Article} from '../../../site/wave4'
+import {EnglishServicePage,englishServiceForPath,englishServicePages} from '../../../site/EnglishServices'
 // The manifest lookup remains fail-closed. Runtime lookup accepts Salmon's original
 // lowercase percent escapes as well as Next's equivalent uppercase encoded form.
 export const dynamicParams=true
 export function generateStaticParams():Array<{slug:string[]}> {
-  return [...salmonRoutes().map(r=>({slug:r.targetPath.split('/').filter(Boolean).map(decodeURIComponent)})),{slug:['resources']}]
+  return [...salmonRoutes().map(r=>({slug:r.targetPath.split('/').filter(Boolean).map(decodeURIComponent)})),...englishServicePages().map(service=>({slug:service.path.split('/').filter(Boolean)})),{slug:['resources']}]
 }
 type Params={params:Promise<{slug?:string[]}>;searchParams?:Promise<{q?:string;page?:string}>}
 export async function generateMetadata({params}:Params):Promise<Metadata>{
   const slug=(await params).slug
+  const service=englishServiceForPath('/'+(slug??[]).join('/')+((slug??[]).length?'/':''))
+  if(service)return {title:{absolute:service.title+' | ICS'},description:service.lead,alternates:{canonical:'https://h2ocooling.com'+service.path},robots:{index:false,follow:false}}
   if(slug?.length===1&&slug[0]==='resources'){
     const source=salmonRoutes().find(route=>route.routeId==='SALMON-pages-1761')
     if(!source)throw new Error('Wave 4 Resources source route missing')
@@ -28,6 +31,8 @@ export async function generateMetadata({params}:Params):Promise<Metadata>{
 }
 export default async function Page({params,searchParams}:Params){
   const slug=(await params).slug
+  const service=englishServiceForPath('/'+(slug??[]).join('/')+((slug??[]).length?'/':''))
+  if(service)return <EnglishServicePage service={service}/>
   if(slug?.length===1&&slug[0]==='resources'){
     const source=salmonRoutes().find(route=>route.routeId==='SALMON-pages-1761')
     if(!source)notFound()

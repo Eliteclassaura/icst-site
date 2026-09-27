@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest'
-import {readFileSync} from 'node:fs'
+import {existsSync,readFileSync} from 'node:fs'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
 import {renderToStaticMarkup} from 'react-dom/server'
@@ -36,9 +36,13 @@ describe('Salmon activation authority and safety',()=>{
     const meta=await generateMetadata({params:Promise.resolve({slug:r.targetPath.split('/').filter(Boolean).map(decodeURIComponent)})})
     expect(meta.robots).toEqual({index:false,follow:false});expect(JSON.stringify(salmonDocument(r).seo)).toBe(before)
   })
-  it('activates byte-identical held media and preserves all 35 unavailable identities',()=>{
+  it('activates byte-identical held media and rejects the invalid BEE HTML-as-PDF asset',()=>{
     const media=JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon/media-identities.json'),'utf8')) as SalmonMedia[]
-    expect(media.filter(m=>!m.file)).toHaveLength(35)
+    expect(media.filter(m=>!m.file)).toHaveLength(36)
+    const invalid=media.find(m=>m.url==='https://beeindia.gov.in/sites/default/files/3Ch7.pdf')
+    expect(invalid?.state).toBe('SOURCE_UNAVAILABLE')
+    expect(invalid?.file).toBeUndefined()
+    expect(existsSync(path.join(process.cwd(),'public/media/salmon/311bdf0bf6ce45b6f8a2130ca6f91c5c05ee471174071731304b4ed309b1ca60.pdf'))).toBe(false)
     for(const m of media.filter(m=>m.file)){const bytes=readFileSync(path.join(process.cwd(),'public/media/salmon',path.basename(m.file!)));expect(createHash('sha256').update(bytes).digest('hex')).toBe(m.sha256)}
   })
   it('preserves product content data while suppressing public prices and executable commerce',()=>{

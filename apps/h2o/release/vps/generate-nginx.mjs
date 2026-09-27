@@ -3,7 +3,17 @@ import {readFileSync, writeFileSync} from 'node:fs'
 import {fileURLToPath} from 'node:url'
 const evidence = fileURLToPath(new URL('../evidence/', import.meta.url))
 const manifest = JSON.parse(readFileSync(evidence + 'edge-manifest.json', 'utf8'))
-if (manifest.routes.filter(r => r.export).length !== 884 || manifest.redirects.length !== 81) throw new Error('Release count mismatch')
+const serviceRoutes=manifest.routes.filter(r=>r.routeClass==='service'&&r.state==='PUBLIC'&&r.export&&r.indexable&&r.sitemap)
+const expectedServices=[
+  '/crossflow-cooling-tower-repair-maintenance/',
+  '/counterflow-cooling-tower-repair-maintenance/',
+  '/wet-hybrid-dry-cooling-tower-repair/',
+  '/low-drift-cooling-tower-solutions/',
+  '/emergency-cooling-tower-repair/',
+  '/cooling-tower-rebuilds-new-towers/',
+]
+if(serviceRoutes.length!==6||expectedServices.some(path=>!serviceRoutes.some(route=>route.path===path)))throw new Error('English service route authority mismatch')
+if (manifest.routes.filter(r => r.export).length !== 884+serviceRoutes.length || manifest.redirects.length !== 81) throw new Error('Release count mismatch')
 const quote = value => '"' + value.replaceAll('\\', '\\\\').replaceAll('"', '\\"').replaceAll('$', '\\$') + '"'
 const fileValue = value => quote(value).replaceAll('\\$', '${literal_dollar}')
 const files = new Map()

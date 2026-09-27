@@ -16,6 +16,7 @@ import { linksIn, parseBody } from '../markdown'
 import { buildJsonLd, ForbiddenSchemaPropertyError } from '../metadata'
 import { generateStaticParams } from '../../app/(site)/[[...slug]]/page'
 import {salmonRoutes, salmonRedirects, salmonRouteFor} from '../salmon'
+import {englishServicePages} from '../EnglishServices'
 
 const accepted = (): CohortPage[] => cohort()
 
@@ -136,18 +137,20 @@ describe('the forbidden-schema-property check fires', () => {
   })
 })
 
-describe('the route set is the Control Tower-authorized Salmon estate plus the Wave 4 Resources canonical', () => {
-  it('enumerates exactly the 1205 effective Salmon routes and the single authorized Resources route', () => {
+describe('the route set is the authorized Salmon estate, Resources canonical and six dedicated English services', () => {
+  it('enumerates exactly the 1205 effective Salmon routes, Resources and six authorized services', () => {
     const params = generateStaticParams()
-    expect(params.length).toBe(1206)
+    const services=englishServicePages()
+    expect(services).toHaveLength(6)
+    expect(params.length).toBe(1212)
     expect(params.map((entry) => `/${entry.slug.join('/')}/`.replace('//', '/')).sort()).toEqual(
-      [...salmonRoutes().map((page) => decodeURIComponent(page.targetPath)), '/resources/']
+      [...salmonRoutes().map((page) => decodeURIComponent(page.targetPath)), '/resources/',...services.map(service=>service.path)]
         .sort(),
     )
   })
 
   it('enumerates no route the accepted table does not carry', () => {
-    const acceptedPaths = new Set([...salmonRoutes().map((page) => decodeURIComponent(page.targetPath)), '/resources/'])
+    const acceptedPaths = new Set([...salmonRoutes().map((page) => decodeURIComponent(page.targetPath)), '/resources/',...englishServicePages().map(service=>service.path)])
     for (const entry of generateStaticParams()) {
       const path = `/${entry.slug.join('/')}/`.replace('//', '/')
       expect(acceptedPaths.has(path)).toBe(true)

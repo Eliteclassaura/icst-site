@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import AcceptedPage from '../../../accepted-page'
 import {salmonDocument,releaseRoutes} from '../../../site/salmon'
+import {englishServiceForPath} from '../../../site/EnglishServices'
 
 type Row={path:string;routeId:string;export:boolean;state:string;indexable:boolean;canonical:string}
 const rows=()=>JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')).routes as Row[]
@@ -16,6 +17,8 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
   const key='/'+slug.join('/')+(slug.length?'/':'')
   const row=rows().find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(key))
   if(!row)notFound()
+  const service=englishServiceForPath(row.path)
+  if(service)return {title:{absolute:service.title+' | ICS'},description:service.lead,alternates:{canonical:row.canonical},robots:{index:row.indexable,follow:row.indexable}}
   const source=releaseRoutes().find(candidate=>candidate.routeId===row.routeId)
   if(!source)notFound()
   const doc=salmonDocument(source)
@@ -27,6 +30,8 @@ export default async function Page({params}:Props){
   const row=rows().find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(requested))
   if(!row?.export)notFound()
   const source=releaseRoutes().find(candidate=>candidate.routeId===row.routeId)
-  const sourceParams=source?{slug:source.targetPath.split('/').filter(Boolean).map(decodeURIComponent)}:value
+  // /resources/ is a public alias of the frozen Salmon source, but the
+  // accepted Wave 4 library composition is selected by the requested path.
+  const sourceParams=row.path==='/resources/'?value:source?{slug:source.targetPath.split('/').filter(Boolean).map(decodeURIComponent)}:value
   return <AcceptedPage params={Promise.resolve(sourceParams)} searchParams={Promise.resolve({})}/>
 }

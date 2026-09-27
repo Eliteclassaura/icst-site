@@ -21,7 +21,7 @@ describe('site completion authority and structure',()=>{
     expect(html).toContain('aria-expanded="false"')
     expect(html).toContain('aria-controls="site-nav-panel-0"')
     expect(html).toContain('aria-controls="site-mobile-panel"')
-    expect(html).toContain('<summary>Services</summary>')
+    expect(html).toContain('<summary>Repair Upgrades And Maintenance</summary>')
     expect(html).not.toContain('/author/tbozic/')
     expect(html).not.toContain('/admin/')
   })

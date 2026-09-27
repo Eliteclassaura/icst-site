@@ -5,18 +5,19 @@ import {LuxuryCanonical} from '../LuxuryCanonical'
 import {serviceCompositions} from '../ServiceComposition'
 import {reconcileCommercialScope} from '../SalmonCanonical'
 import {salmonDocument,salmonRoutes} from '../salmon'
+import {contactOffices} from '../contact'
 
 const documentFor=(id:string)=>salmonDocument(salmonRoutes().find(route=>route.routeId===id)!)
 
 describe('site completion R1.1 boundaries',()=>{
-  it('keeps the full-color header and puts the approved white identity plus exact CTI source in the footer',()=>{
+  it('uses the current Homepage-authoritative logo and footer with owner contact facts',()=>{
     const header=renderToStaticMarkup(<LuxuryHeader/>),footer=renderToStaticMarkup(<LuxuryFooter/>)
-    expect(header).toContain('/media/luxury/ics-logo-original.webp')
-    expect(footer).toContain('/media/luxury/ics-logo-white-transparent.png')
-    expect(footer).not.toContain('/media/luxury/ics-logo-original.webp')
+    expect(header).toContain('/media/salmon/a8f4b38d0f7ede838b277c9bcd00a3b75a268ce23a5fccfb86ec263774e3b844.png')
+    expect(header).toContain('salmon-header-language')
+    expect(footer).toContain('salmon-parity-footer')
     expect(footer).toContain('c0060d855e27dfa01cb59100bba1dd217e2e6796d995aaa0e4ef4fa73d9b006c.png')
-    expect(footer).toContain('CTI member')
-    for(const label of ['Services','Parts &amp; Resources','Company','Offices','Privacy Policy'])expect(footer).toContain(label)
+    for(const label of ['Useful Links','Product Category','Phone','Privacy Policy',...contactOffices.map(office=>office.telephoneDisplay)])expect(footer).toContain(label)
+    expect(footer).not.toContain('+66-2-260-6598')
   })
   it('removes only the misleading Air Coolers hero photograph',()=>{
     expect(serviceCompositions['SALMON-pages-1668'].inside[1]).toBeUndefined()

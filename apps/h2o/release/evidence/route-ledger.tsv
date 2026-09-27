@@ -1293,3 +1293,9 @@ PATH	SOURCE_ID	CLASS	STATE	EXPORTED	INDEXABLE	CANONICAL	SITEMAP	REDIRECT	SOURCE_
 /rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/	LIVE-portfolio-2174	pages	PUBLIC	true	true	https://h2ocooling.com/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/	true		6fad1604622ddfbaed10dc09542eb26f7f3c0b83c5497832e76c093a13847a95
 /resources/	SALMON-pages-1761	pages	PUBLIC	true	true	https://h2ocooling.com/resources/	true		44f69ae8531705c7291da646c45f2657cc243d536578aa67c95f0d8e25326f60
 /search/	RELEASE-SEARCH	search	PUBLIC	true	false	https://h2ocooling.com/search/	false		
+/crossflow-cooling-tower-repair-maintenance/	ENGLISH-SERVICE-CROSSFLOW	service	PUBLIC	true	true	https://h2ocooling.com/crossflow-cooling-tower-repair-maintenance/	true		37f543dc36abb7a09f1f2b9556192d1ada989b34bdb6ea22fc563ad31cca7160
+/counterflow-cooling-tower-repair-maintenance/	ENGLISH-SERVICE-COUNTERFLOW	service	PUBLIC	true	true	https://h2ocooling.com/counterflow-cooling-tower-repair-maintenance/	true		37f543dc36abb7a09f1f2b9556192d1ada989b34bdb6ea22fc563ad31cca7160
+/wet-hybrid-dry-cooling-tower-repair/	ENGLISH-SERVICE-WET-HYBRID-DRY	service	PUBLIC	true	true	https://h2ocooling.com/wet-hybrid-dry-cooling-tower-repair/	true		37f543dc36abb7a09f1f2b9556192d1ada989b34bdb6ea22fc563ad31cca7160
+/low-drift-cooling-tower-solutions/	ENGLISH-SERVICE-LOW-DRIFT	service	PUBLIC	true	true	https://h2ocooling.com/low-drift-cooling-tower-solutions/	true		37f543dc36abb7a09f1f2b9556192d1ada989b34bdb6ea22fc563ad31cca7160
+/emergency-cooling-tower-repair/	ENGLISH-SERVICE-EMERGENCY	service	PUBLIC	true	true	https://h2ocooling.com/emergency-cooling-tower-repair/	true		37f543dc36abb7a09f1f2b9556192d1ada989b34bdb6ea22fc563ad31cca7160
+/cooling-tower-rebuilds-new-towers/	ENGLISH-SERVICE-REBUILDS	service	PUBLIC	true	true	https://h2ocooling.com/cooling-tower-rebuilds-new-towers/	true		37f543dc36abb7a09f1f2b9556192d1ada989b34bdb6ea22fc563ad31cca7160

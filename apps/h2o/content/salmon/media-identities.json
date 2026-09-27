@@ -977,11 +977,8 @@
   },
   {
     "url": "https://beeindia.gov.in/sites/default/files/3Ch7.pdf",
-    "state": "SOURCE_BINARY_HELD",
-    "sha256": "311bdf0bf6ce45b6f8a2130ca6f91c5c05ee471174071731304b4ed309b1ca60",
-    "bytes": 398775,
-    "file": "media/311bdf0bf6ce45b6f8a2130ca6f91c5c05ee471174071731304b4ed309b1ca60.pdf",
-    "authority": "PUBLIC_URL_BINARY_RECOVERED"
+    "state": "SOURCE_UNAVAILABLE",
+    "authority": "2026-09-26 exact URL and historical mirrors returned HTML, not a PDF; no replacement authorized"
   },
   {
     "url": "https://h2ocooling.com//wp-content/uploads/2021/12/A-Series_Model-A36_FanDrive.pdf",

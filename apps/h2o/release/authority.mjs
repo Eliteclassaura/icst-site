@@ -57,6 +57,15 @@ export function releaseAuthority(root){
   routes.push({...resource,path:'/resources/',canonical:origin+'/resources/',previousCanonical:resource.previousCanonical,state:'PUBLIC',indexable:true,sitemap:true})
   resource.state='REDIRECT';resource.export=false;resource.indexable=false;resource.sitemap=false;resource.searchable=false;resource.redirect='/resources/'
   routes.push({path:'/search/',routeId:'RELEASE-SEARCH',routeClass:'search',state:'PUBLIC',export:true,indexable:false,sitemap:false,canonical:origin+'/search/',previousCanonical:'',sourceRobots:'noindex, follow',matchedArticle:false,sourceFile:'release/templates/search.tsx',sourceSha256:null,redirect:null})
+  const serviceFile='content/english-completion/service-pages.json'
+  const serviceBytes=readFileSync(path.join(root,serviceFile))
+  const services=JSON.parse(serviceBytes.toString())
+  if(services.length!==6||new Set(services.map(service=>service.path)).size!==6)throw new Error('Six distinct English service pages required')
+  const serviceHash=hash(serviceBytes)
+  for(const service of services){
+    if(!/^\/[-a-z]+\/$/.test(service.path)||!/^ENGLISH-SERVICE-/.test(service.id)||!service.title||!service.lead)throw new Error('Invalid English service route')
+    routes.push({path:service.path,routeId:service.id,routeClass:'service',state:'PUBLIC',export:true,indexable:true,sitemap:true,searchable:true,canonical:origin+service.path,previousCanonical:'',sourceRobots:'index, follow',matchedArticle:false,sourceFile:serviceFile,sourceSha256:serviceHash,redirect:null})
+  }
   // These four source taxonomy shells render no substantive body and were already noindex.
   const privateBlankArchives=new Set(['/category/indicators-of-cooling-tower-trouble/','/category/tech-articles/','/category/uncategorized-ja/','/category/uncategorized-th/'])
   for(const route of routes)if(privateBlankArchives.has(route.path)){route.state='PRIVATE_ARCHIVE';route.export=false;route.indexable=false;route.sitemap=false;route.searchable=false}

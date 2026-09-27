@@ -86,6 +86,7 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument):
   if(tag==='a'){
     const original=attrs.href??''
     const media=salmonMedia(original,doc.sourceUrl)
+    if(media?.state==='SOURCE_UNAVAILABLE'&&/\.pdf(?:[?#]|$)/i.test(original))return <span key={key} data-source-href={original} data-source-download-unavailable="SOURCE_MEDIA_UNAVAILABLE">{children} — source document unavailable</span>
     const local=media&&salmonMediaPath(media)
     const commerce=/[?&]add-to-cart=|\/(?:checkout|cart)\/?(?:[?#]|$)/i.test(original)
     props.href=commerce?undefined:hrefSafe(ownerHref(local??original))
@@ -139,14 +140,16 @@ export function SalmonCanonical({doc}:{doc:SalmonDocument}){
     <div className="luxury-site"><LuxuryHeader page={page}/></div>
     {isContact?<main className="luxury-site figma-contact-main" id="main" data-salmon-region="body">
       <section className="figma-contact-hero">
+        <img className="figma-contact-hero-photo" src="/media/figma-wave2/figma-image-2b0fc0527234a0c7.png" alt="" width="2338" height="2338" data-media-authority="ACCEPTED_WAVE2_INDUSTRIAL_SOURCE"/>
         <div className="figma-contact-hero-inner">
           <div className="figma-contact-title">{doc.children.map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</div>
           <p className="figma-contact-lead">Tell us what your tower is doing and what you need it to do.</p>
         </div>
       </section>
+      <div className="figma-contact-introduction"><span>ICS / CONTACT</span><h2>Request a parts quote or contact ICS today.</h2><p>Start with the working conversational request below, or use the verified office numbers for direct contact.</p></div>
       <section className="figma-contact-rfq" aria-labelledby="figma-contact-rfq-heading">
         <div className="figma-contact-rfq-copy">
-          <h2 id="figma-contact-rfq-heading">Request a quote</h2>
+          <h2 id="figma-contact-rfq-heading">Start Here</h2>
           <p>Tell us what your tower is doing and what you need it to do, and the enquiry is scoped and quoted. The request form is how every enquiry reaches ICS.</p>
           <h3>What to send</h3>
           <ul>

@@ -11,6 +11,7 @@ import {TowerDisclosure} from './TowerDisclosure'
 import {HomePartsCatalog} from './HomePartsCatalog'
 import {homePartCatalogData} from './HomePartsData'
 import {SalmonPresentation} from './SalmonPresentation'
+import {englishServicePages} from './EnglishServices'
 type LayoutNode={tag:string;style?:CSSProperties;id?:number;children?:LayoutNode[];ref?:string;refs?:string[];slice?:{ref:string;start:number;end:number};decor?:string;action?:string;src?:string;alt?:string;key?:string}
 type Model={route:string;sourceId:string;tree:LayoutNode[];remaining:Array<{sourceSection:string;tree:LayoutNode}>}
 export const luxuryIds=new Set(['SALMON-pages-48','SALMON-pages-1230','SALMON-pages-1446','SALMON-pages-1534','SALMON-pages-1555','SALMON-pages-1572','SALMON-pages-1668','SALMON-pages-1722','SALMON-pages-411'])
@@ -70,6 +71,11 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
    const semantic=doc.routeId==='SALMON-pages-1230'&&n.id===114?'div':sourceNode&&typeof sourceNode!=='string'&&/^h[1-6]$/.test(sourceNode.tag)?sourceNode.tag:n.tag
    const children=n.ref&&sourceNode&&typeof sourceNode!=='string'?sourceNode.children.map((c,i)=>content(c,n.ref+'.'+i)):refs.flatMap((ref,i)=>doc.targetPath==='/'&&n.id===55&&i?[<span key="home-parts-boundary"> </span>,source(ref)]:[source(ref)])
    const text=refs.map(k=>salmonNodeText(nodes.get(k)!)).join(' ')
+   if(doc.routeId==='SALMON-pages-1446'&&[29,33,37,41,45,49].includes(n.id??-1)){
+    const destination=englishServicePages()[[29,33,37,41,45,49].indexOf(n.id!)]?.path
+    if(!destination)throw new Error('Maintenance card destination missing')
+    return <a {...props} href={destination}>View More <span aria-hidden="true">↗</span></a>
+   }
    const link=n.ref?hrefFor(n.ref):undefined
    if(/^(Contact|Request|Talk to|Explore Our Services|View Product|Download Specifications|See all projects|Learn more|Load More)/i.test(text)&&!link){
     const destination=/services|product/i.test(text)?'/cooling-tower/':/project/i.test(text)?'/all-projects/':'/contact-us/'

@@ -2,9 +2,9 @@
   "pass": true,
   "failures": [],
   "counts": {
-    "routes": 1294,
-    "exported": 884,
-    "indexable": 563,
+    "routes": 1300,
+    "exported": 890,
+    "indexable": 569,
     "products": 183,
     "matchedArticles": 177,
     "held": 405,
@@ -56,6 +56,11 @@
       "total": 1,
       "exported": 1,
       "indexable": 0
+    },
+    "service": {
+      "total": 6,
+      "exported": 6,
+      "indexable": 6
     }
   },
   "missingLinks": [],
