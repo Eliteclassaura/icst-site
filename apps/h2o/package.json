@@ -18,7 +18,8 @@
     "migrate:status": "payload migrate:status",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --max-warnings 0",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:crm-db": "vitest run -c vitest.crm-db.config.ts"
   },
   "dependencies": {
     "@factory/agency-core": "workspace:*",

@@ -83,13 +83,59 @@ export interface Config {
     'product-evidence': ProductEvidence;
     products: Product;
     'pricing-observations': PricingObservation;
+    'crm-accounts': CrmAccount;
+    'crm-contacts': CrmContact;
+    'crm-sites': CrmSite;
+    'crm-assets': CrmAsset;
+    'crm-opportunities': CrmOpportunity;
+    'crm-buying-group-members': CrmBuyingGroupMember;
+    'crm-rfqs': CrmRfq;
+    'crm-rfq-items': CrmRfqItem;
+    'crm-activities': CrmActivity;
+    'crm-notes': CrmNote;
+    'crm-tasks': CrmTask;
+    'crm-suppressions': CrmSuppression;
+    'crm-intake-events': CrmIntakeEvent;
+    'crm-identity-reviews': CrmIdentityReview;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    'crm-accounts': {
+      contacts: 'crm-contacts';
+      sites: 'crm-sites';
+      opportunities: 'crm-opportunities';
+      rfqs: 'crm-rfqs';
+    };
+    'crm-contacts': {
+      buying_groups: 'crm-buying-group-members';
+      rfqs: 'crm-rfqs';
+      tasks: 'crm-tasks';
+    };
+    'crm-sites': {
+      assets: 'crm-assets';
+      opportunities: 'crm-opportunities';
+      rfqs: 'crm-rfqs';
+    };
+    'crm-assets': {
+      service_history: 'crm-activities';
+      opportunities: 'crm-opportunities';
+    };
+    'crm-opportunities': {
+      buying_group: 'crm-buying-group-members';
+      rfqs: 'crm-rfqs';
+      tasks: 'crm-tasks';
+      activity: 'crm-activities';
+    };
+    'crm-rfqs': {
+      items: 'crm-rfq-items';
+      tasks: 'crm-tasks';
+      activity: 'crm-activities';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -107,6 +153,20 @@ export interface Config {
     'product-evidence': ProductEvidenceSelect<false> | ProductEvidenceSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     'pricing-observations': PricingObservationsSelect<false> | PricingObservationsSelect<true>;
+    'crm-accounts': CrmAccountsSelect<false> | CrmAccountsSelect<true>;
+    'crm-contacts': CrmContactsSelect<false> | CrmContactsSelect<true>;
+    'crm-sites': CrmSitesSelect<false> | CrmSitesSelect<true>;
+    'crm-assets': CrmAssetsSelect<false> | CrmAssetsSelect<true>;
+    'crm-opportunities': CrmOpportunitiesSelect<false> | CrmOpportunitiesSelect<true>;
+    'crm-buying-group-members': CrmBuyingGroupMembersSelect<false> | CrmBuyingGroupMembersSelect<true>;
+    'crm-rfqs': CrmRfqsSelect<false> | CrmRfqsSelect<true>;
+    'crm-rfq-items': CrmRfqItemsSelect<false> | CrmRfqItemsSelect<true>;
+    'crm-activities': CrmActivitiesSelect<false> | CrmActivitiesSelect<true>;
+    'crm-notes': CrmNotesSelect<false> | CrmNotesSelect<true>;
+    'crm-tasks': CrmTasksSelect<false> | CrmTasksSelect<true>;
+    'crm-suppressions': CrmSuppressionsSelect<false> | CrmSuppressionsSelect<true>;
+    'crm-intake-events': CrmIntakeEventsSelect<false> | CrmIntakeEventsSelect<true>;
+    'crm-identity-reviews': CrmIdentityReviewsSelect<false> | CrmIdentityReviewsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -1626,6 +1686,1168 @@ export interface PricingObservation {
   createdAt: string;
 }
 /**
+ * Companies ICS sells to or serves. Parent/subsidiary is a relationship, never a merge. Unknown stays unknown.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-accounts".
+ */
+export interface CrmAccount {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  canonical_name: string;
+  legal_name?: string | null;
+  /**
+   * Only aliases with evidence. Similar names never make two records one.
+   */
+  aliases?:
+    | {
+        alias: string;
+        evidence_ref?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * VERIFIED_* domains drive deterministic matching. A consumer mail domain (gmail.com…) is never an account domain.
+   */
+  domains?:
+    | {
+        domain: string;
+        domain_status: 'VERIFIED_OWNED' | 'VERIFIED_ALIAS' | 'CANDIDATE' | 'RETIRED';
+        evidence_ref?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Reporting rollup only.
+   */
+  parent_account?: (string | null) | CrmAccount;
+  /**
+   * Only when evidenced. Empty means unknown.
+   */
+  industry?: string | null;
+  strategic_tier: 'TIER_1' | 'TIER_2' | 'TIER_3' | 'UNRATED';
+  relationship_state: 'VERIFIED_CUSTOMER' | 'VERIFIED_PAST_CUSTOMER' | 'PROSPECT' | 'CANDIDATE' | 'UNKNOWN';
+  account_state: 'ACTIVE' | 'DORMANT' | 'ARCHIVED' | 'MERGED';
+  /**
+   * Account owner. Empty means unassigned — no default owner is invented.
+   */
+  owner?: (string | null) | User;
+  /**
+   * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
+   */
+  provenance: {
+    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    /**
+     * Identifier in the source system. Not a canonical id.
+     */
+    source_record_id?: string | null;
+    /**
+     * Source event (e.g. Typeform event_id). Not a canonical id.
+     */
+    source_event_id?: string | null;
+    /**
+     * Pointer to the evidence (document, RFQ, record, URL).
+     */
+    evidence_ref?: string | null;
+    first_seen_at?: string | null;
+    last_seen_at?: string | null;
+    import_batch_id?: string | null;
+    verification_state: 'VERIFIED' | 'REVIEWED_UNVERIFIED' | 'UNVERIFIED' | 'UNKNOWN';
+  };
+  contacts?: {
+    docs?: (string | CrmContact)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  sites?: {
+    docs?: (string | CrmSite)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  opportunities?: {
+    docs?: (string | CrmOpportunity)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  rfqs?: {
+    docs?: (string | CrmRfq)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * People — buying-group members, not the commercial centre. Authority, budget and role are never inferred.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-contacts".
+ */
+export interface CrmContact {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  /**
+   * Write-once. A different address is a different contact point.
+   */
+  email: string;
+  /**
+   * Exactly as received.
+   */
+  email_original?: string | null;
+  /**
+   * Lowercase only. No alias folding (E0.1).
+   */
+  email_match_key: string;
+  email_domain?: string | null;
+  first_name?: string | null;
+  last_name?: string | null;
+  display_name?: string | null;
+  phones?:
+    | {
+        /**
+         * As supplied; not reformatted.
+         */
+        number_raw: string;
+        kind: 'PRIMARY' | 'MOBILE' | 'OFFICE' | 'OTHER' | 'UNKNOWN';
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Only when known. A title is not an authority claim.
+   */
+  title?: string | null;
+  contact_function:
+    | 'ENGINEERING_TECHNICAL'
+    | 'PLANT_OPERATIONS'
+    | 'MAINTENANCE_RELIABILITY'
+    | 'PROCUREMENT_SOURCING'
+    | 'PROJECT_MANAGEMENT'
+    | 'EXECUTIVE_MANAGEMENT'
+    | 'EPC_CONSULTANT_THIRD_PARTY'
+    | 'OTHER'
+    | 'UNKNOWN';
+  /**
+   * As submitted. Does not link an account by itself.
+   */
+  company_name_original?: string | null;
+  account?: (string | null) | CrmAccount;
+  account_link_confidence: 'VERIFIED' | 'HIGH_CONFIDENCE' | 'LOW_CONFIDENCE' | 'UNKNOWN';
+  country_code?: string | null;
+  fit_state: 'MEGA_INDUSTRIAL_FIT' | 'LIKELY_FIT' | 'UNKNOWN' | 'NON_CORE';
+  record_state: 'ACTIVE' | 'ARCHIVED' | 'MERGED';
+  /**
+   * Contact owner, if any. Empty means unassigned.
+   */
+  owner?: (string | null) | User;
+  /**
+   * E0.1: marks an internal/test address. It never makes a contact sendable.
+   */
+  internal_test_candidate?: boolean | null;
+  marketing_eligibility: 'ELIGIBLE' | 'INELIGIBLE' | 'UNKNOWN' | 'REVIEW_REQUIRED';
+  relationship_evidence:
+    | 'EXPLICIT_OPT_IN'
+    | 'RFQ_REQUEST'
+    | 'ACTIVE_CUSTOMER'
+    | 'PAST_CUSTOMER'
+    | 'DIRECT_BUSINESS_RELATIONSHIP'
+    | 'PROFESSIONAL_CONTACT'
+    | 'NON_PERSONAL_BUSINESS_ADDRESS'
+    | 'OTHER_VERIFIED'
+    | 'NONE'
+    | 'UNKNOWN';
+  jurisdiction:
+    | 'VERIFIED_US'
+    | 'VERIFIED_JAPAN'
+    | 'VERIFIED_MALAYSIA'
+    | 'VERIFIED_VIETNAM'
+    | 'VERIFIED_OTHER'
+    | 'COUNTRY_UNKNOWN'
+    | 'LEGAL_REVIEW_REQUIRED';
+  /**
+   * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
+   */
+  provenance: {
+    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    /**
+     * Identifier in the source system. Not a canonical id.
+     */
+    source_record_id?: string | null;
+    /**
+     * Source event (e.g. Typeform event_id). Not a canonical id.
+     */
+    source_event_id?: string | null;
+    /**
+     * Pointer to the evidence (document, RFQ, record, URL).
+     */
+    evidence_ref?: string | null;
+    first_seen_at?: string | null;
+    last_seen_at?: string | null;
+    import_batch_id?: string | null;
+    verification_state: 'VERIFIED' | 'REVIEWED_UNVERIFIED' | 'UNVERIFIED' | 'UNKNOWN';
+  };
+  buying_groups?: {
+    docs?: (string | CrmBuyingGroupMember)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  rfqs?: {
+    docs?: (string | CrmRfq)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  tasks?: {
+    docs?: (string | CrmTask)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Who is involved in THIS project, with evidence. Account employment alone is not project membership. Roles are classes, not titles.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-buying-group-members".
+ */
+export interface CrmBuyingGroupMember {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  opportunity: string | CrmOpportunity;
+  contact: string | CrmContact;
+  /**
+   * Derived from the opportunity.
+   */
+  account?: (string | null) | CrmAccount;
+  /**
+   * The contact belongs to a different account (e.g. an EPC).
+   */
+  cross_account?: boolean | null;
+  membership_class: 'ACCOUNT_CONTACT' | 'PROJECT_BUYING_GROUP_MEMBER' | 'PROJECT_MEMBERSHIP_UNKNOWN';
+  membership_confidence: 'CONFIRMED' | 'HIGH' | 'MEDIUM' | 'LOW' | 'UNKNOWN';
+  membership_verification: 'VERIFIED' | 'REVIEWED_UNVERIFIED' | 'UNKNOWN';
+  role_class:
+    | 'ENGINEERING_TECHNICAL'
+    | 'PLANT_OPERATIONS'
+    | 'MAINTENANCE_RELIABILITY'
+    | 'PROCUREMENT_SOURCING'
+    | 'PROJECT_MANAGEMENT'
+    | 'EXECUTIVE_ECONOMIC_SPONSOR'
+    | 'EPC_CONSULTANT_THIRD_PARTY_ENGINEER'
+    | 'OTHER'
+    | 'UNKNOWN';
+  role_confidence: 'CONFIRMED' | 'HIGH' | 'MEDIUM' | 'LOW' | 'UNKNOWN';
+  role_verification: 'VERIFIED' | 'REVIEWED_UNVERIFIED' | 'UNKNOWN';
+  /**
+   * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
+   */
+  provenance: {
+    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    /**
+     * Identifier in the source system. Not a canonical id.
+     */
+    source_record_id?: string | null;
+    /**
+     * Source event (e.g. Typeform event_id). Not a canonical id.
+     */
+    source_event_id?: string | null;
+    /**
+     * Pointer to the evidence (document, RFQ, record, URL).
+     */
+    evidence_ref?: string | null;
+    first_seen_at?: string | null;
+    last_seen_at?: string | null;
+    import_batch_id?: string | null;
+    verification_state: 'VERIFIED' | 'REVIEWED_UNVERIFIED' | 'UNVERIFIED' | 'UNKNOWN';
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Commercial pursuits: Account → Site → (optional) towers. Unknown value is shown as unknown, never $0. Stages move on evidence, never on time.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-opportunities".
+ */
+export interface CrmOpportunity {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  /**
+   * Short human label for the pursuit.
+   */
+  name: string;
+  account: string | CrmAccount;
+  /**
+   * Only when verified. Greenfield projects may have no site yet.
+   */
+  site?: (string | null) | CrmSite;
+  /**
+   * Existing towers in scope. Never set for NEW_TOWER.
+   */
+  assets?: (string | CrmAsset)[] | null;
+  motion:
+    | 'NEW_TOWER'
+    | 'REBUILD_REPLACEMENT'
+    | 'REPAIR'
+    | 'UPGRADE_RETROFIT'
+    | 'MAINTENANCE_INSPECTION'
+    | 'PARTS'
+    | 'OTHER_APPROVED';
+  motion_detail?:
+    | (
+        | 'NEW_LARGE_MEGA_TOWER'
+        | 'MAJOR_REBUILD_REPLACEMENT'
+        | 'REPAIR'
+        | 'THERMAL_UPGRADE'
+        | 'MECHANICAL_UPGRADE'
+        | 'STRUCTURAL_UPGRADE'
+        | 'PERFORMANCE_UPGRADE_RETROFIT'
+        | 'MAINTENANCE'
+        | 'INSPECTION'
+        | 'COOLING_TOWER_PARTS'
+        | 'CRITICAL_SPARES'
+        | 'INSTALLED_BASE_LIFECYCLE_EXPANSION'
+      )
+    | null;
+  /**
+   * E1.4 capital-project type, when this is a project.
+   */
+  project_type?: ('NEW_TOWER' | 'MAJOR_REBUILD_REPLACEMENT' | 'CAPACITY_EXPANSION_MODERNIZATION') | null;
+  stage: 'NEW' | 'QUALIFYING' | 'QUALIFIED' | 'PROPOSAL' | 'NEGOTIATION' | 'DELAYED' | 'WON' | 'LOST' | 'CANCELLED';
+  /**
+   * Required when you change the stage: what evidence moved it?
+   */
+  stage_change_reason?: string | null;
+  last_stage_change?: {
+    from?: string | null;
+    to?: string | null;
+    at?: string | null;
+    by?: (string | null) | User;
+    reason?: string | null;
+  };
+  /**
+   * E1.4 project dimension (separate from the commercial stage).
+   */
+  project_stage?:
+    | (
+        | 'EARLY_SIGNAL'
+        | 'DISCOVERY'
+        | 'TECHNICAL_SCOPING'
+        | 'STAKEHOLDER_ALIGNMENT'
+        | 'BUDGETING_OR_BUSINESS_CASE'
+        | 'PROCUREMENT_PREPARATION'
+        | 'DELAYED'
+        | 'ON_HOLD'
+        | 'NO_CURRENT_DECISION'
+      )
+    | null;
+  project_state:
+    | 'VERIFIED_ACTIVE_CAPITAL_PROJECT'
+    | 'VERIFIED_EARLY_PROJECT_SIGNAL'
+    | 'VERIFIED_REBUILD_REPLACEMENT_PROJECT'
+    | 'KNOWN_ACCOUNT_PROJECT_UNCONFIRMED'
+    | 'ASSET_NEED_UNCONFIRMED'
+    | 'STALE_PROJECT_SIGNAL'
+    | 'PROJECT_ON_HOLD'
+    | 'PROJECT_CLOSED_OR_CANCELLED'
+    | 'UNKNOWN_PROJECT_STATUS';
+  /**
+   * Evidence bound to THIS project. Required for VERIFIED_* states.
+   */
+  project_evidence_ref?: string | null;
+  outcome_status?: ('OPEN' | 'WON' | 'LOST' | 'CANCELLED' | 'UNKNOWN') | null;
+  /**
+   * Sales owner (required by E0.1). No default owner is invented.
+   */
+  owner: string | User;
+  amount_status: 'KNOWN' | 'NOT_ENTERED' | 'WITHHELD_OR_NOT_AVAILABLE' | 'UNKNOWN';
+  /**
+   * Native-currency pipeline value. Empty unless amount_status is KNOWN.
+   */
+  amount?: number | null;
+  /**
+   * ISO 4217 (e.g. USD, JPY). No default — unknown is not USD.
+   */
+  currency?: string | null;
+  /**
+   * Tick only when the source explicitly records 0.
+   */
+  source_record_explicit_zero?: boolean | null;
+  /**
+   * Forecast only. Empty means unknown, not 0 %.
+   */
+  probability?: number | null;
+  revenue_verification_state: 'UNVERIFIED' | 'WON_EVENT_RECORDED' | 'CONFIRMED' | 'CORRECTED' | 'UNKNOWN';
+  /**
+   * Derived (E3). Only WON_REVENUE_CONFIRMED is revenue.
+   */
+  revenue_truth_state?:
+    | (
+        | 'REVENUE_UNKNOWN'
+        | 'OPPORTUNITY_VALUE_KNOWN'
+        | 'WON_REVENUE_CONFIRMED'
+        | 'LOST_NO_REVENUE'
+        | 'CANCELLED_NO_REVENUE'
+        | 'VALUE_NOT_ENTERED'
+        | 'VALUE_WITHHELD_OR_NOT_AVAILABLE'
+      )
+    | null;
+  amount_display?: string | null;
+  expected_decision_date?: string | null;
+  outage_window?: string | null;
+  project_window?: string | null;
+  won_date?: string | null;
+  closed_at?: string | null;
+  next_step?: string | null;
+  next_step_due_at?: string | null;
+  source_category: 'EMAIL_SOURCED' | 'EMAIL_INFLUENCED' | 'NON_EMAIL_SOURCED' | 'UNKNOWN';
+  /**
+   * Event that sourced this opportunity, when known.
+   */
+  source_event_id?: string | null;
+  /**
+   * The RFQ this opportunity was qualified from, if any.
+   */
+  origin_rfq?: (string | null) | CrmRfq;
+  /**
+   * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
+   */
+  provenance: {
+    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    /**
+     * Identifier in the source system. Not a canonical id.
+     */
+    source_record_id?: string | null;
+    /**
+     * Source event (e.g. Typeform event_id). Not a canonical id.
+     */
+    source_event_id?: string | null;
+    /**
+     * Pointer to the evidence (document, RFQ, record, URL).
+     */
+    evidence_ref?: string | null;
+    first_seen_at?: string | null;
+    last_seen_at?: string | null;
+    import_batch_id?: string | null;
+    verification_state: 'VERIFIED' | 'REVIEWED_UNVERIFIED' | 'UNVERIFIED' | 'UNKNOWN';
+  };
+  buying_group?: {
+    docs?: (string | CrmBuyingGroupMember)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  rfqs?: {
+    docs?: (string | CrmRfq)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  tasks?: {
+    docs?: (string | CrmTask)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  activity?: {
+    docs?: (string | CrmActivity)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Plants and sites. Address and geography only when known. Never merged because names look alike.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-sites".
+ */
+export interface CrmSite {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  account: string | CrmAccount;
+  site_name: string;
+  address?: string | null;
+  city?: string | null;
+  region?: string | null;
+  country_code?: string | null;
+  industry_application?: string | null;
+  sales_region?: string | null;
+  site_link_confidence: 'VERIFIED' | 'HIGH_CONFIDENCE' | 'LOW_CONFIDENCE' | 'UNKNOWN';
+  site_state: 'ACTIVE' | 'INACTIVE' | 'UNKNOWN';
+  /**
+   * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
+   */
+  provenance: {
+    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    /**
+     * Identifier in the source system. Not a canonical id.
+     */
+    source_record_id?: string | null;
+    /**
+     * Source event (e.g. Typeform event_id). Not a canonical id.
+     */
+    source_event_id?: string | null;
+    /**
+     * Pointer to the evidence (document, RFQ, record, URL).
+     */
+    evidence_ref?: string | null;
+    first_seen_at?: string | null;
+    last_seen_at?: string | null;
+    import_batch_id?: string | null;
+    verification_state: 'VERIFIED' | 'REVIEWED_UNVERIFIED' | 'UNVERIFIED' | 'UNKNOWN';
+  };
+  assets?: {
+    docs?: (string | CrmAsset)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  opportunities?: {
+    docs?: (string | CrmOpportunity)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  rfqs?: {
+    docs?: (string | CrmRfq)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Installed base. Every technical fact cites evidence; unknown stays unknown. No need is inferred from age or history.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-assets".
+ */
+export interface CrmAsset {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  site: string | CrmSite;
+  /**
+   * Derived from the site.
+   */
+  account?: (string | null) | CrmAccount;
+  asset_name?: string | null;
+  /**
+   * ICS or customer tag. Not a canonical id.
+   */
+  internal_reference?: string | null;
+  manufacturer?: string | null;
+  model?: string | null;
+  tower_type?: string | null;
+  material?: string | null;
+  cell_count?: number | null;
+  commissioned_year?: number | null;
+  condition_state:
+    | 'NORMAL'
+    | 'WATCH'
+    | 'REPAIR_CANDIDATE'
+    | 'UPGRADE_CANDIDATE'
+    | 'REBUILD_CANDIDATE'
+    | 'REPLACEMENT_CANDIDATE'
+    | 'UNKNOWN';
+  asset_state: 'ACTIVE' | 'RETIRED' | 'UNKNOWN';
+  /**
+   * One row per evidenced fact.
+   */
+  technical_evidence?:
+    | {
+        fact:
+          'manufacturer' | 'model' | 'tower_type' | 'material' | 'cell_count' | 'commissioned_year' | 'condition_state';
+        evidence_ref: string;
+        verification_state: 'VERIFIED' | 'REVIEWED_UNVERIFIED' | 'UNVERIFIED' | 'UNKNOWN';
+        observed_at?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Installation, rebuild, inspection… only with evidence.
+   */
+  known_dates?:
+    | {
+        date_kind: 'INSTALLED' | 'COMMISSIONED' | 'REBUILT' | 'INSPECTED' | 'SERVICED' | 'OTHER';
+        date_value: string;
+        evidence_ref: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
+   */
+  provenance: {
+    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    /**
+     * Identifier in the source system. Not a canonical id.
+     */
+    source_record_id?: string | null;
+    /**
+     * Source event (e.g. Typeform event_id). Not a canonical id.
+     */
+    source_event_id?: string | null;
+    /**
+     * Pointer to the evidence (document, RFQ, record, URL).
+     */
+    evidence_ref?: string | null;
+    first_seen_at?: string | null;
+    last_seen_at?: string | null;
+    import_batch_id?: string | null;
+    verification_state: 'VERIFIED' | 'REVIEWED_UNVERIFIED' | 'UNVERIFIED' | 'UNKNOWN';
+  };
+  service_history?: {
+    docs?: (string | CrmActivity)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  opportunities?: {
+    docs?: (string | CrmOpportunity)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Append-only commercial timeline. System events are written when they happen; people log calls, meetings and references.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-activities".
+ */
+export interface CrmActivity {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  type:
+    | 'NOTE_ADDED'
+    | 'CALL'
+    | 'MEETING'
+    | 'EMAIL_REFERENCE'
+    | 'REPLY_REFERENCE'
+    | 'DOCUMENT_REFERENCE'
+    | 'PROJECT_INTERACTION'
+    | 'INTAKE_RECEIVED'
+    | 'RFQ_CREATED'
+    | 'RFQ_STATUS_CHANGED'
+    | 'RFQ_ASSIGNED'
+    | 'OPPORTUNITY_CREATED'
+    | 'OPPORTUNITY_STAGE_CHANGED'
+    | 'OPPORTUNITY_OWNER_CHANGED'
+    | 'TASK_CREATED'
+    | 'TASK_COMPLETED'
+    | 'TASK_REASSIGNED'
+    | 'SUPPRESSION_RECORDED'
+    | 'SUPPRESSION_CLEARED'
+    | 'IDENTITY_REVIEW_OPENED';
+  /**
+   * Short, factual, no personal data.
+   */
+  summary: string;
+  /**
+   * E0.1 event name when this mirrors a catalog event (e.g. ics.rfq.persisted).
+   */
+  event_name?: string | null;
+  occurred_at: string;
+  recorded_at: string;
+  actor?: (string | null) | User;
+  actor_kind: 'USER' | 'SYSTEM' | 'INTEGRATION';
+  account?: (string | null) | CrmAccount;
+  contact?: (string | null) | CrmContact;
+  site?: (string | null) | CrmSite;
+  asset?: (string | null) | CrmAsset;
+  opportunity?: (string | null) | CrmOpportunity;
+  rfq?: (string | null) | CrmRfq;
+  task?: (string | null) | CrmTask;
+  /**
+   * Ids and enum values only.
+   */
+  detail?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  idempotency_key?: string | null;
+  /**
+   * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
+   */
+  provenance: {
+    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    /**
+     * Identifier in the source system. Not a canonical id.
+     */
+    source_record_id?: string | null;
+    /**
+     * Source event (e.g. Typeform event_id). Not a canonical id.
+     */
+    source_event_id?: string | null;
+    /**
+     * Pointer to the evidence (document, RFQ, record, URL).
+     */
+    evidence_ref?: string | null;
+    first_seen_at?: string | null;
+    last_seen_at?: string | null;
+    import_batch_id?: string | null;
+    verification_state: 'VERIFIED' | 'REVIEWED_UNVERIFIED' | 'UNVERIFIED' | 'UNKNOWN';
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Every RFQ is persisted before anything else happens. Receipt fields are write-once. No pricing, no quote generation, no notification in CRM-1.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-rfqs".
+ */
+export interface CrmRfq {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  /**
+   * Stable customer reference. Never changes.
+   */
+  rfq_number: string;
+  status:
+    'RECEIVED' | 'NEEDS_REVIEW' | 'IN_REVIEW' | 'QUALIFIED' | 'REJECTED_NON_CORE' | 'DUPLICATE_OF_EXISTING' | 'CLOSED';
+  status_reason?: string | null;
+  qualification_state: 'UNKNOWN' | 'INCOMPLETE' | 'COMPLETE';
+  /**
+   * Set by a person on qualification. Never inferred from the form.
+   */
+  motion?:
+    | (
+        | 'NEW_TOWER'
+        | 'REBUILD_REPLACEMENT'
+        | 'REPAIR'
+        | 'UPGRADE_RETROFIT'
+        | 'MAINTENANCE_INSPECTION'
+        | 'PARTS'
+        | 'OTHER_APPROVED'
+      )
+    | null;
+  /**
+   * Who owns the response. Empty = assignment queue.
+   */
+  assignee?: (string | null) | User;
+  assigned_at?: string | null;
+  follow_up_state: 'NOT_STARTED' | 'TASK_OPEN' | 'HUMAN_RESPONDED' | 'NOT_REQUIRED';
+  contact?: (string | null) | CrmContact;
+  contact_match_state:
+    | 'NOT_ATTEMPTED'
+    | 'MATCHED_EXACT_EMAIL'
+    | 'CREATED_NEW_CONTACT'
+    | 'NO_VALID_EMAIL'
+    | 'FIELD_MAPPING_MISSING'
+    | 'MANUAL';
+  account?: (string | null) | CrmAccount;
+  account_match_state:
+    | 'NOT_ATTEMPTED'
+    | 'MATCHED_VERIFIED_DOMAIN'
+    | 'AMBIGUOUS_REVIEW'
+    | 'FREE_EMAIL_DOMAIN'
+    | 'NO_MATCH'
+    | 'CONTACT_ACCOUNT_CONFLICT_REVIEW'
+    | 'MANUAL';
+  site?: (string | null) | CrmSite;
+  /**
+   * Optional. Same account only.
+   */
+  opportunity?: (string | null) | CrmOpportunity;
+  /**
+   * Marked by a person.
+   */
+  duplicate_of?: (string | null) | CrmRfq;
+  notification_state: 'NOT_SENT_DISABLED_IN_CRM1';
+  received_at: string;
+  /**
+   * Source-reported submission time.
+   */
+  submitted_at?: string | null;
+  source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+  source_form_id?: string | null;
+  /**
+   * Typeform event_id — a source identity, not the RFQ id.
+   */
+  source_event_id?: string | null;
+  /**
+   * Typeform response token.
+   */
+  client_submission_id?: string | null;
+  /**
+   * form_id:client_submission_id — one RFQ per submission (E0.1).
+   */
+  submission_key?: string | null;
+  raw_payload_hash?: string | null;
+  /**
+   * Flags a possible duplicate inquiry for review; never discards one.
+   */
+  content_fingerprint?: string | null;
+  intake_event?: (string | null) | CrmIntakeEvent;
+  /**
+   * Exactly what the requester submitted. Never edited; corrections go on the contact/account.
+   */
+  submitted?: {
+    first_name?: string | null;
+    last_name?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    company?: string | null;
+    country_code?: string | null;
+    message?: string | null;
+    /**
+     * Mapped answers not modelled above, by field ref.
+     */
+    other_answers?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  /**
+   * Source context from the accepted adapter allowlist. Attribution evidence only — an RFQ is not revenue.
+   */
+  attribution?: {
+    page_path?: string | null;
+    cta_placement?: string | null;
+    utm_source?: string | null;
+    utm_medium?: string | null;
+    utm_campaign?: string | null;
+    utm_term?: string | null;
+    utm_content?: string | null;
+  };
+  items?: {
+    docs?: (string | CrmRfqItem)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  tasks?: {
+    docs?: (string | CrmTask)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  activity?: {
+    docs?: (string | CrmActivity)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Verified inbound events, stored before any processing. Replays are no-ops; conflicting replays are quarantined.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-intake-events".
+ */
+export interface CrmIntakeEvent {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  tenant: string;
+  source_system: 'TYPEFORM';
+  source_event_id: string;
+  source_event_type?: string | null;
+  source_form_id?: string | null;
+  source_response_token?: string | null;
+  signature_state: 'VERIFIED';
+  raw_payload_hash: string;
+  /**
+   * Admin-only. Exactly as received (parsed JSON), for audit and replay.
+   */
+  raw_payload?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  received_at: string;
+  processing_state:
+    | 'PROCESSING'
+    | 'PROCESSED'
+    | 'PROCESSED_WITH_REVIEW'
+    | 'DUPLICATE_OF_EXISTING_SUBMISSION'
+    | 'QUARANTINED_MALFORMED'
+    | 'QUARANTINED_UNSUPPORTED'
+    | 'FAILED_RETRYABLE';
+  failure_code?: string | null;
+  /**
+   * Non-personal: which fields were present, context keys, match outcomes.
+   */
+  normalized_summary?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  rfq?: (string | null) | CrmRfq;
+  /**
+   * Processing claim lease (see intake/typeform/claim.ts).
+   */
+  processing_lease_until?: string | null;
+  replay_count: number;
+  last_replay_at?: string | null;
+  /**
+   * Same event id, different payload — quarantined, never applied.
+   */
+  conflicting_deliveries?:
+    | {
+        raw_payload_hash: string;
+        received_at: string;
+        id?: string | null;
+      }[]
+    | null;
+  processed_at?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * What was asked for, as supplied. No price, SKU, manufacturer or specification is inferred.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-rfq-items".
+ */
+export interface CrmRfqItem {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  rfq: string | CrmRfq;
+  line_no: number;
+  /**
+   * As supplied by the page context (a legacy route number).
+   */
+  product_id_source?: string | null;
+  product_slug_source?: string | null;
+  product_path_source?: string | null;
+  product_title_source?: string | null;
+  /**
+   * Only an exact slug match.
+   */
+  product?: (string | null) | Product;
+  product_resolution_state: 'NOT_SUPPLIED' | 'RESOLVED_EXACT_SLUG' | 'UNRESOLVED' | 'INVALID_CONTEXT';
+  /**
+   * Only when supplied.
+   */
+  requested_quantity?: number | null;
+  quantity_status: 'KNOWN' | 'NOT_SUPPLIED';
+  requested_scope?: string | null;
+  customer_requirements?: string | null;
+  /**
+   * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
+   */
+  provenance: {
+    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    /**
+     * Identifier in the source system. Not a canonical id.
+     */
+    source_record_id?: string | null;
+    /**
+     * Source event (e.g. Typeform event_id). Not a canonical id.
+     */
+    source_event_id?: string | null;
+    /**
+     * Pointer to the evidence (document, RFQ, record, URL).
+     */
+    evidence_ref?: string | null;
+    first_seen_at?: string | null;
+    last_seen_at?: string | null;
+    import_batch_id?: string | null;
+    verification_state: 'VERIFIED' | 'REVIEWED_UNVERIFIED' | 'UNVERIFIED' | 'UNKNOWN';
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Human follow-up. System tasks exist only where an accepted rule creates them (RFQ first response, reviews). Cancel instead of delete.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-tasks".
+ */
+export interface CrmTask {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  title: string;
+  kind: 'RFQ_FIRST_RESPONSE' | 'FOLLOW_UP' | 'MISSING_INFORMATION' | 'IDENTITY_REVIEW' | 'INTAKE_REVIEW' | 'GENERAL';
+  status: 'OPEN' | 'IN_PROGRESS' | 'DONE' | 'CANCELLED';
+  priority?: ('HIGH' | 'NORMAL' | 'LOW') | null;
+  /**
+   * Empty = queue.
+   */
+  assignee?: (string | null) | User;
+  /**
+   * Only when a real deadline exists. No SLA is invented.
+   */
+  due_at?: string | null;
+  account?: (string | null) | CrmAccount;
+  contact?: (string | null) | CrmContact;
+  site?: (string | null) | CrmSite;
+  asset?: (string | null) | CrmAsset;
+  opportunity?: (string | null) | CrmOpportunity;
+  rfq?: (string | null) | CrmRfq;
+  identity_review?: (string | null) | CrmIdentityReview;
+  notes?: string | null;
+  source: 'MANUAL' | 'SYSTEM_RULE' | 'INTAKE';
+  source_rule?: string | null;
+  idempotency_key?: string | null;
+  completed_at?: string | null;
+  completed_by?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Possible duplicates and identity conflicts. Automation opens these instead of guessing; people resolve them. No automatic merges.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-identity-reviews".
+ */
+export interface CrmIdentityReview {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  subject_type: 'CONTACT' | 'ACCOUNT' | 'SITE' | 'ASSET' | 'RFQ' | 'INTAKE_EVENT';
+  reason:
+    | 'EMAIL_MATCH_NAME_MISMATCH'
+    | 'SAME_NAME_DIFFERENT_EMAIL'
+    | 'VERIFIED_DOMAIN_ON_MULTIPLE_ACCOUNTS'
+    | 'COMPANY_NAME_MATCH_UNVERIFIED'
+    | 'CONTACT_ACCOUNT_CONFLICT'
+    | 'POSSIBLE_DUPLICATE_SUBMISSION'
+    | 'INTAKE_CONFLICTING_PAYLOAD'
+    | 'OTHER';
+  state: 'OPEN' | 'CONFIRMED_DISTINCT' | 'CONFIRMED_DUPLICATE_PENDING_MERGE' | 'DISMISSED';
+  /**
+   * Canonical/row ids of the records involved. No personal data.
+   */
+  subject_ids:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * One open review per conflict.
+   */
+  dedupe_key?: string | null;
+  contact?: (string | null) | CrmContact;
+  account?: (string | null) | CrmAccount;
+  rfq?: (string | null) | CrmRfq;
+  intake_event?: (string | null) | CrmIntakeEvent;
+  resolution_note?: string | null;
+  resolved_at?: string | null;
+  resolved_by?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Human notes. The timeline records that a note was added; the text stays here, access-controlled.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-notes".
+ */
+export interface CrmNote {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  body: string;
+  author?: (string | null) | User;
+  account?: (string | null) | CrmAccount;
+  contact?: (string | null) | CrmContact;
+  site?: (string | null) | CrmSite;
+  asset?: (string | null) | CrmAsset;
+  opportunity?: (string | null) | CrmOpportunity;
+  rfq?: (string | null) | CrmRfq;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Append-only do-not-email ledger, keyed on the address. Survives sequence, mailbox and domain changes. Clearing is a new privileged row, never an edit or a delete.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-suppressions".
+ */
+export interface CrmSuppression {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  /**
+   * Address to suppress (or choose a contact).
+   */
+  address?: string | null;
+  email_match_key: string;
+  contact?: (string | null) | CrmContact;
+  action: 'APPLY' | 'CLEAR';
+  reason:
+    | 'DO_NOT_CONTACT'
+    | 'LEGAL_PROHIBITION'
+    | 'COMPLAINT'
+    | 'HARD_BOUNCE'
+    | 'INVALID_ADDRESS'
+    | 'UNSUBSCRIBED'
+    | 'MANUAL_SUPPRESSION'
+    | 'SOFT_BOUNCE_HOLD';
+  scope?: ('MARKETING_EMAIL' | 'ALL_EMAIL' | 'ALL_OUTREACH') | null;
+  /**
+   * For CLEAR: the APPLY row being cleared.
+   */
+  clears?: (string | null) | CrmSuppression;
+  source: 'MANUAL' | 'PROVIDER_EVENT' | 'RFC8058_ENDPOINT' | 'LEGACY_IMPORT' | 'LEGAL_REVIEW' | 'SYSTEM';
+  source_event_id?: string | null;
+  evidence_ref?: string | null;
+  reason_note?: string | null;
+  tenant: string;
+  recorded_by?: (string | null) | User;
+  recorded_at: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -1804,6 +3026,62 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pricing-observations';
         value: string | PricingObservation;
+      } | null)
+    | ({
+        relationTo: 'crm-accounts';
+        value: string | CrmAccount;
+      } | null)
+    | ({
+        relationTo: 'crm-contacts';
+        value: string | CrmContact;
+      } | null)
+    | ({
+        relationTo: 'crm-sites';
+        value: string | CrmSite;
+      } | null)
+    | ({
+        relationTo: 'crm-assets';
+        value: string | CrmAsset;
+      } | null)
+    | ({
+        relationTo: 'crm-opportunities';
+        value: string | CrmOpportunity;
+      } | null)
+    | ({
+        relationTo: 'crm-buying-group-members';
+        value: string | CrmBuyingGroupMember;
+      } | null)
+    | ({
+        relationTo: 'crm-rfqs';
+        value: string | CrmRfq;
+      } | null)
+    | ({
+        relationTo: 'crm-rfq-items';
+        value: string | CrmRfqItem;
+      } | null)
+    | ({
+        relationTo: 'crm-activities';
+        value: string | CrmActivity;
+      } | null)
+    | ({
+        relationTo: 'crm-notes';
+        value: string | CrmNote;
+      } | null)
+    | ({
+        relationTo: 'crm-tasks';
+        value: string | CrmTask;
+      } | null)
+    | ({
+        relationTo: 'crm-suppressions';
+        value: string | CrmSuppression;
+      } | null)
+    | ({
+        relationTo: 'crm-intake-events';
+        value: string | CrmIntakeEvent;
+      } | null)
+    | ({
+        relationTo: 'crm-identity-reviews';
+        value: string | CrmIdentityReview;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -2723,6 +4001,542 @@ export interface PricingObservationsSelect<T extends boolean = true> {
   shipping_or_freight?: T;
   territory?: T;
   notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-accounts_select".
+ */
+export interface CrmAccountsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  canonical_name?: T;
+  legal_name?: T;
+  aliases?:
+    | T
+    | {
+        alias?: T;
+        evidence_ref?: T;
+        id?: T;
+      };
+  domains?:
+    | T
+    | {
+        domain?: T;
+        domain_status?: T;
+        evidence_ref?: T;
+        id?: T;
+      };
+  parent_account?: T;
+  industry?: T;
+  strategic_tier?: T;
+  relationship_state?: T;
+  account_state?: T;
+  owner?: T;
+  provenance?:
+    | T
+    | {
+        source_system?: T;
+        source_record_id?: T;
+        source_event_id?: T;
+        evidence_ref?: T;
+        first_seen_at?: T;
+        last_seen_at?: T;
+        import_batch_id?: T;
+        verification_state?: T;
+      };
+  contacts?: T;
+  sites?: T;
+  opportunities?: T;
+  rfqs?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-contacts_select".
+ */
+export interface CrmContactsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  email?: T;
+  email_original?: T;
+  email_match_key?: T;
+  email_domain?: T;
+  first_name?: T;
+  last_name?: T;
+  display_name?: T;
+  phones?:
+    | T
+    | {
+        number_raw?: T;
+        kind?: T;
+        id?: T;
+      };
+  title?: T;
+  contact_function?: T;
+  company_name_original?: T;
+  account?: T;
+  account_link_confidence?: T;
+  country_code?: T;
+  fit_state?: T;
+  record_state?: T;
+  owner?: T;
+  internal_test_candidate?: T;
+  marketing_eligibility?: T;
+  relationship_evidence?: T;
+  jurisdiction?: T;
+  provenance?:
+    | T
+    | {
+        source_system?: T;
+        source_record_id?: T;
+        source_event_id?: T;
+        evidence_ref?: T;
+        first_seen_at?: T;
+        last_seen_at?: T;
+        import_batch_id?: T;
+        verification_state?: T;
+      };
+  buying_groups?: T;
+  rfqs?: T;
+  tasks?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-sites_select".
+ */
+export interface CrmSitesSelect<T extends boolean = true> {
+  canonical_id?: T;
+  account?: T;
+  site_name?: T;
+  address?: T;
+  city?: T;
+  region?: T;
+  country_code?: T;
+  industry_application?: T;
+  sales_region?: T;
+  site_link_confidence?: T;
+  site_state?: T;
+  provenance?:
+    | T
+    | {
+        source_system?: T;
+        source_record_id?: T;
+        source_event_id?: T;
+        evidence_ref?: T;
+        first_seen_at?: T;
+        last_seen_at?: T;
+        import_batch_id?: T;
+        verification_state?: T;
+      };
+  assets?: T;
+  opportunities?: T;
+  rfqs?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-assets_select".
+ */
+export interface CrmAssetsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  site?: T;
+  account?: T;
+  asset_name?: T;
+  internal_reference?: T;
+  manufacturer?: T;
+  model?: T;
+  tower_type?: T;
+  material?: T;
+  cell_count?: T;
+  commissioned_year?: T;
+  condition_state?: T;
+  asset_state?: T;
+  technical_evidence?:
+    | T
+    | {
+        fact?: T;
+        evidence_ref?: T;
+        verification_state?: T;
+        observed_at?: T;
+        id?: T;
+      };
+  known_dates?:
+    | T
+    | {
+        date_kind?: T;
+        date_value?: T;
+        evidence_ref?: T;
+        id?: T;
+      };
+  provenance?:
+    | T
+    | {
+        source_system?: T;
+        source_record_id?: T;
+        source_event_id?: T;
+        evidence_ref?: T;
+        first_seen_at?: T;
+        last_seen_at?: T;
+        import_batch_id?: T;
+        verification_state?: T;
+      };
+  service_history?: T;
+  opportunities?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-opportunities_select".
+ */
+export interface CrmOpportunitiesSelect<T extends boolean = true> {
+  canonical_id?: T;
+  name?: T;
+  account?: T;
+  site?: T;
+  assets?: T;
+  motion?: T;
+  motion_detail?: T;
+  project_type?: T;
+  stage?: T;
+  stage_change_reason?: T;
+  last_stage_change?:
+    | T
+    | {
+        from?: T;
+        to?: T;
+        at?: T;
+        by?: T;
+        reason?: T;
+      };
+  project_stage?: T;
+  project_state?: T;
+  project_evidence_ref?: T;
+  outcome_status?: T;
+  owner?: T;
+  amount_status?: T;
+  amount?: T;
+  currency?: T;
+  source_record_explicit_zero?: T;
+  probability?: T;
+  revenue_verification_state?: T;
+  revenue_truth_state?: T;
+  amount_display?: T;
+  expected_decision_date?: T;
+  outage_window?: T;
+  project_window?: T;
+  won_date?: T;
+  closed_at?: T;
+  next_step?: T;
+  next_step_due_at?: T;
+  source_category?: T;
+  source_event_id?: T;
+  origin_rfq?: T;
+  provenance?:
+    | T
+    | {
+        source_system?: T;
+        source_record_id?: T;
+        source_event_id?: T;
+        evidence_ref?: T;
+        first_seen_at?: T;
+        last_seen_at?: T;
+        import_batch_id?: T;
+        verification_state?: T;
+      };
+  buying_group?: T;
+  rfqs?: T;
+  tasks?: T;
+  activity?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-buying-group-members_select".
+ */
+export interface CrmBuyingGroupMembersSelect<T extends boolean = true> {
+  canonical_id?: T;
+  opportunity?: T;
+  contact?: T;
+  account?: T;
+  cross_account?: T;
+  membership_class?: T;
+  membership_confidence?: T;
+  membership_verification?: T;
+  role_class?: T;
+  role_confidence?: T;
+  role_verification?: T;
+  provenance?:
+    | T
+    | {
+        source_system?: T;
+        source_record_id?: T;
+        source_event_id?: T;
+        evidence_ref?: T;
+        first_seen_at?: T;
+        last_seen_at?: T;
+        import_batch_id?: T;
+        verification_state?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-rfqs_select".
+ */
+export interface CrmRfqsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  rfq_number?: T;
+  status?: T;
+  status_reason?: T;
+  qualification_state?: T;
+  motion?: T;
+  assignee?: T;
+  assigned_at?: T;
+  follow_up_state?: T;
+  contact?: T;
+  contact_match_state?: T;
+  account?: T;
+  account_match_state?: T;
+  site?: T;
+  opportunity?: T;
+  duplicate_of?: T;
+  notification_state?: T;
+  received_at?: T;
+  submitted_at?: T;
+  source_system?: T;
+  source_form_id?: T;
+  source_event_id?: T;
+  client_submission_id?: T;
+  submission_key?: T;
+  raw_payload_hash?: T;
+  content_fingerprint?: T;
+  intake_event?: T;
+  submitted?:
+    | T
+    | {
+        first_name?: T;
+        last_name?: T;
+        email?: T;
+        phone?: T;
+        company?: T;
+        country_code?: T;
+        message?: T;
+        other_answers?: T;
+      };
+  attribution?:
+    | T
+    | {
+        page_path?: T;
+        cta_placement?: T;
+        utm_source?: T;
+        utm_medium?: T;
+        utm_campaign?: T;
+        utm_term?: T;
+        utm_content?: T;
+      };
+  items?: T;
+  tasks?: T;
+  activity?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-rfq-items_select".
+ */
+export interface CrmRfqItemsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  rfq?: T;
+  line_no?: T;
+  product_id_source?: T;
+  product_slug_source?: T;
+  product_path_source?: T;
+  product_title_source?: T;
+  product?: T;
+  product_resolution_state?: T;
+  requested_quantity?: T;
+  quantity_status?: T;
+  requested_scope?: T;
+  customer_requirements?: T;
+  provenance?:
+    | T
+    | {
+        source_system?: T;
+        source_record_id?: T;
+        source_event_id?: T;
+        evidence_ref?: T;
+        first_seen_at?: T;
+        last_seen_at?: T;
+        import_batch_id?: T;
+        verification_state?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-activities_select".
+ */
+export interface CrmActivitiesSelect<T extends boolean = true> {
+  canonical_id?: T;
+  type?: T;
+  summary?: T;
+  event_name?: T;
+  occurred_at?: T;
+  recorded_at?: T;
+  actor?: T;
+  actor_kind?: T;
+  account?: T;
+  contact?: T;
+  site?: T;
+  asset?: T;
+  opportunity?: T;
+  rfq?: T;
+  task?: T;
+  detail?: T;
+  idempotency_key?: T;
+  provenance?:
+    | T
+    | {
+        source_system?: T;
+        source_record_id?: T;
+        source_event_id?: T;
+        evidence_ref?: T;
+        first_seen_at?: T;
+        last_seen_at?: T;
+        import_batch_id?: T;
+        verification_state?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-notes_select".
+ */
+export interface CrmNotesSelect<T extends boolean = true> {
+  canonical_id?: T;
+  body?: T;
+  author?: T;
+  account?: T;
+  contact?: T;
+  site?: T;
+  asset?: T;
+  opportunity?: T;
+  rfq?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-tasks_select".
+ */
+export interface CrmTasksSelect<T extends boolean = true> {
+  canonical_id?: T;
+  title?: T;
+  kind?: T;
+  status?: T;
+  priority?: T;
+  assignee?: T;
+  due_at?: T;
+  account?: T;
+  contact?: T;
+  site?: T;
+  asset?: T;
+  opportunity?: T;
+  rfq?: T;
+  identity_review?: T;
+  notes?: T;
+  source?: T;
+  source_rule?: T;
+  idempotency_key?: T;
+  completed_at?: T;
+  completed_by?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-suppressions_select".
+ */
+export interface CrmSuppressionsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  address?: T;
+  email_match_key?: T;
+  contact?: T;
+  action?: T;
+  reason?: T;
+  scope?: T;
+  clears?: T;
+  source?: T;
+  source_event_id?: T;
+  evidence_ref?: T;
+  reason_note?: T;
+  tenant?: T;
+  recorded_by?: T;
+  recorded_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-intake-events_select".
+ */
+export interface CrmIntakeEventsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  tenant?: T;
+  source_system?: T;
+  source_event_id?: T;
+  source_event_type?: T;
+  source_form_id?: T;
+  source_response_token?: T;
+  signature_state?: T;
+  raw_payload_hash?: T;
+  raw_payload?: T;
+  received_at?: T;
+  processing_state?: T;
+  failure_code?: T;
+  normalized_summary?: T;
+  rfq?: T;
+  processing_lease_until?: T;
+  replay_count?: T;
+  last_replay_at?: T;
+  conflicting_deliveries?:
+    | T
+    | {
+        raw_payload_hash?: T;
+        received_at?: T;
+        id?: T;
+      };
+  processed_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-identity-reviews_select".
+ */
+export interface CrmIdentityReviewsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  subject_type?: T;
+  reason?: T;
+  state?: T;
+  subject_ids?: T;
+  dedupe_key?: T;
+  contact?: T;
+  account?: T;
+  rfq?: T;
+  intake_event?: T;
+  resolution_note?: T;
+  resolved_at?: T;
+  resolved_by?: T;
   updatedAt?: T;
   createdAt?: T;
 }
