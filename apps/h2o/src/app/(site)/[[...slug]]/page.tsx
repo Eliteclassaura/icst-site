@@ -7,6 +7,7 @@ import {PartsIndex,ProductDetail} from '../../../site/Wave3Presentation'
 import {LiveEnglishDetail,Wave4ArticleDetail,Wave4ArticleIndex,Wave4Library} from '../../../site/Wave4Presentation'
 import {matchedWave4Article} from '../../../site/wave4'
 import {EnglishServicePage,englishServiceForPath,englishServicePages} from '../../../site/EnglishServices'
+import {articleMetadataTitle} from '../../../site/article-metadata'
 // The manifest lookup remains fail-closed. Runtime lookup accepts Salmon's original
 // lowercase percent escapes as well as Next's equivalent uppercase encoded form.
 export const dynamicParams=true
@@ -27,7 +28,7 @@ export async function generateMetadata({params}:Params):Promise<Metadata>{
   const row=releaseRouteFor(slug)
   if(!row)return {robots:{index:false,follow:false}}
   const doc=salmonDocument(row)
-  return {title:{absolute:doc.seo.title},alternates:{canonical:doc.seo.canonical[0]},robots:{index:false,follow:false}}
+  return {title:{absolute:articleMetadataTitle(doc)},alternates:{canonical:doc.seo.canonical[0]},robots:{index:false,follow:false}}
 }
 export default async function Page({params,searchParams}:Params){
   const slug=(await params).slug

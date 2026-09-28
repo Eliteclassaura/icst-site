@@ -1,7 +1,7 @@
 import {createHash} from 'node:crypto'
 import {existsSync,readFileSync} from 'node:fs'
 import path from 'node:path'
-import {salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
+import {releaseRoutes,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
 
 const ledgerPath=path.join(process.cwd(),'content/wave4/H2O_WAVE4_SALMON_ARTICLE_RECONCILIATION_R1.tsv')
 const ledgerSha256='3ee3016d5fc1b2d7e32ad2502bcdde50e9e1813c0eeae04035aa47ad47a4ad49'
@@ -45,6 +45,26 @@ export function matchedWave4Documents():SalmonDocument[]{
   }).reverse()
 }
 
+type ArticleReleaseRow={path:string;routeId:string;routeClass:string;state:string;export:boolean;indexable:boolean}
+/** One reader-facing directory, preserving existing matched/live order and the authorized retrofit addition. */
+export function articleDirectoryDocuments():Array<{doc:SalmonDocument;indexable:boolean}>{
+  const release=JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as {routes:ArticleReleaseRow[]}
+  const byPath=new Map(release.routes.filter(row=>row.routeClass==='posts').map(row=>[row.path,row]))
+  const current=[...matchedWave4Documents(),...releaseRoutes().filter(route=>route.routeId.startsWith('LIVE-posts-')&&route.targetPath!=='/hello-world-2/').map(salmonDocument)]
+  const retrofit=releaseRoutes().find(route=>route.targetPath==='/cooling-tower-retrofit-guide-upgrading-old-towers/')
+  if(!retrofit)throw new Error('Authorized retrofit article is absent from release routes')
+  current.push(salmonDocument(retrofit))
+  if(new Set(current.map(doc=>doc.targetPath)).size!==current.length)throw new Error('Article directory has a duplicate route')
+  return current.map(doc=>{
+    const row=byPath.get(doc.targetPath)
+    if(!row?.export||row.state!=='PUBLIC'||row.routeId!==doc.routeId)throw new Error(`Article directory route is not public: ${doc.targetPath}`)
+    return {doc,indexable:row.indexable}
+  })
+}
+
+/** The 29 affected source titles encode an ampersand as literal entity text. Decode for display only. */
+export const articleDisplayTitle=(value:string):string=>value.replace(/&amp;|&#0*38;|&#x0*26;/gi,'&')
+
 /** Article cards use only that article's own locally held source image, if one exists. */
 export function articleCardImage(doc:SalmonDocument):{src:string;alt:string;width:number;height:number;sha256:string}|undefined{
   for(const image of doc.images){
@@ -65,16 +85,40 @@ const first=(nodes:SalmonNode[],tag:string)=>nodes.flatMap(node=>descendants(nod
 export function firstText(doc:SalmonDocument,tag:string):string{return first(doc.children,tag)?salmonNodeText(first(doc.children,tag)!).trim().replace(/\s+/g,' '):''}
 export function paragraphTexts(doc:SalmonDocument):string[]{return doc.children.flatMap(node=>descendants(node,'p')).map(node=>salmonNodeText(node).trim().replace(/\s+/g,' ')).filter(Boolean)}
 /** Keep source article facts in order; omit only an unpopulated JS-only TOC widget. */
-export function articleHeadingNodes(nodes:SalmonNode[]):SalmonNode[]{
+export function articleHeadingNodes(nodes:SalmonNode[],omitFirstH1=false):SalmonNode[]{
   let firstH1=true
   const visit=(node:SalmonNode):SalmonNode|null=>{
     if(typeof node==='string')return node
     if(/(?:^|\s)elementor-widget-table-of-contents(?:\s|$)/.test(node.attrs.class??'')&&descendants(node,'a').length===0)return null
+    if(/(?:^|\s)wp-block-rank-math-toc-block(?:\s|$)/.test(node.attrs.class??''))return null
     let tag=node.tag
-    if(tag==='h1'){if(firstH1)firstH1=false;else tag='h2'}
+    if(tag==='h1'){if(firstH1){firstH1=false;if(omitFirstH1)return null}else tag='h2'}
     return {...node,tag,children:node.children.map(visit).filter((child):child is SalmonNode=>child!==null)}
   }
   return nodes.map(visit).filter((node):node is SalmonNode=>node!==null)
+}
+
+export function articleTocLinks(doc:SalmonDocument):Array<{href:string;label:string}>{
+  const toc=doc.children.flatMap(node=>descendants(node,'div')).find(node=>/(?:^|\s)wp-block-rank-math-toc-block(?:\s|$)/.test(node.attrs.class??''))
+  if(!toc)return []
+  const ids=new Set(doc.children.flatMap(node=>[...descendants(node,'h2'),...descendants(node,'h3')]).map(node=>node.attrs.id).filter(Boolean))
+  return descendants(toc,'a').map(node=>({href:node.attrs.href||'',label:salmonNodeText(node).trim().replace(/\s+/g,' ')})).filter(link=>link.href.startsWith('#')&&ids.has(link.href.slice(1))&&link.label)
+}
+
+export function articleByline(doc:SalmonDocument):{author:string;date:string;dateTime:string}|null{
+  for(const raw of doc.seo.schema){
+    const parsed=JSON.parse(raw) as Record<string,unknown>|Array<Record<string,unknown>>
+    const entries=Array.isArray(parsed)?parsed:Array.isArray(parsed['@graph'])?parsed['@graph'] as Array<Record<string,unknown>>:[parsed]
+    const posting=entries.find(entry=>['BlogPosting','Article'].includes(String(entry['@type']||'')))
+    if(!posting)continue
+    const author=posting.author
+    const name=typeof author==='object'&&author!==null?String((author as Record<string,unknown>).name||''):''
+    const dateTime=String(posting.datePublished||'').slice(0,10)
+    if(!name||!/^\d{4}-\d{2}-\d{2}$/.test(dateTime))return null
+    const date=new Date(`${dateTime}T12:00:00Z`).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',timeZone:'UTC'})
+    return {author:name,date,dateTime}
+  }
+  return null
 }
 function verifiedLink(raw:string):string|undefined{
   try{

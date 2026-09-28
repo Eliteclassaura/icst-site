@@ -1,12 +1,11 @@
 /**
  * H2O Phase 2D — the RFQ mount, gated, on a named accepted surface.
  *
- * This is where the accepted Phase 2C-min conversational Typeform RFQ interface attaches to the
- * public estate. It is integrated and fail-closed: the component exists, the wiring is real, and
- * the gate is currently shut for every route.
+ * This attaches the existing Typeform adapter to named surfaces. Cohort and product routes retain
+ * their historical gates; exported PUBLIC English routes use the release-ledger gate below.
  *
- * Every mount is a named surface from the accepted mount contract, not a generic CTA dropped onto
- * a page. The `mountId` decides three things, all from the authority:
+ * For historical cohort routes, every mount is a named surface from the accepted mount contract.
+ * The `mountId` decides three things, all from that authority:
  *
  *   - whether the mount applies to this route at all (`applies_to`, resolved against the accepted
  *     route registry);
@@ -14,19 +13,12 @@
  *   - the `cta_placement` value, which is the contract's own `mount_id` — not a string invented
  *     here, and asserted against the contract by test.
  *
- * The gate then asks the accepted authorities and needs all of them to agree — the mount applies,
- * the route is publication-ready, the no-script fallback route `/contact-us/` is publication-ready,
- * and the adapter's configuration resolves. Neither readiness condition holds in this build, so
- * nothing renders anywhere.
- *
- * Rendering nothing is deliberate and is what the accepted navigation contract requires: a control
- * whose target is not ready is suppressed, never shown as a dead button and never replaced by a
- * telephone number, an email address or a third-party contact widget. There is no such fact to
- * offer, and inventing one is forbidden.
+ * Public-route mounts require an exact exported PUBLIC route, an eligible `/contact-us/` fallback,
+ * an authorized placement and a resolved adapter configuration. Generic routes pass only
+ * `page_path` and `cta_placement`. An ineligible route renders no RFQ control.
  */
 import type { CohortPage } from './cohort'
-import { mountGate } from './gate'
-import { productMountGate } from './gate'
+import { mountGate,productMountGate,publicMountGate,type PublicMountId,RFQ_FALLBACK_PATH } from './gate'
 import { implementedMounts, mountTreatment } from './mounts'
 import { QuoteCta } from '../conversion/QuoteCta'
 import { resolveQuoteCta } from '../conversion/resolve'
@@ -38,11 +30,14 @@ export type RfqMountProps = {
   mountId: string
   page: CohortPage
   product?:never
-}|{mountId:'rfq_page';product:SalmonDocument;page?:never}
+  routePath?:never
+}|{mountId:'header_action'|'footer_rfq_band'|'rfq_page';product:SalmonDocument;page?:never;routePath?:never}
+ |{mountId:PublicMountId;routePath:string;label?:string;page?:never;product?:never}
 
 export const RfqMount = (props: RfqMountProps) => {
   const {mountId}=props
   if(props.product){
+    if(!['header_action','footer_rfq_band','rfq_page'].includes(mountId))return null
     const product=props.product
     const gate=productMountGate(product)
     if(!gate.mounted)return null
@@ -54,7 +49,18 @@ export const RfqMount = (props: RfqMountProps) => {
     if(!resolved.available||!resolved.contextIncluded||resolved.dropped.length!==0)return null
     return <span className="rfq rfq-signal wave3-product-rfq"><QuoteCta ctaPlacement={mountId} formUrl={resolved.formUrl} label="Request a Quote" origin={resolved.origin} pagePath={product.targetPath} productId={id} productSlug={slug} title="Request a Quote"/></span>
   }
+  if(props.routePath){
+    const gate=publicMountGate(props.routePath,mountId)
+    if(!gate.mounted){
+      return gate.reason==='CONFIGURATION_UNRESOLVED'?<a className="lux-button" href={RFQ_FALLBACK_PATH}>{props.label??'Request a Quote'}</a>:null
+    }
+    const resolved=resolveQuoteCta({page_path:props.routePath,cta_placement:mountId})
+    if(!resolved.available||!resolved.contextIncluded||resolved.dropped.length!==0)return null
+    const label=props.label??'Request a Quote'
+    return <span className="rfq rfq-signal" data-rfq-public-route={props.routePath} data-rfq-placement={mountId}><QuoteCta ctaPlacement={mountId} formUrl={resolved.formUrl} label={label} origin={resolved.origin} pagePath={props.routePath} title={label}/></span>
+  }
   const {page}=props
+  if (!page) return null
   // A route with no accepted CTA never mounts one, whatever the surface says.
   if (!page.ctaPresent) return null
 

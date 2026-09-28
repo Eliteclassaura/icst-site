@@ -1,5 +1,5 @@
 /**
- * H2O Phase 2D — the publication gate, and everything that depends on it.
+ * H2O publication and RFQ gates, and everything that depends on them.
  *
  * Every one of the 29 implemented routes carries
  * `publication_condition = PUBLICATION_READY_REQUIRED;OWNER_SME_GATE_OUTSTANDING`, and the accepted
@@ -17,7 +17,9 @@
  * altering an accepted authority to manufacture readiness.
  *
  * Nothing here decides readiness. Readiness is an owner and Control Tower decision recorded in the
- * accepted authorities; this module only reads it and fails closed when it is absent.
+ * accepted authorities; this module only reads it and fails closed when it is absent. The later
+ * PUBLIC English RFQ extension reads the release ledger without changing the historical cohort
+ * publication or private-staging gates.
  *
  * **Two readinesses, two authorities, deliberately not merged.**
  *
@@ -32,6 +34,8 @@
  * 29 unpublished routes as a side effect of turning on a button.
  */
 import { cohort, type CohortPage } from './cohort'
+import {readFileSync} from 'node:fs'
+import path from 'node:path'
 import { mountAppliesToRoute } from './mounts'
 import { stagingNavigationAuthorized, stagingValidationReady } from './staging'
 import { resolveTypeformConfig } from '../conversion/config'
@@ -86,6 +90,9 @@ export type MountGateReason =
   | 'MOUNT_NOT_APPLICABLE_TO_ROUTE'
   | 'ROUTE_NOT_IN_COHORT'
   | 'ROUTE_NOT_STAGING_VALIDATION_READY'
+  | 'ROUTE_NOT_PUBLIC_EXPORT'
+  | 'FALLBACK_ROUTE_NOT_PUBLIC_EXPORT'
+  | 'MOUNT_NOT_AUTHORIZED_FOR_PUBLIC'
 
 export type MountGate = {
   /** Present only when `mounted` is true, so an unmounted gate cannot leak a target. */
@@ -162,6 +169,46 @@ export const productMountGate = (doc:SalmonDocument,env:Record<string,string|und
   if(!productIdentityValid(doc)||!productSlug(doc)||!/^[0-9]+$/.test(doc.routeId.split('-').at(-1)??''))return {mounted:false,reason:'ROUTE_NOT_IN_COHORT'}
   const fallback=cohort().find(page=>page.canonicalPath===RFQ_FALLBACK_PATH)
   if(!fallback||!stagingValidationReady(fallback))return {mounted:false,reason:'FALLBACK_ROUTE_NOT_STAGING_VALIDATION_READY'}
+  const config=resolveTypeformConfig({H2O_TYPEFORM_FORM_ID:env.H2O_TYPEFORM_FORM_ID,H2O_TYPEFORM_ORIGIN:env.H2O_TYPEFORM_ORIGIN})
+  if(!config.ok)return {mounted:false,reason:'CONFIGURATION_UNRESOLVED'}
+  return {mounted:true,formUrl:`${config.value.origin}/to/${config.value.formId}`,origin:config.value.origin,reason:'MOUNTED'}
+}
+
+export type PublicReleaseRoute = {
+  path:string;state:string;export:boolean;redirect:unknown;routeClass:string
+}
+export type PublicMountId = 'header_action'|'footer_rfq_band'|'editorial_inline'|'rfq_page'
+let publicRoutesCache:PublicReleaseRoute[]|null=null
+const publicRoutes=():PublicReleaseRoute[]=>{
+  if(publicRoutesCache===null){
+    const file=path.join(process.cwd(),'content/release/route-ledger.json')
+    publicRoutesCache=(JSON.parse(readFileSync(file,'utf8')) as {routes:PublicReleaseRoute[]}).routes
+  }
+  return publicRoutesCache
+}
+const englishPublicPath=(value:string):boolean=>
+  value.startsWith('/')&&!/[?#]/.test(value)&&
+  !/^\/(?:api|admin|my-account|_next|preview|internal|__|ja|jp|th)(?:\/|$)/i.test(value)&&
+  !/%(?:e0%b8|e3%8[123])/i.test(value)
+const publicReleaseReady=(value:string,routes:PublicReleaseRoute[]):boolean=>{
+  if(!englishPublicPath(value))return false
+  const row=routes.find(candidate=>candidate.path===value)
+  return !!row&&row.state==='PUBLIC'&&row.export===true&&!row.redirect&&
+    !['internal','admin','preview'].includes(row.routeClass)
+}
+
+/** Public-release extension only. Historical cohort and product gates above are unchanged. */
+export const publicMountGate=(
+  routePath:string,
+  mountId:string,
+  options:{env?:Record<string,string|undefined>;routes?:PublicReleaseRoute[]}={},
+):MountGate=>{
+  const routes=options.routes??publicRoutes()
+  if(!(['header_action','footer_rfq_band','editorial_inline','rfq_page'] as string[]).includes(mountId))
+    return {mounted:false,reason:'MOUNT_NOT_AUTHORIZED_FOR_PUBLIC'}
+  if(!publicReleaseReady(routePath,routes))return {mounted:false,reason:'ROUTE_NOT_PUBLIC_EXPORT'}
+  if(!publicReleaseReady(RFQ_FALLBACK_PATH,routes))return {mounted:false,reason:'FALLBACK_ROUTE_NOT_PUBLIC_EXPORT'}
+  const env=options.env??process.env
   const config=resolveTypeformConfig({H2O_TYPEFORM_FORM_ID:env.H2O_TYPEFORM_FORM_ID,H2O_TYPEFORM_ORIGIN:env.H2O_TYPEFORM_ORIGIN})
   if(!config.ok)return {mounted:false,reason:'CONFIGURATION_UNRESOLVED'}
   return {mounted:true,formUrl:`${config.value.origin}/to/${config.value.formId}`,origin:config.value.origin,reason:'MOUNTED'}

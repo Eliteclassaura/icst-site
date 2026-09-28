@@ -51,7 +51,7 @@ export function ProductDetail({doc}:{doc:SalmonDocument}){
   const related=productRelated(doc).slice(0,4).map(route=>salmonDocument(route))
   const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
   return <div className="luxury-site wave3-site" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256} data-wave3-archetype="ProductDetail">
-    <SalmonSeo doc={doc}/><LuxuryHeader page={page}/>
+    <SalmonSeo doc={doc}/><LuxuryHeader page={page} routePath={doc.targetPath} product={doc}/>
     <main id="main" className="wave3-main wave3-detail">
       <nav className="wave3-breadcrumb" aria-label="Breadcrumb"><a href="/cooling-tower-parts-online/">Cooling Tower Parts</a><span aria-hidden="true">/</span><span>{nameFor(doc)}</span></nav>
       <div className="wave3-detail-hero">
@@ -60,7 +60,7 @@ export function ProductDetail({doc}:{doc:SalmonDocument}){
       </div>
       <div className="wave3-product-body">{sorted.map((panel,i)=><ProductSection key={`${panel.kind}.${i}`} panel={panel} doc={doc} index={i}/>)}</div>
       {related.length?<section className="wave3-related" aria-labelledby="wave3-related-title"><div className="wave3-related-heading"><h2 id="wave3-related-title">Related Products</h2><a href="/cooling-tower-parts-online/">Explore all parts</a></div><div className="wave3-related-grid">{related.map(product=><PartCard key={product.routeId} doc={product}/>)}</div></section>:null}
-    </main><LuxuryFooter page={page}/>
+    </main><LuxuryFooter page={page} routePath={doc.targetPath} product={doc}/>
   </div>
 }
 
@@ -110,13 +110,13 @@ export function PartsIndex({doc,query='',pageNumber=1}:{doc:SalmonDocument;query
   const copy=partsCopy(doc)
   const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
   return <div className="luxury-site wave3-site" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256} data-wave3-archetype="PartsIndex">
-    <SalmonSeo doc={doc}/><LuxuryHeader page={page}/>
+    <SalmonSeo doc={doc}/><LuxuryHeader page={page} routePath={doc.targetPath}/>
     <main id="main" className="wave3-main wave3-index">
       <section className="wave3-index-intro"><div><h1>{doc.seo.h1[0]}</h1><p>{partsIntro(doc)}</p></div><form action="/cooling-tower-parts-online/" method="get" role="search" className="wave3-search"><label htmlFor="wave3-query">Search cooling tower parts</label><div><input id="wave3-query" type="search" name="q" defaultValue={cleanQuery} maxLength={100} placeholder="Search parts by name or description"/><button type="submit">Search</button></div></form></section>
       <div className="wave3-index-layout"><nav className="wave3-category-rail" aria-label="Part categories"><h2>Browse by Component Type</h2><a href="/cooling-tower-parts-online/" aria-current="page">All Parts</a>{categories.map(category=><a key={category.href} href={category.href}>{category.label}</a>)}</nav><section className="wave3-catalog" aria-labelledby="wave3-catalog-heading"><div className="wave3-catalog-heading"><h2 id="wave3-catalog-heading">Cooling Tower Parts</h2><p>{filtered.length} products</p></div>{shown.length?<div className="wave3-card-grid">{shown.map(({doc:product},index)=><PartCard key={product.routeId} doc={product} staticIndex={staticRelease?index:undefined}/>)}</div>:<div className="wave3-empty"><h3>No matching parts</h3><p>Try a product name or a broader component term.</p><a href="/cooling-tower-parts-online/">Explore all parts</a></div>}{staticRelease?<p data-static-parts-empty hidden>No matching parts. Try a product name or a broader component term.</p>:null}{pageCount>1?<nav className="wave3-pagination" aria-label="Product pages">{currentPage>1?<a href={href(currentPage-1)}>Previous</a>:null}<span>Page {currentPage} of {pageCount}</span>{currentPage<pageCount?<a href={href(currentPage+1)}>Next</a>:null}</nav>:null}</section></div>
       {copy.length?<section className="wave3-index-copy">{copy.map(section=><div key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p key={paragraph}>{paragraph}</p>)}</div>)}</section>:null}
       <R2Discovery kind="parts"/>
       {staticRelease?<StaticPartsController/>:null}
-    </main><LuxuryFooter page={page}/>
+    </main><LuxuryFooter page={page} routePath={doc.targetPath}/>
   </div>
 }

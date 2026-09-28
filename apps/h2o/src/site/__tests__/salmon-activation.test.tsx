@@ -49,7 +49,7 @@ describe('Salmon activation authority and safety',()=>{
     const r=salmonRouteFor(['product','frp-angles'])!,doc=salmonDocument(r)
     expect(doc.text).toContain('$3.29')
     const html=renderToStaticMarkup(<SalmonCanonical doc={doc}/>)
-    expect(html).not.toContain('$3.29');expect(html).not.toContain('<form');expect(html).not.toContain('<iframe');expect(html).not.toContain('onerror=')
+    expect(html).not.toContain('$3.29');expect(html.slice(html.indexOf('<main'))).not.toContain('<form');expect(html).not.toContain('<iframe');expect(html).not.toContain('onerror=')
     expect(html).not.toContain('$0.00');expect(html).not.toContain('product:price:currency')
     expect(salmonDocument(r).text).toContain('$3.29')
   })

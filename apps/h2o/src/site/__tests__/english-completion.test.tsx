@@ -24,9 +24,27 @@ describe('English completion release boundary',()=>{
       expect((html.match(/class="english-service-scope-grid"/g)??[])).toHaveLength(1)
       expect((html.match(/class="english-service-faq\b/g)??[])).toHaveLength(1)
       expect(html).toContain('href="/contact-us/"')
-      expect(html).not.toContain('<form')
+      expect(html.slice(html.indexOf('<main'))).not.toContain('<form')
       expect(html).toContain('salmon-parity-footer')
       expect(html).toContain('data-source-sha256')
+    }
+  })
+  it('uses the current six-node Figma body media without importing the obsolete CTI chrome or native form',()=>{
+    const expected:Record<string,string>={
+      '1:1600':'crossflow','1:2080':'counterflow','1:2':'wet-hybrid-dry',
+      '1:410':'low-drift','1:810':'emergency','1:1197':'rebuilds',
+    }
+    for(const service of englishServicePages()){
+      const prefix=`/media/figma-six-service-r12/${expected[service.figmaNode]}-`
+      for(const role of ['hero','intro','diagram','signs','support','decision','closing']){
+        const src=`${prefix}${role}.png`
+        expect(existsSync(path.join(process.cwd(),'public',src))).toBe(true)
+        expect(Object.values(service)).toContain(src)
+      }
+      const html=renderToStaticMarkup(<EnglishServicePage service={service}/>)
+      expect(html).not.toContain('Cooling Technology Institute')
+      expect(html).not.toContain('+66-2-260-6598')
+      expect(html.slice(html.indexOf('<main'))).not.toContain('<form')
     }
   })
   it('gives all six maintenance cards exact, non-self service destinations',()=>{
@@ -51,7 +69,7 @@ describe('English completion release boundary',()=>{
       expect(html).toContain('https://form.typeform.com/to/F22cAgx3')
       expect(html).toContain('figma-contact-hero-photo')
       expect(html).not.toContain('+66-2-260-6598')
-      expect(html).not.toContain('<form')
+      expect(html.slice(html.indexOf('<main'))).not.toContain('<form')
     }finally{
       if(beforeId===undefined)delete process.env.H2O_TYPEFORM_FORM_ID;else process.env.H2O_TYPEFORM_FORM_ID=beforeId
       if(beforeOrigin===undefined)delete process.env.H2O_TYPEFORM_ORIGIN;else process.env.H2O_TYPEFORM_ORIGIN=beforeOrigin

@@ -98,9 +98,9 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
   return doc.routeId==='SALMON-pages-1230'&&labels[i]?<TowerDisclosure label={labels[i]} key={i}>{body}</TowerDisclosure>:body
  }
  return <div className={'luxury-site luxury-'+doc.routeId.split('-').at(-1)+(home?' figma-home':'')} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
-  <SalmonSeo doc={doc}/>{home?<><link rel="preload" href="/fonts/figma-home/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><link rel="preload" href="/fonts/figma-home/dm-sans-latin-400-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/></>:null}<LuxuryHeader page={page}/>
+  <SalmonSeo doc={doc}/>{home?<><link rel="preload" href="/fonts/figma-home/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><link rel="preload" href="/fonts/figma-home/dm-sans-latin-400-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/></>:null}<LuxuryHeader page={page} routePath={doc.targetPath}/>
   <main id="main" data-luxury-body className={home?'figma-home-main':undefined}>
    {home?<><div className="figma-home-hero-stage">{sectionAt(0)}<div className="figma-home-hero-side">{sectionAt(3)}{sectionAt(1)}</div></div>{[2,4,5,6,7,8].map(sectionAt)}</>:serviceComposition?<ServicePage routeId={doc.routeId} sections={model.tree.map((_,i)=>sectionAt(i))}/>:model.tree.map((_,i)=>sectionAt(i))}
-  </main><LuxuryFooter page={page}/>
+  </main><LuxuryFooter page={page} routePath={doc.targetPath}/>
  </div>
 }

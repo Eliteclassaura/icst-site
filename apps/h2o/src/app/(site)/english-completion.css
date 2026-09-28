@@ -67,21 +67,15 @@
 .english-service-intro a{color:#0b55a5;font-size:14px;font-weight:700}
 .english-service-principle{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.1fr);grid-template-areas:'heading diagram' 'list diagram';gap:20px 80px;padding:20px 0 112px}
 .english-service-principle>.english-service-section-heading{grid-area:heading;display:block;margin-bottom:0}
+.english-service-principle>.english-service-section-heading .english-service-index{margin-bottom:17px}
 .english-service-principle-list{grid-area:list}
 .english-service-principle-list>div{display:grid;grid-template-columns:45px 145px 1fr;gap:15px;align-items:start;padding:18px 0;border-top:1px solid #d6e1e9}
 .english-service-principle-list>div:last-child{border-bottom:1px solid #d6e1e9}
 .english-service-principle-list span{color:#0b55a5;font-size:13px;font-weight:700}.english-service-principle-list h3{font-size:22px}.english-service-principle-list p{margin:0;color:#43505d;font-size:15px}
-.english-service-diagram{grid-area:diagram;align-self:stretch;display:flex;flex-direction:column;justify-content:space-between;min-height:430px;margin:0;padding:32px;border:1px solid #dce8f1;border-radius:19px;background:#edf4f9;color:#0b3e72}
-.english-service-diagram figcaption{display:grid;gap:8px}.english-service-diagram figcaption span{font-size:11px;font-weight:800;letter-spacing:.13em}.english-service-diagram figcaption strong{max-width:37ch;font-size:15px;line-height:1.4}
-.english-service-diagram-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:7px;margin:32px 0}
-.english-service-diagram-node{position:relative;display:flex;flex-direction:column;min-height:165px;justify-content:flex-end;padding:14px 11px;border:1px solid #9ebbd2;border-radius:5px;background:#fff}
-.english-service-diagram-node span{margin-bottom:auto;color:#4380ac;font-size:12px;font-weight:800}.english-service-diagram-node strong{font:400 18px/1.1 'Bebas Neue','Arial Narrow',sans-serif}.english-service-diagram-node i{position:absolute;z-index:1;right:-10px;top:43%;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#0b55a5;color:#fff;font-size:12px;font-style:normal}
-.english-service-diagram small{max-width:55ch;color:#5a7285;font-size:11px;line-height:1.45}
-.english-service-diagram--crossflow .english-service-diagram-node:nth-child(3),.english-service-diagram--counterflow .english-service-diagram-node:nth-child(3),.english-service-diagram--low-drift .english-service-diagram-node:nth-child(2){background:#0d5798;color:#fff}
-.english-service-diagram--crossflow .english-service-diagram-node:nth-child(3) span,.english-service-diagram--counterflow .english-service-diagram-node:nth-child(3) span,.english-service-diagram--low-drift .english-service-diagram-node:nth-child(2) span{color:#d3e9f8}
-.english-service-diagram--wet-hybrid-dry .english-service-diagram-node:nth-child(-n+3){border-top:5px solid #0b55a5}
-.english-service-diagram--emergency{background:#e8f0f5}.english-service-diagram--emergency .english-service-diagram-node:first-child{border-color:#0b55a5;background:#0b55a5;color:#fff}
-.english-service-diagram--rebuilds .english-service-diagram-node:not(:first-child){background:#deebf4}
+.english-service-diagram{grid-area:diagram;align-self:stretch;display:flex;flex-direction:column;justify-content:center;gap:12px;min-height:430px;margin:0;padding:18px;border-radius:19px;background:#edf4f9;color:#0b3e72}
+.english-service-diagram img{display:block;width:100%;max-height:490px;object-fit:contain;border-radius:10px}
+.english-service-diagram figcaption{display:grid;gap:5px}.english-service-diagram figcaption span{font-size:11px;font-weight:800;letter-spacing:.13em}.english-service-diagram figcaption strong{font-size:15px;line-height:1.4}
+.english-service-diagram small{color:#5a7285;font-size:11px;line-height:1.45}
 .english-service-scope{padding-bottom:112px}
 .english-service-section-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:30px;align-items:end;margin-bottom:36px}
 .english-service-section-heading .english-service-index{grid-column:1/-1;margin-bottom:-10px}
@@ -101,14 +95,21 @@
 .english-service-band .english-service-index{color:#b7d8f2}
 .english-service-process{padding-block:110px}
 .english-service-process>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:35px}
+.english-service-process-photo{height:320px;margin:28px 0 0;overflow:hidden;border-radius:18px;background:#e9f0f5}
+.english-service-process-photo img{display:block;width:100%;height:100%;object-fit:cover}
 .english-service-process article{min-height:155px;padding:23px;border-radius:8px;background:#f2f6fa}
 .english-service-process article:nth-child(3){background:#0b55a5}
 .english-service-process article span{color:#0b55a5;font:400 34px/1 'Bebas Neue',sans-serif}
 .english-service-process article h3{margin-top:20px;font-size:23px}
 .english-service-process article:nth-child(3) :is(span,h3){color:#fff}
-.english-service-decision{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:70px;align-items:center;padding-bottom:112px}
-.english-service-decision p{max-width:57ch;color:#43505d}.english-service-decision>div>div{display:grid;gap:10px;margin-top:25px}.english-service-decision a{color:#0b55a5;font-weight:700}
-.english-service-decision figure{position:relative;height:390px}.english-service-decision figcaption{position:absolute;right:0;bottom:0;left:0;padding:12px 17px;background:rgba(4,34,62,.86);color:#fff;font-size:11px}
+.english-service-decision{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch;padding-bottom:112px}
+.english-service-support-card{min-width:0;overflow:hidden;border:1px solid #e0e8ef;border-radius:18px;background:#fff}
+.english-service-support-card figure{height:250px;margin:0;overflow:hidden;border-radius:0;background:#edf2f6}
+.english-service-support-card img{display:block;width:100%;height:100%;object-fit:cover}
+.english-service-support-card>div{padding:30px}.english-service-support-card .english-service-index{margin-bottom:12px}
+.english-service-support-card h2{font-size:clamp(30px,2.5vw,38px)}
+.english-service-support-card p{max-width:57ch;color:#43505d}
+.english-service-support-card a{color:#0b55a5;font-weight:700}
 .english-service-request{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.7fr);gap:70px;padding:65px;border-radius:24px;background:#eaf1f7}
 .english-service-request p{max-width:57ch;color:#3c4c59}.english-service-request a{margin-top:15px;background:#0b55a5;color:#fff}
 .english-service-request aside{padding:27px;background:#fff;border-radius:12px}
@@ -127,7 +128,7 @@
  .english-service-hero,.english-service-hero-copy{min-height:520px}
  .english-service-hero-copy{padding:48px}
  .english-service-principle,.english-service-intro,.english-service-signs,.english-service-decision{gap:42px}
- .english-service-diagram{min-height:380px;padding:23px}.english-service-diagram-node{min-height:140px}
+ .english-service-diagram{min-height:380px;padding:18px}
  .english-service-principle-list>div{grid-template-columns:35px 1fr;gap:8px 16px}.english-service-principle-list p{grid-column:2}
  .english-service-scope-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .english-service-request{padding:45px;gap:35px}
@@ -139,7 +140,7 @@
  .english-service-hero-shade{background:linear-gradient(180deg,transparent 0%,#073255 90%)}
  .english-service-hero-copy{min-height:0;padding:32px;background:#073255}
  .english-service-hero h1{font-size:clamp(43px,8vw,60px)}
- .english-service-intro,.english-service-principle,.english-service-signs,.english-service-decision,.english-service-request,.english-service-faq{grid-template-columns:1fr}
+ .english-service-intro,.english-service-principle,.english-service-signs,.english-service-request,.english-service-faq{grid-template-columns:1fr}
  .english-service-principle{grid-template-areas:'heading' 'diagram' 'list'}
  .english-service-intro{padding-block:70px}.english-service-intro figure{height:330px}
  .english-service-principle{padding-bottom:74px}.english-service-scope{padding-bottom:74px}
@@ -158,7 +159,8 @@
  .english-service-intro figure{height:240px}
  .english-service-scope-grid,.english-service-signs ul{grid-template-columns:1fr}
  .english-service-signs figure img{height:280px}
- .english-service-diagram{min-height:0;padding:20px}.english-service-diagram-track{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:22px 0}.english-service-diagram-node{min-height:115px}.english-service-diagram-node i{display:none}
+ .english-service-diagram{min-height:0;padding:14px}
+ .english-service-decision{grid-template-columns:1fr}.english-service-support-card figure{height:200px}.english-service-support-card>div{padding:24px}
  .english-service-scope-grid article{min-height:0}
  .english-service-process article{min-height:145px}
  .english-service-request{padding:28px 22px}.english-service-closing>div{padding:38px 25px}

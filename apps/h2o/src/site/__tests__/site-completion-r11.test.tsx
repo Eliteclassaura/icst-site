@@ -11,12 +11,14 @@ const documentFor=(id:string)=>salmonDocument(salmonRoutes().find(route=>route.r
 
 describe('site completion R1.1 boundaries',()=>{
   it('uses the current Homepage-authoritative logo and footer with owner contact facts',()=>{
-    const header=renderToStaticMarkup(<LuxuryHeader/>),footer=renderToStaticMarkup(<LuxuryFooter/>)
+    const header=renderToStaticMarkup(<LuxuryHeader routePath="/"/>),footer=renderToStaticMarkup(<LuxuryFooter routePath="/"/>)
     expect(header).toContain('/media/salmon/a8f4b38d0f7ede838b277c9bcd00a3b75a268ce23a5fccfb86ec263774e3b844.png')
-    expect(header).toContain('salmon-header-language')
+    expect(header).not.toContain('salmon-header-language')
+    expect(header).toContain('lux-header-rfq')
     expect(footer).toContain('salmon-parity-footer')
-    expect(footer).toContain('c0060d855e27dfa01cb59100bba1dd217e2e6796d995aaa0e4ef4fa73d9b006c.png')
-    for(const label of ['Useful Links','Product Category','Phone','Privacy Policy',...contactOffices.map(office=>office.telephoneDisplay)])expect(footer).toContain(label)
+    expect(footer).toContain('a8f4b38d0f7ede838b277c9bcd00a3b75a268ce23a5fccfb86ec263774e3b844.png')
+    expect(footer).not.toContain('c0060d855e27dfa01cb59100bba1dd217e2e6796d995aaa0e4ef4fa73d9b006c.png')
+    for(const label of ['Company','Towers &amp; services','Parts','Resources','Contact','Privacy Policy',...contactOffices.map(office=>office.telephoneDisplay)])expect(footer).toContain(label)
     expect(footer).not.toContain('+66-2-260-6598')
   })
   it('removes only the misleading Air Coolers hero photograph',()=>{

@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
 import {LuxuryHeader} from '../LuxuryShell'
-import {siteNavigation} from '../SiteNavigation'
+import {salmonNavigation} from '../SiteNavigation'
 import {salmonDocument,salmonRoutes} from '../salmon'
 import {AuthorityEditorial} from '../AuthorityEditorial'
 import {ProjectAuthorityIndex} from '../ProjectAuthorityIndex'
@@ -16,12 +16,15 @@ const documentFor=(id:string)=>salmonDocument(salmonRoutes().find(route=>route.r
 describe('site completion authority and structure',()=>{
   it('exposes only public navigation destinations in grouped desktop and mobile controls',()=>{
     const html=renderToStaticMarkup(<LuxuryHeader/>)
-    const destinations=siteNavigation.flatMap(group=>'items' in group?group.items.map(([,href])=>href):[group.href])
+    const destinations=salmonNavigation.flatMap(group=>'items' in group?group.items.map(([,href])=>href):[group.href])
     for(const href of destinations)expect(html).toContain(`href="${href}"`)
     expect(html).toContain('aria-expanded="false"')
     expect(html).toContain('aria-controls="site-nav-panel-0"')
     expect(html).toContain('aria-controls="site-mobile-panel"')
-    expect(html).toContain('<summary>Repair Upgrades And Maintenance</summary>')
+    expect(html).toContain('<summary>Services</summary>')
+    expect(html).toContain('By tower type')
+    expect(html).toContain('Recovery &amp; cleaning')
+    expect(html).toContain('href="/tower-hardware/"')
     expect(html).not.toContain('/author/tbozic/')
     expect(html).not.toContain('/admin/')
   })
@@ -42,10 +45,10 @@ describe('site completion authority and structure',()=>{
       const bytes=readFileSync(path.join(process.cwd(),`public/media/salmon/${sha}.${extension}`))
       expect(createHash('sha256').update(bytes).digest('hex')).toBe(sha)
     }
-    const css=readFileSync(path.join(process.cwd(),'src/app/(site)/salmon-parity-overrides.css'),'utf8')
-    for(const width of ['1100','600'])expect(css).toContain(`max-width:${width}px`)
-    expect(css).toContain('.salmon-copy .site-mobile-nav{display:block')
-    expect(css).toMatch(/@media\(max-width:600px\)\{[^]*?\.salmon-copy \.salmon-footer-main\{[^}]*grid-template-columns:minmax\(0,1fr\)/)
+    const css=readFileSync(path.join(process.cwd(),'src/app/(site)/public-chrome-article.css'),'utf8')
+    expect(css).toContain('@media(max-width:1199px)')
+    expect(css).toContain('.global-chrome .site-mobile-panel{position:fixed;top:var(--chrome-height)')
+    expect(css).toContain('@media(max-width:600px)')
   })
   it('preserves About geography corrections while presenting three confirmed locations',()=>{
     const html=renderToStaticMarkup(<AuthorityEditorial doc={documentFor('SALMON-pages-1931')}/>)

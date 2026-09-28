@@ -84,11 +84,11 @@ export function SalmonPresentation({doc}:{doc:SalmonDocument}){
  const home=doc.targetPath==='/'
  return <div className={`luxury-site salmon-copy salmon-page-${home?'home':'newtowers'} elementor-kit-5 elementor-page-${home?'48':'1230'} elementor-${home?'48':'1230'}`} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
   <SalmonSeo doc={doc}/>
-  <LuxuryHeader page={page} salmonParity/>
+  <LuxuryHeader page={page} routePath={doc.targetPath} salmonParity/>
   <main id="main" className={`salmon-copy-main elementor elementor-${home?'48':'1230'} elementor-kit-5`} data-salmon-region="body">
    <SalmonTabsController/>
    {doc.children.map((node,i)=>sourceNode(node,`body.${i}`,doc))}
   </main>
-  <LuxuryFooter page={page}/>
+  <LuxuryFooter page={page} routePath={doc.targetPath}/>
  </div>
 }

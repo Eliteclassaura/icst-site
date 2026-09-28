@@ -5,7 +5,8 @@ import {pageForSegments} from './cohort'
 import {RfqMount} from './RfqMount'
 import {contactOffices} from './contact'
 import {AuthorityEditorial} from './AuthorityEditorial'
-import {articleHeadingNodes} from './wave4'
+import {articleByline,articleDisplayTitle,articleHeadingNodes} from './wave4'
+import {articleSocialTitle} from './article-metadata'
 import {R2Discovery} from './R2Discovery'
 import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
 import {ProjectDetail} from './ProjectDetail'
@@ -68,14 +69,19 @@ function sourceImage(source:string,alt:string|undefined,key:string,doc:SalmonDoc
   if(!local)return null
   return createElement('img',{key,src:local,alt,'data-source-src':source,'data-source-kind':kind,'data-source-sha256':media.sha256,width:media.width,height:media.height,loading:'lazy',style:{maxWidth:media.width??'100%',height:'auto'}})
 }
-export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode{
+export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,suppressSourceByline=false):ReactNode{
   if(typeof node==='string')return doc.type==='product'&&/[$€£]\s*\d/.test(node)?<span data-salmon-exception="NO_PUBLIC_PRICE" data-source-node={key} key={key}/>:/^(?:Buy|Order|Purchase) Now$/i.test(node.trim())?<span data-salmon-exception="RFQ_ONLY" data-source-node={key} key={key}>Request a Quote</span>:ownerText(reconcileCommercialScope(doc,doc.routeId==='SALMON-pages-1931'?(aboutGeographyCorrections.get(node.trim())??node):doc.routeId==='SALMON-pages-411'?normalizeWave3IndexEditorial(node):node))
   if(commerceException(node))return <span data-salmon-exception="NO_PUBLIC_COMMERCE" data-source-node={key} key={key}/>
   if(['script','style','iframe','svg','template'].includes(node.tag))return null
+  if(doc.type==='posts'&&/(?:^|\s)elementor-widget-post-info(?:\s|$)/.test(node.attrs.class??'')){
+    if(suppressSourceByline)return null
+    const byline=articleByline(doc)
+    return byline?<p key={key} className="wave4-byline">By {byline.author}<span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null
+  }
   const priceLabel=priceSpecLabel(node,doc)
   if(priceLabel===null)return null
   if(priceLabel!==undefined)return createElement(node.tag,{key,'data-source-node':key,'data-salmon-exception':'NO_PUBLIC_PRICE'},priceLabel)
-  const children=node.children.map((child,i)=>renderSalmonNode(child,`${key}.${i}`,doc))
+  const children=node.children.map((child,i)=>renderSalmonNode(child,`${key}.${i}`,doc,suppressSourceByline))
   if(['input','textarea'].includes(node.tag))return null
   const tag=allowed.has(node.tag)?node.tag:node.tag==='form'?'section':'span'
   const attrs=node.attrs
@@ -86,7 +92,7 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument):
   if(tag==='a'){
     const original=attrs.href??''
     const media=salmonMedia(original,doc.sourceUrl)
-    if(media?.state==='SOURCE_UNAVAILABLE'&&/\.pdf(?:[?#]|$)/i.test(original))return <span key={key} data-source-href={original} data-source-download-unavailable="SOURCE_MEDIA_UNAVAILABLE">{children} — source document unavailable</span>
+    if(media?.state==='SOURCE_UNAVAILABLE'&&/\.pdf(?:[?#]|$)/i.test(original))return <span key={key} data-source-href={original} data-source-download-unavailable="SOURCE_MEDIA_UNAVAILABLE">{children}</span>
     const local=media&&salmonMediaPath(media)
     const commerce=/[?&]add-to-cart=|\/(?:checkout|cart)\/?(?:[?#]|$)/i.test(original)
     props.href=commerce?undefined:hrefSafe(ownerHref(local??original))
@@ -100,18 +106,20 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument):
   if(tag==='ol'&&attrs.start)props.start=Number(attrs.start)
   for(const [a,b]of [['colspan','colSpan'],['rowspan','rowSpan']])if(attrs[a!])props[b!]=Number(attrs[a!])
   if(tag==='time'&&attrs.datetime)props.dateTime=attrs.datetime
+  if(doc.type==='posts'&&/(?:^|\s)elementor-widget-posts(?:\s|$)/.test(attrs.class??''))props['data-pagefind-ignore']=''
   const backgrounds:ReactNode[]=[]
   if(attrs['data-settings']){
     try{const settings=JSON.parse(attrs['data-settings']) as Record<string,{url?:string}>
       for(const [name,value]of Object.entries(settings))if(name.includes('background')&&value?.url)backgrounds.push(sourceImage(value.url,undefined,`${key}-background-${name}`,doc,name))
     }catch{/* Historical presentation settings are never executable code. */}
   }
-  const element=createElement(tag,props,...(voids.has(tag)?[]:[...backgrounds,...children]))
+  const element=createElement(tag,props,...(voids.has(tag)?[]:tag==='h1'&&doc.type==='posts'&&/&amp;|&#0*38;|&#x0*26;/i.test(salmonNodeText(node))?[articleDisplayTitle(salmonNodeText(node))]:[...backgrounds,...children]))
   return tag==='table'?<div className="technical-table" key={key} role="region" tabIndex={0} aria-label="Scrollable source table">{element}</div>:element
 }
 export function SalmonSeo({doc,canonicalOverride}:{doc:SalmonDocument;canonicalOverride?:string}){
   const metaValue=(name:string,value:string)=>{
     if(name==='og:url'&&canonicalOverride&&value===doc.seo.canonical[0])return canonicalOverride
+    if(name==='og:title'||name==='twitter:title')return articleSocialTitle(doc,value)
     if(!/^(?:description|og:description|twitter:description)$/.test(name))return value
     const scoped=reconcileCommercialScope(doc,value)
     if(doc.type==='product')return normalizeWave3ProductDescription(scoped)
@@ -137,7 +145,7 @@ export function SalmonCanonical({doc}:{doc:SalmonDocument}){
   const isEditorial=['SALMON-pages-1931','SALMON-b2503fcd6ca86806'].includes(doc.routeId)
   return <div className={`salmon-canonical${isContact?' figma-contact':''}`} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc}/>
-    <div className="luxury-site"><LuxuryHeader page={page}/></div>
+    <div className="luxury-site"><LuxuryHeader page={page} routePath={doc.targetPath}/></div>
     {isContact?<main className="luxury-site figma-contact-main" id="main" data-salmon-region="body">
       <section className="figma-contact-hero">
         <img className="figma-contact-hero-photo" src="/media/figma-wave2/figma-image-2b0fc0527234a0c7.png" alt="" width="2338" height="2338" data-media-authority="ACCEPTED_WAVE2_INDUSTRIAL_SOURCE"/>
@@ -180,6 +188,6 @@ export function SalmonCanonical({doc}:{doc:SalmonDocument}){
     </main>:isEditorial?<AuthorityEditorial doc={doc}/>:doc.routeId==='SALMON-pages-1353'?<ProjectAuthorityIndex doc={doc}/>:doc.targetPath.startsWith('/all-projects/')?<ProjectDetail doc={doc}/>:<main className="shell article" id="main" data-salmon-region="body">{(doc.routeId==='SALMON-pages-5792'?articleHeadingNodes(doc.children):doc.children).map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</main>}
     {doc.routeId==='SALMON-pages-1761'?<R2Discovery kind="pages"/>:null}
     {doc.targetPath==='/'?<section className="shell" data-owner-override="OWNER_TESTIMONIAL_AUTHORITY_OVERRIDE_2026_09_21"><Testimonials/></section>:null}
-    <div className="luxury-site"><LuxuryFooter page={page}/></div>
+    <div className="luxury-site"><LuxuryFooter page={page} routePath={doc.targetPath}/></div>
   </div>
 }

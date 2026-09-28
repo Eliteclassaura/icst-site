@@ -5,6 +5,7 @@ import path from 'node:path'
 import AcceptedPage from '../../../accepted-page'
 import {salmonDocument,releaseRoutes} from '../../../site/salmon'
 import {englishServiceForPath} from '../../../site/EnglishServices'
+import {articleMetadataTitle} from '../../../site/article-metadata'
 
 type Row={path:string;routeId:string;export:boolean;state:string;indexable:boolean;canonical:string}
 const rows=()=>JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')).routes as Row[]
@@ -22,7 +23,7 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
   const source=releaseRoutes().find(candidate=>candidate.routeId===row.routeId)
   if(!source)notFound()
   const doc=salmonDocument(source)
-  return {title:{absolute:doc.seo.title},description:doc.seo.meta.find(meta=>meta.name==='description')?.value,alternates:{canonical:row.canonical},robots:{index:row.indexable,follow:row.indexable}}
+  return {title:{absolute:articleMetadataTitle(doc)},description:doc.seo.meta.find(meta=>meta.name==='description')?.value,alternates:{canonical:row.canonical},robots:{index:row.indexable,follow:row.indexable}}
 }
 export default async function Page({params}:Props){
   const value=await params
