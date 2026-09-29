@@ -1,4 +1,5 @@
 import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
+import { crmAdmin } from '../access'
 import { crmCollection } from '../collection'
 import { CrmInvariantError, merged, writeOnce } from '../guards'
 import {
@@ -37,6 +38,9 @@ export const CrmIdentityReviews: CollectionConfig = crmCollection(
   {
     slug: 'crm-identity-reviews',
     labels: { singular: 'Identity review', plural: 'Identity reviews' },
+    // UI-1 (Control Tower frozen): CRM users see the queue; resolving a review is admin-only. Automation
+    // opens reviews through trusted server code (overrideAccess), which this does not affect.
+    access: { update: crmAdmin },
     admin: {
       useAsTitle: 'reason',
       description:

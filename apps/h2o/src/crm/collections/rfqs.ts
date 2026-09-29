@@ -4,7 +4,10 @@ import type {
   CollectionBeforeValidateHook,
   CollectionConfig,
 } from 'payload'
+import { ADMINS, hasRole } from '@factory/agency-core/cms/kernel'
+import { crmAdminField } from '../access'
 import { recordActivity } from '../activity'
+import { assertCrmAssignee, isAdminOrServer, TERMINAL_RFQ_STATUSES } from '../assignment'
 import { crmCollection } from '../collection'
 import { countryCodeField, userRelation } from '../fields'
 import { CrmInvariantError, isServerContext, merged, relId, writeOnce } from '../guards'
@@ -129,6 +132,35 @@ const linkAndStatusRules: CollectionBeforeChangeHook = async ({
       )
   }
   const status = String(data.status)
+  // UI-1 (Control Tower frozen): leaving a terminal status is a reopen, and reopening is an admin act.
+  if (
+    operation === 'update' &&
+    originalDoc &&
+    (TERMINAL_RFQ_STATUSES as readonly string[]).includes(String(originalDoc.status)) &&
+    'status' in incoming &&
+    String(incoming.status) !== String(originalDoc.status) &&
+    !isAdminOrServer(req, context)
+  )
+    throw new CrmInvariantError('RFQ_REOPEN_PRIVILEGED', 'Closed RFQs can be reopened by admins only.', 403)
+  // UI-1: the assignee must hold a CRM role; clearing an existing owner is an admin act.
+  if ('assignee' in incoming && relId(incoming.assignee) !== relId(originalDoc?.assignee))
+    await assertCrmAssignee(req, incoming.assignee, 'RFQ_ASSIGNEE_NOT_CRM_USER')
+  if (
+    operation === 'update' &&
+    originalDoc &&
+    'assignee' in incoming &&
+    relId(originalDoc.assignee) !== null &&
+    relId(incoming.assignee) === null &&
+    !hasRole(req, ADMINS) &&
+    !isServerContext(context)
+  )
+    throw new CrmInvariantError('RFQ_UNASSIGN_PRIVILEGED', 'Only an admin can remove an RFQ owner.', 403)
+  // UI-1: qualification needs a linked account (the UI disabling Qualify is not the control).
+  if (status === 'QUALIFIED' && String(originalDoc?.status ?? '') !== 'QUALIFIED' && !accountId)
+    throw new CrmInvariantError(
+      'RFQ_QUALIFIED_WITHOUT_ACCOUNT',
+      'Link an account before qualifying an RFQ.',
+    )
   if (status === 'DUPLICATE_OF_EXISTING' && !relId(data.duplicate_of))
     throw new CrmInvariantError(
       'RFQ_DUPLICATE_TARGET_REQUIRED',
@@ -171,6 +203,43 @@ const linkAndStatusRules: CollectionBeforeChangeHook = async ({
   return incoming
 }
 
+/**
+ * UI-1 (Control Tower frozen): the open first-response task follows the RFQ owner, so the previous owner's
+ * My Work never keeps a stale task. Only OPEN / IN_PROGRESS `RFQ_FIRST_RESPONSE` tasks move; completed ones
+ * keep their history. Written as trusted server code (the RFQ update already passed access).
+ */
+async function firstResponseFollowsOwner(
+  req: Parameters<CollectionAfterChangeHook>[0]['req'],
+  rfqId: string,
+  assignee: string | null,
+): Promise<void> {
+  const open = await req.payload.find({
+    collection: 'crm-tasks',
+    where: {
+      and: [
+        { rfq: { equals: rfqId } },
+        { kind: { equals: 'RFQ_FIRST_RESPONSE' } },
+        { status: { in: ['OPEN', 'IN_PROGRESS'] } },
+      ],
+    },
+    depth: 0,
+    limit: 10,
+    overrideAccess: true,
+    req,
+  })
+  for (const t of open.docs)
+    if (relId((t as unknown as Doc).assignee) !== assignee)
+      await req.payload.update({
+        collection: 'crm-tasks',
+        id: t.id,
+        data: { assignee } as never,
+        depth: 0,
+        overrideAccess: true,
+        context: { crmServer: {} },
+        req,
+      })
+}
+
 const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc, req }) => {
   const d = doc as Doc
   const base = {
@@ -207,6 +276,7 @@ const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc
     return doc
   }
   const p = previousDoc as Doc
+  if (relId(p.assignee) !== relId(d.assignee)) await firstResponseFollowsOwner(req, String(d.id), relId(d.assignee))
   if (p.status !== d.status)
     await recordActivity(req, {
       ...base,
@@ -380,11 +450,14 @@ export const CrmRfqs: CollectionConfig = crmCollection(
           {
             name: 'client_submission_id',
             type: 'text',
+            access: { read: crmAdminField },
             admin: { readOnly: true, description: 'Typeform response token.' },
           },
           {
             name: 'submission_key',
             type: 'text',
+            // UI-1 (I-32): anti-abuse / identity material is admin-only at the API, not merely hidden.
+            access: { read: crmAdminField },
             unique: true,
             index: true,
             admin: {
@@ -392,10 +465,11 @@ export const CrmRfqs: CollectionConfig = crmCollection(
               description: 'form_id:client_submission_id — one RFQ per submission (E0.1).',
             },
           },
-          { name: 'raw_payload_hash', type: 'text', admin: { readOnly: true } },
+          { name: 'raw_payload_hash', type: 'text', access: { read: crmAdminField }, admin: { readOnly: true } },
           {
             name: 'content_fingerprint',
             type: 'text',
+            access: { read: crmAdminField },
             index: true,
             admin: {
               readOnly: true,

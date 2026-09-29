@@ -1,0 +1,1254 @@
+/*
+ * ICS Sales Workspace — CRM UI-1 (accepted design authority H2O_CRM_UI1_FIGMA_DESIGN_R1_1).
+ * Engineering operations console: white work surfaces on a cool steel canvas, 1px rules, compact tables,
+ * one accent. No gradients, glass, shadows-as-containers, stat cards, charts or pill overload.
+ * Colours are defined once as custom properties (rgb) and used through var().
+ */
+
+.c-body {
+  margin: 0;
+}
+
+.crm-app {
+  --c-canvas: rgb(247 249 250);
+  --c-surface: rgb(255 255 255);
+  --c-n50: rgb(238 242 244);
+  --c-rule: rgb(221 227 231);
+  --c-control: rgb(138 150 160);
+  --c-n300: rgb(169 180 187);
+  --c-text-2: rgb(95 107 116);
+  --c-n700: rgb(62 74 83);
+  --c-text: rgb(12 19 23);
+  --c-accent: rgb(11 85 165);
+  --c-accent-deep: rgb(0 54 106);
+  --c-b50: rgb(229 237 243);
+  --c-success: rgb(31 122 77);
+  --c-warning: rgb(154 103 0);
+  --c-warning-text: rgb(138 92 0);
+  --c-warning-tint: rgb(154 103 0 / 12%);
+  --c-error: rgb(180 35 24);
+  --c-error-text: rgb(122 26 18);
+  --c-error-tint: rgb(180 35 24 / 10%);
+  --c-white: rgb(255 255 255);
+  --c-font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --c-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --c-side: 232px;
+
+  display: grid;
+  grid-template-columns: var(--c-side) minmax(0, 1fr);
+  min-block-size: 100dvh;
+  margin: 0;
+
+  /* The sidebar column keeps its surface and rule below the fold (the sidebar itself is sticky). */
+  background:
+    linear-gradient(
+      to right,
+      var(--c-surface) calc(var(--c-side) - 1px),
+      var(--c-rule) calc(var(--c-side) - 1px),
+      var(--c-rule) var(--c-side),
+      var(--c-canvas) var(--c-side)
+    );
+  color: var(--c-text);
+  font-family: var(--c-font);
+  font-size: 13px;
+  line-height: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.crm-app *,
+.crm-app *::before,
+.crm-app *::after {
+  box-sizing: border-box;
+}
+
+.crm-app a {
+  color: var(--c-accent);
+  text-decoration: none;
+}
+
+.crm-app a:hover {
+  text-decoration: underline;
+}
+
+.crm-app :focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+}
+
+.c-visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.c-skip {
+  position: absolute;
+  inset-block-start: -40px;
+  inset-inline-start: 8px;
+  padding-block: 6px;
+  padding-inline: 10px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-control);
+  z-index: 10;
+}
+
+.c-skip:focus {
+  inset-block-start: 8px;
+}
+
+/* ── sidebar ─────────────────────────────────────────────── */
+.c-side {
+  position: sticky;
+  inset-block-start: 0;
+  display: flex;
+  flex-direction: column;
+  block-size: 100dvh;
+  background: var(--c-surface);
+  border-inline-end: 1px solid var(--c-rule);
+}
+
+.c-brand {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  block-size: 48px;
+  padding-inline: 16px;
+  border-block-end: 1px solid var(--c-rule);
+  font-weight: 600;
+}
+
+.c-mark {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 24px;
+  block-size: 24px;
+  border: 1.5px solid var(--c-accent-deep);
+  border-radius: 4px;
+  color: var(--c-accent-deep);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.c-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding-block: 12px;
+  padding-inline: 8px;
+  list-style: none;
+}
+
+.c-nav a {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  block-size: 32px;
+  padding-inline: 10px;
+  border-radius: 4px;
+  color: var(--c-n700);
+  font-weight: 500;
+}
+
+.c-nav a:hover {
+  background: var(--c-canvas);
+  text-decoration: none;
+}
+
+.c-nav a[aria-current='page'] {
+  background: var(--c-b50);
+  color: var(--c-accent-deep);
+}
+
+.c-nav a[aria-current='page']::before {
+  position: absolute;
+  inset-block: 6px;
+  inset-inline-start: 0;
+  inline-size: 2px;
+  background: var(--c-accent);
+  content: '';
+}
+
+.c-nav svg {
+  flex: none;
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+.c-badge {
+  margin-inline-start: auto;
+  padding-inline: 6px;
+  border-radius: 4px;
+  background: var(--c-n50);
+  color: var(--c-n700);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.c-badge.is-error {
+  background: var(--c-error-tint);
+  color: var(--c-error-text);
+}
+
+.c-side-foot {
+  margin-block-start: auto;
+  padding-block: 12px;
+  padding-inline: 16px;
+  border-block-start: 1px solid var(--c-rule);
+  color: var(--c-text-2);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.c-side-foot strong {
+  display: block;
+  color: var(--c-text);
+  font-size: 13px;
+}
+
+/* ── main + top bar ──────────────────────────────────────── */
+.c-main {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.c-top {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 3;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  block-size: 48px;
+  padding-inline: 24px;
+  background: var(--c-surface);
+  border-block-end: 1px solid var(--c-rule);
+}
+
+.c-top h1 {
+  overflow: hidden;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.c-top > div:first-child {
+  flex: 0 1 auto;
+  min-inline-size: 0;
+}
+
+.c-crumb {
+  color: var(--c-text-2);
+  font-size: 12px;
+}
+
+.c-top-search {
+  flex: 0 1 320px;
+}
+
+.c-top-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-inline-start: auto;
+}
+
+.c-evidence {
+  padding-inline: 6px;
+  border: 1px solid var(--c-warning);
+  border-radius: 4px;
+  color: var(--c-warning-text);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.c-content {
+  padding: 24px;
+}
+
+/* ── controls ────────────────────────────────────────────── */
+.c-input,
+.c-select,
+.c-textarea {
+  inline-size: 100%;
+  min-block-size: 32px;
+  padding-block: 5px;
+  padding-inline: 10px;
+  border: 1px solid var(--c-control);
+  border-radius: 4px;
+  background: var(--c-surface);
+  color: var(--c-text);
+  font: inherit;
+}
+
+.c-textarea {
+  min-block-size: 96px;
+  resize: vertical;
+}
+
+.c-input[aria-invalid='true'],
+.c-select[aria-invalid='true'],
+.c-textarea[aria-invalid='true'] {
+  border-color: var(--c-error);
+}
+
+.c-btn {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  block-size: 32px;
+  padding-inline: 12px;
+  border: 1px solid var(--c-control);
+  border-radius: 4px;
+  background: var(--c-surface);
+  color: var(--c-text);
+  font: inherit;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.c-btn:hover {
+  background: var(--c-canvas);
+  text-decoration: none;
+}
+
+.c-btn.is-primary {
+  border-color: var(--c-accent);
+  background: var(--c-accent);
+  color: var(--c-white);
+}
+
+.c-btn.is-primary:hover {
+  border-color: var(--c-accent-deep);
+  background: var(--c-accent-deep);
+}
+
+.c-btn.is-ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--c-accent);
+}
+
+.c-btn.is-danger {
+  color: var(--c-error-text);
+}
+
+.c-btn.is-small {
+  block-size: 26px;
+  padding-inline: 8px;
+  font-size: 12px;
+}
+
+.c-btn[aria-disabled='true'],
+.c-btn:disabled {
+  border-color: var(--c-rule);
+  background: var(--c-n50);
+  color: var(--c-text-2);
+  cursor: not-allowed;
+}
+
+.c-field {
+  display: grid;
+  gap: 4px;
+}
+
+.c-field > span:first-child,
+.c-label {
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.c-hint {
+  color: var(--c-text-2);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.c-error-text {
+  color: var(--c-error-text);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.c-form-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.c-form-grid .is-wide {
+  grid-column: 1 / -1;
+}
+
+.c-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ── status & flags ──────────────────────────────────────── */
+.c-status {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.c-status::before {
+  flex: none;
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%;
+  background: var(--c-n700);
+  content: '';
+}
+
+.c-status.t-accent::before {
+  background: var(--c-accent);
+}
+
+.c-status.t-warning::before {
+  background: var(--c-warning);
+}
+
+.c-status.t-success::before {
+  background: var(--c-success);
+}
+
+.c-status.t-terminal::before {
+  background: var(--c-n300);
+}
+
+.c-flags {
+  display: inline-flex;
+  gap: 6px;
+  color: var(--c-n700);
+}
+
+.c-flags svg {
+  inline-size: 14px;
+  block-size: 14px;
+}
+
+.c-flag-dnc {
+  color: var(--c-error);
+}
+
+.c-muted {
+  color: var(--c-text-2);
+}
+
+.c-unknown {
+  color: var(--c-text-2);
+  font-style: italic;
+}
+
+.c-warn-text {
+  color: var(--c-warning-text);
+}
+
+.c-overdue {
+  color: var(--c-error-text);
+  font-weight: 500;
+}
+
+.c-tag {
+  display: inline-block;
+  padding-inline: 5px;
+  border: 1px solid var(--c-rule);
+  border-radius: 3px;
+  color: var(--c-text-2);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.c-mono {
+  font-family: var(--c-mono);
+  font-size: 12px;
+}
+
+/* ── panels (modules) ────────────────────────────────────── */
+.c-panel {
+  background: var(--c-surface);
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+}
+
+.c-panel-head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-block-size: 40px;
+  padding-inline: 16px;
+  border-block-end: 1px solid var(--c-rule);
+}
+
+.c-panel-head h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.c-panel-head .c-count {
+  color: var(--c-text-2);
+  font-weight: 500;
+}
+
+.c-panel-head .c-more {
+  margin-inline-start: auto;
+  font-size: 12px;
+}
+
+.c-panel-body {
+  padding-block: 4px;
+}
+
+.c-empty {
+  margin: 0;
+  padding-block: 16px;
+  padding-inline: 16px;
+  color: var(--c-text-2);
+}
+
+.c-alert {
+  margin: 12px 16px;
+  padding-block: 8px;
+  padding-inline: 12px;
+  border: 1px solid var(--c-error);
+  border-radius: 4px;
+  background: var(--c-error-tint);
+  color: var(--c-error-text);
+}
+
+.c-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: center;
+  margin-block-end: 16px;
+  padding-block: 10px;
+  padding-inline: 16px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+}
+
+.c-strip .sep {
+  color: var(--c-n300);
+}
+
+.c-grid-work {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  align-items: start;
+}
+
+.c-stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+/* Grid items never grow past their track because of long unbreakable content (names, RFQ text). */
+.c-stack > *,
+.c-grid-work > * {
+  min-inline-size: 0;
+}
+
+.c-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.c-list > li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-block-size: 40px;
+  padding-block: 6px;
+  padding-inline: 16px;
+  border-block-end: 1px solid var(--c-rule);
+}
+
+.c-list > li:last-child {
+  border-block-end: 0;
+}
+
+.c-list .grow {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.c-trunc {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-scope {
+  display: inline-flex;
+  border: 1px solid var(--c-control);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.c-scope a {
+  padding-inline: 10px;
+  color: var(--c-n700);
+  font-weight: 500;
+  line-height: 28px;
+}
+
+.c-scope a[aria-current='true'] {
+  background: var(--c-b50);
+  color: var(--c-accent-deep);
+}
+
+/* ── tables ──────────────────────────────────────────────── */
+.c-table-wrap {
+  overflow-x: auto;
+  background: var(--c-surface);
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+}
+
+.c-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.c-table th {
+  position: sticky;
+  inset-block-start: 0;
+  block-size: 32px;
+  padding-block: 0;
+  padding-inline: 12px;
+  background: var(--c-n50);
+  border-block-end: 1px solid var(--c-rule);
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: start;
+  white-space: nowrap;
+}
+
+.c-table td {
+  block-size: 34px;
+  padding-block: 7px;
+  padding-inline: 12px;
+  border-block-end: 1px solid var(--c-rule);
+  vertical-align: middle;
+}
+
+.c-table tr:last-child td {
+  border-block-end: 0;
+}
+
+.c-table tbody tr:hover {
+  background: var(--c-canvas);
+}
+
+.c-table tbody tr[aria-selected='true'] {
+  background: var(--c-b50);
+  box-shadow: inset 2px 0 0 var(--c-accent);
+}
+
+.c-table .num {
+  text-align: end;
+}
+
+.c-table .two strong {
+  display: block;
+  overflow: hidden;
+  max-inline-size: 280px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-table .two span {
+  display: block;
+  overflow: hidden;
+  max-inline-size: 280px;
+  color: var(--c-text-2);
+  font-size: 12px;
+  line-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-row-link {
+  color: inherit;
+}
+
+.c-row-link:hover {
+  text-decoration: none;
+}
+
+.c-group-row th {
+  position: static;
+  background: var(--c-surface);
+  border-block: 1px solid var(--c-rule);
+  color: var(--c-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.c-pager {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  padding-block: 8px;
+  padding-inline: 12px;
+  color: var(--c-text-2);
+  font-size: 12px;
+}
+
+/* ── inbox ───────────────────────────────────────────────── */
+.c-views {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-block-end: 12px;
+  border-block-end: 1px solid var(--c-rule);
+}
+
+.c-views a {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  block-size: 36px;
+  padding-inline: 12px;
+  border-block-end: 2px solid transparent;
+  color: var(--c-n700);
+  font-weight: 500;
+}
+
+.c-views a[aria-current='page'] {
+  border-block-end-color: var(--c-accent);
+  color: var(--c-text);
+}
+
+.c-views .n {
+  color: var(--c-text-2);
+  font-size: 12px;
+}
+
+.c-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-end;
+  margin-block-end: 12px;
+}
+
+.c-filters .c-field {
+  min-inline-size: 140px;
+}
+
+.c-filters .c-search {
+  flex: 1 1 240px;
+}
+
+.c-split {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(560px, 1fr) minmax(520px, 1fr);
+  align-items: start;
+}
+
+.c-split.is-single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* ── record detail ───────────────────────────────────────── */
+.c-detail {
+  position: sticky;
+  inset-block-start: 64px;
+  max-block-size: calc(100dvh - 80px);
+  overflow: auto;
+  background: var(--c-surface);
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+}
+
+.c-detail.is-page {
+  position: static;
+  max-block-size: none;
+  overflow: visible;
+}
+
+.c-detail-head {
+  display: grid;
+  gap: 8px;
+  padding-block: 14px;
+  padding-inline: 16px;
+  border-block-end: 1px solid var(--c-rule);
+}
+
+.c-detail-head h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  overflow-wrap: anywhere;
+}
+
+.c-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  align-items: center;
+  color: var(--c-text-2);
+  font-size: 12px;
+}
+
+.c-banner {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 12px 16px 0;
+  padding-block: 8px;
+  padding-inline: 12px;
+  border-radius: 4px;
+  background: var(--c-b50);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.c-banner.is-warning {
+  background: var(--c-warning-tint);
+  color: var(--c-warning-text);
+}
+
+.c-banner.is-error {
+  background: var(--c-error-tint);
+  color: var(--c-error-text);
+}
+
+.c-banner svg {
+  flex: none;
+  inline-size: 14px;
+  block-size: 14px;
+  margin-block-start: 2px;
+}
+
+.c-tabs {
+  display: flex;
+  gap: 2px;
+  padding-inline: 12px;
+  border-block-end: 1px solid var(--c-rule);
+  overflow-x: auto;
+}
+
+.c-tabs a {
+  display: inline-flex;
+  align-items: center;
+  block-size: 36px;
+  padding-inline: 10px;
+  border-block-end: 2px solid transparent;
+  color: var(--c-n700);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.c-tabs a[aria-current='page'] {
+  border-block-end-color: var(--c-accent);
+  color: var(--c-text);
+}
+
+.c-block {
+  padding-block: 14px;
+  padding-inline: 16px;
+  border-block-end: 1px solid var(--c-rule);
+}
+
+.c-block:last-child {
+  border-block-end: 0;
+}
+
+.c-block h3 {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.c-block h3 .c-more {
+  margin-inline-start: auto;
+  font-weight: 400;
+}
+
+.c-dl {
+  display: grid;
+  gap: 6px 16px;
+  grid-template-columns: minmax(120px, 160px) minmax(0, 1fr);
+  margin: 0;
+}
+
+.c-dl dt {
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.c-dl dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.c-message {
+  margin: 0;
+  max-block-size: 320px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.c-timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.c-timeline li {
+  display: grid;
+  gap: 2px 12px;
+  grid-template-columns: 110px minmax(0, 1fr);
+  padding-block: 8px;
+  border-block-end: 1px solid var(--c-rule);
+}
+
+.c-timeline li:last-child {
+  border-block-end: 0;
+}
+
+.c-timeline time {
+  color: var(--c-text-2);
+  font-size: 12px;
+}
+
+.c-note-body {
+  grid-column: 2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+details.c-tech > summary {
+  cursor: pointer;
+  color: var(--c-n700);
+  font-weight: 600;
+}
+
+/* ── dialogs & toasts ────────────────────────────────────── */
+.c-dialog {
+  --c-scrim: rgb(12 19 23 / 40%);
+
+  inline-size: min(560px, calc(100vw - 32px));
+  max-block-size: calc(100dvh - 48px);
+  padding: 0;
+  border: 1px solid var(--c-control);
+  border-radius: 6px;
+  background: var(--c-surface);
+  color: var(--c-text);
+}
+
+.c-dialog::backdrop {
+  background: var(--c-scrim);
+}
+
+.c-dialog-head {
+  display: flex;
+  align-items: center;
+  block-size: 48px;
+  padding-inline: 16px;
+  border-block-end: 1px solid var(--c-rule);
+}
+
+.c-dialog-head h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.c-dialog-head .c-btn {
+  margin-inline-start: auto;
+}
+
+.c-dialog-body {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+
+.c-dialog-foot {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding-block: 12px;
+  padding-inline: 16px;
+  border-block-start: 1px solid var(--c-rule);
+}
+
+.c-toast {
+  position: fixed;
+  inset-block-end: 16px;
+  inset-inline-start: calc(var(--c-side) + 16px);
+  z-index: 20;
+  padding-block: 8px;
+  padding-inline: 12px;
+  border: 1px solid var(--c-control);
+  border-radius: 4px;
+  background: var(--c-text);
+  color: var(--c-white);
+}
+
+.c-result {
+  padding-block: 8px;
+  padding-inline: 12px;
+  border-radius: 4px;
+  background: var(--c-b50);
+}
+
+.c-result.is-error {
+  background: var(--c-error-tint);
+  color: var(--c-error-text);
+}
+
+.c-conflict {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--c-warning);
+  border-radius: 4px;
+  background: var(--c-warning-tint);
+  color: var(--c-warning-text);
+}
+
+.c-group-label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
+  color: var(--c-text-2);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.c-fieldset {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  background: var(--c-surface);
+}
+
+.c-fieldset legend {
+  padding-inline: 4px;
+  color: var(--c-text-2);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.c-dialog-note {
+  margin: 0;
+  padding-block: 12px 0;
+  padding-inline: 16px;
+}
+
+.c-denied {
+  display: block;
+}
+
+.c-denied h1 {
+  margin-block: 0 8px;
+  font-size: 16px;
+}
+
+.c-skeleton {
+  padding: 8px 16px;
+}
+
+.c-skeleton-row {
+  block-size: 34px;
+  margin-block: 4px;
+  border-radius: 3px;
+  background: var(--c-n50);
+}
+
+.c-contents {
+  display: contents;
+}
+
+.c-mobile-only {
+  display: none;
+}
+
+.c-narrow {
+  max-inline-size: 880px;
+}
+
+/* ── responsive ──────────────────────────────────────────── */
+@media (max-width: 1439px) {
+  .c-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .c-detail {
+    position: static;
+    max-block-size: none;
+  }
+}
+
+@media (max-width: 1279px) {
+  .crm-app {
+    --c-side: 56px;
+  }
+
+  .c-brand span:not(.c-mark),
+  .c-nav .lbl,
+  .c-side-foot {
+    display: none;
+  }
+
+  .c-nav a {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .c-badge {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 2px;
+  }
+
+  .c-grid-work {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .crm-app {
+    grid-template-columns: minmax(0, 1fr);
+    background: var(--c-canvas);
+    padding-block-end: 56px;
+  }
+
+  .c-side {
+    position: fixed;
+    inset-block: auto 0;
+    inset-inline: 0;
+    z-index: 5;
+    block-size: 56px;
+    border-block-start: 1px solid var(--c-rule);
+    border-inline-end: 0;
+  }
+
+  .c-brand,
+  .c-side-foot {
+    display: none;
+  }
+
+  .c-nav {
+    flex-direction: row;
+    justify-content: space-around;
+    padding-block: 4px;
+  }
+
+  .c-nav a {
+    flex-direction: column;
+    gap: 0;
+    block-size: 48px;
+    min-inline-size: 64px;
+    font-size: 11px;
+  }
+
+  .c-nav .lbl {
+    display: block;
+  }
+
+  .c-nav .is-desktop {
+    display: none;
+  }
+
+  .c-nav .c-mobile-only {
+    display: list-item;
+  }
+
+  .c-top {
+    padding-inline: 16px;
+  }
+
+  .c-top-search {
+    display: none;
+  }
+
+  .c-content {
+    padding: 16px;
+  }
+
+  .c-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .c-filters .c-field {
+    flex: 1 1 100%;
+  }
+
+  .c-table .hide-sm {
+    display: none;
+  }
+
+  .c-dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .c-toast {
+    inset-inline: 16px;
+    inset-block-end: 72px;
+  }
+
+  .c-btn {
+    min-block-size: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crm-app * {
+    transition: none;
+    animation: none;
+  }
+}

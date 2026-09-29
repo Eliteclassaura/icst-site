@@ -1,5 +1,6 @@
 import type { CollectionAfterChangeHook, CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 import { recordActivity } from '../activity'
+import { assertCrmAssignee, isAdminOrServer, TERMINAL_TASK_STATUSES } from '../assignment'
 import { crmCollection } from '../collection'
 import { userRelation } from '../fields'
 import { CrmInvariantError, merged, relId, serverOwned } from '../guards'
@@ -8,8 +9,20 @@ import { TASK_KIND, TASK_PRIORITY, TASK_SOURCE, TASK_STATUS, options } from '../
 type Doc = Record<string, unknown>
 
 /** A task is about something: at least one CRM record. Completion is stamped by the server. */
-const taskRules: CollectionBeforeChangeHook = ({ data: incoming, operation, originalDoc, req }) => {
+const taskRules: CollectionBeforeChangeHook = async ({ context, data: incoming, operation, originalDoc, req }) => {
   const data = merged(incoming, originalDoc) as Doc
+  // UI-1 (Control Tower frozen): reopening a finished task is an admin act; assignees hold a CRM role.
+  if (
+    operation === 'update' &&
+    originalDoc &&
+    (TERMINAL_TASK_STATUSES as readonly string[]).includes(String(originalDoc.status)) &&
+    'status' in incoming &&
+    String(incoming.status) !== String(originalDoc.status) &&
+    !isAdminOrServer(req, context)
+  )
+    throw new CrmInvariantError('TASK_REOPEN_PRIVILEGED', 'Finished follow-ups can be reopened by admins only.', 403)
+  if ('assignee' in incoming && relId(incoming.assignee) !== relId(originalDoc?.assignee))
+    await assertCrmAssignee(req, incoming.assignee, 'TASK_ASSIGNEE_NOT_CRM_USER')
   const subjects = ['account', 'contact', 'site', 'asset', 'opportunity', 'rfq', 'identity_review'].filter(
     (f) => relId(data[f]) !== null,
   )
