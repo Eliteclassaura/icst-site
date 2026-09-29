@@ -22,6 +22,8 @@ import { securityDefaults } from '@factory/agency-core/cms/kernel'
 import { foundationCollections } from '@factory/agency-core/cms/foundation'
 import { Manufacturers } from './collections/manufacturers'
 import { catalogCollections } from './collections/index'
+import { crmCollections } from './crm/index'
+import { crmAdminComponents } from './crm/admin/config'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3200'
@@ -68,7 +70,8 @@ const databaseURI = requireEnv('DATABASE_URI')
  * one is reachable from something H2O genuinely uses.
  *
  * `industries` is deliberately absent. It belongs to the reusable foundation layer only so the CRM layer
- * need not reach into editorial; H2O registers no CRM, so it does not need it.
+ * need not reach into editorial; H2O registers no agency-core CRM, so it does not need it. H2O's own
+ * CRM-1 collections (`src/crm/`, all `crm-`-prefixed) relate only to `users`, `products` and each other.
  *
  * Two settings remain security-relevant from the first commit, because retrofitting either is how a
  * staging system quietly becomes unsafe:
@@ -119,6 +122,8 @@ const collections: CollectionConfig[] = [
   }),
   Manufacturers,
   ...catalogCollections(mediaDir),
+  // CRM-1 (H2O-local, private). Registered after the catalog because RFQ items relate to `products`.
+  ...crmCollections,
 ]
 
 export default buildConfig({
@@ -131,6 +136,8 @@ export default buildConfig({
     user: 'users',
     importMap: { baseDir: path.resolve(dirname) },
     meta: { titleSuffix: ' · H2O staging admin' },
+    // CRM-1: one private overview view and a nav link. Both check CRM roles server-side.
+    components: crmAdminComponents,
   },
   collections,
   // The frozen contract marks the product and family narrative and SEO groups `localized`. Declaring a

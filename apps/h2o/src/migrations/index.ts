@@ -1,6 +1,7 @@
 import * as migration_20260912_202131 from './20260912_202131'
 import * as migration_20260913_012440 from './20260913_012440'
 import * as migration_20260914_133257_delete_provenance_fk_restrict from './20260914_133257_delete_provenance_fk_restrict'
+import * as migration_20260925_011109_crm1_foundation from './20260925_011109_crm1_foundation'
 
 export const migrations = [
   {
@@ -17,5 +18,10 @@ export const migrations = [
     up: migration_20260914_133257_delete_provenance_fk_restrict.up,
     down: migration_20260914_133257_delete_provenance_fk_restrict.down,
     name: '20260914_133257_delete_provenance_fk_restrict',
+  },
+  {
+    up: migration_20260925_011109_crm1_foundation.up,
+    down: migration_20260925_011109_crm1_foundation.down,
+    name: '20260925_011109_crm1_foundation',
   },
 ]

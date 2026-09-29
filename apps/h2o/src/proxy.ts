@@ -93,8 +93,51 @@ const securityHeaders = (res: NextResponse, csp: string, robots: string | null):
   return res
 }
 
+/**
+ * CRM UI-1 — the internal Sales Workspace (`/crm/*`) is not part of the public estate.
+ *
+ * Its pages are dynamic (rendered per request for a signed-in user), so the public hash-based policy —
+ * built from prerendered bytes — cannot describe them and would refuse every Next inline script (the
+ * workspace would never hydrate). They get their own policy instead: a per-request nonce with
+ * `'strict-dynamic'`, the accepted `apps/syed-ai` pattern for dynamic pages. Next reads the policy from the
+ * *request* headers and stamps the nonce on its own scripts. No Typeform allowance (the workspace embeds
+ * nothing), no framing, and always `noindex, nofollow`. The public branch below is unchanged.
+ */
+const CRM_PATH = /^\/crm(\/|$)/
+
+export const crmPolicy = (nonce: string): string =>
+  [
+    "default-src 'self'",
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data:",
+    "font-src 'self'",
+    "connect-src 'self'",
+    "manifest-src 'self'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-src 'none'",
+    "frame-ancestors 'none'",
+    'upgrade-insecure-requests',
+  ].join('; ')
+
+function crmResponse(req: NextRequest): NextResponse {
+  const nonce = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('base64')
+  const csp = crmPolicy(nonce)
+  const requestHeaders = new Headers(req.headers)
+  requestHeaders.set('x-nonce', nonce)
+  requestHeaders.set('Content-Security-Policy', csp)
+  // The workspace gate's return path; always overwritten here, so a client cannot supply its own.
+  requestHeaders.set('x-crm-path', req.nextUrl.pathname)
+  const res = securityHeaders(NextResponse.next({ request: { headers: requestHeaders } }), csp, 'noindex, nofollow')
+  res.headers.set('Cache-Control', 'private, no-store')
+  return res
+}
+
 export function proxy(req: NextRequest): NextResponse {
   if (EXCLUDED.test(req.nextUrl.pathname)) return NextResponse.next()
+  if (CRM_PATH.test(req.nextUrl.pathname)) return crmResponse(req)
 
   // The hashes come from the prerendered bytes this path will be served, so the policy and the
   // page cannot disagree. Nothing is injected into the request: the previous nonce header existed
