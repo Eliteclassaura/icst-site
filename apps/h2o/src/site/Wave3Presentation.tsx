@@ -7,6 +7,9 @@ import {pageForSegments} from './cohort'
 import {salmonDocument,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {partsCategories,productIndexRecords,productPanels,productPrimaryMedia,productRelated,productSummary,type ProductPanel} from './Wave3Products'
 import {R2Discovery} from './R2Discovery'
+import {SectionView} from './SalmonComposer'
+import {adaptSection,composedSectionRefs} from './salmon-family-adapter'
+import {quoteRfqAction} from './SalmonFamilies'
 
 const nameFor=(doc:SalmonDocument)=>doc.seo.h1[0]||doc.title
 const subordinateSourceHeadings=(node:SalmonNode):SalmonNode=>typeof node==='string'?node:{...node,tag:node.tag==='h1'?'h2':node.tag,children:node.children.map(subordinateSourceHeadings)}
@@ -109,10 +112,15 @@ export function PartsIndex({doc,query='',pageNumber=1}:{doc:SalmonDocument;query
   const categories=partsCategories(doc)
   const copy=partsCopy(doc)
   const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
-  return <div className="luxury-site wave3-site" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256} data-wave3-archetype="PartsIndex">
+  // Salmon parity: the source photographic hero (held CSS background and foreground) leads the
+  // accepted catalog; the catalog, search, category rail, product IDs and RFQ context are unchanged.
+  const heroRef=composedSectionRefs(doc)[0]
+  const hero=heroRef?adaptSection(doc,heroRef,0,{treatment:'hero'}):undefined
+  return <div className="luxury-site wave3-site salmon-family salmon-family--parts-index" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256} data-wave3-archetype="PartsIndex">
     <SalmonSeo doc={doc}/><LuxuryHeader page={page} routePath={doc.targetPath}/>
-    <main id="main" className="wave3-main wave3-index">
-      <section className="wave3-index-intro"><div><h1>{doc.seo.h1[0]}</h1><p>{partsIntro(doc)}</p></div><form action="/cooling-tower-parts-online/" method="get" role="search" className="wave3-search"><label htmlFor="wave3-query">Search cooling tower parts</label><div><input id="wave3-query" type="search" name="q" defaultValue={cleanQuery} maxLength={100} placeholder="Search parts by name or description"/><button type="submit">Search</button></div></form></section>
+    <main id="main" className="wave3-main wave3-index sp-main sp-family--parts-index" data-salmon-family="parts-index" data-audit-family="PARTS_INDEX">
+      {hero?<SectionView section={hero} ctx={{quoteAction:label=>quoteRfqAction(doc.targetPath,label)}}/>:null}
+      <section className="wave3-index-intro">{hero?null:<div><h1>{doc.seo.h1[0]}</h1><p>{partsIntro(doc)}</p></div>}<form action="/cooling-tower-parts-online/" method="get" role="search" className="wave3-search"><label htmlFor="wave3-query">Search cooling tower parts</label><div><input id="wave3-query" type="search" name="q" defaultValue={cleanQuery} maxLength={100} placeholder="Search parts by name or description"/><button type="submit">Search</button></div></form></section>
       <div className="wave3-index-layout"><nav className="wave3-category-rail" aria-label="Part categories"><h2>Browse by Component Type</h2><a href="/cooling-tower-parts-online/" aria-current="page">All Parts</a>{categories.map(category=><a key={category.href} href={category.href}>{category.label}</a>)}</nav><section className="wave3-catalog" aria-labelledby="wave3-catalog-heading"><div className="wave3-catalog-heading"><h2 id="wave3-catalog-heading">Cooling Tower Parts</h2><p>{filtered.length} products</p></div>{shown.length?<div className="wave3-card-grid">{shown.map(({doc:product},index)=><PartCard key={product.routeId} doc={product} staticIndex={staticRelease?index:undefined}/>)}</div>:<div className="wave3-empty"><h3>No matching parts</h3><p>Try a product name or a broader component term.</p><a href="/cooling-tower-parts-online/">Explore all parts</a></div>}{staticRelease?<p data-static-parts-empty hidden>No matching parts. Try a product name or a broader component term.</p>:null}{pageCount>1?<nav className="wave3-pagination" aria-label="Product pages">{currentPage>1?<a href={href(currentPage-1)}>Previous</a>:null}<span>Page {currentPage} of {pageCount}</span>{currentPage<pageCount?<a href={href(currentPage+1)}>Next</a>:null}</nav>:null}</section></div>
       {copy.length?<section className="wave3-index-copy">{copy.map(section=><div key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p key={paragraph}>{paragraph}</p>)}</div>)}</section>:null}
       <R2Discovery kind="parts"/>

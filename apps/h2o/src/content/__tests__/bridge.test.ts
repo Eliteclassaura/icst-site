@@ -52,9 +52,14 @@ describe('configuration', () => {
 describe('structural (cohort-bound) routes', () => {
   it('equal the route-id literals the accepted templates dereference', () => {
     const literals = new Set<string>()
-    for (const f of [...walk(path.join(SRC, 'site')), ...walk(path.join(SRC, 'app', '(site)'))])
+    // Family configuration selects a renderer for an existing document; it does not dereference
+    // required sibling documents. Those pages retain the existing editorial withdrawal rules.
+    for (const f of [...walk(path.join(SRC, 'site')), ...walk(path.join(SRC, 'app', '(site)'))].filter((f) => path.basename(f) !== 'salmon-family-adapter.ts'))
       for (const m of read(f).matchAll(/'((?:SALMON|LIVE)-[a-z_]+-[0-9a-f]+)'/g)) literals.add(m[1]!)
     for (const id of literals) expect(STRUCTURAL_ROUTE_IDS.has(id), id).toBe(true)
+  })
+  it('does not make dispatch-only family pages structural or prevent their withdrawal', () => {
+    expect(isStructural({ routeId: 'SALMON-pages-2651', family: 'salmon', routeClass: 'pages' })).toBe(false)
   })
   it('cover the frozen cohorts (products, matched articles, live posts, categories, services, alias)', () => {
     expect(isStructural({ routeId: 'SALMON-product-123' })).toBe(true)

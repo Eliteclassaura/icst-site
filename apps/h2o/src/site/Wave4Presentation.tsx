@@ -5,6 +5,7 @@ import {renderSalmonNode,SalmonSeo} from './SalmonCanonical'
 import {articleByline,articleCardImage,articleDirectoryDocuments,articleDisplayTitle,articleHeadingNodes,articleTocLinks,firstText,paragraphTexts,wave4LibraryItems,type Wave4Item} from './wave4'
 import {R2Discovery} from './R2Discovery'
 import {RfqMount} from './RfqMount'
+import {cssBackground} from './salmon-source'
 
 const exactImage='/media/figma-wave4/figma-w4-e7d87492.png'
 const resourcePath=(doc:SalmonDocument)=>doc.routeId==='SALMON-pages-1761'?'/resources/':doc.targetPath
@@ -28,12 +29,14 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
   </details>:<article className="wave4-document wave4-document-flat" key={`${item.title}-${index}`}>
     <h3>{item.title}</h3>{item.href?<a href={item.href} className="wave4-document-action" type="application/pdf">View / Download <span aria-hidden="true">↗</span></a>:<span className="wave4-document-unavailable">Document currently unavailable</span>}
   </article>
-  return <div className="luxury-site figma-wave4" data-wave4-route={path} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
+  // Salmon parity: each library route shows its own held Salmon hero background (Elementor CSS).
+  const salmonHero=cssBackground(doc.routeId,'8f448f5')
+  return <div className="luxury-site figma-wave4 salmon-family salmon-family--library" data-wave4-route={path} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc} canonicalOverride={path==='/resources/'?'https://h2ocooling.com/resources/':undefined}/>
     <LuxuryHeader page={pageFor(doc)} routePath={path}/>
     <main id="main" className="wave4-library">
       <section className="wave4-photo-hero" aria-labelledby="wave4-title">
-        <img src={exactImage} width="2338" height="1957" alt="" fetchPriority="high" data-figma-image-ref="ee9f44091102d839dbcbdb7362b15e9b394a6a17"/>
+        {salmonHero?<img src={salmonHero.src} width={salmonHero.width} height={salmonHero.height} alt="" fetchPriority="high" data-source-sha256={salmonHero.sha256} data-source-src={salmonHero.sourceUrl}/>:<img src={exactImage} width="2338" height="1957" alt="" fetchPriority="high" data-figma-image-ref="ee9f44091102d839dbcbdb7362b15e9b394a6a17"/>}
         <div className="wave4-photo-scrim"/>
         <div className="wave4-hero-content"><h1 id="wave4-title">{title}</h1><p>{lead}</p><a href="/contact-us/" className="wave4-action">Contact Our Team <span aria-hidden="true">→</span></a></div>
       </section>
@@ -66,10 +69,11 @@ export function Wave4ArticleIndex({doc}:{doc:SalmonDocument}){
   const nextFour=remaining.slice(0,4)
   const allOthers=remaining.slice(4)
   const articleImage=(article:SalmonDocument)=>{const image=articleCardImage(article);return image&&!/(?:slide|presentation|text overlaid|title card)/i.test(image.alt)?image:undefined}
-  return <div className="luxury-site figma-wave4" data-wave4-route="/tech-articles/" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
+  const band=cssBackground(doc.routeId,'e-c1d8555')
+  return <div className="luxury-site figma-wave4 salmon-family salmon-family--articles" data-wave4-route="/tech-articles/" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc}/><LuxuryHeader page={pageFor(doc)} routePath={doc.targetPath}/>
     <main id="main" className="wave4-article-index">
-      <header className="wave4-index-header"><nav aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/resources/">Resources</a></nav><h1>Tech Articles</h1><p>{firstText(doc,'p')}</p><form action="/search/" role="search"><label htmlFor="wave4-article-query">Search technical articles</label><div><input id="wave4-article-query" type="search" name="q" placeholder="Search articles and technical resources" required maxLength={200}/><button type="submit">Search</button></div></form><div className="wave4-index-resource-links"><a href="/cooling-tower-brochures/">Brochures</a><a href="/cooling-tower-resources/tools/">Tools</a><a href="/resources/">Resources Library</a></div></header>
+      <header className={`wave4-index-header${band?' sp-articles-band':''}`} style={band?{backgroundImage:`linear-gradient(var(--sp-veil), var(--sp-veil)), url("${band.src}")`}:undefined} data-source-background-sha256={band?.sha256}><nav aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/resources/">Resources</a></nav><h1>Tech Articles</h1><p>{firstText(doc,'p')}</p><form action="/search/" role="search"><label htmlFor="wave4-article-query">Search technical articles</label><div><input id="wave4-article-query" type="search" name="q" placeholder="Search articles and technical resources" required maxLength={200}/><button type="submit">Search</button></div></form><div className="wave4-index-resource-links"><a href="/cooling-tower-brochures/">Brochures</a><a href="/cooling-tower-resources/tools/">Tools</a><a href="/resources/">Resources Library</a></div></header>
       <section className="wave4-index-content" aria-labelledby="wave4-latest"><h2 id="wave4-latest">Technical reading</h2>
         <article className="wave4-featured-article" data-article-route={featured.doc.targetPath}><div className="wave4-featured-copy"><span>Featured article</span><h3><a href={featured.doc.targetPath}>{articleDisplayTitle(featured.doc.title)}</a></h3><p>{articleDescription(featured.doc)}</p><a className="wave4-article-read" href={featured.doc.targetPath}>Read article <span aria-hidden="true">→</span></a></div>{articleImage(featured.doc)?<img src={articleImage(featured.doc)!.src} alt={articleImage(featured.doc)!.alt} width={articleImage(featured.doc)!.width} height={articleImage(featured.doc)!.height} data-source-sha256={articleImage(featured.doc)!.sha256}/>:<div className="wave4-featured-text" aria-hidden="true">ICS / TECHNICAL READING</div>}</article>
         <div className="wave4-next-articles">{nextFour.map(({doc:article})=>{const image=articleImage(article);return <article key={article.routeId} data-article-route={article.targetPath}><a href={article.targetPath}>{image?<img src={image.src} alt="" width={image.width} height={image.height} loading="lazy" data-source-sha256={image.sha256}/>:null}<span><strong>{articleDisplayTitle(article.title)}</strong><small>{articleDescription(article)}</small><em>Read article →</em></span></a></article>})}</div>

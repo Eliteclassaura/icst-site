@@ -2,6 +2,7 @@ import type {Metadata} from 'next'
 import {notFound} from 'next/navigation'
 import {salmonDocument,releaseRouteFor,salmonRoutes} from '../../../site/salmon'
 import {SalmonCanonical} from '../../../site/SalmonCanonical'
+import {SalmonFamilyPage,salmonFamilyFor} from '../../../site/SalmonFamilies'
 import {LuxuryCanonical,luxuryIds} from '../../../site/LuxuryCanonical'
 import {PartsIndex,ProductDetail} from '../../../site/Wave3Presentation'
 import {LiveEnglishDetail,Wave4ArticleDetail,Wave4ArticleIndex,Wave4Library} from '../../../site/Wave4Presentation'
@@ -78,6 +79,8 @@ export default async function Page({params,searchParams}:Params){
   const row=releaseRouteFor(slug)
   if(!row)notFound()
   const doc=salmonDocument(row)
+  const family=salmonFamilyFor(doc)
+  if(family)return <SalmonFamilyPage doc={doc} config={family}/>
   if(doc.routeId.startsWith('LIVE-'))return <LiveEnglishDetail doc={doc}/>
   if(doc.targetPath==='/cooling-tower-parts-online/'){
     const search=await searchParams??{}

@@ -1,0 +1,35 @@
+{
+ "authority": "SALMON_FOOTER_CHROME_EMBEDDED_FLAG_RECOVERY_2026_09_28",
+ "source": "SALMON-pages-2746 chrome[footer] Phone list icon <svg><pattern><image href=\"data:image/png;base64,...\">; bytes decoded verbatim, not re-encoded",
+ "order": "Phone list order in source: Lakewood Colorado USA, Japan, Thailand",
+ "flags": [
+  {
+   "office": "usa",
+   "src": "/media/salmon/0caf534a5939b30d959eb82c0f5ac6e7ad2cc2d93a8f57751b84b85b6858b993.png",
+   "sha256": "0caf534a5939b30d959eb82c0f5ac6e7ad2cc2d93a8f57751b84b85b6858b993",
+   "width": 512,
+   "height": 512,
+   "bytes": 14154,
+   "frameZoom": 1.5
+  },
+  {
+   "office": "japan",
+   "src": "/media/salmon/f4d74fbcc5bd55e1c9cdce215db650ce225e09b7f0c4e229031b85e9335d0b38.png",
+   "sha256": "f4d74fbcc5bd55e1c9cdce215db650ce225e09b7f0c4e229031b85e9335d0b38",
+   "width": 270,
+   "height": 187,
+   "bytes": 3879,
+   "frameZoom": 1
+  },
+  {
+   "office": "thailand",
+   "src": "/media/salmon/127be41afafd2c17c6dfa056acf8392c173fbf5bfbdc23a408e30203372f08a2.png",
+   "sha256": "127be41afafd2c17c6dfa056acf8392c173fbf5bfbdc23a408e30203372f08a2",
+   "width": 1024,
+   "height": 682,
+   "bytes": 11695,
+   "frameZoom": 1
+  }
+ ],
+ "frameNote": "frameZoom is a presentation crop only: the USA source PNG carries transparent/grey padding that the Salmon SVG pattern cropped."
+}

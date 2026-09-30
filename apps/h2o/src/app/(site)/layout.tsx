@@ -33,6 +33,7 @@ import './salmon-parity-overrides.css'
 import './r2-discovery.css'
 import './english-completion.css'
 import './public-chrome-article.css'
+import './salmon-families.css'
 
 export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }

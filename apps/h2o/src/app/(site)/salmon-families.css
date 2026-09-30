@@ -1,0 +1,1240 @@
+/*
+ * Salmon family presentations and global footer — SALMON_FULL_PAGE_VISUAL_PARITY_REMEDIATION R1/R1.1.
+ * Source structure arrives as data (container direction/width, panel, overlay, type role);
+ * this sheet owns the Salmon visual language. Colours are tokens; no literal colour is used
+ * in a colour property. Everything below 768px stacks, and nothing may exceed the viewport.
+ */
+.salmon-family,
+.sp-footer {
+  --sp-blue: rgb(11 75 140);
+  --sp-blue-2: rgb(70 127 189);
+  --sp-blue-3: rgb(33 102 171);
+  --sp-blue-deep: rgb(13 41 69);
+  --sp-ink: rgb(17 17 17);
+  --sp-ink-2: rgb(48 48 48);
+  --sp-muted: rgb(110 110 110);
+  --sp-soft: rgb(246 247 248);
+  --sp-soft-2: rgb(250 250 250);
+  --sp-line: rgb(222 226 231);
+  --sp-white: rgb(255 255 255);
+  --sp-black: rgb(0 0 0);
+  --sp-shadow: rgb(0 0 0 / 18%);
+  --sp-glass: rgb(255 255 255 / 27%);
+  --sp-fade-top: rgb(0 0 0 / 20%);
+  --sp-shade-blue: rgb(11 75 140);
+  --sp-shade-dark: rgb(0 0 0);
+  --sp-shade-light: rgb(255 255 255);
+  --sp-display: 'Bebas Neue', 'DM Sans', system-ui, sans-serif;
+  --sp-sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sp-gap: clamp(16px, 2vw, 30px);
+  --sp-page: 1260px;
+}
+.salmon-family {
+  background: var(--sp-white);
+}
+.salmon-family .sp-main {
+  overflow-x: clip;
+  color: var(--sp-ink-2);
+  font-family: var(--sp-sans);
+  font-size: 16px;
+  line-height: 1.55;
+}
+.salmon-family .sp-main *,
+.salmon-family .sp-footer * {
+  box-sizing: border-box;
+}
+/* ---------- sections ---------- */
+.salmon-family .sp-section {
+  padding-block: clamp(28px, 4.4vw, 64px);
+}
+.salmon-family .sp-section--hero {
+  padding-block: clamp(12px, 2.6vw, 40px) clamp(20px, 3vw, 44px);
+}
+.salmon-family .sp-section--band {
+  background: var(--sp-soft);
+}
+.salmon-family .sp-section--blue {
+  background: var(--sp-blue);
+  color: var(--sp-white);
+}
+.salmon-family .sp-section-inner {
+  inline-size: 100%;
+  max-inline-size: var(--sp-page);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 3vw, 40px);
+}
+/* ---------- containers (source direction, width and panel) ---------- */
+.salmon-family .sp-con,
+.salmon-family .sp-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.4vw, 20px);
+  min-inline-size: 0;
+}
+.salmon-family .sp-row {
+  flex-flow: row wrap;
+  gap: var(--sp-gap);
+}
+.salmon-family .sp-row > .sp-con {
+  flex: 1 1 0;
+  min-inline-size: min(100%, 220px);
+}
+.salmon-family .sp-row > :not(.sp-con, .sp-visibility) {
+  flex: 1 1 0;
+  min-inline-size: min(100%, 96px);
+}
+.salmon-family .sp-row--widgets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 96px), 1fr));
+}
+.salmon-family .sp-row--widgets > * {
+  max-inline-size: none;
+}
+.salmon-family .sp-row > .sp-w {
+  flex: 1 1 calc(var(--sp-w) - var(--sp-gap));
+  max-inline-size: var(--sp-w);
+}
+.salmon-family .sp-grid {
+  display: grid;
+  grid-template-columns: var(--sp-grid-template, repeat(var(--sp-cols, 2), minmax(0, 1fr)));
+  gap: clamp(12px, 1.4vw, 20px);
+}
+.salmon-family .sp-align-center {
+  align-items: center;
+  text-align: center;
+}
+.salmon-family .sp-align-start {
+  text-align: start;
+}
+.salmon-family .sp-align-end {
+  text-align: end;
+}
+.salmon-family .sp-justify-center {
+  justify-content: center;
+}
+.salmon-family .sp-justify-end {
+  justify-content: flex-end;
+}
+.salmon-family .sp-rounded {
+  border-radius: var(--sp-radius, 16px);
+}
+.salmon-family .sp-panel {
+  padding: clamp(18px, 2.2vw, 34px);
+  border-radius: var(--sp-radius, 16px);
+}
+.salmon-family .sp-panel--soft {
+  background: var(--sp-soft);
+}
+.salmon-family .sp-panel--white {
+  background: var(--sp-white);
+}
+.salmon-family .sp-panel--blue {
+  background: var(--sp-blue);
+  color: var(--sp-white);
+}
+.salmon-family .sp-panel--gradient {
+  background: linear-gradient(180deg, var(--sp-blue-3) 0%, var(--sp-blue-deep) 100%);
+}
+.salmon-family .sp-panel--dark {
+  background: var(--sp-ink);
+  color: var(--sp-white);
+}
+.salmon-family .sp-panel--blue :is(.sp-heading,
+.sp-text,
+.sp-card-title,
+.sp-card-text,
+.sp-iconlist),
+.salmon-family .sp-panel--dark :is(.sp-heading,
+.sp-text,
+.sp-card-title,
+.sp-card-text,
+.sp-iconlist) {
+  color: inherit;
+}
+/* ---------- photographic panels (held Salmon CSS backgrounds) ---------- */
+.salmon-family .sp-photo {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-block-size: min(var(--sp-minh, 420px), calc(46vw + 110px));
+  padding: clamp(22px, 4vw, 60px);
+  border-radius: var(--sp-radius, 24px);
+  color: var(--sp-white);
+}
+.salmon-family .sp-photo-img {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+.salmon-family .sp-photo-shade {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: var(--sp-shade, 0.6);
+  background: var(--sp-shade-dark);
+}
+.salmon-family .sp-overlay--blue > .sp-photo-shade {
+  background: var(--sp-shade-blue);
+}
+.salmon-family .sp-overlay--blue-fade > .sp-photo-shade {
+  background: linear-gradient(180deg, transparent 35%, var(--sp-shade-blue) 65%);
+}
+.salmon-family .sp-overlay--light {
+  color: var(--sp-ink);
+}
+.salmon-family .sp-overlay--light > .sp-photo-shade {
+  background: var(--sp-shade-light);
+}
+.salmon-family .sp-overlay--fade > .sp-photo-shade {
+  background: linear-gradient(180deg, var(--sp-fade-top) 0%, var(--sp-shade-dark) 100%);
+}
+.salmon-family .sp-photo-content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: clamp(12px, 1.4vw, 20px);
+  inline-size: 100%;
+  min-inline-size: 0;
+}
+.salmon-family .sp-photo.sp-align-center > .sp-photo-content,
+.salmon-family .sp-photo.sp-justify-center > .sp-photo-content {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.salmon-family .sp-photo.sp-justify-end > .sp-photo-content {
+  justify-content: flex-end;
+}
+.salmon-family .sp-photo :is(.sp-heading,
+.sp-text) {
+  color: inherit;
+}
+.salmon-family .sp-photo .sp-c-white {
+  color: var(--sp-white);
+}
+.salmon-family .sp-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--sp-radius, 0);
+}
+.salmon-family .sp-media-img {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  block-size: auto;
+  margin-inline: auto;
+}
+.salmon-family .sp-bg {
+  min-block-size: min(var(--sp-minh, 0px), calc(40vw + 80px));
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.salmon-family .sp-media--panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-block-size: min(var(--sp-minh, 240px), calc(40vw + 80px));
+  background-repeat: no-repeat;
+}
+.salmon-family .sp-media--panel > .sp-photo-shade {
+  z-index: 0;
+}
+.salmon-family .sp-label-row {
+  display: flex;
+}
+.salmon-family .sp-label-row.sp-align-center {
+  justify-content: center;
+}
+.salmon-family .sp-label {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 30px;
+  padding: 4px 16px;
+  border: 1px solid var(--sp-ink);
+  border-radius: 999px;
+  background: var(--sp-white);
+  color: var(--sp-ink);
+  font: 500 14px/1.2 var(--sp-sans);
+  cursor: default;
+  user-select: text;
+}
+.salmon-family .sp-btn-row--rfq :is(a, button),
+.salmon-family .sp-project-next :is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 44px;
+  padding: 10px 26px;
+  border: 1px solid var(--sp-blue);
+  border-radius: 999px;
+  background: var(--sp-blue);
+  color: var(--sp-white);
+  font: 600 15px/1.2 var(--sp-sans);
+  text-decoration: none;
+}
+.salmon-family .sp-btn-row--glass :is(a, button) {
+  border-color: var(--sp-white);
+  background: var(--sp-glass);
+  color: var(--sp-white);
+}
+.salmon-family .sp-btn-row--outline :is(a, button) {
+  border-color: var(--sp-blue-2);
+  background: var(--sp-white);
+  color: var(--sp-blue);
+}
+.salmon-family .sp-photo .sp-btn-row--outline :is(a, button) {
+  border-color: transparent;
+}
+.salmon-family .sp-btn-row--pill :is(a, button) {
+  min-block-size: 30px;
+  padding: 4px 16px;
+  border-color: var(--sp-ink);
+  background: var(--sp-white);
+  color: var(--sp-ink);
+  font-size: 14px;
+  font-weight: 500;
+}
+.salmon-family .sp-btn-row--rfq :is(a, button):hover {
+  border-color: var(--sp-blue-3);
+  background: var(--sp-blue-3);
+  color: var(--sp-white);
+}
+/* A quote action keeps the treatment of the source button it replaces (outline hover). */
+.salmon-family .sp-btn-row--rfq.sp-btn-row--outline :is(a, button):hover {
+  border-color: var(--sp-blue-2);
+  background: var(--sp-blue-2);
+}
+.salmon-family .sp-photo .sp-btn-row--rfq.sp-btn-row--outline :is(a, button):hover {
+  border-color: transparent;
+}
+.salmon-family .sp-project-next {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-block: 8px 40px;
+}
+.salmon-family .sp-project-next .sp-btn--outline {
+  border-color: var(--sp-blue-2);
+  background: var(--sp-white);
+  color: var(--sp-blue);
+}
+.salmon-family .sp-media-over {
+  position: absolute;
+  inset-block-start: 12px;
+  inset-inline: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+/* ---------- type ---------- */
+.salmon-family .sp-heading {
+  margin: 0;
+  color: var(--sp-ink);
+  font-size: var(--sp-fs, clamp(28px, 3vw, 44px));
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+.salmon-family h1.sp-heading {
+  font-size: var(--sp-fs, clamp(38px, 4.6vw, 66px));
+}
+.salmon-family h3.sp-heading,
+.salmon-family h4.sp-heading {
+  font-size: var(--sp-fs, clamp(20px, 1.8vw, 26px));
+}
+.salmon-family .sp-type-display {
+  font-family: var(--sp-display);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+.salmon-family .sp-type-sans {
+  font-family: var(--sp-sans);
+  font-weight: var(--sp-fw, 500);
+}
+.salmon-family .sp-heading.sp-type-sans {
+  font-weight: var(--sp-fw, 700);
+  letter-spacing: -0.01em;
+}
+.salmon-family .sp-tt-cap {
+  text-transform: capitalize;
+}
+.salmon-family .sp-tt-upper {
+  text-transform: uppercase;
+}
+.salmon-family .sp-c-white {
+  color: var(--sp-white);
+}
+.salmon-family :is(.sp-heading, .sp-text).sp-c-default {
+  color: var(--sp-blue-2);
+}
+.salmon-family :is(.sp-photo, .sp-panel--blue, .sp-panel--dark, .sp-section--blue) :is(.sp-heading, .sp-text).sp-c-default {
+  color: inherit;
+}
+.salmon-family .sp-c-ink {
+  color: var(--sp-ink);
+}
+.salmon-family .sp-c-blue {
+  color: var(--sp-blue-2);
+}
+.salmon-family .sp-c-muted {
+  color: var(--sp-muted);
+}
+.salmon-family .sp-text {
+  color: var(--sp-ink-2);
+  font-size: var(--sp-fs, 16px);
+  line-height: 1.6;
+}
+.salmon-family .sp-text > :first-child {
+  margin-block-start: 0;
+}
+.salmon-family .sp-text > :last-child {
+  margin-block-end: 0;
+}
+.salmon-family .sp-text :is(p,
+ul,
+ol) {
+  margin-block: 0 0.75em;
+}
+.salmon-family .sp-text a {
+  color: var(--sp-blue);
+}
+/* ---------- actions ---------- */
+.salmon-family .sp-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.salmon-family .sp-btn-row.sp-align-center {
+  justify-content: center;
+}
+.salmon-family .sp-btn-row.sp-align-end {
+  justify-content: flex-end;
+}
+.salmon-family .sp-photo.sp-align-center .sp-btn-row,
+.salmon-family .sp-photo.sp-justify-center .sp-btn-row {
+  justify-content: center;
+}
+.salmon-family .sp-btn,
+.salmon-family .sp-product-action :is(a,
+button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 44px;
+  padding: 10px 26px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: 600 15px/1.2 var(--sp-sans);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+.salmon-family .sp-btn--solid,
+.salmon-family .sp-product-action :is(a,
+button) {
+  background: var(--sp-blue);
+  color: var(--sp-white);
+}
+.salmon-family .sp-btn--solid:hover,
+.salmon-family .sp-product-action :is(a,
+button):hover {
+  background: var(--sp-blue-3);
+}
+.salmon-family .sp-btn--light {
+  background: var(--sp-white);
+  color: var(--sp-blue);
+}
+.salmon-family .sp-btn--light:hover {
+  box-shadow: 0 6px 18px var(--sp-shadow);
+}
+.salmon-family .sp-btn--outline {
+  border-color: var(--sp-blue-2);
+  background: var(--sp-white);
+  color: var(--sp-blue);
+}
+.salmon-family .sp-btn--glass {
+  border-color: var(--sp-white);
+  background: var(--sp-glass);
+  color: var(--sp-white);
+}
+.salmon-family .sp-btn--glass:hover {
+  background: var(--sp-blue-2);
+}
+.salmon-family .sp-photo .sp-btn--outline {
+  border-color: transparent;
+}
+.salmon-family .sp-btn--outline:hover {
+  background: var(--sp-blue-2);
+  color: var(--sp-white);
+}
+.salmon-family .sp-btn--pill {
+  min-block-size: 30px;
+  padding: 4px 16px;
+  border-color: var(--sp-ink);
+  background: var(--sp-white);
+  color: var(--sp-ink);
+  font-size: 14px;
+  font-weight: 500;
+}
+.salmon-family .sp-btn--inert {
+  cursor: default;
+}
+.salmon-family .sp-btn:focus-visible,
+.salmon-family .sp-product a:focus-visible {
+  outline: 3px solid var(--sp-blue-2);
+  outline-offset: 3px;
+}
+/* ---------- widgets ---------- */
+.salmon-family .sp-figure {
+  margin: 0;
+}
+.salmon-family .sp-img {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+  margin-inline: auto;
+  border-radius: 16px;
+}
+.salmon-family .sp-iconbox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.salmon-family .sp-iconbox.sp-align-center {
+  align-items: center;
+}
+.salmon-family .sp-iconbox--side {
+  flex-direction: row;
+  align-items: flex-start;
+}
+.salmon-family .sp-iconbox-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-inline-size: 0;
+}
+.salmon-family .sp-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: var(--sp-blue);
+}
+.salmon-family .sp-icon svg {
+  display: block;
+  inline-size: auto;
+  max-inline-size: 44px;
+  block-size: 26px;
+  fill: currentcolor;
+}
+.salmon-family .sp-icon--disc {
+  align-items: center;
+  justify-content: center;
+  inline-size: 38px;
+  block-size: 38px;
+  border-radius: 50%;
+  background: var(--sp-blue);
+  color: var(--sp-white);
+}
+.salmon-family .sp-icon--disc svg {
+  max-inline-size: 16px;
+  block-size: 16px;
+}
+.salmon-family .sp-icon--image img {
+  display: block;
+  inline-size: 22px;
+  block-size: 15px;
+  border-radius: 2px;
+  object-fit: cover;
+}
+.salmon-family .sp-icon--source svg {
+  block-size: auto;
+  max-block-size: 44px;
+}
+.salmon-family .sp-iconlist .sp-icon svg {
+  block-size: 16px;
+}
+.salmon-family .sp-card-title {
+  margin: 0;
+  color: var(--sp-ink);
+  font-size: var(--sp-fs, clamp(20px, 1.7vw, 25px));
+  line-height: 1.12;
+}
+.salmon-family .sp-card-title a {
+  color: inherit;
+  text-decoration: none;
+}
+.salmon-family .sp-card-text {
+  margin: 0;
+  color: var(--sp-ink-2);
+  font-size: var(--sp-fs, 15px);
+  line-height: 1.55;
+}
+.salmon-family .sp-imagebox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.salmon-family .sp-imagebox-figure {
+  margin: 0;
+}
+.salmon-family .sp-imagebox.sp-align-center .sp-imagebox-img,
+.salmon-family .sp-figure.sp-align-center .sp-img {
+  margin-inline: auto;
+}
+.salmon-family .sp-panel--tight {
+  padding: 10px 14px;
+}
+.salmon-family .sp-imagebox-img {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: 14px;
+}
+.salmon-family .sp-iconlist {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--sp-ink);
+  font-size: var(--sp-fs, 16px);
+}
+.salmon-family .sp-iconlist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.salmon-family .sp-iconlist a {
+  color: inherit;
+}
+.salmon-family .sp-icon-link {
+  display: inline-flex;
+  color: var(--sp-blue);
+}
+.salmon-family .sp-accordion {
+  display: grid;
+  gap: 10px;
+}
+.salmon-family .sp-accordion details {
+  border: 1px solid var(--sp-line);
+  border-radius: 12px;
+  background: var(--sp-white);
+}
+.salmon-family .sp-accordion summary {
+  padding: 16px 20px;
+  color: var(--sp-ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+.salmon-family .sp-accordion-body {
+  padding: 0 20px 16px;
+}
+.salmon-family .sp-anchor {
+  display: block;
+  scroll-margin-block-start: 110px;
+}
+/* ---------- Parts product cards ---------- */
+.salmon-family .sp-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: clamp(18px, 2.2vw, 30px);
+  inline-size: 100%;
+}
+.salmon-family .sp-parts-related .sp-products {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: clamp(14px, 1.4vw, 20px);
+}
+.salmon-family .sp-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-inline-size: 0;
+  padding: 26px 20px 24px;
+  border: 1px solid var(--sp-line);
+  border-radius: 10px;
+  background: var(--sp-white);
+  box-shadow: 0 4px 14px var(--sp-shadow);
+  text-align: center;
+}
+.salmon-family .sp-product-title {
+  margin: 0;
+  color: var(--sp-ink);
+  font: 400 clamp(19px, 1.6vw, 22px)/1.1 var(--sp-display);
+  text-transform: uppercase;
+}
+.salmon-family .sp-product-title a {
+  color: inherit;
+  text-decoration: none;
+}
+.salmon-family .sp-product-title a:hover {
+  color: var(--sp-blue);
+}
+.salmon-family .sp-product-media {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+}
+.salmon-family .sp-product-media img {
+  inline-size: auto;
+  max-inline-size: min(100%, 220px);
+  block-size: auto;
+  max-block-size: 190px;
+  object-fit: contain;
+}
+.salmon-family .sp-product-detail {
+  color: var(--sp-ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.salmon-family .sp-product-detail p {
+  margin: 0;
+}
+.salmon-family .sp-product-action {
+  display: flex;
+  justify-content: center;
+}
+.salmon-family .sp-parts-related .sp-product {
+  padding: 20px 14px;
+}
+.salmon-family .sp-parts-related .sp-product-title {
+  font-size: clamp(17px, 1.3vw, 19px);
+}
+.salmon-family .sp-parts-related .sp-product-media img {
+  max-block-size: 130px;
+}
+/* Parts hero: the source foreground product sits on the lower edge of the photo panel. */
+/*
+ * Parts hero — measured against settled Salmon captures (1440: panel 1260x743, H1 at 80px,
+ * lead 708px measure, CTA 323x56 pill 50px below the lead, foreground panel 475px tall with
+ * radius 50 pulled up 70px under the CTA). Salmon's collapsed 768/390 layouts are not copied:
+ * narrower screens keep readable type and a proportionally scaled foreground.
+ */
+.salmon-family .sp-family--parts-landing .sp-section--hero .sp-section-inner {
+  max-inline-size: 1300px;
+  padding-inline: clamp(16px, 1.4vw, 20px);
+}
+.salmon-family .sp-family--parts-landing .sp-section--hero .sp-photo {
+  min-block-size: 0;
+  padding: clamp(28px, 5.6vw, 80px) clamp(16px, 2.5vw, 36px) 0;
+}
+.salmon-family .sp-family--parts-landing .sp-section--hero .sp-photo-content {
+  gap: 0;
+}
+.salmon-family .sp-family--parts-landing .sp-section--hero .sp-heading {
+  margin: 0;
+  line-height: 1.075;
+}
+.salmon-family .sp-family--parts-landing .sp-section--hero .sp-text {
+  max-inline-size: 708px;
+  margin: 2px auto 0;
+  line-height: 1.58;
+}
+.salmon-family .sp-family--parts-landing .sp-section--hero .sp-btn-row {
+  position: relative;
+  z-index: 2;
+  margin-block-start: clamp(22px, 4.6vw, 66px);
+}
+/* The adapter's wrapper does not box the Parts hero quote action, so it sizes like the source CTA. */
+.salmon-family :is(.sp-family--parts-landing, .sp-family--parts-index) .sp-section--hero .sp-btn-row--rfq > .rfq {
+  display: contents;
+}
+.salmon-family .sp-family--parts-landing .sp-section--hero :is(.sp-btn, .sp-btn-row--rfq a) {
+  min-inline-size: min(323px, 100%);
+  min-block-size: 56px;
+  font-size: 14px;
+}
+.salmon-family .sp-family--parts-landing .sp-section--hero .sp-media--panel {
+  z-index: 1;
+  align-self: stretch;
+  inline-size: 100%;
+  min-block-size: clamp(240px, 42vw, 475px);
+  margin-block-start: clamp(-70px, -4.9vw, -38px);
+  border-radius: clamp(14px, 3.5vw, 50px);
+}
+/* ---------- About presence ---------- */
+.salmon-family .sp-presence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block-end: clamp(20px, 3vw, 40px);
+}
+.salmon-family .sp-presence span {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: var(--sp-soft);
+  color: var(--sp-ink);
+  font-weight: 700;
+}
+.salmon-family .sp-presence small {
+  color: var(--sp-muted);
+  font-weight: 500;
+}
+/* ---------- Salmon device visibility (wrapper is layout-neutral) ---------- */
+.salmon-family .sp-visibility {
+  display: contents;
+}
+
+@media (min-width: 1025px) {
+  .salmon-family .sp-hide-desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024.98px) {
+  .salmon-family .sp-hide-tablet {
+    display: none;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .salmon-family .sp-hide-mobile {
+    display: none;
+  }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1023.98px) {
+  .salmon-family .sp-row > .sp-w {
+    flex-basis: calc(max(var(--sp-w), 50%) - var(--sp-gap));
+    max-inline-size: 100%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .salmon-family .sp-row:not(.sp-row--widgets) {
+    flex-direction: column;
+  }
+
+  .salmon-family .sp-row > .sp-con,
+.salmon-family .sp-row > .sp-w {
+    flex: 1 1 auto;
+    inline-size: 100%;
+    max-inline-size: 100%;
+  }
+  .salmon-family .sp-section-inner {
+    padding-inline: 16px;
+  }
+
+  .salmon-family .sp-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .salmon-family .sp-family--parts-landing .sp-section--hero :is(.sp-btn, .sp-btn-row--rfq a) {
+    min-inline-size: 0;
+    min-block-size: 44px;
+    padding: 10px 24px;
+  }
+
+  .salmon-family .sp-family--parts-landing .sp-section--hero .sp-media--panel {
+    min-block-size: 240px;
+  }
+
+  .salmon-family .sp-malign-center {
+    align-items: center;
+    text-align: center;
+  }
+
+  .salmon-family .sp-btn-row.sp-malign-center {
+    justify-content: center;
+  }
+
+  .salmon-family .sp-malign-start {
+    align-items: flex-start;
+    text-align: start;
+  }
+  .salmon-family .sp-photo {
+    padding: 22px 18px;
+    border-radius: min(var(--sp-radius, 24px), 16px);
+  }
+  .salmon-family .sp-panel {
+    padding: 18px;
+  }
+  .salmon-family .sp-text,
+.salmon-family .sp-card-text {
+    font-size: min(var(--sp-fs, 15px), 15px);
+  }
+}
+
+/* ---------- global footer (Salmon composition, current facts) ---------- */
+.global-chrome .sp-footer {
+  margin: 0;
+  padding: clamp(18px, 1.4vw, 20px) 0 24px;
+  border: 0;
+  background: var(--sp-soft);
+  color: var(--sp-ink-2);
+  font: 400 14px/1.6 var(--sp-sans);
+}
+.global-chrome .sp-footer-inner {
+  inline-size: 100%;
+  max-inline-size: 1220px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 3vw, 40px);
+}
+.global-chrome .sp-footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 40px;
+  padding-block-end: clamp(22px, 2.4vw, 32px);
+  border-block-end: 1px solid var(--sp-line);
+}
+.global-chrome .sp-footer-top h2 {
+  max-inline-size: 620px;
+  margin: 0;
+  color: var(--sp-ink);
+  font: 700 clamp(22px, 2vw, 28px)/1.35 var(--sp-sans);
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+.global-chrome .sp-footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.global-chrome .sp-footer-actions :is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 44px;
+  padding: 10px 24px;
+  border: 1px solid var(--sp-blue);
+  border-radius: 999px;
+  background: var(--sp-blue);
+  color: var(--sp-white);
+  font: 600 14px/1.2 var(--sp-sans);
+  text-decoration: none;
+}
+.global-chrome .sp-footer-actions .sp-footer-contact {
+  background: var(--sp-white);
+  color: var(--sp-blue);
+}
+.global-chrome .sp-footer-actions :is(a, button):hover {
+  border-color: var(--sp-blue-3);
+  background: var(--sp-blue-3);
+  color: var(--sp-white);
+}
+.global-chrome .sp-footer-main {
+  display: grid;
+  /* Salmon desktop column proportions (358 / 197 / 299 / 286 of a 1140px band). */
+  grid-template-columns: minmax(0, 358fr) minmax(0, 197fr) minmax(0, 299fr) minmax(0, 286fr);
+  gap: 28px clamp(20px, 2.4vw, 36px);
+  padding-block: clamp(26px, 3vw, 40px);
+  border-block-end: 1px solid var(--sp-line);
+}
+.global-chrome .sp-footer h3 {
+  margin: 0 0 12px;
+  color: var(--sp-ink);
+  font: 600 16px/1.3 var(--sp-sans);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.global-chrome .sp-footer-about h3 {
+  margin-block: 16px 10px;
+  font: 400 17px/1.1 var(--sp-display);
+  text-transform: uppercase;
+}
+.global-chrome .sp-footer-logo img {
+  display: block;
+  inline-size: 176px;
+  block-size: auto;
+}
+.global-chrome .sp-footer-about p {
+  max-inline-size: 300px;
+  margin: 0;
+  color: var(--sp-muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+.global-chrome .sp-footer .client-socials {
+  padding-block-start: 16px;
+}
+.global-chrome .sp-footer .client-socials h2 {
+  margin: 0 0 8px;
+  color: var(--sp-ink);
+  font: 600 13px/1.3 var(--sp-sans);
+  text-transform: none;
+}
+.global-chrome .sp-footer .client-socials > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.global-chrome .sp-footer .client-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-block-size: 30px;
+  padding: 4px 10px;
+  border: 1px solid var(--sp-line);
+  border-radius: 999px;
+  background: var(--sp-white);
+  color: var(--sp-ink-2);
+  font: 500 12px/1 var(--sp-sans);
+  text-decoration: none;
+}
+.global-chrome .sp-footer .client-socials a:hover {
+  border-color: var(--sp-blue);
+  color: var(--sp-blue);
+}
+.global-chrome .sp-footer .client-socials svg {
+  inline-size: 11px;
+  block-size: 11px;
+}
+.global-chrome .sp-footer ul {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.global-chrome .sp-footer-list a {
+  display: inline-block;
+  padding-block: 4px;
+  color: var(--sp-ink-2);
+  font-size: 14px;
+  line-height: 1.45;
+  text-decoration: none;
+}
+.global-chrome .sp-footer-list a:hover,
+.global-chrome .sp-footer-phone a:hover {
+  color: var(--sp-blue);
+  text-decoration: underline;
+}
+.global-chrome .sp-footer-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 18px;
+}
+.global-chrome .sp-footer-group h4 {
+  margin: 0 0 4px;
+  color: var(--sp-muted);
+  font: 600 12px/1.4 var(--sp-sans);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.global-chrome .sp-footer-phone ul {
+  gap: 12px;
+}
+.global-chrome .sp-footer-phone address {
+  display: grid;
+  gap: 2px;
+  font-style: normal;
+}
+.global-chrome .sp-footer-office {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--sp-ink);
+  font-size: 14px;
+}
+.global-chrome .sp-footer-office strong {
+  font-weight: 500;
+}
+.global-chrome .sp-footer-flag {
+  display: inline-block;
+  flex: 0 0 22px;
+  overflow: hidden;
+  inline-size: 22px;
+  block-size: 15px;
+  border-radius: 2px;
+}
+.global-chrome .sp-footer-flag img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+.global-chrome .sp-footer-phone a {
+  padding-inline-start: 30px;
+  color: var(--sp-ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+.global-chrome .sp-visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  inline-size: 1px;
+  block-size: 1px;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.global-chrome .sp-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 10px;
+  padding-block-start: 20px;
+  color: var(--sp-muted);
+  font-size: 12px;
+  text-align: center;
+}
+.global-chrome .sp-footer-legal a {
+  color: var(--sp-blue);
+  text-decoration: none;
+}
+
+@media (max-width: 1099.98px) {
+  .global-chrome .sp-footer-main {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1.1fr);
+  }
+
+  .global-chrome .sp-footer-about {
+    grid-column: 1 / -1;
+  }
+
+  .global-chrome .sp-footer-about p {
+    max-inline-size: 560px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .global-chrome .sp-footer-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  /* Salmon stacks the footer blocks on mobile; long lists keep two columns at full width. */
+  .global-chrome .sp-footer-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .global-chrome .sp-footer-list:not(.sp-footer-category) ul {
+    display: block;
+    columns: 2;
+    column-gap: 18px;
+  }
+
+  .global-chrome .sp-footer-list:not(.sp-footer-category) li {
+    break-inside: avoid;
+  }
+}
+
+@media (max-width: 419.98px) {
+  .global-chrome .sp-footer-main {
+    gap: 22px 16px;
+  }
+
+  .global-chrome .sp-footer-list a {
+    padding-block: 3px;
+    font-size: 13.5px;
+  }
+
+  .global-chrome .sp-footer-actions {
+    inline-size: 100%;
+  }
+
+  .global-chrome .sp-footer-actions > * {
+    flex: 1 1 auto;
+  }
+}
+
+/* A source button with no alignment of its own follows its centred source siblings. */
+.salmon-family .sp-con:has(> :is(.sp-heading,
+.sp-text).sp-align-center) > .sp-btn-row:not(.sp-align-start,
+.sp-align-end),
+.salmon-family .sp-photo:has(.sp-heading.sp-align-center) .sp-btn-row:not(.sp-align-start,
+.sp-align-end) {
+  justify-content: center;
+}
+
+/* ---------- Resources / Brochures / Tools / Tech Articles (accepted Wave 4 function, Salmon look) ---------- */
+.salmon-family--library .wave4-photo-hero {
+  border-radius: 46px;
+}
+.salmon-family--library .wave4-photo-scrim {
+  background: var(--sp-shade-dark);
+  opacity: 0.5;
+}
+.salmon-family:is(.salmon-family--library, .salmon-family--articles) :is(.wave4-hero-content h1, .wave4-library-intro h2, .wave4-tool-panel h2, .wave4-index-header h1, .wave4-index-content > h2, .wave4-directory-heading h2) {
+  font-family: var(--sp-display);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+.salmon-family--library .wave4-hero-content :is(p, a),
+.salmon-family--articles .wave4-index-header :is(p, label, input, button, a) {
+  font-family: var(--sp-sans);
+}
+.salmon-family--library .wave4-action {
+  border-radius: 999px;
+  background: var(--sp-blue);
+  color: var(--sp-white);
+}
+.salmon-family--library .wave4-library-intro h2 {
+  color: var(--sp-ink);
+  font-size: clamp(30px, 3vw, 44px);
+}
+.salmon-family--library .wave4-document {
+  border: 1px solid var(--sp-blue-2);
+  border-radius: 8px;
+  background: var(--sp-white);
+}
+.salmon-family--library .wave4-document summary,
+.salmon-family--library .wave4-document h3 {
+  color: var(--sp-ink);
+  font: 600 16px/1.35 var(--sp-sans);
+}
+.salmon-family--library .wave4-document-action {
+  border: 1px solid var(--sp-blue-2);
+  border-radius: 999px;
+  color: var(--sp-blue);
+}
+.salmon-family--articles {
+  --sp-veil: rgb(255 255 255 / 90%);
+}
+.salmon-family--articles .sp-articles-band {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 371px;
+  background-color: var(--sp-white);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+}
+.salmon-family--articles .sp-articles-band h1 {
+  color: var(--sp-ink);
+  font-size: clamp(40px, 4.4vw, 62px);
+}
+.salmon-family--articles .sp-articles-band > p {
+  max-inline-size: 760px;
+  margin-inline: auto;
+  color: var(--sp-ink-2);
+}
+.salmon-family--articles .sp-articles-band :is(form, nav, .wave4-index-resource-links) {
+  justify-content: center;
+  margin-inline: auto;
+}
+.salmon-family--articles .wave4-next-articles strong,
+.salmon-family--articles .wave4-featured-article h3 {
+  color: var(--sp-blue-2);
+  font-family: var(--sp-display);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+/*
+ * Dry Soda hero, phones (R1.1.2). The source photograph (SHA-256 3b4cd65d…, 2338x2338) carries flat
+ * grey letterbox bands: the picture occupies rows 13.9%-88.7% of the file. Wide panels crop them by
+ * `cover`; a phone-width panel is taller than the picture band, so the bands showed under the H1.
+ * The image box is enlarged to the band (1 / 0.748) and shifted up by the top band, which keeps the
+ * bands outside the panel for any panel aspect. Keyed to this file only; desktop and tablet unchanged.
+ */
+@media (max-width: 767.98px) {
+  .salmon-family .sp-photo > .sp-photo-img[data-source-sha256="3b4cd65dd5b87c0245c1314fe4ebf90c4e87dc40b05dc98e85cd5e0df5d4c214"] {
+    inset-block: -18.58% auto;
+    block-size: 133.69%;
+  }
+}

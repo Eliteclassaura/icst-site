@@ -1,0 +1,158 @@
+{
+ "authority": "SALMON_EMBEDDED_SVG_IMAGE_RECOVERY_2026_09_28",
+ "method": "base64 data URI inside source inline SVG, decoded verbatim",
+ "icons": {
+  "0caf534a5939b30d959eb82c0f5ac6e7ad2cc2d93a8f57751b84b85b6858b993": {
+   "src": "/media/salmon/0caf534a5939b30d959eb82c0f5ac6e7ad2cc2d93a8f57751b84b85b6858b993.png",
+   "bytes": 14154,
+   "routes": [
+    "SALMON-pages-1353",
+    "SALMON-pages-2362",
+    "SALMON-pages-2349",
+    "SALMON-pages-2385",
+    "SALMON-pages-2344",
+    "SALMON-pages-2372",
+    "SALMON-pages-2380",
+    "SALMON-pages-2288",
+    "SALMON-pages-2301",
+    "SALMON-pages-2496",
+    "SALMON-pages-2306",
+    "SALMON-pages-2390",
+    "SALMON-pages-2367",
+    "SALMON-pages-2354",
+    "SALMON-pages-2311",
+    "SALMON-pages-2395",
+    "SALMON-pages-2483",
+    "SALMON-pages-2336",
+    "SALMON-pages-2488",
+    "SALMON-pages-2328",
+    "SALMON-pages-2293",
+    "SALMON-pages-2319",
+    "SALMON-pages-1903"
+   ]
+  },
+  "a0d0290a9f01ac4a20589a32d00ca21bbef7752183d12786e9c8ea4a26ece65e": {
+   "src": "/media/salmon/a0d0290a9f01ac4a20589a32d00ca21bbef7752183d12786e9c8ea4a26ece65e.png",
+   "bytes": 7054,
+   "routes": [
+    "SALMON-pages-1353",
+    "SALMON-pages-2362",
+    "SALMON-pages-2349",
+    "SALMON-pages-2385",
+    "SALMON-pages-2344",
+    "SALMON-pages-2372",
+    "SALMON-pages-2380",
+    "SALMON-pages-2390",
+    "SALMON-pages-2367",
+    "SALMON-pages-2354"
+   ]
+  },
+  "127be41afafd2c17c6dfa056acf8392c173fbf5bfbdc23a408e30203372f08a2": {
+   "src": "/media/salmon/127be41afafd2c17c6dfa056acf8392c173fbf5bfbdc23a408e30203372f08a2.png",
+   "bytes": 11695,
+   "routes": [
+    "SALMON-pages-1353",
+    "SALMON-pages-2362",
+    "SALMON-pages-2349",
+    "SALMON-pages-2385",
+    "SALMON-pages-2344",
+    "SALMON-pages-2372",
+    "SALMON-pages-2380",
+    "SALMON-pages-2288",
+    "SALMON-pages-2301",
+    "SALMON-pages-2496",
+    "SALMON-pages-2306",
+    "SALMON-pages-2390",
+    "SALMON-pages-2367",
+    "SALMON-pages-2354",
+    "SALMON-pages-2311",
+    "SALMON-pages-2395",
+    "SALMON-pages-2483",
+    "SALMON-pages-2336",
+    "SALMON-pages-2488",
+    "SALMON-pages-2328",
+    "SALMON-pages-2293",
+    "SALMON-pages-2319",
+    "SALMON-pages-1903"
+   ]
+  },
+  "0df45fd808329dfff3c2c7aabe5e90a1d8b15f5f1be13329da3b25c5e346e326": {
+   "src": "/media/salmon/0df45fd808329dfff3c2c7aabe5e90a1d8b15f5f1be13329da3b25c5e346e326.png",
+   "bytes": 6371,
+   "routes": [
+    "SALMON-pages-1353",
+    "SALMON-pages-2395"
+   ]
+  },
+  "eaa383932423fc89fbffcbc325458c6af22e22fc4d4a9d7d37a9cc23b5a75bde": {
+   "src": "/media/salmon/eaa383932423fc89fbffcbc325458c6af22e22fc4d4a9d7d37a9cc23b5a75bde.png",
+   "bytes": 10930,
+   "routes": [
+    "SALMON-pages-1353",
+    "SALMON-pages-2496",
+    "SALMON-pages-2311"
+   ]
+  },
+  "3cb203b41153380ced840fc208a96adea2ff30168c446369787cae6ac7cebe36": {
+   "src": "/media/salmon/3cb203b41153380ced840fc208a96adea2ff30168c446369787cae6ac7cebe36.jpg",
+   "bytes": 2756,
+   "routes": [
+    "SALMON-pages-1353",
+    "SALMON-pages-2306"
+   ]
+  },
+  "96d878cd321341549182f8a38bfebb0dd5f1cc686fcfd428e5eba0cd2051590e": {
+   "src": "/media/salmon/96d878cd321341549182f8a38bfebb0dd5f1cc686fcfd428e5eba0cd2051590e.png",
+   "bytes": 18460,
+   "routes": [
+    "SALMON-pages-1353",
+    "SALMON-pages-2293"
+   ]
+  },
+  "583cea3c56dd68022c628512cda7240e29860cec19e1534eeda270a56316f5d0": {
+   "src": "/media/salmon/583cea3c56dd68022c628512cda7240e29860cec19e1534eeda270a56316f5d0.png",
+   "bytes": 482083,
+   "routes": [
+    "SALMON-pages-1353",
+    "SALMON-pages-2288"
+   ]
+  },
+  "52ed44a2d2cbe18983e6845635c6ff5164f0c64e11b734dea3845a5a8af617b3": {
+   "src": "/media/salmon/52ed44a2d2cbe18983e6845635c6ff5164f0c64e11b734dea3845a5a8af617b3.png",
+   "bytes": 3302,
+   "routes": [
+    "SALMON-pages-1353",
+    "SALMON-pages-1903"
+   ]
+  },
+  "f4d74fbcc5bd55e1c9cdce215db650ce225e09b7f0c4e229031b85e9335d0b38": {
+   "src": "/media/salmon/f4d74fbcc5bd55e1c9cdce215db650ce225e09b7f0c4e229031b85e9335d0b38.png",
+   "bytes": 3879,
+   "routes": [
+    "SALMON-pages-1353",
+    "SALMON-pages-2362",
+    "SALMON-pages-2349",
+    "SALMON-pages-2385",
+    "SALMON-pages-2344",
+    "SALMON-pages-2372",
+    "SALMON-pages-2380",
+    "SALMON-pages-2288",
+    "SALMON-pages-2301",
+    "SALMON-pages-2496",
+    "SALMON-pages-2306",
+    "SALMON-pages-2390",
+    "SALMON-pages-2367",
+    "SALMON-pages-2354",
+    "SALMON-pages-2311",
+    "SALMON-pages-2395",
+    "SALMON-pages-2483",
+    "SALMON-pages-2336",
+    "SALMON-pages-2488",
+    "SALMON-pages-2328",
+    "SALMON-pages-2293",
+    "SALMON-pages-2319",
+    "SALMON-pages-1903"
+   ]
+  }
+ }
+}

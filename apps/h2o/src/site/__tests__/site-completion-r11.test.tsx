@@ -18,7 +18,8 @@ describe('site completion R1.1 boundaries',()=>{
     expect(footer).toContain('salmon-parity-footer')
     expect(footer).toContain('a8f4b38d0f7ede838b277c9bcd00a3b75a268ce23a5fccfb86ec263774e3b844.png')
     expect(footer).not.toContain('c0060d855e27dfa01cb59100bba1dd217e2e6796d995aaa0e4ef4fa73d9b006c.png')
-    for(const label of ['Company','Towers &amp; services','Parts','Resources','Contact','Privacy Policy',...contactOffices.map(office=>office.telephoneDisplay)])expect(footer).toContain(label)
+    // SALMON_FULL_PAGE_VISUAL_PARITY_REMEDIATION_R1: Salmon block hierarchy replaces the R1.1 column labels.
+    for(const label of ['About ICS','Useful Links','Towers &amp; Services','Product Category','Phone','Privacy Policy',...contactOffices.map(office=>office.telephoneDisplay)])expect(footer).toContain(label)
     expect(footer).not.toContain('+66-2-260-6598')
   })
   it('removes only the misleading Air Coolers hero photograph',()=>{
