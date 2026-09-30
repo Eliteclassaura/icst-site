@@ -3,6 +3,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {RfqMount} from './RfqMount'
+import {isPayloadContent,requestServices,snapshotJson} from '../content/runtime-read'
 
 export type EnglishService = {
   id:string;path:string;figmaNode:string;title:string;eyebrow:string;lead:string
@@ -18,7 +19,8 @@ export type EnglishService = {
 
 const contentFile=path.join(process.cwd(),'content/english-completion/service-pages.json')
 export function englishServicePages():EnglishService[]{
-  const pages=JSON.parse(readFileSync(contentFile,'utf8')) as EnglishService[]
+  // Content bridge seam: payload content mode reads the published snapshot; a previewed service is injected.
+  const pages=isPayloadContent()?snapshotJson<EnglishService[]>('english-services.json').map(page=>(requestServices().get(page.id) as EnglishService|undefined)??page):JSON.parse(readFileSync(contentFile,'utf8')) as EnglishService[]
   if(pages.length!==6||new Set(pages.map(page=>page.path)).size!==6)throw new Error('Six distinct English service destinations required')
   return pages
 }

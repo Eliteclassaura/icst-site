@@ -2,6 +2,7 @@ import {createHash} from 'node:crypto'
 import {existsSync,readFileSync} from 'node:fs'
 import path from 'node:path'
 import {releaseRoutes,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
+import {isPayloadContent,releaseLedger} from '../content/runtime-read'
 
 const ledgerPath=path.join(process.cwd(),'content/wave4/H2O_WAVE4_SALMON_ARTICLE_RECONCILIATION_R1.tsv')
 const ledgerSha256='3ee3016d5fc1b2d7e32ad2502bcdde50e9e1813c0eeae04035aa47ad47a4ad49'
@@ -38,7 +39,9 @@ export function matchedWave4Articles():MatchedArticle[]{
 export function matchedWave4Article(doc:SalmonDocument):MatchedArticle|undefined{return matchedWave4Articles().find(row=>row.routeId===doc.routeId&&row.path===doc.targetPath)}
 export function matchedWave4Documents():SalmonDocument[]{
   const routeById=new Map(salmonRoutes().map(route=>[route.routeId,route]))
-  return matchedWave4Articles().map(row=>{
+  // Payload runtime (R1B): a matched article an editor has withdrawn is simply absent from the published set.
+  const rows=isPayloadContent()?matchedWave4Articles().filter(row=>routeById.has(row.routeId)):matchedWave4Articles()
+  return rows.map(row=>{
     const route=routeById.get(row.routeId)
     if(!route||route.targetPath!==row.path)throw new Error(`Wave 4 matched route absent: ${row.routeId}`)
     return salmonDocument(route)
@@ -48,7 +51,7 @@ export function matchedWave4Documents():SalmonDocument[]{
 type ArticleReleaseRow={path:string;routeId:string;routeClass:string;state:string;export:boolean;indexable:boolean}
 /** One reader-facing directory, preserving existing matched/live order and the authorized retrofit addition. */
 export function articleDirectoryDocuments():Array<{doc:SalmonDocument;indexable:boolean}>{
-  const release=JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as {routes:ArticleReleaseRow[]}
+  const release=releaseLedger() as {routes:ArticleReleaseRow[]}
   const byPath=new Map(release.routes.filter(row=>row.routeClass==='posts').map(row=>[row.path,row]))
   const current=[...matchedWave4Documents(),...releaseRoutes().filter(route=>route.routeId.startsWith('LIVE-posts-')&&route.targetPath!=='/hello-world-2/').map(salmonDocument)]
   const retrofit=releaseRoutes().find(route=>route.targetPath==='/cooling-tower-retrofit-guide-upgrading-old-towers/')

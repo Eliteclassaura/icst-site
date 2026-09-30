@@ -34,6 +34,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { scriptHashesFor } from './site/csp-hashes'
 import { xRobotsTagForPath } from './site/robots'
 import { mergeTypeformCsp } from './conversion/csp'
+import { isPayloadContent, snapshotJson } from './content/runtime-read'
 
 const EXCLUDED = /^\/(api|admin|_next|favicon\.ico|robots\.txt|sitemap[^/]*\.xml|brand)(\/|$)/
 
@@ -135,7 +136,117 @@ function crmResponse(req: NextRequest): NextResponse {
   return res
 }
 
+/**
+ * Payload runtime public surface (H2O_CONTENT_SOURCE=payload). Public pages are rendered per request from
+ * Payload's published state, so the immutable inline-hash registry (built from prerendered bytes) cannot
+ * describe them. They get a per-request nonce with `'strict-dynamic'` instead — never `'unsafe-inline'` for
+ * scripts, never a wildcard origin — plus the accepted Typeform `frame-src` allowance, merged by the same
+ * adapter as the static policy. `/search/` and its `/pagefind/` worker additionally allow `'wasm-unsafe-eval'`
+ * (Pagefind's WebAssembly matcher); nothing else gets it.
+ *
+ * Redirects come from the published snapshot (Payload `public-redirects`), not from build-time JSON, so a
+ * reviewed redirect change takes effect without a redeploy. The sitemap and robots.txt are served from the
+ * published state too. A draft-mode (preview) request is `private, no-store` and noindex; the page itself
+ * re-checks that the viewer is an editorial user.
+ */
+export const payloadPublicPolicy = (nonce: string, pathname: string): string => {
+  // Pagefind compiles its WebAssembly matcher in the search page and in its worker (whose own response CSP
+  // applies), so exactly /search/ and the /pagefind/ assets get 'wasm-unsafe-eval'.
+  const wasm = pathname === '/search/' || pathname.startsWith('/pagefind/') ? " 'wasm-unsafe-eval'" : ''
+  const base = [
+    "default-src 'self'",
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${wasm}`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data:",
+    "font-src 'self'",
+    "connect-src 'self'",
+    "manifest-src 'self'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+    'upgrade-insecure-requests',
+  ].join('; ')
+  const merged = mergeTypeformCsp(base)
+  return merged.ok ? merged.policy : base
+}
+
+type Ledger = { routes: Array<{ path: string; indexable?: boolean; state: string; sitemap?: boolean; canonical?: string | null }>; redirects: Array<{ source: string; destination: string; status: number }> }
+const pathKeyOf = (p: string) => {
+  try {
+    return decodeURIComponent(p)
+  } catch {
+    return p
+  }
+}
+function publishedLedger(): Ledger | null {
+  try {
+    return snapshotJson<Ledger>('ledger.json')
+  } catch {
+    return null
+  }
+}
+
+const xmlEscape = (v: string) => v.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;')
+/**
+ * /sitemap.xml from the published ledger: only published, PUBLIC, approved-`sitemap` routes, and only under
+ * the production indexing policy. Private surfaces (staging, previews) publish an empty sitemap.
+ */
+export function sitemapResponse(revoked: ReadonlySet<string> = new Set()): NextResponse {
+  const ledger = publishedLedger()
+  if (!ledger) return new NextResponse('Sitemap unavailable', { status: 503, headers: { 'Cache-Control': 'no-store' } })
+  const production = process.env.H2O_INDEXING_POLICY === 'production'
+  const urls = production ? ledger.routes.filter((r) => r.state === 'PUBLIC' && r.sitemap && !revoked.has(r.path)).map((r) => r.canonical || `https://h2ocooling.com${r.path}`) : []
+  const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${xmlEscape(u)}</loc></url>`).join('\n')}${urls.length ? '\n' : ''}</urlset>\n`
+  return new NextResponse(body, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'no-cache', 'X-Robots-Tag': 'noindex' } })
+}
+/** /robots.txt: private policy disallows everything; production policy is the accepted release robots. */
+export function robotsResponse(): NextResponse {
+  const production = process.env.H2O_INDEXING_POLICY === 'production'
+  const body = production
+    ? 'User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /api/\nDisallow: /crm/\nDisallow: /private/\nSitemap: https://h2ocooling.com/sitemap.xml\n'
+    : 'User-agent: *\nDisallow: /\n'
+  return new NextResponse(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache' } })
+}
+
+function payloadPublic(req: NextRequest): NextResponse {
+  const pathname = req.nextUrl.pathname
+  // R1B: /sitemap.xml is answered by an internal route handler (it subtracts withdrawals the release does not
+  // reflect yet, which needs the database); the proxy rewrites to it.
+  if (pathname === '/sitemap.xml') return NextResponse.rewrite(new URL('/api/public-sitemap/', req.url))
+  if (pathname === '/robots.txt') return robotsResponse()
+  if (EXCLUDED.test(pathname)) return NextResponse.next()
+  if (CRM_PATH.test(pathname)) return crmResponse(req)
+  const ledger = publishedLedger()
+  const redirect = ledger?.redirects.find((r) => pathKeyOf(r.source) === pathKeyOf(pathname))
+  if (redirect) {
+    const target = req.nextUrl.clone()
+    target.pathname = redirect.destination
+    return NextResponse.redirect(target, redirect.status === 301 ? 301 : 308)
+  }
+  const nonce = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('base64')
+  const csp = payloadPublicPolicy(nonce, pathname)
+  const requestHeaders = new Headers(req.headers)
+  requestHeaders.set('x-nonce', nonce)
+  requestHeaders.set('Content-Security-Policy', csp)
+  const preview = req.cookies.has('__prerender_bypass')
+  const production = process.env.H2O_INDEXING_POLICY === 'production'
+  const row = ledger?.routes.find((r) => pathKeyOf(r.path) === pathKeyOf(pathname))
+  const robots = !preview && production && row?.state === 'PUBLIC' && row.indexable ? null : 'noindex, nofollow'
+  if (pathname === '/' && req.nextUrl.searchParams.has('s')) {
+    const target = req.nextUrl.clone()
+    target.pathname = '/search/'
+    target.search = ''
+    target.searchParams.set('q', req.nextUrl.searchParams.get('s') ?? '')
+    return securityHeaders(NextResponse.redirect(target, 307), csp, robots)
+  }
+  const res = securityHeaders(NextResponse.next({ request: { headers: requestHeaders } }), csp, robots)
+  if (preview) res.headers.set('Cache-Control', 'private, no-store')
+  return res
+}
+
 export function proxy(req: NextRequest): NextResponse {
+  if (isPayloadContent()) return payloadPublic(req)
   if (EXCLUDED.test(req.nextUrl.pathname)) return NextResponse.next()
   if (CRM_PATH.test(req.nextUrl.pathname)) return crmResponse(req)
 

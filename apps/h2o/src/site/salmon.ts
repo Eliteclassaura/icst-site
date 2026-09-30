@@ -3,6 +3,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {contactOffices} from './contact'
 import {publicReleaseDocument} from './release-document'
+import {isPayloadContent,requestDocuments,snapshotFile,snapshotJson} from '../content/runtime-read'
 export type SalmonNode = string | {tag:string;attrs:Record<string,string>;children:SalmonNode[]}
 export type SalmonRoute = {routeId:string;sourceUrl:string;targetPath:string;file:string;sha256:string}
 export type SalmonDocument = {
@@ -15,8 +16,11 @@ export type SalmonDocument = {
 export type SalmonMedia = {url:string;state:string;file?:string;sha256?:string;width?:number;height?:number}
 const root=path.join(process.cwd(),'content/salmon')
 const read=<T,>(file:string):T=>JSON.parse(readFileSync(path.join(root,file),'utf8')) as T
-export const salmonRoutes=():SalmonRoute[]=>read('active-routes.json')
-export const liveRoutes=():SalmonRoute[]=>read('r2-live-routes.json')
+// Content bridge seam: in payload content mode the route lists and page documents come from the promoted
+// published snapshot of Payload (see src/content/snapshot.ts); media identities and owner authorities stay
+// repository authorities. Repository mode is unchanged.
+export const salmonRoutes=():SalmonRoute[]=>isPayloadContent()?snapshotJson<SalmonRoute[]>('routes.salmon.json'):read('active-routes.json')
+export const liveRoutes=():SalmonRoute[]=>isPayloadContent()?snapshotJson<SalmonRoute[]>('routes.live.json'):read('r2-live-routes.json')
 export const releaseRoutes=():SalmonRoute[]=>[...salmonRoutes(),...liveRoutes()]
 export const salmonRedirects=():Array<{source:string;destination:string}>=>read('redirects.json')
 export const salmonPathKey=(value:string):string=>decodeURIComponent(value)
@@ -26,11 +30,19 @@ export const salmonRouteFor=(segments:string[]=[]):SalmonRoute|null=>{
 }
 export const releaseRouteFor=(segments:string[]=[]):SalmonRoute|null=>{
   const wanted=salmonPathKey(segments.length?`/${segments.join('/')}/`:'/')
+  if(isPayloadContent()){
+    // The page being rendered was resolved from Payload for this request (published or previewed draft).
+    for(const doc of requestDocuments().values()){const d=doc as SalmonDocument;if(salmonPathKey(d.targetPath)===wanted)return {routeId:d.routeId,sourceUrl:d.sourceUrl,targetPath:d.targetPath,file:`documents/${d.routeId}.json`,sha256:''}}
+  }
   return releaseRoutes().find(r=>salmonPathKey(r.targetPath)===wanted)??null
 }
 export const salmonDocument=(route:SalmonRoute):SalmonDocument=>{
-  if(!/^documents\/SALMON-[a-zA-Z0-9_-]+\.json$/.test(route.file))throw new Error('Unsafe canonical document path')
-  const bytes=readFileSync(path.join(root,route.file))
+  if(isPayloadContent()){
+    const injected=requestDocuments().get(route.routeId) as SalmonDocument|undefined
+    if(injected)return publicReleaseDocument(injected)
+  }
+  if(!(isPayloadContent()?/^documents\/(?:SALMON|LIVE)-[a-zA-Z0-9_-]+\.json$/:/^documents\/SALMON-[a-zA-Z0-9_-]+\.json$/).test(route.file))throw new Error('Unsafe canonical document path')
+  const bytes=isPayloadContent()?snapshotFile(route.file):readFileSync(path.join(root,route.file))
   if(createHash('sha256').update(bytes).digest('hex')!==route.sha256)throw new Error('Salmon source identity mismatch')
   const doc=JSON.parse(bytes.toString()) as SalmonDocument
   if(doc.routeId!==route.routeId||doc.sourceUrl!==route.sourceUrl)throw new Error('Salmon route identity mismatch')

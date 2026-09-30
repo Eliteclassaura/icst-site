@@ -24,5 +24,5 @@ const config = mergeConfig(
 )
 
 // mergeConfig concatenates arrays; the DB gate must run only its own files, so `include` is replaced.
-config.test = { ...config.test, include: ['src/crm/__dbtests__/**/*.dbtest.ts'] }
+config.test = { ...config.test, include: ['src/crm/__dbtests__/**/*.dbtest.ts', 'src/content/__dbtests__/**/*.dbtest.ts'] }
 export default config

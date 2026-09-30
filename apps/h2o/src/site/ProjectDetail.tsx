@@ -1,3 +1,5 @@
+import {RfqMount} from './RfqMount'
+import {isPayloadContent} from '../content/runtime-read'
 import {renderSalmonNode} from './SalmonCanonical'
 import type {SalmonDocument,SalmonNode} from './salmon'
 
@@ -28,6 +30,6 @@ export function ProjectDetail({doc}:{doc:SalmonDocument}){
       <section className="project-detail-description" aria-label="Project description">{before.map(render)}</section>
       <aside className="project-detail-record" aria-label="Project record">{after.map(render)}</aside>
     </div>
-    <nav className="project-detail-next" aria-label="Project and enquiry links"><a href="/all-projects/">View all projects <span aria-hidden="true">↗</span></a><a href="/contact-us/">Request a Quote <span aria-hidden="true">↗</span></a></nav>
+    <nav className="project-detail-next" aria-label="Project and enquiry links"><a href="/all-projects/">View all projects <span aria-hidden="true">↗</span></a>{isPayloadContent()?<span className="project-detail-quote" data-rfq-decision="D4"><RfqMount mountId="editorial_inline" routePath={doc.targetPath} label="Request a Quote"/></span>:<a href="/contact-us/">Request a Quote <span aria-hidden="true">↗</span></a>}</nav>
   </main>
 }

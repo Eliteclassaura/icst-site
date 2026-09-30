@@ -24,9 +24,14 @@ import { Manufacturers } from './collections/manufacturers'
 import { catalogCollections } from './collections/index'
 import { crmCollections } from './crm/index'
 import { crmAdminComponents } from './crm/admin/config'
+import { PublicRoutes } from './content/collections/public-routes'
+import { PublicRedirects } from './content/collections/public-redirects'
+import { jobsConfig, PublicationState } from './content/jobs'
+import { SiteChromeGlobal } from './content/site-chrome'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
-const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3200'
+// No default origin: a deployable manifest must state its public origin (see RUNTIME_VARIABLES.md).
+const serverURL = requireEnv('NEXT_PUBLIC_SERVER_URL')
 
 /**
  * Required configuration fails closed.
@@ -116,6 +121,9 @@ const mediaDir = process.env.MEDIA_DIR || path.resolve(dirname, '../media')
 
 const collections: CollectionConfig[] = [
   ...foundationCollections.map((c) => {
+    // R1B (Control Tower C5): `public-routes` is the single public page authority on H2O. The foundation
+    // `pages` collection (empty here) stays registered for schema compatibility but is hidden and not writable.
+    if (c.slug === 'pages') return { ...c, admin: { ...c.admin, hidden: true }, access: { ...c.access, create: () => false, update: () => false } }
     if (c.slug !== 'media') return c
     if (!c.upload || typeof c.upload !== 'object') return c
     return { ...c, upload: { ...c.upload, staticDir: mediaDir } }
@@ -124,6 +132,9 @@ const collections: CollectionConfig[] = [
   ...catalogCollections(mediaDir),
   // CRM-1 (H2O-local, private). Registered after the catalog because RFQ items relate to `products`.
   ...crmCollections,
+  // Runtime content bridge: the public website's pages and redirects, Payload-managed (drafts/versions).
+  PublicRoutes,
+  PublicRedirects,
 ]
 
 export default buildConfig({
@@ -140,6 +151,9 @@ export default buildConfig({
     components: crmAdminComponents,
   },
   collections,
+  globals: [PublicationState, SiteChromeGlobal],
+  // One publishing/indexing queue and runner (see src/content/jobs.ts). No email or other queue.
+  jobs: jobsConfig,
   // The frozen contract marks the product and family narrative and SEO groups `localized`. Declaring a
   // single locale now creates the localized column shape; adding a second locale later is then a
   // configuration change rather than a schema rebuild. The catalog is monolingual today — zero products

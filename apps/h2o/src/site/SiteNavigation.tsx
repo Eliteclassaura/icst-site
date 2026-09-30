@@ -3,26 +3,13 @@
 import {useEffect,useRef,useState,type ReactNode} from 'react'
 import {usePathname} from 'next/navigation'
 
-export const siteNavigation=[
-  {label:'Cooling Towers',href:'/cooling-tower/',items:[['New Cooling Towers','/cooling-tower/'],['Cooling Tower Replacement','/cooling-tower-replacement/'],['Thermal Upgrade','/thermal-upgrade/']]},
-  {label:'Services',items:[['Repair & Maintenance','/cooling-tower-maintenance-repair-upgrade/'],['Disaster Recovery','/disaster-recovery/'],['Dry Soda Blasting','/dry-soda-blasting/'],['Air Coolers','/air-coolers/']]},
-  {label:'Parts',href:'/cooling-tower-parts-online/'},
-  {label:'Projects',href:'/all-projects/'},
-  {label:'Resources',items:[['Resources','/resources/'],['Technical Articles','/tech-articles/'],['Brochures','/cooling-tower-brochures/'],['Search','/search/']]},
-  {label:'Company',items:[['About ICS','/about-ics-industrial-cooling-solutions/'],['Contact Us','/contact-us/']]},
-] as const
-export const salmonNavigation=[
-  {label:'New Towers',href:'/cooling-tower/',items:[['New Cooling Towers','/cooling-tower/'],['Cooling Tower Replacement','/cooling-tower-replacement/'],['Thermal Upgrade','/thermal-upgrade/']]},
-  {label:'Services',href:'/cooling-tower-maintenance-repair-upgrade/',items:[['All repair and maintenance','/cooling-tower-maintenance-repair-upgrade/'],['Crossflow towers','/crossflow-cooling-tower-repair-maintenance/'],['Counterflow towers','/counterflow-cooling-tower-repair-maintenance/'],['Wet, hybrid and dry towers','/wet-hybrid-dry-cooling-tower-repair/'],['Low drift solutions','/low-drift-cooling-tower-solutions/'],['Emergency repair','/emergency-cooling-tower-repair/'],['Rebuilds and new towers','/cooling-tower-rebuilds-new-towers/'],['Disaster Recovery','/disaster-recovery/'],['Dry Soda Blasting','/dry-soda-blasting/']],sections:[{label:'By tower type',items:[['Crossflow towers','/crossflow-cooling-tower-repair-maintenance/'],['Counterflow towers','/counterflow-cooling-tower-repair-maintenance/'],['Wet, hybrid and dry towers','/wet-hybrid-dry-cooling-tower-repair/']]},{label:'Specialist work',items:[['Low drift solutions','/low-drift-cooling-tower-solutions/'],['Emergency repair','/emergency-cooling-tower-repair/'],['Rebuilds and new towers','/cooling-tower-rebuilds-new-towers/']]},{label:'Recovery & cleaning',items:[['Disaster Recovery','/disaster-recovery/'],['Dry Soda Blasting','/dry-soda-blasting/']]}]},
-  {label:'Air Coolers',href:'/air-coolers/'},
-  {label:'Parts',href:'/cooling-tower-parts-online/',items:[['All cooling tower parts','/cooling-tower-parts-online/'],['Fan stacks','/cooling-tower-fan-stacks/'],['Fans','/fans/'],['Fill media','/fill-media/'],['Drive shafts','/drive-shafts-assembles/'],['Gear boxes','/gear-box/'],['Motors','/motors/'],['Nozzles','/nozzles/'],['FRP members','/frp-members/'],['Tower hardware','/tower-hardware/']]},
-  {label:'Projects',href:'/all-projects/'},
-  {label:'Resources',href:'/resources/',items:[['Resources library','/resources/'],['Technical Articles','/tech-articles/'],['Brochures','/cooling-tower-brochures/'],['Tools','/cooling-tower-resources/tools/'],['Search','/search/']]},
-  {label:'About',href:'/about-ics-industrial-cooling-solutions/',items:[['About ICS','/about-ics-industrial-cooling-solutions/'],['Contact Us','/contact-us/']]},
-] as const
+import {salmonNavigation,siteNavigation} from './navigation-data'
+export {salmonNavigation,siteNavigation} from './navigation-data'
+/** A navigation group as rendered: code-defined defaults, or the published `site-chrome` content (R1B). */
+export type NavigationGroup={label:string;href?:string;items?:ReadonlyArray<readonly [string,string]>;sections?:ReadonlyArray<{label:string;items:ReadonlyArray<readonly [string,string]>}>}
 
-export function SiteNavigation({mobileQuote,salmonParity=false}:{mobileQuote:ReactNode;salmonParity?:boolean}){
-  const groups=salmonParity?salmonNavigation:siteNavigation
+export function SiteNavigation({mobileQuote,salmonParity=false,groups:contentGroups}:{mobileQuote:ReactNode;salmonParity?:boolean;groups?:ReadonlyArray<NavigationGroup>}){
+  const groups:ReadonlyArray<NavigationGroup>=contentGroups??(salmonParity?salmonNavigation:siteNavigation)
   const pathname=usePathname()
   const [open,setOpen]=useState<string|null>(null)
   const [mobileOpen,setMobileOpen]=useState(false)
@@ -44,9 +31,9 @@ export function SiteNavigation({mobileQuote,salmonParity=false}:{mobileQuote:Rea
   return <>
     <nav ref={desktopNav} className="lux-desktop-nav site-nav" aria-label="Primary">
       {groups.map((group,index)=><div className={`site-nav-group${group.label==='Services'?' site-nav-group-services':''}${group.label==='Parts'?' site-nav-group-parts':''}`} key={group.label}>
-        {'href' in group?<a className="site-nav-direct" href={group.href} aria-current={pathname===group.href?'page':undefined}>{group.label}</a>:null}
-        {'items' in group?<><button type="button" ref={node=>{triggers.current[group.label]=node}} className="site-nav-trigger" aria-label={'href' in group?`Open ${group.label} menu`:group.label} aria-expanded={open===group.label} aria-controls={`site-nav-panel-${index}`} onClick={()=>setOpen(open===group.label?null:group.label)}>{'href' in group?null:group.label}<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="m2 4 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg></button>
-          <div id={`site-nav-panel-${index}`} className="site-nav-panel" hidden={open!==group.label}><span className="site-nav-panel-label">{group.label}</span>{'sections' in group?<><a className="site-nav-panel-hub" href={group.href}>All repair and maintenance</a><div className="site-nav-panel-sections">{group.sections.map(section=><div key={section.label}><span className="site-nav-section-label">{section.label}</span>{section.items.map(([label,href])=><a href={href} key={href}>{label}</a>)}</div>)}</div></>:group.items.map(([label,href])=><a href={href} key={href}>{label}</a>)}</div></>:null}
+        {group.href?<a className="site-nav-direct" href={group.href} aria-current={pathname===group.href?'page':undefined}>{group.label}</a>:null}
+        {group.items?<><button type="button" ref={node=>{triggers.current[group.label]=node}} className="site-nav-trigger" aria-label={group.href?`Open ${group.label} menu`:group.label} aria-expanded={open===group.label} aria-controls={`site-nav-panel-${index}`} onClick={()=>setOpen(open===group.label?null:group.label)}>{group.href?null:group.label}<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="m2 4 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg></button>
+          <div id={`site-nav-panel-${index}`} className="site-nav-panel" hidden={open!==group.label}><span className="site-nav-panel-label">{group.label}</span>{group.sections?<><a className="site-nav-panel-hub" href={group.href}>All repair and maintenance</a><div className="site-nav-panel-sections">{group.sections.map(section=><div key={section.label}><span className="site-nav-section-label">{section.label}</span>{section.items.map(([label,href])=><a href={href} key={href}>{label}</a>)}</div>)}</div></>:group.items.map(([label,href])=><a href={href} key={href}>{label}</a>)}</div></>:null}
       </div>)}
       <a className="site-nav-search" href="/search/" aria-label="Search the ICS site"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" fill="none" stroke="currentColor" strokeWidth="1.8"/><path d="m16 16 5 5" fill="none" stroke="currentColor" strokeWidth="1.8"/></svg><span className="sr-only">Search</span></a>
     </nav>
@@ -54,7 +41,7 @@ export function SiteNavigation({mobileQuote,salmonParity=false}:{mobileQuote:Rea
       <button ref={mobileToggle} className="site-mobile-toggle" type="button" aria-expanded={mobileOpen} aria-controls="site-mobile-panel" aria-label={mobileOpen?'Close navigation':'Open navigation'} onClick={()=>setMobileOpen(!mobileOpen)}><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d={mobileOpen?'M5 5 19 19M19 5 5 19':'M3 6h18M3 12h18M3 18h18'} fill="none" stroke="currentColor" strokeWidth="2"/></svg></button>
       <nav id="site-mobile-panel" className="site-mobile-panel" aria-label="Mobile" hidden={!mobileOpen}>
         <form className="site-mobile-search-form" action="/search/" role="search"><label className="sr-only" htmlFor="mobile-navigation-search">Search the ICS site</label><input id="mobile-navigation-search" type="search" name="q" placeholder="Search the site" required maxLength={200}/><button type="submit">Search</button></form>
-        {groups.map(group=><div className="site-mobile-group" key={group.label}>{'items' in group?<details><summary>{group.label}</summary><div className="site-mobile-group-links">{group.items.map(([label,href])=><a href={href} key={href}>{label}</a>)}</div></details>:<a href={group.href}>{group.label}</a>}</div>)}
+        {groups.map(group=><div className="site-mobile-group" key={group.label}>{group.items?<details><summary>{group.label}</summary><div className="site-mobile-group-links">{group.items.map(([label,href])=><a href={href} key={href}>{label}</a>)}</div></details>:<a href={group.href}>{group.label}</a>}</div>)}
         <div className="site-mobile-quote">{mobileQuote}</div>
         <a className="site-mobile-contact" href="/contact-us/">Contact us</a>
       </nav>

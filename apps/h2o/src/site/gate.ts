@@ -35,6 +35,7 @@
  */
 import { cohort, type CohortPage } from './cohort'
 import {readFileSync} from 'node:fs'
+import {isPayloadContent,releaseLedger,requestEditorialRoutes} from '../content/runtime-read'
 import path from 'node:path'
 import { mountAppliesToRoute } from './mounts'
 import { stagingNavigationAuthorized, stagingValidationReady } from './staging'
@@ -178,8 +179,23 @@ export type PublicReleaseRoute = {
   path:string;state:string;export:boolean;redirect:unknown;routeClass:string
 }
 export type PublicMountId = 'header_action'|'footer_rfq_band'|'editorial_inline'|'rfq_page'
+/**
+ * R1B.1: add published editor-created pages (family `editorial`, validated address) to the release routes the
+ * public gate reads. A path the release already lists as PUBLIC is left as it is; a path the release lists
+ * otherwise (held, redirect, withdrawn) is never overridden — only an address the release does not know yet.
+ */
+export const mergeEditorialRoutes=(routes:PublicReleaseRoute[],editorial:PublicReleaseRoute[]):PublicReleaseRoute[]=>{
+  const extra=editorial.filter(e=>e.routeClass==='editorial'&&!routes.some(r=>r.path===e.path))
+  return extra.length?[...routes,...extra]:routes
+}
 let publicRoutesCache:PublicReleaseRoute[]|null=null
 const publicRoutes=():PublicReleaseRoute[]=>{
+  // Content bridge seam: payload content mode follows the current published ledger (cached per generation).
+  if(isPayloadContent()){
+    const routes=(releaseLedger() as {routes:PublicReleaseRoute[]}).routes
+    // R1B.1: a published editor-created page rendered in this request (see runtime-read `markPublishedEditorial`).
+    return mergeEditorialRoutes(routes,requestEditorialRoutes())
+  }
   if(publicRoutesCache===null){
     const file=path.join(process.cwd(),'content/release/route-ledger.json')
     publicRoutesCache=(JSON.parse(readFileSync(file,'utf8')) as {routes:PublicReleaseRoute[]}).routes
@@ -212,6 +228,39 @@ export const publicMountGate=(
   const config=resolveTypeformConfig({H2O_TYPEFORM_FORM_ID:env.H2O_TYPEFORM_FORM_ID,H2O_TYPEFORM_ORIGIN:env.H2O_TYPEFORM_ORIGIN})
   if(!config.ok)return {mounted:false,reason:'CONFIGURATION_UNRESOLVED'}
   return {mounted:true,formUrl:`${config.value.origin}/to/${config.value.formId}`,origin:config.value.origin,reason:'MOUNTED'}
+}
+
+/**
+ * D1 (Control Tower 2026-09-30, owner-authorised): `category_and_family`, the one bounded extension of the public
+ * placements. It opens ONLY on an exported PUBLIC listing/family page (the nine Parts family landings, or a
+ * `product_cat` route), ONLY for a product card whose destination is exactly a PUBLIC, identity-valid product
+ * of the active cohort, and ONLY with the approved configuration. Every other public gate rule is unchanged.
+ * Context (product_slug/product_id) is derived here from the product record, never typed by content.
+ */
+export const CATEGORY_AND_FAMILY_PAGES=new Set(['/cooling-tower-fan-stacks/','/drive-shafts-assembles/','/fans/','/fill-media/','/frp-members/','/gear-box/','/motors/','/nozzles/','/tower-hardware/'])
+export type CardProductGate=MountGate&{productSlug?:string;productId?:string}
+export const categoryAndFamilyGate=(
+  routePath:string,
+  product:SalmonDocument|null,
+  cardHref:string,
+  options:{env?:Record<string,string|undefined>;routes?:PublicReleaseRoute[]}={},
+):CardProductGate=>{
+  const routes=options.routes??publicRoutes()
+  if(!publicReleaseReady(routePath,routes))return {mounted:false,reason:'ROUTE_NOT_PUBLIC_EXPORT'}
+  const row=routes.find(candidate=>candidate.path===routePath)
+  if(!CATEGORY_AND_FAMILY_PAGES.has(routePath)&&row?.routeClass!=='product_cat')return {mounted:false,reason:'MOUNT_NOT_AUTHORIZED_FOR_PUBLIC'}
+  if(!product)return {mounted:false,reason:'ROUTE_NOT_IN_COHORT'}
+  if(!publicReleaseReady(product.targetPath,routes))return {mounted:false,reason:'ROUTE_NOT_IN_COHORT'}
+  let cardPath:string
+  try{cardPath=new URL(cardHref,product.sourceUrl||'https://h2ocooling.com/').pathname}catch{cardPath=''}
+  if(decodeURIComponent(cardPath)!==decodeURIComponent(product.targetPath))return {mounted:false,reason:'ROUTE_NOT_IN_COHORT'}
+  const slug=productSlug(product),id=product.routeId.split('-').at(-1)
+  if(!productIdentityValid(product)||!slug||!id||!/^[0-9]+$/.test(id))return {mounted:false,reason:'ROUTE_NOT_IN_COHORT'}
+  if(!publicReleaseReady(RFQ_FALLBACK_PATH,routes))return {mounted:false,reason:'FALLBACK_ROUTE_NOT_PUBLIC_EXPORT'}
+  const env=options.env??process.env
+  const config=resolveTypeformConfig({H2O_TYPEFORM_FORM_ID:env.H2O_TYPEFORM_FORM_ID,H2O_TYPEFORM_ORIGIN:env.H2O_TYPEFORM_ORIGIN})
+  if(!config.ok)return {mounted:false,reason:'CONFIGURATION_UNRESOLVED'}
+  return {mounted:true,formUrl:`${config.value.origin}/to/${config.value.formId}`,origin:config.value.origin,reason:'MOUNTED',productSlug:slug,productId:id}
 }
 
 /**

@@ -1,0 +1,22 @@
+# Build context for apps/h2o/Dockerfile.runtime (repository root). No local state, env files, legacy
+# archive, other apps, tests or build output enter the image.
+**/node_modules
+**/.next
+**/.turbo
+apps/h2o/.public-renderer
+.git
+**/.env
+**/.env.*
+!**/.env.example
+legacy-reference
+spike
+docs
+apps/syed-ai
+apps/*/test
+**/__tests__
+**/__dbtests__
+**/*.test.ts
+**/*.test.tsx
+**/*.dbtest.ts
+apps/h2o/release/evidence
+apps/h2o/media

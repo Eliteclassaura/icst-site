@@ -2,6 +2,8 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {activeProductRoutes,productPrimaryMedia} from './Wave3Products'
 import {salmonDocument,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
+import {isPayloadContent} from '../content/runtime-read'
+import {releaseLedger} from '../content/runtime-read'
 
 export const homePartCategoryAuthority=[
   {key:'fan-stack',label:'Fan Stack',route:'/product-category/cooling-tower-fan-stacks/'},
@@ -55,7 +57,7 @@ export function homePartCatalogData():HomePartCatalogData{
   const publicRoutes=activeProductRoutes()
   const byPath=new Map(publicRoutes.map(route=>[route.targetPath,route]))
   const byId=new Map(publicRoutes.map(route=>[route.routeId,route]))
-  const release=JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as {routes:Array<{path:string;routeId:string;state:string;export:boolean}>}
+  const release=releaseLedger() as {routes:Array<{path:string;routeId:string;state:string;export:boolean}>}
   const sourceRoutes=new Map(salmonRoutes().map(route=>[route.routeId,route]))
   const membership=new Map<string,Set<HomePartCategoryKey>>()
   const categories=homePartCategoryAuthority.map(category=>{
@@ -81,6 +83,8 @@ export function homePartCatalogData():HomePartCatalogData{
     return {key:category.key,label:category.label,route:category.route,count:members.size,sources}
   })
   const featured=featuredFromModel()
+  // Payload runtime (R1B): a withdrawn featured product drops out; repository mode keeps the frozen gate.
+  if(isPayloadContent())for(const id of [...featured.keys()])if(!byId.has(id))featured.delete(id)
   for(const id of featured.keys())if(!byId.has(id))throw new Error(`Featured part outside public product cohort: ${id}`)
   const ordered=[...featured.keys(),...publicRoutes.map(route=>route.routeId).filter(id=>!featured.has(id))]
   const records=ordered.map(id=>{
@@ -91,6 +95,7 @@ export function homePartCatalogData():HomePartCatalogData{
     const image=chosen?{src:chosen.src,alt:chosen.alt,width:600,height:600}:sourceMedia?{src:sourceMedia.src,alt:sourceMedia.image.alt??'',width:sourceMedia.media.width!,height:sourceMedia.media.height!}:null
     return {route:route.targetPath,sourceId:id,title:doc.seo.h1[0]||doc.title,categories:[...(membership.get(id)??[])],featured:!!chosen,image}
   })
-  if(records.length!==183||new Set(records.map(record=>record.route)).size!==183)throw new Error('Homepage parts catalog is not the 183-product public cohort')
+  if(isPayloadContent()){if(new Set(records.map(record=>record.route)).size!==records.length)throw new Error('Homepage parts catalog routes are not unique')}
+  else if(records.length!==183||new Set(records.map(record=>record.route)).size!==183)throw new Error('Homepage parts catalog is not the 183-product public cohort')
   return {records,categories}
 }

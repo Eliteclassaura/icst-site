@@ -1,8 +1,18 @@
 import {salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode,type SalmonRoute} from './salmon'
+import {isPayloadContent,releaseLedger} from '../content/runtime-read'
 
 let activeCache:SalmonRoute[]|undefined
 const identityCache=new Map<string,string>()
 export const activeProductRoutes=():SalmonRoute[]=>{
+  // Payload runtime (R1B): the active cohort is the currently PUBLIC product set of the release (withdrawals
+  // allowed); identity/uniqueness still hold. Repository mode keeps the frozen 183-product baseline gate.
+  if(isPayloadContent()){
+    const ledger=releaseLedger() as {routes:Array<{routeId:string;state:string}>}
+    const publicIds=new Set(ledger.routes.filter(r=>r.state==='PUBLIC').map(r=>r.routeId))
+    const rows=salmonRoutes().filter(route=>/^SALMON-product-[0-9]+$/.test(route.routeId)&&/^\/product\/[^/]+\/$/.test(route.targetPath)&&publicIds.has(route.routeId))
+    if(new Set(rows.map(row=>row.targetPath)).size!==rows.length||new Set(rows.map(row=>row.routeId)).size!==rows.length)throw new Error('Wave 3 active product identities are not unique')
+    return rows
+  }
   const rows=activeCache??salmonRoutes().filter(route=>/^SALMON-product-[0-9]+$/.test(route.routeId)&&/^\/product\/[^/]+\/$/.test(route.targetPath))
   if(rows.length!==183||new Set(rows.map(row=>row.targetPath)).size!==183||new Set(rows.map(row=>row.routeId)).size!==183)throw new Error('Wave 3 active product cohort changed')
   activeCache=rows

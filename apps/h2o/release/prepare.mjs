@@ -11,9 +11,16 @@ for(const [name,target] of [['content',path.join(root,'content')],['public',path
   const dest=path.join(build,name);mkdirSync(path.dirname(dest),{recursive:true});if(!existsSync(dest))symlinkSync(target,dest,'dir')
 }
 // Only public route-group code is copied. No proxy, Payload layout/API, config, secrets or env files.
-cpSync(path.join(root,'src/app/(site)'),path.join(build,'src/app/(site)'),{recursive:true,filter:source=>!source.includes('/api/')&&!source.endsWith('/api')})
+// The Payload runtime route handlers (/api/*, /pagefind/*) never enter the static build.
+cpSync(path.join(root,'src/app/(site)'),path.join(build,'src/app/(site)'),{recursive:true,filter:source=>!source.includes('/api/')&&!source.endsWith('/api')&&!source.includes('/pagefind')})
 cpSync(path.join(root,'src/app/(site)/[[...slug]]/page.tsx'),path.join(build,'src/accepted-page.tsx'))
-let accepted=readFileSync(path.join(build,'src/accepted-page.tsx'),'utf8').replaceAll("'../../../site/","'./site/")
+// Content bridge: the static build is repository mode. Only the filesystem read seam is copied; the Payload
+// page bridge is replaced by a stub that refuses to run (it is never reached with H2O_CONTENT_SOURCE unset).
+mkdirSync(path.join(build,'src/content'),{recursive:true})
+cpSync(path.join(root,'src/content/runtime-read.ts'),path.join(build,'src/content/runtime-read.ts'))
+for(const file of ['rfq-controls.tsx','rfq-control-sources.ts'])cpSync(path.join(root,'src/content',file),path.join(build,'src/content',file))
+write(path.join(build,'src/content/page-bridge.static.ts'),"export const resolvePublicPath=async():Promise<never>=>{throw new Error('Payload page bridge is not part of the static release')}\nexport const robotsFor=()=>({index:false,follow:false})\nexport const canonicalFor=()=>''\n")
+let accepted=readFileSync(path.join(build,'src/accepted-page.tsx'),'utf8').replaceAll("'../../../site/","'./site/").replaceAll("import('../../../content/page-bridge')","import('./content/page-bridge.static')").replaceAll("'../../../content/runtime-read'","'./content/runtime-read'")
 write(path.join(build,'src/accepted-page.tsx'),accepted)
 cpSync(path.join(root,'release/templates/page.tsx'),path.join(build,'src/app/(site)/[[...slug]]/page.tsx'))
 cpSync(path.join(root,'release/templates/search.tsx'),path.join(build,'src/app/(site)/search/page.tsx'))

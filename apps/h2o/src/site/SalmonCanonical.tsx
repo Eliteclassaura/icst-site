@@ -3,6 +3,7 @@ import {Testimonials} from './HomeTestimonials'
 import {LuxuryHeader,LuxuryFooter} from './LuxuryShell'
 import {pageForSegments} from './cohort'
 import {RfqMount} from './RfqMount'
+import {renderQuoteAction,suppressedDuplicate} from '../content/rfq-controls'
 import {contactOffices} from './contact'
 import {AuthorityEditorial} from './AuthorityEditorial'
 import {articleByline,articleDisplayTitle,articleHeadingNodes} from './wave4'
@@ -70,6 +71,12 @@ function sourceImage(source:string,alt:string|undefined,key:string,doc:SalmonDoc
   return createElement('img',{key,src:local,alt,'data-source-src':source,'data-source-kind':kind,'data-source-sha256':media.sha256,width:media.width,height:media.height,loading:'lazy',style:{maxWidth:media.width??'100%',height:'auto'}})
 }
 export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,suppressSourceByline=false):ReactNode{
+  // Runtime RFQ (Payload content mode only): quote-intent actions use the approved adapter; D2 duplicate suppressed.
+  // Accepted exclusion stub (../content/public-exclusions): renders nothing, keeps sibling keys.
+  if(typeof node!=='string'&&(node as {attrs?:Record<string,string>}).attrs?.['data-public-exclusion'])return null
+  if(suppressedDuplicate(doc,node as never))return null
+  const quote=renderQuoteAction(doc,node as never,key,(original,k)=>renderSalmonNode(original as SalmonNode,k,doc,suppressSourceByline))
+  if(quote!==undefined)return quote
   if(typeof node==='string')return doc.type==='product'&&/[$€£]\s*\d/.test(node)?<span data-salmon-exception="NO_PUBLIC_PRICE" data-source-node={key} key={key}/>:/^(?:Buy|Order|Purchase) Now$/i.test(node.trim())?<span data-salmon-exception="RFQ_ONLY" data-source-node={key} key={key}>Request a Quote</span>:ownerText(reconcileCommercialScope(doc,doc.routeId==='SALMON-pages-1931'?(aboutGeographyCorrections.get(node.trim())??node):doc.routeId==='SALMON-pages-411'?normalizeWave3IndexEditorial(node):node))
   if(commerceException(node))return <span data-salmon-exception="NO_PUBLIC_COMMERCE" data-source-node={key} key={key}/>
   if(['script','style','iframe','svg','template'].includes(node.tag))return null
@@ -85,6 +92,8 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   if(['input','textarea'].includes(node.tag))return null
   const tag=allowed.has(node.tag)?node.tag:node.tag==='form'?'section':'span'
   const attrs=node.attrs
+  // R1B: an editor-uploaded Payload media image (content slot) renders from its own public media URL.
+  if(tag==='img'&&attrs['data-payload-media']&&/^\/api\/media\/file\/[A-Za-z0-9._-]+$/.test(attrs.src??''))return createElement('img',{key,src:attrs.src,alt:attrs.alt??'','data-payload-media':attrs['data-payload-media'],width:attrs.width?Number(attrs.width):undefined,height:attrs.height?Number(attrs.height):undefined,loading:'lazy',style:{maxWidth:'100%',height:'auto'}})
   if(tag==='img')return sourceImage(attrs['data-src']||attrs.src||'',attrs.alt,key,doc)
   const props:Record<string,unknown>={key,'data-source-node':key}
   if(attrs.id)props.id=attrs.id

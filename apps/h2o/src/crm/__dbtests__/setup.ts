@@ -28,4 +28,15 @@ process.env.DATABASE_URI = uri
 process.env.PAYLOAD_SECRET = 'test-crm-db-suite-throwaway-secret-000000000000'
 Object.assign(process.env, { NODE_ENV: 'test' })
 process.env.PAYLOAD_GRAPHQL = ''
+// The config no longer defaults an origin (deployable manifests must state it); tests use a local one.
+process.env.NEXT_PUBLIC_SERVER_URL ||= 'http://localhost:3200'
 delete process.env.H2O_CRM_DATA_LABEL
+
+// Content bridge DB tests: isolated, throwaway snapshot / search / upload directories for this run.
+import { mkdtempSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+const bridgeTmp = mkdtempSync(join(tmpdir(), 'h2o-bridge-dbtest-'))
+process.env.CONTENT_SNAPSHOT_DIR ||= join(bridgeTmp, 'snapshot')
+process.env.SEARCH_INDEX_DIR ||= join(bridgeTmp, 'search')
+process.env.MEDIA_DIR ||= join(bridgeTmp, 'media')

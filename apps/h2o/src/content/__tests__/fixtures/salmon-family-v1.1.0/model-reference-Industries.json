@@ -1,0 +1,354 @@
+{
+ "contract": "SALMON_FAMILY_PAGE_V1",
+ "contractVersion": "1.1.0",
+ "family": "company-capability",
+ "auditFamily": "COMPANY_CAPABILITY",
+ "routeId": "SALMON-pages-8",
+ "path": "/industries/",
+ "source": {
+  "kind": "SALMON_TRANSITIONAL_JSON",
+  "sha256": "af019f5c13c88cbbda662200df8570f3f9494b3599c4aff8b25f10f761e3ecad"
+ },
+ "sections": [
+  {
+   "key": "body.1",
+   "index": 0,
+   "elementId": "36a0b95",
+   "treatment": "hero",
+   "root": {
+    "type": "container",
+    "key": "body.1",
+    "elementId": "36a0b95",
+    "layout": {
+     "direction": "grid",
+     "gridColumns": 2
+    },
+    "children": [
+     {
+      "type": "container",
+      "key": "body.1.1.1",
+      "elementId": "f2b9264",
+      "layout": {
+       "direction": "column",
+       "justify": "center"
+      },
+      "children": [
+       {
+        "type": "container",
+        "key": "body.1.1.1.1",
+        "elementId": "9b3a7c8",
+        "layout": {
+         "direction": "column",
+         "justify": "center"
+        },
+        "children": [
+         {
+          "type": "heading",
+          "key": "body.1.1.1.1.1.1",
+          "level": 2,
+          "text": [
+           {
+            "text": "Our Promise"
+           }
+          ],
+          "style": {
+           "family": "sans",
+           "defaultColor": true,
+           "align": "start"
+          }
+         },
+         {
+          "type": "text",
+          "key": "body.1.1.1.1.3",
+          "blocks": [
+           {
+            "kind": "paragraph",
+            "content": [
+             {
+              "text": "At ics, we specialize in keeping industries cool and efficient, tailoring solutions that meet the unique demands of each sector we serve."
+             }
+            ]
+           }
+          ],
+          "style": {
+           "family": "sans"
+          }
+         },
+         {
+          "type": "container",
+          "key": "body.1.1.1.1.5",
+          "elementId": "b642f02",
+          "layout": {
+           "direction": "row"
+          },
+          "children": [
+           {
+            "type": "container",
+            "key": "body.1.1.1.1.5.1",
+            "elementId": "4273f23",
+            "layout": {
+             "direction": "column"
+            },
+            "children": [
+             {
+              "type": "text",
+              "key": "body.1.1.1.1.5.1.1",
+              "blocks": [
+               {
+                "kind": "paragraph",
+                "content": [
+                 {
+                  "text": "Industries"
+                 }
+                ]
+               }
+              ],
+              "style": {
+               "family": "sans",
+               "sizePx": 33,
+               "defaultColor": true,
+               "align": "start"
+              }
+             },
+             {
+              "type": "text",
+              "key": "body.1.1.1.1.5.1.3",
+              "blocks": [
+               {
+                "kind": "paragraph",
+                "content": [
+                 {
+                  "text": "Precision Cooling"
+                 }
+                ]
+               }
+              ],
+              "style": {
+               "family": "sans"
+              }
+             }
+            ]
+           },
+           {
+            "type": "container",
+            "key": "body.1.1.1.1.5.3",
+            "elementId": "233de37",
+            "layout": {
+             "direction": "column"
+            },
+            "children": [
+             {
+              "type": "text",
+              "key": "body.1.1.1.1.5.3.1",
+              "blocks": [
+               {
+                "kind": "paragraph",
+                "content": [
+                 {
+                  "text": "Expertise"
+                 }
+                ]
+               }
+              ],
+              "style": {
+               "family": "sans",
+               "sizePx": 33,
+               "defaultColor": true,
+               "align": "start"
+              }
+             },
+             {
+              "type": "text",
+              "key": "body.1.1.1.1.5.3.3",
+              "blocks": [
+               {
+                "kind": "paragraph",
+                "content": [
+                 {
+                  "text": "Trusted Partners"
+                 }
+                ]
+               }
+              ],
+              "style": {
+               "family": "sans"
+              }
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "type": "image",
+      "key": "body.1.1.3",
+      "media": {
+       "src": "/media/salmon/467d1c80750afa2c5a42e13b8c345ce969171f375de88bf5830bc7a0cd82ce6b.jpeg",
+       "alt": "",
+       "width": 584,
+       "height": 438,
+       "sha256": "467d1c80750afa2c5a42e13b8c345ce969171f375de88bf5830bc7a0cd82ce6b",
+       "sourceUrl": "https://images.unsplash.com/photo-1701773157249-5584e18327e7?q=85&w=584&h=438&fit=crop"
+      },
+      "style": {
+       "radius": "20px"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "key": "body.3",
+   "index": 1,
+   "elementId": "ba864a0",
+   "treatment": "boxed",
+   "root": {
+    "type": "container",
+    "key": "body.3",
+    "elementId": "ba864a0",
+    "layout": {
+     "direction": "column"
+    },
+    "children": [
+     {
+      "type": "container",
+      "key": "body.3.1.1",
+      "elementId": "d265e54",
+      "layout": {
+       "direction": "column"
+      },
+      "children": [
+       {
+        "type": "heading",
+        "key": "body.3.1.1.1.1",
+        "level": 2,
+        "text": [
+         {
+          "text": "Power Plants"
+         }
+        ],
+        "style": {
+         "family": "sans",
+         "color": "ink",
+         "align": "start"
+        }
+       }
+      ]
+     },
+     {
+      "type": "container",
+      "key": "body.3.1.3",
+      "elementId": "0fb8b56",
+      "layout": {
+       "direction": "column"
+      },
+      "children": [
+       {
+        "type": "container",
+        "key": "body.3.1.3.1",
+        "elementId": "0d4a178",
+        "layout": {
+         "direction": "grid",
+         "gridTemplate": "40fr 60fr"
+        },
+        "children": [
+         {
+          "type": "container",
+          "key": "body.3.1.3.1.3",
+          "elementId": "64afe52",
+          "layout": {
+           "direction": "column"
+          },
+          "children": [
+           {
+            "type": "image",
+            "key": "body.3.1.3.1.3.1",
+            "media": {
+             "src": "/media/salmon/064d2dfb333e4a0c9fad9ac3e1c1ad967b558256aadf89d2dc659a78b2e3f63f.jpeg",
+             "alt": "",
+             "width": 625,
+             "height": 335,
+             "sha256": "064d2dfb333e4a0c9fad9ac3e1c1ad967b558256aadf89d2dc659a78b2e3f63f",
+             "sourceUrl": "https://images.unsplash.com/photo-1638558826516-3d76118cceef?q=85&w=625&h=335&fit=crop"
+            },
+            "style": {
+             "radius": "20px"
+            }
+           },
+           {
+            "type": "text",
+            "key": "body.3.1.3.1.3.3",
+            "blocks": [
+             {
+              "kind": "paragraph",
+              "content": [
+               {
+                "text": "Data Centers"
+               }
+              ]
+             }
+            ],
+            "style": {
+             "family": "sans",
+             "defaultColor": true,
+             "align": "start"
+            }
+           },
+           {
+            "type": "text",
+            "key": "body.3.1.3.1.3.5",
+            "blocks": [
+             {
+              "kind": "paragraph",
+              "content": [
+               {
+                "text": "Our cooling solutions maintain optimal temperatures to protect sensitive servers and prevent downtime."
+               }
+              ]
+             }
+            ],
+            "style": {
+             "family": "sans"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "exclusions": [
+  {
+   "elementId": "11cbd29",
+   "sourceKey": "body.5",
+   "reason": "UNSUPPORTED_THEME_TESTIMONIAL",
+   "ruling": "CT_R1_REVIEW_2026_09_29_C1: Hostinger AI-theme placeholder portraits and unattributed endorsements; not genuine customer testimony"
+  },
+  {
+   "elementId": "cacba3b",
+   "sourceKey": "body.3.1.3.1.1",
+   "reason": "IMAGE_LABEL_DESCRIPTION_MISMATCH_NO_APPROVED_MAPPING",
+   "ruling": "CT_R1_1_REVIEW_2026_09_29_A: \"Manufacturing\" card under Power Plants pairs a cooling-tower stock photograph with a factory-machinery project assertion; no approved mapping, card held"
+  },
+  {
+   "elementId": "f5dbc72",
+   "sourceKey": "body.3.1.3.3.1",
+   "reason": "IMAGE_LABEL_DESCRIPTION_MISMATCH_NO_APPROVED_MAPPING",
+   "ruling": "CT_R1_REVIEW_2026_09_29_C1: \"Chemical Plants\" card shows a server/electrical-cabinet corridor photograph; no approved mapping, card held"
+  },
+  {
+   "elementId": "f3b2417",
+   "sourceKey": "body.3.1.3.3.3",
+   "reason": "IMAGE_LABEL_DESCRIPTION_MISMATCH_NO_APPROVED_MAPPING",
+   "ruling": "CT_R1_REVIEW_2026_09_29_C1: \"Data Centers\" label with a food-safety description over an industrial-pipework photograph; no approved mapping, card held"
+  }
+ ],
+ "modules": {}
+}

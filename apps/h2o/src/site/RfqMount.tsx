@@ -18,7 +18,7 @@
  * `page_path` and `cta_placement`. An ineligible route renders no RFQ control.
  */
 import type { CohortPage } from './cohort'
-import { mountGate,productMountGate,publicMountGate,type PublicMountId,RFQ_FALLBACK_PATH } from './gate'
+import { categoryAndFamilyGate,mountGate,productMountGate,publicMountGate,type PublicMountId,RFQ_FALLBACK_PATH } from './gate'
 import { implementedMounts, mountTreatment } from './mounts'
 import { QuoteCta } from '../conversion/QuoteCta'
 import { resolveQuoteCta } from '../conversion/resolve'
@@ -33,9 +33,20 @@ export type RfqMountProps = {
   routePath?:never
 }|{mountId:'header_action'|'footer_rfq_band'|'rfq_page';product:SalmonDocument;page?:never;routePath?:never}
  |{mountId:PublicMountId;routePath:string;label?:string;page?:never;product?:never}
+ |{mountId:'category_and_family';routePath:string;cardProduct:SalmonDocument|null;cardHref:string;label?:string;page?:never;product?:never}
 
 export const RfqMount = (props: RfqMountProps) => {
   const {mountId}=props
+  if('cardProduct' in props&&props.mountId==='category_and_family'){
+    // D1: the listing page is page_path; product context comes from the verified card relation only.
+    const gate=categoryAndFamilyGate(props.routePath,props.cardProduct,props.cardHref)
+    if(!gate.mounted||!gate.productSlug||!gate.productId)return null
+    const context={page_path:props.routePath,product_slug:gate.productSlug,product_id:gate.productId,cta_placement:'category_and_family'}
+    const resolved=resolveQuoteCta(context)
+    if(!resolved.available||!resolved.contextIncluded||resolved.dropped.length!==0)return null
+    const label=props.label??'Request a Quote'
+    return <span className="rfq rfq-signal" data-rfq-public-route={props.routePath} data-rfq-placement="category_and_family" data-rfq-card-product={props.cardProduct?.routeId}><QuoteCta ctaPlacement="category_and_family" formUrl={resolved.formUrl} label={label} origin={resolved.origin} pagePath={props.routePath} productId={gate.productId} productSlug={gate.productSlug} title={label}/></span>
+  }
   if(props.product){
     if(!['header_action','footer_rfq_band','rfq_page'].includes(mountId))return null
     const product=props.product

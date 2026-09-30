@@ -1,0 +1,75 @@
+#
+# H2O unified runtime image — ONE Payload/Next application: public website (Payload-managed), /admin,
+# /crm and the Payload APIs, on PostgreSQL. This is NOT the nginx static-release image
+# (release/vps/Dockerfile), which stays the static rollback path.
+#
+# Build from the REPOSITORY ROOT:
+#   docker build -f apps/h2o/Dockerfile.runtime \
+#     --build-arg NODE_IMAGE=node:22.22.2-bookworm-slim@sha256:<reviewed digest> \
+#     --build-arg NEXT_PUBLIC_SERVER_URL=https://<validation host> \
+#     -t h2o-runtime:<commit> .
+#
+# Pinning: the lockfile is used frozen (no upgrades); pnpm is the repository's packageManager version;
+# the Node base MUST be pinned by digest by the Commander at build time (NODE_IMAGE has no digest default
+# because a digest cannot be verified from inside the Factory). Node major/minor matches the tested 22.22.2.
+#
+# One image, three roles (same bytes, different command/env — see RUNTIME_MANIFEST.md):
+#   web     node server.js                                   (default)
+#   runner  node server.js  with H2O_PUBLISHING_RUNNER=1     (exactly one replica: the schedule coordinator)
+#   migrate node node_modules/payload/bin.js migrate          (the single migration coordinator; a release
+#                                                              step before web starts — never on startup)
+ARG NODE_IMAGE=node:22.22.2-bookworm-slim
+FROM ${NODE_IMAGE} AS base
+ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH NEXT_TELEMETRY_DISABLED=1 CI=1
+RUN corepack enable && corepack prepare pnpm@10.28.0 --activate
+
+FROM base AS build
+WORKDIR /repo
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json .npmrc tsconfig.base.json ./
+COPY apps/h2o/package.json apps/h2o/package.json
+COPY packages ./packages
+COPY tools ./tools
+RUN pnpm install --frozen-lockfile --filter @factory/h2o...
+COPY apps/h2o ./apps/h2o
+# Build-time variables. NEXT_PUBLIC_SERVER_URL is compiled into the bundle and has NO default (a deployable
+# image must name its origin). The database/secret values are placeholders: `next build` does not connect.
+ARG NEXT_PUBLIC_SERVER_URL
+RUN test -n "$NEXT_PUBLIC_SERVER_URL" || (echo "NEXT_PUBLIC_SERVER_URL build arg is required" && exit 1)
+ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL} \
+    H2O_CONTENT_SOURCE=payload \
+    DATABASE_URI=postgres://build:build@127.0.0.1:1/build \
+    PAYLOAD_SECRET=build-time-placeholder-not-a-secret
+RUN pnpm --filter @factory/h2o build:cms
+# Production closure for the migrate/import/runner commands (Payload bin, db adapter, TS loader).
+RUN rm -rf /repo/deploy && pnpm --filter @factory/h2o deploy --prod --legacy /repo/deploy
+
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0 \
+    H2O_CONTENT_SOURCE=payload \
+    MEDIA_DIR=/data/media CONTENT_SNAPSHOT_DIR=/data/snapshot SEARCH_INDEX_DIR=/data/search \
+    H2O_INDEXING_POLICY=private
+RUN groupadd -g 1001 app && useradd -u 1001 -g app -m app && mkdir -p /data/media /data/snapshot /data/search && chown -R app:app /data
+COPY --from=build --chown=app:app /repo/apps/h2o/.next/standalone ./
+COPY --from=build --chown=app:app /repo/apps/h2o/.next/static ./apps/h2o/.next/static
+# Public historical assets: immutable originals (LFS media, PDFs, fonts). Served read-only from the image.
+COPY --from=build --chown=app:app /repo/apps/h2o/public ./apps/h2o/public
+# Presentation/owner authorities the templates read (luxury models, media identities, contact, wave4 …).
+# The page documents are NOT copied: in the payload runtime they come only from Payload.
+COPY --from=build --chown=app:app /repo/apps/h2o/content ./apps/h2o/content
+RUN rm -rf /app/apps/h2o/content/salmon/documents
+# migrate / import / runner commands: production closure, config + migrations source, TS config.
+COPY --from=build --chown=app:app /repo/deploy/node_modules ./apps/h2o/node_modules
+COPY --from=build --chown=app:app /repo/apps/h2o/src ./apps/h2o/src
+COPY --from=build --chown=app:app /repo/apps/h2o/release/authority.mjs ./apps/h2o/release/authority.mjs
+COPY --from=build --chown=app:app /repo/apps/h2o/release/public-build-config.json ./apps/h2o/release/public-build-config.json
+COPY --from=build --chown=app:app /repo/apps/h2o/tsconfig.json ./apps/h2o/tsconfig.json
+COPY --from=build --chown=app:app /repo/tsconfig.base.json ./tsconfig.base.json
+# Persistent state: uploads (MEDIA_DIR), published snapshot and search index generations.
+VOLUME ["/data/media", "/data/snapshot", "/data/search"]
+USER app
+WORKDIR /app/apps/h2o
+EXPOSE 3000
+# Readiness (database + promoted snapshot + search index). Liveness is /api/live/ (no dependencies).
+HEALTHCHECK --interval=30s --timeout=5s --start-period=40s CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/api/ready/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+CMD ["node", "server.js"]

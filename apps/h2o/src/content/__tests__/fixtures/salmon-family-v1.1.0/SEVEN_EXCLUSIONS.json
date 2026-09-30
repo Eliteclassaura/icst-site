@@ -1,0 +1,75 @@
+{
+  "contract": "SALMON_FAMILY_PAGE_V1",
+  "contractVersion": "1.1.0",
+  "exclusions": [
+    {
+      "routeId": "SALMON-pages-8",
+      "path": "/industries/",
+      "elementId": "11cbd29",
+      "sourceKey": "body.5",
+      "reason": "UNSUPPORTED_THEME_TESTIMONIAL",
+      "ruling": "CT_R1_REVIEW_2026_09_29_C1: Hostinger AI-theme placeholder portraits and unattributed endorsements; not genuine customer testimony"
+    },
+    {
+      "routeId": "SALMON-pages-8",
+      "path": "/industries/",
+      "elementId": "cacba3b",
+      "sourceKey": "body.3.1.3.1.1",
+      "reason": "IMAGE_LABEL_DESCRIPTION_MISMATCH_NO_APPROVED_MAPPING",
+      "ruling": "CT_R1_1_REVIEW_2026_09_29_A: \"Manufacturing\" card under Power Plants pairs a cooling-tower stock photograph with a factory-machinery project assertion; no approved mapping, card held"
+    },
+    {
+      "routeId": "SALMON-pages-8",
+      "path": "/industries/",
+      "elementId": "f5dbc72",
+      "sourceKey": "body.3.1.3.3.1",
+      "reason": "IMAGE_LABEL_DESCRIPTION_MISMATCH_NO_APPROVED_MAPPING",
+      "ruling": "CT_R1_REVIEW_2026_09_29_C1: \"Chemical Plants\" card shows a server/electrical-cabinet corridor photograph; no approved mapping, card held"
+    },
+    {
+      "routeId": "SALMON-pages-8",
+      "path": "/industries/",
+      "elementId": "f3b2417",
+      "sourceKey": "body.3.1.3.3.3",
+      "reason": "IMAGE_LABEL_DESCRIPTION_MISMATCH_NO_APPROVED_MAPPING",
+      "ruling": "CT_R1_REVIEW_2026_09_29_C1: \"Data Centers\" label with a food-safety description over an industrial-pipework photograph; no approved mapping, card held"
+    },
+    {
+      "routeId": "SALMON-pages-7",
+      "path": "/solutions/",
+      "elementId": "90732f5",
+      "sourceKey": "body.1.1.3.1.1",
+      "reason": "IMAGE_LABEL_DESCRIPTION_MISMATCH_NO_APPROVED_MAPPING",
+      "ruling": "CT_R1_1_REVIEW_2026_09_29_A: \"Data Center\" card pairs a cooling-tower landscape with server-context copy; no approved mapping, card held"
+    },
+    {
+      "routeId": "SALMON-pages-7",
+      "path": "/solutions/",
+      "elementId": "9c34e97",
+      "sourceKey": "body.1.1.3.1.3",
+      "reason": "IMAGE_LABEL_DESCRIPTION_MISMATCH_NO_APPROVED_MAPPING",
+      "ruling": "CT_R1_1_REVIEW_2026_09_29_A: \"Manufacturing\" card pairs server/electrical-cabinet corridor imagery with manufacturing copy; no approved mapping, card held"
+    },
+    {
+      "routeId": "SALMON-pages-7",
+      "path": "/solutions/",
+      "elementId": "4492d17",
+      "sourceKey": "body.1.1.3.1.7",
+      "reason": "IMAGE_LABEL_DESCRIPTION_MISMATCH_NO_APPROVED_MAPPING",
+      "ruling": "CT_R1_1_REVIEW_2026_09_29_A: second \"Manufacturing\" card pairs grain-storage imagery with food-production copy; no approved mapping, card held"
+    }
+  ],
+  "retain": [
+    {
+      "routeId": "SALMON-pages-8",
+      "path": "/industries/",
+      "elementId": "64afe52",
+      "reason": "Not one of the approved withheld elements; do not exclude merely because it was suggested in Runtime R1A."
+    }
+  ],
+  "missingFromRuntimeR1A": [
+    "11cbd29",
+    "f5dbc72",
+    "f3b2417"
+  ]
+}

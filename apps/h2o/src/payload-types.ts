@@ -97,6 +97,8 @@ export interface Config {
     'crm-suppressions': CrmSuppression;
     'crm-intake-events': CrmIntakeEvent;
     'crm-identity-reviews': CrmIdentityReview;
+    'public-routes': PublicRoute;
+    'public-redirects': PublicRedirect;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -167,6 +169,8 @@ export interface Config {
     'crm-suppressions': CrmSuppressionsSelect<false> | CrmSuppressionsSelect<true>;
     'crm-intake-events': CrmIntakeEventsSelect<false> | CrmIntakeEventsSelect<true>;
     'crm-identity-reviews': CrmIdentityReviewsSelect<false> | CrmIdentityReviewsSelect<true>;
+    'public-routes': PublicRoutesSelect<false> | PublicRoutesSelect<true>;
+    'public-redirects': PublicRedirectsSelect<false> | PublicRedirectsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -177,8 +181,14 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | 'en' | 'en'[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'publication-state': PublicationState;
+    'site-chrome': SiteChrome;
+  };
+  globalsSelect: {
+    'publication-state': PublicationStateSelect<false> | PublicationStateSelect<true>;
+    'site-chrome': SiteChromeSelect<false> | SiteChromeSelect<true>;
+  };
   locale: 'en';
   widgets: {
     collections: CollectionsWidget;
@@ -186,6 +196,7 @@ export interface Config {
   user: User;
   jobs: {
     tasks: {
+      publishingSync: TaskPublishingSync;
       schedulePublish: TaskSchedulePublish;
       inline: {
         input: unknown;
@@ -2848,6 +2859,225 @@ export interface CrmSuppression {
   createdAt: string;
 }
 /**
+ * Public website pages. Edit the page elements (text, buttons, images), save a draft, preview it, then Publish. Unpublish withdraws a page. “Create new” starts a new page from sections. Held pages cannot be published.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-routes".
+ */
+export interface PublicRoute {
+  id: string;
+  title: string;
+  routeId?: string | null;
+  path?: string | null;
+  pathKey: string;
+  /**
+   * The address of the new page, e.g. /cooling-tower-news/. Cannot be changed after the page is created.
+   */
+  requestedPath?: string | null;
+  family?: ('salmon' | 'live' | 'english-service' | 'alias' | 'search' | 'editorial') | null;
+  routeClass?: string | null;
+  document?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Every heading, paragraph, button, link and image on this page, in page order. Edit the words, links and images; the layout stays as designed. Save a draft, Preview, then Publish.
+   */
+  slots?:
+    | {
+        key: string;
+        kind: 'heading' | 'text' | 'action' | 'image' | 'copy';
+        tag?: string | null;
+        elementId?: string | null;
+        title?: string | null;
+        sourceHash?: string | null;
+        heading?: string | null;
+        copy?: string | null;
+        text?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        label?: string | null;
+        /**
+         * A page on this site (/contact-us/) or an https link.
+         */
+        href?: string | null;
+        /**
+         * This button belongs to a published product card; it opens that product’s quote.
+         */
+        productRouteId?: string | null;
+        intent?: ('none' | 'quote') | null;
+        /**
+         * Leave empty to keep the original image.
+         */
+        image?: (string | null) | Media;
+        alt?: string | null;
+        imageUrl?: string | null;
+        imageWidth?: number | null;
+        imageHeight?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown under the page heading.
+   */
+  lead?: string | null;
+  /**
+   * Build the page from headings, paragraphs, images, buttons and FAQs.
+   */
+  sections?:
+    | (
+        | {
+            text: string;
+            level: '2' | '3';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'heading';
+          }
+        | {
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'paragraph';
+          }
+        | {
+            image: string | Media;
+            /**
+             * Leave empty to use the media item’s alt text.
+             */
+            alt?: string | null;
+            caption?: string | null;
+            imageUrl?: string | null;
+            imageWidth?: number | null;
+            imageHeight?: number | null;
+            mediaAlt?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'image';
+          }
+        | {
+            label: string;
+            /**
+             * Internal path (e.g. /contact-us/). A quote button uses the approved quote form instead.
+             */
+            href?: string | null;
+            intent: 'none' | 'quote';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'button';
+          }
+        | {
+            items?:
+              | {
+                  question: string;
+                  answer: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq';
+          }
+      )[]
+    | null;
+  seo?: {
+    /**
+     * Browser/search title. Empty keeps the accepted source title.
+     */
+    title?: string | null;
+    /**
+     * Meta description. Empty keeps the source description.
+     */
+    description?: string | null;
+    /**
+     * Canonical URL (admin-only; URL equity is never changed silently).
+     */
+    canonical?: string | null;
+  };
+  /**
+   * From the accepted release authority. Admin-only.
+   */
+  disposition: {
+    state: 'PUBLIC' | 'REVIEW_HOLD' | 'PRIVATE_ARCHIVE' | 'REDIRECT';
+    export?: boolean | null;
+    indexable?: boolean | null;
+    sitemap?: boolean | null;
+    searchable?: boolean | null;
+    redirect?: string | null;
+    matchedArticle?: boolean | null;
+    releaseOverride?: string | null;
+  };
+  /**
+   * Frozen provenance from the accepted snapshot.
+   */
+  source?: {
+    sourceUrl?: string | null;
+    sourceFile?: string | null;
+    sourceSha256?: string | null;
+    previousCanonical?: string | null;
+    sourceRobots?: string | null;
+    /**
+     * For an alias route: the source route id whose document it renders.
+     */
+    aliasOf?: string | null;
+    /**
+     * Position in the accepted route authority (templates read lists in this order).
+     */
+    order?: number | null;
+  };
+  contentSha256?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-redirects".
+ */
+export interface PublicRedirect {
+  id: string;
+  source: string;
+  destination: string;
+  status: '301' | '308';
+  active?: boolean | null;
+  /**
+   * Which reviewed authority this row came from.
+   */
+  authority?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -2916,7 +3146,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'schedulePublish';
+        taskSlug: 'inline' | 'publishingSync' | 'schedulePublish';
         taskID: string;
         input?:
           | {
@@ -2949,7 +3179,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'schedulePublish') | null;
+  taskSlug?: ('inline' | 'publishingSync' | 'schedulePublish') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -3082,6 +3312,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'crm-identity-reviews';
         value: string | CrmIdentityReview;
+      } | null)
+    | ({
+        relationTo: 'public-routes';
+        value: string | PublicRoute;
+      } | null)
+    | ({
+        relationTo: 'public-redirects';
+        value: string | PublicRedirect;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -4542,6 +4780,145 @@ export interface CrmIdentityReviewsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-routes_select".
+ */
+export interface PublicRoutesSelect<T extends boolean = true> {
+  title?: T;
+  routeId?: T;
+  path?: T;
+  pathKey?: T;
+  requestedPath?: T;
+  family?: T;
+  routeClass?: T;
+  document?: T;
+  slots?:
+    | T
+    | {
+        key?: T;
+        kind?: T;
+        tag?: T;
+        elementId?: T;
+        title?: T;
+        sourceHash?: T;
+        heading?: T;
+        copy?: T;
+        text?: T;
+        label?: T;
+        href?: T;
+        productRouteId?: T;
+        intent?: T;
+        image?: T;
+        alt?: T;
+        imageUrl?: T;
+        imageWidth?: T;
+        imageHeight?: T;
+        id?: T;
+      };
+  lead?: T;
+  sections?:
+    | T
+    | {
+        heading?:
+          | T
+          | {
+              text?: T;
+              level?: T;
+              id?: T;
+              blockName?: T;
+            };
+        paragraph?:
+          | T
+          | {
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        image?:
+          | T
+          | {
+              image?: T;
+              alt?: T;
+              caption?: T;
+              imageUrl?: T;
+              imageWidth?: T;
+              imageHeight?: T;
+              mediaAlt?: T;
+              id?: T;
+              blockName?: T;
+            };
+        button?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              intent?: T;
+              id?: T;
+              blockName?: T;
+            };
+        faq?:
+          | T
+          | {
+              items?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        canonical?: T;
+      };
+  disposition?:
+    | T
+    | {
+        state?: T;
+        export?: T;
+        indexable?: T;
+        sitemap?: T;
+        searchable?: T;
+        redirect?: T;
+        matchedArticle?: T;
+        releaseOverride?: T;
+      };
+  source?:
+    | T
+    | {
+        sourceUrl?: T;
+        sourceFile?: T;
+        sourceSha256?: T;
+        previousCanonical?: T;
+        sourceRobots?: T;
+        aliasOf?: T;
+        order?: T;
+      };
+  contentSha256?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-redirects_select".
+ */
+export interface PublicRedirectsSelect<T extends boolean = true> {
+  source?: T;
+  destination?: T;
+  status?: T;
+  active?: T;
+  authority?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -4612,6 +4989,186 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Written by the publishing runner. Read-only.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publication-state".
+ */
+export interface PublicationState {
+  id: string;
+  state?: ('CURRENT' | 'BACKLOG' | 'FAILED') | null;
+  releaseId?: string | null;
+  releaseMaxEventSeq?: number | null;
+  pendingEvents?: number | null;
+  snapshotGeneration?: string | null;
+  snapshotAt?: string | null;
+  searchGeneration?: string | null;
+  searchAt?: string | null;
+  searchRecords?: number | null;
+  lastError?: string | null;
+  lastErrorAt?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Header navigation and footer text and links. Layout and styling are fixed by the site design; office phone numbers and social profiles come from the owner contact record.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-chrome".
+ */
+export interface SiteChrome {
+  id: string;
+  navigation?:
+    | {
+        label: string;
+        /**
+         * Optional group landing page (internal path).
+         */
+        href?: string | null;
+        items?:
+          | {
+              label: string;
+              /**
+               * Internal path, e.g. /fans/
+               */
+              href: string;
+              id?: string | null;
+            }[]
+          | null;
+        sections?:
+          | {
+              label: string;
+              items?:
+                | {
+                    label: string;
+                    /**
+                     * Internal path, e.g. /fans/
+                     */
+                    href: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  footer: {
+    heading: string;
+    contactLabel: string;
+    description: string;
+    columns?:
+      | {
+          title: string;
+          ariaLabel: string;
+          links?:
+            | {
+                label: string;
+                /**
+                 * Internal path, e.g. /fans/
+                 */
+                href: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    officesTitle: string;
+    officesContactLabel: string;
+    copyright: string;
+    privacyLabel: string;
+    privacyHref: string;
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publication-state_select".
+ */
+export interface PublicationStateSelect<T extends boolean = true> {
+  state?: T;
+  releaseId?: T;
+  releaseMaxEventSeq?: T;
+  pendingEvents?: T;
+  snapshotGeneration?: T;
+  snapshotAt?: T;
+  searchGeneration?: T;
+  searchAt?: T;
+  searchRecords?: T;
+  lastError?: T;
+  lastErrorAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-chrome_select".
+ */
+export interface SiteChromeSelect<T extends boolean = true> {
+  navigation?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        items?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              id?: T;
+            };
+        sections?:
+          | T
+          | {
+              label?: T;
+              items?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  footer?:
+    | T
+    | {
+        heading?: T;
+        contactLabel?: T;
+        description?: T;
+        columns?:
+          | T
+          | {
+              title?: T;
+              ariaLabel?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        officesTitle?: T;
+        officesContactLabel?: T;
+        copyright?: T;
+        privacyLabel?: T;
+        privacyHref?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections_widget".
  */
@@ -4620,6 +5177,25 @@ export interface CollectionsWidget {
     [k: string]: unknown;
   };
   width: 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskPublishingSync".
+ */
+export interface TaskPublishingSync {
+  input: {
+    reason?: string | null;
+    routeId?: string | null;
+    requestedAt?: string | null;
+    eventSeq?: number | null;
+  };
+  output: {
+    outcome?: string | null;
+    release?: string | null;
+    generation?: string | null;
+    search?: string | null;
+    records?: number | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,9 +1,8 @@
-import {readFileSync} from 'node:fs'
-import path from 'node:path'
 import {salmonRoutes,salmonDocument,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {renderSalmonNode} from './SalmonCanonical'
 import {sourceIntroduction,sourceProjectName} from './AuthorityEditorial'
 import {R2Discovery} from './R2Discovery'
+import {releaseLedger} from '../content/runtime-read'
 
 function firstDescription(node:SalmonNode):string|undefined{
   if(typeof node==='string')return undefined
@@ -18,7 +17,7 @@ function firstDescription(node:SalmonNode):string|undefined{
 export function ProjectAuthorityIndex({doc}:{doc:SalmonDocument}){
   const intro=sourceIntroduction(doc)
   const orderedIntro=[...intro.filter(piece=>typeof piece.node!=='string'&&piece.node.tag==='h1'),...intro.filter(piece=>typeof piece.node==='string'||piece.node.tag!=='h1')]
-  const ledger=JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as {routes:Array<{path:string;routeId:string;state:string;export:boolean}>}
+  const ledger=releaseLedger() as {routes:Array<{path:string;routeId:string;state:string;export:boolean}>}
   const sources=salmonRoutes()
   const projects=ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export&&row.path.startsWith('/all-projects/')&&row.path!=='/all-projects/').map(row=>{
     const source=sources.find(candidate=>candidate.routeId===row.routeId)

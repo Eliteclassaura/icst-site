@@ -4,6 +4,7 @@ import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {pageForSegments} from './cohort'
 import {ownerText,salmonMedia,salmonMediaPath,type SalmonDocument,type SalmonNode} from './salmon'
 import {SalmonTabsController} from './SalmonTabsController'
+import {renderQuoteAction} from '../content/rfq-controls'
 
 // Static presentation of the two owner-selected Salmon pages. Content remains
 // sourced from the frozen Salmon documents; no WordPress scripts or forms run.
@@ -25,6 +26,11 @@ function localHref(value:string,doc:SalmonDocument):string|undefined {
 }
 
 function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
+  // Accepted exclusion stub (../content/public-exclusions): renders nothing, keeps sibling keys.
+  if(typeof node!=='string'&&(node as {attrs?:Record<string,string>}).attrs?.['data-public-exclusion'])return null
+  // Runtime RFQ (Payload content mode only), as in renderSalmonNode.
+  const quote=renderQuoteAction(doc,node as never,key,(original,k)=>sourceNode(original as SalmonNode,k,doc))
+  if(quote!==undefined)return quote
  if(typeof node==='string')return node.trim()==='Buy Now'?'View Product':ownerText(node)
  if(['script','style','iframe','template','input','textarea'].includes(node.tag))return null
  if(svgTags.has(node.tag)){
@@ -50,6 +56,13 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
  for(const name of ['aria-selected','aria-controls','aria-labelledby','data-tab-index'])if(node.attrs[name])props[name]=node.attrs[name]
  const tabOrder=node.attrs.style?.match(/--n-tabs-(?:title|target)-order:\s*(\d+)/)?.[1]
  if(tabOrder)props.style={...(props.style as object||{}),'--n-tabs-title-order':tabOrder,'--n-tabs-target-order':tabOrder}
+ if(tag==='img'&&node.attrs['data-payload-media']&&/^\/api\/media\/file\/[A-Za-z0-9._-]+$/.test(node.attrs.src??'')){
+  // R1B: an editor-uploaded Payload media image renders from its own public media URL.
+  props.src=node.attrs.src;props.alt=node.attrs.alt??'';props.loading='lazy'
+  if(node.attrs.width)props.width=Number(node.attrs.width)
+  if(node.attrs.height)props.height=Number(node.attrs.height)
+  return createElement('img',props)
+ }
  if(tag==='img'){
   const source=node.attrs['data-src']||node.attrs.src
   const media=source?salmonMedia(source,doc.sourceUrl):undefined

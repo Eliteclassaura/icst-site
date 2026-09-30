@@ -1,19 +1,28 @@
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import type {SalmonDocument,SalmonNode} from './salmon'
+import {isPayloadContent,snapshotJson} from '../content/runtime-read'
 
 type ReleaseRow={path:string;routeId:string;state:string;canonical:string;indexable:boolean;redirect:string|null}
 type ReleaseAuthority={origin:string;routes:ReleaseRow[];redirects:Array<{source:string;destination:string}>}
 let ledger:ReleaseAuthority|undefined
 function authority(){
+  // Content bridge seam: payload content mode adapts against the published ledger (current Payload state).
+  if(isPayloadContent())return snapshotJson<ReleaseAuthority>('ledger.json')
   return ledger??=JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as ReleaseAuthority
 }
 /** Build-only adaptation. The hash-verified source JSON is never rewritten. */
 export function publicReleaseDocument(doc:SalmonDocument):SalmonDocument{
-  if(process.env.H2O_PUBLIC_EXPORT!=='1')return doc
+  if(process.env.H2O_PUBLIC_EXPORT!=='1'&&!isPayloadContent())return doc
   const {origin,routes,redirects}=authority()
   const row=routes.find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(doc.targetPath))??routes.find(candidate=>candidate.routeId===doc.routeId&&candidate.state==='PUBLIC')
+  // Payload runtime: a page published a moment ago is resolved from Payload before the runner has promoted it
+  // into the ledger; its own canonical is authoritative for that request.
+  if(!row&&isPayloadContent())return publicReleaseDocumentWith({path:doc.targetPath,routeId:doc.routeId,state:'PUBLIC',canonical:origin+doc.targetPath,indexable:false,redirect:null},doc,origin,routes,redirects)
   if(!row)throw new Error(`Public route authority absent: ${doc.targetPath}`)
+  return publicReleaseDocumentWith(row,doc,origin,routes,redirects)
+}
+function publicReleaseDocumentWith(row:ReleaseRow,doc:SalmonDocument,origin:string,routes:ReleaseRow[],redirects:Array<{source:string;destination:string}>):SalmonDocument{
   const canonical=row.redirect?origin+row.redirect:row.canonical
   const normalizeSchema=(value:unknown):unknown=>{
     if(Array.isArray(value))return value.map(normalizeSchema)
