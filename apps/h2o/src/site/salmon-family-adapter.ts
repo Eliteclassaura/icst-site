@@ -14,7 +14,7 @@
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {publicSourceString} from './public-text'
-import {isPayloadContent} from '../content/runtime-read'
+import {isPayloadContent,releaseLedger} from '../content/runtime-read'
 import {salmonDocument,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
 import {activeProductRoutes} from './Wave3Products'
 import {articleHeadingNodes} from './wave4'
@@ -331,9 +331,41 @@ function withoutHistoricalSaudiClaims(doc:SalmonDocument):SalmonDocument{
 }
 type LedgerRow={path:string;routeId:string;state:string;export:boolean}
 let ledgerRows:LedgerRow[]|undefined
-export const publicProjectRows=():LedgerRow[]=>(ledgerRows??=(JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as {routes:LedgerRow[]}).routes).filter(row=>row.state==='PUBLIC'&&row.export&&/^\/all-projects\/[^/]+\/$/.test(row.path))
+export const publicProjectRows=():LedgerRow[]=>{
+  const rows=isPayloadContent()?(releaseLedger() as {routes:LedgerRow[]}).routes:(ledgerRows??=(JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as {routes:LedgerRow[]}).routes)
+  return rows.filter(row=>row.state==='PUBLIC'&&row.export&&/^\/all-projects\/[^/]+\/$/.test(row.path))
+}
 /** Every portfolio card resolves to its public project detail (the current index's destinations). */
 function withProjectDetailLinks(doc:SalmonDocument):SalmonDocument{
+  if(isPayloadContent()){
+    const current=new Set(publicProjectRows().map(row=>row.path))
+    // The source portfolio uses /projects/<identity>/; accepted detail destinations use
+    // /all-projects/<identity>/. Match that complete destination, never labels or partial slugs.
+    const destination=(value:SalmonNode):string|undefined=>{
+      if(typeof value==='string'||value.tag!=='a')return undefined
+      const href=localHref(value.attrs.href,doc)
+      const match=href?.match(/^\/(?:all-projects|projects)\/([^/?#]+)\/(?:[?#].*)?$/)
+      return match?`/all-projects/${match[1]}/`:undefined
+    }
+    const destinations=(value:SalmonNode):Set<string>=>{
+      const found=new Set<string>()
+      const walk=(node:SalmonNode)=>{const target=destination(node);if(target)found.add(target);if(typeof node!=='string')node.children.forEach(walk)}
+      walk(value)
+      return found
+    }
+    const visit=(value:SalmonNode):SalmonNode|null=>{
+      if(typeof value==='string')return value
+      const identities=destinations(value)
+      // A source card has sibling photo and description containers bearing the same exact
+      // destination. Remove that card, not the enclosing geographic section or a text match.
+      const card=isContainer(value)&&value.children.filter(child=>isElement(child)&&isContainer(child)).length>=2&&identities.size===1
+      if(card&&![...identities].some(target=>current.has(target)))return null
+      const target=destination(value)
+      if(target&&!current.has(target))return null
+      return {...value,attrs:target?{...value.attrs,href:target}:value.attrs,children:value.children.map(visit).filter((child):child is SalmonNode=>child!==null)}
+    }
+    return {...doc,children:doc.children.map(visit).filter((child):child is SalmonNode=>child!==null)}
+  }
   const detail=(href:string|undefined)=>{if(!href)return undefined;const slug=href.replace(/[?#].*$/,'').split('/').filter(Boolean).at(-1);return publicProjectRows().find(row=>row.path===`/all-projects/${slug}/`)?.path}
   const visit=(value:SalmonNode):SalmonNode=>{
     if(typeof value==='string')return value
