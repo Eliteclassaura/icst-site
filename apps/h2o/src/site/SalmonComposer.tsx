@@ -20,12 +20,13 @@ export type RenderContext={
 }
 
 /* ---------------- primitives ---------------- */
-export function Rich({text}:{text:RichText}):ReactNode{
+/** `inLink`: the caller already wraps this text in a link, so inline links render as text (no nested <a>). */
+export function Rich({text,inLink=false}:{text:RichText;inLink?:boolean}):ReactNode{
   return text.map((span,i)=>{
     let node:ReactNode=span.text==='\n'?<br key={i}/>:span.text
     if(span.bold)node=<strong key={`b${i}`}>{node}</strong>
     if(span.italic)node=<em key={`i${i}`}>{node}</em>
-    return span.href?<a key={`a${i}`} href={span.href}>{node}</a>:<Fragment key={`t${i}`}>{node}</Fragment>
+    return span.href&&!inLink?<a key={`a${i}`} href={span.href}>{node}</a>:<Fragment key={`t${i}`}>{node}</Fragment>
   })
 }
 const typeProps=(role:TypeRole|undefined)=>{
@@ -111,7 +112,7 @@ export function BlockView({block,ctx}:{block:Block;ctx:RenderContext}):ReactNode
       return <div className={`sp-iconbox${block.side?' sp-iconbox--side':''}${alignClass(block.style)}${box.className}`} style={box.style}>
         {block.iconAfter?null:<IconView icon={block.icon}/>}
         <div className="sp-iconbox-body">
-          {block.title?createElement(`h${block.titleLevel}`,{className:`sp-card-title ${title.className}`,style:title.style},block.href?<a href={block.href}><Rich text={block.title}/></a>:<Rich text={block.title}/>):null}
+          {block.title?createElement(`h${block.titleLevel}`,{className:`sp-card-title ${title.className}`,style:title.style},block.href?<a href={block.href}><Rich text={block.title} inLink/></a>:<Rich text={block.title}/>):null}
           {block.text?<p className={`sp-card-text ${text.className}`} style={text.style}><Rich text={block.text}/></p>:null}
         </div>
         {block.iconAfter?<IconView icon={block.icon}/>:null}
@@ -123,13 +124,13 @@ export function BlockView({block,ctx}:{block:Block;ctx:RenderContext}):ReactNode
       const picture=block.media?<Picture media={block.media} className="sp-imagebox-img" eager={ctx.eager} style={imageStyle}/>:null
       return <div className={`sp-imagebox${alignClass(block.style)}${box.className}`} style={box.style}>
         {picture?<figure className="sp-imagebox-figure">{block.href?<a href={block.href} tabIndex={-1} aria-hidden="true">{picture}</a>:picture}</figure>:null}
-        {block.title?createElement(`h${block.titleLevel}`,{className:`sp-card-title ${title.className}`,style:title.style},block.href?<a href={block.href}><Rich text={block.title}/></a>:<Rich text={block.title}/>):null}
+        {block.title?createElement(`h${block.titleLevel}`,{className:`sp-card-title ${title.className}`,style:title.style},block.href?<a href={block.href}><Rich text={block.title} inLink/></a>:<Rich text={block.title}/>):null}
         {block.text?<p className={`sp-card-text ${text.className}`} style={text.style}><Rich text={block.text}/></p>:null}
       </div>
     }
     case 'list':{
       const type=typeProps(block.style)
-      return <ul className={`sp-iconlist ${type.className}`} style={type.style}>{block.items.map((item,i)=><li key={i}><IconView icon={item.icon}/><span>{item.href?<a href={item.href}><Rich text={item.text}/></a>:<Rich text={item.text}/>}</span></li>)}</ul>
+      return <ul className={`sp-iconlist ${type.className}`} style={type.style}>{block.items.map((item,i)=><li key={i}><IconView icon={item.icon}/><span>{item.href?<a href={item.href}><Rich text={item.text} inLink/></a>:<Rich text={item.text}/>}</span></li>)}</ul>
     }
     case 'accordion':return <div className="sp-accordion">{block.items.map((item,i)=><details key={i}><summary>{item.question}</summary><div className="sp-accordion-body">{children(item.answer,ctx)}</div></details>)}</div>
     case 'anchor':return <span className="sp-anchor" id={block.id}/>
