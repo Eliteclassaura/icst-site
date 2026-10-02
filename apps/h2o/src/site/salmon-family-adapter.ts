@@ -15,6 +15,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {publicSourceString} from './public-text'
 import {isPayloadContent,releaseLedger} from '../content/runtime-read'
+import {MAIN_OWNED_PARTS_HERO_PATHS} from '../content/rfq-intent'
 import {salmonDocument,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
 import {activeProductRoutes} from './Wave3Products'
 import {articleHeadingNodes} from './wave4'
@@ -239,7 +240,10 @@ function widget(ref:SourceRef,ctx:AdaptContext):Block[]{
       // action, as is the owner-classified Parts component CTA "Contact Us for a Quote" (exact
       // label). Every other "Contact …" label remains an ordinary Contact link.
       const toContact=/^\/contact-us\/?(?:[?#]|$)/.test(href)
-      const quoteIntent=isPayloadContent()?firstTag(ref,/^a$/)?.node.attrs['data-rfq-intent']==='quote':rfqOnly||(toContact&&(/^(?:request|get)\b.*\bquote\b/i.test(label)||OWNER_QUOTE_LABELS.has(label.toLowerCase())))
+      // Payload mode honours the import stamp. The import deliberately leaves the ten Main-owned Parts hero
+      // actions unstamped (MAIN_OWNED_PARTS_HERO), so Main's exact-label owner rule applies to those ten paths only.
+      const ownerPartsQuote=toContact&&OWNER_QUOTE_LABELS.has(label.toLowerCase())&&MAIN_OWNED_PARTS_HERO_PATHS.has(doc.targetPath)
+      const quoteIntent=isPayloadContent()?firstTag(ref,/^a$/)?.node.attrs['data-rfq-intent']==='quote'||ownerPartsQuote:rfqOnly||(toContact&&(/^(?:request|get)\b.*\bquote\b/i.test(label)||OWNER_QUOTE_LABELS.has(label.toLowerCase())))
       return [{type:'button',key:ref.key,label:rfqOnly?'Request a Quote':publicSourceString(doc,label),...(href?{href}:{}),variant:buttonVariantOf(layout),...(rfqOnly?{rfqOnly:true}:{}),...(quoteIntent?{intent:'quote' as const}:{}),style:alignOf(layout)}]
     }
     case 'image':{
