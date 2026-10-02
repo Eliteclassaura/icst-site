@@ -76,7 +76,7 @@
 /* Existing owner photos are retained for Disaster Recovery alongside exact Figma presentation media. */
 .wave2-service .lux-recovery-media{background:#f7f9fc;gap:20px;padding:32px max(40px,calc((100vw - 1188px)/2)) 86px}
 .wave2-service .lux-recovery-media img{height:340px;border-radius:22px}
-.wave2-stage--recovery [data-layout-node="25"]{position:relative;isolation:isolate;overflow:hidden;border-radius:20px;background:#0b4b8c!important;color:#fff!important}
+.wave2-stage--recovery [data-layout-node="25"]{position:relative;isolation:isolate;overflow:hidden;border-radius:20px;padding:clamp(24px,3vw,40px);background:#0b4b8c!important;color:#fff!important}
 .wave2-stage--recovery [data-layout-node="25"]>.wave2-media{position:absolute;inset:0;width:100%;height:100%;max-width:100%;aspect-ratio:auto;border-radius:0;opacity:.45;z-index:0}
 .wave2-stage--recovery [data-layout-node="25"]>:not(.wave2-media){position:relative;z-index:1}
 .wave2-stage--recovery [data-layout-node="25"] :is(h2,h3,p,span,.lux-node){color:#fff!important;text-shadow:0 1px 2px rgba(0,17,34,.6)}

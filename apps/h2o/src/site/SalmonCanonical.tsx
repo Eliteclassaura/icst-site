@@ -1,4 +1,4 @@
-import {createElement,type ReactNode} from 'react'
+import {createElement,Fragment,type ReactNode} from 'react'
 import {Testimonials} from './HomeTestimonials'
 import {LuxuryHeader,LuxuryFooter} from './LuxuryShell'
 import {pageForSegments} from './cohort'
@@ -14,6 +14,9 @@ import {ProjectDetail} from './ProjectDetail'
 import {commerceException,commerceMetaException,ownerHref,ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 export {aboutGeographyCorrections,normalizeWave3IndexEditorial,normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
+// Start tags that implicitly close an open <p> in the HTML parser. A source <p> holding one of these cannot be
+// represented in HTML: the browser closes the paragraph first and hydration then sees a different tree (#418).
+const CLOSES_PARAGRAPH=new Set('address article aside blockquote details div dl fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 header hgroup hr main menu nav ol p pre section table ul'.split(' '))
 const allowed=new Set('div section article header footer nav p h1 h2 h3 h4 h5 h6 a span b strong i em u s figure figcaption img ul ol li table thead tbody tfoot tr th td br hr blockquote cite time sup sub small details summary label output search'.split(' '))
 const voids=new Set(['img','br','hr'])
 const hrefSafe=(value:string):string|undefined=>/^(?:https?:|mailto:|tel:|\/|#)/i.test(value)?value:undefined
@@ -92,6 +95,18 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
     try{const settings=JSON.parse(attrs['data-settings']) as Record<string,{url?:string}>
       for(const [name,value]of Object.entries(settings))if(name.includes('background')&&value?.url)backgrounds.push(sourceImage(value.url,undefined,`${key}-background-${name}`,doc,name))
     }catch{/* Historical presentation settings are never executable code. */}
+  }
+  // Split a paragraph around block children exactly as the parser would; inline runs stay paragraphs.
+  if(tag==='p'&&node.children.some(child=>typeof child!=='string'&&CLOSES_PARAGRAPH.has(allowed.has(child.tag)?child.tag:child.tag==='form'?'section':'span'))){
+    const parts:ReactNode[]=[];let run:ReactNode[]=[];let runHasContent=false
+    const flush=()=>{if(runHasContent)parts.push(createElement('p',{...props,key:`${key}~${parts.length}`},...run));run=[];runHasContent=false}
+    node.children.forEach((child,i)=>{
+      const rendered=typeof child!=='string'&&allowed.has(child.tag)?child.tag:typeof child!=='string'&&child.tag==='form'?'section':'span'
+      if(typeof child!=='string'&&CLOSES_PARAGRAPH.has(rendered)){flush();parts.push(children[i]);return}
+      run.push(children[i]);if(typeof child!=='string'||child.trim())runHasContent=true
+    })
+    flush()
+    return createElement(Fragment,{key},...parts)
   }
   const element=createElement(tag,props,...(voids.has(tag)?[]:tag==='h1'&&doc.type==='posts'&&/&amp;|&#0*38;|&#x0*26;/i.test(salmonNodeText(node))?[articleDisplayTitle(salmonNodeText(node))]:[...backgrounds,...children]))
   return tag==='table'?<div className="technical-table" key={key} role="region" tabIndex={0} aria-label="Scrollable source table">{element}</div>:element

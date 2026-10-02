@@ -1177,6 +1177,7 @@ button):hover {
 .salmon-family--library .wave4-document {
   border: 1px solid var(--sp-blue-2);
   border-radius: 8px;
+  padding-inline: clamp(16px, 2.2vw, 28px);
   background: var(--sp-white);
 }
 .salmon-family--library .wave4-document summary,
