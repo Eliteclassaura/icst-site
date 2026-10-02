@@ -1,6 +1,7 @@
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {testimonials,TESTIMONIAL_AUTHORITY_ID} from './testimonials'
+import {deliverySrc} from './media-delivery'
 
 type RecoveredMedia={src:string;name:string;width:number;height:number;sha256:string}
 type ClientReviewAuthority={hero:RecoveredMedia[];portraits:Array<RecoveredMedia&{person:string}>;socials:Array<{network:string;url:string}>;testimonialOverride:{sourceSections:string[];layoutNode:number;authorityId:string}}
@@ -25,7 +26,7 @@ export function ClientTestimonials(){return <section className="client-testimoni
      <blockquote><p>{quote}</p></blockquote>
     </div>
     <div className="client-testimonial-media">
-     <img src={portrait.src} width={portrait.width} height={portrait.height} alt={record.person} loading="lazy"/>
+     <img src={deliverySrc(portrait.src)} width={portrait.width} height={portrait.height} alt={record.person} loading="lazy"/>
      <figcaption><strong>{record.person}</strong><span>{record.company} / {record.title}</span></figcaption>
     </div>
    </div>

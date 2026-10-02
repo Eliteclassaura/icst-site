@@ -4,6 +4,7 @@ import path from 'node:path'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {RfqMount} from './RfqMount'
 import {isPayloadContent,requestServices,snapshotJson} from '../content/runtime-read'
+import {deliverySrc} from './media-delivery'
 
 export type EnglishService = {
   id:string;path:string;figmaNode:string;title:string;eyebrow:string;lead:string
@@ -33,7 +34,7 @@ function acceptedImage(src:string){
 }
 function ServicePhoto({src,alt,priority=false}:{src:string;alt:string;priority?:boolean}){
   const media=acceptedImage(src)
-  return <img src={media.src} alt={alt} data-source-sha256={media.sha256} loading={priority?'eager':'lazy'} fetchPriority={priority?'high':undefined}/>
+  return <img src={deliverySrc(media.src)} alt={alt} data-source-sha256={media.sha256} loading={priority?'eager':'lazy'} fetchPriority={priority?'high':undefined}/>
 }
 
 const systemMaps:Record<EnglishService['diagramKind'],{caption:string;steps:[string,string,string,string]}>={

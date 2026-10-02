@@ -9,6 +9,7 @@
  */
 import {createElement,Fragment,type CSSProperties,type ReactNode} from 'react'
 import type {AlignStyle,Block,ContainerBlock,FrameStyle,Icon,MediaRef,ProductCardInput,RichText,SectionModel,SvgNode,TextBlock,TypeRole} from './salmon-family-model'
+import {deliverySrc} from './media-delivery'
 
 export type RenderContext={
   /** Hero media is eager (it is the largest contentful paint); everything else is lazy. */
@@ -56,11 +57,11 @@ function Svg({node,path}:{node:SvgNode;path:string}):ReactNode{
 }
 function IconView({icon}:{icon:Icon|undefined}){
   if(!icon)return null
-  if(icon.kind==='image')return <span className="sp-icon sp-icon--image"><img src={icon.media.src} alt="" width={icon.media.width} height={icon.media.height} loading="lazy" data-source-sha256={icon.media.sha256}/></span>
+  if(icon.kind==='image')return <span className="sp-icon sp-icon--image"><img src={deliverySrc(icon.media.src)} alt="" width={icon.media.width} height={icon.media.height} loading="lazy" data-source-sha256={icon.media.sha256}/></span>
   return <span className={`sp-icon${icon.name?` sp-icon--${icon.name}`:' sp-icon--source'}${icon.disc?' sp-icon--disc':''}`}><Svg node={icon.svg} path="svg"/></span>
 }
 export function Picture({media,className,eager=false,style}:{media:MediaRef;className?:string;eager?:boolean;style?:CSSProperties}){
-  return <img className={className} style={style} src={media.src} alt={media.alt} width={media.width} height={media.height} loading={eager?'eager':'lazy'} fetchPriority={eager?'high':undefined} decoding={eager?'sync':'async'} data-source-sha256={media.sha256} data-source-src={media.sourceUrl}/>
+  return <img className={className} style={style} src={deliverySrc(media.src)} alt={media.alt} width={media.width} height={media.height} loading={eager?'eager':'lazy'} fetchPriority={eager?'high':undefined} decoding={eager?'sync':'async'} data-source-sha256={media.sha256} data-source-src={media.sourceUrl}/>
 }
 function TextBlocks({blocks}:{blocks:TextBlock[]}){
   return blocks.map((block,i)=>{
@@ -157,9 +158,9 @@ export function ContainerView({block,ctx}:{block:ContainerBlock;ctx:RenderContex
   const classes=['sp-con',layout.direction==='grid'?'sp-grid':layout.direction==='row'?'sp-row':'sp-col',widgetRow?'sp-row--widgets':'',layout.widthPct?'sp-w':'',layout.align?`sp-align-${layout.align}`:'',layout.mobileAlign?`sp-malign-${layout.mobileAlign}`:'',layout.justify?`sp-justify-${layout.justify}`:'',layout.rounded?'sp-rounded':''].filter(Boolean).join(' ')+panel
   const common={className:classes,'data-salmon-element':block.elementId}
   if(background?.mode==='photo')return <div {...common} className={`${classes} sp-photo sp-overlay--${layout.overlay?.tone??'dark'}`} style={style as CSSProperties}><Picture media={background.media} className="sp-photo-img" eager={ctx.eager}/><span className="sp-photo-shade" aria-hidden="true"/><div className="sp-photo-content">{children(block.children,ctx)}</div></div>
-  if(background?.mode==='backdrop')return <div {...common} className={`${classes} sp-bg`} style={{...style,backgroundImage:`url("${background.media.src}")`,...(background.fit?{backgroundSize:background.fit}:{}),...(background.position?{backgroundPosition:background.position}:{})} as CSSProperties} data-source-background-sha256={background.media.sha256} data-source-src={background.media.sourceUrl}>{children(block.children,ctx)}</div>
+  if(background?.mode==='backdrop')return <div {...common} className={`${classes} sp-bg`} style={{...style,backgroundImage:`url("${deliverySrc(background.media.src)}")`,...(background.fit?{backgroundSize:background.fit}:{}),...(background.position?{backgroundPosition:background.position}:{})} as CSSProperties} data-source-background-sha256={background.media.sha256} data-source-src={background.media.sourceUrl}>{children(block.children,ctx)}</div>
   // A sized or overlaid source background panel keeps its Salmon crop (size/position) and shade.
-  if(background?.mode==='image'&&(layout.minHeightPx||layout.overlay))return <div {...common} className={`${classes} sp-media sp-media--panel${layout.overlay?` sp-overlay--${layout.overlay.tone}`:''}`} style={{...style,backgroundImage:`url("${background.media.src}")`,backgroundSize:background.fit??'cover',backgroundPosition:background.position??'center'} as CSSProperties} role="img" aria-label={background.media.alt||undefined} aria-hidden={background.media.alt?undefined:true} data-source-background-sha256={background.media.sha256} data-source-src={background.media.sourceUrl}>{layout.overlay?<span className="sp-photo-shade" aria-hidden="true"/>:null}</div>
+  if(background?.mode==='image'&&(layout.minHeightPx||layout.overlay))return <div {...common} className={`${classes} sp-media sp-media--panel${layout.overlay?` sp-overlay--${layout.overlay.tone}`:''}`} style={{...style,backgroundImage:`url("${deliverySrc(background.media.src)}")`,backgroundSize:background.fit??'cover',backgroundPosition:background.position??'center'} as CSSProperties} role="img" aria-label={background.media.alt||undefined} aria-hidden={background.media.alt?undefined:true} data-source-background-sha256={background.media.sha256} data-source-src={background.media.sourceUrl}>{layout.overlay?<span className="sp-photo-shade" aria-hidden="true"/>:null}</div>
   if(background?.mode==='image')return <div {...common} className={`${classes} sp-media`} style={style as CSSProperties}><Picture media={background.media} className="sp-media-img" eager={ctx.eager}/></div>
   return <div {...common} style={style as CSSProperties}>{children(block.children,ctx)}</div>
 }

@@ -4,6 +4,7 @@ import {activeProductRoutes,productPrimaryMedia} from './Wave3Products'
 import {salmonDocument,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
 import {isPayloadContent} from '../content/runtime-read'
 import {releaseLedger} from '../content/runtime-read'
+import {deliverySrc} from './media-delivery'
 
 export const homePartCategoryAuthority=[
   {key:'fan-stack',label:'Fan Stack',route:'/product-category/cooling-tower-fan-stacks/'},
@@ -92,7 +93,7 @@ export function homePartCatalogData():HomePartCatalogData{
     const doc=salmonDocument(route)
     const chosen=featured.get(id)
     const sourceMedia=chosen?null:productPrimaryMedia(doc)
-    const image=chosen?{src:chosen.src,alt:chosen.alt,width:600,height:600}:sourceMedia?{src:sourceMedia.src,alt:sourceMedia.image.alt??'',width:sourceMedia.media.width!,height:sourceMedia.media.height!}:null
+    const image=chosen?{src:deliverySrc(chosen.src),alt:chosen.alt,width:600,height:600}:sourceMedia?{src:deliverySrc(sourceMedia.src),alt:sourceMedia.image.alt??'',width:sourceMedia.media.width!,height:sourceMedia.media.height!}:null
     return {route:route.targetPath,sourceId:id,title:doc.seo.h1[0]||doc.title,categories:[...(membership.get(id)??[])],featured:!!chosen,image}
   })
   if(isPayloadContent()){if(new Set(records.map(record=>record.route)).size!==records.length)throw new Error('Homepage parts catalog routes are not unique')}

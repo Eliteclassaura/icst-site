@@ -1,4 +1,5 @@
 import type {CSSProperties,ReactNode} from 'react'
+import {deliverySrc} from './media-delivery'
 
 type Media={node:string;asset:string;width:number;height:number;slotWidth:number;slotHeight:number;cap?:number;position?:string;shape?:'circle'|'pill'|'card'|'band'|'chart'}
 type Composition={roles:string[];replace:Record<number,Media>;inside:Record<number,Media>;after:Record<number,Media[]>;suppress?:number[]}
@@ -52,8 +53,8 @@ export const serviceCompositions:Record<string,Composition>={
 export function ServiceImage({media:asset,layer='inline',layoutNode}:{media:Media;layer?:'inline'|'inside'|'after';layoutNode?:number}){
  const safeWidth=Math.min(asset.cap??asset.width,asset.width,asset.height*asset.slotWidth/asset.slotHeight,asset.slotWidth)
  const style={'--wave2-media-max':`${Math.floor(safeWidth)}px`,'--wave2-native-height':`${asset.height}px`,'--wave2-ratio':`${asset.slotWidth} / ${asset.slotHeight}`,'--wave2-position':asset.position} as CSSProperties
- return <span className={`wave2-media wave2-media--${layer} wave2-media--${asset.shape??'card'}`} data-layout-node={layoutNode} data-figma-node={asset.node} data-figma-media-src={root+asset.asset} style={style}>
-  <img src={root+asset.asset} alt={asset.shape==='chart'?'Static pressure and airflow results chart':''} width={asset.width} height={asset.height} loading={layer==='inside'&&asset.node.endsWith(':896')?'eager':'lazy'} fetchPriority={layer==='inside'&&asset.node.endsWith(':896')?'high':undefined}/>
+ return <span className={`wave2-media wave2-media--${layer} wave2-media--${asset.shape??'card'}`} data-layout-node={layoutNode} data-figma-node={asset.node} data-figma-media-src={deliverySrc(root+asset.asset)} style={style}>
+  <img src={deliverySrc(root+asset.asset)} alt={asset.shape==='chart'?'Static pressure and airflow results chart':''} width={asset.width} height={asset.height} loading={layer==='inside'&&asset.node.endsWith(':896')?'eager':'lazy'} fetchPriority={layer==='inside'&&asset.node.endsWith(':896')?'high':undefined}/>
  </span>
 }
 

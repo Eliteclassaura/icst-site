@@ -13,6 +13,7 @@ import {homePartCatalogData} from './HomePartsData'
 import {SalmonPresentation} from './SalmonPresentation'
 import {englishServicePages} from './EnglishServices'
 import {rfqControlElement,rfqControlLabelAt} from '../content/rfq-controls'
+import {deliverySrc} from './media-delivery'
 type LayoutNode={tag:string;style?:CSSProperties;id?:number;children?:LayoutNode[];ref?:string;refs?:string[];slice?:{ref:string;start:number;end:number};decor?:string;action?:string;src?:string;alt?:string;key?:string}
 type Model={route:string;sourceId:string;tree:LayoutNode[];remaining:Array<{sourceSection:string;tree:LayoutNode}>}
 export const luxuryIds=new Set(['SALMON-pages-48','SALMON-pages-1230','SALMON-pages-1446','SALMON-pages-1534','SALMON-pages-1555','SALMON-pages-1572','SALMON-pages-1668','SALMON-pages-1722','SALMON-pages-411'])
@@ -57,7 +58,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
     51:{src:'/media/figma-home/21-1055-aa90dce1.jpg',alt:'Industrial cooling tower construction site',width:1280,height:960,node:'21:1055',sha256:'f3f4a80cef5bfa1020981c19487cca105b7975d12b1139a01fb6d89fddc63019'},
     164:{src:'/media/figma-home/21-1295-fcf10d82.png',alt:'',width:1024,height:1024,node:'21:1295',sha256:'f62d34f4682140c43b139496033912587283d692fe0568b61cb395cc8731b27f'},
    } as Record<number,{src:string;alt:string;width:number;height:number;node:string;sha256:string}>)[n.id??-1]:undefined
-   return <img {...props} key={key} style={figmaMedia&&n.id===164?{...n.style,height:'auto',objectFit:'contain',alignSelf:'center'}:n.style} src={figmaMedia?.src??n.src} alt={figmaMedia?.alt??n.alt??''} width={figmaMedia?.width} height={figmaMedia?.height} data-figma-node={figmaMedia?.node} data-figma-media-sha256={figmaMedia?.sha256} loading={n.id===2?'eager':'lazy'} fetchPriority={n.id===2?'high':undefined}/>
+   return <img {...props} key={key} style={figmaMedia&&n.id===164?{...n.style,height:'auto',objectFit:'contain',alignSelf:'center'}:n.style} src={deliverySrc(figmaMedia?.src??n.src)} alt={figmaMedia?.alt??n.alt??''} width={figmaMedia?.width} height={figmaMedia?.height} data-figma-node={figmaMedia?.node} data-figma-media-sha256={figmaMedia?.sha256} loading={n.id===2?'eager':'lazy'} fetchPriority={n.id===2?'high':undefined}/>
   }
   if(n.action==='rfq')return <a {...props} href="/contact-us/">Request a Quote</a>
   if(n.action==='search')return null
