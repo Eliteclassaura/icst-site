@@ -34,6 +34,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { scriptHashesFor } from './site/csp-hashes'
 import { xRobotsTagForPath } from './site/robots'
 import { mergeTypeformCsp } from './conversion/csp'
+import { NOINDEX_FOLLOW_PATHS } from './content/config'
 import { isPayloadContent, snapshotJson } from './content/runtime-read'
 
 const EXCLUDED = /^\/(api|admin|_next|favicon\.ico|robots\.txt|sitemap[^/]*\.xml|brand)(\/|$)/
@@ -232,7 +233,8 @@ function payloadPublic(req: NextRequest): NextResponse {
   const preview = req.cookies.has('__prerender_bypass')
   const production = process.env.H2O_INDEXING_POLICY === 'production'
   const row = ledger?.routes.find((r) => pathKeyOf(r.path) === pathKeyOf(pathname))
-  const robots = !preview && production && row?.state === 'PUBLIC' && row.indexable ? null : 'noindex, nofollow'
+  const published = !preview && production && row?.state === 'PUBLIC'
+  const robots = published && row.indexable ? null : published && NOINDEX_FOLLOW_PATHS.has(row.path) ? 'noindex, follow' : 'noindex, nofollow'
   if (pathname === '/' && req.nextUrl.searchParams.has('s')) {
     const target = req.nextUrl.clone()
     target.pathname = '/search/'

@@ -3,7 +3,7 @@ import { draftMode, headers } from 'next/headers'
 import { getPayload } from 'payload'
 import { isEditorialReader } from './access'
 import { composePublicDocument, type RouteRecord } from './compose'
-import { indexingPolicy, PUBLIC_ORIGIN } from './config'
+import { indexingPolicy, NOINDEX_FOLLOW_PATHS, PUBLIC_ORIGIN } from './config'
 import { markPublishedEditorial, requestDocuments, requestServices, setRequestRevocations } from './runtime-read'
 import { computeRevocations } from './revocation'
 
@@ -88,6 +88,7 @@ export async function resolvePublicPath(requestPath: string): Promise<Resolved |
 export function robotsFor(record: RouteRecord, preview: boolean): { index: boolean; follow: boolean } {
   if (preview || indexingPolicy() !== 'production') return { index: false, follow: false }
   const ok = Boolean(record.disposition?.indexable)
+  if (!ok && record.disposition?.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS.has(record.path)) return { index: false, follow: true }
   return { index: ok, follow: ok }
 }
 

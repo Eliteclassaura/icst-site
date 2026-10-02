@@ -53,5 +53,12 @@ export type IndexingPolicy = 'private' | 'production'
 export const indexingPolicy = (env: NodeJS.ProcessEnv = process.env): IndexingPolicy =>
   env.H2O_INDEXING_POLICY === 'production' ? 'production' : 'private'
 
+/**
+ * Approved `noindex, follow` routes (OGCS_H1_DECISIONS_2026-10-02, Control Tower ruling). Under the production policy a
+ * PUBLIC route here that is not indexable tells crawlers to follow its links; it stays out of every index and, through
+ * its ledger row, out of the sitemap. Every other non-indexable route, and every route under `private`, is unchanged.
+ */
+export const NOINDEX_FOLLOW_PATHS: ReadonlySet<string> = new Set(['/author/tbozic/'])
+
 /** Canonical public origin used in canonical URLs and the sitemap (not the serving host). */
 export const PUBLIC_ORIGIN = 'https://h2ocooling.com'

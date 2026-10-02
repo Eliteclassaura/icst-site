@@ -63,6 +63,10 @@
   margin-inline: auto;
   padding-inline: clamp(16px, 3vw, 40px);
 }
+/* Page H1 for families whose source has none (OGCS_H1_DECISIONS_2026-10-02): existing h1.sp-heading style. */
+.salmon-family .sp-page-title {
+  padding-block: clamp(28px, 4.4vw, 64px) clamp(12px, 1.4vw, 20px);
+}
 /* ---------- containers (source direction, width and panel) ---------- */
 .salmon-family .sp-con,
 .salmon-family .sp-wrap {

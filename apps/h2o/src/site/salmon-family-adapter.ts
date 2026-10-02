@@ -391,6 +391,7 @@ export function adaptSection(doc:SalmonDocument,section:SourceRef,position:numbe
   return {key:section.key,index:position,...(id?{elementId:id}:{}),treatment,...(tone?{tone}:{}),...(options.role?{role:options.role}:{}),root}
 }
 
+const hasHeadingOne=(block:Block):boolean=>block.type==='heading'?block.level===1:block.type==='container'&&block.children.some(hasHeadingOne)
 /** The transitional adapter's single output: the typed page model for one family route. */
 export function salmonFamilyModel(doc:SalmonDocument,config:FamilyConfig):SalmonFamilyPageModel{
   const source=sourceFor(doc,config.family)
@@ -410,6 +411,6 @@ export function salmonFamilyModel(doc:SalmonDocument,config:FamilyConfig):Salmon
     source:{kind:'SALMON_TRANSITIONAL_JSON',sha256:doc.sourceIdentity.sha256},
     sections,
     exclusions:excluded,
-    modules:{...(config.family==='about'?{aboutPresence:true}:{}),...(coverage?{projectCoverage:coverage,projectDiscovery:true}:{}),...(config.family==='project-detail'?{projectNavigation:true}:{})},
+    modules:{...(config.family==='company-capability'&&!sections.some(section=>hasHeadingOne(section.root))?{pageTitle:doc.seo.h1[0]??doc.title}:{}),...(config.family==='about'?{aboutPresence:true}:{}),...(coverage?{projectCoverage:coverage,projectDiscovery:true}:{}),...(config.family==='project-detail'?{projectNavigation:true}:{})},
   }
 }

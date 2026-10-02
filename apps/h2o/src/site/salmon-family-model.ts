@@ -93,5 +93,5 @@ export type SalmonFamilyPageModel={
   /** Source blocks withheld from public rendering (source archive untouched). */
   exclusions:Array<{elementId:string;sourceKey:string;reason:'UNSUPPORTED_THEME_TESTIMONIAL'|'IMAGE_LABEL_DESCRIPTION_MISMATCH_NO_APPROVED_MAPPING';ruling:string}>
   /** Accepted non-Salmon modules that already existed on these routes (code-defined). */
-  modules:{aboutPresence?:boolean;projectCoverage?:Array<{path:string;title:string}>;projectDiscovery?:boolean;projectNavigation?:boolean}
+  modules:{/** Page H1 for families whose source has none (OGCS_H1_DECISIONS_2026-10-02, Control Tower ruling): the route title, above the first section. */pageTitle?:string;aboutPresence?:boolean;projectCoverage?:Array<{path:string;title:string}>;projectDiscovery?:boolean;projectNavigation?:boolean}
 }

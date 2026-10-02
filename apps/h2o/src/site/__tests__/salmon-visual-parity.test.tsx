@@ -44,7 +44,9 @@ describe('Salmon family routing replaces the generic article fallback',()=>{
     for(const row of projectDetails)expect(salmonFamilyFor(doc(row.routeId))?.family,row.path).toBe('project-detail')
   })
   it('never renders an audited family through <main class="shell article">',()=>{
-    for(const id of salmonFamilyRouteIds()){const html=page(doc(id));expect(html,id).not.toContain('class="shell article"');expect(count(html,/<main\b/g),id).toBe(1);expect(count(html,/<h1\b/g),id).toBe(doc(id).seo.h1.length?1:0)}
+    // OGCS_H1_DECISIONS_2026-10-02 (Control Tower ruling): these two source-H1-less routes gain a page H1.
+    const decidedH1=new Set(['SALMON-pages-8','SALMON-pages-7'])
+    for(const id of salmonFamilyRouteIds()){const html=page(doc(id));expect(html,id).not.toContain('class="shell article"');expect(count(html,/<main\b/g),id).toBe(1);expect(count(html,/<h1\b/g),id).toBe(doc(id).seo.h1.length||decidedH1.has(id)?1:0)}
   })
 })
 

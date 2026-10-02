@@ -84,3 +84,58 @@
  .salmon-copy .salmon-footer-offices{grid-column:auto}
  .salmon-copy .salmon-footer-legal{min-height:68px;flex-wrap:wrap;text-align:center}
 }
+
+/*
+ * Background delivery (Control Tower, 2026-10-02): the frozen salmon-parity.css backgrounds above, same selectors,
+ * delivered as the verified same-size WebP derivatives in content/media-derivatives.json. Image identity, position,
+ * size and overlays are unchanged; only the transferred file differs.
+ */
+.salmon-copy .elementor-48 .elementor-element.elementor-element-2e9b867:not(.elementor-motion-effects-element-type-background),
+.salmon-copy .elementor-48 .elementor-element.elementor-element-2e9b867 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("/media/derivatives/fecd87f226ff98aa8b6628451837e92361b3c4a2a28a3e37747ff12ca8dde214.webp");
+}
+
+.salmon-copy .elementor-48 .elementor-element.elementor-element-25de69a:not(.elementor-motion-effects-element-type-background),
+.salmon-copy .elementor-48 .elementor-element.elementor-element-25de69a > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("/media/derivatives/2007c6ef7ff3e707e1cb7d1150ede181c1f5bd9bf6c4a07ac25f71009a8fee3c.webp");
+}
+
+.salmon-copy .elementor-48 .elementor-element.elementor-element-72da36d:not(.elementor-motion-effects-element-type-background),
+.salmon-copy .elementor-48 .elementor-element.elementor-element-72da36d > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("/media/derivatives/fecd87f226ff98aa8b6628451837e92361b3c4a2a28a3e37747ff12ca8dde214.webp");
+}
+
+.salmon-copy .elementor-48 .elementor-element.elementor-element-cf015ae:not(.elementor-motion-effects-element-type-background),
+.salmon-copy .elementor-48 .elementor-element.elementor-element-cf015ae > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("/media/derivatives/c43fee3838800782b066349bbda713a205172a82d92fd9c362e91b6fae42fa26.webp");
+}
+
+.salmon-copy .elementor-48 .elementor-element.elementor-element-51db41d:not(.elementor-motion-effects-element-type-background),
+.salmon-copy .elementor-48 .elementor-element.elementor-element-51db41d > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("/media/derivatives/b9b47cb78b7944949bca5905e0c6cab4a28f18240208757b19914da512547250.webp");
+}
+
+.salmon-copy .elementor-48 .elementor-element.elementor-element-be3492c:not(.elementor-motion-effects-element-type-background),
+.salmon-copy .elementor-48 .elementor-element.elementor-element-be3492c > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("/media/derivatives/571e15d3950a22b6cdcd86ed50c89fba4c2f5ce6c028c225b2abfe521dd7a7b4.webp");
+}
+
+.salmon-copy .elementor-1230 .elementor-element.elementor-element-4405d9d9:not(.elementor-motion-effects-element-type-background),
+.salmon-copy .elementor-1230 .elementor-element.elementor-element-4405d9d9 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("/media/derivatives/98240d6a806df58531e74d6cb77b18d175885818a2e40b0285b7545870ec8306.webp");
+}
+
+.salmon-copy .elementor-1230 .elementor-element.elementor-element-731bb00f:not(.elementor-motion-effects-element-type-background),
+.salmon-copy .elementor-1230 .elementor-element.elementor-element-731bb00f > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("/media/derivatives/19c4828492a052bd08886047738b193680fb69b2296f5fb4fb2a6b4e3b386358.webp");
+}
+
+.salmon-copy .elementor-1230 .elementor-element.elementor-element-ca0c0ff:not(.elementor-motion-effects-element-type-background),
+.salmon-copy .elementor-1230 .elementor-element.elementor-element-ca0c0ff > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("/media/derivatives/c68fbb3081f4ab0363aafc3f09b830f90b9b86af23d34bcbf47adf58d074fc53.webp");
+}
+
+.salmon-copy .elementor-1230 .elementor-element.elementor-element-a473787:not(.elementor-motion-effects-element-type-background),
+.salmon-copy .elementor-1230 .elementor-element.elementor-element-a473787 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("/media/derivatives/820883eac57c36ee7870d801ba75ba3cc865254479ec4ed774bf73ad1490eb70.webp");
+}

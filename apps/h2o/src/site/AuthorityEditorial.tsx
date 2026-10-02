@@ -9,7 +9,12 @@ function pieces(node:SalmonNode,key:string):Piece[]{
   if(/^(h[1-6]|p|ul|ol|img|figure|table|blockquote|a)$/.test(node.tag))return [{node,key}]
   return node.children.flatMap((child,i)=>pieces(child,`${key}.${i}`))
 }
+// Routes whose source has no H1: the opening section's heading is the page H1 (OGCS_H1_DECISIONS_2026-10-02,
+// Control Tower ruling). Same node, text and styling (.authority-opening styles h1 and h2 alike); no duplicate.
+const PROMOTED_OPENING_HEADING=new Set(['SALMON-b2503fcd6ca86806'])
+const promoted=(node:SalmonNode):SalmonNode=>typeof node==='string'||node.tag!=='h2'?node:{...node,tag:'h1'}
 export function AuthorityEditorial({doc}:{doc:SalmonDocument}){
+  const promote=PROMOTED_OPENING_HEADING.has(doc.routeId)&&!doc.seo.h1.length
   const about=doc.routeId==='SALMON-pages-1931'
   const sections=doc.children.map((node,i)=>pieces(node,`body.${i}`).filter(piece=>{
     if(!about)return true
@@ -23,7 +28,7 @@ export function AuthorityEditorial({doc}:{doc:SalmonDocument}){
       const heading=group.find(piece=>typeof piece.node!=='string'&&/^h[1-6]$/.test(piece.node.tag))
       const rest=group.filter(piece=>piece!==heading)
       return <section className={`authority-section${i===0?' authority-opening':''}`} key={i} data-authority-section={i}>
-        <div className="authority-heading">{heading?renderSalmonNode(heading.node,heading.key,doc):null}</div>
+        <div className="authority-heading">{heading?renderSalmonNode(promote&&i===0?promoted(heading.node):heading.node,heading.key,doc):null}</div>
         <div className="authority-content">{rest.map(piece=>renderSalmonNode(piece.node,piece.key,doc))}{about&&i===1?<div className="about-presence-list" aria-label="Confirmed ICS presence"><span>Lakewood, Colorado <small>Main office</small></span><span>Japan <small>Confirmed presence</small></span><span>Bangkok, Thailand <small>Confirmed presence</small></span></div>:null}</div>
       </section>
     })}

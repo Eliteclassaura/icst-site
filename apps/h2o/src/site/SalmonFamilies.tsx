@@ -48,6 +48,7 @@ function AboutPresence(){
 export function SalmonFamilyMain({model,ctx}:{model:SalmonFamilyPageModel;ctx:RenderContext}){
   const {modules}=model
   return <main id="main" className={`sp-main sp-family--${model.family}`} data-salmon-region="body" data-salmon-family={model.family} data-audit-family={model.auditFamily} data-content-contract={model.contract} data-content-source={model.source.kind}>
+    {modules.pageTitle?<div className="sp-section-inner sp-page-title"><h1 className="sp-heading sp-type-display sp-c-ink">{modules.pageTitle}</h1></div>:null}
     {modules.projectNavigation?<div className="sp-section-inner sp-project-back"><a href="/all-projects/">← All projects</a></div>:null}
     {model.sections.map(section=><SectionSlot key={section.key}>
       <SectionView section={section} ctx={ctx}/>
