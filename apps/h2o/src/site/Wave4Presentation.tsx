@@ -7,6 +7,7 @@ import {R2Discovery} from './R2Discovery'
 import {RfqMount} from './RfqMount'
 import {cssBackground} from './salmon-source'
 import {deliverySrc} from './media-delivery'
+import {PUBLIC_AUTHOR} from './public-author-identity'
 
 const exactImage='/media/figma-wave4/figma-w4-e7d87492.png'
 const resourcePath=(doc:SalmonDocument)=>doc.routeId==='SALMON-pages-1761'?'/resources/':doc.targetPath
@@ -62,6 +63,9 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
 function articleDescription(doc:SalmonDocument){
   return doc.seo.meta.find(meta=>meta.name==='description')?.value||doc.text.replace(/\s+/g,' ').slice(0,180)
 }
+// Byline: the site author links to his canonical archive (owner decision 2026-10-02); any other name stays text.
+const AuthorName=({name}:{name:string})=>name===PUBLIC_AUTHOR.name?<a href={PUBLIC_AUTHOR.path}>{name}</a>:<>{name}</>
+
 export function Wave4ArticleIndex({doc}:{doc:SalmonDocument}){
   const directory=articleDirectoryDocuments()
   const featured=directory.find(entry=>entry.indexable)
@@ -92,7 +96,7 @@ export function Wave4ArticleDetail({doc}:{doc:SalmonDocument}){
   const page=pageFor(doc)
   return <div className="luxury-site figma-wave4" data-wave4-article={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc}/><LuxuryHeader page={page} routePath={doc.targetPath}/>
-    <main id="main" className="wave4-detail"><header className="wave4-detail-masthead"><nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tech-articles/">Tech Articles</a></nav><h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{byline?<p className="wave4-byline">By {byline.author}<span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null}</header>
+    <main id="main" className="wave4-detail"><header className="wave4-detail-masthead"><nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tech-articles/">Tech Articles</a></nav><h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{byline?<p className="wave4-byline"><span>By <AuthorName name={byline.author}/></span><span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null}</header>
       <div className="wave4-reading-layout">{toc.length?<><nav className="wave4-toc-rail" aria-label="Table of Contents" data-pagefind-ignore><h2>Table of Contents</h2>{toc.map(link=><a href={link.href} key={link.href}>{link.label}</a>)}</nav><details className="wave4-toc-mobile" data-pagefind-ignore><summary>Table of Contents</summary><nav aria-label="Table of Contents">{toc.map(link=><a href={link.href} key={link.href}>{link.label}</a>)}</nav></details></>:null}<article className="wave4-detail-body">{articleHeadingNodes(doc.children,true).map((node,index)=>renderSalmonNode(node,`body.${index}`,doc,true))}</article></div>
       {specimen?<nav className="wave4-related-pathways" aria-label="Related technical pathways"><h2>Continue your research</h2><a href="/wp-content/uploads/2021/11/How-Cooling-Towers-Work.pdf">How Cooling Towers Work PDF</a><a href="/crossflow-cooling-tower-repair-maintenance/">Crossflow towers</a><a href="/fill-media/">Fill media</a></nav>:null}
       <section className="wave4-article-rfq"><h2>Let’s Build Efficient Industrial Cooling Systems</h2>{page?<RfqMount mountId="editorial_inline" page={page}/>:<RfqMount mountId="editorial_inline" routePath={doc.targetPath}/>}<a href="/contact-us/">Contact us</a></section>
@@ -111,7 +115,7 @@ export function LiveEnglishDetail({doc}:{doc:SalmonDocument}){
     <SalmonSeo doc={doc}/><LuxuryHeader page={pageFor(doc)} routePath={doc.targetPath}/>
     <main id="main" className="wave4-detail">
       <nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{isProject?<a href="/all-projects/">Projects</a>:isPost?<a href="/tech-articles/">Tech Articles</a>:<a href="/resources/">Resources</a>}</nav>
-      <article className="wave4-detail-body"><h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{byline?<p className="wave4-byline">By {byline.author}<span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null}{doc.children.map((node,index)=>renderSalmonNode(node,`body.${index}`,doc,true))}</article>
+      <article className="wave4-detail-body"><h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{byline?<p className="wave4-byline"><span>By <AuthorName name={byline.author}/></span><span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null}{doc.children.map((node,index)=>renderSalmonNode(node,`body.${index}`,doc,true))}</article>
       <div className="wave4-detail-return"><a href={isProject?'/all-projects/':isPost?'/tech-articles/':'/resources/'}>← Back to {isProject?'projects':isPost?'technical articles':'resources'}</a></div>
     </main>
     <LuxuryFooter page={pageFor(doc)} routePath={doc.targetPath}/>

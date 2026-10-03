@@ -2,6 +2,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import type {SalmonDocument,SalmonNode} from './salmon'
 import {isPayloadContent,snapshotJson} from '../content/runtime-read'
+import {projectPublicAuthorIdentity} from './public-author-identity'
 
 type ReleaseRow={path:string;routeId:string;state:string;canonical:string;indexable:boolean;redirect:string|null}
 type ReleaseAuthority={origin:string;routes:ReleaseRow[];redirects:Array<{source:string;destination:string}>}
@@ -10,6 +11,12 @@ function authority(){
   // Content bridge seam: payload content mode adapts against the published ledger (current Payload state).
   if(isPayloadContent())return snapshotJson<ReleaseAuthority>('ledger.json')
   return ledger??=JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as ReleaseAuthority
+}
+/** An alias address renders its source document at its own path and canonical (og:url and schema follow). */
+export function aliasReleaseDocument(doc:SalmonDocument,aliasPath:string,canonical:string):SalmonDocument{
+  const previous=doc.seo.canonical[0]
+  const schema=previous?doc.seo.schema.map(raw=>raw.replaceAll(JSON.stringify(previous).slice(1,-1),JSON.stringify(canonical).slice(1,-1))):doc.seo.schema
+  return {...doc,targetPath:aliasPath,seo:{...doc.seo,canonical:[canonical],meta:doc.seo.meta.map(meta=>meta.name==='og:url'?{...meta,value:canonical}:meta),schema}}
 }
 /** Build-only adaptation. The hash-verified source JSON is never rewritten. */
 export function publicReleaseDocument(doc:SalmonDocument):SalmonDocument{
@@ -51,5 +58,6 @@ function publicReleaseDocumentWith(row:ReleaseRow,doc:SalmonDocument,origin:stri
     }
     return {...node,attrs,children:node.children.map(adaptNode)}
   }
-  return {...doc,targetPath:row.path,children:doc.children.map(adaptNode),seo:{...doc.seo,canonical:[canonical],meta:doc.seo.meta.map(meta=>meta.name==='og:url'?{...meta,value:canonical}:meta),schema:doc.seo.schema.map(raw=>JSON.stringify(normalizeSchema(JSON.parse(raw))))}}
+  // Owner author decision 2026-10-02: one public author identity (./public-author-identity).
+  return projectPublicAuthorIdentity({...doc,targetPath:row.path,children:doc.children.map(adaptNode),seo:{...doc.seo,canonical:[canonical],meta:doc.seo.meta.map(meta=>meta.name==='og:url'?{...meta,value:canonical}:meta),schema:doc.seo.schema.map(raw=>JSON.stringify(normalizeSchema(JSON.parse(raw))))}})
 }

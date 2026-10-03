@@ -18,6 +18,10 @@ export type RenderContext={
   productAction?:(product:ProductCardInput)=>ReactNode
   /** The page supplies the generic quote action (approved adapter, genuine page_path). */
   quoteAction?:(label:string)=>ReactNode
+  /** Text shown in place of a missing product image (archive template); without it a card simply has no media. */
+  mediaFallback?:string
+  /** Product images fill the card width up to their native size, never upscaled (archive template). */
+  fillMedia?:boolean
 }
 
 /* ---------------- primitives ---------------- */
@@ -80,7 +84,7 @@ export function ProductCard({product,ctx}:{product:ProductCardInput;ctx:RenderCo
   const name=<Rich text={product.name}/>
   return <article className="sp-product" data-product-route={product.productPath} data-salmon-product-card="">
     <h3 className="sp-product-title">{product.productPath?<a href={product.productPath}>{name}</a>:name}</h3>
-    {product.media?<a className="sp-product-media" href={product.productPath} tabIndex={-1} aria-hidden="true"><Picture media={product.media} eager={ctx.eager}/></a>:null}
+    {product.media?<a className="sp-product-media" href={product.productPath} tabIndex={-1} aria-hidden="true"><Picture media={product.media} eager={ctx.eager} style={ctx.fillMedia&&product.media.width?{maxInlineSize:`min(100%, ${product.media.width}px)`}:undefined}/></a>:ctx.mediaFallback?<span className="sp-product-media sp-product-media--none" aria-hidden="true">{ctx.mediaFallback}</span>:null}
     {product.detail?.length?<div className="sp-product-detail"><TextBlocks blocks={product.detail}/></div>:null}
     <div className="sp-product-action">{ctx.productAction?.(product)??ctx.quoteAction?.('Request a Quote')??<a className="sp-btn sp-btn--solid" href="/contact-us/" data-salmon-exception="RFQ_ONLY">Request a Quote</a>}</div>
   </article>

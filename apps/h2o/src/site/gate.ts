@@ -237,6 +237,8 @@ export const publicMountGate=(
  * of the active cohort, and ONLY with the approved configuration. Every other public gate rule is unchanged.
  * Context (product_slug/product_id) is derived here from the product record, never typed by content.
  */
+/** Product archive pages (Control Tower ruling 2026-10-02, archive template): category and tag listings and their pages. */
+export const PRODUCT_ARCHIVE_PATH=/^\/product-(?:category|tag)\//
 export const CATEGORY_AND_FAMILY_PAGES=new Set(['/cooling-tower-fan-stacks/','/drive-shafts-assembles/','/fans/','/fill-media/','/frp-members/','/gear-box/','/motors/','/nozzles/','/tower-hardware/'])
 export type CardProductGate=MountGate&{productSlug?:string;productId?:string}
 export const categoryAndFamilyGate=(
@@ -248,7 +250,7 @@ export const categoryAndFamilyGate=(
   const routes=options.routes??publicRoutes()
   if(!publicReleaseReady(routePath,routes))return {mounted:false,reason:'ROUTE_NOT_PUBLIC_EXPORT'}
   const row=routes.find(candidate=>candidate.path===routePath)
-  if(!CATEGORY_AND_FAMILY_PAGES.has(routePath)&&row?.routeClass!=='product_cat')return {mounted:false,reason:'MOUNT_NOT_AUTHORIZED_FOR_PUBLIC'}
+  if(!CATEGORY_AND_FAMILY_PAGES.has(routePath)&&row?.routeClass!=='product_cat'&&!PRODUCT_ARCHIVE_PATH.test(routePath))return {mounted:false,reason:'MOUNT_NOT_AUTHORIZED_FOR_PUBLIC'}
   if(!product)return {mounted:false,reason:'ROUTE_NOT_IN_COHORT'}
   if(!publicReleaseReady(product.targetPath,routes))return {mounted:false,reason:'ROUTE_NOT_IN_COHORT'}
   let cardPath:string

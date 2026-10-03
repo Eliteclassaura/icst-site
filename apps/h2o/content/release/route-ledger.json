@@ -23277,6 +23277,24 @@
       "redirect": null
     },
     {
+      "path": "/author/timbozic/",
+      "routeId": "SALMON-b2503fcd6ca86806",
+      "sourceFile": "documents/SALMON-b2503fcd6ca86806.json",
+      "sourceSha256": "c15f7985e5a2b471368160a337fe128f825551cf35fa4cd93bba4f0ba4eea530",
+      "routeClass": "link-discovered",
+      "state": "PUBLIC",
+      "export": true,
+      "indexable": false,
+      "sitemap": false,
+      "searchable": false,
+      "canonical": "https://h2ocooling.com/author/timbozic/",
+      "previousCanonical": "",
+      "sourceRobots": "follow, noindex",
+      "matchedArticle": false,
+      "releaseOverride": null,
+      "redirect": null
+    },
+    {
       "path": "/search/",
       "routeId": "RELEASE-SEARCH",
       "routeClass": "search",

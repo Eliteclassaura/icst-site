@@ -28,6 +28,10 @@
   --sp-sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --sp-gap: clamp(16px, 2vw, 30px);
   --sp-page: 1260px;
+  /* Salmon footer social icon colours (Elementor brand-colour icons). */
+  --sp-social-ring: rgb(9 9 20);
+  --sp-social-facebook: rgb(59 89 152);
+  --sp-social-youtube: rgb(205 32 31);
 }
 .salmon-family {
   background: var(--sp-white);
@@ -712,6 +716,228 @@ button):hover {
 .salmon-family .sp-parts-related .sp-product-media img {
   max-block-size: 130px;
 }
+/* ---------- archive template (Control Tower ruling 2026-10-02): product and article archives ---------- */
+.salmon-family--archive .sp-archive-head {
+  padding-block: clamp(28px, 4vw, 56px) clamp(12px, 1.6vw, 20px);
+}
+.salmon-family .sp-archive-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding: 0;
+  color: var(--sp-muted);
+  font-size: 13px;
+  list-style: none;
+}
+.salmon-family .sp-archive-crumbs li + li::before {
+  margin-inline-end: 6px;
+  content: "/";
+}
+.salmon-family .sp-archive-crumbs a {
+  color: var(--sp-blue);
+  text-decoration: none;
+}
+.salmon-family .sp-archive-count {
+  margin: 10px 0 0;
+  color: var(--sp-muted);
+  font-size: 14px;
+}
+.salmon-family .sp-archive-body {
+  padding-block: clamp(12px, 2vw, 24px) clamp(28px, 3.6vw, 48px);
+}
+.salmon-family .sp-archive-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 24px);
+}
+.salmon-family .sp-archive-grid .sp-product {
+  padding: 20px 14px;
+}
+.salmon-family .sp-archive-grid .sp-product-title {
+  font-size: clamp(17px, 1.3vw, 19px);
+}
+.salmon-family .sp-archive-grid .sp-product-media {
+  inline-size: 100%;
+}
+/* Fill the card's content width up to the native size (the inline max-inline-size), square like Salmon's thumbnails. */
+.salmon-family .sp-archive-grid .sp-product-media img {
+  inline-size: 100%;
+  max-block-size: none;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+.salmon-family .sp-archive-article {
+  overflow: hidden;
+  border: 1px solid var(--sp-line);
+  border-radius: 10px;
+  background: var(--sp-white);
+}
+.salmon-family .sp-archive-article a {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  color: var(--sp-ink);
+  text-decoration: none;
+}
+.salmon-family .sp-archive-article img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.salmon-family .sp-archive-article span {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px 20px;
+}
+.salmon-family .sp-archive-article strong {
+  color: var(--sp-blue-2);
+  font: 400 clamp(18px, 1.4vw, 21px)/1.15 var(--sp-display);
+  text-transform: uppercase;
+}
+.salmon-family .sp-archive-article small {
+  display: block;
+  max-block-size: 4.5em;
+  overflow: hidden;
+  color: var(--sp-ink-2);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.salmon-family .sp-archive-article em {
+  color: var(--sp-blue);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+}
+.salmon-family .sp-archive-article a:hover strong {
+  color: var(--sp-blue);
+}
+.salmon-family .sp-archive-article a:focus-visible,
+.salmon-family .sp-archive-pages a:focus-visible {
+  outline: 2px solid var(--sp-blue);
+  outline-offset: 2px;
+}
+.salmon-family .sp-archive-empty {
+  margin: 0;
+  color: var(--sp-ink-2);
+}
+.salmon-family .sp-archive-empty a {
+  color: var(--sp-blue);
+}
+.salmon-family .sp-archive-pages ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0 0 clamp(32px, 4vw, 56px);
+  list-style: none;
+}
+.salmon-family .sp-archive-pages :is(a, span) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 40px;
+  min-block-size: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--sp-line);
+  border-radius: 999px;
+  background: var(--sp-white);
+  color: var(--sp-ink-2);
+  font: 500 14px/1 var(--sp-sans);
+  text-decoration: none;
+}
+.salmon-family .sp-archive-pages [aria-current="page"] {
+  border-color: var(--sp-blue);
+  background: var(--sp-blue);
+  color: var(--sp-white);
+}
+.salmon-family .sp-archive-pages a:hover {
+  border-color: var(--sp-blue);
+  color: var(--sp-blue);
+}
+
+@media (max-width: 1100px) {
+  .salmon-family .sp-archive-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .salmon-family .sp-archive-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Long names wrap and clamp (three lines) instead of overflowing; images are never upscaled (auto size, max only). */
+.salmon-family--archive .sp-archive-head h1 {
+  overflow-wrap: anywhere;
+}
+.salmon-family .sp-archive-grid .sp-product-title,
+.salmon-family .sp-archive-article strong {
+  display: block;
+  max-block-size: 3.45em;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+.salmon-family .sp-product-media--none {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 120px;
+  border: 1px dashed var(--sp-line);
+  border-radius: 8px;
+  color: var(--sp-muted);
+  font-size: 13px;
+}
+
+@media (max-width: 520px) {
+  .salmon-family .sp-archive-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  /* Product archives keep two cards per row on phones, as Salmon does; article archives use compact rows. */
+  .salmon-family .sp-archive-grid.sp-products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .salmon-family .sp-archive-grid .sp-product {
+    gap: 10px;
+    padding: 12px 10px 14px;
+  }
+
+  .salmon-family .sp-archive-grid .sp-product-title {
+    font-size: 15px;
+  }
+
+  .salmon-family .sp-archive-grid .sp-product-media--none {
+    min-block-size: 96px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .salmon-family .sp-archive-article a {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .salmon-family .sp-archive-article img {
+    flex: 0 0 112px;
+    inline-size: 112px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .salmon-family .sp-archive-article span {
+    padding: 12px 14px;
+  }
+
+  .salmon-family .sp-archive-article img + span {
+    padding-inline-start: 0;
+  }
+}
 /* Parts hero: the source foreground product sits on the lower edge of the photo panel. */
 /*
  * Parts hero — measured against settled Salmon captures (1440: panel 1260x743, H1 at 80px,
@@ -971,28 +1197,64 @@ button):hover {
 .global-chrome .sp-footer .client-socials > div {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 0;
+  margin-inline-start: -6px;
 }
+/* Round icon buttons in the Salmon footer style: 32px visible circle, dark ring, 16px glyph, 44px tap area. */
 .global-chrome .sp-footer .client-socials a {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  min-block-size: 30px;
-  padding: 4px 10px;
-  border: 1px solid var(--sp-line);
-  border-radius: 999px;
-  background: var(--sp-white);
-  color: var(--sp-ink-2);
-  font: 500 12px/1 var(--sp-sans);
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--sp-black);
   text-decoration: none;
 }
-.global-chrome .sp-footer .client-socials a:hover {
+.global-chrome .sp-footer .client-social-disc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 32px;
+  block-size: 32px;
+  border: 1px solid var(--sp-social-ring);
+  border-radius: 50%;
+  background: var(--sp-white);
+}
+.global-chrome .sp-footer .client-socials .client-social--facebook .client-social-disc {
+  background: var(--sp-social-facebook);
+  color: var(--sp-white);
+}
+.global-chrome .sp-footer .client-socials .client-social--youtube .client-social-disc {
+  background: var(--sp-social-youtube);
+  color: var(--sp-white);
+}
+.global-chrome .sp-footer .client-socials a:hover .client-social-disc {
   border-color: var(--sp-blue);
-  color: var(--sp-blue);
+}
+.global-chrome .sp-footer .client-socials a:focus-visible {
+  outline: 2px solid var(--sp-blue);
+  outline-offset: 0;
 }
 .global-chrome .sp-footer .client-socials svg {
-  inline-size: 11px;
-  block-size: 11px;
+  display: block;
+  inline-size: 16px;
+  block-size: 16px;
+}
+/* Cooling Technology Institute membership badge, below the About ICS text (owner decision 2026-10-02). */
+.global-chrome .sp-footer-cti {
+  margin-block-start: 16px;
+}
+.global-chrome .sp-footer-cti img {
+  display: block;
+  inline-size: auto;
+  max-inline-size: 100%;
+  block-size: 36px;
 }
 .global-chrome .sp-footer ul {
   display: grid;

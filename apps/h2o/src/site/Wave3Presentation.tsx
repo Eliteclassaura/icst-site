@@ -48,7 +48,9 @@ function ProductSection({panel,doc,index}:{panel:ProductPanel;doc:SalmonDocument
 }
 
 export function ProductDetail({doc}:{doc:SalmonDocument}){
-  const panels=productPanels(doc)
+  // A literature panel with no document link printed "none" or a bare label: it is omitted (Control Tower 2026-10-02).
+  const documentLink=(node:SalmonNode):boolean=>typeof node!=='string'&&(node.tag==='a'&&Boolean(node.attrs.href)||node.children.some(documentLink))
+  const panels=productPanels(doc).filter(panel=>panel.kind!=='literature'||panel.nodes.some(documentLink))
   const order:ProductPanel['kind'][]=['description','features','specifications','literature','additional']
   const sorted=[...panels].sort((a,b)=>order.indexOf(a.kind)-order.indexOf(b.kind))
   const related=productRelated(doc).slice(0,4).map(route=>salmonDocument(route))

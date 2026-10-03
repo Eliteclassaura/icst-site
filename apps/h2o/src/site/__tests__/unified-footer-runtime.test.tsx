@@ -19,6 +19,7 @@ describe('accepted four-column footer with published Runtime chrome',()=>{
     expect(html).toContain('class="sp-footer-contact" href="/contact-us/">Synthetic contact label')
     expect(html).toContain('href="/resources/">Synthetic resources label')
     for(const office of contactOffices){expect(html).toContain(office.telephoneHref);expect(html).toContain(office.telephoneDisplay)}
-    expect(html).not.toContain('CTI')
+    // Owner decision 2026-10-02 (Control Tower ruling): CTI appears only as the membership badge below About ICS; ICS stays the footer identity.
+    expect(html.replace(/<div class="sp-footer-cti"><img [^>]*><\/div>/,'')).not.toContain('CTI')
   })
 })

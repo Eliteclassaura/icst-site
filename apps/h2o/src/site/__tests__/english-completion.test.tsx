@@ -42,7 +42,8 @@ describe('English completion release boundary',()=>{
         expect(Object.values(service)).toContain(src)
       }
       const html=renderToStaticMarkup(<EnglishServicePage service={service}/>)
-      expect(html).not.toContain('Cooling Technology Institute')
+      // Owner decision 2026-10-02 (Control Tower ruling): CTI appears only as the membership badge below About ICS; ICS stays the footer identity.
+      expect(html.replace(/<div class="sp-footer-cti"><img [^>]*><\/div>/,'')).not.toContain('Cooling Technology Institute')
       expect(html).not.toContain('+66-2-260-6598')
       expect(html.slice(html.indexOf('<main'))).not.toContain('<form')
     }

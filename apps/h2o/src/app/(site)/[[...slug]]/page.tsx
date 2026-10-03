@@ -1,8 +1,10 @@
 import type {Metadata} from 'next'
 import {notFound} from 'next/navigation'
 import {salmonDocument,releaseRouteFor,salmonRoutes} from '../../../site/salmon'
+import {aliasReleaseDocument} from '../../../site/release-document'
 import {SalmonCanonical} from '../../../site/SalmonCanonical'
 import {SalmonFamilyPage,salmonFamilyFor} from '../../../site/SalmonFamilies'
+import {ArchivePage,isArchiveDocument} from '../../../site/ArchivePresentation'
 import {LuxuryCanonical,luxuryIds} from '../../../site/LuxuryCanonical'
 import {PartsIndex,ProductDetail} from '../../../site/Wave3Presentation'
 import {LiveEnglishDetail,Wave4ArticleDetail,Wave4ArticleIndex,Wave4Library} from '../../../site/Wave4Presentation'
@@ -44,7 +46,7 @@ export async function generateMetadata({params}:Params):Promise<Metadata>{
     if(!source)return {robots:{index:false,follow:false}}
     const doc=salmonDocument(source)
     if(record.family==='alias'&&(record.seo?.title||record.seo?.description))return {title:{absolute:record.seo?.title||doc.seo.title},description:record.seo?.description||doc.seo.meta.find(meta=>meta.name==='description')?.value,alternates:{canonical:canonicalFor(record)},robots}
-    return {title:{absolute:record.family==='alias'?doc.seo.title:articleMetadataTitle(doc)},description:doc.seo.meta.find(meta=>meta.name==='description')?.value,alternates:{canonical:canonicalFor(record)},robots}
+    return {title:{absolute:articleMetadataTitle(doc)},description:doc.seo.meta.find(meta=>meta.name==='description')?.value,alternates:{canonical:canonicalFor(record)},robots}
   }
   const slug=(await params).slug
   const service=englishServiceForPath('/'+(slug??[]).join('/')+((slug??[]).length?'/':''))
@@ -62,11 +64,16 @@ export async function generateMetadata({params}:Params):Promise<Metadata>{
 }
 export default async function Page({params,searchParams}:Params){
   let slug=(await params).slug
+  // An alias record (a second public address of an imported route, e.g. /author/timbozic/) renders its source
+  // document at its own address and canonical.
+  let alias:{source:string;path:string;canonical:string}|undefined
   if(isPayloadContent()){
     await connection()
-    const resolved=await (await bridge()).resolvePublicPath(requestPathOf(slug))
+    const {canonicalFor,resolvePublicPath}=await bridge()
+    const resolved=await resolvePublicPath(requestPathOf(slug))
     if(!resolved)notFound()
     if(resolved.record.family==='editorial')return <EditorialPage doc={resolved.doc as unknown as EditorialDoc}/>
+    if(resolved.record.family==='alias'&&resolved.record.source?.aliasOf&&resolved.record.path!=='/resources/')alias={source:resolved.record.source.aliasOf,path:resolved.record.path,canonical:canonicalFor(resolved.record)}
     slug=resolved.dispatchPath.split('/').filter(Boolean).map(decodeURIComponent)
   }
   const service=englishServiceForPath('/'+(slug??[]).join('/')+((slug??[]).length?'/':''))
@@ -76,11 +83,13 @@ export default async function Page({params,searchParams}:Params){
     if(!source)notFound()
     return <Wave4Library doc={salmonDocument(source)}/>
   }
-  const row=releaseRouteFor(slug)
+  const aliasSource=alias?salmonRoutes().find(route=>route.routeId===alias.source):undefined
+  const row=aliasSource??releaseRouteFor(slug)
   if(!row)notFound()
-  const doc=salmonDocument(row)
+  const doc=alias&&aliasSource?aliasReleaseDocument(salmonDocument(aliasSource),alias.path,alias.canonical):salmonDocument(row)
   const family=salmonFamilyFor(doc)
   if(family)return <SalmonFamilyPage doc={doc} config={family}/>
+  if(isArchiveDocument(doc))return <ArchivePage doc={doc}/>
   if(doc.routeId.startsWith('LIVE-'))return <LiveEnglishDetail doc={doc}/>
   if(doc.targetPath==='/cooling-tower-parts-online/'){
     const search=await searchParams??{}

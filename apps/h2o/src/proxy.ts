@@ -197,7 +197,7 @@ export function sitemapResponse(revoked: ReadonlySet<string> = new Set()): NextR
   const ledger = publishedLedger()
   if (!ledger) return new NextResponse('Sitemap unavailable', { status: 503, headers: { 'Cache-Control': 'no-store' } })
   const production = process.env.H2O_INDEXING_POLICY === 'production'
-  const urls = production ? ledger.routes.filter((r) => r.state === 'PUBLIC' && r.sitemap && !revoked.has(r.path)).map((r) => r.canonical || `https://h2ocooling.com${r.path}`) : []
+  const urls = production ? ledger.routes.filter((r) => r.state === 'PUBLIC' && r.sitemap && !revoked.has(r.path) && !NOINDEX_FOLLOW_PATHS.has(r.path)).map((r) => r.canonical || `https://h2ocooling.com${r.path}`) : []
   const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${xmlEscape(u)}</loc></url>`).join('\n')}${urls.length ? '\n' : ''}</urlset>\n`
   return new NextResponse(body, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'no-cache', 'X-Robots-Tag': 'noindex' } })
 }
@@ -234,7 +234,7 @@ function payloadPublic(req: NextRequest): NextResponse {
   const production = process.env.H2O_INDEXING_POLICY === 'production'
   const row = ledger?.routes.find((r) => pathKeyOf(r.path) === pathKeyOf(pathname))
   const published = !preview && production && row?.state === 'PUBLIC'
-  const robots = published && row.indexable ? null : published && NOINDEX_FOLLOW_PATHS.has(row.path) ? 'noindex, follow' : 'noindex, nofollow'
+  const robots = published && NOINDEX_FOLLOW_PATHS.has(row.path) ? 'noindex, follow' : published && row.indexable ? null : 'noindex, nofollow'
   if (pathname === '/' && req.nextUrl.searchParams.has('s')) {
     const target = req.nextUrl.clone()
     target.pathname = '/search/'

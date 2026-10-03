@@ -87,8 +87,8 @@ export async function resolvePublicPath(requestPath: string): Promise<Resolved |
 /** Robots for a resolved record under the active indexing policy (private unless explicitly production). */
 export function robotsFor(record: RouteRecord, preview: boolean): { index: boolean; follow: boolean } {
   if (preview || indexingPolicy() !== 'production') return { index: false, follow: false }
+  if (record.disposition?.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS.has(record.path)) return { index: false, follow: true }
   const ok = Boolean(record.disposition?.indexable)
-  if (!ok && record.disposition?.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS.has(record.path)) return { index: false, follow: true }
   return { index: ok, follow: ok }
 }
 

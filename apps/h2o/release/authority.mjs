@@ -56,6 +56,12 @@ export function releaseAuthority(root){
   if(!resource)throw new Error('Resources authority missing')
   routes.push({...resource,path:'/resources/',canonical:origin+'/resources/',previousCanonical:resource.previousCanonical,state:'PUBLIC',indexable:true,sitemap:true})
   resource.state='REDIRECT';resource.export=false;resource.indexable=false;resource.sitemap=false;resource.searchable=false;resource.redirect='/resources/'
+  // Owner decision 2026-10-02 (Control Tower ruling): the author archive's canonical address is /author/timbozic/.
+  // Frozen bytes and the source record stay; the new address is an alias row (imported as an alias record), and
+  // reviewed admin redirect records send /author/tbozic/ and the dummy author archive here.
+  const author=routes.find(row=>row.routeId==='SALMON-b2503fcd6ca86806')
+  if(!author||author.path!=='/author/tbozic/')throw new Error('Author source authority missing')
+  routes.push({...author,path:'/author/timbozic/',canonical:origin+'/author/timbozic/',indexable:false,sitemap:false,searchable:false})
   routes.push({path:'/search/',routeId:'RELEASE-SEARCH',routeClass:'search',state:'PUBLIC',export:true,indexable:false,sitemap:false,canonical:origin+'/search/',previousCanonical:'',sourceRobots:'noindex, follow',matchedArticle:false,sourceFile:'release/templates/search.tsx',sourceSha256:null,redirect:null})
   const serviceFile='content/english-completion/service-pages.json'
   const serviceBytes=readFileSync(path.join(root,serviceFile))

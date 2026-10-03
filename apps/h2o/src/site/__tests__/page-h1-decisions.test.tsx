@@ -65,7 +65,7 @@ describe('author archive indexing under H2O_INDEXING_POLICY=production',()=>{
     const root=mkdtempSync(path.join(tmpdir(),'h2o-h1-'))
     mkdirSync(path.join(root,'generations','g'),{recursive:true})
     const ledger=JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as {routes:Array<{path:string;state:string;indexable:boolean;sitemap:boolean;canonical?:string}>}
-    const routes=ledger.routes.filter(row=>['/author/tbozic/','/industries/','/solutions/','/contact-us/'].includes(row.path)).map(row=>({path:row.path,state:row.state,indexable:row.indexable,sitemap:row.sitemap,canonical:row.canonical}))
+    const routes=ledger.routes.filter(row=>['/author/timbozic/','/author/tbozic/','/industries/','/solutions/','/contact-us/'].includes(row.path)).map(row=>({path:row.path,state:row.state,indexable:row.indexable,sitemap:row.sitemap,canonical:row.canonical}))
     routes.push({path:'/indexed-fixture/',state:'PUBLIC',indexable:true,sitemap:true,canonical:'https://h2ocooling.com/indexed-fixture/'})
     writeFileSync(path.join(root,'generations','g','ledger.json'),JSON.stringify({routes,redirects:[]}))
     mkdirSync(path.join(root,'releases'),{recursive:true})
@@ -75,24 +75,26 @@ describe('author archive indexing under H2O_INDEXING_POLICY=production',()=>{
     process.env.CONTENT_SNAPSHOT_DIR=root
   }
   it('is noindex,follow and out of the sitemap; other non-indexable routes stay noindex,nofollow; private stays closed',async()=>{
-    expect([...NOINDEX_FOLLOW_PATHS]).toEqual(['/author/tbozic/'])
+    // The rule follows the author archive to its canonical address (owner decision 2026-10-02).
+    expect([...NOINDEX_FOLLOW_PATHS][0]).toBe('/author/timbozic/')
     snapshot()
     const {proxy,sitemapResponse}=await import('../../proxy')
     const tag=(p:string)=>proxy(new NextRequest(`https://h2ocooling.com${p}`)).headers.get('x-robots-tag')
-    expect(tag('/author/tbozic/')).toBe('noindex, nofollow')
+    expect(tag('/author/timbozic/')).toBe('noindex, nofollow')
     expect(await sitemapResponse().text()).not.toMatch(/<loc>/)
     process.env.H2O_INDEXING_POLICY='production'
-    expect(tag('/author/tbozic/')).toBe('noindex, follow')
+    expect(tag('/author/timbozic/')).toBe('noindex, follow')
+    expect(tag('/author/tbozic/')).toBe('noindex, nofollow')
     expect(tag('/industries/')).toBe('noindex, nofollow')
     expect(tag('/solutions/')).toBe('noindex, nofollow')
     expect(tag('/indexed-fixture/')).toBeNull()
     const sitemap=await sitemapResponse().text()
     expect(sitemap).toMatch(/<loc>https:\/\/h2ocooling\.com\/indexed-fixture\/<\/loc>/)
-    expect(sitemap).not.toMatch(/author\/tbozic/)
+    expect(sitemap).not.toMatch(/\/author\//)
   })
   it('page metadata reads the same decision as the header',()=>{
     const bridge=readFileSync(path.join(process.cwd(),'src/content/page-bridge.ts'),'utf8')
-    expect(bridge).toMatch(/record\.disposition\?\.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS\.has\(record\.path\)\) return \{ index: false, follow: true \}/)
+    expect(bridge).toMatch(/if \(record\.disposition\?\.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS\.has\(record\.path\)\) return \{ index: false, follow: true \}/)
     expect(bridge).toMatch(/if \(preview \|\| indexingPolicy\(\) !== 'production'\) return \{ index: false, follow: false \}/)
   })
 })

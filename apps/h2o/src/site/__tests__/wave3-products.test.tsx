@@ -53,7 +53,8 @@ describe('Wave 3 accepted product archetype',()=>{
       expect(html,route.targetPath).not.toMatch(/<button[^>]*>\s*(?:Add to Cart|Buy Now|Checkout)/i)
       expect(html,route.targetPath).not.toMatch(/<input[^>]*type="number"/i)
       expect(productSummary(doc).length,route.targetPath).toBeGreaterThan(0)
-      for(const panel of productPanels(doc))expect(html,route.targetPath).toContain(`data-product-module="${panel.kind}"`)
+      // A literature panel without a document link is omitted (Control Tower ruling 2026-10-02); every other module renders.
+      for(const panel of productPanels(doc).filter(panel=>panel.kind!=='literature'||/"tag":"a","attrs":\{[^}]*"href"/.test(JSON.stringify(panel.nodes))))expect(html,route.targetPath).toContain(`data-product-module="${panel.kind}"`)
       expect(JSON.stringify(doc)).toBe(before)
     }
   }))

@@ -61,7 +61,8 @@ describe('accepted public chrome and Technical Articles implementation',()=>{
     expect(header).not.toContain('salmon-header-language')
     expect(header).toContain('site-mobile-search-form')
     expect(footer).toContain('a8f4b38d0f7ede838b277c9bcd00a3b75a268ce23a5fccfb86ec263774e3b844.png')
-    expect(footer).not.toContain('Cooling Technology Institute')
+    // Owner decision 2026-10-02 (Control Tower ruling): CTI appears only as the membership badge below About ICS; ICS stays the footer identity.
+    expect(footer.replace(/<div class="sp-footer-cti"><img [^>]*><\/div>/,'')).not.toContain('Cooling Technology Institute')
     for(const href of ['tel:+13034622000','tel:+819042046742','tel:+6626617723'])expect(footer).toContain(href)
   })
 })
