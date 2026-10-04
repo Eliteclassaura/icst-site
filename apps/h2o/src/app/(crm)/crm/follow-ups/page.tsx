@@ -75,7 +75,7 @@ export default async function FollowUpsPage({ searchParams }: { searchParams: Pr
                 <tr key={t.id}>
                   <td className={t.overdue ? 'c-overdue' : undefined}>
                     {t.overdue ? 'Overdue · ' : ''}
-                    {t.dueAt ? compactTime(new Date(t.dueAt), now) : <span className="c-unknown">No date</span>}
+                    {t.dueAt ? compactTime(new Date(t.dueAt), now) : <span className="c-unknown">No due date</span>}
                   </td>
                   <td className="two">
                     <strong title={t.title}>{t.title}</strong>

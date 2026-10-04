@@ -1157,11 +1157,21 @@ export interface Manufacturer {
   createdAt: string;
 }
 /**
+ * The product categories of the public website (its /product-category/ pages). To change a category page, open it and use "Edit page content". State records the condition of the legacy term.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "product-categories".
  */
 export interface ProductCategory {
   id: string;
+  /**
+   * The public page this product category indexes. Set by the catalog seed; the page is the source of truth.
+   */
+  page_route?: (string | null) | PublicRoute;
+  /**
+   * Stable route id from the accepted route authority.
+   */
+  source_route_id?: string | null;
   name: string;
   /**
    * Legacy term slug, preserved as written. Not unique: 18 legacy terms duplicate a name.
@@ -1180,6 +1190,208 @@ export interface ProductCategory {
   indexable?: boolean | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * Public website pages. Edit the page elements (text, buttons, images), save a draft, preview it, then Publish. Unpublish withdraws a page. “Create new” starts a new page from sections. Held pages cannot be published.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-routes".
+ */
+export interface PublicRoute {
+  id: string;
+  title: string;
+  routeId?: string | null;
+  path?: string | null;
+  pathKey: string;
+  /**
+   * The address of the new page, e.g. /cooling-tower-news/. Cannot be changed after the page is created.
+   */
+  requestedPath?: string | null;
+  family?: ('salmon' | 'live' | 'english-service' | 'alias' | 'search' | 'editorial') | null;
+  routeClass?: string | null;
+  document?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Every heading, paragraph, button, link and image on this page, in page order. Edit the words, links and images; the layout stays as designed. Save a draft, Preview, then Publish.
+   */
+  slots?:
+    | {
+        key: string;
+        kind: 'heading' | 'text' | 'action' | 'image' | 'copy';
+        tag?: string | null;
+        elementId?: string | null;
+        title?: string | null;
+        sourceHash?: string | null;
+        heading?: string | null;
+        copy?: string | null;
+        text?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        label?: string | null;
+        /**
+         * A page on this site (/contact-us/) or an https link.
+         */
+        href?: string | null;
+        /**
+         * This button belongs to a published product card; it opens that product’s quote.
+         */
+        productRouteId?: string | null;
+        intent?: ('none' | 'quote') | null;
+        /**
+         * Leave empty to keep the original image.
+         */
+        image?: (string | null) | Media;
+        alt?: string | null;
+        imageUrl?: string | null;
+        imageWidth?: number | null;
+        imageHeight?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown under the page heading.
+   */
+  lead?: string | null;
+  /**
+   * Build the page from headings, paragraphs, images, buttons and FAQs.
+   */
+  sections?:
+    | (
+        | {
+            text: string;
+            level: '2' | '3';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'heading';
+          }
+        | {
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'paragraph';
+          }
+        | {
+            image: string | Media;
+            /**
+             * Leave empty to use the media item’s alt text.
+             */
+            alt?: string | null;
+            caption?: string | null;
+            imageUrl?: string | null;
+            imageWidth?: number | null;
+            imageHeight?: number | null;
+            mediaAlt?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'image';
+          }
+        | {
+            label: string;
+            /**
+             * Internal path (e.g. /contact-us/). A quote button uses the approved quote form instead.
+             */
+            href?: string | null;
+            intent: 'none' | 'quote';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'button';
+          }
+        | {
+            items?:
+              | {
+                  question: string;
+                  answer: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq';
+          }
+      )[]
+    | null;
+  seo?: {
+    /**
+     * Browser/search title. Empty keeps the accepted source title.
+     */
+    title?: string | null;
+    /**
+     * Meta description. Empty keeps the source description.
+     */
+    description?: string | null;
+    /**
+     * Canonical URL (admin-only; URL equity is never changed silently).
+     */
+    canonical?: string | null;
+  };
+  /**
+   * From the accepted release authority. Admin-only.
+   */
+  disposition: {
+    state: 'PUBLIC' | 'REVIEW_HOLD' | 'PRIVATE_ARCHIVE' | 'REDIRECT';
+    export?: boolean | null;
+    indexable?: boolean | null;
+    sitemap?: boolean | null;
+    searchable?: boolean | null;
+    redirect?: string | null;
+    matchedArticle?: boolean | null;
+    releaseOverride?: string | null;
+  };
+  /**
+   * Frozen provenance from the accepted snapshot.
+   */
+  source?: {
+    sourceUrl?: string | null;
+    sourceFile?: string | null;
+    sourceSha256?: string | null;
+    previousCanonical?: string | null;
+    sourceRobots?: string | null;
+    /**
+     * For an alias route: the source route id whose document it renders.
+     */
+    aliasOf?: string | null;
+    /**
+     * Position in the accepted route authority (templates read lists in this order).
+     */
+    order?: number | null;
+  };
+  contentSha256?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1218,11 +1430,21 @@ export interface ProductFamily {
   createdAt: string;
 }
 /**
+ * An index of the products on the public website, for finding products and for linking quote requests in the CRM. The website shows each product from its page: to change what visitors see, open the product and use "Edit page content". Catalog truth work (manufacturer evidence, identifiers, review states) is recorded here.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products".
  */
 export interface Product {
   id: string;
+  /**
+   * The public page this product indexes. Set by the catalog seed; the page is the source of truth.
+   */
+  page_route?: (string | null) | PublicRoute;
+  /**
+   * Stable route id from the accepted route authority.
+   */
+  source_route_id?: string | null;
   /**
    * Manufacturer plus model designation. Never invented.
    */
@@ -1263,6 +1485,10 @@ export interface Product {
       | null;
   };
   family?: (string | null) | ProductFamily;
+  /**
+   * Categories evidenced by the public category pages. Set by the catalog seed for indexed products; empty means the estate shows no category for this product, not that it has none.
+   */
+  categories?: (string | ProductCategory)[] | null;
   /**
    * The manufacturer designation as the manufacturer publishes it. 93 were parsed from ICS prose and none is manufacturer-verified; absent means unknown, never guessed.
    */
@@ -2859,208 +3085,6 @@ export interface CrmSuppression {
   createdAt: string;
 }
 /**
- * Public website pages. Edit the page elements (text, buttons, images), save a draft, preview it, then Publish. Unpublish withdraws a page. “Create new” starts a new page from sections. Held pages cannot be published.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "public-routes".
- */
-export interface PublicRoute {
-  id: string;
-  title: string;
-  routeId?: string | null;
-  path?: string | null;
-  pathKey: string;
-  /**
-   * The address of the new page, e.g. /cooling-tower-news/. Cannot be changed after the page is created.
-   */
-  requestedPath?: string | null;
-  family?: ('salmon' | 'live' | 'english-service' | 'alias' | 'search' | 'editorial') | null;
-  routeClass?: string | null;
-  document?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  /**
-   * Every heading, paragraph, button, link and image on this page, in page order. Edit the words, links and images; the layout stays as designed. Save a draft, Preview, then Publish.
-   */
-  slots?:
-    | {
-        key: string;
-        kind: 'heading' | 'text' | 'action' | 'image' | 'copy';
-        tag?: string | null;
-        elementId?: string | null;
-        title?: string | null;
-        sourceHash?: string | null;
-        heading?: string | null;
-        copy?: string | null;
-        text?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        label?: string | null;
-        /**
-         * A page on this site (/contact-us/) or an https link.
-         */
-        href?: string | null;
-        /**
-         * This button belongs to a published product card; it opens that product’s quote.
-         */
-        productRouteId?: string | null;
-        intent?: ('none' | 'quote') | null;
-        /**
-         * Leave empty to keep the original image.
-         */
-        image?: (string | null) | Media;
-        alt?: string | null;
-        imageUrl?: string | null;
-        imageWidth?: number | null;
-        imageHeight?: number | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Shown under the page heading.
-   */
-  lead?: string | null;
-  /**
-   * Build the page from headings, paragraphs, images, buttons and FAQs.
-   */
-  sections?:
-    | (
-        | {
-            text: string;
-            level: '2' | '3';
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'heading';
-          }
-        | {
-            content: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'paragraph';
-          }
-        | {
-            image: string | Media;
-            /**
-             * Leave empty to use the media item’s alt text.
-             */
-            alt?: string | null;
-            caption?: string | null;
-            imageUrl?: string | null;
-            imageWidth?: number | null;
-            imageHeight?: number | null;
-            mediaAlt?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'image';
-          }
-        | {
-            label: string;
-            /**
-             * Internal path (e.g. /contact-us/). A quote button uses the approved quote form instead.
-             */
-            href?: string | null;
-            intent: 'none' | 'quote';
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'button';
-          }
-        | {
-            items?:
-              | {
-                  question: string;
-                  answer: string;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'faq';
-          }
-      )[]
-    | null;
-  seo?: {
-    /**
-     * Browser/search title. Empty keeps the accepted source title.
-     */
-    title?: string | null;
-    /**
-     * Meta description. Empty keeps the source description.
-     */
-    description?: string | null;
-    /**
-     * Canonical URL (admin-only; URL equity is never changed silently).
-     */
-    canonical?: string | null;
-  };
-  /**
-   * From the accepted release authority. Admin-only.
-   */
-  disposition: {
-    state: 'PUBLIC' | 'REVIEW_HOLD' | 'PRIVATE_ARCHIVE' | 'REDIRECT';
-    export?: boolean | null;
-    indexable?: boolean | null;
-    sitemap?: boolean | null;
-    searchable?: boolean | null;
-    redirect?: string | null;
-    matchedArticle?: boolean | null;
-    releaseOverride?: string | null;
-  };
-  /**
-   * Frozen provenance from the accepted snapshot.
-   */
-  source?: {
-    sourceUrl?: string | null;
-    sourceFile?: string | null;
-    sourceSha256?: string | null;
-    previousCanonical?: string | null;
-    sourceRobots?: string | null;
-    /**
-     * For an alias route: the source route id whose document it renders.
-     */
-    aliasOf?: string | null;
-    /**
-     * Position in the accepted route authority (templates read lists in this order).
-     */
-    order?: number | null;
-  };
-  contentSha256?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-redirects".
  */
@@ -3987,6 +4011,8 @@ export interface ManufacturersSelect<T extends boolean = true> {
  * via the `definition` "product-categories_select".
  */
 export interface ProductCategoriesSelect<T extends boolean = true> {
+  page_route?: T;
+  source_route_id?: T;
   name?: T;
   slug?: T;
   parent?: T;
@@ -4109,6 +4135,8 @@ export interface ProductEvidenceSelect<T extends boolean = true> {
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
+  page_route?: T;
+  source_route_id?: T;
   title?: T;
   slug?: T;
   manufacturer?: T;
@@ -4121,6 +4149,7 @@ export interface ProductsSelect<T extends boolean = true> {
         unknown_reason?: T;
       };
   family?: T;
+  categories?: T;
   model_designation?: T;
   identifiers?:
     | T

@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, Endpoint } from 'payload'
 import { CrmAccounts } from './collections/accounts'
 import { CrmActivities } from './collections/activities'
 import { CrmAssets } from './collections/assets'
@@ -13,6 +13,7 @@ import { CrmRfqs } from './collections/rfqs'
 import { CrmSites } from './collections/sites'
 import { CrmSuppressions } from './collections/suppressions'
 import { CrmTasks } from './collections/tasks'
+import { typeformIntakeEndpoint } from './intake/typeform/endpoint'
 
 /**
  * H2O / ICS CRM-1 — the private CRM, registered by `apps/h2o/src/payload.config.ts`.
@@ -40,3 +41,9 @@ export const crmCollections: CollectionConfig[] = [
 ]
 
 export const CRM_SLUGS = crmCollections.map((c) => c.slug)
+
+/**
+ * The CRM's HTTP surface: exactly one root endpoint, the Typeform webhook (`POST /api/crm/intake/typeform/`).
+ * It answers 404 unless `H2O_CRM_TYPEFORM_INGEST_ENABLED=1` and verifies every delivery's signature.
+ */
+export const crmEndpoints: Endpoint[] = [typeformIntakeEndpoint]

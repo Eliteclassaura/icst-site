@@ -23,14 +23,14 @@ export function RfqTable({
 }) {
   return (
     <div className="c-table-wrap">
-      <table className="c-table">
+      <table className={`c-table c-rfq-table${compact ? ' is-compact' : ''}`}>
         <caption className="c-visually-hidden">{caption}</caption>
         <thead>
           <tr>
             <th scope="col">Received</th>
             <th scope="col">Company / contact</th>
             {compact ? null : (
-              <th scope="col" className="hide-sm">
+              <th scope="col" className="hide-sm interest">
                 Interest
               </th>
             )}
@@ -50,8 +50,8 @@ export function RfqTable({
           {rows.map((r) => {
             const received = new Date(r.receivedAt)
             return (
-              <tr key={r.id} aria-selected={selectedId === r.id ? true : undefined}>
-                <td title={absoluteTime(received)}>
+              <tr key={r.id} className={selectedId === r.id ? 'is-selected' : undefined}>
+                <td className="received" title={absoluteTime(received)}>
                   <span>{compactTime(received, now)}</span>
                   {r.aged ? (
                     <span className="c-hint">
@@ -70,20 +70,31 @@ export function RfqTable({
                   </a>
                 </td>
                 {compact ? null : (
-                  <td className="hide-sm">
+                  <td className="hide-sm interest">
                     <span className="c-trunc" title={r.interest}>
                       {r.interest}
                     </span>
                   </td>
                 )}
-                <td>{r.ownerName ?? <span className="c-warn-text">Unassigned</span>}</td>
-                <td>
+                <td className="owner">
+                  {r.ownerName ? (
+                    <span className="c-trunc" title={r.ownerName}>
+                      {r.ownerName}
+                    </span>
+                  ) : (
+                    <span className="c-warn-text">Unassigned</span>
+                  )}
+                </td>
+                <td className="status">
                   <RfqStatus value={r.status} />
                 </td>
                 {compact ? null : (
-                  <td className="hide-sm">
+                  <td className="hide-sm next">
                     {r.nextAction ? (
-                      <span className={r.nextAction.overdue ? 'c-overdue' : undefined}>
+                      <span
+                        className={r.nextAction.overdue ? 'c-overdue' : undefined}
+                        title={`${r.nextAction.overdue ? 'Overdue · ' : ''}${r.nextAction.title}`}
+                      >
                         {r.nextAction.overdue ? 'Overdue · ' : ''}
                         {r.nextAction.title}
                         {r.nextAction.dueAt ? <span className="c-muted"> · {compactTime(new Date(r.nextAction.dueAt), now)}</span> : null}

@@ -1,4 +1,4 @@
-import {
+import { humanSummary,
   ACCOUNT_MATCH_LABEL,
   ACTIVITY_LABEL,
   CONTACT_MATCH_LABEL,
@@ -16,6 +16,7 @@ import type { RfqDetail } from '../../../../crm/workspace/queries'
 import type { CrmSession } from '../../../../crm/workspace/session'
 import { absoluteTime, compactTime } from '../../../../crm/workspace/time'
 import { IconDoNotContact, IconInfo, IconReview, IconUrgent } from '../../../../crm/workspace/ui/Icons'
+import { DueLabel } from '../../../../crm/workspace/ui/Due'
 import { RfqStatus } from '../../../../crm/workspace/ui/Status'
 import {
   AssignDialog,
@@ -147,7 +148,12 @@ export function RfqDetailView({
 
       <nav className="c-tabs" aria-label="RFQ sections">
         {RFQ_TABS.map((t) => (
-          <a key={t} href={tabHref(t)} aria-current={tab === t ? 'page' : undefined}>
+          <a
+            key={t}
+            href={tabHref(t)}
+            aria-current={tab === t ? 'page' : undefined}
+            className={t === 'technical' ? 'c-tab-technical' : undefined}
+          >
             {TAB_LABEL[t]}
           </a>
         ))}
@@ -298,8 +304,12 @@ export function RfqDetailView({
                         {t.title} <span className="c-tag">{label(TASK_KIND_LABEL, t.kind)}</span>
                       </span>
                       <span className="c-hint">
-                        {t.status === 'DONE' || t.status === 'CANCELLED' ? `${t.status === 'DONE' ? 'Done' : 'Cancelled'}` : t.overdue ? <span className="c-overdue">Overdue</span> : 'Due'}{' '}
-                        {t.dueAt ? compactTime(new Date(t.dueAt), now) : ''} · {t.assigneeName ?? 'Unassigned'}
+                        {t.status === 'DONE' || t.status === 'CANCELLED' ? (
+                          t.status === 'DONE' ? 'Done' : 'Cancelled'
+                        ) : (
+                          <DueLabel dueAt={t.dueAt} overdue={t.overdue} now={now} />
+                        )}{' '}
+                        · {t.assigneeName ?? 'Unassigned'}
                       </span>
                     </span>
                     <TaskActions task={t} isAdmin={s.isAdmin} people={d.people} />
@@ -410,7 +420,7 @@ export function RfqDetailView({
                   <span>
                     <strong>{label(ACTIVITY_LABEL, a.type)}</strong> · {a.actorKind === 'USER' ? (a.actorName ?? 'CRM user') : 'System'}
                     <br />
-                    <span className="c-muted">{a.summary}</span>
+                    <span className="c-muted">{humanSummary(a.summary)}</span>
                   </span>
                 </li>
               ))}

@@ -672,7 +672,7 @@
   background: var(--c-canvas);
 }
 
-.c-table tbody tr[aria-selected='true'] {
+.c-table tbody tr.is-selected {
   background: var(--c-b50);
   box-shadow: inset 2px 0 0 var(--c-accent);
 }
@@ -778,8 +778,40 @@
 .c-split {
   display: grid;
   gap: 16px;
-  grid-template-columns: minmax(560px, 1fr) minmax(520px, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(520px, 1fr);
   align-items: start;
+}
+
+/* UI-1 M2: beside an open record the list keeps every visible column whole — long values truncate
+   (the full value is in the title and the accessible name) instead of pushing Status off the pane. */
+.c-rfq-table td.received {
+  white-space: nowrap;
+}
+
+.c-rfq-table td.owner .c-trunc {
+  max-inline-size: 160px;
+}
+
+.c-rfq-table.is-compact .two strong,
+.c-rfq-table.is-compact .two span {
+  max-inline-size: 180px;
+}
+
+.c-rfq-table td:last-child {
+  white-space: nowrap;
+}
+
+.c-rfq-table.is-compact td.owner .c-trunc {
+  max-inline-size: 112px;
+}
+
+.c-rfq-table td.status {
+  white-space: nowrap;
+}
+
+.c-req {
+  color: var(--c-text-2);
+  font-weight: 400;
 }
 
 .c-split.is-single {
@@ -1123,6 +1155,20 @@ details.c-tech > summary {
 
 /* ── responsive ──────────────────────────────────────────── */
 @media (max-width: 1439px) {
+  /* UI-1 IN-03/IN-06: below the split width the list keeps Status and Flags on screen; long interest and
+     next-action text truncates to one line (full text in the title). */
+  .c-rfq-table td.interest .c-trunc {
+    max-inline-size: 160px;
+  }
+
+  .c-rfq-table td.next > span {
+    display: block;
+    overflow: hidden;
+    max-inline-size: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .c-split {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1134,6 +1180,17 @@ details.c-tech > summary {
 }
 
 @media (max-width: 1279px) {
+  /* Tablet/laptop list (F13a): Interest leaves the table (it stays in the record); company and next action
+     truncate so Status and Flags stay on screen. */
+  .c-rfq-table .interest {
+    display: none;
+  }
+
+  .c-rfq-table .two strong,
+  .c-rfq-table .two span {
+    max-inline-size: 220px;
+  }
+
   .crm-app {
     --c-side: 56px;
   }
@@ -1209,7 +1266,17 @@ details.c-tech > summary {
   }
 
   .c-top {
+    gap: 8px;
     padding-inline: 16px;
+  }
+
+  .c-top h1 {
+    min-inline-size: 5.5em;
+  }
+
+  .c-evidence {
+    padding-inline: 4px;
+    font-size: 10px;
   }
 
   .c-top-search {
@@ -1230,6 +1297,80 @@ details.c-tech > summary {
 
   .c-table .hide-sm {
     display: none;
+  }
+
+  /* UI-1 M3: on a phone each inquiry is a card — company and contact, then status and owner, then when it
+     arrived. The row link (company cell) names the inquiry; status and owner are text in the same row. */
+  .c-rfq-table thead {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .c-rfq-table,
+  .c-rfq-table tbody {
+    display: block;
+  }
+
+  .c-rfq-table tbody tr {
+    display: grid;
+    gap: 4px 12px;
+    grid-template-areas:
+      'who flags'
+      'status owner'
+      'received received';
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding-block: 10px;
+    padding-inline: 12px;
+    border-block-end: 1px solid var(--c-rule);
+  }
+
+  .c-rfq-table tbody td {
+    display: block;
+    block-size: auto;
+    padding: 0;
+    border: 0;
+  }
+
+  .c-rfq-table td.two {
+    grid-area: who;
+  }
+
+  .c-rfq-table td.status {
+    grid-area: status;
+  }
+
+  .c-rfq-table td.owner {
+    grid-area: owner;
+    text-align: end;
+  }
+
+  .c-rfq-table td.received {
+    grid-area: received;
+    color: var(--c-text-2);
+    font-size: 12px;
+  }
+
+  .c-rfq-table td:last-child {
+    grid-area: flags;
+  }
+
+  .c-rfq-table .two strong,
+  .c-rfq-table .two span,
+  .c-rfq-table td.owner .c-trunc {
+    max-inline-size: none;
+  }
+
+  /* UI-1 M5: the phone record has no Technical tab (accepted F14b); the rest fit and scroll with a cue. */
+  .c-tabs a.c-tab-technical {
+    display: none;
+  }
+
+  .c-tabs {
+    scroll-snap-type: x proximity;
+    mask-image: linear-gradient(to right, var(--c-text) 85%, transparent);
   }
 
   .c-dl {

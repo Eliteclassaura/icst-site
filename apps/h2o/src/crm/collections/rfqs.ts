@@ -13,6 +13,7 @@ import { countryCodeField, userRelation } from '../fields'
 import { CrmInvariantError, isServerContext, merged, relId, writeOnce } from '../guards'
 import { rfqNumberFor } from '../ids'
 import { ensureSystemTask } from '../tasks'
+import { firstResponseDueAt, parseDate } from '../workspace/time'
 import {
   ACCOUNT_MATCH_STATE,
   CONTACT_MATCH_STATE,
@@ -272,6 +273,8 @@ const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc
       account: relId(d.account),
       idempotency_key: `rfq-first-response:${String(d.canonical_id)}`,
       source_rule: 'E1_1_ICS_RFQ_RECEIPT_FIRST_RESPONSE_STEP_2',
+      // D-1 (owner decision 2026-10-02): due at the end of the next Denver business day after receipt.
+      due_at: firstResponseDueAt(parseDate(d.received_at) ?? new Date()).toISOString(),
     })
     return doc
   }

@@ -95,12 +95,21 @@ export function Field({
   hint,
   children,
   wide,
+  required,
 }: {
   name: string
   label: string
   hint?: string
-  children: (a11y: { id: string; name: string; 'aria-invalid'?: true; 'aria-describedby'?: string }) => ReactNode
+  children: (a11y: {
+    id: string
+    name: string
+    'aria-invalid'?: true
+    'aria-describedby'?: string
+    'aria-required'?: true
+  }) => ReactNode
   wide?: boolean
+  /** Shown as the word "Required" after the label (never colour alone) and announced via aria-required. */
+  required?: boolean
 }) {
   const { state } = useContext(FormState)
   const id = useId()
@@ -108,8 +117,17 @@ export function Field({
   const describedBy = [hint ? `${id}-hint` : null, error ? `${id}-err` : null].filter(Boolean).join(' ') || undefined
   return (
     <label className={`c-field${wide ? ' is-wide' : ''}`} htmlFor={id}>
-      <span>{label}</span>
-      {children({ id, name, 'aria-invalid': error ? true : undefined, 'aria-describedby': describedBy })}
+      <span>
+        {label}
+        {required ? <span className="c-req"> · Required</span> : null}
+      </span>
+      {children({
+        id,
+        name,
+        'aria-invalid': error ? true : undefined,
+        'aria-describedby': describedBy,
+        'aria-required': required ? true : undefined,
+      })}
       {hint ? (
         <span id={`${id}-hint`} className="c-hint">
           {hint}

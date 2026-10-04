@@ -7,6 +7,7 @@ import { ProductDocuments } from './product-documents'
 import { ProductMedia } from './product-media'
 import { PricingObservations } from './pricing-observations'
 import { Products } from './products'
+import { categoriesAsPageIndex, productsAsPageIndex } from './page-index'
 
 export { ProductCategories, ProductFamilies, ProductEvidence, ProductDocumentFiles }
 export { ProductDocuments, ProductMedia, PricingObservations, Products }
@@ -23,12 +24,13 @@ export { ProductDocuments, ProductMedia, PricingObservations, Products }
  * server's working directory is not the app directory, which the Factory established the hard way.
  */
 export const catalogCollections = (mediaDir: string): CollectionConfig[] => [
-  ProductCategories,
+  // CRM go-live Pass 0: products and categories are an index of the public pages (see ./page-index).
+  categoriesAsPageIndex(ProductCategories),
   ProductFamilies,
   ProductMedia(mediaDir),
   ProductDocumentFiles(mediaDir),
   ProductDocuments,
   ProductEvidence,
-  Products,
+  productsAsPageIndex(Products),
   PricingObservations,
 ]

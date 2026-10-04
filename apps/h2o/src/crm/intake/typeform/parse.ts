@@ -99,6 +99,43 @@ export function validateContext(hidden: unknown): {
   return { context, rejected }
 }
 
+/**
+ * Placements on which the public site attaches product context (`src/site/RfqMount.tsx`): the three product-page
+ * mounts, whose `page_path` is the product's own page, and the D1 `category_and_family` card mount, whose
+ * `page_path` is the listing. On every other placement (`editorial_inline`, the page-level header/footer of a
+ * non-product page, …) the site sends `page_path` and `cta_placement` only.
+ */
+export const PRODUCT_CONTEXT_PLACEMENTS = ['header_action', 'footer_rfq_band', 'rfq_page', 'category_and_family'] as const
+const PRODUCT_KEYS = ['product_id', 'product_slug', 'product_path', 'product_title'] as const
+
+/**
+ * Genuine product context only. Product fields survive when the site could have produced them: a product
+ * placement, a page path, a product slug, and (when present) a numeric product id — the shape `RfqMount`
+ * derives from the verified product record. Anything else is evidence of a hand-built or tampered link, so the
+ * product fields are dropped (recorded in `rejected`) and no RFQ item is made from them. `page_path` and the
+ * placement itself are kept: they are still true about where the visitor was.
+ */
+export function genuineProductContext(
+  context: Partial<Record<ContextKey, string>>,
+  rejected: string[],
+): Partial<Record<ContextKey, string>> {
+  const present = PRODUCT_KEYS.filter((k) => context[k] !== undefined)
+  if (present.length === 0) return context
+  const placement = context.cta_placement
+  let reason: string | null = null
+  if (!placement || !(PRODUCT_CONTEXT_PLACEMENTS as readonly string[]).includes(placement)) reason = 'PLACEMENT_NOT_PRODUCT'
+  else if (!context.page_path) reason = 'PAGE_PATH_MISSING'
+  else if (!context.product_slug) reason = 'PRODUCT_SLUG_MISSING'
+  else if (context.product_id !== undefined && !/^[0-9]{1,20}$/.test(context.product_id)) reason = 'PRODUCT_ID_INVALID'
+  if (!reason) return context
+  const out = { ...context }
+  for (const k of present) {
+    delete out[k]
+    rejected.push(`${k}:${reason}`)
+  }
+  return out
+}
+
 type Answer = {
   type?: string
   field?: { ref?: string; id?: string; type?: string }
@@ -197,7 +234,9 @@ export function parseTypeformDelivery(
     typeof fr.submitted_at === 'string' && !Number.isNaN(Date.parse(fr.submitted_at))
       ? new Date(fr.submitted_at).toISOString()
       : null
-  const { context, rejected } = validateContext(fr.hidden)
+  const validated = validateContext(fr.hidden)
+  const rejected = validated.rejected
+  const context = genuineProductContext(validated.context, rejected)
 
   const mapped: ParsedDelivery['mapped'] = {
     first_name: null,

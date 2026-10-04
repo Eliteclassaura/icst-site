@@ -2,6 +2,7 @@ import type { Payload } from 'payload'
 import { isUniqueViolation, recordActivity } from '../../activity'
 import { matchAccount, matchContact, openIdentityReview, sameNameOtherContacts } from '../../identity'
 import { emailKey } from '../../normalize'
+import { activeFromLedger, type LedgerRow } from '../../suppression'
 import { claimForProcessing, LEASE_MS, recordReplay } from './claim'
 import { sha256Hex, verifyTypeformSignature } from './verify'
 import { parseTypeformDelivery, type ParsedDelivery } from './parse'
@@ -375,6 +376,7 @@ async function processIntake(
 ): Promise<Pick<IngestResult, 'outcome' | 'rfqId' | 'rfqNumber'>> {
   const submissionKey = `${d.formId}:${d.responseToken}`
   const reviewReasons: string[] = []
+  let suppressionScopes: string[] = []
 
   // 4. Business uniqueness: one RFQ per submitted response, whatever the transport did.
   const existingRfq = await payload.find({
@@ -550,25 +552,31 @@ async function processIntake(
       } else {
         const account = await matchAccount(payload, key.domain, d.mapped.company)
         const cm = await matchContact(payload, key, d.mapped)
-        let contactId: string
+        let contactId: string | null
         let contactAccount: string | null
         let contactConfidence = 'UNKNOWN'
-        if (cm.kind === 'MATCHED_EXACT_EMAIL') {
+        if (cm.kind === 'MATCHED_EXACT_EMAIL' && cm.nameConflict) {
+          // Ambiguous identity (Control Tower amendment B, now applied to intake as to manual inquiries): the
+          // address is known but the name is not the stored one. The RFQ stays UNLINKED from the contact and a
+          // person decides; nothing is overwritten and nothing is merged. Do-not-contact is still honoured by
+          // the submitted address (workspace queries look it up when no contact is linked).
+          contactId = null
+          contactAccount = null
+          link.contact_match_state = 'NOT_ATTEMPTED'
+          reviewReasons.push('EMAIL_MATCH_NAME_MISMATCH')
+          await openIdentityReview(payload, {
+            subject_type: 'CONTACT',
+            reason: 'EMAIL_MATCH_NAME_MISMATCH',
+            subject_ids: [cm.contactId, rfqId],
+            dedupe_key: `email-name-mismatch:${rfqId}`,
+            contact: cm.contactId,
+            rfq: rfqId,
+          })
+        } else if (cm.kind === 'MATCHED_EXACT_EMAIL') {
           contactId = cm.contactId
           contactAccount = cm.contact.account ? String(cm.contact.account) : null
           contactConfidence = String(cm.contact.account_link_confidence ?? 'UNKNOWN')
           link.contact_match_state = 'MATCHED_EXACT_EMAIL'
-          if (cm.nameConflict) {
-            reviewReasons.push('EMAIL_MATCH_NAME_MISMATCH')
-            await openIdentityReview(payload, {
-              subject_type: 'CONTACT',
-              reason: 'EMAIL_MATCH_NAME_MISMATCH',
-              subject_ids: [contactId, rfqId],
-              dedupe_key: `email-name-mismatch:${rfqId}`,
-              contact: contactId,
-              rfq: rfqId,
-            })
-          }
         } else {
           const created = await payload
             .create({
@@ -630,17 +638,31 @@ async function processIntake(
             })
           }
         }
-        link.contact = contactId
+        if (contactId) link.contact = contactId
+        // Do-not-contact is honoured, never altered: intake records that a suppression is active (no address,
+        // no reason text) so the record shows it; it never clears one or changes marketing eligibility.
+        const suppressions = activeFromLedger(
+          (
+            await payload.find({
+              collection: 'crm-suppressions',
+              where: { email_match_key: { equals: key.matchKey } },
+              limit: 1000,
+              pagination: false,
+              ...sys,
+            })
+          ).docs as unknown as LedgerRow[],
+        )
+        suppressionScopes = [...new Set(suppressions.map((x) => String(x.scope)))].sort()
 
         // Account for the RFQ: a deterministic domain match, or the contact's existing strong link.
         if (account.kind === 'MATCHED_VERIFIED_DOMAIN') {
-          if (contactAccount && contactAccount !== account.accountId) {
+          if (contactId && contactAccount && contactAccount !== account.accountId) {
             link.account_match_state = 'CONTACT_ACCOUNT_CONFLICT_REVIEW'
             reviewReasons.push('CONTACT_ACCOUNT_CONFLICT')
             await openIdentityReview(payload, {
               subject_type: 'CONTACT',
               reason: 'CONTACT_ACCOUNT_CONFLICT',
-              subject_ids: [contactId, contactAccount, account.accountId],
+              subject_ids: [contactId, contactAccount, account.accountId] as string[],
               dedupe_key: `contact-account-conflict:${rfqId}`,
               contact: contactId,
               account: account.accountId,
@@ -649,7 +671,7 @@ async function processIntake(
           } else {
             link.account = account.accountId
             link.account_match_state = 'MATCHED_VERIFIED_DOMAIN'
-            if (!contactAccount && cm.kind === 'MATCHED_EXACT_EMAIL')
+            if (contactId && !contactAccount && cm.kind === 'MATCHED_EXACT_EMAIL')
               // Fill an UNKNOWN link with deterministic evidence; never replace an existing one.
               await payload.update({
                 collection: 'crm-contacts',
@@ -671,7 +693,7 @@ async function processIntake(
           })
         } else {
           link.account_match_state = account.kind === 'FREE_EMAIL_DOMAIN' ? 'FREE_EMAIL_DOMAIN' : 'NO_MATCH'
-          if (contactAccount && ['VERIFIED', 'HIGH_CONFIDENCE'].includes(contactConfidence))
+          if (contactId && contactAccount && ['VERIFIED', 'HIGH_CONFIDENCE'].includes(contactConfidence))
             link.account = contactAccount
           if (account.kind === 'NO_MATCH' && account.companyNameCandidates.length > 0) {
             reviewReasons.push('COMPANY_NAME_MATCH_UNVERIFIED')
@@ -735,6 +757,8 @@ async function processIntake(
         review_reasons: reviewReasons,
         contact_match_state: rfq.contact_match_state,
         account_match_state: rfq.account_match_state,
+        suppression_active: suppressionScopes.length > 0,
+        suppression_scopes: suppressionScopes,
       },
     } as never,
     context: server(),

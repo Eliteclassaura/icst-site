@@ -4,6 +4,7 @@ import * as migration_20260914_133257_delete_provenance_fk_restrict from './2026
 import * as migration_20260925_011109_crm1_foundation from './20260925_011109_crm1_foundation'
 import * as migration_20260929_181813_content_bridge_r1 from './20260929_181813_content_bridge_r1'
 import * as migration_20260930_145341_content_bridge_r1b from './20260930_145341_content_bridge_r1b'
+import * as migration_20261002_231259_crm_golive_catalog_index from './20261002_231259_crm_golive_catalog_index'
 
 export const migrations = [
   {
@@ -35,5 +36,10 @@ export const migrations = [
     up: migration_20260930_145341_content_bridge_r1b.up,
     down: migration_20260930_145341_content_bridge_r1b.down,
     name: '20260930_145341_content_bridge_r1b',
+  },
+  {
+    up: migration_20261002_231259_crm_golive_catalog_index.up,
+    down: migration_20261002_231259_crm_golive_catalog_index.down,
+    name: '20261002_231259_crm_golive_catalog_index',
   },
 ]

@@ -79,6 +79,21 @@ describe('public site ⟂ CRM', () => {
       /delete env\.PAYLOAD_SECRET;delete env\.DATABASE_URI/,
     )
   })
+  it('no public-surface source (pages, search index, sitemap, release, site chrome) reads a CRM collection', () => {
+    // Go-live (Control Tower 2026-10-02): intake data never reaches public HTML, search or the sitemap. Every
+    // public renderer, the search-index builder, the release/sitemap routes and the publishing job live under
+    // these four directories; none of them may name a crm-* collection or a crm_* table, or import src/crm.
+    const publicDirs = [path.join(SRC, 'content'), path.join(SRC, 'site'), path.join(SRC, 'conversion'), path.join(SRC, 'app', '(site)')]
+    const files = publicDirs
+      .flatMap(walk)
+      .filter((f) => !f.includes(`${path.sep}__tests__${path.sep}`) && !f.includes(`${path.sep}__dbtests__${path.sep}`))
+    expect(files.length).toBeGreaterThan(50)
+    const offenders = files.filter((f) => {
+      const t = readFileSync(f, 'utf8')
+      return /['"`]crm-[a-z]|\bcrm_[a-z]+\b/.test(t) || specifiers(f).some((s) => resolvesInto(f, s, CRM))
+    })
+    expect(offenders.map((f) => path.relative(SRC, f))).toEqual([])
+  })
   it('CRM never imports the public conversion adapter', () => {
     const offenders = walk(CRM).filter((f) =>
       specifiers(f).some((s) => resolvesInto(f, s, path.join(SRC, 'conversion'))),
@@ -139,6 +154,9 @@ describe('registration', () => {
     const cfg = readFileSync(path.join(SRC, 'payload.config.ts'), 'utf8')
     expect(cfg).toMatch(/\.\.\.crmCollections/)
     expect(cfg).not.toMatch(/@factory\/agency-core\/cms\/crm/)
-    expect(cfg).not.toMatch(/typeformWebhookHandler|endpoints\s*:/)
+    // CRM go-live: exactly one root endpoint list, the CRM's own (the Typeform intake webhook).
+    expect(cfg.match(/endpoints\s*:/g)).toHaveLength(1)
+    expect(cfg).toMatch(/endpoints:\s*crmEndpoints/)
+    expect(cfg).not.toMatch(/typeformWebhookHandler/)
   })
 })

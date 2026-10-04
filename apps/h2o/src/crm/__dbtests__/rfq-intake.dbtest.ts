@@ -3,6 +3,7 @@ import type { Payload } from 'payload'
 import { relId } from '../guards'
 import { RFQ_NUMBER_PATTERN } from '../ids'
 import { ingestTypeformDelivery } from '../intake/typeform/ingest'
+import { firstResponseDueAt } from '../workspace/time'
 import { typeformWebhookHandler } from '../intake/typeform/endpoint'
 import { intakeConfig, signed, typeformDelivery, SYNTHETIC_SECRET } from '../fixtures/synthetic'
 import { as, auditFor, captureLogs, payload, resetCrm, rest, user, type TestUser } from './harness'
@@ -68,7 +69,7 @@ describe('T10–T12 RFQ creation, rfq_number stability, items', () => {
         quantity: 2,
         hidden: {
           page_path: '/product/synthetic-gear-drive/',
-          cta_placement: 'product_detail_primary',
+          cta_placement: 'rfq_page',
           product_slug: 'synthetic-gear-drive',
           product_id: '0241',
         },
@@ -82,7 +83,7 @@ describe('T10–T12 RFQ creation, rfq_number stability, items', () => {
     expect(rfq!.contact_match_state).toBe('CREATED_NEW_CONTACT')
     expect(rfq!.account_match_state).toBe('MATCHED_VERIFIED_DOMAIN')
     expect(rfq!.notification_state).toBe('NOT_SENT_DISABLED_IN_CRM1')
-    expect((rfq!.attribution as Doc).cta_placement).toBe('product_detail_primary')
+    expect((rfq!.attribution as Doc).cta_placement).toBe('rfq_page')
     const items = (await p.find({ collection: 'crm-rfq-items', where: { rfq: { equals: rfq!.id } }, ...srv }))
       .docs as unknown as Doc[]
     expect(items).toHaveLength(1)
@@ -93,7 +94,8 @@ describe('T10–T12 RFQ creation, rfq_number stability, items', () => {
     const tasks = (await p.find({ collection: 'crm-tasks', where: { rfq: { equals: rfq!.id } }, ...srv }))
       .docs as unknown as Doc[]
     expect(tasks.map((t) => t.kind)).toEqual(['RFQ_FIRST_RESPONSE'])
-    expect(tasks[0]!.due_at ?? null).toBeNull() // no SLA is invented
+    // D-1 (owner decision 2026-10-02): due at the end of the next Denver business day after receipt.
+    expect(tasks[0]!.due_at).toBe(firstResponseDueAt(new Date(String(rfq!.received_at))).toISOString())
     const acts = (await p.find({ collection: 'crm-activities', where: { rfq: { equals: rfq!.id } }, ...srv }))
       .docs as unknown as Doc[]
     expect(acts.map((a) => a.event_name)).toEqual(
@@ -259,7 +261,7 @@ describe('T13/T14 idempotency, replay and duplicates', () => {
       ...body,
       form_response: {
         ...body.form_response,
-        hidden: { page_path: '/p/', cta_placement: 'x', product_slug: 'synthetic-slug' },
+        hidden: { page_path: '/p/', cta_placement: 'header_action', product_slug: 'synthetic-slug' },
       },
     }
     const first = await ingest(withItem)
@@ -298,12 +300,19 @@ describe('T15–T18 conservative identity', () => {
       'MATCHED_EXACT_EMAIL',
     ])
   })
-  it('exact email with a different name: linked by email, names NOT overwritten, review opened', async () => {
+  it('exact email with a different name: left UNLINKED (ambiguous), names NOT overwritten, review opened', async () => {
     await ingest(typeformDelivery({ first: 'Avery', last: 'Synthetic' }))
-    await ingest(typeformDelivery({ first: 'Morgan', last: 'Other', message: 'x' }))
-    const [c] = await contacts()
-    expect(c!.first_name).toBe('Avery')
-    expect((await reviews()).map((r) => r.reason)).toContain('EMAIL_MATCH_NAME_MISMATCH')
+    const second = await ingest(typeformDelivery({ first: 'Morgan', last: 'Other', message: 'x' }))
+    expect(second.outcome).toBe('PROCESSED_WITH_REVIEW')
+    const all = await contacts()
+    expect(all).toHaveLength(1)
+    expect(all[0]!.first_name).toBe('Avery')
+    const rfq = (await rfqs()).find((r) => String(r.id) === second.rfqId)!
+    expect(rfq.contact ?? null).toBeNull()
+    expect(rfq.status).toBe('NEEDS_REVIEW')
+    const review = (await reviews()).find((r) => r.reason === 'EMAIL_MATCH_NAME_MISMATCH')!
+    expect(relId(review.contact)).toBe(String(all[0]!.id))
+    expect(relId(review.rfq)).toBe(second.rfqId)
   })
   it('same name, different email: two contacts, never merged, review opened', async () => {
     await ingest(typeformDelivery({ email: 'avery.synthetic@northwind.example.com' }))
@@ -445,7 +454,7 @@ describe('T23–T25, T27 verification, malformed input and missing context', () 
     // The synthetic DB has no catalog rows; unresolved is the honest answer.
     expect(product).toBeUndefined()
     await ingest(
-      typeformDelivery({ hidden: { page_path: '/p/', cta_placement: 'x', product_slug: 'synthetic-gear' } }),
+      typeformDelivery({ hidden: { page_path: '/p/', cta_placement: 'header_action', product_slug: 'synthetic-gear' } }),
     )
     const items = (await p.find({ collection: 'crm-rfq-items', ...srv })).docs as unknown as Doc[]
     expect(items[0]!.product ?? null).toBeNull()
@@ -468,12 +477,12 @@ describe('product context resolves only on an exact slug', () => {
     })
     await ingest(
       typeformDelivery({
-        hidden: { page_path: '/p/', cta_placement: 'x', product_slug: 'synthetic-gear-drive' },
+        hidden: { page_path: '/p/', cta_placement: 'header_action', product_slug: 'synthetic-gear-drive' },
       }),
     )
     await ingest(
       typeformDelivery({
-        hidden: { page_path: '/p/', cta_placement: 'x', product_slug: 'synthetic-gear-drive-2' },
+        hidden: { page_path: '/p/', cta_placement: 'header_action', product_slug: 'synthetic-gear-drive-2' },
         message: 'near miss',
       }),
     )
@@ -550,22 +559,24 @@ describe('T27 missing security configuration fails closed (HTTP adapter)', () =>
     expect(r.status).toBe(503)
     expect(await rfqs()).toHaveLength(0)
   })
-  it('configured but not enabled → 503 (the CRM-1 state)', async () => {
-    const r = await call({
-      H2O_CRM_TYPEFORM_WEBHOOK_SECRET: SYNTHETIC_SECRET,
-      H2O_TYPEFORM_FORM_ID: 'SynthForm01',
-      H2O_CRM_TYPEFORM_INGEST_ENABLED: undefined,
-    })
-    expect(r.status).toBe(503)
+  it('configured but not enabled → 404, indistinguishable from an unmounted route; nothing stored', async () => {
+    for (const flag of [undefined, '0', 'true', ' 1']) {
+      const r = await call({
+        H2O_CRM_TYPEFORM_WEBHOOK_SECRET: SYNTHETIC_SECRET,
+        H2O_TYPEFORM_FORM_ID: 'SynthForm01',
+        H2O_CRM_TYPEFORM_INGEST_ENABLED: flag,
+      })
+      expect(r.status, String(flag)).toBe(404)
+    }
+    expect(await rfqs()).toHaveLength(0)
+    expect((await p.find({ collection: 'crm-intake-events', ...srv })).totalDocs).toBe(0)
   })
-  it('the adapter is not mounted on any Payload endpoint', async () => {
-    const endpoints = [
-      ...(p.config.endpoints ?? []),
-      ...Object.values(p.collections).flatMap((c) => c.config.endpoints || []),
-    ]
-    expect(endpoints.some((e) => (e as { handler?: unknown }).handler === typeformWebhookHandler)).toBe(false)
-    expect(JSON.stringify(endpoints.map((e) => (e as { path?: string }).path))).not.toMatch(
-      /typeform|intake/i,
-    )
+  it('the adapter is mounted exactly once: POST /crm/intake/typeform, root endpoint, nowhere else', async () => {
+    const root = p.config.endpoints ?? []
+    const mine = root.filter((e) => (e as { handler?: unknown }).handler === typeformWebhookHandler)
+    expect(mine).toHaveLength(1)
+    expect(mine[0]).toMatchObject({ path: '/crm/intake/typeform', method: 'post' })
+    const collectionEndpoints = Object.values(p.collections).flatMap((c) => c.config.endpoints || [])
+    expect(collectionEndpoints.some((e) => (e as { handler?: unknown }).handler === typeformWebhookHandler)).toBe(false)
   })
 })

@@ -6,6 +6,11 @@
  *                      apps/h2o (content/ + release/authority.mjs), e.g. mounted read-only into the image.
  *   sync               build + promote the published snapshot and search index now (same code as the runner)
  *   rollback           point the snapshot `current` back at the previous (last-good) generation
+ *   catalog-seed <outDir> [--apply]
+ *                      CRM go-live Pass 0: one-way index of the published product / product-category pages
+ *                      into the H2O catalog (see catalog-seed.ts). DRY-RUN unless --apply; writes
+ *                      catalog-seed-ledger.tsv, catalog-unlinked-manufacturer.tsv, catalog-without-category.tsv
+ *                      and catalog-seed-summary.json. Never writes public-routes.
  *
  * Never run against production. The import writes rows only; schema changes are migrations.
  */
@@ -14,6 +19,7 @@ import path from 'node:path'
 import config from '@payload-config'
 import { getPayload } from 'payload'
 import { importAuthority } from './authority-import'
+import { seedCatalog } from './catalog-seed'
 import { siteChromeSeed } from '../site-chrome'
 import { runPublishingSync } from '../jobs'
 import { recordPublicationEvent } from '../events'
@@ -72,11 +78,27 @@ async function main() {
       const m = repointRelease(target)
       out1(JSON.stringify({ scope: 'DERIVED_RELEASE_PAIR_ONLY', release: m.id, content: m.content, search: m.search, database: 'UNCHANGED' }))
     }
+  } else if (cmd === 'catalog-seed') {
+    const out = path.resolve(arg ?? 'catalog-seed-report')
+    mkdirSync(out, { recursive: true })
+    const apply = process.argv.includes('--apply')
+    const report = await seedCatalog(payload, { dryRun: !apply, log: (m) => out1(m) })
+    writeFileSync(
+      path.join(out, 'catalog-seed-ledger.tsv'),
+      tsv([
+        ['KIND', 'SOURCE_ROUTE_ID', 'PATH', 'SLUG', 'TITLE', 'ACTION', 'CHANGED_FIELDS', 'CATEGORIES', 'CATEGORY_EVIDENCE', 'MANUFACTURER_TERMS', 'MANUFACTURER_STATE', 'NOTE'],
+        ...report.lines.map((l) => [l.kind, l.sourceRouteId, l.path, l.slug, l.title, l.action, l.changed.join(','), l.categories.join(' '), l.categoryEvidence, l.manufacturer, l.manufacturerState, l.note]),
+      ]),
+    )
+    writeFileSync(path.join(out, 'catalog-unlinked-manufacturer.tsv'), tsv([['PATH', 'REASON', 'TERMS_ON_PAGE'], ...report.unlinkedManufacturer.map((u) => [u.path, u.reason, u.terms])]))
+    writeFileSync(path.join(out, 'catalog-without-category.tsv'), tsv([['PATH'], ...report.withoutCategory.map((p) => [p])]))
+    writeFileSync(path.join(out, 'catalog-seed-summary.json'), JSON.stringify({ mode: apply ? 'APPLY' : 'DRY_RUN', ...report.summary }, null, 2))
+    out1(JSON.stringify({ mode: apply ? 'APPLY' : 'DRY_RUN', ...report.summary }))
   } else if (cmd === 'release-status') {
     const cur = currentRelease()
     out1(JSON.stringify({ release: cur?.id ?? null, valid: validateRelease(cur).ok, retained: listReleases().map((m) => m.id) }))
   } else {
-    console.error('usage: import <outDir> [authorityRoot] | sync | rollback | release-status')
+    console.error('usage: import <outDir> [authorityRoot] | sync | rollback | release-status | catalog-seed <outDir> [--apply]')
     process.exitCode = 2
   }
   process.exit()

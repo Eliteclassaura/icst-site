@@ -85,6 +85,43 @@ export function businessMsBetween(from: Date, to: Date): number {
 
 export const BUSINESS_DAY_MS = 24 * 3600 * 1000
 
+/**
+ * D-1 (owner decision, Control Tower 2026-10-02): the first-response task is due at the **end of the next Denver
+ * business day**.
+ *
+ *   - Business days are Monday–Friday in America/Denver. **No holiday calendar** (known limitation): a holiday
+ *     counts as a business day.
+ *   - An arrival on a business day before `BUSINESS_DAY_CLOSE_HOUR` (17:00 Denver) counts from that day; an
+ *     arrival at or after it, or on a Saturday/Sunday, counts from the next business day.
+ *   - The due instant is the end of the business day after the day the arrival counts from (the last
+ *     millisecond before local midnight, the same "end of day" the Due-today views use), DST-correct.
+ *
+ *   Mon 10:00 → Tue end · Mon 18:00 → Wed end · Fri 10:00 → Mon end · Fri 18:00 → Tue end · Sat/Sun → Tue end.
+ */
+export const BUSINESS_DAY_CLOSE_HOUR = 17
+
+/** Local midnight (business zone) starting the first Monday–Friday calendar day strictly after the day of `d`. */
+export function nextBusinessDayStart(d: Date): Date {
+  let cursor = startOfBusinessDay(d)
+  for (let guard = 0; guard < 8; guard++) {
+    cursor = startOfBusinessDay(new Date(cursor.getTime() + 36 * 3600 * 1000))
+    if (isWeekday(cursor)) return cursor
+  }
+  return cursor
+}
+
+/** The business day an arrival counts from (local midnight of that day). */
+export function countsFromBusinessDay(receivedAt: Date): Date {
+  const p = partsInZone(receivedAt)
+  const weekday = p.weekday >= 1 && p.weekday <= 5
+  return weekday && p.hour < BUSINESS_DAY_CLOSE_HOUR ? startOfBusinessDay(receivedAt) : nextBusinessDayStart(receivedAt)
+}
+
+/** D-1: when the first-response task for an inquiry received at `receivedAt` is due. */
+export function firstResponseDueAt(receivedAt: Date): Date {
+  return endOfBusinessDay(nextBusinessDayStart(countsFromBusinessDay(receivedAt)))
+}
+
 /** Unassigned for more than one business day (the internal aging indicator). */
 export const isAgedUnassigned = (receivedAt: Date, now: Date): boolean =>
   businessMsBetween(receivedAt, now) > BUSINESS_DAY_MS

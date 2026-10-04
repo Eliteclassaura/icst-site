@@ -22,7 +22,8 @@ import { securityDefaults } from '@factory/agency-core/cms/kernel'
 import { foundationCollections } from '@factory/agency-core/cms/foundation'
 import { Manufacturers } from './collections/manufacturers'
 import { catalogCollections } from './collections/index'
-import { crmCollections } from './crm/index'
+import { crmCollections, crmEndpoints } from './crm/index'
+import { withoutPasswordEmail } from './auth/no-password-email'
 import { crmAdminComponents } from './crm/admin/config'
 import { PublicRoutes } from './content/collections/public-routes'
 import { PublicRedirects } from './content/collections/public-redirects'
@@ -123,12 +124,17 @@ const collections: CollectionConfig[] = [
   ...foundationCollections.map((c) => {
     // R1B (Control Tower C5): `public-routes` is the single public page authority on H2O. The foundation
     // `pages` collection (empty here) stays registered for schema compatibility but is hidden and not writable.
+    // CRM go-live (Control Tower 2026-10-02): no mail adapter is configured, so Payload would write a password
+    // reset email — recipient and reset link — to the server log. Forgot/reset-password is therefore refused
+    // for launch; an administrator sets a new password in the admin. See `src/auth/no-password-email.ts`.
+    if (c.slug === 'users') return withoutPasswordEmail(c)
     if (c.slug === 'pages') return { ...c, admin: { ...c.admin, hidden: true }, access: { ...c.access, create: () => false, update: () => false } }
     if (c.slug !== 'media') return c
     if (!c.upload || typeof c.upload !== 'object') return c
     return { ...c, upload: { ...c.upload, staticDir: mediaDir } }
   }),
-  Manufacturers,
+  // Grouped with Products / Product categories so editors find the catalog by name (CRM go-live Pass 0).
+  { ...Manufacturers, admin: { ...Manufacturers.admin, group: 'Products' } },
   ...catalogCollections(mediaDir),
   // CRM-1 (H2O-local, private). Registered after the catalog because RFQ items relate to `products`.
   ...crmCollections,
@@ -151,6 +157,8 @@ export default buildConfig({
     components: crmAdminComponents,
   },
   collections,
+  // CRM go-live: the Typeform intake webhook (404 unless ingest is enabled; signature-verified).
+  endpoints: crmEndpoints,
   globals: [PublicationState, SiteChromeGlobal],
   // One publishing/indexing queue and runner (see src/content/jobs.ts). No email or other queue.
   jobs: jobsConfig,

@@ -1,6 +1,7 @@
 import type { Where } from 'payload'
 import { CRM_USERS } from '@factory/agency-core/cms/kernel'
 import { activeFromLedger, type LedgerRow } from '../suppression'
+import { emailKey } from '../normalize'
 import { OPPORTUNITY_STAGE, TERMINAL_STAGES } from '../vocabulary'
 import { interestOf, taskTitle, isCustomerUrgent, OPEN_RFQ_STATUSES, ACTIVE_RFQ_STATUSES } from './labels'
 import { asUser, displayNameOf, type CrmSession } from './session'
@@ -98,6 +99,19 @@ async function suppressionsByKey(s: CrmSession, keys: string[]): Promise<Map<str
   return out
 }
 
+/**
+ * "Due today" = due by the end of today's Denver business day, plus every open HIGH-priority task that has no
+ * due date. CRM-1 never invents a due date for a system task (the first-response SLA is an owner input,
+ * E1.1), so without this an undated first-response task would never appear in Due today or on My Work and
+ * could only be found under All open. It is shown with the words "No due date", never as overdue.
+ */
+const dueTodayOrUndatedHigh = (eodIso: string): Where => ({
+  or: [{ due_at: { less_than_equal: eodIso } }, { and: [{ due_at: { exists: false } }, { priority: { equals: 'HIGH' } }] }],
+})
+
+/** The match key of the address a customer submitted, or undefined when it is absent or not an email. */
+const submittedKey = (submitted: Doc): string | undefined => emailKey(submitted.email)?.matchKey
+
 /** Active suppressions for one contact (by its email identity). Empty when none, or no email. */
 export async function activeSuppressionsForContact(s: CrmSession, emailMatchKey: string | null) {
   if (!emailMatchKey) return []
@@ -148,7 +162,12 @@ async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now: Date):
     if (!nextTask.has(r)) nextTask.set(r, t)
   }
   const reviewed = new Set(reviews.docs.map((r) => String(id(D(r).rfq))))
-  const keys = [...new Set([...contactById.values()].map((c) => c.email_match_key as string).filter(Boolean))]
+  // Do-not-contact is honoured by the linked contact's identity and, for an RFQ left unlinked (ambiguous
+  // identity), by the submitted address itself — an unlinked inquiry never hides an active suppression.
+  const keyOf = (d: Doc): string | undefined =>
+    (contactById.get(String(id(d.contact)))?.email_match_key as string | undefined) ??
+    submittedKey((d.submitted ?? {}) as Doc)
+  const keys = [...new Set(docs.map(keyOf).filter(Boolean))] as string[]
   const dnc = await suppressionsByKey(s, keys)
   const names = nameMap(people)
   return docs.map((d) => {
@@ -165,7 +184,7 @@ async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now: Date):
     })
     const subName = [submitted.first_name, submitted.last_name].filter((x) => typeof x === 'string' && x).join(' ')
     const ownerId = id(d.assignee)
-    const key = contact?.email_match_key as string | undefined
+    const key = keyOf(d)
     return {
       id: String(d.id),
       rfqNumber: String(d.rfq_number ?? ''),
@@ -431,8 +450,10 @@ export type ActivityRow = {
   actorKind: string
   actorName: string | null
   rfqId: string | null
+  /** Human name of the linked inquiry (company, else the submitter's name), so links say where they go. */
+  rfqLabel?: string | null
 }
-export type ReviewRow = { id: string; reason: string; rfqId: string | null; createdAt: string }
+export type ReviewRow = { id: string; reason: string; rfqId: string | null; createdAt: string; rfqLabel?: string | null }
 
 export type MyWork = {
   unassigned: Loaded<{ count: number; rows: RfqRow[] }>
@@ -499,6 +520,34 @@ export async function activityRows(s: CrmSession, docs: Doc[], people: Person[])
   })
 }
 
+/**
+ * Names for linked inquiries: the linked account's name, else the company the customer supplied, else the
+ * submitter's name, else "Unnamed inquiry". Never the RFQ number, an email address or an id (UI-1 M4: a link's
+ * text must say where it goes, and identical "Open"/"View" links are not descriptive).
+ */
+export async function rfqLabels(s: CrmSession, rfqIds: Array<string | null>): Promise<Map<string, string>> {
+  const ids = [...new Set(rfqIds.filter(Boolean))] as string[]
+  const out = new Map<string, string>()
+  if (ids.length === 0) return out
+  const rfqs = await s.payload.find({ collection: 'crm-rfqs', where: { id: { in: ids } }, depth: 0, limit: ids.length, ...asUser(s) })
+  const accIds = [...new Set(rfqs.docs.map((r) => id(D(r).account)).filter(Boolean))] as string[]
+  const accounts = accIds.length
+    ? await s.payload.find({ collection: 'crm-accounts', where: { id: { in: accIds } }, depth: 0, limit: accIds.length, ...asUser(s) })
+    : null
+  const accName = new Map((accounts?.docs ?? []).map((a) => [String(a.id), String(D(a).canonical_name ?? '')]))
+  for (const r of rfqs.docs as unknown as Doc[]) {
+    const sub = (r.submitted ?? {}) as Doc
+    const person = [sub.first_name, sub.last_name].filter((x) => typeof x === 'string' && x.trim()).join(' ')
+    const name =
+      accName.get(String(id(r.account))) ||
+      (typeof sub.company === 'string' && sub.company.trim() ? sub.company.trim() : '') ||
+      person ||
+      'Unnamed inquiry'
+    out.set(String(r.id), name)
+  }
+  return out
+}
+
 export async function loadMyWork(s: CrmSession, scope: Scope, now: Date = new Date()): Promise<MyWork> {
   const people = await crmUsers(s).catch(() => [] as Person[])
   const mine = scope === 'mine'
@@ -527,7 +576,7 @@ export async function loadMyWork(s: CrmSession, scope: Scope, now: Date = new Da
     const [res, overdue] = await Promise.all([
       s.payload.find({
         collection: 'crm-tasks',
-        where: { and: [...base, { due_at: { less_than_equal: eod } }] },
+        where: { and: [...base, dueTodayOrUndatedHigh(eod)] },
         sort: 'due_at',
         depth: 0,
         limit: 8,
@@ -564,7 +613,9 @@ export async function loadMyWork(s: CrmSession, scope: Scope, now: Date = new Da
       where = { rfq: { in: ids } }
     }
     const res = await s.payload.find({ collection: 'crm-activities', where, sort: '-occurred_at', depth: 0, limit: 10, ...asUser(s) })
-    return { rows: await activityRows(s, res.docs as unknown as Doc[], people) }
+    const rows = await activityRows(s, res.docs as unknown as Doc[], people)
+    const labels = await rfqLabels(s, rows.map((r) => r.rfqId))
+    return { rows: rows.map((r) => ({ ...r, rfqLabel: r.rfqId ? (labels.get(r.rfqId) ?? null) : null })) }
   })
   const reviews = safe(async () => {
     const res = await s.payload.find({
@@ -575,14 +626,19 @@ export async function loadMyWork(s: CrmSession, scope: Scope, now: Date = new Da
       limit: 5,
       ...asUser(s),
     })
+    const labels = await rfqLabels(s, res.docs.map((r) => id(D(r).rfq)))
     return {
       count: res.totalDocs,
-      rows: res.docs.map((r) => ({
-        id: String(r.id),
-        reason: String(D(r).reason),
-        rfqId: id(D(r).rfq),
-        createdAt: String(D(r).createdAt ?? ''),
-      })),
+      rows: res.docs.map((r) => {
+        const rfqId = id(D(r).rfq)
+        return {
+          id: String(r.id),
+          reason: String(D(r).reason),
+          rfqId,
+          rfqLabel: rfqId ? (labels.get(rfqId) ?? null) : null,
+          createdAt: String(D(r).createdAt ?? ''),
+        }
+      }),
     }
   })
   const pipeline = safe(async () => {
@@ -687,7 +743,10 @@ export async function loadRfq(s: CrmSession, rfqId: string, now: Date = new Date
       rfqId: rfqId,
       createdAt: String(D(r).createdAt ?? ''),
     })),
-    suppressions: await activeSuppressionsForContact(s, (contact?.email_match_key as string) ?? null),
+    suppressions: await activeSuppressionsForContact(
+      s,
+      (contact?.email_match_key as string) ?? submittedKey((rfq.submitted ?? {}) as Doc) ?? null,
+    ),
     people,
     intakeState,
   }
@@ -784,7 +843,7 @@ export async function loadFollowUps(s: CrmSession, f: FollowUpFilter, now: Date 
   if (f.who === 'unassigned') and.push({ assignee: { exists: false } })
   if (f.when === 'done') and.push({ status: { in: ['DONE', 'CANCELLED'] } })
   else and.push({ status: { in: ['OPEN', 'IN_PROGRESS'] } })
-  if (f.when === 'due') and.push({ due_at: { less_than_equal: endOfBusinessDay(now).toISOString() } })
+  if (f.when === 'due') and.push(dueTodayOrUndatedHigh(endOfBusinessDay(now).toISOString()))
   if (f.when === 'overdue') and.push({ due_at: { less_than: now.toISOString() } })
   const res = await s.payload.find({
     collection: 'crm-tasks',

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { IDENTITY_REASON_LABEL, TASK_KIND_LABEL, ACTIVITY_LABEL, label } from '../../../crm/workspace/labels'
 import { loadMyWork, type Loaded, type Scope } from '../../../crm/workspace/queries'
 import { compactTime, relativeAge } from '../../../crm/workspace/time'
+import { DueLabel } from '../../../crm/workspace/ui/Due'
 import { RfqStatus } from '../../../crm/workspace/ui/Status'
 import { Shell } from '../../../crm/workspace/ui/Shell'
 import { AssignMe, TaskActions } from './_components/Dialogs'
@@ -150,7 +151,7 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
                           {a.rfqId ? (
                             <>
                               {' · '}
-                              <a href={`/crm/rfqs/?rfq=${a.rfqId}&tab=activity`}>Open</a>
+                              <a href={`/crm/rfqs/?rfq=${a.rfqId}&tab=activity`}>{a.rfqLabel ?? 'Inquiry'}</a>
                             </>
                           ) : null}
                         </span>
@@ -174,11 +175,11 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
                       <span className="grow">
                         <span className="c-trunc">{t.title}</span>
                         <span className="c-hint">
-                          {t.overdue ? <span className="c-overdue">Overdue</span> : 'Due'} {t.dueAt ? compactTime(new Date(t.dueAt), now) : ''}
+                          <DueLabel dueAt={t.dueAt} overdue={t.overdue} now={now} />
                           {t.rfqId ? (
                             <>
                               {' · '}
-                              <a href={`/crm/rfqs/?rfq=${t.rfqId}`}>{t.rfqNumber ? 'Inquiry' : 'Open'}</a>
+                              <a href={`/crm/rfqs/?rfq=${t.rfqId}`}>{t.accountName ?? t.rfqNumber ?? 'Inquiry'}</a>
                             </>
                           ) : null}
                         </span>
@@ -203,7 +204,7 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
                           {t.title.replace(/^Waiting for customer:\s*/, '')}
                         </a>
                         <span className="c-hint">
-                          {label(TASK_KIND_LABEL, t.kind)} · {t.overdue ? <span className="c-overdue">Overdue</span> : 'Due'} {t.dueAt ? compactTime(new Date(t.dueAt), now) : ''}
+                          {label(TASK_KIND_LABEL, t.kind)} · <DueLabel dueAt={t.dueAt} overdue={t.overdue} now={now} />
                         </span>
                       </span>
                       <TaskActions task={t} isAdmin={s.isAdmin} people={w.people} />
@@ -220,9 +221,16 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
                   {d.rows.map((r) => (
                     <li key={r.id}>
                       <span className="grow">
-                        <span className="c-trunc">{label(IDENTITY_REASON_LABEL, r.reason)}</span>
+                        <span className="c-trunc">
+                          {r.rfqId ? (
+                            <a href={`/crm/rfqs/?rfq=${r.rfqId}`}>{r.rfqLabel ?? 'Inquiry'}</a>
+                          ) : (
+                            <span>Record without an inquiry</span>
+                          )}
+                          {' · '}
+                          {label(IDENTITY_REASON_LABEL, r.reason)}
+                        </span>
                       </span>
-                      {r.rfqId ? <a href={`/crm/rfqs/?rfq=${r.rfqId}`}>View</a> : null}
                     </li>
                   ))}
                 </ul>

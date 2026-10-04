@@ -49,7 +49,7 @@ export async function ensureSystemTask(
         account: input.account ?? null,
         opportunity: input.opportunity ?? null,
         identity_review: input.identity_review ?? null,
-        // No due date is invented: the owner-approved sales SLA is an open owner input (E1.1).
+        // Only a rule-set due date (D-1 first response, collections/rfqs.ts); none is invented here.
         due_at: input.due_at ?? null,
       } as never, // canonical_id and the server-owned fields are filled by the collection hooks
       context: {

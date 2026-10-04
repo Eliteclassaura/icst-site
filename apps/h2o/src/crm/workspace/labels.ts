@@ -199,3 +199,31 @@ export const QUALIFICATION_LABEL: Record<string, string> = {
   INCOMPLETE: 'Incomplete — waiting for information',
   COMPLETE: 'Complete',
 }
+
+/**
+ * A stored activity summary as people read it (UI-1 M7). Summaries are audit text written by the system with
+ * enum codes in them ("Task created (RFQ_FIRST_RESPONSE)", "RFQ … persisted (TYPEFORM)", "RFQ status RECEIVED →
+ * IN_REVIEW"). The record is left exactly as written; only the display replaces each known code with its label
+ * and any remaining SHOUTING_CODE with plain words. RFQ numbers (RFQ-YYYYMMDD-XXXXXXX) are kept.
+ */
+const SUMMARY_LABELS: Record<string, string> = {
+  ...Object.fromEntries(Object.entries(RFQ_STATUS_LABEL).map(([k, v]) => [k, v.label])),
+  ...Object.fromEntries(Object.entries(STAGE_LABEL).map(([k, v]) => [k, v.label])),
+  ...TASK_KIND_LABEL,
+  ...MOTION_LABEL,
+  ...IDENTITY_REASON_LABEL,
+  ...SOURCE_LABEL,
+  TYPEFORM: 'website form',
+  MARKETING_EMAIL: 'marketing email',
+  ALL_EMAIL: 'all email',
+  ALL_OUTREACH: 'all outreach',
+}
+export function humanSummary(summary: unknown): string {
+  const text = typeof summary === 'string' ? summary : ''
+  return text
+    .replace(/\bpersisted\b/g, 'received')
+    .replace(/\b(?!RFQ-)[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b|\b[A-Z]{4,}\b/g, (code) => {
+      if (SUMMARY_LABELS[code]) return SUMMARY_LABELS[code]!
+      return code.replaceAll('_', ' ').toLowerCase()
+    })
+}

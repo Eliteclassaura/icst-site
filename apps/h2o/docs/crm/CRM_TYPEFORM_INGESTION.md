@@ -1,10 +1,13 @@
-# CRM_TYPEFORM_INGESTION — H2O / ICS CRM-1
+# CRM_TYPEFORM_INGESTION — H2O / ICS CRM
 
-**State in CRM-1:** the source exists and is tested against synthetic deliveries only.
+**State (CRM go-live patch, 2026-10-02):** the endpoint is mounted at `POST /api/crm/intake/typeform/` and is
+**off by default**: it answers 404 unless `H2O_CRM_TYPEFORM_INGEST_ENABLED=1`. Staging is proven with signed
+synthetic payloads only (`ops/crm-golive/pass2-synthetic-intake.mjs`). The real Typeform webhook on F22cAgx3 is
+configured only at production cutover, by a separate owner GO (`ops/crm-golive/README.md`).
 
-- `TYPEFORM_LIVE_WEBHOOK_ACTIVATED = NO`.
-- No route is mounted, no Typeform webhook is configured, no secret exists, and no live form was
-  submitted.
+- `TYPEFORM_LIVE_WEBHOOK_ACTIVATED = NO` until that GO.
+- Fail-closed order: flag not `1` → 404 · flag `1` but configuration invalid → 503 · content type not JSON → 415 ·
+  body over 256 KB (declared or streamed) → 413 · bad/missing signature → 401 (nothing stored).
 
 ## 1. Contract used
 
@@ -33,10 +36,24 @@
 | `H2O_CRM_TYPEFORM_WEBHOOK_SECRET` | Signing secret, at least 24 chars                                                                                                                                                                                                        | `SECRET_MISSING` / `SECRET_TOO_SHORT` → 503                                                            |
 | `H2O_TYPEFORM_FORM_ID`            | Same variable the public adapter uses; pattern `^[A-Za-z0-9]{6,32}$`                                                                                                                                                                     | 503                                                                                                    |
 | `H2O_CRM_TYPEFORM_FIELD_MAP`      | JSON `{ "<field ref>": "<target>" }`. Targets: `first_name`, `last_name`, `full_name`, `email`, `phone`, `company`, `country_code`, `message`, `requested_quantity`, `requested_scope`, `other:<key>`. Identity targets may appear once. | No map is valid: RFQs persist with `FIELD_MAPPING_MISSING` and go to review, and no contact is created |
-| `H2O_CRM_TYPEFORM_INGEST_ENABLED` | Must be exactly `1`                                                                                                                                                                                                                      | 503                                                                                                    |
+| `H2O_CRM_TYPEFORM_INGEST_ENABLED` | Must be exactly `1`                                                                                                                                                                                                                      | 404 (indistinguishable from an unmounted route)                                                        |
 
-**Owner input OI-01:** the live form `F22cAgx3`'s field refs. The Factory does not know them and did not
-guess them from question wording.
+**Owner input OI-01 (resolved for review):** the recommended map for `F22cAgx3` is
+`F22CAGX3_RECOMMENDED_FIELD_MAP` in `src/crm/intake/typeform/config.ts`, taken from the refs recorded in the CRM-2
+authority capture (`TYPEFORM_FIELD_LEDGER.tsv`). It is not a default: the operator sets the JSON in the
+environment after confirming the refs against the live form definition.
+
+**Owner input OI-02 (open):** the live form declares **no hidden fields**, so Typeform drops `page_path`,
+`cta_placement` and the product context the site passes. Until the owner adds the eleven hidden fields
+(`product_id, product_slug, product_path, product_title, page_path, cta_placement, utm_source, utm_medium,
+utm_campaign, utm_term, utm_content`) to F22cAgx3, real RFQs arrive without page or product context (they are
+still created, contact and account matching still run).
+
+**Launch rules added by the go-live patch:** product context is kept only when the site could have produced it
+(placement `header_action`, `footer_rfq_band`, `rfq_page` or `category_and_family`, a page path, a slug, a numeric
+id) — otherwise the product fields are dropped and the RFQ goes to review; an existing address with a different
+name leaves the RFQ **unlinked** with an `EMAIL_MATCH_NAME_MISMATCH` review; an active suppression is recorded
+(`normalized_summary.suppression_active`) and shown on the RFQ even when it is unlinked, and is never altered.
 
 ## 3. Flow and failure behaviour
 

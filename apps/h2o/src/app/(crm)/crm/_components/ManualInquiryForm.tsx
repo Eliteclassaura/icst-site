@@ -25,7 +25,9 @@ export function ManualInquiryForm({ token, people, meId }: { token: string; peop
     <ActionForm action={manualInquiryAction} hidden={{ token }} submitLabel="Create inquiry">
       <fieldset className="c-fieldset">
         <legend>Customer supplied</legend>
-        <p className="c-hint">Enter a phone number or an email address. One is enough.</p>
+        <p className="c-hint">
+          Required: what the customer asked for, and a phone number or an email address (one is enough).
+        </p>
         <div className="c-form-grid">
           <Field name="firstName" label="First name">
             {(a) => <input className="c-input" {...a} autoComplete="off" maxLength={80} />}
@@ -36,13 +38,13 @@ export function ManualInquiryForm({ token, people, meId }: { token: string; peop
           <Field name="company" label="Company" wide>
             {(a) => <input className="c-input" {...a} autoComplete="off" maxLength={160} />}
           </Field>
-          <Field name="phone" label="Phone">
+          <Field name="phone" label="Phone" hint="Phone or email: at least one is required.">
             {(a) => <input className="c-input" type="tel" inputMode="tel" {...a} autoComplete="off" maxLength={40} />}
           </Field>
-          <Field name="email" label="Email">
+          <Field name="email" label="Email" hint="Email or phone: at least one is required.">
             {(a) => <input className="c-input" type="email" inputMode="email" {...a} autoComplete="off" maxLength={254} />}
           </Field>
-          <Field name="message" label="What the customer asked for" wide>
+          <Field name="message" label="What the customer asked for" wide required>
             {(a) => <textarea className="c-textarea" {...a} maxLength={5000} rows={6} />}
           </Field>
         </div>
@@ -81,7 +83,7 @@ export function ManualInquiryForm({ token, people, meId }: { token: string; peop
           <Field name="followUpTitle" label="Follow-up (optional)">
             {(a) => <input className="c-input" {...a} maxLength={160} placeholder="e.g. Call back with part numbers" />}
           </Field>
-          <Field name="followUpDue" label="Follow-up due">
+          <Field name="followUpDue" label="Follow-up due" hint="Required when a follow-up title is given.">
             {(a) => <input className="c-input" type="date" {...a} />}
           </Field>
         </div>
