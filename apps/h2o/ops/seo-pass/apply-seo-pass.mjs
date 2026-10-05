@@ -108,7 +108,9 @@ for(const row of tsv('seo-fields.tsv')){
   if(pendingDraft(r)){plan.blocked.push({path:row.path,reason:'unpublished editor draft pending'});continue}
   const seo=(doc??r.latest)?.seo??{}
   if(seo.title===row.title&&(pending||seo.description===row.meta)){plan.seo.unchanged.push(row.path);continue}
-  plan.seo.update.push({id:(doc??r.latest).id,path:row.path,seo:{...seo,title:row.title,...(pending?{}:{description:row.meta})}})
+  // The seo group is sent whole: carry the decided canonical, or this write would put back the canonical read before the
+  // CANONICAL write of the same route (R3.1 fix).
+  plan.seo.update.push({id:(doc??r.latest).id,path:row.path,seo:{...seo,title:row.title,...(pending?{}:{description:row.meta}),...(row.canonical?{canonical:row.canonical}:{})}})
 }
 const h1Rows=existsSync(path.join(DATA,'h1-fields.tsv'))?tsv('h1-fields.tsv').filter(row=>row.path):[]
 for(const row of h1Rows){
@@ -202,6 +204,7 @@ for(const item of plan.restored.update)await write('seo',`RESTORED ${item.path}`
 const verify=[]
 routeCache.clear()
 for(const item of [...plan.routes.publish,...plan.routes.index,...plan.routes.canonical]){const r=await getRoute(item.path);if(!publishedAsDecided(r.published,item.disposition))verify.push({path:item.path,problem:'not published as decided'})}
+for(const item of plan.routes.canonical){const r=await getRoute(item.path);if(r.published?.seo?.canonical!==item.canonical)verify.push({path:item.path,problem:'canonical not as decided'})}
 for(const item of plan.routes.withdraw){
   const r=await getRoute(item.path)
   const onlyPublished=await api(`public-routes?where[pathKey][equals]=${encodeURIComponent(decode(item.path))}&where[_status][equals]=published&limit=1&depth=0&draft=false`)
