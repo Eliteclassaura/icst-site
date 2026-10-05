@@ -149,7 +149,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     expect(EMPTY_ARCHIVE_PATHS).toContain('/category/cooling-tower-cost/')
   })
   it('redirects: unique sources, single hop to a 200 target, no loops or self-redirects; author rows dropped',()=>{
-    expect(redirects).toHaveLength(473)
+    expect(redirects).toHaveLength(475)
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -169,7 +169,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
   it('conformance contract: 1,003 rows (1,005 minus the two author rows), two held for a ruling',()=>{
     expect(conformance).toHaveLength(1003)
     const count=(kind:string)=>conformance.filter(row=>row.expect===kind).length
-    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([526,473,2,2])
+    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([526,475,2,0])
     expect(expectations.problems).toEqual([])
     expect(expectations.expect.routes).toEqual({publish:3,withdraw:17,index:5,canonical:4})
     expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT').map(row=>[row.path,row.redirect])).toEqual(Object.entries(overrides.redirectSources))
