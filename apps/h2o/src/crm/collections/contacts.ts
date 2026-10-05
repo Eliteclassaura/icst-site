@@ -1,6 +1,7 @@
 import type { CollectionBeforeChangeHook, CollectionBeforeValidateHook, CollectionConfig } from 'payload'
 import { ADMINS, hasRole } from '@factory/agency-core/cms/kernel'
 import { adminOnlyValues } from '../access'
+import { ownerHoldsCrmRole } from '../assignment'
 import { crmCollection, stampProvenance } from '../collection'
 import { countryCodeField, provenanceGroup, userRelation } from '../fields'
 import { CrmInvariantError, isServerContext, merged, relId, writeOnce } from '../guards'
@@ -144,6 +145,7 @@ export const CrmContacts: CollectionConfig = crmCollection(
         accountLinkConsistency,
         serverNeverRelinks,
         eligibilityGate,
+        ownerHoldsCrmRole('CONTACT_OWNER_NOT_CRM_USER'),
       ],
     },
     fields: [

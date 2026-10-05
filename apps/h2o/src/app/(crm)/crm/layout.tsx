@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { CommandPalette } from './_components/CommandPalette'
 import { currentSession } from './session'
 
 /**
@@ -20,5 +21,14 @@ export default async function CrmGate({ children }: { children: ReactNode }) {
   const { signedIn, session } = await currentSession()
   if (!signedIn) redirect(`/admin/login/?redirect=${encodeURIComponent(path)}`)
   if (!session && path !== '/crm/denied/') redirect('/crm/denied/')
-  return children
+  if (!session) return children
+  // W1-2: one ⌘K palette for every workspace page. `display: contents` host keeps the design tokens in scope.
+  return (
+    <>
+      {children}
+      <div className="crm-app crm-portal-host">
+        <CommandPalette />
+      </div>
+    </>
+  )
 }

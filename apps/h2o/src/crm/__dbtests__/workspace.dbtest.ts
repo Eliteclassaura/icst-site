@@ -395,9 +395,10 @@ describe('W9 read models', () => {
     const mine = await loadMyWork(S, 'mine')
     expect(mine.unassigned.status === 'ok' && mine.unassigned.data.rows.some((r) => r.id === id)).toBe(true)
     const r = await rfq(id)
-    const byNumber = await loadInbox(S, parseInboxParams({ q: String(r.rfq_number) }))
+    // Wave 1 W1-2: the term no longer comes from the URL; the inbox page passes it from the list-search cookie.
+    const byNumber = await loadInbox(S, { ...parseInboxParams({}), q: String(r.rfq_number) })
     expect(byNumber.rows.map((x) => x.id)).toEqual([id])
-    const byCompany = await loadInbox(S, parseInboxParams({ q: 'Searchable Unique' }))
+    const byCompany = await loadInbox(S, { ...parseInboxParams({}), q: 'Searchable Unique' })
     expect(byCompany.rows.map((x) => x.id)).toContain(id)
     const unassigned = await loadInbox(S, parseInboxParams({ view: 'unassigned' }))
     expect(unassigned.rows.every((x) => x.ownerId === null)).toBe(true)

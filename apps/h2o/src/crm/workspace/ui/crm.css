@@ -1153,6 +1153,364 @@ details.c-tech > summary {
   max-inline-size: 880px;
 }
 
+/* ── Wave 1 Patch A (W1-1, W1-2, W1-8, W1-9) ─────────────── */
+
+/* A dialog or palette rendered outside the page shell keeps the design tokens without adding a box. */
+.crm-app.crm-portal-host {
+  display: contents;
+}
+
+.lbl-phone {
+  display: none;
+}
+
+.c-scope form {
+  display: contents;
+}
+
+.c-scope button {
+  padding-inline: 10px;
+  border: 0;
+  background: transparent;
+  color: var(--c-n700);
+  font: inherit;
+  font-weight: 500;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.c-scope button[aria-pressed='true'] {
+  background: var(--c-b50);
+  color: var(--c-accent-deep);
+}
+
+/* Overflow ("More") menu */
+.c-overflow {
+  position: relative;
+  display: inline-flex;
+}
+
+.c-menu {
+  position: absolute;
+  inset-block-start: calc(100% + 4px);
+  z-index: 20;
+  display: grid;
+  min-inline-size: 220px;
+  padding: 4px;
+  border: 1px solid var(--c-control);
+  border-radius: 4px;
+  background: var(--c-surface);
+}
+
+.c-menu[hidden] {
+  display: none;
+}
+
+.c-menu.is-end {
+  inset-inline-end: 0;
+}
+
+.c-menu.is-start {
+  inset-inline-start: 0;
+}
+
+.c-menu .c-actions {
+  display: grid;
+  gap: 2px;
+}
+
+.c-menu-item {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  inline-size: 100%;
+  min-block-size: 32px;
+  padding-inline: 10px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--c-text);
+  font: inherit;
+  text-align: start;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.c-menu-item:hover {
+  background: var(--c-canvas);
+}
+
+.c-menu-item:disabled {
+  color: var(--c-text-2);
+  cursor: not-allowed;
+}
+
+.c-icon-btn {
+  inline-size: 26px;
+  padding-inline: 0;
+}
+
+.c-task-actions {
+  flex-wrap: nowrap;
+}
+
+/* Chips: active filters and quick dates */
+.c-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-block-end: 12px;
+}
+
+.c-dialog-body .c-chips {
+  margin-block: -4px 0;
+}
+
+.c-chip-form {
+  display: contents;
+}
+
+.c-chip {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  min-block-size: 26px;
+  padding-inline: 10px;
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  background: var(--c-surface);
+  color: var(--c-n700);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.c-chip:hover {
+  border-color: var(--c-control);
+  text-decoration: none;
+}
+
+.c-chip.is-on {
+  border-color: var(--c-accent);
+  background: var(--c-b50);
+  color: var(--c-accent-deep);
+}
+
+/* List toolbar: search, filter popover, sort */
+.c-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  margin-block-end: 12px;
+}
+
+.c-list-search {
+  display: flex;
+  flex: 1 1 320px;
+  gap: 8px;
+  max-inline-size: 520px;
+}
+
+.c-filter-pop {
+  position: relative;
+}
+
+.c-filter-pop > summary {
+  list-style: none;
+}
+
+.c-filter-pop > summary::-webkit-details-marker {
+  display: none;
+}
+
+.c-filter-pop[open] > .c-filters {
+  position: absolute;
+  inset-block-start: calc(100% + 4px);
+  inset-inline-start: 0;
+  z-index: 20;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  inline-size: min(520px, calc(100vw - 32px));
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--c-control);
+  border-radius: 4px;
+  background: var(--c-surface);
+}
+
+.c-filter-pop .c-filters .c-actions {
+  grid-column: 1 / -1;
+}
+
+.c-sort {
+  margin-inline-start: auto;
+}
+
+.c-field-inline {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.c-filters-inline {
+  align-items: center;
+  margin-block-end: 0;
+}
+
+.c-filters-inline .c-field {
+  min-inline-size: 0;
+}
+
+/* ⌘K palette */
+.c-palette-trigger {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  inline-size: 100%;
+  min-block-size: 32px;
+  padding-inline: 10px;
+  border: 1px solid var(--c-control);
+  border-radius: 4px;
+  background: var(--c-surface);
+  color: var(--c-text-2);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.c-palette-trigger > span {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.c-palette-trigger kbd {
+  padding-inline: 4px;
+  border: 1px solid var(--c-rule);
+  border-radius: 3px;
+  font-family: var(--c-mono);
+  font-size: 11px;
+}
+
+.c-palette-dialog {
+  inline-size: min(640px, calc(100vw - 32px));
+  margin-block-start: 10vh;
+}
+
+.c-palette {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+}
+
+.c-palette-input {
+  min-block-size: 40px;
+  font-size: 15px;
+}
+
+.c-palette-status {
+  margin: 0;
+}
+
+.c-palette-list {
+  max-block-size: 60vh;
+  overflow: auto;
+}
+
+.c-palette.is-page .c-palette-list {
+  max-block-size: none;
+}
+
+.c-palette-list .c-group-label {
+  margin-block: 8px 2px;
+}
+
+.c-palette-option {
+  display: grid;
+  min-block-size: 40px;
+  padding-block: 4px;
+  padding-inline: 8px;
+  border-radius: 4px;
+  color: var(--c-text);
+}
+
+.crm-app .c-palette-option:hover {
+  text-decoration: none;
+}
+
+.c-palette-option[aria-selected='true'] {
+  background: var(--c-b50);
+  color: var(--c-accent-deep);
+}
+
+.c-palette-keys {
+  margin: 0;
+  padding-block: 0 12px;
+  padding-inline: 12px;
+}
+
+/* Tables: follow-ups (fixed columns, so a long title truncates instead of pushing the actions off-panel) */
+.c-task-table {
+  table-layout: fixed;
+}
+
+.c-task-table th.due {
+  inline-size: 96px;
+}
+
+.c-task-table th.owner {
+  inline-size: 132px;
+}
+
+.c-task-table th.act {
+  inline-size: 140px;
+}
+
+.c-task-table td.due,
+.c-task-table td.act {
+  white-space: nowrap;
+}
+
+.c-task-table th.act,
+.c-task-table td.act {
+  padding-inline: 8px;
+}
+
+.c-task-table .two strong,
+.c-task-table .two span {
+  max-inline-size: none;
+}
+
+/* A link inside a sentence is underlined, so it never depends on colour alone (axe link-in-text-block). */
+.crm-app .c-trunc > strong ~ a,
+.crm-app .c-table .two span a,
+.crm-app .c-hint a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.c-dir-table .two strong,
+.c-dir-table .two span {
+  max-inline-size: 320px;
+}
+
+.c-locked {
+  margin: 0;
+  color: var(--c-text);
+}
+
+.c-more-nav > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c-more-nav > summary::-webkit-details-marker {
+  display: none;
+}
+
 /* ── responsive ──────────────────────────────────────────── */
 @media (max-width: 1439px) {
   /* UI-1 IN-03/IN-06: below the split width the list keeps Status and Flags on screen; long interest and
@@ -1384,6 +1742,111 @@ details.c-tech > summary {
 
   .c-btn {
     min-block-size: 40px;
+  }
+}
+
+/* Wave 1 W1-8 phone: 44px tap targets, a sticky action bar, Tasks on the bar and More for the rest. */
+@media (max-width: 767px) {
+  .c-btn,
+  .c-btn.is-small,
+  .c-input,
+  .c-select,
+  .c-menu-item,
+  .c-chip,
+  .c-palette-option,
+  .c-scope button {
+    min-block-size: 44px;
+  }
+
+  .c-icon-btn {
+    inline-size: 44px;
+  }
+
+  .c-task-table th.due {
+    inline-size: 76px;
+  }
+
+  .c-task-table th.act {
+    inline-size: 152px;
+  }
+
+  .lbl-desk {
+    display: none;
+  }
+
+  .lbl-phone {
+    display: inline;
+  }
+
+  .c-more-nav > summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    block-size: 48px;
+    min-inline-size: 64px;
+    color: var(--c-n700);
+    font-size: 11px;
+  }
+
+  .c-more-nav > summary[aria-current='page'] {
+    color: var(--c-accent);
+  }
+
+  .c-more-nav > ul {
+    position: fixed;
+    inset-block-end: 60px;
+    inset-inline-end: 8px;
+    z-index: 6;
+    display: grid;
+    min-inline-size: 200px;
+    margin: 0;
+    padding: 4px;
+    border: 1px solid var(--c-control);
+    border-radius: 4px;
+    background: var(--c-surface);
+    list-style: none;
+  }
+
+  .c-more-nav > ul a {
+    display: flex;
+    align-items: center;
+    min-block-size: 44px;
+    padding-inline: 12px;
+  }
+
+  .c-action-bar {
+    position: sticky;
+    inset-block-end: 56px;
+    z-index: 4;
+    padding-block: 8px;
+    border-block-start: 1px solid var(--c-rule);
+    background: var(--c-surface);
+  }
+
+  .c-menu {
+    min-inline-size: min(280px, calc(100vw - 32px));
+  }
+
+  .c-toolbar {
+    align-items: stretch;
+  }
+
+  .c-list-search {
+    flex-basis: 100%;
+    max-inline-size: none;
+  }
+
+  .c-sort {
+    margin-inline-start: 0;
+  }
+
+  .c-filter-pop[open] > .c-filters {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .c-palette-dialog {
+    margin-block-start: 16px;
   }
 }
 

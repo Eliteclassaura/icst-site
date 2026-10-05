@@ -1,10 +1,10 @@
 import { crmUsers } from './queries'
 import { LOGGABLE_ACTIVITY_TYPES } from './labels'
 import { asUser, type CrmSession } from './session'
-import { withRowLock } from './serialize'
-import { endOfBusinessDay } from './time'
-import { dateTime, isoDate, line, oneOf, relationshipId, text, type FieldErrors } from './validate'
-import { normalizeWebDomain } from '../normalize'
+import { withRowLock, type Lockable } from './serialize'
+import { endOfBusinessDay, quickDueDates, QUICK_DUE, type QuickDue } from './time'
+import { dateTime, email, isoDate, line, oneOf, phone, relationshipId, text, type FieldErrors } from './validate'
+import { emailKey, normalizeWebDomain } from '../normalize'
 
 /**
  * Sales Workspace mutations. Each one:
@@ -42,7 +42,7 @@ export function fromError(err: unknown) {
   return fail('ERROR', 'The change could not be saved. Nothing was changed.')
 }
 
-type Collection = 'crm-rfqs' | 'crm-tasks'
+type Collection = Lockable
 
 async function current(s: CrmSession, collection: Collection, docId: string): Promise<Doc | null> {
   try {
@@ -79,6 +79,8 @@ async function conflictOn(s: CrmSession, rfqId: string, since: string): Promise<
 
 const ALREADY_DONE = 'Already done.'
 const STALE_MESSAGE = 'This inquiry changed while you were working. Review the latest version before applying your change.'
+const STALE_RECORD = 'This record changed while you were working. Review the latest version before applying your change.'
+const staleMessage = (collection: Collection) => (collection === 'crm-rfqs' ? STALE_MESSAGE : STALE_RECORD)
 
 /** Load a target and refuse the write if it changed since the user loaded it. */
 async function fresh(s: CrmSession, collection: Collection, docId: unknown, expectedUpdatedAt: unknown) {
@@ -91,7 +93,7 @@ async function fresh(s: CrmSession, collection: Collection, docId: unknown, expe
       collection === 'crm-rfqs'
         ? await conflictOn(s, rid.id, expectedUpdatedAt)
         : { byName: null, at: String(doc.updatedAt ?? ''), what: null }
-    return { error: fail('STALE', STALE_MESSAGE, { conflict }) }
+    return { error: fail('STALE', staleMessage(collection), { conflict }) }
   }
   return { id: rid.id, doc }
 }
@@ -130,7 +132,7 @@ async function failure(s: CrmSession, err: unknown): Promise<Outcome> {
       err.collection === 'crm-rfqs'
         ? await conflictOn(s, err.docId, err.expected)
         : { byName: null, at: String(doc?.updatedAt ?? ''), what: null }
-    return fail('STALE', STALE_MESSAGE, { conflict })
+    return fail('STALE', staleMessage(err.collection), { conflict })
   }
   return fromError(err)
 }
@@ -369,10 +371,20 @@ function dueFrom(v: unknown): string | null {
 
 export async function createFollowUp(
   s: CrmSession,
-  input: { rfqId?: unknown; accountId?: unknown; title: unknown; due: unknown; assigneeId?: unknown; priority?: unknown; kind?: unknown },
+  input: {
+    rfqId?: unknown
+    accountId?: unknown
+    contactId?: unknown
+    title: unknown
+    due: unknown
+    assigneeId?: unknown
+    priority?: unknown
+    kind?: unknown
+  },
 ): Promise<Outcome> {
   const rfq = relationshipId(input.rfqId)
   const acc = relationshipId(input.accountId)
+  const con = relationshipId(input.contactId)
   const assignee = input.assigneeId === undefined || input.assigneeId === '' ? { ok: true as const, id: s.userId } : relationshipId(input.assigneeId)
   const title = line(input.title, 160)
   const due = dueFrom(input.due)
@@ -383,16 +395,21 @@ export async function createFollowUp(
   if (!due) fields.due = 'Choose a due date.'
   if (!assignee.ok) fields.assigneeId = 'Choose a valid owner.'
   if (!priority) fields.priority = 'Choose a priority.'
-  if (!rfq.ok || !acc.ok || !kind) return fail('INVALID_ID', 'That record reference is not valid.')
-  if (!rfq.id && !acc.id) return fail('VALIDATION', 'A follow-up must relate to an inquiry or an account.')
+  if (!rfq.ok || !acc.ok || !con.ok || !kind) return fail('INVALID_ID', 'That record reference is not valid.')
+  if (!rfq.id && !acc.id && !con.id) return fail('VALIDATION', 'A follow-up must relate to an inquiry, an account or a contact.')
   if (Object.keys(fields).length) return fail('VALIDATION', 'Some values need attention.', { fields })
   let account = acc.id
-  let contact: unknown = null
+  let contact: unknown = con.id
+  if (con.id && !rfq.id) {
+    const c = await current(s, 'crm-contacts', con.id)
+    if (!c) return fail('NOT_FOUND', 'That record no longer exists or you don’t have access to it.')
+    account = account ?? (c.account ? String(c.account) : null)
+  }
   if (rfq.id) {
     const doc = await current(s, 'crm-rfqs', rfq.id)
     if (!doc) return fail('NOT_FOUND', 'That record no longer exists or you don’t have access to it.')
     account = account ?? (doc.account ? String(doc.account) : null)
-    contact = doc.contact ?? null
+    contact = contact ?? doc.contact ?? null
   }
   try {
     await s.payload.create({
@@ -456,19 +473,65 @@ export async function reopenTask(s: CrmSession, input: { taskId: unknown; expect
   }
 }
 
-/** "Change due date" (there is no snooze state). */
-export async function changeDueDate(s: CrmSession, input: { taskId: unknown; due: unknown; expectedUpdatedAt?: unknown }): Promise<Outcome> {
+/**
+ * Change a follow-up's due date. A rule-set due date (the D-1 first response) is never moved silently: the person
+ * must give a reason, which is appended to the task's notes and recorded as a note on the related record so it
+ * shows in the timeline. The task hook refuses the same change made without a reason on any other path.
+ */
+export async function changeDueDate(
+  s: CrmSession,
+  input: { taskId: unknown; due: unknown; reason?: unknown; expectedUpdatedAt?: unknown },
+  now: Date = new Date(),
+): Promise<Outcome> {
   const due = dueFrom(input.due)
   if (!due) return fail('VALIDATION', 'Choose a due date.', { fields: { due: 'Required' } })
   const target = await fresh(s, 'crm-tasks', input.taskId, input.expectedUpdatedAt)
   if ('error' in target) return target.error!
   if (['DONE', 'CANCELLED'].includes(String(target.doc.status))) return fail('INVALID_TRANSITION', 'This follow-up is finished.')
+  if (String(target.doc.due_at ?? '') && new Date(String(target.doc.due_at)).toISOString() === due) return { ok: true, message: 'Due date unchanged.' }
+  const system = target.doc.source === 'SYSTEM_RULE'
+  const reason = line(input.reason, 240)
+  if (system && !reason)
+    return fail('VALIDATION', 'This due date was set by a rule. Say why it is changing.', { fields: { reason: 'A reason is required.' } })
+  const data: Doc = { due_at: due }
+  if (reason) {
+    const prior = typeof target.doc.notes === 'string' && target.doc.notes.trim() ? `${target.doc.notes.trim()}\n` : ''
+    data.notes = `${prior}${now.toISOString().slice(0, 10)} due date changed: ${reason}`.slice(-4000)
+  }
   try {
-    await update(s, 'crm-tasks', target.id, { due_at: due }, input.expectedUpdatedAt)
-    return { ok: true, message: 'Due date changed.' }
+    await update(s, 'crm-tasks', target.id, data, input.expectedUpdatedAt)
   } catch (err) {
     return failure(s, err)
   }
+  if (system && reason) {
+    const d = target.doc
+    const subject = { rfq: d.rfq ?? null, account: d.account ?? null, contact: d.contact ?? null }
+    try {
+      await s.payload.create({
+        collection: 'crm-notes',
+        data: { body: `Due date of “${String(d.title ?? 'follow-up')}” changed to ${String(input.due)}. Reason: ${reason}`, ...subject } as never,
+        depth: 0,
+        ...asUser(s),
+      })
+    } catch {
+      // The task kept the reason in its notes and the audit row records the date change; the timeline note is a
+      // convenience copy, so its failure is reported, not hidden.
+      return { ok: true, message: 'Due date changed. The reason is on the follow-up, but the timeline note could not be added.' }
+    }
+  }
+  return { ok: true, message: 'Due date changed.' }
+}
+
+/** Snooze: move a follow-up to a quick date (tomorrow, next week). A rule-set due date still needs a reason. */
+export async function snoozeTask(
+  s: CrmSession,
+  input: { taskId: unknown; preset: unknown; reason?: unknown; expectedUpdatedAt?: unknown },
+  now: Date = new Date(),
+): Promise<Outcome> {
+  const preset = oneOf(input.preset, QUICK_DUE) as QuickDue | null
+  if (!preset) return fail('VALIDATION', 'Choose when to snooze to.', { fields: { preset: 'Required' } })
+  const out = await changeDueDate(s, { taskId: input.taskId, due: quickDueDates(now)[preset], reason: input.reason, expectedUpdatedAt: input.expectedUpdatedAt }, now)
+  return out.ok && out.message === 'Due date changed.' ? { ...out, message: preset === 'next_week' ? 'Snoozed to next week.' : preset === 'tomorrow' ? 'Snoozed to tomorrow.' : 'Due today.' } : out
 }
 
 export async function reassignTask(s: CrmSession, input: { taskId: unknown; assigneeId: unknown; expectedUpdatedAt?: unknown }): Promise<Outcome> {
@@ -614,6 +677,293 @@ export async function resolveReview(s: CrmSession, input: { reviewId: unknown; s
       ...asUser(s),
     })
     return { ok: true, message: 'Review resolved. Nothing was merged.' }
+  } catch (err) {
+    return failure(s, err)
+  }
+}
+
+// ────────────────────────────────────────────── accounts & contacts (Wave 1 W1-1) ──
+
+const RELATIONSHIPS = ['VERIFIED_CUSTOMER', 'VERIFIED_PAST_CUSTOMER', 'PROSPECT', 'CANDIDATE', 'UNKNOWN'] as const
+const VERIFIED_RELATIONSHIPS: readonly string[] = ['VERIFIED_CUSTOMER', 'VERIFIED_PAST_CUSTOMER']
+const FUNCTIONS = [
+  'ENGINEERING_TECHNICAL',
+  'PLANT_OPERATIONS',
+  'MAINTENANCE_RELIABILITY',
+  'PROCUREMENT_SOURCING',
+  'PROJECT_MANAGEMENT',
+  'EXECUTIVE_MANAGEMENT',
+  'EPC_CONSULTANT_THIRD_PARTY',
+  'OTHER',
+  'UNKNOWN',
+] as const
+const LINK_CONFIDENCES = ['VERIFIED', 'HIGH_CONFIDENCE', 'LOW_CONFIDENCE'] as const
+
+/** An owner from a form: "" clears it, "me" is the user, anything else must be a UUID (the hook checks the role). */
+function ownerFrom(s: CrmSession, v: unknown): { ok: true; id: string | null } | { ok: false } {
+  if (v === 'me') return { ok: true, id: s.userId }
+  return relationshipId(v)
+}
+
+/** Only keys the form actually sent are written: an absent field is "unchanged", never "cleared". */
+const has = (input: object, k: string) => Object.prototype.hasOwnProperty.call(input, k) && (input as Doc)[k] !== undefined
+
+/**
+ * Edit an account's safe fields from its profile. Name, legal name, industry, owner and relationship. A verified
+ * relationship is an admin act (refused here with a clear message, and by the account hook on every other path).
+ * Domains, parent, tier and state stay admin work in Payload admin.
+ */
+export async function updateAccount(
+  s: CrmSession,
+  input: { accountId: unknown; expectedUpdatedAt?: unknown; name?: unknown; legalName?: unknown; industry?: unknown; relationship?: unknown; ownerId?: unknown },
+): Promise<Outcome> {
+  const fields: FieldErrors = {}
+  const data: Doc = {}
+  if (has(input, 'name')) {
+    const name = line(input.name, 160)
+    if (!name) fields.name = 'Enter the company name.'
+    else data.canonical_name = name
+  }
+  if (has(input, 'legalName')) data.legal_name = line(input.legalName, 200)
+  if (has(input, 'industry')) data.industry = line(input.industry, 120)
+  if (has(input, 'relationship')) {
+    const r = oneOf(input.relationship, RELATIONSHIPS)
+    if (!r) fields.relationship = 'Choose a relationship.'
+    else data.relationship_state = r
+  }
+  if (has(input, 'ownerId')) {
+    const o = ownerFrom(s, input.ownerId)
+    if (!o.ok) fields.ownerId = 'Choose a valid owner.'
+    else data.owner = o.id
+  }
+  if (Object.keys(fields).length) return fail('VALIDATION', 'Some values need attention.', { fields })
+  const target = await fresh(s, 'crm-accounts', input.accountId, input.expectedUpdatedAt)
+  if ('error' in target) return target.error!
+  if (
+    !s.isAdmin &&
+    'relationship_state' in data &&
+    data.relationship_state !== target.doc.relationship_state &&
+    (VERIFIED_RELATIONSHIPS.includes(String(data.relationship_state)) || VERIFIED_RELATIONSHIPS.includes(String(target.doc.relationship_state)))
+  )
+    return fail('VERIFIED_RELATIONSHIP_PRIVILEGED', 'Only an admin can set or change a verified customer relationship.', {
+      fields: { relationship: 'Admin only for verified relationships.' },
+    })
+  for (const k of Object.keys(data)) if (sameish(data[k], target.doc[k])) delete data[k]
+  if (Object.keys(data).length === 0) return { ok: true, message: 'No changes.' }
+  try {
+    await update(s, 'crm-accounts', target.id, data, input.expectedUpdatedAt)
+    return { ok: true, message: 'Account saved. Recorded in the audit history.' }
+  } catch (err) {
+    return failure(s, err)
+  }
+}
+
+const sameish = (a: unknown, b: unknown) => {
+  const norm = (v: unknown) => (v === undefined || v === '' ? null : typeof v === 'object' && v ? String((v as Doc).id ?? JSON.stringify(v)) : v)
+  return norm(a) === norm(b)
+}
+
+/** Create an account from the directory ("New account"). A domain is saved as an unverified candidate. */
+export async function createAccount(
+  s: CrmSession,
+  input: { name: unknown; domain?: unknown; relationship?: unknown; ownerId?: unknown },
+): Promise<Outcome> {
+  const name = line(input.name, 160)
+  const rawDomain = line(input.domain, 253)
+  const domain = rawDomain ? normalizeWebDomain(rawDomain) : null
+  const relationship = input.relationship === undefined || input.relationship === '' ? 'UNKNOWN' : oneOf(input.relationship, RELATIONSHIPS)
+  const owner = input.ownerId === undefined ? { ok: true as const, id: s.userId } : ownerFrom(s, input.ownerId)
+  const fields: FieldErrors = {}
+  if (!name) fields.name = 'Enter the company name.'
+  if (rawDomain && !domain) fields.domain = 'Enter a domain like example.com, or leave it empty.'
+  if (!relationship) fields.relationship = 'Choose a relationship.'
+  else if (!s.isAdmin && VERIFIED_RELATIONSHIPS.includes(relationship)) fields.relationship = 'Admin only for verified relationships.'
+  if (!owner.ok) fields.ownerId = 'Choose a valid owner.'
+  if (Object.keys(fields).length) return fail('VALIDATION', 'Some values need attention.', { fields })
+  try {
+    const created = await s.payload.create({
+      collection: 'crm-accounts',
+      data: {
+        canonical_name: name,
+        domains: domain ? [{ domain, domain_status: 'CANDIDATE' }] : [],
+        relationship_state: relationship,
+        owner: owner.ok ? owner.id : null,
+        provenance: { source_system: 'MANUAL_ENTRY' },
+      } as never,
+      depth: 0,
+      ...asUser(s),
+    })
+    return { ok: true, message: 'Account created.', id: String(created.id) }
+  } catch (err) {
+    return failure(s, err)
+  }
+}
+
+/** The primary phone row of a contact, edited in place; other recorded numbers are kept. */
+function withPrimaryPhone(existing: unknown, value: string | null): Doc[] {
+  const rows = Array.isArray(existing) ? (existing as Doc[]).map((r) => ({ number_raw: r.number_raw, kind: r.kind ?? 'UNKNOWN' })) : []
+  if (value === null) return rows.slice(1)
+  if (rows.length === 0) return [{ number_raw: value, kind: 'PRIMARY' }]
+  rows[0] = { ...rows[0], number_raw: value }
+  return rows
+}
+
+/**
+ * Edit a contact's safe fields from its profile: names, title, function, primary phone and owner. The email address
+ * is the contact's identity and is write-once (a different address is a different contact point).
+ */
+export async function updateContact(
+  s: CrmSession,
+  input: {
+    contactId: unknown
+    expectedUpdatedAt?: unknown
+    firstName?: unknown
+    lastName?: unknown
+    title?: unknown
+    contactFunction?: unknown
+    phone?: unknown
+    ownerId?: unknown
+    email?: unknown
+  },
+): Promise<Outcome> {
+  if (has(input, 'email'))
+    return fail('WRITE_ONCE_FIELD', 'An email address cannot be changed. Create a new contact for a different address.', {
+      fields: { email: 'Write-once.' },
+    })
+  const fields: FieldErrors = {}
+  const data: Doc = {}
+  if (has(input, 'firstName')) data.first_name = line(input.firstName, 80)
+  if (has(input, 'lastName')) data.last_name = line(input.lastName, 80)
+  if (has(input, 'title')) data.title = line(input.title, 120)
+  if (has(input, 'contactFunction')) {
+    const f = oneOf(input.contactFunction, FUNCTIONS)
+    if (!f) fields.contactFunction = 'Choose a function.'
+    else data.contact_function = f
+  }
+  let phoneValue: string | null | undefined
+  if (has(input, 'phone')) {
+    const p = phone(input.phone)
+    if (!p.ok) fields.phone = 'Enter a phone number with 7–15 digits.'
+    else phoneValue = p.value
+  }
+  if (has(input, 'ownerId')) {
+    const o = ownerFrom(s, input.ownerId)
+    if (!o.ok) fields.ownerId = 'Choose a valid owner.'
+    else data.owner = o.id
+  }
+  if (Object.keys(fields).length) return fail('VALIDATION', 'Some values need attention.', { fields })
+  const target = await fresh(s, 'crm-contacts', input.contactId, input.expectedUpdatedAt)
+  if ('error' in target) return target.error!
+  if ('first_name' in data || 'last_name' in data) {
+    const first = 'first_name' in data ? data.first_name : target.doc.first_name
+    const last = 'last_name' in data ? data.last_name : target.doc.last_name
+    data.display_name = [first, last].filter((x) => typeof x === 'string' && x).join(' ') || null
+  }
+  if (phoneValue !== undefined) {
+    const current = (target.doc.phones as Doc[] | undefined)?.[0]?.number_raw ?? null
+    if ((current ?? null) !== phoneValue) data.phones = withPrimaryPhone(target.doc.phones, phoneValue)
+  }
+  for (const k of Object.keys(data)) if (k !== 'phones' && sameish(data[k], target.doc[k])) delete data[k]
+  if (Object.keys(data).length === 0) return { ok: true, message: 'No changes.' }
+  try {
+    await update(s, 'crm-contacts', target.id, data, input.expectedUpdatedAt)
+    return { ok: true, message: 'Contact saved. Recorded in the audit history.' }
+  } catch (err) {
+    return failure(s, err)
+  }
+}
+
+/**
+ * Link a contact to an account, or remove the link, stating how it is known. A VERIFIED link is admin-only and, once
+ * set, only an admin can change it (the contact hook enforces both on every path).
+ */
+export async function linkContactAccount(
+  s: CrmSession,
+  input: { contactId: unknown; accountId: unknown; confidence?: unknown; expectedUpdatedAt?: unknown },
+): Promise<Outcome> {
+  const acc = relationshipId(input.accountId)
+  if (!acc.ok) return fail('INVALID_ID', 'Choose an account to link.')
+  const confidence = acc.id ? oneOf(input.confidence, LINK_CONFIDENCES) : 'UNKNOWN'
+  if (!confidence) return fail('VALIDATION', 'Say how you know this contact belongs to the account.', { fields: { confidence: 'Required' } })
+  if (confidence === 'VERIFIED' && !s.isAdmin)
+    return fail('VERIFIED_LINK_PROTECTED', 'Only an admin can record a verified link.', { fields: { confidence: 'Admin only.' } })
+  if (acc.id) {
+    try {
+      await s.payload.findByID({ collection: 'crm-accounts', id: acc.id, depth: 0, ...asUser(s) })
+    } catch {
+      return fail('NOT_FOUND', 'That account no longer exists or you don’t have access to it.')
+    }
+  }
+  const target = await fresh(s, 'crm-contacts', input.contactId, input.expectedUpdatedAt)
+  if ('error' in target) return target.error!
+  try {
+    await update(s, 'crm-contacts', target.id, { account: acc.id, account_link_confidence: confidence }, input.expectedUpdatedAt)
+    return { ok: true, message: acc.id ? 'Account linked. Recorded in the audit history.' : 'Account link removed.' }
+  } catch (err) {
+    return failure(s, err)
+  }
+}
+
+/**
+ * Create a contact by hand ("New contact"). The address is checked before writing: an existing contact with the same
+ * identity is returned as a conflict with its id (never a second record), and an active do-not-contact on that
+ * address applies to the new record automatically, because suppressions are keyed by the address.
+ */
+export async function createContact(
+  s: CrmSession,
+  input: {
+    email: unknown
+    firstName?: unknown
+    lastName?: unknown
+    title?: unknown
+    contactFunction?: unknown
+    phone?: unknown
+    accountId?: unknown
+    confidence?: unknown
+    ownerId?: unknown
+  },
+): Promise<Outcome & { existingId?: string }> {
+  const fields: FieldErrors = {}
+  const mail = email(input.email)
+  if (!mail.ok || !mail.value) fields.email = 'Enter a valid email address.'
+  const p = phone(input.phone)
+  if (!p.ok) fields.phone = 'Enter a phone number with 7–15 digits.'
+  const fn = input.contactFunction === undefined || input.contactFunction === '' ? 'UNKNOWN' : oneOf(input.contactFunction, FUNCTIONS)
+  if (!fn) fields.contactFunction = 'Choose a function.'
+  const acc = relationshipId(input.accountId)
+  if (!acc.ok) fields.accountId = 'Choose a valid account.'
+  const confidence = acc.ok && acc.id ? oneOf(input.confidence, LINK_CONFIDENCES) : 'UNKNOWN'
+  if (acc.ok && acc.id && !confidence) fields.confidence = 'Say how you know this contact belongs to the account.'
+  if (confidence === 'VERIFIED' && !s.isAdmin) fields.confidence = 'Admin only.'
+  const owner = input.ownerId === undefined ? { ok: true as const, id: s.userId } : ownerFrom(s, input.ownerId)
+  if (!owner.ok) fields.ownerId = 'Choose a valid owner.'
+  const firstName = line(input.firstName, 80)
+  const lastName = line(input.lastName, 80)
+  if (!firstName && !lastName) fields.lastName = 'Enter at least a first or last name.'
+  if (Object.keys(fields).length) return fail('VALIDATION', 'Some values need attention.', { fields })
+  const key = emailKey(mail.ok ? mail.value : null)!
+  const dupe = await s.payload.find({ collection: 'crm-contacts', where: { email_match_key: { equals: key.matchKey } }, depth: 0, limit: 1, ...asUser(s) })
+  if (dupe.docs[0])
+    return { ...fail('CONTACT_EXISTS', 'A contact with this email address already exists.', { fields: { email: 'Already a contact.' } }), existingId: String(dupe.docs[0].id) }
+  try {
+    const created = await s.payload.create({
+      collection: 'crm-contacts',
+      data: {
+        email: mail.ok ? mail.value : null,
+        first_name: firstName,
+        last_name: lastName,
+        title: line(input.title, 120),
+        contact_function: fn,
+        phones: p.ok && p.value ? [{ number_raw: p.value, kind: 'PRIMARY' }] : [],
+        account: acc.ok ? acc.id : null,
+        account_link_confidence: confidence,
+        owner: owner.ok ? owner.id : null,
+        provenance: { source_system: 'MANUAL_ENTRY' },
+      } as never,
+      depth: 0,
+      ...asUser(s),
+    })
+    return { ok: true, message: 'Contact created.', id: String(created.id) }
   } catch (err) {
     return failure(s, err)
   }

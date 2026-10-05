@@ -122,6 +122,37 @@ export function firstResponseDueAt(receivedAt: Date): Date {
   return endOfBusinessDay(nextBusinessDayStart(countsFromBusinessDay(receivedAt)))
 }
 
+/** The calendar date (yyyy-mm-dd) in the business zone of instant `d`. */
+export function businessDate(d: Date): string {
+  const p = partsInZone(d)
+  return `${p.year}-${String(p.month).padStart(2, '0')}-${String(p.day).padStart(2, '0')}`
+}
+
+/** Local midnight starting the Monday after the business week containing `d` (Sat/Sun count as "this week"). */
+export function nextWeekStart(d: Date): Date {
+  let cursor = startOfBusinessDay(d)
+  for (let guard = 0; guard < 8; guard++) {
+    cursor = startOfBusinessDay(new Date(cursor.getTime() + 36 * 3600 * 1000))
+    if (partsInZone(cursor).weekday === 1) return cursor
+  }
+  return cursor
+}
+
+/**
+ * Wave 1 W1-9 quick due dates, as calendar dates in the business zone. "Tomorrow" is the next business day (a
+ * Friday's tomorrow is Monday) and "Next week" is the following Monday. Computed on the server so a browser in
+ * another time zone offers the same days.
+ */
+export const QUICK_DUE = ['today', 'tomorrow', 'next_week'] as const
+export type QuickDue = (typeof QUICK_DUE)[number]
+export function quickDueDates(now: Date): Record<QuickDue, string> {
+  return {
+    today: businessDate(now),
+    tomorrow: businessDate(nextBusinessDayStart(now)),
+    next_week: businessDate(nextWeekStart(now)),
+  }
+}
+
 /** Unassigned for more than one business day (the internal aging indicator). */
 export const isAgedUnassigned = (receivedAt: Date, now: Date): boolean =>
   businessMsBetween(receivedAt, now) > BUSINESS_DAY_MS

@@ -16,7 +16,11 @@ import type { ReplyReadiness } from '../../../../crm/reply'
 import type { RfqDetail } from '../../../../crm/workspace/queries'
 import type { CrmSession } from '../../../../crm/workspace/session'
 import { absoluteTime, compactTime } from '../../../../crm/workspace/time'
-import { IconDoNotContact, IconInfo, IconReview, IconUrgent } from '../../../../crm/workspace/ui/Icons'
+import { IconDoNotContact, IconInfo, IconMore, IconReview, IconUrgent } from '../../../../crm/workspace/ui/Icons'
+import { Overflow } from '../../../../crm/workspace/ui/Overflow'
+import { RememberRecent } from './SearchPanel'
+
+const MENU = 'c-menu-item'
 import { DueLabel } from '../../../../crm/workspace/ui/Due'
 import { RfqStatus } from '../../../../crm/workspace/ui/Status'
 import {
@@ -90,6 +94,7 @@ export function RfqDetailView({
 
   return (
     <article className={`c-detail${mode === 'page' ? ' is-page' : ''}`} aria-labelledby="rfq-title">
+      <RememberRecent kind="rfq" id={rfqId} />
       <header className="c-detail-head">
         <div className="c-detail-meta">
           <span className="c-mono">{String(rfq.rfq_number)}</span>
@@ -105,17 +110,27 @@ export function RfqDetailView({
           <span>Owner: {d.row.ownerName ?? <span className="c-warn-text">Unassigned</span>}</span>
           <span>Interest: {d.row.interest}</span>
         </div>
-        <div className="c-actions">
+        {/* W1-8 action hierarchy: one primary action for the next state, one secondary (ownership), the rest in More.
+            On a phone this row is a sticky action bar. */}
+        <div className="c-actions c-action-bar">
           {(status === 'RECEIVED' || status === 'NEEDS_REVIEW') && <StartReview rfqId={rfqId} updatedAt={updatedAt} />}
           {status === 'IN_REVIEW' && <QualifyDialog rfqId={rfqId} updatedAt={updatedAt} accountLinked={Boolean(rfq.account)} motion={(rfq.motion as string) ?? null} />}
+          {status === 'QUALIFIED' ? <FollowUpDialog rfqId={rfqId} people={d.people} meId={s.userId} buttonClassName="c-btn is-primary" /> : null}
+          {isTerminal && s.isAdmin ? <ReopenButton rfqId={rfqId} updatedAt={updatedAt} primary /> : null}
           {!isTerminal && d.row.ownerId !== s.userId ? <AssignMe rfqId={rfqId} updatedAt={updatedAt} /> : null}
-          {!isTerminal ? <AssignDialog rfqId={rfqId} updatedAt={updatedAt} people={d.people} currentId={d.row.ownerId} isAdmin={s.isAdmin} /> : null}
-          {status === 'IN_REVIEW' ? <RequestInfoDialog rfqId={rfqId} updatedAt={updatedAt} /> : null}
-          <NoteDialog rfqId={rfqId} />
-          <LogDialog rfqId={rfqId} doNotContact={outreachBlocked} />
-          <FollowUpDialog rfqId={rfqId} people={d.people} meId={s.userId} />
-          {!isTerminal ? <CloseDialog rfqId={rfqId} updatedAt={updatedAt} /> : null}
-          {isTerminal && s.isAdmin ? <ReopenButton rfqId={rfqId} updatedAt={updatedAt} /> : null}
+          {!isTerminal && d.row.ownerId === s.userId ? (
+            <AssignDialog rfqId={rfqId} updatedAt={updatedAt} people={d.people} currentId={d.row.ownerId} isAdmin={s.isAdmin} />
+          ) : null}
+          <Overflow label={<><IconMore /> More</>} ariaLabel="More actions for this inquiry">
+            {!isTerminal && d.row.ownerId !== s.userId ? (
+              <AssignDialog rfqId={rfqId} updatedAt={updatedAt} people={d.people} currentId={d.row.ownerId} isAdmin={s.isAdmin} buttonClassName={MENU} />
+            ) : null}
+            <NoteDialog rfqId={rfqId} buttonClassName={MENU} />
+            <LogDialog rfqId={rfqId} doNotContact={outreachBlocked} buttonClassName={MENU} />
+            {status !== 'QUALIFIED' ? <FollowUpDialog rfqId={rfqId} people={d.people} meId={s.userId} label="New follow-up" buttonClassName={MENU} /> : null}
+            {status === 'IN_REVIEW' ? <RequestInfoDialog rfqId={rfqId} updatedAt={updatedAt} buttonClassName={MENU} /> : null}
+            {!isTerminal ? <CloseDialog rfqId={rfqId} updatedAt={updatedAt} buttonClassName={MENU} /> : null}
+          </Overflow>
         </div>
         {isTerminal && !s.isAdmin ? <p className="c-hint">Closed RFQs can be reopened by admins only.</p> : null}
       </header>
@@ -202,7 +217,7 @@ export function RfqDetailView({
             <dl className="c-dl">
               <dt>Name {isManual ? <Origin who="CUSTOMER" /> : null}</dt>
               <dd>
-                <Value v={contactName} />
+                {d.contact && contactName ? <a href={`/crm/contacts/${String(d.contact.id)}/`}>{contactName}</a> : <Value v={contactName} />}
               </dd>
               <dt>Title</dt>
               <dd>

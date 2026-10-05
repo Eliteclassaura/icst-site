@@ -1,4 +1,4 @@
-import type { PayloadRequest } from 'payload'
+import type { CollectionBeforeChangeHook, PayloadRequest } from 'payload'
 import { ADMINS, CRM_USERS, hasRole } from '@factory/agency-core/cms/kernel'
 import { CrmInvariantError, isServerContext, relId } from './guards'
 
@@ -45,3 +45,14 @@ export async function assertCrmAssignee(req: PayloadRequest, value: unknown, cod
 /** Admin, or trusted server code. */
 export const isAdminOrServer = (req: PayloadRequest, context: unknown): boolean =>
   hasRole(req, ADMINS) || isServerContext(context)
+
+/**
+ * Wave 1 W1-1: a record owner (account, contact) is held to the same rule as an assignee — an existing user with
+ * a CRM role. Checked only when the owner changes, so existing records are never re-validated by an unrelated edit.
+ */
+export const ownerHoldsCrmRole =
+  (code: string): CollectionBeforeChangeHook =>
+  async ({ data, originalDoc, req }) => {
+    if ('owner' in data && relId(data.owner) !== relId(originalDoc?.owner)) await assertCrmAssignee(req, data.owner, code)
+    return data
+  }

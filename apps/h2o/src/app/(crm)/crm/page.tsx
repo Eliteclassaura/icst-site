@@ -1,11 +1,14 @@
 import type { Metadata } from 'next'
-import { IDENTITY_REASON_LABEL, TASK_KIND_LABEL, ACTIVITY_LABEL, label } from '../../../crm/workspace/labels'
+import { cookies } from 'next/headers'
+import { IDENTITY_REASON_LABEL, ACTIVITY_LABEL, label } from '../../../crm/workspace/labels'
+import { SCOPE_COOKIE, scopeFrom } from '../../../crm/workspace/prefs'
 import { loadMyWork, type Loaded, type Scope } from '../../../crm/workspace/queries'
 import { compactTime, relativeAge } from '../../../crm/workspace/time'
-import { DueLabel } from '../../../crm/workspace/ui/Due'
 import { RfqStatus } from '../../../crm/workspace/ui/Status'
 import { Shell } from '../../../crm/workspace/ui/Shell'
-import { AssignMe, TaskActions } from './_components/Dialogs'
+import { AssignMe } from './_components/Dialogs'
+import { ScopeSwitch } from './_components/ScopeSwitch'
+import { TaskTable } from './_components/TaskTable'
 import { requireCrmSession } from './session'
 
 export const metadata: Metadata = { title: 'My Work' }
@@ -25,7 +28,8 @@ function Strip({ n, text, href, error }: { n: number | null; text: string; href:
 export default async function MyWorkPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const s = await requireCrmSession('/crm/')
   const sp = await searchParams
-  const scope: Scope = sp.scope === 'team' ? 'team' : sp.scope === 'mine' ? 'mine' : s.isAdmin ? 'team' : 'mine'
+  // W1-8: the remembered Mine/Team choice (shared with Follow-ups); an explicit ?scope= still wins for that view.
+  const scope: Scope = sp.scope === 'team' || sp.scope === 'mine' ? sp.scope : scopeFrom((await cookies()).get(SCOPE_COOKIE)?.value, s.isAdmin)
   const now = new Date()
   const w = await loadMyWork(s, scope, now)
   const failed = [w.unassigned, w.assigned, w.followUps, w.waiting, w.recent, w.reviews].filter((m) => m.status === 'error').length
@@ -49,16 +53,7 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
         inbox: counts.unassigned ? { n: counts.unassigned } : undefined,
         followups: counts.overdue ? { n: counts.overdue, error: true } : undefined,
       }}
-      topRight={
-        <span className="c-scope" role="group" aria-label="Scope">
-          <a href="/crm/?scope=mine" aria-current={scope === 'mine' ? 'true' : undefined}>
-            Mine
-          </a>
-          <a href="/crm/?scope=team" aria-current={scope === 'team' ? 'true' : undefined}>
-            Team
-          </a>
-        </span>
-      }
+      topRight={<ScopeSwitch scope={scope} back="/crm/" />}
     >
       <p className="c-strip" aria-label="What needs attention">
         {allClear ? (
@@ -66,8 +61,8 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
         ) : (
           <>
             <Strip n={counts.unassigned} text="unassigned" href="/crm/rfqs/?view=unassigned" />
-            <Strip n={counts.overdue} text="follow-ups overdue" href="/crm/follow-ups/?when=overdue" error />
-            <Strip n={counts.followUps} text="follow-ups due today" href="/crm/follow-ups/?when=due" />
+            <Strip n={counts.overdue} text="follow-ups overdue" href={`/crm/follow-ups/?who=${scope}&when=overdue`} error />
+            <Strip n={counts.followUps} text="follow-ups due today" href={`/crm/follow-ups/?who=${scope}&when=due`} />
             <Strip n={counts.waiting} text="waiting for customer" href="/crm/rfqs/?view=waiting" />
             <Strip n={counts.reviews} text="identity reviews open" href="/crm/rfqs/?view=review" />
             {w.pipeline.status === 'ok' && w.pipeline.data.open > 0 ? <a href="/crm/pipeline/">{w.pipeline.data.open} open opportunities</a> : null}
@@ -164,30 +159,17 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
           </Module>
         </div>
         <div className="c-stack">
-          <Module title="Follow-ups due" tag={scopeTag} loaded={w.followUps} more="/crm/follow-ups/">
+          {w.followUps.status === 'ok' && w.followUps.data.overdue > 0 ? (
+            <Module title="Overdue" tag={scopeTag} loaded={w.followUps} more={`/crm/follow-ups/?who=${scope}&when=overdue`} count={w.followUps.data.overdue}>
+              {(d) => <TaskTable rows={d.overdueRows} now={now} isAdmin={s.isAdmin} people={w.people} caption="Overdue follow-ups" showOwner={scope === 'team'} />}
+            </Module>
+          ) : null}
+          <Module title="Follow-ups due" tag={scopeTag} loaded={w.followUps} more={`/crm/follow-ups/?who=${scope}&when=due`}>
             {(d) =>
               d.rows.length === 0 ? (
                 <p className="c-empty">No follow-ups due today.</p>
               ) : (
-                <ul className="c-list" role="list">
-                  {d.rows.map((t) => (
-                    <li key={t.id}>
-                      <span className="grow">
-                        <span className="c-trunc">{t.title}</span>
-                        <span className="c-hint">
-                          <DueLabel dueAt={t.dueAt} overdue={t.overdue} now={now} />
-                          {t.rfqId ? (
-                            <>
-                              {' · '}
-                              <a href={`/crm/rfqs/?rfq=${t.rfqId}`}>{t.accountName ?? t.rfqNumber ?? 'Inquiry'}</a>
-                            </>
-                          ) : null}
-                        </span>
-                      </span>
-                      <TaskActions task={t} isAdmin={s.isAdmin} people={w.people} />
-                    </li>
-                  ))}
-                </ul>
+                <TaskTable rows={d.rows} now={now} isAdmin={s.isAdmin} people={w.people} caption="Follow-ups due today" showOwner={scope === 'team'} />
               )
             }
           </Module>
@@ -196,21 +178,14 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
               d.rows.length === 0 ? (
                 <p className="c-empty">Not waiting on any customer.</p>
               ) : (
-                <ul className="c-list" role="list">
-                  {d.rows.map((t) => (
-                    <li key={t.id}>
-                      <span className="grow">
-                        <a className="c-trunc" href={t.rfqId ? `/crm/rfqs/?rfq=${t.rfqId}` : '/crm/follow-ups/'}>
-                          {t.title.replace(/^Waiting for customer:\s*/, '')}
-                        </a>
-                        <span className="c-hint">
-                          {label(TASK_KIND_LABEL, t.kind)} · <DueLabel dueAt={t.dueAt} overdue={t.overdue} now={now} />
-                        </span>
-                      </span>
-                      <TaskActions task={t} isAdmin={s.isAdmin} people={w.people} />
-                    </li>
-                  ))}
-                </ul>
+                <TaskTable
+                  rows={d.rows.map((t) => ({ ...t, title: t.title.replace(/^Waiting for customer:\s*/, '') }))}
+                  now={now}
+                  isAdmin={s.isAdmin}
+                  people={w.people}
+                  caption="Waiting for customer"
+                  showOwner={scope === 'team'}
+                />
               )
             }
           </Module>
@@ -249,8 +224,10 @@ function Module<T>({
   loaded,
   more,
   retry = '/crm/',
+  count: countOverride,
   children,
 }: {
+  count?: number
   retry?: string
   title: string
   tag: string
@@ -258,7 +235,7 @@ function Module<T>({
   more?: string
   children: (d: T) => React.ReactNode
 }) {
-  const count = loaded.status === 'ok' && typeof (loaded.data as { count?: number }).count === 'number' ? (loaded.data as { count: number }).count : null
+  const count = countOverride ?? (loaded.status === 'ok' && typeof (loaded.data as { count?: number }).count === 'number' ? (loaded.data as { count: number }).count : null)
   return (
     <section className="c-panel" aria-label={title}>
       <div className="c-panel-head">

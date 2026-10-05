@@ -3,7 +3,7 @@ import { recordActivity } from '../activity'
 import { assertCrmAssignee, isAdminOrServer, TERMINAL_TASK_STATUSES } from '../assignment'
 import { crmCollection } from '../collection'
 import { userRelation } from '../fields'
-import { CrmInvariantError, merged, relId, serverOwned } from '../guards'
+import { CrmInvariantError, isServerContext, merged, relId, sameValue, serverOwned } from '../guards'
 import { TASK_KIND, TASK_PRIORITY, TASK_SOURCE, TASK_STATUS, options } from '../vocabulary'
 
 type Doc = Record<string, unknown>
@@ -21,6 +21,17 @@ const taskRules: CollectionBeforeChangeHook = async ({ context, data: incoming, 
     !isAdminOrServer(req, context)
   )
     throw new CrmInvariantError('TASK_REOPEN_PRIVILEGED', 'Finished follow-ups can be reopened by admins only.', 403)
+  // Wave 1 W1-9: a rule-set due date (D-1 first response) is never moved silently. A person changing it must
+  // record why in the same write (the workspace appends the reason to `notes`); trusted server code is exempt.
+  if (
+    operation === 'update' &&
+    originalDoc?.source === 'SYSTEM_RULE' &&
+    'due_at' in incoming &&
+    !sameValue(incoming.due_at, originalDoc.due_at) &&
+    !isServerContext(context) &&
+    (typeof incoming.notes !== 'string' || !incoming.notes.trim() || sameValue(incoming.notes, originalDoc.notes))
+  )
+    throw new CrmInvariantError('SYSTEM_DUE_REASON_REQUIRED', 'Changing a rule-set due date needs a recorded reason.')
   if ('assignee' in incoming && relId(incoming.assignee) !== relId(originalDoc?.assignee))
     await assertCrmAssignee(req, incoming.assignee, 'TASK_ASSIGNEE_NOT_CRM_USER')
   const subjects = ['account', 'contact', 'site', 'asset', 'opportunity', 'rfq', 'identity_review'].filter(

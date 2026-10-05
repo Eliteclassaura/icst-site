@@ -227,3 +227,23 @@ export function humanSummary(summary: unknown): string {
       return code.replaceAll('_', ' ').toLowerCase()
     })
 }
+
+/** W1-1 contact profile labels. */
+export const CONTACT_FUNCTION_LABEL: Record<string, string> = {
+  ENGINEERING_TECHNICAL: 'Engineering / technical',
+  PLANT_OPERATIONS: 'Plant operations',
+  MAINTENANCE_RELIABILITY: 'Maintenance / reliability',
+  PROCUREMENT_SOURCING: 'Procurement / sourcing',
+  PROJECT_MANAGEMENT: 'Project management',
+  EXECUTIVE_MANAGEMENT: 'Executive management',
+  EPC_CONSULTANT_THIRD_PARTY: 'EPC / consultant / third party',
+  OTHER: 'Other',
+  UNKNOWN: 'Not known',
+}
+
+export const LINK_CONFIDENCE_LABEL: Record<string, string> = {
+  VERIFIED: 'Verified link',
+  HIGH_CONFIDENCE: 'High-confidence link',
+  LOW_CONFIDENCE: 'Low-confidence link',
+  UNKNOWN: 'Link not stated',
+}

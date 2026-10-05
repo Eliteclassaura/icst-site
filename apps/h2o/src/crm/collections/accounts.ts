@@ -1,4 +1,5 @@
 import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
+import { isAdminOrServer, ownerHoldsCrmRole } from '../assignment'
 import { crmCollection, stampProvenance } from '../collection'
 import { provenanceGroup, userRelation } from '../fields'
 import { CrmInvariantError, relId } from '../guards'
@@ -70,6 +71,25 @@ const normalizeAndGuardDomains: CollectionBeforeChangeHook = async ({ data, orig
   return data
 }
 
+/**
+ * Wave 1 W1-1: "verified customer" and "verified past customer" are claims backed by evidence, like a verified
+ * domain. Setting one, or replacing one, is an admin act; trusted server code (intake, a reviewed import) may
+ * record it. Refused outright rather than silently dropped, so a caller never mistakes it for a saved change.
+ */
+const VERIFIED_RELATIONSHIPS = ['VERIFIED_CUSTOMER', 'VERIFIED_PAST_CUSTOMER']
+const verifiedRelationshipIsAdminOnly: CollectionBeforeChangeHook = ({ context, data, originalDoc, req }) => {
+  if (!('relationship_state' in data) || isAdminOrServer(req, context)) return data
+  const to = String(data.relationship_state ?? 'UNKNOWN')
+  const from = String(originalDoc?.relationship_state ?? 'UNKNOWN')
+  if (to !== from && (VERIFIED_RELATIONSHIPS.includes(to) || VERIFIED_RELATIONSHIPS.includes(from)))
+    throw new CrmInvariantError(
+      'VERIFIED_RELATIONSHIP_PRIVILEGED',
+      'Only an admin can set or change a verified customer relationship.',
+      403,
+    )
+  return data
+}
+
 const noSelfParent: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
   if (originalDoc?.id && relId(data.parent_account) === String(originalDoc.id))
     throw new CrmInvariantError('ACCOUNT_SELF_PARENT', 'An account cannot be its own parent.')
@@ -89,7 +109,12 @@ export const CrmAccounts: CollectionConfig = crmCollection(
     },
     hooks: {
       beforeValidate: [stampProvenance],
-      beforeChange: [normalizeAndGuardDomains, noSelfParent],
+      beforeChange: [
+        normalizeAndGuardDomains,
+        noSelfParent,
+        verifiedRelationshipIsAdminOnly,
+        ownerHoldsCrmRole('ACCOUNT_OWNER_NOT_CRM_USER'),
+      ],
     },
     fields: [
       { name: 'canonical_name', type: 'text', required: true, index: true },

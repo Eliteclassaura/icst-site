@@ -14,8 +14,13 @@ import type { CrmSession } from './session'
  *
  * The only raw SQL is the lock itself, on a table name from the fixed allowlist below (never user input).
  */
-const LOCKABLE = { 'crm-tasks': 'crm_tasks', 'crm-rfqs': 'crm_rfqs' } as const
-type Lockable = keyof typeof LOCKABLE
+const LOCKABLE = {
+  'crm-tasks': 'crm_tasks',
+  'crm-rfqs': 'crm_rfqs',
+  'crm-accounts': 'crm_accounts',
+  'crm-contacts': 'crm_contacts',
+} as const
+export type Lockable = keyof typeof LOCKABLE
 
 type Exec = { execute: (q: unknown) => Promise<unknown> }
 

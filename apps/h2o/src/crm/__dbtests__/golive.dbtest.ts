@@ -392,7 +392,8 @@ describe('G4 UI-1 M1 / M4 read models', () => {
     const [rfq] = await rfqs()
     // A pre-D-1 first-response task: created before the rule existed, so it has no due date.
     const task = (await p.find({ collection: 'crm-tasks', where: { kind: { equals: 'RFQ_FIRST_RESPONSE' } }, ...srv })).docs[0] as unknown as Doc
-    await p.update({ collection: 'crm-tasks', id: String(task.id), data: { due_at: null } as never, ...srv })
+    // Fixture: simulate a pre-D-1 row as trusted server code (Wave 1 W1-9: a person may not move a rule-set due date silently).
+    await p.update({ collection: 'crm-tasks', id: String(task.id), data: { due_at: null } as never, context: { crmServer: {} }, ...srv })
     await p.update({ collection: 'crm-rfqs', id: String(rfq!.id), data: { assignee: sales.id } as never, overrideAccess: false, user: sales.user })
     const again = (await p.findByID({ collection: 'crm-tasks', id: String(task.id), ...srv })) as unknown as Doc
     expect(again.due_at ?? null).toBeNull() // nothing backfills it

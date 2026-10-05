@@ -3,6 +3,9 @@
 import { useEffect, useState } from 'react'
 import { ActionDialog } from '../../../../crm/workspace/ui/ActionDialog'
 import { ActionForm, Field } from '../../../../crm/workspace/ui/ActionForm'
+import { IconCheck } from '../../../../crm/workspace/ui/Icons'
+import { Overflow } from '../../../../crm/workspace/ui/Overflow'
+import { quickDueDates, type QuickDue } from '../../../../crm/workspace/time'
 import * as A from '../actions'
 
 /**
@@ -21,7 +24,39 @@ const MOTIONS: Array<[string, string]> = [
   ['MAINTENANCE_INSPECTION', 'Maintenance / inspection'],
   ['OTHER_APPROVED', 'Other (approved motion)'],
 ]
-const today = () => new Date().toISOString().slice(0, 10)
+/** Today in the business zone (America/Denver), not the browser's zone or UTC. */
+const today = () => quickDueDates(new Date()).today
+const MENU = 'c-menu-item'
+
+const QUICK: Array<[QuickDue, string]> = [
+  ['today', 'Today'],
+  ['tomorrow', 'Tomorrow'],
+  ['next_week', 'Next week'],
+]
+
+/** W1-9 quick due dates: fill the form's date field with a business-zone day (computed when clicked). */
+function QuickDates({ field = 'due' }: { field?: string }) {
+  return (
+    <span className="c-chips" role="group" aria-label="Quick dates">
+      {QUICK.map(([k, l]) => (
+        <button
+          key={k}
+          type="button"
+          className="c-chip"
+          onClick={(e) => {
+            const input = e.currentTarget.form?.elements.namedItem(field)
+            if (input instanceof HTMLInputElement) {
+              input.value = quickDueDates(new Date())[k]
+              input.focus()
+            }
+          }}
+        >
+          {l}
+        </button>
+      ))}
+    </span>
+  )
+}
 
 export function AssignMe({ rfqId, updatedAt }: { rfqId: string; updatedAt: string }) {
   return (
@@ -54,15 +89,18 @@ export function AssignDialog({
   people,
   currentId,
   isAdmin,
+  buttonClassName,
 }: {
   rfqId: string
   updatedAt: string
   people: Person[]
   currentId: string | null
   isAdmin: boolean
+  buttonClassName?: string
 }) {
   return (
     <ActionDialog
+      buttonClassName={buttonClassName}
       label={currentId ? 'Change owner' : 'Assign…'}
       title="Assign owner"
       action={A.assignAction}
@@ -136,10 +174,10 @@ export function QualifyDialog({
   )
 }
 
-export function CloseDialog({ rfqId, updatedAt }: { rfqId: string; updatedAt: string }) {
+export function CloseDialog({ rfqId, updatedAt, buttonClassName }: { rfqId: string; updatedAt: string; buttonClassName?: string }) {
   const [outcome, setOutcome] = useState('CLOSED')
   return (
-    <ActionDialog label="Close…" title="Close inquiry" action={A.closeAction} hidden={{ rfqId, expectedUpdatedAt: updatedAt }} submitLabel="Close inquiry">
+    <ActionDialog buttonClassName={buttonClassName} label="Close…" title="Close inquiry" action={A.closeAction} hidden={{ rfqId, expectedUpdatedAt: updatedAt }} submitLabel="Close inquiry">
       <Field name="outcome" label="Outcome">
         {(a) => (
           <select className="c-select" {...a} value={outcome} onChange={(e) => setOutcome(e.target.value)}>
@@ -162,13 +200,13 @@ export function CloseDialog({ rfqId, updatedAt }: { rfqId: string; updatedAt: st
   )
 }
 
-export function ReopenButton({ rfqId, updatedAt }: { rfqId: string; updatedAt: string }) {
-  return <ActionForm inline action={A.reopenAction} hidden={{ rfqId, expectedUpdatedAt: updatedAt }} submitLabel="Reopen (admin)" submitClassName="c-btn" />
+export function ReopenButton({ rfqId, updatedAt, primary }: { rfqId: string; updatedAt: string; primary?: boolean }) {
+  return <ActionForm inline action={A.reopenAction} hidden={{ rfqId, expectedUpdatedAt: updatedAt }} submitLabel="Reopen (admin)" submitClassName={primary ? 'c-btn is-primary' : 'c-btn'} />
 }
 
-export function NoteDialog({ rfqId }: { rfqId: string }) {
+export function NoteDialog({ rfqId, buttonClassName }: { rfqId: string; buttonClassName?: string }) {
   return (
-    <ActionDialog label="Add note" title="Add note" action={A.noteAction} hidden={{ rfqId }} submitLabel="Save note" shortcut="note" description="Notes are internal. Nothing is sent.">
+    <ActionDialog buttonClassName={buttonClassName} label="Add note" title="Add note" action={A.noteAction} hidden={{ rfqId }} submitLabel="Save note" shortcut="note" description="Notes are internal. Nothing is sent.">
       <Field name="body" label="Note">
         {(a) => <textarea className="c-textarea" {...a} maxLength={5000} />}
       </Field>
@@ -176,9 +214,10 @@ export function NoteDialog({ rfqId }: { rfqId: string }) {
   )
 }
 
-export function LogDialog({ rfqId, doNotContact }: { rfqId: string; doNotContact: boolean }) {
+export function LogDialog({ rfqId, doNotContact, buttonClassName }: { rfqId: string; doNotContact: boolean; buttonClassName?: string }) {
   return (
     <ActionDialog
+      buttonClassName={buttonClassName}
       label="Log call / reference"
       title="Log what happened"
       action={A.logActivityAction}
@@ -212,18 +251,30 @@ export function LogDialog({ rfqId, doNotContact }: { rfqId: string; doNotContact
 export function FollowUpDialog({
   rfqId,
   accountId,
+  contactId,
   people,
   meId,
   label = 'Follow-up',
+  buttonClassName,
 }: {
   rfqId?: string
   accountId?: string
+  contactId?: string
   people: Person[]
   meId: string
   label?: string
+  buttonClassName?: string
 }) {
   return (
-    <ActionDialog label={label} title="New follow-up" action={A.followUpAction} hidden={{ rfqId, accountId }} submitLabel="Create follow-up" shortcut="follow-up">
+    <ActionDialog
+      buttonClassName={buttonClassName}
+      label={label}
+      title="New follow-up"
+      action={A.followUpAction}
+      hidden={{ rfqId, accountId, contactId }}
+      submitLabel="Create follow-up"
+      shortcut="follow-up"
+    >
       <Field name="title" label="Title">
         {(a) => <input className="c-input" {...a} maxLength={160} />}
       </Field>
@@ -231,6 +282,7 @@ export function FollowUpDialog({
         <Field name="due" label="Due date">
           {(a) => <input className="c-input" type="date" {...a} defaultValue={today()} />}
         </Field>
+        <QuickDates />
         <Field name="priority" label="Priority">
           {(a) => (
             <select className="c-select" {...a} defaultValue="NORMAL">
@@ -256,9 +308,10 @@ export function FollowUpDialog({
   )
 }
 
-export function RequestInfoDialog({ rfqId, updatedAt }: { rfqId: string; updatedAt: string }) {
+export function RequestInfoDialog({ rfqId, updatedAt, buttonClassName }: { rfqId: string; updatedAt: string; buttonClassName?: string }) {
   return (
     <ActionDialog
+      buttonClassName={buttonClassName}
       label="Request information"
       title="Request information"
       action={A.requestInfoAction}
@@ -272,6 +325,7 @@ export function RequestInfoDialog({ rfqId, updatedAt }: { rfqId: string; updated
       <Field name="due" label="Follow up by">
         {(a) => <input className="c-input" type="date" {...a} defaultValue={today()} />}
       </Field>
+      <QuickDates />
     </ActionDialog>
   )
 }
@@ -432,55 +486,87 @@ export function ResolveReviewDialog({ reviewId }: { reviewId: string }) {
   )
 }
 
-export function TaskActions({
-  task,
-  isAdmin,
-  people,
-}: {
-  task: { id: string; kind: string; status: string; updatedAt: string; dueAt: string | null; assigneeId: string | null }
-  isAdmin: boolean
-  people: Person[]
-}) {
+type TaskLike = {
+  id: string
+  title: string
+  kind: string
+  status: string
+  source: string
+  updatedAt: string
+  dueAt: string | null
+  assigneeId: string | null
+}
+
+/**
+ * W1-8 / W1-9 task row actions: one visible "Done" (or "Customer replied") and the rest under "More": snooze,
+ * change due date with quick dates, reassign. A rule-set due date (D-1 first response) asks for a reason, so it
+ * offers no one-click snooze.
+ */
+export function TaskActions({ task, isAdmin, people }: { task: TaskLike; isAdmin: boolean; people: Person[] }) {
   const finished = task.status === 'DONE' || task.status === 'CANCELLED'
   if (finished)
     return isAdmin ? (
       <ActionForm inline action={A.reopenTaskAction} hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }} submitLabel="Reopen (admin)" submitClassName="c-btn is-small" />
     ) : null
+  const system = task.source === 'SYSTEM_RULE'
   return (
-    <span className="c-actions">
+    <span className="c-actions c-task-actions">
       {task.kind === 'MISSING_INFORMATION' ? (
-        <ActionForm inline action={A.customerRepliedAction} hidden={{ taskId: task.id }} submitLabel="Customer replied" submitClassName="c-btn is-small" />
+        <ActionForm
+          inline
+          action={A.customerRepliedAction}
+          hidden={{ taskId: task.id }}
+          submitLabel="Replied"
+          submitClassName="c-btn is-small"
+          submitAriaLabel={`Customer replied: ${task.title}`}
+          submitIcon={<IconCheck />}
+        />
       ) : (
-        <ActionForm inline action={A.completeTaskAction} hidden={{ taskId: task.id }} submitLabel="Done" submitClassName="c-btn is-small" />
+        <ActionForm inline action={A.completeTaskAction} hidden={{ taskId: task.id }} submitLabel="Done" submitClassName="c-btn is-small" submitAriaLabel={`Mark done: ${task.title}`} submitIcon={<IconCheck />} />
       )}
-      <ActionDialog
-        label="Change due date"
-        title="Change due date"
-        action={A.dueDateAction}
-        hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }}
-        submitLabel="Save"
-        buttonClassName="c-btn is-small is-ghost"
-      >
-        <Field name="due" label="Due date">
-          {(a) => <input className="c-input" type="date" {...a} defaultValue={(task.dueAt ?? '').slice(0, 10)} />}
-        </Field>
-      </ActionDialog>
-      <ActionDialog label="Reassign" title="Reassign follow-up" action={A.reassignTaskAction} hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }} submitLabel="Save" buttonClassName="c-btn is-small is-ghost">
-        <Field name="assigneeId" label="Owner">
-          {(a) => (
-            <select className="c-select" {...a} defaultValue={task.assigneeId ?? ''}>
-              <option value="" disabled>
-                Choose an owner
-              </option>
-              {people.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
+      <Overflow label="⋯" ariaLabel={`More actions: ${task.title}`} className="c-btn is-small is-ghost c-icon-btn">
+        {system ? null : (
+          <>
+            <ActionForm inline action={A.snoozeAction} hidden={{ taskId: task.id, preset: 'tomorrow', expectedUpdatedAt: task.updatedAt }} submitLabel="Snooze to tomorrow" submitClassName={MENU} />
+            <ActionForm inline action={A.snoozeAction} hidden={{ taskId: task.id, preset: 'next_week', expectedUpdatedAt: task.updatedAt }} submitLabel="Snooze to next week" submitClassName={MENU} />
+          </>
+        )}
+        <ActionDialog
+          label="Change due date…"
+          title="Change due date"
+          action={A.dueDateAction}
+          hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }}
+          submitLabel="Save"
+          buttonClassName={MENU}
+          description={system ? 'This due date was set by a rule (first response by the end of the next business day). Say why it is changing; the reason is kept on the record.' : undefined}
+        >
+          <Field name="due" label="Due date">
+            {(a) => <input className="c-input" type="date" {...a} defaultValue={(task.dueAt ? quickDueDates(new Date(task.dueAt)).today : '')} />}
+          </Field>
+          <QuickDates />
+          {system ? (
+            <Field name="reason" label="Reason" required>
+              {(a) => <input className="c-input" {...a} maxLength={240} />}
+            </Field>
+          ) : null}
+        </ActionDialog>
+        <ActionDialog label="Reassign…" title="Reassign follow-up" action={A.reassignTaskAction} hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }} submitLabel="Save" buttonClassName={MENU}>
+          <Field name="assigneeId" label="Owner">
+            {(a) => (
+              <select className="c-select" {...a} defaultValue={task.assigneeId ?? ''}>
+                <option value="" disabled>
+                  Choose an owner
                 </option>
-              ))}
-            </select>
-          )}
-        </Field>
-      </ActionDialog>
+                {people.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+            )}
+          </Field>
+        </ActionDialog>
+      </Overflow>
     </span>
   )
 }

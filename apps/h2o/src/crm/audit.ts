@@ -49,7 +49,8 @@ export const AUDITED_TRANSITIONS: Record<string, readonly string[]> = {
   ],
   'crm-rfqs': ['status', 'assignee', 'contact', 'account', 'site', 'opportunity', 'follow_up_state'],
   'crm-rfq-items': ['product_resolution_state'],
-  'crm-tasks': ['status', 'assignee', 'kind', 'priority'],
+  // `due_at` is a date, not personal data: Wave 1 W1-9 requires due-date changes to be audited.
+  'crm-tasks': ['status', 'assignee', 'kind', 'priority', 'due_at'],
   'crm-notes': [],
   'crm-activities': ['type'],
   'crm-suppressions': ['action', 'reason', 'scope'],

@@ -20,6 +20,8 @@ export function ActionForm({
   onSuccess,
   inline = false,
   shortcut,
+  submitAriaLabel,
+  submitIcon,
 }: {
   action: Action
   hidden?: Record<string, string | null | undefined>
@@ -29,6 +31,9 @@ export function ActionForm({
   onSuccess?: () => void
   inline?: boolean
   shortcut?: string
+  /** Accessible name when the visible label needs context, e.g. which task "Done" completes. */
+  submitAriaLabel?: string
+  submitIcon?: ReactNode
 }) {
   const [state, formAction, pending] = useActionState(action, INITIAL_ACTION_STATE)
   const done = useRef<number | undefined>(undefined)
@@ -52,7 +57,15 @@ export function ActionForm({
         ) : null}
         {children}
         <div className="c-actions">
-          <button className={submitClassName} type="submit" aria-disabled={pending || undefined} disabled={pending} data-shortcut={shortcut}>
+          <button
+            className={submitClassName}
+            type="submit"
+            aria-disabled={pending || undefined}
+            disabled={pending}
+            data-shortcut={shortcut}
+            aria-label={submitAriaLabel}
+          >
+            {submitIcon}
             {pending ? 'Saving…' : submitLabel}
           </button>
           {state.ok && state.message ? (
@@ -140,4 +153,9 @@ export function Field({
       ) : null}
     </label>
   )
+}
+
+/** The current form outcome, for a child that renders something specific to it (e.g. a link to an existing record). */
+export function useFormOutcome(): ActionState {
+  return useContext(FormState).state
 }

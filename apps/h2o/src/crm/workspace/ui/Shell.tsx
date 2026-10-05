@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react'
-import { IconInbox, IconPipeline, IconSearch, IconTasks, IconWork } from './Icons'
+import { IconAccounts, IconContacts, IconInbox, IconMore, IconPipeline, IconSearch, IconTasks, IconWork } from './Icons'
+import { PaletteTrigger } from './PaletteTrigger'
 
-export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'email' | 'none'
+export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'accounts' | 'contacts' | 'search' | 'email' | 'none'
 
 /**
  * "SYNTHETIC DATA" is an evidence/testing badge only (Control Tower amendment D). It renders only when
@@ -10,13 +11,28 @@ export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'email' | 'no
  */
 export const evidenceBadgeEnabled = (env: NodeJS.ProcessEnv = process.env): boolean => env.H2O_CRM_EVIDENCE_BADGE === 'SYNTHETIC'
 
-const NAV: Array<{ key: NavKey; href: string; label: string; icon: ReactNode; desktop?: boolean; adminOnly?: boolean }> = [
+/**
+ * Navigation. Desktop: the sidebar lists every section. Phone (W1-8, audit finding 9): a bottom bar with My Work,
+ * Inbox, Tasks (Follow-ups), Search and More; More holds Pipeline, Accounts, Contacts and New inquiry, so every
+ * section is reachable on a phone.
+ */
+const NAV: Array<{ key: NavKey; href: string; label: string; phone?: string; icon: ReactNode; desktop?: boolean; adminOnly?: boolean }> = [
   { key: 'work', href: '/crm/', label: 'My Work', icon: <IconWork /> },
-  { key: 'inbox', href: '/crm/rfqs/', label: 'RFQ Inbox', icon: <IconInbox /> },
-  { key: 'followups', href: '/crm/follow-ups/', label: 'Follow-ups', icon: <IconTasks />, desktop: true },
+  { key: 'inbox', href: '/crm/rfqs/', label: 'RFQ Inbox', phone: 'Inbox', icon: <IconInbox /> },
+  { key: 'followups', href: '/crm/follow-ups/', label: 'Follow-ups', phone: 'Tasks', icon: <IconTasks /> },
+  { key: 'accounts', href: '/crm/accounts/', label: 'Accounts', icon: <IconAccounts />, desktop: true },
+  { key: 'contacts', href: '/crm/contacts/', label: 'Contacts', icon: <IconContacts />, desktop: true },
   { key: 'pipeline', href: '/crm/pipeline/', label: 'Pipeline', icon: <IconPipeline />, desktop: true },
   // CRM email M3: inbound email that was not linked automatically (admins only).
   { key: 'email', href: '/crm/email-review/', label: 'Email review', icon: <IconInbox />, desktop: true, adminOnly: true },
+]
+
+const MORE: Array<{ key: NavKey; href: string; label: string; adminOnly?: boolean }> = [
+  { key: 'pipeline', href: '/crm/pipeline/', label: 'Pipeline' },
+  { key: 'accounts', href: '/crm/accounts/', label: 'Accounts' },
+  { key: 'contacts', href: '/crm/contacts/', label: 'Contacts' },
+  { key: 'email', href: '/crm/email-review/', label: 'Email review', adminOnly: true },
+  { key: 'none', href: '/crm/new/', label: 'New inquiry' },
 ]
 
 export function Shell({
@@ -38,6 +54,7 @@ export function Shell({
   topRight?: ReactNode
   children: ReactNode
 }) {
+  const moreActive = MORE.some((m) => m.key === active && m.key !== 'none')
   return (
     <div className="crm-app">
       <a className="c-skip" href="#crm-main">
@@ -57,7 +74,16 @@ export function Shell({
               <li key={n.key} className={n.desktop ? 'is-desktop' : undefined}>
                 <a href={n.href} aria-current={active === n.key ? 'page' : undefined} title={n.label}>
                   {n.icon}
-                  <span className="lbl">{n.label}</span>
+                  <span className="lbl">
+                    {n.phone ? (
+                      <>
+                        <span className="lbl-desk">{n.label}</span>
+                        <span className="lbl-phone">{n.phone}</span>
+                      </>
+                    ) : (
+                      n.label
+                    )}
+                  </span>
                   {b && b.n > 0 ? (
                     <span className={`c-badge${b.error ? ' is-error' : ''}`} aria-label={`${b.n} ${b.error ? 'overdue' : 'waiting'}`}>
                       {b.n > 99 ? '99+' : b.n}
@@ -68,10 +94,30 @@ export function Shell({
             )
           })}
           <li className="c-mobile-only">
-            <a href="/crm/rfqs/#crm-search" title="Search">
+            <a href="/crm/search/" aria-current={active === 'search' ? 'page' : undefined} title="Search">
               <IconSearch />
               <span className="lbl">Search</span>
             </a>
+          </li>
+          <li className="c-mobile-only">
+            <details className="c-more-nav">
+              <summary aria-current={moreActive ? 'page' : undefined}>
+                <IconMore />
+                <span className="lbl">More</span>
+              </summary>
+              <ul role="list">
+                {MORE.filter((m) => !m.adminOnly || isAdmin).map((m) => (
+                  <li key={m.href}>
+                    <a href={m.href} aria-current={active === m.key && m.key !== 'none' ? 'page' : undefined}>
+                      {m.label}
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <a href="/admin/logout/">Sign out</a>
+                </li>
+              </ul>
+            </details>
           </li>
         </ul>
         <div className="c-side-foot">
@@ -85,12 +131,9 @@ export function Shell({
             {crumb ? <div className="c-crumb">{crumb}</div> : null}
             <h1>{title}</h1>
           </div>
-          <form className="c-top-search" role="search" action="/crm/rfqs/" method="get">
-            <label className="c-visually-hidden" htmlFor="crm-top-search">
-              Search RFQs, companies and contacts
-            </label>
-            <input id="crm-top-search" className="c-input" type="search" name="q" placeholder="Search RFQ number, company, contact…" autoComplete="off" />
-          </form>
+          <div className="c-top-search">
+            <PaletteTrigger />
+          </div>
           <div className="c-top-right">
             {topRight}
             {evidenceBadgeEnabled() ? <span className="c-evidence">SYNTHETIC DATA</span> : null}

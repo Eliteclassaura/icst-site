@@ -55,7 +55,7 @@ export async function crmUsers(s: CrmSession): Promise<Person[]> {
     .sort((a, b) => a.name.localeCompare(b.name))
 }
 
-const nameMap = (people: Person[]) => new Map(people.map((p) => [p.id, p.name]))
+export const nameMap = (people: Person[]) => new Map(people.map((p) => [p.id, p.name]))
 
 // ────────────────────────────────────────────── rows ──
 
@@ -82,7 +82,7 @@ export type RfqRow = {
   opportunityId: string | null
 }
 
-async function suppressionsByKey(s: CrmSession, keys: string[]): Promise<Map<string, LedgerRow[]>> {
+export async function suppressionsByKey(s: CrmSession, keys: string[]): Promise<Map<string, LedgerRow[]>> {
   const out = new Map<string, LedgerRow[]>()
   if (keys.length === 0) return out
   const res = await s.payload.find({
@@ -118,7 +118,7 @@ export async function activeSuppressionsForContact(s: CrmSession, emailMatchKey:
   return (await suppressionsByKey(s, [emailMatchKey])).get(emailMatchKey) ?? []
 }
 
-async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now: Date): Promise<RfqRow[]> {
+export async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now: Date): Promise<RfqRow[]> {
   if (docs.length === 0) return []
   const rfqIds = docs.map((d) => String(d.id))
   const accountIds = [...new Set(docs.map((d) => id(d.account)).filter(Boolean))] as string[]
@@ -254,7 +254,9 @@ export function parseInboxParams(sp: Record<string, string | string[] | undefine
     ['RECEIVED', 'NEEDS_REVIEW', 'IN_REVIEW', 'QUALIFIED', 'REJECTED_NON_CORE', 'DUPLICATE_OF_EXISTING', 'CLOSED'].includes(x),
   )
   const owner = one(sp.owner)
-  const q = one(sp.q)?.trim().slice(0, 120) || null
+  // W1-2 (audit finding 8): the search term is never read from the URL. The inbox page supplies it from the
+  // list-search cookie (prefs.ts); a legacy `?q=` link is ignored rather than honoured.
+  const q = null
   const page = Math.max(1, Math.min(1000, Number.parseInt(one(sp.page) ?? '1', 10) || 1))
   const received = one(sp.received)
   const linked = one(sp.linked)
@@ -334,7 +336,7 @@ async function viewWhere(s: CrmSession, view: InboxView): Promise<Where> {
   }
 }
 
-async function searchWhere(s: CrmSession, q: string): Promise<Where> {
+export async function searchWhere(s: CrmSession, q: string): Promise<Where> {
   const like = q.replace(/[%_]/g, ' ')
   const contactHits = await s.payload.find({
     collection: 'crm-contacts',
@@ -431,6 +433,8 @@ export type TaskRow = {
   kind: string
   status: string
   priority: string
+  /** MANUAL, SYSTEM_RULE or INTAKE. A SYSTEM_RULE due date (D-1) needs a reason to change. */
+  source: string
   dueAt: string | null
   overdue: boolean
   assigneeId: string | null
@@ -458,7 +462,7 @@ export type ReviewRow = { id: string; reason: string; rfqId: string | null; crea
 export type MyWork = {
   unassigned: Loaded<{ count: number; rows: RfqRow[] }>
   assigned: Loaded<{ count: number; rows: RfqRow[] }>
-  followUps: Loaded<{ count: number; overdue: number; rows: TaskRow[] }>
+  followUps: Loaded<{ count: number; overdue: number; rows: TaskRow[]; overdueRows: TaskRow[] }>
   waiting: Loaded<{ count: number; rows: TaskRow[] }>
   recent: Loaded<{ rows: ActivityRow[] }>
   reviews: Loaded<{ count: number; rows: ReviewRow[] }>
@@ -466,7 +470,7 @@ export type MyWork = {
   people: Person[]
 }
 
-async function hydrateTasks(s: CrmSession, docs: Doc[], people: Person[], now: Date): Promise<TaskRow[]> {
+export async function hydrateTasks(s: CrmSession, docs: Doc[], people: Person[], now: Date): Promise<TaskRow[]> {
   const rfqIds = [...new Set(docs.map((t) => id(t.rfq)).filter(Boolean))] as string[]
   const accIds = [...new Set(docs.map((t) => id(t.account)).filter(Boolean))] as string[]
   const [rfqs, accs] = await Promise.all([
@@ -490,6 +494,7 @@ async function hydrateTasks(s: CrmSession, docs: Doc[], people: Person[], now: D
       kind: String(t.kind ?? 'GENERAL'),
       status: String(t.status ?? 'OPEN'),
       priority: String(t.priority ?? 'NORMAL'),
+      source: String(t.source ?? 'MANUAL'),
       dueAt: due ? due.toISOString() : null,
       overdue: Boolean(!done && due && due < now),
       assigneeId: a,
@@ -573,6 +578,7 @@ export async function loadMyWork(s: CrmSession, scope: Scope, now: Date = new Da
   })
   const followUps = safe(async () => {
     const base: Where[] = [openTask, { kind: { not_equals: 'MISSING_INFORMATION' } }, ...(mine ? [{ assignee: { equals: s.userId } }] : [])]
+    // W1-9 overdue digest: the oldest overdue follow-ups, with the count.
     const [res, overdue] = await Promise.all([
       s.payload.find({
         collection: 'crm-tasks',
@@ -582,12 +588,20 @@ export async function loadMyWork(s: CrmSession, scope: Scope, now: Date = new Da
         limit: 8,
         ...asUser(s),
       }),
-      s.payload.count({ collection: 'crm-tasks', where: { and: [...base, { due_at: { less_than: now.toISOString() } }] }, ...asUser(s) }),
+      s.payload.find({
+        collection: 'crm-tasks',
+        where: { and: [...base, { due_at: { less_than: now.toISOString() } }] },
+        sort: 'due_at',
+        depth: 0,
+        limit: 5,
+        ...asUser(s),
+      }),
     ])
     return {
       count: res.totalDocs,
       overdue: overdue.totalDocs,
       rows: await hydrateTasks(s, res.docs as unknown as Doc[], people, now),
+      overdueRows: await hydrateTasks(s, overdue.docs as unknown as Doc[], people, now),
     }
   })
   const waiting = safe(async () => {
@@ -905,13 +919,22 @@ export async function loadAccount(s: CrmSession, accountId: string, now: Date = 
   }
   const people = await crmUsers(s)
   const names = nameMap(people)
-  const [contacts, sites, rfqs, opps, activity, reviews] = await Promise.all([
+  const [contacts, sites, rfqs, opps, activity, reviews, tasks] = await Promise.all([
     s.payload.find({ collection: 'crm-contacts', where: { account: { equals: accountId } }, sort: 'display_name', depth: 0, limit: 100, ...asUser(s) }),
     s.payload.find({ collection: 'crm-sites', where: { account: { equals: accountId } }, sort: 'site_name', depth: 0, limit: 100, ...asUser(s) }),
     s.payload.find({ collection: 'crm-rfqs', where: { account: { equals: accountId } }, sort: '-received_at', depth: 0, limit: 25, ...asUser(s) }),
     s.payload.find({ collection: 'crm-opportunities', where: { account: { equals: accountId } }, sort: 'stage', depth: 0, limit: 50, ...asUser(s) }),
     s.payload.find({ collection: 'crm-activities', where: { account: { equals: accountId } }, sort: '-occurred_at', depth: 0, limit: 15, ...asUser(s) }),
     s.payload.find({ collection: 'crm-identity-reviews', where: { and: [{ account: { equals: accountId } }, { state: { equals: 'OPEN' } }] }, depth: 0, limit: 5, ...asUser(s) }),
+    // W1-9: open follow-ups first (soonest due), then the most recently finished.
+    s.payload.find({
+      collection: 'crm-tasks',
+      where: { and: [{ account: { equals: accountId } }, { status: { in: ['OPEN', 'IN_PROGRESS'] } }] },
+      sort: 'due_at',
+      depth: 0,
+      limit: 25,
+      ...asUser(s),
+    }),
   ])
   const siteIds = sites.docs.map((x) => String(x.id))
   const assets = siteIds.length
@@ -947,6 +970,9 @@ export async function loadAccount(s: CrmSession, accountId: string, now: Date = 
     })),
     activity: await activityRows(s, activity.docs as unknown as Doc[], people),
     openReviews: reviews.totalDocs,
+    tasks: await hydrateTasks(s, tasks.docs as unknown as Doc[], people, now),
+    taskTotal: tasks.totalDocs,
+    people,
   }
 }
 

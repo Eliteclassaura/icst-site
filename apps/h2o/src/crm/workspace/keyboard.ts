@@ -59,7 +59,21 @@ export function shouldHandleShortcut(e: ShortcutEvent, scope?: { contains: (n: a
   return true
 }
 
-/** The UI-1 shortcut map (single keys only; ⌘K is handled by the browser-level search focus). */
+/** Window event that opens the ⌘K palette (fired by the top-bar trigger). */
+export const PALETTE_OPEN_EVENT = 'crm:palette'
+
+/**
+ * Wave 1 W1-2: is this keydown the palette shortcut? ⌘K or Ctrl-K, with no Alt/Shift, not during IME composition,
+ * and never inside a text-entry control (the same rule as every other workspace shortcut).
+ */
+export function isPaletteShortcut(e: Omit<ShortcutEvent, 'repeat'> & { shiftKey?: boolean }): boolean {
+  if (e.isComposing || e.altKey || e.shiftKey) return false
+  if (!(e.metaKey || e.ctrlKey)) return false
+  if ((e.key ?? '').toLowerCase() !== 'k') return false
+  return !isTextEntryTarget(e.target)
+}
+
+/** The UI-1 shortcut map (single keys), plus ⌘K for the palette. */
 export const SHORTCUTS: Record<string, string> = {
   j: 'Next row',
   k: 'Previous row',
@@ -68,4 +82,5 @@ export const SHORTCUTS: Record<string, string> = {
   n: 'Add note',
   t: 'New follow-up',
   '/': 'Search',
+  '⌘K': 'Search and go to (palette)',
 }

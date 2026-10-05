@@ -1,11 +1,23 @@
 'use server'
 
 import { refresh } from 'next/cache'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { discardReviewItem, linkReviewItem } from '../../../crm/inbound'
 import { composeReply } from '../../../crm/reply'
 import { createManualInquiry } from '../../../crm/workspace/manualInquiry'
 import * as m from '../../../crm/workspace/mutations'
+import {
+  cookieOptions,
+  isList,
+  listReturnPath,
+  listSearchCookie,
+  SCOPE_COOKIE,
+  SCOPE_TTL_SECONDS,
+  scopeReturnPath,
+  SEARCH_TTL_SECONDS,
+} from '../../../crm/workspace/prefs'
+import { globalSearch, recentItems, searchTerm, type SearchHit, type SearchResult } from '../../../crm/workspace/search'
 import type { ActionState } from '../../../crm/workspace/ui/actionState'
 import { actionSession } from './session'
 
@@ -76,6 +88,7 @@ export async function followUpAction(_: ActionState, fd: FormData) {
     m.createFollowUp(s, {
       rfqId: f(fd, 'rfqId'),
       accountId: f(fd, 'accountId'),
+      contactId: f(fd, 'contactId'),
       title: f(fd, 'title'),
       due: f(fd, 'due'),
       assigneeId: f(fd, 'assigneeId'),
@@ -93,7 +106,10 @@ export async function reopenTaskAction(_: ActionState, fd: FormData) {
   return run(fd, (s) => m.reopenTask(s, { taskId: f(fd, 'taskId'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
 }
 export async function dueDateAction(_: ActionState, fd: FormData) {
-  return run(fd, (s) => m.changeDueDate(s, { taskId: f(fd, 'taskId'), due: f(fd, 'due'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
+  return run(fd, (s) => m.changeDueDate(s, { taskId: f(fd, 'taskId'), due: f(fd, 'due'), reason: f(fd, 'reason'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
+}
+export async function snoozeAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) => m.snoozeTask(s, { taskId: f(fd, 'taskId'), preset: f(fd, 'preset'), reason: f(fd, 'reason'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
 }
 export async function reassignTaskAction(_: ActionState, fd: FormData) {
   return run(fd, (s) => m.reassignTask(s, { taskId: f(fd, 'taskId'), assigneeId: f(fd, 'assigneeId'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
@@ -158,4 +174,116 @@ export async function searchAccountsAction(q: string) {
   if (!s) return []
   const { searchAccounts } = await import('../../../crm/workspace/queries')
   return searchAccounts(s, typeof q === 'string' ? q.slice(0, 120) : null)
+}
+
+// ────────────────────────────────────────────── Wave 1 Patch A ──
+
+/** Only the keys a form actually posted; an absent field means "unchanged" in the edit mutations. */
+const sent = (fd: FormData, map: Record<string, string>) => {
+  const out: Record<string, string> = {}
+  for (const [key, field] of Object.entries(map)) {
+    const v = f(fd, field)
+    if (v !== undefined) out[key] = v
+  }
+  return out
+}
+
+export async function updateAccountAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) =>
+    m.updateAccount(s, {
+      accountId: f(fd, 'accountId'),
+      expectedUpdatedAt: f(fd, 'expectedUpdatedAt'),
+      ...sent(fd, { name: 'name', legalName: 'legalName', industry: 'industry', relationship: 'relationship', ownerId: 'ownerId' }),
+    }),
+  )
+}
+
+export async function updateContactAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) =>
+    m.updateContact(s, {
+      contactId: f(fd, 'contactId'),
+      expectedUpdatedAt: f(fd, 'expectedUpdatedAt'),
+      ...sent(fd, { firstName: 'firstName', lastName: 'lastName', title: 'title', contactFunction: 'contactFunction', phone: 'phone', ownerId: 'ownerId', email: 'email' }),
+    }),
+  )
+}
+
+export async function linkContactAccountAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) =>
+    m.linkContactAccount(s, { contactId: f(fd, 'contactId'), accountId: f(fd, 'accountId') ?? '', confidence: f(fd, 'confidence'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }),
+  )
+}
+
+/** New account: on success, open the new profile (redirect must run outside try/catch). */
+export async function newAccountAction(_: ActionState, fd: FormData): Promise<ActionState> {
+  const s = await actionSession()
+  if (!s) return DENIED
+  const out = await m.createAccount(s, { name: f(fd, 'name'), domain: f(fd, 'domain'), relationship: f(fd, 'relationship'), ownerId: f(fd, 'ownerId') })
+  if (!out.ok) return { ...out, nonce: Date.now() }
+  redirect(`/crm/accounts/${out.id}/?created=1`)
+}
+
+/** New contact: on success, open the new profile; an existing address returns that contact's id to link to. */
+export async function newContactAction(_: ActionState, fd: FormData): Promise<ActionState> {
+  const s = await actionSession()
+  if (!s) return DENIED
+  const out = await m.createContact(s, {
+    email: f(fd, 'email'),
+    firstName: f(fd, 'firstName'),
+    lastName: f(fd, 'lastName'),
+    title: f(fd, 'title'),
+    contactFunction: f(fd, 'contactFunction'),
+    phone: f(fd, 'phone'),
+    accountId: f(fd, 'accountId'),
+    confidence: f(fd, 'confidence'),
+    ownerId: f(fd, 'ownerId'),
+  })
+  if (!out.ok) return { ...out, nonce: Date.now() }
+  redirect(`/crm/contacts/${out.id}/?created=1`)
+}
+
+/** ⌘K / Search page. The term travels in this POST body only; nothing is logged or echoed. */
+export async function globalSearchAction(q: string): Promise<SearchResult> {
+  const s = await actionSession()
+  if (!s) return { status: 'error' }
+  return globalSearch(s, q)
+}
+
+/** Labels for the palette's recent items (kind + id references kept by the browser). */
+export async function recentItemsAction(refs: unknown): Promise<SearchHit[]> {
+  const s = await actionSession()
+  if (!s) return []
+  return recentItems(s, refs)
+}
+
+const secureCookies = () => process.env.NODE_ENV === 'production'
+
+/**
+ * List search (inbox, accounts, contacts): store the term in an HttpOnly, SameSite=Strict cookie and return to the
+ * list with `s=1`. An empty term clears it. The return URL is rebuilt from validated filters only.
+ */
+export async function listSearchAction(fd: FormData): Promise<void> {
+  const s = await actionSession()
+  const list = f(fd, 'list')
+  if (!s || !isList(list)) redirect('/crm/')
+  const term = searchTerm(f(fd, 'q') ?? '') ?? (f(fd, 'q') ?? '').trim().slice(0, 120)
+  const jar = await cookies()
+  if (term) jar.set(listSearchCookie(list), term, cookieOptions(SEARCH_TTL_SECONDS, secureCookies()))
+  else jar.delete({ name: listSearchCookie(list), path: '/crm/' })
+  redirect(listReturnPath(list, f(fd, 'back'), Boolean(term)))
+}
+
+export async function clearListSearchAction(fd: FormData): Promise<void> {
+  const list = f(fd, 'list')
+  if (!(await actionSession()) || !isList(list)) redirect('/crm/')
+  ;(await cookies()).delete({ name: listSearchCookie(list), path: '/crm/' })
+  redirect(listReturnPath(list, f(fd, 'back'), false))
+}
+
+/** Remember Mine/Team for My Work and Follow-ups (audit finding 5). */
+export async function scopeAction(fd: FormData): Promise<void> {
+  const scope = f(fd, 'scope')
+  if (!(await actionSession())) redirect('/crm/')
+  if (scope === 'mine' || scope === 'team') (await cookies()).set(SCOPE_COOKIE, scope, cookieOptions(SCOPE_TTL_SECONDS, secureCookies()))
+  redirect(scopeReturnPath(f(fd, 'back')))
 }

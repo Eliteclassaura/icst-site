@@ -79,3 +79,25 @@ export const IconInfo = (p: P) => (
     <path d="M12 11v5M12 8h.01" />
   </Svg>
 )
+export const IconCheck = (p: P) => (
+  <Svg {...p}>
+    <path d="M5 12.5l4.5 4.5L19 7.5" />
+  </Svg>
+)
+export const IconAccounts = (p: P) => (
+  <Svg {...p}>
+    <path d="M4 20V8l6-3v15M10 20V10l10 3v7M4 20h16" />
+    <path d="M13 15h1M16 15h1M13 17.5h1M16 17.5h1" />
+  </Svg>
+)
+export const IconContacts = (p: P) => (
+  <Svg {...p}>
+    <circle cx="12" cy="9" r="3.5" />
+    <path d="M5 19.5c1.2-3.2 3.8-5 7-5s5.8 1.8 7 5" />
+  </Svg>
+)
+export const IconMore = (p: P) => (
+  <Svg {...p}>
+    <path d="M5 12h.01M12 12h.01M19 12h.01" strokeWidth={2.5} />
+  </Svg>
+)
