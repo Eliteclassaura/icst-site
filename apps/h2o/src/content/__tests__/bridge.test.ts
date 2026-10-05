@@ -192,13 +192,16 @@ describe('static: runtime build and boundaries', () => {
     expect(df.split('\n').filter((l) => !l.startsWith('#')).join('\n')).not.toMatch(/nginx/)
     expect(df).toMatch(/CMD \["node", "server\.js"\]/)
     expect(df).toMatch(/--frozen-lockfile/)
-    expect(df).toMatch(/rm -rf \/app\/apps\/h2o\/content\/salmon\/documents/)
+    // Image slimming R1: the page documents are excluded from the build context (never a deleted-later layer),
+    // and a build step proves they are absent from the content layer.
+    expect(df).toMatch(/test ! -e content\/salmon\/documents/)
+    expect(df).not.toMatch(/COPY[^\n]*salmon\/documents/)
     expect(df).toMatch(/^USER app$/m)
     expect(df).toMatch(/api\/ready/)
     expect(df).toMatch(/NEXT_PUBLIC_SERVER_URL build arg is required/)
     expect(df).not.toMatch(/COPY[^\n]*\.env/)
     const ignore = read(path.join(APP, 'Dockerfile.runtime.dockerignore'))
-    for (const p of ['**/.env', 'legacy-reference', '**/node_modules', '**/__tests__']) expect(ignore).toContain(p)
+    for (const p of ['**/.env', 'legacy-reference', '**/node_modules', '**/__tests__', 'apps/h2o/content/salmon/documents']) expect(ignore).toContain(p)
   })
   it('bridge code has no network client, mail transport or AI call', () => {
     for (const f of walk(path.join(SRC, 'content'))) expect(read(f), f).not.toMatch(/\bfetch\(|nodemailer|sendEmail|anthropic|openai/i)

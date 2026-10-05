@@ -2,7 +2,7 @@ import type {Metadata} from 'next'
 import {notFound} from 'next/navigation'
 import {salmonDocument,releaseRouteFor,salmonRoutes} from '../../../site/salmon'
 import {aliasReleaseDocument} from '../../../site/release-document'
-import {SalmonCanonical} from '../../../site/SalmonCanonical'
+import {SalmonCanonical,publicDescription} from '../../../site/SalmonCanonical'
 import {SalmonFamilyPage,salmonFamilyFor} from '../../../site/SalmonFamilies'
 import {ArchivePage,isArchiveDocument} from '../../../site/ArchivePresentation'
 import {LuxuryCanonical,luxuryIds} from '../../../site/LuxuryCanonical'
@@ -45,8 +45,8 @@ export async function generateMetadata({params}:Params):Promise<Metadata>{
     const source=record.family==='alias'?salmonRoutes().find(route=>route.routeId===record.source?.aliasOf)??null:releaseRouteFor(resolved.dispatchPath.split('/').filter(Boolean).map(decodeURIComponent))
     if(!source)return {robots:{index:false,follow:false}}
     const doc=salmonDocument(source)
-    if(record.family==='alias'&&(record.seo?.title||record.seo?.description))return {title:{absolute:record.seo?.title||doc.seo.title},description:record.seo?.description||doc.seo.meta.find(meta=>meta.name==='description')?.value,alternates:{canonical:canonicalFor(record)},robots}
-    return {title:{absolute:articleMetadataTitle(doc)},description:doc.seo.meta.find(meta=>meta.name==='description')?.value,alternates:{canonical:canonicalFor(record)},robots}
+    if(record.family==='alias'&&(record.seo?.title||record.seo?.description))return {title:{absolute:record.seo?.title||doc.seo.title},description:record.seo?.description||publicDescription(doc),alternates:{canonical:canonicalFor(record)},robots}
+    return {title:{absolute:articleMetadataTitle(doc)},description:publicDescription(doc),alternates:{canonical:canonicalFor(record)},robots}
   }
   const slug=(await params).slug
   const service=englishServiceForPath('/'+(slug??[]).join('/')+((slug??[]).length?'/':''))
@@ -55,12 +55,12 @@ export async function generateMetadata({params}:Params):Promise<Metadata>{
     const source=salmonRoutes().find(route=>route.routeId==='SALMON-pages-1761')
     if(!source)throw new Error('Wave 4 Resources source route missing')
     const doc=salmonDocument(source)
-    return {title:{absolute:doc.seo.title},description:doc.seo.meta.find(meta=>meta.name==='description')?.value,alternates:{canonical:'https://h2ocooling.com/resources/'},robots:{index:false,follow:false}}
+    return {title:{absolute:doc.seo.title},description:publicDescription(doc),alternates:{canonical:'https://h2ocooling.com/resources/'},robots:{index:false,follow:false}}
   }
   const row=releaseRouteFor(slug)
   if(!row)return {robots:{index:false,follow:false}}
   const doc=salmonDocument(row)
-  return {title:{absolute:articleMetadataTitle(doc)},alternates:{canonical:doc.seo.canonical[0]},robots:{index:false,follow:false}}
+  return {title:{absolute:articleMetadataTitle(doc)},description:publicDescription(doc),alternates:{canonical:doc.seo.canonical[0]},robots:{index:false,follow:false}}
 }
 export default async function Page({params,searchParams}:Params){
   let slug=(await params).slug

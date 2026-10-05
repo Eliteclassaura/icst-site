@@ -1,0 +1,52 @@
+# Stalwart mail service for the H2O CRM (CRM email M1). Deployed by Commander as a Coolify "Docker Compose" service on
+# the existing VPS. Template: every site-specific value is a variable set in Coolify, never committed here.
+#
+#   MAIL_HOSTNAME        the mail host name (its A record is DNS-only, its PTR already matches)
+#   STALWART_IMAGE       stalwartlabs/stalwart:v0.16.<patch>@sha256:<digest>  — pinned by Commander after review
+#   STALWART_DATA_DIR    host path of the size-capped data filesystem (see README: "Disk cap")
+#
+# Exposure (the brief's rule): ONLY port 25 is published. Submission (587) and IMAPS (993) are reachable on the
+# private `h2o-mail` network by the H2O app containers only. The admin/bootstrap HTTP listener (8080) is published on
+# the host loopback only and reached through an SSH tunnel; it is never public. 443/465/143/110/995/4190 are not
+# published at all.
+services:
+  stalwart:
+    image: ${STALWART_IMAGE:?pin stalwartlabs/stalwart by digest}
+    container_name: stalwart
+    hostname: ${MAIL_HOSTNAME:?set the mail host name}
+    restart: unless-stopped
+    ports:
+      - "25:25"
+      - "127.0.0.1:18080:8080"
+    expose:
+      - "587"
+      - "993"
+    volumes:
+      - stalwart-etc:/etc/stalwart
+      - ${STALWART_DATA_DIR:?size-capped host path}:/var/lib/stalwart
+    networks:
+      h2o-mail:
+        aliases: [stalwart]
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 512
+    # Stalwart runs as an unprivileged user (UID 2000). With no-new-privileges the image's file capability for
+    # low ports is not honoured, so the namespaced sysctl below lets that user bind 25 inside the container.
+    sysctls:
+      net.ipv4.ip_unprivileged_port_start: "0"
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  stalwart-etc: {}
+
+networks:
+  # Created once by Commander: `docker network create h2o-mail`. The H2O web and runner containers join it, so
+  # H2O_SMTP_HOST=stalwart resolves. Not `internal: true`: Stalwart needs outbound port 25 to deliver mail.
+  h2o-mail:
+    external: true

@@ -20,3 +20,6 @@ apps/*/test
 **/*.dbtest.ts
 apps/h2o/release/evidence
 apps/h2o/media
+# Image slimming: the page documents never enter the runtime image (Payload is the page source; the importer
+# reads a mounted checkout). Excluded here, before any COPY, so no layer ever carries them.
+apps/h2o/content/salmon/documents

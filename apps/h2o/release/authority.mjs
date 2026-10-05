@@ -30,15 +30,20 @@ export function releaseAuthority(root){
   const heldIds=new Set(articleRows.filter(r=>r.FINAL_DISPOSITION==='REVIEW_HOLD').map(r=>r.SOURCE_ROUTE_ID).filter(Boolean))
   const heldPaths=new Set(articleRows.filter(r=>r.FINAL_DISPOSITION==='REVIEW_HOLD').flatMap(r=>[r.SOURCE_PATH,r.SALMON_PATH]).filter(Boolean).map(pathKey))
   if(matched.size!==177||articleRows.filter(r=>r.FINAL_DISPOSITION==='REVIEW_HOLD').length!==653)throw new Error('Frozen article accounting changed')
+  // Master SEO Pass R1 (Control Tower brief 2026-10-04, OGCS decisions): held articles that passed the content check publish,
+  // self canonicals, the ranking archives that list public items become indexable, and live pages consolidated by redirect
+  // become REDIRECT rows. The scripted Payload batch (ops/seo-pass) applies exactly these rows.
+  const seoPass=read('content/release/seo-pass-r1.json')
+  const seoPublish=new Set(seoPass.publish)
   const sourceRoutes=[...read('content/salmon/active-routes.json'),...read('content/salmon/r2-live-routes.json')]
   const routes=sourceRoutes.map(row=>{
     const bytes=readFileSync(path.join(root,'content/salmon',row.file))
     if(hash(bytes)!==row.sha256)throw new Error(`Source changed: ${row.routeId}`)
     const doc=JSON.parse(bytes)
-    const held=!row.routeId.startsWith('LIVE-')&&(heldIds.has(row.routeId)||heldPaths.has(pathKey(row.targetPath)))&&row.targetPath!==releaseOverride
+    const held=!row.routeId.startsWith('LIVE-')&&(heldIds.has(row.routeId)||heldPaths.has(pathKey(row.targetPath)))&&row.targetPath!==releaseOverride&&!seoPublish.has(row.targetPath)
     if(matched.has(row.routeId)&&matched.get(row.routeId)!==row.targetPath)throw new Error(`Article path mismatch: ${row.routeId}`)
     const previousCanonical=doc.seo.canonical[0]??''
-    const canonical=new URL(previousCanonical||row.targetPath,origin)
+    const canonical=new URL(seoPass.canonical[row.targetPath]||previousCanonical||row.targetPath,origin)
     const sameOrigin=[origin,sourceOrigin].includes(canonical.origin)
     if(sameOrigin)canonical.host='h2ocooling.com'
     canonical.protocol='https:'
@@ -77,7 +82,12 @@ export function releaseAuthority(root){
   for(const route of routes)if(privateBlankArchives.has(route.path)){route.state='PRIVATE_ARCHIVE';route.export=false;route.indexable=false;route.sitemap=false;route.searchable=false}
   // Generated taxonomy listing shells duplicate their linked content; retain them for compatibility, not indexing.
   const duplicateNonindex=new Set(['/thank-you/','/testimonial-detail/','/hello-world-2/'])
-  for(const route of routes)if(['categories','product_cat'].includes(route.routeClass)||duplicateNonindex.has(route.path)){route.indexable=false;route.sitemap=false;route.searchable=false}
+  for(const route of routes)if(['categories','product_cat'].includes(route.routeClass)&&!seoPass.index.includes(route.path)||duplicateNonindex.has(route.path)){route.indexable=false;route.sitemap=false;route.searchable=false}
+  for(const [source,destination] of Object.entries(seoPass.redirectSources)){
+    const route=routes.find(row=>row.path===source)
+    if(!route||route.state!=='PUBLIC')throw new Error(`SEO pass redirect source not a public route: ${source}`)
+    Object.assign(route,{state:'REDIRECT',export:false,indexable:false,sitemap:false,searchable:false,redirect:destination})
+  }
   const r2ExactRedirects=read('content/release/r2-exact-redirects.json')
   const redirectRows=[...read('content/salmon/redirects.json'),...read('content/luxury/reconciled-redirects.json'),...r2ExactRedirects,{source:'/cooling-tower-resources/',destination:'/resources/'},{source:'/about-ics/',destination:about.path}]
   const r2ExactSources=new Set(r2ExactRedirects.map(row=>pathKey(row.source)))

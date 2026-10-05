@@ -3,7 +3,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {contactOffices} from './contact'
 import {publicReleaseDocument} from './release-document'
-import {isPayloadContent,requestDocuments,snapshotFile,snapshotJson} from '../content/runtime-read'
+import {releaseLedger,isPayloadContent,requestDocuments,snapshotFile,snapshotJson} from '../content/runtime-read'
 export type SalmonNode = string | {tag:string;attrs:Record<string,string>;children:SalmonNode[]}
 export type SalmonRoute = {routeId:string;sourceUrl:string;targetPath:string;file:string;sha256:string}
 export type SalmonDocument = {
@@ -22,6 +22,13 @@ const read=<T,>(file:string):T=>JSON.parse(readFileSync(path.join(root,file),'ut
 export const salmonRoutes=():SalmonRoute[]=>isPayloadContent()?snapshotJson<SalmonRoute[]>('routes.salmon.json'):read('active-routes.json')
 export const liveRoutes=():SalmonRoute[]=>isPayloadContent()?snapshotJson<SalmonRoute[]>('routes.live.json'):read('r2-live-routes.json')
 export const releaseRoutes=():SalmonRoute[]=>[...salmonRoutes(),...liveRoutes()]
+/** Release routes a listing may link: PUBLIC and exported in the release ledger. Withdrawn, held and consolidated
+ * (redirected, Master SEO Pass R1) routes leave every listing, in repository and Payload modes alike. */
+export const publicReleaseRoutes=():SalmonRoute[]=>{
+  const ledger=releaseLedger() as {routes:Array<{path:string;state:string;export:boolean}>}
+  const ok=new Set(ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>salmonPathKey(row.path)))
+  return releaseRoutes().filter(route=>ok.has(salmonPathKey(route.targetPath)))
+}
 export const salmonRedirects=():Array<{source:string;destination:string}>=>read('redirects.json')
 export const salmonPathKey=(value:string):string=>decodeURIComponent(value)
 export const salmonRouteFor=(segments:string[]=[]):SalmonRoute|null=>{

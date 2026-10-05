@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { refusePasswordEmail, withoutPasswordEmail } from '../../auth/no-password-email'
+import { passwordEmailGate, withPasswordEmail } from '../../auth/password-email'
 import { F22CAGX3_RECOMMENDED_FIELD_MAP, intakeConfigFromEnv, parseFieldMap } from '../intake/typeform/config'
 import { MAX_BODY_BYTES, readBounded, typeformIntakeEndpoint, typeformWebhookHandler } from '../intake/typeform/endpoint'
 import { genuineProductContext, parseTypeformDelivery, PRODUCT_CONTEXT_PLACEMENTS } from '../intake/typeform/parse'
@@ -120,17 +120,39 @@ describe('endpoint shape and fail-closed order (no database)', () => {
   })
 })
 
-describe('no password email', () => {
-  it('refuses forgotPassword and resetPassword, and nothing else', () => {
-    for (const op of ['forgotPassword', 'resetPassword'])
-      expect(() => refusePasswordEmail({ operation: op } as never)).toThrow(/disabled/)
-    for (const op of ['login', 'update', 'create', 'read', 'refresh'])
-      expect(() => refusePasswordEmail({ operation: op } as never)).not.toThrow()
+describe('password email gate (CRM email M1)', () => {
+  const withMode = (mode: string | undefined, fn: () => void) => {
+    const keep = { ...process.env }
+    if (mode === undefined) delete process.env.H2O_EMAIL_MODE
+    else Object.assign(process.env, {
+      H2O_EMAIL_MODE: mode, H2O_EMAIL_ALLOWLIST: 'owner.synthetic@example.test', H2O_EMAIL_FROM: 'RFQ <rfq@example.test>',
+      H2O_SMTP_HOST: 'mail.internal.example', H2O_SMTP_PORT: '587', H2O_SMTP_USER: 'u', H2O_SMTP_PASS: 'p', H2O_SMTP_TLS_SERVERNAME: 'mail.example.test',
+    })
+    try { fn() } finally { process.env = keep }
+  }
+  it('off (and unset, and misconfigured): refuses forgotPassword and resetPassword, and nothing else', () => {
+    for (const mode of [undefined, 'off', 'bogus'])
+      withMode(mode, () => {
+        for (const op of ['forgotPassword', 'resetPassword'])
+          expect(() => passwordEmailGate({ operation: op } as never)).toThrow(/disabled/)
+        for (const op of ['login', 'update', 'create', 'read', 'refresh'])
+          expect(() => passwordEmailGate({ operation: op } as never)).not.toThrow()
+      })
   })
-  it('prepends the hook and keeps the collection’s own hooks', () => {
+  it('allowlist and live: forgotPassword and resetPassword are allowed', () => {
+    for (const mode of ['allowlist', 'live'])
+      withMode(mode, () => {
+        for (const op of ['forgotPassword', 'resetPassword'])
+          expect(() => passwordEmailGate({ operation: op } as never)).not.toThrow()
+      })
+  })
+  it('prepends the gate, keeps the collection’s own hooks and sets a 1-hour reset email', () => {
     const own = () => undefined
-    const out = withoutPasswordEmail({ slug: 'users', fields: [], hooks: { beforeOperation: [own] } })
-    expect(out.hooks!.beforeOperation).toEqual([refusePasswordEmail, own])
+    const out = withPasswordEmail({ slug: 'users', fields: [], auth: true, hooks: { beforeOperation: [own] } })
+    expect(out.hooks!.beforeOperation).toEqual([passwordEmailGate, own])
+    const fp = (out.auth as { forgotPassword: { expiration: number; generateEmailHTML: (a: unknown) => string } }).forgotPassword
+    expect(fp.expiration).toBe(3_600_000)
+    expect(fp.generateEmailHTML({ token: 'tok<en>' })).toContain('/admin/reset/tok%3Cen%3E')
   })
 })
 

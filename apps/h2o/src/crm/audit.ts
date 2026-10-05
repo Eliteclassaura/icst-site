@@ -55,6 +55,8 @@ export const AUDITED_TRANSITIONS: Record<string, readonly string[]> = {
   'crm-suppressions': ['action', 'reason', 'scope'],
   'crm-intake-events': ['processing_state'],
   'crm-identity-reviews': ['state', 'reason'],
+  'crm-email-outbox': ['status', 'kind', 'attempts', 'last_error_code'],
+  'crm-email-events': ['event', 'kind', 'code'],
 }
 
 const SKIP_KEYS = new Set(['updatedAt', 'createdAt', 'id'])

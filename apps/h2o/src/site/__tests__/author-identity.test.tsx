@@ -98,7 +98,9 @@ describe('public author identity',()=>{
   })
   it('credits the two former "Rhonda Miller" pages to Tim Bozic (owner decision 2026-10-02); no /author/altaf/ route exists',async()=>{
     expect(ledger.routes.some(row=>/\/author\/altaf\//.test(row.path))).toBe(false)
-    for(const p of ['/cooling-tower-construction-repair-in-united-states/','/projects-2/']){
+    // /projects-2/ is consolidated into /all-projects/ by redirect (Master SEO Pass R1); its document still carries no Rhonda.
+    expect(ledger.routes.find(row=>row.path==='/projects-2/')).toMatchObject({state:'REDIRECT',redirect:'/all-projects/'})
+    for(const p of ['/cooling-tower-construction-repair-in-united-states/']){
       const doc=salmonDocument(releaseRoutes().find(route=>route.targetPath===p)!)
       expect(articleByline(doc)?.author,p).toBe('Tim Bozic')
       const html=renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean)}),searchParams:Promise.resolve({})}))
@@ -117,7 +119,8 @@ describe('public author identity',()=>{
       authors.set(author,(authors.get(author)??0)+1)
     }
     // The two without a byline are portfolio records (/rt-portfolios/…), which carry no article author.
-    expect(Object.fromEntries(authors)).toEqual({'Tim Bozic':263,'(no byline)':2})
+    // Master SEO Pass R1: 17 consolidated pages left the served set and three held articles published (263 − 17 + 3).
+    expect(Object.fromEntries(authors)).toEqual({'Tim Bozic':249,'(no byline)':2})
   },60000)
   it('links the Tim Bozic byline to the canonical author archive',()=>{
     const article=salmonDocument(releaseRoutes().find(route=>route.targetPath==='/3-cell-counterflow-cooling-towers/')!)

@@ -23,7 +23,8 @@ import { foundationCollections } from '@factory/agency-core/cms/foundation'
 import { Manufacturers } from './collections/manufacturers'
 import { catalogCollections } from './collections/index'
 import { crmCollections, crmEndpoints } from './crm/index'
-import { withoutPasswordEmail } from './auth/no-password-email'
+import { withPasswordEmail } from './auth/password-email'
+import { h2oEmailAdapter } from './email/adapter'
 import { crmAdminComponents } from './crm/admin/config'
 import { PublicRoutes } from './content/collections/public-routes'
 import { PublicRedirects } from './content/collections/public-redirects'
@@ -124,10 +125,9 @@ const collections: CollectionConfig[] = [
   ...foundationCollections.map((c) => {
     // R1B (Control Tower C5): `public-routes` is the single public page authority on H2O. The foundation
     // `pages` collection (empty here) stays registered for schema compatibility but is hidden and not writable.
-    // CRM go-live (Control Tower 2026-10-02): no mail adapter is configured, so Payload would write a password
-    // reset email — recipient and reset link — to the server log. Forgot/reset-password is therefore refused
-    // for launch; an administrator sets a new password in the admin. See `src/auth/no-password-email.ts`.
-    if (c.slug === 'users') return withoutPasswordEmail(c)
+    // CRM email M1 (Control Tower 2026-10-04): password reset by email through the gated H2O adapter. Refused
+    // while H2O_EMAIL_MODE=off, as at launch. See `src/auth/password-email.ts`.
+    if (c.slug === 'users') return withPasswordEmail(c)
     if (c.slug === 'pages') return { ...c, admin: { ...c.admin, hidden: true }, access: { ...c.access, create: () => false, update: () => false } }
     if (c.slug !== 'media') return c
     if (!c.upload || typeof c.upload !== 'object') return c
@@ -160,8 +160,12 @@ export default buildConfig({
   // CRM go-live: the Typeform intake webhook (404 unless ingest is enabled; signature-verified).
   endpoints: crmEndpoints,
   globals: [PublicationState, SiteChromeGlobal],
-  // One publishing/indexing queue and runner (see src/content/jobs.ts). No email or other queue.
+  // One publishing/indexing queue and runner (see src/content/jobs.ts). Email has its own outbox, drained by
+  // the same runner role (src/email/outbox-worker.ts), not a Payload job queue.
   jobs: jobsConfig,
+  // Always set: without an adapter Payload would log whole messages (reset links included). The adapter gates
+  // every send by H2O_EMAIL_MODE and never logs a recipient, subject, body or token (src/email/adapter.ts).
+  email: h2oEmailAdapter,
   // The frozen contract marks the product and family narrative and SEO groups `localized`. Declaring a
   // single locale now creates the localized column shape; adding a second locale later is then a
   // configuration change rather than a schema rebuild. The catalog is monolingual today — zero products

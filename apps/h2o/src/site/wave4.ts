@@ -57,8 +57,18 @@ export function articleDirectoryDocuments():Array<{doc:SalmonDocument;indexable:
   const retrofit=releaseRoutes().find(route=>route.targetPath==='/cooling-tower-retrofit-guide-upgrading-old-towers/')
   if(!retrofit)throw new Error('Authorized retrofit article is absent from release routes')
   current.push(salmonDocument(retrofit))
+  // Held articles published by the Master SEO Pass R1 (owner decision, content-checked) join the directory like the
+  // retrofit guide, while they are PUBLIC in the release.
+  const seoPublished=(JSON.parse(readFileSync(path.join(process.cwd(),'content/release/seo-pass-r1.json'),'utf8')) as {publish:string[]}).publish
+  for(const target of seoPublished){
+    const route=releaseRoutes().find(candidate=>candidate.targetPath===target),row=byPath.get(target)
+    if(route&&row?.state==='PUBLIC'&&row.export)current.push(salmonDocument(route))
+  }
   if(new Set(current.map(doc=>doc.targetPath)).size!==current.length)throw new Error('Article directory has a duplicate route')
-  return current.map(doc=>{
+  // An article consolidated into another by an accepted redirect (Master SEO Pass R1) leaves the directory; any other
+  // non-public article is still an error.
+  const consolidated=new Set(release.routes.filter(row=>row.state==='REDIRECT').map(row=>row.path))
+  return current.filter(doc=>!consolidated.has(doc.targetPath)).map(doc=>{
     const row=byPath.get(doc.targetPath)
     if(!row?.export||row.state!=='PUBLIC'||row.routeId!==doc.routeId)throw new Error(`Article directory route is not public: ${doc.targetPath}`)
     return {doc,indexable:row.indexable}

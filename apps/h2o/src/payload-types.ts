@@ -97,6 +97,8 @@ export interface Config {
     'crm-suppressions': CrmSuppression;
     'crm-intake-events': CrmIntakeEvent;
     'crm-identity-reviews': CrmIdentityReview;
+    'crm-email-outbox': CrmEmailOutbox;
+    'crm-email-events': CrmEmailEvent;
     'public-routes': PublicRoute;
     'public-redirects': PublicRedirect;
     'payload-kv': PayloadKv;
@@ -169,6 +171,8 @@ export interface Config {
     'crm-suppressions': CrmSuppressionsSelect<false> | CrmSuppressionsSelect<true>;
     'crm-intake-events': CrmIntakeEventsSelect<false> | CrmIntakeEventsSelect<true>;
     'crm-identity-reviews': CrmIdentityReviewsSelect<false> | CrmIdentityReviewsSelect<true>;
+    'crm-email-outbox': CrmEmailOutboxSelect<false> | CrmEmailOutboxSelect<true>;
+    'crm-email-events': CrmEmailEventsSelect<false> | CrmEmailEventsSelect<true>;
     'public-routes': PublicRoutesSelect<false> | PublicRoutesSelect<true>;
     'public-redirects': PublicRedirectsSelect<false> | PublicRedirectsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -2592,7 +2596,8 @@ export interface CrmActivity {
     | 'TASK_REASSIGNED'
     | 'SUPPRESSION_RECORDED'
     | 'SUPPRESSION_CLEARED'
-    | 'IDENTITY_REVIEW_OPENED';
+    | 'IDENTITY_REVIEW_OPENED'
+    | 'EMAIL_NOTIFICATION';
   /**
    * Short, factual, no personal data.
    */
@@ -2651,7 +2656,7 @@ export interface CrmActivity {
   createdAt: string;
 }
 /**
- * Every RFQ is persisted before anything else happens. Receipt fields are write-once. No pricing, no quote generation, no notification in CRM-1.
+ * Every RFQ is persisted before anything else happens. Receipt fields are write-once. No pricing, no quote generation. Notifications are queued in the email outbox.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "crm-rfqs".
@@ -3085,6 +3090,82 @@ export interface CrmSuppression {
   createdAt: string;
 }
 /**
+ * Queued and sent notifications. Written by the system; retried with backoff; failures end in DEAD. No hand edits.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-outbox".
+ */
+export interface CrmEmailOutbox {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  idempotency_key: string;
+  kind: 'RFQ_SALES_ALERT' | 'RFQ_CUSTOMER_ACK';
+  status:
+    | 'PENDING'
+    | 'SENDING'
+    | 'RETRY'
+    | 'SENT'
+    | 'DEAD'
+    | 'SUPPRESSED_BY_MODE'
+    | 'SUPPRESSED_BY_SUPPRESSION'
+    | 'SUPPRESSED_ACK_DISABLED'
+    | 'SUPPRESSED_NO_RECIPIENT';
+  rfq?: (string | null) | CrmRfq;
+  /**
+   * Keyed hash of the recipient. Not reversible without the server secret.
+   */
+  recipient_ref: string;
+  to_address?: string | null;
+  subject?: string | null;
+  body_text?: string | null;
+  body_html?: string | null;
+  message_id?: string | null;
+  attempts: number;
+  next_attempt_at?: string | null;
+  lease_until?: string | null;
+  last_error_code?: string | null;
+  sent_at?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Append-only audit of every email decision and attempt. No personal data.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-events".
+ */
+export interface CrmEmailEvent {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  event:
+    | 'QUEUED'
+    | 'SUPPRESSED'
+    | 'SENT'
+    | 'ATTEMPT_FAILED'
+    | 'DEAD_LETTERED'
+    | 'DIRECT_SENT'
+    | 'DIRECT_SUPPRESSED'
+    | 'DIRECT_FAILED';
+  kind: string;
+  /**
+   * Outcome or failure code. Never a message text.
+   */
+  code?: string | null;
+  outbox?: (string | null) | CrmEmailOutbox;
+  rfq?: (string | null) | CrmRfq;
+  recipient_ref?: string | null;
+  attempt?: number | null;
+  occurred_at: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-redirects".
  */
@@ -3336,6 +3417,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'crm-identity-reviews';
         value: string | CrmIdentityReview;
+      } | null)
+    | ({
+        relationTo: 'crm-email-outbox';
+        value: string | CrmEmailOutbox;
+      } | null)
+    | ({
+        relationTo: 'crm-email-events';
+        value: string | CrmEmailEvent;
       } | null)
     | ({
         relationTo: 'public-routes';
@@ -4804,6 +4893,47 @@ export interface CrmIdentityReviewsSelect<T extends boolean = true> {
   resolution_note?: T;
   resolved_at?: T;
   resolved_by?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-outbox_select".
+ */
+export interface CrmEmailOutboxSelect<T extends boolean = true> {
+  canonical_id?: T;
+  idempotency_key?: T;
+  kind?: T;
+  status?: T;
+  rfq?: T;
+  recipient_ref?: T;
+  to_address?: T;
+  subject?: T;
+  body_text?: T;
+  body_html?: T;
+  message_id?: T;
+  attempts?: T;
+  next_attempt_at?: T;
+  lease_until?: T;
+  last_error_code?: T;
+  sent_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-events_select".
+ */
+export interface CrmEmailEventsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  event?: T;
+  kind?: T;
+  code?: T;
+  outbox?: T;
+  rfq?: T;
+  recipient_ref?: T;
+  attempt?: T;
+  occurred_at?: T;
   updatedAt?: T;
   createdAt?: T;
 }

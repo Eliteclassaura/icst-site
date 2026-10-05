@@ -14,6 +14,7 @@ import {ProjectDetail} from './ProjectDetail'
 import {commerceException,commerceMetaException,ownerHref,ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 import {deliverySrc} from './media-delivery'
+import {PUBLIC_AUTHOR} from './public-author-identity'
 export {aboutGeographyCorrections,normalizeWave3IndexEditorial,normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 // Start tags that implicitly close an open <p> in the HTML parser. A source <p> holding one of these cannot be
 // represented in HTML: the browser closes the paragraph first and hydration then sees a different tree (#418).
@@ -58,7 +59,7 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   if(doc.type==='posts'&&/(?:^|\s)elementor-widget-post-info(?:\s|$)/.test(node.attrs.class??'')){
     if(suppressSourceByline)return null
     const byline=articleByline(doc)
-    return byline?<p key={key} className="wave4-byline">By {byline.author}<span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null
+    return byline?<p key={key} className="wave4-byline"><span>By {byline.author===PUBLIC_AUTHOR.name?<a href={PUBLIC_AUTHOR.path}>{byline.author}</a>:byline.author}</span><span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null
   }
   const priceLabel=priceSpecLabel(node,doc)
   if(priceLabel===null)return null
@@ -112,17 +113,23 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   const element=createElement(tag,props,...(voids.has(tag)?[]:tag==='h1'&&doc.type==='posts'&&/&amp;|&#0*38;|&#x0*26;/i.test(salmonNodeText(node))?[articleDisplayTitle(salmonNodeText(node))]:[...backgrounds,...children]))
   return tag==='table'?<div className="technical-table" key={key} role="region" tabIndex={0} aria-label="Scrollable source table">{element}</div>:element
 }
+/** The public meta description: owner business-scope corrections, and the quote-only wording on products. One description
+ * tag per page: Next metadata renders it (see the catch-all page); SalmonSeo renders the social descriptions only. */
+export function publicMetaText(doc:SalmonDocument,value:string):string{
+  const scoped=reconcileCommercialScope(doc,value)
+  if(doc.type==='product')return normalizeWave3ProductDescription(scoped)
+  return doc.routeId==='SALMON-pages-411'?scoped.replace(/^Shop\b/i,'Explore'):scoped
+}
+export const publicDescription=(doc:SalmonDocument):string|undefined=>{const value=doc.seo.meta.find(meta=>meta.name==='description')?.value;return value===undefined?undefined:publicMetaText(doc,value)}
 export function SalmonSeo({doc,canonicalOverride}:{doc:SalmonDocument;canonicalOverride?:string}){
   const metaValue=(name:string,value:string)=>{
     if(name==='og:url'&&canonicalOverride&&value===doc.seo.canonical[0])return canonicalOverride
     if(name==='og:title'||name==='twitter:title')return articleSocialTitle(doc,value)
-    if(!/^(?:description|og:description|twitter:description)$/.test(name))return value
-    const scoped=reconcileCommercialScope(doc,value)
-    if(doc.type==='product')return normalizeWave3ProductDescription(scoped)
-    return doc.routeId==='SALMON-pages-411'?scoped.replace(/^Shop\b/i,'Explore'):scoped
+    if(!/^(?:og:description|twitter:description)$/.test(name))return value
+    return publicMetaText(doc,value)
   }
   return <>
-    {doc.seo.meta.filter(m=>!['robots','googlebot','viewport'].includes(m.name)&&!commerceMetaException(m,doc)).map((m,i)=>m.name.startsWith('og:')||m.name.startsWith('article:')?<meta key={i} property={m.name} content={metaValue(m.name,m.value)}/>:<meta key={i} name={m.name} content={metaValue(m.name,m.value)}/>)}
+    {doc.seo.meta.filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)).map((m,i)=>m.name.startsWith('og:')||m.name.startsWith('article:')?<meta key={i} property={m.name} content={metaValue(m.name,m.value)}/>:<meta key={i} name={m.name} content={metaValue(m.name,m.value)}/>)}
     {doc.seo.schema.map((raw,i)=>{
       // Quote-only estate: no prices, and no ratings or reviews (Control Tower ruling 2026-10-02).
       const review=(value:unknown)=>Boolean(value)&&typeof value==='object'&&['Review','AggregateRating'].includes(String((value as Record<string,unknown>)['@type']))

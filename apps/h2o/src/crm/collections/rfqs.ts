@@ -13,6 +13,7 @@ import { countryCodeField, userRelation } from '../fields'
 import { CrmInvariantError, isServerContext, merged, relId, writeOnce } from '../guards'
 import { rfqNumberFor } from '../ids'
 import { ensureSystemTask } from '../tasks'
+import { enqueueRfqNotifications } from '../notify'
 import { firstResponseDueAt, parseDate } from '../workspace/time'
 import {
   ACCOUNT_MATCH_STATE,
@@ -276,6 +277,9 @@ const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc
       // D-1 (owner decision 2026-10-02): due at the end of the next Denver business day after receipt.
       due_at: firstResponseDueAt(parseDate(d.received_at) ?? new Date()).toISOString(),
     })
+    // CRM email M1 (E1): queue the sales alert and the customer acknowledgement in this same transaction
+    // (transactional outbox). Nothing is transmitted here; suppressed messages are recorded with a reason.
+    await enqueueRfqNotifications(req, d as never)
     return doc
   }
   const p = previousDoc as Doc
@@ -315,7 +319,7 @@ export const CrmRfqs: CollectionConfig = crmCollection(
     admin: {
       useAsTitle: 'rfq_number',
       description:
-        'Every RFQ is persisted before anything else happens. Receipt fields are write-once. No pricing, no quote generation, no notification in CRM-1.',
+        'Every RFQ is persisted before anything else happens. Receipt fields are write-once. No pricing, no quote generation. Notifications are queued in the email outbox.',
       defaultColumns: [
         'rfq_number',
         'received_at',

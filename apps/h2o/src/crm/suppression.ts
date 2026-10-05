@@ -95,6 +95,29 @@ export function evaluateSend(
   return blocked.length > 0 ? { allowed: false, blockedBy: blocked } : { allowed: true }
 }
 
+/**
+ * CRM email M1: a TRANSACTIONAL message about a transaction that exists (the acknowledgement of an RFQ the
+ * person just submitted). `evaluateSend` deliberately cannot answer this — it does not know whether a
+ * transaction is active — so the caller states it, and only the suppression ledger is consulted:
+ *
+ *   - any active DO_NOT_CONTACT / LEGAL_PROHIBITION / HARD_BOUNCE / INVALID_ADDRESS → blocked;
+ *   - any active ALL_EMAIL / ALL_OUTREACH scope → blocked;
+ *   - a MARKETING_EMAIL-scope suppression does not block a transactional message;
+ *   - no active transaction → blocked (fail closed).
+ */
+export function evaluateTransactionalSend(
+  ledger: readonly LedgerRow[],
+  activeTransaction: boolean,
+): SendDecision {
+  const blocked: string[] = []
+  for (const r of activeFromLedger(ledger)) {
+    const hard = ['DO_NOT_CONTACT', 'LEGAL_PROHIBITION', 'HARD_BOUNCE', 'INVALID_ADDRESS'].includes(r.reason)
+    if (hard || r.scope !== 'MARKETING_EMAIL') blocked.push(`SUPPRESSED_${r.reason}`)
+  }
+  if (!activeTransaction) blocked.push('TRANSACTIONAL_REQUIRES_ACTIVE_TRANSACTION')
+  return blocked.length > 0 ? { allowed: false, blockedBy: blocked } : { allowed: true }
+}
+
 /** Is a CLEAR of this reason permitted at all, and does it require re-consent evidence? */
 export function clearRule(
   reason: SuppressionReason,

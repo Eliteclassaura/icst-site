@@ -5,7 +5,8 @@
  * with its job crons at server start. Payload only starts `jobs.autoRun` crons when it is initialised with
  * `cron: true`; without this the runner would idle until some route happened to initialise it that way, and
  * queued publishing jobs would wait. Web replicas never start crons (`shouldAutoRun` also refuses there).
- * The runner also reconciles pending publication events every minute (./content/jobs `reconcilePending`).
+ * The runner also reconciles pending publication events every minute (./content/jobs `reconcilePending`)
+ * and drains the email outbox every 15 s (./email/outbox-worker, CRM email M1).
  *
  * `onRequestError` — production builds hide Server Component error messages from the browser (correctly);
  * this records them in the server log with the request path and digest so a failed render is diagnosable.
@@ -30,6 +31,23 @@ export async function register() {
   }
   void tick()
   setInterval(() => void tick(), Number(process.env.H2O_RECONCILE_INTERVAL_MS) || 60_000).unref()
+  // CRM email M1: drain the notification outbox. It runs in every mode — in `off` it only marks queued rows
+  // SUPPRESSED_BY_MODE — and never overlaps itself. Logs carry ids, kinds and codes only.
+  const { drainOutbox } = await import('./email/outbox-worker')
+  let draining = false
+  const drain = async () => {
+    if (draining) return
+    draining = true
+    try {
+      await drainOutbox(payload)
+    } catch {
+      console.error('[h2o] email outbox: drain failed')
+    } finally {
+      draining = false
+    }
+  }
+  void drain()
+  setInterval(() => void drain(), Number(process.env.H2O_EMAIL_OUTBOX_INTERVAL_MS) || 15_000).unref()
 }
 
 export function onRequestError(err: unknown, request: { path: string; method: string }) {

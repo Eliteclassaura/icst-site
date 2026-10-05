@@ -72,12 +72,19 @@ export function composePublicDocument(record: RouteRecord): Doc {
   }
   const o = record.seo ?? {}
   if (o.title) seo.title = o.title
+  // An edited SEO title or description also feeds the social tags (og:/twitter:) the source carries, so search and social
+  // previews agree (Master SEO Pass R1, Control Tower brief 2026-10-04). Absent social tags are not invented.
+  const social = (names: string[], value: string) => {
+    if (Array.isArray(seo.meta)) seo.meta = seo.meta.map((m) => (names.includes(m.name) ? { ...m, value } : m))
+  }
+  if (o.title) social(['og:title', 'twitter:title'], o.title)
   if (o.description) {
     const meta = Array.isArray(seo.meta) ? [...seo.meta] : []
     const i = meta.findIndex((m) => m.name === 'description')
     if (i >= 0) meta[i] = { ...meta[i]!, value: o.description }
     else meta.push({ name: 'description', value: o.description })
     seo.meta = meta
+    social(['og:description', 'twitter:description'], o.description)
   }
   base.seo = seo
   // Protected top-level identity wins over anything nested in the stored tree (Control Tower C5).

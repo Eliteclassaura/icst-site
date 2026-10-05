@@ -362,6 +362,8 @@ export const ACTIVITY_TYPE = [
   'SUPPRESSION_RECORDED',
   'SUPPRESSION_CLEARED',
   'IDENTITY_REVIEW_OPENED',
+  // CRM email M1: a system notification about this record was sent, suppressed or dead-lettered.
+  'EMAIL_NOTIFICATION',
 ] as const
 export type ActivityType = (typeof ACTIVITY_TYPE)[number]
 /** Only these may be entered by a person. The rest are written by the system when the thing happens. */
@@ -420,3 +422,43 @@ export const IDENTITY_REVIEW_STATE = [
 /** Payload `select` options from a const tuple. */
 export const options = <T extends readonly string[]>(values: T) =>
   values.map((value) => ({ label: value, value }))
+
+/** CRM email M1 — the notification outbox (collections/email-outbox.ts). */
+export const EMAIL_KIND = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK'] as const
+export type EmailKind = (typeof EMAIL_KIND)[number]
+/**
+ * PENDING → SENDING → SENT, or → RETRY (backoff) → … → DEAD. The SUPPRESSED_* states are terminal and are
+ * decided before anything is sent: by the send gate (H2O_EMAIL_MODE / allowlist), by the suppression ledger,
+ * by the customer-acknowledgement switch, or because there is no usable recipient.
+ */
+export const EMAIL_OUTBOX_STATUS = [
+  'PENDING',
+  'SENDING',
+  'RETRY',
+  'SENT',
+  'DEAD',
+  'SUPPRESSED_BY_MODE',
+  'SUPPRESSED_BY_SUPPRESSION',
+  'SUPPRESSED_ACK_DISABLED',
+  'SUPPRESSED_NO_RECIPIENT',
+] as const
+export type EmailOutboxStatus = (typeof EMAIL_OUTBOX_STATUS)[number]
+export const EMAIL_TERMINAL_STATUS: readonly EmailOutboxStatus[] = [
+  'SENT',
+  'DEAD',
+  'SUPPRESSED_BY_MODE',
+  'SUPPRESSED_BY_SUPPRESSION',
+  'SUPPRESSED_ACK_DISABLED',
+  'SUPPRESSED_NO_RECIPIENT',
+]
+export const EMAIL_EVENT = [
+  'QUEUED',
+  'SUPPRESSED',
+  'SENT',
+  'ATTEMPT_FAILED',
+  'DEAD_LETTERED',
+  'DIRECT_SENT',
+  'DIRECT_SUPPRESSED',
+  'DIRECT_FAILED',
+] as const
+export type EmailEvent = (typeof EMAIL_EVENT)[number]

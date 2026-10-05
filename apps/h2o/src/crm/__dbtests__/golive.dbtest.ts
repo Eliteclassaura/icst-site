@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Payload } from 'payload'
 import { POST } from '../../app/(payload)/api/[...slug]/route'
-import { PASSWORD_EMAIL_DISABLED_MESSAGE } from '../../auth/no-password-email'
+import { PASSWORD_EMAIL_DISABLED_MESSAGE } from '../../auth/password-email'
 import { relId } from '../guards'
 import { RFQ_NUMBER_PATTERN } from '../ids'
 import { MAX_BODY_BYTES } from '../intake/typeform/endpoint'
@@ -314,7 +314,7 @@ describe('G2 mapping rules for launch', () => {
   })
 })
 
-describe('G3 no email of any kind: forgot/reset password refused for launch', () => {
+describe('G3 H2O_EMAIL_MODE=off: forgot/reset password refused, as at launch', () => {
   it('REST forgot-password → 403 with a fixed message, whatever the address; nothing is emailed or logged', async () => {
     const cap = captureLogs(p)
     try {

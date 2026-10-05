@@ -1,0 +1,13 @@
+{
+  "method": "h2o-technical-b2b-content skill; one independent read-only reviewer per article against the Control Tower gate (no invented claims, specifications or certifications; no ICS prices; market price ranges allowed), each blocker re-verified verbatim by Main.",
+  "date": "2026-10-04",
+  "articles": [
+    {"path": "/closed-loop-vs-open-loop/", "verdict": "PASS", "reason": "No ICS claims beyond a generic call to action; no certifications, specifications or ICS prices. Notes for a later edit: unqualified efficiency/lifespan statements, a plate-heat-exchanger description, mojibake (itâ\u0080\u0099s)."},
+    {"path": "/understanding-cooling-tower-parts/", "verdict": "PASS", "reason": "No invented ICS claims, certifications or prices. Notes for a later edit: overbroad 'all cooling tower parts from ICS', component-function errors (drift collector, fill), filler."},
+    {"path": "/choosing-cooling-tower-fill-media/", "verdict": "PASS", "reason": "No invented ICS claims, certifications or prices. Notes for a later edit: unqualified service-life ranges, questionable splash-fill pressure-drop comparison, commercial-HVAC table row, mojibake."},
+    {"path": "/cooling-tower-algae-prevention/", "verdict": "FAIL", "reason": "Invented ICS offering: 'Visit H2ocooling.com to discover our automated treatment solutions' (no evidence ICS sells automated water-treatment solutions)."},
+    {"path": "/cooling-tower-spray-nozzles/", "verdict": "FAIL", "reason": "Invented ICS status and service: 'As a leading manufacturer and supplier, we provide a broad range of products' and 'Contact our engineering team for a professional Ultrasonic Nozzle Audit'."},
+    {"path": "/frp-cooling-tower-advantages/", "verdict": "FAIL", "reason": "Guarantee attributed to the brand: 'superior performance, guaranteed reliability, and true long-term operational resilience with H2O Cooling'."},
+    {"path": "/cooling-tower-fan-balancing/", "verdict": "FAIL", "reason": "Invented compliance/warranty assurances: 'Adheres to stringent ISO G2.5 balance standards. Preserves OEM warranties and satisfies insurance requirements' (superseded ISO 1940 reference), plus unsourced quantified benefit table. Reviewer rated PASS; Main overrode to FAIL under the certification rule."}
+  ]
+}

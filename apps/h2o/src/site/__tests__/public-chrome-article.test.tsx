@@ -14,8 +14,12 @@ const doc=(routeId:string)=>salmonDocument(releaseRoutes().find(route=>route.rou
 describe('accepted public chrome and Technical Articles implementation',()=>{
   it('keeps the article directory unified, complete and source-ordered without publishing held content',()=>{
     const directory=articleDirectoryDocuments()
-    expect(directory).toHaveLength(249)
-    expect(directory.filter(row=>!row.indexable)).toHaveLength(4)
+    // Master SEO Pass R1: 15 articles consolidated by redirect leave the directory; the three published held articles join it.
+    expect(directory).toHaveLength(237)
+    for(const target of ['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/'])expect(directory.some(row=>row.doc.targetPath===target),target).toBe(true)
+    expect(directory.some(row=>row.doc.targetPath==='/power-plant-cooling-tower/')).toBe(false)
+    // The four articles that were noindex only for a cross canonical are self-canonical and indexable (Master SEO Pass R1).
+    expect(directory.filter(row=>!row.indexable)).toHaveLength(0)
     expect(directory.some(row=>row.doc.targetPath==='/cooling-tower-retrofit-guide-upgrading-old-towers/')).toBe(true)
     expect(directory.some(row=>row.doc.targetPath==='/hello-world-2/')).toBe(false)
     const html=renderToStaticMarkup(<Wave4ArticleIndex doc={doc('SALMON-pages-1875')}/>),featured=directory.find(row=>row.indexable)!

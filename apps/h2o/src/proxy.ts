@@ -34,7 +34,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { scriptHashesFor } from './site/csp-hashes'
 import { xRobotsTagForPath } from './site/robots'
 import { mergeTypeformCsp } from './conversion/csp'
-import { NOINDEX_FOLLOW_PATHS } from './content/config'
+import { GONE_PATHS, NOINDEX_FOLLOW_PATHS } from './content/config'
 import { isPayloadContent, snapshotJson } from './content/runtime-read'
 
 const EXCLUDED = /^\/(api|admin|_next|favicon\.ico|robots\.txt|sitemap[^/]*\.xml|brand)(\/|$)/
@@ -218,6 +218,8 @@ function payloadPublic(req: NextRequest): NextResponse {
   if (pathname === '/robots.txt') return robotsResponse()
   if (EXCLUDED.test(pathname)) return NextResponse.next()
   if (CRM_PATH.test(pathname)) return crmResponse(req)
+  if (GONE_PATHS.has(pathKeyOf(pathname)))
+    return new NextResponse('Gone', { status: 410, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'no-cache' } })
   const ledger = publishedLedger()
   const redirect = ledger?.redirects.find((r) => pathKeyOf(r.source) === pathKeyOf(pathname))
   if (redirect) {

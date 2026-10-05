@@ -1,0 +1,40 @@
+{
+  "note": "Master SEO Pass R1 (Control Tower brief 2026-10-04): release authority overrides, mirrored by the scripted Payload batch.",
+  "publish": [
+    "/closed-loop-vs-open-loop/",
+    "/understanding-cooling-tower-parts/",
+    "/choosing-cooling-tower-fill-media/"
+  ],
+  "canonical": {
+    "/cooling-tower-fill-media-replacement/": "https://h2ocooling.com/cooling-tower-fill-media-replacement/",
+    "/cooling-tower-maintenance-and-repair/": "https://h2ocooling.com/cooling-tower-maintenance-and-repair/",
+    "/cooling-tower-manufacturer-selection/": "https://h2ocooling.com/cooling-tower-manufacturer-selection/",
+    "/hybrid-cooling-tower-repair/": "https://h2ocooling.com/hybrid-cooling-tower-repair/"
+  },
+  "index": [
+    "/product-category/gearboxes/",
+    "/product-category/drive-shafts-assemblies/",
+    "/product-category/motors/",
+    "/product-category/drift-eliminators/",
+    "/product-category/nozzles/"
+  ],
+  "redirectSources": {
+    "/axial-fans-cooling-tower/": "/axial-fans-guide/",
+    "/cooling-solutions-for-chemical-process-plants/": "/cooling-solutions-for-chemical-process-plants-cooling-towers/",
+    "/counterflow-vs-crossflow-cooling-tower/": "/counterflow-vs-crossflow/",
+    "/power-plant-cooling-tower/": "/power-plant-cooling-towers/",
+    "/cooling-tower-vs-chiller/": "/chiller-and-cooling-tower/",
+    "/cooling-tower-water-treatment/": "/water-treatment-for-cooling-towers/",
+    "/frp-fan-blades-benefits/": "/the-benefits-of-frp-fans-in-industrial-cooling/",
+    "/cooling-tower-ph-control-2/": "/cooling-tower-ph-control/",
+    "/cooling-tower-design/": "/cooling-tower-foundation-design/",
+    "/repair-vs-replace-cooling-tower/": "/should-i-repair-or-replace-a-cooling-tower/",
+    "/projects-2/": "/all-projects/",
+    "/cooling-tower-automation/": "/industrial-cooling-tower-automation/",
+    "/aluminum-versus-frp-fan-blades-2/": "/aluminum-vs-frp-fan-blades/",
+    "/build-a-new-cooling-tower/": "/build-new-cooling-tower/",
+    "/cooling-tower-construction-repair-in-singapore/contact-us/": "/contact-us/",
+    "/cooling-tower-inspection-guide-2/": "/cooling-tower-inspection-guide/",
+    "/crossflow-vs-counterflow-cooling-tower/": "/counterflow-vs-crossflow/"
+  }
+}

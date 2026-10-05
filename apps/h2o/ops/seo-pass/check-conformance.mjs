@@ -1,0 +1,79 @@
+#!/usr/bin/env node
+/**
+ * MASTER SEO PASS R1 — conformance checker (read-only GETs). Runs against staging after deploy and the batch.
+ *
+ *   node ops/seo-pass/check-conformance.mjs <base-url> [--out report.json]
+ *
+ * For each row of data/conformance.tsv (1,003 decisions = OGCS 1,005 minus the two author rows):
+ *   200 html  status 200, <title> equals the decided title, exactly one meta description, equal to the decided meta
+ *             (present only, for a meta pending OGCS)
+ *   200 file  status 200 and not an HTML page
+ *   301       status 301/308, Location equals the decided target, and the target answers 200 (one hop, no chain)
+ *             A decided source with no trailing slash and no file extension first receives the framework's own
+ *             trailing-slash 308 (Next.js, before the proxy); that hop is reported as FRAMEWORK_SLASH_HOP, not hidden.
+ *   410       status 410
+ *   HELD_FOR_CT_RULING  reported with its current status only
+ * Typeform and other third parties are never requested. Exit 1 when any row fails.
+ */
+import {readFileSync,writeFileSync} from 'node:fs'
+import path from 'node:path'
+
+const [baseArg,...rest]=process.argv.slice(2)
+const BASE=(baseArg??'').replace(/\/+$/,'')
+if(!/^https?:\/\//.test(BASE)){process.stderr.write('usage: check-conformance.mjs <base-url> [--out report.json]\n');process.exit(2)}
+const out=rest.includes('--out')?rest[rest.indexOf('--out')+1]:null
+const DATA=path.join(path.dirname(new URL(import.meta.url).pathname),'data')
+const [head,...lines]=readFileSync(path.join(DATA,'conformance.tsv'),'utf8').trimEnd().split('\n')
+const cols=head.split('\t'),rows=lines.map(line=>Object.fromEntries(line.split('\t').map((v,i)=>[cols[i],v])))
+const decode=v=>{try{return decodeURIComponent(v)}catch{return v}}
+const entities=s=>s.replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(+n)).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16))).replace(/&quot;/g,'"').replace(/&apos;|&#039;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&')
+async function get(url){
+  for(let attempt=0;;attempt++){
+    try{
+      const res=await fetch(BASE+url,{redirect:'manual',signal:AbortSignal.timeout(30_000),headers:{'user-agent':'H2O-SEO-pass-conformance/1 (read-only)'}})
+      const type=res.headers.get('content-type')??''
+      const body=res.status===200&&/html/.test(type)?await res.text():(await res.arrayBuffer(),'')
+      const location=res.headers.get('location')
+      return {status:res.status,type,body,location:location?new URL(location,BASE).pathname:null}
+    }catch(error){if(attempt>=2)return {status:-1,type:'',body:'',location:null,error:String(error).slice(0,120)}}
+  }
+}
+async function check(row){
+  const r=await get(row.url)
+  const fail=reason=>({url:row.url,expect:row.expect,status:r.status,ok:false,reason})
+  if(row.expect==='HELD_FOR_CT_RULING')return {url:row.url,expect:row.expect,status:r.status,location:r.location,ok:true,held:true}
+  if(row.expect==='410')return r.status===410?{url:row.url,ok:true}:fail('not 410')
+  if(row.expect==='200'){
+    if(r.status!==200)return fail('not 200')
+    if(row.kind==='file')return /html/.test(r.type)?fail('file answered as HTML'):{url:row.url,ok:true}
+    if(row.kind==='query-variant')return /html/.test(r.type)?{url:row.url,ok:true}:fail('query variant not an HTML page')
+    const title=entities((r.body.match(/<title[^>]*>([\s\S]*?)<\/title>/)||[])[1]??'')
+    const metas=[...r.body.matchAll(/<meta name="description" content="([^"]*)"/g)].map(m=>entities(m[1]))
+    if(title!==row.title)return fail(`title "${title}" ≠ "${row.title}"`)
+    // A meta pending OGCS is not written: a page with no description yet is reported, not passed silently.
+    if(row.meta_pending==='yes'&&metas.length===0)return {url:row.url,ok:true,metaPendingOgcs:true,metaMissing:true}
+    if(metas.length!==1)return fail(`${metas.length} meta descriptions`)
+    if(row.meta_pending!=='yes'&&metas[0]!==row.meta)return fail(`meta differs: "${metas[0].slice(0,80)}"`)
+    return {url:row.url,ok:true,...(row.meta_pending==='yes'?{metaPendingOgcs:true}:{})}
+  }
+  // 301
+  let hop=r,framework=false
+  if(row.framework_slash_hop==='yes'&&[301,308].includes(r.status)&&decode(r.location??'')===decode(row.url)+'/'){framework=true;hop=await get(r.location)}
+  if(![301,308].includes(hop.status))return fail(`not a redirect (${hop.status})`)
+  if(decode(hop.location??'')!==decode(row.target))return fail(`Location ${hop.location} ≠ ${row.target}`)
+  const target=await get(hop.location)
+  if(target.status!==200)return fail(`target answers ${target.status} (chain or missing)`)
+  return {url:row.url,ok:true,status:hop.status,...(framework?{frameworkSlashHop:true}:{})}
+}
+const results=[]
+for(let i=0;i<rows.length;i+=6)results.push(...await Promise.all(rows.slice(i,i+6).map(check)))
+const failures=results.filter(r=>!r.ok)
+const summary={
+  base:new URL(BASE).host,rows:rows.length,passed:results.filter(r=>r.ok&&!r.held).length,failed:failures.length,
+  held:results.filter(r=>r.held).length,metaPendingOgcs:results.filter(r=>r.metaPendingOgcs).length,metaMissingPendingOgcs:results.filter(r=>r.metaMissing).map(r=>r.url),
+  status308:results.filter(r=>r.status===308).length,frameworkSlashHop:results.filter(r=>r.frameworkSlashHop).map(r=>r.url),
+}
+const report={summary,failures,held:results.filter(r=>r.held)}
+if(out)writeFileSync(out,JSON.stringify({...report,results},null,1))
+process.stdout.write(JSON.stringify(report,null,2)+'\n')
+process.exit(failures.length?1:0)

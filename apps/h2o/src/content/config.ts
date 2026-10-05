@@ -62,5 +62,11 @@ export const indexingPolicy = (env: NodeJS.ProcessEnv = process.env): IndexingPo
  */
 export const NOINDEX_FOLLOW_PATHS: ReadonlySet<string> = new Set(['/author/timbozic/', ...EMPTY_ARCHIVE_PATHS])
 
+/**
+ * Retired WordPress system URLs answered 410 Gone (Master SEO Pass R1, OGCS decisions; Control Tower brief 2026-10-04).
+ * Matched on the path, so `/wp/wp-admin/edit.php?post_type=product` is covered by `/wp/wp-admin/edit.php`.
+ */
+export const GONE_PATHS: ReadonlySet<string> = new Set(['/canvas/list/', '/wp/wp-admin/edit.php'])
+
 /** Canonical public origin used in canonical URLs and the sitemap (not the serving host). */
 export const PUBLIC_ORIGIN = 'https://h2ocooling.com'

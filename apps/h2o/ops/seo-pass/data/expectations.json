@@ -1,0 +1,26 @@
+{
+  "rows": 1003,
+  "redirects": 475,
+  "seoFields": 468,
+  "expect": {
+    "redirects": {
+      "create": 452,
+      "update": 0,
+      "unchanged": 23
+    },
+    "routes": {
+      "publish": 3,
+      "withdraw": 17,
+      "index": 5,
+      "canonical": 4
+    },
+    "seoFields": {
+      "update": 297,
+      "unchanged": 171,
+      "pendingOgcs": 27
+    },
+    "files": 22,
+    "gone": 2
+  },
+  "problems": []
+}

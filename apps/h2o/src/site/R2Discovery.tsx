@@ -1,4 +1,4 @@
-import {salmonDocument,releaseRoutes} from './salmon'
+import {salmonDocument,publicReleaseRoutes} from './salmon'
 
 type Kind='pages'|'articles'|'parts'|'projects'
 const regional=['/cooling-tower-japan/','/cooling-tower-singapore/','/cooling-tower-thailand/','/cooling-tower-usa/']
@@ -6,7 +6,7 @@ const productSpecifications=['/class-1000/','/class-10000-heavy-duty-standard-ch
 
 /** A bounded, source-titled route directory for legitimate pages left undiscoverable in R1. */
 export function R2Discovery({kind}:{kind:Kind}){
-  const routes=releaseRoutes().filter(route=>kind==='articles'?route.routeId.startsWith('LIVE-posts-')&&route.targetPath!=='/hello-world-2/':kind==='pages'?route.routeId.startsWith('LIVE-pages-')||regional.includes(route.targetPath):kind==='projects'?route.routeId.startsWith('LIVE-portfolio-'):productSpecifications.includes(route.targetPath))
+  const routes=publicReleaseRoutes().filter(route=>kind==='articles'?route.routeId.startsWith('LIVE-posts-')&&route.targetPath!=='/hello-world-2/':kind==='pages'?route.routeId.startsWith('LIVE-pages-')||regional.includes(route.targetPath):kind==='projects'?route.routeId.startsWith('LIVE-portfolio-'):productSpecifications.includes(route.targetPath))
   if(!routes.length)return null
   const title=kind==='articles'?'More ICS technical articles and news':kind==='pages'?'More ICS technical and regional pages':kind==='projects'?'Additional historical project records':'Additional component specifications'
   return <section className="r2-discovery" aria-label={title}>
