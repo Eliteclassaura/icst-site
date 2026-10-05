@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { IconInbox, IconPipeline, IconSearch, IconTasks, IconWork } from './Icons'
 
-export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'none'
+export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'email' | 'none'
 
 /**
  * "SYNTHETIC DATA" is an evidence/testing badge only (Control Tower amendment D). It renders only when
@@ -10,11 +10,13 @@ export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'none'
  */
 export const evidenceBadgeEnabled = (env: NodeJS.ProcessEnv = process.env): boolean => env.H2O_CRM_EVIDENCE_BADGE === 'SYNTHETIC'
 
-const NAV: Array<{ key: NavKey; href: string; label: string; icon: ReactNode; desktop?: boolean }> = [
+const NAV: Array<{ key: NavKey; href: string; label: string; icon: ReactNode; desktop?: boolean; adminOnly?: boolean }> = [
   { key: 'work', href: '/crm/', label: 'My Work', icon: <IconWork /> },
   { key: 'inbox', href: '/crm/rfqs/', label: 'RFQ Inbox', icon: <IconInbox /> },
   { key: 'followups', href: '/crm/follow-ups/', label: 'Follow-ups', icon: <IconTasks />, desktop: true },
   { key: 'pipeline', href: '/crm/pipeline/', label: 'Pipeline', icon: <IconPipeline />, desktop: true },
+  // CRM email M3: inbound email that was not linked automatically (admins only).
+  { key: 'email', href: '/crm/email-review/', label: 'Email review', icon: <IconInbox />, desktop: true, adminOnly: true },
 ]
 
 export function Shell({
@@ -49,7 +51,7 @@ export function Shell({
           <span>Sales Workspace</span>
         </div>
         <ul className="c-nav" role="list">
-          {NAV.map((n) => {
+          {NAV.filter((n) => !n.adminOnly || isAdmin).map((n) => {
             const b = badges[n.key]
             return (
               <li key={n.key} className={n.desktop ? 'is-desktop' : undefined}>

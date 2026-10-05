@@ -6,7 +6,8 @@
  * `cron: true`; without this the runner would idle until some route happened to initialise it that way, and
  * queued publishing jobs would wait. Web replicas never start crons (`shouldAutoRun` also refuses there).
  * The runner also reconciles pending publication events every minute (./content/jobs `reconcilePending`)
- * and drains the email outbox every 15 s (./email/outbox-worker, CRM email M1).
+ * and drains the email outbox every 15 s (./email/outbox-worker, CRM email M1), and — when
+ * H2O_EMAIL_INBOUND=on — polls the role mailbox for customer replies every 60 s (./email/inbound-poller, M3).
  *
  * `onRequestError` — production builds hide Server Component error messages from the browser (correctly);
  * this records them in the server log with the request path and digest so a failed render is diagnosable.
@@ -48,6 +49,25 @@ export async function register() {
   }
   void drain()
   setInterval(() => void drain(), Number(process.env.H2O_EMAIL_OUTBOX_INTERVAL_MS) || 15_000).unref()
+  // CRM email M3: poll the role mailbox for customer replies (only when H2O_EMAIL_INBOUND=on).
+  const { readInboundConfig } = await import('./email/config')
+  if (readInboundConfig().enabled) {
+    const { pollInbound } = await import('./email/inbound-poller')
+    let polling = false
+    const poll = async () => {
+      if (polling) return
+      polling = true
+      try {
+        await pollInbound(payload)
+      } catch {
+        console.error('[h2o] email inbound: poll failed')
+      } finally {
+        polling = false
+      }
+    }
+    void poll()
+    setInterval(() => void poll(), Number(process.env.H2O_EMAIL_INBOUND_INTERVAL_MS) || 60_000).unref()
+  }
 }
 
 export function onRequestError(err: unknown, request: { path: string; method: string }) {

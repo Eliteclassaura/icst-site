@@ -6,6 +6,7 @@ import { CrmBuyingGroupMembers } from './collections/buying-group'
 import { CrmContacts } from './collections/contacts'
 import { CrmEmailMessages, CrmReplyTokens } from './collections/email-messages'
 import { CrmEmailEvents, CrmEmailOutbox } from './collections/email-outbox'
+import { CrmEmailReview } from './collections/email-review'
 import { CrmIdentityReviews } from './collections/identity-reviews'
 import { CrmIntakeEvents } from './collections/intake-events'
 import { CrmNotes } from './collections/notes'
@@ -46,6 +47,8 @@ export const crmCollections: CollectionConfig[] = [
   // CRM email M2: the RFQ conversation and its reply tokens.
   CrmEmailMessages,
   CrmReplyTokens,
+  // CRM email M3: inbound mail that was not linked automatically.
+  CrmEmailReview,
 ]
 
 export const CRM_SLUGS = crmCollections.map((c) => c.slug)

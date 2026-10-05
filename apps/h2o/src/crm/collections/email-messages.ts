@@ -74,6 +74,11 @@ export const CrmEmailMessages: CollectionConfig = crmCollection(
         admin: { readOnly: true, date: { pickerAppearance: 'dayAndTime' } },
       },
       { name: 'sent_at', type: 'date', admin: { readOnly: true } },
+      // M3 (inbound only): the sender's display name as given (never used to link), the mailbox message id,
+      // and attachment metadata (name, type, size). Attachment content is never stored.
+      { name: 'from_name', type: 'text', admin: { readOnly: true } },
+      { name: 'source_ref', type: 'text', unique: true, index: true, admin: { readOnly: true } },
+      { name: 'attachments_withheld', type: 'json', admin: { readOnly: true } },
     ],
   },
   { deleteAlternative: 'Emails with a customer are part of the RFQ record.' },

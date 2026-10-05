@@ -40,11 +40,11 @@ beforeAll(async () => {
 })
 
 describe('T1 registration', () => {
-  it('registers exactly the 18 CRM collections, all crm- prefixed', async () => {
+  it('registers exactly the 19 CRM collections, all crm- prefixed', async () => {
     const p = await payload()
     const registered = Object.keys(p.collections).filter((s) => s.startsWith('crm-'))
     expect(registered.sort()).toEqual([...CRM_SLUGS].sort())
-    expect(CRM_SLUGS).toHaveLength(18)
+    expect(CRM_SLUGS).toHaveLength(19)
   })
   it('does not register the agency-core CRM layer', async () => {
     const p = await payload()

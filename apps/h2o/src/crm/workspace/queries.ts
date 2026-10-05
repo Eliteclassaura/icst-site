@@ -690,6 +690,8 @@ export type EmailMessageRow = {
   messageId: string | null
   occurredAt: string
   sentAt: string | null
+  /** Inbound only: attachments that were withheld (names). */
+  attachmentsWithheld: string[]
 }
 
 export async function loadRfq(s: CrmSession, rfqId: string, now: Date = new Date()): Promise<RfqDetail | null> {
@@ -780,6 +782,9 @@ export async function loadRfq(s: CrmSession, rfqId: string, now: Date = new Date
       messageId: typeof m.message_id === 'string' ? m.message_id : null,
       occurredAt: String(m.occurred_at ?? ''),
       sentAt: typeof m.sent_at === 'string' ? m.sent_at : null,
+      attachmentsWithheld: Array.isArray(m.attachments_withheld)
+        ? (m.attachments_withheld as Array<{ name?: unknown }>).map((a) => String(a?.name ?? 'unnamed'))
+        : [],
     })),
   }
 }

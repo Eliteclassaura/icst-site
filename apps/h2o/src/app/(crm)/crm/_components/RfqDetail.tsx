@@ -43,7 +43,7 @@ type Doc = Record<string, unknown>
 export const RFQ_TABS = ['summary', 'answers', 'items', 'email', 'activity', 'technical'] as const
 export type RfqTab = (typeof RFQ_TABS)[number]
 const TAB_LABEL: Record<RfqTab, string> = { summary: 'Summary', answers: 'Answers', items: 'Items', email: 'Email', activity: 'Activity', technical: 'Technical' }
-const MESSAGE_STATUS_LABEL: Record<string, string> = { QUEUED: 'Sending', SENT: 'Sent', FAILED: 'Failed', NOT_SENT: 'Not sent' }
+const MESSAGE_STATUS_LABEL: Record<string, string> = { QUEUED: 'Sending', SENT: 'Sent', FAILED: 'Failed', NOT_SENT: 'Not sent', RECEIVED: 'Received' }
 /** CRM email M2: what the page knows about writing a reply here (full page only; the inbox pane links to it). */
 export type ReplyPanel = { readiness: ReplyReadiness; token: string }
 const TERMINAL = ['REJECTED_NON_CORE', 'DUPLICATE_OF_EXISTING', 'CLOSED']
@@ -418,6 +418,12 @@ export function RfqDetailView({
                     <br />
                     <span>{m.subject}</span>
                     <p className="c-message">{m.body}</p>
+                    {m.attachmentsWithheld.length ? (
+                      <span className="c-muted">
+                        Attachments withheld (not stored): {m.attachmentsWithheld.join(', ')}. Ask the customer to send files another way.
+                        <br />
+                      </span>
+                    ) : null}
                     {m.messageId ? <span className="c-muted c-mono">{m.messageId}</span> : null}
                   </span>
                 </li>

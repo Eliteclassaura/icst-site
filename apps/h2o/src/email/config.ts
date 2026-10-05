@@ -141,3 +141,57 @@ export function emailConfigState(cfg: EmailConfig = readEmailConfig()): 'ok' | '
   if (cfg.errors.length > 0) return 'fail'
   return cfg.mode === 'off' ? 'off' : 'ok'
 }
+
+/**
+ * CRM email M3 — inbound replies, read over JMAP from the role mailbox on the internal Stalwart service.
+ *
+ *   H2O_EMAIL_INBOUND       on | off      default off
+ *   H2O_JMAP_HOST / _PORT   internal HTTPS endpoint; default H2O_SMTP_HOST / 443 (never a public host)
+ *   credentials and TLS name: the same role account as submission (H2O_SMTP_USER / _PASS /
+ *   H2O_SMTP_TLS_SERVERNAME); the certificate is verified, there is no plaintext option
+ *   H2O_EMAIL_REPLY_DOMAIN  the domain of the Reply-To token addresses; default: the H2O_EMAIL_FROM domain
+ */
+export type InboundSettings = {
+  host: string
+  port: number
+  user: string
+  pass: string
+  servername: string
+  roleLocal: string
+  domain: string
+}
+export type InboundConfig = { enabled: boolean; errors: string[]; settings: InboundSettings | null }
+
+export function readInboundConfig(env: Record<string, string | undefined> = process.env): InboundConfig {
+  const raw = (env.H2O_EMAIL_INBOUND ?? 'off').trim().toLowerCase()
+  const errors: string[] = []
+  if (!['on', 'off'].includes(raw)) errors.push('EMAIL_INBOUND_FLAG_INVALID')
+  if (raw !== 'on') return { enabled: false, errors, settings: null }
+  const from = parseFrom(env.H2O_EMAIL_FROM)
+  const host = (env.H2O_JMAP_HOST ?? env.H2O_SMTP_HOST ?? '').trim()
+  const port = Number(env.H2O_JMAP_PORT ?? '443')
+  const user = env.H2O_SMTP_USER ?? ''
+  const pass = env.H2O_SMTP_PASS ?? ''
+  const servername = (env.H2O_SMTP_TLS_SERVERNAME ?? '').trim()
+  if (!from) errors.push('EMAIL_FROM_MISSING_OR_INVALID')
+  if (!host) errors.push('JMAP_HOST_MISSING')
+  if (!Number.isInteger(port) || port < 1 || port > 65535) errors.push('JMAP_PORT_INVALID')
+  if (!user || !pass) errors.push('SMTP_CREDENTIALS_MISSING')
+  if (!servername) errors.push('SMTP_TLS_SERVERNAME_MISSING')
+  if (errors.length > 0 || !from) return { enabled: false, errors, settings: null }
+  const at = from.address.lastIndexOf('@')
+  const domain = ((env.H2O_EMAIL_REPLY_DOMAIN ?? '').trim() || from.address.slice(at + 1)).toLowerCase()
+  return {
+    enabled: true,
+    errors,
+    settings: {
+      host,
+      port,
+      user,
+      pass,
+      servername,
+      roleLocal: from.address.slice(0, at).split('+')[0]!.toLowerCase(),
+      domain,
+    },
+  }
+}

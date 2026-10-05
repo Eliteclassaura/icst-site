@@ -1,6 +1,6 @@
-# CRM email: Stalwart platform and E1 (M1), replies from the CRM (M2)
+# CRM email: Stalwart platform and E1 (M1), replies from the CRM (M2), inbound replies (M3)
 
-Control Tower brief "CRM email with Stalwart R1" (2026-10-04), milestones M1–M2.
+Control Tower brief "CRM email with Stalwart R1" (2026-10-04), milestones M1–M3.
 
 **Placeholders.** This file uses `<sender domain>`, `<mail host>` and `<VPS IPv4>`. The real values are in the
 Control Tower return for M1, not in the repository. Secrets come from the Coolify environment only.
@@ -46,6 +46,22 @@ Control Tower return for M1, not in the repository. Secrets come from the Coolif
 - Logged as the RFQ conversation (`crm-email-messages`: author, time, subject, body, Message-ID) and an
   `EMAIL_REPLY` timeline entry. Migration `…_crm_email_m2` (additive).
 
+## M3 — inbound replies (E3)
+
+- Runner only, when `H2O_EMAIL_INBOUND=on`: every 60 s it reads up to 25 Inbox messages of the role account over
+  **JMAP on the internal network** (`https://<H2O_JMAP_HOST>:443`, same account and TLS name as submission) that
+  do not carry the keyword `$h2o_ingested`, stores them, then sets that keyword. Nothing is deleted, moved or answered.
+- A message addressed to a **live** reply token is added to that RFQ (`RECEIVED`) with an `EMAIL_RECEIVED` timeline
+  entry. Everything else goes to **Email review** (admins, `/crm/email-review/`): no / unknown / expired / several
+  tokens, `Auto-Submitted` (out-of-office, bounces), bulk / list mail, spam-flagged (`X-Spam-Status: Yes`), or mail
+  from our own address. Nothing is ever linked by name, subject or sender; an admin links by RFQ number or discards.
+- Content is untrusted: plain text only (HTML is reduced to text and never stored or rendered as HTML); attachments
+  are withheld (name, type and size recorded; content never fetched). No reply is ever acknowledged automatically.
+- Idempotent by mailbox message and by Message-ID. A message that fails 5 times is queued as `PROCESSING_FAILED`
+  so it cannot block the mailbox. Migration `…_crm_email_m3` (additive).
+- Stalwart: sub-addressing **on** for the sender domain (so `rfq+<token>@` is delivered to the role mailbox), the
+  spam filter files spam to Junk (only Inbox is read), and the HTTPS listener (443) stays internal (`h2o-mail`).
+
 ## Environment (web and runner)
 
 | Variable | Staging | Production until GO |
@@ -58,6 +74,8 @@ Control Tower return for M1, not in the repository. Secrets come from the Coolif
 | `H2O_SMTP_HOST` / `H2O_SMTP_PORT` | `stalwart` / `587` | same |
 | `H2O_SMTP_USER` / `H2O_SMTP_PASS` | the role account / secret store | same |
 | `H2O_SMTP_TLS_SERVERNAME` | `<mail host>` | same |
+| `H2O_EMAIL_INBOUND` (M3) | `on` once Stalwart and DNS are live | `off` until cutover GO |
+| `H2O_JMAP_HOST` / `H2O_JMAP_PORT` (M3) | `stalwart` / `443` | same |
 
 The web and runner containers join the Docker network `h2o-mail`.
 

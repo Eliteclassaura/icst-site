@@ -6,9 +6,9 @@
 #   STALWART_DATA_DIR    host path of the size-capped data filesystem (see README: "Disk cap")
 #
 # Exposure (the brief's rule): ONLY port 25 is published. Submission (587) and IMAPS (993) are reachable on the
-# private `h2o-mail` network by the H2O app containers only. The admin/bootstrap HTTP listener (8080) is published on
+# private `h2o-mail` network by the H2O app containers only, and so is HTTPS 443 (JMAP, for M3 inbound replies). The admin/bootstrap HTTP listener (8080) is published on
 # the host loopback only and reached through an SSH tunnel; it is never public. 443/465/143/110/995/4190 are not
-# published at all.
+# published at all (443 is reachable on `h2o-mail` only, never on the host).
 services:
   stalwart:
     image: ${STALWART_IMAGE:?pin stalwartlabs/stalwart by digest}
@@ -21,6 +21,7 @@ services:
     expose:
       - "587"
       - "993"
+      - "443"
     volumes:
       - stalwart-etc:/etc/stalwart
       - ${STALWART_DATA_DIR:?size-capped host path}:/var/lib/stalwart

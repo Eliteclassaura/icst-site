@@ -4,7 +4,7 @@ import { getPayload } from 'payload'
 import { releaseReadiness } from '../../../../content/release'
 import { pendingEvents } from '../../../../content/events'
 import { rfqConfigState } from '../../../../content/rfq-config'
-import { emailConfigState } from '../../../../email/config'
+import { emailConfigState, readInboundConfig } from '../../../../email/config'
 
 /**
  * Readiness (separate from liveness at /api/live). R1B (Control Tower F6): in payload content mode the
@@ -52,7 +52,11 @@ export async function GET() {
   // CRM email M1: `off` is a ready state; a requested mode that cannot be honoured (missing sender,
   // credentials, TLS name, empty allowlist…) is not — it would silently send nothing.
   checks.email = emailConfigState()
-  const ready = ['database', 'release', 'rfq'].every((k) => !(k in checks) || checks[k] === 'ok') && checks.email !== 'fail'
+  // CRM email M3: inbound replies are optional (off is ready); requested but misconfigured is not.
+  const inbound = readInboundConfig()
+  checks.emailInbound = inbound.errors.length > 0 ? 'fail' : inbound.enabled ? 'ok' : 'off'
+  const ready =
+    ['database', 'release', 'rfq'].every((k) => !(k in checks) || checks[k] === 'ok') && checks.email !== 'fail' && checks.emailInbound !== 'fail'
   return Response.json(
     { status: ready ? 'ready' : 'not-ready', checks, ...(process.env.H2O_CONTENT_SOURCE === 'payload' ? { publication } : {}) },
     { status: ready ? 200 : 503, headers: { 'Cache-Control': 'no-store' } },

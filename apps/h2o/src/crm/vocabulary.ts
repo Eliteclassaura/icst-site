@@ -366,6 +366,8 @@ export const ACTIVITY_TYPE = [
   'EMAIL_NOTIFICATION',
   // CRM email M2: a person wrote to the customer from the CRM (queued, sent, failed or not sent).
   'EMAIL_REPLY',
+  // CRM email M3: the customer's email came back on the RFQ's reply token.
+  'EMAIL_RECEIVED',
 ] as const
 export type ActivityType = (typeof ACTIVITY_TYPE)[number]
 /** Only these may be entered by a person. The rest are written by the system when the thing happens. */
@@ -467,7 +469,27 @@ export type EmailEvent = (typeof EMAIL_EVENT)[number]
 
 /** CRM email M2/M3 — the RFQ conversation (collections/email-messages.ts). */
 export const EMAIL_DIRECTION = ['OUTBOUND', 'INBOUND'] as const
-/** Outbound: QUEUED → SENT | FAILED; NOT_SENT when the gate or suppression stopped it before sending. */
-export const EMAIL_MESSAGE_STATUS = ['QUEUED', 'SENT', 'FAILED', 'NOT_SENT'] as const
+/**
+ * Outbound: QUEUED → SENT | FAILED; NOT_SENT when the gate or suppression stopped it before sending.
+ * Inbound (M3): RECEIVED.
+ */
+export const EMAIL_MESSAGE_STATUS = ['QUEUED', 'SENT', 'FAILED', 'NOT_SENT', 'RECEIVED'] as const
 export type EmailMessageStatus = (typeof EMAIL_MESSAGE_STATUS)[number]
 
+/**
+ * CRM email M3 — why an inbound message was not linked to an RFQ automatically. Nothing is ever linked by
+ * display name, subject or sender: only a live reply token links; everything else waits for an admin.
+ */
+export const EMAIL_REVIEW_REASON = [
+  'NO_TOKEN',
+  'UNKNOWN_TOKEN',
+  'EXPIRED_TOKEN',
+  'MULTIPLE_TOKENS',
+  'AUTO_SUBMITTED',
+  'BULK',
+  'SPAM',
+  'OWN_ADDRESS',
+  'PROCESSING_FAILED',
+] as const
+export type EmailReviewReason = (typeof EMAIL_REVIEW_REASON)[number]
+export const EMAIL_REVIEW_STATE = ['OPEN', 'LINKED', 'DISCARDED'] as const

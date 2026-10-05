@@ -2,6 +2,7 @@
 
 import { refresh } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { discardReviewItem, linkReviewItem } from '../../../crm/inbound'
 import { composeReply } from '../../../crm/reply'
 import { createManualInquiry } from '../../../crm/workspace/manualInquiry'
 import * as m from '../../../crm/workspace/mutations'
@@ -119,6 +120,14 @@ export async function resolveReviewAction(_: ActionState, fd: FormData) {
 export async function replyAction(_: ActionState, fd: FormData) {
   const attachments = [...fd.values()].filter((v) => typeof v !== 'string').length
   return run(fd, (s) => composeReply(s, { rfqId: f(fd, 'rfqId'), subject: f(fd, 'subject'), body: f(fd, 'body'), token: f(fd, 'token'), attachments }))
+}
+
+/** CRM email M3: admins resolve inbound email that was not linked automatically (the layer re-checks admin). */
+export async function linkReviewAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) => linkReviewItem(s, { reviewId: f(fd, 'reviewId'), rfqNumber: f(fd, 'rfqNumber') }))
+}
+export async function discardReviewAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) => discardReviewItem(s, { reviewId: f(fd, 'reviewId') }))
 }
 
 /** Manual New Inquiry: on success, go to the created RFQ (redirect must run outside try/catch). */

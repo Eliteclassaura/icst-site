@@ -7,6 +7,7 @@ import * as migration_20260930_145341_content_bridge_r1b from './20260930_145341
 import * as migration_20261002_231259_crm_golive_catalog_index from './20261002_231259_crm_golive_catalog_index'
 import * as migration_20261004_214231_crm_email_m1 from './20261004_214231_crm_email_m1'
 import * as migration_20261005_002510_crm_email_m2 from './20261005_002510_crm_email_m2'
+import * as migration_20261005_003218_crm_email_m3 from './20261005_003218_crm_email_m3'
 
 export const migrations = [
   {
@@ -53,5 +54,10 @@ export const migrations = [
     up: migration_20261005_002510_crm_email_m2.up,
     down: migration_20261005_002510_crm_email_m2.down,
     name: '20261005_002510_crm_email_m2',
+  },
+  {
+    up: migration_20261005_003218_crm_email_m3.up,
+    down: migration_20261005_003218_crm_email_m3.down,
+    name: '20261005_003218_crm_email_m3',
   },
 ]

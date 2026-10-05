@@ -39,3 +39,28 @@ export function ReplyComposer({
     </ActionForm>
   )
 }
+
+/** CRM email M3 — admin actions on one review-queue item. */
+export function ReviewActions({ reviewId }: { reviewId: string }) {
+  return (
+    <div className="c-actions">
+      <ActionForm
+        action={A.linkReviewAction}
+        hidden={{ reviewId }}
+        submitLabel="Link to RFQ"
+        submitClassName="c-btn"
+      >
+        <Field name="rfqNumber" label="RFQ number">
+          {(a) => <input className="c-input" {...a} placeholder="RFQ-…" maxLength={48} autoComplete="off" />}
+        </Field>
+      </ActionForm>
+      <ActionForm
+        inline
+        action={A.discardReviewAction}
+        hidden={{ reviewId }}
+        submitLabel="Discard"
+        submitClassName="c-btn is-ghost"
+      />
+    </div>
+  )
+}

@@ -101,6 +101,7 @@ export interface Config {
     'crm-email-events': CrmEmailEvent;
     'crm-email-messages': CrmEmailMessage;
     'crm-reply-tokens': CrmReplyToken;
+    'crm-email-review': CrmEmailReview;
     'public-routes': PublicRoute;
     'public-redirects': PublicRedirect;
     'payload-kv': PayloadKv;
@@ -177,6 +178,7 @@ export interface Config {
     'crm-email-events': CrmEmailEventsSelect<false> | CrmEmailEventsSelect<true>;
     'crm-email-messages': CrmEmailMessagesSelect<false> | CrmEmailMessagesSelect<true>;
     'crm-reply-tokens': CrmReplyTokensSelect<false> | CrmReplyTokensSelect<true>;
+    'crm-email-review': CrmEmailReviewSelect<false> | CrmEmailReviewSelect<true>;
     'public-routes': PublicRoutesSelect<false> | PublicRoutesSelect<true>;
     'public-redirects': PublicRedirectsSelect<false> | PublicRedirectsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -2602,7 +2604,8 @@ export interface CrmActivity {
     | 'SUPPRESSION_CLEARED'
     | 'IDENTITY_REVIEW_OPENED'
     | 'EMAIL_NOTIFICATION'
-    | 'EMAIL_REPLY';
+    | 'EMAIL_REPLY'
+    | 'EMAIL_RECEIVED';
   /**
    * Short, factual, no personal data.
    */
@@ -3151,7 +3154,7 @@ export interface CrmEmailMessage {
   canonical_id: string;
   direction: 'OUTBOUND' | 'INBOUND';
   rfq: string | CrmRfq;
-  status: 'QUEUED' | 'SENT' | 'FAILED' | 'NOT_SENT';
+  status: 'QUEUED' | 'SENT' | 'FAILED' | 'NOT_SENT' | 'RECEIVED';
   /**
    * Why it was not sent, or the failure code.
    */
@@ -3169,6 +3172,17 @@ export interface CrmEmailMessage {
   idempotency_key?: string | null;
   occurred_at: string;
   sent_at?: string | null;
+  from_name?: string | null;
+  source_ref?: string | null;
+  attachments_withheld?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3224,6 +3238,63 @@ export interface CrmReplyToken {
   last_used_at?: string | null;
   expires_at: string;
   revoked_at?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Inbound email that was not linked automatically. Link it to an RFQ or discard it in the Sales Workspace.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-review".
+ */
+export interface CrmEmailReview {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  reason:
+    | 'NO_TOKEN'
+    | 'UNKNOWN_TOKEN'
+    | 'EXPIRED_TOKEN'
+    | 'MULTIPLE_TOKENS'
+    | 'AUTO_SUBMITTED'
+    | 'BULK'
+    | 'SPAM'
+    | 'OWN_ADDRESS'
+    | 'PROCESSING_FAILED';
+  state: 'OPEN' | 'LINKED' | 'DISCARDED';
+  /**
+   * Mailbox message id.
+   */
+  source_ref: string;
+  from_address?: string | null;
+  from_name?: string | null;
+  to_addresses?: string | null;
+  subject?: string | null;
+  body_text?: string | null;
+  message_id?: string | null;
+  in_reply_to?: string | null;
+  references?: string | null;
+  received_at: string;
+  /**
+   * Name, type and size only; content not stored.
+   */
+  attachments_withheld?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * The RFQ an expired token pointed at, or the one an admin linked.
+   */
+  rfq?: (string | null) | CrmRfq;
+  resolved_by?: (string | null) | User;
+  resolved_at?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3495,6 +3566,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'crm-reply-tokens';
         value: string | CrmReplyToken;
+      } | null)
+    | ({
+        relationTo: 'crm-email-review';
+        value: string | CrmEmailReview;
       } | null)
     | ({
         relationTo: 'public-routes';
@@ -5031,6 +5106,9 @@ export interface CrmEmailMessagesSelect<T extends boolean = true> {
   idempotency_key?: T;
   occurred_at?: T;
   sent_at?: T;
+  from_name?: T;
+  source_ref?: T;
+  attachments_withheld?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5046,6 +5124,31 @@ export interface CrmReplyTokensSelect<T extends boolean = true> {
   last_used_at?: T;
   expires_at?: T;
   revoked_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-review_select".
+ */
+export interface CrmEmailReviewSelect<T extends boolean = true> {
+  canonical_id?: T;
+  reason?: T;
+  state?: T;
+  source_ref?: T;
+  from_address?: T;
+  from_name?: T;
+  to_addresses?: T;
+  subject?: T;
+  body_text?: T;
+  message_id?: T;
+  in_reply_to?: T;
+  references?: T;
+  received_at?: T;
+  attachments_withheld?: T;
+  rfq?: T;
+  resolved_by?: T;
+  resolved_at?: T;
   updatedAt?: T;
   createdAt?: T;
 }
