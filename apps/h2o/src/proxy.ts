@@ -31,6 +31,7 @@
  * that happen to agree while nothing is publication-ready.
  */
 import { NextResponse, type NextRequest } from 'next/server'
+import { redirectLocation } from './redirect-location'
 import { scriptHashesFor } from './site/csp-hashes'
 import { xRobotsTagForPath } from './site/robots'
 import { mergeTypeformCsp } from './conversion/csp'
@@ -216,11 +217,7 @@ function payloadPublic(req: NextRequest): NextResponse {
     return new NextResponse('Gone', { status: 410, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'no-cache' } })
   const ledger = publishedLedger()
   const redirect = ledger?.redirects.find((r) => pathKeyOf(r.source) === pathKeyOf(pathname))
-  if (redirect) {
-    const target = req.nextUrl.clone()
-    target.pathname = redirect.destination
-    return NextResponse.redirect(target, redirect.status === 301 ? 301 : 308)
-  }
+  if (redirect) return NextResponse.redirect(redirectLocation(redirect.destination, req), redirect.status === 301 ? 301 : 308)
   const nonce = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('base64')
   const csp = payloadPublicPolicy(nonce, pathname)
   const requestHeaders = new Headers(req.headers)
@@ -232,9 +229,7 @@ function payloadPublic(req: NextRequest): NextResponse {
   const published = !preview && production && row?.state === 'PUBLIC'
   const robots = published && NOINDEX_FOLLOW_PATHS.has(row.path) ? 'noindex, follow' : published && row.indexable ? null : 'noindex, nofollow'
   if (pathname === '/' && req.nextUrl.searchParams.has('s')) {
-    const target = req.nextUrl.clone()
-    target.pathname = '/search/'
-    target.search = ''
+    const target = new URL('/search/', req.nextUrl.origin)
     target.searchParams.set('q', req.nextUrl.searchParams.get('s') ?? '')
     return securityHeaders(NextResponse.redirect(target, 307), csp, robots)
   }
@@ -255,9 +250,7 @@ export function proxy(req: NextRequest): NextResponse {
   const robots = xRobotsTagForPath(req.nextUrl.pathname)
 
   if (req.nextUrl.pathname === '/' && req.nextUrl.searchParams.has('s')) {
-    const target = req.nextUrl.clone()
-    target.pathname = '/search/'
-    target.search = ''
+    const target = new URL('/search/', req.nextUrl.origin)
     target.searchParams.set('q', req.nextUrl.searchParams.get('s') ?? '')
     return securityHeaders(NextResponse.redirect(target, 307), policy, robots)
   }
