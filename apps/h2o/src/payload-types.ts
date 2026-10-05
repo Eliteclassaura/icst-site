@@ -1353,6 +1353,115 @@ export interface PublicRoute {
           }
       )[]
     | null;
+  /**
+   * Sections restored from the live site. Each is placed at its anchor (a heading on this page, or a template slot); an anchor that does not exist cannot be saved.
+   */
+  restoredSections?:
+    | {
+        mode: 'after-section' | 'before-heading' | 'replace-body' | 'template-slot';
+        /**
+         * The exact heading text on this page, or the slot name (intro, description, body-end).
+         */
+        anchor: string;
+        /**
+         * Where the text was restored from (live URL and evidence).
+         */
+        source?: string | null;
+        blocks: (
+          | {
+              text: string;
+              level: '2' | '3' | '4';
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'restoredHeading';
+            }
+          | {
+              content: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              };
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'restoredParagraph';
+            }
+          | {
+              ordered?: boolean | null;
+              items: {
+                content: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: any;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                };
+                id?: string | null;
+              }[];
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'restoredList';
+            }
+          | {
+              header?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              rows: {
+                cells: {
+                  text?: string | null;
+                  id?: string | null;
+                }[];
+                id?: string | null;
+              }[];
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'restoredTable';
+            }
+          | {
+              items: {
+                question: string;
+                answer: string;
+                id?: string | null;
+              }[];
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'restoredFaq';
+            }
+          | {
+              image: string | Media;
+              alt: string;
+              caption?: string | null;
+              imageUrl?: string | null;
+              imageWidth?: number | null;
+              imageHeight?: number | null;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'restoredImage';
+            }
+        )[];
+        id?: string | null;
+      }[]
+    | null;
   seo?: {
     /**
      * Browser/search title. Empty keeps the accepted source title.
@@ -5242,6 +5351,94 @@ export interface PublicRoutesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+      };
+  restoredSections?:
+    | T
+    | {
+        mode?: T;
+        anchor?: T;
+        source?: T;
+        blocks?:
+          | T
+          | {
+              restoredHeading?:
+                | T
+                | {
+                    text?: T;
+                    level?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+              restoredParagraph?:
+                | T
+                | {
+                    content?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+              restoredList?:
+                | T
+                | {
+                    ordered?: T;
+                    items?:
+                      | T
+                      | {
+                          content?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              restoredTable?:
+                | T
+                | {
+                    header?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    rows?:
+                      | T
+                      | {
+                          cells?:
+                            | T
+                            | {
+                                text?: T;
+                                id?: T;
+                              };
+                          id?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              restoredFaq?:
+                | T
+                | {
+                    items?:
+                      | T
+                      | {
+                          question?: T;
+                          answer?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              restoredImage?:
+                | T
+                | {
+                    image?: T;
+                    alt?: T;
+                    caption?: T;
+                    imageUrl?: T;
+                    imageWidth?: T;
+                    imageHeight?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+            };
+        id?: T;
       };
   seo?:
     | T

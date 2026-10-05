@@ -1,13 +1,14 @@
-import * as migration_20260912_202131 from './20260912_202131'
-import * as migration_20260913_012440 from './20260913_012440'
-import * as migration_20260914_133257_delete_provenance_fk_restrict from './20260914_133257_delete_provenance_fk_restrict'
-import * as migration_20260925_011109_crm1_foundation from './20260925_011109_crm1_foundation'
-import * as migration_20260929_181813_content_bridge_r1 from './20260929_181813_content_bridge_r1'
-import * as migration_20260930_145341_content_bridge_r1b from './20260930_145341_content_bridge_r1b'
-import * as migration_20261002_231259_crm_golive_catalog_index from './20261002_231259_crm_golive_catalog_index'
-import * as migration_20261004_214231_crm_email_m1 from './20261004_214231_crm_email_m1'
-import * as migration_20261005_002510_crm_email_m2 from './20261005_002510_crm_email_m2'
-import * as migration_20261005_003218_crm_email_m3 from './20261005_003218_crm_email_m3'
+import * as migration_20260912_202131 from './20260912_202131';
+import * as migration_20260913_012440 from './20260913_012440';
+import * as migration_20260914_133257_delete_provenance_fk_restrict from './20260914_133257_delete_provenance_fk_restrict';
+import * as migration_20260925_011109_crm1_foundation from './20260925_011109_crm1_foundation';
+import * as migration_20260929_181813_content_bridge_r1 from './20260929_181813_content_bridge_r1';
+import * as migration_20260930_145341_content_bridge_r1b from './20260930_145341_content_bridge_r1b';
+import * as migration_20261002_231259_crm_golive_catalog_index from './20261002_231259_crm_golive_catalog_index';
+import * as migration_20261004_214231_crm_email_m1 from './20261004_214231_crm_email_m1';
+import * as migration_20261005_002510_crm_email_m2 from './20261005_002510_crm_email_m2';
+import * as migration_20261005_003218_crm_email_m3 from './20261005_003218_crm_email_m3';
+import * as migration_20261005_164215_restored_sections from './20261005_164215_restored_sections';
 
 export const migrations = [
   {
@@ -60,4 +61,9 @@ export const migrations = [
     down: migration_20261005_003218_crm_email_m3.down,
     name: '20261005_003218_crm_email_m3',
   },
-]
+  {
+    up: migration_20261005_164215_restored_sections.up,
+    down: migration_20261005_164215_restored_sections.down,
+    name: '20261005_164215_restored_sections'
+  },
+];
