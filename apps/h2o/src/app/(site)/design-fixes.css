@@ -118,3 +118,12 @@
     min-inline-size: 0;
   }
 }
+
+/* R1.1 (CT 2026-10-05) — over-long hero headlines on disaster recovery and air coolers: a wider measure, a smaller
+ * clamped size and balanced lines (wording unchanged). The size and measure arrive as inline styles on the source node. */
+.luxury-site:is(.luxury-1534, .luxury-1668) h1.lux-display-1[style] {
+  max-inline-size: 18ch !important;
+  font-size: clamp(36px, 4.4vw, 64px) !important;
+  line-height: 1.04 !important;
+  text-wrap: balance;
+}

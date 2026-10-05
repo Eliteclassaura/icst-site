@@ -14,7 +14,9 @@ import type {Block,MediaRef,SalmonFamilyPageModel} from './salmon-family-model'
  */
 type Registry={projects:Record<string,{media:MediaRef&{sha256:string;width:number;height:number};year:string|null}>;
   /** Projects with no verified own photo whose held photos are unsafe as project evidence: shown without a photo. */
-  withheld?:Record<string,{reason:string;withheldSha256:string[]}>}
+  withheld?:Record<string,{reason:string;withheldSha256:string[]}>;
+  /** The listing hero: a held image (`replaces`, by SHA-256) shown instead as a project's own verified photo. */
+  portfolioHero?:{replaces:string;project:string;reason:string}}
 let cache:Registry|undefined
 export const projectMediaRegistry=():Registry=>cache??=JSON.parse(readFileSync(path.join(process.cwd(),'content/projects/project-media.json'),'utf8')) as Registry
 
@@ -32,6 +34,13 @@ const media=(entry:Registry['projects'][string]):MediaRef=>({src:entry.media.src
 export function applyProjectMedia(model:SalmonFamilyPageModel,recordYear:(projectPath:string)=>string|undefined=()=>undefined):SalmonFamilyPageModel{
   const registry=projectMediaRegistry().projects
   const withheld=projectMediaRegistry().withheld??{}
+  const hero=projectMediaRegistry().portfolioHero
+  if(model.family==='project-portfolio'&&hero&&registry[hero.project]){
+    const own=registry[hero.project]!
+    for(const section of model.sections)walk(section.root,block=>{
+      if(block.type==='container'&&block.background?.media.sha256===hero.replaces)block.background={...block.background,media:media(own)}
+    })
+  }
   if(model.family==='project-portfolio'){
     for(const section of model.sections)walk(section.root,block=>{
       if(block.type!=='container'||!block.background)return

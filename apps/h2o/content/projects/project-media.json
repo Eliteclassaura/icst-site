@@ -378,5 +378,10 @@
     "aa6edfe6c9fb42e5b87a59345a747d735c3eb6f1c5a6e2fee50713d9e7f294d9"
    ]
   }
+ },
+ "portfolioHero": {
+  "replaces": "aa6edfe6c9fb42e5b87a59345a747d735c3eb6f1c5a6e2fee50713d9e7f294d9",
+  "project": "/all-projects/mak-ban-6/",
+  "reason": "CT ruling 2026-10-05 (Design Fixes R1.1): the /all-projects/ hero showed an AI-enhanced copy of the Palinpinon project photo; replaced by a verified own original at least 1440 px wide (Mak Ban 6: original 2984x2511, delivery 1600x1346)."
  }
 }

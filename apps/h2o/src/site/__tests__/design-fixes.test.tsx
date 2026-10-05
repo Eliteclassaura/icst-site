@@ -105,3 +105,23 @@ describe('A2–A6 stylesheet',()=>{
     expect(css).toMatch(/\.technical-table table:not\(:has\(:is\(td, th\):nth-child\(3\)\)\) \{[^}]*min-inline-size: 0/)
   })
 })
+
+describe('R1.1 (CT 2026-10-05)',()=>{
+  it('the /all-projects/ hero is a project’s own verified photo, not the AI-enhanced Palinpinon copy',async()=>{
+    const hero=projectMediaRegistry().portfolioHero!
+    const html=await render('/all-projects/')
+    expect(html).not.toContain(hero.replaces)
+    const own=projectMediaRegistry().projects[hero.project]!
+    expect(html).toContain(`class="sp-photo-img" src="${own.media.src}"`)
+    expect((own as unknown as {original:{width:number}}).original.width).toBeGreaterThanOrEqual(1440)
+  })
+  it('English service pages number their sections once each, in order',()=>{
+    const src=readFileSync(path.join(APP,'src/site/EnglishServices.tsx'),'utf8')
+    const numbers=[...src.matchAll(/english-service-index">(\d\d) \//g)].map(m=>Number(m[1]))
+    expect(numbers).toEqual(numbers.map((_,i)=>i+1))
+  })
+  it('the long hero headlines get a wider measure and a clamped size (wording unchanged)',()=>{
+    const css=readFileSync(path.join(APP,'src/app/(site)/design-fixes.css'),'utf8')
+    expect(css).toMatch(/\.luxury-site:is\(\.luxury-1534, \.luxury-1668\) h1\.lux-display-1\[style\] \{[^}]*font-size: clamp\(36px, 4\.4vw, 64px\) !important;[^}]*text-wrap: balance/)
+  })
+})
