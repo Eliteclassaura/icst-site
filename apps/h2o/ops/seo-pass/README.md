@@ -48,6 +48,43 @@ node ops/seo-pass/check-redirect-chains.mjs <staging-origin>
 - **frameworkSlashHopAccepted:** 1, the malformed tcf.com URL (308 → 301 → 200, CT ruling 3). A framework hop on any other source fails.
 - **Metas pending OGCS:** 0 after the R1.2 supplement.
 
+## Part 3: production sitemap, sitemap-parity rulings and slot hygiene (CT 2026-10-05)
+
+One delta on the state Part 2 R3 (+ R3.1) leaves on staging (`--baseline=<R3 data>`); nothing R3 wrote is written again.
+
+**Batch** (`--ct-decisions=<H2O_CT_SITEMAP_PARITY_DECISIONS.tsv>`: CT rulings on the 18 Yoast URLs outside OGCS's decisions):
+- **410:** `/evercompare/`, `/gh/`, `/draft-page/`, `/locations.kml` (code: `GONE_PATHS` and `data/gone.tsv`).
+- **Publish:** `/cooling-tower-daily-log/` at its live path, live title minus the legacy WordPress suffix, live meta, live H1
+  (content check PASS in `data/content-check.json`; its imported elements pass the strict validator).
+- **13 redirects:** translated posts outside the Part A universe, one hop to the Part A target of the same post (its preserved
+  locale page, else the English counterpart). Two of them point at the current final page of a preserved locale page that is
+  still LOCALE_PENDING; `data/locale-b-repoint.tsv` records them so that Locale Part B repoints them, still one hop.
+- **Hygiene (apply phase 6):** the 41 records in `data/slot-fixes.json` that no write has carried yet get their fixed
+  elements on their own: slots only, publication status unchanged, read back.
+
+**Expectations:** `data/expectations.json` (Case A: R3 ran with R3.1) and `data/expectations.case-b.json` (Case B: R3 ran
+without it; the one canonical its SEO write put back is re-applied). `apply-seo-pass.mjs --expectations=<file>` selects it;
+Control Tower names the case.
+
+| Phase | Case A | Case B |
+|---|---|---|
+| redirects | create 13, unchanged 474 | same |
+| routes | publish 1 | publish 1, canonical 1 |
+| seoFields | update 1 | same |
+| hygiene | routes 41 | same |
+| h1, restored, slotFixes, withdraw, retire, blocked | 0 | 0 |
+
+**Sitemap** (code: `src/content/sitemap.ts`, `sitemap-response.ts`, the `public-sitemap` and `sitemap-preview` routes):
+- Index at `/sitemap_index.xml` and `/sitemap.xml`; Yoast-named children; `sitemap-ja|th|id|vi.xml` with hreflang alternates from
+  OGCS Part A (`content/locale/sitemap-locale.json`, built by `ops/sitemap/build-locale-data.mjs`), emitted only between listed
+  members; `lastmod` from the document's `updatedAt`; no `/page/N/` paths. Private policy: empty index, children 404.
+- `/api/sitemap-preview/?file=<name>`: what the production policy publishes, for content admins only (anyone else: 404).
+- **Parity:** `pnpm exec tsx ops/sitemap/parity.ts --yoast=<snapshot.tsv> --part-a=<PART_A.tsv> --out=<dir> [--origin=<url>]`
+  reconciles every Yoast URL (IN_SITEMAP, REDIRECT_TO_SITEMAP, GONE_410, NOINDEX, LOCALE_PENDING) and checks every listed URL
+  serves 200, self-canonical and indexable; exit 0 only with 0 UNACCOUNTED.
+
+**Conformance** now also checks that every 200 HTML page serves exactly one canonical, equal to the release authority's.
+
 ## Part 2 R3: one delta on the preserved partial R1 state (CT 2026-10-05)
 
 Commander's R1 round applied part of the batch and stopped (H2O_SLIM_SEO_M1_R1_HOLD_SEO_PAYLOAD_CONTENT_VALIDATION):

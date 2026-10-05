@@ -152,15 +152,18 @@ describe('CSP for the Payload public runtime', () => {
     writeFileSync(path.join(root, 'generations', 'g', 'ledger.json'), JSON.stringify({ routes: [{ path: '/a/', state: 'PUBLIC', sitemap: true, canonical: 'https://h2ocooling.com/a/' }, { path: '/h/', state: 'REVIEW_HOLD', sitemap: false }], redirects: [] }))
     pointAt(root, 'g')
     process.env.CONTENT_SNAPSHOT_DIR = root
-    const { sitemapResponse, robotsResponse } = await import('../../proxy')
-    expect(await sitemapResponse().text()).not.toMatch(/<loc>/)
+    const { robotsResponse } = await import('../../proxy')
+    const { sitemapEntriesFor, sitemapResponse } = await import('../../content/sitemap-response')
+    const locs = (revoked?: Set<string>) => (sitemapEntriesFor({ revoked }) ?? []).map((e) => `<loc>${e.loc}</loc>`).join('\n')
+    expect(locs()).not.toMatch(/<loc>/)
+    expect(await sitemapResponse('sitemap.xml').text()).toMatch(/<sitemapindex [^>]*>\n<\/sitemapindex>/)
     expect(await robotsResponse().text()).toMatch(/Disallow: \//)
     process.env.H2O_INDEXING_POLICY = 'production'
-    const prod = await sitemapResponse().text()
+    const prod = locs()
     expect(prod).toMatch(/<loc>https:\/\/h2ocooling\.com\/a\/<\/loc>/)
     expect(prod).not.toMatch(/\/h\//)
     // A withdrawal the release does not reflect yet is subtracted (revocation overlay).
-    expect(await sitemapResponse(new Set(['/a/'])).text()).not.toMatch(/<loc>/)
+    expect(locs(new Set(['/a/']))).not.toMatch(/<loc>/)
   })
 })
 

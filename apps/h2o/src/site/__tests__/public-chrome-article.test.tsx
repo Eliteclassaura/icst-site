@@ -16,8 +16,9 @@ describe('accepted public chrome and Technical Articles implementation',()=>{
     const directory=articleDirectoryDocuments()
     // Master SEO Pass R1: 15 articles consolidated by redirect leave the directory; the three published held articles join it.
     // SEO parity Part 2 R2: the un-consolidated /cooling-tower-vs-chiller/ (OGCS R1.2) is a public article again (237 + 1).
-    expect(directory).toHaveLength(238)
-    for(const target of ['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/'])expect(directory.some(row=>row.doc.targetPath===target),target).toBe(true)
+    // Part 3: the daily log published by the CT sitemap-parity ruling joins it (239).
+    expect(directory).toHaveLength(239)
+    for(const target of ['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/','/cooling-tower-daily-log/'])expect(directory.some(row=>row.doc.targetPath===target),target).toBe(true)
     expect(directory.some(row=>row.doc.targetPath==='/power-plant-cooling-tower/')).toBe(false)
     // The four articles that were noindex only for a cross canonical are self-canonical and indexable (Master SEO Pass R1).
     expect(directory.filter(row=>!row.indexable)).toHaveLength(0)
@@ -52,7 +53,8 @@ describe('accepted public chrome and Technical Articles implementation',()=>{
       const source=JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon',row.sourceFile),'utf8')) as {title:string}
       return /&amp;|&#0*38;|&#x0*26;/i.test(source.title)
     })
-    expect(affected).toHaveLength(29)
+    // Part 3 adds the daily log ("Essential Records &amp; Daily Checklist").
+    expect(affected).toHaveLength(30)
     for(const row of affected){const source=JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon',row.sourceFile),'utf8')) as {title:string};expect(articleDisplayTitle(source.title)).not.toMatch(/&amp;|&#0*38;|&#x0*26;/i)}
     expect(renderSalmonNode('H2OCooling', 'test', doc('SALMON-posts-3221'))).toBe('H2OCooling')
   })

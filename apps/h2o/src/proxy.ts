@@ -36,6 +36,7 @@ import { xRobotsTagForPath } from './site/robots'
 import { mergeTypeformCsp } from './conversion/csp'
 import { GONE_PATHS, NOINDEX_FOLLOW_PATHS } from './content/config'
 import { isPayloadContent, snapshotJson } from './content/runtime-read'
+import { SITEMAP_FILE } from './content/sitemap'
 
 const EXCLUDED = /^\/(api|admin|_next|favicon\.ico|robots\.txt|sitemap[^/]*\.xml|brand)(\/|$)/
 
@@ -172,7 +173,7 @@ export const payloadPublicPolicy = (nonce: string, pathname: string): string => 
   return merged.ok ? merged.policy : base
 }
 
-type Ledger = { routes: Array<{ path: string; indexable?: boolean; state: string; sitemap?: boolean; canonical?: string | null }>; redirects: Array<{ source: string; destination: string; status: number }> }
+type Ledger = { routes: Array<{ path: string; indexable?: boolean; state: string }>; redirects: Array<{ source: string; destination: string; status: number }> }
 const pathKeyOf = (p: string) => {
   try {
     return decodeURIComponent(p)
@@ -188,33 +189,26 @@ function publishedLedger(): Ledger | null {
   }
 }
 
-const xmlEscape = (v: string) => v.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;')
-/**
- * /sitemap.xml from the published ledger: only published, PUBLIC, approved-`sitemap` routes, and only under
- * the production indexing policy. Private surfaces (staging, previews) publish an empty sitemap.
- */
-export function sitemapResponse(revoked: ReadonlySet<string> = new Set()): NextResponse {
-  const ledger = publishedLedger()
-  if (!ledger) return new NextResponse('Sitemap unavailable', { status: 503, headers: { 'Cache-Control': 'no-store' } })
-  const production = process.env.H2O_INDEXING_POLICY === 'production'
-  const urls = production ? ledger.routes.filter((r) => r.state === 'PUBLIC' && r.sitemap && !revoked.has(r.path) && !NOINDEX_FOLLOW_PATHS.has(r.path)).map((r) => r.canonical || `https://h2ocooling.com${r.path}`) : []
-  const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${xmlEscape(u)}</loc></url>`).join('\n')}${urls.length ? '\n' : ''}</urlset>\n`
-  return new NextResponse(body, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'no-cache', 'X-Robots-Tag': 'noindex' } })
-}
 /** /robots.txt: private policy disallows everything; production policy is the accepted release robots. */
 export function robotsResponse(): NextResponse {
   const production = process.env.H2O_INDEXING_POLICY === 'production'
   const body = production
-    ? 'User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /api/\nDisallow: /crm/\nDisallow: /private/\nSitemap: https://h2ocooling.com/sitemap.xml\n'
+    ? 'User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /api/\nDisallow: /crm/\nDisallow: /private/\nSitemap: https://h2ocooling.com/sitemap_index.xml\n'
     : 'User-agent: *\nDisallow: /\n'
   return new NextResponse(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache' } })
 }
 
 function payloadPublic(req: NextRequest): NextResponse {
   const pathname = req.nextUrl.pathname
-  // R1B: /sitemap.xml is answered by an internal route handler (it subtracts withdrawals the release does not
-  // reflect yet, which needs the database); the proxy rewrites to it.
-  if (pathname === '/sitemap.xml') return NextResponse.rewrite(new URL('/api/public-sitemap/', req.url))
+  // R1B: the sitemap is answered by an internal route handler (it subtracts withdrawals the release does not
+  // reflect yet and reads each document's updatedAt, which needs the database); the proxy rewrites to it. The index
+  // answers at /sitemap_index.xml (the Yoast address Search Console holds) and at /sitemap.xml, with the children.
+  if (SITEMAP_FILE.test(pathname)) {
+    const target = new URL('/api/public-sitemap/', req.url)
+    target.search = ''
+    target.searchParams.set('file', pathname.slice(1))
+    return NextResponse.rewrite(target)
+  }
   if (pathname === '/robots.txt') return robotsResponse()
   if (EXCLUDED.test(pathname)) return NextResponse.next()
   if (CRM_PATH.test(pathname)) return crmResponse(req)

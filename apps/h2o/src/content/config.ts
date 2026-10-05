@@ -81,8 +81,10 @@ export function publicRobots(
 /**
  * Retired WordPress system URLs answered 410 Gone (Master SEO Pass R1, OGCS decisions; Control Tower brief 2026-10-04).
  * Matched on the path, so `/wp/wp-admin/edit.php?post_type=product` is covered by `/wp/wp-admin/edit.php`.
+ * Sitemap parity (CT ruling 2026-10-05): three WordPress junk/draft pages and the Yoast Local SEO KML file, all listed in the
+ * live Yoast sitemap, are retired too (ops/seo-pass/data/gone.tsv lists the same set).
  */
-export const GONE_PATHS: ReadonlySet<string> = new Set(['/canvas/list/', '/wp/wp-admin/edit.php'])
+export const GONE_PATHS: ReadonlySet<string> = new Set(['/canvas/list/', '/wp/wp-admin/edit.php', '/evercompare/', '/gh/', '/draft-page/', '/locations.kml'])
 
 /** Canonical public origin used in canonical URLs and the sitemap (not the serving host). */
 export const PUBLIC_ORIGIN = 'https://h2ocooling.com'

@@ -121,8 +121,8 @@ describe('public author identity',()=>{
     // The two without a byline are portfolio records (/rt-portfolios/…), which carry no article author.
     // Master SEO Pass R1: 17 consolidated pages left the served set and three held articles published (263 − 17 + 3).
     // SEO parity follow-up Part 2: the two live duplicates withdrawn into the designed Thermal and Japan pages also leave it;
-    // the un-consolidated /cooling-tower-vs-chiller/ (OGCS R1.2) joins it (249 − 2 + 1).
-    expect(Object.fromEntries(authors)).toEqual({'Tim Bozic':248,'(no byline)':2})
+    // the un-consolidated /cooling-tower-vs-chiller/ (OGCS R1.2) joins it (249 − 2 + 1). Part 3: the published daily log (+1).
+    expect(Object.fromEntries(authors)).toEqual({'Tim Bozic':249,'(no byline)':2})
   },60000)
   it('links the Tim Bozic byline to the canonical author archive',()=>{
     const article=salmonDocument(releaseRoutes().find(route=>route.targetPath==='/3-cell-counterflow-cooling-towers/')!)

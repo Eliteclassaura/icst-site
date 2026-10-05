@@ -93,14 +93,16 @@ describe('quote-intent migration by source identity (ledger)', () => {
   it('D6: "Get a Custom Quote" on /new-cooling-tower-page/ becomes quote intent', () => {
     expect(rule('D6').map((d) => [d.path, d.label])).toEqual([['/new-cooling-tower-page/', 'Get a Custom Quote']])
   })
-  // Master SEO Pass R1: the three held articles published at cutover carry the same "Get A Quote" widget (13 → 16).
-  it('contract rule: the 16 R1A-reconciled explicit quote buttons, and not the ten Main-owned Parts hero actions', () => {
+  // Master SEO Pass R1: the three held articles published at cutover carry the same "Get A Quote" widget (13 → 16); the
+  // daily log published by the CT sitemap-parity ruling (Part 3) carries it too (17).
+  it('contract rule: the 17 R1A-reconciled explicit quote buttons, and not the ten Main-owned Parts hero actions', () => {
     expect(rule('CONTRACT_QUOTE_LABEL').map((d) => `${d.routeId}|${d.elementId}|${d.label}`).sort()).toEqual([
       'SALMON-pages-1230|708f65e3|Request a New Cooling Tower Quote', 'SALMON-pages-1722|3224225|Request a Quote', 'SALMON-pages-2081|064577b|Request a Quote',
       'SALMON-pages-2106|064577b|Request a Quote', 'SALMON-pages-2106|3e00d94|Request a Quote', 'SALMON-pages-2177|3e00d94|Request a Quote',
       'SALMON-pages-2228|064577b|Request a Project Quote', 'SALMON-pages-2228|3e00d94|Request a Project Quote', 'SALMON-pages-2406|d65b755|Request a Quote',
       'SALMON-pages-4140|6f1c713|Request a Free Price Quote', 'SALMON-pages-4140|7b5fa8c|Request Your Free Quote', 'SALMON-pages-48|1e67569|Request a Quote',
       'SALMON-posts-3173|ee68c85|Get A Quote', 'SALMON-posts-3493|ee68c85|Get A Quote', 'SALMON-posts-3494|ee68c85|Get A Quote',
+      'SALMON-posts-4065|ee68c85|Get A Quote',
       'SALMON-posts-4077|ee68c85|Get A Quote',
     ].sort())
     expect(rule('MAIN_OWNED_PARTS_HERO').map((d) => d.path).sort()).toEqual([...MAIN_OWNED_PARTS_HERO_PATHS].sort())

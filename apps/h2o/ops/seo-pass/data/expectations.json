@@ -1,35 +1,38 @@
 {
-  "rows": 1003,
-  "redirects": 474,
-  "seoFields": 467,
+  "rows": 1021,
+  "redirects": 487,
+  "seoFields": 468,
   "expect": {
     "redirects": {
-      "create": 0,
-      "update": 4,
-      "unchanged": 470,
-      "retire": 1
+      "create": 13,
+      "update": 0,
+      "unchanged": 474,
+      "retire": 0
     },
     "routes": {
-      "publish": 3,
-      "withdraw": 6,
+      "publish": 1,
+      "withdraw": 0,
       "index": 0,
-      "canonical": 1
+      "canonical": 0
     },
     "seoFields": {
-      "update": 113,
-      "unchanged": 354,
+      "update": 1,
+      "unchanged": 467,
       "pendingOgcs": 0
     },
     "files": 22,
-    "gone": 2,
+    "gone": 6,
     "restored": {
-      "update": 19
+      "update": 0
     },
     "h1": {
-      "update": 8
+      "update": 0
     },
     "slotFixes": {
-      "routes": 47
+      "routes": 0
+    },
+    "hygiene": {
+      "routes": 41
     }
   },
   "deltaSkipped": [
@@ -39,6 +42,6 @@
       "reason": "decision is a withdrawn duplicate (CT reversal)"
     }
   ],
-  "retired": 1,
+  "retired": 0,
   "problems": []
 }

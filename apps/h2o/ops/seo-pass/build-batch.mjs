@@ -50,7 +50,7 @@ import path from 'node:path'
 const flags=process.argv.slice(2).filter(a=>a.startsWith('--')),positional=process.argv.slice(2).filter(a=>!a.startsWith('--'))
 const [decisionsFile,metasFile,contentFile,probeFile,supplementFile]=positional
 const flag=name=>flags.find(f=>f.startsWith(`--${name}=`))?.slice(name.length+3)
-const baselineDir=flag('baseline'),titleDeltaFile=flag('title-delta'),dupResolutionFile=flag('dup-resolution'),contentDecisionsFile=flag('content-decisions'),restoredFile=flag('restored'),metaRewritesFile=flag('meta-rewrites')
+const baselineDir=flag('baseline'),titleDeltaFile=flag('title-delta'),dupResolutionFile=flag('dup-resolution'),contentDecisionsFile=flag('content-decisions'),restoredFile=flag('restored'),metaRewritesFile=flag('meta-rewrites'),ctDecisionsFile=flag('ct-decisions')
 if(!probeFile){process.stderr.write('usage: build-batch.mjs <decisions.tsv> <missing-metas.tsv> <content-check.json> <staging-probe.json> [supplement.tsv] [--baseline=<dir>]\n');process.exit(2)}
 const APP=path.resolve(path.dirname(new URL(import.meta.url).pathname),'..','..')
 const OUT=path.join(APP,'ops/seo-pass/data')
@@ -83,6 +83,16 @@ const REVERSED_FOR_DESIGNED=new Map([['/thermal-upgrade/','/cooling-tower-therma
 const REVERSED_DUPLICATE=new Set([...REVERSED_FOR_DESIGNED.values()])
 const FACTUAL_CORRECTIONS=new Map([['/product/tuf-lite-ii-5000h-series-hub-fan-assemblies/',[/\b6000H\b/g,'5000H']]])
 const decisions=tsv(decisionsFile).map(d=>({...d}))
+/** --ct-decisions=<tsv> (url, state, redirect_target, final_title, final_meta, reason): Control Tower rulings on URLs the OGCS
+ * decisions do not cover (sitemap parity, CT 2026-10-05). Same meaning as an OGCS decision row; a URL OGCS already decided
+ * stops the build. */
+if(ctDecisionsFile){
+  const known=new Set(decisions.map(d=>safeDecode(pathOf(d.url))))
+  for(const row of tsv(ctDecisionsFile)){
+    if(known.has(safeDecode(pathOf(row.url))))throw new Error(`CT decision for a URL OGCS already decided: ${row.url}`)
+    decisions.push({gsc_clicks:'',canonical:'',fallback_if_not_published:'',...row,reason:`CT ruling 2026-10-05: ${row.reason}`})
+  }
+}
 /** Restored sections (data/restored-sections.json, written by build-restored.mjs): path → { routeId, h1?, groups }. */
 const restored=restoredFile?JSON.parse(readFileSync(restoredFile,'utf8')):{}
 const replacesBody=p=>Boolean(restored[p]?.groups?.some(g=>g.mode==='replace-body'))
@@ -133,6 +143,15 @@ const baseline=baselineDir?{
   redirects:new Map(tsv(path.join(baselineDir,'redirects.tsv')).map(r=>[safeDecode(r.source),r])),
   seo:new Map(tsv(path.join(baselineDir,'seo-fields.tsv')).map(r=>[safeDecode(r.path),{title:r.title,meta:r.meta_origin.includes('PENDING_OGCS')?r.meta_now:r.meta}])),
   dispositions:new Set(tsv(path.join(baselineDir,'route-dispositions.tsv')).map(r=>`${r.action} ${safeDecode(r.path)} ${r.redirect??''}${r.canonical??''}`)),
+  h1:new Set(existsSync(path.join(baselineDir,'h1-fields.tsv'))?tsv(path.join(baselineDir,'h1-fields.tsv')).filter(r=>r.action==='UPDATE').map(r=>`${safeDecode(r.path)} ${r.via} ${r.h1}`):[]),
+  restored:existsSync(path.join(baselineDir,'restored-sections.json'))?JSON.parse(readFileSync(path.join(baselineDir,'restored-sections.json'),'utf8')):{},
+  /** Every route the applied batch wrote (its slot fixes travelled with those writes). */
+  written:new Set([
+    ...tsv(path.join(baselineDir,'route-dispositions.tsv')).map(r=>r.path),
+    ...tsv(path.join(baselineDir,'seo-fields.tsv')).filter(r=>r.action==='UPDATE').map(r=>r.path),
+    ...(existsSync(path.join(baselineDir,'h1-fields.tsv'))?tsv(path.join(baselineDir,'h1-fields.tsv')).filter(r=>r.action==='UPDATE').map(r=>r.path):[]),
+    ...(existsSync(path.join(baselineDir,'restored-sections.tsv'))?tsv(path.join(baselineDir,'restored-sections.tsv')).map(r=>r.path):[]),
+  ].map(safeDecode)),
 }:null
 const dispositionKey=d=>`${d.action} ${safeDecode(d.path)} ${d.redirect??''}${d.canonical??''}`
 const applied=d=>Boolean(baseline?.dispositions.has(dispositionKey(d)))
@@ -314,7 +333,7 @@ if(contentDecisionsFile){
     const doc=JSON.parse(readFileSync(path.join(APP,'content/salmon',route.sourceFile),'utf8'))
     const now=firstH1(doc.children)
     if(now===undefined){problems.push(`h1 decision but no h1 node ${route.path}`);continue}
-    h1Rows.push({path:route.path,routeId:route.routeId,via:'slot',h1:decided,h1_now:now,action:decided===now?'UNCHANGED':'UPDATE'})
+    h1Rows.push({path:route.path,routeId:route.routeId,via:'slot',h1:decided,h1_now:now,action:decided===now||baseline?.h1.has(`${safeDecode(route.path)} slot ${decided}`)?'UNCHANGED':'UPDATE'})
   }
 }
 // A restored live body brings its live H1: article templates render the record title as the page heading.
@@ -324,11 +343,13 @@ for(const [p,page] of Object.entries(restored)){
   if(!route){problems.push(`restored page without a route ${p}`);continue}
   const doc=JSON.parse(readFileSync(path.join(APP,'content/salmon',route.sourceFile),'utf8'))
   const now=String((doc.seo?.h1??[])[0]??doc.title??'')
-  h1Rows.push({path:route.path,routeId:route.routeId,via:'title',h1:page.h1,h1_now:now,action:page.h1===now?'UNCHANGED':'UPDATE'})
+  h1Rows.push({path:route.path,routeId:route.routeId,via:'title',h1:page.h1,h1_now:now,action:page.h1===now||baseline?.h1.has(`${safeDecode(route.path)} title ${page.h1}`)?'UNCHANGED':'UPDATE'})
 }
 // Restored sections: one write per page (the whole restoredSections array), delta against the applied batch (none before).
 const restoredRows=Object.entries(restored).map(([p,page])=>({path:p,routeId:page.routeId,groups:page.groups.length,blocks:page.groups.reduce((n,g)=>n+g.blocks.length,0)}))
-expect.restored={update:restoredRows.length}
+// Delta: a page whose sections the applied batch already wrote, unchanged, is not written again.
+const restoredChanged=restoredRows.filter(r=>JSON.stringify(baseline?.restored?.[r.path]?.groups??null)!==JSON.stringify(restored[r.path].groups))
+expect.restored={update:restoredChanged.length}
 writeTsv('restored-sections.tsv',['path','routeId','groups','blocks'],restoredRows)
 // Content assertions for the hosted checker: every restored H2 is served on its page (and a replaced body serves the live H1).
 const contentAssertions=Object.entries(restored).flatMap(([p,page])=>[...(page.h1?[{path:p,kind:'h1',text:page.h1}]:[]),...page.groups.flatMap(g=>g.blocks.filter(b=>b.blockType==='restoredHeading'&&b.level==='2').map(b=>({path:p,kind:'h2',text:b.text})))])
@@ -344,14 +365,25 @@ writeTsv('h1-fields.tsv',['path','routeId','via','action','h1','h1_now'],h1Rows)
     ...dispositions.filter(d=>!applied(d)).map(d=>safeDecode(d.path)),
     ...seo.filter(r=>r.action==='UPDATE').map(r=>safeDecode(r.path)),
     ...h1Rows.filter(r=>r.action==='UPDATE').map(r=>safeDecode(r.path)),
-    ...restoredRows.map(r=>safeDecode(r.path)),
+    ...restoredChanged.map(r=>safeDecode(r.path)),
   ])
-  expect.slotFixes={routes:Object.keys(fixes).filter(p=>written.has(safeDecode(p))).length}
+  // A route the applied batch wrote already carries its fixes; the rest are written on their own (apply phase 6, hygiene).
+  const pending=Object.keys(fixes).filter(p=>!baseline?.written.has(safeDecode(p)))
+  expect.slotFixes={routes:pending.filter(p=>written.has(safeDecode(p))).length}
+  expect.hygiene={routes:baseline?pending.filter(p=>!written.has(safeDecode(p))).length:0}
 }
 writeTsv('redirects-retired.tsv',['source','was_destination','reason'],retired)
 const pending=seo.filter(r=>r.meta_origin.includes('PENDING_OGCS')||r.meta_origin.includes('MECHANICAL_TRIM'))
 writeTsv('ogcs-meta-requests.tsv',['path','reason','current_batch_meta','title'],pending.map(r=>({path:r.path,reason:r.meta_origin.includes('PENDING_OGCS_DUPLICATE')?'DUPLICATE_META':r.meta_origin.includes('PENDING_OGCS_LENGTH')?'TOO_LONG_AFTER_QUOTE_ONLY_REWRITE_NO_CLEAN_TRIM':'TRIMMED_AFTER_QUOTE_ONLY_REWRITE_REVIEW',current_batch_meta:r.meta,title:r.title})))
 writeFileSync(path.join(OUT,'expectations.json'),JSON.stringify({rows:conformance.length,redirects:redirects.length,seoFields:seo.length,expect,deltaSkipped,retired:retired.length,problems},null,2)+'\n')
+// Case B (CT 2026-10-05): the applied batch ran without the R3.1 fix, so a CANONICAL route it also wrote SEO fields to had its
+// canonical put back by that later write; this batch re-applies it. Same counts otherwise.
+if(baselineDir){
+  const seoWritten=new Set(tsv(path.join(baselineDir,'seo-fields.tsv')).filter(r=>r.action==='UPDATE').map(r=>safeDecode(r.path)))
+  const reverted=tsv(path.join(baselineDir,'route-dispositions.tsv')).filter(r=>r.action==='CANONICAL'&&seoWritten.has(safeDecode(r.path))).map(r=>r.path)
+  const caseB={...expect,routes:{...expect.routes,canonical:expect.routes.canonical+reverted.length}}
+  writeFileSync(path.join(OUT,'expectations.case-b.json'),JSON.stringify({rows:conformance.length,redirects:redirects.length,seoFields:seo.length,expect:caseB,caseB:{reapplied:reverted},deltaSkipped,retired:retired.length,problems},null,2)+'\n')
+}
 const overrides={
   note:'Master SEO Pass R1 (Control Tower brief 2026-10-04): release authority overrides, mirrored by the scripted Payload batch.',
   publish:dispositions.filter(d=>d.action==='PUBLISH'&&!d.republish).map(d=>d.path),

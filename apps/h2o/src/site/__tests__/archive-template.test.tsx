@@ -94,9 +94,9 @@ describe('archive edge cases (Control Tower amendments)',()=>{
     writeFileSync(path.join(root,'releases','r-g.json'),JSON.stringify({format:1,id:'r-g',content:'g',search:'s-g'}))
     symlinkSync('releases/r-g.json',path.join(root,'release.tmp'));renameSync(path.join(root,'release.tmp'),path.join(root,'release'))
     process.env.H2O_CONTENT_SOURCE='payload';process.env.CONTENT_SNAPSHOT_DIR=root;process.env.H2O_INDEXING_POLICY='production'
-    const {proxy,sitemapResponse}=await import('../../proxy')
+    const {proxy}=await import('../../proxy')
     for(const p of EMPTY_ARCHIVE_PATHS)expect(proxy(new NextRequest(`https://h2ocooling.com${p}`)).headers.get('x-robots-tag'),p).toBe('noindex, follow')
-    const sitemap=await sitemapResponse().text()
+    const sitemap=((await import('../../content/sitemap-response')).sitemapEntriesFor()??[]).map(e=>`<loc>${e.loc}</loc>`).join('\n')
     for(const p of EMPTY_ARCHIVE_PATHS)expect(sitemap,p).not.toContain(`https://h2ocooling.com${p}<`)
     expect(sitemap).toContain('<loc>https://h2ocooling.com/contact-us/</loc>')
   })

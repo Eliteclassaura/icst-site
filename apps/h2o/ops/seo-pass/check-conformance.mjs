@@ -6,7 +6,8 @@
  *
  * For each row of data/conformance.tsv (1,003 decisions = OGCS 1,005 minus the two author rows):
  *   200 html  status 200, <title> equals the decided title, exactly one meta description, equal to the decided meta
- *             (present only, for a meta pending OGCS)
+ *             (present only, for a meta pending OGCS), and exactly one canonical link equal to the release authority's
+ *             canonical for the path (content/release/route-ledger.json; R3.1, CT 2026-10-05: a reverted canonical is caught)
  *   200 file  status 200 and not an HTML page
  *   301       status 301/308, Location equals the decided target, and the target answers 200 (one hop, no chain)
  *             A decided source with no trailing slash and no file extension first receives the framework's own
@@ -28,6 +29,9 @@ const DATA=path.join(path.dirname(new URL(import.meta.url).pathname),'data')
 const [head,...lines]=readFileSync(path.join(DATA,'conformance.tsv'),'utf8').trimEnd().split('\n')
 const cols=head.split('\t'),rows=lines.map(line=>Object.fromEntries(line.split('\t').map((v,i)=>[cols[i],v])))
 const decode=v=>{try{return decodeURIComponent(v)}catch{return v}}
+const ORIGIN='https://h2ocooling.com'
+const authority=new Map(JSON.parse(readFileSync(path.join(DATA,'..','..','..','content/release/route-ledger.json'),'utf8')).routes.map(r=>[decode(r.path),r.canonical||ORIGIN+r.path]))
+const urlKey=u=>{try{const x=new URL(u);return x.origin+decode(x.pathname)}catch{return u}}
 /** Framework trailing-slash hops Control Tower accepted (ruling 3, 2026-10-04). */
 const ACCEPTED_SLASH_HOP=/^\/aluminum-vs-frp-fan-blades\/https:\/www\.tcf\.com\//
 const entities=s=>s.replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(+n)).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16))).replace(/&quot;/g,'"').replace(/&apos;|&#039;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&')
@@ -58,6 +62,9 @@ async function check(row){
     if(row.meta_pending==='yes'&&metas.length===0)return {url:row.url,ok:true,metaPendingOgcs:true,metaMissing:true}
     if(metas.length!==1)return fail(`${metas.length} meta descriptions`)
     if(row.meta_pending!=='yes'&&metas[0]!==row.meta)return fail(`meta differs: "${metas[0].slice(0,80)}"`)
+    const canonicals=[...r.body.matchAll(/<link[^>]+rel="canonical"[^>]*>/g)].map(m=>entities((m[0].match(/href="([^"]*)"/)||[])[1]??''))
+    const decided=authority.get(decode(row.url))
+    if(decided&&(canonicals.length!==1||urlKey(canonicals[0])!==urlKey(decided)))return fail(`canonical ${canonicals.join(' ')||'(none)'} ≠ ${decided}`)
     return {url:row.url,ok:true,...(row.meta_pending==='yes'?{metaPendingOgcs:true}:{})}
   }
   // 301

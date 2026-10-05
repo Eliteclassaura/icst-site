@@ -35,8 +35,9 @@ afterEach(()=>{process.env={...env}})
 describe('release authority and route ledger',()=>{
   const authority=releaseAuthority(APP) as {routes:Row[]}
   const auth=new Map(authority.routes.map(row=>[row.path,row]))
-  it('publishes exactly the three held articles that passed the content check; the four that failed stay held',()=>{
-    expect(overrides.publish).toEqual(['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/'])
+  it('publishes exactly the held articles that passed the content check; the four that failed stay held',()=>{
+    // The three R1 articles, and the daily log (CT sitemap parity ruling 2026-10-05: a live 200 page, content check PASS).
+    expect(overrides.publish).toEqual(['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/','/cooling-tower-daily-log/'])
     for(const p of overrides.publish)expect(auth.get(p),p).toMatchObject({state:'PUBLIC',export:true,indexable:true,sitemap:true})
     for(const p of ['/cooling-tower-algae-prevention/','/cooling-tower-spray-nozzles/','/frp-cooling-tower-advantages/','/cooling-tower-fan-balancing/'])expect(auth.get(p),p).toMatchObject({state:'REVIEW_HOLD',export:false})
   })
@@ -76,17 +77,19 @@ describe('index rules, 410 and sitemap under the production policy',()=>{
     const ranking=[...overrides.index,'/cooling-tower-fill-media-replacement/','/cooling-tower-maintenance-and-repair/']
     const empty=EMPTY_ARCHIVE_PATHS.slice(0,5)
     snapshot(ledger.routes.filter(row=>ranking.includes(row.path)||empty.includes(row.path)))
-    const {proxy,sitemapResponse}=await import('../../proxy')
-    const sitemap=await sitemapResponse().text()
+    const {proxy}=await import('../../proxy')
+    const {sitemapEntriesFor}=await import('../../content/sitemap-response')
+    const sitemap=(sitemapEntriesFor()??[]).map(e=>`<loc>${e.loc}</loc>`).join('\n')
     for(const p of ranking){expect(proxy(new NextRequest(`https://h2ocooling.com${p}`)).headers.get('x-robots-tag'),p).toBeNull();expect(sitemap,p).toContain(`<loc>https://h2ocooling.com${p}</loc>`)}
     for(const p of empty){expect(proxy(new NextRequest(`https://h2ocooling.com${p}`)).headers.get('x-robots-tag'),p).toBe('noindex, follow');expect(sitemap,p).not.toContain(`${p}<`)}
   })
-  it('answers 410 Gone for the two retired WordPress system URLs, query included',async()=>{
+  it('answers 410 Gone for the retired WordPress system URLs (query included) and the Yoast-listed junk pages',async()=>{
     snapshot([])
     const {proxy}=await import('../../proxy')
-    expect([...GONE_PATHS]).toEqual(['/canvas/list/','/wp/wp-admin/edit.php'])
-    for(const url of ['/canvas/list/','/wp/wp-admin/edit.php?post_type=product']){const res=proxy(new NextRequest(`https://h2ocooling.com${url}`));expect(res.status,url).toBe(410);expect(res.headers.get('x-robots-tag')).toBe('noindex, nofollow')}
-    expect(tsv('gone.tsv').map(row=>row.path)).toEqual(['/canvas/list/','/wp/wp-admin/edit.php'])
+    const gone=['/canvas/list/','/wp/wp-admin/edit.php','/evercompare/','/gh/','/draft-page/','/locations.kml']
+    expect([...GONE_PATHS]).toEqual(gone)
+    for(const url of ['/canvas/list/','/wp/wp-admin/edit.php?post_type=product','/evercompare/','/locations.kml']){const res=proxy(new NextRequest(`https://h2ocooling.com${url}`));expect(res.status,url).toBe(410);expect(res.headers.get('x-robots-tag')).toBe('noindex, nofollow')}
+    expect(tsv('gone.tsv').map(row=>row.path)).toEqual(gone)
   })
 })
 
@@ -138,8 +141,8 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
   const FORBIDDEN=/\b(buy|shop|shopping|price[sd]?|pricing|cheap|for sale|order now|add to cart|purchase)\b|\$|@|\+?\d[\d\s().-]{8,}\d/i
   it('titles: at most 69 characters, unique, no price/contact/commerce words',()=>{
     // 473 decided 200 pages minus /author/tbozic/, the 4 failed held articles and the 2 withdrawn duplicates, plus the
-    // un-consolidated /cooling-tower-vs-chiller/ (OGCS R1.2).
-    expect(seo).toHaveLength(467)
+    // un-consolidated /cooling-tower-vs-chiller/ (OGCS R1.2), plus the published daily log (CT 2026-10-05).
+    expect(seo).toHaveLength(468)
     const titles=seo.map(row=>row.title!)
     expect(new Set(titles).size).toBe(titles.length)
     for(const t of titles){expect(t.length,t).toBeLessThanOrEqual(69);expect(t,t).not.toMatch(FORBIDDEN)}
@@ -159,7 +162,8 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     expect(EMPTY_ARCHIVE_PATHS).toContain('/category/cooling-tower-cost/')
   })
   it('redirects: unique sources, single hop to a 200 target, no loops or self-redirects; author rows dropped',()=>{
-    expect(redirects).toHaveLength(474)
+    // 474, plus the 13 translated posts outside the Part A universe (CT sitemap parity ruling 2026-10-05).
+    expect(redirects).toHaveLength(487)
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -178,22 +182,32 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Repointed to the final destination: the reversal cannot leave a chain.
     expect(redirects.find(row=>row.source==='/thermal-upgrades-for-cooling-tower-efficiency/')?.destination).toBe('/thermal-upgrade/')
   })
-  it('conformance contract: 1,003 rows (1,005 minus the two author rows), none held',()=>{
-    expect(conformance).toHaveLength(1003)
+  it('conformance contract: 1,021 rows (1,005 minus the two author rows, plus the 18 CT sitemap-parity rulings), none held',()=>{
+    expect(conformance).toHaveLength(1021)
     const count=(kind:string)=>conformance.filter(row=>row.expect===kind).length
-    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([527,474,2,0])
+    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([528,487,6,0])
     for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
-    // Part 2 R3 is ONE delta on the preserved partial R1 state on staging (Commander's held round, CT 2026-10-05): the R1
-    // residual (2 publications, 4 withdrawals, 1 canonical, 42 SEO fields that the strict validator refused) plus Part 2 R2
-    // (the two duplicate withdrawals; the chiller correction; R1.2 titles and metas; 22 completed metas; 8 H1s; 19 restored
-    // pages), and 4 file redirects repointed to the exact served file names (a case-sensitive runtime 404s otherwise).
-    expect(expectations.expect.routes).toEqual({publish:3,withdraw:6,index:0,canonical:1})
-    expect(expectations.expect.redirects).toEqual({create:0,update:4,unchanged:470,retire:1})
-    expect(expectations.expect.seoFields).toMatchObject({update:113,pendingOgcs:0})
-    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:47})
-    expect(expectations.expect.h1).toEqual({update:8})
-    expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:19})
+    // Part 3 is ONE delta on the state Part 2 R3 leaves on staging (CT 2026-10-05): the sitemap-parity rulings (13 redirects
+    // for translated posts outside the Part A universe, 4 retired junk URLs, the daily log published with its live title and
+    // meta) and the slot hygiene of the 41 fixed records no write has carried yet (apply phase 6). Everything Part 2 R3 wrote
+    // (its 8 H1s, 19 restored pages, 47 fixed records, the retired chiller redirect) is already applied and not written again.
+    expect(expectations.expect.routes).toEqual({publish:1,withdraw:0,index:0,canonical:0})
+    expect(expectations.expect.redirects).toEqual({create:13,update:0,unchanged:474,retire:0})
+    expect(expectations.expect.seoFields).toMatchObject({update:1,pendingOgcs:0})
+    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:0})
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:41})
+    expect(expectations.expect.h1).toEqual({update:0})
+    expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:0})
+    // Case B (CT 2026-10-05): Part 2 R3 applied without the R3.1 fix put one canonical back; the variant re-applies exactly it.
+    const caseB=JSON.parse(readFileSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'),'utf8')) as {expect:typeof expectations.expect;caseB:{reapplied:string[]}}
+    expect(caseB.caseB.reapplied).toEqual(['/cooling-tower-maintenance-and-repair/'])
+    expect(caseB.expect).toEqual({...expectations.expect,routes:{...expectations.expect.routes,canonical:1}})
+    // The two translated posts whose preserved locale page is still LOCALE_PENDING point at its current final page; Locale
+    // Part B repoints them (one hop), as recorded.
+    const repoint=tsv('locale-b-repoint.tsv')
+    expect(repoint.map(row=>row.source)).toEqual(['/วิธีป้องกันแบคทีเรีย-legionella/','/逆流-vs-クロスフロー/'])
+    for(const row of repoint)expect(decode(redirects.find(r=>decode(r.source!)===decode(row.source!))!.destination!),row.source).toBe(row.destination_now)
     expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(18)
     expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT').map(row=>[row.path,row.redirect])).toEqual(Object.entries(overrides.redirectSources))
   })

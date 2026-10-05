@@ -26,6 +26,8 @@
  *                 the fixed value (edited since) blocks the run.
  *   5. restored:  restoredSections (typed blocks at explicit anchors; data/restored-sections.json), one write per page. The
  *                 save hook re-validates every anchor; an unknown anchor fails the write.
+ *   6. hygiene:   a route in slot-fixes.json that no other phase writes gets its fixed elements on their own: slots only, its
+ *                 publication status unchanged (a held draft stays a draft). Read back: elements as fixed, status unchanged.
  * A route with an unpublished editor draft pending is never overwritten: the plan reports it and the run stops.
  * Output: one JSON report on stdout (plan counts, per-phase results, failures). No secret, password or token.
  */
@@ -48,7 +50,11 @@ if(!env.H2O_SEO_ADMIN_EMAIL||!env.H2O_SEO_ADMIN_PASSWORD)fail('H2O_SEO_ADMIN_EMA
 
 const tsv=file=>{const [head,...lines]=readFileSync(path.join(DATA,file),'utf8').trimEnd().split('\n');const cols=head.split('\t');return lines.map(line=>Object.fromEntries(line.split('\t').map((v,i)=>[cols[i],v])))}
 const decode=v=>{try{return decodeURIComponent(v)}catch{return v}}
-const expectations=JSON.parse(readFileSync(path.join(DATA,'expectations.json'),'utf8'))
+// --expectations=<file in data/> selects a prepared expectations variant (Part 3: expectations.case-b.json when the previous
+// batch ran without the R3.1 fix; Control Tower names the case). Default expectations.json.
+const EXPECTATIONS=process.argv.find(a=>a.startsWith('--expectations='))?.slice(15)??'expectations.json'
+if(!/^expectations(?:\.[a-z0-9-]+)?\.json$/.test(EXPECTATIONS))fail(`--expectations must name an expectations*.json file in data/ (got ${EXPECTATIONS})`)
+const expectations=JSON.parse(readFileSync(path.join(DATA,EXPECTATIONS),'utf8'))
 const ledger=new Map(JSON.parse(readFileSync(path.join(APP,'content/release/route-ledger.json'),'utf8')).routes.map(row=>[decode(row.path),row]))
 const DISPOSITION=['state','export','indexable','sitemap','searchable','redirect','matchedArticle','releaseOverride']
 const dispositionOf=row=>Object.fromEntries(DISPOSITION.map(k=>[k,row[k]??null]))
@@ -74,7 +80,7 @@ async function route(p){
 }
 const pendingDraft=r=>Boolean(r.latest&&r.published&&r.latest._status==='draft'&&r.latest.updatedAt!==r.published.updatedAt)
 
-const plan={routes:{publish:[],withdraw:[],index:[],canonical:[]},redirects:{create:[],update:[],unchanged:[],retire:[]},seo:{update:[],unchanged:[]},h1:{update:[]},restored:{update:[]},blocked:[]}
+const plan={routes:{publish:[],withdraw:[],index:[],canonical:[]},redirects:{create:[],update:[],unchanged:[],retire:[]},seo:{update:[],unchanged:[]},h1:{update:[]},restored:{update:[]},hygiene:{update:[]},blocked:[]}
 const routeCache=new Map()
 const getRoute=async p=>{if(!routeCache.has(decode(p)))routeCache.set(decode(p),await route(p));return routeCache.get(decode(p))}
 
@@ -141,6 +147,26 @@ const slotFixes=existsSync(path.join(DATA,'slot-fixes.json'))?JSON.parse(readFil
 const slotFixOf=new Map(Object.entries(slotFixes).map(([p,v])=>[decode(p),v]))
 const fixedSlots=new Map() // path → slots to send (only when a fix is still needed)
 const writtenPaths=new Set([...plan.routes.publish,...plan.routes.withdraw,...plan.routes.index,...plan.routes.canonical,...plan.seo.update,...plan.h1.update,...plan.restored.update].map(item=>decode(item.path)))
+// Hygiene (CT GO 2026-10-05): a fixed route no other phase writes gets its fixed elements on their own (slots only, its
+// publication status unchanged), so no later editor save on it can fail the strict validator.
+for(const p of slotFixOf.keys()){
+  if(writtenPaths.has(p))continue
+  const r=await getRoute(p),doc=r.latest??r.published
+  if(!doc){plan.blocked.push({path:p,reason:'route record not found (hygiene)'});continue}
+  if(pendingDraft(r)){plan.blocked.push({path:p,reason:'unpublished editor draft pending (hygiene)'});continue}
+  const slots=(doc.slots??[]).map(slot=>({...slot}))
+  let needed=false,problem=''
+  for(const f of slotFixOf.get(p).slots){
+    const slot=slots.find(x=>x.key===f.key)
+    if(!slot){problem=`page element ${f.key} is missing`;break}
+    const now=slotFieldCanon(slot,f.field)
+    if(now===f.afterCanon)continue
+    if(now!==f.before){problem=`page element ${f.key} differs from its imported value (edited since; not overwritten)`;break}
+    slot[f.field]=f.after;needed=true
+  }
+  if(problem){plan.blocked.push({path:p,reason:problem});continue}
+  if(needed)plan.hygiene.update.push({id:doc.id,path:p,slots,status:doc._status})
+}
 for(const p of writtenPaths){
   const fix=slotFixOf.get(p)
   if(!fix)continue
@@ -167,17 +193,18 @@ const counts={
   h1:{update:plan.h1.update.length},
   restored:{update:plan.restored.update.length},
   slotFixes:{routes:fixedSlots.size},
+  hygiene:{routes:plan.hygiene.update.length},
   blocked:plan.blocked.length,
 }
 const e=expectations.expect.redirects
 // Same key order as counts (the comparison is exact); an older expectations file without `retire` expects none.
-const expected={redirects:{create:e.create,update:e.update,unchanged:e.unchanged,retire:e.retire??0},routes:expectations.expect.routes,seoFields:{update:expectations.expect.seoFields.update},h1:{update:expectations.expect.h1?.update??0},restored:{update:expectations.expect.restored?.update??0},slotFixes:{routes:expectations.expect.slotFixes?.routes??0},blocked:0}
+const expected={redirects:{create:e.create,update:e.update,unchanged:e.unchanged,retire:e.retire??0},routes:expectations.expect.routes,seoFields:{update:expectations.expect.seoFields.update},h1:{update:expectations.expect.h1?.update??0},restored:{update:expectations.expect.restored?.update??0},slotFixes:{routes:expectations.expect.slotFixes?.routes??0},hygiene:{routes:expectations.expect.hygiene?.routes??0},blocked:0}
 const match=JSON.stringify(counts)===JSON.stringify(expected)
-const report={mode:MODE,base:new URL(BASE).host,counts,expected,match,blocked:plan.blocked}
+const report={mode:MODE,base:new URL(BASE).host,expectations:EXPECTATIONS,counts,expected,match,blocked:plan.blocked}
 if(MODE==='dry-run'||!match){process.stdout.write(JSON.stringify(report,null,2)+'\n');process.exit(match?0:3)}
 
 // APPLY — counts match exactly. Routes first (published articles serve 200 before anything points at them).
-const results={routes:[],redirects:[],seo:[],failures:[],skipped:[]}
+const results={routes:[],redirects:[],seo:[],hygiene:[],failures:[],skipped:[]}
 // Fail fast (R1 continued after its first 400 and left a scattered partial state): the first failed write stops the run,
 // then everything already written is read back. A route write carries the route's fixed page elements.
 let stopped=false
@@ -200,6 +227,7 @@ for(const item of plan.routes.canonical)await write('routes',`CANONICAL ${item.p
 for(const item of plan.seo.update)await write('seo',`SEO ${item.path}`,`public-routes/${item.id}?depth=0`,{method:'PATCH',body:JSON.stringify({seo:item.seo,_status:'published'})})
 for(const item of plan.h1.update)await write('seo',`H1 ${item.path}`,`public-routes/${item.id}?depth=0`,{method:'PATCH',body:JSON.stringify({...(item.title!==undefined?{title:item.title}:{slots:item.slots}),_status:'published'})})
 for(const item of plan.restored.update)await write('seo',`RESTORED ${item.path}`,`public-routes/${item.id}?depth=0`,{method:'PATCH',body:JSON.stringify({restoredSections:item.groups,_status:'published'})})
+for(const item of plan.hygiene.update)await write('hygiene',`HYGIENE ${item.path}`,`public-routes/${item.id}?depth=0`,{method:'PATCH',body:JSON.stringify({slots:item.slots,_status:item.status})})
 // Read back: every write is verified through the API (published state as the public sees it).
 const verify=[]
 routeCache.clear()
@@ -213,10 +241,15 @@ for(const item of plan.routes.withdraw){
 for(const [p,slots] of fixedSlots){const r=await getRoute(p);const fix=slotFixOf.get(p);for(const f of fix.slots){const slot=(r.published?.slots??[]).find(x=>x.key===f.key);if(slotFieldCanon(slot,f.field)!==f.afterCanon)verify.push({path:p,problem:`page element ${f.key} not as fixed`})};void slots}
 for(const item of plan.seo.update){const r=await getRoute(item.path);if(r.published?.seo?.title!==item.seo.title||(item.seo.description!==undefined&&r.published?.seo?.description!==item.seo.description))verify.push({path:item.path,problem:'seo fields not as decided'})}
 for(const item of plan.h1.update){const r=await getRoute(item.path);const value=item.title!==undefined?r.published?.title:(r.published?.slots??[]).find(s=>s.kind==='heading'&&s.tag==='h1')?.heading;if(value!==item.h1)verify.push({path:item.path,problem:'h1 not as decided'})}
+for(const item of plan.hygiene.update){
+  const r=await getRoute(item.path),doc=r.latest??r.published
+  if(doc?._status!==item.status)verify.push({path:item.path,problem:`publication status changed (${item.status} → ${doc?._status})`})
+  for(const f of slotFixOf.get(decode(item.path)).slots){const slot=(doc?.slots??[]).find(x=>x.key===f.key);if(slotFieldCanon(slot,f.field)!==f.afterCanon)verify.push({path:item.path,problem:`page element ${f.key} not as fixed (hygiene)`})}
+}
 for(const item of plan.restored.update){const r=await getRoute(item.path);if(canonRestored(r.published?.restoredSections)!==canonRestored(item.groups))verify.push({path:item.path,problem:'restored sections not as decided'})}
 const after=new Map((await all('public-redirects')).map(doc=>[decode(String(doc.source)),doc]))
 for(const row of retiredRows){const d=after.get(decode(row.source));if(d&&d.active!==false)verify.push({path:row.source,problem:'retired redirect still active'})}
 for(const row of tsv('redirects.tsv')){const d=after.get(decode(row.source));if(!d||decode(String(d.destination))!==decode(row.destination)||d.active===false)verify.push({path:row.source,problem:'redirect record not as decided'})}
-process.stdout.write(JSON.stringify({...report,applied:{routes:results.routes.length,redirects:results.redirects.length,seo:results.seo.length},failures:results.failures,skipped:results.skipped,verify},null,2)+'\n')
+process.stdout.write(JSON.stringify({...report,applied:{routes:results.routes.length,redirects:results.redirects.length,seo:results.seo.length,hygiene:results.hygiene.length},failures:results.failures,skipped:results.skipped,verify},null,2)+'\n')
 if(verify.length)process.exit(5)
 process.exit(results.failures.length?4:0)

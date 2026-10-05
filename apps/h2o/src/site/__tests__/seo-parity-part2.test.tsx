@@ -60,10 +60,12 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     const row=(p:string)=>ledger.routes.find(r=>r.path===p)!
     expect(row('/cooling-tower-vs-chiller/')).toMatchObject({state:'PUBLIC',export:true,redirect:null})
     expect(row('/chiller-and-cooling-tower/')).toMatchObject({state:'PUBLIC',export:true,redirect:null})
-    expect(data('redirects-retired.tsv').map(r=>r.source)).toEqual(['/cooling-tower-vs-chiller/'])
+    // Retired by Part 2 R3 (active:false); Part 3 is a delta on that state, so nothing is retired again.
+    expect(data('redirects-retired.tsv')).toEqual([])
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
-    expect(redirects.filter(r=>r.destination==='/chiller-and-cooling-tower/').length).toBe(8)
+    // 8 locale/blog redirects, plus the Thai root-slug Legionella post (CT sitemap parity ruling; Locale B repoints it).
+    expect(redirects.filter(r=>r.destination==='/chiller-and-cooling-tower/').length).toBe(9)
     const seo=new Map(data('seo-fields.tsv').map(r=>[r.path,r]))
     expect(seo.get('/cooling-tower-vs-chiller/')?.title).toBe('Cooling Tower vs. Chiller: The 2026 Guide - ICS')
     expect(seo.get('/chiller-and-cooling-tower/')?.title).toBe('How to Prevent Legionella in Chiller and Cooling Tower?')
