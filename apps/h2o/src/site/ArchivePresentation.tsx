@@ -14,10 +14,12 @@ import {productRfqAction} from './SalmonFamilies'
 import {activeProductRoutes} from './Wave3Products'
 import {pageForSegments} from './cohort'
 import {deliverySrc} from './media-delivery'
-import {salmonNodeText,type SalmonDocument} from './salmon'
+import {heldImageAlt,salmonNodeText,type SalmonDocument} from './salmon'
 import {findAll,findFirst,hasClass,isElement,localHref,sourceImage,type SourceImage,type SourceRef} from './salmon-source'
 import type {ProductCardInput} from './salmon-family-model'
 import {releaseLedger} from '../content/runtime-read'
+import {decodeEntities} from './text-repair'
+import {RestoredSlot} from './RestoredSlot'
 
 export const ARCHIVE_PATH=/^\/(?:product-category|product-tag|category|tag)\//
 export const isArchiveDocument=(doc:SalmonDocument):boolean=>ARCHIVE_PATH.test(doc.targetPath)
@@ -35,17 +37,7 @@ export type ArchiveModel={
   pages:PageLink[]
 }
 
-// WordPress stores some names already escaped ("&amp;", "&#8211;"); decode until stable so React escapes once.
-const ENTITIES:Record<string,string>={amp:'&',lt:'<',gt:'>',quot:'"',apos:"'",nbsp:' ',ndash:'–',mdash:'—',hellip:'…',rsquo:'’',lsquo:'‘',rdquo:'”',ldquo:'“',prime:'′',Prime:'″'}
-export function decodeEntities(value:string):string{
-  let current=value
-  for(let i=0;i<4;i++){
-    const next=current.replace(/&(#x[0-9a-f]+|#[0-9]+|[a-z]+);/gi,(entity,body:string)=>body[0]==='#'?String.fromCodePoint(body[1]==='x'||body[1]==='X'?parseInt(body.slice(2),16):Number(body.slice(1))):ENTITIES[body]??entity)
-    if(next===current)break
-    current=next
-  }
-  return current
-}
+export {decodeEntities}
 const text=(ref:SourceRef|undefined):string=>ref?decodeEntities(salmonNodeText(ref.node)).replace(/\s+/g,' ').trim():''
 const publicPaths=():Set<string>=>{
   const ledger=releaseLedger() as {routes:Array<{path:string;state:string;export:boolean}>}
@@ -103,7 +95,7 @@ export function archiveModel(doc:SalmonDocument):ArchiveModel{
 function ArticleCardView({card}:{card:ArticleCard}){
   return <article className="sp-archive-article" data-article-route={card.href}>
     <a href={card.href}>
-      {card.image?<img src={deliverySrc(card.image.src)} alt="" width={card.image.width} height={card.image.height} loading="lazy" decoding="async" data-source-sha256={card.image.sha256}/>:null}
+      {card.image?<img src={deliverySrc(card.image.src)} alt={heldImageAlt(undefined,card.image.sha256)??card.title} width={card.image.width} height={card.image.height} loading="lazy" decoding="async" data-source-sha256={card.image.sha256}/>:null}
       <span><strong>{card.title}</strong>{card.excerpt?<small>{card.excerpt}</small>:null}<em>Read article →</em></span>
     </a>
   </article>
@@ -114,7 +106,7 @@ export function ArchivePage({doc}:{doc:SalmonDocument}){
   const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
   const empty=model.kind==='products'?!model.products.length:!model.articles.length
   return <div className={`luxury-site salmon-family salmon-family--archive salmon-family--archive-${model.kind}`} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256} data-archive-template="SALMON_ARCHIVE_R1">
-    <SalmonSeo doc={doc}/>
+    <SalmonSeo doc={doc} breadcrumb={model.breadcrumb.slice(0,-1).flatMap(crumb=>crumb.href?[{name:crumb.label,path:crumb.href}]:[])} crumbName={model.name}/>
     <LuxuryHeader page={page} routePath={doc.targetPath}/>
     <main id="main" className="sp-main sp-archive" data-salmon-region="body">
       <header className="sp-section-inner sp-archive-head">
@@ -122,6 +114,7 @@ export function ArchivePage({doc}:{doc:SalmonDocument}){
         <h1 className="sp-heading sp-type-display sp-c-ink">{model.name}</h1>
         {model.resultCount?<p className="sp-archive-count">{model.resultCount}</p>:null}
       </header>
+      <RestoredSlot doc={doc} slot="intro" className="sp-section-inner wave3-source-content"/>
       <section className="sp-section-inner sp-archive-body" aria-label={model.kind==='products'?'Products':'Articles'}>
         {empty?<p className="sp-archive-empty">Nothing is listed here yet. <a href="/cooling-tower-parts-online/">Browse cooling tower parts</a> or <a href="/contact-us/">contact us</a>.</p>
           :model.kind==='products'

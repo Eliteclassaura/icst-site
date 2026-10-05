@@ -44,13 +44,80 @@ node ops/seo-pass/check-redirect-chains.mjs <staging-origin>
 ```
 
 - **Rows:** 1,003 (OGCS 1,005 minus the two author rows).
-- **HELD_FOR_CT_RULING:** 2, `/thermal-upgrade/` and `/cooling-tower-japan/`.
-- **FRAMEWORK_SLASH_HOP:** 1, the malformed tcf.com URL. It has no trailing slash, so Next adds one first.
-- **Metas pending OGCS:** reported, not failed.
+- **HELD_FOR_CT_RULING:** none. CT ruled on 2026-10-04: `/thermal-upgrade/` and `/cooling-tower-japan/` are kept (200), and their live duplicates 301 into them.
+- **frameworkSlashHopAccepted:** 1, the malformed tcf.com URL (308 → 301 → 200, CT ruling 3). A framework hop on any other source fails.
+- **Metas pending OGCS:** 0 after the R1.2 supplement.
+
+## Part 2 R3: one delta on the preserved partial R1 state (CT 2026-10-05)
+
+Commander's R1 round applied part of the batch and stopped (H2O_SLIM_SEO_M1_R1_HOLD_SEO_PAYLOAD_CONTENT_VALIDATION):
+- redirects: 452 created;
+- routes: 22 OK, 7 refused;
+- SEO fields: 255 OK, 42 refused.
+
+The refused writes and the read-back failures had four causes. Each is fixed here without loosening any guard:
+1. **Imported page elements the strict save-hook validator rejects:** legacy http links, a legacy upload path, alt text over 300 characters. Every write to such a record failed, whether publish, withdraw or SEO.
+   - `data/slot-fixes.json` holds the fixed elements. `build-slot-fixes.ts` builds it by running the REAL validator over every imported record: 88 routes, 112 elements, 115 recorded changes.
+   - The batch sends the fixed elements in the same write as the decided change.
+   - An element edited since import (neither the imported value nor the fixed one) blocks the run.
+2. **Held files as link destinations.** A link may name a file only when it exists in the served public tree, under `/wp-content/uploads/` or `/media/` (`src/content/public-files.ts`).
+3. **Over-long alt text** is shortened to its own leading sentences of at most 300 characters, held text only.
+4. **The withdrawal read-back.** An admin `draft=false` read returns the main row whatever its `_status`, so R1 misread its 13 successful withdrawals as "still published".
+   - The proof is now an unpublished main row, the decided disposition, and an empty published-only query (`lifecycle.mjs`).
+   - The first failed write stops the run (fail fast), then everything written is read back.
+
+Also: 4 legacy file redirects now point to the exact served file names. The runtime filesystem is case-sensitive, so the old lower-case targets were 404s.
+
+| Phase | Expected on the preserved partial state |
+|---|---|
+| routes: PUBLISH / WITHDRAW_TO_REDIRECT / INDEX / CANONICAL | 3 / 6 / 0 / 1 |
+| redirects: CREATE / UPDATE / UNCHANGED / RETIRE | 0 / 4 / 470 / 1 |
+| seo fields / h1 / restored | 113 / 8 / 19 |
+| routes carrying element fixes | 47 |
+| blocked | 0 |
+
+**Rehearsal gate (Envelope R1.2).** Every batch is first rehearsed against a throwaway local restore of the staging database, with the full app (real Payload validators and hooks). It is applied to staging only if the rehearsal is completely clean.
+
+## Part 2 R2 (CT SEO parity follow-up; OGCS Part 1 R1.2; content model change approved 2026-10-05)
+
+The Part 2 batch is a **delta** on the R1 batch already applied on staging (the dea3b5a and db01dc2 data). The first dry run expects:
+
+| Phase | Expected |
+|---|---|
+| routes: PUBLISH / WITHDRAW_TO_REDIRECT / INDEX / CANONICAL | 1 / 2 / 0 / 0 |
+| redirects: CREATE / UPDATE / UNCHANGED / RETIRE | 0 / 0 / 474 / 1 |
+| seo fields: UPDATE | 85 |
+| h1: UPDATE | 8 (3 heading slots and 5 record titles) |
+| restored: UPDATE | 19 pages |
+| blocked | 0 |
+
+**Routes, redirects and fields:**
+- **Withdrawals:** the live duplicates of the designed Thermal and Japan pages.
+- **Re-publish and retire:** `/cooling-tower-vs-chiller/` (OGCS R1.2: false duplicate). Its R1 redirect is retired (`active:false`, kept).
+- **Chiller:** `/chiller-and-cooling-tower/` stays at 200 with the restored live Legionella article. Its fallback 301 is not needed, and its 8 inbound redirects stay unchanged.
+- **SEO fields:** OGCS R1.2 titles, the R1.2 supplement metas, the 5000H meta model fix, and 22 completed metas (CT ruling: the "…" finals rewritten as complete sentences; old and new text are in the evidence).
+- **H1:** the decided headings. `/cooling-tower/` and the gearbox and drive-shaft categories use the h1 heading slot. The 5 restored-body articles use the record title, which brings their live H1.
+
+**Restored sections** (`data/restored-sections.json`, `restoredSections` on the route record) are typed blocks at explicit anchors:
+- Anchors are `after-section`, `before-heading`, `replace-body`, or `template-slot` (intro, description, body-end).
+- The save hook refuses an anchor that does not resolve, and the batch never appends.
+- Text comes from the live pages (the CT parity audit's read-only fetches), reviewed with h2o-technical-b2b-content. Per-page claim notes are in the evidence.
+- No images.
+
+**Hosted checks:**
+- `check-conformance.mjs` also asserts every restored H2 and every restored live H1 on its page (`data/content-assertions.tsv`).
+- `frameworkSlashHopAccepted` contains only the tcf.com URL.
+
+**Migration:** one additive, forward-only migration adds the `restoredSections` array and its blocks. Its content-model label is `restored_sections`. Commander generates it with `pnpm --filter @factory/h2o migrate:create` and regenerates the types (`generate:types`).
 
 ## Rebuilding the data
 
-To rebuild the data, for example with an OGCS supplement:
-1. Restore the base `content/release/route-ledger.json`.
-2. Run `build-batch.mjs <decisions.tsv> <missing-metas.tsv> data/content-check.json <staging-probe.json> [supplement.tsv]`.
-3. Regenerate the changed ledger rows from `release/authority.mjs`.
+1. **Pass 1:**
+   - Restore the base `content/release/route-ledger.json` (source 49ec97e).
+   - Run `build-batch.mjs <decisions.tsv> <missing-metas.tsv> data/content-check.json <staging-probe.json> [supplement.tsv] --baseline=<applied batch data> --title-delta=<R1.2 title delta> --dup-resolution=<R1.2 dup resolution> --content-decisions=<R1.2 content decisions> --restored=data/restored-sections.json --meta-rewrites=<rewrites.tsv>`.
+   - Then run `sync-ledger.mjs`.
+2. **Restored data:** `build-restored.mjs <reviewed dir> [--evidence=<dir>]`. It checks public link targets against the final ledger.
+3. **Pass 2:** repeat step 1. The ledger depends on the restored data only through content fallbacks, so it is stable.
+4. **Check:** `sync-ledger.mjs --check` exits 1 if any ledger row is stale.
+
+`build-live-alt.mjs <audit raw dir>` regenerates `content/salmon/live-image-alt.json`: the alt text h2ocooling.com serves for each upload, which the site uses as held alt text.

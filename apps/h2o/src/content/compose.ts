@@ -8,6 +8,7 @@
  *   record.title            → document.title and the page heading (seo.h1[0]) when edited
  *   record.seo.title        → document.seo.title        (browser/search title)
  *   record.seo.description  → the `description` meta entry
+ *   record.restoredSections → typed blocks placed at explicit anchors as ordinary page nodes (./restored-sections)
  *
  * Nothing else is synthesised: no product ids, no media, no links. What the record does not carry, the
  * document does not gain.
@@ -35,6 +36,8 @@ export type RouteRecord = {
   slots?: ContentSlot[] | null
   /** Typed sections of a page created in Payload (family `editorial`, ./editorial). */
   sections?: unknown[] | null
+  /** Restored sections of an imported page (./restored-sections; content model change 2026-10-05). */
+  restoredSections?: RestoredGroup[] | null
   lead?: string | null
   _status?: 'draft' | 'published' | null
   updatedAt?: string
@@ -47,6 +50,7 @@ import { nodeText } from './projection-text'
 import { applyContentSlots, applyServiceSlots, type ContentSlot } from './content-slots'
 import { composeEditorial } from './editorial'
 import { projectPublicAuthor } from './public-author'
+import { applyRestoredSections, type RestoredGroup } from './restored-sections'
 
 export function composePublicDocument(record: RouteRecord): Doc {
   const stored = (record.document && typeof record.document === 'object' ? structuredClone(record.document) : {}) as Doc
@@ -61,7 +65,9 @@ export function composePublicDocument(record: RouteRecord): Doc {
   // Accepted Main Factory exclusions (provenance id match), then typed editor overlay, then derived text.
   const excluded = applyPublicExclusions(record.source?.aliasOf ?? record.routeId, stored).doc
   // ADR-028 author identity projection (./public-author), before editor slots so an edit is never overridden.
-  const base = applyContentSlots(projectPublicAuthor(excluded), record.slots)
+  // Slots are keyed by node position in the imported tree, so they apply first; restored sections are then placed at their
+  // anchors as ordinary nodes, and the author projection runs over the result (it is idempotent).
+  const base = projectPublicAuthor(applyRestoredSections(applyContentSlots(projectPublicAuthor(excluded), record.slots), record.restoredSections))
   const seo = { ...((base.seo ?? {}) as Doc) } as Doc & { meta?: Array<{ name: string; value: string }>; h1?: string[] }
   // An edited page title is the page heading too (the templates show `seo.h1[0]` first). An unedited title
   // (equal to the stored document's) leaves the accepted heading exactly as it was.

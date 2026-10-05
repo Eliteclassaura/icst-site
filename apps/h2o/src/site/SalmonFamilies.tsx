@@ -21,6 +21,7 @@ import {SectionView,type RenderContext} from './SalmonComposer'
 import {salmonFamilyFor,salmonFamilyModel,salmonFamilyRouteIds,type FamilyConfig} from './salmon-family-adapter'
 import type {ProductCardInput,SalmonFamilyPageModel} from './salmon-family-model'
 import {isPayloadContent} from '../content/runtime-read'
+import {RestoredSlot} from './RestoredSlot'
 
 export {salmonFamilyFor,salmonFamilyRouteIds}
 
@@ -45,7 +46,7 @@ function AboutPresence(){
   return <div className="sp-section-inner"><div className="about-presence-list sp-presence" aria-label="Confirmed ICS presence"><span>Lakewood, Colorado <small>Main office</small></span><span>Japan <small>Confirmed presence</small></span><span>Bangkok, Thailand <small>Confirmed presence</small></span></div></div>
 }
 
-export function SalmonFamilyMain({model,ctx}:{model:SalmonFamilyPageModel;ctx:RenderContext}){
+export function SalmonFamilyMain({model,ctx,restored}:{model:SalmonFamilyPageModel;ctx:RenderContext;restored?:ReactNode}){
   const {modules}=model
   return <main id="main" className={`sp-main sp-family--${model.family}`} data-salmon-region="body" data-salmon-family={model.family} data-audit-family={model.auditFamily} data-content-contract={model.contract} data-content-source={model.source.kind}>
     {modules.pageTitle?<div className="sp-section-inner sp-page-title"><h1 className="sp-heading sp-type-display sp-c-ink">{modules.pageTitle}</h1></div>:null}
@@ -56,6 +57,7 @@ export function SalmonFamilyMain({model,ctx}:{model:SalmonFamilyPageModel;ctx:Re
     </SectionSlot>)}
     {modules.projectCoverage?.length?<section className="sp-section sp-section--boxed" aria-labelledby="sp-more-projects"><div className="sp-section-inner"><h2 id="sp-more-projects" className="sp-heading sp-type-display">More project records</h2><ul className="sp-iconlist">{modules.projectCoverage.map(row=><li key={row.path}><a href={row.path}>{row.title}</a></li>)}</ul></div></section>:null}
     {modules.projectDiscovery?<R2Discovery kind="projects"/>:null}
+    {restored}
     {modules.projectNavigation?<nav className="sp-section-inner sp-project-next" aria-label="Project and enquiry links"><a className="sp-btn sp-btn--outline" href="/all-projects/">View all projects</a>{ctx.quoteAction?.('Request a Quote')}</nav>:null}
   </main>
 }
@@ -67,7 +69,7 @@ export function SalmonFamilyView({model,doc}:{model:SalmonFamilyPageModel;doc:Sa
   return <div className={`luxury-site salmon-family salmon-family--${model.family}`} data-salmon-document={model.routeId} data-salmon-source-sha256={model.source.sha256}>
     <SalmonSeo doc={doc}/>
     <LuxuryHeader page={page} routePath={model.path}/>
-    <SalmonFamilyMain model={model} ctx={{productAction:product=>productRfqAction(product,model.path),quoteAction:label=>quoteRfqAction(model.path,label)}}/>
+    <SalmonFamilyMain model={model} ctx={{productAction:product=>productRfqAction(product,model.path),quoteAction:label=>quoteRfqAction(model.path,label)}} restored={<RestoredSlot doc={doc} slot="body-end" className="sp-section-inner wave3-source-content"/>}/>
     <LuxuryFooter page={page} routePath={model.path}/>
   </div>
 }

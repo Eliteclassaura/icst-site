@@ -3,7 +3,7 @@ import { draftMode, headers } from 'next/headers'
 import { getPayload } from 'payload'
 import { isEditorialReader } from './access'
 import { composePublicDocument, type RouteRecord } from './compose'
-import { indexingPolicy, NOINDEX_FOLLOW_PATHS, PUBLIC_ORIGIN } from './config'
+import { PUBLIC_ORIGIN, publicRobots } from './config'
 import { markPublishedEditorial, requestDocuments, requestServices, setRequestRevocations } from './runtime-read'
 import { computeRevocations } from './revocation'
 
@@ -21,7 +21,7 @@ import { computeRevocations } from './revocation'
  */
 const SELECT = {
   routeId: true, path: true, family: true, routeClass: true, title: true, seo: true, disposition: true,
-  document: true, source: true, _status: true, slots: true, lead: true, sections: true,
+  document: true, source: true, _status: true, slots: true, lead: true, sections: true, restoredSections: true,
 } as const
 
 export type Resolved = {
@@ -86,10 +86,7 @@ export async function resolvePublicPath(requestPath: string): Promise<Resolved |
 
 /** Robots for a resolved record under the active indexing policy (private unless explicitly production). */
 export function robotsFor(record: RouteRecord, preview: boolean): { index: boolean; follow: boolean } {
-  if (preview || indexingPolicy() !== 'production') return { index: false, follow: false }
-  if (record.disposition?.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS.has(record.path)) return { index: false, follow: true }
-  const ok = Boolean(record.disposition?.indexable)
-  return { index: ok, follow: ok }
+  return publicRobots(record, preview)
 }
 
 export const canonicalFor = (record: RouteRecord): string => record.seo?.canonical || PUBLIC_ORIGIN + record.path

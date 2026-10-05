@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { LuxuryFooter, LuxuryHeader } from '../site/LuxuryShell'
 import { RfqMount } from '../site/RfqMount'
 import { publicMountGate, RFQ_FALLBACK_PATH } from '../site/gate'
+import { BreadcrumbSchema, HOME_CRUMB } from '../site/breadcrumb-schema'
 
 /**
  * A page created in Payload (family `editorial`, R1B). Typed sections only — heading, rich-text paragraph,
@@ -41,6 +42,7 @@ function Button({ doc, s, k }: { doc: EditorialDoc; s: Extract<Section, { blockT
 export function EditorialPage({ doc }: { doc: EditorialDoc }) {
   return (
     <div className="luxury-site figma-wave4" data-editorial-page={doc.routeId}>
+      <BreadcrumbSchema ancestors={[HOME_CRUMB]} current={{ name: doc.title, path: doc.targetPath }} />
       <LuxuryHeader routePath={doc.targetPath} />
       <main id="main" className="wave4-detail">
         <nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a></nav>

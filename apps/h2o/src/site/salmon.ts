@@ -3,6 +3,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {contactOffices} from './contact'
 import {publicReleaseDocument} from './release-document'
+import {decodeEntities,repairDocumentText,repairMojibake} from './text-repair'
 import {releaseLedger,isPayloadContent,requestDocuments,snapshotFile,snapshotJson} from '../content/runtime-read'
 export type SalmonNode = string | {tag:string;attrs:Record<string,string>;children:SalmonNode[]}
 export type SalmonRoute = {routeId:string;sourceUrl:string;targetPath:string;file:string;sha256:string}
@@ -46,14 +47,54 @@ export const releaseRouteFor=(segments:string[]=[]):SalmonRoute|null=>{
 export const salmonDocument=(route:SalmonRoute):SalmonDocument=>{
   if(isPayloadContent()){
     const injected=requestDocuments().get(route.routeId) as SalmonDocument|undefined
-    if(injected)return publicReleaseDocument(injected)
+    if(injected)return publicReleaseDocument(repairDocumentText(injected,documentHeldAlt(injected)))
   }
   if(!(isPayloadContent()?/^documents\/(?:SALMON|LIVE)-[a-zA-Z0-9_-]+\.json$/:/^documents\/SALMON-[a-zA-Z0-9_-]+\.json$/).test(route.file))throw new Error('Unsafe canonical document path')
   const bytes=isPayloadContent()?snapshotFile(route.file):readFileSync(path.join(root,route.file))
   if(createHash('sha256').update(bytes).digest('hex')!==route.sha256)throw new Error('Salmon source identity mismatch')
   const doc=JSON.parse(bytes.toString()) as SalmonDocument
   if(doc.routeId!==route.routeId||doc.sourceUrl!==route.sourceUrl)throw new Error('Salmon route identity mismatch')
-  return publicReleaseDocument(doc)
+  return publicReleaseDocument(repairDocumentText(doc,documentHeldAlt(doc)))
+}
+/** Held alt text for an image (CT SEO parity follow-up R1, Part 2 item 3), most authoritative first:
+ *  1. the alt h2ocooling.com serves today (content/salmon/live-image-alt.json, from the CT parity audit's live fetches);
+ *  2. the Salmon WordPress media-library alt, else its caption (attachments.json).
+ * Matched by upload path without the size suffix ("-300x200", "-scaled"), and through the media identity's SHA-256 when the
+ * same bytes were uploaded under another name. Nothing is invented: no held text means the image keeps alt="". */
+const uploadKey=(url:string):string|undefined=>{
+  let pathname=url.split(/[?#]/)[0]??''
+  try{pathname=decodeURI(pathname)}catch{/* Keep the held spelling. */}
+  const upload=/\/wp-content\/uploads\/(.+)$/i.exec(pathname)?.[1]
+  return upload?.replace(/(\.(?:jpe?g|png|gif))\.webp$/i,'$1').replace(/-(?:\d+x\d+|scaled)(?=\.[a-z0-9]+$)/i,'').toLowerCase()
+}
+let heldAltIndex:{byKey:Map<string,string>;bySha:Map<string,string>}|undefined
+const heldAlt=()=>{
+  if(heldAltIndex)return heldAltIndex
+  const byKey=new Map<string,string>()
+  const clean=(value:string)=>repairMojibake(decodeEntities(value.replace(/<[^>]*>/g,' '))).replace(/\s+/g,' ').trim()
+  for(const [key,alt] of Object.entries(read<{alt:Record<string,string>}>('live-image-alt.json').alt))if(clean(alt))byKey.set(key,clean(alt))
+  for(const item of read<Array<{source_url:string;alt?:string;caption?:string}>>('attachments.json')){
+    const text=clean(item.alt||item.caption||''),key=uploadKey(item.source_url)
+    if(text&&key&&!byKey.has(key))byKey.set(key,text)
+  }
+  const bySha=new Map<string,string>()
+  for(const row of [...read<SalmonMedia[]>('media-identities.json'),...read<SalmonMedia[]>('r2-live-media-identities.json')]){
+    const key=uploadKey(row.url),text=key?byKey.get(key):undefined
+    if(row.sha256&&text&&!bySha.has(row.sha256))bySha.set(row.sha256,text)
+  }
+  return heldAltIndex={byKey,bySha}
+}
+/** Held alt text for an image source URL and/or the SHA-256 of its held bytes. */
+export const heldImageAlt=(source?:string,sha256?:string):string|undefined=>{
+  const index=heldAlt(),key=source?uploadKey(source):undefined
+  return (key?index.byKey.get(key):undefined)??(sha256?index.bySha.get(sha256):undefined)
+}
+/** The held alt for an image node of a document (its source URL, then the identity of the bytes it resolves to). */
+const documentHeldAlt=(doc:{sourceUrl:string})=>(source:string):string|undefined=>{
+  if(!source)return undefined
+  let sha:string|undefined
+  try{sha=salmonMedia(source,doc.sourceUrl)?.sha256}catch{/* Not a held media URL. */}
+  return heldImageAlt(source,sha)
 }
 let mediaIndex:Map<string,SalmonMedia>|undefined
 let mediaAliases:Map<string,SalmonMedia|null>|undefined

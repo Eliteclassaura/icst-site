@@ -5,6 +5,7 @@ import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {RfqMount} from './RfqMount'
 import {isPayloadContent,requestServices,snapshotJson} from '../content/runtime-read'
 import {deliverySrc} from './media-delivery'
+import {BreadcrumbSchema,HOME_CRUMB} from './breadcrumb-schema'
 
 export type EnglishService = {
   id:string;path:string;figmaNode:string;title:string;eyebrow:string;lead:string
@@ -58,6 +59,7 @@ function TechnicalDiagram({kind,src}:{kind:EnglishService['diagramKind'];src:str
  * every section's heading and content are individual and source-bound. */
 export function EnglishServicePage({service}:{service:EnglishService}){
   return <div className="luxury-site english-service" data-english-service={service.id} data-figma-node={service.figmaNode}>
+    <BreadcrumbSchema ancestors={[HOME_CRUMB]} current={{name:service.title,path:service.path}}/>
     <LuxuryHeader routePath={service.path}/>
     <main id="main">
       <section className="english-service-hero">

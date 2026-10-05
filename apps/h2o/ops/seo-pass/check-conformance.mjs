@@ -11,11 +11,13 @@
  *   301       status 301/308, Location equals the decided target, and the target answers 200 (one hop, no chain)
  *             A decided source with no trailing slash and no file extension first receives the framework's own
  *             trailing-slash 308 (Next.js, before the proxy); that hop is reported as FRAMEWORK_SLASH_HOP, not hidden.
+ *             Control Tower accepted it (308 → 301 → 200) for the malformed tcf.com URL only (ruling 3, 2026-10-04); a framework
+ *             hop on any other source fails.
  *   410       status 410
  *   HELD_FOR_CT_RULING  reported with its current status only
  * Typeform and other third parties are never requested. Exit 1 when any row fails.
  */
-import {readFileSync,writeFileSync} from 'node:fs'
+import {existsSync,readFileSync,writeFileSync} from 'node:fs'
 import path from 'node:path'
 
 const [baseArg,...rest]=process.argv.slice(2)
@@ -26,6 +28,8 @@ const DATA=path.join(path.dirname(new URL(import.meta.url).pathname),'data')
 const [head,...lines]=readFileSync(path.join(DATA,'conformance.tsv'),'utf8').trimEnd().split('\n')
 const cols=head.split('\t'),rows=lines.map(line=>Object.fromEntries(line.split('\t').map((v,i)=>[cols[i],v])))
 const decode=v=>{try{return decodeURIComponent(v)}catch{return v}}
+/** Framework trailing-slash hops Control Tower accepted (ruling 3, 2026-10-04). */
+const ACCEPTED_SLASH_HOP=/^\/aluminum-vs-frp-fan-blades\/https:\/www\.tcf\.com\//
 const entities=s=>s.replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(+n)).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16))).replace(/&quot;/g,'"').replace(/&apos;|&#039;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&')
 async function get(url){
   for(let attempt=0;;attempt++){
@@ -59,6 +63,7 @@ async function check(row){
   // 301
   let hop=r,framework=false
   if(row.framework_slash_hop==='yes'&&[301,308].includes(r.status)&&decode(r.location??'')===decode(row.url)+'/'){framework=true;hop=await get(r.location)}
+  if(framework&&!ACCEPTED_SLASH_HOP.test(decode(row.url)))return fail('framework slash hop not accepted')
   if(![301,308].includes(hop.status))return fail(`not a redirect (${hop.status})`)
   if(decode(hop.location??'')!==decode(row.target))return fail(`Location ${hop.location} ≠ ${row.target}`)
   const target=await get(hop.location)
@@ -67,11 +72,26 @@ async function check(row){
 }
 const results=[]
 for(let i=0;i<rows.length;i+=6)results.push(...await Promise.all(rows.slice(i,i+6).map(check)))
+// Content assertions (SEO parity Part 2 R2): restored live sections and live H1s are served on their pages.
+const assertionsFile=path.join(DATA,'content-assertions.tsv')
+if(existsSync(assertionsFile)){
+  const [ahead,...alines]=readFileSync(assertionsFile,'utf8').trimEnd().split('\n')
+  const acols=ahead.split('\t')
+  const byPage=new Map()
+  for(const line of alines){const row=Object.fromEntries(line.split('\t').map((v,i)=>[acols[i],v]));if(row.path)byPage.set(row.path,[...(byPage.get(row.path)??[]),row])}
+  for(const [p,list] of byPage){
+    const r=await get(p)
+    const strip=v=>entities(v.replace(/<[^>]+>/g,'')).replace(/\s+/g,' ').trim().toLowerCase()
+    const served={h1:[...r.body.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)].map(m=>strip(m[1])),h2:[...r.body.matchAll(/<h2\b[^>]*>([\s\S]*?)<\/h2>/g)].map(m=>strip(m[1]))}
+    const missing=r.status!==200?list.map(a=>a.text):list.filter(a=>!served[a.kind]?.includes(a.text.replace(/\s+/g,' ').trim().toLowerCase())).map(a=>`${a.kind}: ${a.text}`)
+    results.push(missing.length?{url:p,ok:false,reason:`restored content missing: ${missing.slice(0,4).join(' | ')}`,status:r.status}:{url:p,ok:true,contentAssertions:list.length})
+  }
+}
 const failures=results.filter(r=>!r.ok)
 const summary={
   base:new URL(BASE).host,rows:rows.length,passed:results.filter(r=>r.ok&&!r.held).length,failed:failures.length,
   held:results.filter(r=>r.held).length,metaPendingOgcs:results.filter(r=>r.metaPendingOgcs).length,metaMissingPendingOgcs:results.filter(r=>r.metaMissing).map(r=>r.url),
-  status308:results.filter(r=>r.status===308).length,frameworkSlashHop:results.filter(r=>r.frameworkSlashHop).map(r=>r.url),
+  status308:results.filter(r=>r.status===308).length,frameworkSlashHopAccepted:results.filter(r=>r.frameworkSlashHop).map(r=>r.url),
 }
 const report={summary,failures,held:results.filter(r=>r.held)}
 if(out)writeFileSync(out,JSON.stringify({...report,results},null,1))

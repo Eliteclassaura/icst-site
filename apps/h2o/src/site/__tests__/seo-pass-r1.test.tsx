@@ -46,8 +46,11 @@ describe('release authority and route ledger',()=>{
     expect(overrides.index).toHaveLength(5)
     for(const p of overrides.index){expect(auth.get(p),p).toMatchObject({state:'PUBLIC',indexable:true,sitemap:true});expect(EMPTY_ARCHIVE_PATHS,p).not.toContain(p)}
   })
-  it('the 17 consolidated pages become REDIRECT rows pointing at a PUBLIC route; the two designed pages held for a ruling are untouched',()=>{
-    expect(Object.keys(overrides.redirectSources)).toHaveLength(17)
+  it('the 18 consolidated pages become REDIRECT rows pointing at a PUBLIC route; the two designed pages are kept (CT ruling 2026-10-04)',()=>{
+    expect(Object.keys(overrides.redirectSources)).toHaveLength(18)
+    // Reversed for the designed pages: the live duplicates are withdrawn into them.
+    expect(overrides.redirectSources['/cooling-tower-thermal-upgrade/']).toBe('/thermal-upgrade/')
+    expect(overrides.redirectSources['/cooling-towers-construction-repair-in-japan/']).toBe('/cooling-tower-japan/')
     for(const [p,target] of Object.entries(overrides.redirectSources)){
       expect(auth.get(p),p).toMatchObject({state:'REDIRECT',export:false,indexable:false,sitemap:false,searchable:false,redirect:target})
       expect(auth.get(target)?.state,target).toBe('PUBLIC')
@@ -134,14 +137,21 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
   const expectations=JSON.parse(readFileSync(path.join(DATA,'expectations.json'),'utf8')) as {rows:number;redirects:number;seoFields:number;expect:Record<string,Record<string,number>>;problems:string[]}
   const FORBIDDEN=/\b(buy|shop|shopping|price[sd]?|pricing|cheap|for sale|order now|add to cart|purchase)\b|\$|@|\+?\d[\d\s().-]{8,}\d/i
   it('titles: at most 69 characters, unique, no price/contact/commerce words',()=>{
-    expect(seo).toHaveLength(468)
+    // 473 decided 200 pages minus /author/tbozic/, the 4 failed held articles and the 2 withdrawn duplicates, plus the
+    // un-consolidated /cooling-tower-vs-chiller/ (OGCS R1.2).
+    expect(seo).toHaveLength(467)
     const titles=seo.map(row=>row.title!)
     expect(new Set(titles).size).toBe(titles.length)
     for(const t of titles){expect(t.length,t).toBeLessThanOrEqual(69);expect(t,t).not.toMatch(FORBIDDEN)}
   })
-  it('metas written: 70-158 characters, unique, quote-only; pending OGCS metas are not written',()=>{
+  it('metas written: 70-158 characters, unique across the full set, quote-only; OGCS R1.2 leaves none pending',()=>{
     const written=seo.filter(row=>!row.meta_origin!.includes('PENDING_OGCS'))
-    expect(seo.length-written.length).toBe(27)
+    expect(seo.length-written.length).toBe(0)
+    expect(seo.filter(row=>row.meta_origin==='OGCS_SUPPLEMENT')).toHaveLength(36)
+    // The wrong-model meta is corrected to the product's own model (CT parity audit risk 6).
+    const fan=seo.find(row=>row.path==='/product/tuf-lite-ii-5000h-series-hub-fan-assemblies/')!
+    expect(fan.title).toBe('TUF-LITE II - 5000H Series Hub Fan Assemblies | Cooling Tower Fans')
+    expect(fan.meta).toContain('5000H');expect(fan.meta).not.toContain('6000H')
     expect(new Set(written.map(row=>row.meta)).size).toBe(written.length)
     for(const row of written){expect(row.meta!.length,row.path).toBeGreaterThanOrEqual(70);expect(row.meta!.length,row.path).toBeLessThanOrEqual(158);expect(row.meta,row.path).not.toMatch(FORBIDDEN)}
     expect(seo.find(row=>row.path==='/category/blog/')?.meta).toBe('Cooling tower articles from ICS on replacement planning, free cooling, water management plans, noise limits, retrofits and lifecycle asset management.')
@@ -149,7 +159,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     expect(EMPTY_ARCHIVE_PATHS).toContain('/category/cooling-tower-cost/')
   })
   it('redirects: unique sources, single hop to a 200 target, no loops or self-redirects; author rows dropped',()=>{
-    expect(redirects).toHaveLength(475)
+    expect(redirects).toHaveLength(474)
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -165,13 +175,26 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     expect(redirects.find(row=>row.source==='/aluminum-vs-frp-fan-blades/https:/www.tcf.com/wp-content/uploads/2021/12/High-Temperature-Fans-FE-32/')?.destination).toBe('/aluminum-vs-frp-fan-blades/')
     // Redirects that pointed at a held article that failed the content check follow its fallback.
     expect(redirects.find(row=>row.source==='/cooling-tower-nozzle-clogging/')?.destination).toBe('/nozzles/')
+    // Repointed to the final destination: the reversal cannot leave a chain.
+    expect(redirects.find(row=>row.source==='/thermal-upgrades-for-cooling-tower-efficiency/')?.destination).toBe('/thermal-upgrade/')
   })
-  it('conformance contract: 1,003 rows (1,005 minus the two author rows), two held for a ruling',()=>{
+  it('conformance contract: 1,003 rows (1,005 minus the two author rows), none held',()=>{
     expect(conformance).toHaveLength(1003)
     const count=(kind:string)=>conformance.filter(row=>row.expect===kind).length
-    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([526,475,2,0])
+    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([527,474,2,0])
+    for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
-    expect(expectations.expect.routes).toEqual({publish:3,withdraw:17,index:5,canonical:4})
+    // Part 2 R3 is ONE delta on the preserved partial R1 state on staging (Commander's held round, CT 2026-10-05): the R1
+    // residual (2 publications, 4 withdrawals, 1 canonical, 42 SEO fields that the strict validator refused) plus Part 2 R2
+    // (the two duplicate withdrawals; the chiller correction; R1.2 titles and metas; 22 completed metas; 8 H1s; 19 restored
+    // pages), and 4 file redirects repointed to the exact served file names (a case-sensitive runtime 404s otherwise).
+    expect(expectations.expect.routes).toEqual({publish:3,withdraw:6,index:0,canonical:1})
+    expect(expectations.expect.redirects).toEqual({create:0,update:4,unchanged:470,retire:1})
+    expect(expectations.expect.seoFields).toMatchObject({update:113,pendingOgcs:0})
+    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:47})
+    expect(expectations.expect.h1).toEqual({update:8})
+    expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:19})
+    expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(18)
     expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT').map(row=>[row.path,row.redirect])).toEqual(Object.entries(overrides.redirectSources))
   })
   it('restored files are byte-identical to the verified backup copies in the ledger',()=>{

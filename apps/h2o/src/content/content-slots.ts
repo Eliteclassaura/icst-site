@@ -274,7 +274,8 @@ export const nodeQuoteIntent = (n: { attrs?: Record<string, string> }) => n.attr
 
 /* ---------- validation ---------- */
 const SAFE_EXTERNAL = /^https:\/\/[^\s/?#]+(?:[/?#][^\s]*)?$/
-export type SlotContext = { knownPaths: Set<string>; productRouteIds: Set<string>; withheldElementIds: Set<string> }
+/** `knownFile`: a held public file verified to exist in the served public tree (./public-files); the only non-route site link. */
+export type SlotContext = { knownPaths: Set<string>; knownFile?: (href: string) => boolean; productRouteIds: Set<string>; withheldElementIds: Set<string> }
 
 export function validateSlots(doc: Doc, slots: ContentSlot[], ctx: SlotContext, original?: ContentSlot[] | null): string[] {
   const errors: string[] = []
@@ -299,7 +300,7 @@ export function validateSlots(doc: Doc, slots: ContentSlot[], ctx: SlotContext, 
       if (href === originalHref.get(s.key)) return // an unchanged imported destination stays as imported
       if (href.startsWith('/')) {
         if (href.startsWith('//')) errors.push(`${s.key}: protocol-relative links are not allowed`)
-        else if (!ctx.knownPaths.has(href.split(/[?#]/)[0]!)) errors.push(`${s.key}: ${href} is not a site route`)
+        else if (!ctx.knownPaths.has(href.split(/[?#]/)[0]!) && !ctx.knownFile?.(href)) errors.push(`${s.key}: ${href} is not a site route`)
       } else if (href.startsWith('#')) {
         /* same-page anchor */
       } else if (!SAFE_EXTERNAL.test(href)) errors.push(`${s.key}: only site paths or https links are allowed`)

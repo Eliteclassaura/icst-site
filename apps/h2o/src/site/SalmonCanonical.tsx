@@ -15,6 +15,8 @@ import {commerceException,commerceMetaException,ownerHref,ownerText,salmonMedia,
 import {normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 import {deliverySrc} from './media-delivery'
 import {PUBLIC_AUTHOR} from './public-author-identity'
+import {BreadcrumbSchema,HOME_CRUMB,isBreadcrumbList,type Crumb} from './breadcrumb-schema'
+import {decodeEntities} from './text-repair'
 export {aboutGeographyCorrections,normalizeWave3IndexEditorial,normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 // Start tags that implicitly close an open <p> in the HTML parser. A source <p> holding one of these cannot be
 // represented in HTML: the browser closes the paragraph first and hydration then sees a different tree (#418).
@@ -121,7 +123,10 @@ export function publicMetaText(doc:SalmonDocument,value:string):string{
   return doc.routeId==='SALMON-pages-411'?scoped.replace(/^Shop\b/i,'Explore'):scoped
 }
 export const publicDescription=(doc:SalmonDocument):string|undefined=>{const value=doc.seo.meta.find(meta=>meta.name==='description')?.value;return value===undefined?undefined:publicMetaText(doc,value)}
-export function SalmonSeo({doc,canonicalOverride}:{doc:SalmonDocument;canonicalOverride?:string}){
+/** The page's own name in its breadcrumb trail: the rendered H1, else the document title. */
+export const breadcrumbName=(doc:SalmonDocument):string=>articleDisplayTitle(decodeEntities(doc.seo.h1[0]||doc.title)).replace(/\s+/g,' ').trim()
+/** `breadcrumb` is the trail the template renders above the page (default: Home). */
+export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbName}:{doc:SalmonDocument;canonicalOverride?:string;breadcrumb?:Crumb[];crumbName?:string}){
   const metaValue=(name:string,value:string)=>{
     if(name==='og:url'&&canonicalOverride&&value===doc.seo.canonical[0])return canonicalOverride
     if(name==='og:title'||name==='twitter:title')return articleSocialTitle(doc,value)
@@ -131,10 +136,11 @@ export function SalmonSeo({doc,canonicalOverride}:{doc:SalmonDocument;canonicalO
   return <>
     {doc.seo.meta.filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)).map((m,i)=>m.name.startsWith('og:')||m.name.startsWith('article:')?<meta key={i} property={m.name} content={metaValue(m.name,m.value)}/>:<meta key={i} name={m.name} content={metaValue(m.name,m.value)}/>)}
     {doc.seo.schema.map((raw,i)=>{
+      if(isBreadcrumbList(JSON.parse(raw)))return null
       // Quote-only estate: no prices, and no ratings or reviews (Control Tower ruling 2026-10-02).
       const review=(value:unknown)=>Boolean(value)&&typeof value==='object'&&['Review','AggregateRating'].includes(String((value as Record<string,unknown>)['@type']))
       const stripCommerce=(value:unknown):unknown=>{
-        if(Array.isArray(value))return value.filter(item=>!review(item)).map(stripCommerce)
+        if(Array.isArray(value))return value.filter(item=>!review(item)&&!isBreadcrumbList(item)).map(stripCommerce)
         if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).filter(([k])=>!['offers','price','lowPrice','highPrice','priceCurrency','aggregateRating','review','reviews'].includes(k)).map(([k,v])=>[k,stripCommerce(v)]))
         return typeof value==='string'?ownerText(value):value
       }
@@ -142,6 +148,7 @@ export function SalmonSeo({doc,canonicalOverride}:{doc:SalmonDocument;canonicalO
       const canonicalSchema=canonicalOverride&&doc.seo.canonical[0]?sourceSchema.replaceAll(doc.seo.canonical[0],canonicalOverride):sourceSchema
       return <script data-source-schema={i} key={i} type="application/ld+json" dangerouslySetInnerHTML={{__html:canonicalSchema.replaceAll('<','\\u003c')}}/>
     })}
+    <BreadcrumbSchema ancestors={breadcrumb} current={{name:crumbName??breadcrumbName(doc),path:canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath}}/>
   </>
 }
 export function SalmonCanonical({doc}:{doc:SalmonDocument}){

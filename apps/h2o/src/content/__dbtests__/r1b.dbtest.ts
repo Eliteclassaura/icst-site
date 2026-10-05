@@ -434,3 +434,19 @@ describe('AUTHOR_PUBLIC_OUTPUT (ADR-028)', () => {
     expect(JSON.stringify(releasedDoc(AUTHOR))).toContain('ICS Editorial Team')
   })
 })
+
+describe('SEO batch lifecycle read-back (R1 residual, Control Tower 2026-10-05)', () => {
+  it('a withdrawn page still comes back from an admin draft=false read, as an unpublished main row; a published-only query returns nothing', async () => {
+    const r = await rec(CONTACT)
+    expect((await rest.patch(`public-routes/${String(r.id)}`, admin.token, { _status: 'published' })).status).toBe(200)
+    const key = encodeURIComponent(String(r.pathKey))
+    expect((await rest.patch(`public-routes/${String(r.id)}`, admin.token, { _status: 'draft' })).status).toBe(200)
+    // What the R1 script read back and counted as "still published": the main row, now a draft.
+    const main = await rest.get(`public-routes?where[pathKey][equals]=${key}&limit=1&depth=0&draft=false`, admin.token)
+    expect(((main.body.docs as Doc[])[0] ?? {})._status).toBe('draft')
+    // The corrected proof: nothing is published at that path.
+    const onlyPublished = await rest.get(`public-routes?where[pathKey][equals]=${key}&where[_status][equals]=published&limit=1&depth=0&draft=false`, admin.token)
+    expect(onlyPublished.body.docs).toEqual([])
+    expect((await rest.patch(`public-routes/${String(r.id)}`, admin.token, { _status: 'published' })).status).toBe(200)
+  })
+})

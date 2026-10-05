@@ -380,7 +380,7 @@ function withProjectDetailLinks(doc:SalmonDocument):SalmonDocument{
 }
 const sourceFor=(doc:SalmonDocument,family:SalmonFamily):SalmonDocument=>family==='about'?withoutHistoricalSaudiClaims(doc):family==='testimonial'?{...doc,children:articleHeadingNodes(doc.children)}:family==='project-portfolio'?withProjectDetailLinks(doc):doc
 
-export const composedSectionRefs=(doc:SalmonDocument):Array<SourceRef&{index:number}>=>doc.children.flatMap((value,i)=>isElement(value)&&(salmonNodeText(value).trim()||findAll({node:value as SalmonElement,key:`body.${i}`},ref=>ref.node.tag==='img').length||backgroundOf(doc.routeId,value as SalmonElement))?[{node:value as SalmonElement,key:`body.${i}`,index:i}]:[])
+export const composedSectionRefs=(doc:SalmonDocument):Array<SourceRef&{index:number}>=>doc.children.flatMap((value,i)=>isElement(value)&&!value.attrs['data-restored-slot']&&(salmonNodeText(value).trim()||findAll({node:value as SalmonElement,key:`body.${i}`},ref=>ref.node.tag==='img').length||backgroundOf(doc.routeId,value as SalmonElement))?[{node:value as SalmonElement,key:`body.${i}`,index:i}]:[])
 /** One source section as a model section (also used by the Parts index hero). */
 export function adaptSection(doc:SalmonDocument,section:SourceRef,position:number,options:{productCards?:boolean;treatment?:SectionModel['treatment'];role?:SectionModel['role'];excluded?:SalmonFamilyPageModel['exclusions']}={}):SectionModel{
   const root=container(section,{doc,productCards:!!options.productCards,excluded:options.excluded??[]})

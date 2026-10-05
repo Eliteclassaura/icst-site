@@ -93,8 +93,11 @@ describe('author archive indexing under H2O_INDEXING_POLICY=production',()=>{
     expect(sitemap).not.toMatch(/\/author\//)
   })
   it('page metadata reads the same decision as the header',()=>{
+    // SEO parity Part 2: the rule lives in content/config publicRobots (pure, tested directly); page-bridge delegates to it.
     const bridge=readFileSync(path.join(process.cwd(),'src/content/page-bridge.ts'),'utf8')
-    expect(bridge).toMatch(/if \(record\.disposition\?\.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS\.has\(record\.path\)\) return \{ index: false, follow: true \}/)
-    expect(bridge).toMatch(/if \(preview \|\| indexingPolicy\(\) !== 'production'\) return \{ index: false, follow: false \}/)
+    const config=readFileSync(path.join(process.cwd(),'src/content/config.ts'),'utf8')
+    expect(bridge).toMatch(/return publicRobots\(record, preview\)/)
+    expect(config).toMatch(/if \(record\.disposition\?\.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS\.has\(record\.path\)\) return \{ index: false, follow: true \}/)
+    expect(config).toMatch(/if \(preview \|\| indexingPolicy\(env\) !== 'production'\) return \{ index: false, follow: false \}/)
   })
 })

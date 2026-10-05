@@ -63,6 +63,22 @@ export const indexingPolicy = (env: NodeJS.ProcessEnv = process.env): IndexingPo
 export const NOINDEX_FOLLOW_PATHS: ReadonlySet<string> = new Set(['/author/timbozic/', ...EMPTY_ARCHIVE_PATHS])
 
 /**
+ * The page-metadata robots for a route record (the proxy sends the matching X-Robots-Tag). Private policy and previews are
+ * noindex,nofollow; under the production policy a published empty archive is noindex,follow and an indexable route is
+ * index,follow (no noindex anywhere). Pure, so it is tested without the Payload runtime.
+ */
+export function publicRobots(
+  record: { path: string; disposition?: { state?: string | null; indexable?: boolean | null } | null },
+  preview: boolean,
+  env: NodeJS.ProcessEnv = process.env,
+): { index: boolean; follow: boolean } {
+  if (preview || indexingPolicy(env) !== 'production') return { index: false, follow: false }
+  if (record.disposition?.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS.has(record.path)) return { index: false, follow: true }
+  const ok = Boolean(record.disposition?.indexable)
+  return { index: ok, follow: ok }
+}
+
+/**
  * Retired WordPress system URLs answered 410 Gone (Master SEO Pass R1, OGCS decisions; Control Tower brief 2026-10-04).
  * Matched on the path, so `/wp/wp-admin/edit.php?post_type=product` is covered by `/wp/wp-admin/edit.php`.
  */

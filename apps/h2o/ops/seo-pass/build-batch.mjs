@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /**
- * MASTER SEO PASS R1 — batch builder (Control Tower brief 2026-10-04). Offline; writes data files only.
+ * MASTER SEO PASS — batch builder (R1: Control Tower brief 2026-10-04; Part 2: CT SEO parity follow-up R1). Offline; writes
+ * data files only.
  *
- *   node ops/seo-pass/build-batch.mjs <decisions.tsv> <missing-metas.tsv> <content-check.json> <staging-probe.json> [ogcs-supplement.tsv]
+ *   node ops/seo-pass/build-batch.mjs <decisions.tsv> <missing-metas.tsv> <content-check.json> <staging-probe.json> [ogcs-supplement.tsv] [--baseline=<dir>]
  *
  * Inputs: OGCS H2O_MASTER_SEO_PASS_DECISIONS_2026-10-03.tsv (in H2O_MASTER_SEO_PASS_R1_2026-10-03.zip), the R1.1 missing
  * metas TSV, Main's content-check verdicts for the seven held articles, and a read-only probe of staging (status, Location,
@@ -17,17 +18,40 @@
  * Quote-only rule: a meta that opens with Buy/Order/Shop takes the accepted rewrite (site/public-text normalizeWave3ProductDescription);
  * a meta that then exceeds 158 characters is trimmed at its last clause boundary and flagged for OGCS.
  *
+ * Part 2 (CT rulings 2026-10-04):
+ *   - The two held designed pages are KEPT and the live duplicates 301 into them (REVERSED_FOR_DESIGNED below). The designed
+ *     page keeps its current title and meta (conformance pins them; nothing is written to it); the duplicate is withdrawn.
+ *   - Every redirect destination is repointed to its final destination (repointToFinal), so a reversal or a later decision can
+ *     never create a chain; a loop stops the build.
+ *   - OGCS supplement R1.2 (url, final_meta) supplies the 27 pending metas and 9 optional replacements.
+ *   - FACTUAL_CORRECTIONS: a model number that contradicts the product's own title and route is corrected (disclosed).
+ *   - OGCS Part 1 R1.2 (CT accepted 2026-10-05): --title-delta=<tsv> sets the R1.2 final titles (RESTORE_LIVE_TITLE, RESTORE_TERM,
+ *     STANDARDISE_FAN_SUFFIX; REJECT_QUERY / NO_CHANGE rows change nothing) and STATE_CHANGE_301_TO_200 un-consolidates a page;
+ *     --dup-resolution=<tsv> supplies the final meta of rows the delta changes. A delta title aimed at a 301 source is skipped and
+ *     reported (deltaSkipped). A page that returns from 301 to 200 is re-published and its redirect record retired
+ *     (redirects-retired.tsv: active:false, never deleted).
+ *   - --content-decisions=<tsv>: the decided H1 of pages whose body stays (KEEP_STAGING_VERSION / RESTORE_SECTIONS) is written to
+ *     the page's h1 heading slot (h1-fields.tsv). H1s that arrive with a restored live body ship with that body.
+ *   - --meta-rewrites=<tsv> (path, old_meta, new_meta): CT ruling 2026-10-05 — OGCS finals that end in a truncation mark are
+ *     rewritten as complete sentences (no new claims); a row applies only when the batch meta still equals old_meta.
+ *   - CONTENT_FALLBACKS: a content decision's fallback 301, applied while the restoration has not shipped.
+ *   - --baseline=<dir>: the data directory of the batch already applied on staging (R1). Actions and expectations are then the
+ *     delta against that applied state, so the dry run counts exactly what this round changes.
+ *
  * Order: run against the BASE content/release/route-ledger.json (canonical and state diffs are computed from it), then
  * regenerate the changed ledger rows from release/authority.mjs, which reads the content/release/seo-pass-r1.json written here.
  *
  * Outputs (ops/seo-pass/data/): conformance.tsv, redirects.tsv, seo-fields.tsv, route-dispositions.tsv, gone.tsv,
  * expectations.json, and content/release/seo-pass-r1.json (the authority overrides release/authority.mjs reads).
  */
-import {mkdirSync,readFileSync,writeFileSync} from 'node:fs'
+import {existsSync,mkdirSync,readdirSync,readFileSync,statSync,writeFileSync} from 'node:fs'
 import path from 'node:path'
 
-const [decisionsFile,metasFile,contentFile,probeFile,supplementFile]=process.argv.slice(2)
-if(!probeFile){process.stderr.write('usage: build-batch.mjs <decisions.tsv> <missing-metas.tsv> <content-check.json> <staging-probe.json> [supplement.tsv]\n');process.exit(2)}
+const flags=process.argv.slice(2).filter(a=>a.startsWith('--')),positional=process.argv.slice(2).filter(a=>!a.startsWith('--'))
+const [decisionsFile,metasFile,contentFile,probeFile,supplementFile]=positional
+const flag=name=>flags.find(f=>f.startsWith(`--${name}=`))?.slice(name.length+3)
+const baselineDir=flag('baseline'),titleDeltaFile=flag('title-delta'),dupResolutionFile=flag('dup-resolution'),contentDecisionsFile=flag('content-decisions'),restoredFile=flag('restored'),metaRewritesFile=flag('meta-rewrites')
+if(!probeFile){process.stderr.write('usage: build-batch.mjs <decisions.tsv> <missing-metas.tsv> <content-check.json> <staging-probe.json> [supplement.tsv] [--baseline=<dir>]\n');process.exit(2)}
 const APP=path.resolve(path.dirname(new URL(import.meta.url).pathname),'..','..')
 const OUT=path.join(APP,'ops/seo-pass/data')
 const ORIGIN='https://h2ocooling.com'
@@ -52,19 +76,71 @@ const safeDecode=v=>{try{return decodeURIComponent(v)}catch{return v}}
 const requestPath=url=>{const u=new URL(url);return {path:u.pathname,query:u.search,key:safeDecode(u.pathname)}}
 const pathOf=url=>url?requestPath(url).path:''
 
-const decisions=tsv(decisionsFile)
+/** Control Tower ruling (2026-10-04, SEO Pass R1 acceptance): keep the accepted designed page, 301 the live duplicate into it.
+ * designed page -> the duplicate OGCS had chosen as the winner. */
+const REVERSED_FOR_DESIGNED=new Map([['/thermal-upgrade/','/cooling-tower-thermal-upgrade/'],['/cooling-tower-japan/','/cooling-towers-construction-repair-in-japan/']])
+/** A model number that contradicts the product's own title, H1 and route (CT parity audit risk 6). Disclosed in the return. */
+const REVERSED_DUPLICATE=new Set([...REVERSED_FOR_DESIGNED.values()])
+const FACTUAL_CORRECTIONS=new Map([['/product/tuf-lite-ii-5000h-series-hub-fan-assemblies/',[/\b6000H\b/g,'5000H']]])
+const decisions=tsv(decisionsFile).map(d=>({...d}))
+/** Restored sections (data/restored-sections.json, written by build-restored.mjs): path → { routeId, h1?, groups }. */
+const restored=restoredFile?JSON.parse(readFileSync(restoredFile,'utf8')):{}
+const replacesBody=p=>Boolean(restored[p]?.groups?.some(g=>g.mode==='replace-body'))
+/** Content decisions whose restoration has not shipped take their decided fallback 301 (CT 2026-10-05). A page whose live
+ * body is restored in this batch keeps its 200 (the fallback is not needed). */
+const CONTENT_FALLBACKS=new Map([['/chiller-and-cooling-tower/','/legionella-control-in-industrial-cooling-towers/']].filter(([p])=>!replacesBody(p)))
+const deltaSkipped=[],deltaApplied=[]
+if(titleDeltaFile){
+  const byUrl=new Map(decisions.map(d=>[d.url,d]))
+  const dupMeta=new Map(dupResolutionFile?tsv(dupResolutionFile).map(r=>[r.url,r.final_meta]):[])
+  for(const row of tsv(titleDeltaFile)){
+    const d=byUrl.get(row.url)
+    if(!d)throw new Error(`title delta row has no decision: ${row.url}`)
+    if(['RESTORE_LIVE_TITLE','RESTORE_TERM','STANDARDISE_FAN_SUFFIX'].includes(row.action)){
+      if(d.state!=='200'||CONTENT_FALLBACKS.has(pathOf(d.url))||REVERSED_DUPLICATE.has(pathOf(d.url))){deltaSkipped.push({url:pathOf(row.url),action:row.action,reason:CONTENT_FALLBACKS.has(pathOf(d.url))?'content fallback 301 in force':`decision is ${REVERSED_DUPLICATE.has(pathOf(d.url))?'a withdrawn duplicate (CT reversal)':d.state}`});continue}
+      d.final_title=row.r1_2_final_title;d.delta='R1_2_TITLE'
+      if(dupMeta.get(row.url))d.final_meta=dupMeta.get(row.url)
+      deltaApplied.push(pathOf(row.url))
+    }else if(row.action==='STATE_CHANGE_301_TO_200'){
+      Object.assign(d,{state:'200',redirect_target:'',final_title:row.r1_2_final_title,final_meta:dupMeta.get(row.url)??d.final_meta,delta:'R1_2_UNCONSOLIDATED'})
+      deltaApplied.push(pathOf(row.url))
+    }
+  }
+}
+for(const [p,fallback] of CONTENT_FALLBACKS){const d=decisions.find(x=>pathOf(x.url)===p);if(d)Object.assign(d,{state:'301',redirect_target:ORIGIN+fallback,final_title:'',final_meta:'',reason:`content restoration pending: decided fallback 301 (OGCS R1.2, CT 2026-10-05)`})}
+{
+  const byPath=new Map(decisions.map(d=>[pathOf(d.url),d]))
+  const duplicateToDesigned=new Map([...REVERSED_FOR_DESIGNED].map(([keep,dup])=>[dup,keep]))
+  for(const [keep,dup] of REVERSED_FOR_DESIGNED){
+    const k=byPath.get(keep),x=byPath.get(dup)
+    if(!k||!x||k.state!=='301'||pathOf(k.redirect_target)!==dup||x.state!=='200')throw new Error(`reversal precondition failed for ${keep}`)
+    Object.assign(k,{state:'200',redirect_target:'',final_title:'',final_meta:'',canonical:'',reversed:'DESIGNED_KEPT'})
+    Object.assign(x,{state:'301',redirect_target:ORIGIN+keep,final_title:'',final_meta:'',canonical:'',reversed:'DUPLICATE_TO_DESIGNED',reason:`CT ruling 2026-10-04: designed ${keep} kept; duplicate 301s into it`})
+  }
+  for(const d of decisions)if(d.state==='301'&&duplicateToDesigned.has(pathOf(d.redirect_target)))d.redirect_target=ORIGIN+duplicateToDesigned.get(pathOf(d.redirect_target))
+  // The surviving designed page receives the OGCS supplement / R1.1 meta keyed to the duplicate, if any.
+}
 const missing=new Map(tsv(metasFile).map(r=>[r.url,r.final_meta]))
+const metaRewrites=new Map(metaRewritesFile?tsv(metaRewritesFile).map(r=>[safeDecode(r.path),r]):[])
+let metaRewritesApplied=0
 const supplement=new Map(supplementFile?tsv(supplementFile).map(r=>[r.url,r.final_meta]):[])
 const content=JSON.parse(readFileSync(contentFile,'utf8'))
 const probe=new Map(JSON.parse(readFileSync(probeFile,'utf8')).map(r=>[r.url,r]))
 const ledger=JSON.parse(readFileSync(path.join(APP,'content/release/route-ledger.json'),'utf8'))
 const routeByKey=new Map(ledger.routes.map(r=>[safeDecode(r.path),r]))
+/** The batch already applied on staging: what Payload holds now for each row it wrote. */
+const baseline=baselineDir?{
+  redirects:new Map(tsv(path.join(baselineDir,'redirects.tsv')).map(r=>[safeDecode(r.source),r])),
+  seo:new Map(tsv(path.join(baselineDir,'seo-fields.tsv')).map(r=>[safeDecode(r.path),{title:r.title,meta:r.meta_origin.includes('PENDING_OGCS')?r.meta_now:r.meta}])),
+  dispositions:new Set(tsv(path.join(baselineDir,'route-dispositions.tsv')).map(r=>`${r.action} ${safeDecode(r.path)} ${r.redirect??''}${r.canonical??''}`)),
+}:null
+const dispositionKey=d=>`${d.action} ${safeDecode(d.path)} ${d.redirect??''}${d.canonical??''}`
+const applied=d=>Boolean(baseline?.dispositions.has(dispositionKey(d)))
 
 const DROPPED=new Set([`${ORIGIN}/author/tbozic/`,`${ORIGIN}/author/faizasyed-ai/`])
-/** Held for a Control Tower ruling (Main, 2026-10-04): OGCS consolidates two accepted designed pages (the Thermal luxury page,
- * linked from the main navigation, and the designed Japan country page) into undesigned live duplicates on 0-1 vs 1-29 clicks.
- * Not applied until ruled; the conformance contract marks them HELD_FOR_CT_RULING. */
-const HELD_FOR_RULING=new Set(['/thermal-upgrade/','/cooling-tower-japan/'])
+/** Rows held for a Control Tower ruling are marked HELD_FOR_CT_RULING and not applied. The two R1 holds (/thermal-upgrade/,
+ * /cooling-tower-japan/) were ruled on 2026-10-04 (REVERSED_FOR_DESIGNED above); nothing is held now. */
+const HELD_FOR_RULING=new Set()
 const verdict=new Map(content.articles.map(a=>[a.path,a]))
 const failedHeld=new Map(content.articles.filter(a=>a.verdict==='FAIL').map(a=>[a.path,null]))
 for(const d of decisions){const p=pathOf(d.url);if(failedHeld.has(p))failedHeld.set(p,pathOf(d.fallback_if_not_published))}
@@ -88,13 +164,22 @@ function trimMeta(meta){
 const restoreLedger=JSON.parse(readFileSync(path.join(APP,'ops/seo-pass/data/file-restore-ledger.json'),'utf8'))
 const served=new Map()
 for(const p of [...decisions.filter(d=>d.state==='200').map(d=>pathOf(d.url)),...ledger.routes.filter(r=>r.state==='PUBLIC'&&r.export).map(r=>r.path),...restoreLedger.restored.map(f=>encodeURI(f.served_path)),...restoreLedger.already_present.map(f=>encodeURI(f.served_path))])served.set(safeDecode(p).toLowerCase(),p)
+/** Every held file the runtime serves, by lower-cased path → its exact served spelling (the runtime filesystem is
+ * case-sensitive: a destination in another case is a 404 there even when a case-insensitive disk finds it). */
+const servedFiles=new Map()
+{
+  const pub=path.join(APP,'public')
+  const walk=dir=>{for(const name of readdirSync(dir)){const full=path.join(dir,name);if(statSync(full).isDirectory())walk(full);else{const p='/'+path.relative(pub,full).split(path.sep).join('/');servedFiles.set(p.toLowerCase(),encodeURI(p))}}}
+  walk(path.join(pub,'wp-content'))
+}
 function resolveTarget(target){
   const route=routeByKey.get(safeDecode(target))
   if(route)return route.path
+  if(/\.[a-z0-9]{2,5}$/i.test(safeDecode(target)))return servedFiles.get(safeDecode(target).toLowerCase())??served.get(safeDecode(target).toLowerCase())??target
   return served.get(safeDecode(target).toLowerCase())??target
 }
-const conformance=[],redirects=[],seo=[],dispositions=[],gone=[]
-const expect={redirects:{create:0,update:0,unchanged:0},routes:{publish:0,withdraw:0,index:0,canonical:0},seoFields:{update:0,unchanged:0,pendingOgcs:0},files:0,gone:0}
+const conformance=[],redirects=[],seo=[],dispositions=[],gone=[],retired=[]
+const expect={redirects:{create:0,update:0,unchanged:0,retire:0},routes:{publish:0,withdraw:0,index:0,canonical:0},seoFields:{update:0,unchanged:0,pendingOgcs:0},files:0,gone:0}
 for(const d of decisions){
   if(DROPPED.has(d.url))continue
   const {path:reqPath,query,key}=requestPath(d.url)
@@ -109,28 +194,63 @@ for(const d of decisions){
     // The proxy compares decoded paths; store the browser's encoded form (the collection refuses raw whitespace).
     const destination=resolveTarget(target)
     const live=now&&now.status===200
-    const correct=now&&[301,308].includes(now.status)&&now.location&&safeDecode(now.location)===safeDecode(destination)
-    const action=correct?'UNCHANGED':now&&[301,308].includes(now.status)&&now.location&&!/\/$/.test(key)&&safeDecode(now.location)===key+'/'?'CREATE':now&&[301,308].includes(now.status)?'UPDATE':'CREATE'
     const source=/\/$/.test(key)||/\.[A-Za-z0-9]{2,5}$/.test(key)?reqPath:`${reqPath}/`
-    redirects.push({source,destination,status:'301',action,was:now?`${now.status} ${now.location??''}`.trim():'',live_route:live?'yes':'',clicks:d.gsc_clicks,reason:d.reason})
-    expect.redirects[action.toLowerCase()]++
-    if(live){const r=routeByKey.get(key);dispositions.push({path:r?r.path:reqPath,routeId:r?.routeId??'',action:'WITHDRAW_TO_REDIRECT',redirect:destination});expect.routes.withdraw++}
+    const prior=baseline?.redirects.get(safeDecode(source))
+    // The action is decided after repointToFinal (the destination may still change).
+    const actionFor=dest=>prior?(safeDecode(prior.destination)===safeDecode(dest)?'UNCHANGED':'UPDATE'):now&&[301,308].includes(now.status)&&now.location&&safeDecode(now.location)===safeDecode(dest)?'UNCHANGED':now&&[301,308].includes(now.status)&&now.location&&!/\/$/.test(key)&&safeDecode(now.location)===key+'/'?'CREATE':now&&[301,308].includes(now.status)?'UPDATE':'CREATE'
+    redirects.push({source,destination,status:'301',actionFor,was:prior?`301 ${prior.destination} (applied batch)`:now?`${now.status} ${now.location??''}`.trim():'',live_route:live?'yes':'',clicks:d.gsc_clicks,reason:d.reason})
+    if(live){const r=routeByKey.get(key);dispositions.push({path:r?r.path:reqPath,routeId:r?.routeId??'',action:'WITHDRAW_TO_REDIRECT',redirect:destination})}
     conformance.push({url:reqPath+query,expect:'301',target:destination,framework_slash_hop:source!==reqPath?'yes':''})
     continue
   }
   // 200
+  if(d.reversed==='DESIGNED_KEPT'){conformance.push({url:reqPath,expect:'200',kind:'html',title:now?.title??'',meta:now?.meta??''});continue}
+  // A page the applied batch consolidated (withdrawn to a redirect) that is decided 200 again is re-published, and its
+  // redirect record is retired (active:false, kept for history).
+  const priorRedirect=baseline?.redirects.get(safeDecode(reqPath))
+  if(priorRedirect){
+    retired.push({source:priorRedirect.source,was_destination:priorRedirect.destination,reason:d.delta==='R1_2_UNCONSOLIDATED'?'OGCS R1.2 correction: false duplicate un-consolidated (CT 2026-10-05)':'decided 200'})
+    const r=routeByKey.get(key)
+    // A re-publish returns the route to its base authority state (it simply leaves redirectSources); it is not a held article.
+    if(r){const row={path:r.path,routeId:r.routeId,action:'PUBLISH',republish:true};dispositions.push(row);if(!applied(row))expect.routes.publish++}
+  }
   if(!d.final_title){conformance.push({url:reqPath+query,expect:'200',kind:query?'query-variant':'file'});continue}
   const route=routeByKey.get(key)
   let meta=supplement.get(d.url)??missing.get(d.url)??d.final_meta,origin=supplement.has(d.url)?'OGCS_SUPPLEMENT':missing.has(d.url)?'OGCS_R1_1':'OGCS'
   // "Buy … online" becomes "Request a quote for …"; the e-commerce "online" goes with it.
   if(QUOTE_ONLY.test(meta)){meta=meta.replace(QUOTE_ONLY,(_,opening)=>`${opening}Request a quote for`).replace(/\s+online(?=[,.;])/i,'');origin+='+QUOTE_ONLY'}
   if(meta.length>158){const trimmed=trimMeta(meta);if(trimmed){meta=trimmed;origin+='+MECHANICAL_TRIM'}else origin+='+PENDING_OGCS_LENGTH'}
+  const rewrite=metaRewrites.get(safeDecode(route?route.path:reqPath))
+  if(rewrite){if(rewrite.old_meta!==meta)throw new Error(`meta rewrite no longer matches the batch meta: ${reqPath}`);meta=rewrite.new_meta;origin+='+CT_COMPLETE_SENTENCE';metaRewritesApplied++}
+  const correction=FACTUAL_CORRECTIONS.get(key)
+  if(correction&&correction[0].test(meta)){meta=meta.replace(correction[0],correction[1]);origin+='+FACTUAL_CORRECTION'}
   const canonical=d.canonical&&route&&safeDecode(d.canonical)!==safeDecode(route.canonical)?d.canonical:''
-  seo.push({path:route?route.path:reqPath,routeId:route?.routeId??'',title:d.final_title,meta,canonical,meta_origin:origin,title_now:now?.title??'',meta_now:now?.meta??''})
-  if(held&&held.verdict==='PASS'){dispositions.push({path:route.path,routeId:route.routeId,action:'PUBLISH'});expect.routes.publish++}
-  if(canonical){dispositions.push({path:route.path,routeId:route.routeId,action:'CANONICAL',canonical});expect.routes.canonical++}
+  const prior=baseline?.seo.get(safeDecode(route?route.path:reqPath))
+  seo.push({path:route?route.path:reqPath,routeId:route?.routeId??'',title:d.final_title,meta,canonical,meta_origin:origin,title_now:prior?prior.title:now?.title??'',meta_now:prior?prior.meta:now?.meta??''})
+  if(held&&held.verdict==='PASS'){const row={path:route.path,routeId:route.routeId,action:'PUBLISH'};dispositions.push(row);if(!applied(row))expect.routes.publish++}
+  if(canonical){const row={path:route.path,routeId:route.routeId,action:'CANONICAL',canonical};dispositions.push(row);if(!applied(row))expect.routes.canonical++}
   conformance.push({url:reqPath,expect:'200',kind:'html',title:d.final_title,meta})
 }
+/** Repoint every redirect to its final destination: a destination that is itself a redirect source is followed to the end. */
+function repointToFinal(){
+  const next=new Map(redirects.map(r=>[safeDecode(r.source),r.destination]))
+  for(const r of redirects){
+    const seen=new Set([safeDecode(r.source)])
+    let destination=r.destination
+    while(next.has(safeDecode(destination))){
+      if(seen.has(safeDecode(destination))){problemsEarly.push(`loop ${r.source}`);break}
+      seen.add(safeDecode(destination))
+      destination=next.get(safeDecode(destination))
+    }
+    if(destination!==r.destination){r.reason=`${r.reason} [repointed from ${r.destination}]`;r.destination=destination}
+  }
+  for(const c of conformance)if(c.expect==='301'&&next.has(safeDecode(c.target))){const r=redirects.find(x=>safeDecode(x.source)===safeDecode(c.url.replace(/\?.*$/,''))||safeDecode(x.source)===safeDecode(c.url.replace(/\?.*$/,''))+'/');if(r)c.target=r.destination}
+  for(const d of dispositions)if(d.action==='WITHDRAW_TO_REDIRECT'&&next.has(safeDecode(d.redirect))){const r=redirects.find(x=>safeDecode(x.source)===safeDecode(d.path));d.redirect=r?r.destination:d.redirect}
+}
+const problemsEarly=[]
+repointToFinal()
+for(const r of redirects){r.action=r.actionFor(r.destination);expect.redirects[r.action.toLowerCase()]++}
+for(const d of dispositions)if(d.action==='WITHDRAW_TO_REDIRECT'&&!applied(d))expect.routes.withdraw++
 // Duplicate metas are pending OGCS (no copy is invented here): they are not written and are listed for OGCS.
 const byMeta=new Map();for(const row of seo){byMeta.set(row.meta,[...(byMeta.get(row.meta)??[]),row])}
 for(const rows of byMeta.values())if(rows.length>1)for(const row of rows)if(!supplement.has(ORIGIN+row.path)){row.meta_origin+='+PENDING_OGCS_DUPLICATE'}
@@ -139,28 +259,37 @@ for(const row of seo){
   const pending=row.meta_origin.includes('PENDING_OGCS')
   // A pending meta is not written: conformance requires a meta to be present, not this text.
   if(pending){const c=conformanceByPath.get(safeDecode(row.path));if(c){c.meta='';c.meta_pending='yes'}}
-  const changed=row.title!==row.title_now||(!pending&&row.meta!==row.meta_now)||Boolean(row.canonical)
+  // A canonical already applied by the baseline batch is not a change (the route-disposition phase owns it).
+  const canonicalChange=Boolean(row.canonical)&&!applied({action:'CANONICAL',path:row.path,canonical:row.canonical})
+  const changed=row.title!==row.title_now||(!pending&&row.meta!==row.meta_now)||canonicalChange
   row.action=changed?'UPDATE':'UNCHANGED'
   if(pending)expect.seoFields.pendingOgcs++
   expect.seoFields[changed?'update':'unchanged']++
 }
 // The ranking pages that ship noindex today and list public items (Control Tower ruling): indexable.
 const INDEX=['/product-category/gearboxes/','/product-category/drive-shafts-assemblies/','/product-category/motors/','/product-category/drift-eliminators/','/product-category/nozzles/']
-for(const p of INDEX){const r=routeByKey.get(p);dispositions.push({path:r.path,routeId:r.routeId,action:'INDEX'});expect.routes.index++}
+for(const p of INDEX){const r=routeByKey.get(p),row={path:r.path,routeId:r.routeId,action:'INDEX'};dispositions.push(row);if(!applied(row))expect.routes.index++}
 const restore=restoreLedger
 expect.files=restore.restored.length
 
 // Rule checks (the brief's limits): a failure stops the build.
-const problems=[]
+const problems=[...problemsEarly]
 const titles=new Set();for(const row of seo){if(row.title.length>69)problems.push(`title>69 ${row.path}`);if(titles.has(row.title))problems.push(`duplicate title ${row.path}`);titles.add(row.title);if(FORBIDDEN.test(row.title))problems.push(`title word ${row.path}`)}
+if(metaRewritesApplied!==metaRewrites.size)problems.push(`meta rewrites applied ${metaRewritesApplied} of ${metaRewrites.size}`)
+for(const row of seo){if(!row.meta_origin.includes('PENDING_OGCS')&&/…|\.\.\.$/.test(row.meta))problems.push(`meta ends in a truncation mark ${row.path}`)}
 for(const row of seo){if(row.meta_origin.includes('PENDING_OGCS'))continue;if(row.meta.length<70||row.meta.length>158)problems.push(`meta length ${row.path} ${row.meta.length}`);if(FORBIDDEN.test(row.meta))problems.push(`meta word ${row.path}: ${row.meta.match(FORBIDDEN)[0]}`)}
+// Full-set uniqueness (CT ruling 2026-10-04 (b)): every meta this batch writes (R1 + R1.1 + supplement), compared with every
+// other written meta and every meta left as-is on a pending row. Any collision stops the build.
+const written=new Map()
+for(const row of seo){const text=row.meta_origin.includes('PENDING_OGCS')?row.meta_now:row.meta;if(!text)continue;const key=text.trim().toLowerCase();if(written.has(key))problems.push(`duplicate meta ${row.path} = ${written.get(key)}`);else written.set(key,row.path)}
 const sources=new Set(redirects.map(r=>safeDecode(r.source)))
-const ok200=new Set([...served.values()].map(safeDecode))
+const ok200=new Set([...served.values(),...servedFiles.values()].map(safeDecode))
 for(const r of redirects){
   const dest=safeDecode(r.destination)
   if(sources.has(dest))problems.push(`chain ${r.source} -> ${r.destination}`)
   if(dest===safeDecode(r.source))problems.push(`self ${r.source}`)
   if(!ok200.has(dest)&&!['/author/timbozic/'].includes(dest))problems.push(`target not 200 ${r.source} -> ${r.destination}`)
+  if(/^\/(?:wp-content|media)\//.test(dest)&&/\.[a-z0-9]{2,5}$/i.test(dest)&&servedFiles.get(dest.toLowerCase())!==encodeURI(dest))problems.push(`file target not served in this exact spelling ${r.source} -> ${r.destination}`)
 }
 if(sources.size!==redirects.length)problems.push('duplicate redirect source')
 
@@ -170,16 +299,66 @@ writeTsv('redirects.tsv',['source','destination','status','action','was','live_r
 writeTsv('seo-fields.tsv',['path','routeId','action','title','meta','canonical','meta_origin','title_now','meta_now'],seo)
 writeTsv('route-dispositions.tsv',['path','routeId','action','redirect','canonical'],dispositions)
 writeTsv('gone.tsv',['path','query'],gone)
+expect.redirects.retire=retired.length
+// H1 decisions (OGCS R1.2 content TSV): written to the page's h1 heading slot through the editorial lifecycle.
+const h1Rows=[]
+if(contentDecisionsFile){
+  const nodeText=n=>typeof n==='string'?n:n.children.map(nodeText).join('')
+  const firstH1=nodes=>{for(const n of nodes){if(typeof n==='string')continue;if(n.tag==='h1')return nodeText(n).replace(/\s+/g,' ').trim();const found=firstH1(n.children);if(found!==undefined)return found}return undefined}
+  for(const row of tsv(contentDecisionsFile)){
+    if(!['KEEP_STAGING_VERSION','RESTORE_SECTIONS','KEEP_STAGING_LAYOUT_RESTORE_SECTIONS'].includes(row.decision))continue
+    const decided=row.h1_decision.replace(/\s*\([^)]*\)\s*$/,'').trim()
+    if(!decided||/^unchanged$/i.test(decided)||/\(keep\)\s*$/i.test(row.h1_decision))continue
+    const route=routeByKey.get(safeDecode(pathOf(row.url)))
+    if(!route){problems.push(`h1 decision without a route ${row.url}`);continue}
+    const doc=JSON.parse(readFileSync(path.join(APP,'content/salmon',route.sourceFile),'utf8'))
+    const now=firstH1(doc.children)
+    if(now===undefined){problems.push(`h1 decision but no h1 node ${route.path}`);continue}
+    h1Rows.push({path:route.path,routeId:route.routeId,via:'slot',h1:decided,h1_now:now,action:decided===now?'UNCHANGED':'UPDATE'})
+  }
+}
+// A restored live body brings its live H1: article templates render the record title as the page heading.
+for(const [p,page] of Object.entries(restored)){
+  if(!page.h1)continue
+  const route=routeByKey.get(safeDecode(p))
+  if(!route){problems.push(`restored page without a route ${p}`);continue}
+  const doc=JSON.parse(readFileSync(path.join(APP,'content/salmon',route.sourceFile),'utf8'))
+  const now=String((doc.seo?.h1??[])[0]??doc.title??'')
+  h1Rows.push({path:route.path,routeId:route.routeId,via:'title',h1:page.h1,h1_now:now,action:page.h1===now?'UNCHANGED':'UPDATE'})
+}
+// Restored sections: one write per page (the whole restoredSections array), delta against the applied batch (none before).
+const restoredRows=Object.entries(restored).map(([p,page])=>({path:p,routeId:page.routeId,groups:page.groups.length,blocks:page.groups.reduce((n,g)=>n+g.blocks.length,0)}))
+expect.restored={update:restoredRows.length}
+writeTsv('restored-sections.tsv',['path','routeId','groups','blocks'],restoredRows)
+// Content assertions for the hosted checker: every restored H2 is served on its page (and a replaced body serves the live H1).
+const contentAssertions=Object.entries(restored).flatMap(([p,page])=>[...(page.h1?[{path:p,kind:'h1',text:page.h1}]:[]),...page.groups.flatMap(g=>g.blocks.filter(b=>b.blockType==='restoredHeading'&&b.level==='2').map(b=>({path:p,kind:'h2',text:b.text})))])
+writeTsv('content-assertions.tsv',['path','kind','text'],contentAssertions)
+expect.h1={update:h1Rows.filter(r=>r.action==='UPDATE').length}
+writeTsv('h1-fields.tsv',['path','routeId','via','action','h1','h1_now'],h1Rows)
+// Slot hygiene (R1 residual, CT 2026-10-05): every route this batch writes and whose imported page elements the strict
+// validator rejects carries its element fixes in the same write (data/slot-fixes.json, built by build-slot-fixes.ts).
+{
+  const fixesFile=path.join(OUT,'slot-fixes.json')
+  const fixes=existsSync(fixesFile)?JSON.parse(readFileSync(fixesFile,'utf8')):{}
+  const written=new Set([
+    ...dispositions.filter(d=>!applied(d)).map(d=>safeDecode(d.path)),
+    ...seo.filter(r=>r.action==='UPDATE').map(r=>safeDecode(r.path)),
+    ...h1Rows.filter(r=>r.action==='UPDATE').map(r=>safeDecode(r.path)),
+    ...restoredRows.map(r=>safeDecode(r.path)),
+  ])
+  expect.slotFixes={routes:Object.keys(fixes).filter(p=>written.has(safeDecode(p))).length}
+}
+writeTsv('redirects-retired.tsv',['source','was_destination','reason'],retired)
 const pending=seo.filter(r=>r.meta_origin.includes('PENDING_OGCS')||r.meta_origin.includes('MECHANICAL_TRIM'))
 writeTsv('ogcs-meta-requests.tsv',['path','reason','current_batch_meta','title'],pending.map(r=>({path:r.path,reason:r.meta_origin.includes('PENDING_OGCS_DUPLICATE')?'DUPLICATE_META':r.meta_origin.includes('PENDING_OGCS_LENGTH')?'TOO_LONG_AFTER_QUOTE_ONLY_REWRITE_NO_CLEAN_TRIM':'TRIMMED_AFTER_QUOTE_ONLY_REWRITE_REVIEW',current_batch_meta:r.meta,title:r.title})))
-writeFileSync(path.join(OUT,'expectations.json'),JSON.stringify({rows:conformance.length,redirects:redirects.length,seoFields:seo.length,expect,problems},null,2)+'\n')
+writeFileSync(path.join(OUT,'expectations.json'),JSON.stringify({rows:conformance.length,redirects:redirects.length,seoFields:seo.length,expect,deltaSkipped,retired:retired.length,problems},null,2)+'\n')
 const overrides={
   note:'Master SEO Pass R1 (Control Tower brief 2026-10-04): release authority overrides, mirrored by the scripted Payload batch.',
-  publish:dispositions.filter(d=>d.action==='PUBLISH').map(d=>d.path),
+  publish:dispositions.filter(d=>d.action==='PUBLISH'&&!d.republish).map(d=>d.path),
   canonical:Object.fromEntries(dispositions.filter(d=>d.action==='CANONICAL').map(d=>[d.path,d.canonical])),
   index:INDEX,
   redirectSources:Object.fromEntries(dispositions.filter(d=>d.action==='WITHDRAW_TO_REDIRECT').map(d=>[d.path,d.redirect])),
 }
 writeFileSync(path.join(APP,'content/release/seo-pass-r1.json'),JSON.stringify(overrides,null,2)+'\n')
-process.stdout.write(JSON.stringify({rows:conformance.length,redirects:redirects.length,seoFields:seo.length,expect,problems:problems.length,firstProblems:problems.slice(0,12)},null,2)+'\n')
+process.stdout.write(JSON.stringify({rows:conformance.length,redirects:redirects.length,seoFields:seo.length,expect,deltaApplied:deltaApplied.length,deltaSkipped,retired,problems:problems.length,firstProblems:problems.slice(0,12)},null,2)+'\n')
 if(problems.length)process.exit(1)

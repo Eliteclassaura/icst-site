@@ -115,7 +115,20 @@ export function articleTocLinks(doc:SalmonDocument):Array<{href:string;label:str
   const toc=doc.children.flatMap(node=>descendants(node,'div')).find(node=>/(?:^|\s)wp-block-rank-math-toc-block(?:\s|$)/.test(node.attrs.class??''))
   if(!toc)return []
   const ids=new Set(doc.children.flatMap(node=>[...descendants(node,'h2'),...descendants(node,'h3')]).map(node=>node.attrs.id).filter(Boolean))
-  return descendants(toc,'a').map(node=>({href:node.attrs.href||'',label:salmonNodeText(node).trim().replace(/\s+/g,' ')})).filter(link=>link.href.startsWith('#')&&ids.has(link.href.slice(1))&&link.label)
+  const links=descendants(toc,'a').map(node=>({href:node.attrs.href||'',label:salmonNodeText(node).trim().replace(/\s+/g,' ')})).filter(link=>link.href.startsWith('#')&&ids.has(link.href.slice(1))&&link.label)
+  // Restored sections (content/restored-sections) join the contents in document order, like the source's own headings.
+  const restored=new Set(doc.children.flatMap(node=>descendants(node,'h2')).filter(node=>node.attrs['data-restored']&&node.attrs.id).map(node=>node.attrs.id))
+  if(!restored.size)return links
+  const byId=new Map(links.map(link=>[link.href.slice(1),link]))
+  const ordered:Exclude<SalmonNode,string>[]=[]
+  const walk=(node:SalmonNode):void=>{if(typeof node==='string')return;if(node.tag==='h2'||node.tag==='h3'){ordered.push(node);return}node.children.forEach(walk)}
+  doc.children.forEach(walk)
+  return ordered.flatMap(node=>{
+    const id=node.attrs.id
+    if(!id)return []
+    if(byId.has(id))return [byId.get(id)!]
+    return restored.has(id)?[{href:`#${id}`,label:salmonNodeText(node).trim().replace(/\s+/g,' ')}]:[]
+  })
 }
 
 export function articleByline(doc:SalmonDocument):{author:string;date:string;dateTime:string}|null{

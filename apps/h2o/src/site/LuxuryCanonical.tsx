@@ -14,6 +14,7 @@ import {SalmonPresentation} from './SalmonPresentation'
 import {englishServicePages} from './EnglishServices'
 import {rfqControlElement,rfqControlLabelAt} from '../content/rfq-controls'
 import {deliverySrc} from './media-delivery'
+import {RestoredSlot} from './RestoredSlot'
 type LayoutNode={tag:string;style?:CSSProperties;id?:number;children?:LayoutNode[];ref?:string;refs?:string[];slice?:{ref:string;start:number;end:number};decor?:string;action?:string;src?:string;alt?:string;key?:string}
 type Model={route:string;sourceId:string;tree:LayoutNode[];remaining:Array<{sourceSection:string;tree:LayoutNode}>}
 export const luxuryIds=new Set(['SALMON-pages-48','SALMON-pages-1230','SALMON-pages-1446','SALMON-pages-1534','SALMON-pages-1555','SALMON-pages-1572','SALMON-pages-1668','SALMON-pages-1722','SALMON-pages-411'])
@@ -103,6 +104,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
   <SalmonSeo doc={doc}/>{home?<><link rel="preload" href="/fonts/figma-home/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><link rel="preload" href="/fonts/figma-home/dm-sans-latin-400-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/></>:null}<LuxuryHeader page={page} routePath={doc.targetPath}/>
   <main id="main" data-luxury-body className={home?'figma-home-main':undefined}>
    {home?<><div className="figma-home-hero-stage">{sectionAt(0)}<div className="figma-home-hero-side">{sectionAt(3)}{sectionAt(1)}</div></div>{[2,4,5,6,7,8].map(sectionAt)}</>:serviceComposition?<ServicePage routeId={doc.routeId} sections={model.tree.map((_,i)=>sectionAt(i))}/>:model.tree.map((_,i)=>sectionAt(i))}
+   <RestoredSlot doc={doc} slot="body-end" className="lux-section-wrap wave3-source-content"/>
   </main><LuxuryFooter page={page} routePath={doc.targetPath}/>
  </div>
 }

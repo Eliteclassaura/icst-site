@@ -12,6 +12,9 @@ import { lexicalParts, validateSlots, validateServiceSlots, type ContentSlot, ty
 import { EDITORIAL_BLOCKS, editorialPathProblem, RESTRICTED_RICH_TEXT } from '../editorial'
 import { adminField, adminOnly, isContentAdmin as isContentAdminReq, isEditorialWriter, readPublicRoutes, readVersionsEditorial, writeEditorial } from '../access'
 import { isStructural } from '../structural'
+import { restoredSectionsField, validateRestoredSections, type RestoredGroup } from '../restored-sections'
+import { applyContentSlots } from '../content-slots'
+import { publicFileExists } from '../public-files'
 import { notePublicChange } from '../publishing'
 
 /**
@@ -57,6 +60,8 @@ export const contentHashOf = (doc: Doc): string => {
     slots: doc.slots ?? null,
     lead: doc.lead ?? null,
     sections: doc.sections ?? null,
+    // Restored sections (2026-10-05) are content; the key is present only when a record has them, so existing hashes are stable.
+    ...(Array.isArray(doc.restoredSections) && doc.restoredSections.length ? { restoredSections: doc.restoredSections } : {}),
     disposition: doc.disposition ?? null,
     path: doc.path ?? null,
   })
@@ -138,9 +143,29 @@ async function checkSlots(req: Req, merged: Doc, before: Doc, slots: ContentSlot
       // A product relation owns the destination: the product's own page.
       if (path) s.href = path
     }
-  const ctx = { knownPaths: await knownPaths(req), productRouteIds: new Set([...products.keys(), ...original.map((o) => o.productRouteId).filter(Boolean) as string[]]), withheldElementIds: withheldIdsFor(String(merged.source && (merged.source as Doc).aliasOf ? (merged.source as Doc).aliasOf : merged.routeId)) }
+  const ctx = { knownPaths: await knownPaths(req), knownFile: publicFileExists, productRouteIds: new Set([...products.keys(), ...original.map((o) => o.productRouteId).filter(Boolean) as string[]]), withheldElementIds: withheldIdsFor(String(merged.source && (merged.source as Doc).aliasOf ? (merged.source as Doc).aliasOf : merged.routeId)) }
   const errors = validateSlots((merged.document ?? {}) as Doc, out, ctx, original)
   if (errors.length) throw new APIError(`Content check failed: ${errors.slice(0, 5).join('; ')}`, 400)
+  return out
+}
+
+/** Images in restored sections are Payload media items (held, verified assets); the server records their delivery facts. */
+async function checkRestoredImages(req: Req, groups: Doc[], publishing: boolean): Promise<Doc[]> {
+  const out: Doc[] = []
+  for (const g of groups) {
+    const blocks: Doc[] = []
+    for (const b of (g.blocks as Doc[] | undefined) ?? []) {
+      if (b.blockType !== 'restoredImage') {
+        blocks.push(b)
+        continue
+      }
+      const id = relId(b.image)
+      if (!id) throw new APIError('Every restored image needs a media item.', 400)
+      const f = await mediaFacts(req, id, publishing)
+      blocks.push({ ...b, image: id, imageUrl: f.url, imageWidth: f.width, imageHeight: f.height })
+    }
+    out.push({ ...g, blocks })
+  }
   return out
 }
 
@@ -248,6 +273,14 @@ const guard: CollectionBeforeChangeHook = async ({ context, data, operation, ori
   }
   if (!imported && Array.isArray(d.slots)) d.slots = await checkSlots(req, merged, before, d.slots as ContentSlot[], publishing)
   if (!imported && Array.isArray(d.sections)) d.sections = await checkSections(req, d.sections as Doc[], publishing)
+  if (Array.isArray(d.restoredSections) && d.restoredSections.length) {
+    if (merged.family !== 'salmon' && merged.family !== 'live') throw new APIError('Restored sections belong to imported pages only.', 400)
+    d.restoredSections = await checkRestoredImages(req, d.restoredSections as Doc[], publishing)
+    // Anchors resolve against the page as editors see it (the imported tree with the page elements applied).
+    const page = applyContentSlots((merged.document ?? {}) as Doc, (merged.slots ?? null) as ContentSlot[] | null)
+    const problems = validateRestoredSections(page, d.restoredSections as unknown as RestoredGroup[])
+    if (problems.length) throw new APIError(`Restored sections check failed: ${problems.slice(0, 5).join('; ')}`, 400)
+  }
   if (merged.family === 'editorial' && publishing && !((merged.sections as unknown[] | undefined) ?? []).length)
     throw new APIError('Add at least one section before publishing this page.', 400)
   d.contentSha256 = contentHashOf({ ...merged, ...d })
@@ -407,6 +440,7 @@ export const PublicRoutes: CollectionConfig = {
       blocks: EDITORIAL_BLOCKS,
       admin: { condition: (d) => d?.family === 'editorial' || !d?.routeId, description: 'Build the page from headings, paragraphs, images, buttons and FAQs.' },
     },
+    restoredSectionsField,
     {
       name: 'seo',
       type: 'group',
