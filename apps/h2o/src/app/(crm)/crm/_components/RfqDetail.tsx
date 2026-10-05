@@ -12,6 +12,7 @@ import { humanSummary,
   TYPEFORM_ANSWER_LABEL,
   label,
 } from '../../../../crm/workspace/labels'
+import type { ReplyReadiness } from '../../../../crm/reply'
 import type { RfqDetail } from '../../../../crm/workspace/queries'
 import type { CrmSession } from '../../../../crm/workspace/session'
 import { absoluteTime, compactTime } from '../../../../crm/workspace/time'
@@ -36,11 +37,15 @@ import {
   StartReview,
   TaskActions,
 } from './Dialogs'
+import { ReplyComposer } from './EmailPanel'
 
 type Doc = Record<string, unknown>
-export const RFQ_TABS = ['summary', 'answers', 'items', 'activity', 'technical'] as const
+export const RFQ_TABS = ['summary', 'answers', 'items', 'email', 'activity', 'technical'] as const
 export type RfqTab = (typeof RFQ_TABS)[number]
-const TAB_LABEL: Record<RfqTab, string> = { summary: 'Summary', answers: 'Answers', items: 'Items', activity: 'Activity', technical: 'Technical' }
+const TAB_LABEL: Record<RfqTab, string> = { summary: 'Summary', answers: 'Answers', items: 'Items', email: 'Email', activity: 'Activity', technical: 'Technical' }
+const MESSAGE_STATUS_LABEL: Record<string, string> = { QUEUED: 'Sending', SENT: 'Sent', FAILED: 'Failed', NOT_SENT: 'Not sent' }
+/** CRM email M2: what the page knows about writing a reply here (full page only; the inbox pane links to it). */
+export type ReplyPanel = { readiness: ReplyReadiness; token: string }
 const TERMINAL = ['REJECTED_NON_CORE', 'DUPLICATE_OF_EXISTING', 'CLOSED']
 
 const Value = ({ v, missing = 'Not supplied' }: { v: unknown; missing?: string }) =>
@@ -56,8 +61,10 @@ export function RfqDetailView({
   now,
   mode,
   notices = [],
+  reply,
 }: {
   d: RfqDetail
+  reply?: ReplyPanel
   s: CrmSession
   tab: RfqTab
   tabHref: (t: RfqTab) => string
@@ -387,6 +394,70 @@ export function RfqDetailView({
             </div>
           )}
           <p className="c-hint">“Not supplied” means the customer did not say; it is never shown as 0.</p>
+        </section>
+      ) : null}
+
+      {tab === 'email' ? (
+        <section className="c-block" aria-labelledby="b-email">
+          <h3 id="b-email">Email with the customer</h3>
+          {d.messages.length === 0 ? (
+            <p className="c-hint">No emails on this inquiry yet.</p>
+          ) : (
+            <ul className="c-timeline" role="list">
+              {d.messages.map((m) => (
+                <li key={m.id}>
+                  <time dateTime={m.occurredAt} title={absoluteTime(new Date(m.occurredAt))}>
+                    {compactTime(new Date(m.occurredAt), now)}
+                  </time>
+                  <span>
+                    <strong>{m.direction === 'OUTBOUND' ? `To customer · ${m.authorName ?? 'CRM user'}` : 'From customer'}</strong> ·{' '}
+                    <span className={m.status === 'FAILED' || m.status === 'NOT_SENT' ? 'c-warn-text' : 'c-muted'}>
+                      {MESSAGE_STATUS_LABEL[m.status] ?? m.status}
+                      {m.statusCode ? ` (${m.statusCode})` : ''}
+                    </span>
+                    <br />
+                    <span>{m.subject}</span>
+                    <p className="c-message">{m.body}</p>
+                    {m.messageId ? <span className="c-muted c-mono">{m.messageId}</span> : null}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {!reply ? (
+            <p className="c-hint">
+              <a href={`/crm/rfqs/${rfqId}/?tab=email`}>Open the full page</a> to write to the customer.
+            </p>
+          ) : reply.readiness.state === 'READY' ? (
+            <>
+              <p className="c-hint">
+                To {reply.readiness.to}. Sent from the company address; the customer’s reply comes back to this inquiry.
+              </p>
+              {reply.readiness.mode === 'allowlist' ? (
+                <p className="c-banner is-warning" role="note">
+                  <IconInfo />
+                  <span>
+                    Test mode: only allow-listed addresses receive email here.
+                    {reply.readiness.allowlisted ? '' : ' This address is not on the list, so the reply will be saved but not sent.'}
+                  </span>
+                </p>
+              ) : null}
+              <ReplyComposer rfqId={rfqId} token={reply.token} defaultSubject={`Your request ${String(rfq.rfq_number)}`} />
+            </>
+          ) : (
+            <p className="c-banner is-warning" role="note">
+              <IconInfo />
+              <span>
+                {reply.readiness.state === 'MODE_OFF'
+                  ? 'Email sending is turned off on this environment. Use “Log call / reference” to record an email sent elsewhere.'
+                  : reply.readiness.state === 'NO_ADDRESS'
+                    ? 'This inquiry has no valid email address.'
+                    : reply.readiness.state === 'SUPPRESSED'
+                      ? 'This contact is on do-not-contact. Email can’t be sent.'
+                      : 'Email is not set up on this environment.'}
+              </span>
+            </p>
+          )}
         </section>
       ) : null}
 

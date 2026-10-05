@@ -54,6 +54,14 @@ export const CrmEmailOutbox: CollectionConfig = crmCollection(
         admin: { readOnly: true },
       },
       { name: 'rfq', type: 'relationship', relationTo: 'crm-rfqs', index: true, admin: { readOnly: true } },
+      // CRM email M2: the conversation message this row delivers (RFQ_REPLY only).
+      {
+        name: 'conversation_message',
+        type: 'relationship',
+        relationTo: 'crm-email-messages',
+        index: true,
+        admin: { readOnly: true },
+      },
       {
         name: 'recipient_ref',
         type: 'text',

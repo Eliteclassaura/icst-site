@@ -1,6 +1,6 @@
-# CRM email M1: Stalwart platform and E1 notifications
+# CRM email: Stalwart platform and E1 (M1), replies from the CRM (M2)
 
-Control Tower brief "CRM email with Stalwart R1" (2026-10-04), milestone M1.
+Control Tower brief "CRM email with Stalwart R1" (2026-10-04), milestones M1–M2.
 
 **Placeholders.** This file uses `<sender domain>`, `<mail host>` and `<VPS IPv4>`. The real values are in the
 Control Tower return for M1, not in the repository. Secrets come from the Coolify environment only.
@@ -32,6 +32,19 @@ Control Tower return for M1, not in the repository. Secrets come from the Coolif
   - Every decision writes an event row (ids and codes only) and an RFQ timeline entry.
   - Logs carry ids, kinds and codes only.
 - **Migration** `20261004_214231_crm_email_m1`: two tables, three enums and one activity type. It is additive.
+
+## M2 — replies from the CRM (E2)
+
+- Email tab on the RFQ (full page): Admin and Sales write plain text; the HTML part is generated from it. No
+  attachments (no file input; the server refuses any file). No free-form "To": the reply goes to the RFQ's
+  customer address (the linked contact's, else the submitted one).
+- Sent from `H2O_EMAIL_FROM` with `Reply-To: <role>+<token>@<sender domain>`. The token (26 base32 characters,
+  130 bits) belongs to one RFQ (`crm-reply-tokens`, admin-read), is reused by every reply, and expires a year after
+  its last use. Replies are threaded (`In-Reply-To`/`References`) and are not marked `Auto-Submitted`.
+- Suppression is checked before anything is written and again before sending; the send gate applies (a reply the
+  gate stops is saved on the RFQ as **Not sent** with the reason). One message per compose form (double submit safe).
+- Logged as the RFQ conversation (`crm-email-messages`: author, time, subject, body, Message-ID) and an
+  `EMAIL_REPLY` timeline entry. Migration `…_crm_email_m2` (additive).
 
 ## Environment (web and runner)
 

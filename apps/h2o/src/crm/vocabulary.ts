@@ -364,6 +364,8 @@ export const ACTIVITY_TYPE = [
   'IDENTITY_REVIEW_OPENED',
   // CRM email M1: a system notification about this record was sent, suppressed or dead-lettered.
   'EMAIL_NOTIFICATION',
+  // CRM email M2: a person wrote to the customer from the CRM (queued, sent, failed or not sent).
+  'EMAIL_REPLY',
 ] as const
 export type ActivityType = (typeof ACTIVITY_TYPE)[number]
 /** Only these may be entered by a person. The rest are written by the system when the thing happens. */
@@ -424,7 +426,7 @@ export const options = <T extends readonly string[]>(values: T) =>
   values.map((value) => ({ label: value, value }))
 
 /** CRM email M1 — the notification outbox (collections/email-outbox.ts). */
-export const EMAIL_KIND = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK'] as const
+export const EMAIL_KIND = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'RFQ_REPLY'] as const
 export type EmailKind = (typeof EMAIL_KIND)[number]
 /**
  * PENDING → SENDING → SENT, or → RETRY (backoff) → … → DEAD. The SUPPRESSED_* states are terminal and are
@@ -462,3 +464,10 @@ export const EMAIL_EVENT = [
   'DIRECT_FAILED',
 ] as const
 export type EmailEvent = (typeof EMAIL_EVENT)[number]
+
+/** CRM email M2/M3 — the RFQ conversation (collections/email-messages.ts). */
+export const EMAIL_DIRECTION = ['OUTBOUND', 'INBOUND'] as const
+/** Outbound: QUEUED → SENT | FAILED; NOT_SENT when the gate or suppression stopped it before sending. */
+export const EMAIL_MESSAGE_STATUS = ['QUEUED', 'SENT', 'FAILED', 'NOT_SENT'] as const
+export type EmailMessageStatus = (typeof EMAIL_MESSAGE_STATUS)[number]
+

@@ -4,6 +4,7 @@ import { CrmActivities } from './collections/activities'
 import { CrmAssets } from './collections/assets'
 import { CrmBuyingGroupMembers } from './collections/buying-group'
 import { CrmContacts } from './collections/contacts'
+import { CrmEmailMessages, CrmReplyTokens } from './collections/email-messages'
 import { CrmEmailEvents, CrmEmailOutbox } from './collections/email-outbox'
 import { CrmIdentityReviews } from './collections/identity-reviews'
 import { CrmIntakeEvents } from './collections/intake-events'
@@ -42,6 +43,9 @@ export const crmCollections: CollectionConfig[] = [
   // CRM email M1: the notification outbox and its audit trail (written by the system only).
   CrmEmailOutbox,
   CrmEmailEvents,
+  // CRM email M2: the RFQ conversation and its reply tokens.
+  CrmEmailMessages,
+  CrmReplyTokens,
 ]
 
 export const CRM_SLUGS = crmCollections.map((c) => c.slug)

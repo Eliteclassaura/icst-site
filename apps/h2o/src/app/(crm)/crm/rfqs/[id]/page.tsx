@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { replyReadiness } from '../../../../../crm/reply'
+import { uuidv7 } from '../../../../../crm/ids'
 import { MANUAL_NOTICE_TEXT } from '../../../../../crm/workspace/manualInquiry'
 import { loadRfq } from '../../../../../crm/workspace/queries'
 import { Shell } from '../../../../../crm/workspace/ui/Shell'
@@ -21,6 +23,9 @@ export default async function RfqPage({
   const now = new Date()
   const tab = (RFQ_TABS as readonly string[]).includes(String(sp.tab)) ? (sp.tab as RfqTab) : 'summary'
   const d = await loadRfq(s, id, now)
+  // CRM email M2: the compose panel (Email tab) — readiness is decided on the server; a fresh compose token per
+  // render makes a double submit of the same form one message.
+  const reply = d && tab === 'email' ? { readiness: await replyReadiness(s, d.rfq), token: uuidv7() } : undefined
   const created = sp.created === '1'
   const notices =
     created && typeof sp.notice === 'string'
@@ -43,7 +48,7 @@ export default async function RfqPage({
       <div id="crm-rfq" role="region" aria-label="Inquiry" tabIndex={0} className="c-narrow">
         <Shortcuts scopeId="crm-rfq" />
         {d ? (
-          <RfqDetailView d={d} s={s} tab={tab} now={now} mode="page" notices={notices} tabHref={(t) => `/crm/rfqs/${d.row.id}/${t === 'summary' ? '' : `?tab=${t}`}`} />
+          <RfqDetailView d={d} s={s} tab={tab} now={now} mode="page" notices={notices} reply={reply} tabHref={(t) => `/crm/rfqs/${d.row.id}/${t === 'summary' ? '' : `?tab=${t}`}`} />
         ) : (
           <p className="c-alert" role="alert">
             This inquiry doesn’t exist or you don’t have access. <a href="/crm/rfqs/">Back to the inbox</a>

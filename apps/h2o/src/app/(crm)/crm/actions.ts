@@ -2,6 +2,7 @@
 
 import { refresh } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { composeReply } from '../../../crm/reply'
 import { createManualInquiry } from '../../../crm/workspace/manualInquiry'
 import * as m from '../../../crm/workspace/mutations'
 import type { ActionState } from '../../../crm/workspace/ui/actionState'
@@ -109,6 +110,15 @@ export async function clearSuppressionAction(_: ActionState, fd: FormData) {
 }
 export async function resolveReviewAction(_: ActionState, fd: FormData) {
   return run(fd, (s) => m.resolveReview(s, { reviewId: f(fd, 'reviewId'), state: f(fd, 'state'), note: f(fd, 'note') }))
+}
+
+/**
+ * CRM email M2: write to the customer from the RFQ. Attachments are refused (any file in the form counts),
+ * whatever the page rendered; the compose layer re-checks role, access, address, suppression and the gate.
+ */
+export async function replyAction(_: ActionState, fd: FormData) {
+  const attachments = [...fd.values()].filter((v) => typeof v !== 'string').length
+  return run(fd, (s) => composeReply(s, { rfqId: f(fd, 'rfqId'), subject: f(fd, 'subject'), body: f(fd, 'body'), token: f(fd, 'token'), attachments }))
 }
 
 /** Manual New Inquiry: on success, go to the created RFQ (redirect must run outside try/catch). */

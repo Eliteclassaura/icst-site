@@ -52,6 +52,7 @@ type Row = {
   kind: EmailKind
   status: EmailOutboxStatus
   rfq: string | { id: string } | null
+  conversation_message?: string | { id: string } | null
   to_address: string | null
   recipient_ref: string
   message_id: string | null
@@ -80,7 +81,7 @@ async function render(
   payload: Payload,
   row: Row,
   cfg: EmailConfig,
-): Promise<{ rendered: Rendered; rfq: Record<string, unknown> } | null> {
+): Promise<{ rendered: Rendered; rfq: Record<string, unknown>; reply?: ReplyMeta } | null> {
   const rfqId = rfqIdOf(row)
   if (!rfqId) return null
   const rfq = (await payload.findByID({
@@ -90,6 +91,35 @@ async function render(
     overrideAccess: true,
   })) as unknown as Record<string, unknown>
   const number = String(rfq.rfq_number ?? '')
+  if (row.kind === 'RFQ_REPLY') {
+    const mid =
+      row.conversation_message == null
+        ? null
+        : typeof row.conversation_message === 'object'
+          ? String(row.conversation_message.id)
+          : String(row.conversation_message)
+    if (!mid) return null
+    const m = (await payload.findByID({
+      collection: 'crm-email-messages',
+      id: mid,
+      depth: 0,
+      overrideAccess: true,
+    })) as unknown as Record<string, unknown>
+    return {
+      rfq,
+      rendered: {
+        subject: String(m.subject ?? ''),
+        text: String(m.body_text ?? ''),
+        html: String(m.body_html ?? ''),
+      },
+      reply: {
+        messageId: mid,
+        replyTo: typeof m.reply_to === 'string' ? m.reply_to : null,
+        inReplyTo: typeof m.in_reply_to === 'string' ? m.in_reply_to : null,
+        references: typeof m.references === 'string' ? m.references : null,
+      },
+    }
+  }
   if (row.kind === 'RFQ_CUSTOMER_ACK')
     return { rfq, rendered: renderCustomerAck({ rfqNumber: number, senderName: cfg.fromName }) }
   const items = await payload.find({
@@ -123,6 +153,13 @@ async function render(
       crmUrl: crmRfqUrl(rfqId),
     }),
   }
+}
+
+type ReplyMeta = {
+  messageId: string
+  replyTo: string | null
+  inReplyTo: string | null
+  references: string | null
 }
 
 export type DrainResult = { claimed: number; sent: number; retried: number; dead: number; suppressed: number }
@@ -164,6 +201,25 @@ export async function processRow(
       ...extra,
     })
     await recordEmailEvent({ payload }, { ...base, event, code })
+    const mid =
+      row.conversation_message == null
+        ? null
+        : typeof row.conversation_message === 'object'
+          ? String(row.conversation_message.id)
+          : String(row.conversation_message)
+    if (row.kind === 'RFQ_REPLY' && mid)
+      await payload.update({
+        collection: 'crm-email-messages',
+        id: mid,
+        data: {
+          status: status === 'SENT' ? 'SENT' : status === 'DEAD' ? 'FAILED' : 'NOT_SENT',
+          status_code: code,
+          ...(status === 'SENT' ? { sent_at: now.toISOString() } : {}),
+        } as never,
+        depth: 0,
+        overrideAccess: true,
+        context: { crmServer: {} },
+      })
     if (rfqId)
       await recordEmailActivity(
         { payload },
@@ -185,11 +241,11 @@ export async function processRow(
     )
     return 'suppressed'
   }
-  if (row.kind === 'RFQ_CUSTOMER_ACK') {
-    if (!cfg.customerAck) {
-      await terminal('SUPPRESSED_ACK_DISABLED', 'CUSTOMER_ACK_OFF', 'SUPPRESSED')
-      return 'suppressed'
-    }
+  if (row.kind === 'RFQ_CUSTOMER_ACK' && !cfg.customerAck) {
+    await terminal('SUPPRESSED_ACK_DISABLED', 'CUSTOMER_ACK_OFF', 'SUPPRESSED')
+    return 'suppressed'
+  }
+  if (row.kind === 'RFQ_CUSTOMER_ACK' || row.kind === 'RFQ_REPLY') {
     const key = emailKey(to)
     const decision = key
       ? evaluateTransactionalSend(await ledgerFor({ payload } as never, key.matchKey), true)
@@ -222,8 +278,16 @@ export async function processRow(
       text: r.rendered.text,
       html: r.rendered.html,
       messageId: row.message_id ?? undefined,
-      // RFC 3834: an automatic message. Receiving autoresponders must not answer it.
-      headers: { 'Auto-Submitted': 'auto-generated', 'X-Auto-Response-Suppress': 'All' },
+      ...(r.reply
+        ? {
+            // M2: a person's reply. Replies route back by the RFQ's token address; threading follows the
+            // conversation. Not marked Auto-Submitted: a human wrote it, and the customer may answer it.
+            replyTo: r.reply.replyTo ?? undefined,
+            inReplyTo: r.reply.inReplyTo ?? undefined,
+            references: r.reply.references ?? undefined,
+          }
+        : // RFC 3834: an automatic message. Receiving autoresponders must not answer it.
+          { headers: { 'Auto-Submitted': 'auto-generated', 'X-Auto-Response-Suppress': 'All' } }),
     })
     await terminal('SENT', null, 'SENT', { sent_at: now.toISOString() })
     return 'sent'

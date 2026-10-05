@@ -673,6 +673,23 @@ export type RfqDetail = {
   suppressions: LedgerRow[]
   people: Person[]
   intakeState: string | null
+  /** CRM email M2/M3: the conversation with the customer, oldest first. */
+  messages: EmailMessageRow[]
+}
+
+export type EmailMessageRow = {
+  id: string
+  direction: 'OUTBOUND' | 'INBOUND'
+  status: string
+  statusCode: string | null
+  authorName: string | null
+  from: string | null
+  to: string | null
+  subject: string
+  body: string
+  messageId: string | null
+  occurredAt: string
+  sentAt: string | null
 }
 
 export async function loadRfq(s: CrmSession, rfqId: string, now: Date = new Date()): Promise<RfqDetail | null> {
@@ -695,7 +712,7 @@ export async function loadRfq(s: CrmSession, rfqId: string, now: Date = new Date
       return null
     }
   }
-  const [contact, account, site, items, tasks, activity, notes, reviews] = await Promise.all([
+  const [contact, account, site, items, tasks, activity, notes, reviews, messages] = await Promise.all([
     byId('crm-contacts', rfq.contact),
     byId('crm-accounts', rfq.account),
     byId('crm-sites', rfq.site),
@@ -704,6 +721,7 @@ export async function loadRfq(s: CrmSession, rfqId: string, now: Date = new Date
     s.payload.find({ collection: 'crm-activities', where: { rfq: { equals: rfqId } }, sort: '-occurred_at', depth: 0, limit: 60, ...asUser(s) }),
     s.payload.find({ collection: 'crm-notes', where: { rfq: { equals: rfqId } }, sort: '-createdAt', depth: 0, limit: 50, ...asUser(s) }),
     s.payload.find({ collection: 'crm-identity-reviews', where: { and: [{ rfq: { equals: rfqId } }, { state: { equals: 'OPEN' } }] }, depth: 0, limit: 10, ...asUser(s) }),
+    s.payload.find({ collection: 'crm-email-messages', where: { rfq: { equals: rfqId } }, sort: 'occurred_at', depth: 0, limit: 200, ...asUser(s) }),
   ])
   const accountSites = account
     ? (
@@ -749,6 +767,20 @@ export async function loadRfq(s: CrmSession, rfqId: string, now: Date = new Date
     ),
     people,
     intakeState,
+    messages: (messages.docs as unknown as Doc[]).map((m) => ({
+      id: String(m.id),
+      direction: m.direction === 'INBOUND' ? 'INBOUND' : 'OUTBOUND',
+      status: String(m.status ?? ''),
+      statusCode: typeof m.status_code === 'string' ? m.status_code : null,
+      authorName: id(m.author) ? (names.get(String(id(m.author))) ?? 'CRM user') : null,
+      from: typeof m.from_address === 'string' ? m.from_address : null,
+      to: typeof m.to_address === 'string' ? m.to_address : null,
+      subject: String(m.subject ?? ''),
+      body: String(m.body_text ?? ''),
+      messageId: typeof m.message_id === 'string' ? m.message_id : null,
+      occurredAt: String(m.occurred_at ?? ''),
+      sentAt: typeof m.sent_at === 'string' ? m.sent_at : null,
+    })),
   }
 }
 

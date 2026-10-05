@@ -99,6 +99,8 @@ export interface Config {
     'crm-identity-reviews': CrmIdentityReview;
     'crm-email-outbox': CrmEmailOutbox;
     'crm-email-events': CrmEmailEvent;
+    'crm-email-messages': CrmEmailMessage;
+    'crm-reply-tokens': CrmReplyToken;
     'public-routes': PublicRoute;
     'public-redirects': PublicRedirect;
     'payload-kv': PayloadKv;
@@ -173,6 +175,8 @@ export interface Config {
     'crm-identity-reviews': CrmIdentityReviewsSelect<false> | CrmIdentityReviewsSelect<true>;
     'crm-email-outbox': CrmEmailOutboxSelect<false> | CrmEmailOutboxSelect<true>;
     'crm-email-events': CrmEmailEventsSelect<false> | CrmEmailEventsSelect<true>;
+    'crm-email-messages': CrmEmailMessagesSelect<false> | CrmEmailMessagesSelect<true>;
+    'crm-reply-tokens': CrmReplyTokensSelect<false> | CrmReplyTokensSelect<true>;
     'public-routes': PublicRoutesSelect<false> | PublicRoutesSelect<true>;
     'public-redirects': PublicRedirectsSelect<false> | PublicRedirectsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -2597,7 +2601,8 @@ export interface CrmActivity {
     | 'SUPPRESSION_RECORDED'
     | 'SUPPRESSION_CLEARED'
     | 'IDENTITY_REVIEW_OPENED'
-    | 'EMAIL_NOTIFICATION';
+    | 'EMAIL_NOTIFICATION'
+    | 'EMAIL_REPLY';
   /**
    * Short, factual, no personal data.
    */
@@ -3102,7 +3107,7 @@ export interface CrmEmailOutbox {
    */
   canonical_id: string;
   idempotency_key: string;
-  kind: 'RFQ_SALES_ALERT' | 'RFQ_CUSTOMER_ACK';
+  kind: 'RFQ_SALES_ALERT' | 'RFQ_CUSTOMER_ACK' | 'RFQ_REPLY';
   status:
     | 'PENDING'
     | 'SENDING'
@@ -3114,6 +3119,7 @@ export interface CrmEmailOutbox {
     | 'SUPPRESSED_ACK_DISABLED'
     | 'SUPPRESSED_NO_RECIPIENT';
   rfq?: (string | null) | CrmRfq;
+  conversation_message?: (string | null) | CrmEmailMessage;
   /**
    * Keyed hash of the recipient. Not reversible without the server secret.
    */
@@ -3127,6 +3133,41 @@ export interface CrmEmailOutbox {
   next_attempt_at?: string | null;
   lease_until?: string | null;
   last_error_code?: string | null;
+  sent_at?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Emails with the customer on an RFQ. Written by the CRM (outbound) and the reply poller (inbound). No hand edits.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-messages".
+ */
+export interface CrmEmailMessage {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  direction: 'OUTBOUND' | 'INBOUND';
+  rfq: string | CrmRfq;
+  status: 'QUEUED' | 'SENT' | 'FAILED' | 'NOT_SENT';
+  /**
+   * Why it was not sent, or the failure code.
+   */
+  status_code?: string | null;
+  author?: (string | null) | User;
+  from_address?: string | null;
+  to_address?: string | null;
+  reply_to?: string | null;
+  subject: string;
+  body_text: string;
+  body_html?: string | null;
+  message_id?: string | null;
+  in_reply_to?: string | null;
+  references?: string | null;
+  idempotency_key?: string | null;
+  occurred_at: string;
   sent_at?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -3162,6 +3203,27 @@ export interface CrmEmailEvent {
   recipient_ref?: string | null;
   attempt?: number | null;
   occurred_at: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Reply-To tokens that route customer replies to an RFQ. Issued by the system.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-reply-tokens".
+ */
+export interface CrmReplyToken {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  token: string;
+  rfq: string | CrmRfq;
+  issued_at: string;
+  last_used_at?: string | null;
+  expires_at: string;
+  revoked_at?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3425,6 +3487,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'crm-email-events';
         value: string | CrmEmailEvent;
+      } | null)
+    | ({
+        relationTo: 'crm-email-messages';
+        value: string | CrmEmailMessage;
+      } | null)
+    | ({
+        relationTo: 'crm-reply-tokens';
+        value: string | CrmReplyToken;
       } | null)
     | ({
         relationTo: 'public-routes';
@@ -4906,6 +4976,7 @@ export interface CrmEmailOutboxSelect<T extends boolean = true> {
   kind?: T;
   status?: T;
   rfq?: T;
+  conversation_message?: T;
   recipient_ref?: T;
   to_address?: T;
   subject?: T;
@@ -4934,6 +5005,47 @@ export interface CrmEmailEventsSelect<T extends boolean = true> {
   recipient_ref?: T;
   attempt?: T;
   occurred_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-messages_select".
+ */
+export interface CrmEmailMessagesSelect<T extends boolean = true> {
+  canonical_id?: T;
+  direction?: T;
+  rfq?: T;
+  status?: T;
+  status_code?: T;
+  author?: T;
+  from_address?: T;
+  to_address?: T;
+  reply_to?: T;
+  subject?: T;
+  body_text?: T;
+  body_html?: T;
+  message_id?: T;
+  in_reply_to?: T;
+  references?: T;
+  idempotency_key?: T;
+  occurred_at?: T;
+  sent_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-reply-tokens_select".
+ */
+export interface CrmReplyTokensSelect<T extends boolean = true> {
+  canonical_id?: T;
+  token?: T;
+  rfq?: T;
+  issued_at?: T;
+  last_used_at?: T;
+  expires_at?: T;
+  revoked_at?: T;
   updatedAt?: T;
   createdAt?: T;
 }

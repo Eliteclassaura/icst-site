@@ -20,6 +20,9 @@ export type MailMessage = {
   text: string
   html?: string
   messageId?: string
+  replyTo?: string
+  inReplyTo?: string
+  references?: string
   headers?: Record<string, string>
 }
 export type MailResult = { messageId: string | null; accepted: number }
@@ -55,6 +58,9 @@ export function createTransport(cfg: EmailConfig): MailTransport | null {
         text: m.text,
         ...(m.html ? { html: m.html } : {}),
         ...(m.messageId ? { messageId: m.messageId } : {}),
+        ...(m.replyTo ? { replyTo: m.replyTo } : {}),
+        ...(m.inReplyTo ? { inReplyTo: m.inReplyTo } : {}),
+        ...(m.references ? { references: m.references } : {}),
         headers: m.headers ?? {},
       })
       return {

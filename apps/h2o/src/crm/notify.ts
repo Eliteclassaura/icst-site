@@ -58,6 +58,7 @@ export async function recordEmailEvent(
 const KIND_LABEL: Record<EmailKind, string> = {
   RFQ_SALES_ALERT: 'Sales alert',
   RFQ_CUSTOMER_ACK: 'Customer acknowledgement',
+  RFQ_REPLY: 'Email reply',
 }
 
 export async function recordEmailActivity(
@@ -71,7 +72,7 @@ export async function recordEmailActivity(
   const r = rfq as RfqDoc
   const verb = status === 'SENT' ? 'sent' : status === 'DEAD' ? 'failed' : `not sent (${status})`
   await recordActivity(req, {
-    type: 'EMAIL_NOTIFICATION',
+    type: kind === 'RFQ_REPLY' ? 'EMAIL_REPLY' : 'EMAIL_NOTIFICATION',
     summary: `${KIND_LABEL[kind]} ${verb}`.slice(0, 240),
     idempotency_key: `email:${outboxId}:${status}`,
     rfq: String(r.id),
