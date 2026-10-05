@@ -29,7 +29,12 @@ const authority = JSON.parse(
 
 export const CONTACT_AUTHORITY_ID = authority.authorityId
 export const CONTACT_AUTHORITY_DATE = authority.authorityDate
-export const contactOffices = authority.offices
+/**
+ * Display spelling of a number, keyed by its unchanged tel: link (Design Fixes R1 A7, CT 2026-10-04): the owner authority
+ * file is kept byte-for-byte; only the grouping shown to visitors follows the international format.
+ */
+export const TELEPHONE_DISPLAY: Readonly<Record<string, string>> = { 'tel:+6626617723': '+66-2-661-7723' }
+export const contactOffices: ContactOffice[] = authority.offices.map((office) => ({ ...office, telephoneDisplay: TELEPHONE_DISPLAY[office.telephoneHref] ?? office.telephoneDisplay }))
 
 export const postalAddressFor = (office: ContactOffice): Record<string, string> | null => {
   if (office.addressLines.length === 0) return null

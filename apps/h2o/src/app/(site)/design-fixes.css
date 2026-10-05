@@ -1,0 +1,120 @@
+/*
+ * Design Fixes R1 (Control Tower brief 2026-10-04; read-only design audit of staging). Loaded last.
+ * Colours are tokens: no literal colour in a colour property. Logical properties only.
+ */
+.luxury-site,
+.salmon-canonical {
+  --df-blue: rgb(11 75 140);
+  --df-blue-hover: rgb(33 102 171);
+  --df-white: rgb(255 255 255);
+  --df-scroll-shadow: rgb(0 0 0 / 18%);
+  --df-soft: rgb(246 247 248);
+  --df-muted: rgb(110 110 110);
+}
+
+/* A1 — a project card without a verified own photo keeps its frame and says so (never another project's photo). */
+.salmon-family .sp-con.sp-rounded:not(.sp-bg):has(> .sp-btn-row > a[href^="/all-projects/"]) {
+  position: relative;
+  min-block-size: var(--sp-minh, 259px);
+  background: var(--df-soft);
+}
+.salmon-family .sp-con.sp-rounded:not(.sp-bg):has(> .sp-btn-row > a[href^="/all-projects/"])::after {
+  content: 'Image not available';
+  position: absolute;
+  inset: 50% 0 auto;
+  color: var(--df-muted);
+  font: 500 14px/1.2 'DM Sans', system-ui, sans-serif;
+  text-align: center;
+}
+
+/* A2 — /cooling-tower/: the main quote action uses the standard solid button (same link or RFQ adapter, same context).
+ * Staging renders it through the RFQ adapter (`.rfq a`, styled by the adapter's --h2o-cta-* hooks), the repository build as
+ * the source link (`.elementor-button`), an unconfigured build as the `.lux-button` fallback: all three get the same style,
+ * above the source widget's own rule (0,5,0). */
+.salmon-copy.salmon-page-newtowers .elementor-element.elementor-element-708f65e3 {
+  --h2o-cta-bg: var(--df-blue);
+  --h2o-cta-fg: var(--df-white);
+  --h2o-cta-border: var(--df-blue);
+  --h2o-cta-radius: 999px;
+}
+.salmon-copy.salmon-page-newtowers .elementor-element.elementor-element-708f65e3 :is(.elementor-button, .lux-button, .rfq a) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 44px;
+  padding: 10px 26px;
+  border: 1px solid var(--df-blue);
+  border-radius: 999px;
+  background: var(--df-blue);
+  box-shadow: none;
+  color: var(--df-white);
+  font: 600 15px/1.2 'DM Sans', system-ui, sans-serif;
+  letter-spacing: 0;
+  text-decoration: none;
+}
+.salmon-copy.salmon-page-newtowers .elementor-element.elementor-element-708f65e3 :is(.elementor-button, .lux-button, .rfq a) span {
+  color: inherit;
+}
+.salmon-copy.salmon-page-newtowers .elementor-element.elementor-element-708f65e3 :is(.elementor-button, .lux-button, .rfq a):is(:hover, :focus-visible) {
+  border-color: var(--df-blue-hover);
+  background: var(--df-blue-hover);
+  color: var(--df-white);
+}
+
+/* A3 — body text that was squeezed into 2–3 narrow columns: one column, readable measure, at every width.
+ * The column grid arrives as an inline style on the source node, so only an important declaration can replace it. */
+.lux-index-row .lux-reading-type.lux-grid {
+  display: block !important;
+  max-inline-size: 65ch;
+}
+.lux-index-row .lux-reading-type.lux-grid > p + p {
+  margin-block-start: 1em !important;
+}
+
+/* A6 — contrast: the new-towers service band (white text) on the deep brand blue (≥ 4.5:1). */
+.salmon-page-newtowers.salmon-copy .elementor-element.elementor-element-6f026f80:not(.elementor-motion-effects-element-type-background) {
+  background-color: var(--df-blue);
+}
+
+/* A6 — thermal: the orange "Contact Us" link on navy becomes white and underlined. */
+.luxury-1555 .lux-index-row > .lux-reading-type a {
+  color: var(--df-white);
+  text-decoration: underline;
+}
+
+/* A5 — articles: the quote action is an inline row; the single "Let’s Build…" band is the site footer's. */
+.figma-wave4 .wave4-article-rfq--inline {
+  justify-content: flex-start;
+  max-inline-size: 760px;
+  margin: 48px auto 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+}
+.figma-wave4 .wave4-article-rfq--inline :is(a, .rfq a) {
+  border-color: var(--df-blue);
+  background: var(--df-blue);
+  color: var(--df-white);
+}
+.figma-wave4 .wave4-article-rfq--inline > a:last-child {
+  background: transparent;
+  color: var(--df-blue);
+}
+
+/* A5 — data tables: a two-column table fits a phone; a wider one shows scroll shadows at its hidden edges. */
+.technical-table {
+  background:
+    linear-gradient(to right, var(--df-white) 30%, transparent),
+    linear-gradient(to left, var(--df-white) 30%, transparent) 100% 0,
+    radial-gradient(farthest-side at 0 50%, var(--df-scroll-shadow), transparent),
+    radial-gradient(farthest-side at 100% 50%, var(--df-scroll-shadow), transparent) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+@media (width < 600px) {
+  .technical-table table:not(:has(:is(td, th):nth-child(3))) {
+    min-inline-size: 0;
+  }
+}

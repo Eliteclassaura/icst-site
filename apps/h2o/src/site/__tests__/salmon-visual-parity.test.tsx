@@ -21,6 +21,8 @@ import {serviceCompositions} from '../ServiceComposition'
 import {cssBackground} from '../salmon-source'
 import {contactOffices} from '../contact'
 import {salmonDocument,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from '../salmon'
+import {projectMediaRegistry} from '../project-media'
+
 
 const doc=(id:string):SalmonDocument=>salmonDocument(salmonRoutes().find(route=>route.routeId===id)!)
 const byPath=(target:string):SalmonDocument=>salmonDocument(salmonRoutes().find(route=>route.targetPath===target)!)
@@ -83,19 +85,23 @@ describe('Parts landing architecture',()=>{
   })
 })
 
+const WITHHELD=Object.keys(projectMediaRegistry().withheld??{})
 describe('Projects portfolio and project detail',()=>{
   it('renders a grouped photographic portfolio that links every public project detail',()=>{
     const html=page(byPath('/all-projects/'))
     expect(html).toContain('data-salmon-family="project-portfolio"')
     expect(html).not.toContain('authority-project-list')
     for(const country of ['United states','Philippines','Thailand','Malaysia','Indonesia','Vietnam'])expect(html,country).toContain(country)
-    expect(count(html,/sp-bg"|sp-media"|sp-media sp-media--panel/g)).toBeGreaterThanOrEqual(22)
+    // Design Fixes R1 A1 (CT brief 2026-10-04): the two projects with no verified own photo show their frame without one.
+    expect(count(html,/sp-bg"|sp-media"|sp-media sp-media--panel/g)).toBeGreaterThanOrEqual(22-WITHHELD.length)
     for(const row of projectDetails)expect(html,row.path).toContain(`href="${row.path}"`)
   })
   it('opens every project detail photo-first with title, year and compact fact cards',()=>{
     for(const row of projectDetails){
       const html=page(doc(row.routeId))
       const main=html.slice(html.indexOf('<main'))
+      // Design Fixes R1 A1: a project with no verified own photo opens with its description instead (never another project's photo).
+      if(WITHHELD.includes(row.path)){expect(count(main,/class="sp-iconbox/g),row.path).toBeGreaterThanOrEqual(4);continue}
       expect(main.indexOf('<img'),row.path).toBeGreaterThan(-1)
       expect(main.indexOf('<img'),row.path).toBeLessThan(main.indexOf('<h1'))
       expect(count(main,/class="sp-iconbox/g),row.path).toBeGreaterThanOrEqual(4)

@@ -19,6 +19,7 @@ import {MAIN_OWNED_PARTS_HERO_PATHS} from '../content/rfq-intent'
 import {salmonDocument,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
 import {activeProductRoutes} from './Wave3Products'
 import {articleHeadingNodes} from './wave4'
+import {applyProjectMedia} from './project-media'
 import {backgroundOf,classList,containerChildren,elementId,elementKeys,embeddedIcon,findAll,findFirst,firstTag,hasClass,isContainer,isElement,localHref,sourceImage,widgetType,type SalmonElement,type SourceRef} from './salmon-source'
 import {SALMON_FAMILY_CONTRACT,SALMON_FAMILY_CONTRACT_VERSION,type Align,type Block,type ButtonVariant,type ColorRole,type ContainerBlock,type ContainerLayout,type Device,type FrameStyle,type Icon,type MediaRef,type Overlay,type Panel,type ProductCardInput,type RichInline,type RichText,type SalmonFamily,type SalmonFamilyPageModel,type SectionModel,type SvgNode,type TextBlock,type TypeRole} from './salmon-family-model'
 
@@ -37,6 +38,13 @@ const table:Array<[string[],FamilyConfig]>=[
   [['SALMON-pages-5792'],{family:'testimonial',auditFamily:'TESTIMONIALS',label:'Salmon testimonial detail'}],
 ]
 const byRoute=new Map(table.flatMap(([ids,config])=>ids.map(id=>[id,config] as const)))
+/** The year a project's own staging record states ("Year: 2018"). */
+const projectRecordYear=(projectPath:string):string|undefined=>{
+  const route=salmonRoutes().find(candidate=>candidate.targetPath===projectPath)
+  if(!route)return undefined
+  const text=salmonDocument(route).children.map(salmonNodeText).join(' ').replace(/\s+/g,' ')
+  return /Year\s*:?\s*(\d{4}(?:\s*-\s*\d{2,4})?)/.exec(text)?.[1]?.replace(/\s+/g,'')
+}
 const PROJECT_DETAIL:FamilyConfig={family:'project-detail',auditFamily:'PROJECT_DETAIL',label:'Salmon project detail'}
 export const salmonFamilyFor=(doc:SalmonDocument):FamilyConfig|undefined=>{
   if(doc.type!=='pages'||!doc.routeId.startsWith('SALMON-pages-'))return undefined
@@ -406,11 +414,13 @@ export function salmonFamilyModel(doc:SalmonDocument,config:FamilyConfig):Salmon
   const collect=(block:Block)=>{if('href' in block&&block.href)linked.add(block.href);if(block.type==='container')block.children.forEach(collect);if(block.type==='heading'||block.type==='text')JSON.stringify(block).replace(/"href":"([^"]+)"/g,(_,href:string)=>{linked.add(href);return ''})}
   sections.forEach(section=>collect(section.root))
   const coverage=config.family==='project-portfolio'?publicProjectRows().filter(row=>!linked.has(row.path)).map(row=>{const route=salmonRoutes().find(candidate=>candidate.routeId===row.routeId)!;const project=salmonDocument(route);return {path:row.path,title:project.seo.h1[0]??project.title}}):undefined
-  return {
+  const model:SalmonFamilyPageModel={
     contract:SALMON_FAMILY_CONTRACT,contractVersion:SALMON_FAMILY_CONTRACT_VERSION,family:config.family,auditFamily:config.auditFamily,routeId:doc.routeId,path:doc.targetPath,
     source:{kind:'SALMON_TRANSITIONAL_JSON',sha256:doc.sourceIdentity.sha256},
     sections,
     exclusions:excluded,
     modules:{...(config.family==='company-capability'&&!sections.some(section=>hasHeadingOne(section.root))?{pageTitle:doc.seo.h1[0]??doc.title}:{}),...(config.family==='about'?{aboutPresence:true}:{}),...(coverage?{projectCoverage:coverage,projectDiscovery:true}:{}),...(config.family==='project-detail'?{projectNavigation:true}:{})},
   }
+  // Design Fixes R1 A1: each project's own verified photo and record year (./project-media).
+  return applyProjectMedia(model,projectRecordYear)
 }

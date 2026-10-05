@@ -1,0 +1,107 @@
+/**
+ * Design Fixes R1 (Control Tower brief 2026-10-04): project photos (A1), the article end (A5), the stylesheet (A2–A6).
+ * The phone display (A7) is pinned in footer-cti-social-icons.test.tsx.
+ */
+import {afterEach,beforeEach,describe,expect,it} from 'vitest'
+import {createHash} from 'node:crypto'
+import {readFileSync} from 'node:fs'
+import path from 'node:path'
+import {renderToStaticMarkup} from 'react-dom/server'
+import Page from '../../app/(site)/[[...slug]]/page'
+import {salmonDocument,salmonNodeText,salmonRoutes,type SalmonNode} from '../salmon'
+import {Wave4ArticleDetail} from '../Wave4Presentation'
+import {articleHeadingNodes,isRecentPostsRegion} from '../wave4'
+import {projectMediaRegistry} from '../project-media'
+
+const APP=process.cwd()
+const render=async(p:string)=>renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean).map(decodeURIComponent)}),searchParams:Promise.resolve({})}))
+const env={...process.env}
+beforeEach(()=>{process.env.H2O_PUBLIC_EXPORT='1'})
+afterEach(()=>{process.env={...env}})
+
+describe('A1 project photos: each project its own verified photo, never another project’s',()=>{
+  const registry=projectMediaRegistry().projects
+  it('the registry holds one distinct, hash-verified photo per project, never upscaled',()=>{
+    const entries=Object.entries(registry)
+    expect(entries).toHaveLength(20)
+    expect(new Set(entries.map(([,e])=>e.media.sha256)).size).toBe(entries.length)
+    for(const [p,e] of entries){
+      const bytes=readFileSync(path.join(APP,'public',e.media.src))
+      expect(createHash('sha256').update(bytes).digest('hex'),p).toBe(e.media.sha256)
+      const original=(e as unknown as {original:{width:number}}).original
+      expect(e.media.width,p).toBeLessThanOrEqual(original.width)
+    }
+  })
+  it('no two project cards on /all-projects/ share an image, and each card shows its own project’s photo',async()=>{
+    const html=await render('/all-projects/')
+    // Each card: its photo (background sha) and the first project link after it.
+    const cards=[...html.matchAll(/data-source-background-sha256="([0-9a-f]{64})"(?:(?!data-source-background-sha256)[^])*?href="(\/all-projects\/[^"/]+\/)"/g)].map(m=>({sha:m[1]!,href:m[2]!}))
+    const projectCards=cards.filter(card=>registry[card.href])
+    expect(projectCards.length).toBe(20)
+    expect(new Set(projectCards.map(card=>card.sha)).size).toBe(projectCards.length)
+    for(const card of projectCards)expect(card.sha,card.href).toBe(registry[card.href]!.media.sha256)
+    // Every card that still shows a photo shows a distinct one.
+    expect(new Set(cards.map(card=>card.sha)).size).toBe(cards.length)
+  })
+  it('a project with no verified own photo shows none: its unsafe held photos are gone from the listing card and the detail page',async()=>{
+    const withheld=projectMediaRegistry().withheld!
+    expect(Object.keys(withheld)).toEqual(['/all-projects/pttcsp/','/all-projects/ptt-csp3/'])
+    const listing=await render('/all-projects/')
+    for(const [p,w] of Object.entries(withheld)){
+      expect(listing,p).toMatch(new RegExp(`<div class="sp-con sp-col sp-rounded"[^>]*style="--sp-minh:[^"]*"><div class="sp-btn-row"><a class="sp-btn sp-btn--outline" href="${p}">`))
+      const detail=await render(p)
+      for(const sha of w.withheldSha256){expect(detail,`${p} ${sha}`).not.toContain(sha);if(sha!=='aa6edfe6c9fb42e5b87a59345a747d735c3eb6f1c5a6e2fee50713d9e7f294d9')expect(listing,`${p} ${sha}`).not.toContain(sha)}
+    }
+  })
+  it('EDC: the card year follows its own record (2018) and its detail hero is its own photo',async()=>{
+    const html=await render('/all-projects/')
+    expect(html).toMatch(/href="\/all-projects\/edc\/">2018</)
+    const detail=await render('/all-projects/edc/')
+    expect(detail).toContain(registry['/all-projects/edc/']!.media.src)
+    for(const [p,e] of Object.entries(registry))if(p!=='/all-projects/edc/')expect(detail,p).not.toContain(e.media.src)
+  })
+})
+
+describe('A5 article end: one call-to-action band, no legacy Recent Posts list',()=>{
+  const route=salmonRoutes().find(row=>row.targetPath==='/cooling-tower-efficiency-calculation/')!
+  it('keeps the contracted editorial_inline quote action as an inline row; the only “Let’s Build…” band is the footer’s',()=>{
+    const html=renderToStaticMarkup(<Wave4ArticleDetail doc={salmonDocument(route)}/>)
+    expect(html.match(/Let’s Build Efficient Industrial Cooling Systems/g)).toHaveLength(1)
+    // The mount itself (data-rfq-placement="editorial_inline") renders only with the Typeform origin configured; that
+    // contract is pinned in public-rfq-gate.test.tsx. Here: the inline row and its contact fallback.
+    expect(html).toMatch(/<section class="wave4-article-rfq wave4-article-rfq--inline" aria-label="Request a quote">.*<a href="\/contact-us\/">Contact us<\/a><\/section>/)
+    expect(html).not.toMatch(/<h2[^>]*>Recent Posts<\/h2>/)
+  })
+  it('the Recent Posts region is skipped in every published article that carries one, and nothing else is',()=>{
+    const ledger=JSON.parse(readFileSync(path.join(APP,'content/release/route-ledger.json'),'utf8')) as {routes:Array<{state:string;routeClass:string;sourceFile?:string;path:string}>}
+    const docs=salmonRoutes().filter(row=>ledger.routes.some(r=>r.path===row.targetPath&&r.state==='PUBLIC'&&r.routeClass==='posts'))
+    let regions=0
+    const h2s=(node:SalmonNode):string[]=>typeof node==='string'?[]:[...(node.tag==='h2'?[salmonNodeText(node).trim()]:[]),...node.children.flatMap(h2s)]
+    for(const row of docs){
+      const nodes=articleHeadingNodes(salmonDocument(row).children,true)
+      const kept=nodes.filter(node=>!isRecentPostsRegion(node))
+      regions+=nodes.length-kept.length
+      expect(kept.flatMap(h2s),row.targetPath).not.toContain('Recent Posts')
+      // A skipped region holds no other heading: no article content goes with it.
+      for(const node of nodes.filter(isRecentPostsRegion))expect(h2s(node)).toEqual(['Recent Posts'])
+    }
+    expect(regions).toBeGreaterThan(0)
+  },120000)
+})
+
+describe('A2–A6 stylesheet',()=>{
+  const css=readFileSync(path.join(APP,'src/app/(site)/design-fixes.css'),'utf8')
+  it('is imported last and uses colour tokens only',()=>{
+    const imports=[...readFileSync(path.join(APP,'src/app/(site)/layout.tsx'),'utf8').matchAll(/^import '\.\/([^']+\.css)'/gm)].map(m=>m[1])
+    expect(imports.at(-1)).toBe('design-fixes.css')
+    for(const line of css.split('\n').filter(l=>/^\s*(color|background(-color)?|border(-color)?)\s*:/.test(l)))expect(line,line).not.toMatch(/#[0-9a-f]{3,8}\b|rgb\(/i)
+  })
+  it('carries each audit fix',()=>{
+    expect(css).toMatch(/\.salmon-copy\.salmon-page-newtowers \.elementor-element\.elementor-element-708f65e3 :is\(\.elementor-button, \.lux-button, \.rfq a\) \{[^}]*background: var\(--df-blue\)/)
+    expect(css).toMatch(/elementor-element-708f65e3 \{[^}]*--h2o-cta-bg: var\(--df-blue\)/)
+    expect(css).toMatch(/\.lux-index-row \.lux-reading-type\.lux-grid \{[^}]*display: block !important;[^}]*max-inline-size: 65ch/)
+    expect(css).toMatch(/elementor-element-6f026f80:not\(\.elementor-motion-effects-element-type-background\) \{[^}]*background-color: var\(--df-blue\)/)
+    expect(css).toMatch(/\.luxury-1555 \.lux-index-row > \.lux-reading-type a \{[^}]*color: var\(--df-white\)/)
+    expect(css).toMatch(/\.technical-table table:not\(:has\(:is\(td, th\):nth-child\(3\)\)\) \{[^}]*min-inline-size: 0/)
+  })
+})

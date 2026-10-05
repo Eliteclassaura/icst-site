@@ -5,6 +5,8 @@ type Media={node:string;asset:string;width:number;height:number;slotWidth:number
 type Composition={roles:string[];replace:Record<number,Media>;inside:Record<number,Media>;after:Record<number,Media[]>;suppress?:number[]}
 const media=(node:string,asset:string,width:number,height:number,slotWidth:number,slotHeight:number,cap?:number,shape?:Media['shape'],position='50% 50%'):Media=>({node,asset,width,height,slotWidth,slotHeight,cap,shape,position})
 const root='/media/figma-wave2/'
+/** A Figma asset name, or an absolute path to a verified project photo (content/projects/project-media.json). */
+const assetSrc=(asset:string):string=>asset.startsWith('/')?asset:root+asset
 
 /* Presentation-only Figma bytes. The Salmon documents, not this map, own all copy and facts. */
 export const serviceCompositions:Record<string,Composition>={
@@ -34,8 +36,8 @@ export const serviceCompositions:Record<string,Composition>={
  },
  'SALMON-pages-1572':{
   roles:['hero','intro','reasons','benefits','interlude','case','maintenance','closing'],
-  replace:{2:media('3:845','figma-image-c008d271ce7af4d7.png',1128,944,1059,593,1059,'card','67% 15%'),53:media('3:1147','figma-image-8e52691eb4972886.png',1294,1294,259,647,undefined,'pill','50% 9%'),109:media('3:1148','figma-image-8e52691eb4972886.png',1294,1294,353,364,undefined,'circle','50% 9%')},inside:{},
-  after:{10:[media('3:763','figma-image-7d12e69a53e08f8d.png',3076,2576,420,410,undefined,'card'),media('3:764','figma-image-7d12e69a53e08f8d.png',3076,2576,420,410,undefined,'circle')],54:[media('3:1151','figma-image-8e52691eb4972886.png',1294,1294,259,647,undefined,'pill','50% 9%')],75:[media('3:1150','figma-image-8e52691eb4972886.png',1294,1294,353,364,undefined,'circle','50% 9%')],110:[media('3:1149','figma-image-8e52691eb4972886.png',1294,1294,353,364,undefined,'circle','50% 9%')],147:[media('3:858','figma-image-23e349db1cc56273.png',1128,944,1127,468,1127,'band','50% 72%')]}
+  replace:{2:media('3:845','/media/projects/1e4d414548eb8a30522e910671526bdca38b3a23ba33c117b3d82f83aef9f347.jpg',1600,1346,1059,593,1059,'card','50% 45%'),53:media('3:1147','/media/projects/7f2900b273ec01a51841a9effd0664692184fe1a9157132346323010b030b436.jpg',1600,1200,259,647,undefined,'pill','47% 50%'),109:media('3:1148','/media/projects/c19aacc896713d728545a2da467bd0c2ee4cdf704cc94e1184837464d0bdbbbd.jpg',640,480,353,364,undefined,'circle','60% 50%')},inside:{},
+  after:{10:[media('3:763','figma-image-7d12e69a53e08f8d.png',3076,2576,420,410,undefined,'card')],147:[media('3:858','figma-image-23e349db1cc56273.png',1128,944,1127,468,1127,'band','50% 72%')]}
  },
  'SALMON-pages-1668':{
   roles:['hero','intro','overview','types','benefits','services','closing'],
@@ -53,8 +55,8 @@ export const serviceCompositions:Record<string,Composition>={
 export function ServiceImage({media:asset,layer='inline',layoutNode}:{media:Media;layer?:'inline'|'inside'|'after';layoutNode?:number}){
  const safeWidth=Math.min(asset.cap??asset.width,asset.width,asset.height*asset.slotWidth/asset.slotHeight,asset.slotWidth)
  const style={'--wave2-media-max':`${Math.floor(safeWidth)}px`,'--wave2-native-height':`${asset.height}px`,'--wave2-ratio':`${asset.slotWidth} / ${asset.slotHeight}`,'--wave2-position':asset.position} as CSSProperties
- return <span className={`wave2-media wave2-media--${layer} wave2-media--${asset.shape??'card'}`} data-layout-node={layoutNode} data-figma-node={asset.node} data-figma-media-src={deliverySrc(root+asset.asset)} style={style}>
-  <img src={deliverySrc(root+asset.asset)} alt={asset.shape==='chart'?'Static pressure and airflow results chart':''} width={asset.width} height={asset.height} loading={layer==='inside'&&asset.node.endsWith(':896')?'eager':'lazy'} fetchPriority={layer==='inside'&&asset.node.endsWith(':896')?'high':undefined}/>
+ return <span className={`wave2-media wave2-media--${layer} wave2-media--${asset.shape??'card'}`} data-layout-node={layoutNode} data-figma-node={asset.node} data-figma-media-src={deliverySrc(assetSrc(asset.asset))} style={style}>
+  <img src={deliverySrc(assetSrc(asset.asset))} alt={asset.shape==='chart'?'Static pressure and airflow results chart':''} width={asset.width} height={asset.height} loading={layer==='inside'&&asset.node.endsWith(':896')?'eager':'lazy'} fetchPriority={layer==='inside'&&asset.node.endsWith(':896')?'high':undefined}/>
  </span>
 }
 

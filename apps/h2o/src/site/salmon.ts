@@ -119,7 +119,7 @@ export const salmonMedia=(source:string,base:string):SalmonMedia|undefined=>{
 }
 export const salmonMediaPath=(media:SalmonMedia):string|undefined=>media.file?`/media/salmon/${path.basename(media.file)}`:undefined
 const thailand=contactOffices.find(office=>office.officeKey==='thailand')!
-export const ownerText=(text:string):string=>text.replaceAll('+66-2-260-6598',thailand.telephoneDisplay)
+export const ownerText=(text:string):string=>text.replaceAll('+66-2-260-6598',thailand.telephoneDisplay).replaceAll('+662-661-7723',thailand.telephoneDisplay)
 export const ownerHref=(href:string):string=>/^tel:\+?66[- ]?2[- ]?260[- ]?6598$/i.test(href)?thailand.telephoneHref:href
 export const salmonNodeText=(node:SalmonNode):string=>typeof node==='string'?node:node.children.map(salmonNodeText).join('')
 export const commerceException=(node:Exclude<SalmonNode,string>):boolean=>/(?:^|\s)(?:price|woocommerce-Price-amount|add_to_cart_button|single_add_to_cart_button|checkout-button|cart_totals)(?:\s|$)/.test(node.attrs.class??'')

@@ -3,7 +3,7 @@ import {pageForSegments} from './cohort'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {renderSalmonNode,SalmonSeo} from './SalmonCanonical'
 import {HOME_CRUMB} from './breadcrumb-schema'
-import {articleByline,articleCardImage,articleDirectoryDocuments,articleDisplayTitle,articleHeadingNodes,articleTocLinks,firstText,paragraphTexts,wave4LibraryItems,type Wave4Item} from './wave4'
+import {articleByline,articleCardImage,articleDirectoryDocuments,articleDisplayTitle,articleHeadingNodes,articleTocLinks,firstText,isRecentPostsRegion,paragraphTexts,wave4LibraryItems,type Wave4Item} from './wave4'
 import {R2Discovery} from './R2Discovery'
 import {RfqMount} from './RfqMount'
 import {cssBackground} from './salmon-source'
@@ -98,9 +98,10 @@ export function Wave4ArticleDetail({doc}:{doc:SalmonDocument}){
   return <div className="luxury-site figma-wave4" data-wave4-article={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc} breadcrumb={[HOME_CRUMB,{name:'Tech Articles',path:'/tech-articles/'}]}/><LuxuryHeader page={page} routePath={doc.targetPath}/>
     <main id="main" className="wave4-detail"><header className="wave4-detail-masthead"><nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tech-articles/">Tech Articles</a></nav><h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{byline?<p className="wave4-byline"><span>By <AuthorName name={byline.author}/></span><span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null}</header>
-      <div className="wave4-reading-layout">{toc.length?<><nav className="wave4-toc-rail" aria-label="Table of Contents" data-pagefind-ignore><h2>Table of Contents</h2>{toc.map(link=><a href={link.href} key={link.href}>{link.label}</a>)}</nav><details className="wave4-toc-mobile" data-pagefind-ignore><summary>Table of Contents</summary><nav aria-label="Table of Contents">{toc.map(link=><a href={link.href} key={link.href}>{link.label}</a>)}</nav></details></>:null}<article className="wave4-detail-body">{articleHeadingNodes(doc.children,true).map((node,index)=>renderSalmonNode(node,`body.${index}`,doc,true))}</article></div>
+      <div className="wave4-reading-layout">{toc.length?<><nav className="wave4-toc-rail" aria-label="Table of Contents" data-pagefind-ignore><h2>Table of Contents</h2>{toc.map(link=><a href={link.href} key={link.href}>{link.label}</a>)}</nav><details className="wave4-toc-mobile" data-pagefind-ignore><summary>Table of Contents</summary><nav aria-label="Table of Contents">{toc.map(link=><a href={link.href} key={link.href}>{link.label}</a>)}</nav></details></>:null}<article className="wave4-detail-body">{articleHeadingNodes(doc.children,true).map((node,index)=>isRecentPostsRegion(node)?null:renderSalmonNode(node,`body.${index}`,doc,true))}</article></div>
       {specimen?<nav className="wave4-related-pathways" aria-label="Related technical pathways"><h2>Continue your research</h2><a href="/wp-content/uploads/2021/11/How-Cooling-Towers-Work.pdf">How Cooling Towers Work PDF</a><a href="/crossflow-cooling-tower-repair-maintenance/">Crossflow towers</a><a href="/fill-media/">Fill media</a></nav>:null}
-      <section className="wave4-article-rfq"><h2>Let’s Build Efficient Industrial Cooling Systems</h2>{page?<RfqMount mountId="editorial_inline" page={page}/>:<RfqMount mountId="editorial_inline" routePath={doc.targetPath}/>}<a href="/contact-us/">Contact us</a></section>
+      {/* Design Fixes R1 A5: the article's quote action is an inline row; the one "Let’s Build…" band is the site footer's. */}
+      <section className="wave4-article-rfq wave4-article-rfq--inline" aria-label="Request a quote">{page?<RfqMount mountId="editorial_inline" page={page}/>:<RfqMount mountId="editorial_inline" routePath={doc.targetPath}/>}<a href="/contact-us/">Contact us</a></section>
       <div className="wave4-detail-return"><a href="/tech-articles/">← Back to technical articles</a></div>
     </main>
     <LuxuryFooter page={pageFor(doc)} routePath={doc.targetPath}/>
@@ -116,7 +117,7 @@ export function LiveEnglishDetail({doc}:{doc:SalmonDocument}){
     <SalmonSeo doc={doc} breadcrumb={[HOME_CRUMB,isProject?{name:'Projects',path:'/all-projects/'}:isPost?{name:'Tech Articles',path:'/tech-articles/'}:{name:'Resources',path:'/resources/'}]}/><LuxuryHeader page={pageFor(doc)} routePath={doc.targetPath}/>
     <main id="main" className="wave4-detail">
       <nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{isProject?<a href="/all-projects/">Projects</a>:isPost?<a href="/tech-articles/">Tech Articles</a>:<a href="/resources/">Resources</a>}</nav>
-      <article className="wave4-detail-body"><h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{byline?<p className="wave4-byline"><span>By <AuthorName name={byline.author}/></span><span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null}{doc.children.map((node,index)=>renderSalmonNode(node,`body.${index}`,doc,true))}</article>
+      <article className="wave4-detail-body"><h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{byline?<p className="wave4-byline"><span>By <AuthorName name={byline.author}/></span><span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null}{doc.children.map((node,index)=>isRecentPostsRegion(node)?null:renderSalmonNode(node,`body.${index}`,doc,true))}</article>
       <div className="wave4-detail-return"><a href={isProject?'/all-projects/':isPost?'/tech-articles/':'/resources/'}>← Back to {isProject?'projects':isPost?'technical articles':'resources'}</a></div>
     </main>
     <LuxuryFooter page={pageFor(doc)} routePath={doc.targetPath}/>

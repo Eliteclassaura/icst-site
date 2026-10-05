@@ -111,6 +111,17 @@ export function articleHeadingNodes(nodes:SalmonNode[],omitFirstH1=false):Salmon
   return nodes.map(visit).filter((node):node is SalmonNode=>node!==null)
 }
 
+/**
+ * The WordPress "Recent Posts" sidebar region carried in some article sources (timestamps such as "7:33 pm"; Design Fixes
+ * R1 A5): a top-level region whose only h2 is "Recent Posts" and that lists posts. It is not article content; the template
+ * skips it (by index, so element keys do not move). Anything else with that heading is kept.
+ */
+export const isRecentPostsRegion=(node:SalmonNode):boolean=>{
+  if(typeof node==='string')return false
+  const headings=descendants(node,'h2')
+  return headings.length===1&&salmonNodeText(headings[0]!).trim()==='Recent Posts'&&descendants(node,'article').length>0
+}
+
 export function articleTocLinks(doc:SalmonDocument):Array<{href:string;label:string}>{
   const toc=doc.children.flatMap(node=>descendants(node,'div')).find(node=>/(?:^|\s)wp-block-rank-math-toc-block(?:\s|$)/.test(node.attrs.class??''))
   if(!toc)return []

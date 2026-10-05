@@ -1,0 +1,80 @@
+import {readFileSync} from 'node:fs'
+import path from 'node:path'
+import type {Block,MediaRef,SalmonFamilyPageModel} from './salmon-family-model'
+
+/**
+ * Project photos and years (Design Fixes R1 A1; h2o-corpus-asset-curator; content/projects/project-media.json).
+ *
+ * The held portfolio composition reused one photo for different projects (five pairs on the listing, and shared detail
+ * heroes), and the listing year of EDC (2011) contradicted its own record (2018). Every project with a LIVE_CURRENT project
+ * page now shows that page's own featured photo (verified local original; provenance and SHA-256 in the registry), on its
+ * listing card and as its detail hero. Never another project's photo: a project without a verified own photo keeps
+ * its current photo only when no other project uses it.
+ * Card years follow the project's own record: the live record where it states a year, otherwise the staging record.
+ */
+type Registry={projects:Record<string,{media:MediaRef&{sha256:string;width:number;height:number};year:string|null}>;
+  /** Projects with no verified own photo whose held photos are unsafe as project evidence: shown without a photo. */
+  withheld?:Record<string,{reason:string;withheldSha256:string[]}>}
+let cache:Registry|undefined
+export const projectMediaRegistry=():Registry=>cache??=JSON.parse(readFileSync(path.join(process.cwd(),'content/projects/project-media.json'),'utf8')) as Registry
+
+const PROJECT_PATH=/^\/all-projects\/[^/]+\/$/
+const YEAR=/^\s*\d{4}(?:\s*-\s*\d{2,4})?\s*$/
+const children=(block:Block):Block[]=>block.type==='container'?block.children:[]
+const walk=(block:Block,visit:(block:Block)=>void):void=>{visit(block);children(block).forEach(child=>walk(child,visit))}
+const buttonsIn=(block:Block):Array<Extract<Block,{type:'button'}>>=>{const out:Array<Extract<Block,{type:'button'}>>=[];walk(block,b=>{if(b.type==='button')out.push(b)});return out}
+/** Project destinations a block links to (buttons, icon cards, icon links, image cards). */
+const projectHrefsIn=(block:Block):string[]=>{const out:string[]=[];walk(block,b=>{const href=(b.type==='button'||b.type==='iconCard'||b.type==='iconLink'||b.type==='imageCard')?b.href:undefined;if(href&&PROJECT_PATH.test(href))out.push(href)});return out}
+/** Native-size display: a photo smaller than its frame is never stretched past its own width. */
+const media=(entry:Registry['projects'][string]):MediaRef=>({src:entry.media.src,alt:entry.media.alt,width:entry.media.width,height:entry.media.height,sha256:entry.media.sha256})
+
+/** @param recordYear the year a project's own staging record states (used when the live record states none) */
+export function applyProjectMedia(model:SalmonFamilyPageModel,recordYear:(projectPath:string)=>string|undefined=()=>undefined):SalmonFamilyPageModel{
+  const registry=projectMediaRegistry().projects
+  const withheld=projectMediaRegistry().withheld??{}
+  if(model.family==='project-portfolio'){
+    for(const section of model.sections)walk(section.root,block=>{
+      if(block.type!=='container'||!block.background)return
+      const link=buttonsIn(block).find(button=>button.href&&PROJECT_PATH.test(button.href))
+      if(!link?.href)return
+      const entry=registry[link.href]
+      if(entry)block.background={...block.background,media:media(entry)}
+      else if(withheld[link.href])delete block.background
+      const year=entry?.year??recordYear(link.href)
+      if(year&&YEAR.test(link.label))link.label=year
+    })
+    // Panel cards: a photo panel with no link of its own beside the card that links to one project (e.g. disaster recovery).
+    for(const section of model.sections)walk(section.root,block=>{
+      if(block.type!=='container')return
+      for(const panel of block.children){
+        if(panel.type!=='container'||!panel.background||projectHrefsIn(panel).length)continue
+        const hrefs=[...new Set(block.children.filter(sibling=>sibling!==panel).flatMap(projectHrefsIn))]
+        const entry=hrefs.length===1?registry[hrefs[0]!]:undefined
+        if(entry)panel.background={...panel.background,media:media(entry)}
+        else if(hrefs.length===1&&withheld[hrefs[0]!])delete panel.background
+      }
+    })
+  }
+  if(model.family==='project-detail'&&withheld[model.path]){
+    // No verified own photo: the detail page shows its text without the held hero image.
+    let done=false
+    for(const section of model.sections)walk(section.root,block=>{
+      if(done||block.type!=='container')return
+      const index=block.children.findIndex(child=>child.type==='image')
+      if(index<0)return
+      block.children.splice(index,1)
+      done=true
+    })
+  }
+  if(model.family==='project-detail'){
+    const entry=registry[model.path]
+    let done=false
+    if(entry)for(const section of model.sections)walk(section.root,block=>{
+      if(done||block.type!=='image')return
+      done=true
+      block.media=media(entry)
+      if(entry.media.width<720)block.style={...block.style,width:`${entry.media.width}px`}
+    })
+  }
+  return model
+}
