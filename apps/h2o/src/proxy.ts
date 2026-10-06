@@ -30,6 +30,9 @@
  * the requested path, so the header and the page's own metadata are one decision rather than two
  * that happen to agree while nothing is publication-ready.
  */
+import { existsSync } from 'node:fs'
+import path from 'node:path'
+import { verificationFileFor } from './content/verification-files'
 import { NextResponse, type NextRequest } from 'next/server'
 import { redirectLocation } from './redirect-location'
 import { SITEMAP_FILE_HEADER } from './content/sitemap-request'
@@ -200,6 +203,20 @@ function publishedLedger(): Ledger | null {
   }
 }
 
+/**
+ * R3.4 (owner request, CT 2026-10-05): a site-verification file from H2O_VERIFICATION_FILES (./content/verification-files),
+ * at its exact root path, read at runtime: 200, no-store, `noindex, nofollow`. It never shadows anything that answers there
+ * already — robots.txt, a sitemap address, a published route or redirect, a file in public/ — so those keep their behaviour.
+ */
+function verificationResponse(pathname: string): NextResponse | null {
+  const file = verificationFileFor(pathname)
+  if (!file || pathname === '/robots.txt' || SITEMAP_FILE.test(pathname)) return null
+  const ledger = publishedLedger()
+  if (ledger?.routes.some((r) => pathKeyOf(r.path) === pathKeyOf(pathname)) || ledger?.redirects.some((r) => pathKeyOf(r.source) === pathKeyOf(pathname))) return null
+  if (existsSync(path.join(process.cwd(), 'public', pathname.slice(1)))) return null
+  return new NextResponse(file.body, { status: 200, headers: { 'Content-Type': file.contentType, 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow', 'X-Content-Type-Options': 'nosniff' } })
+}
+
 /** /robots.txt: private policy disallows everything; production policy is the accepted release robots. */
 export function robotsResponse(): NextResponse {
   const production = process.env.H2O_INDEXING_POLICY === 'production'
@@ -214,6 +231,8 @@ function payloadPublic(req: NextRequest): NextResponse {
   // R1B: the sitemap is answered by an internal route handler (it subtracts withdrawals the release does not
   // reflect yet and reads each document's updatedAt, which needs the database); the proxy rewrites to it. The index
   // answers at /sitemap_index.xml (the Yoast address Search Console holds) and at /sitemap.xml, with the children.
+  const verification = verificationResponse(pathname)
+  if (verification) return verification
   if (SITEMAP_FILE.test(pathname)) {
     const target = new URL('/api/public-sitemap/', req.url)
     target.search = ''
