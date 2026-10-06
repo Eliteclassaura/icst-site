@@ -32,6 +32,7 @@
  */
 import { NextResponse, type NextRequest } from 'next/server'
 import { redirectLocation } from './redirect-location'
+import { SITEMAP_FILE_HEADER } from './content/sitemap-request'
 import { scriptHashesFor } from './site/csp-hashes'
 import { xRobotsTagForPath } from './site/robots'
 import { mergeTypeformCsp } from './conversion/csp'
@@ -126,6 +127,14 @@ export const crmPolicy = (nonce: string): string =>
     'upgrade-insecure-requests',
   ].join('; ')
 
+/** R3.3: only the proxy sets the sitemap-file header; a client-supplied one never reaches a handler. */
+const passThrough = (req: NextRequest): NextResponse => {
+  if (!req.headers.has(SITEMAP_FILE_HEADER)) return NextResponse.next()
+  const headers = new Headers(req.headers)
+  headers.delete(SITEMAP_FILE_HEADER)
+  return NextResponse.next({ request: { headers } })
+}
+
 function crmResponse(req: NextRequest): NextResponse {
   const nonce = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('base64')
   const csp = crmPolicy(nonce)
@@ -134,6 +143,7 @@ function crmResponse(req: NextRequest): NextResponse {
   requestHeaders.set('Content-Security-Policy', csp)
   // The workspace gate's return path; always overwritten here, so a client cannot supply its own.
   requestHeaders.set('x-crm-path', req.nextUrl.pathname)
+  requestHeaders.delete(SITEMAP_FILE_HEADER)
   const res = securityHeaders(NextResponse.next({ request: { headers: requestHeaders } }), csp, 'noindex, nofollow')
   res.headers.set('Cache-Control', 'private, no-store')
   return res
@@ -208,10 +218,14 @@ function payloadPublic(req: NextRequest): NextResponse {
     const target = new URL('/api/public-sitemap/', req.url)
     target.search = ''
     target.searchParams.set('file', pathname.slice(1))
-    return NextResponse.rewrite(target)
+    // R3.3: the standalone runtime does not pass the rewrite's query to the handler; the name also travels in a request
+    // header the proxy sets itself (a client-supplied value is overwritten).
+    const headers = new Headers(req.headers)
+    headers.set(SITEMAP_FILE_HEADER, pathname.slice(1))
+    return NextResponse.rewrite(target, { request: { headers } })
   }
   if (pathname === '/robots.txt') return robotsResponse()
-  if (EXCLUDED.test(pathname)) return NextResponse.next()
+  if (EXCLUDED.test(pathname)) return passThrough(req)
   if (CRM_PATH.test(pathname)) return crmResponse(req)
   if (GONE_PATHS.has(pathKeyOf(pathname)))
     return new NextResponse('Gone', { status: 410, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'no-cache' } })
@@ -233,6 +247,7 @@ function payloadPublic(req: NextRequest): NextResponse {
     target.searchParams.set('q', req.nextUrl.searchParams.get('s') ?? '')
     return securityHeaders(NextResponse.redirect(target, 307), csp, robots)
   }
+  requestHeaders.delete(SITEMAP_FILE_HEADER)
   const res = securityHeaders(NextResponse.next({ request: { headers: requestHeaders } }), csp, robots)
   if (preview) res.headers.set('Cache-Control', 'private, no-store')
   return res
