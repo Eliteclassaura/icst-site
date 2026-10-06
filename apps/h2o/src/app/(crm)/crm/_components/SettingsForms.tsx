@@ -139,6 +139,7 @@ export function TemplateForm({ id, name, purpose, subject, body, locked }: { id:
           <select className="c-select" {...a} defaultValue={purpose} disabled={locked}>
             <option value="TRANSACTIONAL">Transactional (about an inquiry)</option>
             <option value="MARKETING">Marketing (Revenue Engine)</option>
+            <option value="SEQUENCE">Sequence step (Revenue Engine; the engine adds the unsubscribe footer)</option>
           </select>
         )}
       </Field>

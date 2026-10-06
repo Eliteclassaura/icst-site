@@ -82,7 +82,17 @@ export const CrmEmailOutbox: CollectionConfig = crmCollection(
       { name: 'next_attempt_at', type: 'date', index: true, admin: { readOnly: true } },
       { name: 'lease_until', type: 'date', admin: { readOnly: true } },
       { name: 'last_error_code', type: 'text', admin: { readOnly: true } },
-      { name: 'sent_at', type: 'date', admin: { readOnly: true } },
+      { name: 'sent_at', type: 'date', index: true, admin: { readOnly: true } },
+      // Revenue Engine slice 1: a sequence email's enrollment and step; the recipient's domain (per-domain cap); the
+      // copy-risk lint of the final render and the AUTO approval decision (E0.1 approval record); a later DSN bounce.
+      { name: 'enrollment', type: 'relationship', relationTo: 'crm-enrollments', index: true, admin: { readOnly: true } },
+      { name: 'step_key', type: 'text', admin: { readOnly: true } },
+      { name: 'recipient_domain', type: 'text', index: true, admin: { readOnly: true } },
+      { name: 'lint', type: 'json', admin: { readOnly: true } },
+      { name: 'approval_decision', type: 'select', options: options(['AUTO_AUTHORIZED', 'BLOCKED'] as const), admin: { readOnly: true } },
+      { name: 'bounced_at', type: 'date', index: true, admin: { readOnly: true } },
+      { name: 'reply_to', type: 'text', access: { read: crmAdminField }, admin: { readOnly: true } },
+      { name: 'list_unsubscribe', type: 'text', access: { read: crmAdminField }, admin: { readOnly: true } },
     ],
   },
   { deleteAlternative: 'Outgoing email is a durable record of what was (or was not) sent.' },

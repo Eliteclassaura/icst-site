@@ -68,7 +68,7 @@ Control Tower return for M1, not in the repository. Secrets come from the Coolif
 |---|---|---|
 | `H2O_EMAIL_MODE` | `allowlist` | `off` |
 | `H2O_EMAIL_ALLOWLIST` | owner + test addresses (owner input) | — |
-| `H2O_EMAIL_FROM` | `H2O Cooling <rfq@<sender domain>>` (owner confirms the role address) | same |
+| `H2O_EMAIL_FROM` | `Rhonda Miller <sales@h2ocooling.org>` (owner decision 2026-10-05; without a name the default is "Rhonda Miller") | same |
 | `H2O_SALES_ALERT_TO` | owner input | owner input |
 | `H2O_EMAIL_CUSTOMER_ACK` | `off` until the text is approved | `off` |
 | `H2O_SMTP_HOST` / `H2O_SMTP_PORT` | `stalwart` / `587` | same |

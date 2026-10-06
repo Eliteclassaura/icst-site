@@ -60,7 +60,8 @@ describe('config: H2O_EMAIL_MODE fails closed', () => {
       name: 'H2O RFQ Desk',
       address: 'rfq@example.test',
     })
-    expect(parseFrom('rfq@example.test')).toEqual({ name: 'H2O Cooling', address: 'rfq@example.test' })
+    // Owner decision 2026-10-05: the default display name for the sales mailbox.
+    expect(parseFrom('rfq@example.test')).toEqual({ name: 'Rhonda Miller', address: 'rfq@example.test' })
     expect(parseFrom('Evil\r\nBcc: x@example.test <rfq@example.test>')).toBeNull()
   })
   it('recipientKey is the suppression ledger key (crm/normalize emailKey().matchKey)', () => {
@@ -318,7 +319,9 @@ describe('E1 messages', () => {
         'If you have drawings, nameplate photos or earlier inspection reports, reply to this email and attach them. They help us scope your request accurately.\n\n' +
         'The ICS team\nIndustrial Cooling Solutions (ICS)\n',
     )
-    expect(SEED_TEMPLATES.filter((t) => t.approved).map((t) => t.code)).toEqual(['T1'])
+    // T1 is the only approved transactional seed; the E1.1 sequence seeds (owner-accepted copy) are approved too.
+    expect(SEED_TEMPLATES.filter((t) => t.approved && t.purpose === 'TRANSACTIONAL').map((t) => t.code)).toEqual(['T1'])
+    expect(SEED_TEMPLATES.filter((t) => t.approved && t.purpose === 'SEQUENCE').map((t) => t.code)).toEqual(['E11_QUAL_1', 'E11_QUAL_2', 'E11_MISS_1', 'E11_MISS_2'])
   })
   it('T1 echoes only the RFQ number and a one-line first name, never markup or a second line', () => {
     const hostile = t1('<b>Pat</b>\nBcc: x@example.test', null)

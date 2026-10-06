@@ -68,6 +68,10 @@ export const AUDITED_TRANSITIONS: Record<string, readonly string[]> = {
   // Patch C: never a host, user name, sender or password — only these states.
   'crm-sending-profiles': ['active', 'use', 'preset', 'password_set', 'last_check_state', 'last_check_code'],
   'crm-email-templates': ['approved', 'approved_by', 'purpose', 'version'],
+  'crm-sequences': ['run_state', 'published_version', 'approval_mode'],
+  'crm-sequence-versions': ['state', 'definition_hash'],
+  'crm-enrollments': ['status', 'current_step', 'exit_reason', 'pause_reason', 'hold_code'],
+  'crm-ers-settings': [],
 }
 
 const SKIP_KEYS = new Set(['updatedAt', 'createdAt', 'id'])

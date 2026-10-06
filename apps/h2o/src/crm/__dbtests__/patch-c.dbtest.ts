@@ -74,7 +74,7 @@ async function stepUpAt(u: TestUser, at: Date) {
   const out = await confirmStepUp(p, mu, sidOf(u.token), totpCode(HARNESS_TOTP_SECRET, at), at)
   expect(out.ok).toBe(true)
 }
-const GMAIL = { name: 'Workspace', preset: 'GMAIL', use: 'TRANSACTIONAL', username: 'rfq@example.test', password: 'abcd efgh ijkl mnop', from_address: 'rfq@example.test', from_name: 'H2O Cooling' }
+const GMAIL = { name: 'Workspace', preset: 'GMAIL', use: 'TRANSACTIONAL', username: 'rfq@example.test', password: 'abcd efgh ijkl mnop', from_address: 'rfq@example.test', from_name: 'Rhonda Miller' }
 
 async function newRfq(spec: Parameters<typeof typeformDelivery>[0] = {}): Promise<Doc> {
   const s = signed(typeformDelivery(spec), SYNTHETIC_SECRET)
@@ -218,7 +218,7 @@ describe('sending profiles: step-up, sealed password, access', () => {
     for (let i = 0; i < 3; i++) expect(await sending.testSendProfile(A, sid, id, { now: t, resolve: PUBLIC, send })).toMatchObject({ ok: true })
     expect(await sending.testSendProfile(A, sid, id, { now: t, resolve: PUBLIC, send })).toMatchObject({ ok: false, code: 'RATE_LIMITED' })
     expect(sent.map((m) => m.to)).toEqual([ADMIN_ADDR, ADMIN_ADDR, ADMIN_ADDR])
-    expect(sent[0]!.from).toBe('"H2O Cooling" <rfq@example.test>')
+    expect(sent[0]!.from).toBe('"Rhonda Miller" <rfq@example.test>')
     const ev = (await p.find({ collection: 'crm-email-events', where: { kind: { equals: 'PROFILE_TEST' } }, ...srv })).docs as unknown as Doc[]
     expect(ev.map((e) => e.event)).toEqual(['DIRECT_SENT', 'DIRECT_SENT', 'DIRECT_SENT'])
     expect(JSON.stringify(ev)).not.toContain(ADMIN_ADDR)
@@ -264,7 +264,8 @@ describe('templates T1–T6', () => {
   it('seeds once: T1 approved (the owner’s wording, 2026-10-05), T2–T6 waiting for review; reads for CRM users, writes for nobody via the API', async () => {
     await ensureTemplates(p)
     await ensureTemplates(p)
-    const all = await listTemplates(p)
+    // T1–T6 (the ERS slice-1 sequence templates E11_* are seeded alongside; see ers.dbtest.ts).
+    const all = (await listTemplates(p)).filter((t) => /^T\d$/.test(String(t.code)))
     expect(all.map((t) => t.code)).toEqual(['T1', 'T2', 'T3', 'T4', 'T5', 'T6'])
     const t1 = all[0]!
     expect(t1).toMatchObject({ approved: true, approved_hash: templateHash(SEED_TEMPLATES[0]!), version: 1 })
@@ -283,7 +284,7 @@ describe('templates T1–T6', () => {
     expect(await templateByCode(p, 'T2')).toMatchObject({ approved: true, approved_by: admin.id })
     expect(await saveTemplate(A, { id: String(t2.id), name: 'T2', subject: String(t2.subject), body: `${String(t2.body)}\n\nP.S. synthetic edit`, purpose: 'TRANSACTIONAL' })).toMatchObject({ ok: true })
     expect(await templateByCode(p, 'T2')).toMatchObject({ approved: false, approved_hash: null, version: 2 })
-    expect(await saveTemplate(A, { id: String(t2.id), subject: 'x', body: 'Hi {{first_name}}', purpose: 'TRANSACTIONAL' })).toMatchObject({ ok: false, code: 'TEMPLATE_UNKNOWN_FIELD' })
+    expect(await saveTemplate(A, { id: String(t2.id), subject: 'x', body: 'Hi {{firstname}}', purpose: 'TRANSACTIONAL' })).toMatchObject({ ok: false, code: 'TEMPLATE_UNKNOWN_FIELD' })
     const t1 = (await templateByCode(p, 'T1'))!
     expect(await saveTemplate(A, { id: String(t1.id), subject: String(t1.subject), body: `${String(t1.body)} {{unsubscribe_url}}`, purpose: 'MARKETING' })).toMatchObject({ code: 'TEMPLATE_T1_TRANSACTIONAL' })
     expect(await saveTemplate(await session(sales), { id: String(t2.id), subject: 'x', body: 'y' })).toMatchObject({ code: 'FORBIDDEN' })

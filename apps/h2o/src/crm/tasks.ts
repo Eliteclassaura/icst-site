@@ -7,7 +7,7 @@ import { isUniqueViolation } from './activity'
  * replay or retry produces the same one task, not a second.
  */
 export type SystemTaskInput = {
-  kind: 'RFQ_FIRST_RESPONSE' | 'MISSING_INFORMATION' | 'IDENTITY_REVIEW' | 'INTAKE_REVIEW' | 'FOLLOW_UP'
+  kind: 'RFQ_FIRST_RESPONSE' | 'MISSING_INFORMATION' | 'IDENTITY_REVIEW' | 'INTAKE_REVIEW' | 'FOLLOW_UP' | 'SEQUENCE_STEP' | 'SEQUENCE_REVIEW'
   title: string
   priority: 'HIGH' | 'NORMAL' | 'LOW'
   idempotency_key: string

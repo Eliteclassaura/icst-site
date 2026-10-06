@@ -59,6 +59,7 @@ const KIND_LABEL: Record<EmailKind, string> = {
   RFQ_SALES_ALERT: 'Sales alert',
   RFQ_CUSTOMER_ACK: 'Customer acknowledgement',
   RFQ_REPLY: 'Email reply',
+  SEQUENCE_EMAIL: 'Sequence email',
 }
 
 export async function recordEmailActivity(

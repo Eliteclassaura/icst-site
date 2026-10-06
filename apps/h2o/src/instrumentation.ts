@@ -7,7 +7,8 @@
  * queued publishing jobs would wait. Web replicas never start crons (`shouldAutoRun` also refuses there).
  * The runner also reconciles pending publication events every minute (./content/jobs `reconcilePending`)
  * and drains the email outbox every 15 s (./email/outbox-worker, CRM email M1), and — when
- * H2O_EMAIL_INBOUND=on — polls the role mailbox for customer replies every 60 s (./email/inbound-poller, M3).
+ * H2O_EMAIL_INBOUND=on — polls the role mailbox for customer replies every 60 s (./email/inbound-poller, M3), and
+ * advances Revenue Engine sequences every 60 s (./crm/ers/engine, slice 1).
  *
  * `onRequestError` — production builds hide Server Component error messages from the browser (correctly);
  * this records them in the server log with the request path and digest so a failed render is diagnosable.
@@ -68,6 +69,24 @@ export async function register() {
     void poll()
     setInterval(() => void poll(), Number(process.env.H2O_EMAIL_INBOUND_INTERVAL_MS) || 60_000).unref()
   }
+  // Revenue Engine slice 1: advance sequence enrollments every minute. It does nothing while the engine is switched
+  // off (CRM → Settings → Revenue Engine) or reply detection is not live (inbound off or stale, CT ruling 3).
+  const [{ tick: ersTick }, { ersSettings, inboundFresh }] = await Promise.all([import('./crm/ers/engine'), import('./crm/ers/settings')])
+  let ticking = false
+  const ers = async () => {
+    if (ticking) return
+    ticking = true
+    try {
+      const inboundOk = readInboundConfig().enabled && inboundFresh(await ersSettings(payload), true)
+      const r = await ersTick(payload, { inboundOk })
+      if (r.processed > 0) console.warn(`[h2o] revenue engine: processed=${r.processed} ${JSON.stringify(r.results)}`)
+    } catch {
+      console.error('[h2o] revenue engine: tick failed')
+    } finally {
+      ticking = false
+    }
+  }
+  setInterval(() => void ers(), Number(process.env.H2O_ERS_INTERVAL_MS) || 60_000).unref()
 }
 
 export function onRequestError(err: unknown, request: { path: string; method: string }) {

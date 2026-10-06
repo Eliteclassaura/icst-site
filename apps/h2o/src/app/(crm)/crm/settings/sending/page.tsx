@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { DEFAULT_SENDER_NAME } from '../../../../../email/config'
 import { emailStatus, presetOptions, PRESET_LABEL, stepUpLeft, USE_LABEL } from '../../../../../email/settings-page'
 import { listProfiles } from '../../../../../email/sending-settings'
 import { Shell } from '../../../../../crm/workspace/ui/Shell'
@@ -89,7 +90,7 @@ export default async function SendingProfilesPage() {
           <h2 id="add-h">Add a profile</h2>
         </div>
         <div className="c-panel-body is-padded">
-          <ProfileForm values={{}} presets={presetOptions()} />
+          <ProfileForm values={{ from_name: DEFAULT_SENDER_NAME }} presets={presetOptions()} />
         </div>
       </section>
     </Shell>

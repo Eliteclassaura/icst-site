@@ -280,6 +280,8 @@ export function parseMessage(raw: Buffer, id: string, receivedAt?: string | null
   const htmlBody: JmapBodyPart[] = []
   const attachments: JmapBodyPart[] = []
   const bodyValues: Record<string, { value: string; isTruncated: boolean }> = {}
+  // A bounce report's machine-readable part (RFC 3464); still listed as an attachment, never shown as the body.
+  const dsn = leaves.find((l) => l.type === 'message/delivery-status' || l.type === 'message/global-delivery-status')
   leaves.forEach((leaf, i) => {
     const partId = String(i + 1)
     const isText = leaf.type === 'text/plain' || leaf.type === 'text/html'
@@ -313,5 +315,6 @@ export function parseMessage(raw: Buffer, id: string, receivedAt?: string | null
     'header:X-Spam-Status:asText': first(h, 'x-spam-status'),
     'header:Precedence:asText': first(h, 'precedence'),
     'header:List-Id:asText': first(h, 'list-id'),
+    deliveryStatus: dsn ? decodeCharset(decodeTransfer(dsn.body, dsn.encoding), dsn.charset).slice(0, 20_000) : null,
   }
 }

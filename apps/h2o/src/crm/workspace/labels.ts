@@ -81,6 +81,7 @@ export const ACTIVITY_LABEL: Record<string, string> = {
   EMAIL_NOTIFICATION: 'Email notification',
   EMAIL_REPLY: 'Email reply',
   EMAIL_RECEIVED: 'Email received',
+  SEQUENCE_EVENT: 'Sequence',
 }
 
 /** Activity types a person may log from the workspace (CRM-1 HUMAN_ACTIVITY_TYPES minus notes). */
@@ -93,6 +94,8 @@ export const TASK_KIND_LABEL: Record<string, string> = {
   IDENTITY_REVIEW: 'Identity review',
   INTAKE_REVIEW: 'Intake review',
   GENERAL: 'General',
+  SEQUENCE_STEP: 'Sequence task',
+  SEQUENCE_REVIEW: 'Sequence review',
 }
 
 export const TASK_STATUS_LABEL: Record<string, string> = {

@@ -173,6 +173,9 @@ export async function ingestInbound(
     return 'DUPLICATE'
   if (messageId && (await exists('crm-email-messages', { message_id: { equals: messageId } })))
     return 'DUPLICATE'
+  // Revenue Engine slice 1: a bounce report (RFC 3464) records a hard bounce for each failed address (5.x.x, not
+  // 5.7.x). The report itself still goes to the review queue below like any automatic message.
+  if (email.deliveryStatus) await recordDsnBounces(payload, email, now)
 
   const from = addrs(email.from)[0] ?? null
   const fromName = line((email.from ?? [])[0]?.name, 120) || null
@@ -441,4 +444,32 @@ export async function discardReviewItem(s: CrmSession, input: { reviewId?: unkno
     context: { crmServer: {} },
   })
   return { ok: true, message: 'Discarded.' }
+}
+
+/** RFC 3464: hard bounces for failed recipients; the latest sequence email to each address is marked bounced. */
+async function recordDsnBounces(payload: Payload, email: JmapEmail, now: Date): Promise<void> {
+  const { parseDeliveryStatus, isHardBounce } = await import('../email/dsn')
+  const { recordHardBounce } = await import('./ers/feedback')
+  for (const r of parseDeliveryStatus(email.deliveryStatus ?? '').filter(isHardBounce)) {
+    const key = emailKey(r.recipient)
+    if (!key) continue
+    const recent = (
+      await payload.find({
+        collection: 'crm-email-outbox',
+        where: {
+          and: [
+            { kind: { equals: 'SEQUENCE_EMAIL' } },
+            { recipient_domain: { equals: key.domain } },
+            { sent_at: { greater_than: new Date(now.getTime() - 30 * 24 * 3600_000).toISOString() } },
+          ],
+        } as never,
+        sort: '-sent_at',
+        limit: 50,
+        depth: 0,
+        overrideAccess: true,
+      })
+    ).docs as unknown as Doc[]
+    const row = recent.find((d) => emailKey(d.to_address)?.matchKey === key.matchKey)
+    await recordHardBounce(payload, { address: key.canonical, sourceEventId: `dsn:${line(email.id, 120)}:${key.matchKey}`.slice(0, 250), outboxId: row ? String(row.id) : null }, now)
+  }
 }

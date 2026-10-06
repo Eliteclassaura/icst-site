@@ -14,6 +14,8 @@ import { CrmIntakeRate } from './collections/intake-rate'
 import { CrmSendingProfiles } from './collections/sending-profiles'
 import { CrmEmailTemplates } from './collections/email-templates'
 import { CrmMailCursor } from './collections/mail-cursor'
+import { CrmEnrollments } from './collections/enrollments'
+import { CrmSequences, CrmSequenceVersions } from './collections/sequences'
 import { CrmNotes } from './collections/notes'
 import { CrmOpportunities } from './collections/opportunities'
 import { CrmRfqItems } from './collections/rfq-items'
@@ -23,6 +25,7 @@ import { CrmSites } from './collections/sites'
 import { CrmSuppressions } from './collections/suppressions'
 import { CrmTasks } from './collections/tasks'
 import { CrmOfficeSettings } from './globals/office-settings'
+import { CrmErsSettings } from './globals/ers-settings'
 import { typeformIntakeEndpoint } from './intake/typeform/endpoint'
 
 /**
@@ -68,6 +71,10 @@ export const crmCollections: CollectionConfig[] = [
   CrmEmailTemplates,
   // Patch C: IMAP inbound read position (hashed mailbox key; no access).
   CrmMailCursor,
+  // Revenue Engine slice 1: sequences, immutable versions, enrollments.
+  CrmSequences,
+  CrmSequenceVersions,
+  CrmEnrollments,
 ]
 
 export const CRM_SLUGS = crmCollections.map((c) => c.slug)
@@ -79,4 +86,4 @@ export const CRM_SLUGS = crmCollections.map((c) => c.slug)
 export const crmEndpoints: Endpoint[] = [typeformIntakeEndpoint]
 
 /** Patch L1: owner-edited office routing overrides and holidays. */
-export const crmGlobals: GlobalConfig[] = [CrmOfficeSettings]
+export const crmGlobals: GlobalConfig[] = [CrmOfficeSettings, CrmErsSettings]

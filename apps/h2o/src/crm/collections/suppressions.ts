@@ -140,6 +140,22 @@ const timeline: CollectionAfterChangeHook = async ({ doc, operation, req }) => {
   return doc
 }
 
+/**
+ * Revenue Engine slice 1: a recorded suppression stops every live sequence enrollment for that address at once, and a
+ * COMPLAINT pauses sequence sending (owner override). Loaded lazily (the engine imports the CRM model). A failure is
+ * logged by code and never blocks the ledger write — the engine re-checks the ledger before every step and send.
+ */
+const stopSequences: CollectionAfterChangeHook = async ({ doc, operation, req }) => {
+  if (operation !== 'create') return doc
+  try {
+    const { onSuppressionRecorded } = await import('../ers/feedback')
+    await onSuppressionRecorded(req.payload, doc as Record<string, unknown>)
+  } catch (err) {
+    req.payload.logger.error({ code: 'ERS_SUPPRESSION_HOOK_FAILED', errName: (err as Error)?.name })
+  }
+  return doc
+}
+
 export const CrmSuppressions: CollectionConfig = crmCollection(
   {
     slug: 'crm-suppressions',
@@ -157,7 +173,7 @@ export const CrmSuppressions: CollectionConfig = crmCollection(
     hooks: {
       beforeValidate: [resolveIdentity],
       beforeChange: [appendOnly('crm-suppressions'), clearGate],
-      afterChange: [timeline],
+      afterChange: [timeline, stopSequences],
     },
     fields: [
       {

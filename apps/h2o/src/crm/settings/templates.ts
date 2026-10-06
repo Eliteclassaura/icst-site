@@ -1,4 +1,5 @@
 import type { Payload } from 'payload'
+import { lintCopy } from '../../email/copy-lint'
 import { readEmailConfig } from '../../email/config'
 import { choicesOf, fieldsOf, greetingFor, lintTemplate, renderTemplate, responseSentence, SEED_TEMPLATES, templateHash, type MergeValues, type RenderResult, type TemplateText } from '../../email/templates'
 import { isOffice } from '../offices'
@@ -76,6 +77,12 @@ export async function setTemplateApproved(s: CrmSession, id: string | undefined,
   // The admin approves the text they were looking at: if it changed meanwhile, they must look again.
   if (approve && expectedHash && expectedHash !== hash) return fail('STALE', 'The template changed since you opened it. Reload and review it again.')
   if (approve && lintTemplate(textOf(doc)).length) return fail('TEMPLATE_INVALID', 'Fix the template before approving it.')
+  // Revenue Engine: a sequence template must pass the E1.1 copy-risk linter (BLOCK or REVIEW hits refuse approval).
+  if (approve && doc.purpose === 'SEQUENCE') {
+    const lint = lintCopy(String(doc.subject), String(doc.body), 'TEMPLATE')
+    if (lint.decision === 'HOLD')
+      return fail('TEMPLATE_COPY_RISK', `The copy-risk check found ${lint.hits.filter((h) => h.severity === 'BLOCK' || h.severity === 'REVIEW').map((h) => h.rule_id).join(', ')}. Rewrite before approving.`)
+  }
   await s.payload.update({
     collection: SLUG,
     id: String(doc.id),

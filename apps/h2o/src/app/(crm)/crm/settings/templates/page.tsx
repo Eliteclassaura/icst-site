@@ -47,7 +47,7 @@ export default async function TemplatesPage() {
                 <td>
                   <a href={`/crm/settings/templates/${encodeURIComponent(String(t.id))}/`}>{String(t.name)}</a>
                 </td>
-                <td>{t.purpose === 'MARKETING' ? 'Marketing' : 'Transactional'}</td>
+                <td>{t.purpose === 'MARKETING' ? 'Marketing' : t.purpose === 'SEQUENCE' ? 'Sequence' : 'Transactional'}</td>
                 <td>{isApproved(t) ? <span className="c-badge">Approved</span> : <span className="c-badge is-error">Needs approval</span>}</td>
                 <td className="num">{String(t.version ?? 1)}</td>
               </tr>

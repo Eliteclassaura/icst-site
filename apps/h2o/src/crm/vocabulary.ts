@@ -59,6 +59,8 @@ export const JURISDICTION = [
   'VERIFIED_JAPAN',
   'VERIFIED_MALAYSIA',
   'VERIFIED_VIETNAM',
+  // ERS slice 1 (CT 2026-10-05): Thailand gets its own value (TH office, PDPA).
+  'VERIFIED_THAILAND',
   'VERIFIED_OTHER',
   'COUNTRY_UNKNOWN',
   'LEGAL_REVIEW_REQUIRED',
@@ -375,6 +377,8 @@ export const ACTIVITY_TYPE = [
   'EMAIL_REPLY',
   // CRM email M3: the customer's email came back on the RFQ's reply token.
   'EMAIL_RECEIVED',
+  // ERS slice 1: a sequence enrolled, sent a step, paused or stopped for this record.
+  'SEQUENCE_EVENT',
 ] as const
 export type ActivityType = (typeof ACTIVITY_TYPE)[number]
 /** Only these may be entered by a person. The rest are written by the system when the thing happens. */
@@ -396,6 +400,9 @@ export const TASK_KIND = [
   'IDENTITY_REVIEW',
   'INTAKE_REVIEW',
   'GENERAL',
+  // ERS slice 1: a sequence's task step, and a sequence item a person must look at (reply, lint hold, render hold).
+  'SEQUENCE_STEP',
+  'SEQUENCE_REVIEW',
 ] as const
 export const TASK_STATUS = ['OPEN', 'IN_PROGRESS', 'DONE', 'CANCELLED'] as const
 /** E1.1 names `HIGH_PRIORITY_RFQ_RESPONSE`; that is the justification for a priority field at all. */
@@ -438,7 +445,7 @@ export const options = <T extends readonly string[]>(values: T) =>
   values.map((value) => ({ label: value, value }))
 
 /** CRM email M1 — the notification outbox (collections/email-outbox.ts). */
-export const EMAIL_KIND = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'RFQ_REPLY'] as const
+export const EMAIL_KIND = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'RFQ_REPLY', 'SEQUENCE_EMAIL'] as const
 export type EmailKind = (typeof EMAIL_KIND)[number]
 /**
  * PENDING → SENDING → SENT, or → RETRY (backoff) → … → DEAD. The SUPPRESSED_* states are terminal and are
@@ -506,3 +513,52 @@ export const EMAIL_REVIEW_REASON = [
 ] as const
 export type EmailReviewReason = (typeof EMAIL_REVIEW_REASON)[number]
 export const EMAIL_REVIEW_STATE = ['OPEN', 'LINKED', 'DISCARDED'] as const
+
+// ── Revenue Engine slice 1 (E0.1 primitives under the LEAN CUT; CT rulings 2026-10-05) ──────────────────────────────
+/** A sequence: DRAFT until its first version is published; a running sequence is only ever paused (LEAN CUT). */
+export const SEQUENCE_RUN_STATE = ['DRAFT', 'ACTIVE', 'PAUSED', 'RETIRED'] as const
+export type SequenceRunState = (typeof SEQUENCE_RUN_STATE)[number]
+/** E0.1 `publication_state` (REVIEW is not used: approval is AUTO, owner override). Published versions are immutable. */
+export const SEQUENCE_VERSION_STATE = ['DRAFT', 'PUBLISHED', 'RETIRED'] as const
+/** LEAN CUT step types: EMAIL (an approved SEQUENCE template), WAIT (N business days), TASK (for the owner). */
+export const SEQUENCE_STEP_TYPE = ['EMAIL', 'WAIT', 'TASK'] as const
+export type SequenceStepType = (typeof SEQUENCE_STEP_TYPE)[number]
+/** E0.1 enrollment status (`sequence_runtime.schema.json`), plus AWAITING_SEND while an email step's row is queued. */
+export const ENROLLMENT_STATUS = ['ACTIVE', 'AWAITING_SEND', 'PAUSED', 'COMPLETED', 'EXITED', 'DEAD_LETTER'] as const
+export type EnrollmentStatus = (typeof ENROLLMENT_STATUS)[number]
+export const ENROLLMENT_LIVE: readonly EnrollmentStatus[] = ['ACTIVE', 'AWAITING_SEND', 'PAUSED']
+/** LEAN CUT exit goals, plus RFQ_QUALIFIED and OWNER_RESPONDED (CT ruling 5). */
+export const ENROLLMENT_EXIT_REASON = [
+  'REPLIED',
+  'RFQ_SUBMITTED',
+  'RFQ_CLOSED',
+  'RFQ_QUALIFIED',
+  'OWNER_RESPONDED',
+  'UNSUBSCRIBED',
+  'BOUNCED',
+  'COMPLAINT',
+  'SUPPRESSED',
+  'MANUAL_STOP',
+] as const
+export type EnrollmentExitReason = (typeof ENROLLMENT_EXIT_REASON)[number]
+export const ENROLLMENT_PAUSE_REASON = ['SEQUENCE_PAUSED', 'LINT_HOLD', 'RENDER_HOLD', 'MANUAL'] as const
+export const ENROLLED_VIA = ['MANUAL', 'SAVED_VIEW'] as const
+/** The sending identity's health (E0.1 §17, reduced): WARMING and ACTIVE send; PAUSED does not (admin resume). */
+export const ERS_HEALTH_STATE = ['ACTIVE', 'PAUSED'] as const
+/**
+ * ICS_MISSING_INFORMATION (CT ruling 8): the missing items are picked by a person from this fixed set — never free
+ * text, never inferred. The phrase is what the email says ("we are missing …").
+ */
+export const MISSING_INFORMATION_ITEMS = {
+  DESIGN_SPECIFICATION: 'the current design specification',
+  PROJECT_SCHEDULE: 'the requested project schedule',
+  DRAWINGS: 'current drawings',
+  TOWER_TYPE: 'the tower type (crossflow or counterflow) and manufacturer',
+  CELL_COUNT: 'the number of cells',
+  MODEL_SERIAL: 'the model and serial number, or a nameplate photo',
+  DESIGN_CONDITIONS: 'the design conditions (flow rate and water temperatures)',
+  SITE_LOCATION: 'the site location',
+  QUANTITIES: 'the quantities needed',
+  PHOTOS: 'photos of the area or parts concerned',
+} as const
+export type MissingInformationItem = keyof typeof MISSING_INFORMATION_ITEMS

@@ -2052,3 +2052,8 @@ details.c-tech > summary {
 .c-panel-body.is-padded > .c-dialog-body {
   padding-inline: 0;
 }
+
+/* ERS slice 1: a sequence version's definition hash wraps on narrow screens. */
+.c-hash {
+  overflow-wrap: anywhere;
+}

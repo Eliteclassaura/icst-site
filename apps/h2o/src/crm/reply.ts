@@ -159,7 +159,7 @@ const findOne = async (
   ).docs[0] ?? null) as unknown as Doc | null
 
 /** The RFQ's live reply token: reuse it (extending its life) or issue a fresh one. Inside the RFQ lock. */
-async function ensureReplyToken(req: PayloadRequest, rfqId: string, now: Date): Promise<string> {
+export async function ensureReplyToken(req: PayloadRequest, rfqId: string, now: Date): Promise<string> {
   const row = await findOne(req, 'crm-reply-tokens', { rfq: { equals: rfqId } })
   const expires = new Date(now.getTime() + REPLY_TOKEN_TTL_MS).toISOString()
   const live = row && !row.revoked_at && new Date(String(row.expires_at)).getTime() > now.getTime()

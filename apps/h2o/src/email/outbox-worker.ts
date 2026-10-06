@@ -4,7 +4,11 @@ import { recordEmailActivity, recordEmailEvent } from '../crm/notify'
 import { emailKey } from '../crm/normalize'
 import { evaluateTransactionalSend, ledgerFor } from '../crm/suppression'
 import type { EmailKind, EmailOutboxStatus } from '../crm/vocabulary'
-import { readEmailConfig, type EmailConfig } from './config'
+import { readEmailConfig, readInboundConfig, type EmailConfig } from './config'
+import { ersAdmission, isAddressBounce } from './ers-admission'
+import { onSequenceRowTerminal } from '../crm/ers/engine'
+import { checkHealth, recordHardBounce } from '../crm/ers/feedback'
+import { ersSettings, inboundFresh } from '../crm/ers/settings'
 import { resolveSending, withSending } from './profiles'
 import { MAX_ATTEMPTS, failureCode, gateRecipient, nextAttemptAt } from './gate'
 import { renderSalesAlert, textToHtml, type Rendered } from './messages'
@@ -60,6 +64,15 @@ type Row = {
   recipient_ref: string
   message_id: string | null
   attempts: number
+  // Revenue Engine slice 1 (SEQUENCE_EMAIL rows carry their own render, reply address and unsubscribe link).
+  enrollment?: string | { id: string } | null
+  step_key?: string | null
+  subject?: string | null
+  body_text?: string | null
+  body_html?: string | null
+  reply_to?: string | null
+  list_unsubscribe?: string | null
+  recipient_domain?: string | null
 }
 
 const rfqIdOf = (r: Row): string | null =>
@@ -87,6 +100,10 @@ async function render(
 ): Promise<{ rendered: Rendered; rfq: Record<string, unknown>; reply?: ReplyMeta } | { rfq: Record<string, unknown>; suppressed: string } | null> {
   const rfqId = rfqIdOf(row)
   if (!rfqId) return null
+  if (row.kind === 'SEQUENCE_EMAIL')
+    return row.subject && row.body_text
+      ? { rfq: {}, rendered: { subject: row.subject, text: row.body_text, html: row.body_html ?? '' } }
+      : null
   const rfq = (await payload.findByID({
     collection: 'crm-rfqs',
     id: rfqId,
@@ -175,15 +192,19 @@ type ReplyMeta = {
   references: string | null
 }
 
-export type DrainResult = { claimed: number; sent: number; retried: number; dead: number; suppressed: number }
+export type DrainResult = { claimed: number; sent: number; retried: number; dead: number; suppressed: number; deferred: number }
+
+/** Revenue Engine slice 1: the sequence send path (REVENUE profile) and whether reply detection is live. */
+export type SequenceLane = { cfg: EmailConfig; transport: MailTransport | null; noTransportCode?: string; inboundOk: boolean }
 
 export async function processRow(
   payload: Payload,
   id: string,
-  cfg: EmailConfig,
-  transport: MailTransport | null,
+  txCfg: EmailConfig,
+  txTransport: MailTransport | null,
   now: Date,
-  noTransportCode?: string,
+  txNoTransportCode?: string,
+  seq?: SequenceLane,
 ): Promise<keyof Omit<DrainResult, 'claimed'>> {
   const row = (await payload.findByID({
     collection: 'crm-email-outbox',
@@ -192,6 +213,11 @@ export async function processRow(
     overrideAccess: true,
   })) as unknown as Row
   const rfqId = rfqIdOf(row)
+  const isSeq = row.kind === 'SEQUENCE_EMAIL'
+  // Sequence rows send through the REVENUE profile (Patch C); everything else through the TRANSACTIONAL one.
+  const cfg = isSeq && seq ? seq.cfg : txCfg
+  const transport = isSeq && seq ? seq.transport : txTransport
+  const noTransportCode = isSeq && seq ? seq.noTransportCode : txNoTransportCode
   const base = {
     kind: row.kind,
     outbox: id,
@@ -234,7 +260,11 @@ export async function processRow(
         overrideAccess: true,
         context: { crmServer: {} },
       })
-    if (rfqId)
+    if (isSeq) {
+      // The engine records the sequence timeline entry, advances or stops the enrollment, and checks identity health.
+      await onSequenceRowTerminal(payload, row as never, status, code, now)
+      await checkHealth(payload, now)
+    } else if (rfqId)
       await recordEmailActivity(
         { payload },
         { id: rfqId, ...(await rfqLinks(payload, rfqId)) },
@@ -243,6 +273,19 @@ export async function processRow(
         status,
         code,
       )
+  }
+
+  if (isSeq) {
+    const a = await ersAdmission(payload, row as never, cfg, now, { inboundOk: seq?.inboundOk ?? false })
+    if (a.action === 'DEFER') {
+      // Not a failure and not an attempt: the row waits for its window, cap or switch.
+      await setRow(payload, id, { status: 'PENDING', attempts: Math.max(0, row.attempts - 1), lease_until: null, next_attempt_at: a.until.toISOString(), last_error_code: a.code })
+      return 'deferred'
+    }
+    if (a.action === 'EXIT') {
+      await terminal('SUPPRESSED_BY_SUPPRESSION', `EXIT_${a.reason}`, 'SUPPRESSED')
+      return 'suppressed'
+    }
   }
 
   const to = row.to_address ?? ''
@@ -302,7 +345,16 @@ export async function processRow(
       text: r.rendered.text,
       html: r.rendered.html,
       messageId: row.message_id ?? undefined,
-      ...(r.reply
+      ...(isSeq
+        ? {
+            // Revenue Engine: replies thread back to the RFQ by its token address; one-click unsubscribe (RFC 8058) is
+            // always offered — the floor. Not Auto-Submitted: it reads as a person's follow-up and may be answered.
+            replyTo: row.reply_to ?? undefined,
+            headers: row.list_unsubscribe
+              ? { 'List-Unsubscribe': `<${row.list_unsubscribe}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' }
+              : {},
+          }
+        : r.reply
         ? {
             // M2: a person's reply. Replies route back by the RFQ's token address; threading follows the
             // conversation. Not marked Auto-Submitted: a human wrote it, and the customer may answer it.
@@ -316,6 +368,12 @@ export async function processRow(
     await terminal('SENT', null, 'SENT', { sent_at: now.toISOString() })
     return 'sent'
   } catch (err) {
+    if (isSeq && isAddressBounce(err)) {
+      // A definitive "no such address": a hard bounce (suppression, never cleared; the enrollment stops).
+      await recordHardBounce(payload, { address: to, sourceEventId: `send:${id}`, outboxId: id }, now)
+      await terminal('DEAD', 'HARD_BOUNCE', 'DEAD_LETTERED')
+      return 'dead'
+    }
     const f = failureCode(err)
     return retryOrDead(payload, row, id, base, now, f.code, f.klass, terminal)
   }
@@ -365,7 +423,7 @@ async function rfqLinks(payload: Payload, rfqId: string): Promise<Record<string,
 
 export async function drainOutbox(
   payload: Payload,
-  opts: { cfg?: EmailConfig; transport?: MailTransport | null; now?: Date; limit?: number } = {},
+  opts: { cfg?: EmailConfig; transport?: MailTransport | null; now?: Date; limit?: number; ersInboundOk?: boolean } = {},
 ): Promise<DrainResult> {
   const envCfg = opts.cfg ?? readEmailConfig()
   const now = opts.now ?? new Date()
@@ -379,24 +437,40 @@ export async function drainOutbox(
     if (!r.ok) noTransportCode = r.code
   }
   const transport = ownTransport ? createTransport(cfg) : (opts.transport ?? null)
-  const result: DrainResult = { claimed: 0, sent: 0, retried: 0, dead: 0, suppressed: 0 }
+  // Revenue Engine slice 1: sequence rows use the REVENUE profile (falls back to TRANSACTIONAL, Patch C).
+  let seqCfg = envCfg
+  let seqCode: string | undefined
+  let seqTransport = transport
+  if (ownTransport && envCfg.mode !== 'off') {
+    const r2 = await resolveSending(payload, envCfg, 'REVENUE')
+    seqCfg = withSending(envCfg, r2)
+    if (!r2.ok) seqCode = r2.code
+    const same = r2.ok && cfg.smtp && r2.smtp.host === cfg.smtp.host && r2.smtp.user === cfg.smtp.user && r2.smtp.port === cfg.smtp.port
+    seqTransport = same ? transport : createTransport(seqCfg)
+  } else if (ownTransport) seqCfg = cfg
+  const inboundOk = opts.ersInboundOk ?? (readInboundConfig().enabled && inboundFresh(await ersSettings(payload, now.getTime()), true, now.getTime()))
+  const seq: SequenceLane = { cfg: seqCfg, transport: seqTransport, noTransportCode: seqCode, inboundOk }
+  const result: DrainResult = { claimed: 0, sent: 0, retried: 0, dead: 0, suppressed: 0, deferred: 0 }
   try {
     const ids = await claimBatch(payload, now, opts.limit ?? 10)
     result.claimed = ids.length
     for (const id of ids) {
       try {
-        result[await processRow(payload, id, cfg, transport, now, noTransportCode)]++
+        result[await processRow(payload, id, cfg, transport, now, noTransportCode, seq)]++
       } catch (err) {
         // A bookkeeping failure leaves the row SENDING; its lease expires and it is claimed again.
         console.error(`[h2o] email outbox: row ${id} processing error ${failureCode(err).code}`)
       }
     }
   } finally {
-    if (ownTransport) transport?.close()
+    if (ownTransport) {
+      transport?.close()
+      if (seqTransport !== transport) seqTransport?.close()
+    }
   }
   if (result.claimed > 0)
     console.warn(
-      `[h2o] email outbox: claimed=${result.claimed} sent=${result.sent} retried=${result.retried} dead=${result.dead} suppressed=${result.suppressed}`,
+      `[h2o] email outbox: claimed=${result.claimed} sent=${result.sent} retried=${result.retried} dead=${result.dead} suppressed=${result.suppressed} deferred=${result.deferred}`,
     )
   return result
 }

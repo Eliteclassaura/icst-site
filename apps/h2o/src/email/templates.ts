@@ -14,11 +14,12 @@ import { createHash } from 'node:crypto'
  *     must not (an inquiry reply has no unsubscribe link).
  */
 
-export const TEMPLATE_PURPOSES = ['TRANSACTIONAL', 'MARKETING'] as const
+/** SEQUENCE (Revenue Engine slice 1): sent by a sequence; the engine adds the unsubscribe and address footer itself. */
+export const TEMPLATE_PURPOSES = ['TRANSACTIONAL', 'MARKETING', 'SEQUENCE'] as const
 export type TemplatePurpose = (typeof TEMPLATE_PURPOSES)[number]
 
 const PLAIN_NAME_FIELD = /^\p{L}[\p{L}\p{M} '’.-]{0,39}$/u
-type FieldDef = { label: string; required: boolean; fallback?: string; hint: string; pattern?: RegExp }
+type FieldDef = { label: string; required: boolean; fallback?: string; hint: string; pattern?: RegExp; multiline?: true }
 export const MERGE_FIELDS: Record<string, FieldDef> = {
   rfq_number: { label: 'RFQ number', required: true, hint: 'The inquiry’s reference, e.g. RFQ-20261005-ABCD1234.' },
   // Only a plausible name is echoed (letters, spaces, apostrophes, periods, hyphens); anything else greets neutrally.
@@ -31,6 +32,26 @@ export const MERGE_FIELDS: Record<string, FieldDef> = {
   },
   // T1 (owner-approved 2026-10-05): "Hi <first name>," for a plausible name, otherwise "Hello,".
   greeting: { label: 'Greeting', required: true, hint: '“Hi <first name>,” — or “Hello,” when there is no plain first name.' },
+  // Revenue Engine slice 1 (E1.1 R2 copy uses these names).
+  first_name: {
+    label: 'First name',
+    required: false,
+    fallback: 'there',
+    hint: 'The contact’s first name (else the form’s). Empty or not a plain name: “there”.',
+    pattern: PLAIN_NAME_FIELD,
+  },
+  rfq_reference: { label: 'RFQ reference', required: true, hint: 'The inquiry’s RFQ number (E1.1 name for rfq_number).' },
+  sequence_signature: {
+    label: 'Sequence signature',
+    required: true,
+    hint: 'Revenue Engine settings: the signer (“ICS Sales Team”), the RFQ office’s phone and the sales address, one per line.',
+    multiline: true,
+  },
+  missing_information_list: {
+    label: 'Missing items',
+    required: true,
+    hint: 'ICS_MISSING_INFORMATION: the items a person picked from the fixed list when enrolling, joined in a sentence.',
+  },
   company: { label: 'Company', required: true, hint: 'The linked account’s name, else the company as the customer gave it.' },
   sales_rep_name: { label: 'Your name', required: true, hint: 'The signed-in person’s name.' },
   sales_rep_title: { label: 'Your job title', required: true, hint: 'Set it in your account (Job title).' },
@@ -86,7 +107,7 @@ export function lintTemplate(t: TemplateText): Array<{ code: string; message: st
   if (/[{}]{2}/.test(t.subject.replace(TAG, '') + t.body.replace(TAG, ''))) problems.push({ code: 'TEMPLATE_BRACES', message: 'Unmatched {{ or }}.' })
   const hasUnsub = all.some((x) => x.kind === 'field' && x.name === 'unsubscribe_url')
   if (t.purpose === 'MARKETING' && !hasUnsub) problems.push({ code: 'TEMPLATE_UNSUBSCRIBE_REQUIRED', message: 'A marketing template must include the {{unsubscribe_url}} slot.' })
-  if (t.purpose === 'TRANSACTIONAL' && hasUnsub) problems.push({ code: 'TEMPLATE_UNSUBSCRIBE_NOT_ALLOWED', message: 'Only marketing templates have an unsubscribe link.' })
+  if (t.purpose !== 'MARKETING' && hasUnsub) problems.push({ code: 'TEMPLATE_UNSUBSCRIBE_NOT_ALLOWED', message: 'Only marketing templates carry the unsubscribe slot (sequences get theirs from the engine).' })
   return problems
 }
 
@@ -140,7 +161,9 @@ export function renderTemplate(t: TemplateText, values: MergeValues, choices: st
         return picked
       }
       const def = MERGE_FIELDS[x.name]!
-      const v = clean(values[x.name as keyof MergeValues])
+      const raw = values[x.name as keyof MergeValues]
+      // A multi-line value (the signature) keeps up to 6 lines; each line is cleaned like any value.
+      const v = def.multiline && typeof raw === 'string' ? raw.split(/\r?\n/).map(clean).filter(Boolean).slice(0, 6).join('\n') : clean(raw)
       if (v && (!def.pattern || def.pattern.test(v))) return v
       if (def.fallback !== undefined) return def.fallback
       missing.add(x.name)
@@ -166,6 +189,7 @@ export const responseSentence = (promise: string | null | undefined): string =>
   promise ? `A member of our team will review it and respond ${clean(promise)}.` : 'A member of our team will review it and contact you.'
 
 const SIGNATURE = '{{sales_rep_name}}\n{{sales_rep_title}}\nIndustrial Cooling Solutions (ICS)\n{{office_phone}}'
+const E11_SIGNATURE = '{{sequence_signature}}'
 const FOOTER = 'You’re receiving this email because you sent a request through h2ocooling.com.'
 
 /**
@@ -279,5 +303,49 @@ Best regards,
 ${SIGNATURE}
 
 ${FOOTER}`,
+  },
+  // ── Revenue Engine slice 1: E1.1 R2 email steps (subject variant A, body A), verbatim from the accepted package
+  // (`sequence_steps.json`), except the signature: "- Rhonda" → {{sequence_signature}} (owner decision 2026-10-05: "ICS Sales
+  // Team", the RFQ office's phone and the sales address — composed from the Revenue Engine settings, so it can change
+  // without a code change). Seeded approved: the E1.1 R2 copy is owner-accepted and the signature is the owner's.
+  {
+    code: 'E11_QUAL_1',
+    name: 'E1.1 Qualification follow-up — step 1 (QUALIFY_COMMERCIAL_MOTION)',
+    purpose: 'SEQUENCE',
+    approved: true,
+    subject: 'One RFQ question',
+    body: `Hi {{first_name}}, I am reviewing {{rfq_reference}} and want to make sure we route it correctly. Can you confirm whether the request is for a new tower, rebuild/replacement, repair, upgrade, maintenance/inspection, or parts? If that is already clear in the submitted documents, no need to repeat it; we will use the verified project information already on file.
+
+${E11_SIGNATURE}`,
+  },
+  {
+    code: 'E11_QUAL_2',
+    name: 'E1.1 Qualification follow-up — step 2 (QUALIFICATION_REMINDER)',
+    purpose: 'SEQUENCE',
+    approved: true,
+    subject: 'RFQ routing follow-up',
+    body: `Hi {{first_name}}, the routing question on {{rfq_reference}} is still open on our side. If the scope is already clear in the documents, no action is needed. Otherwise, a short reply with the project type is enough and we will update the RFQ.
+
+${E11_SIGNATURE}`,
+  },
+  {
+    code: 'E11_MISS_1',
+    name: 'E1.1 Missing information — step 1 (REQUEST_MISSING_INFO)',
+    purpose: 'SEQUENCE',
+    approved: true,
+    subject: 'A few RFQ details',
+    body: `Hi {{first_name}}, we are reviewing {{rfq_reference}}. The only items still needed on our side are {{missing_information_list}}. We are not asking you to resend anything already provided. If those items are available, reply with them or attach the current specification or drawings and we can continue the review.
+
+${E11_SIGNATURE}`,
+  },
+  {
+    code: 'E11_MISS_2',
+    name: 'E1.1 Missing information — step 2 (MISSING_INFO_REMINDER)',
+    purpose: 'SEQUENCE',
+    approved: true,
+    subject: 'RFQ details still open',
+    body: `Hi {{first_name}}, a quick note on {{rfq_reference}}: we are still missing {{missing_information_list}}. If the project timing has changed or those details are not available yet, a short reply with the current status is enough and we will update our side.
+
+${E11_SIGNATURE}`,
   },
 ]

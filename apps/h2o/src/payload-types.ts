@@ -108,6 +108,9 @@ export interface Config {
     'crm-sending-profiles': CrmSendingProfile;
     'crm-email-templates': CrmEmailTemplate;
     'crm-mail-cursor': CrmMailCursor;
+    'crm-sequences': CrmSequence;
+    'crm-sequence-versions': CrmSequenceVersion;
+    'crm-enrollments': CrmEnrollment;
     'public-routes': PublicRoute;
     'public-redirects': PublicRedirect;
     'payload-kv': PayloadKv;
@@ -191,6 +194,9 @@ export interface Config {
     'crm-sending-profiles': CrmSendingProfilesSelect<false> | CrmSendingProfilesSelect<true>;
     'crm-email-templates': CrmEmailTemplatesSelect<false> | CrmEmailTemplatesSelect<true>;
     'crm-mail-cursor': CrmMailCursorSelect<false> | CrmMailCursorSelect<true>;
+    'crm-sequences': CrmSequencesSelect<false> | CrmSequencesSelect<true>;
+    'crm-sequence-versions': CrmSequenceVersionsSelect<false> | CrmSequenceVersionsSelect<true>;
+    'crm-enrollments': CrmEnrollmentsSelect<false> | CrmEnrollmentsSelect<true>;
     'public-routes': PublicRoutesSelect<false> | PublicRoutesSelect<true>;
     'public-redirects': PublicRedirectsSelect<false> | PublicRedirectsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -207,11 +213,13 @@ export interface Config {
     'publication-state': PublicationState;
     'site-chrome': SiteChrome;
     'crm-office-settings': CrmOfficeSetting;
+    'crm-ers-settings': CrmErsSetting;
   };
   globalsSelect: {
     'publication-state': PublicationStateSelect<false> | PublicationStateSelect<true>;
     'site-chrome': SiteChromeSelect<false> | SiteChromeSelect<true>;
     'crm-office-settings': CrmOfficeSettingsSelect<false> | CrmOfficeSettingsSelect<true>;
+    'crm-ers-settings': CrmErsSettingsSelect<false> | CrmErsSettingsSelect<true>;
   };
   locale: 'en';
   widgets: {
@@ -2337,6 +2345,7 @@ export interface CrmContact {
     | 'VERIFIED_JAPAN'
     | 'VERIFIED_MALAYSIA'
     | 'VERIFIED_VIETNAM'
+    | 'VERIFIED_THAILAND'
     | 'VERIFIED_OTHER'
     | 'COUNTRY_UNKNOWN'
     | 'LEGAL_REVIEW_REQUIRED';
@@ -2869,7 +2878,8 @@ export interface CrmActivity {
     | 'IDENTITY_REVIEW_OPENED'
     | 'EMAIL_NOTIFICATION'
     | 'EMAIL_REPLY'
-    | 'EMAIL_RECEIVED';
+    | 'EMAIL_RECEIVED'
+    | 'SEQUENCE_EVENT';
   /**
    * Short, factual, no personal data.
    */
@@ -3270,7 +3280,15 @@ export interface CrmTask {
    */
   canonical_id: string;
   title: string;
-  kind: 'RFQ_FIRST_RESPONSE' | 'FOLLOW_UP' | 'MISSING_INFORMATION' | 'IDENTITY_REVIEW' | 'INTAKE_REVIEW' | 'GENERAL';
+  kind:
+    | 'RFQ_FIRST_RESPONSE'
+    | 'FOLLOW_UP'
+    | 'MISSING_INFORMATION'
+    | 'IDENTITY_REVIEW'
+    | 'INTAKE_REVIEW'
+    | 'GENERAL'
+    | 'SEQUENCE_STEP'
+    | 'SEQUENCE_REVIEW';
   status: 'OPEN' | 'IN_PROGRESS' | 'DONE' | 'CANCELLED';
   priority?: ('HIGH' | 'NORMAL' | 'LOW') | null;
   /**
@@ -3427,7 +3445,7 @@ export interface CrmEmailOutbox {
    */
   canonical_id: string;
   idempotency_key: string;
-  kind: 'RFQ_SALES_ALERT' | 'RFQ_CUSTOMER_ACK' | 'RFQ_REPLY';
+  kind: 'RFQ_SALES_ALERT' | 'RFQ_CUSTOMER_ACK' | 'RFQ_REPLY' | 'SEQUENCE_EMAIL';
   status:
     | 'PENDING'
     | 'SENDING'
@@ -3455,6 +3473,22 @@ export interface CrmEmailOutbox {
   lease_until?: string | null;
   last_error_code?: string | null;
   sent_at?: string | null;
+  enrollment?: (string | null) | CrmEnrollment;
+  step_key?: string | null;
+  recipient_domain?: string | null;
+  lint?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  approval_decision?: ('AUTO_AUTHORIZED' | 'BLOCKED') | null;
+  bounced_at?: string | null;
+  reply_to?: string | null;
+  list_unsubscribe?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3501,6 +3535,222 @@ export interface CrmEmailMessage {
     | number
     | boolean
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Who is in which sequence, and where.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-enrollments".
+ */
+export interface CrmEnrollment {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  coalesce_key: string;
+  sequence: string | CrmSequence;
+  version: string | CrmSequenceVersion;
+  contact: string | CrmContact;
+  rfq: string | CrmRfq;
+  account?: (string | null) | CrmAccount;
+  /**
+   * The RFQ owner when enrolled, else the person who enrolled.
+   */
+  owner?: (string | null) | User;
+  /**
+   * Who enrolled this contact.
+   */
+  enrolled_by?: (string | null) | User;
+  enrolled_via: 'MANUAL' | 'SAVED_VIEW';
+  saved_view?: (string | null) | CrmSavedView;
+  /**
+   * The dry run this enrollment was approved from.
+   */
+  cohort_hash?: string | null;
+  status: 'ACTIVE' | 'AWAITING_SEND' | 'PAUSED' | 'COMPLETED' | 'EXITED' | 'DEAD_LETTER';
+  current_step: number;
+  next_action_at?: string | null;
+  last_step_at?: string | null;
+  enrolled_at: string;
+  pause_reason?: ('SEQUENCE_PAUSED' | 'LINT_HOLD' | 'RENDER_HOLD' | 'MANUAL') | null;
+  /**
+   * Why the last step was held (a code; never message text).
+   */
+  hold_code?: string | null;
+  exit_reason?:
+    | (
+        | 'REPLIED'
+        | 'RFQ_SUBMITTED'
+        | 'RFQ_CLOSED'
+        | 'RFQ_QUALIFIED'
+        | 'OWNER_RESPONDED'
+        | 'UNSUBSCRIBED'
+        | 'BOUNCED'
+        | 'COMPLAINT'
+        | 'SUPPRESSED'
+        | 'MANUAL_STOP'
+      )
+    | null;
+  exited_at?: string | null;
+  /**
+   * ICS_MISSING_INFORMATION: picked by a person from the fixed list.
+   */
+  missing_items?:
+    | (
+        | 'DESIGN_SPECIFICATION'
+        | 'PROJECT_SCHEDULE'
+        | 'DRAWINGS'
+        | 'TOWER_TYPE'
+        | 'CELL_COUNT'
+        | 'MODEL_SERIAL'
+        | 'DESIGN_CONDITIONS'
+        | 'SITE_LOCATION'
+        | 'QUANTITIES'
+        | 'PHOTOS'
+      )[]
+    | null;
+  awaiting_outbox?: (string | null) | CrmEmailOutbox;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Revenue Engine sequences. Manage them in the CRM: Settings → Sequences.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-sequences".
+ */
+export interface CrmSequence {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  key: string;
+  name: string;
+  language: 'EN' | 'JA' | 'TH';
+  message_purpose: 'ACCOUNT_RELATIONSHIP' | 'SEQUENCE_OUTREACH';
+  run_state: 'DRAFT' | 'ACTIVE' | 'PAUSED' | 'RETIRED';
+  published_version?: (string | null) | CrmSequenceVersion;
+  /**
+   * AUTO (owner override 2026-10-05): lint and hard gates still hold sends.
+   */
+  approval_mode: 'AUTO' | 'REQUIRED';
+  /**
+   * Enrolment asks which items are missing (ICS_MISSING_INFORMATION).
+   */
+  needs_missing_items?: boolean | null;
+  /**
+   * Per-sequence override of the global compliance toggles (owner decision: default ON). The floor always applies.
+   */
+  compliance?: {
+    address_footer?: ('INHERIT' | 'ON' | 'OFF') | null;
+    business_hours?: ('INHERIT' | 'ON' | 'OFF') | null;
+    warmup?: ('INHERIT' | 'ON' | 'OFF') | null;
+  };
+  paused_reason?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Immutable once published (E0.1).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-sequence-versions".
+ */
+export interface CrmSequenceVersion {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  sequence: string | CrmSequence;
+  version_number: number;
+  state: 'DRAFT' | 'PUBLISHED' | 'RETIRED';
+  steps?:
+    | {
+        step_key: string;
+        type: 'EMAIL' | 'WAIT' | 'TASK';
+        template?: (string | null) | CrmEmailTemplate;
+        template_hash?: string | null;
+        business_days?: number | null;
+        task_title?: string | null;
+        task_due_days?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  definition_hash?: string | null;
+  rule_set_sha?: string | null;
+  published_at?: string | null;
+  /**
+   * Who published this version.
+   */
+  published_by?: (string | null) | User;
+  retired_at?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Email templates (Patch C). Edit and approve them in the CRM: Settings → Email templates.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-templates".
+ */
+export interface CrmEmailTemplate {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  code: string;
+  name: string;
+  purpose: 'TRANSACTIONAL' | 'MARKETING' | 'SEQUENCE';
+  locale: string;
+  subject: string;
+  body: string;
+  version: number;
+  approved?: boolean | null;
+  approved_hash?: string | null;
+  /**
+   * Who approved this wording.
+   */
+  approved_by?: (string | null) | User;
+  approved_at?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Workspace saved filters (Wave 1). Filter keys only — never a search term or personal data.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-saved-views".
+ */
+export interface CrmSavedView {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  name: string;
+  list: 'inbox' | 'accounts' | 'contacts' | 'followups';
+  /**
+   * Validated filter query (rebuilt by the server).
+   */
+  query?: string | null;
+  /**
+   * Who saved it. Set by the server.
+   */
+  owner?: (string | null) | User;
+  /**
+   * Shared with every CRM user (admins only).
+   */
+  shared?: boolean | null;
+  /**
+   * Shown in the sidebar.
+   */
+  pinned?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3712,39 +3962,6 @@ export interface CrmImportBatch {
   createdAt: string;
 }
 /**
- * Workspace saved filters (Wave 1). Filter keys only — never a search term or personal data.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "crm-saved-views".
- */
-export interface CrmSavedView {
-  id: string;
-  /**
-   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
-   */
-  canonical_id: string;
-  name: string;
-  list: 'inbox' | 'accounts' | 'contacts' | 'followups';
-  /**
-   * Validated filter query (rebuilt by the server).
-   */
-  query?: string | null;
-  /**
-   * Who saved it. Set by the server.
-   */
-  owner?: (string | null) | User;
-  /**
-   * Shared with every CRM user (admins only).
-   */
-  shared?: boolean | null;
-  /**
-   * Shown in the sidebar.
-   */
-  pinned?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "crm-intake-rate".
  */
@@ -3780,35 +3997,6 @@ export interface CrmSendingProfile {
   last_check_state?: ('OK' | 'FAILED') | null;
   last_check_code?: string | null;
   last_check_at?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Email templates (Patch C). Edit and approve them in the CRM: Settings → Email templates.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "crm-email-templates".
- */
-export interface CrmEmailTemplate {
-  id: string;
-  /**
-   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
-   */
-  canonical_id: string;
-  code: string;
-  name: string;
-  purpose: 'TRANSACTIONAL' | 'MARKETING';
-  locale: string;
-  subject: string;
-  body: string;
-  version: number;
-  approved?: boolean | null;
-  approved_hash?: string | null;
-  /**
-   * Who approved this wording.
-   */
-  approved_by?: (string | null) | User;
-  approved_at?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4120,6 +4308,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'crm-mail-cursor';
         value: string | CrmMailCursor;
+      } | null)
+    | ({
+        relationTo: 'crm-sequences';
+        value: string | CrmSequence;
+      } | null)
+    | ({
+        relationTo: 'crm-sequence-versions';
+        value: string | CrmSequenceVersion;
+      } | null)
+    | ({
+        relationTo: 'crm-enrollments';
+        value: string | CrmEnrollment;
       } | null)
     | ({
         relationTo: 'public-routes';
@@ -5647,6 +5847,14 @@ export interface CrmEmailOutboxSelect<T extends boolean = true> {
   lease_until?: T;
   last_error_code?: T;
   sent_at?: T;
+  enrollment?: T;
+  step_key?: T;
+  recipient_domain?: T;
+  lint?: T;
+  approval_decision?: T;
+  bounced_at?: T;
+  reply_to?: T;
+  list_unsubscribe?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5836,6 +6044,91 @@ export interface CrmMailCursorSelect<T extends boolean = true> {
   key?: T;
   uidvalidity?: T;
   last_uid?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-sequences_select".
+ */
+export interface CrmSequencesSelect<T extends boolean = true> {
+  canonical_id?: T;
+  key?: T;
+  name?: T;
+  language?: T;
+  message_purpose?: T;
+  run_state?: T;
+  published_version?: T;
+  approval_mode?: T;
+  needs_missing_items?: T;
+  compliance?:
+    | T
+    | {
+        address_footer?: T;
+        business_hours?: T;
+        warmup?: T;
+      };
+  paused_reason?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-sequence-versions_select".
+ */
+export interface CrmSequenceVersionsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  sequence?: T;
+  version_number?: T;
+  state?: T;
+  steps?:
+    | T
+    | {
+        step_key?: T;
+        type?: T;
+        template?: T;
+        template_hash?: T;
+        business_days?: T;
+        task_title?: T;
+        task_due_days?: T;
+        id?: T;
+      };
+  definition_hash?: T;
+  rule_set_sha?: T;
+  published_at?: T;
+  published_by?: T;
+  retired_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-enrollments_select".
+ */
+export interface CrmEnrollmentsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  coalesce_key?: T;
+  sequence?: T;
+  version?: T;
+  contact?: T;
+  rfq?: T;
+  account?: T;
+  owner?: T;
+  enrolled_by?: T;
+  enrolled_via?: T;
+  saved_view?: T;
+  cohort_hash?: T;
+  status?: T;
+  current_step?: T;
+  next_action_at?: T;
+  last_step_at?: T;
+  enrolled_at?: T;
+  pause_reason?: T;
+  hold_code?: T;
+  exit_reason?: T;
+  exited_at?: T;
+  missing_items?: T;
+  awaiting_outbox?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -6283,6 +6576,82 @@ export interface CrmOfficeSetting {
   createdAt?: string | null;
 }
 /**
+ * Sequence sending: the switch, caps, business window, warm-up, compliance toggles, signature and health.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-ers-settings".
+ */
+export interface CrmErsSetting {
+  id: string;
+  /**
+   * The global kill switch. Off: no sequence step runs and no sequence email is sent.
+   */
+  enabled?: boolean | null;
+  /**
+   * Sequence emails per day, all sequences (transactional mail and replies are not counted).
+   */
+  daily_cap?: number | null;
+  domain_daily_cap?: number | null;
+  domain_hourly_cap?: number | null;
+  /**
+   * Office-local hour, Monday–Friday, office holidays excluded.
+   */
+  window_start_hour?: number | null;
+  window_end_hour?: number | null;
+  warmup_schedule?: string | null;
+  warmup_step_business_days?: number | null;
+  /**
+   * Set when the engine is first turned on.
+   */
+  warmup_started_on?: string | null;
+  /**
+   * Owner decision 2026-10-05: optional, default ON, each change audited. The floor always applies.
+   */
+  compliance?: {
+    /**
+     * Uses the postal address below.
+     */
+    address_footer?: boolean | null;
+    /**
+     * Off: sequence email may go out at any hour (caps still apply).
+     */
+    business_hours?: boolean | null;
+    /**
+     * Off: the daily cap applies from day one.
+     */
+    warmup?: boolean | null;
+  };
+  /**
+   * Shown in the footer when the address toggle is on.
+   */
+  postal_address?: string | null;
+  /**
+   * Owner decision 2026-10-05: every sequence email is signed by the team, not a person.
+   */
+  signature?: {
+    signer?: string | null;
+    /**
+     * The phone of the RFQ’s office queue (CRM office settings).
+     */
+    include_office_phone?: boolean | null;
+    email?: string | null;
+  };
+  health?: {
+    state?: ('ACTIVE' | 'PAUSED') | null;
+    reason?: string | null;
+    changed_at?: string | null;
+  };
+  bounce_pause_ratio?: number | null;
+  bounce_warn_ratio?: number | null;
+  min_sends_for_ratio?: number | null;
+  /**
+   * Last successful inbound poll (sequences need it within 15 minutes).
+   */
+  inbound_last_ok_at?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "publication-state_select".
  */
@@ -6394,6 +6763,50 @@ export interface CrmOfficeSettingsSelect<T extends boolean = true> {
         note?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-ers-settings_select".
+ */
+export interface CrmErsSettingsSelect<T extends boolean = true> {
+  enabled?: T;
+  daily_cap?: T;
+  domain_daily_cap?: T;
+  domain_hourly_cap?: T;
+  window_start_hour?: T;
+  window_end_hour?: T;
+  warmup_schedule?: T;
+  warmup_step_business_days?: T;
+  warmup_started_on?: T;
+  compliance?:
+    | T
+    | {
+        address_footer?: T;
+        business_hours?: T;
+        warmup?: T;
+      };
+  postal_address?: T;
+  signature?:
+    | T
+    | {
+        signer?: T;
+        include_office_phone?: T;
+        email?: T;
+      };
+  health?:
+    | T
+    | {
+        state?: T;
+        reason?: T;
+        changed_at?: T;
+      };
+  bounce_pause_ratio?: T;
+  bounce_warn_ratio?: T;
+  min_sends_for_ratio?: T;
+  inbound_last_ok_at?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -450,6 +450,11 @@ export function RfqDetailView({
               ))}
             </ul>
           )}
+          {mode === 'page' ? (
+            <p className="c-hint">
+              <a href={`/crm/sequences/enroll/?rfq=${encodeURIComponent(rfqId)}`}>Start a follow-up sequence</a> (qualification or missing information).
+            </p>
+          ) : null}
           {!reply ? (
             <p className="c-hint">
               <a href={`/crm/rfqs/${rfqId}/?tab=email`}>Open the full page</a> to write to the customer.

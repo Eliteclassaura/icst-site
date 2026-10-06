@@ -44,6 +44,8 @@ export type JmapEmail = {
   'header:X-Spam-Status:asText'?: string | null
   'header:Precedence:asText'?: string | null
   'header:List-Id:asText'?: string | null
+  /** Revenue Engine slice 1: the text of a `message/delivery-status` part (RFC 3464), when the reader has it. */
+  deliveryStatus?: string | null
 }
 
 /** What the poller needs from a mailbox. The HTTPS implementation is below; tests use an in-memory one. */

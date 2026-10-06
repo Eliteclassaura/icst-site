@@ -1,5 +1,5 @@
 import type { Payload } from 'payload'
-import { recipientKey, type EmailConfig, type SmtpSettings } from './config'
+import { DEFAULT_SENDER_NAME, recipientKey, type EmailConfig, type SmtpSettings } from './config'
 import { guardHost, normaliseHost, type Resolver } from './net-guard'
 import { SettingsKeyError, settingsKeyConfigured, unseal } from './settings-key'
 
@@ -118,7 +118,7 @@ export async function openProfile(doc: Doc, opts: { resolve?: Resolver; env?: Re
     profileId: id,
     smtp: { host: guard.address, port: Number(doc.port), user: String(doc.username).trim(), pass, servername: String(doc.tls_servername).trim().toLowerCase() },
     fromAddress: String(doc.from_address).trim(),
-    fromName: typeof doc.from_name === 'string' && doc.from_name.trim() ? doc.from_name.trim() : 'H2O Cooling',
+    fromName: typeof doc.from_name === 'string' && doc.from_name.trim() ? doc.from_name.trim() : DEFAULT_SENDER_NAME,
   }
 }
 

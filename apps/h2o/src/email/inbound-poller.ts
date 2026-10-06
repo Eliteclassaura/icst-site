@@ -1,6 +1,7 @@
 import type { Payload } from 'payload'
 import { ingestInbound, recordProcessingFailure, type IngestResult } from '../crm/inbound'
 import { readInboundConfig, type InboundConfig } from './config'
+import { invalidateErsSettings } from '../crm/ers/settings'
 import { httpsTransport, jmapMailbox, JmapError, type InboundMailbox, type JmapEmail } from './jmap'
 import { imapMailbox, ImapError } from './imap'
 import { dbCursorStore } from './imap-cursor'
@@ -48,6 +49,11 @@ export async function pollInbound(
     return out
   }
   out.fetched = emails.length
+  // Revenue Engine slice 1 (CT ruling 3): the heartbeat sequences need — reply detection is live.
+  await payload
+    .updateGlobal({ slug: 'crm-ers-settings' as never, data: { inbound_last_ok_at: (opts.now ?? new Date()).toISOString() } as never, depth: 0, overrideAccess: true, context: { crmServer: {} } })
+    .then(() => invalidateErsSettings())
+    .catch(() => console.error('[h2o] email inbound: heartbeat write failed'))
   const done: string[] = []
   for (const email of emails) {
     try {

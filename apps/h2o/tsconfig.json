@@ -12,7 +12,8 @@
       "@/*": ["./src/*"]
     },
     "verbatimModuleSyntax": false,
-    "noUncheckedIndexedAccess": false
+    "noUncheckedIndexedAccess": false,
+    "resolveJsonModule": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
   "exclude": ["node_modules", ".next", ".public-renderer", "release", "src/migrations/*.json"],

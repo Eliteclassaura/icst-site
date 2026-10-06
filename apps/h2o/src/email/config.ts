@@ -76,6 +76,13 @@ export function recipientKey(raw: unknown): string | null {
   return `${v.slice(0, at).toLowerCase()}@${ascii}`
 }
 
+/**
+ * The sender's display name when none is configured (owner decision 2026-10-05: "Rhonda Miller" for sales@). It is a
+ * default only: the name in H2O_EMAIL_FROM ("Name <address>") or a sending profile's "Send as (name)" replaces it.
+ * The Revenue Engine signature is separate ("ICS Sales Team", settings data).
+ */
+export const DEFAULT_SENDER_NAME = 'Rhonda Miller'
+
 export function parseFrom(raw: string | undefined): { name: string; address: string } | null {
   const v = (raw ?? '').trim()
   if (!v) return null
@@ -84,7 +91,7 @@ export function parseFrom(raw: string | undefined): { name: string; address: str
   const address = (m ? m[2] : v).trim()
   if (!recipientKey(address)) return null
   if (/[\r\n]/.test(name)) return null
-  return { name: name || 'H2O Cooling', address }
+  return { name: name || DEFAULT_SENDER_NAME, address }
 }
 
 export function readEmailConfig(env: Record<string, string | undefined> = process.env): EmailConfig {
@@ -146,7 +153,7 @@ export function readEmailConfig(env: Record<string, string | undefined> = proces
     errors,
     allowlist,
     fromAddress: from?.address ?? '',
-    fromName: from?.name ?? 'H2O Cooling',
+    fromName: from?.name ?? DEFAULT_SENDER_NAME,
     salesAlertTo,
     customerAck: ackRaw === 'on',
     responsePromise,
