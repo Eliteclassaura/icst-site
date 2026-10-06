@@ -1,0 +1,83 @@
+{
+  "authority": "Control Tower 2026-10-05 (R2.1 text-override registry, approved with guardrails): ruled claim corrections for strings that no editor-editable element can hold (icon-list spans, template-only markup, structured data). Exact match, expected count, applied when a document is read and when it is published; editable text goes through the R2.2 content batch instead, never here. Listed for editors in content/design/TEXT_OVERRIDES.md.",
+  "date": "2026-10-05",
+  "overrides": [
+    {
+      "id": "TO-001",
+      "row": "CS028",
+      "routeId": "LIVE-posts-17386",
+      "path": "/cooling-tower-repair-service/",
+      "scope": "schema",
+      "find": "Cooling Tower Repair Service with 24/7 emergency response, certified technicians, OEM parts, and lasting repairs to restore performance and reduce downtime.",
+      "replace": "Cooling tower repair service for industrial facilities: inspection, structural and mechanical repairs, and replacement parts to restore performance and reduce downtime.",
+      "count": 1,
+      "reason": "OGCS claims sweep R1 CS028 [owner Q1: remove 24/7]: the JSON-LD copy of the meta description (the meta itself is the R2.2 seo field)"
+    },
+    {
+      "id": "TO-002",
+      "row": "CS090",
+      "routeId": "SALMON-pages-1931",
+      "path": "/about-ics-industrial-cooling-solutions/",
+      "scope": "schema",
+      "find": "Learn about ICS, a trusted industrial company delivering cooling systems, installation, and maintenance services across global markets.",
+      "replace": "Learn about ICS, an industrial cooling company delivering cooling towers, installation, and maintenance services in the USA and Asia.",
+      "count": 1,
+      "reason": "OGCS claims sweep R1 CS090: the JSON-LD copy of the meta description (the meta itself is the R2.2 seo field)"
+    },
+    {
+      "id": "TO-003",
+      "row": "CS147",
+      "routeId": "SALMON-product-4682",
+      "path": "/product/tuf-lite-ii-3000h-series-hub-fan-assemblies/",
+      "scope": "schema",
+      "find": "Best Hudson Fans",
+      "replace": "Hudson Fans",
+      "count": 2,
+      "reason": "OGCS claims sweep R1 CS147: the JSON-LD copies (name, headline) of the SEO title (the title itself is the R2.2 seo field)"
+    },
+    {
+      "id": "TO-004",
+      "row": "CS065",
+      "routeId": "LIVE-portfolio-2174",
+      "path": "/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/",
+      "scope": "body",
+      "find": "by a guaranteed minimum of 15% increased airflow.",
+      "replace": "against a minimum 15% airflow-increase target.",
+      "count": 1,
+      "reason": "OGCS claims sweep R1 CS065 (C4 family): portfolio template text, not an editable element"
+    },
+    {
+      "id": "TO-005",
+      "row": "CS098",
+      "routeId": "LIVE-pages-15035",
+      "path": "/cooling-tower-construction-repair-in-united-states/",
+      "scope": "body",
+      "find": "we bring world-class expertise in cooling tower construction, repair, and maintenance to the United States.",
+      "replace": "we bring cooling tower construction, repair, and maintenance expertise to clients across the United States.",
+      "count": 1,
+      "reason": "OGCS claims sweep R1 CS098: text placed directly in a layout element (no editable element)"
+    },
+    {
+      "id": "TO-006",
+      "row": "C4",
+      "routeId": "SALMON-pages-2328",
+      "path": "/all-projects/pttcsp/",
+      "scope": "body",
+      "find": "96-bay ACHE system upgraded to achieve a minimum 15% airflow improvement",
+      "replace": "96-bay ACHE system upgraded against a minimum 15% airflow-improvement target",
+      "count": 1,
+      "reason": "OGCS pre-launch copy R1 §1 C4 DEFAULT, highlight 1: an icon-list item, not an editable element"
+    },
+    {
+      "id": "TO-007",
+      "row": "C4",
+      "routeId": "SALMON-pages-2328",
+      "path": "/all-projects/pttcsp/",
+      "scope": "body",
+      "find": "Thermal and static pressure performance guarantees were successfully achieved",
+      "replace": "Fan system re-engineered to meet the plant's thermal and static pressure requirements",
+      "count": 1,
+      "reason": "OGCS pre-launch copy R1 §1 C4 DEFAULT, highlight 2: an icon-list item, not an editable element"
+    }
+  ]
+}

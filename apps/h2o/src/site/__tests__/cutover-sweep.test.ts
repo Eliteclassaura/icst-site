@@ -65,6 +65,14 @@ describe('classify',()=>{
     expect(classes(classify('u','sitemap',ok(plain,{'x-robots-tag':'noindex'}),{robots:'index'},'production'))).toEqual(['ROBOTS_NOINDEX_ON_INDEXABLE'])
     expect(classes(classify('u','sitemap',ok(plain),{robots:'noindex,follow'},'production'))).toEqual(['ROBOTS_INDEXABLE_ON_NOINDEX'])
   })
+  it('cutover gate: a page that renders the /contact-us/ quote fallback instead of the RFQ adapter fails (Typeform env missing)',()=>{
+    const fallback=parsePage(html(GOOD_HEAD,'<h1>T</h1><div class="sp-btn-row"><a class="lux-button" href="/contact-us/">Request a Quote</a></div>'))
+    expect(fallback).toMatchObject({rfqFallbacks:1,rfqAdapters:0})
+    expect(classify('u','sitemap',ok(fallback),{},'production').map((f:Finding)=>[f.class,f.severity])).toEqual([['RFQ_ADAPTER_NOT_CONFIGURED','fail']])
+    const mounted=parsePage(html(GOOD_HEAD,'<h1>T</h1><span class="rfq" data-rfq-placement="editorial_inline"><a class="cta" href="https://form.typeform.com/to/x">Request a Quote</a></span><a href="/contact-us/">Contact us</a>'))
+    expect(mounted).toMatchObject({rfqFallbacks:0,rfqAdapters:1})
+    expect(classify('u','sitemap',ok(mounted),{},'private')).toEqual([])
+  })
   it('sitemap URLs answer 200 in one hop',()=>{
     expect(classes(classify('u','sitemap',{hops:[{status:301,location:'/b/'},{status:200}]}))).toEqual(['SITEMAP_URL_REDIRECTS'])
     expect(classes(classify('u','sitemap',{hops:[{status:404}]}))).toEqual(['SITEMAP_URL_NOT_200'])

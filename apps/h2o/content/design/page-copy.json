@@ -1,0 +1,15 @@
+{
+  "authority": "OGCS pre-launch copy R1 (44f1b573), CT accepted 2026-10-05: §2 /contact-us/ and §5 crossflow-template caption. Template copy is data: an OGCS wording change edits this file and nothing else. A null value renders no element.",
+  "contact": {
+    "eyebrow": null,
+    "heading": "Request a quote for parts, new towers or repair work",
+    "lead": "Send your project details through the request form, or call the ICS office nearest you.",
+    "requestHeading": null,
+    "requestBody": "Tell us what your tower is doing and what you need it to do. We review every request and reply with next steps.",
+    "officeTitles": { "usa": "USA office", "japan": "Japan office", "thailand": "Thailand office" },
+    "phoneOnlyPrefix": "Phone: "
+  },
+  "englishServices": {
+    "evidenceCaption": null
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "authority": "OGCS pre-launch copy R1 §1 C1–C6 (CT accepted 2026-10-05): baked-text claim tiles are replaced by a photo-only crop of the verified original (no AI edit, no upscaling, crop recorded), or withheld where no usable crop exists. Keyed by the SHA-256 of the held tile bytes (the 1024 derivative and the 1600 original of the same tile); every page that shows the tile follows. `sourceStem` (the tile's upload path without size suffix or extension) carries the same ruling to the page's social image tags and structured data, which name the 1600 original by URL.",
+  "overrides": {
+    "4d62aa2ee1fecfe038acf082daaa506fa3a4f268a62aee7141a3593b168ea136": {
+      "claim": "C2",
+      "page": "/cooling-tower-structure-repair/",
+      "action": "crop",
+      "sourceStem": "/wp-content/uploads/2026/07/image-18-1",
+      "file": "media/dd73aa252e21b19ff9e85ce5ea072e6aa983b3b0beb3766a9772d90ac179dbfe.jpeg",
+      "sha256": "dd73aa252e21b19ff9e85ce5ea072e6aa983b3b0beb3766a9772d90ac179dbfe",
+      "width": 1240,
+      "height": 426,
+      "source": {
+        "sha256": "854ee791191eaa59a51aee0d73add65b248398f18d60c5f4cdc860b6bc93fbd6",
+        "url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/image-18-1.jpeg",
+        "width": 1600,
+        "height": 900,
+        "crop": {
+          "left": 360,
+          "top": 0,
+          "width": 1240,
+          "height": 426
+        }
+      },
+      "note": "Top photo band only: no text bar, logo excluded."
+    },
+    "854ee791191eaa59a51aee0d73add65b248398f18d60c5f4cdc860b6bc93fbd6": {
+      "claim": "C2",
+      "page": "/cooling-tower-structure-repair/",
+      "action": "crop",
+      "file": "media/dd73aa252e21b19ff9e85ce5ea072e6aa983b3b0beb3766a9772d90ac179dbfe.jpeg",
+      "sha256": "dd73aa252e21b19ff9e85ce5ea072e6aa983b3b0beb3766a9772d90ac179dbfe",
+      "width": 1240,
+      "height": 426,
+      "source": {
+        "sha256": "854ee791191eaa59a51aee0d73add65b248398f18d60c5f4cdc860b6bc93fbd6",
+        "url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/image-18-1.jpeg",
+        "width": 1600,
+        "height": 900,
+        "crop": {
+          "left": 360,
+          "top": 0,
+          "width": 1240,
+          "height": 426
+        }
+      },
+      "note": "The original of the same tile."
+    },
+    "190d478e35dcc28de465ac22aa135a220eafdcb488d5db8e398bd05bf192f5c7": {
+      "claim": "C6",
+      "page": "/cooling-tower-efficiency-calculation/",
+      "action": "crop",
+      "sourceStem": "/wp-content/uploads/2026/07/image-51-2",
+      "file": "media/a8a1a4e647c20aaa5692a1ae77911a5f7582fb1ddbcdea65f5f92b0d57efdfbd.jpeg",
+      "sha256": "a8a1a4e647c20aaa5692a1ae77911a5f7582fb1ddbcdea65f5f92b0d57efdfbd",
+      "width": 872,
+      "height": 478,
+      "source": {
+        "sha256": "77b1ce77a10d774dc325ad9d5da40000eeecf43779656540e8a7a226db8d1257",
+        "url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/image-51-2.jpeg",
+        "width": 1600,
+        "height": 900,
+        "crop": {
+          "left": 706,
+          "top": 155,
+          "width": 872,
+          "height": 478
+        }
+      },
+      "note": "The photo panel only: removes the 'LET'S STARTED' typo and the baked title."
+    },
+    "77b1ce77a10d774dc325ad9d5da40000eeecf43779656540e8a7a226db8d1257": {
+      "claim": "C6",
+      "page": "/cooling-tower-efficiency-calculation/",
+      "action": "crop",
+      "file": "media/a8a1a4e647c20aaa5692a1ae77911a5f7582fb1ddbcdea65f5f92b0d57efdfbd.jpeg",
+      "sha256": "a8a1a4e647c20aaa5692a1ae77911a5f7582fb1ddbcdea65f5f92b0d57efdfbd",
+      "width": 872,
+      "height": 478,
+      "source": {
+        "sha256": "77b1ce77a10d774dc325ad9d5da40000eeecf43779656540e8a7a226db8d1257",
+        "url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/image-51-2.jpeg",
+        "width": 1600,
+        "height": 900,
+        "crop": {
+          "left": 706,
+          "top": 155,
+          "width": 872,
+          "height": 478
+        }
+      },
+      "note": "The original of the same tile."
+    },
+    "28256266530d2176368c74eecc95c7fcc485c8f94c2bee02235b7be2f1769233": {
+      "claim": "C1",
+      "page": "/cooling-tower-components/",
+      "action": "withhold",
+      "sourceStem": "/wp-content/uploads/2026/07/image-9-2",
+      "note": "No usable photo-only crop: the diamond-masked photo yields about 300x300 px of the 1600 original, and it shows evaporative air coolers on a commercial building, not cooling-tower work. Withheld: CT confirmed 2026-10-05 (solid-token hero, no image)."
+    },
+    "0304231a68b09a5fad69ac8d41809ede18bcebd740e0cd1befdde5ac07b00474": {
+      "claim": "C1",
+      "page": "/cooling-tower-components/",
+      "action": "withhold",
+      "note": "The original of the same tile."
+    },
+    "d0aa296a621d6231f79b71298537244df687776120ae1a941666ecc2f2c5e12b": {
+      "claim": "C3",
+      "page": "/energy-efficient-cooling-tower/",
+      "action": "withhold",
+      "sourceStem": "/wp-content/uploads/2026/07/image-79-1",
+      "note": "'THE $100,000 BLUEPRINT' tile, found as the hero of /energy-efficient-cooling-tower/ (image-79-1). The 1600 original is not held; the circle-masked photo yields about 340x190 px of the 1024 derivative, and it shows an offshore drilling rig, not a cooling tower. Withheld: CT confirmed 2026-10-05 (solid-token hero, no image)."
+    },
+    "e1ce496a0354881f0bd8e6b793304cc7d4dd4bdbab126e8cebf3abb94a32355": {
+      "claim": "C3",
+      "page": "/energy-efficient-cooling-tower/",
+      "action": "withhold",
+      "note": "The 1600 original of the same tile (bytes not held)."
+    }
+  }
+}

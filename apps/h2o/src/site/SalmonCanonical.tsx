@@ -11,12 +11,13 @@ import {articleSocialTitle} from './article-metadata'
 import {R2Discovery} from './R2Discovery'
 import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
 import {ProjectDetail} from './ProjectDetail'
-import {commerceException,commerceMetaException,ownerHref,ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
+import {commerceException,commerceMetaException,ownerHref,ownerText,salmonMedia,salmonMediaPath,salmonNodeText,socialImageOverride,type SalmonDocument,type SalmonNode} from './salmon'
 import {normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 import {deliverySrc} from './media-delivery'
 import {PUBLIC_AUTHOR} from './public-author-identity'
 import {BreadcrumbSchema,HOME_CRUMB,isBreadcrumbList,type Crumb} from './breadcrumb-schema'
 import {decodeEntities} from './text-repair'
+import {pageCopy} from './page-copy'
 export {aboutGeographyCorrections,normalizeWave3IndexEditorial,normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 // Start tags that implicitly close an open <p> in the HTML parser. A source <p> holding one of these cannot be
 // represented in HTML: the browser closes the paragraph first and hydration then sees a different tree (#418).
@@ -133,8 +134,32 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
     if(!/^(?:og:description|twitter:description)$/.test(name))return value
     return publicMetaText(doc,value)
   }
+  // OGCS C1–C6 (CT 2026-10-05): a withheld claim tile leaves the social image tags; a cropped one is named by its crop.
+  const social=socialImageOverride(doc.seo.meta.find(m=>/^(?:og:image|og:image:secure_url|twitter:image)$/.test(m.name))?.value??'')
+  const socialMeta=(m:{name:string;value:string}):{name:string;value:string}|null=>{
+    if(!social||!/^(?:og|twitter):image/.test(m.name))return m
+    if(social.action==='withhold')return null
+    if(/^(?:og:image|og:image:secure_url|twitter:image)$/.test(m.name))return {...m,value:social.url}
+    if(m.name==='og:image:width')return {...m,value:String(social.width)}
+    if(m.name==='og:image:height')return {...m,value:String(social.height)}
+    return m
+  }
+  // …and in structured data: an image reference to a withheld tile is dropped, a cropped one names the crop.
+  const schemaImages=(value:unknown):unknown=>{
+    const hit=(v:unknown)=>typeof v==='string'?socialImageOverride(v):v&&typeof v==='object'&&!Array.isArray(v)?socialImageOverride(String((v as Record<string,unknown>)['@id']??(v as Record<string,unknown>).url??'')):undefined
+    if(Array.isArray(value))return value.filter(item=>hit(item)?.action!=='withhold').map(schemaImages)
+    if(value&&typeof value==='object'){
+      const self=hit(value)
+      return Object.fromEntries(Object.entries(value).filter(([,v])=>hit(v)?.action!=='withhold').map(([k,v])=>{
+        const o=hit(v)
+        if(self?.action==='crop'&&(k==='width'||k==='height'))return [k,String(self[k])]
+        return [k,o?.action==='crop'&&typeof v==='string'?o.url:schemaImages(v)]
+      }))
+    }
+    return value
+  }
   return <>
-    {doc.seo.meta.filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)).map((m,i)=>m.name.startsWith('og:')||m.name.startsWith('article:')?<meta key={i} property={m.name} content={metaValue(m.name,m.value)}/>:<meta key={i} name={m.name} content={metaValue(m.name,m.value)}/>)}
+    {doc.seo.meta.flatMap(m=>socialMeta(m)??[]).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)).map((m,i)=>m.name.startsWith('og:')||m.name.startsWith('article:')?<meta key={i} property={m.name} content={metaValue(m.name,m.value)}/>:<meta key={i} name={m.name} content={metaValue(m.name,m.value)}/>)}
     {doc.seo.schema.map((raw,i)=>{
       if(isBreadcrumbList(JSON.parse(raw)))return null
       // Quote-only estate: no prices, and no ratings or reviews (Control Tower ruling 2026-10-02).
@@ -144,7 +169,7 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
         if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).filter(([k])=>!['offers','price','lowPrice','highPrice','priceCurrency','aggregateRating','review','reviews'].includes(k)).map(([k,v])=>[k,stripCommerce(v)]))
         return typeof value==='string'?ownerText(value):value
       }
-      const sourceSchema=JSON.stringify(stripCommerce(JSON.parse(raw)))
+      const sourceSchema=JSON.stringify(schemaImages(stripCommerce(JSON.parse(raw))))
       const canonicalSchema=canonicalOverride&&doc.seo.canonical[0]?sourceSchema.replaceAll(doc.seo.canonical[0],canonicalOverride):sourceSchema
       return <script data-source-schema={i} key={i} type="application/ld+json" dangerouslySetInnerHTML={{__html:canonicalSchema.replaceAll('<','\\u003c')}}/>
     })}
@@ -154,6 +179,7 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
 export function SalmonCanonical({doc}:{doc:SalmonDocument}){
   const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
   const isContact=doc.targetPath==='/contact-us/'
+  const copy=pageCopy().contact
   const isEditorial=['SALMON-pages-1931','SALMON-b2503fcd6ca86806'].includes(doc.routeId)
   return <div className={`salmon-canonical${isContact?' figma-contact':''}`} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc}/>
@@ -166,11 +192,12 @@ export function SalmonCanonical({doc}:{doc:SalmonDocument}){
           <p className="figma-contact-lead">Tell us what your tower is doing and what you need it to do.</p>
         </div>
       </section>
-      <div className="figma-contact-introduction"><span>ICS / CONTACT</span><h2>Request a parts quote or contact ICS today.</h2><p>Start with the working conversational request below, or use the verified office numbers for direct contact.</p></div>
-      <section className="figma-contact-rfq" aria-labelledby="figma-contact-rfq-heading">
+      {/* OGCS pre-launch copy R1 §2 (CT accepted 2026-10-05): the copy is data, content/design/page-copy.json. */}
+      <div className="figma-contact-introduction">{copy.eyebrow?<span>{copy.eyebrow}</span>:null}<h2 id="figma-contact-intro-heading">{copy.heading}</h2><p>{copy.lead}</p></div>
+      <section className="figma-contact-rfq" aria-labelledby={copy.requestHeading?'figma-contact-rfq-heading':'figma-contact-intro-heading'}>
         <div className="figma-contact-rfq-copy">
-          <h2 id="figma-contact-rfq-heading">Start Here</h2>
-          <p>Tell us what your tower is doing and what you need it to do, and the enquiry is scoped and quoted. The request form is how every enquiry reaches ICS.</p>
+          {copy.requestHeading?<h2 id="figma-contact-rfq-heading">{copy.requestHeading}</h2>:null}
+          <p>{copy.requestBody}</p>
           <h3>What to send</h3>
           <ul>
             <li>What you need: cooling tower parts, a new or rebuilt cooling tower, or repair and maintenance work</li>
@@ -188,12 +215,12 @@ export function SalmonCanonical({doc}:{doc:SalmonDocument}){
         <div className="figma-contact-offices-inner">
           <h2 id="figma-contact-offices-heading">Offices</h2>
           <div className="figma-contact-office-list">{contactOffices.map(office=><address key={office.officeKey} data-office={office.officeKey}>
-            <h3>{office.displayLabel}</h3>
+            <h3>{copy.officeTitles[office.officeKey]??office.displayLabel}</h3>
             {office.company?<span>{office.company}</span>:null}
             {office.addressLines.map(line=><span key={line}>{line}</span>)}
             {office.city?<span>{office.city}{office.region?`, ${office.region}`:''}{office.postalCode?` ${office.postalCode}`:''}</span>:null}
             {office.officeKey!=='japan'?<span>{office.countryName}</span>:null}
-            <a href={office.telephoneHref}>{office.telephoneDisplay}</a>
+            <a href={office.telephoneHref}>{office.addressLines.length===0?copy.phoneOnlyPrefix:''}{office.telephoneDisplay}</a>
           </address>)}</div>
         </div>
       </section>

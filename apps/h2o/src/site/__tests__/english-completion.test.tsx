@@ -61,12 +61,13 @@ describe('English completion release boundary',()=>{
     for(const href of ['/cooling-tower-brochures/','/cooling-tower-resources/tools/','/tech-articles/'])expect(html).toContain(`href="${href}"`)
     expect((html.match(/class="wave4-document(?: wave4-document-flat)?"/g)??[])).toHaveLength(13)
   })
-  it('uses Contact variant A Start Here without adding a native form or stale phone',()=>{
+  it('uses Contact variant A (OGCS copy R1: no eyebrow) without adding a native form or stale phone',()=>{
     const beforeId=process.env.H2O_TYPEFORM_FORM_ID,beforeOrigin=process.env.H2O_TYPEFORM_ORIGIN
     process.env.H2O_TYPEFORM_FORM_ID='F22cAgx3';process.env.H2O_TYPEFORM_ORIGIN='https://form.typeform.com'
     try{
       const html=renderToStaticMarkup(<SalmonCanonical doc={documentFor('SALMON-pages-1891')}/>)
-      expect(html).toContain('Start Here')
+      expect(html).not.toContain('Start Here')
+      expect(html).toContain('Request a quote for parts, new towers or repair work')
       expect(html).toContain('https://form.typeform.com/to/F22cAgx3')
       expect(html).toContain('figma-contact-hero-photo')
       expect(html).not.toContain('+66-2-260-6598')

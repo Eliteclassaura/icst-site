@@ -64,6 +64,9 @@ export function parsePage(html) {
     anchors,
     images,
     mixed: subresources.filter((u) => /^http:\/\//i.test(u)),
+    // The verified quote fallback (a plain /contact-us/ link) renders only when the RFQ adapter configuration is unresolved.
+    rfqFallbacks: (body.match(/<a class="lux-button" href="\/contact-us\/"/g) ?? []).length,
+    rfqAdapters: (body.match(/data-rfq-placement="/g) ?? []).length,
   }
 }
 
@@ -133,6 +136,8 @@ export function classify(url, role, obs, expect = {}, policy = 'private') {
     else if (page.descriptions[0].length < 70 || page.descriptions[0].length > 160) out.push(finding('META_LENGTH', 'warn', final, `${page.descriptions[0].length} chars`))
     for (const j of page.jsonLd) if (!j.ok) out.push(finding('JSONLD_INVALID', 'fail', final, j.error))
     for (const m of page.mixed) out.push(finding('MIXED_CONTENT', 'fail', final, m))
+    // Cutover gate (CT R2.1): a hosted page that shows the fallback instead of the adapter means H2O_TYPEFORM_* is missing.
+    if (page.rfqFallbacks) out.push(finding('RFQ_ADAPTER_NOT_CONFIGURED', 'fail', final, `${page.rfqFallbacks} /contact-us/ fallback quote link(s), ${page.rfqAdapters} adapter mount(s)`))
     const robots = [obs.headers?.['x-robots-tag'] ?? '', ...page.robotsMeta].join(', ').toLowerCase()
     const noindex = /\bnoindex\b/.test(robots)
     if (policy === 'private' && !noindex) out.push(finding('PRIVATE_SURFACE_INDEXABLE', 'fail', final, robots || '(no robots)'))

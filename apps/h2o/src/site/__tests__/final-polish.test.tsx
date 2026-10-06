@@ -37,7 +37,7 @@ describe('final polish authority and semantic safety',()=>{
   it('applies only the authorized current company-presence claims on About',()=>{
     const html=renderToStaticMarkup(<AuthorityEditorial doc={documentFor('SALMON-pages-1931')}/> )
     expect(html).toContain('main office in Lakewood, Colorado')
-    expect(html).toContain('confirmed presence in Japan and Bangkok, Thailand')
+    expect(html).toContain('with offices in Japan and Bangkok, Thailand')
     for(const stale of ['branch offices','the Philippines','Saudi Arabia','regional hub','rapid deployment across Asia','serves Japan, Korea, and China'])expect(html).not.toContain(stale)
   })
   it('places the existing RFQ mount after the Contact hero and renders exactly three authorized offices',()=>{

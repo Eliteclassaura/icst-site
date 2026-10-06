@@ -22,10 +22,11 @@ const css=readFileSync(path.join(APP,'src/app/(site)/design-fixes.css'),'utf8')
 const r2=css.slice(css.indexOf('Design Fixes R2'))
 
 describe('#7 legacy service pages: the hero’s primary action is the quote action, its label data',()=>{
-  it('the authority names the five legacy service pages and /cooling-tower/, every label “Request a Quote” for now',()=>{
-    expect(Object.keys(authority.routes).sort()).toEqual([...Object.keys(LEGACY),'/cooling-tower/'].sort())
+  it('the authority names the five legacy service pages and /cooling-tower/ (R2.1 adds the six crossflow-template pages), every label “Request a Quote”',()=>{
+    for(const route of [...Object.keys(LEGACY),'/cooling-tower/'])expect(authority.routes,route).toHaveProperty([route])
+    expect(Object.keys(authority.routes)).toHaveLength(12)
     for(const [route,action] of Object.entries(authority.routes)){expect(action.label,route).toBe('Request a Quote');expect(heroActionFor(route)).toEqual(action)}
-    expect(heroActionFor('/crossflow-cooling-tower-repair-maintenance/')).toBeUndefined()
+    expect(heroActionFor('/cooling-tower-parts-online/')).toBeUndefined()
   })
   it('without a resolved RFQ configuration the hero carries the verified /contact-us/ fallback with the data label, once',async()=>{
     for(const [route,old] of Object.entries(LEGACY)){
@@ -63,19 +64,19 @@ describe('#14 /contact-us/',()=>{
   it('no grey strip, a full-height right-half photo panel (its transparent bands cropped), the lead on the navy half, Japan card to content',()=>{
     expect(r2).toMatch(/\.salmon-canonical\.figma-contact \{\s*background: var\(--df-white\);/)
     const panel=/@media \(width > 768px\) \{([^]*?)\n\}/.exec(r2)![1]!
-    expect(panel).toMatch(/inset-inline: 50% 0;\s*inline-size: 50%;\s*block-size: 133\.23%;/)
+    expect(panel).toMatch(/inset-inline: 50% 0;\s*inline-size: 50%;\s*block-size: 162\.36%;/)
     expect(panel).toMatch(/padding-inline-end: calc\(50% \+ 40px\);/)
     expect(r2).toMatch(/address\[data-office="japan"\] \{\s*align-self: start;\s*min-block-size: 0;/)
   })
-  it('the photo crop matches the file: content rows 14.97%–90.03% of the square (the panel box is 100%/75.06% tall, up 14.97% of it)',()=>{
-    expect((100/(90.03-14.97)*100).toFixed(2)).toBe('133.23')
-    expect((14.97*100/(90.03-14.97)).toFixed(2)).toBe('19.94')
-    expect(r2).toContain('inset-block: -19.94% auto;')
+  it('the photo crop matches the file (R2.1: source rows 350–1790 of 2338, above the date stamp at 1825–1885)',()=>{
+    expect((2338/1440*100).toFixed(2)).toBe('162.36')
+    expect((350/1440*100).toFixed(2)).toBe('24.31')
+    expect(r2).toContain('inset-block: -24.31% auto;')
   })
-  it('the page text is unchanged (OGCS copy arrives separately)',async()=>{
+  it('the page text is the OGCS copy (R2.1, page-copy data); the Japan office telephone unchanged',async()=>{
     const html=await render('/contact-us/')
     expect(html).toContain('Tell us what your tower is doing and what you need it to do.')
-    expect(html).toContain('<address data-office="japan"><h3>Japan</h3><a href="tel:+819042046742">+81-90-4204-6742</a></address>')
+    expect(html).toMatch(/<address data-office="japan"><h3>Japan office<\/h3>[^]*?<a href="tel:\+819042046742">\+81-90-4204-6742<\/a>[^]*?<\/address>/)
   })
 })
 
@@ -110,6 +111,7 @@ describe('#10 article hero',()=>{
   it('48px above (article margin 32px + 16px) and below the hero tile; the tile itself unchanged',async()=>{
     expect(r2).toMatch(/\.wave4-detail-body > div:first-child:not\(:has\(:is\(p, h2, h3, li\)\)\) img \{\s*margin-block: 16px 48px;/)
     const html=await render('/cooling-tower-efficiency-calculation/')
-    expect(html).toContain('data-source-sha256="190d478e35dcc28de465ac22aa135a220eafdcb488d5db8e398bd05bf192f5c7"')
+    // R2.1 (C6): the tile is now its recorded photo-only crop
+    expect(html).toContain('data-source-sha256="a8a1a4e647c20aaa5692a1ae77911a5f7582fb1ddbcdea65f5f92b0d57efdfbd"')
   })
 })

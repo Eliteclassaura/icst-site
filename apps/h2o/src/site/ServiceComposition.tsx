@@ -66,7 +66,8 @@ export function ServicePage({routeId,sections}:{routeId:string;sections:ReactNod
  const config=serviceCompositions[routeId]
  return <div className="wave2-service" data-wave2-route={routeId} data-air-cooler-hero={routeId==='SALMON-pages-1668'?'TYPE_LED':undefined}>{sections.map((section,i)=>{
   const role=config.roles[i]
-  const content=<div key={i} className={`wave2-stage wave2-stage--${role}`} data-wave2-section={role}>{section}</div>
+  // The hero's "Explore the service" anchor (content/design/hero-actions.json) lands on the first section after the hero.
+  const content=<div key={i} className={`wave2-stage wave2-stage--${role}`} data-wave2-section={role} id={i===1?'service-overview':undefined}>{section}</div>
   return i===0?<ServiceHero key={i}>{content}</ServiceHero>:i===sections.length-1?<ServiceClosing key={i}>{content}</ServiceClosing>:content
  })}</div>
 }

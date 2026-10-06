@@ -207,13 +207,14 @@
 }
 
 @media (width > 768px) {
-  /* The photo file is a square with transparent bands (content rows 14.97%-90.03%): the box is sized so that band fills
-   * the panel's full height (100% / 75.06% tall, shifted up by 14.97% of that). */
+  /* The photo file is a 2338px square with transparent bands (content rows 350-2104) and a camera date stamp burned in at
+   * rows 1825-1885 (R2.1, CT ruling 7). The panel shows source rows 350-1790 only: the box is 2338/1440 of the panel
+   * height, shifted up by 350/1440 of it; the visible crop stays about 1620 source px wide (CT minimum 1000px). */
   .figma-contact .figma-contact-hero-photo {
-    inset-block: -19.94% auto;
+    inset-block: -24.31% auto;
     inset-inline: 50% 0;
     inline-size: 50%;
-    block-size: 133.23%;
+    block-size: 162.36%;
     object-fit: cover;
   }
   .figma-contact .figma-contact-hero::after {
@@ -224,6 +225,24 @@
   }
   .figma-contact .figma-contact-hero-inner {
     padding-inline-end: calc(50% + 40px);
+  }
+}
+/* R2.1 — on a phone the photo sits above the text (280px, 220px at 420px and below): the same source window, framed with
+ * negative margins and clipped, so neither the transparent band nor the date stamp shows; visible crop about 1800 px wide. */
+@media (width <= 768px) {
+  .figma-contact .figma-contact-hero-photo {
+    --df-contact-photo: 280px;
+
+    block-size: calc(var(--df-contact-photo) * 1.6236);
+    margin-block: calc(var(--df-contact-photo) * -0.2431) calc(var(--df-contact-photo) * -0.3806);
+    object-fit: cover;
+    clip-path: inset(calc(var(--df-contact-photo) * 0.2431) 0 calc(var(--df-contact-photo) * 0.3806) 0);
+  }
+}
+
+@media (width <= 420px) {
+  .figma-contact .figma-contact-hero-photo {
+    --df-contact-photo: 220px;
   }
 }
 .figma-contact .figma-contact-office-list address[data-office="japan"] {
@@ -284,4 +303,157 @@
  * unchanged (OGCS C6). */
 .figma-wave4 .wave4-detail-body > div:first-child:not(:has(:is(p, h2, h3, li))) img {
   margin-block: 16px 48px;
+}
+
+/*
+ * Design Fixes R2.1 (Control Tower rulings 2026-10-05 on the launch template review). Presentation only.
+ */
+
+/* (a) Parts landing and parts family heroes: the verified quote fallback (`a.lux-button`, rendered when the RFQ
+ * configuration is unresolved) keeps the outline button's blue label. The global `.lux-button` white label is important,
+ * so the resting state needs one too; on hover the button turns blue and the white label returns. */
+.salmon-family .sp-btn-row--outline a.lux-button:not(:hover, :focus-visible) {
+  color: var(--sp-blue) !important;
+}
+
+@media (width < 768px) {
+  /* (b) Home hero on a phone: one column, a readable headline, sub-panel and intro text at 16px. */
+  .salmon-copy .elementor-element.elementor-element-e9c982d {
+    --e-con-grid-template-columns: minmax(0, 1fr);
+
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 16px !important;
+    padding-inline: 16px !important;
+  }
+  .salmon-copy .elementor-element.elementor-element-e9c982d > .e-con,
+  .salmon-copy .elementor-element.elementor-element-dde8e09 > .e-con {
+    inline-size: 100% !important;
+    max-inline-size: 100% !important;
+  }
+  .salmon-copy .elementor-element.elementor-element-2e9b867 {
+    min-block-size: 380px !important;
+  }
+  .salmon-copy .elementor-element.elementor-element-be98584 .elementor-heading-title {
+    font-size: 40px !important;
+    line-height: 1.02 !important;
+  }
+  .salmon-copy .elementor-element.elementor-element-022cd41 .elementor-button {
+    inline-size: 100%;
+    font-size: 16px !important;
+  }
+  .salmon-copy .elementor-element.elementor-element-ddbe599 .elementor-heading-title {
+    font-size: 28px !important;
+    line-height: 1.1 !important;
+  }
+  .salmon-copy :is(.elementor-element-b7b52e6, .elementor-element-7d4ed82) :is(p, p span) {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* (c) /cooling-tower/ "What is a cooling tower" on a phone: text first, one column, 16px body, image below it. */
+  .salmon-page-newtowers .elementor-element.elementor-element-4fd309cb {
+    flex-direction: column !important;
+    gap: 16px !important;
+    padding-inline: 16px !important;
+  }
+  .salmon-page-newtowers .elementor-element.elementor-element-4fd309cb > :is(.elementor-element-3589ea58, .elementor-element-ae1edda) {
+    --width: 100%;
+
+    inline-size: 100% !important;
+    max-inline-size: 100% !important;
+    padding-inline: 0 !important;
+  }
+  .salmon-page-newtowers .elementor-element.elementor-element-3589ea58 :is(p, p span) {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+  .salmon-page-newtowers .elementor-element.elementor-element-ae1edda img {
+    display: block;
+    inline-size: min(100%, 320px) !important;
+    block-size: auto !important;
+    margin-inline: auto;
+  }
+}
+
+/* (d) Preserved locale articles: the legacy WordPress table of contents is a quiet "Contents" box; its JavaScript toggle
+ * (a dead link without the plugin) is hidden. The links themselves resolve to the article's own headings. */
+.figma-wave4 .wave4-detail-body #ez-toc-container {
+  display: block;
+  margin-block: 24px 32px;
+  padding: 18px 22px;
+  border: 1px solid var(--df-step);
+  border-radius: 8px;
+  background: var(--df-step);
+}
+.figma-wave4 .wave4-detail-body #ez-toc-container > div:first-child > :is(span, a) {
+  display: none;
+}
+.figma-wave4 .wave4-detail-body #ez-toc-container > div:first-child > p {
+  margin: 0 0 8px;
+  color: var(--df-step-ink);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.figma-wave4 .wave4-detail-body #ez-toc-container nav ul {
+  margin: 0;
+  padding-inline-start: 1.1em;
+}
+.figma-wave4 .wave4-detail-body #ez-toc-container nav li {
+  margin-block: 4px;
+}
+
+/* OGCS §4 hero actions: the quote action first, then "Explore the service" (or the emergency page's office telephone)
+ * as the crossflow template's outline button. */
+.wave2-service .lux-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-block-start: 26px;
+}
+.wave2-service .wave2-stage--hero .lux-section .lux-hero-actions .lux-signal {
+  margin: 0 !important;
+}
+.wave2-service .lux-hero-secondary,
+.salmon-copy .salmon-hero-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 48px;
+  padding: 10px 23px;
+  border: 1px solid var(--df-white);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--df-white) !important;
+  font: 700 14px/1.2 'DM Sans', system-ui, sans-serif;
+  text-decoration: none;
+}
+.wave2-service .lux-hero-secondary:is(:hover, :focus-visible),
+.salmon-copy .salmon-hero-secondary:is(:hover, :focus-visible) {
+  background: var(--df-white);
+  color: var(--df-blue) !important;
+}
+.salmon-copy .salmon-hero-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Crossflow template: the quote action (the RFQ adapter or its fallback) keeps the primary white button; the secondary
+ * stays the outline button. */
+.english-service .english-service-actions > :is(span a, a.lux-button) {
+  --h2o-cta-bg: var(--df-white);
+  --h2o-cta-fg: var(--df-blue);
+  --h2o-cta-border: var(--df-white);
+  --h2o-cta-radius: 999px;
+
+  border: 0;
+  border-radius: 999px;
+  background: var(--df-white) !important;
+  box-shadow: none;
+  color: var(--df-blue) !important;
 }

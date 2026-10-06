@@ -5,7 +5,7 @@ import {pageForSegments} from './cohort'
 import {ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {SalmonTabsController} from './SalmonTabsController'
 import {heroQuoteAction,renderQuoteAction} from '../content/rfq-controls'
-import {heroActionFor} from './hero-actions'
+import {heroActionFor,heroSecondaryHref} from './hero-actions'
 
 // Static presentation of the two owner-selected Salmon pages. Content remains
 // sourced from the frozen Salmon documents; no WordPress scripts or forms run.
@@ -31,7 +31,10 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
   if(typeof node!=='string'&&(node as {attrs?:Record<string,string>}).attrs?.['data-public-exclusion'])return null
   // Design Fixes R2 (#7): the hero's source quote link is the quote action, label from content/design/hero-actions.json.
   const hero=heroActionFor(doc.targetPath)
-  if(hero?.sourceLabel&&typeof node!=='string'&&node.tag==='a'&&salmonNodeText(node).replace(/\s+/g,' ').trim()===hero.sourceLabel)return heroQuoteAction(doc,key,hero.label)
+  if(hero?.sourceLabel&&typeof node!=='string'&&node.tag==='a'&&salmonNodeText(node).replace(/\s+/g,' ').trim()===hero.sourceLabel){
+   const quote=heroQuoteAction(doc,key,hero.label)
+   return hero.secondary?<span className="salmon-hero-actions" key={key+'.actions'}>{quote}<a className="salmon-hero-secondary" href={heroSecondaryHref(hero.secondary)} data-hero-action="secondary">{hero.secondary.label}</a></span>:quote
+  }
   // Runtime RFQ (Payload content mode only), as in renderSalmonNode.
   const quote=renderQuoteAction(doc,node as never,key,(original,k)=>sourceNode(original as SalmonNode,k,doc))
   if(quote!==undefined)return quote
@@ -54,6 +57,7 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
  const sourceColor=node.attrs.style?.match(/(?:^|;)\s*color\s*:\s*(#[0-9a-fA-F]{3,8})\s*(?:;|$)/)?.[1]
  if(sourceColor)props.style={color:sourceColor}
  if(node.attrs.id)props.id=node.attrs.id
+ else if(hero?.secondaryTargetDataId&&node.attrs['data-id']===hero.secondaryTargetDataId)props.id='service-overview'
  if(node.attrs.role)props.role=node.attrs.role
  if(node.attrs['aria-label'])props['aria-label']=node.attrs['aria-label']
  if(node.attrs['data-id'])props['data-id']=node.attrs['data-id']

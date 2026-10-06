@@ -4,6 +4,7 @@ import path from 'node:path'
 import {contactOffices} from './contact'
 import {publicReleaseDocument} from './release-document'
 import {decodeEntities,repairDocumentText,repairMojibake} from './text-repair'
+import {withTextOverrides} from '../content/text-overrides'
 import {releaseLedger,isPayloadContent,requestDocuments,snapshotFile,snapshotJson} from '../content/runtime-read'
 export type SalmonNode = string | {tag:string;attrs:Record<string,string>;children:SalmonNode[]}
 export type SalmonRoute = {routeId:string;sourceUrl:string;targetPath:string;file:string;sha256:string}
@@ -48,14 +49,15 @@ export const releaseRouteFor=(segments:string[]=[]):SalmonRoute|null=>{
 export const salmonDocument=(route:SalmonRoute):SalmonDocument=>{
   if(isPayloadContent()){
     const injected=requestDocuments().get(route.routeId) as SalmonDocument|undefined
-    if(injected)return publicReleaseDocument(repairDocumentText(injected,documentHeldAlt(injected)))
+    if(injected)return publicReleaseDocument(repairDocumentText(withTextOverrides(injected),documentHeldAlt(injected)))
   }
   if(!(isPayloadContent()?/^documents\/(?:SALMON|LIVE)-[a-zA-Z0-9_-]+\.json$/:/^documents\/SALMON-[a-zA-Z0-9_-]+\.json$/).test(route.file))throw new Error('Unsafe canonical document path')
   const bytes=isPayloadContent()?snapshotFile(route.file):readFileSync(path.join(root,route.file))
   if(createHash('sha256').update(bytes).digest('hex')!==route.sha256)throw new Error('Salmon source identity mismatch')
   const doc=JSON.parse(bytes.toString()) as SalmonDocument
   if(doc.routeId!==route.routeId||doc.sourceUrl!==route.sourceUrl)throw new Error('Salmon route identity mismatch')
-  return publicReleaseDocument(repairDocumentText(doc,documentHeldAlt(doc)))
+  // R2.1 text-override registry (content/text-overrides): idempotent, so a published (already corrected) document is unchanged.
+  return publicReleaseDocument(repairDocumentText(withTextOverrides(doc),documentHeldAlt(doc)))
 }
 /** Held alt text for an image (CT SEO parity follow-up R1, Part 2 item 3), most authoritative first:
  *  1. the alt h2ocooling.com serves today (content/salmon/live-image-alt.json, from the CT parity audit's live fetches);
@@ -115,8 +117,36 @@ export const salmonMedia=(source:string,base:string):SalmonMedia|undefined=>{
   }
   try{
     const absolute=new URL(source,base).href
-    return mediaIndex.get(absolute)??mediaAliases?.get(mediaIdentityKey(absolute))??undefined
+    return mediaOverride(mediaIndex.get(absolute)??mediaAliases?.get(mediaIdentityKey(absolute))??undefined)
   }catch{return undefined}
+}
+/**
+ * OGCS pre-launch copy R1 C1–C6 (CT accepted 2026-10-05): a baked-text claim tile resolves to its recorded photo-only crop,
+ * or to nothing where it is withheld (content/design/media-overrides.json, keyed by the held tile's SHA-256), so every page
+ * and card that shows the tile follows, in both content modes.
+ */
+type MediaOverride={action:'crop'|'withhold';sourceStem?:string;file?:string;sha256?:string;width?:number;height?:number}
+let mediaOverrides:Map<string,MediaOverride>|undefined
+const loadMediaOverrides=()=>mediaOverrides??=new Map(Object.entries((JSON.parse(readFileSync(path.join(process.cwd(),'content/design/media-overrides.json'),'utf8')) as {overrides:Record<string,MediaOverride>}).overrides))
+const mediaOverride=(row:SalmonMedia|undefined):SalmonMedia|undefined=>{
+  const overrides=loadMediaOverrides()
+  const override=row?.sha256?overrides.get(row.sha256):undefined
+  if(!row||!override)return row
+  if(override.action==='withhold')return undefined
+  return {...row,file:override.file,sha256:override.sha256,width:override.width,height:override.height}
+}
+/**
+ * The same ruling for a URL a page names in its social image tags or structured data (the 1600 original, matched by the
+ * tile's upload path with any `-WxH` size suffix): nothing where the tile is withheld, else the crop on the public origin.
+ */
+export const socialImageOverride=(url:string):{action:'withhold'}|{action:'crop';url:string;width:number;height:number}|undefined=>{
+  let pathname:string
+  try{pathname=new URL(url).pathname}catch{return undefined}
+  for(const o of loadMediaOverrides().values()){
+    if(!o.sourceStem||!pathname.startsWith(o.sourceStem)||!/^(?:-\d+x\d+)?\.(?:jpe?g|png|webp)$/i.test(pathname.slice(o.sourceStem.length)))continue
+    return o.action==='withhold'?{action:'withhold'}:{action:'crop',url:`https://h2ocooling.com/media/salmon/${path.basename(o.file!)}`,width:o.width!,height:o.height!}
+  }
+  return undefined
 }
 export const salmonMediaPath=(media:SalmonMedia):string|undefined=>media.file?`/media/salmon/${path.basename(media.file)}`:undefined
 const thailand=contactOffices.find(office=>office.officeKey==='thailand')!

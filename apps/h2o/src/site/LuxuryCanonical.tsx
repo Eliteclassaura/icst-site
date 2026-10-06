@@ -13,7 +13,7 @@ import {homePartCatalogData} from './HomePartsData'
 import {SalmonPresentation} from './SalmonPresentation'
 import {englishServicePages} from './EnglishServices'
 import {heroQuoteAction,rfqControlElement,rfqControlLabelAt} from '../content/rfq-controls'
-import {heroActionFor} from './hero-actions'
+import {heroActionFor,heroSecondaryHref} from './hero-actions'
 import {deliverySrc} from './media-delivery'
 import {RestoredSlot} from './RestoredSlot'
 type LayoutNode={tag:string;style?:CSSProperties;id?:number;children?:LayoutNode[];ref?:string;refs?:string[];slice?:{ref:string;start:number;end:number};decor?:string;action?:string;src?:string;alt?:string;key?:string}
@@ -70,7 +70,10 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
   if(n.action==='search')return null
   if(n.action==='search-form')return <LuxurySearch key={key} label={n.refs?.[0]?source(n.refs[0]):undefined} submit={n.refs?.[1]?source(n.refs[1]):undefined}/>
   if(n.decor)return <span {...props} aria-hidden="true">{n.decor}</span>
-  if(heroAction&&n===heroSignal)return createElement(n.tag,{...props,'data-hero-action':'quote'},heroQuoteAction(doc,'hero-primary',heroAction.label))
+  if(heroAction&&n===heroSignal){
+   const quote=createElement(n.tag,{...props,'data-hero-action':'quote'},heroQuoteAction(doc,'hero-primary',heroAction.label))
+   return heroAction.secondary?<div className="lux-hero-actions" key={key+'.actions'}>{quote}<a className="lux-hero-secondary" href={heroSecondaryHref(heroAction.secondary)} data-hero-action="secondary">{heroAction.secondary.label}</a></div>:quote
+  }
   if(n.slice){const value=nodes.get(n.slice.ref);return typeof value==='string'?createElement(n.tag,props,leaf(value.slice(n.slice.start,n.slice.end),n.slice.ref,n.slice.start,n.slice.end)):null}
   const refs=n.ref?[n.ref]:n.refs??[]
   if(refs.length){

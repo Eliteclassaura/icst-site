@@ -51,6 +51,7 @@ import { applyContentSlots, applyServiceSlots, type ContentSlot } from './conten
 import { composeEditorial } from './editorial'
 import { projectPublicAuthor } from './public-author'
 import { applyRestoredSections, type RestoredGroup } from './restored-sections'
+import { withTextOverrides } from './text-overrides'
 
 export function composePublicDocument(record: RouteRecord): Doc {
   const stored = (record.document && typeof record.document === 'object' ? structuredClone(record.document) : {}) as Doc
@@ -63,7 +64,8 @@ export function composePublicDocument(record: RouteRecord): Doc {
   }
   if (record.family === 'editorial') return composeEditorial(record, stored)
   // Accepted Main Factory exclusions (provenance id match), then typed editor overlay, then derived text.
-  const excluded = applyPublicExclusions(record.source?.aliasOf ?? record.routeId, stored).doc
+  // R2.1 text-override registry (./text-overrides): ruled corrections of strings no editable element holds, before the slots.
+  const excluded = withTextOverrides(applyPublicExclusions(record.source?.aliasOf ?? record.routeId, stored).doc)
   // ADR-028 author identity projection (./public-author), before editor slots so an edit is never overridden.
   // Slots are keyed by node position in the imported tree, so they apply first; restored sections are then placed at their
   // anchors as ordinary nodes, and the author projection runs over the result (it is idempotent).

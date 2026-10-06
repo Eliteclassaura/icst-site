@@ -6,6 +6,9 @@ import {RfqMount} from './RfqMount'
 import {isPayloadContent,requestServices,snapshotJson} from '../content/runtime-read'
 import {deliverySrc} from './media-delivery'
 import {BreadcrumbSchema,HOME_CRUMB} from './breadcrumb-schema'
+import {heroQuoteAction} from '../content/rfq-controls'
+import {heroActionFor,heroSecondaryHref} from './hero-actions'
+import {pageCopy} from './page-copy'
 
 export type EnglishService = {
   id:string;path:string;figmaNode:string;title:string;eyebrow:string;lead:string
@@ -57,6 +60,12 @@ function TechnicalDiagram({kind,src}:{kind:EnglishService['diagramKind'];src:str
 
 /** Dedicated service destinations. The shared layout follows the six Figma frames;
  * every section's heading and content are individual and source-bound. */
+/** The hero's two actions (content/design/hero-actions.json): the quote action, then the on-page anchor or office telephone. */
+function heroActions(service:EnglishService){
+  const action=heroActionFor(service.path)
+  if(!action)return <><a href="#english-request-title">Request a Quote</a><a href="#service-scope">Explore the service</a></>
+  return <>{heroQuoteAction({routeId:service.id,targetPath:service.path},'hero-primary',action.label)}{action.secondary?<a href={heroSecondaryHref(action.secondary)} data-hero-action="secondary">{action.secondary.label}</a>:null}</>
+}
 export function EnglishServicePage({service}:{service:EnglishService}){
   return <div className="luxury-site english-service" data-english-service={service.id} data-figma-node={service.figmaNode}>
     <BreadcrumbSchema ancestors={[HOME_CRUMB]} current={{name:service.title,path:service.path}}/>
@@ -65,7 +74,7 @@ export function EnglishServicePage({service}:{service:EnglishService}){
       <section className="english-service-hero">
         <ServicePhoto src={service.hero} alt="" priority/>
         <div className="english-service-hero-shade"/>
-        <div className="english-service-hero-copy"><span className="english-service-eyebrow">{service.eyebrow}</span><h1>{service.title}</h1><p>{service.lead}</p><div className="english-service-actions"><a href="#english-request-title">Request a service assessment</a><a href="#service-scope">Explore the service</a></div></div>
+        <div className="english-service-hero-copy"><span className="english-service-eyebrow">{service.eyebrow}</span><h1>{service.title}</h1><p>{service.lead}</p><div className="english-service-actions">{heroActions(service)}</div></div>
       </section>
       <section className="english-service-intro english-service-width" aria-labelledby="english-intro-title">
         <figure><ServicePhoto src={service.detailImage} alt="Industrial cooling tower equipment"/></figure>
@@ -81,7 +90,7 @@ export function EnglishServicePage({service}:{service:EnglishService}){
         <div className="english-service-scope-grid">{service.services.map(([name,copy],index)=><article key={name}><span>{String(index+1).padStart(2,'0')}</span><h3>{name}</h3><p>{copy}</p></article>)}</div>
       </section>
       <section className="english-service-signs english-service-width" aria-labelledby="english-signs-title">
-        <figure><ServicePhoto src={service.evidenceImage} alt="Industrial cooling equipment or inspection setting"/><figcaption>Source-verified ICS visual archive · Illustrative, not a diagnosis of your site</figcaption></figure>
+        <figure><ServicePhoto src={service.evidenceImage} alt="Industrial cooling equipment or inspection setting"/>{pageCopy().englishServices.evidenceCaption?<figcaption>{pageCopy().englishServices.evidenceCaption}</figcaption>:null}</figure>
         <div><span className="english-service-index">04 / Site evidence</span><h2 id="english-signs-title">{service.signsTitle}</h2><p>Share what you observe with ICS so the enquiry can be scoped against the actual tower condition.</p><ul>{service.signs.map(sign=><li key={sign}>{sign}</li>)}</ul></div>
       </section>
       <section className="english-service-band" aria-labelledby="english-support-title"><div className="english-service-width"><span className="english-service-index">05 / Continued support</span><h2 id="english-support-title">{service.supportTitle}</h2><p>{service.support}</p><a href="/cooling-tower-maintenance-repair-upgrade/">Explore repair and maintenance <span aria-hidden="true">↗</span></a></div></section>
