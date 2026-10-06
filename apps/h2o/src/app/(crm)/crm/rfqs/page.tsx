@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { MOTION_LABEL, SOURCE_LABEL } from '../../../../crm/workspace/labels'
 import { COUNTRY_NAME, countryName } from '../../../../crm/countries'
 import { INQUIRY_TYPE_LABEL } from '../../../../crm/inquiry-type'
+import { OFFICE_LABEL } from '../../../../crm/offices'
 import { inboxHref, listSearchCookie, searchRequested, storedTerm } from '../../../../crm/workspace/prefs'
 import { INBOX_VIEWS, INBOX_VIEW_LABEL, loadInbox, loadRfq, parseInboxParams, searchAccounts, type InboxParams } from '../../../../crm/workspace/queries'
 import { isUuid } from '../../../../crm/workspace/validate'
@@ -104,6 +105,14 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
             </a>
           ))}
         </nav>
+        {/* Patch L1: the two office queues (US / Thailand). */}
+        <nav className="c-chips c-type-chips" aria-label="Office queue">
+          {([null, 'US', 'TH'] as const).map((o) => (
+            <a key={o ?? 'all'} className={`c-chip${p.office === o ? ' is-on' : ''}`} href={href({ office: o, page: null })} aria-current={p.office === o ? 'page' : undefined}>
+              {o ? `${OFFICE_LABEL[o]} queue` : 'All queues'}
+            </a>
+          ))}
+        </nav>
         <SavedViews s={s} list="inbox" query={back} currentHref={inboxHref(p, { page: null })} />
 
         <div className="c-toolbar">
@@ -164,6 +173,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
                 </select>
               </label>
               {p.type ? <input type="hidden" name="type" value={p.type} /> : null}
+              {p.office ? <input type="hidden" name="office" value={p.office} /> : null}
               <label className="c-field">
                 <span>Source</span>
                 <select className="c-select" name="source" defaultValue={p.source ?? ''}>
@@ -248,7 +258,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
             ) : (
               <RfqTable
                 rows={inbox.rows}
-                now={now}
+                now={now} zone={s.timeZone}
                 selectedId={selected}
                 compact={Boolean(detail)}
                 caption={`${INBOX_VIEW_LABEL[p.view]} inquiries`}

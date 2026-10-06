@@ -3,23 +3,30 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
 import { crmSessionFor, type CrmSession } from '../../../crm/workspace/session'
+import { pendingSession } from '../../../auth/mfa/guard'
 
 /**
  * Authentication for the Sales Workspace routes. The Payload session cookie is verified by Payload itself
  * (`payload.auth`); the workspace only decides whether that user holds a CRM role (UI-1: Admin + Sales).
  *
  *   - no session  → the Payload admin login, returning here afterwards;
+ *   - password-only session (two-factor not passed yet, Patch L2) → /crm/mfa/, returning here afterwards;
  *   - no CRM role → the access-denied page, which renders no CRM data.
  */
-export async function currentSession(): Promise<{ signedIn: boolean; session: CrmSession | null }> {
+export async function currentSession(): Promise<{ signedIn: boolean; mfaPending: boolean; session: CrmSession | null }> {
   const payload = await getPayload({ config })
-  const { user } = await payload.auth({ headers: await headers() })
-  return { signedIn: Boolean(user), session: user ? crmSessionFor(payload, user) : null }
+  const h = await headers()
+  const { user } = await payload.auth({ headers: h })
+  if (user) return { signedIn: true, mfaPending: false, session: crmSessionFor(payload, user) }
+  const pending = await pendingSession(payload, h)
+  return { signedIn: false, mfaPending: Boolean(pending && !pending.verified), session: null }
 }
 
+export const mfaPath = (returnTo: string) => `/crm/mfa/?next=${encodeURIComponent(returnTo)}`
+
 export async function requireCrmSession(returnTo: string): Promise<CrmSession> {
-  const { signedIn, session } = await currentSession()
-  if (!signedIn) redirect(`/admin/login/?redirect=${encodeURIComponent(returnTo)}`)
+  const { signedIn, mfaPending, session } = await currentSession()
+  if (!signedIn) redirect(mfaPending ? mfaPath(returnTo) : `/admin/login/?redirect=${encodeURIComponent(returnTo)}`)
   if (!session) redirect('/crm/denied/')
   return session
 }

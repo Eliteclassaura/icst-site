@@ -1,4 +1,4 @@
-import type { CollectionConfig, Endpoint } from 'payload'
+import type { CollectionConfig, Endpoint, GlobalConfig } from 'payload'
 import { CrmAccounts } from './collections/accounts'
 import { CrmActivities } from './collections/activities'
 import { CrmAssets } from './collections/assets'
@@ -18,6 +18,7 @@ import { CrmSavedViews } from './collections/saved-views'
 import { CrmSites } from './collections/sites'
 import { CrmSuppressions } from './collections/suppressions'
 import { CrmTasks } from './collections/tasks'
+import { CrmOfficeSettings } from './globals/office-settings'
 import { typeformIntakeEndpoint } from './intake/typeform/endpoint'
 
 /**
@@ -64,3 +65,6 @@ export const CRM_SLUGS = crmCollections.map((c) => c.slug)
  * It answers 404 unless `H2O_CRM_TYPEFORM_INGEST_ENABLED=1` and verifies every delivery's signature.
  */
 export const crmEndpoints: Endpoint[] = [typeformIntakeEndpoint]
+
+/** Patch L1: owner-edited office routing overrides and holidays. */
+export const crmGlobals: GlobalConfig[] = [CrmOfficeSettings]

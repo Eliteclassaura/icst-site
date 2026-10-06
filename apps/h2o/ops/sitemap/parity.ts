@@ -17,6 +17,7 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
+import { completeMfa } from '../mfa/sign-in.mjs'
 import { GONE_PATHS, NOINDEX_FOLLOW_PATHS, PUBLIC_ORIGIN } from '../../src/content/config'
 import { pathKey, sitemapEntries, type HreflangMember, type LocaleData, type SitemapEntry, type SitemapLedgerRow } from '../../src/content/sitemap'
 
@@ -98,6 +99,8 @@ async function previewEntries(origin: string): Promise<{ entries: SitemapEntry[]
   const login = await fetch(`${origin}/api/users/login/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: process.env.H2O_SEO_ADMIN_EMAIL, password: process.env.H2O_SEO_ADMIN_PASSWORD }) })
   const token = ((await login.json().catch(() => null)) as { token?: string } | null)?.token
   if (login.status !== 200 || !token) throw new Error(`admin login failed (${login.status})`)
+  // Patch L2: the admin session passes two-factor (H2O_SEO_ADMIN_TOTP_SECRET).
+  await completeMfa(origin, token, process.env.H2O_SEO_ADMIN_TOTP_SECRET, { envName: 'H2O_SEO_ADMIN_TOTP_SECRET' })
   const get = async (file?: string, auth = true) => fetch(`${origin}/api/sitemap-preview/${file ? `?file=${encodeURIComponent(file)}` : ''}`, { headers: auth ? { Authorization: `JWT ${token}` } : {} })
   const anonymous = await get(undefined, false)
   await anonymous.body?.cancel()

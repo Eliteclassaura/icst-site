@@ -71,20 +71,31 @@ export function renderSalesAlert(i: SalesAlertInput): Rendered {
   }
 }
 
-export type AckInput = { rfqNumber: string; senderName: string }
+/**
+ * `responsePromise`: the owner's first-response commitment (owner decision 2026-10-05: "within one business day";
+ * business days per office, Patch L1). Null or empty: the sentence promises no time.
+ */
+export type AckInput = { rfqNumber: string; firstName?: string | null; responsePromise?: string | null }
 
-/** Customer acknowledgement, sent once per web RFQ. DRAFT wording: needs owner approval before it is enabled. */
+/**
+ * Customer acknowledgement (T1), sent once per web RFQ. Wording: OGCS prelaunch copy R1 §7 T1 (CT-accepted), pending
+ * the owner's final approval. It quotes only the RFQ number and the customer's first name — never their message.
+ */
 export function renderCustomerAck(i: AckInput): Rendered {
   const ref = oneLine(i.rfqNumber, 40)
+  // Only a plausible name is echoed (letters, spaces, apostrophes, periods, hyphens); anything else greets neutrally.
+  const name = oneLine(i.firstName, 40)
+  const first = /^\p{L}[\p{L}\p{M} '’.-]{0,39}$/u.test(name) ? name : ''
+  const promise = oneLine(i.responsePromise, 60)
   const paragraphs = [
-    'Thank you for your request for quotation.',
-    `Your reference number is ${ref}. Please quote it if you contact us about this request.`,
-    'What happens next: a member of our team will review your request and reply to you by email. If we need more details to prepare a quotation, we will ask you.',
-    'If you did not submit this request, you can ignore this message.',
-    oneLine(i.senderName, 80) || 'H2O Cooling',
+    first ? `Hi ${first},` : 'Hello,',
+    `Thank you for contacting Industrial Cooling Solutions. We've received your request and logged it as RFQ ${ref}.`,
+    promise ? `A member of our team will review it and respond ${promise}.` : 'A member of our team will review it and contact you.',
+    'If you have drawings, nameplate photos or earlier inspection reports, reply to this email and attach them. They help us scope your request accurately.',
+    'The ICS team\nIndustrial Cooling Solutions (ICS)',
   ]
   return {
-    subject: `We received your request (${ref})`,
+    subject: `We received your request: RFQ ${ref}`,
     text: paragraphs.join('\n\n') + '\n',
     html: htmlFrom(paragraphs),
   }

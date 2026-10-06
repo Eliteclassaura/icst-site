@@ -6,6 +6,7 @@ import { humanSummary,
   MOTION_LABEL,
   QUALIFICATION_LABEL,
   RELATIONSHIP_LABEL,
+  OFFICE_SOURCE_LABEL,
   SOURCE_LABEL,
   SUBMITTED_FIELD_LABEL,
   TASK_KIND_LABEL,
@@ -16,6 +17,7 @@ import type { ReplyReadiness } from '../../../../crm/reply'
 import type { RfqDetail } from '../../../../crm/workspace/queries'
 import type { CrmSession } from '../../../../crm/workspace/session'
 import { absoluteTime, compactTime } from '../../../../crm/workspace/time'
+import { OFFICE_LABEL } from '../../../../crm/offices'
 import { IconDoNotContact, IconInfo, IconMore, IconReview, IconUrgent } from '../../../../crm/workspace/ui/Icons'
 import { Overflow } from '../../../../crm/workspace/ui/Overflow'
 import { RememberRecent } from './SearchPanel'
@@ -34,6 +36,7 @@ import {
   LogDialog,
   NoteDialog,
   QualifyDialog,
+  MoveOfficeButton,
   ReopenButton,
   RequestInfoDialog,
   ResolveReviewDialog,
@@ -99,7 +102,7 @@ export function RfqDetailView({
         <div className="c-detail-meta">
           <span className="c-mono">{String(rfq.rfq_number)}</span>
           <RfqStatus value={status} />
-          <span title={absoluteTime(received)}>Received {compactTime(received, now)}</span>
+          <span title={absoluteTime(received, s.timeZone)}>Received {compactTime(received, now, s.timeZone)}</span>
           <span>
             Source: {label(SOURCE_LABEL, rfq.source_system)}
             {isManual && creator ? ` · entered by ${creator}` : ''}
@@ -108,6 +111,7 @@ export function RfqDetailView({
         <h2 id="rfq-title">{d.row.company ?? (contactName || 'Inquiry')}</h2>
         <div className="c-detail-meta">
           <span>Owner: {d.row.ownerName ?? <span className="c-warn-text">Unassigned</span>}</span>
+          <span>Queue: {OFFICE_LABEL[d.row.office ?? 'US']}</span>
           <span>Interest: {d.row.interest}</span>
         </div>
         {/* W1-8 action hierarchy: one primary action for the next state, one secondary (ownership), the rest in More.
@@ -329,7 +333,7 @@ export function RfqDetailView({
                         {t.status === 'DONE' || t.status === 'CANCELLED' ? (
                           t.status === 'DONE' ? 'Done' : 'Cancelled'
                         ) : (
-                          <DueLabel dueAt={t.dueAt} overdue={t.overdue} now={now} />
+                          <DueLabel dueAt={t.dueAt} overdue={t.overdue} now={now} zone={s.timeZone} />
                         )}{' '}
                         · {t.assigneeName ?? 'Unassigned'}
                       </span>
@@ -421,8 +425,8 @@ export function RfqDetailView({
             <ul className="c-timeline" role="list">
               {d.messages.map((m) => (
                 <li key={m.id}>
-                  <time dateTime={m.occurredAt} title={absoluteTime(new Date(m.occurredAt))}>
-                    {compactTime(new Date(m.occurredAt), now)}
+                  <time dateTime={m.occurredAt} title={absoluteTime(new Date(m.occurredAt), s.timeZone)}>
+                    {compactTime(new Date(m.occurredAt), now, s.timeZone)}
                   </time>
                   <span>
                     <strong>{m.direction === 'OUTBOUND' ? `To customer · ${m.authorName ?? 'CRM user'}` : 'From customer'}</strong> ·{' '}
@@ -491,7 +495,7 @@ export function RfqDetailView({
               <ul className="c-timeline" role="list">
                 {d.notes.map((n) => (
                   <li key={n.id}>
-                    <time dateTime={n.createdAt}>{compactTime(new Date(n.createdAt), now)}</time>
+                    <time dateTime={n.createdAt}>{compactTime(new Date(n.createdAt), now, s.timeZone)}</time>
                     <span>{n.authorName ?? 'Unknown author'}</span>
                     <p className="c-note-body">{n.body}</p>
                   </li>
@@ -506,8 +510,8 @@ export function RfqDetailView({
             <ul className="c-timeline" role="list">
               {d.activity.map((a) => (
                 <li key={a.id}>
-                  <time dateTime={a.occurredAt} title={absoluteTime(new Date(a.occurredAt))}>
-                    {compactTime(new Date(a.occurredAt), now)}
+                  <time dateTime={a.occurredAt} title={absoluteTime(new Date(a.occurredAt), s.timeZone)}>
+                    {compactTime(new Date(a.occurredAt), now, s.timeZone)}
                   </time>
                   <span>
                     <strong>{label(ACTIVITY_LABEL, a.type)}</strong> · {a.actorKind === 'USER' ? (a.actorName ?? 'CRM user') : 'System'}
@@ -533,7 +537,12 @@ export function RfqDetailView({
               <dt>Source</dt>
               <dd>{label(SOURCE_LABEL, rfq.source_system)}</dd>
               <dt>Received</dt>
-              <dd>{absoluteTime(received)}</dd>
+              <dd>{absoluteTime(received, s.timeZone)}</dd>
+              <dt>Office queue</dt>
+              <dd>
+                {OFFICE_LABEL[d.row.office ?? 'US']} <span className="c-muted">({label(OFFICE_SOURCE_LABEL, rfq.office_source)})</span>{' '}
+                <MoveOfficeButton rfqId={d.row.id} updatedAt={d.row.updatedAt} office={d.row.office} />
+              </dd>
               <dt>Intake processing</dt>
               <dd>{d.intakeState ?? <span className="c-muted">No intake event (manual or pre-intake)</span>}</dd>
               <dt>Page path</dt>
@@ -544,7 +553,7 @@ export function RfqDetailView({
               <dd>
                 <Value v={(rfq.attribution as Doc | undefined)?.cta_placement} />
               </dd>
-              {(['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const).map((k) => (
+              {(['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid', 'ga_client_id', 'landing_page', 'referrer'] as const).map((k) => (
                 <div key={k} className="c-contents">
                   <dt>{k}</dt>
                   <dd>

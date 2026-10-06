@@ -105,7 +105,7 @@ export default async function PipelinePage({ searchParams }: { searchParams: Pro
                           <span className={o.nextStepOverdue ? 'c-overdue' : undefined}>
                             {o.nextStepOverdue ? 'Overdue · ' : ''}
                             {o.nextStep}
-                            {o.nextStepDue ? <span className="c-muted"> · {compactTime(new Date(o.nextStepDue), now)}</span> : null}
+                            {o.nextStepDue ? <span className="c-muted"> · {compactTime(new Date(o.nextStepDue), now, s.timeZone)}</span> : null}
                           </span>
                         ) : (
                           <span className="c-muted">No next step</span>

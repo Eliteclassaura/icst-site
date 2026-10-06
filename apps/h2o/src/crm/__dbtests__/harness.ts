@@ -1,3 +1,4 @@
+import { encryptSecret } from '../../auth/mfa/keys'
 import { getPayload, type Payload } from 'payload'
 import config from '@payload-config'
 import { sql } from '@payloadcms/db-postgres'
@@ -40,6 +41,29 @@ export async function resetCrm(): Promise<void> {
   await drizzle.execute(sql.raw(`DELETE FROM "products" WHERE "slug" LIKE 'synthetic-%'`))
 }
 
+/** A known synthetic TOTP secret for harness users (test-only; the real flow is exercised in mfa.dbtest.ts). */
+export const HARNESS_TOTP_SECRET = 'JBSWY3DPEHPK3PXPJBSWY3DPEHPK3PXP'
+const sidOf = (token: string): string => String((JSON.parse(Buffer.from(token.split('.')[1] ?? '', 'base64url').toString('utf8')) as { sid?: unknown }).sid ?? '')
+
+/**
+ * Patch L2: every login is a password-only session until it passes two-factor, and the guard lets such a session do
+ * nothing. Harness users are enrolled with a known secret and each harness login is marked verified here — test
+ * scaffolding only, never shipped (the app's only path is `verifySecondFactor`).
+ */
+export async function trustSession(id: string, token: string): Promise<void> {
+  const p = await payload()
+  const u = (await p.findByID({ collection: 'users', id, overrideAccess: true, showHiddenFields: true, depth: 0 })) as unknown as Record<string, unknown>
+  const sessions = Array.isArray(u.mfa_sessions) ? (u.mfa_sessions as unknown[]) : []
+  await p.update({
+    collection: 'users',
+    id,
+    data: { mfa_enabled: true, mfa_secret: u.mfa_secret ?? encryptSecret(HARNESS_TOTP_SECRET), mfa_sessions: [...sessions, { sid: sidOf(token), at: new Date().toISOString() }] } as never,
+    overrideAccess: true,
+    showHiddenFields: true,
+    depth: 0,
+  })
+}
+
 export type TestUser = { id: string; role: RoleUnderTest; token: string; user: Record<string, unknown> }
 const users = new Map<RoleUnderTest, TestUser>()
 
@@ -61,6 +85,7 @@ export async function user(role: RoleUnderTest): Promise<TestUser> {
       overrideAccess: true,
     })
   const login = await p.login({ collection: 'users', data: { email, password: PASSWORD } })
+  await trustSession(String(login.user!.id), String(login.token))
   const u: TestUser = {
     id: String(login.user!.id),
     role,
@@ -87,6 +112,7 @@ export async function userWith(email: string, role: RoleUnderTest): Promise<Test
       overrideAccess: true,
     })
   const login = await p.login({ collection: 'users', data: { email, password: PASSWORD } })
+  await trustSession(String(login.user!.id), String(login.token))
   return {
     id: String(login.user!.id),
     role,

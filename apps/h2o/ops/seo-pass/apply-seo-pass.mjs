@@ -34,6 +34,7 @@
  */
 import {existsSync,readFileSync} from 'node:fs'
 import path from 'node:path'
+import {completeMfa} from '../mfa/sign-in.mjs'
 import {slotFieldCanon} from './lexical-canon.mjs'
 import {publishedAsDecided,withdrawnAsDecided} from './lifecycle.mjs'
 
@@ -69,6 +70,8 @@ async function api(p,init={}){
 const login=await api('users/login/',{method:'POST',body:JSON.stringify({email:env.H2O_SEO_ADMIN_EMAIL,password:env.H2O_SEO_ADMIN_PASSWORD})})
 if(login.status!==200||!login.body?.token)fail(`admin login failed (${login.status})`)
 token=String(login.body.token)
+// Patch L2: the admin session passes two-factor (H2O_SEO_ADMIN_TOTP_SECRET).
+try{await completeMfa(BASE,token,env.H2O_SEO_ADMIN_TOTP_SECRET,{envName:'H2O_SEO_ADMIN_TOTP_SECRET'})}catch(e){fail(String(e.message))}
 
 // Current state, read through the same API.
 async function all(collection){const out=[];for(let page=1;;page++){const r=await api(`${collection}?limit=500&page=${page}&depth=0`);if(r.status!==200)fail(`read ${collection} failed (${r.status})`);out.push(...r.body.docs);if(!r.body.hasNextPage)return out}}

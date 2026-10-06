@@ -291,11 +291,22 @@ describe('transactional suppression (customer acknowledgement)', () => {
 })
 
 describe('E1 messages', () => {
-  const ack = renderCustomerAck({ rfqNumber: 'RFQ-20261005-ABC123', senderName: 'H2O RFQ Desk' })
-  it('the acknowledgement states the reference and the next step, and promises no time, price or outcome', () => {
-    expect(ack.subject).toBe('We received your request (RFQ-20261005-ABC123)')
-    expect(ack.text).toContain('RFQ-20261005-ABC123')
-    expect(ack.text).not.toMatch(/\$|€|£|price|within|hours?\b|days?\b|guarantee|business day|24|48/i)
+  const ack = renderCustomerAck({ rfqNumber: 'RFQ-20261005-ABC123', firstName: 'Pat', responsePromise: 'within one business day' })
+  const noPromise = renderCustomerAck({ rfqNumber: 'RFQ-20261005-ABC123', firstName: null, responsePromise: null })
+  it('T1 (OGCS copy): the reference, the owner\'s one-business-day promise, and never a price or outcome', () => {
+    expect(ack.subject).toBe('We received your request: RFQ RFQ-20261005-ABC123')
+    expect(ack.text).toContain('Hi Pat,')
+    expect(ack.text).toContain('respond within one business day.')
+    expect(ack.text).not.toMatch(/\$|€|£|price|guarantee|24 ?h|48 ?h/i)
+    // Promise switched off: no time is promised at all.
+    expect(noPromise.text).toMatch(/^Hello,/)
+    expect(noPromise.text).not.toMatch(/within|hours?\b|days?\b|business day/i)
+  })
+  it('T1 echoes only the RFQ number and a one-line first name, never markup or a second line', () => {
+    const hostile = renderCustomerAck({ rfqNumber: 'RFQ-20261005-ABC123', firstName: '<b>Pat</b>\nBcc: x@example.test', responsePromise: null })
+    expect(hostile.text.split('\n')[0]).toBe('Hello,')
+    expect(hostile.html).not.toContain('Pat')
+    expect(renderCustomerAck({ rfqNumber: 'RFQ-20261005-ABC123', firstName: "Ngozi O'Neil-Phạm" }).text).toMatch(/^Hi Ngozi O'Neil-Phạm,/)
   })
   it('the sales alert carries the RFQ, company, product, page and CRM link, and no customer message body', () => {
     const a = renderSalesAlert({

@@ -107,7 +107,7 @@ export default async function AccountPage({ params, searchParams }: { params: Pr
           {a.tasks.length === 0 ? (
             <p className="c-empty">No open follow-ups.</p>
           ) : (
-            <TaskTable rows={a.tasks} now={now} isAdmin={s.isAdmin} people={people} caption={`Follow-ups for ${String(acc.canonical_name)}`} showRelated={false} />
+            <TaskTable rows={a.tasks} now={now} zone={s.timeZone} isAdmin={s.isAdmin} people={people} caption={`Follow-ups for ${String(acc.canonical_name)}`} showRelated={false} />
           )}
         </section>
 
@@ -179,7 +179,7 @@ export default async function AccountPage({ params, searchParams }: { params: Pr
               <p className="c-empty">No inquiries for this account.</p>
             </div>
           ) : (
-            <RfqTable rows={a.rfqs} now={now} caption="Inquiries for this account" hrefFor={(r) => `/crm/rfqs/?rfq=${r.id}&account=${accId}`} />
+            <RfqTable rows={a.rfqs} now={now} zone={s.timeZone} caption="Inquiries for this account" hrefFor={(r) => `/crm/rfqs/?rfq=${r.id}&account=${accId}`} />
           )}
         </section>
 
@@ -213,7 +213,7 @@ export default async function AccountPage({ params, searchParams }: { params: Pr
             <ul className="c-list" role="list">
               {a.activity.map((x) => (
                 <li key={x.id}>
-                  <span className="c-muted">{compactTime(new Date(x.occurredAt), now)}</span>
+                  <span className="c-muted">{compactTime(new Date(x.occurredAt), now, s.timeZone)}</span>
                   <span className="grow c-trunc">
                     <strong>{label(ACTIVITY_LABEL, x.type)}</strong> · {x.actorKind === 'USER' ? (x.actorName ?? 'CRM user') : 'System'}
                   </span>

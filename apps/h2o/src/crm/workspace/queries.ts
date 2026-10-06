@@ -6,6 +6,8 @@ import { OPPORTUNITY_STAGE, TERMINAL_STAGES } from '../vocabulary'
 import { interestOf, taskTitle, isCustomerUrgent, OPEN_RFQ_STATUSES, ACTIVE_RFQ_STATUSES } from './labels'
 import { asUser, displayNameOf, type CrmSession } from './session'
 import { endOfBusinessDay, isAgedUnassigned, parseDate, startOfBusinessDay } from './time'
+import { isOffice, officeCalendar, type Office } from '../offices'
+import { officeSettings } from '../officeSettings'
 import { isUuid } from './validate'
 import { isCountryCode } from '../countries'
 import type { InquiryType } from '../inquiry-type'
@@ -81,6 +83,8 @@ export type RfqRow = {
   updatedAt: string
   /** Derived facets (owner request 2026-10-05). */
   countryCode: string | null
+  /** Patch L1 queue. */
+  office: Office | null
   countrySource: string
   type: string
   typeSource: string
@@ -108,7 +112,7 @@ export async function suppressionsByKey(s: CrmSession, keys: string[]): Promise<
 }
 
 /**
- * "Due today" = due by the end of today's Denver business day, plus every open HIGH-priority task that has no
+ * "Due today" = due by the end of today in the viewer's zone (Patch L1), plus every open HIGH-priority task that has no
  * due date. CRM-1 never invents a due date for a system task (the first-response SLA is an owner input,
  * E1.1), so without this an undated first-response task would never appear in Due today or on My Work and
  * could only be found under All open. It is shown with the words "No due date", never as overdue.
@@ -127,6 +131,8 @@ export async function activeSuppressionsForContact(s: CrmSession, emailMatchKey:
 }
 
 export async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now: Date): Promise<RfqRow[]> {
+  // Aging counts business days of the office handling each inquiry (Patch L1).
+  const offices = await officeSettings(s.payload)
   if (docs.length === 0) return []
   const rfqIds = docs.map((d) => String(d.id))
   const accountIds = [...new Set(docs.map((d) => id(d.account)).filter(Boolean))] as string[]
@@ -213,10 +219,11 @@ export async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now:
         review: reviewed.has(String(d.id)),
         doNotContact: Boolean(key && (dnc.get(key)?.length ?? 0) > 0),
       },
-      aged: !ownerId && (OPEN_RFQ_STATUSES as readonly string[]).includes(String(d.status)) && isAgedUnassigned(received, now),
+      aged: !ownerId && (OPEN_RFQ_STATUSES as readonly string[]).includes(String(d.status)) && isAgedUnassigned(received, now, officeCalendar(d.office, offices)),
       sourceSystem: String(d.source_system ?? 'UNKNOWN'),
       updatedAt: String(d.updatedAt ?? ''),
       countryCode: (d.country_code as string) || null,
+      office: isOffice(d.office) ? d.office : null,
       countrySource: String(d.country_source ?? 'UNKNOWN'),
       type: String(d.inquiry_type ?? 'UNKNOWN'),
       typeSource: String(d.inquiry_type_source ?? 'NONE'),
@@ -254,6 +261,8 @@ export type InboxParams = {
   countries: string[]
   /** Quick type chip: Parts · New tower · Repair/Service (derived `inquiry_type`). */
   type: Exclude<InquiryType, 'UNKNOWN' | 'OTHER'> | null
+  /** Patch L1: the office queue (US / TH). */
+  office: Office | null
   source: string | null
   cta: string | null
   accountLinked: 'yes' | 'no' | null
@@ -289,6 +298,7 @@ export function parseInboxParams(sp: Record<string, string | string[] | undefine
     motions: [...new Set(many(sp.motion).filter((x) => ['NEW_TOWER', 'REBUILD_REPLACEMENT', 'REPAIR', 'UPGRADE_RETROFIT', 'MAINTENANCE_INSPECTION', 'PARTS', 'OTHER_APPROVED'].includes(x)))],
     countries: [...new Set(many(sp.country).map((x) => x.toUpperCase()).filter((x) => x === 'UNKNOWN' || isCountryCode(x)))].slice(0, 30),
     type: one(sp.type) === 'PARTS' || one(sp.type) === 'NEW_TOWER' || one(sp.type) === 'REPAIR_SERVICE' ? (one(sp.type) as 'PARTS') : null,
+    office: isOffice(one(sp.office)) ? (one(sp.office) as Office) : null,
     source: ['TYPEFORM', 'MANUAL_ENTRY', 'LEGACY_IMPORT'].includes(one(sp.source) ?? '') ? one(sp.source) : null,
     cta: /^[a-z_]{1,64}$/.test(one(sp.cta) ?? '') ? one(sp.cta) : null,
     accountLinked: linked === 'yes' || linked === 'no' ? linked : null,
@@ -384,12 +394,13 @@ export async function inboxWhere(s: CrmSession, p: InboxParams, now: Date): Prom
   if (p.received) {
     const from =
       p.received === 'today'
-        ? startOfBusinessDay(now)
+        ? startOfBusinessDay(now, s.timeZone)
         : new Date(now.getTime() - (p.received === '7d' ? 7 : 30) * 24 * 3600 * 1000)
     and.push({ received_at: { greater_than_equal: from.toISOString() } })
   }
   if (p.motions.length) and.push({ motion: { in: p.motions } })
   if (p.type) and.push({ inquiry_type: { equals: p.type } })
+  if (p.office) and.push({ office: { equals: p.office } })
   if (p.countries.length) {
     const codes = p.countries.filter((c) => c !== 'UNKNOWN')
     const unknown = p.countries.includes('UNKNOWN')
@@ -588,7 +599,7 @@ export async function rfqLabels(s: CrmSession, rfqIds: Array<string | null>): Pr
 export async function loadMyWork(s: CrmSession, scope: Scope, now: Date = new Date()): Promise<MyWork> {
   const people = await crmUsers(s).catch(() => [] as Person[])
   const mine = scope === 'mine'
-  const eod = endOfBusinessDay(now).toISOString()
+  const eod = endOfBusinessDay(now, s.timeZone).toISOString()
   const openTask = { status: { in: ['OPEN', 'IN_PROGRESS'] } }
 
   const unassigned = safe(async () => {
@@ -926,7 +937,7 @@ export async function loadFollowUps(s: CrmSession, f: FollowUpFilter, now: Date 
   if (f.who === 'unassigned') and.push({ assignee: { exists: false } })
   if (f.when === 'done') and.push({ status: { in: ['DONE', 'CANCELLED'] } })
   else and.push({ status: { in: ['OPEN', 'IN_PROGRESS'] } })
-  if (f.when === 'due') and.push(dueTodayOrUndatedHigh(endOfBusinessDay(now).toISOString()))
+  if (f.when === 'due') and.push(dueTodayOrUndatedHigh(endOfBusinessDay(now, s.timeZone).toISOString()))
   if (f.when === 'overdue') and.push({ due_at: { less_than: now.toISOString() } })
   const res = await s.payload.find({
     collection: 'crm-tasks',

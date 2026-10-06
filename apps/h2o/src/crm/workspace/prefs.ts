@@ -56,7 +56,7 @@ const build = (path: string, entries: Array<[string, string | null | undefined]>
 /** Inbox URL from validated params. `search` adds the `s=1` flag; `extra` is for the pane (`rfq`, `tab`). */
 export function inboxHref(
   p: InboxParams,
-  over: Partial<Record<'view' | 'owner' | 'received' | 'type' | 'source' | 'cta' | 'linked' | 'account' | 'contact' | 'sort' | 'page', string | null>> = {},
+  over: Partial<Record<'view' | 'owner' | 'received' | 'type' | 'office' | 'source' | 'cta' | 'linked' | 'account' | 'contact' | 'sort' | 'page', string | null>> = {},
   opts: { search?: boolean; status?: string[] | null; motions?: string[] | null; countries?: string[] | null; rfq?: string | null; tab?: string | null } = {},
 ) {
   const base: Record<string, string | null> = {
@@ -64,6 +64,7 @@ export function inboxHref(
     owner: p.owner,
     received: p.received,
     type: p.type,
+    office: p.office,
     source: p.source,
     cta: p.cta,
     linked: p.accountLinked,

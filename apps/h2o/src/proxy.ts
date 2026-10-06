@@ -44,6 +44,7 @@ import { GONE_PATHS, NOINDEX_FOLLOW_PATHS } from './content/config'
 import { isPayloadContent, snapshotJson } from './content/runtime-read'
 import { SITEMAP_FILE } from './content/sitemap'
 import { LANGUAGE_HEADER, languageFor } from './content/locale-language'
+import { MFA_COOKIE, mfaCookieValid } from './auth/mfa/keys'
 
 const EXCLUDED = /^\/(api|admin|_next|favicon\.ico|robots\.txt|sitemap[^/]*\.xml|brand)(\/|$)/
 
@@ -276,7 +277,38 @@ function payloadPublic(req: NextRequest): NextResponse {
   return res
 }
 
+/**
+ * Patch L2 routing: a signed-in session that has not passed two-factor is sent to /crm/mfa/ from the admin and the CRM.
+ * UX only — the server-side guard (src/auth/mfa/guard.ts) is the enforcement: without it this cookie would mean
+ * nothing, and with it a forged cookie gains nothing. The login, logout and password pages stay reachable.
+ */
+const MFA_GUARDED = /^\/(admin|crm)(\/|$)/
+const MFA_OPEN = /^\/(admin\/(login|logout|forgot|reset|create-first-user|unauthorized)|crm\/mfa)(\/|$)/
+const SAFE_NEXT = /^\/(admin|crm)(\/[A-Za-z0-9_\-./]*)?$/
+function sidOf(token: string): string | null {
+  try {
+    const sid = (JSON.parse(Buffer.from(token.split('.')[1] ?? '', 'base64url').toString('utf8')) as { sid?: unknown }).sid
+    return typeof sid === 'string' && /^[A-Za-z0-9-]{8,64}$/.test(sid) ? sid : null
+  } catch {
+    return null
+  }
+}
+export function mfaRoute(req: NextRequest): NextResponse | null {
+  const path = req.nextUrl.pathname
+  if (!MFA_GUARDED.test(path) || MFA_OPEN.test(path)) return null
+  const token = req.cookies.get('payload-token')?.value
+  const sid = token ? sidOf(token) : null
+  if (!sid || mfaCookieValid(req.cookies.get(MFA_COOKIE)?.value, sid)) return null
+  const target = new URL('/crm/mfa/', req.nextUrl.origin)
+  if (SAFE_NEXT.test(path) && !path.includes('//') && !path.includes('..')) target.searchParams.set('next', path)
+  const res = NextResponse.redirect(target, 303)
+  res.headers.set('Cache-Control', 'no-store')
+  return res
+}
+
 export function proxy(req: NextRequest): NextResponse {
+  const mfa = mfaRoute(req)
+  if (mfa) return mfa
   if (isPayloadContent()) return payloadPublic(req)
   if (EXCLUDED.test(req.nextUrl.pathname)) return NextResponse.next()
   if (CRM_PATH.test(req.nextUrl.pathname)) return crmResponse(req)

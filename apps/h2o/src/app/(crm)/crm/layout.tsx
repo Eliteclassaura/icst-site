@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { CrmCalendarProvider } from './_components/CalendarContext'
 import { CommandPalette } from './_components/CommandPalette'
-import { currentSession } from './session'
+import { officeSettings } from '../../../crm/officeSettings'
+import { currentSession, mfaPath } from './session'
 
 /**
  * Workspace gate, above the streaming boundary (`loading.tsx`).
@@ -18,17 +20,21 @@ const SAFE_PATH = /^\/crm\/(?:[A-Za-z0-9_-]+\/)*$/
 export default async function CrmGate({ children }: { children: ReactNode }) {
   const raw = (await headers()).get('x-crm-path') ?? ''
   const path = SAFE_PATH.test(raw) ? raw : '/crm/'
-  const { signedIn, session } = await currentSession()
-  if (!signedIn) redirect(`/admin/login/?redirect=${encodeURIComponent(path)}`)
+  // Patch L2: the two-factor page serves a password-only session; it authenticates that session itself.
+  if (path === '/crm/mfa/') return children
+  const { signedIn, mfaPending, session } = await currentSession()
+  if (!signedIn) redirect(mfaPending ? mfaPath(path) : `/admin/login/?redirect=${encodeURIComponent(path)}`)
   if (!session && path !== '/crm/denied/') redirect('/crm/denied/')
   if (!session) return children
   // W1-2: one ⌘K palette for every workspace page. `display: contents` host keeps the design tokens in scope.
+  // Patch L1: client quick dates use the viewer's zone and their office's holidays.
+  const holidays = [...(await officeSettings(session.payload)).holidays[session.office]]
   return (
-    <>
+    <CrmCalendarProvider zone={session.timeZone} holidays={holidays}>
       {children}
       <div className="crm-app crm-portal-host">
         <CommandPalette />
       </div>
-    </>
+    </CrmCalendarProvider>
   )
 }

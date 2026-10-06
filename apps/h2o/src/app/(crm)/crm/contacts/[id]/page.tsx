@@ -148,7 +148,7 @@ export default async function ContactPage({ params, searchParams }: { params: Pr
           {c.tasks.length === 0 ? (
             <p className="c-empty">No open follow-ups.</p>
           ) : (
-            <TaskTable rows={c.tasks} now={now} isAdmin={s.isAdmin} people={c.people} caption={`Follow-ups for ${c.name}`} />
+            <TaskTable rows={c.tasks} now={now} zone={s.timeZone} isAdmin={s.isAdmin} people={c.people} caption={`Follow-ups for ${c.name}`} />
           )}
         </section>
 
@@ -161,7 +161,7 @@ export default async function ContactPage({ params, searchParams }: { params: Pr
               <p className="c-empty">No inquiries from this contact.</p>
             </div>
           ) : (
-            <RfqTable rows={c.rfqs} now={now} caption={`Inquiries from ${c.name}`} hrefFor={(r) => `/crm/rfqs/?rfq=${r.id}&contact=${cid}`} />
+            <RfqTable rows={c.rfqs} now={now} zone={s.timeZone} caption={`Inquiries from ${c.name}`} hrefFor={(r) => `/crm/rfqs/?rfq=${r.id}&contact=${cid}`} />
           )}
         </section>
 
@@ -176,7 +176,7 @@ export default async function ContactPage({ params, searchParams }: { params: Pr
                 <ul className="c-timeline" role="list">
                   {c.notes.map((n) => (
                     <li key={n.id}>
-                      <time dateTime={n.createdAt}>{compactTime(new Date(n.createdAt), now)}</time>
+                      <time dateTime={n.createdAt}>{compactTime(new Date(n.createdAt), now, s.timeZone)}</time>
                       <span>{n.authorName ?? 'Unknown author'}</span>
                       <p className="c-note-body">{n.body}</p>
                     </li>
@@ -191,8 +191,8 @@ export default async function ContactPage({ params, searchParams }: { params: Pr
               <ul className="c-timeline" role="list">
                 {c.activity.map((a) => (
                   <li key={a.id}>
-                    <time dateTime={a.occurredAt} title={absoluteTime(new Date(a.occurredAt))}>
-                      {compactTime(new Date(a.occurredAt), now)}
+                    <time dateTime={a.occurredAt} title={absoluteTime(new Date(a.occurredAt), s.timeZone)}>
+                      {compactTime(new Date(a.occurredAt), now, s.timeZone)}
                     </time>
                     <span>
                       <strong>{label(ACTIVITY_LABEL, a.type)}</strong> · {a.actorKind === 'USER' ? (a.actorName ?? 'CRM user') : 'System'}

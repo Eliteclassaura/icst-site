@@ -5,7 +5,8 @@ import { ActionDialog } from '../../../../crm/workspace/ui/ActionDialog'
 import { ActionForm, Field } from '../../../../crm/workspace/ui/ActionForm'
 import { IconCheck } from '../../../../crm/workspace/ui/Icons'
 import { Overflow } from '../../../../crm/workspace/ui/Overflow'
-import { quickDueDates, type QuickDue } from '../../../../crm/workspace/time'
+import { businessDate, quickDueDates, type QuickDue } from '../../../../crm/workspace/time'
+import { useCrmCalendar } from './CalendarContext'
 import * as A from '../actions'
 
 /**
@@ -24,8 +25,6 @@ const MOTIONS: Array<[string, string]> = [
   ['MAINTENANCE_INSPECTION', 'Maintenance / inspection'],
   ['OTHER_APPROVED', 'Other (approved motion)'],
 ]
-/** Today in the business zone (America/Denver), not the browser's zone or UTC. */
-const today = () => quickDueDates(new Date()).today
 const MENU = 'c-menu-item'
 
 const QUICK: Array<[QuickDue, string]> = [
@@ -36,6 +35,8 @@ const QUICK: Array<[QuickDue, string]> = [
 
 /** W1-9 quick due dates: fill the form's date field with a business-zone day (computed when clicked). */
 function QuickDates({ field = 'due' }: { field?: string }) {
+  // The viewer's business calendar (Patch L1), not the browser's zone or UTC.
+  const cal = useCrmCalendar()
   return (
     <span className="c-chips" role="group" aria-label="Quick dates">
       {QUICK.map(([k, l]) => (
@@ -46,7 +47,7 @@ function QuickDates({ field = 'due' }: { field?: string }) {
           onClick={(e) => {
             const input = e.currentTarget.form?.elements.namedItem(field)
             if (input instanceof HTMLInputElement) {
-              input.value = quickDueDates(new Date())[k]
+              input.value = quickDueDates(new Date(), cal)[k]
               input.focus()
             }
           }}
@@ -265,6 +266,7 @@ export function FollowUpDialog({
   label?: string
   buttonClassName?: string
 }) {
+  const cal = useCrmCalendar()
   return (
     <ActionDialog
       buttonClassName={buttonClassName}
@@ -280,7 +282,7 @@ export function FollowUpDialog({
       </Field>
       <div className="c-form-grid">
         <Field name="due" label="Due date">
-          {(a) => <input className="c-input" type="date" {...a} defaultValue={today()} />}
+          {(a) => <input className="c-input" type="date" {...a} defaultValue={quickDueDates(new Date(), cal).today} />}
         </Field>
         <QuickDates />
         <Field name="priority" label="Priority">
@@ -309,6 +311,7 @@ export function FollowUpDialog({
 }
 
 export function RequestInfoDialog({ rfqId, updatedAt, buttonClassName }: { rfqId: string; updatedAt: string; buttonClassName?: string }) {
+  const cal = useCrmCalendar()
   return (
     <ActionDialog
       buttonClassName={buttonClassName}
@@ -323,7 +326,7 @@ export function RequestInfoDialog({ rfqId, updatedAt, buttonClassName }: { rfqId
         {(a) => <input className="c-input" {...a} maxLength={160} />}
       </Field>
       <Field name="due" label="Follow up by">
-        {(a) => <input className="c-input" type="date" {...a} defaultValue={today()} />}
+        {(a) => <input className="c-input" type="date" {...a} defaultValue={quickDueDates(new Date(), cal).today} />}
       </Field>
       <QuickDates />
     </ActionDialog>
@@ -502,7 +505,22 @@ type TaskLike = {
  * change due date with quick dates, reassign. A rule-set due date (D-1 first response) asks for a reason, so it
  * offers no one-click snooze.
  */
+/** Patch L1: move an inquiry to the other office queue (it then stays there; audited). */
+export function MoveOfficeButton({ rfqId, updatedAt, office }: { rfqId: string; updatedAt: string; office: 'US' | 'TH' | null }) {
+  const to = office === 'TH' ? 'US' : 'TH'
+  return (
+    <ActionForm
+      inline
+      action={A.moveOfficeAction}
+      hidden={{ rfqId, office: to, expectedUpdatedAt: updatedAt }}
+      submitLabel={to === 'TH' ? 'Move to the Thailand queue' : 'Move to the US queue'}
+      submitClassName="c-btn is-small"
+    />
+  )
+}
+
 export function TaskActions({ task, isAdmin, people }: { task: TaskLike; isAdmin: boolean; people: Person[] }) {
+  const cal = useCrmCalendar()
   const finished = task.status === 'DONE' || task.status === 'CANCELLED'
   if (finished)
     return isAdmin ? (
@@ -541,7 +559,7 @@ export function TaskActions({ task, isAdmin, people }: { task: TaskLike; isAdmin
           description={system ? 'This due date was set by a rule (first response by the end of the next business day). Say why it is changing; the reason is kept on the record.' : undefined}
         >
           <Field name="due" label="Due date">
-            {(a) => <input className="c-input" type="date" {...a} defaultValue={(task.dueAt ? quickDueDates(new Date(task.dueAt)).today : '')} />}
+            {(a) => <input className="c-input" type="date" {...a} defaultValue={task.dueAt ? businessDate(new Date(task.dueAt), cal.zone) : ''} />}
           </Field>
           <QuickDates />
           {system ? (

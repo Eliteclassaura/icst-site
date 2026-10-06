@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { ActionDialog } from '../../../../crm/workspace/ui/ActionDialog'
 import { Field } from '../../../../crm/workspace/ui/ActionForm'
 import { quickDueDates } from '../../../../crm/workspace/time'
+import { useCrmCalendar } from './CalendarContext'
 import * as A from '../actions'
 
 /**
@@ -68,12 +69,13 @@ function OwnerSelect({ people, name = 'assigneeId', allowNone = false }: { peopl
 
 export function BulkBar({ scopeId, kind, people }: { scopeId: string; kind: 'rfqs' | 'tasks' | 'contacts'; people: Person[] }) {
   const values = useSelection(scopeId)
+  const cal = useCrmCalendar()
   const n = values.length
   if (n === 0) return null
   const ids = values.slice(0, MAX).join(',')
   const count = `${Math.min(n, MAX)} selected`
   const noun = kind === 'rfqs' ? 'inquiries' : kind === 'tasks' ? 'follow-ups' : 'contacts'
-  const q = quickDueDates(new Date())
+  const q = quickDueDates(new Date(), cal)
   return (
     <div className="c-bulk-bar" role="region" aria-label="Bulk actions">
       <strong role="status" aria-live="polite">

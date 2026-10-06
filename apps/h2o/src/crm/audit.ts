@@ -48,7 +48,7 @@ export const AUDITED_TRANSITIONS: Record<string, readonly string[]> = {
     'role_class',
     'role_verification',
   ],
-  'crm-rfqs': ['status', 'assignee', 'contact', 'account', 'site', 'opportunity', 'follow_up_state'],
+  'crm-rfqs': ['status', 'assignee', 'contact', 'account', 'site', 'opportunity', 'follow_up_state', 'office'],
   'crm-rfq-items': ['product_resolution_state'],
   // `due_at` is a date, not personal data: Wave 1 W1-9 requires due-date changes to be audited.
   'crm-tasks': ['status', 'assignee', 'kind', 'priority', 'due_at'],
@@ -64,6 +64,7 @@ export const AUDITED_TRANSITIONS: Record<string, readonly string[]> = {
   'crm-email-messages': ['direction', 'status', 'status_code'],
   'crm-reply-tokens': ['expires_at', 'revoked_at'],
   'crm-email-review': ['reason', 'state', 'rfq', 'resolved_by'],
+  'crm-office-settings': [],
 }
 
 const SKIP_KEYS = new Set(['updatedAt', 'createdAt', 'id'])

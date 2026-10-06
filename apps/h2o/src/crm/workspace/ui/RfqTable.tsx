@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { RfqRow } from '../queries'
-import { absoluteTime, compactTime, relativeAge } from '../time'
+import { absoluteTime, BUSINESS_TIME_ZONE, compactTime, relativeAge } from '../time'
 import { RfqStatus, RowFlags } from './Status'
 import { countryName } from '../../countries'
 import { INQUIRY_TYPE_LABEL, typeFromInterest, type InquiryType } from '../../inquiry-type'
@@ -12,6 +12,7 @@ import { INQUIRY_TYPE_LABEL, typeFromInterest, type InquiryType } from '../../in
 export function RfqTable({
   rows,
   now,
+  zone = BUSINESS_TIME_ZONE,
   hrefFor,
   selectedId,
   compact = false,
@@ -20,6 +21,8 @@ export function RfqTable({
 }: {
   rows: RfqRow[]
   now: Date
+  /** Patch L1: the viewer's display zone. */
+  zone?: string
   hrefFor: (r: RfqRow) => string
   selectedId?: string | null
   compact?: boolean
@@ -72,8 +75,8 @@ export function RfqTable({
                     <input type="checkbox" className="c-check" data-bulk value={`${r.id}|${r.updatedAt}`} aria-label={`Select ${r.company ?? r.contactName ?? 'inquiry'}`} />
                   </td>
                 ) : null}
-                <td className="received" title={absoluteTime(received)}>
-                  <span>{compactTime(received, now)}</span>
+                <td className="received" title={absoluteTime(received, zone)}>
+                  <span>{compactTime(received, now, zone)}</span>
                   {r.aged ? (
                     <span className="c-hint">
                       <br />
@@ -121,7 +124,7 @@ export function RfqTable({
                       >
                         {r.nextAction.overdue ? 'Overdue · ' : ''}
                         {r.nextAction.title}
-                        {r.nextAction.dueAt ? <span className="c-muted"> · {compactTime(new Date(r.nextAction.dueAt), now)}</span> : null}
+                        {r.nextAction.dueAt ? <span className="c-muted"> · {compactTime(new Date(r.nextAction.dueAt), now, zone)}</span> : null}
                       </span>
                     ) : r.status === 'QUALIFIED' ? (
                       <span className="c-muted">Qualified</span>

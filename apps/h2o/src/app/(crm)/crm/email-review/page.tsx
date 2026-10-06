@@ -61,7 +61,7 @@ export default async function EmailReviewPage() {
             return (
               <li key={String(i.id)}>
                 <time dateTime={String(i.received_at)}>
-                  {compactTime(new Date(String(i.received_at)), now)}
+                  {compactTime(new Date(String(i.received_at)), now, s.timeZone)}
                 </time>
                 <span>
                   <strong>{REASON[String(i.reason)] ?? String(i.reason)}</strong> ·{' '}

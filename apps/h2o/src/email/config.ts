@@ -8,7 +8,8 @@ import { domainToASCII } from 'node:url'
  *   H2O_EMAIL_FROM          "Name <addr@<sender domain>>" or "addr@<sender domain>"   the sender (owner input)
  *   H2O_SALES_ALERT_TO      comma-separated addresses     new-RFQ alert recipients (owner input)
  *   H2O_EMAIL_CUSTOMER_ACK  on | off                      default off: the owner approves the text first
- *   H2O_SMTP_HOST / _PORT   internal submission endpoint  e.g. stalwart / 587 (never a public host)
+ *   H2O_SMTP_HOST / _PORT   submission endpoint            launch: smtp.gmail.com / 587 (Google Workspace, owner
+ *                                                          decision 2026-10-05); Stalwart later
  *   H2O_SMTP_USER / _PASS   submission credentials        secrets: environment only, never logged
  *   H2O_SMTP_TLS_SERVERNAME certificate name to verify    e.g. the mail host name (the ACME certificate)
  *
@@ -39,6 +40,8 @@ export type EmailConfig = {
   fromName: string
   salesAlertTo: string[]
   customerAck: boolean
+  /** The acknowledgement's first-response promise, e.g. "within one business day"; null = no promise. */
+  responsePromise: string | null
   smtp: SmtpSettings | null
 }
 
@@ -101,6 +104,12 @@ export function readEmailConfig(env: Record<string, string | undefined> = proces
   const salesAlertTo = list(env.H2O_SALES_ALERT_TO)
   if (salesAlertTo.some((a) => !recipientKey(a))) errors.push('SALES_ALERT_TO_INVALID')
 
+  // Owner decision 2026-10-05: the acknowledgement promises a first response "within one business day" (per office).
+  // `off` removes the promise sentence. Plain words only: it is inserted into a customer email.
+  const promiseRaw = (env.H2O_EMAIL_RESPONSE_PROMISE ?? 'within one business day').trim()
+  const responsePromise = promiseRaw.toLowerCase() === 'off' || promiseRaw === '' ? null : promiseRaw
+  if (responsePromise && !/^[A-Za-z0-9 ,.'-]{3,60}$/.test(responsePromise)) errors.push('RESPONSE_PROMISE_INVALID')
+
   const ackRaw = (env.H2O_EMAIL_CUSTOMER_ACK ?? 'off').trim().toLowerCase()
   if (!['on', 'off'].includes(ackRaw)) errors.push('CUSTOMER_ACK_FLAG_INVALID')
 
@@ -132,6 +141,7 @@ export function readEmailConfig(env: Record<string, string | undefined> = proces
     fromName: from?.name ?? 'H2O Cooling',
     salesAlertTo,
     customerAck: ackRaw === 'on',
+    responsePromise,
     smtp,
   }
 }

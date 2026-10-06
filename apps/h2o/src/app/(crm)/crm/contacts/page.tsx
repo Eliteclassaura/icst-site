@@ -163,8 +163,8 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
                   <td>{c.accountId ? <a href={`/crm/accounts/${c.accountId}/`}>{c.accountName ?? 'Account'}</a> : <span className="c-muted">No account</span>}</td>
                   <td className="hide-sm">{c.ownerName ?? <span className="c-muted">No owner</span>}</td>
                   <td className="num">{c.openRfqs ?? <span className="c-unknown">—</span>}</td>
-                  <td className="hide-sm" title={c.lastActivityAt ? absoluteTime(new Date(c.lastActivityAt)) : undefined}>
-                    {c.lastActivityAt ? activityTime(new Date(c.lastActivityAt), now) : <span className="c-muted">None</span>}
+                  <td className="hide-sm" title={c.lastActivityAt ? absoluteTime(new Date(c.lastActivityAt), s.timeZone) : undefined}>
+                    {c.lastActivityAt ? activityTime(new Date(c.lastActivityAt), now, s.timeZone) : <span className="c-muted">None</span>}
                   </td>
                   <td>
                     {c.doNotContact ? (

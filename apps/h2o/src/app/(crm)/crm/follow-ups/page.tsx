@@ -63,7 +63,7 @@ export default async function FollowUpsPage({ searchParams }: { searchParams: Pr
           <BulkBar scopeId="crm-followups" kind="tasks" people={people} />
           <TaskTable
             rows={rows}
-            now={now}
+            now={now} zone={s.timeZone}
             isAdmin={s.isAdmin}
             people={people}
             caption="Follow-ups"

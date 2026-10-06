@@ -47,6 +47,11 @@ async function run(fd: FormData, fn: (s: NonNullable<Awaited<ReturnType<typeof a
 export async function assignAction(_: ActionState, fd: FormData) {
   return run(fd, (s) => m.assignRfq(s, { rfqId: f(fd, 'rfqId'), assigneeId: f(fd, 'assigneeId'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
 }
+/** Patch L1: move an inquiry to the other office queue. */
+export async function moveOfficeAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) => m.moveRfqOffice(s, { rfqId: f(fd, 'rfqId'), office: f(fd, 'office'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
+}
+
 export async function startReviewAction(_: ActionState, fd: FormData) {
   return run(fd, (s) => m.startReview(s, { rfqId: f(fd, 'rfqId'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
 }

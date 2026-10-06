@@ -4,6 +4,8 @@ import type {
   CollectionBeforeValidateHook,
   CollectionConfig,
 } from 'payload'
+import { isOffice, officeCalendar, officeForCountry, OFFICES, OFFICE_LABEL, OFFICE_SOURCE } from '../offices'
+import { officeSettings } from '../officeSettings'
 import { ADMINS, hasRole } from '@factory/agency-core/cms/kernel'
 import { crmAdminField } from '../access'
 import { recordActivity } from '../activity'
@@ -249,7 +251,7 @@ async function firstResponseFollowsOwner(
  * submitted and the staff motion — never typed by anyone, so a client value is always overwritten. See countries.ts
  * and inquiry-type.ts for the rules (country never defaults to US; staff motion wins over the customer's interest).
  */
-const inboxFacets: CollectionBeforeChangeHook = ({ data: incoming, originalDoc }) => {
+const inboxFacets: CollectionBeforeChangeHook = async ({ data: incoming, operation, originalDoc, req }) => {
   const d = merged(incoming, originalDoc) as Doc
   const sub = (d.submitted ?? {}) as Doc
   const other = (sub.other_answers && typeof sub.other_answers === 'object' ? sub.other_answers : {}) as Doc
@@ -259,6 +261,19 @@ const inboxFacets: CollectionBeforeChangeHook = ({ data: incoming, originalDoc }
   incoming.country_source = country.source
   incoming.inquiry_type = type.type
   incoming.inquiry_type_source = type.source
+  // Patch L1: the office queue. Derived from the country (owner overrides first) until a person moves the inquiry;
+  // after that (MANUAL) no later derivation overrides the person.
+  const prior = originalDoc as Doc | undefined
+  if (operation === 'update' && 'office' in incoming && isOffice(incoming.office) && incoming.office !== prior?.office) {
+    incoming.office_source = 'MANUAL'
+  } else if (operation === 'update' && prior?.office_source === 'MANUAL' && isOffice(prior.office)) {
+    incoming.office = prior.office
+    incoming.office_source = 'MANUAL'
+  } else {
+    const routed = officeForCountry(country.code, (await officeSettings(req.payload)).overrides)
+    incoming.office = routed.office
+    incoming.office_source = routed.source
+  }
   return incoming
 }
 
@@ -294,8 +309,9 @@ const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc
       account: relId(d.account),
       idempotency_key: `rfq-first-response:${String(d.canonical_id)}`,
       source_rule: 'E1_1_ICS_RFQ_RECEIPT_FIRST_RESPONSE_STEP_2',
-      // D-1 (owner decision 2026-10-02): due at the end of the next Denver business day after receipt.
-      due_at: firstResponseDueAt(parseDate(d.received_at) ?? new Date()).toISOString(),
+      // D-1 (owner decision 2026-10-02), office-aware since Patch L1: due at the end of the next business day of the
+      // office handling the inquiry (its zone, minus its holidays).
+      due_at: firstResponseDueAt(parseDate(d.received_at) ?? new Date(), officeCalendar(d.office, await officeSettings(req.payload))).toISOString(),
     })
     // CRM email M1 (E1): queue the sales alert and the customer acknowledgement in this same transaction
     // (transactional outbox). Nothing is transmitted here; suppressed messages are recorded with a reason.
@@ -401,6 +417,19 @@ export const CrmRfqs: CollectionConfig = crmCollection(
         maxLength: 2,
         index: true,
         admin: { readOnly: true, description: 'Derived ISO country. Empty = unknown (never defaulted).' },
+      },
+      {
+        name: 'office',
+        type: 'select',
+        index: true,
+        options: OFFICES.map((o) => ({ label: OFFICE_LABEL[o], value: o })),
+        admin: { description: 'Patch L1 queue. Derived from the country (owner overrides first); a person may move the inquiry, which then sticks.' },
+      },
+      {
+        name: 'office_source',
+        type: 'select',
+        options: options(OFFICE_SOURCE),
+        admin: { readOnly: true, description: 'COUNTRY_RULE, OWNER_OVERRIDE, DEFAULT (country unknown → US) or MANUAL.' },
       },
       {
         name: 'country_source',
@@ -575,6 +604,14 @@ export const CrmRfqs: CollectionConfig = crmCollection(
           { name: 'utm_campaign', type: 'text' },
           { name: 'utm_term', type: 'text' },
           { name: 'utm_content', type: 'text' },
+          // Patch L4: click ids and first-touch context, captured by the native intake (contract §4) and validated by
+          // `intake/attribution.ts`. Written once with the RFQ. `ga_client_id` only ever arrives with analytics consent.
+          { name: 'gclid', type: 'text', maxLength: 256 },
+          { name: 'gbraid', type: 'text', maxLength: 256 },
+          { name: 'wbraid', type: 'text', maxLength: 256 },
+          { name: 'ga_client_id', type: 'text', maxLength: 64 },
+          { name: 'landing_page', type: 'text', maxLength: 512 },
+          { name: 'referrer', type: 'text', maxLength: 512 },
         ],
       },
       { name: 'items', type: 'join', collection: 'crm-rfq-items', on: 'rfq' },

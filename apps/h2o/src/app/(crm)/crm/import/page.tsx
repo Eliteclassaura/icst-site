@@ -59,7 +59,7 @@ export default async function ImportPage() {
                 <tbody>
                   {batches.map((b) => (
                     <tr key={b.id}>
-                      <td>{b.appliedAt ? compactTime(new Date(b.appliedAt), now) : '—'}</td>
+                      <td>{b.appliedAt ? compactTime(new Date(b.appliedAt), now, s.timeZone) : '—'}</td>
                       <td>
                         <span className="c-mono">{b.sha.slice(0, 12)}</span> · part {b.part} of {b.parts}
                       </td>

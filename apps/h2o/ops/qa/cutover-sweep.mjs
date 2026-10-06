@@ -17,6 +17,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { completeMfa } from '../mfa/sign-in.mjs'
 import { GONE_PATHS, NOINDEX_FOLLOW_PATHS } from '../../src/content/config.ts'
 import { sitemapEntries } from '../../src/content/sitemap.ts'
 import { allowedPath, brokenAssets, classify, decode, internalTarget, keyOf, parsePage, reciprocity, summaryMarkdown } from './sweep-lib.mjs'
@@ -131,6 +132,8 @@ async function sitemapUrls() {
       const login = await fetch(`${ORIGIN}/api/users/login/`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'user-agent': UA }, body: JSON.stringify({ email, password }) })
       token = (await login.json().catch(() => null))?.token ?? null
       if (login.status !== 200 || !token) throw new Error(`admin login failed (${login.status})`)
+      // Patch L2: the admin session passes two-factor (H2O_SEO_ADMIN_TOTP_SECRET).
+      await completeMfa(ORIGIN, token, process.env.H2O_SEO_ADMIN_TOTP_SECRET, { envName: 'H2O_SEO_ADMIN_TOTP_SECRET', headers: { 'user-agent': UA } })
     }
     const index = await read(`${ORIGIN}/api/sitemap-preview/`)
     if (index.status !== 200) throw new Error(`preview index answered ${index.status}`)

@@ -139,7 +139,7 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
                 <ul className="c-list" role="list">
                   {d.rows.map((a) => (
                     <li key={a.id}>
-                      <span className="c-muted">{compactTime(new Date(a.occurredAt), now)}</span>
+                      <span className="c-muted">{compactTime(new Date(a.occurredAt), now, s.timeZone)}</span>
                       <span className="grow">
                         <span className="c-trunc">
                           <strong>{label(ACTIVITY_LABEL, a.type)}</strong> · {a.actorKind === 'USER' ? (a.actorName ?? 'CRM user') : 'System'}
@@ -161,7 +161,7 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
         <div className="c-stack">
           {w.followUps.status === 'ok' && w.followUps.data.overdue > 0 ? (
             <Module title="Overdue" tag={scopeTag} loaded={w.followUps} more={`/crm/follow-ups/?who=${scope}&when=overdue`} count={w.followUps.data.overdue}>
-              {(d) => <TaskTable rows={d.overdueRows} now={now} isAdmin={s.isAdmin} people={w.people} caption="Overdue follow-ups" showOwner={scope === 'team'} />}
+              {(d) => <TaskTable rows={d.overdueRows} now={now} zone={s.timeZone} isAdmin={s.isAdmin} people={w.people} caption="Overdue follow-ups" showOwner={scope === 'team'} />}
             </Module>
           ) : null}
           <Module title="Follow-ups due" tag={scopeTag} loaded={w.followUps} more={`/crm/follow-ups/?who=${scope}&when=due`}>
@@ -169,7 +169,7 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
               d.rows.length === 0 ? (
                 <p className="c-empty">No follow-ups due today.</p>
               ) : (
-                <TaskTable rows={d.rows} now={now} isAdmin={s.isAdmin} people={w.people} caption="Follow-ups due today" showOwner={scope === 'team'} />
+                <TaskTable rows={d.rows} now={now} zone={s.timeZone} isAdmin={s.isAdmin} people={w.people} caption="Follow-ups due today" showOwner={scope === 'team'} />
               )
             }
           </Module>
@@ -180,7 +180,7 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
               ) : (
                 <TaskTable
                   rows={d.rows.map((t) => ({ ...t, title: t.title.replace(/^Waiting for customer:\s*/, '') }))}
-                  now={now}
+                  now={now} zone={s.timeZone}
                   isAdmin={s.isAdmin}
                   people={w.people}
                   caption="Waiting for customer"

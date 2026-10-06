@@ -1123,6 +1123,12 @@ details.c-tech > summary {
 
 .c-denied {
   display: block;
+  background: var(--c-canvas);
+}
+
+/* Shell-less pages (no access, two-factor sign-in): no sidebar column, a readable measure. */
+.c-denied .c-content {
+  max-inline-size: 640px;
 }
 
 .c-denied h1 {

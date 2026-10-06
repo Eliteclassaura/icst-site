@@ -27,6 +27,7 @@
  * Output: a JSON report on stdout (PASS/HOLD per check, counts, RFQ numbers). No secret, no password, no token.
  */
 import { createHmac, randomBytes } from 'node:crypto'
+import { completeMfa } from '../mfa/sign-in.mjs'
 
 const env = process.env
 const BASE = (env.H2O_PASS2_BASE_URL ?? '').replace(/\/+$/, '')
@@ -138,6 +139,12 @@ async function main() {
   const login = await api('users/login/', { method: 'POST', body: JSON.stringify({ email: env.H2O_PASS2_ADMIN_EMAIL, password: env.H2O_PASS2_ADMIN_PASSWORD }) })
   if (login.status !== 200 || !login.body.token) fail(`admin login failed (${login.status})`)
   session = String(login.body.token)
+  // Patch L2: the session passes two-factor before any read-back.
+  try {
+    await completeMfa(BASE, session, env.H2O_PASS2_ADMIN_TOTP_SECRET, { envName: 'H2O_PASS2_ADMIN_TOTP_SECRET' })
+  } catch (e) {
+    fail(String(e.message))
+  }
 
   // Preconditions: the seeded catalog product exists; ingest is on.
   const prod = await api(`products/?${q({ 'where[slug][equals]': SLUG, depth: '0', limit: '1' })}`)

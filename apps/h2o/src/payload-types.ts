@@ -198,10 +198,12 @@ export interface Config {
   globals: {
     'publication-state': PublicationState;
     'site-chrome': SiteChrome;
+    'crm-office-settings': CrmOfficeSetting;
   };
   globalsSelect: {
     'publication-state': PublicationStateSelect<false> | PublicationStateSelect<true>;
     'site-chrome': SiteChromeSelect<false> | SiteChromeSelect<true>;
+    'crm-office-settings': CrmOfficeSettingsSelect<false> | CrmOfficeSettingsSelect<true>;
   };
   locale: 'en';
   widgets: {
@@ -247,6 +249,58 @@ export interface User {
   name?: string | null;
   roles: ('platform-admin' | 'client-admin' | 'editor' | 'search-analyst' | 'sales' | 'viewer')[];
   invitedBy?: (string | null) | User;
+  /**
+   * CRM office: the queue this person works and the business calendar of their quick dates.
+   */
+  crm_office?: ('US' | 'TH') | null;
+  /**
+   * Times in the CRM are shown in this zone. Blank = the office’s zone.
+   */
+  time_zone?:
+    | (
+        | 'America/Denver'
+        | 'America/Los_Angeles'
+        | 'America/Chicago'
+        | 'America/New_York'
+        | 'Asia/Bangkok'
+        | 'Asia/Tokyo'
+        | 'Asia/Singapore'
+        | 'UTC'
+      )
+    | null;
+  /**
+   * Two-factor authentication (authenticator app). Required for everyone; set up at the first sign-in.
+   */
+  mfa_enabled?: boolean | null;
+  mfa_enrolled_at?: string | null;
+  /**
+   * Admin: tick and save to reset this person’s two-factor (lost phone, no recovery codes). They set it up again at their next sign-in. Audited.
+   */
+  mfa_reset?: boolean | null;
+  mfa_secret?: string | null;
+  mfa_pending_secret?: string | null;
+  mfa_pending_at?: string | null;
+  mfa_recovery?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  mfa_last_step?: number | null;
+  mfa_sessions?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  mfa_failures?: number | null;
+  mfa_locked_until?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -2843,6 +2897,14 @@ export interface CrmRfq {
    */
   country_code?: string | null;
   /**
+   * Patch L1 queue. Derived from the country (owner overrides first); a person may move the inquiry, which then sticks.
+   */
+  office?: ('US' | 'TH') | null;
+  /**
+   * COUNTRY_RULE, OWNER_OVERRIDE, DEFAULT (country unknown → US) or MANUAL.
+   */
+  office_source?: ('COUNTRY_RULE' | 'OWNER_OVERRIDE' | 'DEFAULT' | 'MANUAL') | null;
+  /**
    * How the country is known: submitted, destination answer, or inferred from the phone.
    */
   country_source?: ('SUBMITTED' | 'DESTINATION_ANSWER' | 'PHONE_INFERRED' | 'UNKNOWN') | null;
@@ -2944,6 +3006,12 @@ export interface CrmRfq {
     utm_campaign?: string | null;
     utm_term?: string | null;
     utm_content?: string | null;
+    gclid?: string | null;
+    gbraid?: string | null;
+    wbraid?: string | null;
+    ga_client_id?: string | null;
+    landing_page?: string | null;
+    referrer?: string | null;
   };
   items?: {
     docs?: (string | CrmRfqItem)[];
@@ -3921,6 +3989,19 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   roles?: T;
   invitedBy?: T;
+  crm_office?: T;
+  time_zone?: T;
+  mfa_enabled?: T;
+  mfa_enrolled_at?: T;
+  mfa_reset?: T;
+  mfa_secret?: T;
+  mfa_pending_secret?: T;
+  mfa_pending_at?: T;
+  mfa_recovery?: T;
+  mfa_last_step?: T;
+  mfa_sessions?: T;
+  mfa_failures?: T;
+  mfa_locked_until?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -5098,6 +5179,8 @@ export interface CrmRfqsSelect<T extends boolean = true> {
   qualification_state?: T;
   motion?: T;
   country_code?: T;
+  office?: T;
+  office_source?: T;
   country_source?: T;
   inquiry_type?: T;
   inquiry_type_source?: T;
@@ -5144,6 +5227,12 @@ export interface CrmRfqsSelect<T extends boolean = true> {
         utm_campaign?: T;
         utm_term?: T;
         utm_content?: T;
+        gclid?: T;
+        gbraid?: T;
+        wbraid?: T;
+        ga_client_id?: T;
+        landing_page?: T;
+        referrer?: T;
       };
   items?: T;
   tasks?: T;
@@ -5891,6 +5980,47 @@ export interface SiteChrome {
   createdAt?: string | null;
 }
 /**
+ * Two queues: US (Denver) and Thailand (Bangkok). By default Thailand, Southeast Asia, Japan and the rest of Asia-Pacific go to Thailand; everything else (and an unknown country) to the US. Overrides below win. Holidays are skipped when business days are counted.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-office-settings".
+ */
+export interface CrmOfficeSetting {
+  id: string;
+  /**
+   * Send every inquiry from this country to this office. Applies to new inquiries; a person can still move one.
+   */
+  routing_overrides?:
+    | {
+        /**
+         * ISO 3166-1 alpha-2, e.g. JP.
+         */
+        country_code: string;
+        office: 'US' | 'TH';
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Office holidays (local dates). Seeded for 2026–2027 with the standard US federal and Thai public holidays (owner-approved). Add cabinet bridge days and later years here.
+   */
+  holidays?:
+    | {
+        office: 'US' | 'TH';
+        /**
+         * yyyy-mm-dd, the office’s local date.
+         */
+        date: string;
+        name: string;
+        confirmed?: boolean | null;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "publication-state_select".
  */
@@ -5969,6 +6099,33 @@ export interface SiteChromeSelect<T extends boolean = true> {
         privacyHref?: T;
       };
   _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-office-settings_select".
+ */
+export interface CrmOfficeSettingsSelect<T extends boolean = true> {
+  routing_overrides?:
+    | T
+    | {
+        country_code?: T;
+        office?: T;
+        note?: T;
+        id?: T;
+      };
+  holidays?:
+    | T
+    | {
+        office?: T;
+        date?: T;
+        name?: T;
+        confirmed?: T;
+        note?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

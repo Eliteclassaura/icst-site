@@ -1,8 +1,9 @@
 import { crmUsers } from './queries'
 import { LOGGABLE_ACTIVITY_TYPES } from './labels'
-import { asUser, type CrmSession } from './session'
+import { asUser, viewerCalendar, type CrmSession } from './session'
+import { OFFICES, OFFICE_LABEL } from '../offices'
 import { withRowLock, type Lockable } from './serialize'
-import { endOfBusinessDay, quickDueDates, QUICK_DUE, type QuickDue } from './time'
+import { endOfLocalDate, quickDueDates, QUICK_DUE, type QuickDue } from './time'
 import { dateTime, email, isoDate, line, oneOf, phone, relationshipId, text, type FieldErrors } from './validate'
 import { emailKey, normalizeWebDomain } from '../normalize'
 
@@ -161,6 +162,21 @@ export async function startReview(s: CrmSession, input: { rfqId: unknown; expect
   try {
     await update(s, 'crm-rfqs', target.id, { status: 'IN_REVIEW' }, input.expectedUpdatedAt)
     return { ok: true, message: 'Review started.' }
+  } catch (err) {
+    return failure(s, err)
+  }
+}
+
+/** Patch L1: move an inquiry to the other office queue. It then stays there (office_source MANUAL); audited. */
+export async function moveRfqOffice(s: CrmSession, input: { rfqId: unknown; office: unknown; expectedUpdatedAt?: unknown }): Promise<Outcome> {
+  const office = oneOf(input.office, OFFICES)
+  if (!office) return fail('VALIDATION', 'Choose the office queue.', { fields: { office: 'Required' } })
+  const target = await fresh(s, 'crm-rfqs', input.rfqId, input.expectedUpdatedAt)
+  if ('error' in target) return target.error!
+  if (target.doc.office === office) return { ok: true, message: 'Already in that queue.' }
+  try {
+    await update(s, 'crm-rfqs', target.id, { office }, input.expectedUpdatedAt)
+    return { ok: true, message: `Moved to the ${OFFICE_LABEL[office]} queue.` }
   } catch (err) {
     return failure(s, err)
   }
@@ -362,11 +378,11 @@ export async function logActivity(
 
 // ────────────────────────────────────────────── tasks ──
 
-/** Due date input (yyyy-mm-dd) → end of that business day (America/Denver). */
-function dueFrom(v: unknown): string | null {
+/** Due date input (yyyy-mm-dd) → the end of that calendar day in the user's zone (Patch L1). */
+function dueFrom(v: unknown, zone: string): string | null {
   const d = isoDate(v)
   if (!d) return null
-  return endOfBusinessDay(new Date(`${d}T18:00:00Z`)).toISOString()
+  return endOfLocalDate(d, zone)?.toISOString() ?? null
 }
 
 export async function createFollowUp(
@@ -387,7 +403,7 @@ export async function createFollowUp(
   const con = relationshipId(input.contactId)
   const assignee = input.assigneeId === undefined || input.assigneeId === '' ? { ok: true as const, id: s.userId } : relationshipId(input.assigneeId)
   const title = line(input.title, 160)
-  const due = dueFrom(input.due)
+  const due = dueFrom(input.due, s.timeZone)
   const priority = oneOf(input.priority ?? 'NORMAL', ['HIGH', 'NORMAL', 'LOW'] as const)
   const kind = oneOf(input.kind ?? 'FOLLOW_UP', ['FOLLOW_UP', 'MISSING_INFORMATION'] as const)
   const fields: FieldErrors = {}
@@ -483,7 +499,7 @@ export async function changeDueDate(
   input: { taskId: unknown; due: unknown; reason?: unknown; expectedUpdatedAt?: unknown },
   now: Date = new Date(),
 ): Promise<Outcome> {
-  const due = dueFrom(input.due)
+  const due = dueFrom(input.due, s.timeZone)
   if (!due) return fail('VALIDATION', 'Choose a due date.', { fields: { due: 'Required' } })
   const target = await fresh(s, 'crm-tasks', input.taskId, input.expectedUpdatedAt)
   if ('error' in target) return target.error!
@@ -530,7 +546,7 @@ export async function snoozeTask(
 ): Promise<Outcome> {
   const preset = oneOf(input.preset, QUICK_DUE) as QuickDue | null
   if (!preset) return fail('VALIDATION', 'Choose when to snooze to.', { fields: { preset: 'Required' } })
-  const out = await changeDueDate(s, { taskId: input.taskId, due: quickDueDates(now)[preset], reason: input.reason, expectedUpdatedAt: input.expectedUpdatedAt }, now)
+  const out = await changeDueDate(s, { taskId: input.taskId, due: quickDueDates(now, await viewerCalendar(s))[preset], reason: input.reason, expectedUpdatedAt: input.expectedUpdatedAt }, now)
   return out.ok && out.message === 'Due date changed.' ? { ...out, message: preset === 'next_week' ? 'Snoozed to next week.' : preset === 'tomorrow' ? 'Snoozed to tomorrow.' : 'Due today.' } : out
 }
 

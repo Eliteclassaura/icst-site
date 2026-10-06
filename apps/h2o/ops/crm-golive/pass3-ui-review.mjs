@@ -15,6 +15,7 @@
  */
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
+import { completeMfa } from '../mfa/sign-in.mjs'
 const require = createRequire(import.meta.url)
 const { chromium } = require(process.env.PW_MODULE ?? 'playwright')
 const env = process.env
@@ -27,12 +28,19 @@ const CRED = {
   [env.H2O_PASS3_SALES_EMAIL]: env.H2O_PASS3_SALES_PASSWORD,
   [env.H2O_PASS3_NONCRM_EMAIL]: env.H2O_PASS3_NONCRM_PASSWORD,
 }
+const TOTP = {
+  [env.H2O_PASS3_ADMIN_EMAIL]: env.H2O_PASS3_ADMIN_TOTP_SECRET,
+  [env.H2O_PASS3_SALES_EMAIL]: env.H2O_PASS3_SALES_TOTP_SECRET,
+  [env.H2O_PASS3_NONCRM_EMAIL]: env.H2O_PASS3_NONCRM_TOTP_SECRET,
+}
 const results = []
 const rec = (id, pass, detail = {}) => results.push({ id, result: pass ? 'PASS' : 'HOLD', ...detail })
 
 async function tokenFor(email) {
   const r = await fetch(`${B}/api/users/login/`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, password: CRED[email] }) })
-  return (await r.json()).token
+  const token = (await r.json()).token
+  // Patch L2: finish two-factor with this user's seeded secret.
+  return completeMfa(B, token, TOTP[email], { envName: 'H2O_PASS3_*_TOTP_SECRET' })
 }
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, laptop: { width: 1024, height: 768 }, phone: { width: 390, height: 844 } }
 

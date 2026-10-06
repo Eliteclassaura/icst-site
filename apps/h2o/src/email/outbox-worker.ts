@@ -121,7 +121,14 @@ async function render(
     }
   }
   if (row.kind === 'RFQ_CUSTOMER_ACK')
-    return { rfq, rendered: renderCustomerAck({ rfqNumber: number, senderName: cfg.fromName }) }
+    return {
+      rfq,
+      rendered: renderCustomerAck({
+        rfqNumber: number,
+        firstName: ((rfq.submitted ?? {}) as Record<string, unknown>).first_name as string | null,
+        responsePromise: cfg.responsePromise,
+      }),
+    }
   const items = await payload.find({
     collection: 'crm-rfq-items',
     where: { rfq: { equals: rfqId } },

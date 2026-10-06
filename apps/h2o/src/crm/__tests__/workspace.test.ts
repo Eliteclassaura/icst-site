@@ -186,6 +186,12 @@ describe('static: authorization cannot be bypassed by direct URL or action POST'
         expect(read(f)).not.toMatch(/payload|queries/)
         continue
       }
+      // Patch L2: the two-factor page serves a password-only session, which it authenticates itself; it reads no CRM data.
+      if (f.includes(`${path.sep}mfa${path.sep}`)) {
+        expect(read(f)).toMatch(/await pendingSession\(/)
+        expect(read(f)).not.toMatch(/workspace\/queries|crm-rfqs|crm-contacts/)
+        continue
+      }
       expect(read(f), rel(f)).toMatch(/await requireCrmSession\(/)
     }
   })
@@ -203,13 +209,17 @@ describe('static: authorization cannot be bypassed by direct URL or action POST'
     expect(bodies.length).toBeGreaterThanOrEqual(20)
     for (const b of bodies) expect(b, b.slice(0, 40)).toMatch(/\brun\(|\brunBulk\(|actionSession\(\)/)
   })
-  it('the CRM layout is noindex; the only route handlers are the admin-only, same-origin import and export', () => {
+  it('the CRM layout is noindex; the only route handlers are the admin-only, same-origin import and export, and the two-factor exit', () => {
     const layout = read(path.join(CRM_APP, 'layout.tsx'))
     expect(layout).toMatch(/robots: \{ index: false, follow: false, nocache: true, googleBot: \{ index: false, follow: false \} \}/)
     // Wave 1 W1-3/W1-4: a 5 MB upload and a streamed download need route handlers (server actions cannot carry them).
     const routes = appFiles.filter((f) => /route\.(ts|tsx)$/.test(f)).map(rel).sort()
-    expect(routes).toEqual(['app/(crm)/crm/export/route.ts', 'app/(crm)/crm/import/run/route.ts'])
-    for (const r of routes) {
+    // Patch L2 adds the two-factor exit: it sets only the routing cookie, and only for a session that passed two-factor.
+    expect(routes).toEqual(['app/(crm)/crm/export/route.ts', 'app/(crm)/crm/import/run/route.ts', 'app/(crm)/crm/mfa/done/route.ts'])
+    const done = read(path.join(SRC, 'app/(crm)/crm/mfa/done/route.ts'))
+    expect(done).toMatch(/await pendingSession\(payload, request\.headers\)/)
+    expect(done.indexOf('if (!pending.verified)')).toBeLessThan(done.indexOf("headers.set('set-cookie'"))
+    for (const r of routes.filter((x) => !x.includes('/mfa/'))) {
       const t = read(path.join(SRC, r))
       expect(t, r).toMatch(/payload\.auth\(\{ headers: request\.headers \}\)/)
       expect(t, r).toMatch(/!s\.isAdmin/)

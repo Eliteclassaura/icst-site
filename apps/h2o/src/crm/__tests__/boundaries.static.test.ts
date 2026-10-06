@@ -163,7 +163,8 @@ describe('registration', () => {
     expect(cfg).not.toMatch(/@factory\/agency-core\/cms\/crm/)
     // CRM go-live: exactly one root endpoint list, the CRM's own (the Typeform intake webhook).
     expect(cfg.match(/endpoints\s*:/g)).toHaveLength(1)
-    expect(cfg).toMatch(/endpoints:\s*crmEndpoints/)
+    // Patch L2 adds exactly one more list: the two-factor verify endpoint.
+    expect(cfg).toMatch(/endpoints:\s*\[\.\.\.crmEndpoints, \.\.\.mfaEndpoints\]/)
     expect(cfg).not.toMatch(/typeformWebhookHandler/)
   })
 })

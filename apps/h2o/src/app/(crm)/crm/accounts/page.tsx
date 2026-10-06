@@ -156,8 +156,8 @@ export default async function AccountsPage({ searchParams }: { searchParams: Pro
                   <td>{label(RELATIONSHIP_LABEL, a.relationship)}</td>
                   <td className="hide-sm">{a.ownerName ?? <span className="c-muted">No owner</span>}</td>
                   <td className="num">{a.openRfqs ?? <span className="c-unknown">—</span>}</td>
-                  <td className="hide-sm" title={a.lastActivityAt ? absoluteTime(new Date(a.lastActivityAt)) : undefined}>
-                    {a.lastActivityAt ? activityTime(new Date(a.lastActivityAt), now) : <span className="c-muted">None</span>}
+                  <td className="hide-sm" title={a.lastActivityAt ? absoluteTime(new Date(a.lastActivityAt), s.timeZone) : undefined}>
+                    {a.lastActivityAt ? activityTime(new Date(a.lastActivityAt), now, s.timeZone) : <span className="c-muted">None</span>}
                   </td>
                 </tr>
               ))}

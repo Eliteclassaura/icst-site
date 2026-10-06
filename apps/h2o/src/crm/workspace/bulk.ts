@@ -1,6 +1,6 @@
 import * as m from './mutations'
 import { quickDueDates, QUICK_DUE, type QuickDue } from './time'
-import type { CrmSession } from './session'
+import { viewerCalendar, type CrmSession } from './session'
 import { line, oneOf } from './validate'
 
 /**
@@ -93,7 +93,7 @@ export async function bulkSetDue(s: CrmSession, input: { ids: unknown; preset?: 
   const p = items(input.ids)
   if (!p.ok) return { ok: false, code: 'VALIDATION', message: p.message }
   const preset = oneOf(input.preset, QUICK_DUE) as QuickDue | null
-  const due = preset ? quickDueDates(now)[preset] : input.due
+  const due = preset ? quickDueDates(now, await viewerCalendar(s))[preset] : input.due
   if (!due) return { ok: false, code: 'VALIDATION', message: 'Choose a date.', fields: { due: 'Required' } }
   const out = await each(p.items, (i) => m.changeDueDate(s, { taskId: i.id, due, reason: input.reason, expectedUpdatedAt: i.updatedAt ?? undefined }, now), 'rescheduled')
   if (out.ok && out.failures.some((f) => f.code === 'VALIDATION'))

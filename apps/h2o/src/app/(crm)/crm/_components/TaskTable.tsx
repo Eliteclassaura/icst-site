@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { label, TASK_KIND_LABEL } from '../../../../crm/workspace/labels'
 import type { Person, TaskRow } from '../../../../crm/workspace/queries'
-import { absoluteTime, compactTime } from '../../../../crm/workspace/time'
+import { absoluteTime, BUSINESS_TIME_ZONE, compactTime } from '../../../../crm/workspace/time'
 import { TaskActions } from './Dialogs'
 
 /**
@@ -12,6 +12,7 @@ import { TaskActions } from './Dialogs'
 export function TaskTable({
   rows,
   now,
+  zone = BUSINESS_TIME_ZONE,
   isAdmin,
   people,
   caption,
@@ -21,6 +22,8 @@ export function TaskTable({
 }: {
   rows: TaskRow[]
   now: Date
+  /** Patch L1: the viewer's display zone. */
+  zone?: string
   isAdmin: boolean
   people: Person[]
   caption: string
@@ -69,11 +72,11 @@ export function TaskTable({
                     <input type="checkbox" className="c-check" data-bulk value={`${t.id}|${t.updatedAt}`} aria-label={`Select ${t.title}`} disabled={t.status === 'DONE' || t.status === 'CANCELLED'} />
                   </td>
                 ) : null}
-                <td className={`due${t.overdue ? ' c-overdue' : ''}`} title={due ? absoluteTime(due) : undefined}>
+                <td className={`due${t.overdue ? ' c-overdue' : ''}`} title={due ? absoluteTime(due, zone) : undefined}>
                   {due ? (
                     <>
                       {t.overdue ? <span className="c-visually-hidden">Overdue, due </span> : null}
-                      {compactTime(due, now)}
+                      {compactTime(due, now, zone)}
                       {t.overdue ? (
                         <span className="c-hint">
                           <br />

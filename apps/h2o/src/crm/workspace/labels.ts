@@ -77,6 +77,10 @@ export const ACTIVITY_LABEL: Record<string, string> = {
   SUPPRESSION_RECORDED: 'Do-not-contact recorded',
   SUPPRESSION_CLEARED: 'Do-not-contact cleared',
   IDENTITY_REVIEW_OPENED: 'Identity review opened',
+  // Email M1–M3 activity types (found unlabelled in Patch L QA: they rendered as "Unknown").
+  EMAIL_NOTIFICATION: 'Email notification',
+  EMAIL_REPLY: 'Email reply',
+  EMAIL_RECEIVED: 'Email received',
 }
 
 /** Activity types a person may log from the workspace (CRM-1 HUMAN_ACTIVITY_TYPES minus notes). */
@@ -248,4 +252,12 @@ export const LINK_CONFIDENCE_LABEL: Record<string, string> = {
   HIGH_CONFIDENCE: 'High-confidence link',
   LOW_CONFIDENCE: 'Low-confidence link',
   UNKNOWN: 'Link not stated',
+}
+
+/** Patch L1: how an inquiry's office queue was decided. */
+export const OFFICE_SOURCE_LABEL: Record<string, string> = {
+  COUNTRY_RULE: 'routed by country',
+  OWNER_OVERRIDE: 'owner routing rule',
+  DEFAULT: 'country unknown, default queue',
+  MANUAL: 'moved by a person',
 }

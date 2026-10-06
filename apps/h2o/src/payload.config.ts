@@ -22,8 +22,12 @@ import { securityDefaults } from '@factory/agency-core/cms/kernel'
 import { foundationCollections } from '@factory/agency-core/cms/foundation'
 import { Manufacturers } from './collections/manufacturers'
 import { catalogCollections } from './collections/index'
-import { crmCollections, crmEndpoints } from './crm/index'
+import { crmCollections, crmEndpoints, crmGlobals } from './crm/index'
 import { withPasswordEmail } from './auth/password-email'
+import { withCrmProfile } from './crm/userProfile'
+import { withMfa } from './auth/mfa/fields'
+import { installMfaGuard } from './auth/mfa/guard'
+import { mfaEndpoints } from './auth/mfa/endpoint'
 import { h2oEmailAdapter } from './email/adapter'
 import { crmAdminComponents } from './crm/admin/config'
 import { PublicRoutes } from './content/collections/public-routes'
@@ -127,7 +131,9 @@ const collections: CollectionConfig[] = [
     // `pages` collection (empty here) stays registered for schema compatibility but is hidden and not writable.
     // CRM email M1 (Control Tower 2026-10-04): password reset by email through the gated H2O adapter. Refused
     // while H2O_EMAIL_MODE=off, as at launch. See `src/auth/password-email.ts`.
-    if (c.slug === 'users') return withPasswordEmail(c)
+    // Patch L1: each user's CRM office and display time zone.
+    // Patch L2: two-factor state and the admin reset.
+    if (c.slug === 'users') return withMfa(withCrmProfile(withPasswordEmail(c)))
     if (c.slug === 'pages') return { ...c, admin: { ...c.admin, hidden: true }, access: { ...c.access, create: () => false, update: () => false } }
     if (c.slug !== 'media') return c
     if (!c.upload || typeof c.upload !== 'object') return c
@@ -158,8 +164,12 @@ export default buildConfig({
   },
   collections,
   // CRM go-live: the Typeform intake webhook (404 unless ingest is enabled; signature-verified).
-  endpoints: crmEndpoints,
-  globals: [PublicationState, SiteChromeGlobal],
+  endpoints: [...crmEndpoints, ...mfaEndpoints],
+  // Patch L2: only sessions that passed two-factor authenticate (admin, REST, CRM). Fails loudly if it cannot install.
+  onInit: async (payload) => {
+    installMfaGuard(payload)
+  },
+  globals: [PublicationState, SiteChromeGlobal, ...crmGlobals],
   // One publishing/indexing queue and runner (see src/content/jobs.ts). Email has its own outbox, drained by
   // the same runner role (src/email/outbox-worker.ts), not a Payload job queue.
   jobs: jobsConfig,
