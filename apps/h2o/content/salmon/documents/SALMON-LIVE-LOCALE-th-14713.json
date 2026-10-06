@@ -1,0 +1,368 @@
+{
+  "routeId": "LIVE-LOCALE-th-14713",
+  "sourceUrl": "https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/",
+  "targetPath": "/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/",
+  "type": "posts",
+  "title": "แฟนแกน: พื้นฐาน",
+  "wordpressId": 14713,
+  "language": "th",
+  "sourceIdentity": {
+    "status": 200,
+    "effectiveUrl": "https://h2ocooling.com/th/แฟนแกน-พื้นฐาน/",
+    "sha256": "bbce26193063eed681f6c785e5b0177471f679a725978e7d4797261404362c50",
+    "htmlSha256": "b5691300ac9dc430caeae9692ea35e82460292bafdb2ffd48d50c11e9986ccdd",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/posts/14713",
+    "htmlLang": "th",
+    "liveAlternates": [
+      {
+        "hreflang": "vi",
+        "href": "https://h2ocooling.com/vi/quat-truc-dieu-co-ban/"
+      },
+      {
+        "hreflang": "th",
+        "href": "https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/"
+      },
+      {
+        "hreflang": "ja",
+        "href": "https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/"
+      },
+      {
+        "hreflang": "id",
+        "href": "https://h2ocooling.com/id/penggemar-axial-dasar-dasar/"
+      },
+      {
+        "hreflang": "en",
+        "href": "https://h2ocooling.com/axial-fans-guide/"
+      }
+    ]
+  },
+  "publicationStatus": "publish",
+  "published": "2025-03-07T17:40:11",
+  "modified": "2025-03-07T18:37:05",
+  "text": "Table of Contents Toggle คุณรู้จักพัดลมคูลลิ่งทาวเวอร์ของคุณหรือไม่?Axial Fan มีความสำคัญ คุณรู้จักพัดลมคูลลิ่งทาวเวอร์ของคุณหรือไม่? ความร้อนเป็นสิ่งที่น่าสนใจ ในด้านหนึ่ง ความร้อนอาจเป็นสิ่งที่ดี มันทำให้เราอบอุ่นเมื่ออากาศหนาว ช่วยให้เราสามารถสร้างอุตสาหกรรมได้มากกว่าที่บรรพบุรุษของเราเคยจินตนาการไว้ และโดยทั่วไปคือจุดเด่นของสังคมที่ก้าวหน้า ในทางกลับกัน ความร้อนอาจส่งผลเสียต่อกระบวนการบางอย่างได้ค่อนข้างมาก สำหรับการใช้งานในอุตสาหกรรมหลายประเภท ความร้อนไม่เพียงแต่ทำให้ประสิทธิภาพการผลิตลดลงเท่านั้น แต่หากปล่อยทิ้งไว้โดยไม่แก้ไข ก็สามารถก่อให้เกิดปัญหาสำคัญได้จริงๆ โชคดีที่เราในฐานะสังคมได้พัฒนาวิธีการที่มีประสิทธิภาพในการกำจัดความร้อนที่ไม่พึงประสงค์ และในโพสต์ของวันนี้ เราจะพูดถึงองค์ประกอบหนึ่งที่จำเป็นสำหรับการลดความร้อนในการใช้งานทางอุตสาหกรรม: พัดลมแบบแกน อ่านต่อด้านล่างเพื่อเรียนรู้เพิ่มเติม Axial Fan มีความสำคัญ หากต้องการพูดถึงพัดลมแบบแกน สิ่งสำคัญคือต้องทำความเข้าใจให้แน่ชัดก่อนว่าพัดลมแบบแกนคืออะไร ในแง่ที่ง่ายที่สุด พัดลมตามแนวแกนจะเคลื่อนอากาศขนานกับแกนการหมุน ทำให้พัดลมแนวแกนเหมาะสำหรับการใช้งานที่มีความต้านทานต่ำและมีอัตราการไหลสูง เช่น ที่จำเป็นในการใช้งานระบายความร้อนทางอุตสาหกรรม นอกจากนี้ พัดลมตามแนวแกนยังสามารถมีลักษณะการทำงานที่หลากหลาย ขึ้นอยู่กับรูปร่างและความกว้างของใบพัดลมแต่ละตัว นอกจากปัจจัยเหล่านี้แล้ว ตัวแปรอื่นๆ ยังส่งผลต่อประสิทธิภาพของประสิทธิภาพของใบพัดลมอีกด้วย ด้านล่างนี้ เราได้แสดงรายการตัวแปรเหล่านี้เพิ่มเติมบางส่วน • ระยะห่างของทิป: แม้ว่าคนทั่วไปจะไม่ได้ตระหนักถึงข้อเท็จจริงนี้จริงๆ แต่ปริมาณระยะห่างของทิปที่ใบพัดลมมีในตัวเรือนหอทำความเย็นสามารถส่งผลกระทบอย่างมากต่อประสิทธิภาพของทาวเวอร์ทั้งหมด ปริมาณช่องว่างมีผลกระทบดังกล่าว เนื่องจากส่งผลต่อปริมาณอากาศที่สูญเสียหรือการรั่วไหลรอบๆ ทิป หรือที่เรียกว่ากระแสน้ำวนของทิป เมื่ออากาศออกจากหอทำความเย็น จะมีความดันสูงกว่าอากาศที่เข้ามาเนื่องจากการทำงานของใบพัดพัดลม ยิ่งมีช่องว่างรอบปลายใบพัดลมน้อยลง โอกาสที่อากาศภายในหอทำความเย็นจะไหลผ่านพัดลมก็จะยิ่งน้อยลงเท่านั้น • สภาพทางเข้า: เมื่อพิจารณาประสิทธิภาพของพัดลมตามแนวแกนภายในหอทำความเย็น สิ่งสำคัญคือต้องพิจารณาผลกระทบของการไหลของอากาศเมื่อเข้าสู่ทาวเวอร์ ในบริเวณรอบใบพัดลมหรือที่เรียกว่าวงแหวนพัดลม อากาศจะต้องถูกรวบรวมจากทุกทิศทางและเร่งความเร็วไปที่ระนาบของพัดลมเท่าๆ กัน หากไม่บรรลุการเปลี่ยนแปลงที่ราบรื่น การที่เวกเตอร์การไหลของอากาศไม่สามารถทำการเปลี่ยนแปลงทิศทางที่เหมาะสมและรวดเร็วจะทำให้เกิด “Vena Contracta” ที่ปลายใบมีด โดยพื้นฐานแล้ว บริเวณนี้ของใบพัดลมจะขาดอากาศ ทำให้บริเวณใกล้ปลายใบพัดลมไม่ได้ผล เมื่อพิจารณาถึงงานส่วนใหญ่ที่ทำในส่วนด้านนอกของใบพัดลม หากปัญหานี้ไม่ได้รับการแก้ไข อาจสูญเสียประสิทธิภาพได้สูงถึง 15 ถึง 20 เปอร์เซ็นต์ • ความหนาแน่นของอากาศ: ปัจจัยที่หลายๆ คนมองข้ามเกี่ยวกับประสิทธิภาพของพัดลมคูลลิ่งทาวเวอร์คือผลกระทบของความหนาแน่นของอากาศภายในสภาพแวดล้อมที่กำหนด ความหนาแน่นของอากาศได้รับผลกระทบจากอุณหภูมิและความสูงของอากาศที่ระนาบของพัดลม และหากไม่คำนึงถึง ก็สามารถส่งผลกระทบร้ายแรงต่อประสิทธิภาพของหอทำความเย็นได้ มองดูด้วยวิธีนี้ หอทำความเย็นที่ระดับน้ำทะเลจะต้องออกแรงมากกว่าหอทำความเย็นที่ความสูง 5,000 ฟุตเหนือระดับน้ำทะเลมาก เพราะความหนาแน่นของอากาศที่ระดับน้ำทะเลนั้นสูงกว่ามาก เพื่ออธิบายความหนาแน่นของอากาศที่แตกต่างกันนี้ สิ่งสำคัญคือต้องปรับความเร็วการหมุนของพัดลมเพื่อให้แน่ใจว่าปริมาณอากาศที่เหมาะสมจะถูกผลักผ่านทาวเวอร์ เราหวังว่าบล็อกสั้นๆ นี้จะช่วยให้คุณเข้าใจตัวแปรต่างๆ ที่อาจส่งผลต่อประสิทธิภาพของพัดลมคูลลิ่งทาวเวอร์ได้ดีขึ้น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับตัวเลือกพัดลมคูลลิ่งทาวเวอร์ที่เรานำเสนอ หรือต้องการกำหนดเวลาการตรวจสอบการบำรุงรักษากับช่างเทคนิคคูลลิ่งทาวเวอร์ของเรา โปรดติดต่อเราวันนี้และนัดหมาย ที่ Industrial Cooling Solutions Inc. เราทุ่มเทเพื่อมอบโซลูชั่นหอทำความเย็นอุตสาหกรรมที่ดีที่สุด และเรามั่นใจว่าเราสามารถช่วยเหลือคุณได้ทุกความต้องการ ติดต่อเราวันนี้และเริ่มกันเลย!",
+  "children": [
+    "\n",
+    {
+      "tag": "div",
+      "attrs": {
+        "id": "ez-toc-container"
+      },
+      "children": [
+        "\n",
+        {
+          "tag": "div",
+          "attrs": {},
+          "children": [
+            "\n",
+            {
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                "Table of Contents"
+              ]
+            },
+            "\n",
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "a",
+                  "attrs": {
+                    "href": "#"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                "Toggle"
+                              ]
+                            },
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "\n",
+        {
+          "tag": "nav",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "ul",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/#%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%84%E0%B8%B9%E0%B8%A5%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%87%E0%B8%97%E0%B8%B2%E0%B8%A7%E0%B9%80%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B9%84%E0%B8%A1%E0%B9%88"
+                      },
+                      "children": [
+                        "คุณรู้จักพัดลมคูลลิ่งทาวเวอร์ของคุณหรือไม่?"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/#Axial_Fan_%E0%B8%A1%E0%B8%B5%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B3%E0%B8%84%E0%B8%B1%E0%B8%8D"
+                      },
+                      "children": [
+                        "Axial Fan มีความสำคัญ"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%84%E0%B8%B9%E0%B8%A5%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%87%E0%B8%97%E0%B8%B2%E0%B8%A7%E0%B9%80%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B9%84%E0%B8%A1%E0%B9%88"
+          },
+          "children": []
+        },
+        "คุณรู้จักพัดลมคูลลิ่งทาวเวอร์ของคุณหรือไม่?",
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ความร้อนเป็นสิ่งที่น่าสนใจ ในด้านหนึ่ง ความร้อนอาจเป็นสิ่งที่ดี มันทำให้เราอบอุ่นเมื่ออากาศหนาว ช่วยให้เราสามารถสร้างอุตสาหกรรมได้มากกว่าที่บรรพบุรุษของเราเคยจินตนาการไว้ และโดยทั่วไปคือจุดเด่นของสังคมที่ก้าวหน้า ในทางกลับกัน ความร้อนอาจส่งผลเสียต่อกระบวนการบางอย่างได้ค่อนข้างมาก สำหรับการใช้งานในอุตสาหกรรมหลายประเภท ความร้อนไม่เพียงแต่ทำให้ประสิทธิภาพการผลิตลดลงเท่านั้น แต่หากปล่อยทิ้งไว้โดยไม่แก้ไข ก็สามารถก่อให้เกิดปัญหาสำคัญได้จริงๆ โชคดีที่เราในฐานะสังคมได้พัฒนาวิธีการที่มีประสิทธิภาพในการกำจัดความร้อนที่ไม่พึงประสงค์ และในโพสต์ของวันนี้ เราจะพูดถึงองค์ประกอบหนึ่งที่จำเป็นสำหรับการลดความร้อนในการใช้งานทางอุตสาหกรรม: พัดลมแบบแกน อ่านต่อด้านล่างเพื่อเรียนรู้เพิ่มเติม"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "Axial_Fan_%E0%B8%A1%E0%B8%B5%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B3%E0%B8%84%E0%B8%B1%E0%B8%8D"
+          },
+          "children": []
+        },
+        "Axial Fan มีความสำคัญ",
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "หากต้องการพูดถึงพัดลมแบบแกน สิ่งสำคัญคือต้องทำความเข้าใจให้แน่ชัดก่อนว่าพัดลมแบบแกนคืออะไร ในแง่ที่ง่ายที่สุด พัดลมตามแนวแกนจะเคลื่อนอากาศขนานกับแกนการหมุน ทำให้พัดลมแนวแกนเหมาะสำหรับการใช้งานที่มีความต้านทานต่ำและมีอัตราการไหลสูง เช่น ที่จำเป็นในการใช้งานระบายความร้อนทางอุตสาหกรรม นอกจากนี้ พัดลมตามแนวแกนยังสามารถมีลักษณะการทำงานที่หลากหลาย ขึ้นอยู่กับรูปร่างและความกว้างของใบพัดลมแต่ละตัว นอกจากปัจจัยเหล่านี้แล้ว ตัวแปรอื่นๆ ยังส่งผลต่อประสิทธิภาพของประสิทธิภาพของใบพัดลมอีกด้วย ด้านล่างนี้ เราได้แสดงรายการตัวแปรเหล่านี้เพิ่มเติมบางส่วน"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "• ระยะห่างของทิป: แม้ว่าคนทั่วไปจะไม่ได้ตระหนักถึงข้อเท็จจริงนี้จริงๆ แต่ปริมาณระยะห่างของทิปที่ใบพัดลมมีในตัวเรือนหอทำความเย็นสามารถส่งผลกระทบอย่างมากต่อประสิทธิภาพของทาวเวอร์ทั้งหมด ปริมาณช่องว่างมีผลกระทบดังกล่าว เนื่องจากส่งผลต่อปริมาณอากาศที่สูญเสียหรือการรั่วไหลรอบๆ ทิป หรือที่เรียกว่ากระแสน้ำวนของทิป เมื่ออากาศออกจากหอทำความเย็น จะมีความดันสูงกว่าอากาศที่เข้ามาเนื่องจากการทำงานของใบพัดพัดลม ยิ่งมีช่องว่างรอบปลายใบพัดลมน้อยลง โอกาสที่อากาศภายในหอทำความเย็นจะไหลผ่านพัดลมก็จะยิ่งน้อยลงเท่านั้น"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "• สภาพทางเข้า: เมื่อพิจารณาประสิทธิภาพของพัดลมตามแนวแกนภายในหอทำความเย็น สิ่งสำคัญคือต้องพิจารณาผลกระทบของการไหลของอากาศเมื่อเข้าสู่ทาวเวอร์ ในบริเวณรอบใบพัดลมหรือที่เรียกว่าวงแหวนพัดลม อากาศจะต้องถูกรวบรวมจากทุกทิศทางและเร่งความเร็วไปที่ระนาบของพัดลมเท่าๆ กัน หากไม่บรรลุการเปลี่ยนแปลงที่ราบรื่น การที่เวกเตอร์การไหลของอากาศไม่สามารถทำการเปลี่ยนแปลงทิศทางที่เหมาะสมและรวดเร็วจะทำให้เกิด “Vena Contracta” ที่ปลายใบมีด โดยพื้นฐานแล้ว บริเวณนี้ของใบพัดลมจะขาดอากาศ ทำให้บริเวณใกล้ปลายใบพัดลมไม่ได้ผล เมื่อพิจารณาถึงงานส่วนใหญ่ที่ทำในส่วนด้านนอกของใบพัดลม หากปัญหานี้ไม่ได้รับการแก้ไข อาจสูญเสียประสิทธิภาพได้สูงถึง 15 ถึง 20 เปอร์เซ็นต์"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "• ความหนาแน่นของอากาศ: ปัจจัยที่หลายๆ คนมองข้ามเกี่ยวกับประสิทธิภาพของพัดลมคูลลิ่งทาวเวอร์คือผลกระทบของความหนาแน่นของอากาศภายในสภาพแวดล้อมที่กำหนด ความหนาแน่นของอากาศได้รับผลกระทบจากอุณหภูมิและความสูงของอากาศที่ระนาบของพัดลม และหากไม่คำนึงถึง ก็สามารถส่งผลกระทบร้ายแรงต่อประสิทธิภาพของหอทำความเย็นได้ มองดูด้วยวิธีนี้ หอทำความเย็นที่ระดับน้ำทะเลจะต้องออกแรงมากกว่าหอทำความเย็นที่ความสูง 5,000 ฟุตเหนือระดับน้ำทะเลมาก เพราะความหนาแน่นของอากาศที่ระดับน้ำทะเลนั้นสูงกว่ามาก เพื่ออธิบายความหนาแน่นของอากาศที่แตกต่างกันนี้ สิ่งสำคัญคือต้องปรับความเร็วการหมุนของพัดลมเพื่อให้แน่ใจว่าปริมาณอากาศที่เหมาะสมจะถูกผลักผ่านทาวเวอร์"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "เราหวังว่าบล็อกสั้นๆ นี้จะช่วยให้คุณเข้าใจตัวแปรต่างๆ ที่อาจส่งผลต่อประสิทธิภาพของพัดลมคูลลิ่งทาวเวอร์ได้ดีขึ้น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับตัวเลือกพัดลมคูลลิ่งทาวเวอร์ที่เรานำเสนอ หรือต้องการกำหนดเวลาการตรวจสอบการบำรุงรักษากับช่างเทคนิคคูลลิ่งทาวเวอร์ของเรา โปรดติดต่อเราวันนี้และนัดหมาย ที่ Industrial Cooling Solutions Inc. เราทุ่มเทเพื่อมอบโซลูชั่นหอทำความเย็นอุตสาหกรรมที่ดีที่สุด และเรามั่นใจว่าเราสามารถช่วยเหลือคุณได้ทุกความต้องการ ติดต่อเราวันนี้และเริ่มกันเลย!"
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "Cooling Tower Fans: Axial Fan Basics",
+    "meta": [
+      {
+        "name": "description",
+        "value": "Visit Industrial Cooling Tower Inc. today to learn more about the impacts certain variables have on the efficiency of cooling tower fans"
+      },
+      {
+        "name": "robots",
+        "value": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      {
+        "name": "og:locale",
+        "value": "th_TH"
+      },
+      {
+        "name": "og:type",
+        "value": "article"
+      },
+      {
+        "name": "og:title",
+        "value": "Cooling Tower Fans: Axial Fan Basics"
+      },
+      {
+        "name": "og:description",
+        "value": "Visit Industrial Cooling Tower Inc. today to learn more about the impacts certain variables have on the efficiency of cooling tower fans"
+      },
+      {
+        "name": "og:url",
+        "value": "https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/"
+      },
+      {
+        "name": "og:site_name",
+        "value": "New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "article:author",
+        "value": "https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/"
+      },
+      {
+        "name": "article:section",
+        "value": "Uncategorized"
+      },
+      {
+        "name": "og:updated_time",
+        "value": "2025-03-07T18:37:05+00:00"
+      },
+      {
+        "name": "og:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "og:image:secure_url",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "og:image:width",
+        "value": "1219"
+      },
+      {
+        "name": "og:image:height",
+        "value": "1035"
+      },
+      {
+        "name": "og:image:alt",
+        "value": "Industrial Cooling Solutions"
+      },
+      {
+        "name": "og:image:type",
+        "value": "image/jpeg"
+      },
+      {
+        "name": "article:published_time",
+        "value": "2025-03-07T17:40:11+00:00"
+      },
+      {
+        "name": "article:modified_time",
+        "value": "2025-03-07T18:37:05+00:00"
+      },
+      {
+        "name": "twitter:card",
+        "value": "summary_large_image"
+      },
+      {
+        "name": "twitter:title",
+        "value": "Cooling Tower Fans: Axial Fan Basics"
+      },
+      {
+        "name": "twitter:description",
+        "value": "Visit Industrial Cooling Tower Inc. today to learn more about the impacts certain variables have on the efficiency of cooling tower fans"
+      },
+      {
+        "name": "twitter:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "twitter:label1",
+        "value": "Written by"
+      },
+      {
+        "name": "twitter:data1",
+        "value": "Tim Bozic"
+      },
+      {
+        "name": "twitter:label2",
+        "value": "Time to read"
+      },
+      {
+        "name": "twitter:data2",
+        "value": "3 minutes"
+      },
+      {
+        "name": "msapplication-TileImage",
+        "value": "https://h2ocooling.com/wp-content/uploads/2025/03/cropped-Favicon-1-1-270x270.png"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/"
+    ],
+    "h1": [
+      "แฟนแกน: พื้นฐาน"
+    ],
+    "schema": [
+      "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://h2ocooling.com/#organization\",\"name\":\"Industrial Cooling Solutions\",\"url\":\"http://h2ocooling.com\",\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/#logo\",\"url\":\"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\",\"contentUrl\":\"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\",\"caption\":\"New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"inLanguage\":\"th\",\"width\":\"267\",\"height\":\"57\"}},{\"@type\":\"WebSite\",\"@id\":\"https://h2ocooling.com/#website\",\"url\":\"https://h2ocooling.com\",\"name\":\"New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"publisher\":{\"@id\":\"https://h2ocooling.com/#organization\"},\"inLanguage\":\"th\"},{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\",\"url\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\",\"width\":\"1219\",\"height\":\"1035\",\"caption\":\"Industrial Cooling Solutions\",\"inLanguage\":\"th\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":\"1\",\"item\":{\"@id\":\"https://h2ocooling.com\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":\"2\",\"item\":{\"@id\":\"https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/\",\"name\":\"\\u0e41\\u0e1f\\u0e19\\u0e41\\u0e01\\u0e19: \\u0e1e\\u0e37\\u0e49\\u0e19\\u0e10\\u0e32\\u0e19\"}}]},{\"@type\":\"WebPage\",\"@id\":\"https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/#webpage\",\"url\":\"https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/\",\"name\":\"Cooling Tower Fans: Axial Fan Basics\",\"datePublished\":\"2025-03-07T17:40:11+00:00\",\"dateModified\":\"2025-03-07T18:37:05+00:00\",\"isPartOf\":{\"@id\":\"https://h2ocooling.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\"},\"inLanguage\":\"th\",\"breadcrumb\":{\"@id\":\"https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/#breadcrumb\"}},{\"@type\":\"Person\",\"@id\":\"https://h2ocooling.com/th/author/tbozic/\",\"name\":\"Tim Bozic\",\"description\":\"Tim Bozic is a seasoned leader with over two decades of experience in the industrial and manufacturing sectors. As the President of Industrial Cooling Solutions, he specializes in driving innovation and operational excellence in cooling technologies, ensuring sustainable and efficient solutions for clients worldwide. With a proven track record in strategic planning, team leadership, and customer-focused growth, Tim is passionate about delivering cutting-edge solutions that meet the evolving needs of the industry.\",\"url\":\"https://h2ocooling.com/th/author/tbozic/\",\"image\":{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790609671\",\"url\":\"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790609671\",\"caption\":\"Tim Bozic\",\"inLanguage\":\"th\"},\"sameAs\":[\"https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/\",\"https://www.linkedin.com/in/tim-bozic-417a65a/\"],\"worksFor\":{\"@id\":\"https://h2ocooling.com/#organization\"}},{\"@type\":\"BlogPosting\",\"headline\":\"Cooling Tower Fans: Axial Fan Basics\",\"datePublished\":\"2025-03-07T17:40:11+00:00\",\"dateModified\":\"2025-03-07T18:37:05+00:00\",\"author\":{\"@id\":\"https://h2ocooling.com/th/author/tbozic/\",\"name\":\"Tim Bozic\"},\"publisher\":{\"@id\":\"https://h2ocooling.com/#organization\"},\"description\":\"Visit Industrial Cooling Tower Inc. today to learn more about the impacts certain variables have on the efficiency of cooling tower fans\",\"name\":\"Cooling Tower Fans: Axial Fan Basics\",\"@id\":\"https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/#richSnippet\",\"isPartOf\":{\"@id\":\"https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/#webpage\"},\"image\":{\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\"},\"inLanguage\":\"th\",\"mainEntityOfPage\":{\"@id\":\"https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/#webpage\"}}]}"
+    ]
+  },
+  "images": []
+}

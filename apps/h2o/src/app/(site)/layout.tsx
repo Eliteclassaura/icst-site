@@ -12,6 +12,8 @@
  */
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
+import { headers } from 'next/headers'
+import { isPayloadContent } from '../../content/runtime-read'
 import { estateHasPublicationReadyRoute } from '../../site/gate'
 import {QuietMotion} from '../../site/QuietMotion'
 import './site.css'
@@ -45,17 +47,28 @@ export const metadata: Metadata = {
   title: 'Industrial Cooling Solutions',
 }
 
-const SiteLayout = ({ children }: { children: ReactNode }) => (
-  <html lang="en">
-    <body>
-      {/* R3: a skip link is the first focusable thing on every route. */}
-      <a className="skip" href="#main">
-        Skip to content
-      </a>
-      {children}
-      <QuietMotion/>
-    </body>
-  </html>
-)
+/** Locale Part B: in payload content mode the proxy passes the page language (`x-h2o-lang`, src/content/locale-language);
+ * the repository and static builds are English-only. Only a plain language tag is accepted. */
+const pageLanguage = async (): Promise<string> => {
+  if (!isPayloadContent()) return 'en'
+  const lang = (await headers()).get('x-h2o-lang') ?? 'en'
+  return /^[a-z]{2}(?:-[A-Z]{2})?$/.test(lang) ? lang : 'en'
+}
+
+const SiteLayout = async ({ children }: { children: ReactNode }) => {
+  const lang = await pageLanguage()
+  return (
+    <html lang={lang}>
+      <body>
+        {/* R3: a skip link is the first focusable thing on every route. */}
+        <a className="skip" href="#main">
+          Skip to content
+        </a>
+        {children}
+        <QuietMotion/>
+      </body>
+    </html>
+  )
+}
 
 export default SiteLayout

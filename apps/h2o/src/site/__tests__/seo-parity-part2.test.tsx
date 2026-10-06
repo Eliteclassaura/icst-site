@@ -60,12 +60,16 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     const row=(p:string)=>ledger.routes.find(r=>r.path===p)!
     expect(row('/cooling-tower-vs-chiller/')).toMatchObject({state:'PUBLIC',export:true,redirect:null})
     expect(row('/chiller-and-cooling-tower/')).toMatchObject({state:'PUBLIC',export:true,redirect:null})
-    // Retired by Part 2 R3 (active:false); Part 3 is a delta on that state, so nothing is retired again.
-    expect(data('redirects-retired.tsv')).toEqual([])
+    // Retired by Part 2 R3 (active:false) and not again; Locale Part B's retirements are the 98 R1 locale→English redirects of
+    // preserved locale pages.
+    expect(data('redirects-retired.tsv').some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
+    expect(data('redirects-retired.tsv')).toHaveLength(98)
+    for(const r of data('redirects-retired.tsv'))expect(r.reason,r.source).toMatch(/^OGCS Locale Part A: live locale page preserved/)
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
-    // 8 locale/blog redirects, plus the Thai root-slug Legionella post (CT sitemap parity ruling; Locale B repoints it).
-    expect(redirects.filter(r=>r.destination==='/chiller-and-cooling-tower/').length).toBe(9)
+    // Locale Part B: the locale and blog variants now go one hop to their preserved locale pages (and the locale URLs serve
+    // 200); only the English blog alias still points here.
+    expect(redirects.filter(r=>r.destination==='/chiller-and-cooling-tower/').map(r=>r.source)).toEqual(['/blog/chiller-and-cooling-tower/'])
     const seo=new Map(data('seo-fields.tsv').map(r=>[r.path,r]))
     expect(seo.get('/cooling-tower-vs-chiller/')?.title).toBe('Cooling Tower vs. Chiller: The 2026 Guide - ICS')
     expect(seo.get('/chiller-and-cooling-tower/')?.title).toBe('How to Prevent Legionella in Chiller and Cooling Tower?')

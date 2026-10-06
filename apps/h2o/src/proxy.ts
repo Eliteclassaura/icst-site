@@ -43,6 +43,7 @@ import { mergeTypeformCsp } from './conversion/csp'
 import { GONE_PATHS, NOINDEX_FOLLOW_PATHS } from './content/config'
 import { isPayloadContent, snapshotJson } from './content/runtime-read'
 import { SITEMAP_FILE } from './content/sitemap'
+import { LANGUAGE_HEADER, languageFor } from './content/locale-language'
 
 const EXCLUDED = /^\/(api|admin|_next|favicon\.ico|robots\.txt|sitemap[^/]*\.xml|brand)(\/|$)/
 
@@ -257,6 +258,8 @@ function payloadPublic(req: NextRequest): NextResponse {
   const requestHeaders = new Headers(req.headers)
   requestHeaders.set('x-nonce', nonce)
   requestHeaders.set('Content-Security-Policy', csp)
+  // Locale Part B: the page language reaches the layout's <html lang> (preserved locale pages; English otherwise).
+  requestHeaders.set(LANGUAGE_HEADER, languageFor(pathname))
   const preview = req.cookies.has('__prerender_bypass')
   const production = process.env.H2O_INDEXING_POLICY === 'production'
   const row = ledger?.routes.find((r) => pathKeyOf(r.path) === pathKeyOf(pathname))

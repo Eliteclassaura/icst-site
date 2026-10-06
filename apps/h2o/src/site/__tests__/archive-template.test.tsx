@@ -48,7 +48,8 @@ describe('archive template',()=>{
       if(main.includes('sp-archive-article')){articles++;for(const [,route] of main.matchAll(/data-article-route="([^"]+)"/g))expect(publicPaths.has(route!),`${row.path} article ${route}`).toBe(true)}
     }
     expect(products).toBe(169)
-    expect(articles).toBe(51)
+    // Locale Part B: the published Thai Salmon page lists on two more archives.
+    expect(articles).toBe(53)
   },240000)
   it('keeps the archive name as H1, the source breadcrumb, the result count and the pagination',()=>{
     const doc=salmonDocument(salmonRoutes().find(route=>route.targetPath==='/product-category/fans/')!)
@@ -76,7 +77,7 @@ describe('archive edge cases (Control Tower amendments)',()=>{
     const empties:string[]=[]
     for(const row of archives){const doc=salmonDocument(salmonRoutes().find(route=>route.targetPath===row.path)!);const model=archiveModel(doc);if(!model.products.length&&!model.articles.length)empties.push(row.path)}
     expect(empties.sort()).toEqual([...EMPTY_ARCHIVE_PATHS])
-    expect(EMPTY_ARCHIVE_PATHS).toHaveLength(145)
+    expect(EMPTY_ARCHIVE_PATHS).toHaveLength(143)
     for(const p of ['/category/cooling-tower-cost/',EMPTY_ARCHIVE_PATHS.find(path=>path.startsWith('/product-tag/'))!]){
       const html=await render(p)
       expect(html,p).toMatch(/<p class="sp-archive-empty">Nothing is listed here yet\. <a href="\/cooling-tower-parts-online\/">Browse cooling tower parts<\/a> or <a href="\/contact-us\/">contact us<\/a>\.<\/p>/)
@@ -88,7 +89,7 @@ describe('archive edge cases (Control Tower amendments)',()=>{
     const root=mkdtempSync(path.join(tmpdir(),'h2o-empty-'))
     mkdirSync(path.join(root,'generations','g'),{recursive:true})
     const rows=ledger.routes.filter(row=>EMPTY_ARCHIVE_PATHS.includes(row.path)||row.path==='/contact-us/').map(row=>({...row}))
-    expect(rows.filter(row=>EMPTY_ARCHIVE_PATHS.includes(row.path)&&(row as Row&{indexable:boolean}).indexable).length).toBe(29)
+    expect(rows.filter(row=>EMPTY_ARCHIVE_PATHS.includes(row.path)&&(row as Row&{indexable:boolean}).indexable).length).toBe(28) // Locale Part B: one indexable archive now lists the published Thai page
     writeFileSync(path.join(root,'generations','g','ledger.json'),JSON.stringify({routes:rows,redirects:[]}))
     mkdirSync(path.join(root,'releases'),{recursive:true})
     writeFileSync(path.join(root,'releases','r-g.json'),JSON.stringify({format:1,id:'r-g',content:'g',search:'s-g'}))

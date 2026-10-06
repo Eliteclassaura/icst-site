@@ -1,0 +1,238 @@
+{
+  "routeId": "LIVE-LOCALE-ja-14699",
+  "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/",
+  "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/",
+  "type": "posts",
+  "title": "冷却塔のファン効率の検討",
+  "wordpressId": 14699,
+  "language": "ja",
+  "sourceIdentity": {
+    "status": 200,
+    "effectiveUrl": "https://h2ocooling.com/ja/冷却塔のファン効率の検討/",
+    "sha256": "75dda2c1df33334367eb333708cf4aa7384d27a64cc9f88e570726e4f0bfcfb9",
+    "htmlSha256": "5793d98941bbde4e3ea23e9e91ba45d944c650dfdbd5ee14b45f4abb62deb2a8",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/posts/14699",
+    "htmlLang": "ja",
+    "liveAlternates": [
+      {
+        "hreflang": "vi",
+        "href": "https://h2ocooling.com/vi/tim-hieu-hieu-suat-quat-thap-giai-nhiet/"
+      },
+      {
+        "hreflang": "th",
+        "href": "https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5-5/"
+      },
+      {
+        "hreflang": "ja",
+        "href": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/"
+      },
+      {
+        "hreflang": "id",
+        "href": "https://h2ocooling.com/id/lihat-efisiensi-kipas-menara-pendingin/"
+      },
+      {
+        "hreflang": "en",
+        "href": "https://h2ocooling.com/look-cooling-tower-fan-efficiences/"
+      }
+    ]
+  },
+  "publicationStatus": "publish",
+  "published": "2025-03-07T17:26:14",
+  "modified": "2025-03-07T18:37:10",
+  "text": "冷却塔ファンは可能な限り効率的ですか? 産業用冷却塔の世界では、塔が可能な限り効率的に熱を緩和するために、多くの塔コンポーネントが必要です。 適切な水の流れは、充填材が適切に飽和し、熱の上昇を妨げることができるようにするために重要です。スケールが水の蒸発速度に影響を与えないようにするには、きれいな表面が必要です。また、適切な空気の流れを確保するには、適切な空気の流れが必要です。 冷却塔本体に熱が滞留しないようにする。 これらのコンポーネントはすべて冷却塔の全体的な効率に関与しますが、ファン アセンブリが適切に最適化されていない場合、交換できる熱量が大幅に減少するため、プラスのコンポーネントが無効になる可能性があります。 複数部構成のブログ シリーズの最初の記事として、Industrial Cooling Solutions では、乾式冷却塔と湿式冷却塔の両方に関する冷却塔ファンの効率を検討したいと考えました。 熱交換の方法は異なりますが、両方の冷却塔には評価に値するいくつかの共通点があります。 詳細については、以下を読み続けてください。 ファンシステムの効率が最も重要です 乾式冷却塔と湿式冷却塔は熱を緩和する方法が異なりますが、いくつかの共通点もあります。 どちらの産業用冷却塔タイプにも、塔内の空気を移動させるための軸流ファンが含まれており、どちらもファンとファンネルの空気を同時に閉じ込めるためのシュラウドまたはその他のカバーがあり、熱が伝達できるように空気を導くプレナムがあります。 直接的または間接的な接触によって。 このようなタイプの冷却塔用のファン システムを設計する場合、最初のステップはファンの性能曲線を作成することです。 エンジニアは、この曲線を使用して、ファンの性能が冷却塔自体のシステム要件と正確に一致する動作点を決定できます。 通常、冷却塔ファンに関連する性能曲線は、再現可能な理想的な条件下で得られます。 このようにして効率を取得することで、エンジニアは研究室だけでなく現実世界で効率レベルを再現できることを確信できます。 この点を説明するために、次の例を考えてみましょう。冷却塔ファンのテスト条件では、通常、大きな吸気ベルを備えた 5 フィートのファン ブレードのブレード先端クリアランスが約 0.040 インチである必要があります。 このような理想的な条件下では、ファンの総効率は通常 75 ～ 85 パーセントの範囲になります。 ただし、冷却塔の使用経験のあるほとんどの人が知っているように、ほとんどの本格的なファン テストでは、「実際の」パフォーマンスは 55 ～ 75 パーセントの範囲に収まる傾向があります。 効率レベルはどうなりましたか? 答えは非常に簡単で、ファン効率はまったく同じ (効率 75 ～ 85%) ですが、システム効率ははるかに低いということです。 システムの効率が低いのに、ファンの効率をどうやって高めることができるでしょうか? この質問に答えるには、もう一度例が必要です。 工場が適切に熱を除去できることを確認する機能を持つ強制通風空冷熱交換器を設計する必要があると仮定しましょう。 このタワーは、水柱 0.42 インチのシステム静圧に抗して動作しながら、200,000 立方フィート/分 (CFM) の空気を移動させるように設計されています。 初期のファン性能曲線は、直径 14 フィートの冷却塔ファンと 21 馬力のモーターを組み合わせれば、この作業には十分であることを示しました。 少し計算してみると、エンジニアは、この動作点での合計ファン効率が 87% であり、この数値が許容範囲内に十分に収まっていることを発見しました。 残念ながら、システムを起動すると、冷却が不十分で、計算で示された効率 87% のベンチマークを達成できないことが判明しました。 効率の急激な低下の原因を特定しようとしたところ、再循環損失、上部損失、ハブでの逆流がすべてシステム効率の低下につながることが判明しました。 これらの損失をすべて組み合わせると、ファン システムの効率が 20% 低下します。これは、実際のファン効率が 67% に近づいたことを意味します。 さらに、簡単な計算によると、設計では、当初の理想的なファン曲線で求められた 21 馬力のユニットではなく、27 馬力に近い強度のモーターが必要であることがわかりました。 ご覧のとおり、効率レベルを決定する際にファン システム全体を考慮しないと、最終結果が公称値を下回った場合にイライラする可能性があります。 次回は、冷却塔ファンの効率に関するトピックをさらに詳しく説明し、これらのシステムの効率を向上させる可能性のあるいくつかの小さな要因について説明しますので、ぜひご参加ください。",
+  "children": [
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "冷却塔ファンは可能な限り効率的ですか?"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "産業用冷却塔の世界では、塔が可能な限り効率的に熱を緩和するために、多くの塔コンポーネントが必要です。 適切な水の流れは、充填材が適切に飽和し、熱の上昇を妨げることができるようにするために重要です。スケールが水の蒸発速度に影響を与えないようにするには、きれいな表面が必要です。また、適切な空気の流れを確保するには、適切な空気の流れが必要です。 冷却塔本体に熱が滞留しないようにする。 これらのコンポーネントはすべて冷却塔の全体的な効率に関与しますが、ファン アセンブリが適切に最適化されていない場合、交換できる熱量が大幅に減少するため、プラスのコンポーネントが無効になる可能性があります。 複数部構成のブログ シリーズの最初の記事として、Industrial Cooling Solutions では、乾式冷却塔と湿式冷却塔の両方に関する冷却塔ファンの効率を検討したいと考えました。 熱交換の方法は異なりますが、両方の冷却塔には評価に値するいくつかの共通点があります。 詳細については、以下を読み続けてください。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ファンシステムの効率が最も重要です"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "乾式冷却塔と湿式冷却塔は熱を緩和する方法が異なりますが、いくつかの共通点もあります。 どちらの産業用冷却塔タイプにも、塔内の空気を移動させるための軸流ファンが含まれており、どちらもファンとファンネルの空気を同時に閉じ込めるためのシュラウドまたはその他のカバーがあり、熱が伝達できるように空気を導くプレナムがあります。 直接的または間接的な接触によって。 このようなタイプの冷却塔用のファン システムを設計する場合、最初のステップはファンの性能曲線を作成することです。 エンジニアは、この曲線を使用して、ファンの性能が冷却塔自体のシステム要件と正確に一致する動作点を決定できます。 通常、冷却塔ファンに関連する性能曲線は、再現可能な理想的な条件下で得られます。 このようにして効率を取得することで、エンジニアは研究室だけでなく現実世界で効率レベルを再現できることを確信できます。 この点を説明するために、次の例を考えてみましょう。冷却塔ファンのテスト条件では、通常、大きな吸気ベルを備えた 5 フィートのファン ブレードのブレード先端クリアランスが約 0.040 インチである必要があります。 このような理想的な条件下では、ファンの総効率は通常 75 ～ 85 パーセントの範囲になります。 ただし、冷却塔の使用経験のあるほとんどの人が知っているように、ほとんどの本格的なファン テストでは、「実際の」パフォーマンスは 55 ～ 75 パーセントの範囲に収まる傾向があります。 効率レベルはどうなりましたか? 答えは非常に簡単で、ファン効率はまったく同じ (効率 75 ～ 85%) ですが、システム効率ははるかに低いということです。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "システムの効率が低いのに、ファンの効率をどうやって高めることができるでしょうか?"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "この質問に答えるには、もう一度例が必要です。 工場が適切に熱を除去できることを確認する機能を持つ強制通風空冷熱交換器を設計する必要があると仮定しましょう。 このタワーは、水柱 0.42 インチのシステム静圧に抗して動作しながら、200,000 立方フィート/分 (CFM) の空気を移動させるように設計されています。 初期のファン性能曲線は、直径 14 フィートの冷却塔ファンと 21 馬力のモーターを組み合わせれば、この作業には十分であることを示しました。 少し計算してみると、エンジニアは、この動作点での合計ファン効率が 87% であり、この数値が許容範囲内に十分に収まっていることを発見しました。 残念ながら、システムを起動すると、冷却が不十分で、計算で示された効率 87% のベンチマークを達成できないことが判明しました。 効率の急激な低下の原因を特定しようとしたところ、再循環損失、上部損失、ハブでの逆流がすべてシステム効率の低下につながることが判明しました。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "これらの損失をすべて組み合わせると、ファン システムの効率が 20% 低下します。これは、実際のファン効率が 67% に近づいたことを意味します。 さらに、簡単な計算によると、設計では、当初の理想的なファン曲線で求められた 21 馬力のユニットではなく、27 馬力に近い強度のモーターが必要であることがわかりました。 ご覧のとおり、効率レベルを決定する際にファン システム全体を考慮しないと、最終結果が公称値を下回った場合にイライラする可能性があります。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "次回は、冷却塔ファンの効率に関するトピックをさらに詳しく説明し、これらのシステムの効率を向上させる可能性のあるいくつかの小さな要因について説明しますので、ぜひご参加ください。"
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc.",
+    "meta": [
+      {
+        "name": "description",
+        "value": "冷却塔ファンは可能な限り効率的ですか?"
+      },
+      {
+        "name": "robots",
+        "value": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      {
+        "name": "og:locale",
+        "value": "ja_JP"
+      },
+      {
+        "name": "og:type",
+        "value": "article"
+      },
+      {
+        "name": "og:title",
+        "value": "Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc."
+      },
+      {
+        "name": "og:description",
+        "value": "冷却塔ファンは可能な限り効率的ですか?"
+      },
+      {
+        "name": "og:url",
+        "value": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/"
+      },
+      {
+        "name": "og:site_name",
+        "value": "New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "article:author",
+        "value": "https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/"
+      },
+      {
+        "name": "article:section",
+        "value": "Uncategorized"
+      },
+      {
+        "name": "og:updated_time",
+        "value": "2025-03-07T18:37:10+00:00"
+      },
+      {
+        "name": "og:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "og:image:secure_url",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "og:image:width",
+        "value": "1219"
+      },
+      {
+        "name": "og:image:height",
+        "value": "1035"
+      },
+      {
+        "name": "og:image:alt",
+        "value": "Industrial Cooling Solutions"
+      },
+      {
+        "name": "og:image:type",
+        "value": "image/jpeg"
+      },
+      {
+        "name": "article:published_time",
+        "value": "2025-03-07T17:26:14+00:00"
+      },
+      {
+        "name": "article:modified_time",
+        "value": "2025-03-07T18:37:10+00:00"
+      },
+      {
+        "name": "twitter:card",
+        "value": "summary_large_image"
+      },
+      {
+        "name": "twitter:title",
+        "value": "Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc."
+      },
+      {
+        "name": "twitter:description",
+        "value": "冷却塔ファンは可能な限り効率的ですか?"
+      },
+      {
+        "name": "twitter:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "twitter:label1",
+        "value": "によって書かれた"
+      },
+      {
+        "name": "twitter:data1",
+        "value": "Tim Bozic"
+      },
+      {
+        "name": "twitter:label2",
+        "value": "読む時間"
+      },
+      {
+        "name": "twitter:data2",
+        "value": "一分未満"
+      },
+      {
+        "name": "msapplication-TileImage",
+        "value": "https://h2ocooling.com/wp-content/uploads/2025/03/cropped-Favicon-1-1-270x270.png"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/"
+    ],
+    "h1": [
+      "冷却塔のファン効率の検討"
+    ],
+    "schema": [
+      "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://h2ocooling.com/#organization\",\"name\":\"Industrial Cooling Solutions\",\"url\":\"http://h2ocooling.com\",\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/#logo\",\"url\":\"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\",\"contentUrl\":\"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\",\"caption\":\"New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"inLanguage\":\"ja\",\"width\":\"267\",\"height\":\"57\"}},{\"@type\":\"WebSite\",\"@id\":\"https://h2ocooling.com/#website\",\"url\":\"https://h2ocooling.com\",\"name\":\"New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"publisher\":{\"@id\":\"https://h2ocooling.com/#organization\"},\"inLanguage\":\"ja\"},{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\",\"url\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\",\"width\":\"1219\",\"height\":\"1035\",\"caption\":\"Industrial Cooling Solutions\",\"inLanguage\":\"ja\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":\"1\",\"item\":{\"@id\":\"https://h2ocooling.com\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":\"2\",\"item\":{\"@id\":\"https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/\",\"name\":\"\\u51b7\\u5374\\u5854\\u306e\\u30d5\\u30a1\\u30f3\\u52b9\\u7387\\u306e\\u691c\\u8a0e\"}}]},{\"@type\":\"WebPage\",\"@id\":\"https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/#webpage\",\"url\":\"https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/\",\"name\":\"Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc.\",\"datePublished\":\"2025-03-07T17:26:14+00:00\",\"dateModified\":\"2025-03-07T18:37:10+00:00\",\"isPartOf\":{\"@id\":\"https://h2ocooling.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\"},\"inLanguage\":\"ja\",\"breadcrumb\":{\"@id\":\"https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/#breadcrumb\"}},{\"@type\":\"Person\",\"@id\":\"https://h2ocooling.com/ja/author/tbozic/\",\"name\":\"Tim Bozic\",\"description\":\"Tim Bozic is a seasoned leader with over two decades of experience in the industrial and manufacturing sectors. As the President of Industrial Cooling Solutions, he specializes in driving innovation and operational excellence in cooling technologies, ensuring sustainable and efficient solutions for clients worldwide. With a proven track record in strategic planning, team leadership, and customer-focused growth, Tim is passionate about delivering cutting-edge solutions that meet the evolving needs of the industry.\",\"url\":\"https://h2ocooling.com/ja/author/tbozic/\",\"image\":{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790609671\",\"url\":\"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790609671\",\"caption\":\"Tim Bozic\",\"inLanguage\":\"ja\"},\"sameAs\":[\"https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/\",\"https://www.linkedin.com/in/tim-bozic-417a65a/\"],\"worksFor\":{\"@id\":\"https://h2ocooling.com/#organization\"}},{\"@type\":\"BlogPosting\",\"headline\":\"Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc.\",\"datePublished\":\"2025-03-07T17:26:14+00:00\",\"dateModified\":\"2025-03-07T18:37:10+00:00\",\"author\":{\"@id\":\"https://h2ocooling.com/ja/author/tbozic/\",\"name\":\"Tim Bozic\"},\"publisher\":{\"@id\":\"https://h2ocooling.com/#organization\"},\"description\":\"\\u51b7\\u5374\\u5854\\u30d5\\u30a1\\u30f3\\u306f\\u53ef\\u80fd\\u306a\\u9650\\u308a\\u52b9\\u7387\\u7684\\u3067\\u3059\\u304b?\",\"name\":\"Cooling Tower Fan: A Look At Efficiency Pt. I - ICS, Inc.\",\"@id\":\"https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/#richSnippet\",\"isPartOf\":{\"@id\":\"https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/#webpage\"},\"image\":{\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\"},\"inLanguage\":\"ja\",\"mainEntityOfPage\":{\"@id\":\"https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/#webpage\"}}]}"
+    ]
+  },
+  "images": []
+}

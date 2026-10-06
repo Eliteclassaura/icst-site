@@ -16,8 +16,9 @@ describe('accepted public chrome and Technical Articles implementation',()=>{
     const directory=articleDirectoryDocuments()
     // Master SEO Pass R1: 15 articles consolidated by redirect leave the directory; the three published held articles join it.
     // SEO parity Part 2 R2: the un-consolidated /cooling-tower-vs-chiller/ (OGCS R1.2) is a public article again (237 + 1).
-    // Part 3: the daily log published by the CT sitemap-parity ruling joins it (239).
-    expect(directory).toHaveLength(239)
+    // Part 3: the daily log published by the CT sitemap-parity ruling joins it (239). Locale Part B: the preserved Thai Salmon
+    // page (240); the live locale pages are not in the English directory.
+    expect(directory).toHaveLength(240)
     for(const target of ['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/','/cooling-tower-daily-log/'])expect(directory.some(row=>row.doc.targetPath===target),target).toBe(true)
     expect(directory.some(row=>row.doc.targetPath==='/power-plant-cooling-tower/')).toBe(false)
     // The four articles that were noindex only for a cross canonical are self-canonical and indexable (Master SEO Pass R1).

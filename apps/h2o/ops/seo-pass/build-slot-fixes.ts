@@ -11,7 +11,10 @@
  *   - anything else → unlinked (the text stays);
  *   - an alt text over 300 characters → its own leading whole sentences up to 300 characters (held text, nothing added).
  * Every fixed record is re-validated with the same validator as an editor write (0 errors required) and every change is
- * recorded. The batch writes the fixed elements in the same request as the decided change, never on their own.
+ * recorded.
+ * Claim edits (data/claim-edits.json, Control Tower rulings): a recorded sentence removal or single-word correction in a
+ * page's own text, applied inside one text run (never across formatting), exactly once, and never leaving a paragraph
+ * empty. Nothing is added. The batch writes the fixed elements in the same request as the decided change, never on their own.
  */
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
@@ -94,6 +97,65 @@ function shortenAlt(p: string, alt: string): string {
   return out.trim()
 }
 
+type ClaimEdit = { path: string; op: 'remove' | 'replace'; find: string; replace?: string; reason: string }
+const claimEdits = (JSON.parse(readFileSync(path.join(APP, 'ops/seo-pass/data/claim-edits.json'), 'utf8')) as { edits: ClaimEdit[] }).edits
+const claimEditsFor = new Map<string, ClaimEdit[]>()
+for (const e of claimEdits) claimEditsFor.set(e.path, [...(claimEditsFor.get(e.path) ?? []), e])
+const appliedEdits = new Set<ClaimEdit>()
+/** Apply one claim edit to a lexical state: the text run that contains `find` (once) changes; null when no single run holds it. */
+function editLexical(state: LexicalState, edit: ClaimEdit): LexicalState | null {
+  let hits = 0
+  const visit = (nodes: LNode[]): LNode[] => nodes.map((n) => {
+    if (n.type === 'text' && typeof n.text === 'string' && n.text.includes(edit.find)) {
+      hits++
+      // A removal takes the sentence with exactly one adjacent space; nothing else in the run changes.
+      const t = n.text
+      const text = edit.op === 'replace' ? t.replace(edit.find, edit.replace ?? '') : t.includes(edit.find + ' ') ? t.replace(edit.find + ' ', '') : t.includes(' ' + edit.find) ? t.replace(' ' + edit.find, '') : t.replace(edit.find, '')
+      return { ...n, text }
+    }
+    return n.children ? { ...n, children: visit(n.children) } : n
+  })
+  const root = (state as unknown as { root: LNode }).root
+  const next = { root: { ...root, children: visit(root.children ?? []) } } as unknown as LexicalState
+  if (hits === 1) return next
+  if (hits > 1 || edit.op !== 'remove') return null
+  return removeAcrossRuns(state, edit.find)
+}
+/** A sentence removal that spans the runs of one block (e.g. "… is" + linked company name + ". Kindly …"): runs wholly
+ * inside the sentence are dropped (a link only as a whole), boundary text runs are trimmed; a link cut in two refuses. */
+function removeAcrossRuns(state: LexicalState, find: string): LexicalState | null {
+  const runText = (n: LNode): string => (n.type === 'text' ? n.text ?? '' : (n.children ?? []).map(runText).join(''))
+  let done = 0
+  const visitBlock = (block: LNode): LNode => {
+    const runs = block.children ?? []
+    const texts = runs.map(runText)
+    const joined = texts.join('')
+    const at = joined.indexOf(find)
+    if (done || at < 0 || !runs.every((r) => r.type === 'text' || r.type === 'link' || r.type === 'linebreak')) return block.children ? { ...block, children: runs.map(visitBlock) } : block
+    const end = at + find.length
+    const out: LNode[] = []
+    let pos = 0
+    let joinAt = -1 // index in `out` of the run that follows the removed sentence
+    for (const [i, r] of runs.entries()) {
+      const from = pos, to = pos + texts[i]!.length
+      pos = to
+      if (to <= at || from >= end) { if (from >= end && joinAt < 0) joinAt = out.length; out.push(r); continue }
+      if (from >= at && to <= end) continue // wholly inside: dropped
+      if (r.type !== 'text') return block // a link cut in two: refuse (unchanged block → caller refuses)
+      const t = r.text ?? ''
+      if (to > end && joinAt < 0) joinAt = out.length
+      out.push({ ...r, text: t.slice(0, Math.max(0, at - from)) + t.slice(Math.min(t.length, end - from)) })
+    }
+    // Tidy the join only: the run that follows the removed sentence loses its leading ". " or space.
+    const tidy = out.map((r, i) => (i === joinAt && r.type === 'text' ? { ...r, text: (r.text ?? '').replace(/^[.,;:]?\s+/, '') } : r))
+    done++
+    return { ...block, children: tidy.filter((r) => !(r.type === 'text' && (r.text ?? '') === '')) }
+  }
+  const root = (state as unknown as { root: LNode }).root
+  const next = { root: { ...root, children: (root.children ?? []).map(visitBlock) } } as unknown as LexicalState
+  return done === 1 && lexicalText(next) !== lexicalText(state) ? next : null
+}
+const lexicalText = (state: LexicalState): string => { const t = (n: LNode): string => (n.type === 'text' ? n.text ?? '' : (n.children ?? []).map(t).join('')); return t((state as unknown as { root: LNode }).root) }
 const fixes: Record<string, { routeId: string; slots: Array<{ key: string; kind: string; field: 'text' | 'href' | 'alt'; before: string; after: unknown; afterCanon: string; changes: Change[] }> }> = {}
 const seen = new Set<string>()
 let fixedRoutes = 0
@@ -104,7 +166,8 @@ for (const row of ledger.routes) {
   const slots = extractSlots(document, { productIds: products })
   const ctx = { knownPaths, knownFile: publicFileExists, productRouteIds: new Set(products.values()), withheldElementIds: withheldIdsFor(row.routeId) }
   const errors = validateSlots(document, slots, ctx, slots)
-  if (!errors.length) continue
+  const edits = claimEditsFor.get(decodeURIComponent(row.path)) ?? []
+  if (!errors.length && !edits.length) continue
   const keys = new Set(errors.map((e) => e.split(':')[0]!))
   const next: ContentSlot[] = slots.map((s) => ({ ...s }))
   const record: (typeof fixes)[string] = { routeId: row.routeId, slots: [] }
@@ -128,11 +191,25 @@ for (const row of ledger.routes) {
       record.slots.push({ key: s.key, kind: s.kind, field: 'alt', before, after: s.alt, afterCanon: slotFieldCanon(s, 'alt'), changes: changes.map((c) => ({ ...c, action: 'alt-shortened' as never })) })
     }
   }
+  for (const edit of edits) {
+    const slot = next.find((s) => s.kind === 'text' && s.text && editLexical(s.text, edit))
+    if (!slot?.text) throw new Error(`${row.path}: claim edit not found in a single text run: ${edit.find.slice(0, 60)}`)
+    const existing = record.slots.find((r) => r.key === slot.key)
+    const before = existing?.before ?? slotFieldCanon(slot, 'text')
+    slot.text = editLexical(slot.text, edit)!
+    if (!JSON.parse(slotFieldCanon(slot, 'text')).some((t: unknown[]) => t[0] === 't' && String(t[1]).trim())) throw new Error(`${row.path}: claim edit would leave ${slot.key} empty`)
+    const change: Change = { from: edit.find, to: edit.op === 'replace' ? edit.replace ?? '' : null, action: (edit.op === 'remove' ? 'claim-removed' : 'word-corrected') as never, reason: edit.reason }
+    if (existing) { existing.after = slot.text; existing.afterCanon = slotFieldCanon(slot, 'text'); existing.changes.push(change) }
+    else record.slots.push({ key: slot.key, kind: slot.kind, field: 'text', before, after: slot.text, afterCanon: slotFieldCanon(slot, 'text'), changes: [change] })
+    appliedEdits.add(edit)
+  }
   const remaining = validateSlots(document, next, ctx, slots)
   if (remaining.length) throw new Error(`${row.path}: fixed elements still fail the validator: ${remaining.join('; ')}`)
   fixes[row.path] = record
   fixedRoutes++
 }
+const unapplied = claimEdits.filter((e) => !appliedEdits.has(e))
+if (unapplied.length) throw new Error(`claim edits without a published route record: ${unapplied.map((e) => e.path).join(', ')}`)
 writeFileSync(path.join(APP, 'ops/seo-pass/data/slot-fixes.json'), JSON.stringify(fixes, null, 1) + '\n')
 const changes = Object.values(fixes).flatMap((r) => r.slots.flatMap((s) => s.changes))
 const evidence = process.argv.find((a) => a.startsWith('--evidence='))?.slice(11)

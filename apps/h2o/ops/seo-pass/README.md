@@ -48,6 +48,37 @@ node ops/seo-pass/check-redirect-chains.mjs <staging-origin>
 - **frameworkSlashHopAccepted:** 1, the malformed tcf.com URL (308 → 301 → 200, CT ruling 3). A framework hop on any other source fails.
 - **Metas pending OGCS:** 0 after the R1.2 supplement.
 
+## Locale Part B: preserved live locale pages (owner decision 2026-10-05; OGCS Part A; CT rulings)
+
+One delta on the state Part 3 leaves on staging (`--baseline=<Part 3 data>`).
+
+**Code and data (ship in the image):**
+- 166 preserved live locale pages as LIVE-family sources (`content/salmon/r3-locale-routes.json`, documents
+  `SALMON-LIVE-LOCALE-<lang>-<wpid>.json`), captured read-only from h2ocooling.com (REST record + served HTML, SHA-256 recorded)
+  and parsed into the accepted LIVE schema. The release authority lists them PUBLIC, self-canonical, in the locale sitemaps,
+  never in the English search index. The **authority import** creates their records (new rows only; existing records unchanged).
+- `<html lang>`: the proxy passes the page language (`src/content/locale-language.ts`; the swapped /th/ ↔ /ja/ pair follows its
+  content language) to the layout. hreflang: the page metadata carries the same reciprocal set the sitemap lists.
+- The held Thai Salmon page at the root slug publishes (content check PASS); its empty live /th/ duplicate 301s to it (CT
+  override of Part A, `data/locale-overrides.tsv`).
+
+**Batch** (`--locale-part-a=<PART_A.tsv> --locale-repoint=data/locale-b-repoint.tsv --locale-overrides=data/locale-overrides.tsv`):
+- Part A replaces the R1 decision of every locale URL: 98 R1 locale→English redirects retire (`active:false`, kept), 120 repoint one
+  hop to the preserved locale page, 4 are new, the 4 locale drafts answer 410.
+- 12 claim edits (`data/claim-edits.json`, CT ruling): the outcome-guarantee and "top supplier" sentences removed from two English
+  pages and all their translations; ja 保証 → 確保 on two pages. Recorded before/after in `data/slot-fixes.json`; written by apply
+  phase 6 (hygiene).
+
+| Phase | Expected |
+|---|---|
+| redirects | create 4, update 120, unchanged 269, retire 98 |
+| routes | publish 1 |
+| seoFields | update 1 |
+| hygiene | routes 12 |
+| h1, restored, slotFixes, withdraw, index, canonical, blocked | 0 |
+
+**Conformance** also checks every page's `<html lang>`, each locale page's self canonical, and hreflang reciprocity.
+
 ## Part 3: production sitemap, sitemap-parity rulings and slot hygiene (CT 2026-10-05)
 
 One delta on the state Part 2 R3 (+ R3.1) leaves on staging (`--baseline=<R3 data>`); nothing R3 wrote is written again.

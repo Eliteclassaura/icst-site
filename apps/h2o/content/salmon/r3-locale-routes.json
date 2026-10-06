@@ -1,0 +1,1164 @@
+[
+  {
+    "routeId": "LIVE-LOCALE-id-14775",
+    "sourceUrl": "https://h2ocooling.com/id/pengertian-bagian-bagian-cooling-tower-dan-fungsinya/",
+    "targetPath": "/id/pengertian-bagian-bagian-cooling-tower-dan-fungsinya/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14775.json",
+    "sha256": "73b4c0dc8e7e9b08e9377338cb1bb7346cad193eabbc965975c7f8249f878efd"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14608",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14608.json",
+    "sha256": "0b87a63e88451b93d495e7161be230e5d2b59937a973dca4e0cb528515da5323"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14500",
+    "sourceUrl": "https://h2ocooling.com/id/komponen-dan-fungsi-menara-pendingin/",
+    "targetPath": "/id/komponen-dan-fungsi-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14500.json",
+    "sha256": "012b61acc68166318718c8e73b639eb304188cc0487173c0f6f3b7a0a89a10ea"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14538",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ab%e6%9c%80%e9%81%a9%e3%81%aa%e5%85%85%e5%a1%ab%e6%9d%90%e3%81%af%e3%81%a9%e3%82%8c%e3%81%a7%e3%81%99%e3%81%8b/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ab%e6%9c%80%e9%81%a9%e3%81%aa%e5%85%85%e5%a1%ab%e6%9d%90%e3%81%af%e3%81%a9%e3%82%8c%e3%81%a7%e3%81%99%e3%81%8b/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14538.json",
+    "sha256": "8517b270a6c0030ceddc179909df29a05cbe7eca36107c0eafd731da73a8eac0"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14747",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%82%92%e5%86%ac%e5%ad%a3%e9%81%8b%e7%94%a8%e3%81%ab%e5%90%91%e3%81%91%e3%81%a6%e6%ba%96%e5%82%99%e3%81%99%e3%82%8b/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%82%92%e5%86%ac%e5%ad%a3%e9%81%8b%e7%94%a8%e3%81%ab%e5%90%91%e3%81%91%e3%81%a6%e6%ba%96%e5%82%99%e3%81%99%e3%82%8b/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14747.json",
+    "sha256": "a69f5940da22b4aa66688ef88931d8fc82c197c3ce3cdab31a73a5ce03d82dd1"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14777",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%9a%e0%b8%b3%e0%b8%a3%e0%b8%b8%e0%b8%87%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%ab%e0%b8%ad%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b8%84%e0%b8%a7/",
+    "targetPath": "/th/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%9a%e0%b8%b3%e0%b8%a3%e0%b8%b8%e0%b8%87%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%ab%e0%b8%ad%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b8%84%e0%b8%a7/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14777.json",
+    "sha256": "c3e732997b4ba917a23f84648a92377f86af90b031b540951647b27ad221b7df"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14473",
+    "sourceUrl": "https://h2ocooling.com/vi/huong-dan-toan-dien-ve-xu-ly-nuoc-cho-thap-giai-nhiet/",
+    "targetPath": "/vi/huong-dan-toan-dien-ve-xu-ly-nuoc-cho-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14473.json",
+    "sha256": "2f09a9067a7a2a6780a40bdeecebd89742f230a46d913f112addac0453cbba5d"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14512",
+    "sourceUrl": "https://h2ocooling.com/ja/2024-%e5%b9%b4%e3%81%ae%e5%86%b7%e5%8d%b4%e5%a1%94%e3%83%89%e3%83%aa%e3%83%95%e3%83%88%e3%82%a8%e3%83%aa%e3%83%9f%e3%83%8d%e3%83%bc%e3%82%bf%e3%83%bc%e3%81%ae%e5%ae%8c%e7%92%a7%e3%81%aa%e3%82%ac/",
+    "targetPath": "/ja/2024-%e5%b9%b4%e3%81%ae%e5%86%b7%e5%8d%b4%e5%a1%94%e3%83%89%e3%83%aa%e3%83%95%e3%83%88%e3%82%a8%e3%83%aa%e3%83%9f%e3%83%8d%e3%83%bc%e3%82%bf%e3%83%bc%e3%81%ae%e5%ae%8c%e7%92%a7%e3%81%aa%e3%82%ac/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14512.json",
+    "sha256": "a0329ebd18c07bcfc6954dc4467a3b2637442eb64ffe815e54af3784342b08cf"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14588",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%a3%e0%b8%b2%e0%b8%a2%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%95%e0%b8%a3%e0%b8%a7%e0%b8%88%e0%b8%aa%e0%b8%ad%e0%b8%9a%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%9a%e0%b8%b3%e0%b8%a3%e0%b8%b8%e0%b8%87%e0%b8%a3/",
+    "targetPath": "/th/%e0%b8%a3%e0%b8%b2%e0%b8%a2%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%95%e0%b8%a3%e0%b8%a7%e0%b8%88%e0%b8%aa%e0%b8%ad%e0%b8%9a%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%9a%e0%b8%b3%e0%b8%a3%e0%b8%b8%e0%b8%87%e0%b8%a3/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14588.json",
+    "sha256": "2ef6d665b528a8192e8fc1fa4ede70d1ac820ef4d9cd3677c3c061a69fd26ebc"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14479",
+    "sourceUrl": "https://h2ocooling.com/ja/%e7%b1%b3%e5%9b%bd%e3%81%ab%e3%81%8a%e3%81%91%e3%82%8b%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e5%bd%b9%e5%89%b2%e3%81%a8%e9%80%b2%e5%8c%96/",
+    "targetPath": "/ja/%e7%b1%b3%e5%9b%bd%e3%81%ab%e3%81%8a%e3%81%91%e3%82%8b%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e5%bd%b9%e5%89%b2%e3%81%a8%e9%80%b2%e5%8c%96/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14479.json",
+    "sha256": "5dea525dc3695400e09035e1a7f1ecb092c038e5db17024ac5e998b18463269a"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14551",
+    "sourceUrl": "https://h2ocooling.com/th/%e5%b7%a5%e6%a5%ad%e3%83%97%e3%83%ad%e3%82%bb%e3%82%b9%e3%81%ab%e3%81%8a%e3%81%91%e3%82%8b%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e7%94%a8%e9%80%94%e3%82%92%e7%90%86%e8%a7%a3%e3%81%99%e3%82%8b/",
+    "targetPath": "/th/%e5%b7%a5%e6%a5%ad%e3%83%97%e3%83%ad%e3%82%bb%e3%82%b9%e3%81%ab%e3%81%8a%e3%81%91%e3%82%8b%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e7%94%a8%e9%80%94%e3%82%92%e7%90%86%e8%a7%a3%e3%81%99%e3%82%8b/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14551.json",
+    "sha256": "e1aa9d0ee6d041f8efc56f7f8356fac1b4fa56d2b86653e74eacfa91da2e3862"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14582",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e5%85%85%e5%a1%ab%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%e7%9f%a5%e3%81%a3%e3%81%a6%e3%81%8a%e3%81%8f%e3%81%b9%e3%81%8d%e3%81%93%e3%81%a8/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e5%85%85%e5%a1%ab%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%e7%9f%a5%e3%81%a3%e3%81%a6%e3%81%8a%e3%81%8f%e3%81%b9%e3%81%8d%e3%81%93%e3%81%a8/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14582.json",
+    "sha256": "f05391881892fb98e5ba48e17b6171bd3cedf270d8d01708bfa3773c290372c0"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14594",
+    "sourceUrl": "https://h2ocooling.com/id/daftar-periksa-pemeliharaan-menara-pendingin-langkah-demi-langkah-untuk-kinerja-optimal/",
+    "targetPath": "/id/daftar-periksa-pemeliharaan-menara-pendingin-langkah-demi-langkah-untuk-kinerja-optimal/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14594.json",
+    "sha256": "1e2476d87ed2fcaf259a58633c07357cb175f0bf5e86e65103b5a8d0cff0b0de"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14475",
+    "sourceUrl": "https://h2ocooling.com/id/panduan-lengkap-pengolahan-air-untuk-menara-pendingin/",
+    "targetPath": "/id/panduan-lengkap-pengolahan-air-untuk-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14475.json",
+    "sha256": "214e1f1f06c4b9ae45281a8c37b9d7fd2840b8bad7e256732e6036b007bf545e"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14454",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e6%b8%85%e6%8e%83%e6%96%b9%e6%b3%95/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e6%b8%85%e6%8e%83%e6%96%b9%e6%b3%95/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14454.json",
+    "sha256": "178bb2fb4577f927c4081287e71fcc4c46a2d815c80acbec537c4c897bb09a99"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14699",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14699.json",
+    "sha256": "0163b0e2446fa2660baa1e1404da7c004b957e9896c884e118e4868b738f2b6d"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14592",
+    "sourceUrl": "https://h2ocooling.com/vi/danh-sach-bao-tri-thap-giai-nhiet-tung-buoc-de-co-hieu-suat-toi-uu/",
+    "targetPath": "/vi/danh-sach-bao-tri-thap-giai-nhiet-tung-buoc-de-co-hieu-suat-toi-uu/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14592.json",
+    "sha256": "2b3332572458320f2682b8194c4ea6244f9b34feaa1046e2e68aee65d7bb8b18"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14528",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ab%e6%9c%80%e9%81%a9%e3%81%aa%e6%9d%90%e6%96%99%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ab%e6%9c%80%e9%81%a9%e3%81%aa%e6%9d%90%e6%96%99%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14528.json",
+    "sha256": "db7ca778e76936594004c68d36e6f09a6fbaae8ad02019d8fef8f4c3bca34351"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14787",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%af%e3%81%a9%e3%81%ae%e3%82%88%e3%81%86%e3%81%ab%e6%a9%9f%e8%83%bd%e3%81%99%e3%82%8b%e3%81%ae%e3%81%a7%e3%81%97%e3%82%87%e3%81%86%e3%81%8b/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%af%e3%81%a9%e3%81%ae%e3%82%88%e3%81%86%e3%81%ab%e6%a9%9f%e8%83%bd%e3%81%99%e3%82%8b%e3%81%ae%e3%81%a7%e3%81%97%e3%82%87%e3%81%86%e3%81%8b/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14787.json",
+    "sha256": "3931c6959e7f19f346a70af1d15b00fb53ca3fbf7e5be2196cb56862025cd253"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14446",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%a7%e0%b8%b4%e0%b8%98%e0%b8%b5%e0%b8%9b%e0%b9%89%e0%b8%ad%e0%b8%87%e0%b8%81%e0%b8%b1%e0%b8%99%e0%b9%81%e0%b8%9a%e0%b8%84%e0%b8%97%e0%b8%b5%e0%b9%80%e0%b8%a3%e0%b8%b5%e0%b8%a2-legionella/",
+    "targetPath": "/th/%e0%b8%a7%e0%b8%b4%e0%b8%98%e0%b8%b5%e0%b8%9b%e0%b9%89%e0%b8%ad%e0%b8%87%e0%b8%81%e0%b8%b1%e0%b8%99%e0%b9%81%e0%b8%9a%e0%b8%84%e0%b8%97%e0%b8%b5%e0%b9%80%e0%b8%a3%e0%b8%b5%e0%b8%a2-legionella/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14446.json",
+    "sha256": "99be1d90ec9bbe9841d703eb6fa6e51b67c88d4734ff3aff9291e8733bb728f1"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14781",
+    "sourceUrl": "https://h2ocooling.com/vi/bao-tri-thap-giai-nhiet-huong-dan-day-du-tung-buoc/",
+    "targetPath": "/vi/bao-tri-thap-giai-nhiet-huong-dan-day-du-tung-buoc/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14781.json",
+    "sha256": "c7b3653f46e135711a69f7f3c89149dfa66b6222b407db99636d8444601de959"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14562",
+    "sourceUrl": "https://h2ocooling.com/id/tips-pemeriksaan-menara-pendingin/",
+    "targetPath": "/id/tips-pemeriksaan-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14562.json",
+    "sha256": "e53528327cb27862e4a6fb235234b83ef7d0c986130ed518375e2d27f48804bb"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14771",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e9%83%a8%e5%93%81%e3%81%a8%e6%a9%9f%e8%83%bd%e3%82%92%e7%90%86%e8%a7%a3%e3%81%99%e3%82%8b/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e9%83%a8%e5%93%81%e3%81%a8%e6%a9%9f%e8%83%bd%e3%82%92%e7%90%86%e8%a7%a3%e3%81%99%e3%82%8b/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14771.json",
+    "sha256": "082400de4b6a51f5358212c24a96b86f933af1d55a00bb01cda3d4eb592ad25e"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14532",
+    "sourceUrl": "https://h2ocooling.com/id/material-apa-yang-terbaik-untuk-menara-pendingin/",
+    "targetPath": "/id/material-apa-yang-terbaik-untuk-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14532.json",
+    "sha256": "8ca879ddd50aee904d0cdf75885709459ede85d9d86499ae266b9435d2669f91"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14504",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%8a%b9%e7%8e%87%e7%9a%84%e3%81%aa%e5%86%b7%e5%8d%b4%e5%a1%94%e3%82%ae%e3%82%a2%e3%83%9c%e3%83%83%e3%82%af%e3%82%b9%e9%83%a8%e5%93%81%e3%81%ae%e5%bf%85%e9%a0%88%e3%82%ac%e3%82%a4%e3%83%89/",
+    "targetPath": "/ja/%e5%8a%b9%e7%8e%87%e7%9a%84%e3%81%aa%e5%86%b7%e5%8d%b4%e5%a1%94%e3%82%ae%e3%82%a2%e3%83%9c%e3%83%83%e3%82%af%e3%82%b9%e9%83%a8%e5%93%81%e3%81%ae%e5%bf%85%e9%a0%88%e3%82%ac%e3%82%a4%e3%83%89/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14504.json",
+    "sha256": "12c10786e5093ab243c07269e24206d81a4a17b06334a697550ce6a01273d1a5"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14658",
+    "sourceUrl": "https://h2ocooling.com/ja/%e9%80%86%e6%b5%81-vs-%e3%82%af%e3%83%ad%e3%82%b9%e3%83%95%e3%83%ad%e3%83%bc/",
+    "targetPath": "/ja/%e9%80%86%e6%b5%81-vs-%e3%82%af%e3%83%ad%e3%82%b9%e3%83%95%e3%83%ad%e3%83%bc/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14658.json",
+    "sha256": "0bd7bda5d305b1111d190bb84d1a55b6a15039307d2d78c94aa7aea90e03007f"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14656",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%97%e0%b8%a7%e0%b8%99%e0%b8%81%e0%b8%a3%e0%b8%b0%e0%b9%81%e0%b8%aa-vs-%e0%b8%84%e0%b8%a3%e0%b8%ad%e0%b8%aa%e0%b9%82%e0%b8%9f%e0%b8%a5%e0%b8%a7%e0%b9%8c/",
+    "targetPath": "/th/%e0%b8%97%e0%b8%a7%e0%b8%99%e0%b8%81%e0%b8%a3%e0%b8%b0%e0%b9%81%e0%b8%aa-vs-%e0%b8%84%e0%b8%a3%e0%b8%ad%e0%b8%aa%e0%b9%82%e0%b8%9f%e0%b8%a5%e0%b8%a7%e0%b9%8c/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14656.json",
+    "sha256": "12472060bf21b442b5f9791782ff84bc5f823373f4a59bb55e7d51683d079ec1"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14448",
+    "sourceUrl": "https://h2ocooling.com/vi/lam-the-nao-de-ngan-ngua-vi-khuan-legionella-trong-may-lam-lanh-va-thap-giai-nhiet/",
+    "targetPath": "/vi/lam-the-nao-de-ngan-ngua-vi-khuan-legionella-trong-may-lam-lanh-va-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14448.json",
+    "sha256": "dc36f23949fa7443323958774e266e2b5983e8ade263910a26ed479130c670c9"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14469",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%84%e0%b8%b9%e0%b9%88%e0%b8%a1%e0%b8%b7%e0%b8%ad%e0%b8%89%e0%b8%9a%e0%b8%b1%e0%b8%9a%e0%b8%aa%e0%b8%a1%e0%b8%9a%e0%b8%b9%e0%b8%a3%e0%b8%93%e0%b9%8c%e0%b8%aa%e0%b8%b3%e0%b8%ab%e0%b8%a3%e0%b8%b1/",
+    "targetPath": "/th/%e0%b8%84%e0%b8%b9%e0%b9%88%e0%b8%a1%e0%b8%b7%e0%b8%ad%e0%b8%89%e0%b8%9a%e0%b8%b1%e0%b8%9a%e0%b8%aa%e0%b8%a1%e0%b8%9a%e0%b8%b9%e0%b8%a3%e0%b8%93%e0%b9%8c%e0%b8%aa%e0%b8%b3%e0%b8%ab%e0%b8%a3%e0%b8%b1/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14469.json",
+    "sha256": "52bd976846404929112a18e631226bc054fa8bad87855a64085bcbc0c59f8805"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14508",
+    "sourceUrl": "https://h2ocooling.com/id/panduan-penting-untuk-komponen-gearbox-menara-pendingin-yang-efisien/",
+    "targetPath": "/id/panduan-penting-untuk-komponen-gearbox-menara-pendingin-yang-efisien/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14508.json",
+    "sha256": "06cc7bba754912e9331329000dce057535d59d4c975094934fb7330ab31a044f"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14494",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%8a%e0%b8%b4%e0%b9%89%e0%b8%99%e0%b8%aa%e0%b9%88%e0%b8%a7%e0%b8%99%e0%b9%81%e0%b8%a5%e0%b8%b0%e0%b8%9f%e0%b8%b1%e0%b8%87%e0%b8%81%e0%b9%8c%e0%b8%8a%e0%b8%b1%e0%b8%99%e0%b8%82%e0%b8%ad%e0%b8%87/",
+    "targetPath": "/th/%e0%b8%8a%e0%b8%b4%e0%b9%89%e0%b8%99%e0%b8%aa%e0%b9%88%e0%b8%a7%e0%b8%99%e0%b9%81%e0%b8%a5%e0%b8%b0%e0%b8%9f%e0%b8%b1%e0%b8%87%e0%b8%81%e0%b9%8c%e0%b8%8a%e0%b8%b1%e0%b8%99%e0%b8%82%e0%b8%ad%e0%b8%87/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14494.json",
+    "sha256": "448c903abf9b4ca68a8d3e81f905134af2806e013cdca086504ab06876743896"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14654",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%a7%e0%b8%b4%e0%b8%98%e0%b8%b5%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%95%e0%b8%a3%e0%b8%a7%e0%b8%88%e0%b8%aa%e0%b8%ad%e0%b8%9a%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5%e0%b8%b4%e0%b9%88%e0%b8%87%e0%b8%97/",
+    "targetPath": "/th/%e0%b8%a7%e0%b8%b4%e0%b8%98%e0%b8%b5%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%95%e0%b8%a3%e0%b8%a7%e0%b8%88%e0%b8%aa%e0%b8%ad%e0%b8%9a%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5%e0%b8%b4%e0%b9%88%e0%b8%87%e0%b8%97/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14654.json",
+    "sha256": "18dfc009fdb2e7bdd6f143b558f15cfef561702aac9085990d5e76833d9a166c"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14498",
+    "sourceUrl": "https://h2ocooling.com/vi/cac-bo-phan-va-chuc-nang-cua-thap-giai-nhiet/",
+    "targetPath": "/vi/cac-bo-phan-va-chuc-nang-cua-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14498.json",
+    "sha256": "9b96f5a7927731a8f7aec485c5aedad58042390796530d3f6fa6debb26a46159"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14530",
+    "sourceUrl": "https://h2ocooling.com/vi/vat-lieu-nao-tot-nhat-cho-thap-giai-nhiet/",
+    "targetPath": "/vi/vat-lieu-nao-tot-nhat-cho-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14530.json",
+    "sha256": "337b29519d6a327fd1c7fb10ad239667c9bdc5885ab32b8a844bc20897cfd973"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14739",
+    "sourceUrl": "https://h2ocooling.com/ja/%e3%83%95%e3%82%a1%e3%83%b3%e3%83%96%e3%83%ac%e3%83%bc%e3%83%89%e3%81%ae%e3%83%a1%e3%83%b3%e3%83%86%e3%83%8a%e3%83%b3%e3%82%b9%e3%81%ae%e9%87%8d%e8%a6%81%e6%80%a7/",
+    "targetPath": "/ja/%e3%83%95%e3%82%a1%e3%83%b3%e3%83%96%e3%83%ac%e3%83%bc%e3%83%89%e3%81%ae%e3%83%a1%e3%83%b3%e3%83%86%e3%83%8a%e3%83%b3%e3%82%b9%e3%81%ae%e9%87%8d%e8%a6%81%e6%80%a7/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14739.json",
+    "sha256": "12664a1bf8db958f885a7dc3c3503fd07110d2c92d92c1e9660b1717465140e2"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14616",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e8%b2%ab%e6%b5%81%e5%86%b7%e5%8d%b4%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%e3%81%ae%e7%92%b0%e5%a2%83%e4%b8%8a%e3%81%ae%e5%88%a9%e7%82%b9/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e8%b2%ab%e6%b5%81%e5%86%b7%e5%8d%b4%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%e3%81%ae%e7%92%b0%e5%a2%83%e4%b8%8a%e3%81%ae%e5%88%a9%e7%82%b9/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14616.json",
+    "sha256": "46b5fbd3423c6f9382d681f11ad3c3dd4ebb515d1d953e46a1a64f59bfcbc91a"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14471",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e6%b0%b4%e5%87%a6%e7%90%86%e3%81%ab%e9%96%a2%e3%81%99%e3%82%8b%e7%b7%8f%e5%90%88%e3%82%ac%e3%82%a4%e3%83%89/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e6%b0%b4%e5%87%a6%e7%90%86%e3%81%ab%e9%96%a2%e3%81%99%e3%82%8b%e7%b7%8f%e5%90%88%e3%82%ac%e3%82%a4%e3%83%89/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14471.json",
+    "sha256": "de79d30f9a0b8e17f4545830f71f4e250527056494d08b85d2ca83137837b0d8"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14510",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%84%e0%b8%b9%e0%b9%88%e0%b8%a1%e0%b8%b7%e0%b8%ad%e0%b8%97%e0%b8%b5%e0%b9%88%e0%b8%aa%e0%b8%a1%e0%b8%9a%e0%b8%b9%e0%b8%a3%e0%b8%93%e0%b9%8c%e0%b9%81%e0%b8%9a%e0%b8%9a%e0%b8%aa%e0%b8%b3%e0%b8%ab/",
+    "targetPath": "/th/%e0%b8%84%e0%b8%b9%e0%b9%88%e0%b8%a1%e0%b8%b7%e0%b8%ad%e0%b8%97%e0%b8%b5%e0%b9%88%e0%b8%aa%e0%b8%a1%e0%b8%9a%e0%b8%b9%e0%b8%a3%e0%b8%93%e0%b9%8c%e0%b9%81%e0%b8%9a%e0%b8%9a%e0%b8%aa%e0%b8%b3%e0%b8%ab/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14510.json",
+    "sha256": "e6f61b15722328c9dd12cff0e45237df39cb906272d0d21313ec13690393fa1f"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14452",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%a7%e0%b8%b4%e0%b8%98%e0%b8%b5%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b8%aa%e0%b8%b0%e0%b8%ad%e0%b8%b2%e0%b8%94%e0%b8%ab%e0%b8%ad%e0%b8%ab%e0%b8%a5%e0%b9%88%e0%b8%ad%e0%b9%80/",
+    "targetPath": "/th/%e0%b8%a7%e0%b8%b4%e0%b8%98%e0%b8%b5%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b8%aa%e0%b8%b0%e0%b8%ad%e0%b8%b2%e0%b8%94%e0%b8%ab%e0%b8%ad%e0%b8%ab%e0%b8%a5%e0%b9%88%e0%b8%ad%e0%b9%80/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14452.json",
+    "sha256": "99d6ca648dc149c379df0e33716860d42041291a4ea8aa17de4c86044605f09f"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14456",
+    "sourceUrl": "https://h2ocooling.com/vi/lam-the-nao-de-ve-sinh-thap-giai-nhiet/",
+    "targetPath": "/vi/lam-the-nao-de-ve-sinh-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14456.json",
+    "sha256": "9c4235cad9469aed049869dd74cbb05e7a799775c007d2e948ed8e70b37204a2"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14660",
+    "sourceUrl": "https://h2ocooling.com/vi/nguoc-vs-dong-nguoc/",
+    "targetPath": "/vi/nguoc-vs-dong-nguoc/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14660.json",
+    "sha256": "838523fd7c062ede005c454d0a791056b1fa91ca505a456af842ca841ae2cfc6"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14686",
+    "sourceUrl": "https://h2ocooling.com/id/lihat-efisiensi-kipas-cooling-tower-pt-3/",
+    "targetPath": "/id/lihat-efisiensi-kipas-cooling-tower-pt-3/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14686.json",
+    "sha256": "a9786aeb935c6d54c1a1ba4f1f075e3f6e710a31abc05344ce535b9b1937dacb"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14719",
+    "sourceUrl": "https://h2ocooling.com/id/penggemar-axial-dasar-dasar/",
+    "targetPath": "/id/penggemar-axial-dasar-dasar/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14719.json",
+    "sha256": "367525a42cb12d263df751db9770fc71e24abf4484af7bdd6c03ef26db1da93e"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14578",
+    "sourceUrl": "https://h2ocooling.com/id/perincian-biaya-biaya-menara-pendingin-industri-tahun-2024/",
+    "targetPath": "/id/perincian-biaya-biaya-menara-pendingin-industri-tahun-2024/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14578.json",
+    "sha256": "d74bcb0d0a8f14413c98d9b79cd0287517062e8a6f0524ca10dd61f629ce4196"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14715",
+    "sourceUrl": "https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/",
+    "targetPath": "/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14715.json",
+    "sha256": "cf9a265957dcc62852c75e8316f95cfa1965d625c845e76b88a05dad43a3c783"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14574",
+    "sourceUrl": "https://h2ocooling.com/ja/%e3%82%b3%e3%82%b9%e3%83%88%e3%81%ae%e5%86%85%e8%a8%b3-2024-%e5%b9%b4%e3%81%ae%e7%94%a3%e6%a5%ad%e7%94%a8%e5%86%b7%e5%8d%b4%e5%a1%94%e3%82%b3%e3%82%b9%e3%83%88/",
+    "targetPath": "/ja/%e3%82%b3%e3%82%b9%e3%83%88%e3%81%ae%e5%86%85%e8%a8%b3-2024-%e5%b9%b4%e3%81%ae%e7%94%a3%e6%a5%ad%e7%94%a8%e5%86%b7%e5%8d%b4%e5%a1%94%e3%82%b3%e3%82%b9%e3%83%88/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14574.json",
+    "sha256": "9a1664192ee657a0f8a08f66539142817d22f6f396612dd8b4c5854a540d2506"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14444",
+    "sourceUrl": "https://h2ocooling.com/ja/%e3%83%81%e3%83%a9%e3%83%bc%e3%81%a8%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a7%e3%83%ac%e3%82%b8%e3%82%aa%e3%83%8d%e3%83%a9%e8%8f%8c%e3%82%92%e9%98%b2%e3%81%90%e3%81%ab%e3%81%af%ef%bc%9f/",
+    "targetPath": "/ja/%e3%83%81%e3%83%a9%e3%83%bc%e3%81%a8%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a7%e3%83%ac%e3%82%b8%e3%82%aa%e3%83%8d%e3%83%a9%e8%8f%8c%e3%82%92%e9%98%b2%e3%81%90%e3%81%ab%e3%81%af%ef%bc%9f/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14444.json",
+    "sha256": "c4577ec8fc26b99cdd3d916803d9883852bd959ad3f2dfa70e84a886df457d9a"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14640",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%af%92%e5%86%b7%e5%9c%b0%e3%81%ae%e5%86%b7%e5%8d%b4%e5%a1%94/",
+    "targetPath": "/ja/%e5%af%92%e5%86%b7%e5%9c%b0%e3%81%ae%e5%86%b7%e5%8d%b4%e5%a1%94/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14640.json",
+    "sha256": "31b7e51f7ac0feb707ba99e20e1a3b849f497841181149f465d5dc9cba72d14c"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14580",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%aa%e0%b8%b4%e0%b9%88%e0%b8%87%e0%b8%97%e0%b8%b5%e0%b9%88%e0%b8%84%e0%b8%b8%e0%b8%93%e0%b8%95%e0%b9%89%e0%b8%ad%e0%b8%87%e0%b8%a3%e0%b8%b9%e0%b9%89%e0%b9%80%e0%b8%81%e0%b8%b5%e0%b9%88%e0%b8%a2/",
+    "targetPath": "/th/%e0%b8%aa%e0%b8%b4%e0%b9%88%e0%b8%87%e0%b8%97%e0%b8%b5%e0%b9%88%e0%b8%84%e0%b8%b8%e0%b8%93%e0%b8%95%e0%b9%89%e0%b8%ad%e0%b8%87%e0%b8%a3%e0%b8%b9%e0%b9%89%e0%b9%80%e0%b8%81%e0%b8%b5%e0%b9%88%e0%b8%a2/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14580.json",
+    "sha256": "0804ce5fdca36f01a6b9d70d6f90ff1ddf416a5825d219b5cd080e2616fe9345"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14785",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b8%a3%e0%b9%89%e0%b8%ad%e0%b8%99%e0%b8%97%e0%b8%b3%e0%b8%87%e0%b8%b2/",
+    "targetPath": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b8%a3%e0%b9%89%e0%b8%ad%e0%b8%99%e0%b8%97%e0%b8%b3%e0%b8%87%e0%b8%b2/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14785.json",
+    "sha256": "11478ac0eae974b17857c802cdc53b0e0cc23c1f69345e9ade9418727608d33b"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14576",
+    "sourceUrl": "https://h2ocooling.com/vi/chi-phi-giam-gia-chi-phi-thap-giai-nhiet-cong-nghiep-nam-2024/",
+    "targetPath": "/vi/chi-phi-giam-gia-chi-phi-thap-giai-nhiet-cong-nghiep-nam-2024/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14576.json",
+    "sha256": "26406135e4ad4053d0a8582022889eb378e995a568fbda462574bf1193b2cee6"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14674",
+    "sourceUrl": "https://h2ocooling.com/vi/loi-ich-cua-quat-frp/",
+    "targetPath": "/vi/loi-ich-cua-quat-frp/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14674.json",
+    "sha256": "1494f9fdfb1689a899d3e08e770e1c2213d00329d72b8540e612c0cf0eec0ade"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14584",
+    "sourceUrl": "https://h2ocooling.com/vi/nhung-dieu-ban-can-biet-ve-thap-giai-nhiet/",
+    "targetPath": "/vi/nhung-dieu-ban-can-biet-ve-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14584.json",
+    "sha256": "b61c713164800a33517c6623279801212cb5fb3c71cd4cd3d632091ec86a61a0"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14757",
+    "sourceUrl": "https://h2ocooling.com/vi/quat-huong-truc-nen-la-su-lua-chon-hien-nhien/",
+    "targetPath": "/vi/quat-huong-truc-nen-la-su-lua-chon-hien-nhien/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14757.json",
+    "sha256": "0478b8d1075fdf1dd4d68fd4413509a16f09fa8654ca2632cc241aeaf2425d54"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14773",
+    "sourceUrl": "https://h2ocooling.com/vi/tim-hieu-cac-bo-phan-va-chuc-nang-cua-thap-giai-nhiet/",
+    "targetPath": "/vi/tim-hieu-cac-bo-phan-va-chuc-nang-cua-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14773.json",
+    "sha256": "05994d5cbdd99fe4314f3f0488d26432c0bb232d43f6032475c7118018843e00"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14612",
+    "sourceUrl": "https://h2ocooling.com/id/apa-itu-menara-pendinginan/",
+    "targetPath": "/id/apa-itu-menara-pendinginan/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14612.json",
+    "sha256": "fe41dbde81b89fbcad0b35d44a5132639de09b6b9066517c8b22cfeabee6d038"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14662",
+    "sourceUrl": "https://h2ocooling.com/id/arus-balik-vs-aliran-silang/",
+    "targetPath": "/id/arus-balik-vs-aliran-silang/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14662.json",
+    "sha256": "50052201787ddf40112ae5785d68264cb682c496cd6ca3a70f620a7c69656d55"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14458",
+    "sourceUrl": "https://h2ocooling.com/id/bagaimana-cara-membersihkan-menara-pendingin/",
+    "targetPath": "/id/bagaimana-cara-membersihkan-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14458.json",
+    "sha256": "e6f9d713fd7062d8d1fc30fc910fc77116853287adc8549ad1f9045cb6b563ac"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14652",
+    "sourceUrl": "https://h2ocooling.com/id/cara-memeriksa-menara-pendingin/",
+    "targetPath": "/id/cara-memeriksa-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14652.json",
+    "sha256": "fda24d01c73ae260c80a7a2328d0971ece252ba3f439ee2d4ef3d6e231ebce78"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14586",
+    "sourceUrl": "https://h2ocooling.com/id/hal-hal-yang-perlu-anda-ketahui-tentang-pengisi-menara-pendingin/",
+    "targetPath": "/id/hal-hal-yang-perlu-anda-ketahui-tentang-pengisi-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14586.json",
+    "sha256": "99129c7f758aa9a7b2e5d9756e8ae0e21c5f87d2537a20b2317ce3c721b9fb9c"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14549",
+    "sourceUrl": "https://h2ocooling.com/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+    "targetPath": "/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14549.json",
+    "sha256": "b34db8e2647fd714af5e92f80077d0cc70ec84e658d625e09699cc2ac43b9267"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14783",
+    "sourceUrl": "https://h2ocooling.com/id/perawatan-menara-pendingin-panduan-lengkap-langkah-demi-langkah/",
+    "targetPath": "/id/perawatan-menara-pendingin-panduan-lengkap-langkah-demi-langkah/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14783.json",
+    "sha256": "7eea65a1ac1f0898cc1fc133ae45d3bd8cc5b839c3d2998b0d2398c822bbd3c6"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14524",
+    "sourceUrl": "https://h2ocooling.com/id/tetap-sejuk-aman-apakah-kipas-menara-pendingin-anda-baik-baik-saja/",
+    "targetPath": "/id/tetap-sejuk-aman-apakah-kipas-menara-pendingin-anda-baik-baik-saja/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14524.json",
+    "sha256": "ee65126466c815f9addb012094e7f661f2e586d501c5d2277255e6a5d3d93067"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14690",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e-pt-2/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e-pt-2/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14690.json",
+    "sha256": "87b98894437c66b7dc6b64128a01f42e787fd506ae134345c7f7ab6877b5ba02"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14779",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%a1%e3%83%b3%e3%83%86%e3%83%8a%e3%83%b3%e3%82%b9-%e3%82%b9%e3%83%86%e3%83%83%e3%83%97%e3%83%90%e3%82%a4%e3%82%b9%e3%83%86%e3%83%83%e3%83%97%e3%81%ae%e5%ae%8c/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%a1%e3%83%b3%e3%83%86%e3%83%8a%e3%83%b3%e3%82%b9-%e3%82%b9%e3%83%86%e3%83%83%e3%83%97%e3%83%90%e3%82%a4%e3%82%b9%e3%83%86%e3%83%83%e3%83%97%e3%81%ae%e5%ae%8c/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14779.json",
+    "sha256": "39eae41ff37d48f70bd90ad282d123016075a4b5a81cb89bf0eb322728e12d21"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14649",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e6%a4%9c%e6%9f%bb%e6%96%b9%e6%b3%95/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e6%a4%9c%e6%9f%bb%e6%96%b9%e6%b3%95/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14649.json",
+    "sha256": "fee4de42ac2d20b1fa8e4ab4658bee3b7532a831eb2a297950508251cbad4d50"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14496",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e9%83%a8%e5%93%81%e3%81%a8%e6%a9%9f%e8%83%bd/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e9%83%a8%e5%93%81%e3%81%a8%e6%a9%9f%e8%83%bd/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14496.json",
+    "sha256": "716bf736fb3d417611fa2cb559262dc2696369ce531833ee49cfcb5a0d8c5517"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14487",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%95%86%e6%a5%ad%e7%94%a8%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e4%bf%9d%e8%ad%b7-%e5%8a%b9%e6%9e%9c%e7%9a%84%e3%81%aa%e3%83%aa%e3%82%b9%e3%82%af%e7%ae%a1%e7%90%86%e6%88%a6%e7%95%a5/",
+    "targetPath": "/ja/%e5%95%86%e6%a5%ad%e7%94%a8%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e4%bf%9d%e8%ad%b7-%e5%8a%b9%e6%9e%9c%e7%9a%84%e3%81%aa%e3%83%aa%e3%82%b9%e3%82%af%e7%ae%a1%e7%90%86%e6%88%a6%e7%95%a5/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14487.json",
+    "sha256": "c4f0d3c1ea03415ccca59fd688cccf8f5a298fd68ffd5c4018ce6519af4745ab"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14566",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/",
+    "targetPath": "/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14566.json",
+    "sha256": "2e716658b545aca282943306dd63d6aef6108567a6ef508555686fe2a6161f04"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14707",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%ae%89%e5%ae%9a%e3%81%97%e3%81%9f%e3%83%95%e3%82%a1%e3%83%b3%e3%81%ae%e9%87%8d%e8%a6%81%e6%80%a7/",
+    "targetPath": "/ja/%e5%ae%89%e5%ae%9a%e3%81%97%e3%81%9f%e3%83%95%e3%82%a1%e3%83%b3%e3%81%ae%e9%87%8d%e8%a6%81%e6%80%a7/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14707.json",
+    "sha256": "5526ceb46189d83f33db8803d43d1ffed165551ba17a509fc8794118192ba7a8"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14520",
+    "sourceUrl": "https://h2ocooling.com/ja/%e6%b6%bc%e3%81%97%e3%81%8f%e5%ae%89%e5%85%a8%e3%81%ab-%e3%81%8a%e4%bd%bf%e3%81%84%e3%81%ae%e5%86%b7%e5%8d%b4%e5%a1%94%e3%83%95%e3%82%a1%e3%83%b3%e3%81%af%e5%a4%a7%e4%b8%88%e5%a4%ab%e3%81%a7%e3%81%99/",
+    "targetPath": "/ja/%e6%b6%bc%e3%81%97%e3%81%8f%e5%ae%89%e5%85%a8%e3%81%ab-%e3%81%8a%e4%bd%bf%e3%81%84%e3%81%ae%e5%86%b7%e5%8d%b4%e5%a1%94%e3%83%95%e3%82%a1%e3%83%b3%e3%81%af%e5%a4%a7%e4%b8%88%e5%a4%ab%e3%81%a7%e3%81%99/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14520.json",
+    "sha256": "3138b2abfcf1f20766ef3bcb8838d561683bdb57612a6208a2957dde376ab06d"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14485",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%9b%e0%b8%81%e0%b8%9b%e0%b9%89%e0%b8%ad%e0%b8%87%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b8%84%e0%b8%a7%e0%b8%b2/",
+    "targetPath": "/th/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%9b%e0%b8%81%e0%b8%9b%e0%b9%89%e0%b8%ad%e0%b8%87%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b8%84%e0%b8%a7%e0%b8%b2/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14485.json",
+    "sha256": "130c07bd478e6ee56db3563c06cc4b0d2f773699b4e2c9e0a8164b7b00a0aa70"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14614",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%82%e0%b9%89%e0%b8%ad%e0%b9%84%e0%b8%94%e0%b9%89%e0%b9%80%e0%b8%9b%e0%b8%a3%e0%b8%b5%e0%b8%a2%e0%b8%9a%e0%b8%94%e0%b9%89%e0%b8%b2%e0%b8%99%e0%b8%aa%e0%b8%b4%e0%b9%88%e0%b8%87%e0%b9%81%e0%b8%a7/",
+    "targetPath": "/th/%e0%b8%82%e0%b9%89%e0%b8%ad%e0%b9%84%e0%b8%94%e0%b9%89%e0%b9%80%e0%b8%9b%e0%b8%a3%e0%b8%b5%e0%b8%a2%e0%b8%9a%e0%b8%94%e0%b9%89%e0%b8%b2%e0%b8%99%e0%b8%aa%e0%b8%b4%e0%b9%88%e0%b8%87%e0%b9%81%e0%b8%a7/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14614.json",
+    "sha256": "98c9d03033971cd36d85ce755bbf89c9d819587ced8c8e07434ea3da9edf6882"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14737",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b8%aa%e0%b8%b3%e0%b8%84%e0%b8%b1%e0%b8%8d%e0%b8%82%e0%b8%ad%e0%b8%87%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%9a%e0%b8%b3%e0%b8%a3%e0%b8%b8%e0%b8%87%e0%b8%a3%e0%b8%b1/",
+    "targetPath": "/th/%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b8%aa%e0%b8%b3%e0%b8%84%e0%b8%b1%e0%b8%8d%e0%b8%82%e0%b8%ad%e0%b8%87%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%9a%e0%b8%b3%e0%b8%a3%e0%b8%b8%e0%b8%87%e0%b8%a3%e0%b8%b1/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14737.json",
+    "sha256": "8a0f12710e84c2703551bb58c29e84259973ff0e94787f0db8d93ed2fd319618"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14705",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b8%aa%e0%b8%b3%e0%b8%84%e0%b8%b1%e0%b8%8d%e0%b8%82%e0%b8%ad%e0%b8%87%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%97%e0%b8%b5%e0%b9%88%e0%b8%a1%e0%b8%b1/",
+    "targetPath": "/th/%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b8%aa%e0%b8%b3%e0%b8%84%e0%b8%b1%e0%b8%8d%e0%b8%82%e0%b8%ad%e0%b8%87%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%97%e0%b8%b5%e0%b9%88%e0%b8%a1%e0%b8%b1/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14705.json",
+    "sha256": "271c9bfebea2ebcaa3b6f300e145dbb2d7ff6adfe90473cf4bbf12576237ebc7"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14502",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%84%e0%b8%b9%e0%b9%88%e0%b8%a1%e0%b8%b7%e0%b8%ad%e0%b8%aa%e0%b8%b3%e0%b8%84%e0%b8%b1%e0%b8%8d%e0%b8%aa%e0%b8%b3%e0%b8%ab%e0%b8%a3%e0%b8%b1%e0%b8%9a%e0%b8%8a%e0%b8%b4%e0%b9%89%e0%b8%99%e0%b8%aa/",
+    "targetPath": "/th/%e0%b8%84%e0%b8%b9%e0%b9%88%e0%b8%a1%e0%b8%b7%e0%b8%ad%e0%b8%aa%e0%b8%b3%e0%b8%84%e0%b8%b1%e0%b8%8d%e0%b8%aa%e0%b8%b3%e0%b8%ab%e0%b8%a3%e0%b8%b1%e0%b8%9a%e0%b8%8a%e0%b8%b4%e0%b9%89%e0%b8%99%e0%b8%aa/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14502.json",
+    "sha256": "efd6b54f882fa1c8c2a8300ec6f6ca0dcf38edf5e3d29f5ed17f45b3f2e65e87"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14688",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5-4/",
+    "targetPath": "/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5-4/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14688.json",
+    "sha256": "8dc7a326b5cc3674bcc0b0128a7f0e1393babf1e2c8e3d7baca6a7f81bc9953a"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14697",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5-5/",
+    "targetPath": "/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5-5/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14697.json",
+    "sha256": "edaece53f3a40370d6a720289eaeb98f3c92061f5a296c6cc8adda46debffa2b"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14526",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%a7%e0%b8%b1%e0%b8%aa%e0%b8%94%e0%b8%b8%e0%b9%83%e0%b8%94%e0%b8%94%e0%b8%b5%e0%b8%97%e0%b8%b5%e0%b9%88%e0%b8%aa%e0%b8%b8%e0%b8%94%e0%b8%aa%e0%b8%b3%e0%b8%ab%e0%b8%a3%e0%b8%b1%e0%b8%9a%e0%b8%ab/",
+    "targetPath": "/th/%e0%b8%a7%e0%b8%b1%e0%b8%aa%e0%b8%94%e0%b8%b8%e0%b9%83%e0%b8%94%e0%b8%94%e0%b8%b5%e0%b8%97%e0%b8%b5%e0%b9%88%e0%b8%aa%e0%b8%b8%e0%b8%94%e0%b8%aa%e0%b8%b3%e0%b8%ab%e0%b8%a3%e0%b8%b1%e0%b8%9a%e0%b8%ab/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14526.json",
+    "sha256": "6c5084c559712ef73cfddcdd6632d27bfa054081186fa2d7d4bdb029289a59a0"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14460",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/",
+    "targetPath": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14460.json",
+    "sha256": "26f0cbdc36ec207af90fdc90556a64e23b1f67403cdbfa6dda7b60bb9c90f665"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14606",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/",
+    "targetPath": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14606.json",
+    "sha256": "200af5225727ec78e2152a8b1ffdbafad956fac6749d9d92e5ec697d0d1a6dfd"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14555",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b9%80%e0%b8%84%e0%b8%a5%e0%b9%87%e0%b8%94%e0%b8%a5%e0%b8%b1%e0%b8%9a%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%95%e0%b8%a3%e0%b8%a7%e0%b8%88%e0%b8%aa%e0%b8%ad%e0%b8%9a%e0%b8%ab%e0%b8%ad%e0%b8%a3%e0%b8%b0/",
+    "targetPath": "/th/%e0%b9%80%e0%b8%84%e0%b8%a5%e0%b9%87%e0%b8%94%e0%b8%a5%e0%b8%b1%e0%b8%9a%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%95%e0%b8%a3%e0%b8%a7%e0%b8%88%e0%b8%aa%e0%b8%ad%e0%b8%9a%e0%b8%ab%e0%b8%ad%e0%b8%a3%e0%b8%b0/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14555.json",
+    "sha256": "e18bb87f062a27e19b7cd902040f8a165c5dc4faa8620af492c0171b0c88ff94"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14729",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%aa%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b9%81%e0%b8%a5%e0%b8%b0%e0%b8%9b%e0%b8%a5%e0%b8%ad%e0%b8%94%e0%b8%a0%e0%b8%b1%e0%b8%a2-%e0%b9%81%e0%b8%9f%e0%b8%99/",
+    "targetPath": "/th/%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%aa%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b9%81%e0%b8%a5%e0%b8%b0%e0%b8%9b%e0%b8%a5%e0%b8%ad%e0%b8%94%e0%b8%a0%e0%b8%b1%e0%b8%a2-%e0%b9%81%e0%b8%9f%e0%b8%99/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14729.json",
+    "sha256": "bb303cfc012bc13ebca6c2bcb6c28b00791c48c039ea40f2ee76a9d0fed6e459"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14713",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/",
+    "targetPath": "/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14713.json",
+    "sha256": "7231b75dc3aa92fddf3913dfd344c625879d5e8e50220bdcf26ad85ec369e464"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14647",
+    "sourceUrl": "https://h2ocooling.com/vi/cach-kiem-tra-thap-giai-nhiet/",
+    "targetPath": "/vi/cach-kiem-tra-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14647.json",
+    "sha256": "3bfd486c63f2c9df6a05d4b1ddcd95c7a8a12185608f5db619236157c869e302"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14506",
+    "sourceUrl": "https://h2ocooling.com/vi/huong-dan-thiet-yeu-ve-cac-bo-phan-hop-so-thap-giai-nhiet-hieu-qua/",
+    "targetPath": "/vi/huong-dan-thiet-yeu-ve-cac-bo-phan-hop-so-thap-giai-nhiet-hieu-qua/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14506.json",
+    "sha256": "831cd3025f9f95be2542269e7d44f8c6a057c2c23005cd597f8b234f597cf2c6"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14559",
+    "sourceUrl": "https://h2ocooling.com/vi/meo-kiem-tra-thap-giai-nhiet/",
+    "targetPath": "/vi/meo-kiem-tra-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14559.json",
+    "sha256": "c9d06e88ffb3c69f9355f4cb8f396d76b2ed55c12800f8f3caa14a4b7b7c663c"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14717",
+    "sourceUrl": "https://h2ocooling.com/vi/quat-truc-dieu-co-ban/",
+    "targetPath": "/vi/quat-truc-dieu-co-ban/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14717.json",
+    "sha256": "ebc6468d24e0e0977c6816b3481c2477be9dc35038e39c9f970054f50bc3c46b"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14626",
+    "sourceUrl": "https://h2ocooling.com/vi/tai-sao-frp-lon-hon-go-nhom-thep-va-be-tong/",
+    "targetPath": "/vi/tai-sao-frp-lon-hon-go-nhom-thep-va-be-tong/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14626.json",
+    "sha256": "a2fd75d8c892a68079f76869d7b695a7a41230dbb1c653419eae4959607cab70"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14464",
+    "sourceUrl": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/",
+    "targetPath": "/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14464.json",
+    "sha256": "75be491cb0640be7b0f7f2102ead6549998eaff25e4fc6cf80a842b0f9b99ff8"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14610",
+    "sourceUrl": "https://h2ocooling.com/vi/thap-giai-nhiet-la-gi/",
+    "targetPath": "/vi/thap-giai-nhiet-la-gi/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14610.json",
+    "sha256": "5f177b5c780201eeb30e7d74728555cd6f1a5f378e68ae7ecfd5a128ab584c9b"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14701",
+    "sourceUrl": "https://h2ocooling.com/vi/tim-hieu-hieu-suat-quat-thap-giai-nhiet/",
+    "targetPath": "/vi/tim-hieu-hieu-suat-quat-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14701.json",
+    "sha256": "a1bf63de1b2ea8c30378afa489754f551a06f2c513f59aec95d77d8d777d79dc"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14602",
+    "sourceUrl": "https://h2ocooling.com/vi/toi-nen-sua-chua-hoac-thay-the-thap-giai-nhiet-bao-tri-thap-giai-nhiet/",
+    "targetPath": "/vi/toi-nen-sua-chua-hoac-thay-the-thap-giai-nhiet-bao-tri-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14602.json",
+    "sha256": "b5e896b2e605b268374d90af76452d21496598d375b7d4adde39a67fdafe9306"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14540",
+    "sourceUrl": "https://h2ocooling.com/vi/vat-lieu-lap-nao-tot-nhat-cho-thap-giai-nhiet/",
+    "targetPath": "/vi/vat-lieu-lap-nao-tot-nhat-cho-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14540.json",
+    "sha256": "09c43ef96546e5557bfbda48800fa48cc1a183a9eecf0cf52bae5afd6cd2287d"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14544",
+    "sourceUrl": "https://h2ocooling.com/vi/%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%82%e0%b9%89%e0%b8%b2%e0%b9%83%e0%b8%88%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b9%83%e0%b8%8a%e0%b9%89%e0%b8%87%e0%b8%b2%e0%b8%99%e0%b8%82/",
+    "targetPath": "/vi/%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%82%e0%b9%89%e0%b8%b2%e0%b9%83%e0%b8%88%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b9%83%e0%b8%8a%e0%b9%89%e0%b8%87%e0%b8%b2%e0%b8%99%e0%b8%82/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14544.json",
+    "sha256": "d6b47b1253937cd36357f67b902a90aa29d7cbf27f782d1fd774533563438830"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14466",
+    "sourceUrl": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/",
+    "targetPath": "/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14466.json",
+    "sha256": "f7e7a3932e9c288388c6b143dce099c0c925c559a3eaa1d837b5a90b023ecc0e"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14791",
+    "sourceUrl": "https://h2ocooling.com/id/bagaimana-cara-kerja-menara-pendingin/",
+    "targetPath": "/id/bagaimana-cara-kerja-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14791.json",
+    "sha256": "b735dc5504bc7eb008b123e3ea439420bdad1d8622848632ec205421cea2d4df"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14450",
+    "sourceUrl": "https://h2ocooling.com/id/bagaimana-mencegah-legionella-di-pendingin-dan-menara-pendingin/",
+    "targetPath": "/id/bagaimana-mencegah-legionella-di-pendingin-dan-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14450.json",
+    "sha256": "741e7bf153043d7ef63a6692132f43cdcd032d9b145cde5d2444b7b4acc6dbc1"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14636",
+    "sourceUrl": "https://h2ocooling.com/id/cara-memeriksa-menara-pendingin-bagian-2/",
+    "targetPath": "/id/cara-memeriksa-menara-pendingin-bagian-2/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14636.json",
+    "sha256": "ddefce7cfc1396d0e94e98acc59a1f260efbaffb098a4e9077a70917f1ee0aca"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14767",
+    "sourceUrl": "https://h2ocooling.com/id/cuaca-dingin-menghadirkan-masalah-unik-pada-menara-pendingin/",
+    "targetPath": "/id/cuaca-dingin-menghadirkan-masalah-unik-pada-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14767.json",
+    "sha256": "191bda08fcad8b6d28ff63cadad6ef0abe238e3a5d447837aa96abec39d06158"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14604",
+    "sourceUrl": "https://h2ocooling.com/id/haruskah-saya-memperbaiki-atau-mengganti-menara-pendingin-pemeliharaan-menara-pendingin/",
+    "targetPath": "/id/haruskah-saya-memperbaiki-atau-mengganti-menara-pendingin-pemeliharaan-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14604.json",
+    "sha256": "22fbefe3860d40cd9c2ed9c52fef798c659f35314ee98afe2c2fa06faccfa7d4"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14542",
+    "sourceUrl": "https://h2ocooling.com/id/isi-mana-yang-terbaik-untuk-menara-pendingin/",
+    "targetPath": "/id/isi-mana-yang-terbaik-untuk-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14542.json",
+    "sha256": "415daefe765925bfe34cc1b16a73db6d67280e396550129c86b1bf8e329fcf08"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14620",
+    "sourceUrl": "https://h2ocooling.com/id/keunggulan-lingkungan-menara-pendingin-vs-sistem-pendinginan-sekali-melalui/",
+    "targetPath": "/id/keunggulan-lingkungan-menara-pendingin-vs-sistem-pendinginan-sekali-melalui/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14620.json",
+    "sha256": "45a75ccce88a2713d45b67808320ac5c04f99320b87d742ebd4e9c6595df3385"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14670",
+    "sourceUrl": "https://h2ocooling.com/id/langkah-menuju-menara-pendinginan-yang-lebih-efisien-energi/",
+    "targetPath": "/id/langkah-menuju-menara-pendinginan-yang-lebih-efisien-energi/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14670.json",
+    "sha256": "d6f0175678746e6e7fe070780e5572e3a8b40e968925a29aaf6ab7c32613198c"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14695",
+    "sourceUrl": "https://h2ocooling.com/id/lihat-efisiensi-kipas-cooling-tower-pt-2/",
+    "targetPath": "/id/lihat-efisiensi-kipas-cooling-tower-pt-2/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14695.json",
+    "sha256": "752c28e77a58365e3a784e739b2416f8bee9ade72e86943876a5118028cde095"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14703",
+    "sourceUrl": "https://h2ocooling.com/id/lihat-efisiensi-kipas-menara-pendingin/",
+    "targetPath": "/id/lihat-efisiensi-kipas-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14703.json",
+    "sha256": "db7a1305f09438e6fc13d1989cda214c288541c54c9c138ca6cdb63ea9ccd140"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14675",
+    "sourceUrl": "https://h2ocooling.com/id/manfaat-penggemar-frp/",
+    "targetPath": "/id/manfaat-penggemar-frp/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14675.json",
+    "sha256": "5fd34ee948652c6f6b4edd6ada4927ba12517968079b3ff9eabbe7335f899d60"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14492",
+    "sourceUrl": "https://h2ocooling.com/id/melindungi-menara-pendingin-komersial-strategi-manajemen-risiko-yang-efektif/",
+    "targetPath": "/id/melindungi-menara-pendingin-komersial-strategi-manajemen-risiko-yang-efektif/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14492.json",
+    "sha256": "abbb141957281317c5f550b192af533ab457779bc9138a1d6ab7674510ed5012"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14751",
+    "sourceUrl": "https://h2ocooling.com/id/mempersiapkan-menara-pendingin-anda-untuk-pengoperasian-musim-dingin/",
+    "targetPath": "/id/mempersiapkan-menara-pendingin-anda-untuk-pengoperasian-musim-dingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14751.json",
+    "sha256": "5688791e348440133a10148943ea4bf2392405a4ec7dbb84a15b2d992598fb89"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14570",
+    "sourceUrl": "https://h2ocooling.com/id/menara-pendingin-internasional-memahami-jenis-masalah-dan-solusi/",
+    "targetPath": "/id/menara-pendingin-internasional-memahami-jenis-masalah-dan-solusi/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14570.json",
+    "sha256": "2c7dde887d9e256deb6f5000d43871f9939bcbd05588caa46980181cae3de176"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14644",
+    "sourceUrl": "https://h2ocooling.com/id/menara-pendinginan-dalam-cuaca-dingin/",
+    "targetPath": "/id/menara-pendinginan-dalam-cuaca-dingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14644.json",
+    "sha256": "ce581a517d2296a08c5590bc6192660c48e6cc236ad30f999d1375307e269558"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14727",
+    "sourceUrl": "https://h2ocooling.com/id/mencari-bendera-merah-indikator-awal-masalah-menara-pendingin/",
+    "targetPath": "/id/mencari-bendera-merah-indikator-awal-masalah-menara-pendingin/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14727.json",
+    "sha256": "081916199a46d5dfd88f755a93a4c9b91348b5de5adefaa798699435f3dc8185"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14628",
+    "sourceUrl": "https://h2ocooling.com/id/mengapa-frp-unggul-dibandingkan-kayu-aluminium-baja-dan-beton/",
+    "targetPath": "/id/mengapa-frp-unggul-dibandingkan-kayu-aluminium-baja-dan-beton/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14628.json",
+    "sha256": "59124d789d46f24a124d628d14451d5ae9ce2d21c21c10f28ad93eb276982990"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14516",
+    "sourceUrl": "https://h2ocooling.com/id/panduan-sempurna-untuk-penghilang-aliran-menara-pendingin-di-tahun-2024/",
+    "targetPath": "/id/panduan-sempurna-untuk-penghilang-aliran-menara-pendingin-di-tahun-2024/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14516.json",
+    "sha256": "154254bdfe4110c7b3f4f1cf8eba07109177e91b4a219935ed02c4294f761584"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14759",
+    "sourceUrl": "https://h2ocooling.com/id/penggemar-aksial-harus-menjadi-pilihan-yang-jelas/",
+    "targetPath": "/id/penggemar-aksial-harus-menjadi-pilihan-yang-jelas/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14759.json",
+    "sha256": "8bec44baa47c6518854f7e0aedbef604cf60f66a3c7694a5de99a44cbfa099a0"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14711",
+    "sourceUrl": "https://h2ocooling.com/id/pentingnya-kipas-yang-stabil/",
+    "targetPath": "/id/pentingnya-kipas-yang-stabil/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14711.json",
+    "sha256": "ba331b35cbcb4a31f64e11c252c5933ff46e43b97cd78ded8382aacf15941dfd"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14743",
+    "sourceUrl": "https://h2ocooling.com/id/pentingnya-pemeliharaan-fan-blade/",
+    "targetPath": "/id/pentingnya-pemeliharaan-fan-blade/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14743.json",
+    "sha256": "97665f1f2df2be73046c0eb1aac91701ac5ae4ccc080b449657a014475e37650"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14483",
+    "sourceUrl": "https://h2ocooling.com/id/peran-dan-evolusi-menara-pendingin-di-as/",
+    "targetPath": "/id/peran-dan-evolusi-menara-pendingin-di-as/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14483.json",
+    "sha256": "d5ab314a51949a0a5fed203485759e8a6edbb49036a50d0faac628b826334ac3"
+  },
+  {
+    "routeId": "LIVE-LOCALE-id-14735",
+    "sourceUrl": "https://h2ocooling.com/id/tetap-dingin-aman-apakah-menara-pendingin-penggemar-anda-baik/",
+    "targetPath": "/id/tetap-dingin-aman-apakah-menara-pendingin-penggemar-anda-baik/",
+    "file": "documents/SALMON-LIVE-LOCALE-id-14735.json",
+    "sha256": "c6eca56919945ac9c44a3590a28c15789c603ca98d88d23a89887912d02d3043"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14624",
+    "sourceUrl": "https://h2ocooling.com/ja/frp%e3%81%8c%e6%9c%a8%e6%9d%90%e3%80%81%e3%82%a2%e3%83%ab%e3%83%9f%e3%83%8b%e3%82%a6%e3%83%a0%e3%80%81%e3%82%b9%e3%83%81%e3%83%bc%e3%83%ab%e3%80%81%e3%82%b3%e3%83%b3%e3%82%af%e3%83%aa%e3%83%bc/",
+    "targetPath": "/ja/frp%e3%81%8c%e6%9c%a8%e6%9d%90%e3%80%81%e3%82%a2%e3%83%ab%e3%83%9f%e3%83%8b%e3%82%a6%e3%83%a0%e3%80%81%e3%82%b9%e3%83%81%e3%83%bc%e3%83%ab%e3%80%81%e3%82%b3%e3%83%b3%e3%82%af%e3%83%aa%e3%83%bc/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14624.json",
+    "sha256": "dd53743fd7af503dab789883ea6b10fd109a5abb6628c47474d708d41d387197"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14462",
+    "sourceUrl": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/",
+    "targetPath": "/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14462.json",
+    "sha256": "429ed428eeb6c04aa2c27c16d47022ffaffa6707cddae09cb8b53e10f48e6200"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14666",
+    "sourceUrl": "https://h2ocooling.com/ja/%e3%82%88%e3%82%8a%e3%82%a8%e3%83%8d%e3%83%ab%e3%82%ae%e3%83%bc%e5%8a%b9%e7%8e%87%e3%81%ae%e9%ab%98%e3%81%84%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%b8%e3%81%ae%e3%82%b9%e3%83%86%e3%83%83%e3%83%97/",
+    "targetPath": "/ja/%e3%82%88%e3%82%8a%e3%82%a8%e3%83%8d%e3%83%ab%e3%82%ae%e3%83%bc%e5%8a%b9%e7%8e%87%e3%81%ae%e9%ab%98%e3%81%84%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%b8%e3%81%ae%e3%82%b9%e3%83%86%e3%83%83%e3%83%97/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14666.json",
+    "sha256": "f77d353e31f6781c068b887f0894252982027c3ddd1ae5a0ce437d18da519c24"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14682",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e-pt-3/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e-pt-3/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14682.json",
+    "sha256": "dfa73cb3f25c03984b2c03e57e8b2c0f16f111b476b8f6b7e2cbbe40b8d837bd"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14632",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e6%a4%9c%e6%9f%bb%e6%96%b9%e6%b3%95-%e3%83%91%e3%83%bc%e3%83%88-2/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e6%a4%9c%e6%9f%bb%e6%96%b9%e6%b3%95-%e3%83%91%e3%83%bc%e3%83%88-2/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14632.json",
+    "sha256": "5b9867a6d4048b5228c5ebd970f92f15a897b7c1fb34ab0e7968ee5fd7df6fb8"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14557",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e7%82%b9%e6%a4%9c%e3%81%ae%e3%83%92%e3%83%b3%e3%83%88/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e7%82%b9%e6%a4%9c%e3%81%ae%e3%83%92%e3%83%b3%e3%83%88/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14557.json",
+    "sha256": "ba4f85e8d0f81b3191b94da52c14ffea69e6eb04b4fd2ff17cf2e150e8a188c0"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14600",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%82%92%e4%bf%ae%e7%90%86%e3%81%be%e3%81%9f%e3%81%af%e4%ba%a4%e6%8f%9b%e3%81%99%e3%81%b9%e3%81%8d%e3%81%8b-%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%a1%e3%83%b3/",
+    "targetPath": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%82%92%e4%bf%ae%e7%90%86%e3%81%be%e3%81%9f%e3%81%af%e4%ba%a4%e6%8f%9b%e3%81%99%e3%81%b9%e3%81%8d%e3%81%8b-%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%a1%e3%83%b3/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14600.json",
+    "sha256": "8162305038b87975e3d38d768def1b8b29ab28d8396f40b5771a876f7d94bffb"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14723",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%8d%b1%e9%99%ba%e4%bf%a1%e5%8f%b7%e3%81%ae%e7%99%ba%e8%a6%8b-%e5%86%b7%e5%8d%b4%e5%a1%94%e3%83%88%e3%83%a9%e3%83%96%e3%83%ab%e3%81%ae%e5%88%9d%e6%9c%9f%e5%85%86%e5%80%99/",
+    "targetPath": "/ja/%e5%8d%b1%e9%99%ba%e4%bf%a1%e5%8f%b7%e3%81%ae%e7%99%ba%e8%a6%8b-%e5%86%b7%e5%8d%b4%e5%a1%94%e3%83%88%e3%83%a9%e3%83%96%e3%83%ab%e3%81%ae%e5%88%9d%e6%9c%9f%e5%85%86%e5%80%99/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14723.json",
+    "sha256": "aba9418fefaedf3e9fc9c1b7928c3e845c456b48f0af491d10481e5c7d63a4d9"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14763",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%af%92%e5%86%b7%e6%b0%97%e5%80%99%e3%81%af%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ab%e7%89%b9%e6%9c%89%e3%81%ae%e5%95%8f%e9%a1%8c%e3%82%92%e5%bc%95%e3%81%8d%e8%b5%b7%e3%81%93%e3%81%99/",
+    "targetPath": "/ja/%e5%af%92%e5%86%b7%e6%b0%97%e5%80%99%e3%81%af%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ab%e7%89%b9%e6%9c%89%e3%81%ae%e5%95%8f%e9%a1%8c%e3%82%92%e5%bc%95%e3%81%8d%e8%b5%b7%e3%81%93%e3%81%99/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14763.json",
+    "sha256": "b79e02f2812e9e042e5eb4983912e70e187c5d50f9572fdedd2711f2373c21fe"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14546",
+    "sourceUrl": "https://h2ocooling.com/ja/%e5%b7%a5%e6%a5%ad%e3%83%97%e3%83%ad%e3%82%bb%e3%82%b9%e3%81%ab%e3%81%8a%e3%81%91%e3%82%8b%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e7%94%a8%e9%80%94%e3%82%92%e7%90%86%e8%a7%a3%e3%81%99%e3%82%8b/",
+    "targetPath": "/ja/%e5%b7%a5%e6%a5%ad%e3%83%97%e3%83%ad%e3%82%bb%e3%82%b9%e3%81%ab%e3%81%8a%e3%81%91%e3%82%8b%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e7%94%a8%e9%80%94%e3%82%92%e7%90%86%e8%a7%a3%e3%81%99%e3%82%8b/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14546.json",
+    "sha256": "6e3d73a7c3ab253017391064dcf56a8538ca1efaf00bd6f8c757f7d0223c4d06"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14590",
+    "sourceUrl": "https://h2ocooling.com/ja/%e6%9c%80%e9%81%a9%e3%81%aa%e3%83%91%e3%83%95%e3%82%a9%e3%83%bc%e3%83%9e%e3%83%b3%e3%82%b9%e3%82%92%e5%ae%9f%e7%8f%be%e3%81%99%e3%82%8b%e3%81%9f%e3%82%81%e3%81%ae%e6%ae%b5%e9%9a%8e%e7%9a%84%e3%81%aa/",
+    "targetPath": "/ja/%e6%9c%80%e9%81%a9%e3%81%aa%e3%83%91%e3%83%95%e3%82%a9%e3%83%bc%e3%83%9e%e3%83%b3%e3%82%b9%e3%82%92%e5%ae%9f%e7%8f%be%e3%81%99%e3%82%8b%e3%81%9f%e3%82%81%e3%81%ae%e6%ae%b5%e9%9a%8e%e7%9a%84%e3%81%aa/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14590.json",
+    "sha256": "21c4b0872c4fef86e7964c6df9d7a4b0bc6e85bf1827745bdc0c260baadd0008"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14731",
+    "sourceUrl": "https://h2ocooling.com/ja/%e6%b6%bc%e3%81%97%e3%81%8f%e5%ae%89%e5%85%a8%e3%81%ab%e4%bf%9d%e3%81%a1%e3%81%be%e3%81%97%e3%82%87%e3%81%86-%e3%83%95%e3%82%a1%e3%83%b3%e3%81%ae%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%af%e5%a4%a7%e4%b8%88/",
+    "targetPath": "/ja/%e6%b6%bc%e3%81%97%e3%81%8f%e5%ae%89%e5%85%a8%e3%81%ab%e4%bf%9d%e3%81%a1%e3%81%be%e3%81%97%e3%82%87%e3%81%86-%e3%83%95%e3%82%a1%e3%83%b3%e3%81%ae%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%af%e5%a4%a7%e4%b8%88/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14731.json",
+    "sha256": "f104f63b850f5e7d855587321dee5f7e2720093a6d762974a8f991f88420971d"
+  },
+  {
+    "routeId": "LIVE-LOCALE-ja-14755",
+    "sourceUrl": "https://h2ocooling.com/ja/%e8%bb%b8%e6%b5%81%e3%83%95%e3%82%a1%e3%83%b3%e3%82%92%e9%81%b8%e6%8a%9e%e3%81%99%e3%82%8b%e3%81%ae%e3%81%af%e6%98%8e%e3%82%89%e3%81%8b%e3%81%a7%e3%81%99/",
+    "targetPath": "/ja/%e8%bb%b8%e6%b5%81%e3%83%95%e3%82%a1%e3%83%b3%e3%82%92%e9%81%b8%e6%8a%9e%e3%81%99%e3%82%8b%e3%81%ae%e3%81%af%e6%98%8e%e3%82%89%e3%81%8b%e3%81%a7%e3%81%99/",
+    "file": "documents/SALMON-LIVE-LOCALE-ja-14755.json",
+    "sha256": "684825dfc601d5918f708f4f4b80d283e2b82e04ff841a88abf1ec407105289c"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14721",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b8%e0%b8%98%e0%b8%87%e0%b8%aa%e0%b8%b5%e0%b9%81%e0%b8%94%e0%b8%87-%e0%b8%95%e0%b8%b1%e0%b8%a7%e0%b8%9a%e0%b9%88%e0%b8%87%e0%b8%8a%e0%b8%b5/",
+    "targetPath": "/th/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b8%e0%b8%98%e0%b8%87%e0%b8%aa%e0%b8%b5%e0%b9%81%e0%b8%94%e0%b8%87-%e0%b8%95%e0%b8%b1%e0%b8%a7%e0%b8%9a%e0%b9%88%e0%b8%87%e0%b8%8a%e0%b8%b5/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14721.json",
+    "sha256": "9e81ad5b1f389a49abb3ab2398b332aad1122597000502e02fef791e52e3a21e"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14745",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b9%80%e0%b8%95%e0%b8%a3%e0%b8%b5%e0%b8%a2%e0%b8%a1%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%82/",
+    "targetPath": "/th/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b9%80%e0%b8%95%e0%b8%a3%e0%b8%b5%e0%b8%a2%e0%b8%a1%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%82/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14745.json",
+    "sha256": "731d5a9f64185e59b6ea321ab3caed307e422bda37f97af6dbc7eb661fadbe3c"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14572",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b9%81%e0%b8%a2%e0%b8%81%e0%b8%a2%e0%b9%88%e0%b8%ad%e0%b8%a2%e0%b8%95%e0%b9%89%e0%b8%99%e0%b8%97%e0%b8%b8%e0%b8%99-%e0%b8%95%e0%b9%89%e0%b8%99%e0%b8%97%e0%b8%b8%e0%b8%99/",
+    "targetPath": "/th/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b9%81%e0%b8%a2%e0%b8%81%e0%b8%a2%e0%b9%88%e0%b8%ad%e0%b8%a2%e0%b8%95%e0%b9%89%e0%b8%99%e0%b8%97%e0%b8%b8%e0%b8%99-%e0%b8%95%e0%b9%89%e0%b8%99%e0%b8%97%e0%b8%b8%e0%b8%99/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14572.json",
+    "sha256": "5263adb4063dc8102efa47b7f64566af5887ff5c2617697406442083f66ad9d0"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14664",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%81%e0%b9%89%e0%b8%b2%e0%b8%a7%e0%b9%84%e0%b8%9b%e0%b8%aa%e0%b8%b9%e0%b9%88%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%97/",
+    "targetPath": "/th/%e0%b8%81%e0%b9%89%e0%b8%b2%e0%b8%a7%e0%b9%84%e0%b8%9b%e0%b8%aa%e0%b8%b9%e0%b9%88%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%97/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14664.json",
+    "sha256": "cd79957b07b94eac5e1aba8a40a34e93fa96f4a17e7d12ac051c547ce560c80c"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14598",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%89%e0%b8%b1%e0%b8%99%e0%b8%84%e0%b8%a7%e0%b8%a3%e0%b8%8b%e0%b9%88%e0%b8%ad%e0%b8%a1%e0%b9%81%e0%b8%8b%e0%b8%a1%e0%b8%ab%e0%b8%a3%e0%b8%b7%e0%b8%ad%e0%b9%80%e0%b8%9b%e0%b8%a5%e0%b8%b5%e0%b9%88/",
+    "targetPath": "/th/%e0%b8%89%e0%b8%b1%e0%b8%99%e0%b8%84%e0%b8%a7%e0%b8%a3%e0%b8%8b%e0%b9%88%e0%b8%ad%e0%b8%a1%e0%b9%81%e0%b8%8b%e0%b8%a1%e0%b8%ab%e0%b8%a3%e0%b8%b7%e0%b8%ad%e0%b9%80%e0%b8%9b%e0%b8%a5%e0%b8%b5%e0%b9%88/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14598.json",
+    "sha256": "a319fdb86d0ba77449be4523c371a10959fe80e821c87dd6f6c511450d0ccad9"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14680",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/",
+    "targetPath": "/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14680.json",
+    "sha256": "e524e93dbbf03a22be42e1e977de7af842c9a2fe42525856e0cdb38cc76db854"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14769",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%82%e0%b9%89%e0%b8%b2%e0%b9%83%e0%b8%88%e0%b8%8a%e0%b8%b4%e0%b9%89%e0%b8%99%e0%b8%aa%e0%b9%88%e0%b8%a7%e0%b8%99%e0%b9%81%e0%b8%a5/",
+    "targetPath": "/th/%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%82%e0%b9%89%e0%b8%b2%e0%b9%83%e0%b8%88%e0%b8%8a%e0%b8%b4%e0%b9%89%e0%b8%99%e0%b8%aa%e0%b9%88%e0%b8%a7%e0%b8%99%e0%b9%81%e0%b8%a5/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14769.json",
+    "sha256": "963655c8dcf7cd832f2253f103b58d6e6c82728566c3c2e13d9e50c047887ff2"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14477",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%9a%e0%b8%97%e0%b8%9a%e0%b8%b2%e0%b8%97%e0%b9%81%e0%b8%a5%e0%b8%b0%e0%b8%a7%e0%b8%b4%e0%b8%a7%e0%b8%b1%e0%b8%92%e0%b8%99%e0%b8%b2%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%82%e0%b8%ad%e0%b8%87%e0%b8%ab/",
+    "targetPath": "/th/%e0%b8%9a%e0%b8%97%e0%b8%9a%e0%b8%b2%e0%b8%97%e0%b9%81%e0%b8%a5%e0%b8%b0%e0%b8%a7%e0%b8%b4%e0%b8%a7%e0%b8%b1%e0%b8%92%e0%b8%99%e0%b8%b2%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%82%e0%b8%ad%e0%b8%87%e0%b8%ab/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14477.json",
+    "sha256": "171a8b7ff56edd68046aa7f79be34b3d503fecaf39091b16d68d447a15276a60"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14753",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b9%81%e0%b8%9a%e0%b8%9a%e0%b9%81%e0%b8%81%e0%b8%99%e0%b8%84%e0%b8%a7%e0%b8%a3%e0%b9%80%e0%b8%9b%e0%b9%87%e0%b8%99%e0%b8%95%e0%b8%b1%e0%b8%a7%e0%b9%80/",
+    "targetPath": "/th/%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b9%81%e0%b8%9a%e0%b8%9a%e0%b9%81%e0%b8%81%e0%b8%99%e0%b8%84%e0%b8%a7%e0%b8%a3%e0%b9%80%e0%b8%9b%e0%b9%87%e0%b8%99%e0%b8%95%e0%b8%b1%e0%b8%a7%e0%b9%80/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14753.json",
+    "sha256": "2083863e317ec876de76008a35ae8e3c8e70cd43659804ecedb31071493652e5"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14536",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%a7%e0%b8%b1%e0%b8%aa%e0%b8%94%e0%b8%b8%e0%b9%80%e0%b8%95%e0%b8%b4%e0%b8%a1%e0%b8%8a%e0%b8%99%e0%b8%b4%e0%b8%94%e0%b9%83%e0%b8%94%e0%b8%94%e0%b8%b5%e0%b8%97%e0%b8%b5%e0%b9%88%e0%b8%aa%e0%b8%b8/",
+    "targetPath": "/th/%e0%b8%a7%e0%b8%b1%e0%b8%aa%e0%b8%94%e0%b8%b8%e0%b9%80%e0%b8%95%e0%b8%b4%e0%b8%a1%e0%b8%8a%e0%b8%99%e0%b8%b4%e0%b8%94%e0%b9%83%e0%b8%94%e0%b8%94%e0%b8%b5%e0%b8%97%e0%b8%b5%e0%b9%88%e0%b8%aa%e0%b8%b8/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14536.json",
+    "sha256": "46b4ca5da369f0d79956bcd0511dc59bfaab120db40de5abe5e8d7cd0e25cdce"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14630",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%a7%e0%b8%b4%e0%b8%98%e0%b8%b5%e0%b8%95%e0%b8%a3%e0%b8%a7%e0%b8%88%e0%b8%aa%e0%b8%ad%e0%b8%9a%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87/",
+    "targetPath": "/th/%e0%b8%a7%e0%b8%b4%e0%b8%98%e0%b8%b5%e0%b8%95%e0%b8%a3%e0%b8%a7%e0%b8%88%e0%b8%aa%e0%b8%ad%e0%b8%9a%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14630.json",
+    "sha256": "186dce5cb88f55e5efb21baea4c0d3c17f15ada9ea1d2a2dd5e3d68249e4856e"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14761",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%aa%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%ad%e0%b8%b2%e0%b8%81%e0%b8%b2%e0%b8%a8%e0%b8%ab%e0%b8%99%e0%b8%b2%e0%b8%a7%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%99%e0%b8%b3%e0%b9%80%e0%b8%aa%e0%b8%99/",
+    "targetPath": "/th/%e0%b8%aa%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%ad%e0%b8%b2%e0%b8%81%e0%b8%b2%e0%b8%a8%e0%b8%ab%e0%b8%99%e0%b8%b2%e0%b8%a7%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%99%e0%b8%b3%e0%b9%80%e0%b8%aa%e0%b8%99/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14761.json",
+    "sha256": "79bb64f31903bbe8c7d1ad8433cc9165ef5b8504488ee884cb31cee8e8e27630"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14564",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b8%a3%e0%b9%89%e0%b8%ad%e0%b8%99%e0%b8%a3%e0%b8%b0%e0%b8%94%e0%b8%b1/",
+    "targetPath": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b8%a3%e0%b9%89%e0%b8%ad%e0%b8%99%e0%b8%a3%e0%b8%b0%e0%b8%94%e0%b8%b1/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14564.json",
+    "sha256": "ff1d45794b14752305f4a9f4c2b254b71577886512d53d33aa8cc057abe4e0d6"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14638",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b9%83%e0%b8%99%e0%b8%aa%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%ad%e0%b8%b2%e0%b8%81%e0%b8%b2/",
+    "targetPath": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b9%83%e0%b8%99%e0%b8%aa%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%ad%e0%b8%b2%e0%b8%81%e0%b8%b2/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14638.json",
+    "sha256": "de8c240b655888531fffdc40a4291e5c77ad1f45f106d2b9bf24d7cf2e81a74e"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14518",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b8%ad%e0%b8%a2%e0%b8%b9%e0%b9%88%e0%b9%83%e0%b8%ab%e0%b9%89%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b9%81%e0%b8%a5%e0%b8%b0%e0%b8%9b%e0%b8%a5%e0%b8%ad%e0%b8%94%e0%b8%a0%e0%b8%b1%e0%b8%a2-%e0%b8%9e/",
+    "targetPath": "/th/%e0%b8%ad%e0%b8%a2%e0%b8%b9%e0%b9%88%e0%b9%83%e0%b8%ab%e0%b9%89%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b9%81%e0%b8%a5%e0%b8%b0%e0%b8%9b%e0%b8%a5%e0%b8%ad%e0%b8%94%e0%b8%a0%e0%b8%b1%e0%b8%a2-%e0%b8%9e/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14518.json",
+    "sha256": "e418760cd25e4a17a17a9c4823187d846a4e7c2408dd43dea65bc04ca57b8a6b"
+  },
+  {
+    "routeId": "LIVE-LOCALE-th-14622",
+    "sourceUrl": "https://h2ocooling.com/th/%e0%b9%80%e0%b8%ab%e0%b8%95%e0%b8%b8%e0%b9%83%e0%b8%94-frp-%e0%b8%88%e0%b8%b6%e0%b8%87%e0%b9%80%e0%b8%ab%e0%b8%99%e0%b8%b7%e0%b8%ad%e0%b8%81%e0%b8%a7%e0%b9%88%e0%b8%b2%e0%b9%84%e0%b8%a1%e0%b9%89/",
+    "targetPath": "/th/%e0%b9%80%e0%b8%ab%e0%b8%95%e0%b8%b8%e0%b9%83%e0%b8%94-frp-%e0%b8%88%e0%b8%b6%e0%b8%87%e0%b9%80%e0%b8%ab%e0%b8%99%e0%b8%b7%e0%b8%ad%e0%b8%81%e0%b8%a7%e0%b9%88%e0%b8%b2%e0%b9%84%e0%b8%a1%e0%b9%89/",
+    "file": "documents/SALMON-LIVE-LOCALE-th-14622.json",
+    "sha256": "5ebcfe75c31a78b58e5a637a7e42d3aa7dc2fce62bbd50ac42d0a797f5bb7bed"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14489",
+    "sourceUrl": "https://h2ocooling.com/vi/bao-ve-thap-giai-nhiet-thuong-mai-chien-luoc-quan-ly-rui-ro-hieu-qua/",
+    "targetPath": "/vi/bao-ve-thap-giai-nhiet-thuong-mai-chien-luoc-quan-ly-rui-ro-hieu-qua/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14489.json",
+    "sha256": "2b6525ff95ccc36e69493c05fa8e22b75772e878fb77bad3c52b3bb9992a7eb2"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14668",
+    "sourceUrl": "https://h2ocooling.com/vi/cac-buoc-de-co-thap-giai-nhiet-hieu-qua-nang-luong-hon/",
+    "targetPath": "/vi/cac-buoc-de-co-thap-giai-nhiet-hieu-qua-nang-luong-hon/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14668.json",
+    "sha256": "78f7768e7e9e32d27fff9a73af6b8d5d8d927afa42e2b11c26fd766661bb1568"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14634",
+    "sourceUrl": "https://h2ocooling.com/vi/cach-kiem-tra-thap-giai-nhiet-phan-2/",
+    "targetPath": "/vi/cach-kiem-tra-thap-giai-nhiet-phan-2/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14634.json",
+    "sha256": "f01dba5fa79d3f23ff72ad7f43edbd9be5d704b0cfa414e4896346857269bedd"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14749",
+    "sourceUrl": "https://h2ocooling.com/vi/chuan-bi-thap-giai-nhiet-cho-van-hanh-mua-dong/",
+    "targetPath": "/vi/chuan-bi-thap-giai-nhiet-cho-van-hanh-mua-dong/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14749.json",
+    "sha256": "c068a8b2ca54dc6c05b9c2c26f571e97e8233494c109c5e1b5dc5bb5e77e9642"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14733",
+    "sourceUrl": "https://h2ocooling.com/vi/giu-mat-mat-an-toan-thap-giai-nhiet-quat-cua-ban-co-on-khong/",
+    "targetPath": "/vi/giu-mat-mat-an-toan-thap-giai-nhiet-quat-cua-ban-co-on-khong/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14733.json",
+    "sha256": "c5cb532a886511ecfcbf9dc6a0a0ec7ab7be01d5d4be065859c15823cad7af87"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14522",
+    "sourceUrl": "https://h2ocooling.com/vi/giu-mat-va-an-toan-quat-thap-giai-nhiet-cua-ban-co-on-khong/",
+    "targetPath": "/vi/giu-mat-va-an-toan-quat-thap-giai-nhiet-cua-ban-co-on-khong/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14522.json",
+    "sha256": "249692751fafab269c8644c99b50128fa6cfa6a459439c9be8c10772fbe1cad9"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14514",
+    "sourceUrl": "https://h2ocooling.com/vi/huong-dan-hoan-hao-ve-bo-loai-bo-troi-thap-giai-nhiet-nam-2024/",
+    "targetPath": "/vi/huong-dan-hoan-hao-ve-bo-loai-bo-troi-thap-giai-nhiet-nam-2024/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14514.json",
+    "sha256": "5f7b1b6dadd42a44aa5aa10a8d3992eb8a49967f45b722354141a9efdff63e84"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14618",
+    "sourceUrl": "https://h2ocooling.com/vi/loi-ich-moi-truong-cua-thap-giai-nhiet-va-he-thong-lam-mat-chuyen-di-mot-lan/",
+    "targetPath": "/vi/loi-ich-moi-truong-cua-thap-giai-nhiet-va-he-thong-lam-mat-chuyen-di-mot-lan/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14618.json",
+    "sha256": "bcadb14d61d9fee5e7cdb81db8f39ce5ca68f927de7e488155756b20065bf69c"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14725",
+    "sourceUrl": "https://h2ocooling.com/vi/phat-hien-co-do-cac-dau-hieu-som-ve-su-co-thap-giai-nhiet/",
+    "targetPath": "/vi/phat-hien-co-do-cac-dau-hieu-som-ve-su-co-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14725.json",
+    "sha256": "fbf915a78bc772fbf2eb01673d62dddb42ee382fb60dad52a6f58f549621c26e"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14709",
+    "sourceUrl": "https://h2ocooling.com/vi/tam-quan-trong-cua-quat-on-dinh/",
+    "targetPath": "/vi/tam-quan-trong-cua-quat-on-dinh/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14709.json",
+    "sha256": "271f9498473274283948f5717d5a93a4ae2e57f43dd40b70b6b35944ef607bff"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14741",
+    "sourceUrl": "https://h2ocooling.com/vi/tam-quan-trong-cua-viec-bao-duong-canh-quat/",
+    "targetPath": "/vi/tam-quan-trong-cua-viec-bao-duong-canh-quat/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14741.json",
+    "sha256": "6ddc9cc60a01e4849f1de68cfd0a884950880e3bce92f2b9c1978156342c1ec2"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14789",
+    "sourceUrl": "https://h2ocooling.com/vi/thap-giai-nhiet-hoat-dong-nhu-the-nao/",
+    "targetPath": "/vi/thap-giai-nhiet-hoat-dong-nhu-the-nao/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14789.json",
+    "sha256": "3369e252d6da1549f2fc5da4d0da24b7a1cc7eb3a51e6f6d1fb370f61dc10adc"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14568",
+    "sourceUrl": "https://h2ocooling.com/vi/thap-giai-nhiet-quoc-te-tim-hieu-ve-cac-loai-van-de-va-giai-phap/",
+    "targetPath": "/vi/thap-giai-nhiet-quoc-te-tim-hieu-ve-cac-loai-van-de-va-giai-phap/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14568.json",
+    "sha256": "41be0c73dd2da972194d8b326724f7c6e56291520cbd1fb8dd1203297ea6c957"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14642",
+    "sourceUrl": "https://h2ocooling.com/vi/thap-giai-nhiet-trong-thoi-tiet-lanh/",
+    "targetPath": "/vi/thap-giai-nhiet-trong-thoi-tiet-lanh/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14642.json",
+    "sha256": "2df93d9493bfd52a868d681e8f018a47e723c4dc5933d8c62936d1310c46c436"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14765",
+    "sourceUrl": "https://h2ocooling.com/vi/thoi-tiet-lanh-gay-ra-cac-van-de-dac-biet-cho-thap-giai-nhiet/",
+    "targetPath": "/vi/thoi-tiet-lanh-gay-ra-cac-van-de-dac-biet-cho-thap-giai-nhiet/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14765.json",
+    "sha256": "007ce5fe72e3d3ff432ee6aebafcbc78f84f474826987ae2998411333e3a926c"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14692",
+    "sourceUrl": "https://h2ocooling.com/vi/tim-hieu-hieu-suat-quat-thap-giai-nhiet-pt-2/",
+    "targetPath": "/vi/tim-hieu-hieu-suat-quat-thap-giai-nhiet-pt-2/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14692.json",
+    "sha256": "fcdd726bcadaa6101e904a1e3aa31d659cd60d963ccc19d9470070aed40b2550"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14684",
+    "sourceUrl": "https://h2ocooling.com/vi/tim-hieu-hieu-suat-quat-thap-giai-nhiet-pt-3/",
+    "targetPath": "/vi/tim-hieu-hieu-suat-quat-thap-giai-nhiet-pt-3/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14684.json",
+    "sha256": "142d071a74f3ca195c5db8e2e7e5ed5a411b75f0aa7374573c1218fd30c98fa9"
+  },
+  {
+    "routeId": "LIVE-LOCALE-vi-14481",
+    "sourceUrl": "https://h2ocooling.com/vi/vai-tro-va-su-phat-trien-cua-thap-giai-nhiet-tai-hoa-ky/",
+    "targetPath": "/vi/vai-tro-va-su-phat-trien-cua-thap-giai-nhiet-tai-hoa-ky/",
+    "file": "documents/SALMON-LIVE-LOCALE-vi-14481.json",
+    "sha256": "d53cdfc40bdf050f2cd8dd9c6167546c5f8c3edebe89727cba275b7ce8299390"
+  }
+]

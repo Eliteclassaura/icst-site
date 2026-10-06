@@ -1,5 +1,5 @@
 /**
- * Public archive routes that list nothing public (Control Tower ruling 2026-10-02): 78 article archives whose posts are
+ * Public archive routes that list nothing public (Control Tower ruling 2026-10-02): 76 article archives whose posts are
  * all REVIEW_HOLD and 67 product categories/tags with no products in the source. Each keeps its empty-state page (200),
  * is `noindex, follow` under the production policy and stays out of the sitemap and search. Generated from the
  * archive model; `site/__tests__/archive-template.test.tsx` fails when the set changes (revisit when posts publish).
@@ -25,7 +25,6 @@ export const EMPTY_ARCHIVE_PATHS: readonly string[] = [
   '/category/ics-newschemicalconcretecounterflowindustrial-cooling-tower/',
   '/category/indicators-of-cooling-tower-troubleothers-language/',
   '/category/industrial-cooling-towerothers-language/',
-  '/category/industrial-cooling-towerothers-language/page/2/',
   '/category/others-language/',
   '/category/others-language/page/2/',
   '/category/others-language/page/3/',
@@ -144,7 +143,6 @@ export const EMPTY_ARCHIVE_PATHS: readonly string[] = [
   '/tag/cooling-towercooling-tower-fill/',
   '/tag/cooling-towercooling-tower-fill/page/2/',
   '/tag/cooling-towercooling-tower-fillcooling-tower-maintenance/',
-  '/tag/cooling-towercooling-tower-fillcooling-tower-parts/',
   '/tag/cooling-towercooling-tower-fillcooling-tower-partscooling-towerfunctions/',
   '/tag/cooling-towercooling-tower-troubleindicators-of-cooling-tower-trouble/',
   '/tag/cooling-towerindicators-of-cooling-tower-trouble/',

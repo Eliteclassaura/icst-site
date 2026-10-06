@@ -71,3 +71,22 @@ export async function publishedUpdatedAt(payload: Payload): Promise<Map<string, 
   for (const d of res.docs as unknown as Array<{ path?: string; updatedAt?: string }>) if (d.path && d.updatedAt) out.set(pathKey(d.path), d.updatedAt)
   return out
 }
+
+/**
+ * hreflang alternates for a page's <head> (Locale Part B): the same set the production sitemap lists for it, built from
+ * the OGCS Part A clusters restricted to members that are themselves listed, so every member names the identical set
+ * (reciprocity) and a page outside a served cluster names none. Cached briefly per process.
+ */
+let alternatesCache: { at: number; byKey: Map<string, Record<string, string>> } | null = null
+const ALTERNATES_TTL_MS = 30_000
+export function hreflangAlternatesFor(pathname: string, now = Date.now()): Record<string, string> | undefined {
+  if (!alternatesCache || now - alternatesCache.at > ALTERNATES_TTL_MS) {
+    const byKey = new Map<string, Record<string, string>>()
+    for (const e of sitemapEntriesFor({ production: true }) ?? []) if (e.alternates) byKey.set(e.key, Object.fromEntries(e.alternates.map((a) => [a.hreflang, a.url])))
+    alternatesCache = { at: now, byKey }
+  }
+  return alternatesCache.byKey.get(pathKey(pathname))
+}
+export const resetAlternatesCache = (): void => {
+  alternatesCache = null
+}

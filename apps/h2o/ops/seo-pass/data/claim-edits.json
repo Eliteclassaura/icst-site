@@ -1,0 +1,79 @@
+{
+ "authority": "Control Tower ruling 2026-10-05 (option A + 保証→確保); recorded slot-fix text edits applied by apply-seo-pass (phase 6), before/after in slot-fixes.json",
+ "edits": [
+  {
+   "path": "/inspect-cooling-tower-part-2/",
+   "op": "remove",
+   "find": "No matter which services you trust us with, you’ll be guaranteed to see increased tower efficiency, improved profitability, safety, and longevity.",
+   "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unverifiable ICS-attributed outcome guarantee removed from the English page and every translation; nothing added"
+  },
+  {
+   "path": "/id/cara-memeriksa-menara-pendingin-bagian-2/",
+   "op": "remove",
+   "find": "Apa pun layanan yang Anda percayakan kepada kami, Anda dijamin akan melihat peningkatan efisiensi menara, peningkatan profitabilitas, keamanan, dan umur panjang.",
+   "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unverifiable ICS-attributed outcome guarantee removed from the English page and every translation; nothing added"
+  },
+  {
+   "path": "/ja/冷却塔の検査方法-パート-2/",
+   "op": "remove",
+   "find": "どのサービスを信頼していただいても、タワーの効率が向上し、収益性、安全性、寿命が向上することが保証されます。",
+   "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unverifiable ICS-attributed outcome guarantee removed from the English page and every translation; nothing added"
+  },
+  {
+   "path": "/th/วิธีตรวจสอบหอทำความเย็/",
+   "op": "remove",
+   "find": "ไม่ว่าคุณจะไว้วางใจเราด้วยบริการใด คุณจะรับประกันได้ว่าประสิทธิภาพของทาวเวอร์ที่เพิ่มขึ้น ความสามารถในการทำกำไรที่ดีขึ้น ความปลอดภัย และอายุการใช้งานที่ยาวนานขึ้น",
+   "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unverifiable ICS-attributed outcome guarantee removed from the English page and every translation; nothing added"
+  },
+  {
+   "path": "/vi/cach-kiem-tra-thap-giai-nhiet-phan-2/",
+   "op": "remove",
+   "find": "Cho dù bạn tin tưởng sử dụng dịch vụ nào của chúng tôi, bạn sẽ được đảm bảo thấy hiệu suất của tháp tăng lên, lợi nhuận được cải thiện, độ an toàn và tuổi thọ cao.",
+   "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unverifiable ICS-attributed outcome guarantee removed from the English page and every translation; nothing added"
+  },
+  {
+   "path": "/cooling-tower-fill/",
+   "op": "remove",
+   "find": "The top supplier of cooling tower fill is Industrial Cooling Solutions.",
+   "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unsubstantiated superlative (\"top supplier\") removed from the English page and every translation; nothing added"
+  },
+  {
+   "path": "/ja/冷却塔の充填について知っておくべきこと/",
+   "op": "remove",
+   "find": "冷却塔充填材のトップサプライヤーは Industrial Cooling Solutions です。",
+   "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unsubstantiated superlative (\"top supplier\") removed from the English page and every translation; nothing added"
+  },
+  {
+   "path": "/th/สิ่งที่คุณต้องรู้เกี่ย/",
+   "op": "remove",
+   "find": "ซัพพลายเออร์ชั้นนำของฟิลหอทำความเย็นคือ Industrial Cooling Solutions",
+   "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unsubstantiated superlative (\"top supplier\") removed from the English page and every translation; nothing added"
+  },
+  {
+   "path": "/vi/nhung-dieu-ban-can-biet-ve-thap-giai-nhiet/",
+   "op": "remove",
+   "find": "Nhà cung cấp giải pháp làm mát tháp giải nhiệt hàng đầu là Giải pháp làm mát công nghiệp.",
+   "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unsubstantiated superlative (\"top supplier\") removed from the English page and every translation; nothing added"
+  },
+  {
+   "path": "/id/hal-hal-yang-perlu-anda-ketahui-tentang-pengisi-menara-pendingin/",
+   "op": "remove",
+   "find": "Pemasok utama pengisian menara pendingin adalah Solusi Pendinginan Industri.",
+   "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unsubstantiated superlative (\"top supplier\") removed from the English page and every translation; nothing added"
+  },
+  {
+   "path": "/ja/冷却塔とは何ですか/",
+   "op": "replace",
+   "find": "安全性と寿命が保証されます",
+   "replace": "安全性と寿命が確保されます",
+   "reason": "CT ruling 2026-10-05: mistranslation corrected — the English says \"ensure\"; 保証 reads as \"guarantee\". Only this word changes (保証 → 確保)"
+  },
+  {
+   "path": "/ja/寒冷地の冷却塔/",
+   "op": "replace",
+   "find": "常に安全性と寿命を保証するように",
+   "replace": "常に安全性と寿命を確保するように",
+   "reason": "CT ruling 2026-10-05: mistranslation corrected — the English says \"ensure\"; 保証 reads as \"guarantee\". Only this word changes (保証 → 確保)"
+  }
+ ]
+}

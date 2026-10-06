@@ -44,13 +44,13 @@
  * Outputs (ops/seo-pass/data/): conformance.tsv, redirects.tsv, seo-fields.tsv, route-dispositions.tsv, gone.tsv,
  * expectations.json, and content/release/seo-pass-r1.json (the authority overrides release/authority.mjs reads).
  */
-import {existsSync,mkdirSync,readdirSync,readFileSync,statSync,writeFileSync} from 'node:fs'
+import {existsSync,mkdirSync,readdirSync,readFileSync,statSync,unlinkSync,writeFileSync} from 'node:fs'
 import path from 'node:path'
 
 const flags=process.argv.slice(2).filter(a=>a.startsWith('--')),positional=process.argv.slice(2).filter(a=>!a.startsWith('--'))
 const [decisionsFile,metasFile,contentFile,probeFile,supplementFile]=positional
 const flag=name=>flags.find(f=>f.startsWith(`--${name}=`))?.slice(name.length+3)
-const baselineDir=flag('baseline'),titleDeltaFile=flag('title-delta'),dupResolutionFile=flag('dup-resolution'),contentDecisionsFile=flag('content-decisions'),restoredFile=flag('restored'),metaRewritesFile=flag('meta-rewrites'),ctDecisionsFile=flag('ct-decisions')
+const baselineDir=flag('baseline'),titleDeltaFile=flag('title-delta'),dupResolutionFile=flag('dup-resolution'),contentDecisionsFile=flag('content-decisions'),restoredFile=flag('restored'),metaRewritesFile=flag('meta-rewrites'),ctDecisionsFile=flag('ct-decisions'),localePartAFile=flag('locale-part-a'),localeRepointFile=flag('locale-repoint'),localeOverridesFile=flag('locale-overrides')
 if(!probeFile){process.stderr.write('usage: build-batch.mjs <decisions.tsv> <missing-metas.tsv> <content-check.json> <staging-probe.json> [supplement.tsv] [--baseline=<dir>]\n');process.exit(2)}
 const APP=path.resolve(path.dirname(new URL(import.meta.url).pathname),'..','..')
 const OUT=path.join(APP,'ops/seo-pass/data')
@@ -91,6 +91,44 @@ if(ctDecisionsFile){
   for(const row of tsv(ctDecisionsFile)){
     if(known.has(safeDecode(pathOf(row.url))))throw new Error(`CT decision for a URL OGCS already decided: ${row.url}`)
     decisions.push({gsc_clicks:'',canonical:'',fallback_if_not_published:'',...row,reason:`CT ruling 2026-10-05: ${row.reason}`})
+  }
+}
+/** --locale-part-a=<PART_A.tsv> (OGCS Locale Preservation Part A, CT accepted 2026-10-05; owner decision): the decided state of
+ * every locale URL replaces its R1 decision. 200 = the live locale page is preserved (a LIVE-LOCALE source route, or its held
+ * Salmon record) and its R1 redirect is retired; 301 = one hop to the preserved locale page (or the kept English target);
+ * 410 = gone. --locale-repoint=<tsv> (source, destination_now, destination_after_locale_b): CT-ruled redirects that pointed at
+ * a page's English final until its locale page was served now point at the locale page (one hop). */
+const localeA=new Map()
+if(localePartAFile){
+  const byKey=new Map(decisions.map(d=>[safeDecode(pathOf(d.url)),d]))
+  for(const row of tsv(localePartAFile)){
+    const key=safeDecode(pathOf(row.url))
+    const state=row.final_state
+    if(!['200','301','410'].includes(state))throw new Error(`Part A state ${state} for ${row.url}`)
+    const target=state==='301'?row.redirect_target:''
+    const decided={state,redirect_target:target,final_title:'',final_meta:'',canonical:'',reversed:'',delta:'LOCALE_PART_A',reason:`OGCS Locale Part A: ${row.change_vs_r1||row.final_state}`,locale:row.language}
+    localeA.set(key,row)
+    const d=byKey.get(key)
+    if(d)Object.assign(d,decided)
+    else decisions.push({url:row.url,gsc_clicks:row.gsc_clicks??'',fallback_if_not_published:'',...decided})
+  }
+  // --locale-overrides=<tsv> (url, final_state, redirect_target, reason): Control Tower rulings on single Part A rows.
+  if(localeOverridesFile){
+    const byKey2=new Map(decisions.map(d=>[safeDecode(pathOf(d.url)),d]))
+    for(const row of tsv(localeOverridesFile)){
+      const d=byKey2.get(safeDecode(pathOf(row.url)))
+      if(!d||d.delta!=='LOCALE_PART_A')throw new Error(`locale override without a Part A row: ${row.url}`)
+      Object.assign(d,{state:row.final_state,redirect_target:row.final_state==='301'?row.redirect_target:'',reason:row.reason})
+    }
+  }
+}
+if(localeRepointFile){
+  const byKey=new Map(decisions.map(d=>[safeDecode(pathOf(d.url)),d]))
+  for(const row of tsv(localeRepointFile)){
+    const d=byKey.get(safeDecode(row.source))
+    if(!d||d.state!=='301'||safeDecode(pathOf(d.redirect_target))!==safeDecode(row.destination_now))throw new Error(`locale repoint precondition failed for ${row.source}`)
+    d.redirect_target=ORIGIN+row.destination_after_locale_b
+    d.reason=`${d.reason} [Locale Part B: repointed to the preserved locale page]`
   }
 }
 /** Restored sections (data/restored-sections.json, written by build-restored.mjs): path → { routeId, h1?, groups }. */
@@ -143,7 +181,8 @@ const baseline=baselineDir?{
   redirects:new Map(tsv(path.join(baselineDir,'redirects.tsv')).map(r=>[safeDecode(r.source),r])),
   seo:new Map(tsv(path.join(baselineDir,'seo-fields.tsv')).map(r=>[safeDecode(r.path),{title:r.title,meta:r.meta_origin.includes('PENDING_OGCS')?r.meta_now:r.meta}])),
   dispositions:new Set(tsv(path.join(baselineDir,'route-dispositions.tsv')).map(r=>`${r.action} ${safeDecode(r.path)} ${r.redirect??''}${r.canonical??''}`)),
-  h1:new Set(existsSync(path.join(baselineDir,'h1-fields.tsv'))?tsv(path.join(baselineDir,'h1-fields.tsv')).filter(r=>r.action==='UPDATE').map(r=>`${safeDecode(r.path)} ${r.via} ${r.h1}`):[]),
+  // Decided H1s the applied batch holds: written by it (UPDATE) or already in place for it (UNCHANGED, e.g. a delta baseline).
+  h1:new Set(existsSync(path.join(baselineDir,'h1-fields.tsv'))?tsv(path.join(baselineDir,'h1-fields.tsv')).filter(r=>['UPDATE','UNCHANGED'].includes(r.action)).map(r=>`${safeDecode(r.path)} ${r.via} ${r.h1}`):[]),
   restored:existsSync(path.join(baselineDir,'restored-sections.json'))?JSON.parse(readFileSync(path.join(baselineDir,'restored-sections.json'),'utf8')):{},
   /** Every route the applied batch wrote (its slot fixes travelled with those writes). */
   written:new Set([
@@ -151,6 +190,9 @@ const baseline=baselineDir?{
     ...tsv(path.join(baselineDir,'seo-fields.tsv')).filter(r=>r.action==='UPDATE').map(r=>r.path),
     ...(existsSync(path.join(baselineDir,'h1-fields.tsv'))?tsv(path.join(baselineDir,'h1-fields.tsv')).filter(r=>r.action==='UPDATE').map(r=>r.path):[]),
     ...(existsSync(path.join(baselineDir,'restored-sections.tsv'))?tsv(path.join(baselineDir,'restored-sections.tsv')).map(r=>r.path):[]),
+    // An applied batch with the hygiene phase (apply phase 6) fixed every route in its slot fixes; an earlier batch only
+    // the ones it wrote.
+    ...(existsSync(path.join(baselineDir,'slot-fixes.json'))&&JSON.parse(readFileSync(path.join(baselineDir,'expectations.json'),'utf8')).expect?.hygiene?Object.keys(JSON.parse(readFileSync(path.join(baselineDir,'slot-fixes.json'),'utf8'))):[]),
   ].map(safeDecode)),
 }:null
 const dispositionKey=d=>`${d.action} ${safeDecode(d.path)} ${d.redirect??''}${d.canonical??''}`
@@ -198,6 +240,7 @@ function resolveTarget(target){
   return served.get(safeDecode(target).toLowerCase())??target
 }
 const conformance=[],redirects=[],seo=[],dispositions=[],gone=[],retired=[]
+const problemsEarly=[]
 const expect={redirects:{create:0,update:0,unchanged:0,retire:0},routes:{publish:0,withdraw:0,index:0,canonical:0},seoFields:{update:0,unchanged:0,pendingOgcs:0},files:0,gone:0}
 for(const d of decisions){
   if(DROPPED.has(d.url))continue
@@ -208,7 +251,13 @@ for(const d of decisions){
   const held=verdict.get(key)
   if(held&&held.verdict==='FAIL'){state='301';target=failedHeld.get(key)}
   if(state==='301'&&failedHeld.has(safeDecode(target)))target=failedHeld.get(safeDecode(target))
-  if(state==='410'){gone.push({path:reqPath,query});conformance.push({url:reqPath+query,expect:'410'});expect.gone++;continue}
+  if(state==='410'){
+    gone.push({path:reqPath,query});conformance.push({url:reqPath+query,expect:'410'});expect.gone++
+    // A locale page Part A retires as gone loses its R1 redirect record (kept, active:false): the proxy answers 410 first anyway.
+    const prior=d.delta==='LOCALE_PART_A'?baseline?.redirects.get(safeDecode(reqPath)):undefined
+    if(prior)retired.push({source:prior.source,was_destination:prior.destination,reason:'OGCS Locale Part A: 410 gone'})
+    continue
+  }
   if(state==='301'){
     // The proxy compares decoded paths; store the browser's encoded form (the collection refuses raw whitespace).
     const destination=resolveTarget(target)
@@ -227,7 +276,20 @@ for(const d of decisions){
   // A page the applied batch consolidated (withdrawn to a redirect) that is decided 200 again is re-published, and its
   // redirect record is retired (active:false, kept for history).
   const priorRedirect=baseline?.redirects.get(safeDecode(reqPath))
-  if(priorRedirect){
+  if(priorRedirect&&d.delta==='LOCALE_PART_A')retired.push({source:priorRedirect.source,was_destination:priorRedirect.destination,reason:'OGCS Locale Part A: live locale page preserved (owner decision 2026-10-05)'})
+  if(d.delta==='LOCALE_PART_A'){
+    const r=routeByKey.get(key)
+    if(!r){problemsEarly.push(`locale page without a route ${reqPath}`);continue}
+    if(r.routeId.startsWith('LIVE-LOCALE-')){
+      // Imported published by the authority import (a new LIVE-family record); its title and meta are the live page's.
+      conformance.push({url:r.path,expect:'200',kind:'locale',lang:d.locale});continue
+    }
+    // The one preserved page that is a held source record (Salmon): published through the content check with its own title
+    // (the live title minus the legacy WordPress suffix) and the live meta.
+    const doc=JSON.parse(readFileSync(path.join(APP,'content/salmon',r.sourceFile),'utf8'))
+    d.final_title=doc.seo.title;d.final_meta=localeA.get(key)?.live_meta_kept??''
+  }
+  if(priorRedirect&&d.delta!=='LOCALE_PART_A'){
     retired.push({source:priorRedirect.source,was_destination:priorRedirect.destination,reason:d.delta==='R1_2_UNCONSOLIDATED'?'OGCS R1.2 correction: false duplicate un-consolidated (CT 2026-10-05)':'decided 200'})
     const r=routeByKey.get(key)
     // A re-publish returns the route to its base authority state (it simply leaves redirectSources); it is not a held article.
@@ -266,7 +328,6 @@ function repointToFinal(){
   for(const c of conformance)if(c.expect==='301'&&next.has(safeDecode(c.target))){const r=redirects.find(x=>safeDecode(x.source)===safeDecode(c.url.replace(/\?.*$/,''))||safeDecode(x.source)===safeDecode(c.url.replace(/\?.*$/,''))+'/');if(r)c.target=r.destination}
   for(const d of dispositions)if(d.action==='WITHDRAW_TO_REDIRECT'&&next.has(safeDecode(d.redirect))){const r=redirects.find(x=>safeDecode(x.source)===safeDecode(d.path));d.redirect=r?r.destination:d.redirect}
 }
-const problemsEarly=[]
 repointToFinal()
 for(const r of redirects){r.action=r.actionFor(r.destination);expect.redirects[r.action.toLowerCase()]++}
 for(const d of dispositions)if(d.action==='WITHDRAW_TO_REDIRECT'&&!applied(d))expect.routes.withdraw++
@@ -382,7 +443,9 @@ if(baselineDir){
   const seoWritten=new Set(tsv(path.join(baselineDir,'seo-fields.tsv')).filter(r=>r.action==='UPDATE').map(r=>safeDecode(r.path)))
   const reverted=tsv(path.join(baselineDir,'route-dispositions.tsv')).filter(r=>r.action==='CANONICAL'&&seoWritten.has(safeDecode(r.path))).map(r=>r.path)
   const caseB={...expect,routes:{...expect.routes,canonical:expect.routes.canonical+reverted.length}}
-  writeFileSync(path.join(OUT,'expectations.case-b.json'),JSON.stringify({rows:conformance.length,redirects:redirects.length,seoFields:seo.length,expect:caseB,caseB:{reapplied:reverted},deltaSkipped,retired:retired.length,problems},null,2)+'\n')
+  // Only a baseline that ran the unfixed SEO write needs the variant; otherwise a stale copy is removed.
+  if(!reverted.length){if(existsSync(path.join(OUT,'expectations.case-b.json')))unlinkSync(path.join(OUT,'expectations.case-b.json'))}
+  else writeFileSync(path.join(OUT,'expectations.case-b.json'),JSON.stringify({rows:conformance.length,redirects:redirects.length,seoFields:seo.length,expect:caseB,caseB:{reapplied:reverted},deltaSkipped,retired:retired.length,problems},null,2)+'\n')
 }
 const overrides={
   note:'Master SEO Pass R1 (Control Tower brief 2026-10-04): release authority overrides, mirrored by the scripted Payload batch.',

@@ -21,7 +21,8 @@ const read=<T,>(file:string):T=>JSON.parse(readFileSync(path.join(root,file),'ut
 // published snapshot of Payload (see src/content/snapshot.ts); media identities and owner authorities stay
 // repository authorities. Repository mode is unchanged.
 export const salmonRoutes=():SalmonRoute[]=>isPayloadContent()?snapshotJson<SalmonRoute[]>('routes.salmon.json'):read('active-routes.json')
-export const liveRoutes=():SalmonRoute[]=>isPayloadContent()?snapshotJson<SalmonRoute[]>('routes.live.json'):read('r2-live-routes.json')
+// Locale Part B: the preserved live locale pages are LIVE-family routes too (r3-locale-routes.json).
+export const liveRoutes=():SalmonRoute[]=>isPayloadContent()?snapshotJson<SalmonRoute[]>('routes.live.json'):[...read<SalmonRoute[]>('r2-live-routes.json'),...read<SalmonRoute[]>('r3-locale-routes.json')]
 export const releaseRoutes=():SalmonRoute[]=>[...salmonRoutes(),...liveRoutes()]
 /** Release routes a listing may link: PUBLIC and exported in the release ledger. Withdrawn, held and consolidated
  * (redirected, Master SEO Pass R1) routes leave every listing, in repository and Payload modes alike. */

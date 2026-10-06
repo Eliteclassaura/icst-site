@@ -1,0 +1,368 @@
+{
+  "routeId": "LIVE-LOCALE-ja-14715",
+  "sourceUrl": "https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/",
+  "targetPath": "/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/",
+  "type": "posts",
+  "title": "アキシャルファン: 基本",
+  "wordpressId": 14715,
+  "language": "ja",
+  "sourceIdentity": {
+    "status": 200,
+    "effectiveUrl": "https://h2ocooling.com/ja/アキシャルファン-基本/",
+    "sha256": "6d5a2364159e56e767095d332d3b53fe21c502bf4e8ff39b5846be28509278e2",
+    "htmlSha256": "95f0d1249fa958e1f9e02b97e6331ef09ae87f7129cc2959b48719c1f3516773",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/posts/14715",
+    "htmlLang": "ja",
+    "liveAlternates": [
+      {
+        "hreflang": "vi",
+        "href": "https://h2ocooling.com/vi/quat-truc-dieu-co-ban/"
+      },
+      {
+        "hreflang": "th",
+        "href": "https://h2ocooling.com/th/%e0%b9%81%e0%b8%9f%e0%b8%99%e0%b9%81%e0%b8%81%e0%b8%99-%e0%b8%9e%e0%b8%b7%e0%b9%89%e0%b8%99%e0%b8%90%e0%b8%b2%e0%b8%99/"
+      },
+      {
+        "hreflang": "ja",
+        "href": "https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/"
+      },
+      {
+        "hreflang": "id",
+        "href": "https://h2ocooling.com/id/penggemar-axial-dasar-dasar/"
+      },
+      {
+        "hreflang": "en",
+        "href": "https://h2ocooling.com/axial-fans-guide/"
+      }
+    ]
+  },
+  "publicationStatus": "publish",
+  "published": "2025-03-07T17:41:11",
+  "modified": "2025-03-07T18:37:04",
+  "text": "Table of Contents Toggle 冷却塔ファンをご存知ですか?軸流ファンは重要です 冷却塔ファンをご存知ですか? 熱というのは面白いものですね。 一方で、熱は素晴らしいものになる可能性があります。 それは寒いときに私たちを暖かく保ち、私たちの祖先が想像していた以上に工業化を可能にし、一般に先進社会の特徴です。 一方で、熱は特定のプロセスにとってむしろ悪影響を与える可能性があります。 多くの産業用途において、熱は生産性の低下を引き起こすだけでなく、対処せずに放置すると実際に大きな問題を引き起こす可能性があります。 幸いなことに、私たちは社会として、不要な熱を除去するための効果的な手段を開発しました。今日の投稿では、産業用途における熱の軽減に不可欠なコンポーネントの 1 つである軸流ファンについて説明します。 詳細については、以下を読み続けてください。 軸流ファンは重要です 軸流ファンについて語るには、まず軸流ファンとは何なのかを正確に理解することが重要です。 最も簡単に言うと、軸流ファンは空気をその回転軸と平行に動かします。 このため、軸流ファンは、産業用冷却用途で必要とされる低抵抗、高流量用途に最適です。 さらに、軸流ファンは、個々のファンブレードの形状と幅に応じて、幅広い動作特性を持つことができます。 これらの要因に加えて、他の変数がファン ブレードの効率の有効性に影響を与える可能性があります。 以下に、これらの変数をさらにいくつかリストします。 • 先端クリアランス: この事実は一般の人にはあまり意識されていませんが、冷却塔ハウジング内のファン ブレードの先端クリアランスの大きさは、タワー全体の効率に大きな影響を与える可能性があります。 クリアランスの量がこのような影響を与えるのは、チップ渦として知られるチップ周囲の空気損失または漏れの量に影響するためです。 空気が冷却塔から出るとき、ファンブレードによる仕事により、入ってくる空気よりも高い圧力になります。 ファンブレードの先端の周囲の隙間が少ないほど、冷却塔内の空気がファンの周りを滑り落ちる可能性が低くなります。 • 入口条件: 冷却塔内の軸流ファンの有効性を考慮する場合、塔に流入する空気流の影響を考慮することが重要です。 ファンリングとして知られるファンブレードの周囲の領域では、空気があらゆる方向から集められ、ファンの面での速度まで均等に加速される必要があります。 スムーズな移行が達成されない場合、気流ベクトルが適切かつ迅速に方向を変えることができず、ブレード先端に「大静脈収縮」が発生します。 基本的に、ファンブレードのこの領域は空気が不足し、ブレードの先端近くの領域が無効になります。 作業の大部分がファン ブレードの外側部分で行われることを考えると、この問題に対処しないと、効率が 15 ～ 20% も失われる可能性があります。 • 空気密度: 冷却塔ファンの効率に関して多くの人が考慮に入れていない要因は、特定の環境内の空気密度の影響です。 空気の密度は気温とファン面の高度の影響を受けるため、考慮しないと冷却塔の効率に重大な影響を与える可能性があります。 このように考えると、海抜ゼロメートルの冷却塔は、海抜 5,000 フィートの冷却塔よりもはるかに大きな力を加える必要があります。これは、海抜ゼロメートルの空気密度がはるかに高いためです。 この空気密度の違いを考慮するには、ファンの回転速度を調整して、適切な量の空気がタワー内に送り込まれるようにすることが重要です。 この短いブログが、冷却塔ファンのパフォーマンスの有効性に影響を与える可能性のある変数についての理解を深めるのに役立つことを願っています。 当社が提供する冷却塔ファンのオプションについて詳しく知りたい場合、または当社の冷却塔技術者による保守点検の予約をご希望の場合は、今すぐ当社にご連絡いただき、予約を入れてください。 Industrial Cooling Solutions Inc. では、最高の産業用冷却塔ソリューションを提供することに専念しており、お客様のあらゆるニーズにお応えできると確信しています。 今すぐお問い合わせください。始めましょう!",
+  "children": [
+    "\n",
+    {
+      "tag": "div",
+      "attrs": {
+        "id": "ez-toc-container"
+      },
+      "children": [
+        "\n",
+        {
+          "tag": "div",
+          "attrs": {},
+          "children": [
+            "\n",
+            {
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                "Table of Contents"
+              ]
+            },
+            "\n",
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "a",
+                  "attrs": {
+                    "href": "#"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                "Toggle"
+                              ]
+                            },
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "\n",
+        {
+          "tag": "nav",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "ul",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/#%E5%86%B7%E5%8D%B4%E5%A1%94%E3%83%95%E3%82%A1%E3%83%B3%E3%82%92%E3%81%94%E5%AD%98%E7%9F%A5%E3%81%A7%E3%81%99%E3%81%8B"
+                      },
+                      "children": [
+                        "冷却塔ファンをご存知ですか?"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/#%E8%BB%B8%E6%B5%81%E3%83%95%E3%82%A1%E3%83%B3%E3%81%AF%E9%87%8D%E8%A6%81%E3%81%A7%E3%81%99"
+                      },
+                      "children": [
+                        "軸流ファンは重要です"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "%E5%86%B7%E5%8D%B4%E5%A1%94%E3%83%95%E3%82%A1%E3%83%B3%E3%82%92%E3%81%94%E5%AD%98%E7%9F%A5%E3%81%A7%E3%81%99%E3%81%8B"
+          },
+          "children": []
+        },
+        "冷却塔ファンをご存知ですか?",
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "熱というのは面白いものですね。 一方で、熱は素晴らしいものになる可能性があります。 それは寒いときに私たちを暖かく保ち、私たちの祖先が想像していた以上に工業化を可能にし、一般に先進社会の特徴です。 一方で、熱は特定のプロセスにとってむしろ悪影響を与える可能性があります。 多くの産業用途において、熱は生産性の低下を引き起こすだけでなく、対処せずに放置すると実際に大きな問題を引き起こす可能性があります。 幸いなことに、私たちは社会として、不要な熱を除去するための効果的な手段を開発しました。今日の投稿では、産業用途における熱の軽減に不可欠なコンポーネントの 1 つである軸流ファンについて説明します。 詳細については、以下を読み続けてください。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "%E8%BB%B8%E6%B5%81%E3%83%95%E3%82%A1%E3%83%B3%E3%81%AF%E9%87%8D%E8%A6%81%E3%81%A7%E3%81%99"
+          },
+          "children": []
+        },
+        "軸流ファンは重要です",
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "軸流ファンについて語るには、まず軸流ファンとは何なのかを正確に理解することが重要です。 最も簡単に言うと、軸流ファンは空気をその回転軸と平行に動かします。 このため、軸流ファンは、産業用冷却用途で必要とされる低抵抗、高流量用途に最適です。 さらに、軸流ファンは、個々のファンブレードの形状と幅に応じて、幅広い動作特性を持つことができます。 これらの要因に加えて、他の変数がファン ブレードの効率の有効性に影響を与える可能性があります。 以下に、これらの変数をさらにいくつかリストします。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "• 先端クリアランス: この事実は一般の人にはあまり意識されていませんが、冷却塔ハウジング内のファン ブレードの先端クリアランスの大きさは、タワー全体の効率に大きな影響を与える可能性があります。 クリアランスの量がこのような影響を与えるのは、チップ渦として知られるチップ周囲の空気損失または漏れの量に影響するためです。 空気が冷却塔から出るとき、ファンブレードによる仕事により、入ってくる空気よりも高い圧力になります。 ファンブレードの先端の周囲の隙間が少ないほど、冷却塔内の空気がファンの周りを滑り落ちる可能性が低くなります。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "• 入口条件: 冷却塔内の軸流ファンの有効性を考慮する場合、塔に流入する空気流の影響を考慮することが重要です。 ファンリングとして知られるファンブレードの周囲の領域では、空気があらゆる方向から集められ、ファンの面での速度まで均等に加速される必要があります。 スムーズな移行が達成されない場合、気流ベクトルが適切かつ迅速に方向を変えることができず、ブレード先端に「大静脈収縮」が発生します。 基本的に、ファンブレードのこの領域は空気が不足し、ブレードの先端近くの領域が無効になります。 作業の大部分がファン ブレードの外側部分で行われることを考えると、この問題に対処しないと、効率が 15 ～ 20% も失われる可能性があります。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "• 空気密度: 冷却塔ファンの効率に関して多くの人が考慮に入れていない要因は、特定の環境内の空気密度の影響です。 空気の密度は気温とファン面の高度の影響を受けるため、考慮しないと冷却塔の効率に重大な影響を与える可能性があります。 このように考えると、海抜ゼロメートルの冷却塔は、海抜 5,000 フィートの冷却塔よりもはるかに大きな力を加える必要があります。これは、海抜ゼロメートルの空気密度がはるかに高いためです。 この空気密度の違いを考慮するには、ファンの回転速度を調整して、適切な量の空気がタワー内に送り込まれるようにすることが重要です。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "この短いブログが、冷却塔ファンのパフォーマンスの有効性に影響を与える可能性のある変数についての理解を深めるのに役立つことを願っています。 当社が提供する冷却塔ファンのオプションについて詳しく知りたい場合、または当社の冷却塔技術者による保守点検の予約をご希望の場合は、今すぐ当社にご連絡いただき、予約を入れてください。 Industrial Cooling Solutions Inc. では、最高の産業用冷却塔ソリューションを提供することに専念しており、お客様のあらゆるニーズにお応えできると確信しています。 今すぐお問い合わせください。始めましょう!"
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "Cooling Tower Fans: Axial Fan Basics",
+    "meta": [
+      {
+        "name": "description",
+        "value": "Visit Industrial Cooling Tower Inc. today to learn more about the impacts certain variables have on the efficiency of cooling tower fans"
+      },
+      {
+        "name": "robots",
+        "value": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      {
+        "name": "og:locale",
+        "value": "ja_JP"
+      },
+      {
+        "name": "og:type",
+        "value": "article"
+      },
+      {
+        "name": "og:title",
+        "value": "Cooling Tower Fans: Axial Fan Basics"
+      },
+      {
+        "name": "og:description",
+        "value": "Visit Industrial Cooling Tower Inc. today to learn more about the impacts certain variables have on the efficiency of cooling tower fans"
+      },
+      {
+        "name": "og:url",
+        "value": "https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/"
+      },
+      {
+        "name": "og:site_name",
+        "value": "New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "article:author",
+        "value": "https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/"
+      },
+      {
+        "name": "article:section",
+        "value": "Uncategorized"
+      },
+      {
+        "name": "og:updated_time",
+        "value": "2025-03-07T18:37:04+00:00"
+      },
+      {
+        "name": "og:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "og:image:secure_url",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "og:image:width",
+        "value": "1219"
+      },
+      {
+        "name": "og:image:height",
+        "value": "1035"
+      },
+      {
+        "name": "og:image:alt",
+        "value": "Industrial Cooling Solutions"
+      },
+      {
+        "name": "og:image:type",
+        "value": "image/jpeg"
+      },
+      {
+        "name": "article:published_time",
+        "value": "2025-03-07T17:41:11+00:00"
+      },
+      {
+        "name": "article:modified_time",
+        "value": "2025-03-07T18:37:04+00:00"
+      },
+      {
+        "name": "twitter:card",
+        "value": "summary_large_image"
+      },
+      {
+        "name": "twitter:title",
+        "value": "Cooling Tower Fans: Axial Fan Basics"
+      },
+      {
+        "name": "twitter:description",
+        "value": "Visit Industrial Cooling Tower Inc. today to learn more about the impacts certain variables have on the efficiency of cooling tower fans"
+      },
+      {
+        "name": "twitter:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "twitter:label1",
+        "value": "によって書かれた"
+      },
+      {
+        "name": "twitter:data1",
+        "value": "Tim Bozic"
+      },
+      {
+        "name": "twitter:label2",
+        "value": "読む時間"
+      },
+      {
+        "name": "twitter:data2",
+        "value": "一分未満"
+      },
+      {
+        "name": "msapplication-TileImage",
+        "value": "https://h2ocooling.com/wp-content/uploads/2025/03/cropped-Favicon-1-1-270x270.png"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/"
+    ],
+    "h1": [
+      "アキシャルファン: 基本"
+    ],
+    "schema": [
+      "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://h2ocooling.com/#organization\",\"name\":\"Industrial Cooling Solutions\",\"url\":\"http://h2ocooling.com\",\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/#logo\",\"url\":\"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\",\"contentUrl\":\"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\",\"caption\":\"New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"inLanguage\":\"ja\",\"width\":\"267\",\"height\":\"57\"}},{\"@type\":\"WebSite\",\"@id\":\"https://h2ocooling.com/#website\",\"url\":\"https://h2ocooling.com\",\"name\":\"New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"publisher\":{\"@id\":\"https://h2ocooling.com/#organization\"},\"inLanguage\":\"ja\"},{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\",\"url\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\",\"width\":\"1219\",\"height\":\"1035\",\"caption\":\"Industrial Cooling Solutions\",\"inLanguage\":\"ja\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":\"1\",\"item\":{\"@id\":\"https://h2ocooling.com\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":\"2\",\"item\":{\"@id\":\"https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/\",\"name\":\"\\u30a2\\u30ad\\u30b7\\u30e3\\u30eb\\u30d5\\u30a1\\u30f3: \\u57fa\\u672c\"}}]},{\"@type\":\"WebPage\",\"@id\":\"https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/#webpage\",\"url\":\"https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/\",\"name\":\"Cooling Tower Fans: Axial Fan Basics\",\"datePublished\":\"2025-03-07T17:41:11+00:00\",\"dateModified\":\"2025-03-07T18:37:04+00:00\",\"isPartOf\":{\"@id\":\"https://h2ocooling.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\"},\"inLanguage\":\"ja\",\"breadcrumb\":{\"@id\":\"https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/#breadcrumb\"}},{\"@type\":\"Person\",\"@id\":\"https://h2ocooling.com/ja/author/tbozic/\",\"name\":\"Tim Bozic\",\"description\":\"Tim Bozic is a seasoned leader with over two decades of experience in the industrial and manufacturing sectors. As the President of Industrial Cooling Solutions, he specializes in driving innovation and operational excellence in cooling technologies, ensuring sustainable and efficient solutions for clients worldwide. With a proven track record in strategic planning, team leadership, and customer-focused growth, Tim is passionate about delivering cutting-edge solutions that meet the evolving needs of the industry.\",\"url\":\"https://h2ocooling.com/ja/author/tbozic/\",\"image\":{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790609671\",\"url\":\"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790609671\",\"caption\":\"Tim Bozic\",\"inLanguage\":\"ja\"},\"sameAs\":[\"https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/\",\"https://www.linkedin.com/in/tim-bozic-417a65a/\"],\"worksFor\":{\"@id\":\"https://h2ocooling.com/#organization\"}},{\"@type\":\"BlogPosting\",\"headline\":\"Cooling Tower Fans: Axial Fan Basics\",\"datePublished\":\"2025-03-07T17:41:11+00:00\",\"dateModified\":\"2025-03-07T18:37:04+00:00\",\"author\":{\"@id\":\"https://h2ocooling.com/ja/author/tbozic/\",\"name\":\"Tim Bozic\"},\"publisher\":{\"@id\":\"https://h2ocooling.com/#organization\"},\"description\":\"Visit Industrial Cooling Tower Inc. today to learn more about the impacts certain variables have on the efficiency of cooling tower fans\",\"name\":\"Cooling Tower Fans: Axial Fan Basics\",\"@id\":\"https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/#richSnippet\",\"isPartOf\":{\"@id\":\"https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/#webpage\"},\"image\":{\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\"},\"inLanguage\":\"ja\",\"mainEntityOfPage\":{\"@id\":\"https://h2ocooling.com/ja/%e3%82%a2%e3%82%ad%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%95%e3%82%a1%e3%83%b3-%e5%9f%ba%e6%9c%ac/#webpage\"}}]}"
+    ]
+  },
+  "images": []
+}

@@ -1,0 +1,387 @@
+{
+  "routeId": "LIVE-LOCALE-th-14680",
+  "sourceUrl": "https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/",
+  "targetPath": "/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/",
+  "type": "posts",
+  "title": "ดูประสิทธิภาพพัดลมคูลลิ่งทาวเวอร์ PT. 3",
+  "wordpressId": 14680,
+  "language": "th",
+  "sourceIdentity": {
+    "status": 200,
+    "effectiveUrl": "https://h2ocooling.com/th/ดูประสิทธิภาพพัดลมคูลล/",
+    "sha256": "01333a6843ce6e29f34f605866e6a8684bd5b226246a5c20e03ad5091be78ac6",
+    "htmlSha256": "fea08de847b7fd32e5325f0bce5a1252330a29a1ded40ba03c49cdf50860ca8d",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/posts/14680",
+    "htmlLang": "th",
+    "liveAlternates": [
+      {
+        "hreflang": "vi",
+        "href": "https://h2ocooling.com/vi/tim-hieu-hieu-suat-quat-thap-giai-nhiet-pt-3/"
+      },
+      {
+        "hreflang": "th",
+        "href": "https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/"
+      },
+      {
+        "hreflang": "ja",
+        "href": "https://h2ocooling.com/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e-pt-3/"
+      },
+      {
+        "hreflang": "id",
+        "href": "https://h2ocooling.com/id/lihat-efisiensi-kipas-cooling-tower-pt-3/"
+      },
+      {
+        "hreflang": "en",
+        "href": "https://h2ocooling.com/look-cooling-tower-fan-efficiency-pt-3/"
+      }
+    ]
+  },
+  "publicationStatus": "publish",
+  "published": "2025-03-07T17:09:04",
+  "modified": "2025-03-07T18:37:17",
+  "text": "Table of Contents Toggle ปัจจัยด้านประสิทธิภาพที่ต้องพิจารณาในการออกแบบระบบพัดลมคูลลิ่งทาวเวอร์อย่ายึดถือที่อยู่อาศัยพัดลมของคุณโดยเด็ดขาดให้ความสนใจกับสภาพทางเข้า ปัจจัยด้านประสิทธิภาพที่ต้องพิจารณาในการออกแบบระบบพัดลมคูลลิ่งทาวเวอร์ สวัสดีคุณผู้อ่านทุกท่าน และยินดีต้อนรับเข้าสู่ส่วนที่สามของซีรีส์บล็อกที่มีหลายตอนของเราเกี่ยวกับปัจจัยที่ขัดขวางประสิทธิภาพของระบบพัดลมคูลลิ่งทาวเวอร์ เนื่องจากนี่เป็นส่วนที่ 3 ของซีรีส์ของเรา เราขอแนะนำให้คุณอ่านสองโพสต์ก่อนหน้าของเรา ส่วนที่ 1 และส่วนที่ 2 แต่ละโพสต์ต่อยอดจากโพสต์สุดท้าย และด้วยเหตุนี้ คุณอาจพบว่าตัวเองค่อนข้างหลงทางหากคุณไม่คุ้นเคยกับ บริบทของซีรีส์นี้ ในโพสต์ของวันนี้ เราจะมาต่อจากจุดที่ค้างไว้ในครั้งที่แล้ว และเจาะลึกลงไปในปัจจัยหลักประการที่สองที่อาจส่งผลต่อประสิทธิภาพของระบบพัดลม: โครงสร้างพัดลม เช่นเดียวกับส่วนประกอบส่วนใหญ่ในการประกอบเครื่องจักรขนาดใหญ่ โครงสร้างพัดลมมีบทบาทที่หากไม่ได้รับการปรับปรุงอย่างเหมาะสม อาจส่งผลเสียต่อประสิทธิภาพโดยรวมของระบบได้มากกว่าที่ใครๆ คาดคิดไว้ในตอนแรก ประสิทธิภาพที่ลดลงแม้เพียงเล็กน้อยก็เพียงพอที่จะทำให้ระบบหอหล่อเย็นทั้งหมดต้องพังทลายลง ซึ่งเป็นเหตุผลว่าทำไมวิศวกรจึงต้องตรวจสอบให้แน่ใจว่าระบบเริ่มต้นมีความเหมาะสมที่สุดเท่าที่จะเป็นไปได้ก่อนการก่อสร้าง อย่ายึดถือที่อยู่อาศัยพัดลมของคุณโดยเด็ดขาด ในโพสต์ก่อนหน้าของเรา เราได้พูดคุยถึงผลกระทบที่การออกแบบระบบอาจมีต่อประสิทธิภาพโดยรวมของระบบพัดลมคูลลิ่งทาวเวอร์ หากระบบสร้างความไม่มีประสิทธิภาพตั้งแต่เริ่มต้น เช่น การออกแบบและการวางตำแหน่งของเบลดไม่เพียงพอ ระบบจะไม่สามารถทำงานที่จุดสูงสุดได้ แม้ว่าปัจจัยทั้งสองนี้เป็นสาเหตุสำคัญของความไร้ประสิทธิภาพที่พบในระบบพัดลม แต่โครงของส่วนประกอบพัดลมก็อาจทำให้เกิดปัญหากับประสิทธิภาพโดยรวมได้เช่นกัน ในโลกของหอทำความเย็นอุตสาหกรรม ปัจจัยที่สำคัญที่สุดประการหนึ่งของการสูญเสียระบบนั้นเกี่ยวข้องกับการรั่วของอากาศบริเวณปลายใบพัดลม การสูญเสียนี้ได้รับอิทธิพลโดยตรงจากระยะห่างของปลายใบพัดลมและความดันความเร็วที่จุดปฏิบัติงาน และเกิดจากแนวโน้มที่อากาศทางออกแรงดันสูงจะไหลเวียนรอบปลายใบพัดลมเข้าสู่อากาศแรงดันต่ำในช่องทางเข้าของ หอคอย ด้วยเหตุนี้ จึงเป็นสิ่งสำคัญที่จะต้องแน่ใจว่าสภาพทางเข้าของหอทำความเย็นมีความเหมาะสมที่สุดเท่าที่จะทำได้ ให้ความสนใจกับสภาพทางเข้า ในส่วนของหอหล่อเย็นแบบเปียกนั้น ชุดการกู้คืนความเร็วเป็นวิธีการทั่วไปที่วิศวกรสามารถปรับปรุงสภาพทางเข้าและรักษาแรงม้าได้ เพื่อทำหน้าที่นี้ กองการกู้คืนความเร็วมักจะรวมกรวยทางออกที่เรียวเล็กน้อยร่วมกับระฆังทางเข้าที่มีความโค้งมน ซึ่งส่งผลให้ความดันความเร็วที่ทางออกของทางเข้าลดลงอย่างมากเมื่อเปรียบเทียบกับระนาบของพัดลม เนื่องจากปริมาณอากาศบนระนาบทั้งสองเท่ากัน อย่างไรก็ตาม การฟื้นตัวของแรงดันความเร็วจะถูกแปลงเป็นการกลับคืนแบบคงที่ ซึ่งจะช่วยลดความต้องการแรงดันรวมของพัดลมลง ส่งผลให้ต้องใช้แรงม้าน้อยลงในการผลิตความเร็วการหมุนของพัดลมที่ต้องการ นอกจากนี้ ไม่ควรละเลยการเข้าสู่สแต็กการกู้คืนความเร็วผ่านส่วนพัดลม เนื่องจากบ่อยครั้งที่ทางเข้านี้สามารถสร้างความปั่นป่วนและความสูญเสียในระบบพัดลมได้ แม้ว่าการออกแบบปล่องส่วนใหญ่มักจะมีรัศมีทางเข้าขนาดใหญ่ แต่โครงสร้างที่มีน้ำหนักมากอยู่ใต้ปล่องหรือมีมุมแหลมคมผ่านดาดฟ้าพัดลม อาจทำให้สภาพการไหลของอากาศที่ราบรื่นในตัวปล่องนั้นไร้ผลได้ สิ่งสำคัญคือต้องทราบว่าปัญหาเหล่านี้ไม่ได้อยู่ภายใต้การควบคุมของผู้ใช้ ซึ่งหมายความว่าการออกแบบหอทำความเย็นควรพยายามจำกัดตัวแปรเชิงลบเหล่านี้ ขอขอบคุณที่สละเวลาอ่านบทความที่สามของเราในบล็อกซีรีส์เกี่ยวกับประสิทธิภาพของพัดลมคูลลิ่งทาวเวอร์ มาร่วมกับเราอีกครั้งในครั้งต่อไปในขณะที่เราสรุปซีรีส์ของเราด้วยการพูดคุยเรื่องการหมุนเวียนของอากาศร้อนว่าปัจจัยนี้สามารถส่งผลให้ประสิทธิภาพลดลงในระบบพัดลมคูลลิ่งทาวเวอร์ได้อย่างไร และเช่นเคย หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับตัวเลือกพัดลมระบายความร้อนทาวเวอร์ที่เรานำเสนอที่ Industrial Cooling Solutions, Inc. โปรดติดต่อเราวันนี้",
+  "children": [
+    "\n",
+    {
+      "tag": "div",
+      "attrs": {
+        "id": "ez-toc-container"
+      },
+      "children": [
+        "\n",
+        {
+          "tag": "div",
+          "attrs": {},
+          "children": [
+            "\n",
+            {
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                "Table of Contents"
+              ]
+            },
+            "\n",
+            {
+              "tag": "span",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "a",
+                  "attrs": {
+                    "href": "#"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                "Toggle"
+                              ]
+                            },
+                            {
+                              "tag": "span",
+                              "attrs": {},
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "\n",
+        {
+          "tag": "nav",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "ul",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/#%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2%E0%B8%94%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%97%E0%B8%98%E0%B8%B4%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%88%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B9%83%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%84%E0%B8%B9%E0%B8%A5%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%87%E0%B8%97%E0%B8%B2%E0%B8%A7%E0%B9%80%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C"
+                      },
+                      "children": [
+                        "ปัจจัยด้านประสิทธิภาพที่ต้องพิจารณาในการออกแบบระบบพัดลมคูลลิ่งทาวเวอร์"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/#%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%A2%E0%B8%B6%E0%B8%94%E0%B8%96%E0%B8%B7%E0%B8%AD%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88%E0%B8%AD%E0%B8%B2%E0%B8%A8%E0%B8%B1%E0%B8%A2%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B9%80%E0%B8%94%E0%B9%87%E0%B8%94%E0%B8%82%E0%B8%B2%E0%B8%94"
+                      },
+                      "children": [
+                        "อย่ายึดถือที่อยู่อาศัยพัดลมของคุณโดยเด็ดขาด"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "href": "https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/#%E0%B9%83%E0%B8%AB%E0%B9%89%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%99%E0%B9%83%E0%B8%88%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B8%AA%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%B2"
+                      },
+                      "children": [
+                        "ให้ความสนใจกับสภาพทางเข้า"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2%E0%B8%94%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%97%E0%B8%98%E0%B8%B4%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%88%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B9%83%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%84%E0%B8%B9%E0%B8%A5%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%87%E0%B8%97%E0%B8%B2%E0%B8%A7%E0%B9%80%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C"
+          },
+          "children": []
+        },
+        "ปัจจัยด้านประสิทธิภาพที่ต้องพิจารณาในการออกแบบระบบพัดลมคูลลิ่งทาวเวอร์",
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "สวัสดีคุณผู้อ่านทุกท่าน และยินดีต้อนรับเข้าสู่ส่วนที่สามของซีรีส์บล็อกที่มีหลายตอนของเราเกี่ยวกับปัจจัยที่ขัดขวางประสิทธิภาพของระบบพัดลมคูลลิ่งทาวเวอร์ เนื่องจากนี่เป็นส่วนที่ 3 ของซีรีส์ของเรา เราขอแนะนำให้คุณอ่านสองโพสต์ก่อนหน้าของเรา ส่วนที่ 1 และส่วนที่ 2 แต่ละโพสต์ต่อยอดจากโพสต์สุดท้าย และด้วยเหตุนี้ คุณอาจพบว่าตัวเองค่อนข้างหลงทางหากคุณไม่คุ้นเคยกับ บริบทของซีรีส์นี้ ในโพสต์ของวันนี้ เราจะมาต่อจากจุดที่ค้างไว้ในครั้งที่แล้ว และเจาะลึกลงไปในปัจจัยหลักประการที่สองที่อาจส่งผลต่อประสิทธิภาพของระบบพัดลม: โครงสร้างพัดลม เช่นเดียวกับส่วนประกอบส่วนใหญ่ในการประกอบเครื่องจักรขนาดใหญ่ โครงสร้างพัดลมมีบทบาทที่หากไม่ได้รับการปรับปรุงอย่างเหมาะสม อาจส่งผลเสียต่อประสิทธิภาพโดยรวมของระบบได้มากกว่าที่ใครๆ คาดคิดไว้ในตอนแรก ประสิทธิภาพที่ลดลงแม้เพียงเล็กน้อยก็เพียงพอที่จะทำให้ระบบหอหล่อเย็นทั้งหมดต้องพังทลายลง ซึ่งเป็นเหตุผลว่าทำไมวิศวกรจึงต้องตรวจสอบให้แน่ใจว่าระบบเริ่มต้นมีความเหมาะสมที่สุดเท่าที่จะเป็นไปได้ก่อนการก่อสร้าง"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%A2%E0%B8%B6%E0%B8%94%E0%B8%96%E0%B8%B7%E0%B8%AD%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88%E0%B8%AD%E0%B8%B2%E0%B8%A8%E0%B8%B1%E0%B8%A2%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B9%80%E0%B8%94%E0%B9%87%E0%B8%94%E0%B8%82%E0%B8%B2%E0%B8%94"
+          },
+          "children": []
+        },
+        "อย่ายึดถือที่อยู่อาศัยพัดลมของคุณโดยเด็ดขาด",
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ในโพสต์ก่อนหน้าของเรา เราได้พูดคุยถึงผลกระทบที่การออกแบบระบบอาจมีต่อประสิทธิภาพโดยรวมของระบบพัดลมคูลลิ่งทาวเวอร์ หากระบบสร้างความไม่มีประสิทธิภาพตั้งแต่เริ่มต้น เช่น การออกแบบและการวางตำแหน่งของเบลดไม่เพียงพอ ระบบจะไม่สามารถทำงานที่จุดสูงสุดได้ แม้ว่าปัจจัยทั้งสองนี้เป็นสาเหตุสำคัญของความไร้ประสิทธิภาพที่พบในระบบพัดลม แต่โครงของส่วนประกอบพัดลมก็อาจทำให้เกิดปัญหากับประสิทธิภาพโดยรวมได้เช่นกัน ในโลกของหอทำความเย็นอุตสาหกรรม ปัจจัยที่สำคัญที่สุดประการหนึ่งของการสูญเสียระบบนั้นเกี่ยวข้องกับการรั่วของอากาศบริเวณปลายใบพัดลม การสูญเสียนี้ได้รับอิทธิพลโดยตรงจากระยะห่างของปลายใบพัดลมและความดันความเร็วที่จุดปฏิบัติงาน และเกิดจากแนวโน้มที่อากาศทางออกแรงดันสูงจะไหลเวียนรอบปลายใบพัดลมเข้าสู่อากาศแรงดันต่ำในช่องทางเข้าของ หอคอย ด้วยเหตุนี้ จึงเป็นสิ่งสำคัญที่จะต้องแน่ใจว่าสภาพทางเข้าของหอทำความเย็นมีความเหมาะสมที่สุดเท่าที่จะทำได้"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "h2",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "span",
+          "attrs": {
+            "id": "%E0%B9%83%E0%B8%AB%E0%B9%89%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%99%E0%B9%83%E0%B8%88%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B8%AA%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%B2"
+          },
+          "children": []
+        },
+        "ให้ความสนใจกับสภาพทางเข้า",
+        {
+          "tag": "span",
+          "attrs": {},
+          "children": []
+        }
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ในส่วนของหอหล่อเย็นแบบเปียกนั้น ชุดการกู้คืนความเร็วเป็นวิธีการทั่วไปที่วิศวกรสามารถปรับปรุงสภาพทางเข้าและรักษาแรงม้าได้ เพื่อทำหน้าที่นี้ กองการกู้คืนความเร็วมักจะรวมกรวยทางออกที่เรียวเล็กน้อยร่วมกับระฆังทางเข้าที่มีความโค้งมน ซึ่งส่งผลให้ความดันความเร็วที่ทางออกของทางเข้าลดลงอย่างมากเมื่อเปรียบเทียบกับระนาบของพัดลม เนื่องจากปริมาณอากาศบนระนาบทั้งสองเท่ากัน อย่างไรก็ตาม การฟื้นตัวของแรงดันความเร็วจะถูกแปลงเป็นการกลับคืนแบบคงที่ ซึ่งจะช่วยลดความต้องการแรงดันรวมของพัดลมลง ส่งผลให้ต้องใช้แรงม้าน้อยลงในการผลิตความเร็วการหมุนของพัดลมที่ต้องการ นอกจากนี้ ไม่ควรละเลยการเข้าสู่สแต็กการกู้คืนความเร็วผ่านส่วนพัดลม เนื่องจากบ่อยครั้งที่ทางเข้านี้สามารถสร้างความปั่นป่วนและความสูญเสียในระบบพัดลมได้ แม้ว่าการออกแบบปล่องส่วนใหญ่มักจะมีรัศมีทางเข้าขนาดใหญ่ แต่โครงสร้างที่มีน้ำหนักมากอยู่ใต้ปล่องหรือมีมุมแหลมคมผ่านดาดฟ้าพัดลม อาจทำให้สภาพการไหลของอากาศที่ราบรื่นในตัวปล่องนั้นไร้ผลได้ สิ่งสำคัญคือต้องทราบว่าปัญหาเหล่านี้ไม่ได้อยู่ภายใต้การควบคุมของผู้ใช้ ซึ่งหมายความว่าการออกแบบหอทำความเย็นควรพยายามจำกัดตัวแปรเชิงลบเหล่านี้"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ขอขอบคุณที่สละเวลาอ่านบทความที่สามของเราในบล็อกซีรีส์เกี่ยวกับประสิทธิภาพของพัดลมคูลลิ่งทาวเวอร์ มาร่วมกับเราอีกครั้งในครั้งต่อไปในขณะที่เราสรุปซีรีส์ของเราด้วยการพูดคุยเรื่องการหมุนเวียนของอากาศร้อนว่าปัจจัยนี้สามารถส่งผลให้ประสิทธิภาพลดลงในระบบพัดลมคูลลิ่งทาวเวอร์ได้อย่างไร และเช่นเคย หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับตัวเลือกพัดลมระบายความร้อนทาวเวอร์ที่เรานำเสนอที่ Industrial Cooling Solutions, Inc. โปรดติดต่อเราวันนี้"
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "Cooling Tower Fan: A Look At Cooling Tower Fan Efficiency Pt. III - ICS",
+    "meta": [
+      {
+        "name": "description",
+        "value": "Make sure your cooling tower fan is running as efficiently as possible in order to ensure the most optimal results. Visit our site to learn more!"
+      },
+      {
+        "name": "robots",
+        "value": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      {
+        "name": "og:locale",
+        "value": "th_TH"
+      },
+      {
+        "name": "og:type",
+        "value": "article"
+      },
+      {
+        "name": "og:title",
+        "value": "Cooling Tower Fan: A Look At Cooling Tower Fan Efficiency Pt. III - ICS"
+      },
+      {
+        "name": "og:description",
+        "value": "Make sure your cooling tower fan is running as efficiently as possible in order to ensure the most optimal results. Visit our site to learn more!"
+      },
+      {
+        "name": "og:url",
+        "value": "https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/"
+      },
+      {
+        "name": "og:site_name",
+        "value": "New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "article:author",
+        "value": "https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/"
+      },
+      {
+        "name": "article:section",
+        "value": "Uncategorized"
+      },
+      {
+        "name": "og:updated_time",
+        "value": "2025-03-07T18:37:17+00:00"
+      },
+      {
+        "name": "og:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "og:image:secure_url",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "og:image:width",
+        "value": "1219"
+      },
+      {
+        "name": "og:image:height",
+        "value": "1035"
+      },
+      {
+        "name": "og:image:alt",
+        "value": "Industrial Cooling Solutions"
+      },
+      {
+        "name": "og:image:type",
+        "value": "image/jpeg"
+      },
+      {
+        "name": "article:published_time",
+        "value": "2025-03-07T17:09:04+00:00"
+      },
+      {
+        "name": "article:modified_time",
+        "value": "2025-03-07T18:37:17+00:00"
+      },
+      {
+        "name": "twitter:card",
+        "value": "summary_large_image"
+      },
+      {
+        "name": "twitter:title",
+        "value": "Cooling Tower Fan: A Look At Cooling Tower Fan Efficiency Pt. III - ICS"
+      },
+      {
+        "name": "twitter:description",
+        "value": "Make sure your cooling tower fan is running as efficiently as possible in order to ensure the most optimal results. Visit our site to learn more!"
+      },
+      {
+        "name": "twitter:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg"
+      },
+      {
+        "name": "twitter:label1",
+        "value": "Written by"
+      },
+      {
+        "name": "twitter:data1",
+        "value": "Tim Bozic"
+      },
+      {
+        "name": "twitter:label2",
+        "value": "Time to read"
+      },
+      {
+        "name": "twitter:data2",
+        "value": "2 minutes"
+      },
+      {
+        "name": "msapplication-TileImage",
+        "value": "https://h2ocooling.com/wp-content/uploads/2025/03/cropped-Favicon-1-1-270x270.png"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/"
+    ],
+    "h1": [
+      "ดูประสิทธิภาพพัดลมคูลลิ่งทาวเวอร์ PT. 3"
+    ],
+    "schema": [
+      "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://h2ocooling.com/#organization\",\"name\":\"Industrial Cooling Solutions\",\"url\":\"http://h2ocooling.com\",\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/#logo\",\"url\":\"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\",\"contentUrl\":\"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\",\"caption\":\"New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"inLanguage\":\"th\",\"width\":\"267\",\"height\":\"57\"}},{\"@type\":\"WebSite\",\"@id\":\"https://h2ocooling.com/#website\",\"url\":\"https://h2ocooling.com\",\"name\":\"New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"publisher\":{\"@id\":\"https://h2ocooling.com/#organization\"},\"inLanguage\":\"th\"},{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\",\"url\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\",\"width\":\"1219\",\"height\":\"1035\",\"caption\":\"Industrial Cooling Solutions\",\"inLanguage\":\"th\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":\"1\",\"item\":{\"@id\":\"https://h2ocooling.com\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":\"2\",\"item\":{\"@id\":\"https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/\",\"name\":\"\\u0e14\\u0e39\\u0e1b\\u0e23\\u0e30\\u0e2a\\u0e34\\u0e17\\u0e18\\u0e34\\u0e20\\u0e32\\u0e1e\\u0e1e\\u0e31\\u0e14\\u0e25\\u0e21\\u0e04\\u0e39\\u0e25\\u0e25\\u0e34\\u0e48\\u0e07\\u0e17\\u0e32\\u0e27\\u0e40\\u0e27\\u0e2d\\u0e23\\u0e4c PT. 3\"}}]},{\"@type\":\"WebPage\",\"@id\":\"https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/#webpage\",\"url\":\"https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/\",\"name\":\"Cooling Tower Fan: A Look At Cooling Tower Fan Efficiency Pt. III - ICS\",\"datePublished\":\"2025-03-07T17:09:04+00:00\",\"dateModified\":\"2025-03-07T18:37:17+00:00\",\"isPartOf\":{\"@id\":\"https://h2ocooling.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\"},\"inLanguage\":\"th\",\"breadcrumb\":{\"@id\":\"https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/#breadcrumb\"}},{\"@type\":\"Person\",\"@id\":\"https://h2ocooling.com/th/author/tbozic/\",\"name\":\"Tim Bozic\",\"description\":\"Tim Bozic is a seasoned leader with over two decades of experience in the industrial and manufacturing sectors. As the President of Industrial Cooling Solutions, he specializes in driving innovation and operational excellence in cooling technologies, ensuring sustainable and efficient solutions for clients worldwide. With a proven track record in strategic planning, team leadership, and customer-focused growth, Tim is passionate about delivering cutting-edge solutions that meet the evolving needs of the industry.\",\"url\":\"https://h2ocooling.com/th/author/tbozic/\",\"image\":{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790609671\",\"url\":\"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790609671\",\"caption\":\"Tim Bozic\",\"inLanguage\":\"th\"},\"sameAs\":[\"https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/\",\"https://www.linkedin.com/in/tim-bozic-417a65a/\"],\"worksFor\":{\"@id\":\"https://h2ocooling.com/#organization\"}},{\"@type\":\"BlogPosting\",\"headline\":\"Cooling Tower Fan: A Look At Cooling Tower Fan Efficiency Pt. III - ICS\",\"datePublished\":\"2025-03-07T17:09:04+00:00\",\"dateModified\":\"2025-03-07T18:37:17+00:00\",\"author\":{\"@id\":\"https://h2ocooling.com/th/author/tbozic/\",\"name\":\"Tim Bozic\"},\"publisher\":{\"@id\":\"https://h2ocooling.com/#organization\"},\"description\":\"Make sure your cooling tower fan is running as efficiently as possible in order to ensure the most optimal results. Visit our site to learn more!\",\"name\":\"Cooling Tower Fan: A Look At Cooling Tower Fan Efficiency Pt. III - ICS\",\"@id\":\"https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/#richSnippet\",\"isPartOf\":{\"@id\":\"https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/#webpage\"},\"image\":{\"@id\":\"https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg\"},\"inLanguage\":\"th\",\"mainEntityOfPage\":{\"@id\":\"https://h2ocooling.com/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5/#webpage\"}}]}"
+    ]
+  },
+  "images": []
+}

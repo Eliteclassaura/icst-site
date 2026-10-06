@@ -1,0 +1,790 @@
+{
+  "routeId": "LIVE-LOCALE-ja-14566",
+  "sourceUrl": "https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/",
+  "targetPath": "/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/",
+  "type": "posts",
+  "title": "国際冷却塔 | 種類、問題、およびソリューションの理解",
+  "wordpressId": 14566,
+  "language": "ja",
+  "sourceIdentity": {
+    "status": 200,
+    "effectiveUrl": "https://h2ocooling.com/ja/国際冷却塔-種類、問題、およびソリューション/",
+    "sha256": "f61d1ed1de269894fa760ef94f18b53e6c2b6e30c19d7629a17b1672a3a4b4ef",
+    "htmlSha256": "796fb80085ffb45e51a5fa35033a597fd4e27863dc4ce474b49dfd5f8b9c8e27",
+    "restUrl": "https://h2ocooling.com/wp-json/wp/v2/posts/14566",
+    "htmlLang": "ja",
+    "liveAlternates": [
+      {
+        "hreflang": "vi",
+        "href": "https://h2ocooling.com/vi/thap-giai-nhiet-quoc-te-tim-hieu-ve-cac-loai-van-de-va-giai-phap/"
+      },
+      {
+        "hreflang": "th",
+        "href": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b8%a3%e0%b9%89%e0%b8%ad%e0%b8%99%e0%b8%a3%e0%b8%b0%e0%b8%94%e0%b8%b1/"
+      },
+      {
+        "hreflang": "ja",
+        "href": "https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/"
+      },
+      {
+        "hreflang": "id",
+        "href": "https://h2ocooling.com/id/menara-pendingin-internasional-memahami-jenis-masalah-dan-solusi/"
+      },
+      {
+        "hreflang": "en",
+        "href": "https://h2ocooling.com/international-cooling-tower/"
+      }
+    ]
+  },
+  "publicationStatus": "publish",
+  "published": "2025-03-07T15:13:41",
+  "modified": "2025-03-07T18:38:00",
+  "text": "冷却塔は、システムから余分な熱を大気中に抽出し、機械を冷却する熱除去装置です。冷却塔は、内部の大気を冷却するために産業や建物で広く使用されており、その効率性と機能性から非常に好まれています。 国際産業用冷却塔は、ユニットを通じて再分配される少量の水を蒸発させることで水から余分な熱を除去するという基礎に基づいて機能します。 ほとんどの産業は、冷却塔ユニットなしではうまく運営できません。冷却塔ユニットは、余分な熱を抽出することで効率的な熱交換と産業機器の冷却を保証するためです。 この詳細な記事では、冷却塔、その目的と重要性、冷却塔の種類、欠陥の検出方法などについて説明します。 冷却塔の主な目的は何ですか? 水冷塔は、水を冷却し、余分な有害な熱を取り除き、建物の大量の熱を直接大気中に放出し、より冷たい水をチラーに戻すために必要です。 水冷塔は、チラーから温水を受け取ります。この温水は、凝縮水とも呼ばれます。チラーは、金庫室や地下室などの低い場所に設置されます。その主な機能は、温水を冷却してチラーに戻してさらに熱を受け取り、プロセスが続行できるようにすることです。 国際的な冷却塔プロセスでは、温水の形で過剰な熱が発生する可能性があり、突然冷却する必要があります。温水冷却塔は余分な熱を取り除き、冷却します。 産業用冷却塔では、プロセスからの過熱水が冷却塔を流れ、再分配され、冷たい空気と接触します。水が落下すると、蒸発プロセスによって温水から熱が抽出されます。 このプロセスは蒸発冷却と呼ばれます。その後、冷却水は空気プロセスに戻り、機器を冷却します。この効率的な冷却サイクルが何度も継続的に繰り返されます。 熱い凝縮器が冷却塔に入ると、水がノズルを通過し、充填物の上に水を小さな水滴に噴霧します。最終的に水表面積が増加し、大量の蒸発によって効果的な熱損失が可能になります。 冷却塔の上部に設置されたファンは、ベースから空気を導き、それを上方に動かし、温かい凝縮器の水をあらゆる方向に循環させます。空気は、工業用冷却塔から水の蒸発によって余分な熱をすべて運び、大気中に放出します。 冷却塔の主要コンポーネント 充填材: 冷却塔の充填材は、熱水を効果的に拡散するための優れた表面積を提供します。最終的には、空気と水の接触を促進し、強化して、効率的で最大限の冷却を実現します。 スプレー ノズル: スプレー ノズルは、冷却塔の水分配器として機能し、充填材にスプレーして、一貫した長期的な冷却を保証します。プラスチック材料の他に、PVC、ABS、ポリプロピレン、ガラス入りナイロンなどの他の材料もスプレーに使用されます。 ファン: 国際的な冷却塔では、ファンは塔の上部に設置され、空気を吸い込んでシステム内に押し出し、熱損失システムに役立ちます。 さまざまな産業における冷却塔の用途 発電所: 発電所では、効率性と有用性から冷却塔が広く利用されており、蒸気発電所ではさらに多く使用されています。熱が機械エネルギーに変換されるとき、すべての熱を機械的な仕事に変換するのは困難であり、ここでは冷却塔を使用して完全に変換します。 暖房と空調: これらの冷却塔は、住宅や商業ビルの HVAC システムでも使用されています。これらの冷却システムは、人やコンピューターやエアコンなどの他の電気機器からの余分な熱をすべて吸収します。それらは冷却塔に転送され、そこで大気から除去されます。 産業: 砂糖、衣料品、石油化学、石油およびガス精製所などの工場では、冷却塔は温度を監視するために不可欠です。国際的な冷却塔は、過熱や摩耗を防ぐことで、産業機械の運用寿命を維持するのにも役立ちます。 データセンターの冷却塔 データセンターは、デジタル時代の IT インフラストラクチャの究極のサポーターです。これらのセンターには、継続的に大量の熱が発生します。冷却機構は、環境を涼しく保ち、すべての機能が正しく動作するようにするのに役立ちます。データセンターは過熱により停電する可能性があり、冷却塔の保守と修理にコストがかかり、混乱を招く可能性があります。 冷却塔の種類 さまざまな冷却塔は、余分な空気を排出するために利用できる気流生成に基づいており、その一部は次のとおりです。 機械通風式冷却塔: 機械通風式冷却塔は、単一または複数のファンを使用して、塔を通る空気の流れを作り出します。標準ファンによって強制的に空気が送り込まれ、産業や建物全体に空気が広がります。機能性から、自然通風式冷却塔よりも好まれています。 自然通風式冷却塔: 自然通風式冷却塔は、ファンなどの機械装置を使用して空気の流れを作りません。自然な空気の動きを利用して水を冷却します。コストはかかりませんが、気候条件を分析して屋外に設置する必要があります。これらの背の高い冷却塔は、適切な空気の流れを得るために、通常、双曲面形状になっています。 強制通風式冷却塔: 強制通風式冷却塔では、ファンが空気を冷却塔に引き込み、冷却塔の底部と側面に設置されます。これは、誘引通風式冷却塔に似ています。その性能は常に安定しており、高い静圧を処理する必要がある屋内用途で利用できます。 誘引通風冷却塔: 誘引通風冷却塔の上部にはファンが設置され、熱気を排出します。ドリフトエリミネーターは、流れから出る空気に水滴が閉じ込められないようにするために使用されます。 クロスフローおよびカウンターフロー冷却塔: その名の通り、クロスフロー冷却塔では、水が垂直に流れ、空気の熱交換が材料を通過して水平方向に充填されます。カウンターフロータイプの冷却塔では、水は垂直に流れ、空気は充填物を通って垂直に上向きに流れます。 節水のヒント 冷却塔は、特に湿式冷却システムでは大量の水を消費します。ただし、次のようないくつかの方法を使用して水の使用量を削減できます。 ブローダウンの削減 ブローダウンとは、溶解した固形物濃度の高い水をシステムから除去することです。ブローダウンの頻度を減らし、可能な限り水を再利用すると、節水に役立ちます。 水処理 冷却塔に入る前に水を処理することで、スケールや腐食を軽減でき、水交換の間隔を長くして水を節約できます。 損失を最小限に抑えるために早期にトラブルシューティングするには? これらのタワーの早期トラブルシューティングを分析して検証することで、時間と費用を節約できます。冷却塔に重大な損傷を引き起こす可能性のある早期警告サインは次のとおりです。 エンジン音 異常に高い奇妙なエンジン音は、機械に重大な問題があることを示している可能性があります。このエンジンからのゴボゴボと泡立つような高音は、冷却システムに空気穴があることの明らかな兆候であり、耐え難い軋む音は損傷したウォーターポンプが原因です。 膨大な電気代 通常よりも電気代が高い場合、それは冷却塔が必要以上にエネルギーを消費していることを意味し、錆び、スケール、泡立ち、生物の増殖、またはその他の機械的故障により、冷却塔が非効率的な冷却に使用されていることを明確に示しています。 機器からの漏れを解消 機械の下の領域を調べて、明るい色の液体がこぼれていないか確認してください。ウォーターポンプの損傷やラジエーターの故障は、冷却剤の漏れにつながる可能性があります。漏れのもう 1 つの兆候は、冷却剤レベルの突然の低下です。エンジンの過熱は、冷却水レベルが低いために冷却塔から適切に熱が除去されないことで発生することがあります。 緊急修理が必要な冷却塔の一般的な問題 時間の経過と継続的な使用により、冷却塔は深刻な損傷を引き起こす可能性のある多くの問題に直面する可能性があります。最も一般的な問題のいくつかは次のとおりです。 腐食: 金属が空気中の水と接触すると、腐食が発生するリスクが高くなります。国際的な冷却塔では、水の化学処理やその他の電解質の蒸発による頻繁な使用により、腐食は主に金属材料で発生します。漏れ、破片、機器の損傷など、冷却塔に深刻な損傷を引き起こす可能性があります。 スケーリング: 冷却塔で使用される水からのミネラルの蓄積は、スケーリングと呼ばれます。これらのミネラルが水と混ざると、突然プレート状の破片になります。パイプを塞いで妨げ、冷却塔内のチューブを損傷してシステムの効率を最小限に抑える可能性があります。 生物学的汚染: これは、国際的な冷却塔における藻類、菌類、細菌などの微生物の不純物です。これらは簡単に水に入り込み、湿度と適切な環境のため冷却塔で繁殖することができます。これらの有害な汚染は、汚れ、腐食、病気など、冷却塔でさまざまな問題を引き起こす可能性があります。 誰もが知っておくべき一般的な冷却塔用語 溶解固形物: 液体に溶解している固形物です。イオン性または極性の性質を持つ場合があります。 ドリフト: ドリフトは、空気の流れに乗って大気中に排出される水です。 殺生物剤: 有害な微生物を殺したり、その生成を遅らせたりすることで、その個体数を制御するために使用される化学物質です。 ブローダウン: 循環水中の塩分濃度やその他の不要な不純物を制御するために冷却システムから排出される水です。 英国熱量単位: BTU は、1 ポンドの水の温度を華氏 1 度 (華氏 32 度から 212 度) 上げるために必要な熱エネルギーです。 冷却範囲: 冷却範囲とは、温水と冷水の温度差です。 補給: ドリフト、ブリードオフ、蒸発によって生じる損失を補うために必要な水の量です。 熱交換器: ある物質から別の物質に熱を交換するために使用される装置です。熱の伝達は、直接接触によって行うことも、チューブ コンデンサーのように間接的に行うこともできます。 揚程: 冷却塔からシステム全体に水を流し、塔の上部に戻すために必要な圧力です。 湿球温度: 湿球温度は、水が蒸発できる最低温度です。 結論 国際冷却塔は、すべての産業および建物の運用を効果的かつ効率的に保つために不可欠です。冷却塔には、移送方法、気流、または使用される材料に基づいて複数のタイプがあります。チェックされずにメンテナンスに適切な注意を払わないと、冷却塔に重大な損傷を与える可能性があり、最終的にはエネルギーコストと冷却塔ユニットの故障につながります。 したがって、冷却塔を所有していて、その効率をチェックしたい場合は、今すぐプロの冷却塔技術者を雇って、時間とお金を節約してください。問題が拡大するのを待たないでください。予防的なケアは、事後対応の修正よりも常に費用対効果が高いです。 技術革新を通じてであれ、定期的な検査を通じてであれ、冷却塔を最高の状態に保つことは、事業の長期的な成功をサポートします。",
+  "children": [
+    "\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "冷却塔は、システムから余分な熱を大気中に抽出し、機械を冷却する熱除去装置です。冷却塔は、内部の大気を冷却するために産業や建物で広く使用されており、その効率性と機能性から非常に好まれています。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "国際産業用冷却塔は、ユニットを通じて再分配される少量の水を蒸発させることで水から余分な熱を除去するという基礎に基づいて機能します。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ほとんどの産業は、冷却塔ユニットなしではうまく運営できません。冷却塔ユニットは、余分な熱を抽出することで効率的な熱交換と産業機器の冷却を保証するためです。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "この詳細な記事では、冷却塔、その目的と重要性、冷却塔の種類、欠陥の検出方法などについて説明します。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "冷却塔の主な目的は何ですか?"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "水冷塔は、水を冷却し、余分な有害な熱を取り除き、建物の大量の熱を直接大気中に放出し、より冷たい水をチラーに戻すために必要です。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "水冷塔は、チラーから温水を受け取ります。この温水は、凝縮水とも呼ばれます。チラーは、金庫室や地下室などの低い場所に設置されます。その主な機能は、温水を冷却してチラーに戻してさらに熱を受け取り、プロセスが続行できるようにすることです。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "国際的な冷却塔プロセスでは、温水の形で過剰な熱が発生する可能性があり、突然冷却する必要があります。温水冷却塔は余分な熱を取り除き、冷却します。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "産業用冷却塔では、プロセスからの過熱水が冷却塔を流れ、再分配され、冷たい空気と接触します。水が落下すると、蒸発プロセスによって温水から熱が抽出されます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "このプロセスは蒸発冷却と呼ばれます。その後、冷却水は空気プロセスに戻り、機器を冷却します。この効率的な冷却サイクルが何度も継続的に繰り返されます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "熱い凝縮器が冷却塔に入ると、水がノズルを通過し、充填物の上に水を小さな水滴に噴霧します。最終的に水表面積が増加し、大量の蒸発によって効果的な熱損失が可能になります。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "冷却塔の上部に設置されたファンは、ベースから空気を導き、それを上方に動かし、温かい凝縮器の水をあらゆる方向に循環させます。空気は、工業用冷却塔から水の蒸発によって余分な熱をすべて運び、大気中に放出します。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "冷却塔の主要コンポーネント"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "充填材:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "冷却塔の充填材は、熱水を効果的に拡散するための優れた表面積を提供します。最終的には、空気と水の接触を促進し、強化して、効率的で最大限の冷却を実現します。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "スプレー ノズル:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "スプレー ノズルは、冷却塔の水分配器として機能し、充填材にスプレーして、一貫した長期的な冷却を保証します。プラスチック材料の他に、PVC、ABS、ポリプロピレン、ガラス入りナイロンなどの他の材料もスプレーに使用されます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ファン:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "国際的な冷却塔では、ファンは塔の上部に設置され、空気を吸い込んでシステム内に押し出し、熱損失システムに役立ちます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "さまざまな産業における冷却塔の用途"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "発電所:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "発電所では、効率性と有用性から冷却塔が広く利用されており、蒸気発電所ではさらに多く使用されています。熱が機械エネルギーに変換されるとき、すべての熱を機械的な仕事に変換するのは困難であり、ここでは冷却塔を使用して完全に変換します。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "暖房と空調:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "これらの冷却塔は、住宅や商業ビルの HVAC システムでも使用されています。これらの冷却システムは、人やコンピューターやエアコンなどの他の電気機器からの余分な熱をすべて吸収します。それらは冷却塔に転送され、そこで大気から除去されます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "産業:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "砂糖、衣料品、石油化学、石油およびガス精製所などの工場では、冷却塔は温度を監視するために不可欠です。国際的な冷却塔は、過熱や摩耗を防ぐことで、産業機械の運用寿命を維持するのにも役立ちます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "データセンターの冷却塔"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "データセンターは、デジタル時代の IT インフラストラクチャの究極のサポーターです。これらのセンターには、継続的に大量の熱が発生します。冷却機構は、環境を涼しく保ち、すべての機能が正しく動作するようにするのに役立ちます。データセンターは過熱により停電する可能性があり、冷却塔の保守と修理にコストがかかり、混乱を招く可能性があります。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "冷却塔の種類"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "さまざまな冷却塔は、余分な空気を排出するために利用できる気流生成に基づいており、その一部は次のとおりです。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "機械通風式冷却塔:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "機械通風式冷却塔は、単一または複数のファンを使用して、塔を通る空気の流れを作り出します。標準ファンによって強制的に空気が送り込まれ、産業や建物全体に空気が広がります。機能性から、自然通風式冷却塔よりも好まれています。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "自然通風式冷却塔:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "自然通風式冷却塔は、ファンなどの機械装置を使用して空気の流れを作りません。自然な空気の動きを利用して水を冷却します。コストはかかりませんが、気候条件を分析して屋外に設置する必要があります。これらの背の高い冷却塔は、適切な空気の流れを得るために、通常、双曲面形状になっています。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "強制通風式冷却塔:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "強制通風式冷却塔では、ファンが空気を冷却塔に引き込み、冷却塔の底部と側面に設置されます。これは、誘引通風式冷却塔に似ています。その性能は常に安定しており、高い静圧を処理する必要がある屋内用途で利用できます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "誘引通風冷却塔:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "誘引通風冷却塔の上部にはファンが設置され、熱気を排出します。ドリフトエリミネーターは、流れから出る空気に水滴が閉じ込められないようにするために使用されます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "クロスフローおよびカウンターフロー冷却塔:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "その名の通り、クロスフロー冷却塔では、水が垂直に流れ、空気の熱交換が材料を通過して水平方向に充填されます。カウンターフロータイプの冷却塔では、水は垂直に流れ、空気は充填物を通って垂直に上向きに流れます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "節水のヒント"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "冷却塔は、特に湿式冷却システムでは大量の水を消費します。ただし、次のようないくつかの方法を使用して水の使用量を削減できます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ブローダウンの削減"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ブローダウンとは、溶解した固形物濃度の高い水をシステムから除去することです。ブローダウンの頻度を減らし、可能な限り水を再利用すると、節水に役立ちます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "水処理"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "冷却塔に入る前に水を処理することで、スケールや腐食を軽減でき、水交換の間隔を長くして水を節約できます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "損失を最小限に抑えるために早期にトラブルシューティングするには?"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "これらのタワーの早期トラブルシューティングを分析して検証することで、時間と費用を節約できます。冷却塔に重大な損傷を引き起こす可能性のある早期警告サインは次のとおりです。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "エンジン音"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "異常に高い奇妙なエンジン音は、機械に重大な問題があることを示している可能性があります。このエンジンからのゴボゴボと泡立つような高音は、冷却システムに空気穴があることの明らかな兆候であり、耐え難い軋む音は損傷したウォーターポンプが原因です。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "膨大な電気代"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "通常よりも電気代が高い場合、それは冷却塔が必要以上にエネルギーを消費していることを意味し、錆び、スケール、泡立ち、生物の増殖、またはその他の機械的故障により、冷却塔が非効率的な冷却に使用されていることを明確に示しています。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "機器からの漏れを解消"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "機械の下の領域を調べて、明るい色の液体がこぼれていないか確認してください。ウォーターポンプの損傷やラジエーターの故障は、冷却剤の漏れにつながる可能性があります。漏れのもう 1 つの兆候は、冷却剤レベルの突然の低下です。エンジンの過熱は、冷却水レベルが低いために冷却塔から適切に熱が除去されないことで発生することがあります。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "緊急修理が必要な冷却塔の一般的な問題"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "時間の経過と継続的な使用により、冷却塔は深刻な損傷を引き起こす可能性のある多くの問題に直面する可能性があります。最も一般的な問題のいくつかは次のとおりです。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "腐食:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "金属が空気中の水と接触すると、腐食が発生するリスクが高くなります。国際的な冷却塔では、水の化学処理やその他の電解質の蒸発による頻繁な使用により、腐食は主に金属材料で発生します。漏れ、破片、機器の損傷など、冷却塔に深刻な損傷を引き起こす可能性があります。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "スケーリング:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "冷却塔で使用される水からのミネラルの蓄積は、スケーリングと呼ばれます。これらのミネラルが水と混ざると、突然プレート状の破片になります。パイプを塞いで妨げ、冷却塔内のチューブを損傷してシステムの効率を最小限に抑える可能性があります。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "生物学的汚染:"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "これは、国際的な冷却塔における藻類、菌類、細菌などの微生物の不純物です。これらは簡単に水に入り込み、湿度と適切な環境のため冷却塔で繁殖することができます。これらの有害な汚染は、汚れ、腐食、病気など、冷却塔でさまざまな問題を引き起こす可能性があります。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "誰もが知っておくべき一般的な冷却塔用語"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "溶解固形物: 液体に溶解している固形物です。イオン性または極性の性質を持つ場合があります。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ドリフト: ドリフトは、空気の流れに乗って大気中に排出される水です。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "殺生物剤: 有害な微生物を殺したり、その生成を遅らせたりすることで、その個体数を制御するために使用される化学物質です。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "ブローダウン: 循環水中の塩分濃度やその他の不要な不純物を制御するために冷却システムから排出される水です。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "英国熱量単位: BTU は、1 ポンドの水の温度を華氏 1 度 (華氏 32 度から 212 度) 上げるために必要な熱エネルギーです。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "冷却範囲: 冷却範囲とは、温水と冷水の温度差です。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "補給: ドリフト、ブリードオフ、蒸発によって生じる損失を補うために必要な水の量です。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "熱交換器: ある物質から別の物質に熱を交換するために使用される装置です。熱の伝達は、直接接触によって行うことも、チューブ コンデンサーのように間接的に行うこともできます。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "揚程: 冷却塔からシステム全体に水を流し、塔の上部に戻すために必要な圧力です。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "湿球温度: 湿球温度は、水が蒸発できる最低温度です。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "結論"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "国際冷却塔は、すべての産業および建物の運用を効果的かつ効率的に保つために不可欠です。冷却塔には、移送方法、気流、または使用される材料に基づいて複数のタイプがあります。チェックされずにメンテナンスに適切な注意を払わないと、冷却塔に重大な損傷を与える可能性があり、最終的にはエネルギーコストと冷却塔ユニットの故障につながります。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "したがって、冷却塔を所有していて、その効率をチェックしたい場合は、今すぐプロの冷却塔技術者を雇って、時間とお金を節約してください。問題が拡大するのを待たないでください。予防的なケアは、事後対応の修正よりも常に費用対効果が高いです。"
+      ]
+    },
+    "\n\n\n\n",
+    {
+      "tag": "p",
+      "attrs": {},
+      "children": [
+        "技術革新を通じてであれ、定期的な検査を通じてであれ、冷却塔を最高の状態に保つことは、事業の長期的な成功をサポートします。"
+      ]
+    },
+    "\n"
+  ],
+  "chrome": [],
+  "seo": {
+    "title": "国際冷却塔 | 種類、問題、およびソリューションの理解 - New Cooling Tower Construction, Parts, Maintenance, Upgrades",
+    "meta": [
+      {
+        "name": "description",
+        "value": "A comprehensive guide to international cooling towers, including types, issues, and solutions. Understand cooling tower technology and its importance with h2ocooling."
+      },
+      {
+        "name": "robots",
+        "value": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      {
+        "name": "og:locale",
+        "value": "ja_JP"
+      },
+      {
+        "name": "og:type",
+        "value": "article"
+      },
+      {
+        "name": "og:title",
+        "value": "国際冷却塔 | 種類、問題、およびソリューションの理解 - New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "og:description",
+        "value": "A comprehensive guide to international cooling towers, including types, issues, and solutions. Understand cooling tower technology and its importance with h2ocooling."
+      },
+      {
+        "name": "og:url",
+        "value": "https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/"
+      },
+      {
+        "name": "og:site_name",
+        "value": "New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "article:author",
+        "value": "https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/"
+      },
+      {
+        "name": "article:section",
+        "value": "Uncategorized"
+      },
+      {
+        "name": "og:updated_time",
+        "value": "2025-03-07T18:38:00+00:00"
+      },
+      {
+        "name": "og:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2024/09/1-min-1.jpg"
+      },
+      {
+        "name": "og:image:secure_url",
+        "value": "https://h2ocooling.com/wp-content/uploads/2024/09/1-min-1.jpg"
+      },
+      {
+        "name": "og:image:width",
+        "value": "1440"
+      },
+      {
+        "name": "og:image:height",
+        "value": "810"
+      },
+      {
+        "name": "og:image:alt",
+        "value": "International Cooling Tower | Understanding Types, Issues, and Solutions"
+      },
+      {
+        "name": "og:image:type",
+        "value": "image/jpeg"
+      },
+      {
+        "name": "article:published_time",
+        "value": "2025-03-07T15:13:41+00:00"
+      },
+      {
+        "name": "article:modified_time",
+        "value": "2025-03-07T18:38:00+00:00"
+      },
+      {
+        "name": "twitter:card",
+        "value": "summary_large_image"
+      },
+      {
+        "name": "twitter:title",
+        "value": "国際冷却塔 | 種類、問題、およびソリューションの理解 - New Cooling Tower Construction, Parts, Maintenance, Upgrades"
+      },
+      {
+        "name": "twitter:description",
+        "value": "A comprehensive guide to international cooling towers, including types, issues, and solutions. Understand cooling tower technology and its importance with h2ocooling."
+      },
+      {
+        "name": "twitter:image",
+        "value": "https://h2ocooling.com/wp-content/uploads/2024/09/1-min-1.jpg"
+      },
+      {
+        "name": "twitter:label1",
+        "value": "によって書かれた"
+      },
+      {
+        "name": "twitter:data1",
+        "value": "Tim Bozic"
+      },
+      {
+        "name": "twitter:label2",
+        "value": "読む時間"
+      },
+      {
+        "name": "twitter:data2",
+        "value": "1分"
+      },
+      {
+        "name": "msapplication-TileImage",
+        "value": "https://h2ocooling.com/wp-content/uploads/2025/03/cropped-Favicon-1-1-270x270.png"
+      }
+    ],
+    "canonical": [
+      "https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/"
+    ],
+    "h1": [
+      "国際冷却塔 | 種類、問題、およびソリューションの理解"
+    ],
+    "schema": [
+      "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://h2ocooling.com/#organization\",\"name\":\"Industrial Cooling Solutions\",\"url\":\"http://h2ocooling.com\",\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/#logo\",\"url\":\"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\",\"contentUrl\":\"http://h2ocooling.com/wp-content/uploads/2021/11/logo-1.png\",\"caption\":\"New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"inLanguage\":\"ja\",\"width\":\"267\",\"height\":\"57\"}},{\"@type\":\"WebSite\",\"@id\":\"https://h2ocooling.com/#website\",\"url\":\"https://h2ocooling.com\",\"name\":\"New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"publisher\":{\"@id\":\"https://h2ocooling.com/#organization\"},\"inLanguage\":\"ja\"},{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/wp-content/uploads/2024/09/1-min-1.jpg\",\"url\":\"https://h2ocooling.com/wp-content/uploads/2024/09/1-min-1.jpg\",\"width\":\"1440\",\"height\":\"810\",\"caption\":\"International Cooling Tower | Understanding Types, Issues, and Solutions\",\"inLanguage\":\"ja\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":\"1\",\"item\":{\"@id\":\"https://h2ocooling.com\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":\"2\",\"item\":{\"@id\":\"https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/\",\"name\":\"\\u56fd\\u969b\\u51b7\\u5374\\u5854 | \\u7a2e\\u985e\\u3001\\u554f\\u984c\\u3001\\u304a\\u3088\\u3073\\u30bd\\u30ea\\u30e5\\u30fc\\u30b7\\u30e7\\u30f3\\u306e\\u7406\\u89e3\"}}]},{\"@type\":\"WebPage\",\"@id\":\"https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/#webpage\",\"url\":\"https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/\",\"name\":\"\\u56fd\\u969b\\u51b7\\u5374\\u5854 | \\u7a2e\\u985e\\u3001\\u554f\\u984c\\u3001\\u304a\\u3088\\u3073\\u30bd\\u30ea\\u30e5\\u30fc\\u30b7\\u30e7\\u30f3\\u306e\\u7406\\u89e3 - New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"datePublished\":\"2025-03-07T15:13:41+00:00\",\"dateModified\":\"2025-03-07T18:38:00+00:00\",\"isPartOf\":{\"@id\":\"https://h2ocooling.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://h2ocooling.com/wp-content/uploads/2024/09/1-min-1.jpg\"},\"inLanguage\":\"ja\",\"breadcrumb\":{\"@id\":\"https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/#breadcrumb\"}},{\"@type\":\"Person\",\"@id\":\"https://h2ocooling.com/ja/author/tbozic/\",\"name\":\"Tim Bozic\",\"description\":\"Tim Bozic is a seasoned leader with over two decades of experience in the industrial and manufacturing sectors. As the President of Industrial Cooling Solutions, he specializes in driving innovation and operational excellence in cooling technologies, ensuring sustainable and efficient solutions for clients worldwide. With a proven track record in strategic planning, team leadership, and customer-focused growth, Tim is passionate about delivering cutting-edge solutions that meet the evolving needs of the industry.\",\"url\":\"https://h2ocooling.com/ja/author/tbozic/\",\"image\":{\"@type\":\"ImageObject\",\"@id\":\"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790609671\",\"url\":\"https://h2ocooling.com/wp-content/litespeed/avatar/d17a7f3a30c638fe90d3df78549eb67a.jpg?ver=1790609671\",\"caption\":\"Tim Bozic\",\"inLanguage\":\"ja\"},\"sameAs\":[\"https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414/\",\"https://www.linkedin.com/in/tim-bozic-417a65a/\"],\"worksFor\":{\"@id\":\"https://h2ocooling.com/#organization\"}},{\"@type\":\"BlogPosting\",\"headline\":\"\\u56fd\\u969b\\u51b7\\u5374\\u5854 | \\u7a2e\\u985e\\u3001\\u554f\\u984c\\u3001\\u304a\\u3088\\u3073\\u30bd\\u30ea\\u30e5\\u30fc\\u30b7\\u30e7\\u30f3\\u306e\\u7406\\u89e3 - New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"keywords\":\"International Cooling Tower\",\"datePublished\":\"2025-03-07T15:13:41+00:00\",\"dateModified\":\"2025-03-07T18:38:00+00:00\",\"author\":{\"@id\":\"https://h2ocooling.com/ja/author/tbozic/\",\"name\":\"Tim Bozic\"},\"publisher\":{\"@id\":\"https://h2ocooling.com/#organization\"},\"description\":\"A comprehensive guide to international cooling towers, including types, issues, and solutions. Understand cooling tower technology and its importance with h2ocooling.\",\"name\":\"\\u56fd\\u969b\\u51b7\\u5374\\u5854 | \\u7a2e\\u985e\\u3001\\u554f\\u984c\\u3001\\u304a\\u3088\\u3073\\u30bd\\u30ea\\u30e5\\u30fc\\u30b7\\u30e7\\u30f3\\u306e\\u7406\\u89e3 - New Cooling Tower Construction, Parts, Maintenance, Upgrades\",\"@id\":\"https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/#richSnippet\",\"isPartOf\":{\"@id\":\"https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/#webpage\"},\"image\":{\"@id\":\"https://h2ocooling.com/wp-content/uploads/2024/09/1-min-1.jpg\"},\"inLanguage\":\"ja\",\"mainEntityOfPage\":{\"@id\":\"https://h2ocooling.com/ja/%e5%9b%bd%e9%9a%9b%e5%86%b7%e5%8d%b4%e5%a1%94-%e7%a8%ae%e9%a1%9e%e3%80%81%e5%95%8f%e9%a1%8c%e3%80%81%e3%81%8a%e3%82%88%e3%81%b3%e3%82%bd%e3%83%aa%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/#webpage\"}}]}"
+    ]
+  },
+  "images": []
+}

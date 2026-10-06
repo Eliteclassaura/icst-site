@@ -15,7 +15,7 @@
  * Outputs: sitemap-parity.tsv (Yoast URL → class), sitemap-new-urls.tsv (listed, not in Yoast, with a reason),
  * sitemap-parity-summary.json.
  */
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { GONE_PATHS, NOINDEX_FOLLOW_PATHS, PUBLIC_ORIGIN } from '../../src/content/config'
 import { pathKey, sitemapEntries, type HreflangMember, type LocaleData, type SitemapEntry, type SitemapLedgerRow } from '../../src/content/sitemap'
@@ -180,6 +180,9 @@ async function main() {
   const reciprocity = reciprocityProblems(entries)
 
   const partA = new Map(tsv(partAFile).map((r) => [keyOfUrl(r.url!), r]))
+  // Control Tower overrides of single Part A rows (ops/seo-pass/data/locale-overrides.tsv) decide those URLs instead.
+  const overridesFile = path.join(APP, 'ops/seo-pass/data/locale-overrides.tsv')
+  if (existsSync(overridesFile)) for (const o of tsv(overridesFile)) { const k = keyOfUrl(o.url!); const a = partA.get(k); if (a) partA.set(k, { ...a, final_state: o.final_state!, redirect_target: o.redirect_target! }) }
   const rows: string[][] = []
   const counts: Record<string, number> = {}
   if (!emittedOnly) {

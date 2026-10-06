@@ -37,7 +37,8 @@ describe('release authority and route ledger',()=>{
   const auth=new Map(authority.routes.map(row=>[row.path,row]))
   it('publishes exactly the held articles that passed the content check; the four that failed stay held',()=>{
     // The three R1 articles, and the daily log (CT sitemap parity ruling 2026-10-05: a live 200 page, content check PASS).
-    expect(overrides.publish).toEqual(['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/','/cooling-tower-daily-log/'])
+    // Locale Part B: the one preserved Thai page that is a held Salmon record (content check PASS).
+    expect(overrides.publish).toEqual(['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/','/%e0%b9%82%e0%b8%8b%e0%b8%a5%e0%b8%b9%e0%b8%8a%e0%b8%b1%e0%b9%88%e0%b8%99%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%aa/','/cooling-tower-daily-log/'])
     for(const p of overrides.publish)expect(auth.get(p),p).toMatchObject({state:'PUBLIC',export:true,indexable:true,sitemap:true})
     for(const p of ['/cooling-tower-algae-prevention/','/cooling-tower-spray-nozzles/','/frp-cooling-tower-advantages/','/cooling-tower-fan-balancing/'])expect(auth.get(p),p).toMatchObject({state:'REVIEW_HOLD',export:false})
   })
@@ -86,7 +87,7 @@ describe('index rules, 410 and sitemap under the production policy',()=>{
   it('answers 410 Gone for the retired WordPress system URLs (query included) and the Yoast-listed junk pages',async()=>{
     snapshot([])
     const {proxy}=await import('../../proxy')
-    const gone=['/canvas/list/','/wp/wp-admin/edit.php','/evercompare/','/gh/','/draft-page/','/locations.kml']
+    const gone=['/canvas/list/','/wp/wp-admin/edit.php','/evercompare/','/gh/','/draft-page/','/locations.kml','/id/draft-page/','/ja/draft-page/','/th/draft-page/','/vi/draft-page/']
     expect([...GONE_PATHS]).toEqual(gone)
     for(const url of ['/canvas/list/','/wp/wp-admin/edit.php?post_type=product','/evercompare/','/locations.kml']){const res=proxy(new NextRequest(`https://h2ocooling.com${url}`));expect(res.status,url).toBe(410);expect(res.headers.get('x-robots-tag')).toBe('noindex, nofollow')}
     expect(tsv('gone.tsv').map(row=>row.path)).toEqual(gone)
@@ -142,7 +143,8 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
   it('titles: at most 69 characters, unique, no price/contact/commerce words',()=>{
     // 473 decided 200 pages minus /author/tbozic/, the 4 failed held articles and the 2 withdrawn duplicates, plus the
     // un-consolidated /cooling-tower-vs-chiller/ (OGCS R1.2), plus the published daily log (CT 2026-10-05).
-    expect(seo).toHaveLength(468)
+    // Locale Part B: the published Thai Salmon page (its own title, the live meta).
+    expect(seo).toHaveLength(469)
     const titles=seo.map(row=>row.title!)
     expect(new Set(titles).size).toBe(titles.length)
     for(const t of titles){expect(t.length,t).toBeLessThanOrEqual(69);expect(t,t).not.toMatch(FORBIDDEN)}
@@ -163,7 +165,8 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
   })
   it('redirects: unique sources, single hop to a 200 target, no loops or self-redirects; author rows dropped',()=>{
     // 474, plus the 13 translated posts outside the Part A universe (CT sitemap parity ruling 2026-10-05).
-    expect(redirects).toHaveLength(487)
+    // Locale Part B: 98 R1 locale→English redirects retire (the locale page is preserved), 4 locale redirects are new.
+    expect(redirects).toHaveLength(393)
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -182,32 +185,30 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Repointed to the final destination: the reversal cannot leave a chain.
     expect(redirects.find(row=>row.source==='/thermal-upgrades-for-cooling-tower-efficiency/')?.destination).toBe('/thermal-upgrade/')
   })
-  it('conformance contract: 1,021 rows (1,005 minus the two author rows, plus the 18 CT sitemap-parity rulings), none held',()=>{
-    expect(conformance).toHaveLength(1021)
+  it('conformance contract: 1,098 rows (the OGCS and CT rulings, with OGCS Locale Part A deciding every locale URL), none held',()=>{
+    expect(conformance).toHaveLength(1098)
+    expect(conformance.filter(row=>row.kind==='locale')).toHaveLength(166)
     const count=(kind:string)=>conformance.filter(row=>row.expect===kind).length
-    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([528,487,6,0])
+    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([695,393,10,0])
     for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
-    // Part 3 is ONE delta on the state Part 2 R3 leaves on staging (CT 2026-10-05): the sitemap-parity rulings (13 redirects
-    // for translated posts outside the Part A universe, 4 retired junk URLs, the daily log published with its live title and
-    // meta) and the slot hygiene of the 41 fixed records no write has carried yet (apply phase 6). Everything Part 2 R3 wrote
-    // (its 8 H1s, 19 restored pages, 47 fixed records, the retired chiller redirect) is already applied and not written again.
+    // Locale Part B is ONE delta on the state Part 3 leaves on staging (owner decision 2026-10-05; OGCS Part A): the 166
+    // preserved live locale pages arrive by the authority import (new LIVE-family records), their 98 R1 redirects retire,
+    // 120 redirects repoint one hop to the preserved locale page (Part A, and the 2 recorded Part 3 sources), 3 are new, the
+    // 4 locale drafts answer 410, the held Thai Salmon page publishes (its empty live /th/ duplicate 301s to it), and 12 claim edits (CT ruling) are written by the
+    // hygiene phase. Everything Part 3 wrote is already applied; it ran with the R3.1 fix, so there is no Case B.
     expect(expectations.expect.routes).toEqual({publish:1,withdraw:0,index:0,canonical:0})
-    expect(expectations.expect.redirects).toEqual({create:13,update:0,unchanged:474,retire:0})
+    expect(expectations.expect.redirects).toEqual({create:4,update:120,unchanged:269,retire:98})
     expect(expectations.expect.seoFields).toMatchObject({update:1,pendingOgcs:0})
     expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:0})
-    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:41})
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:12})
     expect(expectations.expect.h1).toEqual({update:0})
     expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:0})
-    // Case B (CT 2026-10-05): Part 2 R3 applied without the R3.1 fix put one canonical back; the variant re-applies exactly it.
-    const caseB=JSON.parse(readFileSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'),'utf8')) as {expect:typeof expectations.expect;caseB:{reapplied:string[]}}
-    expect(caseB.caseB.reapplied).toEqual(['/cooling-tower-maintenance-and-repair/'])
-    expect(caseB.expect).toEqual({...expectations.expect,routes:{...expectations.expect.routes,canonical:1}})
-    // The two translated posts whose preserved locale page is still LOCALE_PENDING point at its current final page; Locale
-    // Part B repoints them (one hop), as recorded.
+    expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)
+    // The two translated posts that pointed at the English final page of a then-pending locale page now point at it (one hop).
     const repoint=tsv('locale-b-repoint.tsv')
     expect(repoint.map(row=>row.source)).toEqual(['/วิธีป้องกันแบคทีเรีย-legionella/','/逆流-vs-クロスフロー/'])
-    for(const row of repoint)expect(decode(redirects.find(r=>decode(r.source!)===decode(row.source!))!.destination!),row.source).toBe(row.destination_now)
+    for(const row of repoint)expect(decode(redirects.find(r=>decode(r.source!)===decode(row.source!))!.destination!),row.source).toBe(row.destination_after_locale_b)
     expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(18)
     expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT').map(row=>[row.path,row.redirect])).toEqual(Object.entries(overrides.redirectSources))
   })

@@ -17,6 +17,7 @@ path	routeId	action	redirect	canonical
 /projects-2/	LIVE-pages-5735	WITHDRAW_TO_REDIRECT	/all-projects/	
 /cooling-tower-automation/	SALMON-posts-3562	WITHDRAW_TO_REDIRECT	/industrial-cooling-tower-automation/	
 /cooling-tower-manufacturer-selection/	SALMON-posts-3978	CANONICAL		https://h2ocooling.com/cooling-tower-manufacturer-selection/
+/%e0%b9%82%e0%b8%8b%e0%b8%a5%e0%b8%b9%e0%b8%8a%e0%b8%b1%e0%b9%88%e0%b8%99%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%aa/	SALMON-posts-3092	PUBLISH		
 /cooling-tower-thermal-upgrade/	LIVE-pages-2244	WITHDRAW_TO_REDIRECT	/thermal-upgrade/	
 /aluminum-versus-frp-fan-blades-2/	LIVE-posts-2350	WITHDRAW_TO_REDIRECT	/aluminum-vs-frp-fan-blades/	
 /hybrid-cooling-tower-repair/	SALMON-posts-4083	CANONICAL		https://h2ocooling.com/hybrid-cooling-tower-repair/

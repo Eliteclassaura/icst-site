@@ -9,6 +9,8 @@
  *     in the cluster file. The publish-at-cutover condition needs no flag: the sitemap only emits alternates
  *     between members that are themselves listed, so a member that is not served drops out of every page.
  * The source files' SHA-256 are recorded so a later Part A revision is visible in review.
+ * contentLanguages: a page whose content is in another language than its URL slot (Part A OMIT, e.g. the swapped /th/ ↔ /ja/
+ * pair): its <html lang> follows the content; it carries no hreflang until the language is fixed (CT ruling 2026-10-05).
  */
 import { createHash } from 'node:crypto'
 import { readFileSync, writeFileSync } from 'node:fs'
@@ -27,10 +29,13 @@ const decodedPath = (u) => decodeURIComponent(new URL(u).pathname)
 const ORIGIN = 'https://h2ocooling.com'
 
 const languages = {}
+const contentLanguages = {}
 for (const r of tsv(partA)) {
   if (r.final_state !== '200') continue
   if (!r.url.startsWith(ORIGIN + '/')) throw new Error(`not an h2ocooling.com URL: ${r.url}`)
   languages[decodedPath(r.url)] = r.language
+  const omit = /^OMIT \(content language ([a-z]{2}) does not match/.exec(r.hreflang)
+  if (omit) contentLanguages[decodedPath(r.url)] = omit[1]
 }
 const groups = new Map()
 for (const r of tsv(clustersFile)) {
@@ -49,7 +54,8 @@ for (const [g, members] of groups) {
 const out = {
   source: { partA: { file: path.basename(partA), sha256: sha(partA) }, clusters: { file: path.basename(clustersFile), sha256: sha(clustersFile) } },
   languages: Object.fromEntries(Object.entries(languages).sort(([a], [b]) => a.localeCompare(b))),
+  contentLanguages,
   clusters: [...groups.values()],
 }
 writeFileSync(path.join(APP, 'content/locale/sitemap-locale.json'), JSON.stringify(out, null, 1) + '\n')
-process.stdout.write(JSON.stringify({ languages: Object.keys(languages).length, clusters: groups.size, members: [...groups.values()].flat().length }) + '\n')
+process.stdout.write(JSON.stringify({ languages: Object.keys(languages).length, contentLanguages, clusters: groups.size, members: [...groups.values()].flat().length }) + '\n')

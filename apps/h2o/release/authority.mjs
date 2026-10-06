@@ -35,7 +35,9 @@ export function releaseAuthority(root){
   // become REDIRECT rows. The scripted Payload batch (ops/seo-pass) applies exactly these rows.
   const seoPass=read('content/release/seo-pass-r1.json')
   const seoPublish=new Set(seoPass.publish)
-  const sourceRoutes=[...read('content/salmon/active-routes.json'),...read('content/salmon/r2-live-routes.json')]
+  // Locale Part B (owner decision 2026-10-05, OGCS Part A): the preserved live locale pages, captured from the live site
+  // with provenance (content/salmon/r3-locale-routes.json). They are LIVE-family sources; search stays English-only.
+  const sourceRoutes=[...read('content/salmon/active-routes.json'),...read('content/salmon/r2-live-routes.json'),...read('content/salmon/r3-locale-routes.json')]
   const routes=sourceRoutes.map(row=>{
     const bytes=readFileSync(path.join(root,'content/salmon',row.file))
     if(hash(bytes)!==row.sha256)throw new Error(`Source changed: ${row.routeId}`)
@@ -50,7 +52,7 @@ export function releaseAuthority(root){
     const sourceRobots=doc.seo.meta.find(meta=>meta.name==='robots')?.value??'index, follow'
     const self=pathKey(canonical.pathname)===pathKey(row.targetPath)
     const indexable=!held&&self&&sameOrigin&&!/\bnoindex\b/i.test(sourceRobots)
-    return {path:row.targetPath,routeId:row.routeId,sourceFile:row.file,sourceSha256:row.sha256,routeClass:doc.type,state:held?'REVIEW_HOLD':'PUBLIC',export:!held,indexable,sitemap:indexable,searchable:indexable&&['pages','product','posts'].includes(doc.type),canonical:canonical.href,previousCanonical,sourceRobots,matchedArticle:matched.has(row.routeId),releaseOverride:row.targetPath===releaseOverride?'USER_AUTHORIZED_EXACT_ARTICLE_2026_09_23':null,redirect:null}
+    return {path:row.targetPath,routeId:row.routeId,sourceFile:row.file,sourceSha256:row.sha256,routeClass:doc.type,state:held?'REVIEW_HOLD':'PUBLIC',export:!held,indexable,sitemap:indexable,searchable:indexable&&['pages','product','posts'].includes(doc.type)&&!row.routeId.startsWith('LIVE-LOCALE-'),canonical:canonical.href,previousCanonical,sourceRobots,matchedArticle:matched.has(row.routeId),releaseOverride:row.targetPath===releaseOverride?'USER_AUTHORIZED_EXACT_ARTICLE_2026_09_23':null,redirect:null}
   })
   // Owner-authorized canonical migration, 2026-09-24. Keep frozen Salmon bytes intact.
   const about=routes.find(row=>row.routeId==='SALMON-pages-1931')

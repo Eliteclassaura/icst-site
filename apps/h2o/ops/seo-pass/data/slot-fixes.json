@@ -9702,6 +9702,89 @@
    }
   ]
  },
+ "/cooling-tower-fill/": {
+  "routeId": "LIVE-posts-5206",
+  "slots": [
+   {
+    "key": "body.75",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"The top supplier of cooling tower fill is\",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\" Industrial Cooling Solutions\",0],[\"/a\"],[\"t\",\". Kindly contact us immediately if you are interested in our\",0],[\"a\",\"https://h2ocooling.com/blog/fill-materials-purpose-industrial-cooling-towers/\"],[\"t\",\" cooling tower fill products\",0],[\"/a\"],[\"t\",\"!\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Kindly contact us immediately if you are interested in our",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/blog/fill-materials-purpose-industrial-cooling-towers/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": " cooling tower fill products",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": "!",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Kindly contact us immediately if you are interested in our\",0],[\"a\",\"https://h2ocooling.com/blog/fill-materials-purpose-industrial-cooling-towers/\"],[\"t\",\" cooling tower fill products\",0],[\"/a\"],[\"t\",\"!\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "The top supplier of cooling tower fill is Industrial Cooling Solutions.",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unsubstantiated superlative (\"top supplier\") removed from the English page and every translation; nothing added"
+     }
+    ]
+   }
+  ]
+ },
  "/dyna-fab-10-height-fan-stack/": {
   "routeId": "LIVE-pages-2944",
   "slots": [
@@ -9831,6 +9914,658 @@
       "to": null,
       "action": "unlink",
       "reason": "typo domain; now a parked domain-sale page"
+     }
+    ]
+   }
+  ]
+ },
+ "/inspect-cooling-tower-part-2/": {
+  "routeId": "LIVE-posts-2373",
+  "slots": [
+   {
+    "key": "body.32",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Industrial Cooling Solutions combines American-based engineering with localized engineering and field service to provide each client with world-class industrial cooling services at a competitive price. We provide solutions for Power Generation, Geothermal Power, Refining, Petrochemical, Chemical industries, and more. \",0],[\"t\",\"When you contact Industrial Cooling Solutions, we’ll work closely with you to determine what issue you’re having. We’ll help you decide whether you need \",0],[\"a\",\"https://h2ocooling.com/cooling-tower-parts/\"],[\"t\",\"cooling tower replacement components\",0],[\"/a\"],[\"t\",\", upgrades, a complete system install, or a simple repair. No matter which services you trust us with, you’ll be guaranteed to see increased tower efficiency, improved profitability, safety, and longevity. Our dedicated staff has an immense amount of experience with applications in all industries. The quality of our products and services are unmatched by our competitors, so \",0],[\"a\",\"https://h2ocooling.com/contact/\"],[\"t\",\"give us a call today\",0],[\"/a\"],[\"t\",\" or \",0],[\"t\",\"browse our site\",0],[\"t\",\" to learn more.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Industrial Cooling Solutions combines American-based engineering with localized engineering and field service to provide each client with world-class industrial cooling services at a competitive price. We provide solutions for Power Generation, Geothermal Power, Refining, Petrochemical, Chemical industries, and more. ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "When you contact Industrial Cooling Solutions, we’ll work closely with you to determine what issue you’re having. We’ll help you decide whether you need ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/cooling-tower-parts/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "cooling tower replacement components",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": ", upgrades, a complete system install, or a simple repair. Our dedicated staff has an immense amount of experience with applications in all industries. The quality of our products and services are unmatched by our competitors, so ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/contact/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "give us a call today",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": " or ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "browse our site",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": " to learn more.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Industrial Cooling Solutions combines American-based engineering with localized engineering and field service to provide each client with world-class industrial cooling services at a competitive price. We provide solutions for Power Generation, Geothermal Power, Refining, Petrochemical, Chemical industries, and more. \",0],[\"t\",\"When you contact Industrial Cooling Solutions, we’ll work closely with you to determine what issue you’re having. We’ll help you decide whether you need \",0],[\"a\",\"https://h2ocooling.com/cooling-tower-parts/\"],[\"t\",\"cooling tower replacement components\",0],[\"/a\"],[\"t\",\", upgrades, a complete system install, or a simple repair. Our dedicated staff has an immense amount of experience with applications in all industries. The quality of our products and services are unmatched by our competitors, so \",0],[\"a\",\"https://h2ocooling.com/contact/\"],[\"t\",\"give us a call today\",0],[\"/a\"],[\"t\",\" or \",0],[\"t\",\"browse our site\",0],[\"t\",\" to learn more.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "No matter which services you trust us with, you’ll be guaranteed to see increased tower efficiency, improved profitability, safety, and longevity.",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unverifiable ICS-attributed outcome guarantee removed from the English page and every translation; nothing added"
+     }
+    ]
+   }
+  ]
+ },
+ "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/": {
+  "routeId": "LIVE-LOCALE-ja-14608",
+  "slots": [
+   {
+    "key": "body.35",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\" タワーの修理、アップグレード、再構築が必要な場合でも、当社はソリューションをカスタマイズしてタワーを最適な状態と運用パフォーマンスに復元します。 当社の革新的な設計により、タワーの効率が向上し、収益性が向上し、安全性と寿命が保証されます。 見積もりを依頼するには今すぐお問い合わせください。\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": " タワーの修理、アップグレード、再構築が必要な場合でも、当社はソリューションをカスタマイズしてタワーを最適な状態と運用パフォーマンスに復元します。 当社の革新的な設計により、タワーの効率が向上し、収益性が向上し、安全性と寿命が確保されます。 見積もりを依頼するには今すぐお問い合わせください。",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\" タワーの修理、アップグレード、再構築が必要な場合でも、当社はソリューションをカスタマイズしてタワーを最適な状態と運用パフォーマンスに復元します。 当社の革新的な設計により、タワーの効率が向上し、収益性が向上し、安全性と寿命が確保されます。 見積もりを依頼するには今すぐお問い合わせください。\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "安全性と寿命が保証されます",
+      "to": "安全性と寿命が確保されます",
+      "action": "word-corrected",
+      "reason": "CT ruling 2026-10-05: mistranslation corrected — the English says \"ensure\"; 保証 reads as \"guarantee\". Only this word changes (保証 → 確保)"
+     }
+    ]
+   }
+  ]
+ },
+ "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e5%85%85%e5%a1%ab%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%e7%9f%a5%e3%81%a3%e3%81%a6%e3%81%8a%e3%81%8f%e3%81%b9%e3%81%8d%e3%81%93%e3%81%a8/": {
+  "routeId": "LIVE-LOCALE-ja-14582",
+  "slots": [
+   {
+    "key": "body.75",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"冷却塔充填材のトップサプライヤーは Industrial Cooling Solutions です。 当社の冷却塔充填製品にご興味がございましたら、今すぐご連絡ください。\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "当社の冷却塔充填製品にご興味がございましたら、今すぐご連絡ください。",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"当社の冷却塔充填製品にご興味がございましたら、今すぐご連絡ください。\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "冷却塔充填材のトップサプライヤーは Industrial Cooling Solutions です。",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unsubstantiated superlative (\"top supplier\") removed from the English page and every translation; nothing added"
+     }
+    ]
+   }
+  ]
+ },
+ "/ja/%e5%af%92%e5%86%b7%e5%9c%b0%e3%81%ae%e5%86%b7%e5%8d%b4%e5%a1%94/": {
+  "routeId": "LIVE-LOCALE-ja-14640",
+  "slots": [
+   {
+    "key": "body.25",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Industrial Cooling Solutions は、米国に本拠を置く冷却塔会社で、顧客に冷却塔の交換、修理、アップグレード、設置サービスを提供しています。 当社の経験豊富なスタッフは、あらゆる用途および業界の冷却塔の保守に経験があり、当社にお問い合わせいただいた各企業の成功に全力で取り組んでいます。 当社の洗練された冷却塔サービスは、塔の効率を向上させ、収益性を高め、常に安全性と寿命を保証するように設計されています。 ICS についてさらに詳しく知りたい場合は、当社の Web サイトを読むか、今すぐお問い合わせください。 ぜひご連絡ください。\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Industrial Cooling Solutions は、米国に本拠を置く冷却塔会社で、顧客に冷却塔の交換、修理、アップグレード、設置サービスを提供しています。 当社の経験豊富なスタッフは、あらゆる用途および業界の冷却塔の保守に経験があり、当社にお問い合わせいただいた各企業の成功に全力で取り組んでいます。 当社の洗練された冷却塔サービスは、塔の効率を向上させ、収益性を高め、常に安全性と寿命を確保するように設計されています。 ICS についてさらに詳しく知りたい場合は、当社の Web サイトを読むか、今すぐお問い合わせください。 ぜひご連絡ください。",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Industrial Cooling Solutions は、米国に本拠を置く冷却塔会社で、顧客に冷却塔の交換、修理、アップグレード、設置サービスを提供しています。 当社の経験豊富なスタッフは、あらゆる用途および業界の冷却塔の保守に経験があり、当社にお問い合わせいただいた各企業の成功に全力で取り組んでいます。 当社の洗練された冷却塔サービスは、塔の効率を向上させ、収益性を高め、常に安全性と寿命を確保するように設計されています。 ICS についてさらに詳しく知りたい場合は、当社の Web サイトを読むか、今すぐお問い合わせください。 ぜひご連絡ください。\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "常に安全性と寿命を保証するように",
+      "to": "常に安全性と寿命を確保するように",
+      "action": "word-corrected",
+      "reason": "CT ruling 2026-10-05: mistranslation corrected — the English says \"ensure\"; 保証 reads as \"guarantee\". Only this word changes (保証 → 確保)"
+     }
+    ]
+   }
+  ]
+ },
+ "/th/%e0%b8%aa%e0%b8%b4%e0%b9%88%e0%b8%87%e0%b8%97%e0%b8%b5%e0%b9%88%e0%b8%84%e0%b8%b8%e0%b8%93%e0%b8%95%e0%b9%89%e0%b8%ad%e0%b8%87%e0%b8%a3%e0%b8%b9%e0%b9%89%e0%b9%80%e0%b8%81%e0%b8%b5%e0%b9%88%e0%b8%a2/": {
+  "routeId": "LIVE-LOCALE-th-14580",
+  "slots": [
+   {
+    "key": "body.71",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ซัพพลายเออร์ชั้นนำของฟิลหอทำความเย็นคือ Industrial Cooling Solutions กรุณาติดต่อเราทันทีหากคุณสนใจผลิตภัณฑ์ฟิลหอทำความเย็นของเรา!\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "กรุณาติดต่อเราทันทีหากคุณสนใจผลิตภัณฑ์ฟิลหอทำความเย็นของเรา!",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"กรุณาติดต่อเราทันทีหากคุณสนใจผลิตภัณฑ์ฟิลหอทำความเย็นของเรา!\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "ซัพพลายเออร์ชั้นนำของฟิลหอทำความเย็นคือ Industrial Cooling Solutions",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unsubstantiated superlative (\"top supplier\") removed from the English page and every translation; nothing added"
+     }
+    ]
+   }
+  ]
+ },
+ "/vi/nhung-dieu-ban-can-biet-ve-thap-giai-nhiet/": {
+  "routeId": "LIVE-LOCALE-vi-14584",
+  "slots": [
+   {
+    "key": "body.75",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Nhà cung cấp giải pháp làm mát tháp giải nhiệt hàng đầu là Giải pháp làm mát công nghiệp. Vui lòng liên hệ ngay với chúng tôi nếu bạn quan tâm đến các sản phẩm làm đầy tháp giải nhiệt của chúng tôi!\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Vui lòng liên hệ ngay với chúng tôi nếu bạn quan tâm đến các sản phẩm làm đầy tháp giải nhiệt của chúng tôi!",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Vui lòng liên hệ ngay với chúng tôi nếu bạn quan tâm đến các sản phẩm làm đầy tháp giải nhiệt của chúng tôi!\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Nhà cung cấp giải pháp làm mát tháp giải nhiệt hàng đầu là Giải pháp làm mát công nghiệp.",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unsubstantiated superlative (\"top supplier\") removed from the English page and every translation; nothing added"
+     }
+    ]
+   }
+  ]
+ },
+ "/id/hal-hal-yang-perlu-anda-ketahui-tentang-pengisi-menara-pendingin/": {
+  "routeId": "LIVE-LOCALE-id-14586",
+  "slots": [
+   {
+    "key": "body.75",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Pemasok utama pengisian menara pendingin adalah Solusi Pendinginan Industri. Silakan segera hubungi kami jika Anda tertarik dengan produk pengisian menara pendingin kami!\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Silakan segera hubungi kami jika Anda tertarik dengan produk pengisian menara pendingin kami!",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Silakan segera hubungi kami jika Anda tertarik dengan produk pengisian menara pendingin kami!\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Pemasok utama pengisian menara pendingin adalah Solusi Pendinginan Industri.",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unsubstantiated superlative (\"top supplier\") removed from the English page and every translation; nothing added"
+     }
+    ]
+   }
+  ]
+ },
+ "/id/cara-memeriksa-menara-pendingin-bagian-2/": {
+  "routeId": "LIVE-LOCALE-id-14636",
+  "slots": [
+   {
+    "key": "body.29",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Solusi Pendinginan Industri menggabungkan teknik yang berbasis di Amerika dengan teknik lokal dan layanan lapangan untuk menyediakan layanan pendinginan industri kelas dunia kepada setiap klien dengan harga yang kompetitif. Kami menyediakan solusi untuk Pembangkit Listrik, Tenaga Panas Bumi, Pengilangan, Petrokimia, industri Kimia, dan banyak lagi. Saat Anda menghubungi Solusi Pendinginan Industri, kami akan bekerja sama dengan Anda untuk mengetahui masalah apa yang Anda alami. Kami akan membantu Anda memutuskan apakah Anda memerlukan penggantian komponen menara pendingin, peningkatan, pemasangan sistem secara lengkap, atau perbaikan sederhana. Apa pun layanan yang Anda percayakan kepada kami, Anda dijamin akan melihat peningkatan efisiensi menara, peningkatan profitabilitas, keamanan, dan umur panjang. Staf kami yang berdedikasi memiliki banyak pengalaman dengan aplikasi di semua industri. Kualitas produk dan layanan kami tidak tertandingi oleh pesaing kami, jadi hubungi kami sekarang atau jelajahi situs kami untuk mempelajari lebih lanjut.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Solusi Pendinginan Industri menggabungkan teknik yang berbasis di Amerika dengan teknik lokal dan layanan lapangan untuk menyediakan layanan pendinginan industri kelas dunia kepada setiap klien dengan harga yang kompetitif. Kami menyediakan solusi untuk Pembangkit Listrik, Tenaga Panas Bumi, Pengilangan, Petrokimia, industri Kimia, dan banyak lagi. Saat Anda menghubungi Solusi Pendinginan Industri, kami akan bekerja sama dengan Anda untuk mengetahui masalah apa yang Anda alami. Kami akan membantu Anda memutuskan apakah Anda memerlukan penggantian komponen menara pendingin, peningkatan, pemasangan sistem secara lengkap, atau perbaikan sederhana. Staf kami yang berdedikasi memiliki banyak pengalaman dengan aplikasi di semua industri. Kualitas produk dan layanan kami tidak tertandingi oleh pesaing kami, jadi hubungi kami sekarang atau jelajahi situs kami untuk mempelajari lebih lanjut.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Solusi Pendinginan Industri menggabungkan teknik yang berbasis di Amerika dengan teknik lokal dan layanan lapangan untuk menyediakan layanan pendinginan industri kelas dunia kepada setiap klien dengan harga yang kompetitif. Kami menyediakan solusi untuk Pembangkit Listrik, Tenaga Panas Bumi, Pengilangan, Petrokimia, industri Kimia, dan banyak lagi. Saat Anda menghubungi Solusi Pendinginan Industri, kami akan bekerja sama dengan Anda untuk mengetahui masalah apa yang Anda alami. Kami akan membantu Anda memutuskan apakah Anda memerlukan penggantian komponen menara pendingin, peningkatan, pemasangan sistem secara lengkap, atau perbaikan sederhana. Staf kami yang berdedikasi memiliki banyak pengalaman dengan aplikasi di semua industri. Kualitas produk dan layanan kami tidak tertandingi oleh pesaing kami, jadi hubungi kami sekarang atau jelajahi situs kami untuk mempelajari lebih lanjut.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Apa pun layanan yang Anda percayakan kepada kami, Anda dijamin akan melihat peningkatan efisiensi menara, peningkatan profitabilitas, keamanan, dan umur panjang.",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unverifiable ICS-attributed outcome guarantee removed from the English page and every translation; nothing added"
+     }
+    ]
+   }
+  ]
+ },
+ "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e6%a4%9c%e6%9f%bb%e6%96%b9%e6%b3%95-%e3%83%91%e3%83%bc%e3%83%88-2/": {
+  "routeId": "LIVE-LOCALE-ja-14632",
+  "slots": [
+   {
+    "key": "body.29",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"産業用冷却ソリューションは、アメリカを拠点とするエンジニアリングと現地のエンジニアリングおよびフィールド サービスを組み合わせて、各クライアントに世界クラスの産業用冷却サービスを競争力のある価格で提供します。 発電、地熱、精製、石油化学、化学産業などにソリューションを提供しています。 産業用冷却ソリューションにご連絡いただくと、どのような問題が発生しているのかを確認するために緊密に連携します。 冷却塔の交換コンポーネント、アップグレード、完全なシステムの設置、または簡単な修理が必要かどうかを判断するお手伝いをいたします。 どのサービスを信頼していただいても、タワーの効率が向上し、収益性、安全性、寿命が向上することが保証されます。 当社の専任スタッフは、あらゆる業界のアプリケーションに関して豊富な経験を持っています。 当社の製品とサービスの品質は競合他社の追随を許しません。詳細については、今すぐお電話いただくか、当社のサイトをご覧ください。\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "産業用冷却ソリューションは、アメリカを拠点とするエンジニアリングと現地のエンジニアリングおよびフィールド サービスを組み合わせて、各クライアントに世界クラスの産業用冷却サービスを競争力のある価格で提供します。 発電、地熱、精製、石油化学、化学産業などにソリューションを提供しています。 産業用冷却ソリューションにご連絡いただくと、どのような問題が発生しているのかを確認するために緊密に連携します。 冷却塔の交換コンポーネント、アップグレード、完全なシステムの設置、または簡単な修理が必要かどうかを判断するお手伝いをいたします。 当社の専任スタッフは、あらゆる業界のアプリケーションに関して豊富な経験を持っています。 当社の製品とサービスの品質は競合他社の追随を許しません。詳細については、今すぐお電話いただくか、当社のサイトをご覧ください。",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"産業用冷却ソリューションは、アメリカを拠点とするエンジニアリングと現地のエンジニアリングおよびフィールド サービスを組み合わせて、各クライアントに世界クラスの産業用冷却サービスを競争力のある価格で提供します。 発電、地熱、精製、石油化学、化学産業などにソリューションを提供しています。 産業用冷却ソリューションにご連絡いただくと、どのような問題が発生しているのかを確認するために緊密に連携します。 冷却塔の交換コンポーネント、アップグレード、完全なシステムの設置、または簡単な修理が必要かどうかを判断するお手伝いをいたします。 当社の専任スタッフは、あらゆる業界のアプリケーションに関して豊富な経験を持っています。 当社の製品とサービスの品質は競合他社の追随を許しません。詳細については、今すぐお電話いただくか、当社のサイトをご覧ください。\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "どのサービスを信頼していただいても、タワーの効率が向上し、収益性、安全性、寿命が向上することが保証されます。",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unverifiable ICS-attributed outcome guarantee removed from the English page and every translation; nothing added"
+     }
+    ]
+   }
+  ]
+ },
+ "/th/%e0%b8%a7%e0%b8%b4%e0%b8%98%e0%b8%b5%e0%b8%95%e0%b8%a3%e0%b8%a7%e0%b8%88%e0%b8%aa%e0%b8%ad%e0%b8%9a%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87/": {
+  "routeId": "LIVE-LOCALE-th-14630",
+  "slots": [
+   {
+    "key": "body.29",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"โซลูชันการทำความเย็นทางอุตสาหกรรมผสมผสานวิศวกรรมที่มีฐานในอเมริกาเข้ากับวิศวกรรมเฉพาะที่และบริการภาคสนาม เพื่อให้ลูกค้าแต่ละรายได้รับบริการทำความเย็นทางอุตสาหกรรมระดับโลกในราคาที่แข่งขันได้ เราจัดหาโซลูชั่นสำหรับการผลิตไฟฟ้า พลังงานความร้อนใต้พิภพ การกลั่น ปิโตรเคมี เคมีภัณฑ์ และอื่นๆ เมื่อคุณติดต่อ Industrial Cooling Solutions เราจะทำงานอย่างใกล้ชิดกับคุณเพื่อพิจารณาว่าคุณประสบปัญหาใด เราจะช่วยคุณตัดสินใจว่าคุณต้องการชิ้นส่วนทดแทนหอทำความเย็น การอัพเกรด การติดตั้งระบบทั้งหมด หรือการซ่อมแซมง่ายๆ ไม่ว่าคุณจะไว้วางใจเราด้วยบริการใด คุณจะรับประกันได้ว่าประสิทธิภาพของทาวเวอร์ที่เพิ่มขึ้น ความสามารถในการทำกำไรที่ดีขึ้น ความปลอดภัย และอายุการใช้งานที่ยาวนานขึ้น พนักงานที่ทุ่มเทของเรามีประสบการณ์มากมายในการใช้งานในทุกอุตสาหกรรม คุณภาพของผลิตภัณฑ์และบริการของเราไม่มีใครเทียบได้กับคู่แข่ง ดังนั้นโทรหาเราวันนี้หรือเรียกดูเว็บไซต์ของเราเพื่อเรียนรู้เพิ่มเติม\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "โซลูชันการทำความเย็นทางอุตสาหกรรมผสมผสานวิศวกรรมที่มีฐานในอเมริกาเข้ากับวิศวกรรมเฉพาะที่และบริการภาคสนาม เพื่อให้ลูกค้าแต่ละรายได้รับบริการทำความเย็นทางอุตสาหกรรมระดับโลกในราคาที่แข่งขันได้ เราจัดหาโซลูชั่นสำหรับการผลิตไฟฟ้า พลังงานความร้อนใต้พิภพ การกลั่น ปิโตรเคมี เคมีภัณฑ์ และอื่นๆ เมื่อคุณติดต่อ Industrial Cooling Solutions เราจะทำงานอย่างใกล้ชิดกับคุณเพื่อพิจารณาว่าคุณประสบปัญหาใด เราจะช่วยคุณตัดสินใจว่าคุณต้องการชิ้นส่วนทดแทนหอทำความเย็น การอัพเกรด การติดตั้งระบบทั้งหมด หรือการซ่อมแซมง่ายๆ พนักงานที่ทุ่มเทของเรามีประสบการณ์มากมายในการใช้งานในทุกอุตสาหกรรม คุณภาพของผลิตภัณฑ์และบริการของเราไม่มีใครเทียบได้กับคู่แข่ง ดังนั้นโทรหาเราวันนี้หรือเรียกดูเว็บไซต์ของเราเพื่อเรียนรู้เพิ่มเติม",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"โซลูชันการทำความเย็นทางอุตสาหกรรมผสมผสานวิศวกรรมที่มีฐานในอเมริกาเข้ากับวิศวกรรมเฉพาะที่และบริการภาคสนาม เพื่อให้ลูกค้าแต่ละรายได้รับบริการทำความเย็นทางอุตสาหกรรมระดับโลกในราคาที่แข่งขันได้ เราจัดหาโซลูชั่นสำหรับการผลิตไฟฟ้า พลังงานความร้อนใต้พิภพ การกลั่น ปิโตรเคมี เคมีภัณฑ์ และอื่นๆ เมื่อคุณติดต่อ Industrial Cooling Solutions เราจะทำงานอย่างใกล้ชิดกับคุณเพื่อพิจารณาว่าคุณประสบปัญหาใด เราจะช่วยคุณตัดสินใจว่าคุณต้องการชิ้นส่วนทดแทนหอทำความเย็น การอัพเกรด การติดตั้งระบบทั้งหมด หรือการซ่อมแซมง่ายๆ พนักงานที่ทุ่มเทของเรามีประสบการณ์มากมายในการใช้งานในทุกอุตสาหกรรม คุณภาพของผลิตภัณฑ์และบริการของเราไม่มีใครเทียบได้กับคู่แข่ง ดังนั้นโทรหาเราวันนี้หรือเรียกดูเว็บไซต์ของเราเพื่อเรียนรู้เพิ่มเติม\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "ไม่ว่าคุณจะไว้วางใจเราด้วยบริการใด คุณจะรับประกันได้ว่าประสิทธิภาพของทาวเวอร์ที่เพิ่มขึ้น ความสามารถในการทำกำไรที่ดีขึ้น ความปลอดภัย และอายุการใช้งานที่ยาวนานขึ้น",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unverifiable ICS-attributed outcome guarantee removed from the English page and every translation; nothing added"
+     }
+    ]
+   }
+  ]
+ },
+ "/vi/cach-kiem-tra-thap-giai-nhiet-phan-2/": {
+  "routeId": "LIVE-LOCALE-vi-14634",
+  "slots": [
+   {
+    "key": "body.29",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Giải pháp làm mát công nghiệp kết hợp kỹ thuật có trụ sở tại Mỹ với kỹ thuật địa phương và dịch vụ hiện trường để cung cấp cho mỗi khách hàng dịch vụ làm mát công nghiệp đẳng cấp thế giới với mức giá cạnh tranh. Chúng tôi cung cấp các giải pháp cho ngành Sản xuất điện, Năng lượng địa nhiệt, Lọc dầu, Hóa dầu, Hóa chất, v.v. Khi bạn liên hệ với Giải pháp làm mát công nghiệp, chúng tôi sẽ hợp tác chặt chẽ với bạn để xác định vấn đề bạn đang gặp phải. Chúng tôi sẽ giúp bạn quyết định xem bạn cần các bộ phận thay thế tháp giải nhiệt, nâng cấp, cài đặt hệ thống hoàn chỉnh hay sửa chữa đơn giản. Cho dù bạn tin tưởng sử dụng dịch vụ nào của chúng tôi, bạn sẽ được đảm bảo thấy hiệu suất của tháp tăng lên, lợi nhuận được cải thiện, độ an toàn và tuổi thọ cao. Đội ngũ nhân viên tận tâm của chúng tôi có nhiều kinh nghiệm với các ứng dụng trong tất cả các ngành. Chất lượng sản phẩm và dịch vụ của chúng tôi không thể so sánh với các đối thủ cạnh tranh, vì vậy hãy gọi cho chúng tôi ngay hôm nay hoặc duyệt qua trang web của chúng tôi để tìm hiểu thêm.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Giải pháp làm mát công nghiệp kết hợp kỹ thuật có trụ sở tại Mỹ với kỹ thuật địa phương và dịch vụ hiện trường để cung cấp cho mỗi khách hàng dịch vụ làm mát công nghiệp đẳng cấp thế giới với mức giá cạnh tranh. Chúng tôi cung cấp các giải pháp cho ngành Sản xuất điện, Năng lượng địa nhiệt, Lọc dầu, Hóa dầu, Hóa chất, v.v. Khi bạn liên hệ với Giải pháp làm mát công nghiệp, chúng tôi sẽ hợp tác chặt chẽ với bạn để xác định vấn đề bạn đang gặp phải. Chúng tôi sẽ giúp bạn quyết định xem bạn cần các bộ phận thay thế tháp giải nhiệt, nâng cấp, cài đặt hệ thống hoàn chỉnh hay sửa chữa đơn giản. Đội ngũ nhân viên tận tâm của chúng tôi có nhiều kinh nghiệm với các ứng dụng trong tất cả các ngành. Chất lượng sản phẩm và dịch vụ của chúng tôi không thể so sánh với các đối thủ cạnh tranh, vì vậy hãy gọi cho chúng tôi ngay hôm nay hoặc duyệt qua trang web của chúng tôi để tìm hiểu thêm.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Giải pháp làm mát công nghiệp kết hợp kỹ thuật có trụ sở tại Mỹ với kỹ thuật địa phương và dịch vụ hiện trường để cung cấp cho mỗi khách hàng dịch vụ làm mát công nghiệp đẳng cấp thế giới với mức giá cạnh tranh. Chúng tôi cung cấp các giải pháp cho ngành Sản xuất điện, Năng lượng địa nhiệt, Lọc dầu, Hóa dầu, Hóa chất, v.v. Khi bạn liên hệ với Giải pháp làm mát công nghiệp, chúng tôi sẽ hợp tác chặt chẽ với bạn để xác định vấn đề bạn đang gặp phải. Chúng tôi sẽ giúp bạn quyết định xem bạn cần các bộ phận thay thế tháp giải nhiệt, nâng cấp, cài đặt hệ thống hoàn chỉnh hay sửa chữa đơn giản. Đội ngũ nhân viên tận tâm của chúng tôi có nhiều kinh nghiệm với các ứng dụng trong tất cả các ngành. Chất lượng sản phẩm và dịch vụ của chúng tôi không thể so sánh với các đối thủ cạnh tranh, vì vậy hãy gọi cho chúng tôi ngay hôm nay hoặc duyệt qua trang web của chúng tôi để tìm hiểu thêm.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Cho dù bạn tin tưởng sử dụng dịch vụ nào của chúng tôi, bạn sẽ được đảm bảo thấy hiệu suất của tháp tăng lên, lợi nhuận được cải thiện, độ an toàn và tuổi thọ cao.",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unverifiable ICS-attributed outcome guarantee removed from the English page and every translation; nothing added"
      }
     ]
    }
