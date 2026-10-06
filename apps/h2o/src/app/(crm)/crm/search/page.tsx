@@ -12,7 +12,7 @@ export const metadata: Metadata = { title: 'Search' }
 export default async function SearchPage() {
   const s = await requireCrmSession('/crm/search/')
   return (
-    <Shell active="search" title="Search" userName={s.displayName} isAdmin={s.isAdmin}>
+    <Shell active="search" title="Search" userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <section className="c-panel c-narrow" aria-label="Search">
         <SearchPanel mode="page" />
       </section>

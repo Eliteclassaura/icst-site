@@ -102,6 +102,8 @@ export interface Config {
     'crm-email-messages': CrmEmailMessage;
     'crm-reply-tokens': CrmReplyToken;
     'crm-email-review': CrmEmailReview;
+    'crm-import-batches': CrmImportBatch;
+    'crm-saved-views': CrmSavedView;
     'public-routes': PublicRoute;
     'public-redirects': PublicRedirect;
     'payload-kv': PayloadKv;
@@ -179,6 +181,8 @@ export interface Config {
     'crm-email-messages': CrmEmailMessagesSelect<false> | CrmEmailMessagesSelect<true>;
     'crm-reply-tokens': CrmReplyTokensSelect<false> | CrmReplyTokensSelect<true>;
     'crm-email-review': CrmEmailReviewSelect<false> | CrmEmailReviewSelect<true>;
+    'crm-import-batches': CrmImportBatchesSelect<false> | CrmImportBatchesSelect<true>;
+    'crm-saved-views': CrmSavedViewsSelect<false> | CrmSavedViewsSelect<true>;
     'public-routes': PublicRoutesSelect<false> | PublicRoutesSelect<true>;
     'public-redirects': PublicRedirectsSelect<false> | PublicRedirectsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -2056,6 +2060,10 @@ export interface CrmAccount {
   canonical_name: string;
   legal_name?: string | null;
   /**
+   * Named from its domain by an import (no company name supplied). Renaming clears it.
+   */
+  name_from_domain?: boolean | null;
+  /**
    * Only aliases with evidence. Similar names never make two records one.
    */
   aliases?:
@@ -2086,6 +2094,14 @@ export interface CrmAccount {
   industry?: string | null;
   strategic_tier: 'TIER_1' | 'TIER_2' | 'TIER_3' | 'UNRATED';
   relationship_state: 'VERIFIED_CUSTOMER' | 'VERIFIED_PAST_CUSTOMER' | 'PROSPECT' | 'CANDIDATE' | 'UNKNOWN';
+  /**
+   * Owner-attested batch evidence (see relationship_basis_batch). Not a verification.
+   */
+  relationship_basis?: 'OWNER_ATTESTED_BATCH' | null;
+  /**
+   * The import batch (canonical id) whose attestation applies.
+   */
+  relationship_basis_batch?: string | null;
   account_state: 'ACTIVE' | 'DORMANT' | 'ARCHIVED' | 'MERGED';
   /**
    * Account owner. Empty means unassigned — no default owner is invented.
@@ -2194,13 +2210,29 @@ export interface CrmContact {
   company_name_original?: string | null;
   account?: (string | null) | CrmAccount;
   account_link_confidence: 'VERIFIED' | 'HIGH_CONFIDENCE' | 'LOW_CONFIDENCE' | 'UNKNOWN';
+  /**
+   * Owner-attested batch evidence (see relationship_basis_batch). Not a verification.
+   */
+  relationship_basis?: 'OWNER_ATTESTED_BATCH' | null;
+  /**
+   * The import batch (canonical id) whose attestation applies.
+   */
+  relationship_basis_batch?: string | null;
   country_code?: string | null;
+  /**
+   * How the country is known. Inferred values (phone code, email ccTLD) are hints, never a verified jurisdiction.
+   */
+  country_source?: ('SUBMITTED' | 'IMPORTED' | 'PHONE_INFERRED' | 'EMAIL_CCTLD_INFERRED') | null;
   fit_state: 'MEGA_INDUSTRIAL_FIT' | 'LIKELY_FIT' | 'UNKNOWN' | 'NON_CORE';
   record_state: 'ACTIVE' | 'ARCHIVED' | 'MERGED';
   /**
    * Contact owner, if any. Empty means unassigned.
    */
   owner?: (string | null) | User;
+  /**
+   * Data-quality flag. Any value: never linked to an account, never marketing-eligible, excluded from every sequence. The address is kept as written.
+   */
+  address_quality?: ('SUSPECT_TYPO' | 'DISPOSABLE' | 'SPAM_PATTERN' | 'INTERNAL') | null;
   /**
    * E0.1: marks an internal/test address. It never makes a contact sendable.
    */
@@ -2807,6 +2839,19 @@ export interface CrmRfq {
       )
     | null;
   /**
+   * Derived ISO country. Empty = unknown (never defaulted).
+   */
+  country_code?: string | null;
+  /**
+   * How the country is known: submitted, destination answer, or inferred from the phone.
+   */
+  country_source?: ('SUBMITTED' | 'DESTINATION_ANSWER' | 'PHONE_INFERRED' | 'UNKNOWN') | null;
+  /**
+   * Derived: the staff motion when set, else the customer’s stated interest.
+   */
+  inquiry_type?: ('PARTS' | 'NEW_TOWER' | 'REPAIR_SERVICE' | 'OTHER' | 'UNKNOWN') | null;
+  inquiry_type_source?: ('STAFF_MOTION' | 'CUSTOMER_INTEREST' | 'NONE') | null;
+  /**
    * Who owns the response. Empty = assignment queue.
    */
   assignee?: (string | null) | User;
@@ -3112,6 +3157,8 @@ export interface CrmIdentityReview {
     | 'CONTACT_ACCOUNT_CONFLICT'
     | 'POSSIBLE_DUPLICATE_SUBMISSION'
     | 'INTAKE_CONFLICTING_PAYLOAD'
+    | 'GENERIC_SHARED_INBOX'
+    | 'SUSPECT_ADDRESS_DOMAIN'
     | 'OTHER';
   state: 'OPEN' | 'CONFIRMED_DISTINCT' | 'CONFIRMED_DUPLICATE_PENDING_MERGE' | 'DISMISSED';
   /**
@@ -3408,6 +3455,134 @@ export interface CrmEmailReview {
   createdAt: string;
 }
 /**
+ * Applied CSV imports (Wave 1). Counts and ids only; undo archives, never deletes.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-import-batches".
+ */
+export interface CrmImportBatch {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  entity: 'CONTACTS';
+  status: 'APPLIED' | 'UNDONE';
+  /**
+   * Identifies the file without storing it.
+   */
+  file_sha256: string;
+  row_count: number;
+  /**
+   * Target field → column position. No header text, no values.
+   */
+  mapping:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  options?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Where the file came from, e.g. "email-IQ export 2026-07-14". No personal data.
+   */
+  source_label?: string | null;
+  /**
+   * Why the records may be held, e.g. "owner-attested existing customers (2026-10-05)".
+   */
+  basis?: string | null;
+  /**
+   * Outcome counts only.
+   */
+  counts:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Existing contacts this batch filled: id + field names (for undo).
+   */
+  fills?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * The admin who applied the batch.
+   */
+  applied_by?: (string | null) | User;
+  applied_at?: string | null;
+  /**
+   * The admin who undid the batch.
+   */
+  undone_by?: (string | null) | User;
+  undone_at?: string | null;
+  undo_counts?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  undo_note?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Workspace saved filters (Wave 1). Filter keys only — never a search term or personal data.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-saved-views".
+ */
+export interface CrmSavedView {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  name: string;
+  list: 'inbox' | 'accounts' | 'contacts' | 'followups';
+  /**
+   * Validated filter query (rebuilt by the server).
+   */
+  query?: string | null;
+  /**
+   * Who saved it. Set by the server.
+   */
+  owner?: (string | null) | User;
+  /**
+   * Shared with every CRM user (admins only).
+   */
+  shared?: boolean | null;
+  /**
+   * Shown in the sidebar.
+   */
+  pinned?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-redirects".
  */
@@ -3679,6 +3854,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'crm-email-review';
         value: string | CrmEmailReview;
+      } | null)
+    | ({
+        relationTo: 'crm-import-batches';
+        value: string | CrmImportBatch;
+      } | null)
+    | ({
+        relationTo: 'crm-saved-views';
+        value: string | CrmSavedView;
       } | null)
     | ({
         relationTo: 'public-routes';
@@ -4622,6 +4805,7 @@ export interface CrmAccountsSelect<T extends boolean = true> {
   canonical_id?: T;
   canonical_name?: T;
   legal_name?: T;
+  name_from_domain?: T;
   aliases?:
     | T
     | {
@@ -4641,6 +4825,8 @@ export interface CrmAccountsSelect<T extends boolean = true> {
   industry?: T;
   strategic_tier?: T;
   relationship_state?: T;
+  relationship_basis?: T;
+  relationship_basis_batch?: T;
   account_state?: T;
   owner?: T;
   provenance?:
@@ -4687,10 +4873,14 @@ export interface CrmContactsSelect<T extends boolean = true> {
   company_name_original?: T;
   account?: T;
   account_link_confidence?: T;
+  relationship_basis?: T;
+  relationship_basis_batch?: T;
   country_code?: T;
+  country_source?: T;
   fit_state?: T;
   record_state?: T;
   owner?: T;
+  address_quality?: T;
   internal_test_candidate?: T;
   marketing_eligibility?: T;
   relationship_evidence?: T;
@@ -4907,6 +5097,10 @@ export interface CrmRfqsSelect<T extends boolean = true> {
   status_reason?: T;
   qualification_state?: T;
   motion?: T;
+  country_code?: T;
+  country_source?: T;
+  inquiry_type?: T;
+  inquiry_type_source?: T;
   assignee?: T;
   assigned_at?: T;
   follow_up_state?: T;
@@ -5258,6 +5452,46 @@ export interface CrmEmailReviewSelect<T extends boolean = true> {
   rfq?: T;
   resolved_by?: T;
   resolved_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-import-batches_select".
+ */
+export interface CrmImportBatchesSelect<T extends boolean = true> {
+  canonical_id?: T;
+  entity?: T;
+  status?: T;
+  file_sha256?: T;
+  row_count?: T;
+  mapping?: T;
+  options?: T;
+  source_label?: T;
+  basis?: T;
+  counts?: T;
+  fills?: T;
+  applied_by?: T;
+  applied_at?: T;
+  undone_by?: T;
+  undone_at?: T;
+  undo_counts?: T;
+  undo_note?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-saved-views_select".
+ */
+export interface CrmSavedViewsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  name?: T;
+  list?: T;
+  query?: T;
+  owner?: T;
+  shared?: T;
+  pinned?: T;
   updatedAt?: T;
   createdAt?: T;
 }

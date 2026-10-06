@@ -201,12 +201,20 @@ describe('static: authorization cannot be bypassed by direct URL or action POST'
     expect(src.startsWith("'use server'")).toBe(true)
     const bodies = src.split(/\nexport async function /).slice(1)
     expect(bodies.length).toBeGreaterThanOrEqual(20)
-    for (const b of bodies) expect(b, b.slice(0, 40)).toMatch(/\brun\(|actionSession\(\)/)
+    for (const b of bodies) expect(b, b.slice(0, 40)).toMatch(/\brun\(|\brunBulk\(|actionSession\(\)/)
   })
-  it('the CRM layout is noindex and there are no CRM API route handlers', () => {
+  it('the CRM layout is noindex; the only route handlers are the admin-only, same-origin import and export', () => {
     const layout = read(path.join(CRM_APP, 'layout.tsx'))
     expect(layout).toMatch(/robots: \{ index: false, follow: false, nocache: true, googleBot: \{ index: false, follow: false \} \}/)
-    expect(appFiles.filter((f) => /route\.(ts|tsx)$/.test(f))).toEqual([])
+    // Wave 1 W1-3/W1-4: a 5 MB upload and a streamed download need route handlers (server actions cannot carry them).
+    const routes = appFiles.filter((f) => /route\.(ts|tsx)$/.test(f)).map(rel).sort()
+    expect(routes).toEqual(['app/(crm)/crm/export/route.ts', 'app/(crm)/crm/import/run/route.ts'])
+    for (const r of routes) {
+      const t = read(path.join(SRC, r))
+      expect(t, r).toMatch(/payload\.auth\(\{ headers: request\.headers \}\)/)
+      expect(t, r).toMatch(/!s\.isAdmin/)
+      expect(t, r).toMatch(/sec-fetch-site/)
+    }
   })
   it('workspace writes run as the user; overrideAccess is limited to documented trusted reads', () => {
     const allowed: Record<string, number> = { 'queries.ts': 1, 'manualInquiry.ts': 2 }
@@ -226,15 +234,27 @@ describe('static: authorization cannot be bypassed by direct URL or action POST'
 
 describe('static: UI-1 scope', () => {
   const ui = [...appFiles, ...wsFiles].filter((f) => f.endsWith('.tsx'))
-  it('no Kanban, Undo, SLA or breach language in the UI', () => {
-    for (const f of ui) expect(code(f), rel(f)).not.toMatch(/\bkanban\b|\bundo\b|\bSLA\b|\bbreach/i)
+  it('no Kanban, Undo, SLA or breach language in the UI (Undo exists only for import batches)', () => {
+    const importUi = /ImportUndo\.tsx$|ImportWizard\.tsx$|[\\/]import[\\/]page\.tsx$/
+    for (const f of ui) expect(code(f), rel(f)).not.toMatch(importUi.test(f) ? /\bkanban\b|\bSLA\b|\bbreach/i : /\bkanban\b|\bundo\b|\bSLA\b|\bbreach/i)
   })
-  it('no network client, mail transport or AI call in workspace or CRM routes', () => {
-    for (const f of [...appFiles, ...wsFiles].filter((x) => !x.endsWith('.css')))
-      expect(read(f), rel(f)).not.toMatch(/\bfetch\(|nodemailer|sendEmail|smtp|anthropic|openai|XMLHttpRequest/i)
+  it('no network client, mail transport or AI call in workspace or CRM routes (the import wizard posts to its own endpoint)', () => {
+    for (const f of [...appFiles, ...wsFiles].filter((x) => !x.endsWith('.css'))) {
+      const t = read(f)
+      expect(t, rel(f)).not.toMatch(/nodemailer|sendEmail|smtp|anthropic|openai|XMLHttpRequest/i)
+      if (/ImportWizard\.tsx$/.test(f)) {
+        // Exactly one same-origin call, to the import route.
+        expect(t.match(/\bfetch\(/g)).toHaveLength(1)
+        expect(t).toMatch(/fetch\('\/crm\/import\/run\/', \{ method: 'POST'/)
+        expect(t).toMatch(/credentials: 'same-origin'/)
+      } else expect(t, rel(f)).not.toMatch(/\bfetch\(/)
+    }
   })
-  it('no import/export, attachment upload or conversion flow', () => {
-    for (const f of ui) expect(read(f), rel(f)).not.toMatch(/type="file"|\bexport CSV\b|Convert to|\bimport CSV\b/i)
+  it('file upload only in the admin import wizard; no attachment upload or conversion flow', () => {
+    for (const f of ui) {
+      expect(read(f), rel(f)).not.toMatch(/Convert to/i)
+      if (!/ImportWizard\.tsx$/.test(f)) expect(read(f), rel(f)).not.toMatch(/type="file"/i)
+    }
   })
   it('no email address other than reserved example domains', () => {
     for (const f of [...appFiles, ...wsFiles]) {

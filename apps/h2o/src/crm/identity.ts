@@ -2,6 +2,7 @@ import type { Payload } from 'payload'
 import { isUniqueViolation } from './activity'
 import { recordActivity } from './activity'
 import { ensureSystemTask } from './tasks'
+import { addressQualityOf } from './address-quality'
 import { companyKey, isConsumerDomain, nameKey, type EmailKey } from './normalize'
 import { VERIFIED_DOMAIN_STATUSES } from './vocabulary'
 
@@ -85,7 +86,8 @@ export async function matchAccount(
   emailDomain: string,
   submittedCompany: string | null,
 ): Promise<AccountMatch> {
-  if (isConsumerDomain(emailDomain)) return { kind: 'FREE_EMAIL_DOMAIN' }
+  // Free mail, ICS's own domains, disposable inboxes and provider typos never match an account (CT 2026-10-05).
+  if (isConsumerDomain(emailDomain) || addressQualityOf(emailDomain)) return { kind: 'FREE_EMAIL_DOMAIN' }
   const res = await payload.find({
     collection: 'crm-accounts',
     where: { 'domains.domain': { equals: emailDomain } },
@@ -134,6 +136,8 @@ export type ReviewInput = {
     | 'CONTACT_ACCOUNT_CONFLICT'
     | 'POSSIBLE_DUPLICATE_SUBMISSION'
     | 'INTAKE_CONFLICTING_PAYLOAD'
+    | 'GENERIC_SHARED_INBOX'
+    | 'SUSPECT_ADDRESS_DOMAIN'
   subject_ids: string[]
   dedupe_key: string
   contact?: string | null
@@ -146,6 +150,8 @@ export type ReviewInput = {
 export async function openIdentityReview(
   payload: Payload,
   input: ReviewInput,
+  /** Wave 1: an import opens reviews without creating review tasks (no automatic tasks from an import). */
+  opts: { withTask?: boolean } = {},
 ): Promise<'OPENED' | 'ALREADY_OPEN'> {
   const existing = await payload.find({
     collection: 'crm-identity-reviews',
@@ -188,6 +194,7 @@ export async function openIdentityReview(
     detail: { reason: input.reason },
     actor_kind: 'SYSTEM',
   })
+  if (opts.withTask === false) return 'OPENED'
   await ensureSystemTask(req, {
     kind: 'IDENTITY_REVIEW',
     title: `Identity review: ${input.reason}`,

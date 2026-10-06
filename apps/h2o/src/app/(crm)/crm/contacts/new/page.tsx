@@ -23,7 +23,7 @@ export default async function NewContactPage({ searchParams }: { searchParams: P
       : Promise.resolve(null),
   ])
   return (
-    <Shell active="contacts" title="New contact" crumb={<a href="/crm/contacts/">Contacts</a>} userName={s.displayName} isAdmin={s.isAdmin}>
+    <Shell active="contacts" title="New contact" crumb={<a href="/crm/contacts/">Contacts</a>} userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <section className="c-panel c-narrow" aria-label="New contact">
         <div className="c-block">
           <NewContactForm people={people} meId={s.userId} isAdmin={s.isAdmin} account={account} />

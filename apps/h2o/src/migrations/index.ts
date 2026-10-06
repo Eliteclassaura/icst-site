@@ -9,6 +9,9 @@ import * as migration_20261004_214231_crm_email_m1 from './20261004_214231_crm_e
 import * as migration_20261005_002510_crm_email_m2 from './20261005_002510_crm_email_m2';
 import * as migration_20261005_003218_crm_email_m3 from './20261005_003218_crm_email_m3';
 import * as migration_20261005_164215_restored_sections from './20261005_164215_restored_sections';
+import * as migration_20261005_170235_crm_wave1_import from './20261005_170235_crm_wave1_import';
+import * as migration_20261005_170237_crm_wave1_saved_views from './20261005_170237_crm_wave1_saved_views';
+import * as migration_20261005_192638_crm_wave1_facets from './20261005_192638_crm_wave1_facets';
 
 export const migrations = [
   {
@@ -64,6 +67,21 @@ export const migrations = [
   {
     up: migration_20261005_164215_restored_sections.up,
     down: migration_20261005_164215_restored_sections.down,
-    name: '20261005_164215_restored_sections'
+    name: '20261005_164215_restored_sections',
+  },
+  {
+    up: migration_20261005_170235_crm_wave1_import.up,
+    down: migration_20261005_170235_crm_wave1_import.down,
+    name: '20261005_170235_crm_wave1_import',
+  },
+  {
+    up: migration_20261005_170237_crm_wave1_saved_views.up,
+    down: migration_20261005_170237_crm_wave1_saved_views.down,
+    name: '20261005_170237_crm_wave1_saved_views',
+  },
+  {
+    up: migration_20261005_192638_crm_wave1_facets.up,
+    down: migration_20261005_192638_crm_wave1_facets.down,
+    name: '20261005_192638_crm_wave1_facets'
   },
 ];

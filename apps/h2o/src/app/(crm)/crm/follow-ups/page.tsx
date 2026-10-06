@@ -4,6 +4,8 @@ import { SCOPE_COOKIE, scopeFrom } from '../../../../crm/workspace/prefs'
 import { loadFollowUps, type FollowUpFilter } from '../../../../crm/workspace/queries'
 import { Shell } from '../../../../crm/workspace/ui/Shell'
 import { ScopeSwitch } from '../_components/ScopeSwitch'
+import { BulkBar, SelectAll } from '../_components/BulkBar'
+import { SavedViews } from '../_components/SavedViews'
 import { TaskTable } from '../_components/TaskTable'
 import { requireCrmSession } from '../session'
 
@@ -32,7 +34,7 @@ export default async function FollowUpsPage({ searchParams }: { searchParams: Pr
     <Shell
       active="followups"
       title="Follow-ups"
-      userName={s.displayName}
+      userName={s.displayName} session={s}
       isAdmin={s.isAdmin}
       topRight={<ScopeSwitch scope={f.who === 'unassigned' ? remembered : f.who} back={`/crm/follow-ups/?when=${f.when}`} />}
     >
@@ -46,6 +48,7 @@ export default async function FollowUpsPage({ searchParams }: { searchParams: Pr
           Unassigned
         </a>
       </nav>
+      <SavedViews s={s} list="followups" query={`who=${f.who}&when=${f.when}`} currentHref={href({})} />
       <p className="c-hint" role="status">
         Showing {f.who === 'unassigned' ? 'unassigned' : f.who === 'mine' ? 'your' : 'the team’s'} follow-ups.
       </p>
@@ -56,14 +59,23 @@ export default async function FollowUpsPage({ searchParams }: { searchParams: Pr
           </p>
         </div>
       ) : (
-        <>
-          <TaskTable rows={rows} now={now} isAdmin={s.isAdmin} people={people} caption="Follow-ups" showOwner={f.who !== 'mine'} />
+        <div id="crm-followups">
+          <BulkBar scopeId="crm-followups" kind="tasks" people={people} />
+          <TaskTable
+            rows={rows}
+            now={now}
+            isAdmin={s.isAdmin}
+            people={people}
+            caption="Follow-ups"
+            showOwner={f.who !== 'mine'}
+            select={f.when === 'done' ? undefined : { header: <SelectAll scopeId="crm-followups" label="Select all follow-ups shown" /> }}
+          />
           <div className="c-pager">
             <span>
               {rows.length} of {total}
             </span>
           </div>
-        </>
+        </div>
       )}
     </Shell>
   )

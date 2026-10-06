@@ -30,7 +30,7 @@ export default async function AccountPage({ params, searchParams }: { params: Pr
   const a = await loadAccount(s, id, now)
   if (!a)
     return (
-      <Shell active="accounts" title="Account" userName={s.displayName} isAdmin={s.isAdmin}>
+      <Shell active="accounts" title="Account" userName={s.displayName} session={s} isAdmin={s.isAdmin}>
         <p className="c-alert" role="alert">
           This account doesn’t exist or you don’t have access. <a href="/crm/accounts/">Back to accounts</a>
         </p>
@@ -41,7 +41,7 @@ export default async function AccountPage({ params, searchParams }: { params: Pr
   const people = a.people
   const domains = ((acc.domains ?? []) as Doc[]).filter((d) => d.domain_status !== 'RETIRED')
   return (
-    <Shell active="accounts" title={String(acc.canonical_name)} crumb={<a href="/crm/accounts/">Accounts</a>} userName={s.displayName} isAdmin={s.isAdmin}>
+    <Shell active="accounts" title={String(acc.canonical_name)} crumb={<a href="/crm/accounts/">Accounts</a>} userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <RememberRecent kind="account" id={accId} />
       <div className="c-stack">
         {sp.created === '1' ? (
@@ -86,6 +86,11 @@ export default async function AccountPage({ params, searchParams }: { params: Pr
               <dt>Industry</dt>
               <dd>{(acc.industry as string) || <span className="c-unknown">Not recorded</span>}</dd>
             </dl>
+            {acc.name_from_domain ? (
+              <p className="c-banner is-warning" role="note">
+                This name was taken from the domain by an import because the file gave no company name. Use Edit details to correct it.
+              </p>
+            ) : null}
             {a.openReviews > 0 ? (
               <p className="c-banner is-warning" role="note">
                 Possible duplicate or conflict — identity review open. {s.isAdmin ? '' : 'Resolved by admins.'}

@@ -31,7 +31,7 @@ export default async function PipelinePage({ searchParams }: { searchParams: Pro
     <Shell
       active="pipeline"
       title="Pipeline"
-      userName={s.displayName}
+      userName={s.displayName} session={s}
       isAdmin={s.isAdmin}
       topRight={
         <span className="c-scope" role="group" aria-label="Scope">

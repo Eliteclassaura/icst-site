@@ -40,6 +40,8 @@ export const likeTerm = (q: string) => q.replace(/[%_]/g, ' ').trim()
 
 export type AccountsParams = {
   owner: 'me' | 'unassigned' | string | null
+  /** W1-3: accounts an import named from their domain ("Name from domain" — to be corrected by staff). */
+  naming: 'domain' | null
   relationship: string | null
   state: 'active' | 'archived'
   sort: 'name' | 'recent'
@@ -54,6 +56,7 @@ export function parseAccountsParams(sp: Record<string, string | string[] | undef
   const rel = one(sp.relationship)
   return {
     owner: owner === 'me' || owner === 'unassigned' ? owner : isUuid(owner) ? owner : null,
+    naming: one(sp.naming) === 'domain' ? 'domain' : null,
     relationship: rel && RELATIONSHIPS.includes(rel) ? rel : null,
     state: one(sp.state) === 'archived' ? 'archived' : 'active',
     sort: one(sp.sort) === 'recent' ? 'recent' : 'name',
@@ -65,6 +68,7 @@ export type AccountRow = {
   id: string
   name: string
   domain: string | null
+  nameFromDomain: boolean
   relationship: string
   ownerId: string | null
   ownerName: string | null
@@ -101,9 +105,8 @@ async function perRecordFacts(s: CrmSession, field: 'account' | 'contact', ids: 
   return facts
 }
 
-export async function loadAccountsDirectory(s: CrmSession, p: AccountsParams, q: string | null) {
-  const people = await crmUsers(s)
-  const names = nameMap(people)
+/** The accounts filter as a Payload `where` (shared by the directory and the export). */
+export function accountsWhere(s: CrmSession, p: AccountsParams, q: string | null): Where {
   const and: Where[] = [
     p.state === 'archived' ? { account_state: { in: ['ARCHIVED', 'MERGED'] } } : { account_state: { in: ['ACTIVE', 'DORMANT'] } },
     ...ownerWhere(s, p.owner),
@@ -119,9 +122,16 @@ export async function loadAccountsDirectory(s: CrmSession, p: AccountsParams, q:
         { 'domains.domain': { like: term.toLowerCase() } },
       ],
     })
+  if (p.naming === 'domain') and.push({ name_from_domain: { equals: true } })
+  return { and }
+}
+
+export async function loadAccountsDirectory(s: CrmSession, p: AccountsParams, q: string | null) {
+  const people = await crmUsers(s)
+  const names = nameMap(people)
   const res = await s.payload.find({
     collection: 'crm-accounts',
-    where: { and },
+    where: accountsWhere(s, p, q),
     sort: p.sort === 'recent' ? '-updatedAt' : 'canonical_name',
     depth: 0,
     limit: DIRECTORY_PAGE_SIZE,
@@ -138,6 +148,7 @@ export async function loadAccountsDirectory(s: CrmSession, p: AccountsParams, q:
       id: String(a.id),
       name: String(a.canonical_name ?? ''),
       domain: domains[0] ? String(domains[0].domain) : null,
+      nameFromDomain: a.name_from_domain === true,
       relationship: String(a.relationship_state ?? 'UNKNOWN'),
       ownerId: owner,
       ownerName: owner ? (names.get(owner) ?? 'CRM user') : null,
@@ -182,6 +193,7 @@ export type ContactRow = {
   openRfqs: number | null
   lastActivityAt: string | null
   doNotContact: boolean
+  updatedAt: string
 }
 
 export const contactName = (c: Doc): string =>
@@ -201,9 +213,8 @@ export const contactSearchWhere = (q: string): Where => {
   }
 }
 
-export async function loadContactsDirectory(s: CrmSession, p: ContactsParams, q: string | null) {
-  const people = await crmUsers(s)
-  const names = nameMap(people)
+/** The contacts filter as a Payload `where` (shared by the directory and the export). */
+export function contactsWhere(s: CrmSession, p: ContactsParams, q: string | null): Where {
   const and: Where[] = [
     p.state === 'archived' ? { record_state: { in: ['ARCHIVED', 'MERGED'] } } : { record_state: { equals: 'ACTIVE' } },
     ...ownerWhere(s, p.owner),
@@ -211,9 +222,15 @@ export async function loadContactsDirectory(s: CrmSession, p: ContactsParams, q:
   if (p.linked === 'yes') and.push({ account: { exists: true } })
   if (p.linked === 'no') and.push({ account: { exists: false } })
   if (q && likeTerm(q)) and.push(contactSearchWhere(q))
+  return { and }
+}
+
+export async function loadContactsDirectory(s: CrmSession, p: ContactsParams, q: string | null) {
+  const people = await crmUsers(s)
+  const names = nameMap(people)
   const res = await s.payload.find({
     collection: 'crm-contacts',
-    where: { and },
+    where: contactsWhere(s, p, q),
     sort: p.sort === 'recent' ? '-updatedAt' : 'display_name',
     depth: 0,
     limit: DIRECTORY_PAGE_SIZE,
@@ -245,6 +262,7 @@ export async function loadContactsDirectory(s: CrmSession, p: ContactsParams, q:
       openRfqs: f?.openRfqs ?? null,
       lastActivityAt: f?.lastActivityAt ?? null,
       doNotContact: (dnc.get(c.email_match_key as string)?.length ?? 0) > 0,
+      updatedAt: String(c.updatedAt ?? ''),
     }
   })
   return { rows, total: res.totalDocs, page: res.page ?? p.page, pages: res.totalPages ?? 1, people }

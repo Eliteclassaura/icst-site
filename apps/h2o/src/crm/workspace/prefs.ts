@@ -56,14 +56,14 @@ const build = (path: string, entries: Array<[string, string | null | undefined]>
 /** Inbox URL from validated params. `search` adds the `s=1` flag; `extra` is for the pane (`rfq`, `tab`). */
 export function inboxHref(
   p: InboxParams,
-  over: Partial<Record<'view' | 'owner' | 'received' | 'motion' | 'source' | 'cta' | 'linked' | 'account' | 'contact' | 'sort' | 'page', string | null>> = {},
-  opts: { search?: boolean; status?: string[] | null; rfq?: string | null; tab?: string | null } = {},
+  over: Partial<Record<'view' | 'owner' | 'received' | 'type' | 'source' | 'cta' | 'linked' | 'account' | 'contact' | 'sort' | 'page', string | null>> = {},
+  opts: { search?: boolean; status?: string[] | null; motions?: string[] | null; countries?: string[] | null; rfq?: string | null; tab?: string | null } = {},
 ) {
   const base: Record<string, string | null> = {
     view: p.view === 'open' ? null : p.view,
     owner: p.owner,
     received: p.received,
-    motion: p.motion,
+    type: p.type,
     source: p.source,
     cta: p.cta,
     linked: p.accountLinked,
@@ -74,9 +74,13 @@ export function inboxHref(
     ...over,
   }
   const status = opts.status === undefined ? p.status : (opts.status ?? [])
+  const motions = opts.motions === undefined ? p.motions : (opts.motions ?? [])
+  const countries = opts.countries === undefined ? p.countries : (opts.countries ?? [])
   return build(LIST_PATH.inbox, [
     ...Object.entries(base),
     ...status.map((st) => ['status', st] as [string, string]),
+    ...motions.map((x) => ['motion', x] as [string, string]),
+    ...countries.map((x) => ['country', x] as [string, string]),
     [SEARCH_FLAG, opts.search ? '1' : null],
     ['rfq', opts.rfq ?? null],
     ['tab', opts.tab ?? null],
@@ -86,6 +90,7 @@ export function inboxHref(
 export function accountsHref(p: AccountsParams, over: Partial<Record<keyof AccountsParams, string | null>> = {}, search = false) {
   const base: Record<string, string | null> = {
     owner: p.owner,
+    naming: p.naming,
     relationship: p.relationship,
     state: p.state === 'active' ? null : p.state,
     sort: p.sort === 'name' ? null : p.sort,

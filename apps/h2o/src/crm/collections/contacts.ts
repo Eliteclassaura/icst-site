@@ -3,10 +3,12 @@ import { ADMINS, hasRole } from '@factory/agency-core/cms/kernel'
 import { adminOnlyValues } from '../access'
 import { ownerHoldsCrmRole } from '../assignment'
 import { crmCollection, stampProvenance } from '../collection'
-import { countryCodeField, provenanceGroup, userRelation } from '../fields'
+import { countryCodeField, provenanceGroup, relationshipBasisFields, userRelation } from '../fields'
 import { CrmInvariantError, isServerContext, merged, relId, writeOnce } from '../guards'
 import { emailKey, textOrNull } from '../normalize'
 import { activeSuppressionsFor } from '../suppression'
+import { CONTACT_COUNTRY_SOURCE } from '../countries'
+import { ADDRESS_QUALITY, addressQualityOf } from '../address-quality'
 import {
   CONTACT_FIT_STATE,
   CONTACT_FUNCTION,
@@ -85,6 +87,12 @@ const eligibilityGate: CollectionBeforeChangeHook = async ({ data: incoming, ori
   if (data.marketing_eligibility !== 'ELIGIBLE') return incoming
   const evidence = String(data.relationship_evidence ?? 'UNKNOWN')
   const jurisdiction = String(data.jurisdiction ?? 'COUNTRY_UNKNOWN')
+  if (data.address_quality)
+    throw new CrmInvariantError(
+      'ELIGIBILITY_BLOCKED_BY_ADDRESS_QUALITY',
+      'This address is flagged (typo, disposable, spam pattern or internal); it cannot be marked eligible.',
+      409,
+    )
   if (evidence === 'UNKNOWN' || evidence === 'NONE')
     throw new CrmInvariantError(
       'ELIGIBILITY_WITHOUT_EVIDENCE',
@@ -106,6 +114,26 @@ const eligibilityGate: CollectionBeforeChangeHook = async ({ data: incoming, ori
       )
   }
   return incoming
+}
+
+/**
+ * Address quality (CT 2026-10-05). On create the server derives it from the domain (own domain → INTERNAL, which also
+ * marks the contact as an internal/test address; disposable; provider typo) unless trusted code (an admin, or the
+ * import) supplies a value. Afterwards only an admin or trusted server code may change it. The address itself is
+ * never corrected.
+ */
+const addressQualityGuard: CollectionBeforeChangeHook = ({ context, data, operation, originalDoc, req }) => {
+  if (!data) return data
+  const d = data as Record<string, unknown>
+  const trusted = isServerContext(context) || hasRole(req, ADMINS)
+  if (operation === 'create') {
+    if (!trusted || d.address_quality === undefined || d.address_quality === null) d.address_quality = addressQualityOf(String(d.email_domain ?? '')) ?? null
+    if (d.address_quality === 'INTERNAL') d.internal_test_candidate = true
+    return data
+  }
+  if ('address_quality' in d && (d.address_quality ?? null) !== (originalDoc?.address_quality ?? null) && !trusted)
+    throw new CrmInvariantError('ADDRESS_QUALITY_ADMIN_ONLY', 'Only an admin can change an address-quality flag.', 403)
+  return data
 }
 
 /** Trusted server code may not overwrite an existing account link (it must open a review instead). */
@@ -144,6 +172,7 @@ export const CrmContacts: CollectionConfig = crmCollection(
         writeOnce('crm-contacts', ['email', 'email_original', 'email_match_key', 'email_domain']),
         accountLinkConsistency,
         serverNeverRelinks,
+        addressQualityGuard,
         eligibilityGate,
         ownerHoldsCrmRole('CONTACT_OWNER_NOT_CRM_USER'),
       ],
@@ -216,7 +245,17 @@ export const CrmContacts: CollectionConfig = crmCollection(
         defaultValue: 'UNKNOWN',
         options: options(LINK_CONFIDENCE),
       },
+      ...relationshipBasisFields(),
       countryCodeField(),
+      {
+        name: 'country_source',
+        type: 'select',
+        options: options(CONTACT_COUNTRY_SOURCE),
+        admin: {
+          description:
+            'How the country is known. Inferred values (phone code, email ccTLD) are hints, never a verified jurisdiction.',
+        },
+      },
       {
         name: 'fit_state',
         type: 'select',
@@ -233,6 +272,16 @@ export const CrmContacts: CollectionConfig = crmCollection(
         index: true,
       },
       userRelation('owner', 'Contact owner, if any. Empty means unassigned.'),
+      {
+        name: 'address_quality',
+        type: 'select',
+        index: true,
+        options: options(ADDRESS_QUALITY),
+        admin: {
+          description:
+            'Data-quality flag. Any value: never linked to an account, never marketing-eligible, excluded from every sequence. The address is kept as written.',
+        },
+      },
       {
         name: 'internal_test_candidate',
         type: 'checkbox',

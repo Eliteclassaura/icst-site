@@ -1,4 +1,5 @@
-import type { Field, GroupField, TextField } from 'payload'
+import type { Field, GroupField, PayloadRequest, TextField } from 'payload'
+import { ADMINS, hasRole } from '@factory/agency-core/cms/kernel'
 import { EVIDENCE_VERIFICATION, SOURCE_SYSTEM, options } from './vocabulary'
 
 /** Canonical UUIDv7 — set by `assignCanonicalId`, unique, never editable. */
@@ -82,3 +83,30 @@ export const userRelation = (name: string, description: string, required = false
   index: true,
   admin: { description },
 })
+
+/**
+ * CT ruling 2026-10-05 (owner override): a first-class, queryable record of *why* a record may be treated as an
+ * existing relationship when no per-record evidence exists. Today only `OWNER_ATTESTED_BATCH`: the owner attested a whole
+ * import file, and `relationship_basis_batch` names the batch. It is evidence of the owner's attestation, not a
+ * verification — the relationship/evidence fields stay CANDIDATE/UNKNOWN. Set by an admin import only.
+ */
+export const RELATIONSHIP_BASIS = ['OWNER_ATTESTED_BATCH'] as const
+export const relationshipBasisFields = (): Field[] => [
+  {
+    name: 'relationship_basis',
+    type: 'select',
+    options: RELATIONSHIP_BASIS.map((v) => ({ label: v, value: v })),
+    index: true,
+    access: { create: ({ req }) => isAdminReq(req), update: ({ req }) => isAdminReq(req) },
+    admin: { readOnly: true, description: 'Owner-attested batch evidence (see relationship_basis_batch). Not a verification.' },
+  },
+  {
+    name: 'relationship_basis_batch',
+    type: 'text',
+    index: true,
+    access: { create: ({ req }) => isAdminReq(req), update: ({ req }) => isAdminReq(req) },
+    admin: { readOnly: true, description: 'The import batch (canonical id) whose attestation applies.' },
+  },
+]
+
+const isAdminReq = (req: PayloadRequest) => hasRole(req, ADMINS)

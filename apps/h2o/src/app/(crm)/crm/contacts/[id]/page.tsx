@@ -29,7 +29,7 @@ export default async function ContactPage({ params, searchParams }: { params: Pr
   const c = await loadContact(s, id, now)
   if (!c)
     return (
-      <Shell active="contacts" title="Contact" userName={s.displayName} isAdmin={s.isAdmin}>
+      <Shell active="contacts" title="Contact" userName={s.displayName} session={s} isAdmin={s.isAdmin}>
         <p className="c-alert" role="alert">
           This contact doesn’t exist or you don’t have access. <a href="/crm/contacts/">Back to contacts</a>
         </p>
@@ -48,7 +48,7 @@ export default async function ContactPage({ params, searchParams }: { params: Pr
     return r ? (r.company ?? `Inquiry ${r.rfqNumber}`) : 'Earlier inquiry'
   }
   return (
-    <Shell active="contacts" title={c.name} crumb={<a href="/crm/contacts/">Contacts</a>} userName={s.displayName} isAdmin={s.isAdmin}>
+    <Shell active="contacts" title={c.name} crumb={<a href="/crm/contacts/">Contacts</a>} userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <RememberRecent kind="contact" id={cid} />
       <div className="c-stack">
         {sp.created === '1' ? (

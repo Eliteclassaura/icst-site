@@ -118,6 +118,8 @@ export const IDENTITY_REASON_LABEL: Record<string, string> = {
   CONTACT_ACCOUNT_CONFLICT: 'Contact and account disagree',
   POSSIBLE_DUPLICATE_SUBMISSION: 'Possible duplicate submission',
   INTAKE_CONFLICTING_PAYLOAD: 'Conflicting intake payload',
+  GENERIC_SHARED_INBOX: 'Shared or role inbox (not a named person)',
+  SUSPECT_ADDRESS_DOMAIN: 'Suspicious sign-up domain (no company name)',
   OTHER: 'Other',
 }
 

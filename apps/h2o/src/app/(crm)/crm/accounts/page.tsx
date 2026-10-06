@@ -3,7 +3,10 @@ import { cookies } from 'next/headers'
 import { loadAccountsDirectory, parseAccountsParams, type AccountsParams } from '../../../../crm/workspace/directory'
 import { label, RELATIONSHIP_LABEL } from '../../../../crm/workspace/labels'
 import { accountsHref, listSearchCookie, searchRequested, storedTerm } from '../../../../crm/workspace/prefs'
-import { absoluteTime, compactTime } from '../../../../crm/workspace/time'
+import { absoluteTime, activityTime } from '../../../../crm/workspace/time'
+import { EXPORT_COLUMNS } from '../../../../crm/export/csv-export'
+import { ExportDialog } from '../_components/ExportDialog'
+import { SavedViews } from '../_components/SavedViews'
 import { AutoSubmit } from '../../../../crm/workspace/ui/AutoSubmit'
 import { IconPlus } from '../../../../crm/workspace/ui/Icons'
 import { Shell } from '../../../../crm/workspace/ui/Shell'
@@ -37,13 +40,14 @@ export default async function AccountsPage({ searchParams }: { searchParams: Pro
     })
   if (p.relationship) chips.push({ key: 'rel', label: label(RELATIONSHIP_LABEL, p.relationship), href: href({ relationship: null, page: null }) })
   if (p.state === 'archived') chips.push({ key: 'state', label: 'Archived', href: href({ state: null, page: null }) })
+  if (p.naming) chips.push({ key: 'naming', label: 'Name from domain', href: href({ naming: null, page: null }) })
   const from = d.total === 0 ? 0 : (d.page - 1) * 50 + 1
   const to = Math.min(d.total, d.page * 50)
   return (
     <Shell
       active="accounts"
       title="Accounts"
-      userName={s.displayName}
+      userName={s.displayName} session={s}
       isAdmin={s.isAdmin}
       topRight={
         <a className="c-btn is-primary" href="/crm/accounts/new/">
@@ -51,6 +55,7 @@ export default async function AccountsPage({ searchParams }: { searchParams: Pro
         </a>
       }
     >
+      <SavedViews s={s} list="accounts" query={back} currentHref={accountsHref(p, { page: null })} />
       <div className="c-toolbar">
         <ListSearch list="accounts" term={term} back={back} label="Search accounts" placeholder="Company name, alias or domain" inputId="crm-search" />
         <form className="c-filters c-filters-inline" method="get" action="/crm/accounts/" aria-label="Filter accounts">
@@ -81,6 +86,13 @@ export default async function AccountsPage({ searchParams }: { searchParams: Pro
             </select>
           </label>
           <label className="c-field c-field-inline">
+            <span>Naming</span>
+            <select className="c-select" name="naming" defaultValue={p.naming ?? ''}>
+              <option value="">Any</option>
+              <option value="domain">Name from domain (to correct)</option>
+            </select>
+          </label>
+          <label className="c-field c-field-inline">
             <span>Show</span>
             <select className="c-select" name="state" defaultValue={p.state}>
               <option value="active">Active</option>
@@ -100,6 +112,7 @@ export default async function AccountsPage({ searchParams }: { searchParams: Pro
             </button>
           </noscript>
         </form>
+        {s.isAdmin ? <ExportDialog list="accounts" query={queryOf(accountsHref(p, { page: null }, Boolean(term)))} columns={EXPORT_COLUMNS.accounts} alwaysDnc={false} total={d.total} /> : null}
       </div>
       <Chips chips={chips} list="accounts" term={term} back={back} clearAllHref="/crm/accounts/" />
       {d.rows.length === 0 ? (
@@ -134,14 +147,17 @@ export default async function AccountsPage({ searchParams }: { searchParams: Pro
                   <td className="two">
                     <a className="c-row-link" href={`/crm/accounts/${a.id}/`} data-row-link>
                       <strong>{a.name}</strong>
-                      <span>{a.domain ?? 'No domain recorded'}</span>
+                      <span>
+                        {a.domain ?? 'No domain recorded'}
+                        {a.nameFromDomain ? ' · name from domain' : ''}
+                      </span>
                     </a>
                   </td>
                   <td>{label(RELATIONSHIP_LABEL, a.relationship)}</td>
                   <td className="hide-sm">{a.ownerName ?? <span className="c-muted">No owner</span>}</td>
                   <td className="num">{a.openRfqs ?? <span className="c-unknown">—</span>}</td>
                   <td className="hide-sm" title={a.lastActivityAt ? absoluteTime(new Date(a.lastActivityAt)) : undefined}>
-                    {a.lastActivityAt ? compactTime(new Date(a.lastActivityAt), now) : <span className="c-muted">None</span>}
+                    {a.lastActivityAt ? activityTime(new Date(a.lastActivityAt), now) : <span className="c-muted">None</span>}
                   </td>
                 </tr>
               ))}

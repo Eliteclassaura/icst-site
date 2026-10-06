@@ -197,6 +197,15 @@ export function compactTime(d: Date, now: Date): string {
   return dateFmt.format(d)
 }
 
+/**
+ * "Last activity" in lists (CT UX note, 2026-10-05): a bare time is ambiguous, so today reads "Today 07:44"; earlier
+ * this week "Tue 14:32"; older "3 Oct".
+ */
+export function activityTime(d: Date, now: Date): string {
+  const t = compactTime(d, now)
+  return /^\d{2}:\d{2}$/.test(t) ? `Today ${t}` : t
+}
+
 /** Absolute time with zone, for tooltips and detail headers. */
 export const absoluteTime = (d: Date): string => `${fullFmt.format(d)} MT`
 

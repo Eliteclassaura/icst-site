@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url'
 import ts from 'typescript'
 import { describe, expect, it } from 'vitest'
 import { INTAKE_CONTEXT_KEYS } from '../intake/typeform/parse'
+import { isConsumerDomain } from '../free-mail'
+import { addressQualityOf } from '../address-quality'
 
 /**
  * Static CRM boundaries (syntax-aware, same technique as `site/__tests__/integration-boundary.test.ts`).
@@ -143,8 +145,13 @@ describe('CRM source: no live network, no mail, no console, no secrets', () => {
         m[1]!.toLowerCase(),
       ),
     )
+    // Consumer/provider-domain probes (Wave 1: the shared free-mail list) are public mailbox providers, not people.
+    // Address-quality probes (provider typos and disposable-inbox services) are not anyone's employer either.
     const allowed = (d: string) =>
-      /(^|\.)example\.(com|test)$/.test(d) || d.endsWith('.example') || ['gmail.com'].includes(d)
+      /(^|\.)example\.(com|test)$/.test(d) ||
+      d.endsWith('.example') ||
+      isConsumerDomain(d) ||
+      ['SUSPECT_TYPO', 'DISPOSABLE'].includes(String(addressQualityOf(d)))
     expect([...new Set(domains)].filter((d) => !allowed(d))).toEqual([])
   })
 })

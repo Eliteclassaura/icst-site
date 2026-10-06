@@ -42,7 +42,7 @@ export default async function RfqPage({
       active="inbox"
       title={d ? String(d.rfq.rfq_number) : 'Inquiry'}
       crumb={<a href="/crm/rfqs/">RFQ Inbox</a>}
-      userName={s.displayName}
+      userName={s.displayName} session={s}
       isAdmin={s.isAdmin}
     >
       <div id="crm-rfq" role="region" aria-label="Inquiry" tabIndex={0} className="c-narrow">

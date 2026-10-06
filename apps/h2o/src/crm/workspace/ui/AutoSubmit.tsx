@@ -12,7 +12,8 @@ export function AutoSubmit() {
     const form = marker.current?.closest('form')
     if (!form) return
     const onChange = (e: Event) => {
-      if ((e.target as Element | null)?.tagName === 'SELECT') form.requestSubmit()
+      const t = e.target as HTMLInputElement | null
+      if (t?.tagName === 'SELECT' || (t?.tagName === 'INPUT' && t.type === 'checkbox')) form.requestSubmit()
     }
     form.addEventListener('change', onChange)
     return () => form.removeEventListener('change', onChange)

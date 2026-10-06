@@ -19,7 +19,8 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, PayloadReque
  * the business write — the same posture as the shared hook — but CRM-1 tests assert the entry exists.
  */
 
-export type CrmAuditAction = 'create' | 'update' | 'delete'
+// Wave 1 W1-4 adds 'export' (who exported what, never the values).
+export type CrmAuditAction = 'create' | 'update' | 'delete' | 'export'
 
 /** Non-PII fields whose before/after values may be recorded, per collection. Ids and enums only. */
 export const AUDITED_TRANSITIONS: Record<string, readonly string[]> = {
@@ -58,6 +59,8 @@ export const AUDITED_TRANSITIONS: Record<string, readonly string[]> = {
   'crm-identity-reviews': ['state', 'reason'],
   'crm-email-outbox': ['status', 'kind', 'attempts', 'last_error_code'],
   'crm-email-events': ['event', 'kind', 'code'],
+  'crm-import-batches': ['status', 'entity', 'row_count'],
+  'crm-saved-views': ['list', 'shared', 'pinned'],
   'crm-email-messages': ['direction', 'status', 'status_code'],
   'crm-reply-tokens': ['expires_at', 'revoked_at'],
   'crm-email-review': ['reason', 'state', 'rfq', 'resolved_by'],

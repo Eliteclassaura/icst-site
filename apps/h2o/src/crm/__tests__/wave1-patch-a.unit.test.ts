@@ -52,7 +52,7 @@ describe('W1-2: search terms never enter a URL', () => {
   it('the return path after a search keeps only validated filters (free text and unknown keys are dropped)', () => {
     const back = 'view=mine&owner=jane%40example.test&q=secret&motion=PARTS&evil=1&page=4&status=RECEIVED&status=BOGUS'
     const out = listReturnPath('inbox', back, true)
-    expect(out).toBe('/crm/rfqs/?view=mine&motion=PARTS&status=RECEIVED&s=1')
+    expect(out).toBe('/crm/rfqs/?view=mine&status=RECEIVED&motion=PARTS&s=1')
     expect(listReturnPath('contacts', 'owner=Jane&linked=yes', false)).toBe('/crm/contacts/?linked=yes')
     expect(listReturnPath('accounts', 'relationship=PROSPECT&sort=recent', true)).toBe('/crm/accounts/?relationship=PROSPECT&sort=recent&s=1')
     expect(listReturnPath('inbox', 12 as unknown, false)).toBe('/crm/rfqs/')

@@ -18,6 +18,7 @@ import {
   SEARCH_TTL_SECONDS,
 } from '../../../crm/workspace/prefs'
 import { globalSearch, recentItems, searchTerm, type SearchHit, type SearchResult } from '../../../crm/workspace/search'
+import type { BulkOutcome } from '../../../crm/workspace/bulk'
 import type { ActionState } from '../../../crm/workspace/ui/actionState'
 import { actionSession } from './session'
 
@@ -286,4 +287,77 @@ export async function scopeAction(fd: FormData): Promise<void> {
   if (!(await actionSession())) redirect('/crm/')
   if (scope === 'mine' || scope === 'team') (await cookies()).set(SCOPE_COOKIE, scope, cookieOptions(SCOPE_TTL_SECONDS, secureCookies()))
   redirect(scopeReturnPath(f(fd, 'back')))
+}
+
+// ────────────────────────────────────────────── Wave 1 Patch B ──
+
+/** W1-3: undo one applied import batch (admin; a written reason is required). */
+export async function undoImportAction(_: ActionState, fd: FormData): Promise<ActionState> {
+  const s = await actionSession()
+  if (!s) return DENIED
+  const { undoImport } = await import('../../../crm/import/engine')
+  const out = await undoImport(s, { batchId: f(fd, 'batchId'), note: f(fd, 'note') })
+  if (out.ok) refresh()
+  return { ...out, nonce: Date.now() } as ActionState
+}
+
+/** W1-3: undo every batch of one file run. */
+export async function undoRunAction(_: ActionState, fd: FormData): Promise<ActionState> {
+  const s = await actionSession()
+  if (!s) return DENIED
+  const { undoRun } = await import('../../../crm/import/engine')
+  const out = await undoRun(s, { sha: f(fd, 'sha'), note: f(fd, 'note') })
+  if (out.ok) refresh()
+  return { ...out, nonce: Date.now() } as ActionState
+}
+
+/** W1-5 bulk actions: ≤ 100 rows, each through the single-record mutation (see `bulk.ts`). */
+async function runBulk(fn: (s: NonNullable<Awaited<ReturnType<typeof actionSession>>>) => Promise<BulkOutcome>): Promise<ActionState> {
+  const s = await actionSession()
+  if (!s) return DENIED
+  const out = await fn(s)
+  if (out.ok) refresh()
+  return { ...out, nonce: Date.now() } as ActionState
+}
+export async function bulkAssignRfqsAction(_: ActionState, fd: FormData) {
+  const b = await import('../../../crm/workspace/bulk')
+  return runBulk((s) => b.bulkAssignRfqs(s, { ids: f(fd, 'ids'), assigneeId: f(fd, 'assigneeId') }))
+}
+export async function bulkCloseRfqsAction(_: ActionState, fd: FormData) {
+  const b = await import('../../../crm/workspace/bulk')
+  return runBulk((s) => b.bulkCloseRfqs(s, { ids: f(fd, 'ids'), outcome: f(fd, 'outcome'), reason: f(fd, 'reason') }))
+}
+export async function bulkFollowUpRfqsAction(_: ActionState, fd: FormData) {
+  const b = await import('../../../crm/workspace/bulk')
+  return runBulk((s) => b.bulkFollowUpRfqs(s, { ids: f(fd, 'ids'), title: f(fd, 'title'), due: f(fd, 'due'), assigneeId: f(fd, 'assigneeId') }))
+}
+export async function bulkCompleteTasksAction(_: ActionState, fd: FormData) {
+  const b = await import('../../../crm/workspace/bulk')
+  return runBulk((s) => b.bulkCompleteTasks(s, { ids: f(fd, 'ids') }))
+}
+export async function bulkReassignTasksAction(_: ActionState, fd: FormData) {
+  const b = await import('../../../crm/workspace/bulk')
+  return runBulk((s) => b.bulkReassignTasks(s, { ids: f(fd, 'ids'), assigneeId: f(fd, 'assigneeId') }))
+}
+export async function bulkSetDueAction(_: ActionState, fd: FormData) {
+  const b = await import('../../../crm/workspace/bulk')
+  return runBulk((s) => b.bulkSetDue(s, { ids: f(fd, 'ids'), preset: f(fd, 'preset'), due: f(fd, 'due'), reason: f(fd, 'reason') }))
+}
+export async function bulkAssignContactsAction(_: ActionState, fd: FormData) {
+  const b = await import('../../../crm/workspace/bulk')
+  return runBulk((s) => b.bulkAssignContacts(s, { ids: f(fd, 'ids'), ownerId: f(fd, 'ownerId') ?? undefined }))
+}
+
+/** W1-6 saved views. */
+export async function saveViewAction(_: ActionState, fd: FormData) {
+  const v = await import('../../../crm/workspace/savedViews')
+  return run(fd, (s) => v.saveView(s, { list: f(fd, 'list'), name: f(fd, 'name'), query: f(fd, 'query'), shared: f(fd, 'shared'), pinned: f(fd, 'pinned') }))
+}
+export async function updateViewAction(_: ActionState, fd: FormData) {
+  const v = await import('../../../crm/workspace/savedViews')
+  return run(fd, (s) => v.updateView(s, { viewId: f(fd, 'viewId'), name: f(fd, 'name'), pinned: f(fd, 'pinned') }))
+}
+export async function deleteViewAction(_: ActionState, fd: FormData) {
+  const v = await import('../../../crm/workspace/savedViews')
+  return run(fd, (s) => v.deleteView(s, { viewId: f(fd, 'viewId') }))
 }

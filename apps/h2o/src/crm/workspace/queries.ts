@@ -7,6 +7,8 @@ import { interestOf, taskTitle, isCustomerUrgent, OPEN_RFQ_STATUSES, ACTIVE_RFQ_
 import { asUser, displayNameOf, type CrmSession } from './session'
 import { endOfBusinessDay, isAgedUnassigned, parseDate, startOfBusinessDay } from './time'
 import { isUuid } from './validate'
+import { isCountryCode } from '../countries'
+import type { InquiryType } from '../inquiry-type'
 
 /**
  * Sales Workspace read models. Every query runs as the signed-in user (`overrideAccess: false`), so the
@@ -77,6 +79,12 @@ export type RfqRow = {
   aged: boolean
   sourceSystem: string
   updatedAt: string
+  /** Derived facets (owner request 2026-10-05). */
+  countryCode: string | null
+  countrySource: string
+  type: string
+  typeSource: string
+  motion: string | null
   accountId: string | null
   contactId: string | null
   opportunityId: string | null
@@ -208,6 +216,11 @@ export async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now:
       aged: !ownerId && (OPEN_RFQ_STATUSES as readonly string[]).includes(String(d.status)) && isAgedUnassigned(received, now),
       sourceSystem: String(d.source_system ?? 'UNKNOWN'),
       updatedAt: String(d.updatedAt ?? ''),
+      countryCode: (d.country_code as string) || null,
+      countrySource: String(d.country_source ?? 'UNKNOWN'),
+      type: String(d.inquiry_type ?? 'UNKNOWN'),
+      typeSource: String(d.inquiry_type_source ?? 'NONE'),
+      motion: (d.motion as string) || null,
       accountId: accId,
       contactId: id(d.contact),
       opportunityId: id(d.opportunity),
@@ -235,17 +248,23 @@ export type InboxParams = {
   status: string[]
   owner: 'me' | 'unassigned' | string | null
   received: 'today' | '7d' | '30d' | null
-  motion: string | null
+  /** Owner request 2026-10-05: several motions at once (multi-select). */
+  motions: string[]
+  /** ISO codes and/or "UNKNOWN" (multi-select). */
+  countries: string[]
+  /** Quick type chip: Parts · New tower · Repair/Service (derived `inquiry_type`). */
+  type: Exclude<InquiryType, 'UNKNOWN' | 'OTHER'> | null
   source: string | null
   cta: string | null
   accountLinked: 'yes' | 'no' | null
   account: string | null
   contact: string | null
-  sort: 'received_desc' | 'received_asc' | 'status'
+  sort: 'received_desc' | 'received_asc' | 'status' | 'country' | 'type'
   page: number
 }
 
 const one = (v: string | string[] | undefined): string | null => (Array.isArray(v) ? (v[0] ?? null) : (v ?? null))
+const many = (v: string | string[] | undefined): string[] => (Array.isArray(v) ? v : v ? [v] : [])
 
 /** Parse URL search params. Unknown values are dropped; malformed ids are ignored, never queried. */
 export function parseInboxParams(sp: Record<string, string | string[] | undefined>): InboxParams {
@@ -267,17 +286,15 @@ export function parseInboxParams(sp: Record<string, string | string[] | undefine
     status: statuses,
     owner: owner === 'me' || owner === 'unassigned' ? owner : isUuid(owner) ? owner : null,
     received: received === 'today' || received === '7d' || received === '30d' ? received : null,
-    motion: ['NEW_TOWER', 'REBUILD_REPLACEMENT', 'REPAIR', 'UPGRADE_RETROFIT', 'MAINTENANCE_INSPECTION', 'PARTS', 'OTHER_APPROVED'].includes(
-      one(sp.motion) ?? '',
-    )
-      ? one(sp.motion)
-      : null,
+    motions: [...new Set(many(sp.motion).filter((x) => ['NEW_TOWER', 'REBUILD_REPLACEMENT', 'REPAIR', 'UPGRADE_RETROFIT', 'MAINTENANCE_INSPECTION', 'PARTS', 'OTHER_APPROVED'].includes(x)))],
+    countries: [...new Set(many(sp.country).map((x) => x.toUpperCase()).filter((x) => x === 'UNKNOWN' || isCountryCode(x)))].slice(0, 30),
+    type: one(sp.type) === 'PARTS' || one(sp.type) === 'NEW_TOWER' || one(sp.type) === 'REPAIR_SERVICE' ? (one(sp.type) as 'PARTS') : null,
     source: ['TYPEFORM', 'MANUAL_ENTRY', 'LEGACY_IMPORT'].includes(one(sp.source) ?? '') ? one(sp.source) : null,
     cta: /^[a-z_]{1,64}$/.test(one(sp.cta) ?? '') ? one(sp.cta) : null,
     accountLinked: linked === 'yes' || linked === 'no' ? linked : null,
     account: isUuid(one(sp.account)) ? one(sp.account) : null,
     contact: isUuid(one(sp.contact)) ? one(sp.contact) : null,
-    sort: sort === 'received_asc' || sort === 'status' ? sort : 'received_desc',
+    sort: sort === 'received_asc' || sort === 'status' || sort === 'country' || sort === 'type' ? sort : 'received_desc',
     page,
   }
 }
@@ -371,7 +388,13 @@ export async function inboxWhere(s: CrmSession, p: InboxParams, now: Date): Prom
         : new Date(now.getTime() - (p.received === '7d' ? 7 : 30) * 24 * 3600 * 1000)
     and.push({ received_at: { greater_than_equal: from.toISOString() } })
   }
-  if (p.motion) and.push({ motion: { equals: p.motion } })
+  if (p.motions.length) and.push({ motion: { in: p.motions } })
+  if (p.type) and.push({ inquiry_type: { equals: p.type } })
+  if (p.countries.length) {
+    const codes = p.countries.filter((c) => c !== 'UNKNOWN')
+    const unknown = p.countries.includes('UNKNOWN')
+    and.push({ or: [...(codes.length ? [{ country_code: { in: codes } }] : []), ...(unknown ? [{ country_code: { exists: false } }] : [])] })
+  }
   if (p.source) and.push({ source_system: { equals: p.source } })
   if (p.cta) and.push({ 'attribution.cta_placement': { equals: p.cta } })
   if (p.accountLinked === 'yes') and.push({ account: { exists: true } })
@@ -397,7 +420,16 @@ export async function loadInbox(s: CrmSession, p: InboxParams, now: Date = new D
   const res = await s.payload.find({
     collection: 'crm-rfqs',
     where,
-    sort: p.sort === 'received_asc' ? 'received_at' : p.sort === 'status' ? 'status' : '-received_at',
+    sort:
+      p.sort === 'received_asc'
+        ? 'received_at'
+        : p.sort === 'status'
+          ? 'status'
+          : p.sort === 'country'
+            ? ['country_code', '-received_at']
+            : p.sort === 'type'
+              ? ['inquiry_type', '-received_at']
+              : '-received_at',
     depth: 0,
     limit: PAGE_SIZE,
     page: p.page,

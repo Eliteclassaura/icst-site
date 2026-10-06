@@ -2,7 +2,11 @@ import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { loadContactsDirectory, parseContactsParams, type ContactsParams } from '../../../../crm/workspace/directory'
 import { contactsHref, listSearchCookie, searchRequested, storedTerm } from '../../../../crm/workspace/prefs'
-import { absoluteTime, compactTime } from '../../../../crm/workspace/time'
+import { absoluteTime, activityTime } from '../../../../crm/workspace/time'
+import { EXPORT_COLUMNS } from '../../../../crm/export/csv-export'
+import { BulkBar, SelectAll } from '../_components/BulkBar'
+import { ExportDialog } from '../_components/ExportDialog'
+import { SavedViews } from '../_components/SavedViews'
 import { AutoSubmit } from '../../../../crm/workspace/ui/AutoSubmit'
 import { IconDoNotContact, IconPlus } from '../../../../crm/workspace/ui/Icons'
 import { Shell } from '../../../../crm/workspace/ui/Shell'
@@ -42,14 +46,22 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
     <Shell
       active="contacts"
       title="Contacts"
-      userName={s.displayName}
+      userName={s.displayName} session={s}
       isAdmin={s.isAdmin}
       topRight={
-        <a className="c-btn is-primary" href="/crm/contacts/new/">
-          <IconPlus /> New contact
-        </a>
+        <span className="c-actions">
+          {s.isAdmin ? (
+            <a className="c-btn" href="/crm/import/">
+              Import…
+            </a>
+          ) : null}
+          <a className="c-btn is-primary" href="/crm/contacts/new/">
+            <IconPlus /> New contact
+          </a>
+        </span>
       }
     >
+      <SavedViews s={s} list="contacts" query={back} currentHref={contactsHref(p, { page: null })} />
       <div className="c-toolbar">
         <ListSearch list="contacts" term={term} back={back} label="Search contacts" placeholder="Name, email or company" inputId="crm-search" />
         <form className="c-filters c-filters-inline" method="get" action="/crm/contacts/" aria-label="Filter contacts">
@@ -96,6 +108,7 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
             </button>
           </noscript>
         </form>
+        {s.isAdmin ? <ExportDialog list="contacts" query={queryOf(contactsHref(p, { page: null }, Boolean(term)))} columns={EXPORT_COLUMNS.contacts} alwaysDnc total={d.total} /> : null}
       </div>
       <Chips chips={chips} list="contacts" term={term} back={back} clearAllHref="/crm/contacts/" />
       {d.rows.length === 0 ? (
@@ -106,15 +119,19 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
               : chips.length
                 ? 'No contacts match these filters.'
                 : 'No contacts yet. Contacts are created from inquiries, or add one with New contact.'}{' '}
-            {s.isAdmin && !term && !chips.length ? <span className="c-muted">Bulk import arrives in the next release.</span> : null}
+            {s.isAdmin && !term && !chips.length ? <a href="/crm/import/">Import contacts</a> : null}
           </p>
         </div>
       ) : (
-        <div className="c-table-wrap">
+        <div className="c-table-wrap" id="crm-contacts-list">
+          <BulkBar scopeId="crm-contacts-list" kind="contacts" people={d.people} />
           <table className="c-table c-dir-table">
             <caption className="c-visually-hidden">Contacts</caption>
             <thead>
               <tr>
+                <th scope="col" className="sel">
+                  <SelectAll scopeId="crm-contacts-list" label="Select all contacts on this page" />
+                </th>
                 <th scope="col">Contact</th>
                 <th scope="col">Account</th>
                 <th scope="col" className="hide-sm">
@@ -134,6 +151,9 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
             <tbody>
               {d.rows.map((c) => (
                 <tr key={c.id}>
+                  <td className="sel">
+                    <input type="checkbox" className="c-check" data-bulk value={`${c.id}|${c.updatedAt}`} aria-label={`Select ${c.name}`} />
+                  </td>
                   <td className="two">
                     <a className="c-row-link" href={`/crm/contacts/${c.id}/`} data-row-link>
                       <strong>{c.name}</strong>
@@ -144,7 +164,7 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
                   <td className="hide-sm">{c.ownerName ?? <span className="c-muted">No owner</span>}</td>
                   <td className="num">{c.openRfqs ?? <span className="c-unknown">—</span>}</td>
                   <td className="hide-sm" title={c.lastActivityAt ? absoluteTime(new Date(c.lastActivityAt)) : undefined}>
-                    {c.lastActivityAt ? compactTime(new Date(c.lastActivityAt), now) : <span className="c-muted">None</span>}
+                    {c.lastActivityAt ? activityTime(new Date(c.lastActivityAt), now) : <span className="c-muted">None</span>}
                   </td>
                   <td>
                     {c.doNotContact ? (

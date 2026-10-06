@@ -1,8 +1,8 @@
 import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 import { isAdminOrServer, ownerHoldsCrmRole } from '../assignment'
 import { crmCollection, stampProvenance } from '../collection'
-import { provenanceGroup, userRelation } from '../fields'
-import { CrmInvariantError, relId } from '../guards'
+import { provenanceGroup, relationshipBasisFields, userRelation } from '../fields'
+import { CrmInvariantError, isServerContext, relId } from '../guards'
 import { normalizeWebDomain } from '../normalize'
 import {
   ACCOUNT_DOMAIN_STATUS,
@@ -90,6 +90,16 @@ const verifiedRelationshipIsAdminOnly: CollectionBeforeChangeHook = ({ context, 
   return data
 }
 
+/**
+ * Wave 1 W1-3: an import may name an account from its domain when the file gives no company ("Acme" from acme.com).
+ * Such accounts carry `name_from_domain` so staff can find and correct them; a person renaming the account clears it.
+ */
+const nameFromDomainClears: CollectionBeforeChangeHook = ({ context, data, originalDoc }) => {
+  if (isServerContext(context) || !originalDoc?.name_from_domain) return data
+  if ('canonical_name' in data && data.canonical_name !== originalDoc.canonical_name) data.name_from_domain = false
+  return data
+}
+
 const noSelfParent: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
   if (originalDoc?.id && relId(data.parent_account) === String(originalDoc.id))
     throw new CrmInvariantError('ACCOUNT_SELF_PARENT', 'An account cannot be its own parent.')
@@ -114,11 +124,19 @@ export const CrmAccounts: CollectionConfig = crmCollection(
         noSelfParent,
         verifiedRelationshipIsAdminOnly,
         ownerHoldsCrmRole('ACCOUNT_OWNER_NOT_CRM_USER'),
+        nameFromDomainClears,
       ],
     },
     fields: [
       { name: 'canonical_name', type: 'text', required: true, index: true },
       { name: 'legal_name', type: 'text' },
+      {
+        name: 'name_from_domain',
+        type: 'checkbox',
+        defaultValue: false,
+        index: true,
+        admin: { description: 'Named from its domain by an import (no company name supplied). Renaming clears it.' },
+      },
       {
         name: 'aliases',
         type: 'array',
@@ -169,6 +187,7 @@ export const CrmAccounts: CollectionConfig = crmCollection(
         options: options(RELATIONSHIP_STATE),
         index: true,
       },
+      ...relationshipBasisFields(),
       {
         name: 'account_state',
         type: 'select',

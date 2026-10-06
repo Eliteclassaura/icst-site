@@ -81,6 +81,7 @@ export const SHORTCUTS: Record<string, string> = {
   r: 'Start review',
   n: 'Add note',
   t: 'New follow-up',
+  x: 'Select row (bulk actions)',
   '/': 'Search',
   '⌘K': 'Search and go to (palette)',
 }

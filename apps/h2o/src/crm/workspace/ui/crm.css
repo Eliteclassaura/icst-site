@@ -1486,7 +1486,8 @@ details.c-tech > summary {
 /* A link inside a sentence is underlined, so it never depends on colour alone (axe link-in-text-block). */
 .crm-app .c-trunc > strong ~ a,
 .crm-app .c-table .two span a,
-.crm-app .c-hint a {
+.crm-app .c-hint a,
+.crm-app .c-alert a {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
@@ -1509,6 +1510,135 @@ details.c-tech > summary {
 
 .c-more-nav > summary::-webkit-details-marker {
   display: none;
+}
+
+/* ── Wave 1 Patch B (W1-3 import, W1-4 export, W1-5 bulk, W1-6 saved views) ── */
+.c-check {
+  inline-size: 16px;
+  block-size: 16px;
+  margin: 0;
+  accent-color: var(--c-accent);
+}
+
+.c-table th.sel,
+.c-table td.sel {
+  inline-size: 36px;
+  padding-inline: 10px 0;
+}
+
+.c-bulk-bar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-block-end: 8px;
+  padding-block: 8px;
+  padding-inline: 12px;
+  border: 1px solid var(--c-accent);
+  border-radius: 4px;
+  background: var(--c-b50);
+}
+
+.c-saved-views {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-block-end: 12px;
+}
+
+.c-saved-view {
+  display: inline-flex;
+  align-items: center;
+}
+
+.c-saved-view .c-tag {
+  margin-inline-start: 4px;
+}
+
+.c-side-views {
+  padding-block: 8px;
+  padding-inline: 12px;
+  border-block-start: 1px solid var(--c-rule);
+}
+
+.c-side-views ul {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.c-side-views a {
+  display: block;
+  padding-block: 4px;
+  padding-inline: 8px;
+  border-radius: 4px;
+  color: var(--c-n700);
+}
+
+.c-side-views a:hover {
+  background: var(--c-canvas);
+  text-decoration: none;
+}
+
+.c-progress {
+  inline-size: 100%;
+  block-size: 8px;
+  accent-color: var(--c-accent);
+}
+
+.c-dl-compact {
+  max-inline-size: 640px;
+  margin-block-end: 12px;
+}
+
+.c-dl-compact dd.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.c-map-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.c-import-table td:nth-child(3) {
+  max-inline-size: 280px;
+}
+
+.c-btn.is-disabled {
+  border-color: var(--c-rule);
+  background: var(--c-n50);
+  color: var(--c-text-2);
+  pointer-events: none;
+}
+
+/* Owner request 2026-10-05: inbox type chips, motion checkboxes, country multi-select. */
+.c-type-chips {
+  margin-block: -4px 8px;
+}
+
+.c-check-group {
+  display: grid;
+  gap: 2px;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.c-check-group legend {
+  margin-block-end: 4px;
+}
+
+.c-select.c-multi {
+  block-size: auto;
+  min-block-size: 140px;
+}
+
+.c-rfq-table td.country {
+  white-space: nowrap;
 }
 
 /* ── responsive ──────────────────────────────────────────── */
@@ -1572,6 +1702,11 @@ details.c-tech > summary {
 
   .c-grid-work {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* The collapsed (icon) sidebar has no room for view names; views stay in the strip above each list. */
+  .c-side-views {
+    display: none;
   }
 }
 
@@ -1847,6 +1982,20 @@ details.c-tech > summary {
 
   .c-palette-dialog {
     margin-block-start: 16px;
+  }
+
+  /* Bulk selection is a desk task: the checkbox column and bar are not shown on a phone. */
+  .c-table .sel,
+  .c-bulk-bar {
+    display: none;
+  }
+
+  .c-map-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .c-side-views {
+    display: none;
   }
 }
 

@@ -47,6 +47,16 @@ export function Shortcuts({ scopeId }: { scopeId: string }) {
           }
           break
         }
+        case 'x': {
+          // W1-5: select / unselect the focused row for a bulk action.
+          const box = (document.activeElement as HTMLElement | null)?.closest('tr')?.querySelector<HTMLInputElement>('input[data-bulk]')
+          if (box && !box.disabled) {
+            box.checked = !box.checked
+            box.dispatchEvent(new Event('change', { bubbles: true }))
+            handled = true
+          }
+          break
+        }
         case 'a':
           handled = click('assign-me')
           break

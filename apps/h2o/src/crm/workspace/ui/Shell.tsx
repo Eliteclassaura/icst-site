@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 import { IconAccounts, IconContacts, IconInbox, IconMore, IconPipeline, IconSearch, IconTasks, IconWork } from './Icons'
 import { PaletteTrigger } from './PaletteTrigger'
+import { loadViews } from '../savedViews'
+import type { CrmSession } from '../session'
 
 export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'accounts' | 'contacts' | 'search' | 'email' | 'none'
 
@@ -35,12 +37,13 @@ const MORE: Array<{ key: NavKey; href: string; label: string; adminOnly?: boolea
   { key: 'none', href: '/crm/new/', label: 'New inquiry' },
 ]
 
-export function Shell({
+export async function Shell({
   active,
   title,
   crumb,
   userName,
   isAdmin,
+  session,
   badges = {},
   topRight,
   children,
@@ -50,11 +53,14 @@ export function Shell({
   crumb?: ReactNode
   userName: string
   isAdmin: boolean
+  /** W1-6: when given, the user's pinned saved views (own and shared) are listed under the navigation. */
+  session?: CrmSession
   badges?: Partial<Record<NavKey, { n: number; error?: boolean }>>
   topRight?: ReactNode
   children: ReactNode
 }) {
   const moreActive = MORE.some((m) => m.key === active && m.key !== 'none')
+  const pinned = session ? (await loadViews(session)).filter((v) => v.pinned) : []
   return (
     <div className="crm-app">
       <a className="c-skip" href="#crm-main">
@@ -120,6 +126,22 @@ export function Shell({
             </details>
           </li>
         </ul>
+        {pinned.length ? (
+          <div className="c-side-views">
+            <p className="c-group-label" id="crm-pinned-views">
+              Saved views
+            </p>
+            <ul role="list" aria-labelledby="crm-pinned-views">
+              {pinned.map((v) => (
+                <li key={v.id}>
+                  <a href={v.href} title={v.shared ? `${v.name} (shared)` : v.name}>
+                    <span className="c-trunc">{v.name}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
         <div className="c-side-foot">
           <strong>{userName}</strong>
           {isAdmin ? 'Admin' : 'Sales'} · <a href="/admin/logout/">Sign out</a>

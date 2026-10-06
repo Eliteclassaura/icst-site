@@ -11,7 +11,7 @@ export default async function NewAccountPage() {
   const s = await requireCrmSession('/crm/accounts/new/')
   const people = await crmUsers(s)
   return (
-    <Shell active="accounts" title="New account" crumb={<a href="/crm/accounts/">Accounts</a>} userName={s.displayName} isAdmin={s.isAdmin}>
+    <Shell active="accounts" title="New account" crumb={<a href="/crm/accounts/">Accounts</a>} userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <section className="c-panel c-narrow" aria-label="New account">
         <div className="c-block">
           <NewAccountForm people={people} meId={s.userId} isAdmin={s.isAdmin} />

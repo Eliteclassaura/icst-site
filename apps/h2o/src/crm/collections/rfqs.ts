@@ -11,7 +11,9 @@ import { assertCrmAssignee, isAdminOrServer, TERMINAL_RFQ_STATUSES } from '../as
 import { crmCollection } from '../collection'
 import { countryCodeField, userRelation } from '../fields'
 import { CrmInvariantError, isServerContext, merged, relId, writeOnce } from '../guards'
+import { deriveCountry, COUNTRY_SOURCE } from '../countries'
 import { rfqNumberFor } from '../ids'
+import { deriveType, INQUIRY_TYPE, INQUIRY_TYPE_SOURCE } from '../inquiry-type'
 import { ensureSystemTask } from '../tasks'
 import { enqueueRfqNotifications } from '../notify'
 import { firstResponseDueAt, parseDate } from '../workspace/time'
@@ -242,6 +244,24 @@ async function firstResponseFollowsOwner(
       })
 }
 
+/**
+ * Wave 1 (owner request 2026-10-05): the inbox's Country and Type are derived on every write from what the customer
+ * submitted and the staff motion — never typed by anyone, so a client value is always overwritten. See countries.ts
+ * and inquiry-type.ts for the rules (country never defaults to US; staff motion wins over the customer's interest).
+ */
+const inboxFacets: CollectionBeforeChangeHook = ({ data: incoming, originalDoc }) => {
+  const d = merged(incoming, originalDoc) as Doc
+  const sub = (d.submitted ?? {}) as Doc
+  const other = (sub.other_answers && typeof sub.other_answers === 'object' ? sub.other_answers : {}) as Doc
+  const country = deriveCountry({ submittedCountry: sub.country_code, destination: other.destination_country, phone: sub.phone })
+  const type = deriveType({ motion: d.motion, interest: other.interest })
+  incoming.country_code = country.code
+  incoming.country_source = country.source
+  incoming.inquiry_type = type.type
+  incoming.inquiry_type_source = type.source
+  return incoming
+}
+
 const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc, req }) => {
   const d = doc as Doc
   const base = {
@@ -340,7 +360,7 @@ export const CrmRfqs: CollectionConfig = crmCollection(
     defaultSort: '-received_at',
     hooks: {
       beforeValidate: [stampReceipt],
-      beforeChange: [writeOnce('crm-rfqs', RFQ_WRITE_ONCE), linkAndStatusRules],
+      beforeChange: [writeOnce('crm-rfqs', RFQ_WRITE_ONCE), linkAndStatusRules, inboxFacets],
       afterChange: [timeline],
     },
     fields: [
@@ -373,6 +393,33 @@ export const CrmRfqs: CollectionConfig = crmCollection(
         type: 'select',
         options: options(OPPORTUNITY_MOTION),
         admin: { description: 'Set by a person on qualification. Never inferred from the form.' },
+      },
+      // Wave 1 inbox facets — derived by the server on every write (see `inboxFacets`); never entered by a person.
+      {
+        name: 'country_code',
+        type: 'text',
+        maxLength: 2,
+        index: true,
+        admin: { readOnly: true, description: 'Derived ISO country. Empty = unknown (never defaulted).' },
+      },
+      {
+        name: 'country_source',
+        type: 'select',
+        options: options(COUNTRY_SOURCE),
+        admin: { readOnly: true, description: 'How the country is known: submitted, destination answer, or inferred from the phone.' },
+      },
+      {
+        name: 'inquiry_type',
+        type: 'select',
+        options: options(INQUIRY_TYPE),
+        index: true,
+        admin: { readOnly: true, description: 'Derived: the staff motion when set, else the customer’s stated interest.' },
+      },
+      {
+        name: 'inquiry_type_source',
+        type: 'select',
+        options: options(INQUIRY_TYPE_SOURCE),
+        admin: { readOnly: true },
       },
       userRelation('assignee', 'Who owns the response. Empty = assignment queue.'),
       { name: 'assigned_at', type: 'date', admin: { readOnly: true } },

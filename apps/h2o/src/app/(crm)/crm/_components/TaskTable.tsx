@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { label, TASK_KIND_LABEL } from '../../../../crm/workspace/labels'
 import type { Person, TaskRow } from '../../../../crm/workspace/queries'
 import { absoluteTime, compactTime } from '../../../../crm/workspace/time'
@@ -16,6 +17,7 @@ export function TaskTable({
   caption,
   showOwner = true,
   showRelated = true,
+  select,
 }: {
   rows: TaskRow[]
   now: Date
@@ -24,6 +26,8 @@ export function TaskTable({
   caption: string
   showOwner?: boolean
   showRelated?: boolean
+  /** W1-5: a leading checkbox column; `header` is the "select all" control. */
+  select?: { header: ReactNode }
 }) {
   return (
     <div className="c-table-wrap">
@@ -31,6 +35,11 @@ export function TaskTable({
         <caption className="c-visually-hidden">{caption}</caption>
         <thead>
           <tr>
+            {select ? (
+              <th scope="col" className="sel">
+                {select.header}
+              </th>
+            ) : null}
             <th scope="col" className="due">
               Due
             </th>
@@ -55,6 +64,11 @@ export function TaskTable({
                 : null
             return (
               <tr key={t.id}>
+                {select ? (
+                  <td className="sel">
+                    <input type="checkbox" className="c-check" data-bulk value={`${t.id}|${t.updatedAt}`} aria-label={`Select ${t.title}`} disabled={t.status === 'DONE' || t.status === 'CANCELLED'} />
+                  </td>
+                ) : null}
                 <td className={`due${t.overdue ? ' c-overdue' : ''}`} title={due ? absoluteTime(due) : undefined}>
                   {due ? (
                     <>

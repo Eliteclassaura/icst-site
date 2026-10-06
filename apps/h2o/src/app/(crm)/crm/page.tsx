@@ -47,7 +47,7 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
     <Shell
       active="work"
       title="My Work"
-      userName={s.displayName}
+      userName={s.displayName} session={s}
       isAdmin={s.isAdmin}
       badges={{
         inbox: counts.unassigned ? { n: counts.unassigned } : undefined,

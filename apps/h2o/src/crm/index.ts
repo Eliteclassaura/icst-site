@@ -8,11 +8,13 @@ import { CrmEmailMessages, CrmReplyTokens } from './collections/email-messages'
 import { CrmEmailEvents, CrmEmailOutbox } from './collections/email-outbox'
 import { CrmEmailReview } from './collections/email-review'
 import { CrmIdentityReviews } from './collections/identity-reviews'
+import { CrmImportBatches } from './collections/import-batches'
 import { CrmIntakeEvents } from './collections/intake-events'
 import { CrmNotes } from './collections/notes'
 import { CrmOpportunities } from './collections/opportunities'
 import { CrmRfqItems } from './collections/rfq-items'
 import { CrmRfqs } from './collections/rfqs'
+import { CrmSavedViews } from './collections/saved-views'
 import { CrmSites } from './collections/sites'
 import { CrmSuppressions } from './collections/suppressions'
 import { CrmTasks } from './collections/tasks'
@@ -49,6 +51,10 @@ export const crmCollections: CollectionConfig[] = [
   CrmReplyTokens,
   // CRM email M3: inbound mail that was not linked automatically.
   CrmEmailReview,
+  // Wave 1 W1-3: applied CSV import batches (counts and ids only).
+  CrmImportBatches,
+  // Wave 1 W1-6: saved list views (validated filter keys only).
+  CrmSavedViews,
 ]
 
 export const CRM_SLUGS = crmCollections.map((c) => c.slug)

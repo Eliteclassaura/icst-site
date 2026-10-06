@@ -414,6 +414,9 @@ export const IDENTITY_REVIEW_REASON = [
   'CONTACT_ACCOUNT_CONFLICT',
   'POSSIBLE_DUPLICATE_SUBMISSION',
   'INTAKE_CONFLICTING_PAYLOAD',
+  // E1.3 R1 AR-007: a generic/shared inbox (info@, sales@, purchasing@…) needs identity review.
+  'GENERIC_SHARED_INBOX',
+  'SUSPECT_ADDRESS_DOMAIN',
   'OTHER',
 ] as const
 export const IDENTITY_REVIEW_STATE = [

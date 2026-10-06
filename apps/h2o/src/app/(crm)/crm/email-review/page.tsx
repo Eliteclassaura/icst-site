@@ -28,7 +28,7 @@ export default async function EmailReviewPage() {
   const s = await requireCrmSession('/crm/email-review/')
   if (!s.isAdmin)
     return (
-      <Shell active="email" title="Email review" userName={s.displayName} isAdmin={s.isAdmin}>
+      <Shell active="email" title="Email review" userName={s.displayName} session={s} isAdmin={s.isAdmin}>
         <p className="c-alert" role="alert">
           Email review is for admins. <a href="/crm/">Back to My Work</a>
         </p>
@@ -45,7 +45,7 @@ export default async function EmailReviewPage() {
   })
   const items = res.docs as unknown as Doc[]
   return (
-    <Shell active="email" title="Email review" userName={s.displayName} isAdmin={s.isAdmin}>
+    <Shell active="email" title="Email review" userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <p className="c-hint">
         Inbound email that was not linked to an inquiry automatically. Nothing is linked by name or subject:
         link it to the right RFQ, or discard it.

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { MOTION_LABEL, SOURCE_LABEL } from '../../../../crm/workspace/labels'
+import { COUNTRY_NAME, countryName } from '../../../../crm/countries'
+import { INQUIRY_TYPE_LABEL } from '../../../../crm/inquiry-type'
 import { inboxHref, listSearchCookie, searchRequested, storedTerm } from '../../../../crm/workspace/prefs'
 import { INBOX_VIEWS, INBOX_VIEW_LABEL, loadInbox, loadRfq, parseInboxParams, searchAccounts, type InboxParams } from '../../../../crm/workspace/queries'
 import { isUuid } from '../../../../crm/workspace/validate'
@@ -9,7 +11,11 @@ import { IconPlus } from '../../../../crm/workspace/ui/Icons'
 import { RfqTable } from '../../../../crm/workspace/ui/RfqTable'
 import { Shell } from '../../../../crm/workspace/ui/Shell'
 import { Shortcuts } from '../../../../crm/workspace/ui/Shortcuts'
+import { EXPORT_COLUMNS } from '../../../../crm/export/csv-export'
+import { BulkBar, SelectAll } from '../_components/BulkBar'
+import { ExportDialog } from '../_components/ExportDialog'
 import { Chips, ListSearch, queryOf, type Chip } from '../_components/ListControls'
+import { SavedViews } from '../_components/SavedViews'
 import { RFQ_TABS, RfqDetailView, type RfqTab } from '../_components/RfqDetail'
 import { requireCrmSession } from '../session'
 
@@ -30,7 +36,10 @@ function chipsFor(p: InboxParams, people: Array<{ id: string; name: string }>, s
       href: without({ owner: null }),
     })
   if (p.received) out.push({ key: 'received', label: RECEIVED_LABEL[p.received] ?? 'Received', href: without({ received: null }) })
-  if (p.motion) out.push({ key: 'motion', label: `Motion: ${MOTION_LABEL[p.motion] ?? 'Unknown'}`, href: without({ motion: null }) })
+  if (p.motions.length)
+    out.push({ key: 'motion', label: `Motion: ${p.motions.map((m) => MOTION_LABEL[m] ?? 'Unknown').join(', ')}`, href: inboxHref(p, { page: null }, { search, motions: null }) })
+  if (p.countries.length)
+    out.push({ key: 'country', label: `Country: ${p.countries.map((c) => (c === 'UNKNOWN' ? 'Unknown' : (countryName(c) ?? c))).join(', ')}`, href: inboxHref(p, { page: null }, { search, countries: null }) })
   if (p.source) out.push({ key: 'source', label: `Source: ${SOURCE_LABEL[p.source] ?? 'Unknown'}`, href: without({ source: null }) })
   if (p.accountLinked) out.push({ key: 'linked', label: p.accountLinked === 'yes' ? 'Account linked' : 'Account not linked', href: without({ linked: null }) })
   if (p.cta) out.push({ key: 'cta', label: 'CTA placement', href: without({ cta: null }) })
@@ -69,7 +78,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
     <Shell
       active="inbox"
       title="RFQ Inbox"
-      userName={s.displayName}
+      userName={s.displayName} session={s}
       isAdmin={s.isAdmin}
       badges={{ inbox: inbox.viewCounts.unassigned ? { n: inbox.viewCounts.unassigned } : undefined }}
       topRight={
@@ -87,6 +96,15 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
             </a>
           ))}
         </nav>
+        {/* Owner request 2026-10-05: quick type chips (derived from the staff motion, else the customer's interest). */}
+        <nav className="c-chips c-type-chips" aria-label="Inquiry type">
+          {([null, 'PARTS', 'NEW_TOWER', 'REPAIR_SERVICE'] as const).map((t) => (
+            <a key={t ?? 'all'} className={`c-chip${p.type === t ? ' is-on' : ''}`} href={href({ type: t, page: null })} aria-current={p.type === t ? 'page' : undefined}>
+              {t ? INQUIRY_TYPE_LABEL[t] : 'All types'}
+            </a>
+          ))}
+        </nav>
+        <SavedViews s={s} list="inbox" query={back} currentHref={inboxHref(p, { page: null })} />
 
         <div className="c-toolbar">
           <ListSearch list="inbox" term={term} back={back} label="Search inquiries" placeholder="RFQ number, company, email, name" inputId="crm-search" />
@@ -125,17 +143,27 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
                   <option value="30d">Last 30 days</option>
                 </select>
               </label>
+              <fieldset className="c-fieldset c-check-group">
+                <legend>Motion (staff classification)</legend>
+                {Object.entries(MOTION_LABEL).map(([v, l]) => (
+                  <label key={v} className="c-actions">
+                    <input type="checkbox" name="motion" value={v} defaultChecked={p.motions.includes(v)} />
+                    <span>{l}</span>
+                  </label>
+                ))}
+              </fieldset>
               <label className="c-field">
-                <span>Motion</span>
-                <select className="c-select" name="motion" defaultValue={p.motion ?? ''}>
-                  <option value="">Any</option>
-                  {Object.entries(MOTION_LABEL).map(([v, l]) => (
-                    <option key={v} value={v}>
-                      {l}
+                <span>Country (select one or more)</span>
+                <select className="c-select c-multi" name="country" multiple size={8} defaultValue={p.countries}>
+                  <option value="UNKNOWN">Unknown</option>
+                  {[...COUNTRY_NAME].sort((a, b) => a[1].localeCompare(b[1])).map(([code, name]) => (
+                    <option key={code} value={code}>
+                      {name}
                     </option>
                   ))}
                 </select>
               </label>
+              {p.type ? <input type="hidden" name="type" value={p.type} /> : null}
               <label className="c-field">
                 <span>Source</span>
                 <select className="c-select" name="source" defaultValue={p.source ?? ''}>
@@ -162,13 +190,12 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
               </div>
             </form>
           </details>
+          {s.isAdmin ? <ExportDialog list="inbox" query={queryOf(inboxHref(p, { page: null }, { search: on }))} columns={EXPORT_COLUMNS.inbox} alwaysDnc total={inbox.total} /> : null}
           <form className="c-sort" method="get" action="/crm/rfqs/" aria-label="Sort inquiries">
             <AutoSubmit />
-            {Object.entries(Object.fromEntries(new URLSearchParams(queryOf(href({ sort: null, page: null }))))).map(([k, v]) =>
-              k === 'status' ? null : <input key={k} type="hidden" name={k} value={v} />,
-            )}
-            {p.status.map((st) => (
-              <input key={st} type="hidden" name="status" value={st} />
+            {/* Every current filter (repeated keys included), so changing the sort keeps them all. */}
+            {[...new URLSearchParams(queryOf(href({ sort: null, page: null })))].map(([k, v], i) => (
+              <input key={`${k}-${v}-${i}`} type="hidden" name={k} value={v} />
             ))}
             <label className="c-field c-field-inline">
               <span>Sort</span>
@@ -176,6 +203,8 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
                 <option value="received_desc">Newest first</option>
                 <option value="received_asc">Oldest first</option>
                 <option value="status">Status</option>
+                <option value="country">Country</option>
+                <option value="type">Type</option>
               </select>
             </label>
             <noscript>
@@ -186,7 +215,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
           </form>
         </div>
 
-        <Chips chips={chips} list="inbox" term={term} back={back} clearAllHref={inboxHref(p, { owner: null, received: null, motion: null, source: null, linked: null, cta: null, account: null, contact: null, page: null }, { status: null })} />
+        <Chips chips={chips} list="inbox" term={term} back={back} clearAllHref={inboxHref(p, { owner: null, received: null, type: null, source: null, linked: null, cta: null, account: null, contact: null, page: null }, { status: null, motions: null, countries: null })} />
 
         {accountHits.length > 0 ? (
           <p className="c-hint">
@@ -200,6 +229,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
           </p>
         ) : null}
 
+        <BulkBar scopeId="crm-inbox" kind="rfqs" people={inbox.people} />
         <div className={`c-split${detail ? '' : ' is-single'}`}>
           <section aria-label="Inquiries">
             {inbox.rows.length === 0 ? (
@@ -222,6 +252,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
                 selectedId={selected}
                 compact={Boolean(detail)}
                 caption={`${INBOX_VIEW_LABEL[p.view]} inquiries`}
+                select={{ header: <SelectAll scopeId="crm-inbox" label="Select all inquiries on this page" /> }}
                 hrefFor={(r) => href({}, { rfq: r.id })}
               />
             )}

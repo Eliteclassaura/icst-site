@@ -1,6 +1,9 @@
+import type { ReactNode } from 'react'
 import type { RfqRow } from '../queries'
 import { absoluteTime, compactTime, relativeAge } from '../time'
 import { RfqStatus, RowFlags } from './Status'
+import { countryName } from '../../countries'
+import { INQUIRY_TYPE_LABEL, typeFromInterest, type InquiryType } from '../../inquiry-type'
 
 /**
  * The inquiry list. Real table semantics; each company cell carries the row link (focusable for j/k).
@@ -13,6 +16,7 @@ export function RfqTable({
   selectedId,
   compact = false,
   caption,
+  select,
 }: {
   rows: RfqRow[]
   now: Date
@@ -20,6 +24,8 @@ export function RfqTable({
   selectedId?: string | null
   compact?: boolean
   caption: string
+  /** W1-5: a leading checkbox column; `header` is the "select all" control (rendered by the page). */
+  select?: { header: ReactNode }
 }) {
   return (
     <div className="c-table-wrap">
@@ -27,11 +33,21 @@ export function RfqTable({
         <caption className="c-visually-hidden">{caption}</caption>
         <thead>
           <tr>
+            {select ? (
+              <th scope="col" className="sel">
+                {select.header}
+              </th>
+            ) : null}
             <th scope="col">Received</th>
             <th scope="col">Company / contact</th>
             {compact ? null : (
               <th scope="col" className="hide-sm interest">
-                Interest
+                Type
+              </th>
+            )}
+            {compact ? null : (
+              <th scope="col" className="hide-sm country">
+                Country
               </th>
             )}
             <th scope="col">Owner</th>
@@ -51,6 +67,11 @@ export function RfqTable({
             const received = new Date(r.receivedAt)
             return (
               <tr key={r.id} className={selectedId === r.id ? 'is-selected' : undefined}>
+                {select ? (
+                  <td className="sel">
+                    <input type="checkbox" className="c-check" data-bulk value={`${r.id}|${r.updatedAt}`} aria-label={`Select ${r.company ?? r.contactName ?? 'inquiry'}`} />
+                  </td>
+                ) : null}
                 <td className="received" title={absoluteTime(received)}>
                   <span>{compactTime(received, now)}</span>
                   {r.aged ? (
@@ -70,10 +91,13 @@ export function RfqTable({
                   </a>
                 </td>
                 {compact ? null : (
-                  <td className="hide-sm interest">
-                    <span className="c-trunc" title={r.interest}>
-                      {r.interest}
-                    </span>
+                  <td className="hide-sm interest two">
+                    <TypeCell r={r} />
+                  </td>
+                )}
+                {compact ? null : (
+                  <td className="hide-sm country">
+                    <CountryCell code={r.countryCode} source={r.countrySource} />
                   </td>
                 )}
                 <td className="owner">
@@ -115,5 +139,30 @@ export function RfqTable({
         </tbody>
       </table>
     </div>
+  )
+}
+
+/** Type, and the customer's own words when the staff classification says something else (owner request). */
+function TypeCell({ r }: { r: RfqRow }) {
+  const label = INQUIRY_TYPE_LABEL[r.type as InquiryType] ?? 'Not stated'
+  const customerType = r.interestOrigin === 'CUSTOMER' ? typeFromInterest(r.interest) : null
+  const differs = r.typeSource === 'STAFF_MOTION' && customerType && customerType !== r.type
+  return (
+    <>
+      <strong title={r.typeSource === 'STAFF_MOTION' ? 'Classified by staff' : 'From the customer’s answer'}>{label}</strong>
+      <span title={r.interest}>{differs ? `Customer: ${r.interest}` : r.interestOrigin === 'CUSTOMER' ? r.interest : r.typeSource === 'STAFF_MOTION' ? 'Staff classification' : ''}</span>
+    </>
+  )
+}
+
+/** Country name; marked when it was inferred from the phone number rather than stated. */
+function CountryCell({ code, source }: { code: string | null; source: string }) {
+  if (!code) return <span className="c-unknown">Unknown</span>
+  const name = countryName(code) ?? code
+  return (
+    <span title={source === 'PHONE_INFERRED' ? 'Inferred from the phone number' : source === 'DESTINATION_ANSWER' ? 'From the customer’s destination answer' : 'Submitted'}>
+      {name}
+      {source === 'PHONE_INFERRED' ? <span className="c-muted"> · from phone</span> : null}
+    </span>
   )
 }

@@ -46,40 +46,9 @@ export function normalizeWebDomain(raw: unknown): string | null {
   return d && d.startsWith('www.') ? d.slice(4) : d
 }
 
-/**
- * E0.1: "Do not infer employer from Gmail, Yahoo, Outlook, Hotmail, iCloud, AOL, or other consumer/free
- * domains." The list is the named set plus their common regional/brand variants. A domain absent from the
- * list is **not** thereby proven corporate — it simply may be matched against *verified* account domains.
- */
-export const CONSUMER_EMAIL_DOMAINS: ReadonlySet<string> = new Set([
-  'gmail.com',
-  'googlemail.com',
-  'yahoo.com',
-  'yahoo.co.jp',
-  'yahoo.co.uk',
-  'ymail.com',
-  'outlook.com',
-  'hotmail.com',
-  'hotmail.co.uk',
-  'live.com',
-  'msn.com',
-  'icloud.com',
-  'me.com',
-  'mac.com',
-  'aol.com',
-  'proton.me',
-  'protonmail.com',
-  'gmx.com',
-  'gmx.net',
-  'mail.com',
-  'yandex.com',
-  'zoho.com',
-  'qq.com',
-  '163.com',
-  '126.com',
-])
+/** The free-mail / personal-mailbox rule lives in one data module, shared by intake and import. */
+export { CONSUMER_EMAIL_DOMAINS, isConsumerDomain, isProviderDomain, registrableLabel } from './free-mail'
 
-export const isConsumerDomain = (domain: string): boolean => CONSUMER_EMAIL_DOMAINS.has(domain)
 
 /** Name comparison key: case/whitespace/diacritic-insensitive. Used to *flag*, never to merge. */
 export function nameKey(first: unknown, last: unknown): string | null {
