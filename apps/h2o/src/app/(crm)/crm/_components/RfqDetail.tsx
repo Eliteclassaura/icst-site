@@ -16,7 +16,8 @@ import { humanSummary,
 import type { ReplyReadiness } from '../../../../crm/reply'
 import type { RfqDetail } from '../../../../crm/workspace/queries'
 import type { CrmSession } from '../../../../crm/workspace/session'
-import { absoluteTime, compactTime } from '../../../../crm/workspace/time'
+import { absoluteTime, compactTime, relativeAge } from '../../../../crm/workspace/time'
+import { CountryFlag, ReplyChip, TypeBadge } from '../../../../crm/workspace/ui/Facets'
 import { OFFICE_LABEL } from '../../../../crm/offices'
 import { IconDoNotContact, IconInfo, IconMore, IconReview, IconUrgent } from '../../../../crm/workspace/ui/Icons'
 import { Overflow } from '../../../../crm/workspace/ui/Overflow'
@@ -100,21 +101,53 @@ export function RfqDetailView({
     <article className={`c-detail${mode === 'page' ? ' is-page' : ''}`} aria-labelledby="rfq-title">
       <RememberRecent kind="rfq" id={rfqId} />
       <header className="c-detail-head">
+        {/* Polish R1 header hierarchy: eyebrow (reference, source, received) → title → facts (status, owner, reply due,
+            queue, type) → actions. */}
         <div className="c-detail-meta">
           <span className="c-mono">{String(rfq.rfq_number)}</span>
-          <RfqStatus value={status} />
-          <span title={absoluteTime(received, s.timeZone)}>Received {compactTime(received, now, s.timeZone)}</span>
           <span>
-            Source: {label(SOURCE_LABEL, rfq.source_system)}
+            {label(SOURCE_LABEL, rfq.source_system)}
             {isManual && creator ? ` · entered by ${creator}` : ''}
+          </span>
+          <span title={absoluteTime(received, s.timeZone)}>
+            Received {relativeAge(received, now)} · {compactTime(received, now, s.timeZone)}
           </span>
         </div>
         <h2 id="rfq-title">{d.row.company ?? (contactName || 'Inquiry')}</h2>
-        <div className="c-detail-meta">
-          <span>Owner: {d.row.ownerName ?? <span className="c-warn-text">Unassigned</span>}</span>
-          <span>Queue: {OFFICE_LABEL[d.row.office ?? 'US']}</span>
-          <span>Interest: {d.row.interest}</span>
-        </div>
+        <dl className="c-facts">
+          <div>
+            <dt>Status</dt>
+            <dd>
+              <RfqStatus value={status} />
+            </dd>
+          </div>
+          <div>
+            <dt>Owner</dt>
+            <dd>{d.row.ownerName ?? <span className="c-warn-text">Unassigned</span>}</dd>
+          </div>
+          <div>
+            <dt>Reply due</dt>
+            <dd>
+              <ReplyChip reply={d.row.reply} now={now} zone={s.timeZone} />
+            </dd>
+          </div>
+          <div>
+            <dt>Queue</dt>
+            <dd>{OFFICE_LABEL[d.row.office ?? 'US']}</dd>
+          </div>
+          <div>
+            <dt>Type</dt>
+            <dd>
+              <TypeBadge type={d.row.type} title={d.row.interest} />
+            </dd>
+          </div>
+          <div>
+            <dt>Country</dt>
+            <dd>
+              <CountryFlag code={d.row.countryCode} source={d.row.countrySource} />
+            </dd>
+          </div>
+        </dl>
         {/* W1-8 action hierarchy: one primary action for the next state, one secondary (ownership), the rest in More.
             On a phone this row is a sticky action bar. */}
         <div className="c-actions c-action-bar">

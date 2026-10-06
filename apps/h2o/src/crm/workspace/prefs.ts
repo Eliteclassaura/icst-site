@@ -24,6 +24,10 @@ export const SEARCH_FLAG = 's'
 export const SEARCH_TTL_SECONDS = 30 * 60
 export const SCOPE_COOKIE = 'crm_scope'
 export const SCOPE_TTL_SECONDS = 365 * 24 * 3600
+/** Polish R1: table density (comfortable by default; "compact" tightens every list). */
+export const DENSITY_COOKIE = 'crm_density'
+export type Density = 'comfortable' | 'compact'
+export const densityFrom = (v: unknown): Density => (v === 'compact' ? 'compact' : 'comfortable')
 
 export const cookieOptions = (maxAge: number, secure: boolean) =>
   ({ httpOnly: true, sameSite: 'strict' as const, path: '/crm/', maxAge, secure })
@@ -56,13 +60,14 @@ const build = (path: string, entries: Array<[string, string | null | undefined]>
 /** Inbox URL from validated params. `search` adds the `s=1` flag; `extra` is for the pane (`rfq`, `tab`). */
 export function inboxHref(
   p: InboxParams,
-  over: Partial<Record<'view' | 'owner' | 'received' | 'type' | 'office' | 'source' | 'cta' | 'linked' | 'account' | 'contact' | 'sort' | 'page', string | null>> = {},
+  over: Partial<Record<'view' | 'owner' | 'received' | 'reply' | 'type' | 'office' | 'source' | 'cta' | 'linked' | 'account' | 'contact' | 'sort' | 'page', string | null>> = {},
   opts: { search?: boolean; status?: string[] | null; motions?: string[] | null; countries?: string[] | null; rfq?: string | null; tab?: string | null } = {},
 ) {
   const base: Record<string, string | null> = {
     view: p.view === 'open' ? null : p.view,
     owner: p.owner,
     received: p.received,
+    reply: p.reply,
     type: p.type,
     office: p.office,
     source: p.source,
@@ -146,4 +151,11 @@ export function scopeReturnPath(raw: unknown): string {
     return ['due', 'overdue', 'open', 'done'].includes(String(when)) ? `/crm/follow-ups/?when=${String(when)}` : '/crm/follow-ups/'
   }
   return '/crm/'
+}
+
+/** Polish R1: back to the inbox view the density toggle was used on (rebuilt from parsed params), else My Work. */
+export function densityReturnPath(raw: unknown): string {
+  if (typeof raw !== 'string' || !raw.startsWith(LIST_PATH.inbox)) return '/crm/'
+  const sp = spFrom(raw.split('?')[1] ?? '')
+  return inboxHref(parseInboxParams(sp), {}, { search: searchRequested(sp) })
 }

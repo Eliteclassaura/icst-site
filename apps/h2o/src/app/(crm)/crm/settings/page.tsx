@@ -33,13 +33,13 @@ export default async function SettingsPage() {
               <a href="/crm/settings/sending/">Sending profiles</a> — the mailbox the CRM sends from (Google Workspace, Stalwart).
             </li>
             <li>
-              <a href="/crm/settings/sequences/">Sequences</a> — the Revenue Engine: follow-up sequences, caps and sending health.
+              <a href="/crm/settings/sequences/">Sequences</a>: the Revenue Engine, with follow-up sequences, caps and sending health.
             </li>
             <li>
-              <a href="/crm/settings/templates/">Email templates</a> — the acknowledgement and the reply templates T1–T6.
+              <a href="/crm/settings/templates/">Email templates</a>: the acknowledgement and the reply templates T1–T6.
             </li>
           </ul>
-          <p className="c-hint">The sending mode and allowlist are server settings (H2O_EMAIL_MODE); they can’t be changed here.</p>
+          <p className="c-hint">The sending mode and the allowed test recipients are server settings, set by the operator; they can’t be changed here.</p>
         </div>
       </section>
     </Shell>

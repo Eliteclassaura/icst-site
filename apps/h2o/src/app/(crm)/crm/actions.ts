@@ -13,6 +13,9 @@ import {
   listReturnPath,
   listSearchCookie,
   SCOPE_COOKIE,
+  DENSITY_COOKIE,
+  densityFrom,
+  densityReturnPath,
   SCOPE_TTL_SECONDS,
   scopeReturnPath,
   SEARCH_TTL_SECONDS,
@@ -292,6 +295,13 @@ export async function scopeAction(fd: FormData): Promise<void> {
   if (!(await actionSession())) redirect('/crm/')
   if (scope === 'mine' || scope === 'team') (await cookies()).set(SCOPE_COOKIE, scope, cookieOptions(SCOPE_TTL_SECONDS, secureCookies()))
   redirect(scopeReturnPath(f(fd, 'back')))
+}
+
+/** Polish R1: remember the table density (comfortable / compact). */
+export async function densityAction(fd: FormData): Promise<void> {
+  if (!(await actionSession())) redirect('/crm/')
+  ;(await cookies()).set(DENSITY_COOKIE, densityFrom(f(fd, 'density')), cookieOptions(SCOPE_TTL_SECONDS, secureCookies()))
+  redirect(densityReturnPath(f(fd, 'back')))
 }
 
 // ────────────────────────────────────────────── Wave 1 Patch B ──

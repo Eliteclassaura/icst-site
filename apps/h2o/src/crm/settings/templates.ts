@@ -1,9 +1,8 @@
 import type { Payload } from 'payload'
 import { lintCopy } from '../../email/copy-lint'
 import { readEmailConfig } from '../../email/config'
-import { choicesOf, fieldsOf, greetingFor, lintTemplate, renderTemplate, responseSentence, SEED_TEMPLATES, templateHash, type MergeValues, type RenderResult, type TemplateText } from '../../email/templates'
-import { isOffice } from '../offices'
-import { officeSettings } from '../officeSettings'
+import { choicesOf, fieldsOf, greetingFor, lintTemplate, renderTemplate, responseSentence, SEED_TEMPLATES, SUPERSEDED_SEED_HASHES, templateHash, type MergeValues, type RenderResult, type TemplateText } from '../../email/templates'
+import { ersSettings } from '../ers/settings'
 import type { Outcome } from '../workspace/mutations'
 import { displayNameOf, type CrmSession } from '../workspace/session'
 
@@ -19,12 +18,24 @@ const sys = { overrideAccess: true as const, depth: 0, context: { crmServer: {} 
 const fail = (code: string, message: string): Outcome => ({ ok: false, code, message })
 const NOT_ADMIN = fail('FORBIDDEN', 'Email templates are edited by admins.')
 
-/** Insert any missing seed template (unapproved). Safe to call often and from several processes. */
+/**
+ * Insert any missing seed template (unapproved). Safe to call often and from several processes.
+ * Owner rule 2026-10-06 (no phone, no address): a stored T2–T6 that is still exactly its earlier seed (unedited and
+ * unapproved) is replaced with the current seed text; anything edited or approved is never touched.
+ */
 export async function ensureTemplates(payload: Payload): Promise<void> {
   const have = await payload.find({ collection: SLUG, limit: 100, depth: 0, overrideAccess: true, pagination: false })
-  const codes = new Set((have.docs as unknown as Doc[]).map((d) => String(d.code)))
+  const stored = new Map((have.docs as unknown as Doc[]).map((d) => [String(d.code), d]))
   for (const t of SEED_TEMPLATES) {
-    if (codes.has(t.code)) continue
+    const old = stored.get(t.code)
+    if (old) {
+      const superseded = SUPERSEDED_SEED_HASHES[t.code] ?? []
+      if (old.approved !== true && superseded.includes(templateHash(textOf(old)))) {
+        const { approved: _a, code: _c, name: _n, ...text } = t
+        await payload.update({ collection: SLUG, id: String(old.id), data: text as never, ...sys }).catch(() => null)
+      }
+      continue
+    }
     try {
       const { approved, ...text } = t
       const seal = approved ? { approved: true, approved_hash: templateHash(text), approved_at: new Date().toISOString() } : { approved: false }
@@ -105,8 +116,7 @@ export async function mergeValuesFor(payload: Payload, rfq: Doc, sender: CrmSess
   let account: Doc | null = null
   const accountId = rfq.account && typeof rfq.account === 'object' ? (rfq.account as Doc).id : rfq.account
   if (accountId) account = (await payload.findByID({ collection: 'crm-accounts', id: String(accountId), depth: 0, overrideAccess: true }).catch(() => null)) as Doc | null
-  const settings = await officeSettings(payload)
-  const office = isOffice(sender.crm_office) ? sender.crm_office : 'US'
+  const ers = await ersSettings(payload)
   const name = displayNameOf(sender)
   return {
     rfq_number: String(rfq.rfq_number ?? ''),
@@ -116,7 +126,8 @@ export async function mergeValuesFor(payload: Payload, rfq: Doc, sender: CrmSess
     // The fallback "CRM user …" label is not a real name: treat it as missing.
     sales_rep_name: typeof sender.name === 'string' && sender.name.trim() ? name : '',
     sales_rep_title: typeof sender.crm_title === 'string' ? sender.crm_title : '',
-    office_phone: settings.phones[office] ?? '',
+    // Owner rule 2026-10-06: the team signature only ("ICS Sales Team" + the sales address); no phone, no address.
+    email_signature: [ers.signature.signer, ers.signature.email].filter(Boolean).join('\n'),
     response_sentence: responseSentence(readEmailConfig().responsePromise),
   }
 }
@@ -124,7 +135,6 @@ export async function mergeValuesFor(payload: Payload, rfq: Doc, sender: CrmSess
 export const FIELD_FIX: Record<string, string> = {
   sales_rep_name: 'Add your name to your account.',
   sales_rep_title: 'Add your job title to your account.',
-  office_phone: 'An admin adds your office’s phone number in the CRM office settings.',
   company: 'This inquiry has no company.',
   rfq_number: 'This inquiry has no RFQ number.',
 }

@@ -6,6 +6,8 @@ import { engineStatus } from '../../../../../../crm/ers/report'
 import { loadViews } from '../../../../../../crm/workspace/savedViews'
 import { absoluteTime } from '../../../../../../crm/workspace/time'
 import { Shell } from '../../../../../../crm/workspace/ui/Shell'
+import { ToneChip } from '../../../../../../crm/workspace/ui/Status'
+import type { Tone } from '../../../../../../crm/workspace/labels'
 import { DraftSteps, SequenceActions } from '../../../_components/SequenceForms'
 import { requireCrmSession } from '../../../session'
 
@@ -33,18 +35,30 @@ export default async function SequencePage({ params }: { params: Promise<{ id: s
   const published = versions.find((v) => String(v.id) === String(seq.published_version)) ?? null
   const st = await engineStatus(s.payload)
   const views = (await loadViews(s)).filter((v) => v.list === 'inbox' || v.list === 'contacts')
+  // Polish R1: each step is a row with its kind (Wait / Email / Task) as a tag, numbered by the list.
   const stepLines = (v: Doc) => ((v.steps ?? []) as Step[]).map((x, i) => (
     <li key={`${String(v.id)}-${i}`}>
-      {x.type === 'WAIT' ? `Wait ${x.business_days} business day${Number(x.business_days) === 1 ? '' : 's'}` : x.type === 'EMAIL' ? (
-        <>
-          Email — template{' '}
-          <a href={`/crm/settings/templates/${encodeURIComponent(String(x.template && typeof x.template === 'object' ? (x.template as Doc).id : x.template))}/`}>{codeOf(x.template)}</a>
-        </>
-      ) : (
-        `Task for the owner (due in ${x.task_due_days ?? 0} business day${Number(x.task_due_days) === 1 ? '' : 's'}): ${x.task_title}`
-      )}
+      <span className={`c-step-kind is-${x.type.toLowerCase()}`}>{x.type === 'WAIT' ? 'Wait' : x.type === 'EMAIL' ? 'Email' : 'Task'}</span>
+      <span className="c-step-text">
+        {x.type === 'WAIT' ? (
+          `${x.business_days} business day${Number(x.business_days) === 1 ? '' : 's'}`
+        ) : x.type === 'EMAIL' ? (
+          <>
+            Template{' '}
+            <a href={`/crm/settings/templates/${encodeURIComponent(String(x.template && typeof x.template === 'object' ? (x.template as Doc).id : x.template))}/`}>{codeOf(x.template)}</a>
+          </>
+        ) : (
+          `For the owner, due in ${x.task_due_days ?? 0} business day${Number(x.task_due_days) === 1 ? '' : 's'}: ${x.task_title}`
+        )}
+      </span>
     </li>
   ))
+  const RUN: Record<string, { label: string; tone: Tone }> = {
+    ACTIVE: { label: 'Running', tone: 'success' },
+    PAUSED: { label: 'Paused', tone: 'warning' },
+    RETIRED: { label: 'Retired', tone: 'terminal' },
+  }
+  const run = RUN[String(seq.run_state)] ?? { label: 'Not started', tone: 'neutral' as const }
   return (
     <Shell active="settings" title={String(seq.name)} userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <p className="c-crumbs">
@@ -52,7 +66,8 @@ export default async function SequencePage({ params }: { params: Promise<{ id: s
       </p>
       <section className="c-panel is-settings" aria-labelledby="st-h">
         <div className="c-panel-head">
-          <h2 id="st-h">{seq.run_state === 'ACTIVE' ? 'Running' : seq.run_state === 'PAUSED' ? 'Paused' : seq.run_state === 'RETIRED' ? 'Retired' : 'Not started'}</h2>
+          <h2 id="st-h">Status</h2>
+          <ToneChip tone={run.tone}>{run.label}</ToneChip>
         </div>
         <div className="c-panel-body is-padded">
           <dl className="c-dl">
@@ -61,7 +76,7 @@ export default async function SequencePage({ params }: { params: Promise<{ id: s
             <dt>Language</dt>
             <dd>{String(seq.language)}</dd>
             <dt>Approval</dt>
-            <dd>Automatic — every email is checked by the copy-risk rules first; anything flagged is held for review.</dd>
+            <dd>Automatic. Every email is checked by the copy-risk rules first; anything flagged is held for review.</dd>
             <dt>Published</dt>
             <dd>
               {published
@@ -79,7 +94,7 @@ export default async function SequencePage({ params }: { params: Promise<{ id: s
             <h2 id="pub-h">Version {String(published.version_number)} (published, frozen)</h2>
           </div>
           <div className="c-panel-body is-padded">
-            <ol>{stepLines(published)}</ol>
+            <ol className="c-steps">{stepLines(published)}</ol>
             <p className="c-hint c-mono c-hash">Definition hash {String(published.definition_hash ?? '')}</p>
           </div>
         </section>
@@ -90,7 +105,7 @@ export default async function SequencePage({ params }: { params: Promise<{ id: s
             <h2 id="dr-h">Version {String(draft.version_number)} (draft)</h2>
           </div>
           <div className="c-panel-body is-padded">
-            <ol>{stepLines(draft)}</ol>
+            <ol className="c-steps">{stepLines(draft)}</ol>
             <DraftSteps versionId={String(draft.id)} steps={formatSteps((draft.steps ?? []) as Step[], codeOf)} />
             <p className="c-hint">Sequence templates: {templates.map((t) => String(t.code)).join(', ')}.</p>
           </div>

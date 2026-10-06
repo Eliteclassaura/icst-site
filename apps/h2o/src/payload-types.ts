@@ -6536,7 +6536,7 @@ export interface SiteChrome {
 export interface CrmOfficeSetting {
   id: string;
   /**
-   * Shown in email signatures as {{office_phone}}: the sender’s office number. Empty = templates that need it can’t be used.
+   * Optional, for reference. Never shown in an email: no phone number appears in any email (owner rule 2026-10-06).
    */
   phones?: {
     US?: string | null;
@@ -6608,9 +6608,6 @@ export interface CrmErsSetting {
    * Owner decision 2026-10-05: optional, default ON, each change audited. The floor always applies.
    */
   compliance?: {
-    /**
-     * Uses the postal address below.
-     */
     address_footer?: boolean | null;
     /**
      * Off: sequence email may go out at any hour (caps still apply).
@@ -6622,16 +6619,16 @@ export interface CrmErsSetting {
     warmup?: boolean | null;
   };
   /**
-   * Shown in the footer when the address toggle is on.
+   * Not used: no postal address appears in any email (owner rule 2026-10-06).
    */
   postal_address?: string | null;
   /**
-   * Owner decision 2026-10-05: every sequence email is signed by the team, not a person.
+   * Every email is signed by the team: the signer and the sales address only (owner decisions 2026-10-05 and 2026-10-06; no phone number, no postal address). Used by sequence emails and the reply templates T2–T6.
    */
   signature?: {
     signer?: string | null;
     /**
-     * The phone of the RFQ’s office queue (CRM office settings).
+     * Not used: no phone number appears in any email (owner rule 2026-10-06).
      */
     include_office_phone?: boolean | null;
     email?: string | null;

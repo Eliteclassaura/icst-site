@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
 import type { RfqRow } from '../queries'
 import { absoluteTime, BUSINESS_TIME_ZONE, compactTime, relativeAge } from '../time'
+import { CountryFlag, QueueTag, ReplyChip, TypeBadge } from './Facets'
 import { RfqStatus, RowFlags } from './Status'
-import { countryName } from '../../countries'
-import { INQUIRY_TYPE_LABEL, typeFromInterest, type InquiryType } from '../../inquiry-type'
+import { typeFromInterest } from '../../inquiry-type'
 
 /**
  * The inquiry list. Real table semantics; each company cell carries the row link (focusable for j/k).
@@ -53,10 +53,18 @@ export function RfqTable({
                 Country
               </th>
             )}
-            <th scope="col">Owner</th>
-            <th scope="col">Status</th>
             {compact ? null : (
-              <th scope="col" className="hide-sm">
+              <th scope="col" className="hide-sm queue">
+                Queue
+              </th>
+            )}
+            {compact ? null : <th scope="col">Owner</th>}
+            <th scope="col">Status</th>
+            <th scope="col" className="reply">
+              Reply due
+            </th>
+            {compact ? null : (
+              <th scope="col" className="hide-sm hide-md next">
                 Next action
               </th>
             )}
@@ -68,6 +76,7 @@ export function RfqTable({
         <tbody>
           {rows.map((r) => {
             const received = new Date(r.receivedAt)
+            const exact = absoluteTime(received, zone)
             return (
               <tr key={r.id} className={selectedId === r.id ? 'is-selected' : undefined}>
                 {select ? (
@@ -75,18 +84,15 @@ export function RfqTable({
                     <input type="checkbox" className="c-check" data-bulk value={`${r.id}|${r.updatedAt}`} aria-label={`Select ${r.company ?? r.contactName ?? 'inquiry'}`} />
                   </td>
                 ) : null}
-                <td className="received" title={absoluteTime(received, zone)}>
-                  <span>{compactTime(received, now, zone)}</span>
-                  {r.aged ? (
-                    <span className="c-hint">
-                      <br />
-                      <span className="c-warn-text">Received {relativeAge(received, now)}</span>
-                    </span>
-                  ) : null}
+                {/* Polish R1: relative age; the exact time is in the title and shows under it while the row has focus. */}
+                <td className="received" title={exact}>
+                  <time dateTime={r.receivedAt}>{relativeAge(received, now)}</time>
+                  <span className="c-when-exact">{compactTime(received, now, zone)}</span>
+                  {r.aged ? <span className="c-when-aged c-warn-text">Unassigned &gt; 1 business day</span> : null}
                 </td>
-                <td className="two">
-                  <a className="c-row-link" href={hrefFor(r)} data-row-link aria-current={selectedId === r.id ? 'true' : undefined}>
-                    <strong>{r.company ?? <span className="c-unknown">Company not supplied</span>}</strong>
+                <td className="two who">
+                  <a className="c-row-link" href={hrefFor(r)} data-row-link data-full-href={`/crm/rfqs/${r.id}/`} aria-current={selectedId === r.id ? 'true' : undefined}>
+                    <strong title={r.company ?? undefined}>{r.company ?? <span className="c-unknown">Company not supplied</span>}</strong>
                     <span>
                       {r.contactName ?? 'Contact not supplied'}
                       {r.company && !r.companyLinked ? ' · unlinked' : ''}
@@ -94,46 +100,44 @@ export function RfqTable({
                   </a>
                 </td>
                 {compact ? null : (
-                  <td className="hide-sm interest two">
+                  <td className="hide-sm interest">
                     <TypeCell r={r} />
                   </td>
                 )}
                 {compact ? null : (
                   <td className="hide-sm country">
-                    <CountryCell code={r.countryCode} source={r.countrySource} />
+                    <CountryFlag code={r.countryCode} source={r.countrySource} />
                   </td>
                 )}
-                <td className="owner">
-                  {r.ownerName ? (
-                    <span className="c-trunc" title={r.ownerName}>
-                      {r.ownerName}
-                    </span>
-                  ) : (
-                    <span className="c-warn-text">Unassigned</span>
-                  )}
-                </td>
-                <td className="status">
-                  <RfqStatus value={r.status} />
-                </td>
                 {compact ? null : (
-                  <td className="hide-sm next">
-                    {r.nextAction ? (
-                      <span
-                        className={r.nextAction.overdue ? 'c-overdue' : undefined}
-                        title={`${r.nextAction.overdue ? 'Overdue · ' : ''}${r.nextAction.title}`}
-                      >
-                        {r.nextAction.overdue ? 'Overdue · ' : ''}
-                        {r.nextAction.title}
-                        {r.nextAction.dueAt ? <span className="c-muted"> · {compactTime(new Date(r.nextAction.dueAt), now, zone)}</span> : null}
+                  <td className="hide-sm queue">
+                    <QueueTag office={r.office} />
+                  </td>
+                )}
+                {/* Beside an open record (compact) the owner is in the record's header, so the list leaves it out. */}
+                {compact ? null : (
+                  <td className="owner">
+                    {r.ownerName ? (
+                      <span className="c-trunc" title={r.ownerName}>
+                        {r.ownerName}
                       </span>
-                    ) : r.status === 'QUALIFIED' ? (
-                      <span className="c-muted">Qualified</span>
                     ) : (
-                      <span className="c-muted">No open follow-up</span>
+                      <span className="c-warn-text">Unassigned</span>
                     )}
                   </td>
                 )}
-                <td>
+                <td className="status">
+                  <RfqStatus value={r.status} />
+                </td>
+                <td className="reply">
+                  <ReplyChip reply={r.reply} now={now} zone={zone} />
+                </td>
+                {compact ? null : (
+                  <td className="hide-sm hide-md next">
+                    <NextCell r={r} now={now} zone={zone} />
+                  </td>
+                )}
+                <td className="flags">
                   <RowFlags flags={r.flags} />
                 </td>
               </tr>
@@ -145,27 +149,32 @@ export function RfqTable({
   )
 }
 
-/** Type, and the customer's own words when the staff classification says something else (owner request). */
+/** The next open follow-up. The first-response task is already the Reply due column, so it is not repeated here. */
+function NextCell({ r, now, zone }: { r: RfqRow; now: Date; zone: string }) {
+  if (r.nextAction && r.nextAction.kind !== 'RFQ_FIRST_RESPONSE')
+    return (
+      <span className={r.nextAction.overdue ? 'c-overdue' : undefined} title={`${r.nextAction.overdue ? 'Overdue · ' : ''}${r.nextAction.title}`}>
+        {r.nextAction.overdue ? 'Overdue · ' : ''}
+        {r.nextAction.title}
+        {r.nextAction.dueAt ? <span className="c-muted"> · {compactTime(new Date(r.nextAction.dueAt), now, zone)}</span> : null}
+      </span>
+    )
+  if (r.nextAction) return <span className="c-muted">First reply</span>
+  return r.status === 'QUALIFIED' ? <span className="c-muted">Qualified</span> : <span className="c-muted">No open follow-up</span>
+}
+
+/** Type badge, and the customer's own words when the staff classification says something else (owner request). */
 function TypeCell({ r }: { r: RfqRow }) {
-  const label = INQUIRY_TYPE_LABEL[r.type as InquiryType] ?? 'Not stated'
   const customerType = r.interestOrigin === 'CUSTOMER' ? typeFromInterest(r.interest) : null
   const differs = r.typeSource === 'STAFF_MOTION' && customerType && customerType !== r.type
   return (
     <>
-      <strong title={r.typeSource === 'STAFF_MOTION' ? 'Classified by staff' : 'From the customer’s answer'}>{label}</strong>
-      <span title={r.interest}>{differs ? `Customer: ${r.interest}` : r.interestOrigin === 'CUSTOMER' ? r.interest : r.typeSource === 'STAFF_MOTION' ? 'Staff classification' : ''}</span>
+      <TypeBadge type={r.type} title={r.typeSource === 'STAFF_MOTION' ? 'Classified by staff' : 'From the customer’s answer'} />
+      {differs ? (
+        <span className="c-sub" title={r.interest}>
+          Customer: {r.interest}
+        </span>
+      ) : null}
     </>
-  )
-}
-
-/** Country name; marked when it was inferred from the phone number rather than stated. */
-function CountryCell({ code, source }: { code: string | null; source: string }) {
-  if (!code) return <span className="c-unknown">Unknown</span>
-  const name = countryName(code) ?? code
-  return (
-    <span title={source === 'PHONE_INFERRED' ? 'Inferred from the phone number' : source === 'DESTINATION_ANSWER' ? 'From the customer’s destination answer' : 'Submitted'}>
-      {name}
-      {source === 'PHONE_INFERRED' ? <span className="c-muted"> · from phone</span> : null}
-    </span>
   )
 }

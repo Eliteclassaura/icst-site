@@ -19,10 +19,13 @@
   --c-text-2: rgb(95 107 116);
   --c-n700: rgb(62 74 83);
   --c-text: rgb(12 19 23);
-  --c-accent: rgb(11 85 165);
-  --c-accent-deep: rgb(0 54 106);
+  /* Polish R1: the H2O/ICS site's petrol blue (site.css --blue / --blue-dark), the one accent. */
+  --c-accent: rgb(10 74 110);
+  --c-accent-deep: rgb(6 53 79);
   --c-b50: rgb(229 237 243);
   --c-success: rgb(31 122 77);
+  --c-success-tint: rgb(31 122 77 / 10%);
+  --c-success-text: rgb(20 88 55);
   --c-warning: rgb(154 103 0);
   --c-warning-text: rgb(138 92 0);
   --c-warning-tint: rgb(154 103 0 / 12%);
@@ -30,6 +33,7 @@
   --c-error-text: rgb(122 26 18);
   --c-error-tint: rgb(180 35 24 / 10%);
   --c-white: rgb(255 255 255);
+  --c-scrim: rgb(12 19 23 / 40%);
   --c-font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --c-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   --c-side: 232px;
@@ -404,36 +408,53 @@
 }
 
 /* ── status & flags ──────────────────────────────────────── */
+/* Polish R1: tinted chips with a tone glyph (Status.tsx); the text label carries the meaning, AA on the tint. */
 .c-status {
   display: inline-flex;
-  gap: 6px;
+  gap: 5px;
   align-items: center;
+  min-block-size: 22px;
+  padding-inline: 7px 8px;
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  background: var(--c-n50);
+  color: var(--c-n700);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
   white-space: nowrap;
 }
 
-.c-status::before {
+.c-status svg,
+.c-type svg,
+.c-due svg {
   flex: none;
-  inline-size: 6px;
-  block-size: 6px;
-  border-radius: 50%;
-  background: var(--c-n700);
-  content: '';
+  inline-size: 13px;
+  block-size: 13px;
 }
 
-.c-status.t-accent::before {
-  background: var(--c-accent);
+.c-status.t-accent {
+  border-color: var(--c-b50);
+  background: var(--c-b50);
+  color: var(--c-accent-deep);
 }
 
-.c-status.t-warning::before {
-  background: var(--c-warning);
+.c-status.t-warning {
+  border-color: var(--c-warning-tint);
+  background: var(--c-warning-tint);
+  color: var(--c-warning-text);
 }
 
-.c-status.t-success::before {
-  background: var(--c-success);
+.c-status.t-success {
+  border-color: var(--c-success-tint);
+  background: var(--c-success-tint);
+  color: var(--c-success-text);
 }
 
-.c-status.t-terminal::before {
-  background: var(--c-n300);
+.c-status.t-terminal {
+  border-color: var(--c-rule);
+  background: var(--c-surface);
+  color: var(--c-text-2);
 }
 
 .c-flags {
@@ -658,7 +679,7 @@
 
 .c-table td {
   block-size: 34px;
-  padding-block: 7px;
+  padding-block: 10px; /* Polish R1: comfortable rows; .is-dense (Compact) tightens them. */
   padding-inline: 12px;
   border-block-end: 1px solid var(--c-rule);
   vertical-align: middle;
@@ -1108,11 +1129,9 @@ details.c-tech > summary {
 
 .c-fieldset legend {
   padding-inline: 4px;
-  color: var(--c-text-2);
-  font-size: 11px;
+  color: var(--c-n700);
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .c-dialog-note {
@@ -1664,6 +1683,25 @@ details.c-tech > summary {
 
 /* ── responsive ──────────────────────────────────────────── */
 @media (max-width: 1439px) {
+  /* Polish R1: below desktop width the Next action column leaves the list (it stays in the record). */
+  .c-table .hide-md {
+    display: none;
+  }
+
+  /* …and the inquiry list tightens so every column, Reply due included, fits without an inner scroll. */
+  .c-rfq-table th,
+  .c-rfq-table td {
+    padding-inline: 7px;
+  }
+
+  .c-rfq-table td.who {
+    min-inline-size: 150px;
+  }
+
+  .c-rfq-table td.owner .c-trunc {
+    max-inline-size: 104px;
+  }
+
   /* UI-1 IN-03/IN-06: below the split width the list keeps Status and Flags on screen; long interest and
      next-action text truncates to one line (full text in the title). */
   .c-rfq-table td.interest .c-trunc {
@@ -1833,8 +1871,8 @@ details.c-tech > summary {
     gap: 4px 12px;
     grid-template-areas:
       'who flags'
-      'status owner'
-      'received received';
+      'status reply'
+      'received owner';
     grid-template-columns: minmax(0, 1fr) auto;
     padding-block: 10px;
     padding-inline: 12px;
@@ -1867,8 +1905,18 @@ details.c-tech > summary {
     font-size: 12px;
   }
 
-  .c-rfq-table td:last-child {
+  .c-rfq-table td.reply {
+    grid-area: reply;
+    text-align: end;
+  }
+
+  .c-rfq-table td.flags {
     grid-area: flags;
+  }
+
+  .c-rfq-table td.received time {
+    display: inline;
+    font-weight: 400;
   }
 
   .c-rfq-table .two strong,
@@ -2056,4 +2104,702 @@ details.c-tech > summary {
 /* ERS slice 1: a sequence version's definition hash wraps on narrow screens. */
 .c-hash {
   overflow-wrap: anywhere;
+}
+
+/* ── Polish R1: inbox facets ─────────────────────────────── */
+.c-type {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  color: var(--c-text);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.c-type svg {
+  color: var(--c-accent);
+}
+
+.c-type.is-unknown {
+  color: var(--c-text-2);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.c-sub {
+  display: block;
+  overflow: hidden;
+  max-inline-size: 200px;
+  color: var(--c-text-2);
+  font-size: 12px;
+  line-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-country {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  font-family: var(--c-mono);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.c-flag {
+  font-family: var(--c-font);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.c-queue {
+  display: inline-block;
+  min-inline-size: 28px;
+  padding-inline: 5px;
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  color: var(--c-n700);
+  font-family: var(--c-mono);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
+}
+
+.c-due {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  min-block-size: 22px;
+  padding-inline: 7px 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.c-due.is-ok {
+  background: var(--c-success-tint);
+  color: var(--c-success-text);
+}
+
+.c-due.is-soon {
+  border-color: var(--c-warning);
+  background: var(--c-warning-tint);
+  color: var(--c-warning-text);
+}
+
+.c-due.is-overdue {
+  border-color: var(--c-error);
+  background: var(--c-error-tint);
+  color: var(--c-error-text);
+}
+
+.c-due.is-done {
+  border-color: var(--c-rule);
+  color: var(--c-text-2);
+}
+
+/* Received: relative age; the exact time is the cell's title on hover and appears under it while the row has focus. */
+.c-rfq-table td.received time {
+  display: block;
+  font-weight: 500;
+}
+
+.c-when-exact,
+.c-when-aged {
+  display: block;
+  color: var(--c-text-2);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.c-when-exact {
+  display: none;
+}
+
+.c-rfq-table tr:focus-within .c-when-exact {
+  display: block;
+}
+
+.c-when-aged {
+  max-inline-size: 12ch;
+  color: var(--c-warning-text);
+  white-space: normal;
+}
+
+/* Company names wrap to two lines instead of truncating (full name in the title); the column keeps room for one. */
+.c-rfq-table th,
+.c-rfq-table td {
+  padding-inline: 8px;
+}
+
+.c-rfq-table td.who {
+  min-inline-size: 200px;
+}
+
+.c-rfq-table td.next {
+  max-inline-size: 200px;
+}
+
+.c-rfq-table.is-compact td.who {
+  min-inline-size: 132px;
+}
+
+.c-rfq-table td.who strong {
+  overflow: hidden;
+  max-inline-size: 260px;
+  max-block-size: 2lh;
+  text-overflow: clip;
+  white-space: normal;
+  text-wrap: pretty;
+}
+
+/* The Compact toggle (density cookie) tightens every table. */
+.is-dense .c-table td {
+  padding-block: 5px;
+}
+
+.is-dense .c-rfq-table tr:focus-within .c-when-exact {
+  display: none;
+}
+
+/* ── Polish R1: toolbar, states, pane ────────────────────── */
+.c-density {
+  display: contents;
+}
+
+.c-btn[aria-pressed='true'] {
+  border-color: var(--c-accent);
+  background: var(--c-b50);
+  color: var(--c-accent-deep);
+}
+
+.c-btn svg {
+  flex: none;
+  inline-size: 14px;
+  block-size: 14px;
+}
+
+.c-sheet-head,
+.c-sheet-backdrop {
+  display: none;
+}
+
+.c-empty-state {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding-block: 40px 44px;
+  padding-inline: 24px;
+  text-align: center;
+}
+
+.c-empty-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 40px;
+  block-size: 40px;
+  margin-block-end: 8px;
+  border-radius: 8px;
+  background: var(--c-b50);
+  color: var(--c-accent);
+}
+
+.c-empty-icon svg {
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+.c-empty-title {
+  margin: 0;
+  color: var(--c-text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.c-empty-body {
+  max-inline-size: 44ch;
+  margin: 0;
+  color: var(--c-text-2);
+}
+
+.c-empty-action {
+  margin-block-start: 12px;
+}
+
+/* Links inside running text are underlined (not colour alone). */
+.c-empty a,
+.c-hint a,
+.c-alert a {
+  text-decoration: underline;
+}
+
+.c-pane-nav {
+  display: flex;
+  gap: 16px;
+  margin-block: 0 8px;
+}
+
+.c-back-list {
+  display: none;
+}
+
+/* Skeleton loading pulses gently; static under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .c-skeleton {
+    animation: c-pulse 1.4s ease-in-out infinite;
+  }
+}
+
+@keyframes c-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* ── Polish R1: phone ────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* The bottom bar clears the home indicator; content is never under it. */
+  .crm-app {
+    padding-block-end: calc(64px + env(safe-area-inset-bottom));
+  }
+
+  .c-side {
+    block-size: calc(56px + env(safe-area-inset-bottom));
+    padding-block-end: env(safe-area-inset-bottom);
+  }
+
+  .c-more-nav > ul {
+    inset-block-end: calc(60px + env(safe-area-inset-bottom));
+  }
+
+  .c-action-bar {
+    inset-block-end: calc(56px + env(safe-area-inset-bottom));
+  }
+
+  .c-rfq-table td.who strong {
+    max-inline-size: none;
+  }
+
+  /* An open pane (no-JavaScript fallback) replaces the list instead of stacking under it. */
+  .c-split.has-pane > section {
+    display: none;
+  }
+
+  .c-back-list {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    min-block-size: 44px;
+  }
+
+  .c-pane-close {
+    display: none;
+  }
+
+  /* Filters: a bottom sheet over a backdrop, above the bottom bar. */
+  .c-sheet[open] > .c-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: block;
+    background: var(--c-scrim);
+  }
+
+  .c-sheet[open] > .c-filters {
+    position: fixed;
+    inset-block: auto 0;
+    inset-inline: 0;
+    z-index: 31;
+    inline-size: auto;
+    max-block-size: 85dvh;
+    overflow-y: auto;
+    padding-block: 0 calc(16px + env(safe-area-inset-bottom));
+    padding-inline: 16px;
+    border: 0;
+    border-start-start-radius: 12px;
+    border-start-end-radius: 12px;
+  }
+
+  .c-sheet-head {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 1;
+    display: flex;
+    grid-column: 1 / -1;
+    align-items: center;
+    justify-content: space-between;
+    margin-inline: -16px;
+    padding-block: 8px;
+    padding-inline: 16px 8px;
+    border-block-end: 1px solid var(--c-rule);
+    background: var(--c-surface);
+  }
+
+  .c-sheet-close {
+    block-size: 44px;
+  }
+
+  .c-sheet-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .c-sheet .c-actions {
+    position: sticky;
+    inset-block-end: 0;
+    padding-block: 8px;
+    background: var(--c-surface);
+  }
+
+  .c-sheet .c-actions .c-btn {
+    flex: 1 1 auto;
+  }
+}
+
+/* ── Polish R1: My Work dashboard ────────────────────────── */
+.c-kpis {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-block-end: 16px;
+}
+
+.c-kpi {
+  display: grid;
+  grid-template-areas:
+    'n s'
+    'l l';
+  grid-template-columns: 1fr auto;
+  gap: 2px 8px;
+  align-items: baseline;
+  padding-block: 12px 14px;
+  padding-inline: 16px;
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  background: var(--c-surface);
+  color: var(--c-text);
+  transition: border-color 150ms ease-out;
+}
+
+.crm-app .c-kpi {
+  color: var(--c-text);
+}
+
+.c-kpi:hover {
+  border-color: var(--c-accent);
+  text-decoration: none;
+}
+
+.c-kpi-n {
+  grid-area: n;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 34px;
+}
+
+.c-kpi-l {
+  grid-area: l;
+  color: var(--c-n700);
+  font-weight: 500;
+}
+
+.c-kpi-s {
+  grid-area: s;
+  color: var(--c-text-2);
+  font-size: 11px;
+}
+
+.c-kpi.is-error {
+  border-color: var(--c-error);
+  border-inline-start-width: 3px;
+}
+
+.c-kpi.is-error .c-kpi-n {
+  color: var(--c-error-text);
+}
+
+.c-kpi.is-warning {
+  border-color: var(--c-warning);
+  border-inline-start-width: 3px;
+}
+
+.c-kpi.is-warning .c-kpi-n {
+  color: var(--c-warning-text);
+}
+
+.c-ok-line {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-block: -4px 16px;
+  color: var(--c-success);
+  font-weight: 500;
+}
+
+.c-ok-line svg {
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+.c-head-alert {
+  padding-inline: 6px;
+  border-radius: 4px;
+  background: var(--c-error-tint);
+  color: var(--c-error-text);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.c-bars-wrap {
+  display: grid;
+  gap: 16px;
+  padding-block: 12px 14px;
+  padding-inline: 16px;
+}
+
+.c-bars-title {
+  margin-block: 0 6px;
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.c-bars {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.c-bars a {
+  display: grid;
+  grid-template-columns: minmax(0, 9em) minmax(0, 1fr) 3ch;
+  gap: 10px;
+  align-items: center;
+  min-block-size: 28px;
+  color: var(--c-text);
+}
+
+.c-bars a:hover {
+  text-decoration: none;
+}
+
+.c-bars a:hover .c-bar-l {
+  color: var(--c-accent);
+  text-decoration: underline;
+}
+
+.c-bar-l {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-bar {
+  block-size: 8px;
+  border-radius: 2px;
+  background: var(--c-n50);
+}
+
+.c-bar > span {
+  display: block;
+  block-size: 100%;
+  border-radius: 2px;
+  background: var(--c-accent);
+}
+
+.c-bar-n {
+  font-weight: 600;
+  text-align: end;
+}
+
+@media (max-width: 1279px) {
+  .c-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .c-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .c-kpi {
+    padding-inline: 12px;
+  }
+
+  .c-kpi-n {
+    font-size: 24px;
+    line-height: 30px;
+  }
+}
+
+/* ── Polish R1: settings ─────────────────────────────────── */
+.c-advanced {
+  padding-block: 4px 8px;
+  border-block: 1px solid var(--c-rule);
+}
+
+.c-advanced > summary {
+  display: flex;
+  align-items: center;
+  min-block-size: 36px;
+  color: var(--c-accent);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.c-advanced[open] > summary {
+  margin-block-end: 4px;
+}
+
+.c-advanced > .c-hint {
+  margin-block: 0 12px;
+}
+
+@media (max-width: 767px) {
+  .c-advanced > summary {
+    min-block-size: 44px;
+  }
+}
+
+/* ── Polish R1: RFQ header facts ─────────────────────────── */
+.c-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  margin: 2px 0 4px;
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  background: var(--c-surface);
+  overflow: hidden;
+}
+
+.c-facts > div {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  min-inline-size: 0;
+  padding-block: 8px 10px;
+  padding-inline: 12px;
+  /* Cell rules that the container clips at its outer edge, so a short last row leaves no grey gaps. */
+  box-shadow:
+    1px 0 0 var(--c-rule),
+    0 1px 0 var(--c-rule);
+}
+
+.c-facts dt {
+  color: var(--c-text-2);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.c-facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.c-detail-head .c-detail-meta {
+  gap: 4px 12px;
+}
+
+@media (max-width: 767px) {
+  .c-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ── Polish R1: ERS screens ──────────────────────────────── */
+.c-dd-note {
+  display: block;
+  margin-block-start: 4px;
+  color: var(--c-text-2);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.c-panel-actions {
+  margin-block-start: 12px;
+}
+
+.c-span-all {
+  grid-column: 1 / -1;
+  margin-block: 0 4px;
+}
+
+.c-steps {
+  display: grid;
+  gap: 0;
+  margin: 4px 0 12px;
+  padding: 0;
+  list-style: none;
+  counter-reset: c-step;
+}
+
+.c-steps > li {
+  display: grid;
+  grid-template-columns: 2ch 56px minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+  padding-block: 8px;
+  border-block-end: 1px solid var(--c-rule);
+  counter-increment: c-step;
+}
+
+.c-steps > li::before {
+  color: var(--c-text-2);
+  font-size: 12px;
+  text-align: end;
+  content: counter(c-step);
+}
+
+.c-steps > li:last-child {
+  border-block-end: 0;
+}
+
+.c-step-kind {
+  justify-self: start;
+  padding-inline: 6px;
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  color: var(--c-n700);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.c-step-kind.is-email {
+  border-color: var(--c-b50);
+  background: var(--c-b50);
+  color: var(--c-accent-deep);
+}
+
+.c-step-kind.is-task {
+  border-color: var(--c-warning-tint);
+  background: var(--c-warning-tint);
+  color: var(--c-warning-text);
+}
+
+.c-enrol-list .grow > .c-hint {
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .c-enrol-list > li {
+    flex-wrap: wrap;
+  }
+}
+
+.c-empty-icon.is-error {
+  background: var(--c-error-tint);
+  color: var(--c-error-text);
 }

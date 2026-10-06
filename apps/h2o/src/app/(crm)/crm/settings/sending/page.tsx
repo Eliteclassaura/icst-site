@@ -1,3 +1,4 @@
+import { ToneChip } from '../../../../../crm/workspace/ui/Status'
 import type { Metadata } from 'next'
 import { DEFAULT_SENDER_NAME } from '../../../../../email/config'
 import { emailStatus, presetOptions, PRESET_LABEL, stepUpLeft, USE_LABEL } from '../../../../../email/settings-page'
@@ -37,12 +38,12 @@ export default async function SendingProfilesPage() {
               ? `${String(active.name)} (${PRESET_LABEL[String(active.preset)] ?? String(active.preset)})`
               : st.envProfile
                 ? 'The server’s default settings (no profile is turned on).'
-                : 'Nothing — no profile is turned on and the server has no default settings.'}
+                : 'Nothing. No profile is turned on and the server has no default settings.'}
           </p>
           <p className="c-hint">Sending mode: {st.modeLabel}.</p>
           {st.keyConfigured ? null : (
             <p className="c-alert" role="alert">
-              H2O_SETTINGS_KEY is not set on the server, so passwords can’t be stored. Ask the operator to set it.
+              The server has no settings key, so passwords can’t be stored. Ask the operator to set one.
             </p>
           )}
         </div>
@@ -75,7 +76,7 @@ export default async function SendingProfilesPage() {
                       </td>
                       <td>{PRESET_LABEL[String(p.preset)] ?? String(p.preset)}</td>
                       <td>{USE_LABEL[String(p.use)] ?? String(p.use)}</td>
-                      <td>{p.active === true ? <span className="c-badge">On</span> : 'Off'}</td>
+                      <td>{p.active === true ? <ToneChip tone="success">On</ToneChip> : <ToneChip tone="terminal">Off</ToneChip>}</td>
                       <td>{p.last_check_state === 'OK' ? 'Passed' : p.last_check_state === 'FAILED' ? `Failed (${String(p.last_check_code ?? '')})` : 'Not checked'}</td>
                     </tr>
                   ))}

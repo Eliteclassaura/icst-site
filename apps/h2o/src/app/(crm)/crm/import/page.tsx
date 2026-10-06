@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { recentBatches } from '../../../../crm/import/engine'
 import { compactTime } from '../../../../crm/workspace/time'
+import { ToneChip } from '../../../../crm/workspace/ui/Status'
 import { Shell } from '../../../../crm/workspace/ui/Shell'
 import { ImportWizard } from '../_components/ImportWizard'
 import { UndoBatchDialog, UndoRunDialog } from '../_components/ImportUndo'
@@ -67,9 +68,9 @@ export default async function ImportPage() {
                       <td className="hide-sm">{b.source ?? <span className="c-muted">Not recorded</span>}</td>
                       <td>
                         {b.status === 'UNDONE' ? (
-                          <span className="c-status t-terminal">Undone</span>
+                          <ToneChip tone="terminal">Undone</ToneChip>
                         ) : (
-                          <span className="c-status t-success">Applied</span>
+                          <ToneChip tone="success">Applied</ToneChip>
                         )}
                         {b.undoCounts ? <span className="c-hint"> · {b.undoCounts.contactsArchived ?? 0} archived</span> : null}
                       </td>

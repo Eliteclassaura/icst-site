@@ -11,7 +11,7 @@ import { ERS_HEALTH_STATE, options } from '../vocabulary'
  *   - `enabled` is the global kill switch (default OFF). H2O_EMAIL_MODE still applies on top: off sends nothing.
  *   - Caps: 55 sequence emails a day (hourly = ceil(daily / window hours)), 5 per recipient domain a day and 2 an hour,
  *     inside each office's business window; warm-up 10/20/30/40/50/55 a day, stepping every 5 business days.
- *   - Compliance toggles (owner: optional, default ON): address footer, business hours, warm-up. The floor never relaxes:
+ *   - Compliance toggles (owner: optional, default ON): business hours, warm-up (no postal-address footer: owner rule 2026-10-06). The floor never relaxes:
  *     one-click unsubscribe (link and headers) is always on, recorded unsubscribes, hard bounces and complaints are never
  *     mailed, and the kill switch and caps always apply (CT ruling 1).
  *   - Signature (owner decision): "ICS Sales Team", the RFQ office's phone, the sales address — as data.
@@ -87,19 +87,21 @@ export const CrmErsSettings: GlobalConfig = {
       type: 'group',
       admin: { description: 'Owner decision 2026-10-05: optional, default ON, each change audited. The floor always applies.' },
       fields: [
-        on('address_footer', 'Postal address footer', 'Uses the postal address below.'),
+        // Owner rule 2026-10-06: no postal address in any email. Kept only as a stored column (no migration); not used.
+        { ...on('address_footer', 'Postal address footer (not used)', 'Not used: no postal address appears in any email (owner rule 2026-10-06).'), admin: { hidden: true } },
         on('business_hours', 'Business-hours window', 'Off: sequence email may go out at any hour (caps still apply).'),
         on('warmup', 'Warm-up cap', 'Off: the daily cap applies from day one.'),
       ],
     },
-    { name: 'postal_address', type: 'textarea', maxLength: 400, admin: { description: 'Shown in the footer when the address toggle is on.' } },
+    { name: 'postal_address', type: 'textarea', maxLength: 400, admin: { hidden: true, description: 'Not used: no postal address appears in any email (owner rule 2026-10-06).' } },
     {
       name: 'signature',
       type: 'group',
-      admin: { description: 'Owner decision 2026-10-05: every sequence email is signed by the team, not a person.' },
+      admin: { description: 'Every email is signed by the team: the signer and the sales address only (owner decisions 2026-10-05 and 2026-10-06; no phone number, no postal address). Used by sequence emails and the reply templates T2–T6.' },
       fields: [
         { name: 'signer', type: 'text', defaultValue: 'ICS Sales Team', maxLength: 80 },
-        { name: 'include_office_phone', type: 'checkbox', defaultValue: true, admin: { description: 'The phone of the RFQ’s office queue (CRM office settings).' } },
+        // Owner rule 2026-10-06: no phone number in any email. Kept only as a stored column (no migration); not used.
+        { name: 'include_office_phone', type: 'checkbox', defaultValue: true, admin: { hidden: true, description: 'Not used: no phone number appears in any email (owner rule 2026-10-06).' } },
         { name: 'email', type: 'text', defaultValue: 'sales@h2ocooling.org', maxLength: 120 },
       ],
     },

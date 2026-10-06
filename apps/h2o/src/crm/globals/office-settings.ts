@@ -81,11 +81,11 @@ export const CrmOfficeSettings: GlobalConfig = {
   hooks: { beforeChange: [validate], afterChange: [auditAndInvalidate] },
   fields: [
     {
-      // Patch C: the number in reply signatures ({{office_phone}}), per office. Business numbers, not personal data.
+      // Patch C: each office's business number, kept for reference. Owner rule 2026-10-06: it is never put in an email.
       name: 'phones',
       type: 'group',
       label: 'Office phone numbers',
-      admin: { description: 'Shown in email signatures as {{office_phone}}: the sender’s office number. Empty = templates that need it can’t be used.' },
+      admin: { description: 'Optional, for reference. Never shown in an email: no phone number appears in any email (owner rule 2026-10-06).' },
       fields: OFFICES.map((o) => ({ name: o, label: OFFICE_LABEL[o], type: 'text' as const, maxLength: 40 })),
     },
     {

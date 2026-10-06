@@ -2,10 +2,12 @@ import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { IDENTITY_REASON_LABEL, ACTIVITY_LABEL, label } from '../../../crm/workspace/labels'
 import { SCOPE_COOKIE, scopeFrom } from '../../../crm/workspace/prefs'
-import { loadMyWork, type Loaded, type Scope } from '../../../crm/workspace/queries'
+import { loadDashboard, loadMyWork, type DashTile, type Loaded, type Scope, type WeekBucket } from '../../../crm/workspace/queries'
 import { compactTime, relativeAge } from '../../../crm/workspace/time'
 import { RfqStatus } from '../../../crm/workspace/ui/Status'
 import { Shell } from '../../../crm/workspace/ui/Shell'
+import { EmptyState } from '../../../crm/workspace/ui/States'
+import { IconCheckCircle, IconInbox, IconTasks } from '../../../crm/workspace/ui/Icons'
 import { AssignMe } from './_components/Dialogs'
 import { ScopeSwitch } from './_components/ScopeSwitch'
 import { TaskTable } from './_components/TaskTable'
@@ -15,13 +17,42 @@ export const metadata: Metadata = { title: 'My Work' }
 
 const countOf = (l: Loaded<{ count: number }>) => (l.status === 'ok' ? l.data.count : null)
 
-function Strip({ n, text, href, error }: { n: number | null; text: string; href: string; error?: boolean }) {
-  if (n === null) return <span className="c-muted">{text}: count unavailable</span>
-  if (n <= 0) return null
+/** A count tile: the number, what it counts, and whose; it links to the inbox rows it counts. */
+function Tile({ t }: { t: DashTile }) {
+  const hot = t.count !== null && t.count > 0 && t.tone !== 'neutral'
   return (
-    <a href={href} className={error ? 'c-overdue' : undefined}>
-      {n} {text}
+    <a className={`c-kpi${hot ? ` is-${t.tone}` : ''}`} href={t.href}>
+      <span className="c-kpi-n">{t.count === null ? '–' : t.count}</span>
+      <span className="c-kpi-l">{t.count === null ? `${t.label}: count unavailable` : t.label}</span>
+      <span className="c-kpi-s">{t.scope}</span>
     </a>
+  )
+}
+
+/** Labelled bars (count in text; the bar only repeats it), each linking to that slice of the inbox. */
+function Bars({ rows, label }: { rows: WeekBucket[]; label: string }) {
+  const max = Math.max(1, ...rows.map((r) => r.count))
+  return (
+    <div className="c-bars-group">
+      <h3 className="c-bars-title">{label}</h3>
+      {rows.length === 0 ? (
+        <p className="c-muted">None this week.</p>
+      ) : (
+        <ul className="c-bars" role="list">
+          {rows.map((r) => (
+            <li key={r.key}>
+              <a href={r.href}>
+                <span className="c-bar-l">{r.label}</span>
+                <span className="c-bar" aria-hidden="true">
+                  <span style={{ inlineSize: `${Math.max(4, Math.round((r.count / max) * 100))}%` }} />
+                </span>
+                <span className="c-bar-n">{r.count}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }
 
@@ -31,8 +62,10 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
   // W1-8: the remembered Mine/Team choice (shared with Follow-ups); an explicit ?scope= still wins for that view.
   const scope: Scope = sp.scope === 'team' || sp.scope === 'mine' ? sp.scope : scopeFrom((await cookies()).get(SCOPE_COOKIE)?.value, s.isAdmin)
   const now = new Date()
-  const w = await loadMyWork(s, scope, now)
-  const failed = [w.unassigned, w.assigned, w.followUps, w.waiting, w.recent, w.reviews].filter((m) => m.status === 'error').length
+  const [w, dash] = await Promise.all([loadMyWork(s, scope, now), loadDashboard(s, scope, now)])
+  const failed =
+    [w.unassigned, w.assigned, w.followUps, w.waiting, w.recent, w.reviews, dash.week, dash.openFollowUps].filter((m) => m.status === 'error').length +
+    dash.tiles.filter((t) => t.count === null).length
   const counts = {
     unassigned: countOf(w.unassigned),
     followUps: countOf(w.followUps),
@@ -55,32 +88,30 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
       }}
       topRight={<ScopeSwitch scope={scope} back="/crm/" />}
     >
-      <p className="c-strip" aria-label="What needs attention">
-        {allClear ? (
-          <span role="status">Nothing waiting. Inbox is clear.</span>
-        ) : (
-          <>
-            <Strip n={counts.unassigned} text="unassigned" href="/crm/rfqs/?view=unassigned" />
-            <Strip n={counts.overdue} text="follow-ups overdue" href={`/crm/follow-ups/?who=${scope}&when=overdue`} error />
-            <Strip n={counts.followUps} text="follow-ups due today" href={`/crm/follow-ups/?who=${scope}&when=due`} />
-            <Strip n={counts.waiting} text="waiting for customer" href="/crm/rfqs/?view=waiting" />
-            <Strip n={counts.reviews} text="identity reviews open" href="/crm/rfqs/?view=review" />
-            {w.pipeline.status === 'ok' && w.pipeline.data.open > 0 ? <a href="/crm/pipeline/">{w.pipeline.data.open} open opportunities</a> : null}
-            {failed > 0 ? (
-              <span className="c-warn-text" role="status">
-                {failed} module{failed > 1 ? 's' : ''} unavailable · this is not a complete picture
-              </span>
-            ) : null}
-          </>
-        )}
-      </p>
+      <section className="c-kpis" aria-label="At a glance">
+        {dash.tiles.map((t) => (
+          <Tile key={t.key} t={t} />
+        ))}
+      </section>
+      {allClear ? (
+        <p className="c-ok-line" role="status">
+          <IconCheckCircle /> Nothing waiting. The inbox is clear.
+        </p>
+      ) : null}
+      {failed > 0 ? (
+        <p className="c-alert" role="status">
+          {failed} part{failed > 1 ? 's' : ''} of this page couldn’t load, so this is not a complete picture. <a href="/crm/">Retry</a>
+        </p>
+      ) : null}
 
       <div className="c-grid-work">
         <div className="c-stack">
           <Module title="New & unassigned" tag="Team · needs an owner" loaded={w.unassigned} more="/crm/rfqs/?view=unassigned">
             {(d) =>
               d.rows.length === 0 ? (
-                <p className="c-empty">No unassigned inquiries.</p>
+                <EmptyState icon={<IconInbox />} title="Every inquiry has an owner">
+                  New website and chat inquiries without an owner appear here.
+                </EmptyState>
               ) : (
                 <ul className="c-list" role="list">
                   {d.rows.map((r) => (
@@ -97,6 +128,23 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
                     </li>
                   ))}
                 </ul>
+              )
+            }
+          </Module>
+          <Module
+            title={scope === 'mine' ? 'My open follow-ups' : 'Open follow-ups'}
+            tag={scopeTag}
+            loaded={dash.openFollowUps}
+            more={`/crm/follow-ups/?who=${scope}&when=open`}
+            badge={dash.openFollowUps.status === 'ok' && dash.openFollowUps.data.overdue > 0 ? `${dash.openFollowUps.data.overdue} overdue` : undefined}
+          >
+            {(d) =>
+              d.rows.length === 0 ? (
+                <EmptyState icon={<IconTasks />} title="No open follow-ups">
+                  {scope === 'mine' ? 'Follow-ups assigned to you appear here, soonest first.' : 'Open follow-ups across the team appear here, soonest first.'}
+                </EmptyState>
+              ) : (
+                <TaskTable rows={d.rows} now={now} zone={s.timeZone} isAdmin={s.isAdmin} people={w.people} caption={scope === 'mine' ? 'My open follow-ups' : 'Open follow-ups'} showOwner={scope === 'team'} />
               )
             }
           </Module>
@@ -159,17 +207,15 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
           </Module>
         </div>
         <div className="c-stack">
-          {w.followUps.status === 'ok' && w.followUps.data.overdue > 0 ? (
-            <Module title="Overdue" tag={scopeTag} loaded={w.followUps} more={`/crm/follow-ups/?who=${scope}&when=overdue`} count={w.followUps.data.overdue}>
-              {(d) => <TaskTable rows={d.overdueRows} now={now} zone={s.timeZone} isAdmin={s.isAdmin} people={w.people} caption="Overdue follow-ups" showOwner={scope === 'team'} />}
-            </Module>
-          ) : null}
-          <Module title="Follow-ups due" tag={scopeTag} loaded={w.followUps} more={`/crm/follow-ups/?who=${scope}&when=due`}>
+          <Module title="This week" tag="Team · since Monday" loaded={dash.week} more="/crm/rfqs/?received=week" count={dash.week.status === 'ok' ? dash.week.data.total : undefined}>
             {(d) =>
-              d.rows.length === 0 ? (
-                <p className="c-empty">No follow-ups due today.</p>
+              d.total === 0 ? (
+                <p className="c-empty">No inquiries received this week yet.</p>
               ) : (
-                <TaskTable rows={d.rows} now={now} zone={s.timeZone} isAdmin={s.isAdmin} people={w.people} caption="Follow-ups due today" showOwner={scope === 'team'} />
+                <div className="c-bars-wrap">
+                  <Bars rows={d.byType} label="By type" />
+                  <Bars rows={d.byCountry} label="By country" />
+                </div>
               )
             }
           </Module>
@@ -225,9 +271,12 @@ function Module<T>({
   more,
   retry = '/crm/',
   count: countOverride,
+  badge,
   children,
 }: {
   count?: number
+  /** Polish R1: a short alert next to the title (e.g. "2 overdue"). */
+  badge?: string
   retry?: string
   title: string
   tag: string
@@ -241,6 +290,7 @@ function Module<T>({
       <div className="c-panel-head">
         <h2>{title}</h2>
         {count !== null ? <span className="c-count">{count}</span> : null}
+        {badge ? <span className="c-head-alert">{badge}</span> : null}
         <span className="c-tag">{tag}</span>
         {more ? (
           <a className="c-more" href={more}>

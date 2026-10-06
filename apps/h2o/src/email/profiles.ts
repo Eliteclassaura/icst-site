@@ -32,7 +32,7 @@ export const PRESET_DEFAULTS: Record<MailPreset, { host: string; port: number; s
     host: 'stalwart',
     port: 587,
     servername: '',
-    hint: 'Stalwart on the internal network: the host must be listed in H2O_SMTP_INTERNAL_HOSTS; the TLS name is the mail host’s certificate name.',
+    hint: 'Stalwart on the internal network: the operator must add its host name to the server’s list of internal mail hosts. Set the certificate name under Advanced.',
   },
   CUSTOM: { host: '', port: 587, servername: '', hint: 'Other service: any SMTP submission service with STARTTLS (587) or TLS (465) and a password.' },
 }
@@ -56,7 +56,7 @@ export function checkProfileShape(p: Record<string, unknown>, env: Record<string
   if (!(MAIL_PRESETS as readonly string[]).includes(s('preset'))) return { code: 'PROFILE_PRESET_INVALID', message: 'Choose a provider.' }
   if (!(SENDING_USES as readonly string[]).includes(s('use'))) return { code: 'PROFILE_USE_INVALID', message: 'Choose what the profile sends.' }
   if (!normaliseHost(p.host, env))
-    return { code: 'PROFILE_HOST_INVALID', message: 'Enter the mail server’s host name (an internal name must be listed in H2O_SMTP_INTERNAL_HOSTS).' }
+    return { code: 'PROFILE_HOST_INVALID', message: 'Enter the mail server’s host name (an internal name must be on the server’s list of internal mail hosts).' }
   if (![587, 465].includes(Number(p.port))) return { code: 'PROFILE_PORT_INVALID', message: 'Use port 587 (STARTTLS) or 465 (TLS). Other ports are not allowed.' }
   if (!TLS_NAME.test(s('tls_servername').toLowerCase())) return { code: 'PROFILE_TLS_NAME_INVALID', message: 'Enter the certificate name the server presents (e.g. smtp.gmail.com).' }
   const user = s('username')

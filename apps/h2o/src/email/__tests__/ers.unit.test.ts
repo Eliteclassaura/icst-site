@@ -17,7 +17,8 @@ import { renderTemplate, SEED_TEMPLATES } from '../templates'
  * business calendar, caps and warm-up, step parsing, unsubscribe tokens, bounce classification, the definition hash.
  */
 const E11 = SEED_TEMPLATES.filter((t) => t.code.startsWith('E11_'))
-const SIGNATURE = 'ICS Sales Team\n+1 555 0100\nsales@h2ocooling.org'
+// Owner rule 2026-10-06: the team signature only, no phone number, no postal address.
+const SIGNATURE = 'ICS Sales Team\nsales@h2ocooling.org'
 const values = { first_name: 'Avery', rfq_reference: 'RFQ-20261005-SYN00001', missing_information_list: joinItems(['the current design specification', 'the requested project schedule']), sequence_signature: SIGNATURE }
 
 describe('copy-risk linter (ICS_COPY_RISK_LINTER_V2, frozen)', () => {
@@ -40,6 +41,7 @@ describe('copy-risk linter (ICS_COPY_RISK_LINTER_V2, frozen)', () => {
       // Owner decision 2026-10-05: the team signs, never a person; the copy is otherwise E1.1 R2 verbatim.
       expect(r.text).toContain(SIGNATURE)
       expect(r.text).not.toMatch(/Rhonda/)
+      expect(r.text.split('\n').filter((l) => /^\+?[\d ()-]{7,}$/.test(l.trim()))).toEqual([]) // no phone line
     }
   })
   it('holds on BLOCK and REVIEW (ruling 6); word boundaries; subject-only thread rules; unresolved placeholders', () => {
@@ -105,8 +107,12 @@ describe('caps and warm-up (CT ruling 7)', () => {
   })
   it('settings from the global: empty values take the ruled defaults; the floor has no toggle', () => {
     const s = settingsFrom({ daily_cap: 40, compliance: { warmup: false } })
-    expect([s.dailyCap, s.compliance.warmup, s.compliance.address_footer, s.signature.signer]).toEqual([40, false, true, 'ICS Sales Team'])
-    expect(Object.keys(s.compliance).sort()).toEqual(['address_footer', 'business_hours', 'warmup'])
+    expect([s.dailyCap, s.compliance.warmup, s.signature.signer, s.signature.email]).toEqual([40, false, 'ICS Sales Team', 'sales@h2ocooling.org'])
+    // Owner rule 2026-10-06: no postal-address footer toggle, and the signature has no phone option.
+    expect(Object.keys(s.compliance).sort()).toEqual(['business_hours', 'warmup'])
+    expect(Object.keys(s.signature).sort()).toEqual(['email', 'signer'])
+    const stored = settingsFrom({ compliance: { address_footer: true }, postal_address: '100 Synthetic Way', signature: { include_office_phone: true } })
+    expect(JSON.stringify(stored)).not.toMatch(/Synthetic Way|address_footer|include_office_phone|postal/i)
   })
 })
 

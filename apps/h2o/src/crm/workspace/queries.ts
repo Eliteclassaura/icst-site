@@ -5,12 +5,13 @@ import { emailKey } from '../normalize'
 import { OPPORTUNITY_STAGE, TERMINAL_STAGES } from '../vocabulary'
 import { interestOf, taskTitle, isCustomerUrgent, OPEN_RFQ_STATUSES, ACTIVE_RFQ_STATUSES } from './labels'
 import { asUser, displayNameOf, type CrmSession } from './session'
-import { endOfBusinessDay, isAgedUnassigned, parseDate, startOfBusinessDay } from './time'
+import { endOfBusinessDay, isAgedUnassigned, nextWeekStart, parseDate, startOfBusinessDay } from './time'
 import { isOffice, officeCalendar, type Office } from '../offices'
+import { replyDue, type ReplyDue } from './replyDue'
 import { officeSettings } from '../officeSettings'
 import { isUuid } from './validate'
-import { isCountryCode } from '../countries'
-import type { InquiryType } from '../inquiry-type'
+import { countryName, isCountryCode } from '../countries'
+import { INQUIRY_TYPE_LABEL, type InquiryType } from '../inquiry-type'
 
 /**
  * Sales Workspace read models. Every query runs as the signed-in user (`overrideAccess: false`), so the
@@ -76,7 +77,9 @@ export type RfqRow = {
   interestOrigin: 'CUSTOMER' | 'ITEM' | 'STAFF' | 'NONE'
   ownerId: string | null
   ownerName: string | null
-  nextAction: { title: string; dueAt: string | null; overdue: boolean } | null
+  nextAction: { title: string; dueAt: string | null; overdue: boolean; kind: string } | null
+  /** Polish R1: the first-reply countdown (office hours, D-1 due date). */
+  reply: ReplyDue
   flags: Flags
   aged: boolean
   sourceSystem: string
@@ -137,7 +140,7 @@ export async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now:
   const rfqIds = docs.map((d) => String(d.id))
   const accountIds = [...new Set(docs.map((d) => id(d.account)).filter(Boolean))] as string[]
   const contactIds = [...new Set(docs.map((d) => id(d.contact)).filter(Boolean))] as string[]
-  const [accounts, contacts, items, tasks, reviews] = await Promise.all([
+  const [accounts, contacts, items, tasks, reviews, firstReplies] = await Promise.all([
     accountIds.length
       ? s.payload.find({ collection: 'crm-accounts', where: { id: { in: accountIds } }, depth: 0, limit: 100, ...asUser(s) })
       : null,
@@ -166,6 +169,15 @@ export async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now:
       limit: 100,
       ...asUser(s),
     }),
+    // Polish R1: each inquiry's first-response task in any state (open → countdown; done → "Replied").
+    s.payload.find({
+      collection: 'crm-tasks',
+      where: { and: [{ rfq: { in: rfqIds } }, { kind: { equals: 'RFQ_FIRST_RESPONSE' } }] },
+      sort: 'createdAt',
+      depth: 0,
+      limit: 200,
+      ...asUser(s),
+    }),
   ])
   const accountName = new Map((accounts?.docs ?? []).map((a) => [String(a.id), String(D(a).canonical_name ?? '')]))
   const contactById = new Map((contacts?.docs ?? []).map((c) => [String(c.id), c as unknown as Doc]))
@@ -176,6 +188,13 @@ export async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now:
     if (!nextTask.has(r)) nextTask.set(r, t)
   }
   const reviewed = new Set(reviews.docs.map((r) => String(id(D(r).rfq))))
+  // An open first-response task wins over an older done or cancelled one.
+  const firstReply = new Map<string, Doc>()
+  for (const t of firstReplies.docs as unknown as Doc[]) {
+    const r = String(id(t.rfq))
+    const prev = firstReply.get(r)
+    if (!prev || t.status === 'OPEN' || t.status === 'IN_PROGRESS') firstReply.set(r, t)
+  }
   // Do-not-contact is honoured by the linked contact's identity and, for an RFQ left unlinked (ambiguous
   // identity), by the submitted address itself — an unlinked inquiry never hides an active suppression.
   const keyOf = (d: Doc): string | undefined =>
@@ -212,8 +231,13 @@ export async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now:
       ownerId,
       ownerName: ownerId ? (names.get(ownerId) ?? 'CRM user') : null,
       nextAction: t
-        ? { title: taskTitle(t.title), dueAt: due ? due.toISOString() : null, overdue: Boolean(due && due < now) }
+        ? { title: taskTitle(t.title), dueAt: due ? due.toISOString() : null, overdue: Boolean(due && due < now), kind: String(t.kind ?? 'GENERAL') }
         : null,
+      reply: (() => {
+        const fr = firstReply.get(String(d.id))
+        const st = fr ? (fr.status === 'IN_PROGRESS' ? 'OPEN' : String(fr.status)) : null
+        return replyDue(fr && st ? { status: st, dueAt: parseDate(fr.due_at) } : null, now, officeCalendar(d.office, offices))
+      })(),
       flags: {
         urgent: isCustomerUrgent(submitted.other_answers),
         review: reviewed.has(String(d.id)),
@@ -254,7 +278,10 @@ export type InboxParams = {
   q: string | null
   status: string[]
   owner: 'me' | 'unassigned' | string | null
-  received: 'today' | '7d' | '30d' | null
+  /** Polish R1: `week` = since Monday 00:00 in the viewer's zone (My Work "This week"). */
+  received: 'today' | 'week' | '7d' | '30d' | null
+  /** Polish R1: open first replies that are overdue, or due by the end of today (viewer's zone). */
+  reply: 'overdue' | 'today' | null
   /** Owner request 2026-10-05: several motions at once (multi-select). */
   motions: string[]
   /** ISO codes and/or "UNKNOWN" (multi-select). */
@@ -294,7 +321,8 @@ export function parseInboxParams(sp: Record<string, string | string[] | undefine
     q,
     status: statuses,
     owner: owner === 'me' || owner === 'unassigned' ? owner : isUuid(owner) ? owner : null,
-    received: received === 'today' || received === '7d' || received === '30d' ? received : null,
+    received: received === 'today' || received === 'week' || received === '7d' || received === '30d' ? received : null,
+    reply: one(sp.reply) === 'overdue' || one(sp.reply) === 'today' ? (one(sp.reply) as 'overdue') : null,
     motions: [...new Set(many(sp.motion).filter((x) => ['NEW_TOWER', 'REBUILD_REPLACEMENT', 'REPAIR', 'UPGRADE_RETROFIT', 'MAINTENANCE_INSPECTION', 'PARTS', 'OTHER_APPROVED'].includes(x)))],
     countries: [...new Set(many(sp.country).map((x) => x.toUpperCase()).filter((x) => x === 'UNKNOWN' || isCountryCode(x)))].slice(0, 30),
     type: one(sp.type) === 'PARTS' || one(sp.type) === 'NEW_TOWER' || one(sp.type) === 'REPAIR_SERVICE' ? (one(sp.type) as 'PARTS') : null,
@@ -327,6 +355,28 @@ async function rfqIdsWithOpenTask(s: CrmSession, kind: string, mineOnly: boolean
     ...asUser(s),
   })
   return [...new Set(res.docs.map((t) => String(id(D(t).rfq))))]
+}
+
+/** Polish R1: inquiries whose open first-response task is overdue, or due by the end of today (viewer's zone). */
+export async function rfqIdsWithReplyDue(s: CrmSession, which: 'overdue' | 'today', now: Date): Promise<string[]> {
+  const due: Where =
+    which === 'overdue'
+      ? { due_at: { less_than: now.toISOString() } }
+      : { and: [{ due_at: { greater_than_equal: now.toISOString() } }, { due_at: { less_than_equal: endOfBusinessDay(now, s.timeZone).toISOString() } }] }
+  const res = await s.payload.find({
+    collection: 'crm-tasks',
+    where: { and: [{ kind: { equals: 'RFQ_FIRST_RESPONSE' } }, { status: { in: ['OPEN', 'IN_PROGRESS'] } }, { rfq: { exists: true } }, due] },
+    depth: 0,
+    limit: 500,
+    ...asUser(s),
+  })
+  return [...new Set(res.docs.map((t) => String(id(D(t).rfq))))]
+}
+
+/** Local midnight starting the Monday of the week containing `now` (Sat/Sun belong to the week that started Monday). */
+export function weekStart(now: Date, zone: string): Date {
+  const next = nextWeekStart(now, zone)
+  return startOfBusinessDay(new Date(next.getTime() - 7 * 24 * 3600 * 1000 + 12 * 3600 * 1000), zone)
 }
 
 async function rfqIdsWithOpenReview(s: CrmSession): Promise<string[]> {
@@ -395,8 +445,14 @@ export async function inboxWhere(s: CrmSession, p: InboxParams, now: Date): Prom
     const from =
       p.received === 'today'
         ? startOfBusinessDay(now, s.timeZone)
-        : new Date(now.getTime() - (p.received === '7d' ? 7 : 30) * 24 * 3600 * 1000)
+        : p.received === 'week'
+          ? weekStart(now, s.timeZone)
+          : new Date(now.getTime() - (p.received === '7d' ? 7 : 30) * 24 * 3600 * 1000)
     and.push({ received_at: { greater_than_equal: from.toISOString() } })
+  }
+  if (p.reply) {
+    const ids = await rfqIdsWithReplyDue(s, p.reply, now)
+    and.push(ids.length ? { id: { in: ids } } : { id: { equals: '00000000-0000-4000-8000-000000000000' } })
   }
   if (p.motions.length) and.push({ motion: { in: p.motions } })
   if (p.type) and.push({ inquiry_type: { equals: p.type } })
@@ -484,6 +540,8 @@ export type TaskRow = {
   assigneeName: string | null
   rfqId: string | null
   rfqNumber: string | null
+  /** Polish R1: the inquiry's name for links (account, else the submitted company or person; never "Inquiry"). */
+  rfqLabel?: string | null
   accountId: string | null
   accountName: string | null
   updatedAt: string
@@ -525,6 +583,7 @@ export async function hydrateTasks(s: CrmSession, docs: Doc[], people: Person[],
       : null,
   ])
   const rfqNo = new Map((rfqs?.docs ?? []).map((r) => [String(r.id), String(D(r).rfq_number ?? '')]))
+  const rfqName = await rfqLabels(s, rfqIds)
   const accName = new Map((accs?.docs ?? []).map((a) => [String(a.id), String(D(a).canonical_name ?? '')]))
   const names = nameMap(people)
   return docs.map((t) => {
@@ -544,6 +603,7 @@ export async function hydrateTasks(s: CrmSession, docs: Doc[], people: Person[],
       assigneeName: a ? (names.get(a) ?? 'CRM user') : null,
       rfqId: id(t.rfq),
       rfqNumber: rfqNo.get(String(id(t.rfq))) ?? null,
+      rfqLabel: rfqName.get(String(id(t.rfq))) ?? null,
       accountId: id(t.account),
       accountName: accName.get(String(id(t.account))) ?? null,
       updatedAt: String(t.updatedAt ?? ''),
@@ -1036,4 +1096,78 @@ export async function searchAccounts(s: CrmSession, q: string | null) {
     relationship: String(a.relationship_state ?? 'UNKNOWN'),
     domains: ((a.domains ?? []) as Doc[]).map((d) => ({ domain: String(d.domain), status: String(d.domain_status) })),
   }))
+}
+
+// ────────────────────────────────────────────── My Work dashboard (Polish R1) ──
+
+export type DashTileKey = 'new_today' | 'reply_overdue' | 'reply_today' | 'waiting' | 'review'
+export type DashTile = { key: DashTileKey; label: string; scope: 'Team' | 'Mine'; href: string; count: number | null; tone: 'neutral' | 'error' | 'warning' }
+export type WeekBucket = { key: string; label: string; count: number; href: string }
+export type Dashboard = {
+  tiles: DashTile[]
+  week: Loaded<{ total: number; byType: WeekBucket[]; byCountry: WeekBucket[] }>
+  openFollowUps: Loaded<{ count: number; overdue: number; rows: TaskRow[] }>
+}
+
+/**
+ * CT brief must-have 2. Every tile counts with the inbox's own filter (`inboxWhere`) for the URL it links to, so the
+ * number on the tile is the number of rows the click shows. Overdue / due-today replies and waiting follow the
+ * Mine/Team switch (Mine adds owner = me); new today and needs review are team queues.
+ */
+export async function loadDashboard(s: CrmSession, scope: Scope, now: Date = new Date()): Promise<Dashboard> {
+  const mine = scope === 'mine'
+  const tileDefs: Array<Omit<DashTile, 'count' | 'href'> & { q: Record<string, string> }> = [
+    { key: 'new_today', label: 'New today', scope: 'Team', tone: 'neutral', q: { received: 'today' } },
+    { key: 'reply_overdue', label: 'Overdue replies', scope: mine ? 'Mine' : 'Team', tone: 'error', q: { reply: 'overdue', ...(mine ? { owner: 'me' } : {}) } },
+    { key: 'reply_today', label: 'Replies due today', scope: mine ? 'Mine' : 'Team', tone: 'warning', q: { reply: 'today', ...(mine ? { owner: 'me' } : {}) } },
+    { key: 'waiting', label: 'Waiting on customer', scope: mine ? 'Mine' : 'Team', tone: 'neutral', q: { view: 'waiting', ...(mine ? { owner: 'me' } : {}) } },
+    { key: 'review', label: 'Needs review', scope: 'Team', tone: 'warning', q: { view: 'review' } },
+  ]
+  const tiles = await Promise.all(
+    tileDefs.map(async ({ q, ...t }) => {
+      const p = parseInboxParams(q)
+      const href = `/crm/rfqs/?${new URLSearchParams(q).toString()}`
+      try {
+        const c = await s.payload.count({ collection: 'crm-rfqs', where: await inboxWhere(s, p, now), ...asUser(s) })
+        return { ...t, href, count: c.totalDocs }
+      } catch {
+        return { ...t, href, count: null } // shown as unavailable, never as 0
+      }
+    }),
+  )
+  const week = safe(async () => {
+    const p = parseInboxParams({ received: 'week' })
+    const res = await s.payload.find({ collection: 'crm-rfqs', where: await inboxWhere(s, p, now), depth: 0, limit: 500, pagination: false, ...asUser(s) })
+    const docs = res.docs as unknown as Doc[]
+    const tally = (keyOf: (d: Doc) => string) => {
+      const m = new Map<string, number>()
+      for (const d of docs) m.set(keyOf(d), (m.get(keyOf(d)) ?? 0) + 1)
+      return [...m].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    }
+    const TYPES = ['PARTS', 'NEW_TOWER', 'REPAIR_SERVICE'] as const
+    const byType = tally((d) => (TYPES as readonly string[]).includes(String(d.inquiry_type)) ? String(d.inquiry_type) : 'OTHER').map(([k, n]) => ({
+      key: k,
+      label: k === 'OTHER' ? 'Not stated' : (INQUIRY_TYPE_LABEL[k as InquiryType] ?? k),
+      count: n,
+      href: k === 'OTHER' ? '/crm/rfqs/?received=week' : `/crm/rfqs/?received=week&type=${k}`,
+    }))
+    const byCountry = tally((d) => (typeof d.country_code === 'string' && d.country_code ? d.country_code : 'UNKNOWN')).slice(0, 6).map(([k, n]) => ({
+      key: k,
+      label: k === 'UNKNOWN' ? 'Unknown' : (countryName(k) ?? k),
+      count: n,
+      href: `/crm/rfqs/?received=week&country=${k}`,
+    }))
+    return { total: docs.length, byType, byCountry }
+  })
+  const openFollowUps = safe(async () => {
+    const people = await crmUsers(s).catch(() => [] as Person[])
+    const base: Where[] = [{ status: { in: ['OPEN', 'IN_PROGRESS'] } }, { kind: { not_equals: 'MISSING_INFORMATION' } }, ...(mine ? [{ assignee: { equals: s.userId } }] : [])]
+    const [res, overdue] = await Promise.all([
+      s.payload.find({ collection: 'crm-tasks', where: { and: base }, sort: 'due_at', depth: 0, limit: 8, ...asUser(s) }),
+      s.payload.count({ collection: 'crm-tasks', where: { and: [...base, { due_at: { less_than: now.toISOString() } }] }, ...asUser(s) }),
+    ])
+    return { count: res.totalDocs, overdue: overdue.totalDocs, rows: await hydrateTasks(s, res.docs as unknown as Doc[], people, now) }
+  })
+  const [w, f] = await Promise.all([week, openFollowUps])
+  return { tiles, week: w, openFollowUps: f }
 }

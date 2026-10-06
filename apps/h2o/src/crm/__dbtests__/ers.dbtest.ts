@@ -215,10 +215,12 @@ describe('the qualification sequence end to end', () => {
     expect((row!.lint as Doc).decision).toBe('PASS')
     const body = String(row!.body_text)
     expect(body).toMatch(/^Hi Avery, I am reviewing RFQ-/)
-    expect(body).toContain('ICS Sales Team\n+1 555 0100\nsales@example.test')
+    // Owner rule 2026-10-06: the team signature only. The office phones and a postal address ARE set in this fixture
+    // (and the stored address toggle is on), and still neither appears.
+    expect(body).toContain('ICS Sales Team\nsales@example.test')
+    expect(body).not.toMatch(/555 0100|Synthetic Way|Example City/)
     expect(body).not.toMatch(/Rhonda/)
     expect(body).toContain('unsubscribe here: http')
-    expect(body).toContain('100 Synthetic Way')
     // Idempotent: another tick does not queue a second row.
     await tick(p, { now: due1, inboundOk: true })
     expect(await seqRows()).toHaveLength(1)
@@ -436,13 +438,19 @@ describe('holds and health', () => {
     expect(await resumeEnrollment(A, String((await enrollments())[0]!.id))).toMatchObject({ ok: true })
     expect((await tick(p, { inboundOk: true })).results).toEqual({ QUEUED: 1 })
   })
-  it('without the office phone the owner’s signature is incomplete: the step holds instead of sending', async () => {
+  it('owner rule 2026-10-06: no office phone and no postal address set: the step is admitted, queued and renders clean', async () => {
     await p.updateGlobal({ slug: 'crm-office-settings' as never, data: { phones: { US: null, TH: null } } as never, ...srv })
     invalidateOfficeSettings()
+    await p.updateGlobal({ slug: 'crm-ers-settings' as never, data: { postal_address: '', compliance: { address_footer: true } } as never, ...srv })
+    invalidateErsSettings()
     const seq = await start('ICS_MISSING_INFORMATION')
     await enrollRfq(seq, await newRfq(), ['DRAWINGS'])
-    await tick(p, { inboundOk: true })
-    expect((await enrollments())[0]).toMatchObject({ status: 'PAUSED', pause_reason: 'RENDER_HOLD', hold_code: 'MISSING_SEQUENCE_SIGNATURE' })
+    expect((await tick(p, { inboundOk: true })).results).toEqual({ QUEUED: 1 })
+    expect((await enrollments())[0]).toMatchObject({ status: 'AWAITING_SEND' })
+    const body = String((await seqRows())[0]!.body_text)
+    expect(body).toContain('ICS Sales Team\nsales@example.test')
+    expect(body).toContain('unsubscribe here: http')
+    expect(body.trim().split('\n').pop()).toMatch(/^If you’d rather not receive these follow-ups, unsubscribe here: http/) // nothing after it
   })
   it('auto-pause: more than 5% hard bounces over the last sends (minimum 20) pauses sending', async () => {
     const now = new Date()

@@ -5,8 +5,12 @@ import type { Payload } from 'payload'
  * global, with the ruled defaults when a value is empty). Cached briefly; a save invalidates it in this process.
  * A failed read is treated as "engine off" — fail closed.
  */
-/** The optional compliance controls. One-click unsubscribe is not one of them: it is the floor (CT ruling 1). */
-export type Toggle = 'address_footer' | 'business_hours' | 'warmup'
+/**
+ * The optional compliance controls. One-click unsubscribe is not one of them: it is the floor (CT ruling 1).
+ * Owner rule 2026-10-06: no phone number and no postal address in any email, so the postal-address footer toggle, the
+ * postal address and the office-phone signature option are gone from the engine (their stored settings are ignored).
+ */
+export type Toggle = 'business_hours' | 'warmup'
 export type ErsSettings = {
   enabled: boolean
   dailyCap: number
@@ -18,8 +22,7 @@ export type ErsSettings = {
   warmupStepBusinessDays: number
   warmupStartedOn: string | null
   compliance: Record<Toggle, boolean>
-  postalAddress: string
-  signature: { signer: string; includeOfficePhone: boolean; email: string }
+  signature: { signer: string; email: string }
   health: { state: 'ACTIVE' | 'PAUSED'; reason: string | null; changedAt: string | null }
   bouncePauseRatio: number
   bounceWarnRatio: number
@@ -37,9 +40,8 @@ export const ERS_DEFAULTS: ErsSettings = {
   warmupSchedule: [10, 20, 30, 40, 50, 55],
   warmupStepBusinessDays: 5,
   warmupStartedOn: null,
-  compliance: { address_footer: true, business_hours: true, warmup: true },
-  postalAddress: '',
-  signature: { signer: 'ICS Sales Team', includeOfficePhone: true, email: 'sales@h2ocooling.org' },
+  compliance: { business_hours: true, warmup: true },
+  signature: { signer: 'ICS Sales Team', email: 'sales@h2ocooling.org' },
   health: { state: 'ACTIVE', reason: null, changedAt: null },
   bouncePauseRatio: 0.05,
   bounceWarnRatio: 0.02,
@@ -70,12 +72,10 @@ export function settingsFrom(doc: Doc | null | undefined): ErsSettings {
     warmupStepBusinessDays: num(d.warmup_step_business_days, D.warmupStepBusinessDays),
     warmupStartedOn: typeof d.warmup_started_on === 'string' ? d.warmup_started_on : null,
     compliance: {
-      address_footer: bool(c.address_footer, true),
       business_hours: bool(c.business_hours, true),
       warmup: bool(c.warmup, true),
     },
-    postalAddress: typeof d.postal_address === 'string' ? d.postal_address.trim() : '',
-    signature: { signer: str(s.signer, D.signature.signer), includeOfficePhone: bool(s.include_office_phone, true), email: str(s.email, D.signature.email) },
+    signature: { signer: str(s.signer, D.signature.signer), email: str(s.email, D.signature.email) },
     health: { state: h.state === 'PAUSED' ? 'PAUSED' : 'ACTIVE', reason: typeof h.reason === 'string' ? h.reason : null, changedAt: typeof h.changed_at === 'string' ? h.changed_at : null },
     bouncePauseRatio: num(d.bounce_pause_ratio, D.bouncePauseRatio),
     bounceWarnRatio: num(d.bounce_warn_ratio, D.bounceWarnRatio),

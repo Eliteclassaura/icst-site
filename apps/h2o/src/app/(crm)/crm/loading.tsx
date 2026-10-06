@@ -1,4 +1,4 @@
-/** Streaming loading state: static skeleton rows at final height (nothing animates). */
+/** Streaming loading state: skeleton rows at final height; they pulse gently, and stay still under reduced motion. */
 export default function Loading() {
   return (
     <div className="crm-app">

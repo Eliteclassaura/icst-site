@@ -11,7 +11,7 @@ const hourIn = (d: Date, zone: string): number =>
   Number(new Intl.DateTimeFormat('en-US', { timeZone: zone, hour: 'numeric', hourCycle: 'h23' }).format(d))
 
 /** `hour` o'clock on the local day that starts at `dayStart` (DST-safe: measured from local midnight). */
-function atHour(dayStart: Date, hour: number, zone: string): Date {
+export function atHour(dayStart: Date, hour: number, zone: string): Date {
   let t = new Date(dayStart.getTime() + hour * 3600_000)
   // A DST change between midnight and `hour` shifts the wall clock by one hour; correct it once.
   const got = hourIn(t, zone)

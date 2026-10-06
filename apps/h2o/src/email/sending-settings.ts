@@ -98,7 +98,7 @@ export async function saveProfile(s: CrmSession, sid: string | null, input: Prof
   const typed = typeof input.password === 'string' ? input.password : ''
   const password = preset === 'GMAIL' ? typed.replace(/\s+/g, '') : typed
   if (password && !settingsKeyConfigured())
-    return fail('SETTINGS_KEY_MISSING', 'Passwords can’t be stored until H2O_SETTINGS_KEY is set on the server.')
+    return fail('SETTINGS_KEY_MISSING', 'Passwords can’t be stored until the operator sets the server’s settings key.')
   if (password.length > 256 || /[\r\n]/.test(password)) return fail('PROFILE_PASSWORD_INVALID', 'That password can’t be used.')
 
   let existing: Doc | null = null
@@ -169,11 +169,11 @@ async function limited(s: CrmSession, rule: typeof CHECK_RULE | typeof TEST_RULE
 }
 
 const CHECK_MESSAGE: Record<string, string> = {
-  SETTINGS_KEY_MISSING: 'H2O_SETTINGS_KEY is not set on the server, so the stored password can’t be used.',
+  SETTINGS_KEY_MISSING: 'The server has no settings key, so the stored password can’t be used. Ask the operator to set one.',
   PROFILE_PASSWORD_UNREADABLE: 'The stored password can’t be opened (the settings key changed). Enter the password again.',
   HOST_NOT_ALLOWED: 'That host isn’t allowed.',
   HOST_NOT_FOUND: 'That host name doesn’t resolve.',
-  HOST_PRIVATE_ADDRESS: 'That host points to a private address. Internal mail servers must be listed in H2O_SMTP_INTERNAL_HOSTS.',
+  HOST_PRIVATE_ADDRESS: 'That host points to a private address. An internal mail server must be on the server’s list of internal mail hosts (the operator sets it).',
   // nodemailer error codes (email/gate.ts failureCode)
   EAUTH: 'The server refused the user name or password. For Gmail, use an app password.',
   ETLS: 'The secure connection failed (certificate name or TLS).',
@@ -229,7 +229,7 @@ export async function testSendProfile(s: CrmSession, sid: string | null, id: str
   if (gate !== 'SEND')
     return fail(
       'MODE_BLOCKS_TEST',
-      cfg.mode === 'off' ? 'Email is off on this server (H2O_EMAIL_MODE), so nothing can be sent.' : 'Your address isn’t on the allowlist (H2O_EMAIL_ALLOWLIST).',
+      cfg.mode === 'off' ? 'Email is off on this server (a server setting), so nothing can be sent.' : 'Your address isn’t on the server’s list of allowed test recipients.',
     )
   const blocked = await limited(s, TEST_RULE, now)
   if (blocked) return blocked

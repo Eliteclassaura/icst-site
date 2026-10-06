@@ -17,6 +17,7 @@ import { fakeServer, msg, type Box } from '../../email/__tests__/fake-imap'
 import { SYNTHETIC_FIELD_MAP, SYNTHETIC_FORM_ID, SYNTHETIC_SECRET, signed, typeformDelivery } from '../fixtures/synthetic'
 import { uuidv7 } from '../ids'
 import { invalidateOfficeSettings } from '../officeSettings'
+import { invalidateErsSettings } from '../ers/settings'
 import { composeReply } from '../reply'
 import { composerTemplates, ensureTemplates, listTemplates, saveTemplate, setTemplateApproved, templateByCode } from '../settings/templates'
 import { crmSessionFor, type CrmSession } from '../workspace/session'
@@ -316,17 +317,19 @@ describe('templates T1–T6', () => {
     expect((await composerTemplates(A, rfq, { choices: [] })).options).toEqual([])
     const t5 = (await templateByCode(p, 'T5'))!
     await setTemplateApproved(A, String(t5.id), true)
+    // Owner rule 2026-10-06: the team signature only ("ICS Sales Team" + the sales address, from the Revenue Engine
+    // settings). No office phone is set and the sender has no job title: neither is needed, nothing is held.
+    await p.updateGlobal({ slug: 'crm-ers-settings' as never, data: { signature: { signer: 'ICS Sales Team', email: 'sales@example.test' } } as never, ...srv })
+    invalidateErsSettings()
     let c = await composerTemplates(A, rfq, { code: 'T5', choices: ['site visit'] })
     expect(c.options.map((o) => [o.code, o.choices])).toEqual([['T5', [['call', 'site visit']]]])
-    expect(c.picked?.result).toMatchObject({ ok: false })
-    expect((c.picked?.result as { message: string }).message).toMatch(/job title/)
-    expect((c.picked?.result as { message: string }).message).toMatch(/phone number/)
-    await p.update({ collection: 'users', id: admin.id, data: { name: 'Dana Admin', crm_title: 'Sales engineer' } as never, ...srv })
+    expect(c.picked?.result).toMatchObject({ ok: true, subject: `Scheduling a site visit for RFQ ${String(rfq.rfq_number)}` })
+    expect((c.picked?.result as { body: string }).body).toContain('Best regards,\nICS Sales Team\nsales@example.test')
+    // A phone set in the office settings is still never put in an email.
     await p.updateGlobal({ slug: 'crm-office-settings' as never, data: { phones: { US: '+1 555 0100', TH: null } } as never, ...srv })
     invalidateOfficeSettings()
     c = await composerTemplates(await session(admin), rfq, { code: 'T5', choices: ['site visit'] })
-    expect(c.picked?.result).toMatchObject({ ok: true, subject: `Scheduling a site visit for RFQ ${String(rfq.rfq_number)}` })
-    expect((c.picked?.result as { body: string }).body).toContain('Dana Admin\nSales engineer\nIndustrial Cooling Solutions (ICS)\n+1 555 0100')
+    expect((c.picked?.result as { body: string }).body).not.toMatch(/555 0100/)
     // A linked account's name wins over what the customer typed.
     const acct = (await p.create({ collection: 'crm-accounts', data: { canonical_name: 'Westbrook Utilities (synthetic)', provenance: { source_system: 'MANUAL_ENTRY' } } as never, ...srv, context: { crmServer: {} } })) as unknown as Doc
     c = await composerTemplates(await session(admin), { ...rfq, account: acct.id }, { code: 'T5', choices: ['call'] })

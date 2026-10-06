@@ -109,3 +109,84 @@ export const IconSettings = (p: P) => (
     <circle cx="10" cy="17" r="2" />
   </Svg>
 )
+
+/* Polish R1: inquiry types (Parts · New tower · Repair / service), status tones, reply clock, sheet controls. */
+export const IconPart = (p: P) => (
+  <Svg {...p}>
+    <path d="M12 3.5l7.4 4.25v8.5L12 20.5l-7.4-4.25v-8.5z" />
+    <circle cx="12" cy="12" r="3" />
+  </Svg>
+)
+export const IconTower = (p: P) => (
+  <Svg {...p}>
+    <path d="M7 4h10M8 20h8M7 4c1.6 4 1.6 6-1 16M17 4c-1.6 4-1.6 6 1 16" />
+    <path d="M10 2.5c.5.5.5 1 0 1.5M14 2.5c.5.5.5 1 0 1.5" />
+  </Svg>
+)
+export const IconWrench = (p: P) => (
+  <Svg {...p}>
+    <path d="M14.5 6.5a4 4 0 0 0 5 5l-8 8a2.1 2.1 0 0 1-3-3l8-8a4 4 0 0 0-2-2z" />
+    <path d="M14.5 6.5l2-2 3 3-2 2" />
+  </Svg>
+)
+export const IconClock = (p: P) => (
+  <Svg {...p}>
+    <circle cx="12" cy="12" r="8" />
+    <path d="M12 7.5V12l3 2" />
+  </Svg>
+)
+export const IconAlert = (p: P) => (
+  <Svg {...p}>
+    <circle cx="12" cy="12" r="8" />
+    <path d="M12 8v4.5M12 15.5h.01" />
+  </Svg>
+)
+export const IconCircleDot = (p: P) => (
+  <Svg {...p}>
+    <circle cx="12" cy="12" r="7" />
+    <circle cx="12" cy="12" r="2.5" />
+  </Svg>
+)
+export const IconProgress = (p: P) => (
+  <Svg {...p}>
+    <circle cx="12" cy="12" r="7" />
+    <path d="M12 5a7 7 0 0 1 0 14z" fill="currentColor" stroke="none" />
+  </Svg>
+)
+export const IconCheckCircle = (p: P) => (
+  <Svg {...p}>
+    <circle cx="12" cy="12" r="7.5" />
+    <path d="M8.5 12.2l2.4 2.4 4.6-4.9" />
+  </Svg>
+)
+export const IconMinusCircle = (p: P) => (
+  <Svg {...p}>
+    <circle cx="12" cy="12" r="7.5" />
+    <path d="M8.5 12h7" />
+  </Svg>
+)
+export const IconFlag = (p: P) => (
+  <Svg {...p}>
+    <path d="M6 20V4.5M6 5h11l-2.5 4L17 13H6" />
+  </Svg>
+)
+export const IconBack = (p: P) => (
+  <Svg {...p}>
+    <path d="M14.5 6l-6 6 6 6" />
+  </Svg>
+)
+export const IconClose = (p: P) => (
+  <Svg {...p}>
+    <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" />
+  </Svg>
+)
+export const IconFilter = (p: P) => (
+  <Svg {...p}>
+    <path d="M4 6h16M7 12h10M10 18h4" />
+  </Svg>
+)
+export const IconRows = (p: P) => (
+  <Svg {...p}>
+    <path d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+  </Svg>
+)

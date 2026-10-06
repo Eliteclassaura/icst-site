@@ -61,7 +61,7 @@ export function TaskTable({
           {rows.map((t) => {
             const due = t.dueAt ? new Date(t.dueAt) : null
             const related = t.rfqId
-              ? { href: `/crm/rfqs/?rfq=${t.rfqId}`, text: t.accountName ?? 'Inquiry' }
+              ? { href: `/crm/rfqs/?rfq=${t.rfqId}`, text: t.rfqLabel ?? t.accountName ?? 'Unnamed inquiry' }
               : t.accountId
                 ? { href: `/crm/accounts/${t.accountId}/`, text: t.accountName ?? 'Account' }
                 : null

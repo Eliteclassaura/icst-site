@@ -1,3 +1,4 @@
+import { ToneChip } from '../../../../../../crm/workspace/ui/Status'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { presetOptions, PRESET_LABEL, stepUpLeft, USE_LABEL } from '../../../../../../email/settings-page'
@@ -32,18 +33,24 @@ export default async function SendingProfilePage({ params }: { params: Promise<{
       </p>
       <section className="c-panel is-settings" aria-labelledby="sum-h">
         <div className="c-panel-head">
-          <h2 id="sum-h">{p.active === true ? 'On — new email is sent through this profile' : 'Off'}</h2>
+          <h2 id="sum-h">{String(p.name)}</h2>
+          {p.active === true ? <ToneChip tone="success">On: new email is sent through this profile</ToneChip> : <ToneChip tone="terminal">Off</ToneChip>}
         </div>
         <div className="c-panel-body is-padded">
           <dl className="c-dl">
             <dt>Provider</dt>
             <dd>{PRESET_LABEL[String(p.preset)] ?? String(p.preset)}</dd>
-            <dt>Sends</dt>
-            <dd>{USE_LABEL[String(p.use)] ?? String(p.use)}</dd>
-            <dt>Send as</dt>
-            <dd>{String(p.from_address ?? '')}</dd>
+            <dt>Mailbox</dt>
+            <dd>{String(p.username ?? '')}</dd>
             <dt>Password</dt>
             <dd>{p.password_set === true ? 'Stored (encrypted)' : 'Not stored'}</dd>
+            <dt>Send as</dt>
+            <dd>
+              {p.from_name ? `${String(p.from_name)} · ` : ''}
+              {String(p.from_address ?? '')}
+            </dd>
+            <dt>Sends</dt>
+            <dd>{USE_LABEL[String(p.use)] ?? String(p.use)}</dd>
             <dt>Last check</dt>
             <dd>
               {p.last_check_state === 'OK' ? `Passed${checked ? `, ${checked}` : ''}` : p.last_check_state === 'FAILED' ? `Failed (${String(p.last_check_code ?? '')})` : 'Not checked since the last change'}

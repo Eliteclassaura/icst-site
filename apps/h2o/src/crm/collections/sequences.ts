@@ -47,7 +47,8 @@ export const CrmSequences: CollectionConfig = crmCollection(
         type: 'group',
         admin: { description: 'Per-sequence override of the global compliance toggles (owner decision: default ON). The floor always applies.' },
         fields: [
-          toggle('address_footer', 'Postal address footer'),
+          // Owner rule 2026-10-06: no postal address in any email; the stored override is kept but not used.
+          { ...toggle('address_footer', 'Postal address footer (not used)'), admin: { hidden: true } },
           toggle('business_hours', 'Business-hours window'),
           toggle('warmup', 'Warm-up cap'),
         ],

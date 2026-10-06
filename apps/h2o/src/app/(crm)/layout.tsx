@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   referrer: 'same-origin',
 }
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1 }
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, viewportFit: 'cover' }
 
 export const dynamic = 'force-dynamic'
 

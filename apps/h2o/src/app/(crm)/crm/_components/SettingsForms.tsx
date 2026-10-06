@@ -1,6 +1,7 @@
 'use client'
 
-import { ActionForm, Field } from '../../../../crm/workspace/ui/ActionForm'
+import { useState } from 'react'
+import { ActionForm, Field, useFormOutcome } from '../../../../crm/workspace/ui/ActionForm'
 import * as A from '../settings/actions'
 
 /**
@@ -45,16 +46,26 @@ export type ProfileValues = {
   password_set?: boolean
 }
 
+/** Profile fields whose errors open the Advanced section, so a server error is never hidden in a closed disclosure. */
+const ADVANCED_FIELDS = ['host', 'port', 'tls_servername'] as const
+const ADVANCED_CODES = /^(PROFILE_(HOST|PORT|TLS)|HOST_|ETLS|ESOCKET)/
+
+/**
+ * Polish R1 (CT brief must-have 4): a sending profile shows Provider, Mailbox, Password and Send as by default. Server
+ * host, port and certificate name are under Advanced; the provider fills them in when they are left empty.
+ */
 export function ProfileForm({ values, presets }: { values: ProfileValues; presets: Array<{ value: string; label: string; hint: string }> }) {
   const editing = Boolean(values.id)
+  const [preset, setPreset] = useState(values.preset ?? 'GMAIL')
+  const hint = presets.find((p) => p.value === preset)?.hint
   return (
     <ActionForm action={A.saveProfileAction} hidden={{ id: values.id }} submitLabel={editing ? 'Save profile' : 'Add profile'}>
       <Field name="name" label="Profile name" required>
         {(a) => <input className="c-input" {...a} defaultValue={values.name ?? ''} maxLength={80} autoComplete="off" />}
       </Field>
-      <Field name="preset" label="Provider" hint={presets.map((p) => p.hint).join(' ')}>
+      <Field name="preset" label="Provider" hint={hint}>
         {(a) => (
-          <select className="c-select" {...a} defaultValue={values.preset ?? 'GMAIL'}>
+          <select className="c-select" {...a} value={preset} onChange={(e) => setPreset(e.target.value)}>
             {presets.map((p) => (
               <option key={p.value} value={p.value}>
                 {p.label}
@@ -71,21 +82,7 @@ export function ProfileForm({ values, presets }: { values: ProfileValues; preset
           </select>
         )}
       </Field>
-      <Field name="host" label="Server host name" hint="Leave empty to use the provider’s default host.">
-        {(a) => <input className="c-input" {...a} defaultValue={values.host ?? ''} maxLength={253} autoComplete="off" spellCheck={false} />}
-      </Field>
-      <Field name="port" label="Port" hint="587 (STARTTLS) or 465 (TLS).">
-        {(a) => (
-          <select className="c-select" {...a} defaultValue={String(values.port ?? 587)}>
-            <option value="587">587</option>
-            <option value="465">465</option>
-          </select>
-        )}
-      </Field>
-      <Field name="tls_servername" label="Certificate name" hint="The name on the server’s certificate. Empty: the provider’s default, else the host name.">
-        {(a) => <input className="c-input" {...a} defaultValue={values.tls_servername ?? ''} maxLength={253} autoComplete="off" spellCheck={false} />}
-      </Field>
-      <Field name="username" label="User name" required hint="For Google Workspace, the full mailbox address.">
+      <Field name="username" label="Mailbox" required hint={preset === 'GMAIL' ? 'The full mailbox address, e.g. sales@ your domain.' : 'The user name the mail server expects.'}>
         {(a) => <input className="c-input" {...a} defaultValue={values.username ?? ''} maxLength={254} autoComplete="off" spellCheck={false} />}
       </Field>
       <Field
@@ -103,10 +100,38 @@ export function ProfileForm({ values, presets }: { values: ProfileValues; preset
       <Field name="from_address" label="Send as (address)" required hint="An address at h2ocooling.org or h2ocooling.com that this mailbox may send as.">
         {(a) => <input className="c-input" {...a} type="email" defaultValue={values.from_address ?? ''} maxLength={254} autoComplete="off" />}
       </Field>
-      <Field name="from_name" label="Send as (name)">
+      <Field name="from_name" label="Send as (name)" hint="The name customers see, e.g. Rhonda Miller.">
         {(a) => <input className="c-input" {...a} defaultValue={values.from_name ?? ''} maxLength={80} autoComplete="off" />}
       </Field>
+      <AdvancedServer values={values} />
     </ActionForm>
+  )
+}
+
+function AdvancedServer({ values }: { values: ProfileValues }) {
+  const outcome = useFormOutcome()
+  const mustOpen = Boolean(ADVANCED_FIELDS.some((f) => outcome.fields?.[f]) || (outcome.code && ADVANCED_CODES.test(outcome.code)))
+  return (
+    <details className="c-advanced is-wide" key={mustOpen ? 'open' : 'closed'} open={mustOpen || undefined}>
+      <summary>Advanced: server, port and certificate</summary>
+      <p className="c-hint">Leave these empty to use the provider’s settings. Change them only for another mail service.</p>
+      <div className="c-form-grid">
+        <Field name="host" label="Server host name" hint="Empty: the provider’s default host.">
+          {(a) => <input className="c-input" {...a} defaultValue={values.host ?? ''} maxLength={253} autoComplete="off" spellCheck={false} />}
+        </Field>
+        <Field name="port" label="Port" hint="587 (STARTTLS) or 465 (TLS).">
+          {(a) => (
+            <select className="c-select" {...a} defaultValue={String(values.port ?? 587)}>
+              <option value="587">587</option>
+              <option value="465">465</option>
+            </select>
+          )}
+        </Field>
+        <Field name="tls_servername" label="Certificate name" wide hint="The name on the server’s certificate. Empty: the provider’s default, else the host name.">
+          {(a) => <input className="c-input" {...a} defaultValue={values.tls_servername ?? ''} maxLength={253} autoComplete="off" spellCheck={false} />}
+        </Field>
+      </div>
+    </details>
   )
 }
 

@@ -271,7 +271,7 @@ describe('sending profiles: shape and opening', () => {
 
 describe('templates T1–T6', () => {
   const by = (c: string) => SEED_TEMPLATES.find((t) => t.code === c)!
-  const values = { rfq_number: 'RFQ-1', customer_first_name: 'Pat', company: 'Plant (synthetic)', sales_rep_name: 'Dana', sales_rep_title: 'Sales engineer', office_phone: '+1 555 0100', response_sentence: responseSentence('within one business day') }
+  const values = { rfq_number: 'RFQ-1', customer_first_name: 'Pat', company: 'Plant (synthetic)', sales_rep_name: 'Dana', sales_rep_title: 'Sales engineer', email_signature: 'ICS Sales Team\nsales@example.test', response_sentence: responseSentence('within one business day') }
   it('every seed passes lint, is transactional, carries the footer and no price or promise words', () => {
     for (const t of SEED_TEMPLATES.filter((x) => /^T\d$/.test(x.code))) {
       expect(lintTemplate(t), t.code).toEqual([])
@@ -288,12 +288,14 @@ describe('templates T1–T6', () => {
     const r = renderTemplate(t5, values, ['site visit'])
     expect(r).toMatchObject({ ok: true, subject: 'Scheduling a site visit for RFQ RFQ-1' })
     expect(r.ok && r.text).toContain("set up a site visit with your team at Plant (synthetic).")
-    expect(r.ok && r.text).toContain('Dana\nSales engineer\nIndustrial Cooling Solutions (ICS)\n+1 555 0100')
+    expect(r.ok && r.text).toContain('Best regards,\nICS Sales Team\nsales@example.test')
     expect(renderTemplate(t5, values, ['phone call'])).toEqual({ ok: false, code: 'CHOICE_MISSING', missing: ['0'] })
   })
   it('fails closed: a required field without a value renders nothing', () => {
-    expect(renderTemplate(by('T2'), { ...values, office_phone: '' })).toEqual({ ok: false, code: 'MERGE_FIELD_MISSING', missing: ['office_phone'] })
-    expect(renderTemplate(by('T4'), { ...values, sales_rep_title: undefined })).toMatchObject({ ok: false, missing: ['sales_rep_title'] })
+    expect(renderTemplate(by('T2'), { ...values, email_signature: '' })).toEqual({ ok: false, code: 'MERGE_FIELD_MISSING', missing: ['email_signature'] })
+    // Owner rule 2026-10-06: {{office_phone}} is retired. A stored template still using it renders nothing (invalid).
+    expect(renderTemplate({ subject: 'S', body: 'Call {{office_phone}}', purpose: 'TRANSACTIONAL' }, values)).toMatchObject({ ok: false, code: 'TEMPLATE_INVALID' })
+    expect(lintTemplate({ subject: 'S', body: 'Call {{office_phone}}', purpose: 'TRANSACTIONAL' }).map((p) => p.code)).toContain('TEMPLATE_UNKNOWN_FIELD')
   })
   it('merge values are data: one line, no markup injection into headers', () => {
     const r = renderTemplate(by('T2'), { ...values, company: 'Evil\r\nBcc: x@example.test' })

@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react'
+import { cookies } from 'next/headers'
+import { DENSITY_COOKIE, densityFrom } from '../prefs'
 import { IconAccounts, IconContacts, IconInbox, IconMore, IconPipeline, IconSearch, IconSettings, IconTasks, IconWork } from './Icons'
 import { PaletteTrigger } from './PaletteTrigger'
 import { loadViews } from '../savedViews'
@@ -64,8 +66,9 @@ export async function Shell({
 }) {
   const moreActive = MORE.some((m) => m.key === active && m.key !== 'none')
   const pinned = session ? (await loadViews(session)).filter((v) => v.pinned) : []
+  const dense = densityFrom((await cookies()).get(DENSITY_COOKIE)?.value) === 'compact'
   return (
-    <div className="crm-app">
+    <div className={`crm-app${dense ? ' is-dense' : ''}`}>
       <a className="c-skip" href="#crm-main">
         Skip to content
       </a>

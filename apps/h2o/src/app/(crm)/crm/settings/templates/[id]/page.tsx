@@ -19,7 +19,7 @@ const SAMPLE = {
   company: 'Example Plant (sample)',
   sales_rep_name: 'Your name',
   sales_rep_title: 'Your job title',
-  office_phone: '+1 555 0100',
+  email_signature: 'ICS Sales Team\nsales@example.test',
   unsubscribe_url: 'https://example.invalid/unsubscribe',
 }
 
@@ -60,7 +60,7 @@ export default async function TemplatePage({ params }: { params: Promise<{ id: s
           {t.code === 'T1' ? (
             <p className="c-hint">
               T1 is sent automatically to the customer for each website inquiry, only while it is approved and the
-              acknowledgement is switched on (H2O_EMAIL_CUSTOMER_ACK). Approving it is the owner’s approval of this wording.
+              customer acknowledgement is switched on in the server settings. Approving it is the owner’s approval of this wording.
             </p>
           ) : null}
           <ApproveTemplateForm id={String(t.id)} hash={templateHash(text)} approved={approved} />

@@ -3,12 +3,19 @@ import { ensureSeedSequences } from '../../../../../crm/ers/admin'
 import { engineStatus, sequenceReport } from '../../../../../crm/ers/report'
 import { absoluteTime } from '../../../../../crm/workspace/time'
 import { Shell } from '../../../../../crm/workspace/ui/Shell'
+import { ToneChip } from '../../../../../crm/workspace/ui/Status'
+import type { Tone } from '../../../../../crm/workspace/labels'
 import { EngineSwitch, ResumeHealth } from '../../_components/SequenceForms'
 import { requireCrmSession } from '../../session'
 
 export const metadata: Metadata = { title: 'Sequences' }
 
-const STATE: Record<string, string> = { DRAFT: 'Draft', ACTIVE: 'Running', PAUSED: 'Paused', RETIRED: 'Retired' }
+const STATE: Record<string, { label: string; tone: Tone }> = {
+  DRAFT: { label: 'Not started', tone: 'neutral' },
+  ACTIVE: { label: 'Running', tone: 'success' },
+  PAUSED: { label: 'Paused', tone: 'warning' },
+  RETIRED: { label: 'Retired', tone: 'terminal' },
+}
 
 /** Revenue Engine slice 1: sequences and the engine (admins). One report table (LEAN CUT 7). */
 export default async function SequencesPage() {
@@ -36,18 +43,26 @@ export default async function SequencesPage() {
         <div className="c-panel-body is-padded">
           <dl className="c-dl">
             <dt>Switch</dt>
-            <dd>{st.settings.enabled ? 'On' : 'Off — no sequence runs and nothing is sent'}</dd>
+            <dd>
+              {st.settings.enabled ? <ToneChip tone="success">On</ToneChip> : <ToneChip tone="terminal">Off</ToneChip>}
+              {st.settings.enabled ? null : <span className="c-dd-note">No sequence runs and nothing is sent.</span>}
+            </dd>
             <dt>Reply detection</dt>
             <dd>
-              {st.inboundLive
-                ? 'Live'
-                : 'Not live — inbound email is off or its last check is more than 15 minutes old. Sequences wait until it is live.'}
+              {st.inboundLive ? <ToneChip tone="success">Live</ToneChip> : <ToneChip tone="warning">Not live</ToneChip>}
+              {st.inboundLive ? null : (
+                <span className="c-dd-note">Inbound email is off, or its last check is more than 15 minutes old. Sequences wait until it is live.</span>
+              )}
             </dd>
             <dt>Sending health</dt>
             <dd>
-              {h.state === 'PAUSED'
-                ? `Paused${h.reason === 'COMPLAINT' ? ' after a complaint' : h.reason === 'HARD_BOUNCE_RATE' ? ' — too many hard bounces' : ''}${h.changedAt ? ` (${absoluteTime(new Date(h.changedAt), s.timeZone)})` : ''}`
-                : 'Normal'}
+              {h.state === 'PAUSED' ? <ToneChip tone="warning">Paused</ToneChip> : <ToneChip tone="success">Normal</ToneChip>}
+              {h.state === 'PAUSED' ? (
+                <span className="c-dd-note">
+                  {h.reason === 'COMPLAINT' ? 'After a complaint.' : h.reason === 'HARD_BOUNCE_RATE' ? 'Too many hard bounces.' : 'Paused.'}
+                  {h.changedAt ? ` ${absoluteTime(new Date(h.changedAt), s.timeZone)}.` : ''}
+                </span>
+              ) : null}
             </dd>
             <dt>Last 24 hours</dt>
             <dd>
@@ -56,15 +71,15 @@ export default async function SequencesPage() {
             <dt>Hard bounces</dt>
             <dd>
               {st.bounce.bounced} of the last {st.bounce.total} sends{st.bounce.total ? ` (${Math.round(st.bounce.ratio * 1000) / 10}%)` : ''}
-              {st.bounce.warn ? ' — above the 2% warning level: check the addresses being enrolled.' : ''}
+              {st.bounce.warn ? <span className="c-dd-note c-warn-text">Above the 2% warning level: check the addresses being enrolled.</span> : null}
             </dd>
           </dl>
-          <div className="c-actions">
+          <div className="c-actions c-panel-actions">
             <EngineSwitch on={st.settings.enabled} />
             {h.state === 'PAUSED' ? <ResumeHealth /> : null}
           </div>
           <p className="c-hint">
-            Caps, business hours, warm-up, the address footer and the signature are in the <a href="/admin/globals/crm-ers-settings">Revenue Engine settings</a>.
+            Caps, business hours, warm-up and the signature are in the <a href="/admin/globals/crm-ers-settings">Revenue Engine settings</a>.
             Unsubscribe links and the suppression list always apply.
           </p>
         </div>
@@ -98,14 +113,14 @@ export default async function SequencesPage() {
                         <a href={`/crm/settings/sequences/${encodeURIComponent(r.id)}/`}>{r.name}</a>
                       </td>
                       <td>
-                        {STATE[r.runState] ?? r.runState}
-                        {r.version ? ` · v${r.version}` : ''}
+                        <ToneChip tone={STATE[r.runState]?.tone ?? 'neutral'}>{STATE[r.runState]?.label ?? 'Unknown'}</ToneChip>
+                        {r.version ? <span className="c-muted"> v{r.version}</span> : null}
                       </td>
                       <td className="num">{r.enrolled}</td>
                       <td className="num">{r.sent}</td>
                       <td className="num">{r.replied}</td>
-                      <td className="num">{r.replyPct === null ? '—' : `${r.replyPct}%`}</td>
-                      <td>{stopped.length ? stopped.map(([k, n]) => `${k.toLowerCase().replace(/_/g, ' ')} ${n}`).join(', ') : '—'}</td>
+                      <td className="num">{r.replyPct === null ? <span className="c-muted" aria-label="No sends yet">n/a</span> : `${r.replyPct}%`}</td>
+                      <td>{stopped.length ? stopped.map(([k, n]) => `${k.toLowerCase().replace(/_/g, ' ')} ${n}`).join(', ') : <span className="c-muted">None</span>}</td>
                       <td className="num">{r.unsubscribed}</td>
                       <td className="num">{r.bounced}</td>
                     </tr>

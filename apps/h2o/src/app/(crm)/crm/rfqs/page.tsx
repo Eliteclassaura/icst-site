@@ -8,7 +8,10 @@ import { inboxHref, listSearchCookie, searchRequested, storedTerm } from '../../
 import { INBOX_VIEWS, INBOX_VIEW_LABEL, loadInbox, loadRfq, parseInboxParams, searchAccounts, type InboxParams } from '../../../../crm/workspace/queries'
 import { isUuid } from '../../../../crm/workspace/validate'
 import { AutoSubmit } from '../../../../crm/workspace/ui/AutoSubmit'
-import { IconPlus } from '../../../../crm/workspace/ui/Icons'
+import { IconBack, IconFilter, IconInbox, IconPlus, IconRows } from '../../../../crm/workspace/ui/Icons'
+import { PhoneRecordLinks, SheetClose } from '../../../../crm/workspace/ui/Phone'
+import { EmptyState } from '../../../../crm/workspace/ui/States'
+import { DENSITY_COOKIE, densityFrom } from '../../../../crm/workspace/prefs'
 import { RfqTable } from '../../../../crm/workspace/ui/RfqTable'
 import { Shell } from '../../../../crm/workspace/ui/Shell'
 import { Shortcuts } from '../../../../crm/workspace/ui/Shortcuts'
@@ -19,12 +22,14 @@ import { Chips, ListSearch, queryOf, type Chip } from '../_components/ListContro
 import { SavedViews } from '../_components/SavedViews'
 import { RFQ_TABS, RfqDetailView, type RfqTab } from '../_components/RfqDetail'
 import { requireCrmSession } from '../session'
+import { densityAction } from '../actions'
 
 export const metadata: Metadata = { title: 'RFQ Inbox' }
 
 type SP = Record<string, string | string[] | undefined>
 
-const RECEIVED_LABEL: Record<string, string> = { today: 'Received today', '7d': 'Last 7 days', '30d': 'Last 30 days' }
+const RECEIVED_LABEL: Record<string, string> = { today: 'Received today', week: 'Received this week', '7d': 'Last 7 days', '30d': 'Last 30 days' }
+const REPLY_LABEL: Record<string, string> = { overdue: 'Reply overdue', today: 'Reply due today' }
 
 /** Active filters as chips; each chip links to the same list without that one filter. */
 function chipsFor(p: InboxParams, people: Array<{ id: string; name: string }>, search: boolean): Chip[] {
@@ -37,6 +42,7 @@ function chipsFor(p: InboxParams, people: Array<{ id: string; name: string }>, s
       href: without({ owner: null }),
     })
   if (p.received) out.push({ key: 'received', label: RECEIVED_LABEL[p.received] ?? 'Received', href: without({ received: null }) })
+  if (p.reply) out.push({ key: 'reply', label: REPLY_LABEL[p.reply] ?? 'Reply due', href: without({ reply: null }) })
   if (p.motions.length)
     out.push({ key: 'motion', label: `Motion: ${p.motions.map((m) => MOTION_LABEL[m] ?? 'Unknown').join(', ')}`, href: inboxHref(p, { page: null }, { search, motions: null }) })
   if (p.countries.length)
@@ -67,6 +73,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
     p.q ? searchAccounts(s, p.q) : Promise.resolve([]),
   ])
   const on = Boolean(term)
+  const density = densityFrom((await cookies()).get(DENSITY_COOKIE)?.value)
   const href = (over: Parameters<typeof inboxHref>[1] = {}, opts: Parameters<typeof inboxHref>[2] = {}) => inboxHref(p, over, { search: on, ...opts })
   const chips = chipsFor(p, inbox.people, on)
   const filterCount = chips.length
@@ -90,6 +97,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
     >
       <div id="crm-inbox" role="region" aria-label="RFQ list and detail" tabIndex={0}>
         <Shortcuts scopeId="crm-inbox" />
+        <PhoneRecordLinks scopeId="crm-inbox" />
         <nav className="c-views" aria-label="Saved views">
           {INBOX_VIEWS.map((v) => (
             <a key={v} href={href({ view: v === 'open' ? null : v, page: null })} aria-current={p.view === v ? 'page' : undefined}>
@@ -117,9 +125,16 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
 
         <div className="c-toolbar">
           <ListSearch list="inbox" term={term} back={back} label="Search inquiries" placeholder="RFQ number, company, email, name" inputId="crm-search" />
-          <details className="c-filter-pop">
-            <summary className="c-btn">Filters{filterCount ? ` (${filterCount})` : ''}</summary>
+          <details className="c-filter-pop c-sheet">
+            <summary className="c-btn">
+              <IconFilter /> Filters{filterCount ? ` (${filterCount})` : ''}
+            </summary>
+            <span className="c-sheet-backdrop" aria-hidden="true" />
             <form className="c-filters" method="get" action="/crm/rfqs/" aria-label="Filter inquiries">
+              <div className="c-sheet-head">
+                <p className="c-sheet-title">Filter inquiries</p>
+                <SheetClose />
+              </div>
               <AutoSubmit />
               {p.view !== 'open' ? <input type="hidden" name="view" value={p.view} /> : null}
               {p.account ? <input type="hidden" name="account" value={p.account} /> : null}
@@ -148,6 +163,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
                 <select className="c-select" name="received" defaultValue={p.received ?? ''}>
                   <option value="">Any time</option>
                   <option value="today">Today</option>
+                  <option value="week">This week</option>
                   <option value="7d">Last 7 days</option>
                   <option value="30d">Last 30 days</option>
                 </select>
@@ -173,6 +189,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
                 </select>
               </label>
               {p.type ? <input type="hidden" name="type" value={p.type} /> : null}
+              {p.reply ? <input type="hidden" name="reply" value={p.reply} /> : null}
               {p.office ? <input type="hidden" name="office" value={p.office} /> : null}
               <label className="c-field">
                 <span>Source</span>
@@ -194,12 +211,19 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
                 </select>
               </label>
               <div className="c-actions">
-                <button className="c-btn" type="submit">
+                <button className="c-btn is-primary" type="submit">
                   Apply
                 </button>
               </div>
             </form>
           </details>
+          <form action={densityAction} className="c-density">
+            <input type="hidden" name="density" value={density === 'compact' ? 'comfortable' : 'compact'} />
+            <input type="hidden" name="back" value={inboxHref(p, {}, { search: on })} />
+            <button type="submit" className="c-btn" aria-pressed={density === 'compact'} title="Show more rows on screen">
+              <IconRows /> Compact
+            </button>
+          </form>
           {s.isAdmin ? <ExportDialog list="inbox" query={queryOf(inboxHref(p, { page: null }, { search: on }))} columns={EXPORT_COLUMNS.inbox} alwaysDnc total={inbox.total} /> : null}
           <form className="c-sort" method="get" action="/crm/rfqs/" aria-label="Sort inquiries">
             <AutoSubmit />
@@ -225,7 +249,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
           </form>
         </div>
 
-        <Chips chips={chips} list="inbox" term={term} back={back} clearAllHref={inboxHref(p, { owner: null, received: null, type: null, source: null, linked: null, cta: null, account: null, contact: null, page: null }, { status: null, motions: null, countries: null })} />
+        <Chips chips={chips} list="inbox" term={term} back={back} clearAllHref={inboxHref(p, { owner: null, received: null, reply: null, type: null, source: null, linked: null, cta: null, account: null, contact: null, page: null }, { status: null, motions: null, countries: null })} />
 
         {accountHits.length > 0 ? (
           <p className="c-hint">
@@ -240,20 +264,29 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
         ) : null}
 
         <BulkBar scopeId="crm-inbox" kind="rfqs" people={inbox.people} />
-        <div className={`c-split${detail ? '' : ' is-single'}`}>
+        <div className={`c-split${detail ? ' has-pane' : ' is-single'}`}>
           <section aria-label="Inquiries">
             {inbox.rows.length === 0 ? (
               <div className="c-panel">
-                <p className="c-empty" role="status">
+                <EmptyState
+                  icon={<IconInbox />}
+                  title={term ? `No inquiries match “${term}”` : filtered ? 'No inquiries match these filters' : `No ${INBOX_VIEW_LABEL[p.view].toLowerCase()} inquiries`}
+                  action={
+                    p.view !== 'open' || filtered ? (
+                      <a className="c-btn" href="/crm/rfqs/">
+                        View all open inquiries
+                      </a>
+                    ) : null
+                  }
+                >
                   {term
-                    ? `No RFQs match “${term}”. Search covers RFQ number, company, email and name.`
+                    ? 'Search covers the RFQ number, company, email and name.'
                     : filtered
-                      ? 'No inquiries match these filters.'
-                      : p.view === 'unassigned'
-                        ? 'No unassigned inquiries.'
-                        : `No ${INBOX_VIEW_LABEL[p.view].toLowerCase()} inquiries.`}{' '}
-                  {p.view !== 'open' || filtered ? <a href="/crm/rfqs/">View all open</a> : null}
-                </p>
+                      ? 'Remove a filter above, or clear them all.'
+                      : p.view === 'open'
+                        ? 'New website and chat inquiries appear here as they arrive.'
+                        : 'Nothing is in this view right now.'}
+                </EmptyState>
               </div>
             ) : (
               <RfqTable
@@ -276,8 +309,14 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
           </section>
           {detail ? (
             <div>
-              <p className="c-hint">
-                <a href={`/crm/rfqs/${detail.row.id}/`}>Open full page</a> · <a href={href({})}>Close pane</a>
+              <p className="c-hint c-pane-nav">
+                <a className="c-back-list" href={href({})}>
+                  <IconBack /> Back to list
+                </a>
+                <a href={`/crm/rfqs/${detail.row.id}/`}>Open full page</a>
+                <a className="c-pane-close" href={href({})}>
+                  Close pane
+                </a>
               </p>
               <RfqDetailView d={detail} s={s} tab={tab} now={now} mode="pane" tabHref={(t) => href({}, { rfq: detail.row.id, tab: t === 'summary' ? null : t })} />
             </div>

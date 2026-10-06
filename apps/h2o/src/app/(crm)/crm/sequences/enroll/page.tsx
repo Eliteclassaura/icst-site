@@ -3,6 +3,8 @@ import { previewEnrollment, type Source } from '../../../../../crm/ers/enroll'
 import { MISSING_INFORMATION_ITEMS } from '../../../../../crm/vocabulary'
 import { asUser } from '../../../../../crm/workspace/session'
 import { Shell } from '../../../../../crm/workspace/ui/Shell'
+import { ToneChip } from '../../../../../crm/workspace/ui/Status'
+import type { Tone } from '../../../../../crm/workspace/labels'
 import { EnrollConfirm, EnrollmentControls } from '../../_components/SequenceForms'
 import { requireCrmSession } from '../../session'
 
@@ -25,6 +27,19 @@ const REASON: Record<string, string> = {
   BOUNCED: 'Address bounced',
   COMPLAINT: 'Complained',
   SUPPRESSED: 'On the do-not-email list',
+}
+
+const words = (v: unknown) => {
+  const t = String(v ?? '').toLowerCase().replace(/_/g, ' ')
+  return t.charAt(0).toUpperCase() + t.slice(1)
+}
+const ENROLL_STATE: Record<string, { label: string; tone: Tone }> = {
+  ACTIVE: { label: 'Running', tone: 'accent' },
+  AWAITING_SEND: { label: 'Awaiting send', tone: 'accent' },
+  PAUSED: { label: 'Paused', tone: 'warning' },
+  DEAD_LETTER: { label: 'Stopped (error)', tone: 'warning' },
+  COMPLETED: { label: 'Completed', tone: 'success' },
+  EXITED: { label: 'Stopped', tone: 'terminal' },
 }
 
 /**
@@ -76,7 +91,8 @@ export default async function EnrollPage({ searchParams }: { searchParams: Promi
               </label>
               {source.rfqId ? (
                 <fieldset className="c-fieldset c-check-group">
-                  <legend>Missing items (only for the missing-information sequence; pick what is genuinely missing)</legend>
+                  <legend>Missing items</legend>
+                  <p className="c-hint c-span-all">Only for the missing-information sequence. Pick what is genuinely missing.</p>
                   {Object.entries(MISSING_INFORMATION_ITEMS).map(([k, label]) => (
                     <label key={k} className="c-actions">
                       <input type="checkbox" name="items" value={k} defaultChecked={items.includes(k)} />
@@ -85,9 +101,11 @@ export default async function EnrollPage({ searchParams }: { searchParams: Promi
                   ))}
                 </fieldset>
               ) : null}
-              <button className="c-btn" type="submit">
-                Preview
-              </button>
+              <div className="c-actions c-panel-actions">
+                <button className="c-btn is-primary" type="submit">
+                  Preview
+                </button>
+              </div>
             </form>
           )}
         </div>
@@ -115,7 +133,16 @@ export default async function EnrollPage({ searchParams }: { searchParams: Promi
                   {preview.rows.slice(0, 200).map((r, i) => (
                     <tr key={`${r.contactId ?? 'none'}-${i}`}>
                       <td>{r.label}</td>
-                      <td>{r.decision === 'ENROLL' ? 'Will be enrolled' : r.reasons.map((x) => REASON[x] ?? x).join('; ')}</td>
+                      <td>
+                        {r.decision === 'ENROLL' ? (
+                          <ToneChip tone="success">Will be enrolled</ToneChip>
+                        ) : (
+                          <>
+                            <ToneChip tone="terminal">Skipped</ToneChip>
+                            <span className="c-dd-note">{r.reasons.map((x) => REASON[x] ?? x).join('; ')}</span>
+                          </>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -149,15 +176,25 @@ export default async function EnrollPage({ searchParams }: { searchParams: Promi
             <h2 id="ex-h">Enrollments here</h2>
           </div>
           <div className="c-panel-body is-padded">
-            <ul>
-              {existing.map((e) => (
-                <li key={String(e.id)}>
-                  {String((e.sequence as Doc | null)?.name ?? 'Sequence')} — {String(e.status).toLowerCase().replace(/_/g, ' ')}
-                  {e.exit_reason ? ` (${String(e.exit_reason).toLowerCase().replace(/_/g, ' ')})` : ''}
-                  {e.hold_code ? ` (held: ${String(e.hold_code)})` : ''}
-                  <EnrollmentControls enrollmentId={String(e.id)} status={String(e.status)} isAdmin={s.isAdmin} />
-                </li>
-              ))}
+            <ul className="c-list c-enrol-list" role="list">
+              {existing.map((e) => {
+                const st = ENROLL_STATE[String(e.status)] ?? { label: words(e.status), tone: 'neutral' as const }
+                return (
+                  <li key={String(e.id)}>
+                    <span className="grow">
+                      <strong>{String((e.sequence as Doc | null)?.name ?? 'Sequence')}</strong>
+                      {e.exit_reason || e.hold_code ? (
+                        <span className="c-hint">
+                          {e.exit_reason ? `Stopped: ${words(e.exit_reason)}` : ''}
+                          {e.hold_code ? `Held: ${words(e.hold_code)}` : ''}
+                        </span>
+                      ) : null}
+                    </span>
+                    <ToneChip tone={st.tone}>{st.label}</ToneChip>
+                    <EnrollmentControls enrollmentId={String(e.id)} status={String(e.status)} isAdmin={s.isAdmin} />
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </section>

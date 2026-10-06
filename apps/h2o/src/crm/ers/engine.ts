@@ -9,7 +9,7 @@ import { recordActivity } from '../activity'
 import { relId } from '../guards'
 import { emailKey } from '../normalize'
 import { messageIdFor } from '../notify'
-import { officeCalendar, type Office } from '../offices'
+import { officeCalendar } from '../offices'
 import { officeSettings } from '../officeSettings'
 import { ensureReplyToken, replyToAddress } from '../reply'
 import { isApproved, textOf } from '../settings/templates'
@@ -18,7 +18,7 @@ import { ensureSystemTask } from '../tasks'
 import { endOfBusinessDay } from '../workspace/time'
 import { ENROLLMENT_LIVE, MISSING_INFORMATION_ITEMS, type EnrollmentExitReason, type MissingInformationItem } from '../vocabulary'
 import { afterBusinessDays } from './calendar'
-import { effectiveToggle, ersSettings, type ErsSettings } from './settings'
+import { ersSettings, type ErsSettings } from './settings'
 import { unsubscribeUrl } from './unsubscribe'
 
 /**
@@ -88,29 +88,24 @@ export const joinItems = (items: string[]): string =>
 
 export async function sequenceMergeValues(payload: Payload, s: ErsSettings, enr: Doc, rfq: Doc, contact: Doc): Promise<MergeValues> {
   const submitted = (rfq.submitted ?? {}) as Doc
-  const office = (rfq.office === 'TH' ? 'TH' : 'US') as Office
-  const phone = s.signature.includeOfficePhone ? (await officeSettings(payload)).phones[office] : null
   const missing = Array.isArray(enr.missing_items) ? (enr.missing_items as MissingInformationItem[]).filter((k) => k in MISSING_INFORMATION_ITEMS).map((k) => MISSING_INFORMATION_ITEMS[k]) : []
-  // The owner's signature (2026-10-05): the team, the RFQ office's phone, the sales address. A required phone that is
-  // not set makes the signature incomplete, and the step holds rather than sending a signature without it.
-  const signatureOk = !s.signature.includeOfficePhone || Boolean(phone)
+  // The owner's signature: the team and the sales address (2026-10-05). Owner rule 2026-10-06: no phone number and no
+  // postal address in any email, so nothing about an office's phone can hold or block a step.
   return {
     first_name: String(contact.first_name ?? submitted.first_name ?? ''),
     rfq_reference: String(rfq.rfq_number ?? ''),
     missing_information_list: joinItems(missing),
-    sequence_signature: signatureOk ? [s.signature.signer, phone ?? '', s.signature.email].filter(Boolean).join('\n') : '',
+    sequence_signature: [s.signature.signer, s.signature.email].filter(Boolean).join('\n'),
   }
 }
 
-/** The footer the engine adds: the one-click unsubscribe link (always — the floor) and the postal address (toggle). */
-export function footerFor(s: ErsSettings, sequence: Doc, enrollmentId: string): { text: string; url: string } | { hold: string } {
+/**
+ * The footer the engine adds: the one-click unsubscribe link, always (the floor). Owner rule 2026-10-06: no postal
+ * address and no phone number in any email, so there is no address line and nothing here can hold a step.
+ */
+export function footerFor(_s: ErsSettings, _sequence: Doc, enrollmentId: string): { text: string; url: string } | { hold: string } {
   const url = unsubscribeUrl(enrollmentId)
-  const lines = [`If you’d rather not receive these follow-ups, unsubscribe here: ${url}`]
-  if (effectiveToggle(s, sequence, 'address_footer')) {
-    if (!s.postalAddress) return { hold: 'POSTAL_ADDRESS_MISSING' }
-    lines.push(s.postalAddress.replace(/\s*\n\s*/g, ', '))
-  }
-  return { text: lines.join('\n'), url }
+  return { text: `If you’d rather not receive these follow-ups, unsubscribe here: ${url}`, url }
 }
 
 // ── one step ─────────────────────────────────────────────────────────────────────────────────────────────────────

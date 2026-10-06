@@ -198,16 +198,16 @@ export function quickDueDates(now: Date, cal: BusinessCalendar = DEFAULT_CALENDA
 export const isAgedUnassigned = (receivedAt: Date, now: Date, cal: BusinessCalendar = DEFAULT_CALENDAR): boolean =>
   businessMsBetween(receivedAt, now, cal) > BUSINESS_DAY_MS
 
-/** "Received 2d ago" style relative age in calendar terms, for display only. */
+/** "Received 2 d ago" style (Polish R1: spaced units, "2 h ago") relative age in calendar terms, for display only. */
 export function relativeAge(from: Date, now: Date): string {
   const ms = now.getTime() - from.getTime()
   if (!(ms > 0)) return 'just now'
   const min = Math.floor(ms / 60000)
   if (min < 1) return 'just now'
-  if (min < 60) return `${min}m ago`
+  if (min < 60) return `${min} min ago`
   const h = Math.floor(min / 60)
-  if (h < 24) return `${h}h ago`
-  return `${Math.floor(h / 24)}d ago`
+  if (h < 24) return `${h} h ago`
+  return `${Math.floor(h / 24)} d ago`
 }
 
 type DisplayFormats = { time: Intl.DateTimeFormat; dayTime: Intl.DateTimeFormat; date: Intl.DateTimeFormat; full: Intl.DateTimeFormat }

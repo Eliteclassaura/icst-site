@@ -14,7 +14,7 @@ import { createHash } from 'node:crypto'
  *     must not (an inquiry reply has no unsubscribe link).
  */
 
-/** SEQUENCE (Revenue Engine slice 1): sent by a sequence; the engine adds the unsubscribe and address footer itself. */
+/** SEQUENCE (Revenue Engine slice 1): sent by a sequence; the engine adds the unsubscribe footer itself (no postal address: owner rule 2026-10-06). */
 export const TEMPLATE_PURPOSES = ['TRANSACTIONAL', 'MARKETING', 'SEQUENCE'] as const
 export type TemplatePurpose = (typeof TEMPLATE_PURPOSES)[number]
 
@@ -44,7 +44,7 @@ export const MERGE_FIELDS: Record<string, FieldDef> = {
   sequence_signature: {
     label: 'Sequence signature',
     required: true,
-    hint: 'Revenue Engine settings: the signer (“ICS Sales Team”), the RFQ office’s phone and the sales address, one per line.',
+    hint: 'Revenue Engine settings: the signer (“ICS Sales Team”) and the sales address, one per line. Never a phone number or postal address (owner rule 2026-10-06).',
     multiline: true,
   },
   missing_information_list: {
@@ -55,7 +55,14 @@ export const MERGE_FIELDS: Record<string, FieldDef> = {
   company: { label: 'Company', required: true, hint: 'The linked account’s name, else the company as the customer gave it.' },
   sales_rep_name: { label: 'Your name', required: true, hint: 'The signed-in person’s name.' },
   sales_rep_title: { label: 'Your job title', required: true, hint: 'Set it in your account (Job title).' },
-  office_phone: { label: 'Office phone', required: true, hint: 'Your office’s number (CRM office settings).' },
+  // Owner rule 2026-10-06: no phone number and no postal address in any email. The {{office_phone}} field is gone, so no
+  // template can ask for one; the reply signature is the team's, from the Revenue Engine settings.
+  email_signature: {
+    label: 'Signature',
+    required: true,
+    hint: 'The team signature: “ICS Sales Team” and the sales address, one per line (Revenue Engine settings).',
+    multiline: true,
+  },
   response_sentence: {
     label: 'Response-time sentence',
     required: true,
@@ -160,7 +167,12 @@ export function renderTemplate(t: TemplateText, values: MergeValues, choices: st
         }
         return picked
       }
-      const def = MERGE_FIELDS[x.name]!
+      const def = MERGE_FIELDS[x.name]
+      // Defensive: lint (above) already refuses unknown fields; a retired field is never rendered.
+      if (!def) {
+        missing.add(x.name)
+        return ''
+      }
       const raw = values[x.name as keyof MergeValues]
       // A multi-line value (the signature) keeps up to 6 lines; each line is cleaned like any value.
       const v = def.multiline && typeof raw === 'string' ? raw.split(/\r?\n/).map(clean).filter(Boolean).slice(0, 6).join('\n') : clean(raw)
@@ -188,7 +200,8 @@ export const greetingFor = (firstName: unknown): string => {
 export const responseSentence = (promise: string | null | undefined): string =>
   promise ? `A member of our team will review it and respond ${clean(promise)}.` : 'A member of our team will review it and contact you.'
 
-const SIGNATURE = '{{sales_rep_name}}\n{{sales_rep_title}}\nIndustrial Cooling Solutions (ICS)\n{{office_phone}}'
+// Owner rule 2026-10-06: "ICS Sales Team" + the sales address only; no phone number, no postal address.
+const SIGNATURE = '{{email_signature}}'
 const E11_SIGNATURE = '{{sequence_signature}}'
 const FOOTER = 'You’re receiving this email because you sent a request through h2ocooling.com.'
 
@@ -197,6 +210,19 @@ const FOOTER = 'You’re receiving this email because you sent a request through
  * T1 is seeded approved: the owner approved its wording on 2026-10-05 (as returned with Patch L, without the OGCS
  * footer line). T2–T6 are seeded unapproved until the owner reviews them in the templates UI.
  */
+/**
+ * Owner rule 2026-10-06 (no phone, no address): the hashes of the earlier T2–T6 seeds, which carried an {{office_phone}}
+ * line. A stored template still exactly equal to its earlier seed (never edited, never approved) is replaced with the
+ * current seed; an edited one is left alone for an admin to fix (it no longer passes the template check).
+ */
+export const SUPERSEDED_SEED_HASHES: Readonly<Record<string, readonly string[]>> = {
+  T2: ['8bab7df48e8322a56e3453c4c860d6c4aed1c315b531ce7589139b18469103a1'],
+  T3: ['70bebcfaffd1c5de92b259794ebe56218c4dfeeabcb3784fe141cc69a880b0bb'],
+  T4: ['e96e73a47fc81c2851597b090ff1d51e83543a2c481062cfb0e077594a1fca1a'],
+  T5: ['396950a8f996c1a06ce8ae8ee45bf12ecbf8599ec5b2ecb3c588f987abd8ac85'],
+  T6: ['99b02cb25a44a5ff2aa6a63be9bfc0ffdef6fbdf6f0134c0c9c500a7c48f93ee'],
+}
+
 export const SEED_TEMPLATES: Array<{ code: string; name: string; purpose: TemplatePurpose; subject: string; body: string; approved?: boolean }> = [
   {
     // Owner-approved 2026-10-05 (recorded by Control Tower) exactly as returned with Patch L: seeded approved.
@@ -231,7 +257,7 @@ Thank you for your request for {{company}}. To scope it accurately, could you se
 - Photos of the area or parts concerned
 - A short description of the problem or the work you need
 
-Just reply to this email. Attachments are welcome. If it's easier to talk it through, call me at {{office_phone}}.
+Just reply to this email. Attachments are welcome.
 
 Best regards,
 ${SIGNATURE}
@@ -249,7 +275,7 @@ Please find our proposal for RFQ {{rfq_number}} {{choice:attached|sent separatel
 
 It sets out the scope as we understand it, along with our assumptions. If anything doesn't match your requirements, let me know and we'll revise it.
 
-I'm happy to walk through it on a call. Reply to this email or call me at {{office_phone}}.
+I'm happy to walk through it on a call. Just reply to this email.
 
 Best regards,
 ${SIGNATURE}
@@ -297,7 +323,7 @@ ${FOOTER}`,
 
 Thank you for considering ICS for this request. After reviewing RFQ {{rfq_number}}, we don't believe we're the right fit for this particular scope, and we'd rather tell you now than slow your project down.
 
-We'd be glad to help with cooling tower parts, repairs or new towers in the future. Just reply to this email or call {{office_phone}}.
+We'd be glad to help with cooling tower parts, repairs or new towers in the future. Just reply to this email.
 
 Best regards,
 ${SIGNATURE}
@@ -305,9 +331,9 @@ ${SIGNATURE}
 ${FOOTER}`,
   },
   // ── Revenue Engine slice 1: E1.1 R2 email steps (subject variant A, body A), verbatim from the accepted package
-  // (`sequence_steps.json`), except the signature: "- Rhonda" → {{sequence_signature}} (owner decision 2026-10-05: "ICS Sales
-  // Team", the RFQ office's phone and the sales address — composed from the Revenue Engine settings, so it can change
-  // without a code change). Seeded approved: the E1.1 R2 copy is owner-accepted and the signature is the owner's.
+  // (`sequence_steps.json`), except the signature: "- Rhonda" → {{sequence_signature}} ("ICS Sales Team" and the sales
+  // address, composed from the Revenue Engine settings; owner decisions 2026-10-05 and 2026-10-06: no phone number, no
+  // postal address). Seeded approved: the E1.1 R2 copy is owner-accepted and the signature is the owner's.
   {
     code: 'E11_QUAL_1',
     name: 'E1.1 Qualification follow-up — step 1 (QUALIFY_COMMERCIAL_MOTION)',
