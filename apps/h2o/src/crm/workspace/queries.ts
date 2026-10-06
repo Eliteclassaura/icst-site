@@ -299,7 +299,7 @@ export function parseInboxParams(sp: Record<string, string | string[] | undefine
     countries: [...new Set(many(sp.country).map((x) => x.toUpperCase()).filter((x) => x === 'UNKNOWN' || isCountryCode(x)))].slice(0, 30),
     type: one(sp.type) === 'PARTS' || one(sp.type) === 'NEW_TOWER' || one(sp.type) === 'REPAIR_SERVICE' ? (one(sp.type) as 'PARTS') : null,
     office: isOffice(one(sp.office)) ? (one(sp.office) as Office) : null,
-    source: ['TYPEFORM', 'MANUAL_ENTRY', 'LEGACY_IMPORT'].includes(one(sp.source) ?? '') ? one(sp.source) : null,
+    source: ['NATIVE_FORM', 'NATIVE_CHAT', 'TYPEFORM', 'MANUAL_ENTRY', 'LEGACY_IMPORT'].includes(one(sp.source) ?? '') ? one(sp.source) : null,
     cta: /^[a-z_]{1,64}$/.test(one(sp.cta) ?? '') ? one(sp.cta) : null,
     accountLinked: linked === 'yes' || linked === 'no' ? linked : null,
     account: isUuid(one(sp.account)) ? one(sp.account) : null,

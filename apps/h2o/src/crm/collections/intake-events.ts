@@ -63,14 +63,15 @@ export const CrmIntakeEvents: CollectionConfig = crmCollection(
         name: 'source_system',
         type: 'select',
         required: true,
-        options: options(['TYPEFORM'] as const),
+        options: options(['TYPEFORM', 'NATIVE_FORM', 'NATIVE_CHAT'] as const),
         index: true,
       },
       { name: 'source_event_id', type: 'text', required: true, index: true },
       { name: 'source_event_type', type: 'text' },
       { name: 'source_form_id', type: 'text', index: true },
       { name: 'source_response_token', type: 'text', index: true },
-      { name: 'signature_state', type: 'select', required: true, options: options(['VERIFIED'] as const) },
+      // VERIFIED: Typeform HMAC signature. FORM_TOKEN_VERIFIED: native intake's signed timing token.
+      { name: 'signature_state', type: 'select', required: true, options: options(['VERIFIED', 'FORM_TOKEN_VERIFIED'] as const) },
       { name: 'raw_payload_hash', type: 'text', required: true, index: true },
       {
         name: 'raw_payload',

@@ -198,6 +198,10 @@ export type ParsedDelivery = {
   }
   unmappedRefs: string[]
   fieldMapPresent: boolean
+  /** The canonical source (native adapter). Absent = TYPEFORM. */
+  sourceSystem?: 'TYPEFORM' | 'NATIVE_FORM' | 'NATIVE_CHAT'
+  /** Patch L4 click ids and first-touch context (native adapter), validated by `intake/attribution.ts`. */
+  attribution?: Partial<Record<'utm_source' | 'utm_medium' | 'utm_campaign' | 'utm_term' | 'utm_content' | 'gclid' | 'gbraid' | 'wbraid' | 'ga_client_id' | 'landing_page' | 'referrer', string>>
 }
 
 export type ParseFailure = {

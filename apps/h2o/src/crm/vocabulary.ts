@@ -288,8 +288,15 @@ export const BUYING_GROUP_CONFIDENCE = ['CONFIRMED', 'HIGH', 'MEDIUM', 'LOW', 'U
 export const BUYING_GROUP_VERIFICATION = ['VERIFIED', 'REVIEWED_UNVERIFIED', 'UNKNOWN'] as const
 
 /** Record origin. `UNKNOWN` exists because a legacy row's origin can be genuinely unknown. */
+/** The website intake sources: they get the sales alert and the customer acknowledgement. */
+export const WEBSITE_SOURCES = ['TYPEFORM', 'NATIVE_FORM', 'NATIVE_CHAT'] as const
+export const isWebsiteSource = (v: unknown): boolean => typeof v === 'string' && (WEBSITE_SOURCES as readonly string[]).includes(v)
+
 export const SOURCE_SYSTEM = [
   'TYPEFORM',
+  // Native intake (owner decision 2026-10-05: our own form and corner chat replace Typeform at launch).
+  'NATIVE_FORM',
+  'NATIVE_CHAT',
   'MANUAL_ENTRY',
   'LEGACY_IMPORT',
   'SYSTEM_DERIVED',

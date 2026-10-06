@@ -129,6 +129,8 @@ export const IDENTITY_REASON_LABEL: Record<string, string> = {
 
 export const SOURCE_LABEL: Record<string, string> = {
   TYPEFORM: 'Website form (Typeform)',
+  NATIVE_FORM: 'Website form',
+  NATIVE_CHAT: 'Website chat',
   MANUAL_ENTRY: 'Manual',
   LEGACY_IMPORT: 'Legacy import',
   SYSTEM_DERIVED: 'System',
@@ -151,6 +153,21 @@ export const TYPEFORM_ANSWER_LABEL: Record<string, string> = {
   urgency: 'Is this Urgent Part Quote Request?',
   destination_country: 'Can you please let us know the Country of Destination?',
   anything_else: "Anything else you'd like us to know?",
+  // Native form and chat (registry question ids; wording from the accepted OGCS copy, 97e83b3d).
+  native_purpose: 'Purpose (chip)',
+  parts_part: 'Which part do you need?',
+  parts_model: 'Model or serial number',
+  parts_qty: 'How many do you need?',
+  towers_type: 'What type of tower is it?',
+  towers_cells: 'How many cells?',
+  towers_site: 'Where is the site?',
+  service_issue: 'What is happening with the tower?',
+  service_issue_upgrade: 'What would you like to improve?',
+  service_timing: 'When do you need the work done?',
+  other_need: 'What do you need?',
+  notes: 'Anything else we should know?',
+  context_type: 'Started from (page type)',
+  context_id: 'Started from (item id)',
 }
 
 /** Core submitted fields, with their Typeform question wording. */
@@ -220,6 +237,8 @@ const SUMMARY_LABELS: Record<string, string> = {
   ...IDENTITY_REASON_LABEL,
   ...SOURCE_LABEL,
   TYPEFORM: 'website form',
+  NATIVE_FORM: 'website form',
+  NATIVE_CHAT: 'website chat',
   MARKETING_EMAIL: 'marketing email',
   ALL_EMAIL: 'all email',
   ALL_OUTREACH: 'all outreach',

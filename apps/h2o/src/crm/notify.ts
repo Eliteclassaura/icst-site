@@ -6,14 +6,14 @@ import { recordActivity } from './activity'
 import { relId } from './guards'
 import { emailKey } from './normalize'
 import { evaluateTransactionalSend, ledgerFor } from './suppression'
-import type { EmailEvent, EmailKind, EmailOutboxStatus } from './vocabulary'
+import { isWebsiteSource, type EmailEvent, type EmailKind, type EmailOutboxStatus } from './vocabulary'
 
 /**
  * CRM email M1 — E1 enqueue. Runs inside the RFQ's create transaction (collections/rfqs.ts `timeline`), so the
  * outbox rows commit or roll back with the RFQ. Nothing is transmitted here: a row is either PENDING (the
  * runner's outbox worker sends it, src/email/outbox-worker.ts) or terminal SUPPRESSED_* with the reason.
  *
- * Who gets what, for an RFQ received through the website (source_system TYPEFORM):
+ * Who gets what, for an RFQ received through the website (TYPEFORM, NATIVE_FORM or NATIVE_CHAT):
  *   - RFQ_SALES_ALERT  one row per H2O_SALES_ALERT_TO address (internal);
  *   - RFQ_CUSTOMER_ACK one row for the submitted address, once per RFQ, only if H2O_EMAIL_CUSTOMER_ACK=on.
  * Manually entered inquiries get neither: staff entered them, and the customer did not submit a form.
@@ -98,7 +98,7 @@ export function planRfqNotifications(
   suppression: { allowed: boolean; blockedBy?: string[] },
   secret?: string,
 ): Planned[] {
-  if (rfq.sourceSystem !== 'TYPEFORM') return []
+  if (!isWebsiteSource(rfq.sourceSystem)) return []
   const out: Planned[] = []
   const gateStatus = (to: string): { status: EmailOutboxStatus; code: string | null } => {
     const g = gateRecipient(cfg, to)
@@ -158,7 +158,7 @@ export async function enqueueRfqNotifications(
   rfq: RfqDoc,
   cfg: EmailConfig = readEmailConfig(),
 ): Promise<number> {
-  if (rfq.source_system !== 'TYPEFORM') return 0
+  if (!isWebsiteSource(rfq.source_system)) return 0
   const submitted = (rfq.submitted ?? {}) as { email?: unknown }
   const email = emailKey(submitted.email)
   const suppression = email

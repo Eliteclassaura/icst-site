@@ -50,6 +50,7 @@ export type IngestOutcome =
   | 'QUARANTINED_UNSUPPORTED'
   | 'DUPLICATE_DELIVERY_NOOP'
   | 'CONFLICTING_REPLAY_QUARANTINED'
+  | 'CONFLICTING_REPLAY_REFUSED'
   | 'DUPLICATE_SUBMISSION_LINKED'
   | 'PROCESSED'
   | 'PROCESSED_WITH_REVIEW'
@@ -63,6 +64,9 @@ export type IngestResult = {
   rfqId?: string
   rfqNumber?: string
 }
+
+/** The canonical intake sources: the Typeform adapter and the native form / chat adapter (one pipeline). */
+export type IntakeSource = 'TYPEFORM' | 'NATIVE_FORM' | 'NATIVE_CHAT'
 
 type Doc = Record<string, unknown>
 const sys = { overrideAccess: true as const, depth: 0 }
@@ -79,9 +83,10 @@ export function intakeLog(
     outcome?: string
     status?: number
     payload_sha256?: string
+    source?: IntakeSource
   },
 ): void {
-  const safe: Doc = { scope: 'crm.intake.typeform', code: entry.code }
+  const safe: Doc = { scope: !entry.source || entry.source === 'TYPEFORM' ? 'crm.intake.typeform' : 'crm.intake.native', code: entry.code }
   for (const k of ['event_id', 'form_id', 'outcome', 'status', 'payload_sha256'] as const)
     if (entry[k] !== undefined) safe[k] = entry[k]
   payload.logger[level](safe)
@@ -220,15 +225,37 @@ export async function ingestTypeformDelivery(payload: Payload, input: IngestInpu
     }
   }
 
+  return ingestParsed(payload, { d, hash, rawPayload: json, receivedAt, signatureState: 'VERIFIED', conflict: 'quarantine' })
+}
+
+/**
+ * Steps 3–8 of the canonical intake, shared by every source (Typeform; native form and chat). The caller has verified
+ * the delivery (signature or form token) and normalised it into `d`; `hash` identifies the delivered content.
+ *
+ *   conflict 'quarantine'  a replay with different content is recorded and reviewed, never applied (Typeform retries)
+ *   conflict 'refuse'      a replay with different content is refused (409) and stores nothing (native: the client
+ *                          makes a new submission id)
+ */
+export async function ingestParsed(
+  payload: Payload,
+  args: { d: ParsedDelivery; hash: string; rawPayload: unknown; receivedAt: Date; signatureState: 'VERIFIED' | 'FORM_TOKEN_VERIFIED'; conflict: 'quarantine' | 'refuse' },
+): Promise<IngestResult> {
+  const { d, hash, receivedAt } = args
+  const source: IntakeSource = d.sourceSystem ?? 'TYPEFORM'
   // 3. Transport idempotency on the source event identity.
   const prior = await payload.find({
     collection: 'crm-intake-events',
-    where: { and: [{ source_system: { equals: 'TYPEFORM' } }, { source_event_id: { equals: d.eventId } }] },
+    where: { and: [{ source_system: { equals: source } }, { source_event_id: { equals: d.eventId } }] },
     limit: 1,
     ...sys,
   })
   let intake = prior.docs[0] as unknown as Doc | undefined
   if (intake) {
+    if (intake.raw_payload_hash !== hash && args.conflict === 'refuse') {
+      // Native: the same submission id with different content is a client error; store nothing, say so.
+      intakeLog(payload, 'warn', { code: 'SUBMISSION_CONFLICT', event_id: d.eventId, outcome: 'CONFLICTING_REPLAY_REFUSED', status: 409, source })
+      return { status: 409, outcome: 'CONFLICTING_REPLAY_REFUSED', code: 'SUBMISSION_CONFLICT', intakeEventId: String(intake.id) }
+    }
     if (intake.raw_payload_hash !== hash) {
       await payload.update({
         collection: 'crm-intake-events',
@@ -258,6 +285,7 @@ export async function ingestTypeformDelivery(payload: Payload, input: IngestInpu
         event_id: d.eventId,
         outcome: 'CONFLICTING_REPLAY_QUARANTINED',
         status: 200,
+        source,
       })
       return { status: 200, outcome: 'CONFLICTING_REPLAY_QUARANTINED', intakeEventId: String(intake.id) }
     }
@@ -272,6 +300,7 @@ export async function ingestTypeformDelivery(payload: Payload, input: IngestInpu
         event_id: d.eventId,
         outcome: 'DUPLICATE_DELIVERY_NOOP',
         status: 200,
+        source,
       })
       return {
         status: 200,
@@ -286,14 +315,14 @@ export async function ingestTypeformDelivery(payload: Payload, input: IngestInpu
       intake = (await payload.create({
         collection: 'crm-intake-events',
         data: {
-          source_system: 'TYPEFORM',
+          source_system: source,
           source_event_id: d.eventId,
           source_event_type: d.eventType,
           source_form_id: d.formId,
           source_response_token: d.responseToken,
-          signature_state: 'VERIFIED',
+          signature_state: args.signatureState,
           raw_payload_hash: hash,
-          raw_payload: json as never,
+          raw_payload: args.rawPayload as never,
           received_at: receivedAt.toISOString(),
           // The creator holds the processing claim from the moment the row exists.
           processing_state: 'PROCESSING',
@@ -311,6 +340,7 @@ export async function ingestTypeformDelivery(payload: Payload, input: IngestInpu
         event_id: d.eventId,
         outcome: 'DUPLICATE_DELIVERY_NOOP',
         status: 200,
+        source,
       })
       return { status: 200, outcome: 'DUPLICATE_DELIVERY_NOOP' }
     }
@@ -324,6 +354,7 @@ export async function ingestTypeformDelivery(payload: Payload, input: IngestInpu
       event_id: d.eventId,
       outcome: result.outcome,
       status: 200,
+      source,
     })
     return { status: 200, ...result, intakeEventId: intakeId }
   } catch (err) {
@@ -344,6 +375,7 @@ export async function ingestTypeformDelivery(payload: Payload, input: IngestInpu
       event_id: d.eventId,
       outcome: 'FAILED_RETRYABLE',
       status: 500,
+      source,
     })
     return {
       status: 500,
@@ -375,6 +407,7 @@ async function processIntake(
   receivedAt: Date,
 ): Promise<Pick<IngestResult, 'outcome' | 'rfqId' | 'rfqNumber'>> {
   const submissionKey = `${d.formId}:${d.responseToken}`
+  const src: IntakeSource = d.sourceSystem ?? 'TYPEFORM'
   const reviewReasons: string[] = []
   let suppressionScopes: string[] = []
 
@@ -412,7 +445,7 @@ async function processIntake(
       rfq = (await payload.create({
         collection: 'crm-rfqs',
         data: {
-          source_system: 'TYPEFORM',
+          source_system: src,
           status: 'RECEIVED',
           submitted: {
             first_name: d.mapped.first_name,
@@ -440,11 +473,18 @@ async function processIntake(
           attribution: {
             page_path: d.context.page_path ?? null,
             cta_placement: d.context.cta_placement ?? null,
-            utm_source: d.context.utm_source ?? null,
-            utm_medium: d.context.utm_medium ?? null,
-            utm_campaign: d.context.utm_campaign ?? null,
-            utm_term: d.context.utm_term ?? null,
-            utm_content: d.context.utm_content ?? null,
+            utm_source: d.context.utm_source ?? d.attribution?.utm_source ?? null,
+            utm_medium: d.context.utm_medium ?? d.attribution?.utm_medium ?? null,
+            utm_campaign: d.context.utm_campaign ?? d.attribution?.utm_campaign ?? null,
+            utm_term: d.context.utm_term ?? d.attribution?.utm_term ?? null,
+            utm_content: d.context.utm_content ?? d.attribution?.utm_content ?? null,
+            // Patch L4 (native intake only): click ids and first-touch context.
+            gclid: d.attribution?.gclid ?? null,
+            gbraid: d.attribution?.gbraid ?? null,
+            wbraid: d.attribution?.wbraid ?? null,
+            ga_client_id: d.attribution?.ga_client_id ?? null,
+            landing_page: d.attribution?.landing_page ?? null,
+            referrer: d.attribution?.referrer ?? null,
           },
         }),
         ...sys,
@@ -473,7 +513,7 @@ async function processIntake(
     {
       type: 'INTAKE_RECEIVED',
       event_name: 'ics.rfq.submitted',
-      summary: 'Typeform submission received and verified',
+      summary: src === 'TYPEFORM' ? 'Typeform submission received and verified' : src === 'NATIVE_CHAT' ? 'Website chat request received' : 'Website form request received',
       idempotency_key: `intake-received:${intakeId}`,
       rfq: rfqId,
       detail: { source_event_id: d.eventId },
@@ -520,7 +560,7 @@ async function processIntake(
             requested_quantity: d.mapped.requested_quantity,
             requested_scope: d.mapped.requested_scope,
             provenance: {
-              source_system: 'TYPEFORM',
+              source_system: src,
               source_event_id: d.eventId,
               verification_state: 'UNVERIFIED',
             },
@@ -596,7 +636,7 @@ async function processIntake(
                 relationship_evidence: 'RFQ_REQUEST',
                 marketing_eligibility: 'UNKNOWN',
                 provenance: {
-                  source_system: 'TYPEFORM',
+                  source_system: src,
                   source_event_id: d.eventId,
                   source_record_id: d.responseToken,
                   first_seen_at: receivedAt.toISOString(),

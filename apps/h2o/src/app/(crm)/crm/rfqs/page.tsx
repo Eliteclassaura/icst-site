@@ -178,7 +178,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
                 <span>Source</span>
                 <select className="c-select" name="source" defaultValue={p.source ?? ''}>
                   <option value="">Any</option>
-                  {['TYPEFORM', 'MANUAL_ENTRY', 'LEGACY_IMPORT'].map((v) => (
+                  {['NATIVE_FORM', 'NATIVE_CHAT', 'TYPEFORM', 'MANUAL_ENTRY', 'LEGACY_IMPORT'].map((v) => (
                     <option key={v} value={v}>
                       {SOURCE_LABEL[v]}
                     </option>

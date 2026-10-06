@@ -1491,6 +1491,7 @@ details.c-tech > summary {
 
 /* A link inside a sentence is underlined, so it never depends on colour alone (axe link-in-text-block). */
 .crm-app .c-trunc > strong ~ a,
+.crm-app .c-list .c-trunc > a,
 .crm-app .c-table .two span a,
 .crm-app .c-hint a,
 .crm-app .c-alert a {

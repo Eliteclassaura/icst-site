@@ -10,6 +10,7 @@ import { CrmEmailReview } from './collections/email-review'
 import { CrmIdentityReviews } from './collections/identity-reviews'
 import { CrmImportBatches } from './collections/import-batches'
 import { CrmIntakeEvents } from './collections/intake-events'
+import { CrmIntakeRate } from './collections/intake-rate'
 import { CrmNotes } from './collections/notes'
 import { CrmOpportunities } from './collections/opportunities'
 import { CrmRfqItems } from './collections/rfq-items'
@@ -56,6 +57,8 @@ export const crmCollections: CollectionConfig[] = [
   CrmImportBatches,
   // Wave 1 W1-6: saved list views (validated filter keys only).
   CrmSavedViews,
+  // Native intake (owner decision 2026-10-05): rate-limit counts, hashed buckets only.
+  CrmIntakeRate,
 ]
 
 export const CRM_SLUGS = crmCollections.map((c) => c.slug)

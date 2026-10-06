@@ -104,6 +104,7 @@ export interface Config {
     'crm-email-review': CrmEmailReview;
     'crm-import-batches': CrmImportBatch;
     'crm-saved-views': CrmSavedView;
+    'crm-intake-rate': CrmIntakeRate;
     'public-routes': PublicRoute;
     'public-redirects': PublicRedirect;
     'payload-kv': PayloadKv;
@@ -183,6 +184,7 @@ export interface Config {
     'crm-email-review': CrmEmailReviewSelect<false> | CrmEmailReviewSelect<true>;
     'crm-import-batches': CrmImportBatchesSelect<false> | CrmImportBatchesSelect<true>;
     'crm-saved-views': CrmSavedViewsSelect<false> | CrmSavedViewsSelect<true>;
+    'crm-intake-rate': CrmIntakeRateSelect<false> | CrmIntakeRateSelect<true>;
     'public-routes': PublicRoutesSelect<false> | PublicRoutesSelect<true>;
     'public-redirects': PublicRedirectsSelect<false> | PublicRedirectsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -2165,7 +2167,15 @@ export interface CrmAccount {
    * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
    */
   provenance: {
-    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    source_system:
+      | 'TYPEFORM'
+      | 'NATIVE_FORM'
+      | 'NATIVE_CHAT'
+      | 'MANUAL_ENTRY'
+      | 'LEGACY_IMPORT'
+      | 'SYSTEM_DERIVED'
+      | 'SYNTHETIC_FIXTURE'
+      | 'UNKNOWN';
     /**
      * Identifier in the source system. Not a canonical id.
      */
@@ -2315,7 +2325,15 @@ export interface CrmContact {
    * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
    */
   provenance: {
-    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    source_system:
+      | 'TYPEFORM'
+      | 'NATIVE_FORM'
+      | 'NATIVE_CHAT'
+      | 'MANUAL_ENTRY'
+      | 'LEGACY_IMPORT'
+      | 'SYSTEM_DERIVED'
+      | 'SYNTHETIC_FIXTURE'
+      | 'UNKNOWN';
     /**
      * Identifier in the source system. Not a canonical id.
      */
@@ -2392,7 +2410,15 @@ export interface CrmBuyingGroupMember {
    * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
    */
   provenance: {
-    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    source_system:
+      | 'TYPEFORM'
+      | 'NATIVE_FORM'
+      | 'NATIVE_CHAT'
+      | 'MANUAL_ENTRY'
+      | 'LEGACY_IMPORT'
+      | 'SYSTEM_DERIVED'
+      | 'SYNTHETIC_FIXTURE'
+      | 'UNKNOWN';
     /**
      * Identifier in the source system. Not a canonical id.
      */
@@ -2566,7 +2592,15 @@ export interface CrmOpportunity {
    * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
    */
   provenance: {
-    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    source_system:
+      | 'TYPEFORM'
+      | 'NATIVE_FORM'
+      | 'NATIVE_CHAT'
+      | 'MANUAL_ENTRY'
+      | 'LEGACY_IMPORT'
+      | 'SYSTEM_DERIVED'
+      | 'SYNTHETIC_FIXTURE'
+      | 'UNKNOWN';
     /**
      * Identifier in the source system. Not a canonical id.
      */
@@ -2633,7 +2667,15 @@ export interface CrmSite {
    * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
    */
   provenance: {
-    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    source_system:
+      | 'TYPEFORM'
+      | 'NATIVE_FORM'
+      | 'NATIVE_CHAT'
+      | 'MANUAL_ENTRY'
+      | 'LEGACY_IMPORT'
+      | 'SYSTEM_DERIVED'
+      | 'SYNTHETIC_FIXTURE'
+      | 'UNKNOWN';
     /**
      * Identifier in the source system. Not a canonical id.
      */
@@ -2734,7 +2776,15 @@ export interface CrmAsset {
    * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
    */
   provenance: {
-    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    source_system:
+      | 'TYPEFORM'
+      | 'NATIVE_FORM'
+      | 'NATIVE_CHAT'
+      | 'MANUAL_ENTRY'
+      | 'LEGACY_IMPORT'
+      | 'SYSTEM_DERIVED'
+      | 'SYNTHETIC_FIXTURE'
+      | 'UNKNOWN';
     /**
      * Identifier in the source system. Not a canonical id.
      */
@@ -2837,7 +2887,15 @@ export interface CrmActivity {
    * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
    */
   provenance: {
-    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    source_system:
+      | 'TYPEFORM'
+      | 'NATIVE_FORM'
+      | 'NATIVE_CHAT'
+      | 'MANUAL_ENTRY'
+      | 'LEGACY_IMPORT'
+      | 'SYSTEM_DERIVED'
+      | 'SYNTHETIC_FIXTURE'
+      | 'UNKNOWN';
     /**
      * Identifier in the source system. Not a canonical id.
      */
@@ -2951,7 +3009,15 @@ export interface CrmRfq {
    * Source-reported submission time.
    */
   submitted_at?: string | null;
-  source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+  source_system:
+    | 'TYPEFORM'
+    | 'NATIVE_FORM'
+    | 'NATIVE_CHAT'
+    | 'MANUAL_ENTRY'
+    | 'LEGACY_IMPORT'
+    | 'SYSTEM_DERIVED'
+    | 'SYNTHETIC_FIXTURE'
+    | 'UNKNOWN';
   source_form_id?: string | null;
   /**
    * Typeform event_id — a source identity, not the RFQ id.
@@ -3044,12 +3110,12 @@ export interface CrmIntakeEvent {
    */
   canonical_id: string;
   tenant: string;
-  source_system: 'TYPEFORM';
+  source_system: 'TYPEFORM' | 'NATIVE_FORM' | 'NATIVE_CHAT';
   source_event_id: string;
   source_event_type?: string | null;
   source_form_id?: string | null;
   source_response_token?: string | null;
-  signature_state: 'VERIFIED';
+  signature_state: 'VERIFIED' | 'FORM_TOKEN_VERIFIED';
   raw_payload_hash: string;
   /**
    * Admin-only. Exactly as received (parsed JSON), for audit and replay.
@@ -3143,7 +3209,15 @@ export interface CrmRfqItem {
    * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
    */
   provenance: {
-    source_system: 'TYPEFORM' | 'MANUAL_ENTRY' | 'LEGACY_IMPORT' | 'SYSTEM_DERIVED' | 'SYNTHETIC_FIXTURE' | 'UNKNOWN';
+    source_system:
+      | 'TYPEFORM'
+      | 'NATIVE_FORM'
+      | 'NATIVE_CHAT'
+      | 'MANUAL_ENTRY'
+      | 'LEGACY_IMPORT'
+      | 'SYSTEM_DERIVED'
+      | 'SYNTHETIC_FIXTURE'
+      | 'UNKNOWN';
     /**
      * Identifier in the source system. Not a canonical id.
      */
@@ -3652,6 +3726,15 @@ export interface CrmSavedView {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-intake-rate".
+ */
+export interface CrmIntakeRate {
+  id: string;
+  bucket: string;
+  at: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-redirects".
  */
 export interface PublicRedirect {
@@ -3930,6 +4013,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'crm-saved-views';
         value: string | CrmSavedView;
+      } | null)
+    | ({
+        relationTo: 'crm-intake-rate';
+        value: string | CrmIntakeRate;
       } | null)
     | ({
         relationTo: 'public-routes';
@@ -5583,6 +5670,14 @@ export interface CrmSavedViewsSelect<T extends boolean = true> {
   pinned?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-intake-rate_select".
+ */
+export interface CrmIntakeRateSelect<T extends boolean = true> {
+  bucket?: T;
+  at?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
