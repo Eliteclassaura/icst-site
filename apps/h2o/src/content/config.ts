@@ -62,6 +62,16 @@ export const indexingPolicy = (env: NodeJS.ProcessEnv = process.env): IndexingPo
  */
 // R2.4 (CT ruling 2026-10-05): /search/ is a utility page — noindex,follow and never in the sitemap.
 export const NOINDEX_FOLLOW_PATHS: ReadonlySet<string> = new Set(['/author/timbozic/', '/search/', ...EMPTY_ARCHIVE_PATHS])
+/** Archive taxonomy routes: categories, product categories, product tags and tags (roots and their pages). */
+export const ARCHIVE_TAXONOMY_PATH = /^\/(?:category|product-category|product-tag|tag)\//
+/**
+ * R2.5a (CT ruling on the SEO pre-flight re-run, 2026-10-05): which noindex routes keep `follow`. The listed paths (search, the
+ * author archive, the empty archives) and every archive taxonomy route that is not indexable: archives link to live products
+ * and posts, so their links stay followed. Everything else that is not indexable (utility pages such as /thank-you/, private
+ * surfaces) stays `noindex, nofollow`.
+ */
+export const isNoindexFollow = (path: string, indexable: boolean | null | undefined): boolean =>
+  NOINDEX_FOLLOW_PATHS.has(path) || (!indexable && ARCHIVE_TAXONOMY_PATH.test(path))
 
 /**
  * The page-metadata robots for a route record (the proxy sends the matching X-Robots-Tag). Private policy and previews are
@@ -74,7 +84,7 @@ export function publicRobots(
   env: NodeJS.ProcessEnv = process.env,
 ): { index: boolean; follow: boolean } {
   if (preview || indexingPolicy(env) !== 'production') return { index: false, follow: false }
-  if (record.disposition?.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS.has(record.path)) return { index: false, follow: true }
+  if (record.disposition?.state === 'PUBLIC' && isNoindexFollow(record.path, record.disposition?.indexable)) return { index: false, follow: true }
   const ok = Boolean(record.disposition?.indexable)
   return { index: ok, follow: ok }
 }

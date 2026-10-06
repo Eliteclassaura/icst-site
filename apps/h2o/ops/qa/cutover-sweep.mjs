@@ -18,7 +18,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { completeMfa } from '../mfa/sign-in.mjs'
-import { GONE_PATHS, NOINDEX_FOLLOW_PATHS } from '../../src/content/config.ts'
+import { GONE_PATHS, NOINDEX_FOLLOW_PATHS, isNoindexFollow } from '../../src/content/config.ts'
 import { sitemapEntries } from '../../src/content/sitemap.ts'
 import { allowedPath, brokenAssets, classify, decode, internalTarget, keyOf, parsePage, reciprocity, summaryMarkdown } from './sweep-lib.mjs'
 
@@ -168,7 +168,7 @@ function expectFor(finalUrl) {
   const row = rows.get(key)
   const lang = locale.contentLanguages?.[key] ?? locale.languages?.[key] ?? 'en'
   let robots
-  if (row) robots = row.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS.has(row.path) ? 'noindex,follow' : row.indexable ? 'index' : 'noindex'
+  if (row) robots = row.state === 'PUBLIC' && isNoindexFollow(row.path, row.indexable) ? 'noindex,follow' : row.indexable ? 'index' : 'noindex'
   return { canonical: row?.canonical, lang, robots }
 }
 

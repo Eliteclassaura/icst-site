@@ -40,7 +40,7 @@ import { SITEMAP_FILE_HEADER } from './content/sitemap-request'
 import { scriptHashesFor } from './site/csp-hashes'
 import { xRobotsTagForPath } from './site/robots'
 import { mergeTypeformCsp } from './conversion/csp'
-import { GONE_PATHS, NOINDEX_FOLLOW_PATHS } from './content/config'
+import { GONE_PATHS, isNoindexFollow } from './content/config'
 import { isPayloadContent, snapshotJson } from './content/runtime-read'
 import { SITEMAP_FILE } from './content/sitemap'
 import { LANGUAGE_HEADER, languageFor } from './content/locale-language'
@@ -281,7 +281,7 @@ function payloadPublic(req: NextRequest): NextResponse {
   const production = productionIndexing()
   const row = ledger?.routes.find((r) => pathKeyOf(r.path) === pathKeyOf(pathname))
   const published = !preview && production && row?.state === 'PUBLIC'
-  const robots = published && NOINDEX_FOLLOW_PATHS.has(row.path) ? 'noindex, follow' : published && row.indexable ? null : 'noindex, nofollow'
+  const robots = published && isNoindexFollow(row.path, row.indexable) ? 'noindex, follow' : published && row.indexable ? null : 'noindex, nofollow'
   if (pathname === '/' && req.nextUrl.searchParams.has('s')) {
     const target = new URL('/search/', req.nextUrl.origin)
     target.searchParams.set('q', req.nextUrl.searchParams.get('s') ?? '')
@@ -317,7 +317,9 @@ export function mfaRoute(req: NextRequest): NextResponse | null {
   if (!sid || mfaCookieValid(req.cookies.get(MFA_COOKIE)?.value, sid)) return null
   const target = new URL('/crm/mfa/', req.nextUrl.origin)
   if (SAFE_NEXT.test(path) && !path.includes('//') && !path.includes('..')) target.searchParams.set('next', path)
-  const res = NextResponse.redirect(target, 303)
+  // R2.5a (CT 2026-10-05): a protected-surface response is noindex in every policy and carries the standard security headers,
+  // the two-factor redirect included (it is returned before the payload/static branches).
+  const res = securityHeaders(NextResponse.redirect(target, 303), "default-src 'none'; frame-ancestors 'none'", 'noindex, nofollow')
   res.headers.set('Cache-Control', 'no-store')
   return res
 }

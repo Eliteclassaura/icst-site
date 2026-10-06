@@ -25,6 +25,7 @@
  *             names "Page N" and has a meta; /search/ and every empty archive root are noindex(,follow) and /thank-you/ noindex
  *             ("follow" is checked with --policy=production; staging serves noindex, nofollow everywhere)
  *   404       page 2+ of an archive that lists nothing public (src/content/empty-archives.ts, R2.4 R2)
+ *   R2.5a: every archive taxonomy route that is not indexable expects noindex,follow (follow checked with --policy=production)
  *   301       is a 301 (a 308 fails), for the decided rows and every ledger redirect
  *   h1        every decided H1 (h1-fields.tsv: OGCS R1.2, the R2.2a ruling) is the page's served H1
  *   readiness /api/ready reports publication "current" after the checks: the served release covers the latest committed
@@ -132,7 +133,9 @@ async function check(row){
   return {url:row.url,ok:true,status:hop.status,...(framework?{frameworkSlashHop:true}:{})}
 }
 /** R2.4 (CT rulings 2026-10-05): pages that must stay out of the index, whatever row checks them. */
-const ROBOTS={'/search/':'noindex,follow','/thank-you/':'noindex',...Object.fromEntries(EMPTY_ARCHIVES.filter(p=>!EMPTY_PAGES.has(p)).map(p=>[p,'noindex,follow']))}
+// R2.5a (CT 2026-10-05): every archive taxonomy route that is not indexable is noindex,follow (its links stay followed)
+const NOINDEX_ARCHIVES=JSON.parse(readFileSync(path.join(DATA,'..','..','..','content/release/route-ledger.json'),'utf8')).routes.filter(r=>r.state==='PUBLIC'&&r.export&&!r.indexable&&/^\/(?:category|product-category|product-tag|tag)\//.test(r.path)&&!EMPTY_PAGES.has(decode(r.path))).map(r=>decode(r.path))
+const ROBOTS={'/search/':'noindex,follow','/thank-you/':'noindex',...Object.fromEntries(EMPTY_ARCHIVES.filter(p=>!EMPTY_PAGES.has(p)).map(p=>[p,'noindex,follow'])),...Object.fromEntries(NOINDEX_ARCHIVES.map(p=>[p,'noindex,follow']))}
 const robotsProblems=(html,url)=>{
   const want=ROBOTS[decode(url)];if(!want)return []
   const robots=(metaValuesOf(html,'robots')[0]??'').toLowerCase()

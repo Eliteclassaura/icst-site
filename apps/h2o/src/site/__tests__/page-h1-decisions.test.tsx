@@ -98,7 +98,9 @@ describe('author archive indexing under H2O_INDEXING_POLICY=production',()=>{
     const bridge=readFileSync(path.join(process.cwd(),'src/content/page-bridge.ts'),'utf8')
     const config=readFileSync(path.join(process.cwd(),'src/content/config.ts'),'utf8')
     expect(bridge).toMatch(/return publicRobots\(record, preview\)/)
-    expect(config).toMatch(/if \(record\.disposition\?\.state === 'PUBLIC' && NOINDEX_FOLLOW_PATHS\.has\(record\.path\)\) return \{ index: false, follow: true \}/)
+    // R2.5a: one rule (isNoindexFollow: listed paths + noindex archive taxonomy routes) for the metadata and the header
+    expect(config).toMatch(/if \(record\.disposition\?\.state === 'PUBLIC' && isNoindexFollow\(record\.path, record\.disposition\?\.indexable\)\) return \{ index: false, follow: true \}/)
+    expect(readFileSync(path.join(process.cwd(),'src/proxy.ts'),'utf8')).toMatch(/published && isNoindexFollow\(row\.path, row\.indexable\) \? 'noindex, follow'/)
     expect(config).toMatch(/if \(preview \|\| indexingPolicy\(env\) !== 'production'\) return \{ index: false, follow: false \}/)
   })
 })

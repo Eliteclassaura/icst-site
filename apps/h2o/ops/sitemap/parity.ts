@@ -18,7 +18,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { completeMfa } from '../mfa/sign-in.mjs'
-import { GONE_PATHS, NOINDEX_FOLLOW_PATHS, PUBLIC_ORIGIN } from '../../src/content/config'
+import { GONE_PATHS, NOINDEX_FOLLOW_PATHS, PUBLIC_ORIGIN, isNoindexFollow } from '../../src/content/config'
 import { pathKey, sitemapEntries, type HreflangMember, type LocaleData, type SitemapEntry, type SitemapLedgerRow } from '../../src/content/sitemap'
 
 type Row = SitemapLedgerRow & { routeId: string; indexable?: boolean; redirect?: string | null }
@@ -63,7 +63,7 @@ function offlineObserve(redirects: Map<string, string>) {
       }
       const row = rowByKey.get(key)
       if (!row || row.state !== 'PUBLIC') return { hops: [...hops, { status: 404 }], robots: null, canonical: null }
-      const robots = NOINDEX_FOLLOW_PATHS.has(row.path) ? 'noindex, follow' : row.indexable ? null : 'noindex, nofollow'
+      const robots = isNoindexFollow(row.path, row.indexable) ? 'noindex, follow' : row.indexable ? null : 'noindex, nofollow'
       return { hops: [...hops, { status: 200 }], robots, canonical: row.canonical || PUBLIC_ORIGIN + row.path }
     }
     return { hops, robots: null, canonical: null }
