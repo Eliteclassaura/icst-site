@@ -206,7 +206,7 @@ async function main() {
       const k = keyOf(o.finalUrl)
       if (!sets.has(k)) {
         sets.set(k, o.page.alternates)
-        for (const [list, kind] of [[o.page.anchors, 'link'], [o.page.images, 'image']])
+        for (const [list, kind] of [[o.page.anchors, 'link'], [o.page.images, 'image'], [o.page.headMedia, 'image']]) // R2.3: head media must serve 200 too
           for (const raw of list) {
             const t = internalTarget(raw, o.finalUrl, HOSTS)
             if (!t) continue

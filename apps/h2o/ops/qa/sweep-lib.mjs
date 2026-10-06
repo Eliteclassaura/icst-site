@@ -29,6 +29,12 @@ const tags = (html, name) => [...html.matchAll(new RegExp(`<${name}\\b[^>]*>`, '
 const stripTags = (s) => entities(s.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim()
 
 /** Everything the sweep reads from one served HTML page. */
+/**
+ * R2.3 (CT 2026-10-05): the third parties a page's head may name — the same list as src/site/public-urls.ts
+ * HEAD_THIRD_PARTY_HOSTS (a test keeps them equal). Every other head URL names the swept host or the canonical host.
+ */
+export const HEAD_THIRD_PARTY_HOSTS = ['schema.org', 'www.facebook.com', 'facebook.com', 'www.linkedin.com', 'linkedin.com', 'form.typeform.com', 'typeform.com']
+const HEAD_MEDIA = /\.(?:jpe?g|png|gif|webp|avif|svg|ico|pdf)$/i
 export function parsePage(html) {
   const head = html.slice(0, Math.max(html.indexOf('</head>'), 0) || html.length)
   const links = tags(head, 'link')
@@ -42,6 +48,8 @@ export function parsePage(html) {
       return { ok: false, error: String(e.message).slice(0, 120) }
     }
   })
+  const ldBlocks = [...html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].map((m) => m[1].replace(/\\\//g, '/').replace(/\\u0026/g, '&'))
+  const headUrls = [...new Set([...metas.map((t) => entities(attr(t, 'content') ?? '')), ...ldBlocks].flatMap((t) => t.match(/https?:\/\/[^\s"'<>\\]+/gi) ?? []))]
   const body = html.slice(html.indexOf('<body'))
   const anchors = tags(body, 'a').map((t) => attr(t, 'href')).filter(Boolean)
   const images = [...tags(body, 'img').map((t) => attr(t, 'src')), ...tags(body, 'source').map((t) => (attr(t, 'srcset') ?? '').split(',')[0]?.trim().split(/\s+/)[0])].filter(Boolean)
@@ -67,6 +75,9 @@ export function parsePage(html) {
     // The verified quote fallback (a plain /contact-us/ link) renders only when the RFQ adapter configuration is unresolved.
     rfqFallbacks: (body.match(/<a class="lux-button" href="\/contact-us\/"/g) ?? []).length,
     rfqAdapters: (body.match(/data-rfq-placement="/g) ?? []).length,
+    // Every absolute URL the head names (meta content, JSON-LD), and the media among them (checked like images).
+    headUrls,
+    headMedia: headUrls.filter((u) => { try { return HEAD_MEDIA.test(new URL(u).pathname) } catch { return false } }),
   }
 }
 
@@ -137,6 +148,10 @@ export function classify(url, role, obs, expect = {}, policy = 'private') {
     for (const j of page.jsonLd) if (!j.ok) out.push(finding('JSONLD_INVALID', 'fail', final, j.error))
     for (const m of page.mixed) out.push(finding('MIXED_CONTENT', 'fail', final, m))
     // Cutover gate (CT R2.1): a hosted page that shows the fallback instead of the adapter means H2O_TYPEFORM_* is missing.
+    const swept = (() => { try { return new URL(url).host } catch { return '' } })()
+    const allowed = new Set([swept, new URL(ORIGIN).host, ...HEAD_THIRD_PARTY_HOSTS].filter(Boolean))
+    const foreign = [...new Set((page.headUrls ?? []).map((u) => { try { return new URL(u).host.toLowerCase() } catch { return '' } }).filter((h) => h && !allowed.has(h)))]
+    if (foreign.length) out.push(finding('HEAD_FOREIGN_HOST', 'fail', final, foreign.join(', ')))
     if (page.rfqFallbacks) out.push(finding('RFQ_ADAPTER_NOT_CONFIGURED', 'fail', final, `${page.rfqFallbacks} /contact-us/ fallback quote link(s), ${page.rfqAdapters} adapter mount(s)`))
     const robots = [obs.headers?.['x-robots-tag'] ?? '', ...page.robotsMeta].join(', ').toLowerCase()
     const noindex = /\bnoindex\b/.test(robots)

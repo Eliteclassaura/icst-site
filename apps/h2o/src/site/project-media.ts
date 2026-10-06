@@ -21,6 +21,20 @@ let cache:Registry|undefined
 export const projectMediaRegistry=():Registry=>cache??=JSON.parse(readFileSync(path.join(process.cwd(),'content/projects/project-media.json'),'utf8')) as Registry
 
 const PROJECT_PATH=/^\/all-projects\/[^/]+\/$/
+/**
+ * R2.3 (CT 2026-10-05): the images a page's head (social tags, structured data) may name follow the same rule as its body.
+ * A photo the registry withholds is named nowhere; a project page names only its own verified photo, or none.
+ */
+export function projectHeadImagePolicy(pagePath:string,origin:string):(image:{url:string;width?:number;height?:number;type?:string;sha256?:string})=>{url:string;width?:number;height?:number;type?:string;sha256?:string}|null{
+  const registry=projectMediaRegistry()
+  const withheld=new Set(Object.values(registry.withheld??{}).flatMap(w=>w.withheldSha256))
+  const own=PROJECT_PATH.test(pagePath)?registry.projects[pagePath]:undefined
+  return image=>{
+    if(image.sha256&&withheld.has(image.sha256))return null
+    if(!PROJECT_PATH.test(pagePath))return image
+    return own?{url:origin+own.media.src,width:own.media.width,height:own.media.height,type:'image/jpeg',sha256:own.media.sha256}:null
+  }
+}
 const YEAR=/^\s*\d{4}(?:\s*-\s*\d{2,4})?\s*$/
 const children=(block:Block):Block[]=>block.type==='container'?block.children:[]
 const walk=(block:Block,visit:(block:Block)=>void):void=>{visit(block);children(block).forEach(child=>walk(child,visit))}

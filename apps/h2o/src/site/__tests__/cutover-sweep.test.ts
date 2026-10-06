@@ -126,3 +126,20 @@ describe('broken assets and the summary',()=>{
     expect(md).toContain('**Fail:** 3 · **Warn:** 1')
   })
 })
+
+describe('R2.3 head hosts (CT 2026-10-05)',()=>{
+  const head=(extra:string)=>GOOD_HEAD+extra
+  it('a head naming a foreign host fails; the swept host, the canonical host and the allowlisted third parties pass',()=>{
+    const clean=parsePage(html(head('<meta property="og:image" content="https://s.test/media/salmon/a.jpeg"><meta property="og:url" content="https://h2ocooling.com/a/"><script type="application/ld+json">{"@context":"https://schema.org","sameAs":["https://www.linkedin.com/company/x"]}</script>')))
+    expect(clean.headMedia).toEqual(['https://s.test/media/salmon/a.jpeg'])
+    expect(classify('https://s.test/a/','sitemap',ok(clean),{canonical:'https://h2ocooling.com/a/',lang:'en'},'private')).toEqual([])
+    const salmon=parsePage(html(head('<meta property="og:image" content="https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/x.jpeg"><script type="application/ld+json">{"@id":"https:\\/\\/media.istockphoto.com\\/p.jpg"}</script>')))
+    const f=classify('https://s.test/a/','sitemap',ok(salmon),{canonical:'https://h2ocooling.com/a/',lang:'en'},'private')
+    expect(f.map((x:Finding)=>[x.class,x.detail])).toEqual([['HEAD_FOREIGN_HOST','salmon-rhinoceros-754457.hostingersite.com, media.istockphoto.com']])
+  })
+  it('the sweep allowlist is the renderer allowlist',async()=>{
+    const {HEAD_THIRD_PARTY_HOSTS}=await import('../public-urls')
+    const {HEAD_THIRD_PARTY_HOSTS:sweep}=await import('../../../ops/qa/sweep-lib.mjs')
+    expect([...sweep].sort()).toEqual([...HEAD_THIRD_PARTY_HOSTS].sort())
+  })
+})

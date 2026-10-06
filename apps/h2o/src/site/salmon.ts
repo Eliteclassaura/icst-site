@@ -139,14 +139,42 @@ const mediaOverride=(row:SalmonMedia|undefined):SalmonMedia|undefined=>{
  * The same ruling for a URL a page names in its social image tags or structured data (the 1600 original, matched by the
  * tile's upload path with any `-WxH` size suffix): nothing where the tile is withheld, else the crop on the public origin.
  */
-export const socialImageOverride=(url:string):{action:'withhold'}|{action:'crop';url:string;width:number;height:number}|undefined=>{
+export const socialImageOverride=(url:string):{action:'withhold'}|{action:'crop';path:string;width:number;height:number}|undefined=>{
   let pathname:string
   try{pathname=new URL(url).pathname}catch{return undefined}
   for(const o of loadMediaOverrides().values()){
     if(!o.sourceStem||!pathname.startsWith(o.sourceStem)||!/^(?:-\d+x\d+)?\.(?:jpe?g|png|webp)$/i.test(pathname.slice(o.sourceStem.length)))continue
-    return o.action==='withhold'?{action:'withhold'}:{action:'crop',url:`https://h2ocooling.com/media/salmon/${path.basename(o.file!)}`,width:o.width!,height:o.height!}
+    return o.action==='withhold'?{action:'withhold'}:{action:'crop',path:`/media/salmon/${path.basename(o.file!)}`,width:o.width!,height:o.height!}
   }
   return undefined
+}
+/**
+ * R2.3 (CT 2026-10-05): the held media a URL in a page's head names (social image tags, structured data). The exact URL first
+ * (salmonMedia); else, as WordPress names one upload by several sizes (`-WxH`), the largest held size of the same upload on
+ * the same host. Overrides (C1–C6) apply; undefined when nothing is held.
+ */
+let mediaByStem:Map<string,SalmonMedia[]>|undefined
+const stemKey=(url:string):string|undefined=>{
+  try{
+    const u=new URL(url),m=/^(.*?)(?:-\d+x\d+)?(\.[a-z0-9]+)$/i.exec(decodeURI(u.pathname))
+    return m?`${u.hostname.replace(/^www\./,'').toLowerCase()}${m[1]}${m[2]!.toLowerCase()}`:undefined
+  }catch{return undefined}
+}
+export const heldMediaForUrl=(url:string):SalmonMedia|undefined=>{
+  if(socialImageOverride(url)?.action==='withhold')return undefined
+  const exact=salmonMedia(url,url)
+  if(exact?.file)return exact
+  if(!mediaByStem){
+    mediaByStem=new Map()
+    for(const row of mediaIndex!.values()){const k=row.file?stemKey(row.url):undefined;if(k)mediaByStem.set(k,[...(mediaByStem.get(k)??[]),row])}
+  }
+  const key=stemKey(url)
+  const rows=key?mediaByStem.get(key):undefined
+  if(!rows?.length)return undefined
+  // a withheld tile stays withheld at every size of the upload
+  if(rows.some(row=>row.sha256&&loadMediaOverrides().get(row.sha256)?.action==='withhold'))return undefined
+  const best=[...rows].sort((a,b)=>(b.width??0)-(a.width??0))[0]
+  return mediaOverride(best)
 }
 export const salmonMediaPath=(media:SalmonMedia):string|undefined=>media.file?`/media/salmon/${path.basename(media.file)}`:undefined
 const thailand=contactOffices.find(office=>office.officeKey==='thailand')!

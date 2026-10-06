@@ -11,13 +11,15 @@ import {articleSocialTitle} from './article-metadata'
 import {R2Discovery} from './R2Discovery'
 import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
 import {ProjectDetail} from './ProjectDetail'
-import {commerceException,commerceMetaException,ownerHref,ownerText,salmonMedia,salmonMediaPath,salmonNodeText,socialImageOverride,type SalmonDocument,type SalmonNode} from './salmon'
+import {commerceException,commerceMetaException,ownerHref,ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 import {deliverySrc} from './media-delivery'
 import {PUBLIC_AUTHOR} from './public-author-identity'
 import {BreadcrumbSchema,HOME_CRUMB,isBreadcrumbList,type Crumb} from './breadcrumb-schema'
 import {decodeEntities} from './text-repair'
 import {pageCopy} from './page-copy'
+import {publicMeta,publicSchema,servedOrigin} from './public-urls'
+import {projectHeadImagePolicy} from './project-media'
 export {aboutGeographyCorrections,normalizeWave3IndexEditorial,normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 // Start tags that implicitly close an open <p> in the HTML parser. A source <p> holding one of these cannot be
 // represented in HTML: the browser closes the paragraph first and hydration then sees a different tree (#418).
@@ -134,32 +136,11 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
     if(!/^(?:og:description|twitter:description)$/.test(name))return value
     return publicMetaText(doc,value)
   }
-  // OGCS C1–C6 (CT 2026-10-05): a withheld claim tile leaves the social image tags; a cropped one is named by its crop.
-  const social=socialImageOverride(doc.seo.meta.find(m=>/^(?:og:image|og:image:secure_url|twitter:image)$/.test(m.name))?.value??'')
-  const socialMeta=(m:{name:string;value:string}):{name:string;value:string}|null=>{
-    if(!social||!/^(?:og|twitter):image/.test(m.name))return m
-    if(social.action==='withhold')return null
-    if(/^(?:og:image|og:image:secure_url|twitter:image)$/.test(m.name))return {...m,value:social.url}
-    if(m.name==='og:image:width')return {...m,value:String(social.width)}
-    if(m.name==='og:image:height')return {...m,value:String(social.height)}
-    return m
-  }
-  // …and in structured data: an image reference to a withheld tile is dropped, a cropped one names the crop.
-  const schemaImages=(value:unknown):unknown=>{
-    const hit=(v:unknown)=>typeof v==='string'?socialImageOverride(v):v&&typeof v==='object'&&!Array.isArray(v)?socialImageOverride(String((v as Record<string,unknown>)['@id']??(v as Record<string,unknown>).url??'')):undefined
-    if(Array.isArray(value))return value.filter(item=>hit(item)?.action!=='withhold').map(schemaImages)
-    if(value&&typeof value==='object'){
-      const self=hit(value)
-      return Object.fromEntries(Object.entries(value).filter(([,v])=>hit(v)?.action!=='withhold').map(([k,v])=>{
-        const o=hit(v)
-        if(self?.action==='crop'&&(k==='width'||k==='height'))return [k,String(self[k])]
-        return [k,o?.action==='crop'&&typeof v==='string'?o.url:schemaImages(v)]
-      }))
-    }
-    return value
-  }
+  // R2.3 (CT 2026-10-05): every URL in the head names this site (./public-urls): identity URLs the canonical origin, media the
+  // served file on the serving origin (C1–C6 crop/withhold included); an unheld image or a foreign host is dropped.
+  const images=projectHeadImagePolicy(canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath,servedOrigin())
   return <>
-    {doc.seo.meta.flatMap(m=>socialMeta(m)??[]).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)).map((m,i)=>m.name.startsWith('og:')||m.name.startsWith('article:')?<meta key={i} property={m.name} content={metaValue(m.name,m.value)}/>:<meta key={i} name={m.name} content={metaValue(m.name,m.value)}/>)}
+    {publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)).map((m,i)=>m.name.startsWith('og:')||m.name.startsWith('article:')?<meta key={i} property={m.name} content={metaValue(m.name,m.value)}/>:<meta key={i} name={m.name} content={metaValue(m.name,m.value)}/>)}
     {doc.seo.schema.map((raw,i)=>{
       if(isBreadcrumbList(JSON.parse(raw)))return null
       // Quote-only estate: no prices, and no ratings or reviews (Control Tower ruling 2026-10-02).
@@ -169,7 +150,7 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
         if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).filter(([k])=>!['offers','price','lowPrice','highPrice','priceCurrency','aggregateRating','review','reviews'].includes(k)).map(([k,v])=>[k,stripCommerce(v)]))
         return typeof value==='string'?ownerText(value):value
       }
-      const sourceSchema=JSON.stringify(schemaImages(stripCommerce(JSON.parse(raw))))
+      const sourceSchema=JSON.stringify(publicSchema(stripCommerce(JSON.parse(raw)),images))
       const canonicalSchema=canonicalOverride&&doc.seo.canonical[0]?sourceSchema.replaceAll(doc.seo.canonical[0],canonicalOverride):sourceSchema
       return <script data-source-schema={i} key={i} type="application/ld+json" dangerouslySetInnerHTML={{__html:canonicalSchema.replaceAll('<','\\u003c')}}/>
     })}
