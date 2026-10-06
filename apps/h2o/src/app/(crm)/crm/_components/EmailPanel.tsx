@@ -11,10 +11,13 @@ export function ReplyComposer({
   rfqId,
   token,
   defaultSubject,
+  defaultBody = '',
 }: {
   rfqId: string
   token: string
   defaultSubject: string
+  /** Patch C: the merged template text, when the person started from a template (still editable). */
+  defaultBody?: string
 }) {
   return (
     <ActionForm action={A.replyAction} hidden={{ rfqId, token }} submitLabel="Send reply">
@@ -30,7 +33,7 @@ export function ReplyComposer({
         )}
       </Field>
       <Field name="body" label="Message">
-        {(a) => <textarea className="c-textarea" {...a} maxLength={20000} rows={10} />}
+        {(a) => <textarea className="c-textarea" {...a} defaultValue={defaultBody} maxLength={20000} rows={defaultBody ? 16 : 10} />}
       </Field>
       <p className="c-hint">
         Plain text. Attachments can’t be sent from the CRM yet — send files separately and record them with

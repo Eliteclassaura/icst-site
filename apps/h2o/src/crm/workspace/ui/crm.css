@@ -1136,6 +1136,18 @@ details.c-tech > summary {
   font-size: 16px;
 }
 
+/* Patch C: the enrolment QR code keeps its white quiet zone in every theme so phone cameras can read it. */
+.c-qr {
+  margin-block: 8px 12px;
+  line-height: 0;
+}
+
+.c-qr svg {
+  max-inline-size: 100%;
+  block-size: auto;
+  border: 1px solid var(--c-rule);
+}
+
 .c-skeleton {
   padding: 8px 16px;
 }
@@ -1494,7 +1506,9 @@ details.c-tech > summary {
 .crm-app .c-list .c-trunc > a,
 .crm-app .c-table .two span a,
 .crm-app .c-hint a,
-.crm-app .c-alert a {
+.crm-app .c-alert a,
+.crm-app .c-crumbs a,
+.crm-app .c-panel-body li > a {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
@@ -2011,4 +2025,30 @@ details.c-tech > summary {
     transition: none;
     animation: none;
   }
+}
+
+/* Patch C: "Start from a template" above the reply box. */
+.c-template-pick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: flex-end;
+  margin-block: 8px 12px;
+}
+
+.c-template-pick .c-result {
+  flex-basis: 100%;
+}
+
+/* Patch C: settings pages — padded panels, spaced apart; forms inside them use the panel's padding. */
+.c-panel.is-settings {
+  margin-block-end: 16px;
+}
+
+.c-panel-body.is-padded {
+  padding: 8px 16px 12px;
+}
+
+.c-panel-body.is-padded > .c-dialog-body {
+  padding-inline: 0;
 }

@@ -11,7 +11,7 @@ import type { Payload } from 'payload'
  * Each limit can be tuned by environment (H2O_RFQ_LIMIT_*), never removed. The client IP comes from the trusted proxy
  * (`TRUSTED_PROXY=cloudflare` in production reads cf-connecting-ip only); without one, everyone shares one bucket.
  */
-type Rule = { bucket: 'ip' | 'email' | 'token'; windowMs: number; max: number; env: string }
+type Rule = { bucket: 'ip' | 'email' | 'token' | 'mail-check' | 'mail-test'; windowMs: number; max: number; env: string }
 const MIN = 60_000
 export const SUBMIT_RULES: Rule[] = [
   { bucket: 'ip', windowMs: 10 * MIN, max: 5, env: 'H2O_RFQ_LIMIT_IP_10M' },

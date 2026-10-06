@@ -134,6 +134,35 @@ export async function verifySecondFactor(payload: Payload, u: MfaUser, sid: stri
   return { ok: true }
 }
 
+/**
+ * Patch C step-up: sensitive settings (sending profiles) need a fresh app code, entered in this session within the
+ * last 5 minutes. App codes only — a recovery code is for a lost phone, not for confirming a change. Wrong codes count
+ * towards the same lock-out as sign-in; a code is never accepted twice (`mfa_last_step`).
+ */
+export const STEP_UP_MS = 5 * 60 * 1000
+
+export function stepUpSecondsLeft(u: Doc, sid: string | null | undefined, now = new Date()): number {
+  const s = u.mfa_stepup as { sid?: unknown; at?: unknown } | null | undefined
+  if (!sid || !s || s.sid !== sid || typeof s.at !== 'string') return 0
+  const left = new Date(s.at).getTime() + STEP_UP_MS - now.getTime()
+  return left > 0 && left <= STEP_UP_MS ? Math.ceil(left / 1000) : 0
+}
+
+export async function confirmStepUp(payload: Payload, u: MfaUser, sid: string, code: string, now = new Date()): Promise<MfaOutcome> {
+  if (u.mfa_enabled !== true) return { ok: false, code: 'NOT_ENROLLED', message: 'Two-factor is not set up yet.' }
+  const wait = locked(u, now)
+  if (wait) return { ok: false, code: 'LOCKED', message: 'Too many wrong codes. Try again later.', retryAfterSeconds: wait }
+  if (!/^\d{6}$/.test(code.replace(/\s/g, ''))) return { ok: false, code: 'FORMAT', message: 'Enter the 6-digit code from your authenticator app.' }
+  const secret = decryptSecret(u.mfa_secret)
+  if (!secret) return { ok: false, code: 'NOT_ENROLLED', message: 'Two-factor needs to be set up again. Ask an admin to reset it.' }
+  const lastStep = typeof u.mfa_last_step === 'number' ? u.mfa_last_step : null
+  const check = verifyTotp(secret, code, now, lastStep)
+  if (!check.ok) return failure(payload, u, now, check.reason)
+  await save(payload, u.id, { mfa_last_step: check.step, mfa_stepup: { sid, at: now.toISOString() }, mfa_failures: 0, mfa_locked_until: null })
+  await writeSecurityAudit(payload, { action: 'mfa-stepup', userId: String(u.id), actorId: String(u.id) })
+  return { ok: true }
+}
+
 /** Break-glass and admin reset share this: clear the enrolment (the user enrols again at next sign-in). */
 export async function clearMfa(payload: Payload, userId: string | number, by: 'admin' | 'break-glass', actorId: string | null): Promise<void> {
   await save(payload, userId, { ...MFA_CLEARED })

@@ -11,6 +11,9 @@ import { CrmIdentityReviews } from './collections/identity-reviews'
 import { CrmImportBatches } from './collections/import-batches'
 import { CrmIntakeEvents } from './collections/intake-events'
 import { CrmIntakeRate } from './collections/intake-rate'
+import { CrmSendingProfiles } from './collections/sending-profiles'
+import { CrmEmailTemplates } from './collections/email-templates'
+import { CrmMailCursor } from './collections/mail-cursor'
 import { CrmNotes } from './collections/notes'
 import { CrmOpportunities } from './collections/opportunities'
 import { CrmRfqItems } from './collections/rfq-items'
@@ -59,6 +62,12 @@ export const crmCollections: CollectionConfig[] = [
   CrmSavedViews,
   // Native intake (owner decision 2026-10-05): rate-limit counts, hashed buckets only.
   CrmIntakeRate,
+  // Patch C: email sending profiles (admins; sealed passwords; written by the settings pages only).
+  CrmSendingProfiles,
+  // Patch C: email templates T1–T6 (approval tied to the exact wording).
+  CrmEmailTemplates,
+  // Patch C: IMAP inbound read position (hashed mailbox key; no access).
+  CrmMailCursor,
 ]
 
 export const CRM_SLUGS = crmCollections.map((c) => c.slug)

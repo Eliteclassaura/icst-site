@@ -53,8 +53,10 @@ export function officeForCountry(
 export type OfficeSettings = {
   overrides: ReadonlyMap<string, Office>
   holidays: Readonly<Record<Office, ReadonlySet<string>>>
+  /** Patch C: office phone numbers for email signatures ({{office_phone}}). */
+  phones: Record<Office, string | null>
 }
-export const EMPTY_OFFICE_SETTINGS: OfficeSettings = { overrides: new Map(), holidays: { US: new Set(), TH: new Set() } }
+export const EMPTY_OFFICE_SETTINGS: OfficeSettings = { overrides: new Map(), holidays: { US: new Set(), TH: new Set() }, phones: { US: null, TH: null } }
 
 /** The business calendar of an office: its zone and its holidays. */
 export function officeCalendar(office: unknown, settings: OfficeSettings = EMPTY_OFFICE_SETTINGS): BusinessCalendar {

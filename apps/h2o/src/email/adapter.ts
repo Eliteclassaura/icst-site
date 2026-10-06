@@ -1,6 +1,7 @@
 import type { EmailAdapter, Payload, SendEmailOptions } from 'payload'
 import { recordEmailEvent } from '../crm/notify'
 import { readEmailConfig, type EmailConfig } from './config'
+import { resolveSending, withSending } from './profiles'
 import { failureCode, gateRecipient, recipientRef } from './gate'
 import { createTransport, formatFrom, type MailTransport } from './transport'
 
@@ -53,13 +54,18 @@ const textFromHtml = (html: string): string =>
     .replace(/&amp;/g, '&')
     .trim()
 
-export function makeSendEmail(payload: Payload, cfg: EmailConfig, transport: MailTransport | null) {
+export function makeSendEmail(payload: Payload, cfg: EmailConfig, transport: MailTransport | null, noTransportCode?: string) {
   return async (message: SendEmailOptions): Promise<{ sent: number; suppressed: number }> => {
     const kind = 'PAYLOAD_AUTH'
     let sent = 0
     let suppressed = 0
     for (const to of recipientsOf(message.to)) {
       const ref = recipientRef(to)
+      if (gateRecipient(cfg, to) === 'SEND' && !transport) {
+        // Patch C: sending is on but no transport is usable (see email/profiles.ts) — a failure, reported by code.
+        await recordEmailEvent({ payload }, { event: 'DIRECT_FAILED', kind, code: noTransportCode ?? 'NO_TRANSPORT', recipient_ref: ref })
+        throw new EmailSendError(noTransportCode ?? 'NO_TRANSPORT')
+      }
       if (gateRecipient(cfg, to) !== 'SEND' || !transport) {
         suppressed++
         await recordEmailEvent(
@@ -93,11 +99,21 @@ export function makeSendEmail(payload: Payload, cfg: EmailConfig, transport: Mai
 
 export const h2oEmailAdapter: EmailAdapter<{ sent: number; suppressed: number }> = ({ payload }) => {
   const cfg = readEmailConfig()
-  const transport = createTransport(cfg)
   return {
     name: 'h2o-gated-submission',
     defaultFromAddress: cfg.fromAddress || 'no-reply@invalid',
     defaultFromName: cfg.fromName,
-    sendEmail: makeSendEmail(payload, cfg, transport),
+    // Patch C: the transport and sender are resolved per message (the active sending profile, else the environment).
+    sendEmail: async (message) => {
+      const env = readEmailConfig()
+      const r = env.mode === 'off' ? null : await resolveSending(payload, env, 'TRANSACTIONAL')
+      const effective = r ? withSending(env, r) : env
+      const transport = createTransport(effective)
+      try {
+        return await makeSendEmail(payload, effective, transport, r && !r.ok ? r.code : undefined)(message)
+      } finally {
+        transport?.close()
+      }
+    },
   }
 }

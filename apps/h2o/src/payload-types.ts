@@ -105,6 +105,9 @@ export interface Config {
     'crm-import-batches': CrmImportBatch;
     'crm-saved-views': CrmSavedView;
     'crm-intake-rate': CrmIntakeRate;
+    'crm-sending-profiles': CrmSendingProfile;
+    'crm-email-templates': CrmEmailTemplate;
+    'crm-mail-cursor': CrmMailCursor;
     'public-routes': PublicRoute;
     'public-redirects': PublicRedirect;
     'payload-kv': PayloadKv;
@@ -185,6 +188,9 @@ export interface Config {
     'crm-import-batches': CrmImportBatchesSelect<false> | CrmImportBatchesSelect<true>;
     'crm-saved-views': CrmSavedViewsSelect<false> | CrmSavedViewsSelect<true>;
     'crm-intake-rate': CrmIntakeRateSelect<false> | CrmIntakeRateSelect<true>;
+    'crm-sending-profiles': CrmSendingProfilesSelect<false> | CrmSendingProfilesSelect<true>;
+    'crm-email-templates': CrmEmailTemplatesSelect<false> | CrmEmailTemplatesSelect<true>;
+    'crm-mail-cursor': CrmMailCursorSelect<false> | CrmMailCursorSelect<true>;
     'public-routes': PublicRoutesSelect<false> | PublicRoutesSelect<true>;
     'public-redirects': PublicRedirectsSelect<false> | PublicRedirectsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -256,6 +262,10 @@ export interface User {
    */
   crm_office?: ('US' | 'TH') | null;
   /**
+   * Shown under your name in emails sent from the CRM templates.
+   */
+  crm_title?: string | null;
+  /**
    * Times in the CRM are shown in this zone. Blank = the office’s zone.
    */
   time_zone?:
@@ -303,6 +313,15 @@ export interface User {
     | null;
   mfa_failures?: number | null;
   mfa_locked_until?: string | null;
+  mfa_stepup?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -3418,7 +3437,8 @@ export interface CrmEmailOutbox {
     | 'SUPPRESSED_BY_MODE'
     | 'SUPPRESSED_BY_SUPPRESSION'
     | 'SUPPRESSED_ACK_DISABLED'
-    | 'SUPPRESSED_NO_RECIPIENT';
+    | 'SUPPRESSED_NO_RECIPIENT'
+    | 'SUPPRESSED_TEMPLATE';
   rfq?: (string | null) | CrmRfq;
   conversation_message?: (string | null) | CrmEmailMessage;
   /**
@@ -3734,6 +3754,77 @@ export interface CrmIntakeRate {
   at: string;
 }
 /**
+ * Email sending profiles (Patch C). Manage them in the CRM: Settings → Sending profiles.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-sending-profiles".
+ */
+export interface CrmSendingProfile {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  name: string;
+  preset: 'GMAIL' | 'STALWART' | 'CUSTOM';
+  use: 'TRANSACTIONAL' | 'REVENUE';
+  active?: boolean | null;
+  host: string;
+  port: number;
+  tls_servername: string;
+  username: string;
+  password_sealed?: string | null;
+  password_set?: boolean | null;
+  from_address: string;
+  from_name?: string | null;
+  last_check_state?: ('OK' | 'FAILED') | null;
+  last_check_code?: string | null;
+  last_check_at?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Email templates (Patch C). Edit and approve them in the CRM: Settings → Email templates.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-templates".
+ */
+export interface CrmEmailTemplate {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  code: string;
+  name: string;
+  purpose: 'TRANSACTIONAL' | 'MARKETING';
+  locale: string;
+  subject: string;
+  body: string;
+  version: number;
+  approved?: boolean | null;
+  approved_hash?: string | null;
+  /**
+   * Who approved this wording.
+   */
+  approved_by?: (string | null) | User;
+  approved_at?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-mail-cursor".
+ */
+export interface CrmMailCursor {
+  id: string;
+  key: string;
+  uidvalidity: number;
+  last_uid: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-redirects".
  */
@@ -4019,6 +4110,18 @@ export interface PayloadLockedDocument {
         value: string | CrmIntakeRate;
       } | null)
     | ({
+        relationTo: 'crm-sending-profiles';
+        value: string | CrmSendingProfile;
+      } | null)
+    | ({
+        relationTo: 'crm-email-templates';
+        value: string | CrmEmailTemplate;
+      } | null)
+    | ({
+        relationTo: 'crm-mail-cursor';
+        value: string | CrmMailCursor;
+      } | null)
+    | ({
         relationTo: 'public-routes';
         value: string | PublicRoute;
       } | null)
@@ -4077,6 +4180,7 @@ export interface UsersSelect<T extends boolean = true> {
   roles?: T;
   invitedBy?: T;
   crm_office?: T;
+  crm_title?: T;
   time_zone?: T;
   mfa_enabled?: T;
   mfa_enrolled_at?: T;
@@ -4089,6 +4193,7 @@ export interface UsersSelect<T extends boolean = true> {
   mfa_sessions?: T;
   mfa_failures?: T;
   mfa_locked_until?: T;
+  mfa_stepup?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -5681,6 +5786,61 @@ export interface CrmIntakeRateSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-sending-profiles_select".
+ */
+export interface CrmSendingProfilesSelect<T extends boolean = true> {
+  canonical_id?: T;
+  name?: T;
+  preset?: T;
+  use?: T;
+  active?: T;
+  host?: T;
+  port?: T;
+  tls_servername?: T;
+  username?: T;
+  password_sealed?: T;
+  password_set?: T;
+  from_address?: T;
+  from_name?: T;
+  last_check_state?: T;
+  last_check_code?: T;
+  last_check_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-templates_select".
+ */
+export interface CrmEmailTemplatesSelect<T extends boolean = true> {
+  canonical_id?: T;
+  code?: T;
+  name?: T;
+  purpose?: T;
+  locale?: T;
+  subject?: T;
+  body?: T;
+  version?: T;
+  approved?: T;
+  approved_hash?: T;
+  approved_by?: T;
+  approved_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-mail-cursor_select".
+ */
+export interface CrmMailCursorSelect<T extends boolean = true> {
+  key?: T;
+  uidvalidity?: T;
+  last_uid?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-routes_select".
  */
 export interface PublicRoutesSelect<T extends boolean = true> {
@@ -6083,6 +6243,13 @@ export interface SiteChrome {
 export interface CrmOfficeSetting {
   id: string;
   /**
+   * Shown in email signatures as {{office_phone}}: the sender’s office number. Empty = templates that need it can’t be used.
+   */
+  phones?: {
+    US?: string | null;
+    TH?: string | null;
+  };
+  /**
    * Send every inquiry from this country to this office. Applies to new inquiries; a person can still move one.
    */
   routing_overrides?:
@@ -6203,6 +6370,12 @@ export interface SiteChromeSelect<T extends boolean = true> {
  * via the `definition` "crm-office-settings_select".
  */
 export interface CrmOfficeSettingsSelect<T extends boolean = true> {
+  phones?:
+    | T
+    | {
+        US?: T;
+        TH?: T;
+      };
   routing_overrides?:
     | T
     | {

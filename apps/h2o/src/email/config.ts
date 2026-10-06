@@ -13,6 +13,9 @@ import { domainToASCII } from 'node:url'
  *   H2O_SMTP_USER / _PASS   submission credentials        secrets: environment only, never logged
  *   H2O_SMTP_TLS_SERVERNAME certificate name to verify    e.g. the mail host name (the ACME certificate)
  *
+ * Patch C: the H2O_SMTP_* "environment profile" is optional. An admin's active sending profile in the CRM replaces it
+ * (email/profiles.ts); H2O_EMAIL_FROM stays the role mailbox that customer replies go to (Reply-To tokens, inbound).
+ *
  * Submission always requires STARTTLS (or implicit TLS on 465) with a verified certificate and AUTH. There
  * is no plaintext and no "ignore certificate" switch. In `off` mode no transport is ever created.
  */
@@ -114,9 +117,14 @@ export function readEmailConfig(env: Record<string, string | undefined> = proces
   if (!['on', 'off'].includes(ackRaw)) errors.push('CUSTOMER_ACK_FLAG_INVALID')
 
   let smtp: SmtpSettings | null = null
+  // Patch C: the environment profile is optional — with no H2O_SMTP_* at all, the active CRM sending profile supplies
+  // the transport (email/profiles.ts). Set partly, it is still an error: never a half-configured transport.
+  const envSmtp = ['H2O_SMTP_HOST', 'H2O_SMTP_USER', 'H2O_SMTP_PASS', 'H2O_SMTP_TLS_SERVERNAME'].some((k) => (env[k] ?? '').trim() !== '')
   if (mode !== 'off') {
     if (!from) errors.push('EMAIL_FROM_MISSING_OR_INVALID')
     if (mode === 'allowlist' && allowlist.size === 0) errors.push('EMAIL_ALLOWLIST_EMPTY')
+  }
+  if (mode !== 'off' && envSmtp) {
     const host = (env.H2O_SMTP_HOST ?? '').trim()
     const port = Number(env.H2O_SMTP_PORT ?? '587')
     const user = env.H2O_SMTP_USER ?? ''
@@ -162,11 +170,15 @@ export function emailConfigState(cfg: EmailConfig = readEmailConfig()): 'ok' | '
  *   H2O_EMAIL_REPLY_DOMAIN  the domain of the Reply-To token addresses; default: the H2O_EMAIL_FROM domain
  */
 export type InboundSettings = {
+  /** Patch C: `jmap` (Stalwart, default) or `imap` (Google Workspace: imap.gmail.com:993). */
+  protocol: 'jmap' | 'imap'
   host: string
   port: number
   user: string
   pass: string
   servername: string
+  /** IMAP only: the folder read (default INBOX). */
+  mailbox: string | null
   roleLocal: string
   domain: string
 }
@@ -178,16 +190,43 @@ export function readInboundConfig(env: Record<string, string | undefined> = proc
   if (!['on', 'off'].includes(raw)) errors.push('EMAIL_INBOUND_FLAG_INVALID')
   if (raw !== 'on') return { enabled: false, errors, settings: null }
   const from = parseFrom(env.H2O_EMAIL_FROM)
-  const host = (env.H2O_JMAP_HOST ?? env.H2O_SMTP_HOST ?? '').trim()
-  const port = Number(env.H2O_JMAP_PORT ?? '443')
-  const user = env.H2O_SMTP_USER ?? ''
-  const pass = env.H2O_SMTP_PASS ?? ''
-  const servername = (env.H2O_SMTP_TLS_SERVERNAME ?? '').trim()
+  const protocolRaw = (env.H2O_INBOUND_PROTOCOL ?? 'jmap').trim().toLowerCase()
+  if (!['jmap', 'imap'].includes(protocolRaw)) errors.push('INBOUND_PROTOCOL_INVALID')
+  const protocol: 'jmap' | 'imap' = protocolRaw === 'imap' ? 'imap' : 'jmap'
+  let host: string
+  let port: number
+  let user: string
+  let pass: string
+  let servername: string
+  let mailbox: string | null = null
+  if (protocol === 'imap') {
+    // Patch C: H2O_IMAP_HOST / _PORT (993 only: implicit TLS) / _USER / _PASS (default: the H2O_SMTP_* account —
+    // with Google Workspace the same mailbox and app password) / _TLS_SERVERNAME (default: the host) / _MAILBOX.
+    host = (env.H2O_IMAP_HOST ?? '').trim().toLowerCase()
+    port = Number(env.H2O_IMAP_PORT ?? '993')
+    user = env.H2O_IMAP_USER ?? env.H2O_SMTP_USER ?? ''
+    const rawPass = env.H2O_IMAP_PASS ?? env.H2O_SMTP_PASS ?? ''
+    // Google shows app passwords in groups of four; the spaces are not part of the password.
+    pass = host === 'imap.gmail.com' ? rawPass.replace(/\s+/g, '') : rawPass
+    servername = (env.H2O_IMAP_TLS_SERVERNAME ?? host).trim().toLowerCase()
+    mailbox = (env.H2O_IMAP_MAILBOX ?? 'INBOX').trim() || 'INBOX'
+    if (!host) errors.push('IMAP_HOST_MISSING')
+    if (port !== 993) errors.push('IMAP_PORT_NOT_TLS')
+    if (!user || !pass) errors.push('IMAP_CREDENTIALS_MISSING')
+    if (!servername) errors.push('IMAP_TLS_SERVERNAME_MISSING')
+    if (mailbox.length > 100 || /[\r\n"\\]/.test(mailbox)) errors.push('IMAP_MAILBOX_INVALID')
+  } else {
+    host = (env.H2O_JMAP_HOST ?? env.H2O_SMTP_HOST ?? '').trim()
+    port = Number(env.H2O_JMAP_PORT ?? '443')
+    user = env.H2O_SMTP_USER ?? ''
+    pass = env.H2O_SMTP_PASS ?? ''
+    servername = (env.H2O_SMTP_TLS_SERVERNAME ?? '').trim()
+    if (!host) errors.push('JMAP_HOST_MISSING')
+    if (!Number.isInteger(port) || port < 1 || port > 65535) errors.push('JMAP_PORT_INVALID')
+    if (!user || !pass) errors.push('SMTP_CREDENTIALS_MISSING')
+    if (!servername) errors.push('SMTP_TLS_SERVERNAME_MISSING')
+  }
   if (!from) errors.push('EMAIL_FROM_MISSING_OR_INVALID')
-  if (!host) errors.push('JMAP_HOST_MISSING')
-  if (!Number.isInteger(port) || port < 1 || port > 65535) errors.push('JMAP_PORT_INVALID')
-  if (!user || !pass) errors.push('SMTP_CREDENTIALS_MISSING')
-  if (!servername) errors.push('SMTP_TLS_SERVERNAME_MISSING')
   if (errors.length > 0 || !from) return { enabled: false, errors, settings: null }
   const at = from.address.lastIndexOf('@')
   const domain = ((env.H2O_EMAIL_REPLY_DOMAIN ?? '').trim() || from.address.slice(at + 1)).toLowerCase()
@@ -195,11 +234,13 @@ export function readInboundConfig(env: Record<string, string | undefined> = proc
     enabled: true,
     errors,
     settings: {
+      protocol,
       host,
       port,
       user,
       pass,
       servername,
+      mailbox,
       roleLocal: from.address.slice(0, at).split('+')[0]!.toLowerCase(),
       domain,
     },

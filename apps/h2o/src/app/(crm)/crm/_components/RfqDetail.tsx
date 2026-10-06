@@ -45,6 +45,7 @@ import {
   TaskActions,
 } from './Dialogs'
 import { ReplyComposer } from './EmailPanel'
+import type { ComposerTemplates } from '../../../../crm/settings/templates'
 
 type Doc = Record<string, unknown>
 export const RFQ_TABS = ['summary', 'answers', 'items', 'email', 'activity', 'technical'] as const
@@ -52,7 +53,7 @@ export type RfqTab = (typeof RFQ_TABS)[number]
 const TAB_LABEL: Record<RfqTab, string> = { summary: 'Summary', answers: 'Answers', items: 'Items', email: 'Email', activity: 'Activity', technical: 'Technical' }
 const MESSAGE_STATUS_LABEL: Record<string, string> = { QUEUED: 'Sending', SENT: 'Sent', FAILED: 'Failed', NOT_SENT: 'Not sent', RECEIVED: 'Received' }
 /** CRM email M2: what the page knows about writing a reply here (full page only; the inbox pane links to it). */
-export type ReplyPanel = { readiness: ReplyReadiness; token: string }
+export type ReplyPanel = { readiness: ReplyReadiness; token: string; templates?: ComposerTemplates }
 const TERMINAL = ['REJECTED_NON_CORE', 'DUPLICATE_OF_EXISTING', 'CLOSED']
 
 const Value = ({ v, missing = 'Not supplied' }: { v: unknown; missing?: string }) =>
@@ -467,7 +468,14 @@ export function RfqDetailView({
                   </span>
                 </p>
               ) : null}
-              <ReplyComposer rfqId={rfqId} token={reply.token} defaultSubject={`Your request ${String(rfq.rfq_number)}`} />
+              {reply.templates && reply.templates.options.length ? <TemplatePicker rfqId={rfqId} t={reply.templates} /> : null}
+              <ReplyComposer
+                key={reply.templates?.picked?.result.ok ? `${reply.templates.picked.code}:${reply.templates.picked.choices.join('|')}` : 'blank'}
+                rfqId={rfqId}
+                token={reply.token}
+                defaultSubject={reply.templates?.picked?.result.ok ? reply.templates.picked.result.subject : `Your request ${String(rfq.rfq_number)}`}
+                defaultBody={reply.templates?.picked?.result.ok ? reply.templates.picked.result.body : ''}
+              />
             </>
           ) : (
             <p className="c-banner is-warning" role="note">
@@ -578,5 +586,50 @@ export function RfqDetailView({
         </section>
       ) : null}
     </article>
+  )
+}
+
+/**
+ * Patch C: start a reply from an approved template. A plain GET form (works without scripts): choose the template,
+ * pick its options (e.g. "call" or "site visit"), and the message box below is filled in — still editable, and sent
+ * only when the person presses Send. A template that can't be completed says what is missing.
+ */
+function TemplatePicker({ rfqId, t }: { rfqId: string; t: ComposerTemplates }) {
+  const current = t.picked ? t.options.find((o) => o.code === t.picked!.code) : undefined
+  return (
+    <form method="get" action={`/crm/rfqs/${rfqId}/`} className="c-template-pick" aria-label="Start from a template">
+      <input type="hidden" name="tab" value="email" />
+      <label className="c-field">
+        <span>Start from a template</span>
+        <select className="c-select" name="tpl" defaultValue={t.picked?.code ?? ''}>
+          <option value="">Blank message</option>
+          {t.options.map((o) => (
+            <option key={o.code} value={o.code}>
+              {o.code} · {o.name}
+            </option>
+          ))}
+        </select>
+      </label>
+      {current?.choices.map((opts, i) => (
+        <label className="c-field" key={opts.join('|')}>
+          <span>Option {i + 1}</span>
+          <select className="c-select" name={`c${i}`} defaultValue={t.picked?.choices[i] || opts[0]}>
+            {opts.map((o) => (
+              <option key={o} value={o}>
+                {o}
+              </option>
+            ))}
+          </select>
+        </label>
+      ))}
+      <button className="c-btn" type="submit">
+        Use template
+      </button>
+      {t.picked && !t.picked.result.ok ? (
+        <p className="c-result is-error" role="alert">
+          {t.picked.result.message}
+        </p>
+      ) : null}
+    </form>
   )
 }

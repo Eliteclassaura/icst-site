@@ -105,11 +105,13 @@ describe('M3 inbound configuration', () => {
     expect(readInboundConfig({})).toEqual({ enabled: false, errors: [], settings: null }))
   it('on: internal HTTPS on 443 by default, same account and TLS name, role local part and domain from the sender', () => {
     expect(readInboundConfig({ ...base, H2O_EMAIL_INBOUND: 'on' }).settings).toEqual({
+      protocol: 'jmap',
       host: 'stalwart',
       port: 443,
       user: 'rfq@example.test',
       pass: 'p',
       servername: 'mail.example.test',
+      mailbox: null,
       roleLocal: 'rfq',
       domain: 'example.test',
     })
@@ -117,5 +119,20 @@ describe('M3 inbound configuration', () => {
   it('on but incomplete: not enabled, with codes', () => {
     const c = readInboundConfig({ ...base, H2O_EMAIL_INBOUND: 'on', H2O_SMTP_TLS_SERVERNAME: '' })
     expect(c).toMatchObject({ enabled: false, errors: ['SMTP_TLS_SERVERNAME_MISSING'] })
+  })
+  it('Patch C IMAP (Google Workspace): 993 TLS, the submission account by default, app-password spaces removed, INBOX', () => {
+    const c = readInboundConfig({ ...base, H2O_EMAIL_INBOUND: 'on', H2O_INBOUND_PROTOCOL: 'imap', H2O_IMAP_HOST: 'imap.gmail.com', H2O_SMTP_PASS: 'abcd efgh ijkl mnop' })
+    expect(c.enabled).toBe(true)
+    expect(c.settings).toMatchObject({ protocol: 'imap', host: 'imap.gmail.com', port: 993, servername: 'imap.gmail.com', mailbox: 'INBOX', user: 'rfq@example.test', pass: 'abcdefghijklmnop', roleLocal: 'rfq', domain: 'example.test' })
+  })
+  it.each([
+    [{ H2O_INBOUND_PROTOCOL: 'pop3' }, 'INBOUND_PROTOCOL_INVALID'],
+    [{ H2O_INBOUND_PROTOCOL: 'imap' }, 'IMAP_HOST_MISSING'],
+    [{ H2O_INBOUND_PROTOCOL: 'imap', H2O_IMAP_HOST: 'imap.gmail.com', H2O_IMAP_PORT: '143' }, 'IMAP_PORT_NOT_TLS'],
+    [{ H2O_INBOUND_PROTOCOL: 'imap', H2O_IMAP_HOST: 'imap.gmail.com', H2O_IMAP_MAILBOX: 'In"box' }, 'IMAP_MAILBOX_INVALID'],
+  ])('IMAP misconfiguration %o → off with %s', (over, code) => {
+    const c = readInboundConfig({ ...base, H2O_EMAIL_INBOUND: 'on', ...over })
+    expect(c.enabled).toBe(false)
+    expect(c.errors).toContain(code)
   })
 })

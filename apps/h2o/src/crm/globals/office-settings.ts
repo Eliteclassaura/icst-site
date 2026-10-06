@@ -31,6 +31,12 @@ const validate: GlobalBeforeChangeHook = ({ data }) => {
     seenCountry.add(code)
     r.country_code = code
   }
+  const phones = (d.phones ?? {}) as Row
+  for (const o of OFFICES) {
+    const v = typeof phones[o] === 'string' ? (phones[o] as string).trim() : ''
+    if (v && !/^\+?[0-9 ().-]{6,40}$/.test(v)) throw new CrmInvariantError('OFFICE_PHONE_INVALID', `The ${OFFICE_LABEL[o]} phone number may contain digits, spaces, + ( ) . - only.`)
+    if (d.phones) phones[o] = v || null
+  }
   const seenDay = new Set<string>()
   for (const r of ((d.holidays ?? []) as Row[])) {
     const date = String(r.date ?? '').trim()
@@ -74,6 +80,14 @@ export const CrmOfficeSettings: GlobalConfig = {
   },
   hooks: { beforeChange: [validate], afterChange: [auditAndInvalidate] },
   fields: [
+    {
+      // Patch C: the number in reply signatures ({{office_phone}}), per office. Business numbers, not personal data.
+      name: 'phones',
+      type: 'group',
+      label: 'Office phone numbers',
+      admin: { description: 'Shown in email signatures as {{office_phone}}: the sender’s office number. Empty = templates that need it can’t be used.' },
+      fields: OFFICES.map((o) => ({ name: o, label: OFFICE_LABEL[o], type: 'text' as const, maxLength: 40 })),
+    },
     {
       name: 'routing_overrides',
       type: 'array',

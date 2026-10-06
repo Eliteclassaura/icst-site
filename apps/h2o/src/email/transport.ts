@@ -74,3 +74,23 @@ export function createTransport(cfg: EmailConfig): MailTransport | null {
 
 export const formatFrom = (cfg: Pick<EmailConfig, 'fromName' | 'fromAddress'>): string =>
   `"${cfg.fromName.replace(/["\\\r\n]/g, '')}" <${cfg.fromAddress}>`
+
+/** Patch C: connect, secure the connection (verified certificate) and authenticate, then disconnect. Sends nothing. */
+export async function verifySmtp(s: SmtpSettings): Promise<void> {
+  const t = nodemailer.createTransport(smtpOptions(s))
+  try {
+    await t.verify()
+  } finally {
+    t.close()
+  }
+}
+
+/** Patch C: one message through the given settings (the settings page's test send). Same TLS rules as every send. */
+export async function sendWith(s: SmtpSettings, m: MailMessage): Promise<void> {
+  const t = nodemailer.createTransport(smtpOptions(s))
+  try {
+    await t.sendMail({ from: m.from, to: m.to, subject: m.subject, text: m.text, ...(m.html ? { html: m.html } : {}), headers: m.headers ?? {} })
+  } finally {
+    t.close()
+  }
+}

@@ -2,9 +2,12 @@ import type { Payload } from 'payload'
 import { ingestInbound, recordProcessingFailure, type IngestResult } from '../crm/inbound'
 import { readInboundConfig, type InboundConfig } from './config'
 import { httpsTransport, jmapMailbox, JmapError, type InboundMailbox, type JmapEmail } from './jmap'
+import { imapMailbox, ImapError } from './imap'
+import { dbCursorStore } from './imap-cursor'
 
 /**
  * CRM email M3 — the inbound poller. Runs in the runner role only (one replica), when H2O_EMAIL_INBOUND=on.
+ * Patch C: the reader is JMAP (Stalwart) or IMAP (Google Workspace), per H2O_INBOUND_PROTOCOL; everything else is shared.
  *
  * Each poll: read up to `limit` Inbox messages not yet marked `$h2o_ingested`, store each one (idempotent:
  * linked to its RFQ by reply token, or placed in the review queue), then mark the stored ones. A message whose
@@ -31,13 +34,17 @@ export async function pollInbound(
   const cfg = opts.cfg ?? readInboundConfig()
   if (!cfg.enabled || !cfg.settings) return null
   const ctx = { roleLocal: cfg.settings.roleLocal, domain: cfg.settings.domain }
-  const mailbox = opts.mailbox ?? jmapMailbox(httpsTransport(cfg.settings))
+  const mailbox =
+    opts.mailbox ??
+    (cfg.settings.protocol === 'imap'
+      ? imapMailbox(cfg.settings, { cursor: dbCursorStore(payload), log: (code) => console.warn(`[h2o] email inbound: ${code}`) })
+      : jmapMailbox(httpsTransport(cfg.settings)))
   const out: PollResult = { fetched: 0, linked: 0, review: 0, duplicate: 0, failed: 0 }
   let emails: JmapEmail[]
   try {
     emails = await mailbox.fetchNew(opts.limit ?? 25)
   } catch (err) {
-    console.error(`[h2o] email inbound: fetch failed ${err instanceof JmapError ? err.code : 'UNKNOWN'}`)
+    console.error(`[h2o] email inbound: fetch failed ${err instanceof JmapError || err instanceof ImapError ? err.code : 'UNKNOWN'}`)
     return out
   }
   out.fetched = emails.length
@@ -69,7 +76,7 @@ export async function pollInbound(
     await mailbox.markIngested(done)
   } catch (err) {
     // Stored rows are idempotent by mailbox id: the next poll sees these again and records them as duplicates.
-    console.error(`[h2o] email inbound: mark failed ${err instanceof JmapError ? err.code : 'UNKNOWN'}`)
+    console.error(`[h2o] email inbound: mark failed ${err instanceof JmapError || err instanceof ImapError ? err.code : 'UNKNOWN'}`)
   }
   if (out.fetched > 0)
     console.warn(

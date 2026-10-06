@@ -5,8 +5,11 @@ import { emailKey } from '../crm/normalize'
 import { evaluateTransactionalSend, ledgerFor } from '../crm/suppression'
 import type { EmailKind, EmailOutboxStatus } from '../crm/vocabulary'
 import { readEmailConfig, type EmailConfig } from './config'
+import { resolveSending, withSending } from './profiles'
 import { MAX_ATTEMPTS, failureCode, gateRecipient, nextAttemptAt } from './gate'
-import { renderCustomerAck, renderSalesAlert, type Rendered } from './messages'
+import { renderSalesAlert, textToHtml, type Rendered } from './messages'
+import { isApproved, templateByCode, textOf } from '../crm/settings/templates'
+import { greetingFor, renderTemplate, responseSentence } from './templates'
 import { createTransport, formatFrom, type MailTransport } from './transport'
 
 /**
@@ -81,7 +84,7 @@ async function render(
   payload: Payload,
   row: Row,
   cfg: EmailConfig,
-): Promise<{ rendered: Rendered; rfq: Record<string, unknown>; reply?: ReplyMeta } | null> {
+): Promise<{ rendered: Rendered; rfq: Record<string, unknown>; reply?: ReplyMeta } | { rfq: Record<string, unknown>; suppressed: string } | null> {
   const rfqId = rfqIdOf(row)
   if (!rfqId) return null
   const rfq = (await payload.findByID({
@@ -120,15 +123,18 @@ async function render(
       },
     }
   }
-  if (row.kind === 'RFQ_CUSTOMER_ACK')
-    return {
-      rfq,
-      rendered: renderCustomerAck({
-        rfqNumber: number,
-        firstName: ((rfq.submitted ?? {}) as Record<string, unknown>).first_name as string | null,
-        responsePromise: cfg.responsePromise,
-      }),
-    }
+  if (row.kind === 'RFQ_CUSTOMER_ACK') {
+    // Patch C: T1 is the approved template (the owner's wording). Unapproved, or a required field empty: not sent.
+    const t1 = await templateByCode(payload, 'T1')
+    if (!t1 || !isApproved(t1)) return { rfq, suppressed: 'T1_NOT_APPROVED' }
+    const r = renderTemplate(textOf(t1), {
+      rfq_number: number,
+      greeting: greetingFor(((rfq.submitted ?? {}) as Record<string, unknown>).first_name),
+      response_sentence: responseSentence(cfg.responsePromise),
+    })
+    if (!r.ok) return { rfq, suppressed: r.code }
+    return { rfq, rendered: { subject: r.subject, text: r.text, html: textToHtml(r.text) } }
+  }
   const items = await payload.find({
     collection: 'crm-rfq-items',
     where: { rfq: { equals: rfqId } },
@@ -177,6 +183,7 @@ export async function processRow(
   cfg: EmailConfig,
   transport: MailTransport | null,
   now: Date,
+  noTransportCode?: string,
 ): Promise<keyof Omit<DrainResult, 'claimed'>> {
   const row = (await payload.findByID({
     collection: 'crm-email-outbox',
@@ -240,7 +247,7 @@ export async function processRow(
 
   const to = row.to_address ?? ''
   const gate = gateRecipient(cfg, to)
-  if (gate !== 'SEND' || !transport) {
+  if (gate !== 'SEND') {
     await terminal(
       gate === 'INVALID_RECIPIENT' ? 'SUPPRESSED_NO_RECIPIENT' : 'SUPPRESSED_BY_MODE',
       gate === 'INVALID_RECIPIENT' ? 'INVALID_RECIPIENT' : `MODE_${cfg.mode.toUpperCase()}`,
@@ -267,10 +274,20 @@ export async function processRow(
     }
   }
 
+  if (!transport) {
+    // Patch C: sending is on but no transport is usable (no active profile and no environment profile, or the active
+    // profile fails closed). Not the message's fault: it waits and retries while an admin fixes the profile.
+    return retryOrDead(payload, row, id, base, now, noTransportCode ?? 'NO_TRANSPORT', 'TRANSIENT', terminal)
+  }
+
   const r = await render(payload, row, cfg)
   if (!r) {
     await terminal('DEAD', 'RFQ_MISSING', 'DEAD_LETTERED')
     return 'dead'
+  }
+  if ('suppressed' in r) {
+    await terminal('SUPPRESSED_TEMPLATE', r.suppressed, 'SUPPRESSED')
+    return 'suppressed'
   }
   await setRow(payload, id, {
     subject: r.rendered.subject,
@@ -300,20 +317,36 @@ export async function processRow(
     return 'sent'
   } catch (err) {
     const f = failureCode(err)
-    if (f.klass === 'PERMANENT' || row.attempts >= MAX_ATTEMPTS) {
-      await terminal('DEAD', f.code, 'DEAD_LETTERED')
-      return 'dead'
-    }
-    const next = nextAttemptAt(row.attempts, now)
-    await setRow(payload, id, {
-      status: 'RETRY',
-      lease_until: null,
-      next_attempt_at: next?.toISOString() ?? null,
-      last_error_code: f.code,
-    })
-    await recordEmailEvent({ payload }, { ...base, event: 'ATTEMPT_FAILED', code: f.code })
-    return 'retried'
+    return retryOrDead(payload, row, id, base, now, f.code, f.klass, terminal)
   }
+}
+
+type Terminal = (status: EmailOutboxStatus, code: string | null, event: 'SUPPRESSED' | 'SENT' | 'DEAD_LETTERED') => Promise<void>
+
+/** A failed attempt: dead-letter on a permanent failure or the last attempt, otherwise retry at the next backoff step. */
+async function retryOrDead(
+  payload: Payload,
+  row: Row,
+  id: string,
+  base: { kind: string; outbox: string; rfq: string | null; recipient_ref: string; attempt: number },
+  now: Date,
+  code: string,
+  klass: string,
+  terminal: Terminal,
+): Promise<'retried' | 'dead'> {
+  if (klass === 'PERMANENT' || row.attempts >= MAX_ATTEMPTS) {
+    await terminal('DEAD', code, 'DEAD_LETTERED')
+    return 'dead'
+  }
+  const next = nextAttemptAt(row.attempts, now)
+  await setRow(payload, id, {
+    status: 'RETRY',
+    lease_until: null,
+    next_attempt_at: next?.toISOString() ?? null,
+    last_error_code: code,
+  })
+  await recordEmailEvent({ payload }, { ...base, event: 'ATTEMPT_FAILED', code })
+  return 'retried'
 }
 
 async function rfqLinks(payload: Payload, rfqId: string): Promise<Record<string, unknown>> {
@@ -334,9 +367,17 @@ export async function drainOutbox(
   payload: Payload,
   opts: { cfg?: EmailConfig; transport?: MailTransport | null; now?: Date; limit?: number } = {},
 ): Promise<DrainResult> {
-  const cfg = opts.cfg ?? readEmailConfig()
+  const envCfg = opts.cfg ?? readEmailConfig()
   const now = opts.now ?? new Date()
   const ownTransport = opts.transport === undefined
+  // Patch C: the transport and sender come from the active sending profile (else the environment profile).
+  let cfg = envCfg
+  let noTransportCode: string | undefined
+  if (ownTransport && envCfg.mode !== 'off') {
+    const r = await resolveSending(payload, envCfg, 'TRANSACTIONAL')
+    cfg = withSending(envCfg, r)
+    if (!r.ok) noTransportCode = r.code
+  }
   const transport = ownTransport ? createTransport(cfg) : (opts.transport ?? null)
   const result: DrainResult = { claimed: 0, sent: 0, retried: 0, dead: 0, suppressed: 0 }
   try {
@@ -344,7 +385,7 @@ export async function drainOutbox(
     result.claimed = ids.length
     for (const id of ids) {
       try {
-        result[await processRow(payload, id, cfg, transport, now)]++
+        result[await processRow(payload, id, cfg, transport, now, noTransportCode)]++
       } catch (err) {
         // A bookkeeping failure leaves the row SENDING; its lease expires and it is claimed again.
         console.error(`[h2o] email outbox: row ${id} processing error ${failureCode(err).code}`)

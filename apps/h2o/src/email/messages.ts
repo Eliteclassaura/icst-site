@@ -1,14 +1,9 @@
 /**
- * CRM email M1 message templates (E1). Plain text is the authority; the HTML part is the same words, escaped,
- * in simple paragraphs (no images, no tracking, no external resources, no scripts).
- *
- * Customer-facing copy states only facts the system knows: the reference number and the next step. It makes
- * no promise of a time, a price or an outcome, and it names no person, phone number or address — the sender
- * name comes from H2O_EMAIL_FROM. The acknowledgement is sent only when H2O_EMAIL_CUSTOMER_ACK=on, which the
- * owner turns on after approving this text (ACKNOWLEDGEMENT_TEXT_VERSION identifies the approved wording).
+ * CRM email M1 system messages: the internal sales alert and the password reset. Plain text is the authority; the
+ * HTML part is the same words, escaped, in simple paragraphs (no images, no tracking, no external resources, no
+ * scripts). Customer-facing messages (T1 acknowledgement, T2–T6) are templates since Patch C (email/templates.ts):
+ * T1 is sent only while its wording is approved in the CRM and H2O_EMAIL_CUSTOMER_ACK=on.
  */
-
-export const ACKNOWLEDGEMENT_TEXT_VERSION = 'ACK_R1_DRAFT_2026-10-04'
 
 export type Rendered = { subject: string; text: string; html: string }
 
@@ -30,6 +25,9 @@ export const oneLine = (s: unknown, max = 160): string =>
         .trim()
         .slice(0, max)
     : ''
+
+/** Patch C: a plain-text template body → the HTML part (escaped paragraphs; blank lines separate paragraphs). */
+export const textToHtml = (text: string): string => htmlFrom(text.trim().split(/\n{2,}/))
 
 const htmlFrom = (paragraphs: string[]): string =>
   `<!doctype html><html><body style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#1a1a1a">${paragraphs
@@ -66,36 +64,6 @@ export function renderSalesAlert(i: SalesAlertInput): Rendered {
   ]
   return {
     subject: `New RFQ ${oneLine(i.rfqNumber, 40)}`,
-    text: paragraphs.join('\n\n') + '\n',
-    html: htmlFrom(paragraphs),
-  }
-}
-
-/**
- * `responsePromise`: the owner's first-response commitment (owner decision 2026-10-05: "within one business day";
- * business days per office, Patch L1). Null or empty: the sentence promises no time.
- */
-export type AckInput = { rfqNumber: string; firstName?: string | null; responsePromise?: string | null }
-
-/**
- * Customer acknowledgement (T1), sent once per web RFQ. Wording: OGCS prelaunch copy R1 §7 T1 (CT-accepted), pending
- * the owner's final approval. It quotes only the RFQ number and the customer's first name — never their message.
- */
-export function renderCustomerAck(i: AckInput): Rendered {
-  const ref = oneLine(i.rfqNumber, 40)
-  // Only a plausible name is echoed (letters, spaces, apostrophes, periods, hyphens); anything else greets neutrally.
-  const name = oneLine(i.firstName, 40)
-  const first = /^\p{L}[\p{L}\p{M} '’.-]{0,39}$/u.test(name) ? name : ''
-  const promise = oneLine(i.responsePromise, 60)
-  const paragraphs = [
-    first ? `Hi ${first},` : 'Hello,',
-    `Thank you for contacting Industrial Cooling Solutions. We've received your request and logged it as RFQ ${ref}.`,
-    promise ? `A member of our team will review it and respond ${promise}.` : 'A member of our team will review it and contact you.',
-    'If you have drawings, nameplate photos or earlier inspection reports, reply to this email and attach them. They help us scope your request accurately.',
-    'The ICS team\nIndustrial Cooling Solutions (ICS)',
-  ]
-  return {
-    subject: `We received your request: RFQ ${ref}`,
     text: paragraphs.join('\n\n') + '\n',
     html: htmlFrom(paragraphs),
   }

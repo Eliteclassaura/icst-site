@@ -65,6 +65,9 @@ export const AUDITED_TRANSITIONS: Record<string, readonly string[]> = {
   'crm-reply-tokens': ['expires_at', 'revoked_at'],
   'crm-email-review': ['reason', 'state', 'rfq', 'resolved_by'],
   'crm-office-settings': [],
+  // Patch C: never a host, user name, sender or password — only these states.
+  'crm-sending-profiles': ['active', 'use', 'preset', 'password_set', 'last_check_state', 'last_check_code'],
+  'crm-email-templates': ['approved', 'approved_by', 'purpose', 'version'],
 }
 
 const SKIP_KEYS = new Set(['updatedAt', 'createdAt', 'id'])

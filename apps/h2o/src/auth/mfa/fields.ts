@@ -26,6 +26,7 @@ export const MFA_STATE_FIELDS = [
   'mfa_sessions',
   'mfa_failures',
   'mfa_locked_until',
+  'mfa_stepup',
 ] as const
 
 /** The values that clear an enrolment (admin reset, break-glass reset). */
@@ -40,6 +41,7 @@ export const MFA_CLEARED = {
   mfa_sessions: [],
   mfa_failures: 0,
   mfa_locked_until: null,
+  mfa_stepup: null,
 } as const
 
 const resetOnRequest: CollectionBeforeChangeHook = ({ context, data, operation, req }) => {
@@ -95,6 +97,8 @@ export function withMfa(collection: CollectionConfig): CollectionConfig {
       hiddenField({ name: 'mfa_sessions', type: 'json' }),
       hiddenField({ name: 'mfa_failures', type: 'number', defaultValue: 0 }),
       hiddenField({ name: 'mfa_locked_until', type: 'date' }),
+      // Patch C: the last step-up confirmation ({ sid, at }) — a fresh code for sensitive settings (5 minutes, this session).
+      hiddenField({ name: 'mfa_stepup', type: 'json' }),
     ],
   }
 }

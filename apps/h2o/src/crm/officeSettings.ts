@@ -24,7 +24,10 @@ export function settingsFromDoc(doc: unknown): OfficeSettings {
   const holidays: Record<Office, Set<string>> = { US: new Set(), TH: new Set() }
   for (const h of ((d.holidays ?? []) as Array<Record<string, unknown>>))
     if (isOffice(h.office) && typeof h.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(h.date)) holidays[h.office].add(h.date)
-  return { overrides, holidays }
+  const phonesDoc = (d.phones ?? {}) as Record<string, unknown>
+  const phones: Record<Office, string | null> = { US: null, TH: null }
+  for (const o of ['US', 'TH'] as const) if (typeof phonesDoc[o] === 'string' && (phonesDoc[o] as string).trim()) phones[o] = (phonesDoc[o] as string).trim()
+  return { overrides, holidays, phones }
 }
 
 export async function officeSettings(payload: Payload, now: number = Date.now()): Promise<OfficeSettings> {

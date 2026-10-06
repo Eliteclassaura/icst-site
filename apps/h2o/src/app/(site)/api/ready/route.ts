@@ -4,7 +4,8 @@ import { getPayload } from 'payload'
 import { releaseReadiness } from '../../../../content/release'
 import { pendingEvents } from '../../../../content/events'
 import { rfqConfigState } from '../../../../content/rfq-config'
-import { emailConfigState, readInboundConfig } from '../../../../email/config'
+import { emailConfigState, readEmailConfig, readInboundConfig } from '../../../../email/config'
+import { emailReadiness } from '../../../../email/profiles'
 
 /**
  * Readiness (separate from liveness at /api/live). R1B (Control Tower F6): in payload content mode the
@@ -51,7 +52,8 @@ export async function GET() {
   }
   // CRM email M1: `off` is a ready state; a requested mode that cannot be honoured (missing sender,
   // credentials, TLS name, empty allowlist…) is not — it would silently send nothing.
-  checks.email = emailConfigState()
+  // Patch C: the transport may come from the active CRM sending profile, so readiness resolves it (codes only).
+  checks.email = payload ? await emailReadiness(payload, readEmailConfig()) : emailConfigState()
   // CRM email M3: inbound replies are optional (off is ready); requested but misconfigured is not.
   const inbound = readInboundConfig()
   checks.emailInbound = inbound.errors.length > 0 ? 'fail' : inbound.enabled ? 'ok' : 'off'

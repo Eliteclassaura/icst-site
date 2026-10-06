@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
-import { IconAccounts, IconContacts, IconInbox, IconMore, IconPipeline, IconSearch, IconTasks, IconWork } from './Icons'
+import { IconAccounts, IconContacts, IconInbox, IconMore, IconPipeline, IconSearch, IconSettings, IconTasks, IconWork } from './Icons'
 import { PaletteTrigger } from './PaletteTrigger'
 import { loadViews } from '../savedViews'
 import type { CrmSession } from '../session'
 
-export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'accounts' | 'contacts' | 'search' | 'email' | 'none'
+export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'accounts' | 'contacts' | 'search' | 'email' | 'settings' | 'none'
 
 /**
  * "SYNTHETIC DATA" is an evidence/testing badge only (Control Tower amendment D). It renders only when
@@ -27,6 +27,8 @@ const NAV: Array<{ key: NavKey; href: string; label: string; phone?: string; ico
   { key: 'pipeline', href: '/crm/pipeline/', label: 'Pipeline', icon: <IconPipeline />, desktop: true },
   // CRM email M3: inbound email that was not linked automatically (admins only).
   { key: 'email', href: '/crm/email-review/', label: 'Email review', icon: <IconInbox />, desktop: true, adminOnly: true },
+  // Patch C: sending profiles and email templates (admins only).
+  { key: 'settings', href: '/crm/settings/', label: 'Settings', icon: <IconSettings />, desktop: true, adminOnly: true },
 ]
 
 const MORE: Array<{ key: NavKey; href: string; label: string; adminOnly?: boolean }> = [
@@ -34,6 +36,7 @@ const MORE: Array<{ key: NavKey; href: string; label: string; adminOnly?: boolea
   { key: 'accounts', href: '/crm/accounts/', label: 'Accounts' },
   { key: 'contacts', href: '/crm/contacts/', label: 'Contacts' },
   { key: 'email', href: '/crm/email-review/', label: 'Email review', adminOnly: true },
+  { key: 'settings', href: '/crm/settings/', label: 'Settings', adminOnly: true },
   { key: 'none', href: '/crm/new/', label: 'New inquiry' },
 ]
 

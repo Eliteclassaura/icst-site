@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
 import { pendingSession } from '../../../../auth/mfa/guard'
 import { safeNext } from '../../../../auth/mfa/next'
+import { qrSvg } from '../../../../auth/mfa/qr'
 import { beginEnrolment } from '../../../../auth/mfa/service'
 import { MfaForm } from './MfaForm'
 
@@ -50,7 +51,13 @@ export default async function MfaPage({ searchParams }: { searchParams: Promise<
             </p>
             <ol>
               <li>
-                In the app, add an account with this setup key (time-based):
+                In the app, scan this code:
+                <div
+                  className="c-qr"
+                  // Patch C: drawn on the server from the setup link (auth/mfa/qr.ts); no image request leaves the page.
+                  dangerouslySetInnerHTML={{ __html: qrSvg(key.uri, 'QR code for the authenticator setup link', { moduleSize: 4 }) }}
+                />
+                Or add an account with this setup key (time-based):
                 <p className="c-mono" aria-label="Setup key">
                   {key.secret.match(/.{1,4}/g)?.join(' ')}
                 </p>

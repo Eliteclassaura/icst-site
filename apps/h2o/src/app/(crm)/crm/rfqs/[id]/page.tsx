@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { replyReadiness } from '../../../../../crm/reply'
+import { composerTemplates } from '../../../../../crm/settings/templates'
 import { uuidv7 } from '../../../../../crm/ids'
 import { MANUAL_NOTICE_TEXT } from '../../../../../crm/workspace/manualInquiry'
 import { loadRfq } from '../../../../../crm/workspace/queries'
@@ -25,7 +26,16 @@ export default async function RfqPage({
   const d = await loadRfq(s, id, now)
   // CRM email M2: the compose panel (Email tab) — readiness is decided on the server; a fresh compose token per
   // render makes a double submit of the same form one message.
-  const reply = d && tab === 'email' ? { readiness: await replyReadiness(s, d.rfq), token: uuidv7() } : undefined
+  // Patch C: "Start from a template" (?tpl=T2&c0=…): approved templates only, merged for this inquiry and sender.
+  const one = (v: unknown) => (typeof v === 'string' ? v.slice(0, 80) : Array.isArray(v) && typeof v[0] === 'string' ? v[0].slice(0, 80) : undefined)
+  const reply =
+    d && tab === 'email'
+      ? {
+          readiness: await replyReadiness(s, d.rfq),
+          token: uuidv7(),
+          templates: await composerTemplates(s, d.rfq, { code: one(sp.tpl), choices: [one(sp.c0) ?? '', one(sp.c1) ?? '', one(sp.c2) ?? ''] }),
+        }
+      : undefined
   const created = sp.created === '1'
   const notices =
     created && typeof sp.notice === 'string'

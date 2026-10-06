@@ -149,6 +149,9 @@ const refsOf = (ids: string[] | null | undefined): string | null => {
   return out.length ? out.join(' ') : null
 }
 
+/** The stored mailbox reference: `jmap:<id>`, or (Patch C) the IMAP id as-is (`imap:<mailbox hash>:<uidvalidity>:<uid>`). */
+const sourceRefOf = (email: JmapEmail): string => (email.id.startsWith('imap:') ? line(email.id, 200) : `jmap:${line(email.id, 200)}`)
+
 export type IngestResult = 'LINKED' | 'REVIEW' | 'DUPLICATE'
 
 /** Store one inbound message (idempotent). Runs in the runner as a system write. */
@@ -158,7 +161,7 @@ export async function ingestInbound(
   ctx: InboundContext,
   now: Date = new Date(),
 ): Promise<IngestResult> {
-  const sourceRef = `jmap:${line(email.id, 200)}`
+  const sourceRef = sourceRefOf(email)
   const messageId = msgIdOf(email.messageId)
   const exists = async (collection: 'crm-email-messages' | 'crm-email-review', where: Doc) =>
     (await payload.find({ collection, where: where as never, depth: 0, limit: 1, overrideAccess: true })).docs
@@ -247,7 +250,7 @@ export async function recordProcessingFailure(
   email: JmapEmail,
   now: Date = new Date(),
 ): Promise<void> {
-  const sourceRef = `jmap:${line(email.id, 200)}`
+  const sourceRef = sourceRefOf(email)
   if (
     (
       await payload.find({

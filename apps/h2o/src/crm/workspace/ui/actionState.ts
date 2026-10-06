@@ -8,6 +8,8 @@ export type ActionState = {
   nonce?: number
   /** W1-1: "New contact" refused because the address already belongs to this contact (an id, never the address). */
   existingId?: string
+  /** The record a successful action created (Patch C: a new sending profile opens on its own page). */
+  id?: string
 }
 
 export const INITIAL_ACTION_STATE: ActionState = {}

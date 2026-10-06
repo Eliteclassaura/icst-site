@@ -5,7 +5,7 @@ import type { Payload } from 'payload'
  * id, plus counts in `detail` — never a code, secret, recovery code, email address or IP. A failed write is logged by
  * code and never blocks sign-in (the same posture as the CRM audit adapter).
  */
-export type MfaAuditAction = 'mfa-enrolled' | 'mfa-verified' | 'mfa-failed' | 'mfa-locked' | 'mfa-recovery-used' | 'mfa-reset'
+export type MfaAuditAction = 'mfa-enrolled' | 'mfa-verified' | 'mfa-failed' | 'mfa-locked' | 'mfa-recovery-used' | 'mfa-reset' | 'mfa-stepup'
 
 export async function writeSecurityAudit(
   payload: Payload,

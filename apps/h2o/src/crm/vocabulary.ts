@@ -455,6 +455,8 @@ export const EMAIL_OUTBOX_STATUS = [
   'SUPPRESSED_BY_SUPPRESSION',
   'SUPPRESSED_ACK_DISABLED',
   'SUPPRESSED_NO_RECIPIENT',
+  // Patch C: a template message whose template is not approved, or a required merge field is empty (fail closed).
+  'SUPPRESSED_TEMPLATE',
 ] as const
 export type EmailOutboxStatus = (typeof EMAIL_OUTBOX_STATUS)[number]
 export const EMAIL_TERMINAL_STATUS: readonly EmailOutboxStatus[] = [
@@ -464,6 +466,7 @@ export const EMAIL_TERMINAL_STATUS: readonly EmailOutboxStatus[] = [
   'SUPPRESSED_BY_SUPPRESSION',
   'SUPPRESSED_ACK_DISABLED',
   'SUPPRESSED_NO_RECIPIENT',
+  'SUPPRESSED_TEMPLATE',
 ]
 export const EMAIL_EVENT = [
   'QUEUED',

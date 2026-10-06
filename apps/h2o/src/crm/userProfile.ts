@@ -25,6 +25,15 @@ export function withCrmProfile(collection: CollectionConfig): CollectionConfig {
         admin: { position: 'sidebar', description: 'CRM office: the queue this person works and the business calendar of their quick dates.' },
       },
       {
+        // Patch C: the job title in email signatures ({{sales_rep_title}}). The person sets their own.
+        name: 'crm_title',
+        label: 'Job title',
+        type: 'text',
+        maxLength: 80,
+        access: { update: selfOrAdmin },
+        admin: { position: 'sidebar', description: 'Shown under your name in emails sent from the CRM templates.' },
+      },
+      {
         name: 'time_zone',
         type: 'select',
         options: USER_TIME_ZONES.map((z) => ({ label: z, value: z })),
