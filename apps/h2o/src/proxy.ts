@@ -33,6 +33,7 @@
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { verificationFileFor } from './content/verification-files'
+import { privateRobotsBody } from './content/robots-allow'
 import { NextResponse, type NextRequest } from 'next/server'
 import { redirectLocation } from './redirect-location'
 import { SITEMAP_FILE_HEADER } from './content/sitemap-request'
@@ -222,7 +223,7 @@ export function robotsResponse(): NextResponse {
   const production = process.env.H2O_INDEXING_POLICY === 'production'
   const body = production
     ? 'User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /api/\nDisallow: /crm/\nDisallow: /private/\nSitemap: https://h2ocooling.com/sitemap_index.xml\n'
-    : 'User-agent: *\nDisallow: /\n'
+    : privateRobotsBody() // R3.6: named audit crawlers (H2O_ROBOTS_ALLOW_AGENTS) first; everyone else disallowed
   return new NextResponse(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache' } })
 }
 
