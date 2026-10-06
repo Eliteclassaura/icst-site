@@ -2,7 +2,7 @@ import type {Metadata} from 'next'
 import {notFound} from 'next/navigation'
 import {salmonDocument,releaseRouteFor,salmonRoutes} from '../../../site/salmon'
 import {aliasReleaseDocument} from '../../../site/release-document'
-import {SalmonCanonical,publicDescription} from '../../../site/SalmonCanonical'
+import {SalmonCanonical,publicDescription,servedDescription,servedTitle} from '../../../site/SalmonCanonical'
 import {SalmonFamilyPage,salmonFamilyFor} from '../../../site/SalmonFamilies'
 import {ArchivePage,isArchiveDocument} from '../../../site/ArchivePresentation'
 import {LuxuryCanonical,luxuryIds} from '../../../site/LuxuryCanonical'
@@ -10,8 +10,8 @@ import {PartsIndex,ProductDetail} from '../../../site/Wave3Presentation'
 import {LiveEnglishDetail,Wave4ArticleDetail,Wave4ArticleIndex,Wave4Library} from '../../../site/Wave4Presentation'
 import {matchedWave4Article} from '../../../site/wave4'
 import {EnglishServicePage,englishServiceForPath,englishServicePages} from '../../../site/EnglishServices'
-import {articleMetadataTitle} from '../../../site/article-metadata'
 import {connection} from 'next/server'
+import {isEmptyArchivePage} from '../../../content/empty-archives'
 import {isPayloadContent} from '../../../content/runtime-read'
 import {EditorialPage,type EditorialDoc} from '../../../content/EditorialPage'
 // Content bridge (payload content mode): the route and its document are resolved from Payload's published
@@ -32,6 +32,8 @@ export function generateStaticParams():Array<{slug:string[]}> {
 }
 type Params={params:Promise<{slug?:string[]}>;searchParams?:Promise<{q?:string;page?:string}>}
 export async function generateMetadata({params}:Params):Promise<Metadata>{
+  // R2.4 R2: an empty archive's page N is a 404
+  if(isEmptyArchivePage(requestPathOf((await params).slug)))return {robots:{index:false,follow:false}}
   if(isPayloadContent()){
     await connection()
     const {canonicalFor,resolvePublicPath,robotsFor}=await bridge()
@@ -49,7 +51,8 @@ export async function generateMetadata({params}:Params):Promise<Metadata>{
     if(!source)return {robots:{index:false,follow:false}}
     const doc=salmonDocument(source)
     if(record.family==='alias'&&(record.seo?.title||record.seo?.description))return {title:{absolute:record.seo?.title||doc.seo.title},description:record.seo?.description||publicDescription(doc),alternates:alternatesOf(record),robots}
-    return {title:{absolute:articleMetadataTitle(doc)},description:publicDescription(doc),alternates:alternatesOf(record),robots}
+    // R2.4: the served title and description (pagination included); the head's og/twitter tags mirror the same values.
+    return {title:{absolute:servedTitle(doc)},description:servedDescription(doc),alternates:alternatesOf(record),robots}
   }
   const slug=(await params).slug
   const service=englishServiceForPath('/'+(slug??[]).join('/')+((slug??[]).length?'/':''))
@@ -63,24 +66,30 @@ export async function generateMetadata({params}:Params):Promise<Metadata>{
   const row=releaseRouteFor(slug)
   if(!row)return {robots:{index:false,follow:false}}
   const doc=salmonDocument(row)
-  return {title:{absolute:articleMetadataTitle(doc)},description:publicDescription(doc),alternates:{canonical:doc.seo.canonical[0]},robots:{index:false,follow:false}}
+  return {title:{absolute:servedTitle(doc)},description:servedDescription(doc),alternates:{canonical:doc.seo.canonical[0]},robots:{index:false,follow:false}}
 }
 export default async function Page({params,searchParams}:Params){
   let slug=(await params).slug
+  // R2.4 R2 (CT ruling 2026-10-05): page 2+ of an archive that lists nothing public answers 404, not an empty page
+  if(isEmptyArchivePage(requestPathOf(slug)))notFound()
   // An alias record (a second public address of an imported route, e.g. /author/timbozic/) renders its source
   // document at its own address and canonical.
   let alias:{source:string;path:string;canonical:string}|undefined
+  let serviceSeo:{title?:string|null;description?:string|null}|undefined
   if(isPayloadContent()){
     await connection()
     const {canonicalFor,resolvePublicPath}=await bridge()
     const resolved=await resolvePublicPath(requestPathOf(slug))
     if(!resolved)notFound()
     if(resolved.record.family==='editorial')return <EditorialPage doc={resolved.doc as unknown as EditorialDoc}/>
+    if(resolved.record.family==='english-service')serviceSeo=resolved.record.seo??undefined
     if(resolved.record.family==='alias'&&resolved.record.source?.aliasOf&&resolved.record.path!=='/resources/')alias={source:resolved.record.source.aliasOf,path:resolved.record.path,canonical:canonicalFor(resolved.record)}
     slug=resolved.dispatchPath.split('/').filter(Boolean).map(decodeURIComponent)
   }
   const service=englishServiceForPath('/'+(slug??[]).join('/')+((slug??[]).length?'/':''))
-  if(service)return <EnglishServicePage service={service}/>
+  // R2.4 (item d): the service's head carries the same title and description as its metadata (the record's SEO fields in
+  // payload mode, the service defaults otherwise).
+  if(service)return <EnglishServicePage service={service} head={{title:serviceSeo?.title||service.title+' | ICS',description:serviceSeo?.description||service.lead}}/>
   if(slug?.length===1&&slug[0]==='resources'){
     const source=salmonRoutes().find(route=>route.routeId==='SALMON-pages-1761')
     if(!source)notFound()

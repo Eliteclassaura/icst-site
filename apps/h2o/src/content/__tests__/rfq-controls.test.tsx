@@ -29,7 +29,9 @@ beforeAll(async () => {
   publicProducts = new Map(routes.filter((r) => /^SALMON-product-[0-9]+$/.test(r.routeId) && r.state === 'PUBLIC' && r.export).map((r) => [r.path, r.routeId]))
   const seen = new Set<string>()
   for (const r of routes) {
-    if (seen.has(r.routeId) || !r.sourceFile?.startsWith('documents/') || r.state !== 'PUBLIC' || !r.export) continue
+    // R2.4 (CT 2026-10-05): /new-cooling-tower-page/ is withdrawn (301 → /new-cooling-towers/); D6 stays the rule for its stored
+    // document (it applies again if the page is ever re-published).
+    if (seen.has(r.routeId) || !r.sourceFile?.startsWith('documents/') || ((r.state !== 'PUBLIC' || !r.export) && r.routeId !== 'LIVE-pages-19498')) continue
     seen.add(r.routeId)
     const doc = applyPublicExclusions(r.routeId, JSON.parse(readFileSync(path.join(APP, 'content/salmon', r.sourceFile), 'utf8'))).doc as unknown as SalmonDocument & { children: Node[] }
     for (const d of migrateQuoteIntent(doc as never, { routeId: r.routeId, publicProducts, matchedArticle: Boolean(r.matchedArticle) })) decisions.push({ ...d, path: r.path })
@@ -157,8 +159,9 @@ describe('rendering quote intent through the approved adapter', () => {
     const held = routes.find((r) => /^SALMON-product-/.test(r.routeId) && r.state !== 'PUBLIC')
     if (held) expect([...publicProducts.values()]).not.toContain(held.routeId)
   })
-  it('D3 and D6 and the contract rule: generic editorial_inline with the actual page path, label preserved', () => {
-    for (const d of [rule('D3')[0]!, rule('D6')[0]!, rule('CONTRACT_QUOTE_LABEL')[0]!]) {
+  // R2.4: D6's page is withdrawn (301), so it renders nowhere; D3 and the contract rule carry the rendering checks.
+  it('D3 and the contract rule: generic editorial_inline with the actual page path, label preserved', () => {
+    for (const d of [rule('D3')[0]!, rule('CONTRACT_QUOTE_LABEL')[0]!]) {
       const doc = docs.get(d.routeId)!
       const ctx = quoteLinks(render(doc, at(doc.children, d.key), d.key))
       expect(ctx).toEqual([{ page_path: d.path, cta_placement: 'editorial_inline' }])
@@ -167,11 +170,11 @@ describe('rendering quote intent through the approved adapter', () => {
   })
   it('configuration unresolved: the plain /contact-us/ fallback with the same label, never a dead control', () => {
     delete process.env.H2O_TYPEFORM_FORM_ID
-    const d = rule('D6')[0]!
+    const d = rule('D3')[0]!
     const doc = docs.get(d.routeId)!
     const html = render(doc, at(doc.children, d.key), d.key)
     expect(html).toContain('href="/contact-us/"')
-    expect(html).toContain('Get a Custom Quote')
+    expect(html).toContain(d.label)
     expect(html).not.toContain('href="#"')
   })
   it('D2: the legacy duplicate is suppressed only where the canonical in-body control renders', () => {

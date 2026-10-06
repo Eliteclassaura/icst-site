@@ -17,6 +17,7 @@
  *                 Each disposition is the release-authority row from content/release/route-ledger.json.
  *   2. redirects: public-redirects records, 301, one hop (CREATE, or UPDATE of a record whose target differs); RETIRE sets
  *                 active:false on a record whose source is decided 200 again (redirects-retired.tsv; the record is kept).
+ *                 R2.4: NORMALISE sets status 301 on every other active record that is not 301 (data/redirect-status.tsv).
  *   3. seo:       seo.title / seo.description on the route records (published); a meta pending OGCS is not written.
  *   4. h1:        a decided page heading: the page's h1 heading slot (via=slot), or the record title that article templates
  *                 render as the heading (via=title; a restored live body brings its live H1). h1-fields.tsv.
@@ -84,7 +85,7 @@ async function route(p){
 }
 const pendingDraft=r=>Boolean(r.latest&&r.published&&r.latest._status==='draft'&&r.latest.updatedAt!==r.published.updatedAt)
 
-const plan={routes:{publish:[],withdraw:[],index:[],canonical:[]},redirects:{create:[],update:[],unchanged:[],retire:[]},seo:{update:[],unchanged:[]},h1:{update:[]},restored:{update:[]},hygiene:{update:[]},blocked:[]}
+const plan={routes:{publish:[],withdraw:[],index:[],canonical:[]},redirects:{create:[],update:[],unchanged:[],retire:[],normalise:[]},seo:{update:[],unchanged:[]},h1:{update:[]},restored:{update:[]},hygiene:{update:[]},blocked:[]}
 const routeCache=new Map()
 const getRoute=async p=>{if(!routeCache.has(decode(p)))routeCache.set(decode(p),await route(p));return routeCache.get(decode(p))}
 
@@ -109,6 +110,12 @@ const retiredRows=existsSync(path.join(DATA,'redirects-retired.tsv'))?tsv('redir
 for(const row of retiredRows){
   const existing=redirectRecords.get(decode(row.source))
   if(existing&&existing.active!==false)plan.redirects.retire.push({...row,id:existing.id})
+}
+// R2.4 item k: every other active record whose stored status is not 301 is set to 301 (data/redirect-status.tsv lists the
+// records the batch expects; the count must match exactly).
+{
+  const planned=new Set([...plan.redirects.create,...plan.redirects.update,...plan.redirects.retire].map(row=>decode(row.source)))
+  for(const [source,doc] of redirectRecords)if(doc.active!==false&&String(doc.status)!=='301'&&!planned.has(source))plan.redirects.normalise.push({source:doc.source,id:doc.id,status_now:String(doc.status)})
 }
 for(const row of tsv('seo-fields.tsv')){
   const pending=row.meta_origin.includes('PENDING_OGCS')
@@ -191,7 +198,7 @@ for(const p of writtenPaths){
 // An h1 slot edit is made on top of the fixed elements.
 for(const item of plan.h1.update)if(item.slots&&fixedSlots.has(decode(item.path))){const base=fixedSlots.get(decode(item.path));const i=base.findIndex(slot=>slot.kind==='heading'&&slot.tag==='h1');item.slots=base.map((slot,j)=>j===i?{...slot,heading:item.h1}:slot)}
 const counts={
-  redirects:{create:plan.redirects.create.length,update:plan.redirects.update.length,unchanged:plan.redirects.unchanged.length,retire:plan.redirects.retire.length},
+  redirects:{create:plan.redirects.create.length,update:plan.redirects.update.length,unchanged:plan.redirects.unchanged.length,retire:plan.redirects.retire.length,normalise:plan.redirects.normalise.length},
   routes:{publish:plan.routes.publish.length,withdraw:plan.routes.withdraw.length,index:plan.routes.index.length,canonical:plan.routes.canonical.length},
   seoFields:{update:plan.seo.update.length},
   h1:{update:plan.h1.update.length},
@@ -202,9 +209,13 @@ const counts={
 }
 const e=expectations.expect.redirects
 // Same key order as counts (the comparison is exact); an older expectations file without `retire` expects none.
-const expected={redirects:{create:e.create,update:e.update,unchanged:e.unchanged,retire:e.retire??0},routes:expectations.expect.routes,seoFields:{update:expectations.expect.seoFields.update},h1:{update:expectations.expect.h1?.update??0},restored:{update:expectations.expect.restored?.update??0},slotFixes:{routes:expectations.expect.slotFixes?.routes??0},hygiene:{routes:expectations.expect.hygiene?.routes??0},blocked:0}
+const expected={redirects:{create:e.create,update:e.update,unchanged:e.unchanged,retire:e.retire??0,normalise:e.normalise??0},routes:expectations.expect.routes,seoFields:{update:expectations.expect.seoFields.update},h1:{update:expectations.expect.h1?.update??0},restored:{update:expectations.expect.restored?.update??0},slotFixes:{routes:expectations.expect.slotFixes?.routes??0},hygiene:{routes:expectations.expect.hygiene?.routes??0},blocked:0}
 const match=JSON.stringify(counts)===JSON.stringify(expected)
-const report={mode:MODE,base:new URL(BASE).host,expectations:EXPECTATIONS,counts,expected,match,blocked:plan.blocked}
+// R2.4: the records to normalise against the batch's list (both directions), so a HOLD names them.
+const statusListed=new Set(existsSync(path.join(DATA,'redirect-status.tsv'))?tsv('redirect-status.tsv').filter(row=>row.source).map(row=>decode(row.source)):[])
+const normaliseSet=new Set(plan.redirects.normalise.map(row=>decode(row.source)))
+const normaliseDiff={unlisted:[...normaliseSet].filter(s=>!statusListed.has(s)),alreadyDone:[...statusListed].filter(s=>!normaliseSet.has(s))}
+const report={mode:MODE,base:new URL(BASE).host,expectations:EXPECTATIONS,counts,expected,match,blocked:plan.blocked,...(normaliseDiff.unlisted.length||normaliseDiff.alreadyDone.length?{normaliseDiff}:{})}
 if(MODE==='dry-run'||!match){process.stdout.write(JSON.stringify(report,null,2)+'\n');process.exit(match?0:3)}
 
 // APPLY — counts match exactly. Routes first (published articles serve 200 before anything points at them).
@@ -225,6 +236,7 @@ for(const item of plan.routes.publish)await write('routes',`PUBLISH ${item.path}
 for(const row of plan.redirects.create)await write('redirects',`CREATE ${row.source}`,'public-redirects?depth=0',{method:'POST',body:JSON.stringify({source:row.source,destination:row.destination,status:'301',active:true,authority:'MASTER_SEO_PASS_R1 (OGCS 2026-10-03 + R1.1; CT brief 2026-10-04)'})})
 for(const row of plan.redirects.update)await write('redirects',`UPDATE ${row.source}`,`public-redirects/${row.id}?depth=0`,{method:'PATCH',body:JSON.stringify({destination:row.destination,status:'301',active:true,authority:'MASTER_SEO_PASS_R1 (OGCS 2026-10-03 + R1.1; CT brief 2026-10-04)'})})
 for(const row of plan.redirects.retire)await write('redirects',`RETIRE ${row.source}`,`public-redirects/${row.id}?depth=0`,{method:'PATCH',body:JSON.stringify({active:false})})
+for(const row of plan.redirects.normalise)await write('redirects',`NORMALISE ${row.source}`,`public-redirects/${row.id}?depth=0`,{method:'PATCH',body:JSON.stringify({status:'301'})})
 for(const item of plan.routes.withdraw)await write('routes',`WITHDRAW ${item.path}`,`public-routes/${item.id}?depth=0`,{method:'PATCH',body:JSON.stringify({disposition:item.disposition,_status:'draft'})})
 for(const item of plan.routes.index)await write('routes',`INDEX ${item.path}`,`public-routes/${item.id}?depth=0`,{method:'PATCH',body:JSON.stringify({disposition:item.disposition,_status:'published'})})
 for(const item of plan.routes.canonical)await write('routes',`CANONICAL ${item.path}`,`public-routes/${item.id}?depth=0`,{method:'PATCH',body:JSON.stringify({disposition:item.disposition,seo:{...item.seo,canonical:item.canonical},_status:'published'})})
@@ -254,6 +266,7 @@ for(const item of plan.restored.update){const r=await getRoute(item.path);if(can
 const after=new Map((await all('public-redirects')).map(doc=>[decode(String(doc.source)),doc]))
 for(const row of retiredRows){const d=after.get(decode(row.source));if(d&&d.active!==false)verify.push({path:row.source,problem:'retired redirect still active'})}
 for(const row of tsv('redirects.tsv')){const d=after.get(decode(row.source));if(!d||decode(String(d.destination))!==decode(row.destination)||d.active===false)verify.push({path:row.source,problem:'redirect record not as decided'})}
+for(const [source,d] of after)if(d.active!==false&&String(d.status)!=='301')verify.push({path:source,problem:`active redirect record answers ${d.status}, not 301`})
 process.stdout.write(JSON.stringify({...report,applied:{routes:results.routes.length,redirects:results.redirects.length,seo:results.seo.length,hygiene:results.hygiene.length},failures:results.failures,skipped:results.skipped,verify},null,2)+'\n')
 if(verify.length)process.exit(5)
 process.exit(results.failures.length?4:0)

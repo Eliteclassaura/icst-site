@@ -26,6 +26,7 @@ path	routeId	action	redirect	canonical
 /cooling-tower-inspection-guide-2/	LIVE-posts-18498	WITHDRAW_TO_REDIRECT	/cooling-tower-inspection-guide/	
 /crossflow-vs-counterflow-cooling-tower/	LIVE-posts-17191	WITHDRAW_TO_REDIRECT	/counterflow-vs-crossflow/	
 /cooling-tower-daily-log/	SALMON-posts-4065	PUBLISH		
+/new-cooling-tower-page/	LIVE-pages-19498	WITHDRAW_TO_REDIRECT	/new-cooling-towers/	
 /product-category/gearboxes/	SALMON-product_cat-167	INDEX		
 /product-category/drive-shafts-assemblies/	SALMON-product_cat-174	INDEX		
 /product-category/motors/	SALMON-product_cat-260	INDEX		

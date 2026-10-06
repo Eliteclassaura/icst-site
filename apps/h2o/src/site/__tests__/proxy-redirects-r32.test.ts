@@ -54,7 +54,7 @@ describe('R3.2: ledger redirects emit the approved target byte-exact', () => {
     it(name, async () => {
       snapshot([row])
       const res = await hop(req)
-      expect(res.status).toBe(row.status === 301 ? 301 : 308)
+      expect(res.status).toBe(301) // R2.4 (item k): every published redirect is a 301, whatever the stored status
       expect(res.location).toBe(`${ORIGIN}${location}`)
     })
 

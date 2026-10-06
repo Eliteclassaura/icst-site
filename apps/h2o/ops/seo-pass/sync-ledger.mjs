@@ -29,6 +29,10 @@ ledger.routes=ledger.routes.map(row=>{
   changed.push(`${row.path} [${keys.join(',')}]`)
   return next
 })
+// R2.4: the ledger redirects take the authority's status (every one 301); sources and destinations never change here.
+const redirectStatus=new Map(authority.redirects.map(r=>[r.source,r.status]))
+let statusChanged=0
+ledger.redirects=ledger.redirects.map(r=>{const status=redirectStatus.get(r.source);if(status===undefined||status===r.status)return r;statusChanged++;return {...r,status}})
 if(!check)writeFileSync(LEDGER,JSON.stringify(ledger,null,2)+'\n')
-process.stdout.write(JSON.stringify({changed:changed.length,staleEnglishServiceKept:stale.length,rows:changed},null,2)+'\n')
-if(check&&changed.length)process.exit(1)
+process.stdout.write(JSON.stringify({changed:changed.length,redirectStatus:statusChanged,staleEnglishServiceKept:stale.length,rows:changed},null,2)+'\n')
+if(check&&(changed.length||statusChanged))process.exit(1)

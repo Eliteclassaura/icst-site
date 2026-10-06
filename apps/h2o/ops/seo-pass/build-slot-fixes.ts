@@ -6,6 +6,7 @@
  * Imported page elements that the strict save-hook validator rejects (content-slots validateSlots) make every write to their
  * record fail. Their DATA is fixed, the validator is not loosened:
  *   - a link to this site (h2ocooling.com, any scheme) → its site path; a consolidated page → its redirect destination;
+ *   - R2.4: any internal link (valid or not) to a page that answers 301 → that redirect's final URL;
  *     a held file → its verified served path (public/wp-content/uploads);
  *   - an external http link → https only where the target was verified to serve the page over https (EXTERNAL below);
  *   - anything else → unlinked (the text stays);
@@ -61,6 +62,8 @@ type Change = { from: string; to: string | null; action: 'site-path' | 'redirect
 function fixUrl(url: string, page = ''): Change | null {
   const onPage = EXTERNAL_ON_PAGE[page]?.[url]
   if (onPage) return { from: url, to: onPage.to, action: 'site-path', reason: onPage.evidence }
+  const moved = redirectedSitePath(url)
+  if (moved) return moved
   if (valid(url)) return null
   const own = /^https?:\/\/(?:www\.)?h2ocooling\.com(\/[^?#]*)?([?#].*)?$/i.exec(url)
   if (own) {
@@ -80,6 +83,28 @@ function fixUrl(url: string, page = ''): Change | null {
   const ext = EXTERNAL[url]
   if (ext) return { from: url, to: ext.to, action: !ext.to ? 'unlink' : ext.to.startsWith('/') ? 'site-path' : 'https', reason: ext.evidence }
   return { from: url, to: null, action: 'unlink', reason: 'not a site path or a verified https destination' }
+}
+/** R2.4 item h (CT 2026-10-05): a link to a page that answers 301 (a redirect source in the ledger or this batch) points at
+ * its final URL directly, so no internal link costs a hop. Site paths and own-site absolute URLs; the fragment is kept. */
+function redirectedSitePath(url: string): Change | null {
+  const m = /^(?:https?:\/\/(?:www\.)?h2ocooling\.com)?(\/(?!\/)[^?#]*)([?#].*)?$/i.exec(url)
+  if (!m) return null
+  let p = m[1]!
+  if (!p.endsWith('/') && !/\.[a-z0-9]{2,5}$/i.test(p)) p += '/'
+  let key: string
+  try { key = decodeURIComponent(p) } catch { return null }
+  const to = redirectTo.get(key)
+  if (!to) return null
+  const hash = m[2]?.startsWith('#') ? m[2] : ''
+  return { from: url, to: to + hash, action: 'redirect-destination', reason: `internal link to a 301 source → its final URL ${to}` }
+}
+const redirectLinks = (s: ContentSlot): boolean => {
+  if (s.kind === 'action') return !!redirectedSitePath(s.href ?? '')
+  if (s.kind !== 'text' || !s.text) return false
+  let hit = false
+  const visit = (n: LNode) => { if (n.type === 'link' && redirectedSitePath(n.fields?.url ?? '')) hit = true; (n.children ?? []).forEach(visit) }
+  visit((s.text as unknown as { root: LNode }).root)
+  return hit
 }
 type LNode = { type: string; text?: string; format?: number; fields?: { url?: string }; children?: LNode[] } & Record<string, unknown>
 function fixLexical(state: LexicalState, changes: Change[], page = ''): LexicalState {
@@ -205,8 +230,9 @@ for (const row of ledger.routes) {
   const ctx = { knownPaths, knownFile: publicFileExists, productRouteIds: new Set(products.values()), withheldElementIds: withheldIdsFor(row.routeId) }
   const errors = validateSlots(document, slots, ctx, slots)
   const edits = claimEditsFor.get(decodeURIComponent(row.path)) ?? []
-  if (!errors.length && !edits.length) continue
-  const keys = new Set(errors.map((e) => e.split(':')[0]!))
+  const redirecting = slots.filter(redirectLinks).map((s) => s.key)
+  if (!errors.length && !edits.length && !redirecting.length) continue
+  const keys = new Set([...errors.map((e) => e.split(':')[0]!), ...redirecting])
   const next: ContentSlot[] = slots.map((s) => ({ ...s }))
   const record: (typeof fixes)[string] = { routeId: row.routeId, slots: [] }
   for (const s of next) {

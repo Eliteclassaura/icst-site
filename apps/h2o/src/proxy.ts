@@ -253,7 +253,9 @@ function payloadPublic(req: NextRequest): NextResponse {
     return new NextResponse('Gone', { status: 410, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'no-cache' } })
   const ledger = publishedLedger()
   const redirect = ledger?.redirects.find((r) => pathKeyOf(r.source) === pathKeyOf(pathname))
-  if (redirect) return NextResponse.redirect(redirectLocation(redirect.destination, req), redirect.status === 301 ? 301 : 308)
+  // R2.4 (CT 2026-10-05, SEO Checker item k): every published redirect — ledger consolidations and withdrawals — is a
+  // 301, whatever the stored status (imported records default to 308; the batch normalises them too).
+  if (redirect) return NextResponse.redirect(redirectLocation(redirect.destination, req), 301)
   const nonce = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('base64')
   const csp = payloadPublicPolicy(nonce, pathname)
   const requestHeaders = new Headers(req.headers)

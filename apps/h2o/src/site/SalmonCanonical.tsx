@@ -7,11 +7,11 @@ import {renderQuoteAction,suppressedDuplicate} from '../content/rfq-controls'
 import {contactOffices} from './contact'
 import {AuthorityEditorial} from './AuthorityEditorial'
 import {articleByline,articleDisplayTitle,articleHeadingNodes} from './wave4'
-import {articleSocialTitle} from './article-metadata'
+import {articleMetadataTitle} from './article-metadata'
 import {R2Discovery} from './R2Discovery'
 import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
 import {ProjectDetail} from './ProjectDetail'
-import {commerceException,commerceMetaException,ownerHref,ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
+import {commerceException,commerceMetaException,ownerHref,ownerText,releaseRouteFor,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,withheldSource,type SalmonDocument,type SalmonNode} from './salmon'
 import {normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 import {deliverySrc} from './media-delivery'
 import {PUBLIC_AUTHOR} from './public-author-identity'
@@ -21,6 +21,10 @@ import {pageCopy} from './page-copy'
 import {publicMeta,publicSchema,servedOrigin} from './public-urls'
 import {publicFileExists} from '../content/public-files'
 import {projectHeadImagePolicy} from './project-media'
+import {MetaTags,OrganizationWebsiteSchema,standardSocialMeta} from './standard-head'
+import {linkLabel} from './link-context'
+import {heldImageSize} from './image-size'
+import {PUBLIC_ORIGIN} from '../content/config'
 import {nativeIntakeOn} from '../rfq-native/server'
 import {NativeRfqFormSection} from '../rfq-native/NativeRfqForm'
 export {aboutGeographyCorrections,normalizeWave3IndexEditorial,normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
@@ -48,11 +52,14 @@ const priceSpecLabel=(node:Exclude<SalmonNode,string>,doc:SalmonDocument):string
   return /^(?:Estimated)?$/i.test(technicalLabel)?null:technicalLabel
 }
 function sourceImage(source:string,alt:string|undefined,key:string,doc:SalmonDocument,kind='img'):ReactNode{
+  if(withheldSource(source,doc.sourceUrl))return null
   const media=salmonMedia(source,doc.sourceUrl)
   const local=media&&salmonMediaPath(media)
   if(!local&&doc.routeId.startsWith('LIVE-'))return <span key={key} className="r2-media-unavailable" role="img" aria-label={alt||'Historical source image unavailable'} data-source-src={source} data-source-media="UNAVAILABLE">Historical source image unavailable</span>
   if(!local)return null
-  return createElement('img',{key,src:deliverySrc(local),alt,'data-source-src':source,'data-source-kind':kind,'data-source-sha256':media.sha256,width:media.width,height:media.height,loading:'lazy',style:{maxWidth:media.width??'100%',height:'auto'}})
+  // R2.4 (item l, CLS): a media row without a recorded size takes the held file's own (./image-size), so the box is reserved.
+  const size=media.width&&media.height?{width:media.width,height:media.height}:heldImageSize(local)
+  return createElement('img',{key,src:deliverySrc(local),alt,'data-source-src':source,'data-source-kind':kind,'data-source-sha256':media.sha256,width:size?.width,height:size?.height,loading:'lazy',style:{maxWidth:size?.width??'100%',height:'auto'}})
 }
 export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,suppressSourceByline=false):ReactNode{
   // Runtime RFQ (Payload content mode only): quote-intent actions use the approved adapter; D2 duplicate suppressed.
@@ -92,6 +99,8 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
     const commerce=/[?&]add-to-cart=|\/(?:checkout|cart)\/?(?:[?#]|$)/i.test(original)
     props.href=commerce?undefined:hrefSafe(ownerHref(local??original))
     props['data-source-href']=original
+    const label=linkLabel(doc,key) // R2.4 (item l): a non-descriptive link is named by its card's heading
+    if(label)props['aria-label']=label
     if(commerce)props['data-salmon-exception']='NO_PUBLIC_COMMERCE'
     if(/^(?:Buy|Order|Purchase) Now$/i.test(salmonNodeText(node).trim())){props.href='/contact-us/';props['data-salmon-exception']='RFQ_ONLY'}
     try{const target=new URL(original,doc.sourceUrl);if(target.pathname==='/contact-us/'&&['h2ocooling.com','www.h2ocooling.com','salmon-rhinoceros-754457.hostingersite.com'].includes(target.hostname))props.href='/contact-us/'}catch{/* Non-URL source anchors retain their safe form. */}
@@ -131,6 +140,62 @@ export function publicMetaText(doc:SalmonDocument,value:string):string{
   return doc.routeId==='SALMON-pages-411'?scoped.replace(/^Shop\b/i,'Explore'):scoped
 }
 export const publicDescription=(doc:SalmonDocument):string|undefined=>{const value=doc.seo.meta.find(meta=>meta.name==='description')?.value;return value===undefined?undefined:publicMetaText(doc,value)}
+/**
+ * R2.4 (CT 2026-10-05, SEO Checker item c): a paginated archive (`…/page/N/`) whose served title does not already name its
+ * page takes its archive's served title plus " - Page N" (" - ICS" only where it fits in 69 characters), and an empty meta
+ * description is derived from the archive's: "Page N: …", cut at a word boundary to 158 characters. Decided values
+ * (OGCS, which already name the page) are kept as they are.
+ */
+const PAGE_N=/^(.*\/)page\/(\d+)\/$/
+const archiveRoot=(doc:SalmonDocument):{n:number;root:SalmonDocument|undefined}|undefined=>{
+  const m=PAGE_N.exec(doc.targetPath)
+  if(!m||Number(m[2])<2)return undefined
+  const route=releaseRouteFor(m[1]!.split('/').filter(Boolean).map(s=>{try{return decodeURIComponent(s)}catch{return s}}))
+  let root:SalmonDocument|undefined
+  try{root=route?salmonDocument(route):undefined}catch{root=undefined}
+  return {n:Number(m[2]),root}
+}
+const SUFFIX=' - ICS'
+/** The title search sees (the metadata title) — and, mirrored, og:title and twitter:title. */
+export function servedTitle(doc:SalmonDocument):string{
+  const own=articleMetadataTitle(doc)
+  const page=archiveRoot(doc)
+  if(!page||new RegExp(`\\bPage ${page.n}\\b`).test(own))return own
+  let base=(page.root?articleMetadataTitle(page.root):own).replace(/\s+-\s+ICS$/,'')
+  // over 69 with the page number: the archive title's trailing " | …" / " - …" qualifier goes, never a word mid-phrase
+  while(`${base} - Page ${page.n}`.length>69&&/\s[|–-]\s/.test(base))base=base.replace(/\s[|–-]\s(?:(?!\s[|–-]\s).)*$/,'')
+  const title=`${base} - Page ${page.n}`
+  return title.length+SUFFIX.length<=69?title+SUFFIX:title
+}
+/** The meta description search sees — and, mirrored, og:description and twitter:description. */
+export function servedDescription(doc:SalmonDocument):string|undefined{
+  const own=publicDescription(doc)
+  // page 2+ of an archive: its archive's meta with "Page N: " (an imported page meta repeats the archive's word for word)
+  const page=archiveRoot(doc)
+  const rootMeta=page?.root?publicDescription(page.root):undefined
+  if(!page||!rootMeta)return own
+  const lead=`Page ${page.n}: `
+  if((lead+rootMeta).length<=158)return lead+rootMeta
+  const words=rootMeta.split(' ');let cut=''
+  for(const w of words){if((lead+cut+(cut?' ':'')+w).length>157)break;cut+=(cut?' ':'')+w}
+  return `${lead}${cut.replace(/[,;:—–-]+$/,'')}.`
+}
+
+/** R2.4 (item j): Article / BlogPosting only on a real article, its author the public author; elsewhere a WebPage. */
+const ARTICLE_TYPES=new Set(['Article','BlogPosting','NewsArticle'])
+const AUTHOR={'@type':'Person',name:PUBLIC_AUTHOR.name,url:`${PUBLIC_ORIGIN}${PUBLIC_AUTHOR.path}`}
+const scopeArticles=(value:unknown,isArticle:boolean):unknown=>{
+  if(Array.isArray(value))return value.map(v=>scopeArticles(v,isArticle))
+  if(!value||typeof value!=='object')return value
+  const o=value as Record<string,unknown>
+  const types=Array.isArray(o['@type'])?(o['@type'] as unknown[]).map(String):o['@type']!==undefined?[String(o['@type'])]:[]
+  const out=Object.fromEntries(Object.entries(o).map(([k,v])=>[k,scopeArticles(v,isArticle)]))
+  if(!types.some(t=>ARTICLE_TYPES.has(t)))return out
+  if(isArticle)return {...out,author:AUTHOR}
+  const {author:_author,articleSection:_section,...rest}=out
+  void _author;void _section
+  return {...rest,'@type':'WebPage'}
+}
 /** The page's own name in its breadcrumb trail: the rendered H1, else the document title. */
 export const breadcrumbName=(doc:SalmonDocument):string=>articleDisplayTitle(decodeEntities(doc.seo.h1[0]||doc.title)).replace(/\s+/g,' ').trim()
 /** `breadcrumb` is the trail the template renders above the page (default: Home). */
@@ -144,17 +209,12 @@ export const servedFilePath=(href:string,base:string):string|undefined=>{
   }catch{return undefined}
 }
 export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbName}:{doc:SalmonDocument;canonicalOverride?:string;breadcrumb?:Crumb[];crumbName?:string}){
-  const metaValue=(name:string,value:string)=>{
-    if(name==='og:url'&&canonicalOverride&&value===doc.seo.canonical[0])return canonicalOverride
-    if(name==='og:title'||name==='twitter:title')return articleSocialTitle(doc,value)
-    if(!/^(?:og:description|twitter:description)$/.test(name))return value
-    return publicMetaText(doc,value)
-  }
   // R2.3 (CT 2026-10-05): every URL in the head names this site (./public-urls): identity URLs the canonical origin, media the
   // served file on the serving origin (C1–C6 crop/withhold included); an unheld image or a foreign host is dropped.
   const images=projectHeadImagePolicy(canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath,servedOrigin())
   return <>
-    {publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)).map((m,i)=>m.name.startsWith('og:')||m.name.startsWith('article:')?<meta key={i} property={m.name} content={metaValue(m.name,m.value)}/>:<meta key={i} name={m.name} content={metaValue(m.name,m.value)}/>)}
+    {/* R2.4: the standard social set (./standard-head) mirrors the served title and description on every page. */}
+    <MetaTags meta={standardSocialMeta(publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)),{title:servedTitle(doc),description:servedDescription(doc)??'',url:canonicalOverride??doc.seo.canonical[0]??`${PUBLIC_ORIGIN}${doc.targetPath}`,type:doc.type==='posts'?'article':'website',defaultImage:!/^\/all-projects\/[^/]+\/$/.test(doc.targetPath)})}/>
     {doc.seo.schema.map((raw,i)=>{
       if(isBreadcrumbList(JSON.parse(raw)))return null
       // Quote-only estate: no prices, and no ratings or reviews (Control Tower ruling 2026-10-02).
@@ -164,10 +224,11 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
         if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).filter(([k])=>!['offers','price','lowPrice','highPrice','priceCurrency','aggregateRating','review','reviews'].includes(k)).map(([k,v])=>[k,stripCommerce(v)]))
         return typeof value==='string'?ownerText(value):value
       }
-      const sourceSchema=JSON.stringify(publicSchema(stripCommerce(JSON.parse(raw)),images))
+      const sourceSchema=JSON.stringify(scopeArticles(publicSchema(stripCommerce(JSON.parse(raw)),images),doc.type==='posts'))
       const canonicalSchema=canonicalOverride&&doc.seo.canonical[0]?sourceSchema.replaceAll(doc.seo.canonical[0],canonicalOverride):sourceSchema
       return <script data-source-schema={i} key={i} type="application/ld+json" dangerouslySetInnerHTML={{__html:canonicalSchema.replaceAll('<','\\u003c')}}/>
     })}
+    <OrganizationWebsiteSchema schemaJson={doc.seo.schema.map(raw=>JSON.stringify(publicSchema(JSON.parse(raw),images)))}/>
     <BreadcrumbSchema ancestors={breadcrumb} current={{name:crumbName??breadcrumbName(doc),path:canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath}}/>
   </>
 }

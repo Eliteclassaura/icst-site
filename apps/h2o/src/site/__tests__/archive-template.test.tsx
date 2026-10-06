@@ -17,7 +17,7 @@ import {ProductDetail} from '../Wave3Presentation'
 import {activeProductRoutes,productPanels} from '../Wave3Products'
 import {categoryAndFamilyGate} from '../gate'
 import {ProductCard} from '../SalmonComposer'
-import {EMPTY_ARCHIVE_PATHS} from '../../content/empty-archives'
+import {EMPTY_ARCHIVE_PAGES,EMPTY_ARCHIVE_PATHS} from '../../content/empty-archives'
 
 type Row={path:string;routeId:string;state:string;export:boolean;sitemap:boolean;searchable?:boolean}
 const ledger=JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as {routes:Row[]}
@@ -35,7 +35,8 @@ describe('archive template',()=>{
   })
   it('renders every public archive through the styled template with no sort, ratings, prices or WooCommerce UI',async()=>{
     let products=0,articles=0
-    for(const row of archives){
+    // R2.4 R2: an empty archive's page N is a 404 (seo-fixes-r24.test.tsx)
+    for(const row of archives.filter(r=>!EMPTY_ARCHIVE_PAGES.has(r.path))){
       const html=await render(row.path)
       const main=html.slice(html.indexOf('<main'),html.indexOf('</main>'))
       expect(html,row.path).toContain('data-archive-template="SALMON_ARCHIVE_R1"')

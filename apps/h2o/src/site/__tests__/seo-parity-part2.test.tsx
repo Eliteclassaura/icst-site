@@ -64,7 +64,8 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     // locale pages; R2.2 is a delta on the Locale B batch, so it retires nothing and none of those sources is a redirect again.
     expect(data('redirects-retired.tsv').some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
     expect(data('redirects-retired.tsv')).toHaveLength(0)
-    expect(data('redirects.tsv').every(r=>r.action==='UNCHANGED')).toBe(true)
+    // R2.4 creates one: /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
+    expect(data('redirects.tsv').filter(r=>r.action!=='UNCHANGED').map(r=>[r.source,r.action])).toEqual([['/new-cooling-tower-page/','CREATE']])
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
     // Locale Part B: the locale and blog variants now go one hop to their preserved locale pages (and the locale URLs serve
@@ -92,7 +93,8 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     // Restored live bodies bring their live H1 (the record title article templates render); Round 5 adds the CT-ruled heading
     // of /cooling-tower-repair-service/ (claims-seo field h1).
     expect(data('h1-fields.tsv').filter(r=>r.via==='title').map(r=>r.path).sort()).toEqual(['/chiller-and-cooling-tower/','/cooling-tower-approach/','/cooling-tower-fill-media-replacement/','/cooling-tower-inspection-guide/','/cooling-tower-ph-control/','/cooling-tower-repair-service/'])
-    expect(data('h1-fields.tsv').find(r=>r.path==='/cooling-tower-repair-service/')).toMatchObject({via:'title',action:'UPDATE',h1:'Industrial Cooling Tower Repair Service'})
+    // Round 5 wrote it; R2.4 is a delta on Round 5, so it is in place (UNCHANGED).
+    expect(data('h1-fields.tsv').find(r=>r.path==='/cooling-tower-repair-service/')).toMatchObject({via:'title',action:'UNCHANGED',h1:'Industrial Cooling Tower Repair Service'})
   })
   it('lists every live project card on /all-projects/',async()=>{
     const html=mainOf(await render('/all-projects/'))

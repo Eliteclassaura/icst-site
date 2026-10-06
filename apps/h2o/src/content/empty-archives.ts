@@ -149,3 +149,11 @@ export const EMPTY_ARCHIVE_PATHS: readonly string[] = [
   '/tag/cooling-towerscooling-towers-in-the-usa/',
   '/tag/industrial-cooling-towerindustrial-cooling-tower-contractorsindustrial-cooling-tower-repairindustrial-cooling-tower-solutionsindustrial-cooling-tower-upgrade/',
 ]
+
+/**
+ * R2.4 R2 (CT ruling 2026-10-05): page 2+ of an archive that lists nothing public answers 404 (no soft 404). The page's
+ * route stays in the ledger (an editor can publish what it lists); the archive root keeps its noindex,follow empty state.
+ */
+export const EMPTY_ARCHIVE_PAGES: ReadonlySet<string> = new Set(EMPTY_ARCHIVE_PATHS.filter((p) => /\/page\/\d+\/$/.test(p)))
+const decodePath = (p: string): string => { try { return decodeURIComponent(p) } catch { return p } }
+export const isEmptyArchivePage = (requestPath: string): boolean => EMPTY_ARCHIVE_PAGES.has(decodePath(requestPath))

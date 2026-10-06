@@ -1,23 +1,24 @@
 {
-  "rows": 1099,
-  "redirects": 393,
-  "seoFields": 470,
+  "rows": 1125,
+  "redirects": 394,
+  "seoFields": 497,
   "expect": {
     "redirects": {
-      "create": 0,
+      "create": 1,
       "update": 0,
       "unchanged": 393,
-      "retire": 0
+      "retire": 0,
+      "normalise": 50
     },
     "routes": {
       "publish": 0,
-      "withdraw": 0,
+      "withdraw": 1,
       "index": 0,
       "canonical": 0
     },
     "seoFields": {
-      "update": 0,
-      "unchanged": 470,
+      "update": 28,
+      "unchanged": 469,
       "pendingOgcs": 0
     },
     "files": 22,
@@ -26,13 +27,13 @@
       "update": 0
     },
     "h1": {
-      "update": 1
+      "update": 0
     },
     "slotFixes": {
-      "routes": 0
+      "routes": 2
     },
     "hygiene": {
-      "routes": 0
+      "routes": 105
     }
   },
   "deltaSkipped": [

@@ -93,11 +93,12 @@ export function releaseAuthority(root){
   const r2ExactRedirects=read('content/release/r2-exact-redirects.json')
   const redirectRows=[...read('content/salmon/redirects.json'),...read('content/luxury/reconciled-redirects.json'),...r2ExactRedirects,{source:'/cooling-tower-resources/',destination:'/resources/'},{source:'/about-ics/',destination:about.path}]
   const r2ExactSources=new Set(r2ExactRedirects.map(row=>pathKey(row.source)))
+  // R2.4 (CT 2026-10-05, SEO Checker item k): every ledger redirect is a permanent 301 (was 308 except the R2 exact rows).
   const redirects=[];const bySource=new Map()
   for(const row of redirectRows){
     const previous=bySource.get(pathKey(row.source))
     if(previous&&previous.destination!==row.destination)throw new Error(`Conflicting redirects: ${row.source}`)
-    if(!previous){const redirect={source:row.source,destination:row.destination,status:r2ExactSources.has(pathKey(row.source))?301:308};bySource.set(pathKey(row.source),redirect);redirects.push(redirect)}
+    if(!previous){const redirect={source:row.source,destination:row.destination,status:301};bySource.set(pathKey(row.source),redirect);redirects.push(redirect)}
   }
   for(const row of redirects){
     const seen=new Set([pathKey(row.source)]);let destination=row.destination

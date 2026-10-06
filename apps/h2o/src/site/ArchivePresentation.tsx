@@ -20,6 +20,7 @@ import type {ProductCardInput} from './salmon-family-model'
 import {releaseLedger} from '../content/runtime-read'
 import {decodeEntities} from './text-repair'
 import {RestoredSlot} from './RestoredSlot'
+import {isEmptyArchivePage} from '../content/empty-archives'
 
 export const ARCHIVE_PATH=/^\/(?:product-category|product-tag|category|tag)\//
 export const isArchiveDocument=(doc:SalmonDocument):boolean=>ARCHIVE_PATH.test(doc.targetPath)
@@ -41,7 +42,8 @@ export {decodeEntities}
 const text=(ref:SourceRef|undefined):string=>ref?decodeEntities(salmonNodeText(ref.node)).replace(/\s+/g,' ').trim():''
 const publicPaths=():Set<string>=>{
   const ledger=releaseLedger() as {routes:Array<{path:string;state:string;export:boolean}>}
-  return new Set(ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decodeURIComponent(row.path)))
+  // R2.4 R2: an empty archive's page N is a 404, so no page link points at it
+  return new Set(ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export&&!isEmptyArchivePage(row.path)).map(row=>decodeURIComponent(row.path)))
 }
 
 export function archiveModel(doc:SalmonDocument):ArchiveModel{

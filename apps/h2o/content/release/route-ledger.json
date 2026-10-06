@@ -22976,17 +22976,17 @@
       "sourceFile": "documents/SALMON-LIVE-pages-19498.json",
       "sourceSha256": "331f83f5b420c1b0c4050441f9fade844b079ebe980231016d426ee70dc85412",
       "routeClass": "pages",
-      "state": "PUBLIC",
-      "export": true,
-      "indexable": true,
-      "sitemap": true,
-      "searchable": true,
+      "state": "REDIRECT",
+      "export": false,
+      "indexable": false,
+      "sitemap": false,
+      "searchable": false,
       "canonical": "https://h2ocooling.com/new-cooling-tower-page/",
       "previousCanonical": "https://h2ocooling.com/new-cooling-tower-page/",
       "sourceRobots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/new-cooling-towers/"
     },
     {
       "path": "/new-cooling-towers/",
@@ -26405,289 +26405,289 @@
     {
       "source": "/2026/07/03/",
       "destination": "/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/2026/09/14/",
       "destination": "/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/cooling-tower-fill-media-replacement-2026/",
       "destination": "/cooling-tower-fill-media-replacement/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/cooling-tower-manufacturer-selection-guide/",
       "destination": "/cooling-tower-manufacturer-selection/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/cooling-tower-repair/",
       "destination": "/cooling-tower-maintenance-and-repair/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/cooling-tower-retrofit/",
       "destination": "/cooling-tower-retrofit-guide-upgrading-old-towers/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/hybrid-cooling-tower/",
       "destination": "/hybrid-cooling-tower-repair/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-category/drift-eliminators/page/1/",
       "destination": "/product-category/drift-eliminators/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-category/drive-shafts-assemblies/page/1/",
       "destination": "/product-category/drive-shafts-assemblies/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-category/fans/page/1/",
       "destination": "/product-category/fans/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-category/fill-media/page/1/",
       "destination": "/product-category/fill-media/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-category/gearboxes/double-reduction/page/1/",
       "destination": "/product-category/gearboxes/double-reduction/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-category/gearboxes/page/1/",
       "destination": "/product-category/gearboxes/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-category/gearboxes/right-angle-gearboxes/page/1/",
       "destination": "/product-category/gearboxes/right-angle-gearboxes/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-tag/amarillo/page/1/",
       "destination": "/product-tag/amarillo/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-tag/cooling-tower-fans/page/1/",
       "destination": "/product-tag/cooling-tower-fans/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-tag/cooling-tower-gearboxes/page/1/",
       "destination": "/product-tag/cooling-tower-gearboxes/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-tag/double-reduction/page/1/",
       "destination": "/product-tag/double-reduction/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-tag/drive-shafts/page/1/",
       "destination": "/product-tag/drive-shafts/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-tag/driveshaft/page/1/",
       "destination": "/product-tag/driveshaft/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-tag/fill/page/1/",
       "destination": "/product-tag/fill/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/product-tag/right-angle-fan-drives/page/1/",
       "destination": "/product-tag/right-angle-fan-drives/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/bacman-1-2/",
       "destination": "/all-projects/bacman-1-2/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/cawayan-bacman-3/",
       "destination": "/all-projects/cawayan-bacman-3/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/cooling-tower-disaster-recovery/",
       "destination": "/all-projects/cooling-tower-disaster-recovery/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/cooling-tower-replacement/",
       "destination": "/cooling-tower-replacement/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/edc-n2n-relocation-project/",
       "destination": "/all-projects/edc-n2n-relocation-project/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/edc/",
       "destination": "/all-projects/edc/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/empire-farms/",
       "destination": "/all-projects/empire-farms/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/kbr/",
       "destination": "/all-projects/kbr/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/keramasan-power-project/",
       "destination": "/all-projects/keramasan-power-project/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/lanxess/",
       "destination": "/all-projects/lanxess/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/mak-ban-6/",
       "destination": "/all-projects/mak-ban-6/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/palinpinon-2/",
       "destination": "/all-projects/palinpinon-2/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/palinpinon-3/",
       "destination": "/all-projects/palinpinon-3/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/patuha/",
       "destination": "/all-projects/patuha/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/pertonas-rapid/",
       "destination": "/all-projects/pertonas-rapid/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/ptt-cracker-project/",
       "destination": "/all-projects/ptt-cracker-project/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/ptt-csp3/",
       "destination": "/all-projects/ptt-csp3/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/ptt-ldpe-ii-project/",
       "destination": "/all-projects/ptt-ldpe-ii-project/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/pttcsp/",
       "destination": "/all-projects/pttcsp/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/pvc-plant-freeport-texas/",
       "destination": "/all-projects/pvc-plant-freeport-texas/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/thailand-projects/",
       "destination": "/all-projects/thailand-projects/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/projects/vinachem/",
       "destination": "/all-projects/vinachem/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/cooling-tower-fan-parts/",
       "destination": "/cooling-tower-parts-online/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/cooling-tower-parts/",
       "destination": "/cooling-tower-parts-online/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/cooling-tower-repair-upgrade-maintenance/",
       "destination": "/cooling-tower-maintenance-repair-upgrade/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/tower-repair/",
       "destination": "/cooling-tower-maintenance-and-repair/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
@@ -26879,13 +26879,13 @@
     {
       "source": "/cooling-tower-resources/",
       "destination": "/resources/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     },
     {
       "source": "/about-ics/",
       "destination": "/about-ics-industrial-cooling-solutions/",
-      "status": 308,
+      "status": 301,
       "targetState": "PUBLIC"
     }
   ],

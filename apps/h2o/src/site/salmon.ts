@@ -18,6 +18,8 @@ export type SalmonDocument = {
 export type SalmonMedia = {url:string;state:string;file?:string;sha256?:string;width?:number;height?:number}
 const root=path.join(process.cwd(),'content/salmon')
 const read=<T,>(file:string):T=>JSON.parse(readFileSync(path.join(root,file),'utf8')) as T
+/** R2.4 (item g): images recovered from the local h2ocooling.com backup (content/salmon/r24-recovered-media-identities.json). */
+const recoveredMedia=():SalmonMedia[]=>read<{rows:SalmonMedia[]}>('r24-recovered-media-identities.json').rows
 // Content bridge seam: in payload content mode the route lists and page documents come from the promoted
 // published snapshot of Payload (see src/content/snapshot.ts); media identities and owner authorities stay
 // repository authorities. Repository mode is unchanged.
@@ -81,7 +83,7 @@ const heldAlt=()=>{
     if(text&&key&&!byKey.has(key))byKey.set(key,text)
   }
   const bySha=new Map<string,string>()
-  for(const row of [...read<SalmonMedia[]>('media-identities.json'),...read<SalmonMedia[]>('r2-live-media-identities.json')]){
+  for(const row of [...read<SalmonMedia[]>('media-identities.json'),...read<SalmonMedia[]>('r2-live-media-identities.json'),...recoveredMedia()]){
     const key=uploadKey(row.url),text=key?byKey.get(key):undefined
     if(row.sha256&&text&&!bySha.has(row.sha256))bySha.set(row.sha256,text)
   }
@@ -104,7 +106,7 @@ let mediaAliases:Map<string,SalmonMedia|null>|undefined
 const mediaIdentityKey=(url:string):string=>decodeURI(url)
 export const salmonMedia=(source:string,base:string):SalmonMedia|undefined=>{
   if(!mediaIndex){
-    const rows=[...read<SalmonMedia[]>('media-identities.json'),...read<SalmonMedia[]>('r2-live-media-identities.json')]
+    const rows=[...read<SalmonMedia[]>('media-identities.json'),...read<SalmonMedia[]>('r2-live-media-identities.json'),...recoveredMedia()]
     mediaIndex=new Map(rows.map(row=>[row.url,row]))
     mediaAliases=new Map()
     for(const row of rows){
@@ -134,6 +136,15 @@ const mediaOverride=(row:SalmonMedia|undefined):SalmonMedia|undefined=>{
   if(!row||!override)return row
   if(override.action==='withhold')return undefined
   return {...row,file:override.file,sha256:override.sha256,width:override.width,height:override.height}
+}
+/**
+ * R2.4 item g (CT 2026-10-05): legacy body images held nowhere (media-overrides.json `withheldSources`) are removed from the
+ * page rather than shown as "unavailable"; the imported document keeps the node, the removal is recorded there.
+ */
+let withheldSources:Set<string>|undefined
+export const withheldSource=(source:string,base:string):boolean=>{
+  withheldSources??=new Set((JSON.parse(readFileSync(path.join(process.cwd(),'content/design/media-overrides.json'),'utf8')) as {withheldSources?:Array<{url:string}>}).withheldSources?.map(w=>w.url)??[])
+  try{return withheldSources.has(new URL(source,base).href)}catch{return false}
 }
 /**
  * The same ruling for a URL a page names in its social image tags or structured data (the 1600 original, matched by the

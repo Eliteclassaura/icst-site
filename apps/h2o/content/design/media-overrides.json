@@ -117,5 +117,103 @@
       "action": "withhold",
       "note": "The 1600 original of the same tile (bytes not held)."
     }
-  }
+  },
+  "withheldSourcesAuthority": "R2.4 item g (CT approved 2026-10-05): legacy body images whose bytes are held nowhere — not in the local public_html backup, not in any media manifest; the live URL answers 301 to the home page. The <img> is removed from the page (no placeholder); recorded here, not deleted from the imported document. R2.4 R2 (CT ruling on flag 3): the remaining placeholders on live articles (Google-Docs-hosted images and one legacy upload) are withheld the same way.",
+  "withheldSources": [
+    {
+      "url": "https://h2ocooling.com/content/uploads/cooling2.jpg",
+      "page": "/concrete-versus-frp-cooling-towers-pt-2/",
+      "reason": "NOT_IN_LOCAL_BACKUP; LIVE_301_TO_HOME"
+    },
+    {
+      "url": "https://h2ocooling.com/assets/P10002461-150x150.jpg",
+      "page": "/hello-world-2/",
+      "reason": "NOT_IN_LOCAL_BACKUP; LIVE_301_TO_HOME"
+    },
+    {
+      "url": "https://h2ocooling.com/content/uploads/Thai-Poster-300x148.jpg",
+      "page": "/ics-announces-comprehensive-cooling-technology-seminar-thailand/",
+      "reason": "NOT_IN_LOCAL_BACKUP; LIVE_301_TO_HOME"
+    },
+    {
+      "url": "https://h2ocooling.com/assets/P1000978-300x225.jpg",
+      "page": "/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/",
+      "reason": "NOT_IN_LOCAL_BACKUP; LIVE_301_TO_HOME"
+    },
+    {
+      "url": "https://h2ocooling.com/content/uploads/GEA.EE_.Mark_.Allison.web_.jpg",
+      "page": "/ics-exhibit-gea-geothermal-energy-expo-2013/",
+      "reason": "NOT_IN_LOCAL_BACKUP; LIVE_301_TO_HOME"
+    },
+    {
+      "url": "https://h2ocooling.com/assets/P10002452-150x150.jpg",
+      "page": "/hello-world-2/",
+      "reason": "NOT_IN_LOCAL_BACKUP (same class as the checker five; found by the R2.4 full-site scan)"
+    },
+    {
+      "url": "https://h2ocooling.com/assets/Palinpinon-Site-300x200.jpg",
+      "page": "/ics-completes-40-day-outage-at-palinpinon-geothermal-on-time/",
+      "reason": "NOT_IN_LOCAL_BACKUP (same class as the checker five; found by the R2.4 full-site scan)"
+    },
+    {
+      "url": "https://h2ocooling.com/content/uploads/2020/07/ICS-Contact-Us-Button.png",
+      "page": "/dyna-fab-10-height-fan-stack/",
+      "reason": "NOT_IN_LOCAL_BACKUP (same class as the checker five; found by the R2.4 full-site scan)"
+    },
+    {
+      "url": "https://lh7-us.googleusercontent.com/Ro2cQ7Nr5R9pNmWLXhvrQY8qT8Dr6oU5dIDytHQXnLpc6EGolKw-8KCNxM0rdf5bpG3jc-FeRQJtCyvAvTXNNOFT4LMtLQj94jGjkBXdZHHBgHrWgcUTc73EMkNPSBub41xWh40Je-f7YPmF7Lh_At4",
+      "page": "/guide-about-cooling-tower/",
+      "reason": "GOOGLE_DOCS_HOSTED_NOT_HELD (CT ruling 2026-10-05, R2.4 flag 3; never fetched)"
+    },
+    {
+      "url": "https://lh7-us.googleusercontent.com/Mjsm0pzVrbVLdlxCoFzKs081JspsdlvzXxgB8-bcF6hh2HvkBH-ywzjA7xtvVAPziqNqPmD5JOTd6QWWCvwh3OLEytDh_ld_Rpbh1oSCfu0SNGkT90gS40S5cYJ8t2-OwLDA4xz0ubiXZhb9zXPdPrQ",
+      "page": "/guide-about-cooling-tower/",
+      "reason": "GOOGLE_DOCS_HOSTED_NOT_HELD (CT ruling 2026-10-05, R2.4 flag 3; never fetched)"
+    },
+    {
+      "url": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXdqRMRuzXREZJDEvHCFSnHGzHklvffcY3yQ8CcGrRoqJ6XMhBrDQ4l_DkveYMeAMkJeUcDUKjQwaXVfIYucNLUGGnYTzcIB5Ip6wxrkefkHsvANIy4mMnT1kzVSYWRrAKBiZx4r3g?key=tY9LyQYyz3OMcD6r9wKNLQ",
+      "page": "/hybrid-and-dry-cooling-technologies/",
+      "reason": "GOOGLE_DOCS_HOSTED_NOT_HELD (CT ruling 2026-10-05, R2.4 flag 3; never fetched)"
+    },
+    {
+      "url": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfbE91wehU0bHdsKPHJRqP6dmqNTR_NUpfGowXYtfSzCBWSYvlBGX3pcMnuOBwPR-1fDGoExfWTIvxRNM9RGrKmIH5ZvtRp48IzXRV8WkqVMefq_MXeFbcphouM91kwBRUhdy1HYg?key=tY9LyQYyz3OMcD6r9wKNLQ",
+      "page": "/hybrid-and-dry-cooling-technologies/",
+      "reason": "GOOGLE_DOCS_HOSTED_NOT_HELD (CT ruling 2026-10-05, R2.4 flag 3; never fetched)"
+    },
+    {
+      "url": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfozUv93asXeOTrS5-9dhz2ObRmpkhK6v5rBtJ9rUQZNKqTXkmwXGd-WUUGcGuoN0Ldoa2uCHm0FdAxvnwrQyXwHzm_GTpayhP2xCvA5D6-JMg6Od2OGGvFpd8rRX9GT-8j8F12qzkEvJjGaKs-dKLbl5nd2mE?key=tJ9Ec8VSuwayy38X0a3G-g",
+      "page": "/industrial-cooling-tower-automation/",
+      "reason": "GOOGLE_DOCS_HOSTED_NOT_HELD (CT ruling 2026-10-05, R2.4 flag 3; never fetched)"
+    },
+    {
+      "url": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXeVb4h26ujCgL1e4UxwM3ssDo1pTiMmkvMmqoCju0jvmRZCRYDHigrpKbijp98m7HrJSDAToQMFING950co4xZflyD1Hf3a5HiBNwwoJplgKAmuM9OIaLb_zIp6-GYPElnKphmUHe3Apeg9xVEVTEP7KO62xqU?key=tJ9Ec8VSuwayy38X0a3G-g",
+      "page": "/industrial-cooling-tower-automation/",
+      "reason": "GOOGLE_DOCS_HOSTED_NOT_HELD (CT ruling 2026-10-05, R2.4 flag 3; never fetched)"
+    },
+    {
+      "url": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXcfQsx9Xae9oLhBhF6_1pAoNxk35JPr6nvzsKluA4MwR39OTQNemmFJ7nh0gRvjZlaj2S8g5svR9GnraW9BunxtLgcFNHM3XUe8YAx6b6fWXABSRvaPQPhPC3IvozrDjQ3VAund?key=-dAJrI9GamszbizpMCCrjw",
+      "page": "/industrial-cooling-towers/",
+      "reason": "GOOGLE_DOCS_HOSTED_NOT_HELD (CT ruling 2026-10-05, R2.4 flag 3; never fetched)"
+    },
+    {
+      "url": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXd6fylQ3wujq7Ntl2Shwd9ZPl_-X2XMSLXGKia4_KYEqdQyyuwR85LUZjjgZloHb-ynL9BJHQ4SlGWAvICNk6f40fo0rP1SBjs9723XANlSoqre5V2ZPQe-G33KyFbWr_xBEf9m-A?key=-dAJrI9GamszbizpMCCrjw",
+      "page": "/industrial-cooling-towers/",
+      "reason": "GOOGLE_DOCS_HOSTED_NOT_HELD (CT ruling 2026-10-05, R2.4 flag 3; never fetched)"
+    },
+    {
+      "url": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfq7Vz4SQ8ujlP-GRjEnrBUzyntbHyaSdjeVNt1QtgxnEEL3pxNxuWsrv7zEWaE7HSBdSqglMmKSt9YxjA2DkJ7Ccg58CaX2Aom2i0lfKXi-wLNj6qaIgb1A_DdXe3Qi8zqLTAc?key=o_ZotytQBSOo2K6Y-KeURw",
+      "page": "/understanding-cooling-tower-performance-curve/",
+      "reason": "GOOGLE_DOCS_HOSTED_NOT_HELD (CT ruling 2026-10-05, R2.4 flag 3; never fetched)"
+    },
+    {
+      "url": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXdRt3MDmkNVLXO-BMPbQjwtYJKZmmBlz4-KDnZRj_GKlcT0ruiLL-SRet1W0j-0duhTjdK_fWvByNLIt8dwaL2LkYT7iTBR1XTlzDaNMPAtaywtWMCLBKuQJYDeqg_UnBfVTriR?key=o_ZotytQBSOo2K6Y-KeURw",
+      "page": "/understanding-cooling-tower-performance-curve/",
+      "reason": "GOOGLE_DOCS_HOSTED_NOT_HELD (CT ruling 2026-10-05, R2.4 flag 3; never fetched)"
+    },
+    {
+      "url": "https://h2ocooling.com/wp/content/uploads/2019/08/PC261114-300x225.jpg",
+      "page": "/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/",
+      "reason": "NOT_IN_LOCAL_BACKUP (CT ruling 2026-10-05, R2.4 flag 3)"
+    }
+  ]
 }

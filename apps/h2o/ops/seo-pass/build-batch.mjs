@@ -36,6 +36,8 @@
  *     rewritten as complete sentences (no new claims); a row applies only when the batch meta still equals old_meta.
  *   - CONTENT_FALLBACKS: a content decision's fallback 301, applied while the restoration has not shipped.
  *   - --claims-seo=<tsv> (row, path, field, old, new): R2.2 ruled title/meta strings (OGCS claims sweep R1, CT 2026-10-05); Round 5: field h1, a ruled page heading.
+ *   - R2.4: --seo-set=<tsv> (path, field, value, reason) sets decided titles/metas (OGCS R2.4 R1); --ct-decisions takes several
+ *     files (comma-separated). The batch also normalises stored redirect statuses to 301 (redirect-status.tsv).
  *   - --baseline=<dir>: the data directory of the batch already applied on staging (R1). Actions and expectations are then the
  *     delta against that applied state, so the dry run counts exactly what this round changes.
  *
@@ -87,9 +89,11 @@ const decisions=tsv(decisionsFile).map(d=>({...d}))
 /** --ct-decisions=<tsv> (url, state, redirect_target, final_title, final_meta, reason): Control Tower rulings on URLs the OGCS
  * decisions do not cover (sitemap parity, CT 2026-10-05). Same meaning as an OGCS decision row; a URL OGCS already decided
  * stops the build. */
+// R2.4: several files, comma-separated; a row's `live_route` (yes) marks a page that serves 200 now but is not in the staging
+// probe (it is withdrawn to its redirect: route disposition WITHDRAW_TO_REDIRECT).
 if(ctDecisionsFile){
   const known=new Set(decisions.map(d=>safeDecode(pathOf(d.url))))
-  for(const row of tsv(ctDecisionsFile)){
+  for(const row of ctDecisionsFile.split(',').flatMap(f=>tsv(f))){
     if(known.has(safeDecode(pathOf(row.url))))throw new Error(`CT decision for a URL OGCS already decided: ${row.url}`)
     decisions.push({gsc_clicks:'',canonical:'',fallback_if_not_published:'',...row,reason:`CT ruling 2026-10-05: ${row.reason}`})
   }
@@ -242,7 +246,7 @@ function resolveTarget(target){
 }
 const conformance=[],redirects=[],seo=[],dispositions=[],gone=[],retired=[]
 const problemsEarly=[]
-const expect={redirects:{create:0,update:0,unchanged:0,retire:0},routes:{publish:0,withdraw:0,index:0,canonical:0},seoFields:{update:0,unchanged:0,pendingOgcs:0},files:0,gone:0}
+const expect={redirects:{create:0,update:0,unchanged:0,retire:0,normalise:0},routes:{publish:0,withdraw:0,index:0,canonical:0},seoFields:{update:0,unchanged:0,pendingOgcs:0},files:0,gone:0}
 for(const d of decisions){
   if(DROPPED.has(d.url))continue
   const {path:reqPath,query,key}=requestPath(d.url)
@@ -262,7 +266,7 @@ for(const d of decisions){
   if(state==='301'){
     // The proxy compares decoded paths; store the browser's encoded form (the collection refuses raw whitespace).
     const destination=resolveTarget(target)
-    const live=now&&now.status===200
+    const live=now?now.status===200:d.live_route==='yes'
     const source=/\/$/.test(key)||/\.[A-Za-z0-9]{2,5}$/.test(key)?reqPath:`${reqPath}/`
     const prior=baseline?.redirects.get(safeDecode(source))
     // The action is decided after repointToFinal (the destination may still change).
@@ -359,6 +363,32 @@ if(claimsSeoFile)for(const c of tsv(claimsSeoFile).filter(c=>c.field!=='h1')){
   row[field]=row[field].replace(c.old,c.new);row.meta_origin+=`+CLAIMS_SWEEP_${c.row}`;claimsSeoApplied++
   const cf=conformance.find(x=>safeDecode(x.url)===key);if(cf)cf[field]=row[field]
 }
+// R2.4 (OGCS SEO R2.4 titles/metas R1, CT accepted 2026-10-05): --seo-set=<tsv> (path, field title|meta, value, reason). The
+// decided value of one field replaces the batch's; a published page without a decided row gets one (its current title and
+// meta, the decided field set). Same rule checks as every decided row.
+const seoSetFile=flag('seo-set')
+let seoSetApplied=0
+const seoSetRows=seoSetFile?tsv(seoSetFile).filter(r=>r.path):[]
+for(const c of seoSetRows){
+  const key=safeDecode(c.path)
+  if(!['title','meta'].includes(c.field)){problemsEarly.push(`seo set: field ${c.field} ${c.path}`);continue}
+  let row=seo.find(r=>safeDecode(r.path)===key)
+  if(!row){
+    const route=routeByKey.get(key)
+    if(!route||route.state!=='PUBLIC'){problemsEarly.push(`seo set: no published route ${c.path}`);continue}
+    const doc=JSON.parse(readFileSync(path.join(APP,'content/salmon',route.sourceFile),'utf8'))
+    const desc=doc.seo.meta.find(m=>m.name==='description')?.value??''
+    const prior=baseline?.seo.get(key)
+    row={path:route.path,routeId:route.routeId,title:prior?prior.title:doc.seo.title,meta:prior?prior.meta:desc,canonical:'',meta_origin:'SOURCE',title_now:prior?prior.title:doc.seo.title,meta_now:prior?prior.meta:desc}
+    seo.push(row)
+  }
+  // a decided meta ends a pending state (the row's meta is written)
+  if(c.field==='meta')row.meta_origin=row.meta_origin.replace(/\+PENDING_OGCS_[A-Z_]+/g,'')
+  row[c.field]=c.value;row.meta_origin+=`+OGCS_R2_4_${c.field.toUpperCase()}`;seoSetApplied++
+  const cf=conformance.find(x=>safeDecode(x.url)===key)
+  if(cf)Object.assign(cf,{kind:'html',title:row.title,meta:row.meta})
+  else conformance.push({url:row.path,expect:'200',kind:'html',title:row.title,meta:row.meta})
+}
 const conformanceByPath=new Map(conformance.map(c=>[safeDecode(c.url),c]))
 for(const row of seo){
   const pending=row.meta_origin.includes('PENDING_OGCS')
@@ -379,7 +409,11 @@ expect.files=restore.restored.length
 
 // Rule checks (the brief's limits): a failure stops the build.
 const problems=[...problemsEarly]
-const titles=new Set();for(const row of seo){if(row.title.length>69)problems.push(`title>69 ${row.path}`);if(titles.has(row.title))problems.push(`duplicate title ${row.path}`);titles.add(row.title);if(FORBIDDEN.test(row.title))problems.push(`title word ${row.path}`)}
+// R2.4: a row the batch created only to set a meta (--seo-set) keeps the page's current title unchanged; the title rules apply
+// to decided titles (a noindex tag archive's term-list title is not one).
+const keptTitle=row=>row.meta_origin.startsWith('SOURCE')&&row.title===row.title_now&&!row.meta_origin.includes('OGCS_R2_4_TITLE')
+const titles=new Set();for(const row of seo){if(titles.has(row.title))problems.push(`duplicate title ${row.path}`);titles.add(row.title);if(keptTitle(row))continue;if(row.title.length>69)problems.push(`title>69 ${row.path}`);if(FORBIDDEN.test(row.title))problems.push(`title word ${row.path}`)}
+if(seoSetApplied!==seoSetRows.length)problems.push(`seo set applied ${seoSetApplied} of ${seoSetRows.length}`)
 if(metaRewritesApplied!==metaRewrites.size)problems.push(`meta rewrites applied ${metaRewritesApplied} of ${metaRewrites.size}`)
 if(claimsSeoFile&&claimsSeoApplied!==tsv(claimsSeoFile).filter(c=>c.field!=='h1').length)problems.push(`claims seo applied ${claimsSeoApplied} of ${tsv(claimsSeoFile).filter(c=>c.field!=='h1').length}`)
 for(const row of seo){if(!row.meta_origin.includes('PENDING_OGCS')&&/…|\.\.\.$/.test(row.meta))problems.push(`meta ends in a truncation mark ${row.path}`)}
@@ -406,6 +440,16 @@ writeTsv('seo-fields.tsv',['path','routeId','action','title','meta','canonical',
 writeTsv('route-dispositions.tsv',['path','routeId','action','redirect','canonical'],dispositions)
 writeTsv('gone.tsv',['path','query'],gone)
 expect.redirects.retire=retired.length
+// R2.4 item k (CT 2026-10-05): every stored redirect record answers 301. The authority import stored the ledger's redirects
+// with the ledger's status (308 for most consolidations); a record this batch does not create, update or retire, and whose
+// imported status is not 301, has its status set to 301 (apply phase 2, NORMALISE). Read from the ledger as imported (the
+// base ledger the rebuild starts from); no batch before R2.4 wrote or retired one of them.
+{
+  const touched=new Set([...redirects.filter(r=>r.action==='CREATE'||r.action==='UPDATE').map(r=>safeDecode(r.source)),...retired.map(r=>safeDecode(r.source))])
+  const statusRows=ledger.redirects.filter(r=>String(r.status)!=='301'&&!touched.has(safeDecode(r.source))).map(r=>({source:r.source,destination:r.destination,status_now:String(r.status),status:'301'}))
+  expect.redirects.normalise=statusRows.length
+  writeTsv('redirect-status.tsv',['source','destination','status_now','status'],statusRows)
+}
 // H1 decisions (OGCS R1.2 content TSV): written to the page's h1 heading slot through the editorial lifecycle.
 const h1Rows=[]
 if(contentDecisionsFile){

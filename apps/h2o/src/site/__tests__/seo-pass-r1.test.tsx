@@ -48,8 +48,9 @@ describe('release authority and route ledger',()=>{
     expect(overrides.index).toHaveLength(5)
     for(const p of overrides.index){expect(auth.get(p),p).toMatchObject({state:'PUBLIC',indexable:true,sitemap:true});expect(EMPTY_ARCHIVE_PATHS,p).not.toContain(p)}
   })
-  it('the 18 consolidated pages become REDIRECT rows pointing at a PUBLIC route; the two designed pages are kept (CT ruling 2026-10-04)',()=>{
-    expect(Object.keys(overrides.redirectSources)).toHaveLength(18)
+  it('the 18 consolidated pages (and R2.4’s /new-cooling-tower-page/) become REDIRECT rows pointing at a PUBLIC route; the two designed pages are kept (CT ruling 2026-10-04)',()=>{
+    expect(Object.keys(overrides.redirectSources)).toHaveLength(19)
+    expect(overrides.redirectSources['/new-cooling-tower-page/']).toBe('/new-cooling-towers/')
     // Reversed for the designed pages: the live duplicates are withdrawn into them.
     expect(overrides.redirectSources['/cooling-tower-thermal-upgrade/']).toBe('/thermal-upgrade/')
     expect(overrides.redirectSources['/cooling-towers-construction-repair-in-japan/']).toBe('/cooling-tower-japan/')
@@ -144,10 +145,14 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // 473 decided 200 pages minus /author/tbozic/, the 4 failed held articles and the 2 withdrawn duplicates, plus the
     // un-consolidated /cooling-tower-vs-chiller/ (OGCS R1.2), plus the published daily log (CT 2026-10-05).
     // Locale Part B: the published Thai Salmon page (its own title, the live meta).
-    expect(seo).toHaveLength(470) // R2.2: + the D3 portfolio row (CT-ruled meta and title)
+    // R2.2: + the D3 portfolio row (CT-ruled meta and title). R2.4: + 12 rows of the OGCS R2.4 titles/metas (13 pages; the
+    // /industrial-cooling-towers/ row existed). R2.4 R2: + the 15 archive metas (OGCS R2.4A).
+    expect(seo).toHaveLength(497)
     const titles=seo.map(row=>row.title!)
     expect(new Set(titles).size).toBe(titles.length)
-    for(const t of titles){expect(t.length,t).toBeLessThanOrEqual(69);expect(t,t).not.toMatch(FORBIDDEN)}
+    // a meta-only row keeps the page's current title (two noindex tag archives keep their term-list titles)
+    const kept=(row:Record<string,string>)=>row.meta_origin!.startsWith('SOURCE')&&row.title===row.title_now&&!row.meta_origin!.includes('OGCS_R2_4_TITLE')
+    for(const row of seo.filter(r=>!kept(r))){expect(row.title!.length,row.title).toBeLessThanOrEqual(69);expect(row.title,row.title).not.toMatch(FORBIDDEN)}
   })
   it('metas written: 70-158 characters, unique across the full set, quote-only; OGCS R1.2 leaves none pending',()=>{
     const written=seo.filter(row=>!row.meta_origin!.includes('PENDING_OGCS'))
@@ -166,7 +171,8 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
   it('redirects: unique sources, single hop to a 200 target, no loops or self-redirects; author rows dropped',()=>{
     // 474, plus the 13 translated posts outside the Part A universe (CT sitemap parity ruling 2026-10-05).
     // Locale Part B: 98 R1 locale→English redirects retire (the locale page is preserved), 4 locale redirects are new.
-    expect(redirects).toHaveLength(393)
+    // R2.4: + /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
+    expect(redirects).toHaveLength(394)
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -185,28 +191,31 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Repointed to the final destination: the reversal cannot leave a chain.
     expect(redirects.find(row=>row.source==='/thermal-upgrades-for-cooling-tower-efficiency/')?.destination).toBe('/thermal-upgrade/')
   })
-  it('conformance contract: 1,099 rows (the OGCS and CT rulings, OGCS Locale Part A deciding every locale URL, and the R2.2 D3 row), none held',()=>{
-    expect(conformance).toHaveLength(1099)
+  it('conformance contract: 1,125 rows (the OGCS and CT rulings, OGCS Locale Part A deciding every locale URL, the R2.2 D3 row and R2.4), none held',()=>{
+    // R2.4: + 10 pages of the OGCS R2.4 titles/metas (the two designed pages had rows) and the /new-cooling-tower-page/ 301;
+    // R2.4 R2: + the 15 archives with an OGCS meta.
+    expect(conformance).toHaveLength(1125)
     expect(conformance.filter(row=>row.kind==='locale')).toHaveLength(166)
     const count=(kind:string)=>conformance.filter(row=>row.expect===kind).length
-    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([696,393,10,0]) // R2.2: + the D3 portfolio (200)
+    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([721,394,10,0]) // R2.2: + the D3 portfolio (200)
     for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
-    // Round 5 (CT 2026-10-05) is ONE delta on the state R2.2a leaves on staging (R2.2a's own delta: the 4 ruled SEO rows, the 4
-    // F1 panels, claim edits on 108 routes). Round 5 writes one thing: the CT-ruled page heading of /cooling-tower-repair-service/.
-    expect(expectations.expect.routes).toEqual({publish:0,withdraw:0,index:0,canonical:0})
-    expect(expectations.expect.redirects).toEqual({create:0,update:0,unchanged:393,retire:0})
-    expect(expectations.expect.seoFields).toMatchObject({update:0,pendingOgcs:0})
-    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:0})
-    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:0})
-    expect(expectations.expect.h1).toEqual({update:1})
+    // R2.4 (CT 2026-10-05) is ONE delta on the state Round 5 leaves on staging: the /new-cooling-tower-page/ withdrawal and its
+    // 301, the 50 imported 308 records set to 301, the OGCS R2.4 titles/metas on 13 pages and the 15 archive metas (R2.4 R2), and internal links re-pointed at
+    // final URLs (2 routes the batch writes anyway, 105 on their own).
+    expect(expectations.expect.routes).toEqual({publish:0,withdraw:1,index:0,canonical:0})
+    expect(expectations.expect.redirects).toEqual({create:1,update:0,unchanged:393,retire:0,normalise:50})
+    expect(expectations.expect.seoFields).toMatchObject({update:28,pendingOgcs:0})
+    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:2})
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:105})
+    expect(expectations.expect.h1).toEqual({update:0})
     expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:0})
     expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)
     // The two translated posts that pointed at the English final page of a then-pending locale page now point at it (one hop).
     const repoint=tsv('locale-b-repoint.tsv')
     expect(repoint.map(row=>row.source)).toEqual(['/วิธีป้องกันแบคทีเรีย-legionella/','/逆流-vs-クロスフロー/'])
     for(const row of repoint)expect(decode(redirects.find(r=>decode(r.source!)===decode(row.source!))!.destination!),row.source).toBe(row.destination_after_locale_b)
-    expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(18)
+    expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(19)
     expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT').map(row=>[row.path,row.redirect])).toEqual(Object.entries(overrides.redirectSources))
   })
   it('restored files are byte-identical to the verified backup copies in the ledger',()=>{

@@ -50,8 +50,9 @@ describe('slot hygiene: data fixed, validator strict', () => {
     }
     expect(records).toBeGreaterThan(1000)
     // 112 link/alt fixes (R1 residual) + 12 claim edits (Locale Part B), then R2.2 (CT 2026-10-05): F1 product rulings, the OGCS
-    // template claims, C4/C5 and the OGCS claims sweep R1 (with D3/D4), on 327 elements in all (some carry both kinds).
-    expect(fixed).toBe(327)
+    // template claims, C4/C5 and the OGCS claims sweep R1 (with D3/D4), on 327 elements; R2.4: internal links to a page that answers
+    // 301 point at its final URL (321 more links), 636 elements in all (some carry several kinds).
+    expect(fixed).toBe(636)
   }, 120000)
   it('reproduces the R1 failures: without the fixes the strict validator rejects exactly the recorded elements', () => {
     const row = ledger.routes.find((r) => r.path === '/understanding-cooling-tower-parts/')!
@@ -65,12 +66,12 @@ describe('slot hygiene: data fixed, validator strict', () => {
   })
   it('records every change; https only for verified targets; an unlinked link keeps its text', () => {
     const changes = Object.values(fixes).flatMap((f) => f.slots.flatMap((s) => s.changes.map((c) => ({ ...c, s }))))
-    expect(changes).toHaveLength(373)
+    expect(changes).toHaveLength(694)
     for (const c of changes) {
       expect(c.reason.length, c.from).toBeGreaterThan(0)
       if (c.action === 'https') expect(c.to).toMatch(/^https:\/\//)
       if (c.action === 'site-path') expect(knownPaths.has(c.to!), c.to!).toBe(true)
-      if (c.action === 'redirect-destination') expect(knownPaths.has(c.to!) || publicFileExists(c.to!), c.to!).toBe(true)
+      if (c.action === 'redirect-destination') expect(knownPaths.has(c.to!.split('#')[0]!) || publicFileExists(c.to!), c.to!).toBe(true)
       if (c.action === 'held-file') expect(publicFileExists(c.to!), c.to!).toBe(true)
     }
     const text = (canon: string) => (JSON.parse(canon) as unknown[][]).filter((t) => t[0] === 't').map((t) => t[1]).join('')

@@ -1,5 +1,6 @@
 import {createElement,type ReactNode} from 'react'
 import {SalmonSeo} from './SalmonCanonical'
+import {linkLabel} from './link-context'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {pageForSegments} from './cohort'
 import {ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
@@ -89,6 +90,9 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
   props.href=href
   props['data-source-href']=node.attrs.href
   if(node.attrs.target==='_blank'){props.target='_blank';props.rel='noopener noreferrer'}
+  // R2.4 (item l): a "Learn more"-style link is named by its card's heading (./link-context); its visible text is unchanged.
+  const label=linkLabel(doc,key)
+  if(label)props['aria-label']=label
  }
  if(tag==='button'){
   props.type='button'

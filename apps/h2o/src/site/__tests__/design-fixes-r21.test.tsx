@@ -154,7 +154,9 @@ describe('C1–C6 claim tiles (media overrides)',()=>{
       const html=await render(p)
       expect(html,p).not.toContain(held)
       expect(html.replace(/ data-source-src="[^"]*"/g,''),p).not.toContain(`/2026/07/${stem}`)
-      expect(html,p).not.toMatch(/property="og:image|name="twitter:image|primaryImageOfPage/)
+      // R2.4 (item b): the page's social image is the site default (a verified ICS crew photo), never the withheld tile
+      expect(html,p).not.toMatch(/primaryImageOfPage/)
+      expect([...html.matchAll(/<meta (?:property|name)="(?:og|twitter):image" content="([^"]+)"/g)].map(m=>m[1]!.replace(/^https:\/\/[^/]+/,'')),p).toEqual(['/media/og/bee5a42c610b7342dd3932000552046c26391f4028cea170e9a85536d7bb2812.jpg','/media/og/bee5a42c610b7342dd3932000552046c26391f4028cea170e9a85536d7bb2812.jpg'])
       expect(html,p).not.toContain('THE $100,000 BLUEPRINT')
     }
     // the blog archive cards that carry the tiles

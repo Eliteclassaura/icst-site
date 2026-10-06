@@ -48,6 +48,49 @@ node ops/seo-pass/check-redirect-chains.mjs <staging-origin>
 - **frameworkSlashHopAccepted:** 1, the malformed tcf.com URL (308 → 301 → 200, CT ruling 3). A framework hop on any other source fails.
 - **Metas pending OGCS:** 0 after the R1.2 supplement.
 
+## R2.4: pre-launch SEO fix pack (CT 2026-10-05; SEO Checker baseline triage §3 a–l)
+
+One delta on the state Round 5 leaves on staging (`--baseline=<Round 5 data>`).
+
+**Code (ships in the image):**
+- **Standard head** on every template, English services and `/search/` included (`src/site/standard-head.tsx`): og/twitter title
+  and description mirror the served title and meta; og:url, og:site_name ICS, twitter:card; the site default og:image (a verified
+  ICS project photo cropped to 1200×630, `content/design/og-default.json`) where a page has no held image of its own, except a
+  project page (Design Fixes A1); Organization and WebSite JSON-LD @ids.
+- **Paginated archives:** "… - Page N" titles; meta "Page N: " + the archive's meta.
+- **Article scoping:** Article/BlogPosting only on posts, author Tim Bozic; WebPage elsewhere.
+- **301 for every published redirect**, whatever the stored status (`src/proxy.ts`); the ledger's redirects are all 301.
+- **Images:** 61 images recovered byte-for-byte from the local public_html backup into the media store
+  (`content/salmon/r24-recovered-media-identities.json`); 19 images held nowhere are removed from their pages
+  (`content/design/media-overrides.json` `withheldSources`: 8 legacy uploads, and in R2 the 10 Google-Docs-hosted images and one
+  legacy upload that showed an "unavailable" box on live articles).
+- **Empty archives (R2):** page 2+ of an archive that lists nothing public (`EMPTY_ARCHIVE_PAGES`, 37) answers 404 and no page
+  link points at it; the archive root keeps its noindex,follow empty state (CT ruling 2026-10-02). Every rendered image reserves its box (width/height from the held
+  file's header). Non-descriptive links ("Learn more") take an accessible name from their card heading.
+- `/search/`: noindex,follow; meta from the OGCS R2.4 TSV.
+
+**Batch** (`--ct-decisions=<parity decisions>,data/r24-ct-decisions.tsv --seo-set=data/r24-seo-set.tsv`):
+- `/new-cooling-tower-page/` is withdrawn with a 301 to `/new-cooling-towers/` (CT ruling); it leaves the sitemap.
+- The OGCS R2.4 titles/metas (14 rows on 13 pages; the withdrawn page's title is dropped, `/search/` is in code) and, in R2, the
+  OGCS R2.4A archive metas (15 archives whose page N inherits the meta). A meta-only row keeps the page's title unchanged.
+- **NORMALISE:** the 50 records the authority import stored with status 308 are set to 301 (`data/redirect-status.tsv`).
+- Internal links to a page that answers 301 point at its final URL (`build-slot-fixes.ts`; 321 links on 107 pages).
+
+| Phase | Expected |
+|---|---|
+| redirects | create 1, unchanged 393, normalise 50 |
+| routes | withdraw 1 |
+| seoFields | update 28 |
+| slotFixes / hygiene | routes 2 / 105 |
+| update, retire, publish, index, canonical, h1, restored, blocked | 0 |
+
+**Conformance** (`check-conformance.mjs`, `head-assertions.mjs`) also checks, on every HTML row plus every paginated archive, the
+six English services, the two portfolios, `/search/` and `/thank-you/`: the standard head (a, d), no legacy title suffix (f,
+English pages), "Page N" titles with a meta (c; a meta is reported, not failed, while the archive itself has none), noindex on
+`/search/` and `/thank-you/` and every empty archive root ("follow" too with `--policy=production`); a 404 for every empty
+archive page N; a 301 (not 308) for every decided and ledger redirect (k); every decided H1 (h1-fields.tsv, the
+R2.2a ruling); and, last, readiness publication "current" (the served release covers the latest committed event).
+
 ## Locale Part B: preserved live locale pages (owner decision 2026-10-05; OGCS Part A; CT rulings)
 
 One delta on the state Part 3 leaves on staging (`--baseline=<Part 3 data>`).
@@ -184,6 +227,8 @@ The Part 2 batch is a **delta** on the R1 batch already applied on staging (the 
    - Restore the base `content/release/route-ledger.json` (source 49ec97e).
    - Run `build-batch.mjs <decisions.tsv> <missing-metas.tsv> data/content-check.json <staging-probe.json> [supplement.tsv] --baseline=<applied batch data> --title-delta=<R1.2 title delta> --dup-resolution=<R1.2 dup resolution> --content-decisions=<R1.2 content decisions> --restored=data/restored-sections.json --meta-rewrites=<rewrites.tsv>`.
    - Then run `sync-ledger.mjs`.
+   - R2.4: build-batch reads the imported redirect statuses (308) from the base ledger for `redirect-status.tsv`; `sync-ledger.mjs`
+     then sets the ledger's redirects to the authority's 301.
 2. **Restored data:** `build-restored.mjs <reviewed dir> [--evidence=<dir>]`. It checks public link targets against the final ledger.
 3. **Pass 2:** repeat step 1. The ledger depends on the restored data only through content fallbacks, so it is stable.
 4. **Check:** `sync-ledger.mjs --check` exits 1 if any ledger row is stale.

@@ -1,0 +1,930 @@
+{
+  "authority": "R2.4 (Control Tower 2026-10-05, SEO Checker item g): images the imported pages reference (body, og:image, structured data) that the media index did not hold, recovered byte-for-byte from the local h2ocooling.com public_html backup (no live download). Served from the media store like every other held image.",
+  "date": "2026-10-05",
+  "rows": [
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2024/06/WHICH-FILL-IS-BEST-FOR-COOLING-TOWER-min.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "34925aa4552d640937fbd425eedb0819011d10a890afc23ccf8205a7bee6a6b8",
+      "bytes": 97553,
+      "file": "media/34925aa4552d640937fbd425eedb0819011d10a890afc23ccf8205a7bee6a6b8.jpg",
+      "width": 1200,
+      "height": 630,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2024/06/WHICH-FILL-IS-BEST-FOR-COOLING-TOWER-min.jpg",
+      "referencedBy": [
+        "/best-for-cooling-tower/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2024/04/87-min.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "1d4de8e79c126fc16f444f80e3adfed9289955fc9a01399f73411005edea7738",
+      "bytes": 97604,
+      "file": "media/1d4de8e79c126fc16f444f80e3adfed9289955fc9a01399f73411005edea7738.jpg",
+      "width": 1200,
+      "height": 630,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2024/04/87-min.jpg",
+      "referencedBy": [
+        "/commercial-cooling-towers/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/02/image-1.png",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "56435cab873bd28a38d6beec09664215f2dd8c704549198ca74930a6dd409c86",
+      "bytes": 407170,
+      "file": "media/56435cab873bd28a38d6beec09664215f2dd8c704549198ca74930a6dd409c86.png",
+      "width": 941,
+      "height": 530,
+      "format": "png",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/02/image-1.png",
+      "referencedBy": [
+        "/cooling-tower-access-ladde/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2017/08/Cooling-Tower-Cold-Weather-Issues.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "0bc425a6132b89b1fd1f1f6afbb101f747052cac3d266ee1bd7535b973256c47",
+      "bytes": 269061,
+      "file": "media/0bc425a6132b89b1fd1f1f6afbb101f747052cac3d266ee1bd7535b973256c47.jpg",
+      "width": 1920,
+      "height": 1080,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2017/08/Cooling-Tower-Cold-Weather-Issues.jpg",
+      "referencedBy": [
+        "/cooling-tower-cold-weather-issues/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/02/Group-1000004216.png",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "e306749de925414cf7718af925f4ee7a07261b531eec6d983291702b2e1a692a",
+      "bytes": 190445,
+      "file": "media/e306749de925414cf7718af925f4ee7a07261b531eec6d983291702b2e1a692a.png",
+      "width": 295,
+      "height": 366,
+      "format": "png",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/02/Group-1000004216.png",
+      "referencedBy": [
+        "/cooling-tower-construction-repair-in-singapore/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/07/grass.png",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "857314288422febf14a4760cbedca30a572a32f0471d4fcc1568ea0b133aa447",
+      "bytes": 1804901,
+      "file": "media/857314288422febf14a4760cbedca30a572a32f0471d4fcc1568ea0b133aa447.png",
+      "width": 1154,
+      "height": 912,
+      "format": "png",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/07/grass.png",
+      "referencedBy": [
+        "/cooling-tower-construction-repair-in-united-states/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/03/2026-Cooling-Tower-Cost-Guide.webp",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "0928f78536d3095d965bf0a7b322e798e2a05f4146a5456afb6cc72e920d25d6",
+      "bytes": 114204,
+      "file": "media/0928f78536d3095d965bf0a7b322e798e2a05f4146a5456afb6cc72e920d25d6.webp",
+      "width": 1920,
+      "height": 1080,
+      "format": "webp",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/03/2026-Cooling-Tower-Cost-Guide.webp",
+      "referencedBy": [
+        "/cooling-tower-cost/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/12/image-86.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "d0125f91dac53de2251fdaa87ee0bef1f02ca5cd07fc92464fe3ab6d4e979f3a",
+      "bytes": 149883,
+      "file": "media/d0125f91dac53de2251fdaa87ee0bef1f02ca5cd07fc92464fe3ab6d4e979f3a.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/12/image-86.jpeg",
+      "referencedBy": [
+        "/cooling-tower-fan-efficiency/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2024/06/THINGS-YOU-NEED-TO-KNOW-ABOUT-COOLING-TOWER-FILL.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "ad12cccb6b6ecdc0399838fe6867e8c30b272a525bf1bc57adcada3d9a9b31d6",
+      "bytes": 197319,
+      "file": "media/ad12cccb6b6ecdc0399838fe6867e8c30b272a525bf1bc57adcada3d9a9b31d6.jpg",
+      "width": 1200,
+      "height": 630,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2024/06/THINGS-YOU-NEED-TO-KNOW-ABOUT-COOLING-TOWER-FILL.jpg",
+      "referencedBy": [
+        "/cooling-tower-fill/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/05/image-24.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "844d787dbec12a4748d53146686c9351b24c69e2b1414f9e60eccff69e97cf1d",
+      "bytes": 212670,
+      "file": "media/844d787dbec12a4748d53146686c9351b24c69e2b1414f9e60eccff69e97cf1d.jpeg",
+      "width": 1920,
+      "height": 1080,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/05/image-24.jpeg",
+      "referencedBy": [
+        "/cooling-tower-foundation-design/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/12/image-60.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "6f59d6ede27fef7452d78d6c2910f37f767df2d429269ca7764e5852bb8d04d7",
+      "bytes": 243014,
+      "file": "media/6f59d6ede27fef7452d78d6c2910f37f767df2d429269ca7764e5852bb8d04d7.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/12/image-60.jpeg",
+      "referencedBy": [
+        "/cooling-tower-inspection-steps/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/04/image-74.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "16a44ad5c8e2d1fd97042f93655eb86e615afab8c55a00830936f99b6d9ea662",
+      "bytes": 120714,
+      "file": "media/16a44ad5c8e2d1fd97042f93655eb86e615afab8c55a00830936f99b6d9ea662.jpeg",
+      "width": 1920,
+      "height": 1080,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/04/image-74.jpeg",
+      "referencedBy": [
+        "/cooling-tower-installation-cost/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/02/image-6.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "5805a9f010fb7536351399bd8b6b81d899daa041c6e1b5003925590a352122c8",
+      "bytes": 164203,
+      "file": "media/5805a9f010fb7536351399bd8b6b81d899daa041c6e1b5003925590a352122c8.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/02/image-6.jpeg",
+      "referencedBy": [
+        "/cooling-tower-louvers/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/11/image-89.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "da209ce443486420d9d4736109bb4a3cc41639828ec8d56ad8aa5734e5c3ab1f",
+      "bytes": 257966,
+      "file": "media/da209ce443486420d9d4736109bb4a3cc41639828ec8d56ad8aa5734e5c3ab1f.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/11/image-89.jpeg",
+      "referencedBy": [
+        "/cooling-tower-material-selection/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2017/01/Cooling-Tower-Materials.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "fad9dd42f8d1c1e17a7ea69a583a6a4ac879b2a502abe2631a56a88d7fcffef7",
+      "bytes": 230918,
+      "file": "media/fad9dd42f8d1c1e17a7ea69a583a6a4ac879b2a502abe2631a56a88d7fcffef7.jpg",
+      "width": 1920,
+      "height": 1080,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2017/01/Cooling-Tower-Materials.jpg",
+      "referencedBy": [
+        "/cooling-tower-materials/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/02/image-75.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "38a680cfd9a5cbed8edd3b466a59a4a8bc096c82d87e8e05c4d1ea2c798bbd54",
+      "bytes": 197875,
+      "file": "media/38a680cfd9a5cbed8edd3b466a59a4a8bc096c82d87e8e05c4d1ea2c798bbd54.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/02/image-75.jpeg",
+      "referencedBy": [
+        "/cooling-tower-monitoring-dashboard/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/11/image-42.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "860438e1120c8c6d38cf9b8297d33d40805d8b5bd220bdf87d2f6af8b2f26479",
+      "bytes": 194723,
+      "file": "media/860438e1120c8c6d38cf9b8297d33d40805d8b5bd220bdf87d2f6af8b2f26479.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/11/image-42.jpeg",
+      "referencedBy": [
+        "/cooling-tower-parts-2/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/11/image-51.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "34c9485f91e852a81e3dac56e85fb5a617875d6f5ce899a54165f6ac5086018d",
+      "bytes": 226635,
+      "file": "media/34c9485f91e852a81e3dac56e85fb5a617875d6f5ce899a54165f6ac5086018d.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/11/image-51.jpeg",
+      "referencedBy": [
+        "/cooling-tower-parts-3/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/03/image-48.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "8b6fa31e30860b4890e2646f739395753e39242de2621e34ab0617769f300c8b",
+      "bytes": 169758,
+      "file": "media/8b6fa31e30860b4890e2646f739395753e39242de2621e34ab0617769f300c8b.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/03/image-48.jpeg",
+      "referencedBy": [
+        "/cooling-tower-performance-curve/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/11/311.webp",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "99ff4d8494479e955866ede4ce3649b5034c271553a13bc36e355e9a2a671a1c",
+      "bytes": 53738,
+      "file": "media/99ff4d8494479e955866ede4ce3649b5034c271553a13bc36e355e9a2a671a1c.webp",
+      "width": 1920,
+      "height": 1080,
+      "format": "webp",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/11/311.webp",
+      "referencedBy": [
+        "/cooling-tower-repair-service/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/02/image-102.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "bc692679f5129349b027758848fb86c6c2911db6fca064b5204b7e4cfeb28b8a",
+      "bytes": 188399,
+      "file": "media/bc692679f5129349b027758848fb86c6c2911db6fca064b5204b7e4cfeb28b8a.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/02/image-102.jpeg",
+      "referencedBy": [
+        "/cooling-tower-repair-solutions/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/04/image-85.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "783fc9f84924faf9d204cb03817a7e735545d664c675141fdc5f1a215eae59ee",
+      "bytes": 222879,
+      "file": "media/783fc9f84924faf9d204cb03817a7e735545d664c675141fdc5f1a215eae59ee.jpeg",
+      "width": 1920,
+      "height": 1080,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/04/image-85.jpeg",
+      "referencedBy": [
+        "/cooling-tower-silica-scaling/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/04/image-1.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "43e7b7d00764df0e5f0a317cf2e21cf83f62108f3b97550042c77608f6dc9498",
+      "bytes": 222787,
+      "file": "media/43e7b7d00764df0e5f0a317cf2e21cf83f62108f3b97550042c77608f6dc9498.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/04/image-1.jpeg",
+      "referencedBy": [
+        "/cooling-tower-upgrade-roi/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/02/image-12.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "267684d9cb0eb3dda8253bf24ec1c8e0454ce33861a85a2eb3482079f74ac78c",
+      "bytes": 164741,
+      "file": "media/267684d9cb0eb3dda8253bf24ec1c8e0454ce33861a85a2eb3482079f74ac78c.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/02/image-12.jpeg",
+      "referencedBy": [
+        "/cooling-tower-variable-frequency-drive/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/03/image-40.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "4205348dae9500a977504f5f89b0b5bd3aacfe04770a677d7e0746a8cdd69c98",
+      "bytes": 276426,
+      "file": "media/4205348dae9500a977504f5f89b0b5bd3aacfe04770a677d7e0746a8cdd69c98.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/03/image-40.jpeg",
+      "referencedBy": [
+        "/cooling-tower-vs-chiller/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/04/image-20.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "bd3b45535363f7529a0f9c010409792a972f2ec840df3522bd95e7827edaae74",
+      "bytes": 193378,
+      "file": "media/bd3b45535363f7529a0f9c010409792a972f2ec840df3522bd95e7827edaae74.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/04/image-20.jpeg",
+      "referencedBy": [
+        "/cooling-tower-water-smell/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/12/image-51.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "c27191f1d4ebebdf2240075f0d062e54138867c53972199cf5e05e3be7ade1b5",
+      "bytes": 158858,
+      "file": "media/c27191f1d4ebebdf2240075f0d062e54138867c53972199cf5e05e3be7ade1b5.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/12/image-51.jpeg",
+      "referencedBy": [
+        "/cooling-tower-wood-material/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2024/03/image.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "5d8c910d7eb2c6acd1e051addb36ba4f872f0a159ab3ac3e76d25a160818615d",
+      "bytes": 142703,
+      "file": "media/5d8c910d7eb2c6acd1e051addb36ba4f872f0a159ab3ac3e76d25a160818615d.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2024/03/image.jpeg",
+      "referencedBy": [
+        "/cooling-towers-in-the-usa/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/11/image-43.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "b687d6b17d7810bdc4c236b452c9876d374b0a6d849be15fafe72f56e3bc073e",
+      "bytes": 176249,
+      "file": "media/b687d6b17d7810bdc4c236b452c9876d374b0a6d849be15fafe72f56e3bc073e.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/11/image-43.jpeg",
+      "referencedBy": [
+        "/cost-effective-new-cooling-tower/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2016/11/Drift-eliminators.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "acd2989c8678bdf42c163af479710a4095195a46da35044d7bbb98fe8604c5b1",
+      "bytes": 155894,
+      "file": "media/acd2989c8678bdf42c163af479710a4095195a46da35044d7bbb98fe8604c5b1.jpg",
+      "width": 1920,
+      "height": 1080,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2016/11/Drift-eliminators.jpg",
+      "referencedBy": [
+        "/drift-eliminators/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2023/09/Dry-soda-blast-cleaning-services.png",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "775836efc6aff409db8d1af5e815bc006f5e11107de4d8486ea4f8ab9a990c6e",
+      "bytes": 276109,
+      "file": "media/775836efc6aff409db8d1af5e815bc006f5e11107de4d8486ea4f8ab9a990c6e.png",
+      "width": 400,
+      "height": 273,
+      "format": "png",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2023/09/Dry-soda-blast-cleaning-services.png",
+      "referencedBy": [
+        "/dry-soda-blast-cleaning-services-2/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2021/11/Dynafab_FanStacks.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "623405a352c25f61b42ee439cf9d0873cdfb02b9e0d1e81928712d036374319b",
+      "bytes": 126300,
+      "file": "media/623405a352c25f61b42ee439cf9d0873cdfb02b9e0d1e81928712d036374319b.jpg",
+      "width": 1386,
+      "height": 676,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2021/11/Dynafab_FanStacks.jpg",
+      "referencedBy": [
+        "/dyna-fab-10-height-fan-stack/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2018/03/THE-ENVIRONMENTAL-ADVANTAGE-OF-COOLING-TOWERS-VS-ONCE-THROUGH-COOLING-SYSTEMS-min.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "ae9deecc7daf98889687b6e17859a72a45762f630e8436f80c0e4d1bd8813c4a",
+      "bytes": 128362,
+      "file": "media/ae9deecc7daf98889687b6e17859a72a45762f630e8436f80c0e4d1bd8813c4a.jpg",
+      "width": 1200,
+      "height": 630,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2018/03/THE-ENVIRONMENTAL-ADVANTAGE-OF-COOLING-TOWERS-VS-ONCE-THROUGH-COOLING-SYSTEMS-min.jpg",
+      "referencedBy": [
+        "/environmental-advantage-cooling-towers-vs-cooling-systems/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/11/image-12.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "d340688894f501409817a45200bb04541b2c3bdba3f59d9bdb28127dd7f33457",
+      "bytes": 178842,
+      "file": "media/d340688894f501409817a45200bb04541b2c3bdba3f59d9bdb28127dd7f33457.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/11/image-12.jpeg",
+      "referencedBy": [
+        "/expert-cooling-tower-repair/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2017/09/Fans-Cooling-Tower.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "7553fb645215e518fa32f8977b94db5daa322c4a82febfbd566644edd8954ee0",
+      "bytes": 61326,
+      "file": "media/7553fb645215e518fa32f8977b94db5daa322c4a82febfbd566644edd8954ee0.jpg",
+      "width": 612,
+      "height": 406,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2017/09/Fans-Cooling-Tower.jpg",
+      "referencedBy": [
+        "/fans-cooling-tower/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/12/image-83.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "029b2b3f5afbc7bd0391f880f3a3ba2d9cf389df714e1b485c2edfce848c6f11",
+      "bytes": 150078,
+      "file": "media/029b2b3f5afbc7bd0391f880f3a3ba2d9cf389df714e1b485c2edfce848c6f11.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/12/image-83.jpeg",
+      "referencedBy": [
+        "/frp-cooling-tower-fans/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2011/01/FRP-cooling-towers.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "ac65c8b409415c2f2c1e917e1bbce3e750eb534a3df4c0f11247799dac0a3df6",
+      "bytes": 201390,
+      "file": "media/ac65c8b409415c2f2c1e917e1bbce3e750eb534a3df4c0f11247799dac0a3df6.jpg",
+      "width": 1920,
+      "height": 1080,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2011/01/FRP-cooling-towers.jpg",
+      "referencedBy": [
+        "/frp-cooling-towers/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2009/03/FRP-fan-blades-guide.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "1499e8f546a7526f06bbb40ca815068e7d016d8f38ccb23a45d1787a1cbeb568",
+      "bytes": 120318,
+      "file": "media/1499e8f546a7526f06bbb40ca815068e7d016d8f38ccb23a45d1787a1cbeb568.jpg",
+      "width": 1920,
+      "height": 1080,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2009/03/FRP-fan-blades-guide.jpg",
+      "referencedBy": [
+        "/frp-fan-blades-guide/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2024/05/A-DETAILED-GUIDE-ABOUT-COOLING-TOWER-min.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "5f7a6b8baa50628c7dacd1beee489ef33782afeacfa85c7f5b7fb15d7dd17846",
+      "bytes": 75859,
+      "file": "media/5f7a6b8baa50628c7dacd1beee489ef33782afeacfa85c7f5b7fb15d7dd17846.jpg",
+      "width": 1200,
+      "height": 630,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2024/05/A-DETAILED-GUIDE-ABOUT-COOLING-TOWER-min.jpg",
+      "referencedBy": [
+        "/guide-about-cooling-tower/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2024/09/Banner-image-2-min-1024x576.png",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "967c8c000c790367d782e1adf87b52f107c74eecc30b13b4f9b5885acee07c42",
+      "bytes": 399253,
+      "file": "media/967c8c000c790367d782e1adf87b52f107c74eecc30b13b4f9b5885acee07c42.png",
+      "width": 1024,
+      "height": 576,
+      "format": "png",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2024/09/Banner-image-2-min-1024x576.png",
+      "referencedBy": [
+        "/history-frp-pt-1/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/12/image-89.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "445b88dc6e1d84ed9ee24d28c87bb9d4cef6bb6b485e340466c5acaeb35f7af0",
+      "bytes": 135030,
+      "file": "media/445b88dc6e1d84ed9ee24d28c87bb9d4cef6bb6b485e340466c5acaeb35f7af0.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/12/image-89.jpeg",
+      "referencedBy": [
+        "/history-of-frp/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2024/11/Main-min-4.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "666b285d8443d8f5e44cc04ea8dc6d500dea1e4d8e5f883decfdf021ac63fcbb",
+      "bytes": 133544,
+      "file": "media/666b285d8443d8f5e44cc04ea8dc6d500dea1e4d8e5f883decfdf021ac63fcbb.jpg",
+      "width": 1440,
+      "height": 810,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2024/11/Main-min-4.jpg",
+      "referencedBy": [
+        "/hvac-cooling-tower/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/08/unnamed_11zon.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "3f91fc0dc8be64d96911a6071b931abf6c8d391abb4179032779af281f330ae4",
+      "bytes": 87801,
+      "file": "media/3f91fc0dc8be64d96911a6071b931abf6c8d391abb4179032779af281f330ae4.jpg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/08/unnamed_11zon.jpg",
+      "referencedBy": [
+        "/hybrid-and-dry-cooling-technologies/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "e7ff531ab21ac7f75d809cb80449c1fad494565616efb09133d26138f276bff5",
+      "bytes": 726003,
+      "file": "media/e7ff531ab21ac7f75d809cb80449c1fad494565616efb09133d26138f276bff5.jpg",
+      "width": 1219,
+      "height": 1035,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2022/05/Malaysia-Project-Public-.jpg",
+      "referencedBy": [
+        "/ics-awarded-multimillion-dollar-contract-for-28-cell-cooling-tower-at-new-petronas-refinery-in-malaysia/",
+        "/ics-begins-shipping-gulfjp-12spp-project/",
+        "/ics-completes-3-cell-tower-demolition-replacement-2-days-early/",
+        "/ics-joins-pt-torishima-guna-support-indonesian-market/",
+        "/look-cooling-tower-fan-efficiences/",
+        "/look-cooling-tower-fan-efficiency-pt-3/",
+        "/resources/cooling-tower-brochures/",
+        "/resources/tools/",
+        "/thank-you/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2024/06/SPOTTING-RED-FLAGS_-EARLY-INDICATORS-OF-COOLING-TOWER-TROUBLE-min.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "f5cf0d37357c2eca9c2e10c03131cf38c44e1cd1c110615a3e1aee14788c9d0d",
+      "bytes": 73686,
+      "file": "media/f5cf0d37357c2eca9c2e10c03131cf38c44e1cd1c110615a3e1aee14788c9d0d.jpg",
+      "width": 1200,
+      "height": 630,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2024/06/SPOTTING-RED-FLAGS_-EARLY-INDICATORS-OF-COOLING-TOWER-TROUBLE-min.jpg",
+      "referencedBy": [
+        "/indicators-of-cooling-tower-trouble/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/11/image-57.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "51a3796e4e763a87f19f82934d9e2fedc1c430f2dce70c3f83b01c398f3a579a",
+      "bytes": 173775,
+      "file": "media/51a3796e4e763a87f19f82934d9e2fedc1c430f2dce70c3f83b01c398f3a579a.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/11/image-57.jpeg",
+      "referencedBy": [
+        "/industrial-cooling-tower-automation/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/05/1ws_11zonFinding-the-Right-Fit-A-Guide-to-Industrial-Cooling-Towers-Manufacturers.webp",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "3b99a2dbf83efbba02c8b1eeb050b9e1a0b282bac5a77b2849f1ecd27c15ebee",
+      "bytes": 32166,
+      "file": "media/3b99a2dbf83efbba02c8b1eeb050b9e1a0b282bac5a77b2849f1ecd27c15ebee.webp",
+      "width": 1440,
+      "height": 810,
+      "format": "webp",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/05/1ws_11zonFinding-the-Right-Fit-A-Guide-to-Industrial-Cooling-Towers-Manufacturers.webp",
+      "referencedBy": [
+        "/industrial-cooling-tower-manufacturers-guide/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/07/Near-Net-Zero-Water-in-Industrial-Cooling-Towers-for-2025-h2ocooling.com_.webp",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "81885a1a55243ea2ca07c9e3885f8cf5d8e4283d775b4ce5587294a89cbefd25",
+      "bytes": 50850,
+      "file": "media/81885a1a55243ea2ca07c9e3885f8cf5d8e4283d775b4ce5587294a89cbefd25.webp",
+      "width": 1600,
+      "height": 900,
+      "format": "webp",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/07/Near-Net-Zero-Water-in-Industrial-Cooling-Towers-for-2025-h2ocooling.com_.webp",
+      "referencedBy": [
+        "/industrial-cooling-towers/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2018/03/HOW-TO-INSPECT-A-COOLING-TOWER-–-PART-2-min.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "13249420314de51f704d38189b01ec79e272c0002321b3c70191bbcff3f06fb4",
+      "bytes": 95040,
+      "file": "media/13249420314de51f704d38189b01ec79e272c0002321b3c70191bbcff3f06fb4.jpg",
+      "width": 1200,
+      "height": 630,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2018/03/HOW-TO-INSPECT-A-COOLING-TOWER-–-PART-2-min.jpg",
+      "referencedBy": [
+        "/inspect-cooling-tower-part-2/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2024/06/WHAT-IS-THE-BEST-MATERIAL-FOR-A-COOLING-TOWER-min.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "2147cb67e848d8cb44a153fc6065aaeb71073b803c57b58355e6852ff23cd6ac",
+      "bytes": 93959,
+      "file": "media/2147cb67e848d8cb44a153fc6065aaeb71073b803c57b58355e6852ff23cd6ac.jpg",
+      "width": 1200,
+      "height": 630,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2024/06/WHAT-IS-THE-BEST-MATERIAL-FOR-A-COOLING-TOWER-min.jpg",
+      "referencedBy": [
+        "/material-for-a-cooling-tower/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/06/Vector-1.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "0d1039c0be35c5134f2141a079f8fa71896dc0f91c060d5d2e35d8f1422fe940",
+      "bytes": 71258,
+      "file": "media/0d1039c0be35c5134f2141a079f8fa71896dc0f91c060d5d2e35d8f1422fe940.jpg",
+      "width": 286,
+      "height": 349,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/06/Vector-1.jpg",
+      "referencedBy": [
+        "/new-cooling-tower-page/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/11/image-25.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "94ec422e33b342c4a86f7101db29bf175cbb73302ed2e125ca55ffaf7936ff7e",
+      "bytes": 160111,
+      "file": "media/94ec422e33b342c4a86f7101db29bf175cbb73302ed2e125ca55ffaf7936ff7e.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/11/image-25.jpeg",
+      "referencedBy": [
+        "/new-cooling-towers/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/12/Power-Plant-Cooling-Towers-A-Guide-to-Heat-Rejection-Systems.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "75f1093f85863d09643c8e4877a51f934486fda328e9643029fdb4b105afdb88",
+      "bytes": 105357,
+      "file": "media/75f1093f85863d09643c8e4877a51f934486fda328e9643029fdb4b105afdb88.jpg",
+      "width": 1920,
+      "height": 1080,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/12/Power-Plant-Cooling-Towers-A-Guide-to-Heat-Rejection-Systems.jpg",
+      "referencedBy": [
+        "/power-plant-cooling-towers/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2022/04/Should-I-Repair-Or-Replace-A-Cooling-Tower-–-Cooling-Tower-Maintenance-min.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "67f58e0c2a1f7ae9e4631cd6c2b9b13e66f71dbbb79538818e28ce8fd3be3bb4",
+      "bytes": 77481,
+      "file": "media/67f58e0c2a1f7ae9e4631cd6c2b9b13e66f71dbbb79538818e28ce8fd3be3bb4.jpg",
+      "width": 1200,
+      "height": 630,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2022/04/Should-I-Repair-Or-Replace-A-Cooling-Tower-–-Cooling-Tower-Maintenance-min.jpg",
+      "referencedBy": [
+        "/should-i-repair-or-replace-a-cooling-tower/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2018/01/Steps-To-A-More-Energy-Efficient-Cooling-Tower.png",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "186671d268b855ed6a79c4b7a7f9aac0a8b7eb52d5bc321521f3ac69ec1efba1",
+      "bytes": 751947,
+      "file": "media/186671d268b855ed6a79c4b7a7f9aac0a8b7eb52d5bc321521f3ac69ec1efba1.png",
+      "width": 832,
+      "height": 565,
+      "format": "png",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2018/01/Steps-To-A-More-Energy-Efficient-Cooling-Tower.png",
+      "referencedBy": [
+        "/steps-energy-efficient-cooling-tower/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/03/Group-1.png",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "1ad07fa17e558c582e2d4b2e551a0facdfbc8eb482467168e71cc65b5fdca2b1",
+      "bytes": 304729,
+      "file": "media/1ad07fa17e558c582e2d4b2e551a0facdfbc8eb482467168e71cc65b5fdca2b1.png",
+      "width": 347,
+      "height": 425,
+      "format": "png",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/03/Group-1.png",
+      "referencedBy": [
+        "/thailand-cooling-tower/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2017/10/pic-1-min.png",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "79ffb9cad0f9866650eaff074a65e01259510cb93c8a6990fe24d8b2014d50bf",
+      "bytes": 172996,
+      "file": "media/79ffb9cad0f9866650eaff074a65e01259510cb93c8a6990fe24d8b2014d50bf.png",
+      "width": 1200,
+      "height": 630,
+      "format": "png",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2017/10/pic-1-min.png",
+      "referencedBy": [
+        "/the-benefits-of-frp-fans-in-industrial-cooling/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2026/02/Timely-Cooling-Tower-Repairs.jpeg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "b696cf44f3afb65a6506c15be1e97cdfeea415de847d4d1cf5fb8f35c624dab4",
+      "bytes": 229655,
+      "file": "media/b696cf44f3afb65a6506c15be1e97cdfeea415de847d4d1cf5fb8f35c624dab4.jpeg",
+      "width": 1600,
+      "height": 900,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2026/02/Timely-Cooling-Tower-Repairs.jpeg",
+      "referencedBy": [
+        "/timely-cooling-tower-repairs/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2025/06/Understanding-the-Cooling-Tower-Performance-Curve-h2ocooling.com_.png",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "dd35fb0f10501cdcc29f2279f5cda26bfdf6e017114d0948ef2d62422cc05dcb",
+      "bytes": 1462314,
+      "file": "media/dd35fb0f10501cdcc29f2279f5cda26bfdf6e017114d0948ef2d62422cc05dcb.png",
+      "width": 1600,
+      "height": 900,
+      "format": "png",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2025/06/Understanding-the-Cooling-Tower-Performance-Curve-h2ocooling.com_.png",
+      "referencedBy": [
+        "/understanding-cooling-tower-performance-curve/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2018/03/WHY-FRP-IS-SUPERIOR-TO-WOOD-ALUMINUM-STEEL-AND-CONCRETE-min.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "999bde3e99cc87955700af5495367f21a4e766b11226f1ea232cd5f21c57fe7b",
+      "bytes": 85202,
+      "file": "media/999bde3e99cc87955700af5495367f21a4e766b11226f1ea232cd5f21c57fe7b.jpg",
+      "width": 1200,
+      "height": 630,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2018/03/WHY-FRP-IS-SUPERIOR-TO-WOOD-ALUMINUM-STEEL-AND-CONCRETE-min.jpg",
+      "referencedBy": [
+        "/why-are-cooling-towers-made-of-wood/"
+      ]
+    },
+    {
+      "url": "https://h2ocooling.com/wp-content/uploads/2018/03/Industrial-Cooling-Towers-%E2%80%93-An-Elegant-Solution-min-300x158.jpg",
+      "state": "SOURCE_BINARY_HELD",
+      "sha256": "24c1c152556597cad20796138c2849f5004cbd0f1ddd657cf35651f5eea463f1",
+      "bytes": 12019,
+      "file": "media/24c1c152556597cad20796138c2849f5004cbd0f1ddd657cf35651f5eea463f1.jpg",
+      "width": 300,
+      "height": 158,
+      "format": "jpeg",
+      "authority": "R2.4_LOCAL_BACKUP_RECOVERED",
+      "source": "h2ocooling.com public_html backup wp-content/uploads/2018/03/Industrial-Cooling-Towers-–-An-Elegant-Solution-min-300x158.jpg",
+      "referencedBy": [
+        "/environmental-advantage-cooling-towers-vs-cooling-systems/"
+      ],
+      "note": "The media index holds these bytes under the http:// spelling only; the page names the https:// one."
+    }
+  ]
+}

@@ -6,6 +6,8 @@ import {RfqMount} from './RfqMount'
 import {isPayloadContent,requestServices,snapshotJson} from '../content/runtime-read'
 import {deliverySrc} from './media-delivery'
 import {BreadcrumbSchema,HOME_CRUMB} from './breadcrumb-schema'
+import {StandardHead} from './standard-head'
+import {PUBLIC_ORIGIN} from '../content/config'
 import {heroQuoteAction} from '../content/rfq-controls'
 import {heroActionFor,heroSecondaryHref} from './hero-actions'
 import {pageCopy} from './page-copy'
@@ -66,8 +68,10 @@ function heroActions(service:EnglishService){
   if(!action)return <><a href="#english-request-title">Request a Quote</a><a href="#service-scope">Explore the service</a></>
   return <>{heroQuoteAction({routeId:service.id,targetPath:service.path},'hero-primary',action.label)}{action.secondary?<a href={heroSecondaryHref(action.secondary)} data-hero-action="secondary">{action.secondary.label}</a>:null}</>
 }
-export function EnglishServicePage({service}:{service:EnglishService}){
+export function EnglishServicePage({service,head}:{service:EnglishService;head?:{title:string;description:string}}){
   return <div className="luxury-site english-service" data-english-service={service.id} data-figma-node={service.figmaNode}>
+    {/* R2.4 (item d): the standard head — og/twitter mirroring the served title and description, Organization/WebSite. */}
+    <StandardHead facts={{title:head?.title??service.title+' | ICS',description:head?.description??service.lead,url:`${PUBLIC_ORIGIN}${service.path}`}}/>
     <BreadcrumbSchema ancestors={[HOME_CRUMB]} current={{name:service.title,path:service.path}}/>
     <LuxuryHeader routePath={service.path}/>
     <main id="main">

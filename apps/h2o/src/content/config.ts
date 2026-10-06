@@ -60,7 +60,8 @@ export const indexingPolicy = (env: NodeJS.ProcessEnv = process.env): IndexingPo
  * to follow its links, whatever its ledger `indexable` flag says, and it is never in the sitemap. Every other route,
  * and every route under `private`, is unchanged.
  */
-export const NOINDEX_FOLLOW_PATHS: ReadonlySet<string> = new Set(['/author/timbozic/', ...EMPTY_ARCHIVE_PATHS])
+// R2.4 (CT ruling 2026-10-05): /search/ is a utility page — noindex,follow and never in the sitemap.
+export const NOINDEX_FOLLOW_PATHS: ReadonlySet<string> = new Set(['/author/timbozic/', '/search/', ...EMPTY_ARCHIVE_PATHS])
 
 /**
  * The page-metadata robots for a route record (the proxy sends the matching X-Robots-Tag). Private policy and previews are

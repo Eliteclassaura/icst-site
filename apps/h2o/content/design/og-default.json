@@ -1,0 +1,20 @@
+{
+  "authority": "R2.4 (Control Tower 2026-10-05, SEO Checker baseline item b): the site default social image for pages with no held image of their own. A verified ICS project photo (project-media registry), cropped and scaled; no AI edit, nothing added.",
+  "image": {
+    "file": "/media/og/bee5a42c610b7342dd3932000552046c26391f4028cea170e9a85536d7bb2812.jpg",
+    "sha256": "bee5a42c610b7342dd3932000552046c26391f4028cea170e9a85536d7bb2812",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg",
+    "alt": "ICS crew at work on an industrial cooling tower"
+  },
+  "source": {
+    "file": "public/media/projects/5a42189fd6ba2edddc1923b96a6f89f65db682b83eae894e865a23729f85da46.jpg",
+    "sha256": "5a42189fd6ba2edddc1923b96a6f89f65db682b83eae894e865a23729f85da46",
+    "registry": "content/projects/project-media.json /all-projects/keramasan-power-project/",
+    "width": 1600,
+    "height": 1200,
+    "crop": { "left": 0, "top": 60, "width": 1600, "height": 840 },
+    "scaledTo": { "width": 1200, "height": 630 }
+  }
+}
