@@ -1,0 +1,1507 @@
+{
+ "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed.",
+ "absent": [
+  {
+   "row": "LocaleB-A",
+   "path": "/inspect-cooling-tower-part-2/",
+   "text": "No matter which services you trust us with, you’ll be guaranteed to see increased tower efficiency, improved profitability, safety, and longevity.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "LocaleB-A",
+   "path": "/id/cara-memeriksa-menara-pendingin-bagian-2/",
+   "text": "Apa pun layanan yang Anda percayakan kepada kami, Anda dijamin akan melihat peningkatan efisiensi menara, peningkatan profitabilitas, keamanan, dan umur panjang.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "LocaleB-A",
+   "path": "/ja/冷却塔の検査方法-パート-2/",
+   "text": "どのサービスを信頼していただいても、タワーの効率が向上し、収益性、安全性、寿命が向上することが保証されます。",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "LocaleB-A",
+   "path": "/th/วิธีตรวจสอบหอทำความเย็/",
+   "text": "ไม่ว่าคุณจะไว้วางใจเราด้วยบริการใด คุณจะรับประกันได้ว่าประสิทธิภาพของทาวเวอร์ที่เพิ่มขึ้น ความสามารถในการทำกำไรที่ดีขึ้น ความปลอดภัย และอายุการใช้งานที่ยาวนานขึ้น",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "LocaleB-A",
+   "path": "/vi/cach-kiem-tra-thap-giai-nhiet-phan-2/",
+   "text": "Cho dù bạn tin tưởng sử dụng dịch vụ nào của chúng tôi, bạn sẽ được đảm bảo thấy hiệu suất của tháp tăng lên, lợi nhuận được cải thiện, độ an toàn và tuổi thọ cao.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "LocaleB-A",
+   "path": "/cooling-tower-fill/",
+   "text": "The top supplier of cooling tower fill is Industrial Cooling Solutions.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "LocaleB-A",
+   "path": "/ja/冷却塔の充填について知っておくべきこと/",
+   "text": "冷却塔充填材のトップサプライヤーは Industrial Cooling Solutions です。",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "LocaleB-A",
+   "path": "/th/สิ่งที่คุณต้องรู้เกี่ย/",
+   "text": "ซัพพลายเออร์ชั้นนำของฟิลหอทำความเย็นคือ Industrial Cooling Solutions",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "LocaleB-A",
+   "path": "/vi/nhung-dieu-ban-can-biet-ve-thap-giai-nhiet/",
+   "text": "Nhà cung cấp giải pháp làm mát tháp giải nhiệt hàng đầu là Giải pháp làm mát công nghiệp.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "LocaleB-A",
+   "path": "/id/hal-hal-yang-perlu-anda-ketahui-tentang-pengisi-menara-pendingin/",
+   "text": "Pemasok utama pengisian menara pendingin adalah Solusi Pendinginan Industri.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/abb-motor-example/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/abb-motor-example/",
+   "text": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/baldor-motor/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/baldor-motor/",
+   "text": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/brentwood-cellular-de-overview/",
+   "text": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/brentwood-cellular-de-overview/",
+   "text": "Spray type: Full cone or umbrella",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/brentwood-cellular-de-overview/",
+   "text": "Flow rate: 10–50 m³/h",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/brentwood-cellular-de-overview/",
+   "text": "Pressure range: 1–3.5 kg/cm²",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/brentwood-cellular-de-overview/",
+   "text": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/brentwood-cellular-de-overview/",
+   "text": "Mounting: Threaded pipe connection or snap-in grommet",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "text": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "text": "Spray type: Full cone or umbrella",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "text": "Flow rate: 10–50 m³/h",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "text": "Pressure range: 1–3.5 kg/cm²",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "text": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "text": "Mounting: Threaded pipe connection or snap-in grommet",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-ces-190-film-fill/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "text": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "text": "Spray type: Full cone or umbrella",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "text": "Flow rate: 10–50 m³/h",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "text": "Pressure range: 1–3.5 kg/cm²",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "text": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "text": "Mounting: Threaded pipe connection or snap-in grommet",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "text": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "text": "Spray type: Full cone or umbrella",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "text": "Flow rate: 10–50 m³/h",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "text": "Pressure range: 1–3.5 kg/cm²",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "text": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "text": "Mounting: Threaded pipe connection or snap-in grommet",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/glue-assembly-fill/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/high-efficiency-fill/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/low-fouling-fill/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/offset-flute-fill/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "text": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "text": "Spray type: Full cone or umbrella",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "text": "Flow rate: 10–50 m³/h",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "text": "Pressure range: 1–3.5 kg/cm²",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "text": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "text": "Mounting: Threaded pipe connection or snap-in grommet",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/site-assembly/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/site-assembly/",
+   "text": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/site-assembly/",
+   "text": "Spray type: Full cone or umbrella",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/site-assembly/",
+   "text": "Flow rate: 10–50 m³/h",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/site-assembly/",
+   "text": "Pressure range: 1–3.5 kg/cm²",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/site-assembly/",
+   "text": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/site-assembly/",
+   "text": "Mounting: Threaded pipe connection or snap-in grommet",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/teco-westinghouse-motor-example/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/vibration-switch-example/",
+   "text": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/vibration-switch-example/",
+   "text": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/vibration-switch-example/",
+   "text": "Spray type: Full cone or umbrella",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/vibration-switch-example/",
+   "text": "Flow rate: 10–50 m³/h",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/vibration-switch-example/",
+   "text": "Pressure range: 1–3.5 kg/cm²",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/vibration-switch-example/",
+   "text": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "F1",
+   "path": "/product/vibration-switch-example/",
+   "text": "Mounting: Threaded pipe connection or snap-in grommet",
+   "source": "claim-edit remove"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/",
+   "text": "Factory-authorized OEM parts for every major cooling tower brand. Fast supply of fans, fill media, gearboxes, nozzles, and more, ensuring your system stays at optimal performance with minimal maintenance needs.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/",
+   "text": "Durable, OEM-quality parts for every cooling tower and industrial cooling system — in stock and ready to ship.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/",
+   "text": "Our global team provides",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/cooling-tower-parts-online/",
+   "text": "OEM-quality replacement components for every make and model — shipped fast, backed by full factory warranty.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1713/",
+   "text": "Its double reduction design, strong housing, precision gearing, and AGMA/CTI-compliant construction make",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/all-projects/pttcsp/",
+   "text": "ICS and ICST were engaged to enhance system performance by achieving a guaranteed minimum 15% increase in airflow, along with improved static pressure control and overall thermal efficiency under defined performance guarantees.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/all-projects/pttcsp/",
+   "text": "ensuring compliance with plant requirements and performance expectations.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/inspect-cooling-tower-part-2/",
+   "text": "ICS is located in Lakewood, Colorado with offices around the world.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/th/วิธีตรวจสอบหอทำความเย็/",
+   "text": "ICS ตั้งอยู่ในเมืองเลควูด รัฐโคโลราโด และมีสำนักงานอยู่ทั่วโลก",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/ja/冷却塔の検査方法-パート-2/",
+   "text": "ICS はコロラド州レイクウッドにあり、世界中にオフィスを構えています。",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/id/cara-memeriksa-menara-pendingin-bagian-2/",
+   "text": "ICS berlokasi di Lakewood, Colorado dengan kantor di seluruh dunia.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/vi/cach-kiem-tra-thap-giai-nhiet-phan-2/",
+   "text": "ICS có trụ sở tại Lakewood, Colorado với các văn phòng trên khắp thế giới.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "C4/C5/template",
+   "path": "/th/วิธีการตรวจสอบคูลลิ่งท/",
+   "text": "มีสำนักงานใหญ่ในเมืองเลควูด รัฐโคโลราโด เรามีตำแหน่งงานในญี่ปุ่น ไทย รวมถึงตัวแทนที่ตั้งอยู่ทั่วโลก",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS004",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "Guaranteed Thermal Performance and Energy Efficiency",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS005",
+   "path": "/cooling-tower-cmms/",
+   "text": "engineering team to design a CMMS integration plan that guarantees uptime and efficiency.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS006",
+   "path": "/cooling-tower-cold-weather-operation/",
+   "text": "Guaranteed Operational Uptime:",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS007",
+   "path": "/cooling-tower-construction-repair-in-united-states/",
+   "text": "Our strategically located offices and service teams ensure rapid response times and seamless support across the United States.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS008",
+   "path": "/cooling-tower-fill-media-replacement/",
+   "text": "The cooling tower fill installation process is as important as the material itself. A poor installation compromises the performance of the most advanced media. ICS follows a strict protocol to guarantee peak operation.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS010",
+   "path": "/cooling-tower-inspection-checklist/",
+   "text": "that guarantees peak performance, visit the",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS011",
+   "path": "/cooling-tower-lifespan/",
+   "text": "The ICS Promise guarantees superior operational results. We do not merely sell equipment; we provide 40-year thermal solutions built to withstand the harshest environments. We ensure your facility achieves optimum cooling capacity while protecting your long-term capital investments.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS012",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "CTI-certified performance:",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS012",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "All ICS towers are tested and certified by the Cooling Technology Institute, guaranteeing that rated thermal performance is actually delivered in the field.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS013",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "ICS | The #1 Cooling Tower Manufacturer in the USA",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS014+CS021",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "(ICS) has established itself as the most trusted name among cooling tower manufacturers in the USA. With decades of engineering experience and manufacturing facilities operating across the country, ICS brings together deep technical expertise and a true nationwide service footprint.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS015",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "Why ICS is the Top Choice in the USA",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS016",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "For industrial buyers seeking the best cooling tower manufacturers in the USA, Industrial Cooling Solutions represents the industry benchmark.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS017+CS018",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "The leading manufacturers include ICS, SPX Cooling Technologies, Baltimore Aircoil Company, EVAPCO, and Delta Cooling Towers. ICS is widely regarded as the top supplier for large-scale industrial and energy-sector applications, offering full customization and nationwide service coverage.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS019",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "Why is ICS considered the leading cooling tower manufacturer?",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS020",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "Among CTI-certified cooling tower manufacturers in the US, ICS consistently receives top ratings on all five criteria. Their combination of full customization, certified performance, and nationwide service coverage makes them the benchmark for industrial buyers.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS022",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "This comparison helps buyers quickly identify which supplier aligns with their specific application, budget, and geographic requirements. ICS stands out as the only manufacturer offering full customization with nationwide service coverage and dual CTI and",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS023",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "ICS leads the market due to its combination of advanced custom engineering, CTI and ISO certification, high-efficiency thermal designs, durable industrial materials, rapid lead times, and a comprehensive nationwide service network.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS024",
+   "path": "/cooling-tower-performance-curve/",
+   "text": "ICS insists on certified performance verification for all cooling tower installations. Facilities should not accept baseline data without rigorous field testing.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS025",
+   "path": "/cooling-tower-performance-testing/",
+   "text": "is CTI-licensed and has decades of experience conducting independent, third-party performance tests that protect your investment.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS026",
+   "path": "/cooling-tower-repair-service/",
+   "text": "Guaranteed Performance",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS026",
+   "path": "/cooling-tower-repair-service/",
+   "text": "— Equipment runs efficiently and safely after every repair.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS027",
+   "path": "/cooling-tower-repair-service/",
+   "text": "In an emergency, time is everything. Our technicians are available 24/7 for emergency industrial cooling calls, with guaranteed fast dispatch — because downtime doesn’t wait for business hours. Our",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS029",
+   "path": "/cooling-tower-repair-service/",
+   "text": "1. Rapid Deployment and 24/7 Availability",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS030",
+   "path": "/cooling-tower-repair-service/",
+   "text": "Around-the-Clock Support",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS030",
+   "path": "/cooling-tower-repair-service/",
+   "text": "— Our team responds to your call, day or night.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS031",
+   "path": "/cooling-tower-repair-service/",
+   "text": "True 24/7 emergency response",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS031",
+   "path": "/cooling-tower-repair-service/",
+   "text": ", not a call center queue.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS032",
+   "path": "/cooling-tower-repair-service/",
+   "text": "Yes. H2O Cooling’s emergency Cooling Tower Repair Service operates 24/7, including weekends and holidays, with no reduction in response speed or repair quality.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS033",
+   "path": "/cooling-tower-repair-service/",
+   "text": "Quality drives every repair. Our technicians are trained and certified to work on all major cooling tower brands, using only certified spare parts that meet or exceed OEM specifications. Our",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS034",
+   "path": "/cooling-tower-repair-team/",
+   "text": "The 120-Day Thermal Performance Guarantee:",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS034",
+   "path": "/cooling-tower-repair-team/",
+   "text": "Confidence in quality and service means the tower must reach its guaranteed cold water temperature within 120 days post-repair, or labor for secondary repairs is free. This drives tower performance and customer satisfaction for all cooling tower services.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS035",
+   "path": "/cooling-tower-replacement-cost/",
+   "text": "We guarantee that your new installation meets or exceeds all modern regulatory and environmental standards. Our mechanical designs ensure strict compliance with Cooling Technology Institute (CTI) guidelines and ASHRAE Standard 188. We also configure your system to meet emerging local water scarcity mandates and blowdown restrictions.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS036",
+   "path": "/cooling-tower-replacement/",
+   "text": "Partner with ICS for scheduled maintenance, cooling tower repair, and replacement parts support recommended by leading cooling tower manufacturers. Professional servicing ensures early fault detection, optimized system efficiency, and reduced maintenance cost while extending the operational lifespan of the cooling tower system.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS037",
+   "path": "/cooling-tower-spares/",
+   "text": "Same-Day Quote Turnaround",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS038",
+   "path": "/cooling-tower-spares/",
+   "text": "24/7 Emergency Parts Line",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS039",
+   "path": "/cooling-tower-thermal-storage/",
+   "text": "We ensure your cooling tower can support the new storage system through inspection, performance assessment, upgrades, and commissioning support, guaranteeing project success from the start.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS040",
+   "path": "/cooling-tower-ton-calculation/",
+   "text": "Always validate site-specific WBT before finalizing your design. Do not rely solely on standard benchmarks. The ICS Engineering Standard advocates for a holistic view. We look at the gpm, the dt, and the energy needed to guarantee your tower delivers its rated tonnage under peak stress.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS041",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "In this authoritative guide, we will leverage our expertise to walk you through the three critical phases of planning a project that achieves both a manageable budget and a guaranteed long-term ROI.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS042",
+   "path": "/dry-soda-blast-cleaning-services-2/",
+   "text": "There are various ways to increase the performance of your current ACHE without buying new air coolers. We provide a modern, green solution to guarantee your air cooler systems’ best performance and lifespan.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS043",
+   "path": "/dry-soda-blast-cleaning-services-2/",
+   "text": "ICS Dry Cleaning provides immediate performance results as the fouling is removed from the system. Your control room will see increased performance in the system as we clean. ICS Group would be pleased to work with you to optimize your Air Coolers further to maximize the cooling and performance of the plant with ICS’s GUARANTEED upgrades.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS044",
+   "path": "/energy-efficient-cooling-tower/",
+   "text": "This guide reveals the $100,000 blueprint for an",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS044",
+   "path": "/energy-efficient-cooling-tower/",
+   "text": ", a proven set of strategies that go beyond ordinary upkeep to deliver a 30% reduction in power consumption. Discover the advanced optimization steps, actionable insights, and engineering secrets that put you ahead of the curve.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS045",
+   "path": "/evaporative-vs-dry-cooling/",
+   "text": "we specialize in CTI-certified water treatment and component refurbishment that ensures both performance and compliance.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS046",
+   "path": "/frp-members/",
+   "text": "ICS is an OEM supplier of Bedford, Strongwell and others and provides the best pricing and delivery on FRP structural shapes.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS048",
+   "path": "/ics-awarded-multimillion-dollar-contract-for-28-cell-cooling-tower-at-new-petronas-refinery-in-malaysia/",
+   "text": "Industrial Cooling Solutions, Inc. (ICS) utilizes cutting-edge technology to provide turnkey water cooling management solutions nationally and internationally. The company’s products and services include the installation, repair and upgrade of custom-designed water cooling towers, as well as the provision of water treatment and filtration supplies and a full spectrum of cooling tower parts. ICS’s international headquarters are located in Lakewood, Colorado, while the company serves its global network through offices in Thailand, Japan, and Saudi Arabia. For more information please go to",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS050",
+   "path": "/inspect-cooling-tower-part-2/",
+   "text": ", upgrades, a complete system install, or a simple repair. Our dedicated staff has an immense amount of experience with applications in all industries. The quality of our products and services are unmatched by our competitors, so",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS052",
+   "path": "/new-cooling-towers/",
+   "text": "This data allows our expert design service to engineer a system that guarantees performance. We design your",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS053",
+   "path": "/new-cooling-towers/",
+   "text": "How do we guarantee the long-term reliability of your new cooling tower? We combine expert craftsmanship with high-quality materials during every phase of installation. Our team conducts thorough testing and quality checks to ensure optimal performance.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS054",
+   "path": "/new-cooling-towers/",
+   "text": "Our teams then expertly erect the tower structure, using durable materials to guarantee structural integrity for years to come.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS055",
+   "path": "/new-cooling-towers/",
+   "text": "ICS’s meticulous approach ensures every part works in harmony, safeguarding your investment and guaranteeing operational reliability from day one.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS056",
+   "path": "/new-cooling-towers/",
+   "text": "Through a series of rigorous, protocol-based tests, we meticulously validate every aspect of its operation, guaranteeing optimal efficiency and capacity from day one.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS057",
+   "path": "/new-cooling-towers/",
+   "text": "Cooling tower costs vary by size, materials, and design. Small commercial towers (up to 200 tons) typically cost $50,000 – $150,000, while medium commercial towers (200 – 500 tons) range from $150,000 – $500,000. Large or custom-engineered towers may require higher investments depending on capacity and site conditions.",
+   "source": "claim-edit set"
+  },
+  {
+   "row": "CS058",
+   "path": "/privacy-policy/",
+   "text": "Internal ICS teams across global offices",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS060",
+   "path": "/reducing-cooling-tower-maintenance-costs/",
+   "text": "today to set up your annual bulk order plan and guarantee access to critical spare parts.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS061",
+   "path": "/resources/cooling-tower-brochures/",
+   "text": "[vc_row][vc_column][vc_column_text]Download our brochures to learn how ICS incorporates leading technology and lifetime customer support in its design of custom cooling tower solutions. Learn more about cooling tower safety & maintenance information.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS062",
+   "path": "/resources/cooling-tower-brochures/",
+   "text": "[/vc_column_text][/vc_tta_section][vc_tta_section title=”ICS: 2024 Brochure” tab_id=”1637257295468-3d4c0a13-ed33″][vc_column_text]ICS incorporates leading technology and lifetime customer support in its design of custom cooling solutions, providing you with superior performance and cost-effective cooling service.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS064",
+   "path": "/right-industrial-cooling-system/",
+   "text": "ICS systems meet certifications such as ISO, ASHRAE, and DOE, prioritizing safety, quality, and regulatory compliance. They are",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS068",
+   "path": "/id/cara-memeriksa-menara-pendingin-bagian-2/",
+   "text": "Solusi Pendinginan Industri menggabungkan teknik yang berbasis di Amerika dengan teknik lokal dan layanan lapangan untuk menyediakan layanan pendinginan industri kelas dunia kepada setiap klien dengan harga yang kompetitif. Kami menyediakan solusi untuk Pembangkit Listrik, Tenaga Panas Bumi, Pengilangan, Petrokimia, industri Kimia, dan banyak lagi. Saat Anda menghubungi Solusi Pendinginan Industri, kami akan bekerja sama dengan Anda untuk mengetahui masalah apa yang Anda alami. Kami akan membantu Anda memutuskan apakah Anda memerlukan penggantian komponen menara pendingin, peningkatan, pemasangan sistem secara lengkap, atau perbaikan sederhana. Staf kami yang berdedikasi memiliki banyak pengalaman dengan aplikasi di semua industri. Kualitas produk dan layanan kami tidak tertandingi oleh pesaing kami, jadi hubungi kami sekarang atau jelajahi situs kami untuk mempelajari lebih lanjut.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS070",
+   "path": "/id/tetap-sejuk-aman-apakah-kipas-menara-pendingin-anda-baik-baik-saja/",
+   "text": "Desain ramping kipas menara pendingin kami menghadirkan angin segar ke ruangan mana pun. Dengan kendali jarak jauh yang nyaman dan layar LED, pengaturan pengaturan menjadi mudah. ​​Baik untuk kantor rumah atau kamar tidur Anda, kipas menara kami dari ICS menawarkan kinerja dan gaya pendinginan yang unggul.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS071",
+   "path": "/ja/冷却塔とは何ですか/",
+   "text": "タワーの修理、アップグレード、再構築が必要な場合でも、当社はソリューションをカスタマイズしてタワーを最適な状態と運用パフォーマンスに復元します。 当社の革新的な設計により、タワーの効率が向上し、収益性が向上し、安全性と寿命が保証されます。 見積もりを依頼するには今すぐお問い合わせください。",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS072",
+   "path": "/ja/冷却塔の検査方法-パート-2/",
+   "text": "産業用冷却ソリューションは、アメリカを拠点とするエンジニアリングと現地のエンジニアリングおよびフィールド サービスを組み合わせて、各クライアントに世界クラスの産業用冷却サービスを競争力のある価格で提供します。 発電、地熱、精製、石油化学、化学産業などにソリューションを提供しています。 産業用冷却ソリューションにご連絡いただくと、どのような問題が発生しているのかを確認するために緊密に連携します。 冷却塔の交換コンポーネント、アップグレード、完全なシステムの設置、または簡単な修理が必要かどうかを判断するお手伝いをいたします。 当社の専任スタッフは、あらゆる業界のアプリケーションに関して豊富な経験を持っています。 当社の製品とサービスの品質は競合他社の追随を許しません。詳細については、今すぐお電話いただくか、当社のサイトをご覧ください。",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS075",
+   "path": "/ja/寒冷地の冷却塔/",
+   "text": "Industrial Cooling Solutions は、米国に本拠を置く冷却塔会社で、顧客に冷却塔の交換、修理、アップグレード、設置サービスを提供しています。 当社の経験豊富なスタッフは、あらゆる用途および業界の冷却塔の保守に経験があり、当社にお問い合わせいただいた各企業の成功に全力で取り組んでいます。 当社の洗練された冷却塔サービスは、塔の効率を向上させ、収益性を高め、常に安全性と寿命を保証するように設計されています。 ICS についてさらに詳しく知りたい場合は、当社の Web サイトを読むか、今すぐお問い合わせください。 ぜひご連絡ください。",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS077+CS077+CS077",
+   "path": "/th/วิธีตรวจสอบหอทำความเย็/",
+   "text": "โซลูชันการทำความเย็นทางอุตสาหกรรมผสมผสานวิศวกรรมที่มีฐานในอเมริกาเข้ากับวิศวกรรมเฉพาะที่และบริการภาคสนาม เพื่อให้ลูกค้าแต่ละรายได้รับบริการทำความเย็นทางอุตสาหกรรมระดับโลกในราคาที่แข่งขันได้ เราจัดหาโซลูชั่นสำหรับการผลิตไฟฟ้า พลังงานความร้อนใต้พิภพ การกลั่น ปิโตรเคมี เคมีภัณฑ์ และอื่นๆ เมื่อคุณติดต่อ Industrial Cooling Solutions เราจะทำงานอย่างใกล้ชิดกับคุณเพื่อพิจารณาว่าคุณประสบปัญหาใด เราจะช่วยคุณตัดสินใจว่าคุณต้องการชิ้นส่วนทดแทนหอทำความเย็น การอัพเกรด การติดตั้งระบบทั้งหมด หรือการซ่อมแซมง่ายๆ พนักงานที่ทุ่มเทของเรามีประสบการณ์มากมายในการใช้งานในทุกอุตสาหกรรม คุณภาพของผลิตภัณฑ์และบริการของเราไม่มีใครเทียบได้กับคู่แข่ง ดังนั้นโทรหาเราวันนี้หรือเรียกดูเว็บไซต์ของเราเพื่อเรียนรู้เพิ่มเติม",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS079",
+   "path": "/th/วิธีป้องกันแบคทีเรีย-legionella/",
+   "text": "ผู้เชี่ยวชาญของ International Cooling Solutions ภูมิใจเสนอบริการบำบัดน้ำที่มีคุณภาพ และเสนอคำแนะนำเฉพาะบุคคลเกี่ยวกับวิธีหลีกเลี่ยงการผลิตแบคทีเรียลีเจียนเนลลาในหอหล่อเย็นของคุณ หากต้องการทราบข้อมูลเพิ่มเติมและจองเวลานัดหมาย โปรดติดต่อเราทันที!",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS081",
+   "path": "/th/หอทำความเย็นคืออะไร/",
+   "text": "ไม่ว่าคุณจะต้องการซ่อมแซม อัพเกรด หรือสร้างทาวเวอร์ของคุณใหม่ เราก็ปรับแต่งโซลูชันเพื่อฟื้นฟูทาวเวอร์ของคุณให้อยู่ในสภาพที่เหมาะสมที่สุดและประสิทธิภาพการทำงาน การออกแบบเชิงนวัตกรรมของเราจะเพิ่มประสิทธิภาพของทาวเวอร์ เพิ่มผลกำไร และรับประกันความปลอดภัยและอายุการใช้งานที่ยืนยาว ติดต่อเราวันนี้เพื่อขอใบเสนอราคา!",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS082",
+   "path": "/th/อยู่ให้เย็นและปลอดภัย-พ/",
+   "text": "การออกแบบที่เพรียวบางของพัดลมทาวเวอร์ระบายความร้อนของเราทำให้ห้องใดๆ ก็สดชื่นขึ้นได้ ด้วยรีโมทคอนโทรลที่สะดวกสบายและจอแสดงผล LED ทำให้ปรับการตั้งค่าได้อย่างง่ายดาย ไม่ว่าจะเป็นในสำนักงานที่บ้านหรือห้องนอน พัดลมทาวเวอร์ของเราจาก ICS มอบประสิทธิภาพการทำความเย็นและสไตล์ที่เหนือกว่า",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS084",
+   "path": "/vi/cach-kiem-tra-thap-giai-nhiet-phan-2/",
+   "text": "Giải pháp làm mát công nghiệp kết hợp kỹ thuật có trụ sở tại Mỹ với kỹ thuật địa phương và dịch vụ hiện trường để cung cấp cho mỗi khách hàng dịch vụ làm mát công nghiệp đẳng cấp thế giới với mức giá cạnh tranh. Chúng tôi cung cấp các giải pháp cho ngành Sản xuất điện, Năng lượng địa nhiệt, Lọc dầu, Hóa dầu, Hóa chất, v.v. Khi bạn liên hệ với Giải pháp làm mát công nghiệp, chúng tôi sẽ hợp tác chặt chẽ với bạn để xác định vấn đề bạn đang gặp phải. Chúng tôi sẽ giúp bạn quyết định xem bạn cần các bộ phận thay thế tháp giải nhiệt, nâng cấp, cài đặt hệ thống hoàn chỉnh hay sửa chữa đơn giản. Đội ngũ nhân viên tận tâm của chúng tôi có nhiều kinh nghiệm với các ứng dụng trong tất cả các ngành. Chất lượng sản phẩm và dịch vụ của chúng tôi không thể so sánh với các đối thủ cạnh tranh, vì vậy hãy gọi cho chúng tôi ngay hôm nay hoặc duyệt qua trang web của chúng tôi để tìm hiểu thêm.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS087",
+   "path": "/vi/giu-mat-va-an-toan-quat-thap-giai-nhiet-cua-ban-co-on-khong/",
+   "text": "Thiết kế đẹp mắt của quạt tháp giải nhiệt của chúng tôi mang đến làn gió tươi mát cho mọi căn phòng. Với điều khiển từ xa tiện lợi và màn hình LED, việc điều chỉnh cài đặt trở nên dễ dàng. Cho dù là cho văn phòng tại nhà hay phòng ngủ của bạn, quạt tháp của chúng tôi từ ICS đều mang đến hiệu suất làm mát và kiểu dáng vượt trội.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS088",
+   "path": "/",
+   "text": "Our industrial cooling solutions are operating across power plants, heavy industry, and manufacturing facilities worldwide, delivering efficient cooling, reduced energy costs, and proven operational performance on every project.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS089",
+   "path": "/",
+   "text": "Trusted by heavy industrial facilities, power plants, and manufacturers worldwide to deliver efficient, reliable industrial cooling solutions that reduce energy costs and protect operational performance.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS092",
+   "path": "/all-projects/",
+   "text": "ICS delivers world-class cooling tower solutions across geothermal, petrochemical, chemical, and power industries. Each project reflects precision engineering, high-efficiency design, and proven long-term operational reliability.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS093",
+   "path": "/all-projects/",
+   "text": "ICS Cooling Tower Projects | Global Engineering Excellence",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS094",
+   "path": "/cooling-tower-access-ladde/",
+   "text": "to meet top OSHA standards.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS095",
+   "path": "/cooling-tower-brochures/",
+   "text": "to learn about ICS cooling tower technologies, system design standards, maintenance requirements, repair services, and global project delivery capabilities.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS096+CS097",
+   "path": "/cooling-tower-brochures/",
+   "text": "Review our latest company profile, cooling tower technologies, engineering capabilities, project experience, and global service network.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS099",
+   "path": "/cooling-tower-construction-repair-in-united-states/",
+   "text": "With decades of experience in the cooling tower industry, our team of engineers, technicians, and project managers brings unparalleled knowledge to every project.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS100",
+   "path": "/cooling-tower-corrosion-testing/",
+   "text": "and repair, trust the industry-leading experts at",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS101",
+   "path": "/cooling-tower-fan-not-working/",
+   "text": "The ICS promise guarantees that we do not just fix the fan. We optimize the entire drivetrain for maximum 2026 efficiency. We ensure your water temperature, sprinkler output, and air flow return to the specified level.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS102",
+   "path": "/cooling-tower-inspection-steps/",
+   "text": "We are trusted globally for inspections, upgrades, rebuilds, and maintenance because we understand the intricate physics of thermal rejection and structural integrity.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS103",
+   "path": "/cooling-tower-malaysia/",
+   "text": "What Makes ICS One of the Best Cooling Tower Brands in Malaysia",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS104",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "We will walk you through the leading brands, compare their core strengths, break down key certifications, and explain exactly what to look for in a long-term manufacturing partner.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS105",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "configurations and optimized airflow modeling to achieve superior energy efficiency.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS106",
+   "path": "/cooling-tower-market-growth/",
+   "text": ": A leading provider of industrial cooling solutions, specializing in cooling tower rehabilitation, maintenance, and performance optimization. The company focuses on enhancing operational efficiency, ensuring regulatory compliance, and extending the lifespan of cooling towers.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS107",
+   "path": "/cooling-tower-parts-2/",
+   "text": "fails, the immediate reaction is often to find the cheapest, quickest replacement cooling tower parts. This decision may seem logical, but it can lock in decades of high energy bills, major repairs, and operational headaches. This single choice is a $1 million mistake that guarantees inflated operating expenses for cooling towers and related equipment.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS108",
+   "path": "/cooling-tower-parts-3/",
+   "text": "In this blog post, we will walk you through a three-step process for retrofitting your cooling tower for maximum performance and detail the highest-impact upgrades to restore your system’s power and efficiency. To browse our full inventory of high-performance, certified",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS108",
+   "path": "/cooling-tower-parts-3/",
+   "text": "engineered to deliver measurable results, visit our main catalog page.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS109",
+   "path": "/cooling-tower-project-budget/",
+   "text": "Guarantees long-term utility savings.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS110",
+   "path": "/cooling-tower-repair-team/",
+   "text": "performs surgical, high-speed repairs and restorations using methods unknown to other companies. We will now reveal the three “Top Secret” strategies this team uses to slash tower downtime, increase efficiency, and guarantee cooling tower asset integrity, completely rewriting what is possible in an emergency cooling tower repair project.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS111",
+   "path": "/cooling-tower-replacement/",
+   "text": "With decades of experience, ICS has successfully completed cooling tower replacement projects across power plants, petrochemical facilities, and industrial process sites worldwide.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS112",
+   "path": "/cooling-tower-rubber-manufacturing/",
+   "text": "Industrial Cooling Solutions (ICS) brings deep engineering experience to every rubber plant cooling tower project. As one of the leading cooling tower manufacturers serving the rubber and tire industry in the USA and internationally, ICS takes an engineering-first approach: thermal modeling and site assessment come before any equipment specification.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS113",
+   "path": "/cooling-tower-spare-parts/",
+   "text": "that meet the highest industry standards. Here’s why we’re the preferred choice for businesses worldwide:",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS114",
+   "path": "/cooling-tower-spare-parts/",
+   "text": ", we provide top-tier spare parts designed to deliver unmatched performance and reliability.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS115",
+   "path": "/cooling-tower-spare-parts/",
+   "text": "Superior Quality",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS115",
+   "path": "/cooling-tower-spare-parts/",
+   "text": ": Our parts are made from durable materials and rigorously tested for performance.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS116",
+   "path": "/cooling-tower-thailand/",
+   "text": "Review our latest company profile, cooling tower technologies, engineering capabilities, project experience, and global service network.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS117",
+   "path": "/cooling-tower-water-conservation/",
+   "text": "The ICS promise guarantees expert guidance through this transition. We do not merely sell towers; we engineer completely water-balanced ecosystems. Our team provides the exact tools and service required to protect your investment and optimize your operation.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS118",
+   "path": "/cooling-tower/",
+   "text": "Our Best Cooling Tower Services",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS119",
+   "path": "/cooling-towers-in-the-usa/",
+   "text": "As independent engineering specialists, ICS works with all major brands, including Midwest Cooling Towers, Delta Cooling Towers, and other leaders in the field. This allows us to design and implement the best solution for each unique application.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS120",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "As industry leaders with decades of experience in cooling tower solutions, we understand that a holistic approach is key. Focusing on the complete lifecycle picture allows for the construction of a high-performing asset that delivers sustained value.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS121",
+   "path": "/drive-shafts-assembles/",
+   "text": "ICS supplies the finest couplings in the business from Addax and Amarillo for all cooling tower applications. Complete cooling tower drive shafts and assemblies to shim packs and hardware, ICS has what you need.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS122",
+   "path": "/dry-soda-blast-cleaning-services-2/",
+   "text": "We are committed to providing unparalleled service that goes beyond simple cleaning. Our goal is to completely transform how industrial air coolers are maintained so they operate at their peak efficiency and protect the environment for the coming generations",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS123",
+   "path": "/expert-cooling-tower-repair/",
+   "text": "ICS’s certified service team ensures all field repair work adheres to strict safety protocols, including",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS124",
+   "path": "/expert-cooling-tower-repair/",
+   "text": "ICS stands as your definitive partner, bringing unparalleled expertise in cooling tower solutions. Our commitment ensures your production schedule is protected, safety is enhanced, and a clear return on investment is achieved, solidifying our role as the cooling tower experts.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS125",
+   "path": "/fans-cooling-tower/",
+   "text": "Why ICS is a leading platform?",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS126",
+   "path": "/history-frp-pt-1/",
+   "text": "that we have available here at Industrial Cooling Solutions Inc. We have been leaders in the industrial cooling tower sector for years and we are dedicated to providing the best materials possible in order to make sure that all of our clients are able to make sure that their",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS126",
+   "path": "/history-frp-pt-1/",
+   "text": "cooling towers are performing as efficiently",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS127",
+   "path": "/hybrid-cooling-systems/",
+   "text": "Reach out to our certified service team today for a Hybrid System Performance Audit and a customized PLC calibration quote. Ensure your cooling system operates with the precision it was designed for. Visit",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS129",
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "text": "By using advanced, corrosion-resistant materials, ICS ensures long-lasting performance, making it the go-to choice for businesses worldwide. Their expertise and commitment to quality set them apart as the top experts in industrial cooling.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS130+CS132",
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "text": "Among these, ICS stands out as the expert, offering unmatched solutions that align with modern sustainability and efficiency goals. Trusted by leading industries worldwide, ICS has a proven track record of delivering reliable and innovative cooling systems. Their commitment to quality and customer satisfaction makes them the go-to choice for businesses looking to optimize performance and reduce environmental impact.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS131",
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "text": "Need a trusted partner for top-notch industrial cooling solutions? ICS is a leader in the industry, offering tailored solutions that prioritize durability, energy efficiency, and sustainability.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS133",
+   "path": "/inspect-cooling-tower-part-2/",
+   "text": "Industrial Cooling Solutions combines American-based engineering with localized engineering and field service to provide each client with world-class industrial cooling services at a competitive price. We provide solutions for Power Generation, Geothermal Power, Refining, Petrochemical, Chemical industries, and more.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS134",
+   "path": "/new-cooling-tower-page/",
+   "text": "ICS is a leading provider of new cooling towers, offering engineering, construction, and maintenance services. Our comprehensive solutions include:",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS135",
+   "path": "/new-cooling-towers/",
+   "text": "Before we hand over the reins, we put your new cooling tower through its paces. How do we ensure it not only meets but exceeds its promised performance specifications?",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS136",
+   "path": "/new-cooling-towers/",
+   "text": "Dedicated Technical Support:",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS136",
+   "path": "/new-cooling-towers/",
+   "text": "Our team remains available for technical consultation and rapid response, ensuring any operational challenges are addressed swiftly and effectively.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS137",
+   "path": "/product/amarillo-a-series-double-reduction-gearbox/",
+   "text": "is a heavy-duty right angle gear drive designed for cooling tower fan applications and direct Marley® gearbox replacement. Built by Amarillo Gear Company, this series matches critical Marley® mounting dimensions, shaft sizes, keyways, and gear housing foot patterns. Its double reduction design, durable gearing, and AGMA/CTI-rated performance help reduce installation work, support reliable fan operation, and extend gearbox service life.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS138",
+   "path": "/product/amarillo-double-reduction-gearbox/",
+   "text": "is a heavy-duty right angle gear drive designed for cooling tower fan applications and direct Marley® gearbox replacement. Built by Amarillo Gear Company, this series matches critical Marley® mounting dimensions, shaft sizes, keyways, and gear housing foot patterns. Its double reduction design, durable gearing, and AGMA/CTI-rated performance help reduce installation work, support reliable fan operation, and extend gearbox service life.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS139",
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "text": "AGMA compliant, ISO 9001 certified manufacturing",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS140",
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-175/",
+   "text": "is a heavy-duty single-reduction gearbox designed for cooling towers, air-fin heat exchangers, and industrial fan drive systems. Built by Amarillo Gear Company, it delivers reliable speed reduction, high torque transfer, and long service life. Its rugged construction, precision spiral bevel gearing, and AGMA/CTI-compliant design make it suitable for demanding cooling tower operations.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS141",
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-175/",
+   "text": "AGMA and CTI compliant construction supports demanding cooling tower applications.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS142",
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "text": "The Amarillo Single Reduction Gearbox is a heavy-duty right-angle speed reducer engineered for cooling towers, air-cooled condensers, and fin-fan heat exchangers. Designed to meet or exceed AGMA and CTI standards, it delivers efficient torque transmission, dependable operation, and long service life in demanding industrial environments.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS143",
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "text": "AGMA and CTI compliant construction supports long-term industrial reliability",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS144",
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "text": "Design Standards:",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS144",
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "text": "AGMA and CTI Compliant",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS145",
+   "path": "/product/sumitomo-hansen-p4-single-stage-gearbox/",
+   "text": "Manufactured to AGMA standards for proven performance and durability",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS146",
+   "path": "/product/sumitomo-hansen-p4-single-stage-gearbox/",
+   "text": "Design Standard:",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS146",
+   "path": "/product/sumitomo-hansen-p4-single-stage-gearbox/",
+   "text": "AGMA Rated Gearing",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS148",
+   "path": "/reducing-cooling-tower-maintenance-costs/",
+   "text": "For those who need immediate solutions, you can view our full inventory of certified",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS148",
+   "path": "/reducing-cooling-tower-maintenance-costs/",
+   "text": "and components by visiting our online catalog.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS149",
+   "path": "/right-industrial-cooling-system/",
+   "text": "ICS stands out as a trusted leader with a proven track record, offering unmatched customization, advanced solutions, and comprehensive support. Our systems are designed to optimize cooling efficiency while driving operational excellence for industries in 2025 and beyond.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS150",
+   "path": "/right-industrial-cooling-system/",
+   "text": "Industrial Cooling Solutions delivers cutting-edge cooling systems trusted by countless clients across industries. Here’s why industries across Asia trust ICS in 2025 and beyond:",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS151",
+   "path": "/right-industrial-cooling-system/",
+   "text": "But how do you choose the right cooling system manufacturer when so much is at stake? Identifying a trusted and reliable supplier is really challenging. That’s why we’ve created this guide to help you evaluate key factors in selecting the right industrial cooling system manufacturer. Plus, we’ll explore why",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS151",
+   "path": "/right-industrial-cooling-system/",
+   "text": "(ICS) is a leading choice across Asia in 2025.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS152",
+   "path": "/the-benefits-of-frp-fans-in-industrial-cooling/",
+   "text": "might not be at the top of the mind for the average person, these crucial systems, which incorporate metal, concrete, plastic fans, axial fans, and FRP exhaust fans, underpin the industries that produce our essential goods. Here at Industrial Cooling Solutions, Inc., we have been in the business of",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS154",
+   "path": "/id/cuaca-dingin-menghadirkan-masalah-unik-pada-menara-pendingin/",
+   "text": "Terima kasih telah meluangkan waktu untuk membaca seri blog singkat kami tentang langkah-langkah yang harus diambil untuk memastikan menara pendingin industri Anda mampu bekerja secara optimal pada kondisi cuaca dingin. Jika Anda ingin mempelajari lebih lanjut tentang cara terbaik untuk memastikan menara pendingin Anda mampu bekerja selama kondisi cuaca dingin, silakan hubungi kami hari ini di Industrial Cooling Solutions, Inc. Kami memiliki rekam jejak dalam menyediakan menara pendingin terbaik pemasangan, bagian-bagian menara pendingin, seperti bilah kipas menara pendingin, poros penggerak, dan motor, serta layanan konsultasi. Hubungi kami hari ini dan lihat mengapa kami adalah nama tepercaya di industri menara pendingin industri.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS155",
+   "path": "/id/langkah-menuju-menara-pendinginan-yang-lebih-efisien-energi/",
+   "text": "ICS berspesialisasi dalam menyediakan teknik, konstruksi, peningkatan termal, dan suku cadang terdepan untuk menara pendingin Anda, di seluruh dunia. Ada banyak jenis menara berbeda yang terbukti lebih merupakan aset bagi industri tertentu dibandingkan industri lainnya. Saat Anda memilih menara pendingin atau membutuhkan suku cadang pengganti, penting untuk mengetahui secara pasti apa yang Anda butuhkan. Kami memiliki menara pendingin kayu, fiberglass dan beton selain menara counterflow dan crossflow, jadi hubungi kami hari ini untuk konsultasi.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS156",
+   "path": "/ja/よりエネルギー効率の高い冷却塔へのステップ/",
+   "text": "ICS は、最先端のエンジニアリング、建設、熱アップグレード、冷却塔の交換部品を世界中に提供することを専門としています。 特定の業界にとって他の業界よりも資産となる可能性のあるさまざまなタイプのタワーが多数あります。 冷却塔を選択する場合、または交換部品が必要な場合は、何が必要かを正確に知ることが重要です。 当社では向流塔や直交流塔に加えて、木製、グラスファイバー、コンクリートの冷却塔も取り揃えておりますので、今すぐご相談ください。",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS157",
+   "path": "/ja/寒冷気候は冷却塔に特有の問題を引き起こす/",
+   "text": "寒い天候下でも業界の冷却塔が確実に最適に動作できるようにするための手順に関する短いブログ シリーズをお読みいただき、ありがとうございます。 寒冷な気象条件下でも冷却塔が確実に動作できるようにするための最良の方法について詳しく知りたい場合は、Industrial Cooling Solutions, Inc. まで今すぐお問い合わせください。当社には最高の冷却塔を提供してきた実績があります。 設置、冷却塔ファンブレード、ドライブシャフト、モーターなどの冷却塔部品、およびコンサルティングサービス。 今すぐお問い合わせいただき、当社が産業用冷却塔業界で信頼されるブランドである理由をご確認ください。",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS158",
+   "path": "/th/ก้าวไปสู่หอทำความเย็นท/",
+   "text": "ICS เชี่ยวชาญในการให้บริการด้านวิศวกรรม การก่อสร้าง การอัพเกรดด้านความร้อน และชิ้นส่วนอะไหล่สำหรับหอทำความเย็นของคุณในระดับชั้นนำทั่วโลก มีหอคอยประเภทต่างๆ มากมายที่สามารถพิสูจน์ได้ว่าเป็นทรัพย์สินของอุตสาหกรรมบางประเภทมากกว่าอุตสาหกรรมอื่นๆ เมื่อคุณเลือกหอทำความเย็นหรือต้องการชิ้นส่วนทดแทน สิ่งสำคัญคือต้องทราบอย่างชัดเจนว่าคุณต้องการอะไร เรามีหอหล่อเย็นไม้ ไฟเบอร์กลาส และคอนกรีต นอกเหนือจากหอหล่อเย็นแบบไหลย้อนและแบบไหลข้าม ดังนั้น โปรดติดต่อเราวันนี้เพื่อขอคำปรึกษา",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS159",
+   "path": "/th/สภาพอากาศหนาวเย็นนำเสน/",
+   "text": "ขอขอบคุณที่สละเวลาอ่านบล็อกสั้นๆ ของเราเกี่ยวกับขั้นตอนในการดำเนินการเพื่อให้แน่ใจว่าหอทำความเย็นในอุตสาหกรรมของคุณสามารถทำงานได้ดีที่สุดในช่วงสภาพอากาศหนาวเย็น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่ดีที่สุดเพื่อให้แน่ใจว่าคูลลิ่งทาวเวอร์ของคุณสามารถทำงานได้ดีในช่วงสภาพอากาศหนาวเย็น โปรดติดต่อเราวันนี้ที่ Industrial Cooling Solutions, Inc. เรามีประวัติในการจัดหาคูลลิ่งทาวเวอร์ที่ดีที่สุด การติดตั้งชิ้นส่วนคูลลิ่งทาวเวอร์ เช่น ใบพัดลมคูลลิ่งทาวเวอร์ เพลาขับ และมอเตอร์ ตลอดจนบริการให้คำปรึกษา ติดต่อเราวันนี้เพื่อดูว่าเหตุใดเราจึงเป็นชื่อที่เชื่อถือได้ในอุตสาหกรรมหอทำความเย็นอุตสาหกรรม",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS160",
+   "path": "/vi/cac-buoc-de-co-thap-giai-nhiet-hieu-qua-nang-luong-hon/",
+   "text": "ICS chuyên cung cấp kỹ thuật, xây dựng, nâng cấp nhiệt và các bộ phận thay thế hàng đầu cho tháp giải nhiệt của bạn trên toàn thế giới. Có rất nhiều loại tháp khác nhau có thể chứng tỏ là tài sản của một số ngành nhất định hơn những loại khác. Khi bạn chọn tháp giải nhiệt hoặc cần các bộ phận thay thế, điều quan trọng là phải biết chính xác những gì bạn cần. Chúng tôi có các tháp giải nhiệt bằng gỗ, sợi thủy tinh và bê tông ngoài các tháp dòng chảy ngược và dòng chảy ngang, vì vậy hãy liên hệ với chúng tôi ngay hôm nay để được tư vấn.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D4-1",
+   "path": "/cooling-tower-performance-curve/",
+   "text": "Scale and biological growth destroy thermal efficiency. Just $0.005$ inches of scale on the fill media shifts your capability curve downward significantly. This minor fouling forces fan motors to work up to $15%$ harder to achieve the same cooling effect.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D4-2",
+   "path": "/cooling-tower-performance-curve/",
+   "text": "Excessive space between the fan blade tip and the fan cylinder causes major efficiency losses. A one-inch gap in the fan cylinder can result in a $5%$ loss of total thermal capacity.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D4-3",
+   "path": "/cooling-tower-performance-curve/",
+   "text": "The capability percentage reveals the true health of your system. If a test shows your tower operates at $85%$ of its design curve, you are paying for capacity you do not receive. Audits highlight these deficiencies so you can implement corrective actions.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D4-4",
+   "path": "/cooling-tower-thermography/",
+   "text": "Flow Restriction $Delta T$ Alert",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D4-5",
+   "path": "/cooling-tower-thermography/",
+   "text": "Monitor the temperature difference ($Delta T$) across the fill media.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D4-6",
+   "path": "/cooling-tower-thermography/",
+   "text": "$10^{circ}text{C}$ hotter",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D4-7",
+   "path": "/cooling-tower-thermography/",
+   "text": "$20^{circ}text{C}$ rule",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D4-8",
+   "path": "/cooling-tower-thermography/",
+   "text": ". If a connection point or component measures $20^{circ}text{C}$ higher than ambient or a similar load, it is a critical “Hot Spot.”",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D4-9",
+   "path": "/cooling-tower-thermography/",
+   "text": "$>20^{circ}text{C}$ rise above ambient",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D4-10",
+   "path": "/cooling-tower-thermography/",
+   "text": "$>10^{circ}text{C}$ variance (Hotter)",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D4-11",
+   "path": "/cooling-tower-variable-frequency-drive/",
+   "text": "Instead of a static set point (e.g., 85°F), program the VFD to follow the ambient wet-bulb temperature plus a fixed approach (e.g., $7°F$). This floating logic maximizes the Chiller’s Coefficient of Performance (COP). It ensures the cooling tower provides the coldest water possible without wasting energy on hot days or during high humidity.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D3-12",
+   "path": "/resources/cooling-tower-brochures/",
+   "text": "[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_tta_accordion][vc_tta_section title=”ICS – Your Geothermal Cooling Tower Parts Resource” tab_id=”1637257295456-7b8a8446-da9f”][vc_column_text]",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D3-13",
+   "path": "/resources/cooling-tower-brochures/",
+   "text": "[/vc_column_text][/vc_tta_section][vc_tta_section title=”ICS: Cooling Tower Repair” tab_id=”1637257301007-cc25db64-57cb”][vc_column_text]ICS has the experience and expertise to repair or upgrade your water cooling tower for maximum performance with minimum downtime.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "D3-14",
+   "path": "/resources/cooling-tower-brochures/",
+   "text": "[/vc_column_text][/vc_tta_section][/vc_tta_accordion][/vc_column][/vc_row]",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "CS065",
+   "path": "/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/",
+   "text": "by a guaranteed minimum of 15% increased airflow.",
+   "source": "TO-004"
+  },
+  {
+   "row": "CS098",
+   "path": "/cooling-tower-construction-repair-in-united-states/",
+   "text": "we bring world-class expertise in cooling tower construction, repair, and maintenance to the United States.",
+   "source": "TO-005"
+  },
+  {
+   "row": "C4",
+   "path": "/all-projects/pttcsp/",
+   "text": "96-bay ACHE system upgraded to achieve a minimum 15% airflow improvement",
+   "source": "TO-006"
+  },
+  {
+   "row": "C4",
+   "path": "/all-projects/pttcsp/",
+   "text": "Thermal and static pressure performance guarantees were successfully achieved",
+   "source": "TO-007"
+  }
+ ],
+ "present": [
+  {
+   "row": "CS025",
+   "q": "Q4+Q6",
+   "path": "/cooling-tower-performance-testing/",
+   "text": "The ICS team is CTI-licensed and has extensive experience conducting independent, third-party performance tests"
+  },
+  {
+   "row": "CS021",
+   "q": "Q7+Q6",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "With extensive engineering experience and manufacturing facilities operating across the country"
+  },
+  {
+   "row": "CS063",
+   "q": "Q5",
+   "path": "/right-industrial-cooling-system/",
+   "text": "ICS has over 20 years of experience and has completed more than 500 installations across Southeast Asia"
+  },
+  {
+   "row": "CS091",
+   "q": "Q11",
+   "path": "/about-ics-industrial-cooling-solutions/",
+   "text": "Shell, Star Energy, Shintech, Shin-Etsu, TTCL, PTT Group, Pertamina, Mitsubishi, and Marubeni"
+  },
+  {
+   "row": "CS128",
+   "q": "Q12b",
+   "path": "/ics-completes-3-cell-tower-demolition-replacement-2-days-early/",
+   "text": "With hundreds of megawatts of geothermal cooling towers installed globally"
+  },
+  {
+   "row": "CS047",
+   "q": "Q9",
+   "path": "/how-to-inspect-a-cooling-tower/",
+   "text": "as well as representatives located globally"
+  },
+  {
+   "row": "CS069",
+   "q": "Q9",
+   "path": "/id/cara-memeriksa-menara-pendingin/",
+   "text": "serta perwakilan yang berlokasi di seluruh dunia"
+  },
+  {
+   "row": "CS086",
+   "q": "Q9",
+   "path": "/vi/cach-kiem-tra-thap-giai-nhiet/",
+   "text": "cũng như các đại diện trên toàn cầu"
+  },
+  {
+   "row": "C5b-ja",
+   "q": "Q9 (applied to ja as to en/id/vi)",
+   "path": "/ja/冷却塔の検査方法/",
+   "text": "世界中に代理店を置いています"
+  },
+  {
+   "row": "CS076",
+   "q": "Q9 (C5b-th translation fix kept)",
+   "path": "/th/วิธีการตรวจสอบคูลลิ่งท/",
+   "text": "รวมถึงตัวแทนที่ตั้งอยู่ทั่วโลก"
+  },
+  {
+   "row": "CS002",
+   "q": "R2.1 code (public-text.ts)",
+   "path": "/about-ics-industrial-cooling-solutions/",
+   "text": "with offices in Japan and Bangkok, Thailand."
+  }
+ ]
+}

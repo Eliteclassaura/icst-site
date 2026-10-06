@@ -60,11 +60,11 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     const row=(p:string)=>ledger.routes.find(r=>r.path===p)!
     expect(row('/cooling-tower-vs-chiller/')).toMatchObject({state:'PUBLIC',export:true,redirect:null})
     expect(row('/chiller-and-cooling-tower/')).toMatchObject({state:'PUBLIC',export:true,redirect:null})
-    // Retired by Part 2 R3 (active:false) and not again; Locale Part B's retirements are the 98 R1 locale→English redirects of
-    // preserved locale pages.
+    // Retired by Part 2 R3 (active:false) and not again. Locale Part B retired the 98 R1 locale→English redirects of preserved
+    // locale pages; R2.2 is a delta on the Locale B batch, so it retires nothing and none of those sources is a redirect again.
     expect(data('redirects-retired.tsv').some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
-    expect(data('redirects-retired.tsv')).toHaveLength(98)
-    for(const r of data('redirects-retired.tsv'))expect(r.reason,r.source).toMatch(/^OGCS Locale Part A: live locale page preserved/)
+    expect(data('redirects-retired.tsv')).toHaveLength(0)
+    expect(data('redirects.tsv').every(r=>r.action==='UNCHANGED')).toBe(true)
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
     // Locale Part B: the locale and blog variants now go one hop to their preserved locale pages (and the locale URLs serve

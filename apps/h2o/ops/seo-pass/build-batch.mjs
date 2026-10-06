@@ -35,6 +35,7 @@
  *   - --meta-rewrites=<tsv> (path, old_meta, new_meta): CT ruling 2026-10-05 — OGCS finals that end in a truncation mark are
  *     rewritten as complete sentences (no new claims); a row applies only when the batch meta still equals old_meta.
  *   - CONTENT_FALLBACKS: a content decision's fallback 301, applied while the restoration has not shipped.
+ *   - --claims-seo=<tsv> (row, path, field, old, new): R2.2 ruled title/meta strings (OGCS claims sweep R1, CT 2026-10-05).
  *   - --baseline=<dir>: the data directory of the batch already applied on staging (R1). Actions and expectations are then the
  *     delta against that applied state, so the dry run counts exactly what this round changes.
  *
@@ -334,6 +335,28 @@ for(const d of dispositions)if(d.action==='WITHDRAW_TO_REDIRECT'&&!applied(d))ex
 // Duplicate metas are pending OGCS (no copy is invented here): they are not written and are listed for OGCS.
 const byMeta=new Map();for(const row of seo){byMeta.set(row.meta,[...(byMeta.get(row.meta)??[]),row])}
 for(const rows of byMeta.values())if(rows.length>1)for(const row of rows)if(!supplement.has(ORIGIN+row.path)){row.meta_origin+='+PENDING_OGCS_DUPLICATE'}
+// R2.2 (OGCS claims sweep R1, CT accepted 2026-10-05): --claims-seo=<tsv> (row, path, field title|meta, old, new). A ruled
+// string in an existing row changes only while that row still holds it; a published page without a decided row gets one
+// (its current title and meta, the ruled field changed). The JSON-LD copies are the text-override registry's.
+const claimsSeoFile=flag('claims-seo')
+let claimsSeoApplied=0
+if(claimsSeoFile)for(const c of tsv(claimsSeoFile)){
+  const key=safeDecode(c.path)
+  let row=seo.find(r=>safeDecode(r.path)===key)
+  if(!row){
+    const route=routeByKey.get(key)
+    if(!route||route.state!=='PUBLIC'){problemsEarly.push(`claims seo ${c.row}: no published route ${c.path}`);continue}
+    const doc=JSON.parse(readFileSync(path.join(APP,'content/salmon',route.sourceFile),'utf8'))
+    const desc=doc.seo.meta.find(m=>m.name==='description')?.value??''
+    const prior=baseline?.seo.get(key)
+    row={path:route.path,routeId:route.routeId,title:prior?prior.title:doc.seo.title,meta:prior?prior.meta:desc,canonical:'',meta_origin:'SOURCE',title_now:prior?prior.title:doc.seo.title,meta_now:prior?prior.meta:desc}
+    seo.push(row);conformance.push({url:route.path,expect:'200',kind:'html',title:row.title,meta:row.meta})
+  }
+  const field=c.field==='title'?'title':'meta'
+  if(!row[field].includes(c.old)){problemsEarly.push(`claims seo ${c.row}: ${c.path} ${field} no longer holds the ruled text`);continue}
+  row[field]=row[field].replace(c.old,c.new);row.meta_origin+=`+CLAIMS_SWEEP_${c.row}`;claimsSeoApplied++
+  const cf=conformance.find(x=>safeDecode(x.url)===key);if(cf)cf[field]=row[field]
+}
 const conformanceByPath=new Map(conformance.map(c=>[safeDecode(c.url),c]))
 for(const row of seo){
   const pending=row.meta_origin.includes('PENDING_OGCS')
@@ -356,6 +379,7 @@ expect.files=restore.restored.length
 const problems=[...problemsEarly]
 const titles=new Set();for(const row of seo){if(row.title.length>69)problems.push(`title>69 ${row.path}`);if(titles.has(row.title))problems.push(`duplicate title ${row.path}`);titles.add(row.title);if(FORBIDDEN.test(row.title))problems.push(`title word ${row.path}`)}
 if(metaRewritesApplied!==metaRewrites.size)problems.push(`meta rewrites applied ${metaRewritesApplied} of ${metaRewrites.size}`)
+if(claimsSeoFile&&claimsSeoApplied!==tsv(claimsSeoFile).length)problems.push(`claims seo applied ${claimsSeoApplied} of ${tsv(claimsSeoFile).length}`)
 for(const row of seo){if(!row.meta_origin.includes('PENDING_OGCS')&&/…|\.\.\.$/.test(row.meta))problems.push(`meta ends in a truncation mark ${row.path}`)}
 for(const row of seo){if(row.meta_origin.includes('PENDING_OGCS'))continue;if(row.meta.length<70||row.meta.length>158)problems.push(`meta length ${row.path} ${row.meta.length}`);if(FORBIDDEN.test(row.meta))problems.push(`meta word ${row.path}: ${row.meta.match(FORBIDDEN)[0]}`)}
 // Full-set uniqueness (CT ruling 2026-10-04 (b)): every meta this batch writes (R1 + R1.1 + supplement), compared with every
@@ -429,7 +453,11 @@ writeTsv('h1-fields.tsv',['path','routeId','via','action','h1','h1_now'],h1Rows)
     ...restoredChanged.map(r=>safeDecode(r.path)),
   ])
   // A route the applied batch wrote already carries its fixes; the rest are written on their own (apply phase 6, hygiene).
-  const pending=Object.keys(fixes).filter(p=>!baseline?.written.has(safeDecode(p)))
+  // R2.2: a route the applied batch fixed is pending again when this batch fixes any of its elements differently (a new
+  // claim edit on an element, a new element, or a route it had no fixes for), as apply counts it from the elements' state.
+  const baseFixes=baselineDir&&existsSync(path.join(baselineDir,'slot-fixes.json'))?new Map(Object.entries(JSON.parse(readFileSync(path.join(baselineDir,'slot-fixes.json'),'utf8'))).map(([k,v])=>[safeDecode(k),v])):new Map()
+  const fixedAgain=p=>{if(!baseFixes.size)return false;const was=baseFixes.get(safeDecode(p));if(!was)return true;const before=new Map(was.slots.map(s=>[`${s.key} ${s.field}`,s.afterCanon]));return fixes[p].slots.some(s=>before.get(`${s.key} ${s.field}`)!==s.afterCanon)}
+  const pending=Object.keys(fixes).filter(p=>!baseline?.written.has(safeDecode(p))||fixedAgain(p))
   expect.slotFixes={routes:pending.filter(p=>written.has(safeDecode(p))).length}
   expect.hygiene={routes:baseline?pending.filter(p=>!written.has(safeDecode(p))).length:0}
 }

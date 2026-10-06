@@ -121,6 +121,1530 @@
    }
   ]
  },
+ "/product/amarillo-right-angle-gear-drives-double-reduction-1311/": {
+  "routeId": "SALMON-product-4809",
+  "groups": [
+   {
+    "mode": "template-slot",
+    "anchor": "description",
+    "source": "live https://h2ocooling.com/product/amarillo-right-angle-gear-drives-double-reduction-1311/ captured 2026-10-05T17:10:21Z (Main F1 product audit, read-only GET), HTML SHA-256 199d62fe75823e36cc5607a4e78cae05362d23720441cef22228f594dae28849; CT F1 ruling 2026-10-05: replace panel from live capture (Features, Specifications; text and list structure only, no links or images)",
+    "blocks": [
+     {
+      "blockType": "restoredHeading",
+      "text": "Features",
+      "level": "2"
+     },
+     {
+      "blockType": "restoredParagraph",
+      "content": {
+       "root": {
+        "type": "root",
+        "children": [
+         {
+          "type": "paragraph",
+          "children": [
+           {
+            "type": "text",
+            "text": "Built with advanced gear drive engineering, this product delivers efficiency, durability, and dependable operation consistently.",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "textFormat": 0,
+          "textStyle": ""
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr"
+       }
+      }
+     },
+     {
+      "blockType": "restoredList",
+      "ordered": false,
+      "items": [
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Cooling tower use",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Speed reduction",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Right-angle drive",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "High torque transfer",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Heavy-duty construction",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Industrial cooling systems",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Precision gear design",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Smooth operation",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Low maintenance requirements",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Long service life",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       }
+      ]
+     },
+     {
+      "blockType": "restoredHeading",
+      "text": "Specifications",
+      "level": "2"
+     },
+     {
+      "blockType": "restoredParagraph",
+      "content": {
+       "root": {
+        "type": "root",
+        "children": [
+         {
+          "type": "paragraph",
+          "children": [
+           {
+            "type": "text",
+            "text": "Manufactured with precision engineering standards, this gear drive supports demanding industrial operational performance requirements.",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "textFormat": 0,
+          "textStyle": ""
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr"
+       }
+      }
+     },
+     {
+      "blockType": "restoredList",
+      "ordered": false,
+      "items": [
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Model: Double Reduction-1311",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Right-angle gear design",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Industrial-grade construction",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Precision-machined gearing",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "High torque capacity",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Efficient power transmission",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Durable housing design",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Smooth mechanical operation",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Corrosion-resistant components",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Long operational lifespan",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "/product/amarillo-right-angle-gear-drives-double-reduction-1713w/": {
+  "routeId": "SALMON-product-4837",
+  "groups": [
+   {
+    "mode": "template-slot",
+    "anchor": "description",
+    "source": "live https://h2ocooling.com/product/amarillo-right-angle-gear-drives-double-reduction-1713w/ captured 2026-10-05T17:10:34Z (Main F1 product audit, read-only GET), HTML SHA-256 157a4f61aef21c64c43d531cc2808d93e153430216bad5df00f496d4b4ac0cf3; CT F1 ruling 2026-10-05: replace panel from live capture (Features, Specifications; text and list structure only, no links or images)",
+    "blocks": [
+     {
+      "blockType": "restoredHeading",
+      "text": "Features",
+      "level": "2"
+     },
+     {
+      "blockType": "restoredParagraph",
+      "content": {
+       "root": {
+        "type": "root",
+        "children": [
+         {
+          "type": "paragraph",
+          "children": [
+           {
+            "type": "text",
+            "text": "Built with advanced gear drive engineering, this product delivers efficiency, durability, and dependable operation consistently.",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "textFormat": 0,
+          "textStyle": ""
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr"
+       }
+      }
+     },
+     {
+      "blockType": "restoredList",
+      "ordered": false,
+      "items": [
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Cooling tower use",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Speed reduction",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Right-angle drive",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "High torque transfer",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Heavy-duty construction",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Industrial cooling systems",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Precision gear design",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Smooth operation",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Low maintenance requirements",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Long service life",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       }
+      ]
+     },
+     {
+      "blockType": "restoredHeading",
+      "text": "Specifications",
+      "level": "2"
+     },
+     {
+      "blockType": "restoredParagraph",
+      "content": {
+       "root": {
+        "type": "root",
+        "children": [
+         {
+          "type": "paragraph",
+          "children": [
+           {
+            "type": "text",
+            "text": "Manufactured with precision engineering standards, this gear drive supports demanding industrial operational performance requirements.",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "textFormat": 0,
+          "textStyle": ""
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr"
+       }
+      }
+     },
+     {
+      "blockType": "restoredList",
+      "ordered": false,
+      "items": [
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Model: Double Reduction-1713W",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Right-angle gear design",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Industrial-grade construction",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Precision-machined gearing",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "High torque capacity",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Efficient power transmission",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Durable housing design",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Smooth mechanical operation",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Corrosion-resistant components",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Long operational lifespan",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
  "/chiller-and-cooling-tower/": {
   "routeId": "SALMON-posts-3886",
   "h1": "How to Prevent Legionella in Chiller and Cooling Tower?",
@@ -22876,6 +24400,936 @@
         "direction": "ltr"
        }
       }
+     }
+    ]
+   }
+  ]
+ },
+ "/product/sumitomo-hansen-p4-gearboxes/": {
+  "routeId": "SALMON-product-4872",
+  "groups": [
+   {
+    "mode": "template-slot",
+    "anchor": "description",
+    "source": "live https://h2ocooling.com/product/sumitomo-hansen-p4-gearboxes/ captured 2026-10-05T17:13:07Z (Main F1 product audit, read-only GET), HTML SHA-256 7c401755a6d3a13c7ea61a9d515f910354ca5c5991a405d8e56575e56e00eadf; CT F1 ruling 2026-10-05: replace panel from live capture (Features, Specifications; text and list structure only, no links or images)",
+    "blocks": [
+     {
+      "blockType": "restoredHeading",
+      "text": "Features",
+      "level": "2"
+     },
+     {
+      "blockType": "restoredParagraph",
+      "content": {
+       "root": {
+        "type": "root",
+        "children": [
+         {
+          "type": "paragraph",
+          "children": [
+           {
+            "type": "text",
+            "text": "Built with advanced gearbox technology, these products deliver efficiency, durability, and reliable operation consistently.",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "textFormat": 0,
+          "textStyle": ""
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr"
+       }
+      }
+     },
+     {
+      "blockType": "restoredList",
+      "ordered": false,
+      "items": [
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Power transmission use",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Torque multiplication",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Heavy-duty construction",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Industrial applications",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Precision gear design",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "High load capacity",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Smooth operation",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Low maintenance requirements",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Durable performance",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Long service life",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       }
+      ]
+     },
+     {
+      "blockType": "restoredHeading",
+      "text": "Specifications",
+      "level": "2"
+     },
+     {
+      "blockType": "restoredParagraph",
+      "content": {
+       "root": {
+        "type": "root",
+        "children": [
+         {
+          "type": "paragraph",
+          "children": [
+           {
+            "type": "text",
+            "text": "Manufactured with precision engineering standards, these gearboxes support demanding industrial operational performance requirements.",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "textFormat": 0,
+          "textStyle": ""
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr"
+       }
+      }
+     },
+     {
+      "blockType": "restoredList",
+      "ordered": false,
+      "items": [
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Model: Hansen P4 Gearboxes",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Industrial-grade construction",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Precision-machined gearing",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "High torque capacity",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Efficient power transmission",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Robust housing design",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Smooth mechanical operation",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Corrosion-resistant components",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Long operational lifespan",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       },
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Heavy-duty performance",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "/product/tuf-lite-iii-6000mk-series-hub-fan-assemblies/": {
+  "routeId": "SALMON-product-4685",
+  "groups": [
+   {
+    "mode": "template-slot",
+    "anchor": "description",
+    "source": "live https://h2ocooling.com/product/tuf-lite-iii-6000mk-series-hub-fan-assemblies/ captured 2026-10-05T17:14:02Z (Main F1 product audit, read-only GET), HTML SHA-256 91e75f49739924d5f24db83b965120ede557ae761e6a34188dcd98f603058656; CT F1 ruling 2026-10-05: replace panel from live capture (Features, Specifications; text and list structure only, no links or images)",
+    "blocks": [
+     {
+      "blockType": "restoredHeading",
+      "text": "Features",
+      "level": "2"
+     },
+     {
+      "blockType": "restoredParagraph",
+      "content": {
+       "root": {
+        "type": "root",
+        "children": [
+         {
+          "type": "paragraph",
+          "children": [
+           {
+            "type": "text",
+            "text": "Built with advanced fan assembly engineering, this product delivers airflow efficiency and dependable cooling performance consistently.",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "textFormat": 0,
+          "textStyle": ""
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr"
+       }
+      }
+     },
+     {
+      "blockType": "restoredList",
+      "ordered": false,
+      "items": [
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Cooling tower use High airflow efficiency Corrosion-resistant construction Heavy-duty fan assembly Industrial cooling systems Optimized blade performance Stable operational support Low maintenance requirements Durable structural design Easy installation process",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       }
+      ]
+     },
+     {
+      "blockType": "restoredHeading",
+      "text": "Specifications",
+      "level": "2"
+     },
+     {
+      "blockType": "restoredParagraph",
+      "content": {
+       "root": {
+        "type": "root",
+        "children": [
+         {
+          "type": "paragraph",
+          "children": [
+           {
+            "type": "text",
+            "text": "Manufactured with precision engineering standards, this fan assembly supports efficient industrial cooling operational performance requirements.",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "textFormat": 0,
+          "textStyle": ""
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr"
+       }
+      }
+     },
+     {
+      "blockType": "restoredList",
+      "ordered": false,
+      "items": [
+       {
+        "content": {
+         "root": {
+          "type": "root",
+          "children": [
+           {
+            "type": "paragraph",
+            "children": [
+             {
+              "type": "text",
+              "text": "Model: 6000MK Series Hub Fan Assemblies Industrial-grade construction Corrosion-resistant materials High-efficiency fan design Optimized airflow configuration Durable hub assembly Stable mechanical performance Weather-resistant operation Long operational lifespan Cooling tower compatibility",
+              "format": 0,
+              "detail": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1
+             }
+            ],
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "textFormat": 0,
+            "textStyle": ""
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr"
+         }
+        }
+       }
+      ]
      }
     ]
    }

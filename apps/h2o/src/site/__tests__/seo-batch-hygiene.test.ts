@@ -49,8 +49,9 @@ describe('slot hygiene: data fixed, validator strict', () => {
       records++
     }
     expect(records).toBeGreaterThan(1000)
-    // 112 link/alt fixes (R1 residual) + 12 claim edits (CT ruling, Locale Part B).
-    expect(fixed).toBe(124)
+    // 112 link/alt fixes (R1 residual) + 12 claim edits (Locale Part B), then R2.2 (CT 2026-10-05): F1 product rulings, the OGCS
+    // template claims, C4/C5 and the OGCS claims sweep R1 (with D3/D4), on 327 elements in all (some carry both kinds).
+    expect(fixed).toBe(327)
   }, 120000)
   it('reproduces the R1 failures: without the fixes the strict validator rejects exactly the recorded elements', () => {
     const row = ledger.routes.find((r) => r.path === '/understanding-cooling-tower-parts/')!
@@ -64,7 +65,7 @@ describe('slot hygiene: data fixed, validator strict', () => {
   })
   it('records every change; https only for verified targets; an unlinked link keeps its text', () => {
     const changes = Object.values(fixes).flatMap((f) => f.slots.flatMap((s) => s.changes.map((c) => ({ ...c, s }))))
-    expect(changes).toHaveLength(127)
+    expect(changes).toHaveLength(373)
     for (const c of changes) {
       expect(c.reason.length, c.from).toBeGreaterThan(0)
       if (c.action === 'https') expect(c.to).toMatch(/^https:\/\//)
@@ -73,7 +74,7 @@ describe('slot hygiene: data fixed, validator strict', () => {
       if (c.action === 'held-file') expect(publicFileExists(c.to!), c.to!).toBe(true)
     }
     const text = (canon: string) => (JSON.parse(canon) as unknown[][]).filter((t) => t[0] === 't').map((t) => t[1]).join('')
-    const isClaimEdit = (s: Fix['slots'][number]) => s.changes.some((c) => c.action === 'claim-removed' || c.action === 'word-corrected')
+    const isClaimEdit = (s: Fix['slots'][number]) => s.changes.some((c) => c.action === 'claim-removed' || c.action === 'word-corrected' || c.action === 'claim-reworded')
     for (const f of Object.values(fixes)) for (const s of f.slots) if (s.field === 'text' && !isClaimEdit(s)) expect(text(s.afterCanon)).toBe(text(s.before))
     expect(changes.find((c) => c.from === '/content/uploads/fans/Dynafab_FanStacks.pdf')?.to).toBe('/wp-content/uploads/2021/12/Dynafab_FanStacks.pdf')
   })
@@ -125,29 +126,32 @@ describe('lifecycle read-back', () => {
   })
 })
 
-describe('claim edits (Control Tower ruling 2026-10-05, option A + 保証 → 確保)', () => {
-  const edits = (JSON.parse(readFileSync(path.join(APP, 'ops/seo-pass/data/claim-edits.json'), 'utf8')) as { edits: Array<{ path: string; op: 'remove' | 'replace'; find: string; replace?: string }> }).edits
+describe('claim edits (Locale Part B option A; R2.2: F1, OGCS template claims, C4/C5, claims sweep R1 with D3/D4)', () => {
+  type Edit = { path: string; op: 'remove' | 'replace' | 'set'; find: string; replace?: string; run?: number; slot?: string; row?: string; reason: string }
+  const edits = (JSON.parse(readFileSync(path.join(APP, 'ops/seo-pass/data/claim-edits.json'), 'utf8')) as { edits: Edit[] }).edits
   const text = (canon: string) => (JSON.parse(canon) as unknown[][]).filter((t) => t[0] === 't').map((t) => t[1]).join('')
-  it('each recorded edit is applied exactly once: the sentence (with one adjacent space) is removed, or the one word replaced; nothing else changes', () => {
-    expect(edits).toHaveLength(12)
+  const plain = (s: Fix['slots'][number], v: string) => (s.field === 'text' ? text(v) : (JSON.parse(v) as string))
+  const n = (hay: string, needle: string) => hay.split(needle).length - 1
+  const fixFor = (p: string) => Object.entries(fixes).find(([k]) => decodeURIComponent(k) === p)?.[1]
+  it('every recorded edit is applied once on its element and recorded as a change with its reason', () => {
+    expect(edits).toHaveLength(258)
     for (const e of edits) {
-      const fix = Object.entries(fixes).find(([p]) => decodeURIComponent(p) === e.path)?.[1]
-      expect(fix, e.path).toBeDefined()
-      const slot = fix!.slots.find((s) => s.changes.some((c) => c.from === e.find))!
-      const before = text(slot.before), after = text(slot.afterCanon)
-      expect(before.split(e.find).length - 1, e.path).toBe(1)
-      if (e.op === 'replace') expect(after).toBe(before.replace(e.find, e.replace!))
-      else {
-        expect(after).not.toContain(e.find)
-        expect(before.length - after.length - e.find.length, e.path).toBeLessThanOrEqual(2) // the sentence and its joining space/punctuation only
-        expect(after.trim().length, e.path).toBeGreaterThan(0)
-      }
+      const slot = fixFor(e.path)?.slots.find((s) => (!e.slot || s.key === e.slot) && s.changes.some((c) => c.from === e.find))
+      expect(slot, `${e.path} ${e.find.slice(0, 50)}`).toBeDefined()
+      expect(e.reason.length).toBeGreaterThan(0)
+      if (e.op === 'set') continue
+      const before = plain(slot!, slot!.before), after = plain(slot!, slot!.afterCanon)
+      // one occurrence fewer, less any that another edit on the same element writes back (a word-level diff can move a comma);
+      // a find that an earlier edit on the element produced is not in the imported text, and must not be in the result
+      const back = edits.filter((o) => o.path === e.path && o.slot === e.slot && o.op !== 'set').reduce((k, o) => k + n(o.replace ?? '', e.find), 0)
+      expect(n(after, e.find), `${e.path} ${e.find.slice(0, 50)}`).toBeLessThanOrEqual(Math.max(0, n(before, e.find) - 1) + back)
     }
   })
-  it('English pages and every translation lose the same two claims (no locale or English page keeps either)', () => {
-    const removed = edits.filter((e) => e.op === 'remove').map((e) => e.path)
-    for (const p of ['/inspect-cooling-tower-part-2/', '/cooling-tower-fill/']) expect(removed).toContain(p)
-    expect(removed).toHaveLength(10)
-    expect(edits.filter((e) => e.op === 'replace').map((e) => [e.find, e.replace])).toEqual([['安全性と寿命が保証されます', '安全性と寿命が確保されます'], ['常に安全性と寿命を保証するように', '常に安全性と寿命を確保するように']])
+  it('English pages and every translation lose the same two Locale Part B claims; the superseded 保証 wording is gone too', () => {
+    const locb = edits.filter((e) => /Locale Part B claim hygiene/.test(e.reason))
+    for (const p of ['/inspect-cooling-tower-part-2/', '/cooling-tower-fill/']) expect(locb.map((e) => e.path)).toContain(p)
+    expect(locb.filter((e) => e.op === 'remove')).toHaveLength(10)
+    // The 保証 → 確保 word edits are superseded by the claims sweep rewording of the same sentences (CS071, CS075).
+    for (const p of ['/ja/冷却塔とは何ですか/', '/ja/寒冷地の冷却塔/']) for (const s of fixFor(p)?.slots ?? []) if (s.field === 'text') expect(text(s.afterCanon), p).not.toMatch(/寿命(?:が|を)保証/)
   })
 })

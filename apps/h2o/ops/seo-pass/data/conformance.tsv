@@ -42,7 +42,7 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /cooling-tower-algae-prevention/	301	/tech-articles/					
 /product/tuf-lite-iii-4000kw-very-low-noise-series-hub-fan-assemblies/	200		html	TUF-LITE III 4000KW Very Low Noise Series | Cooling Tower Fans	Need a replacement fan? Request a quote for the TUF-LITE III 4000KW Very Low Noise Series Hub Fan Assemblies.		
 /cooling-tower-maintenance-repair-upgrade/	200		html	Cooling Tower Repair and Maintenance Services | ICS	ICS provides professional cooling tower repair and maintenance services to restore performance, improve energy efficiency, and reduce operational downtime.		
-/about-ics-industrial-cooling-solutions/	200		html	About ICS | Cooling Tower Engineering & Industrial Solutions	Learn about ICS, a trusted industrial company delivering cooling systems, installation, and maintenance services across global markets.		
+/about-ics-industrial-cooling-solutions/	200		html	About ICS | Cooling Tower Engineering & Industrial Solutions	Learn about ICS, an industrial cooling company delivering cooling towers, installation, and maintenance services in the USA and Asia.		
 /cooling-tower-ph-control/	200		html	Cooling Tower pH Control: Complete Management Guide - ICS	Master cooling tower pH control to prevent scaling and corrosion. Learn the optimal pH range, acid dosing methods, and automated system management techniques.		
 /cooling-tower-parts-online/	200		html	Cooling Tower Parts Online | Replacement Components	Explore cooling tower parts online, including motors, gearboxes, drift eliminators, nozzles, and OEM cooling tower components worldwide.		
 /blog/best-for-cooling-tower/	301	/best-for-cooling-tower/					
@@ -354,7 +354,7 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /wp-content/uploads/2021/12/AccuPac-Fill-Selection.pdf	200		file				
 /product/amarillo-drive-shaft-cf73-425x/	200		html	Amarillo Drive Shaft CF73 425X | Drive Shaft Assembly	Request a quote for the Amarillo Drive Shaft CF73 425X, a factory balanced assembly built to transmit gearbox torque to the fan reliably.		
 /blog/%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE%E6%B8%85%E6%8E%83%E6%96%B9%E6%B3%95/	301	/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e6%b8%85%e6%8e%83%e6%96%b9%e6%b3%95/					
-/cooling-tower-repair-service/	200		html	Cooling Tower Repair Service | Fast & Certified Repairs	Cooling Tower Repair Service with 24/7 emergency response, certified technicians, OEM parts, and lasting repairs to restore performance and reduce downtime.		
+/cooling-tower-repair-service/	200		html	Cooling Tower Repair Service | Fast & Certified Repairs	Industrial cooling tower repair service: inspection, structural and mechanical repairs, and replacement parts to restore performance and reduce downtime.		
 /product/tower-components-opti-cell-150-drift-eliminator/	200		html	Tower Components Opti Cell 150 Drift Eliminator - ICS	Get the Tower Components Opti Cell 150 Drift Eliminator, engineered to maximize heat transfer and water distribution in industrial cooling towers.		
 /product/mech-assembly-fill/	200		html	Mech Assembly Fill | Fill Media Replacement	Get the Mech Assembly Fill online, built to improve thermal performance while resisting fouling and scale.		
 /wp-content/uploads/2021/12/6000_IN-MANUAL_R4.pdf	200		file				
@@ -993,7 +993,7 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /product/dyna-fab-18%E2%80%B2-height-fan-stack/	200		html	Dyna-Fab 18' Height Fan Stack | Replacement Fan Stack	Looking for a replacement fan stack? Get the Dyna Fab 18' Height Fan Stack, sized and built for dependable cooling tower service.		
 /product/rexnord-addax-drive-shaft-composite-coupling-lrr485-625/	200		html	Addax Drive Shaft Composite Coupling LRR485.625 - ICS	Request a quote for the Addax Drive Shaft Composite Coupling LRR485.625, a factory balanced assembly built to transmit gearbox torque to the fan reliably.		
 /product/rexnord-addax-lrr350-275/	200		html	Rexnord Addax LRR350.275 | Composite Coupling	Get the Rexnord Addax LRR350.275 composite coupling, engineered for low vibration, high torque cooling tower fan drives.		
-/product/tuf-lite-ii-3000h-series-hub-fan-assemblies/	200		html	Best Hudson Fans Tuf-Lite II 3000H Series Hub - ICS	Hudson fans Tuf-Lite II 3000H Series Hub fan assemblies offer years of cost effective, reliable service. Cooling Tower replacement parts from ICS.		
+/product/tuf-lite-ii-3000h-series-hub-fan-assemblies/	200		html	Hudson Fans Tuf-Lite II 3000H Series Hub - ICS	Hudson fans Tuf-Lite II 3000H Series Hub fan assemblies offer years of cost effective, reliable service. Cooling Tower replacement parts from ICS.		
 /steps-energy-efficient-cooling-tower/	200		html	5 Steps To A More Energy Efficient Cooling Tower	Having the right type of cooling tower and knowing how to maintain it will yield the most efficient results for your company. Contact ICS to learn more!		
 /tag/cooling-tower-constructioncooling-tower-repaircooling-tower-typescounterflow-cooling-towerforced-draft-cooling-towerinduced-draft-cooling-tower/	200		html	Tag: Cooling Tower Construction, Repair & Types	Articles tagged cooling tower construction, repair and types, covering counterflow, forced draft and induced draft cooling towers.		
 /the-benefits-of-frp-fans-in-industrial-cooling/	200		html	FRP Fan Blades: The Benefits of FRP Fans in Industrial Cooling	Discover the advantages of using FRP fans in industrial cooling tower design.		
@@ -1097,3 +1097,4 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /ja/draft-page/	410						
 /th/draft-page/	410						
 /vi/draft-page/	410						
+/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/	200		html	PTT GSP6 96-Fan ACHE Performance Upgrade - ICS	In 2018, ICS & ICS Thailand (ICST) were selected by PTT Gas to upgrade their Air Cooled Heat Exchangers (ACHE) against a minimum 15% airflow-increase target.		

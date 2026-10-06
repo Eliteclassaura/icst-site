@@ -144,7 +144,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // 473 decided 200 pages minus /author/tbozic/, the 4 failed held articles and the 2 withdrawn duplicates, plus the
     // un-consolidated /cooling-tower-vs-chiller/ (OGCS R1.2), plus the published daily log (CT 2026-10-05).
     // Locale Part B: the published Thai Salmon page (its own title, the live meta).
-    expect(seo).toHaveLength(469)
+    expect(seo).toHaveLength(470) // R2.2: + the D3 portfolio row (CT-ruled meta and title)
     const titles=seo.map(row=>row.title!)
     expect(new Set(titles).size).toBe(titles.length)
     for(const t of titles){expect(t.length,t).toBeLessThanOrEqual(69);expect(t,t).not.toMatch(FORBIDDEN)}
@@ -185,25 +185,24 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Repointed to the final destination: the reversal cannot leave a chain.
     expect(redirects.find(row=>row.source==='/thermal-upgrades-for-cooling-tower-efficiency/')?.destination).toBe('/thermal-upgrade/')
   })
-  it('conformance contract: 1,098 rows (the OGCS and CT rulings, with OGCS Locale Part A deciding every locale URL), none held',()=>{
-    expect(conformance).toHaveLength(1098)
+  it('conformance contract: 1,099 rows (the OGCS and CT rulings, OGCS Locale Part A deciding every locale URL, and the R2.2 D3 row), none held',()=>{
+    expect(conformance).toHaveLength(1099)
     expect(conformance.filter(row=>row.kind==='locale')).toHaveLength(166)
     const count=(kind:string)=>conformance.filter(row=>row.expect===kind).length
-    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([695,393,10,0])
+    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([696,393,10,0]) // R2.2: + the D3 portfolio (200)
     for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
-    // Locale Part B is ONE delta on the state Part 3 leaves on staging (owner decision 2026-10-05; OGCS Part A): the 166
-    // preserved live locale pages arrive by the authority import (new LIVE-family records), their 98 R1 redirects retire,
-    // 120 redirects repoint one hop to the preserved locale page (Part A, and the 2 recorded Part 3 sources), 3 are new, the
-    // 4 locale drafts answer 410, the held Thai Salmon page publishes (its empty live /th/ duplicate 301s to it), and 12 claim edits (CT ruling) are written by the
-    // hygiene phase. Everything Part 3 wrote is already applied; it ran with the R3.1 fix, so there is no Case B.
-    expect(expectations.expect.routes).toEqual({publish:1,withdraw:0,index:0,canonical:0})
-    expect(expectations.expect.redirects).toEqual({create:4,update:120,unchanged:269,retire:98})
-    expect(expectations.expect.seoFields).toMatchObject({update:1,pendingOgcs:0})
-    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:0})
-    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:12})
+    // R2.2 (CT 2026-10-05) is ONE delta on the state Locale Part B leaves on staging (Locale B's own delta: 166 preserved locale
+    // pages imported, 98 R1 redirects retired, 120 repointed, 3 new, the Thai Salmon page published, 12 claim edits). R2.2
+    // writes the 4 ruled SEO rows (CS028, CS090, CS147, D3), the 4 F1 product panels, and its claim edits: with those writes on
+    // 3 routes, on their own (hygiene) on 105. No redirect, publication or canonical changes.
+    expect(expectations.expect.routes).toEqual({publish:0,withdraw:0,index:0,canonical:0})
+    expect(expectations.expect.redirects).toEqual({create:0,update:0,unchanged:393,retire:0})
+    expect(expectations.expect.seoFields).toMatchObject({update:4,pendingOgcs:0})
+    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:3})
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:105})
     expect(expectations.expect.h1).toEqual({update:0})
-    expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:0})
+    expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:4})
     expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)
     // The two translated posts that pointed at the English final page of a then-pending locale page now point at it (one hop).
     const repoint=tsv('locale-b-repoint.tsv')

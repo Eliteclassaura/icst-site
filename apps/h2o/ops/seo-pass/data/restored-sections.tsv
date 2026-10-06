@@ -1,5 +1,7 @@
 path	routeId	groups	blocks
 /air-coolers/	SALMON-pages-1668	1	2
+/product/amarillo-right-angle-gear-drives-double-reduction-1311/	SALMON-product-4809	1	6
+/product/amarillo-right-angle-gear-drives-double-reduction-1713w/	SALMON-product-4837	1	6
 /chiller-and-cooling-tower/	SALMON-posts-3886	1	62
 /cooling-tower-approach/	SALMON-posts-3754	1	49
 /cooling-tower-blowdown-calculation/	SALMON-posts-3710	3	27
@@ -18,3 +20,5 @@ path	routeId	groups	blocks
 /product-category/gearboxes/	SALMON-product_cat-167	1	2
 /product/addax-drive-shaft-composite-coupling-lrx650-625/	SALMON-product-4495	1	6
 /product/amarillo-right-angle-gear-drives-double-reduction-1713/	SALMON-product-4833	1	7
+/product/sumitomo-hansen-p4-gearboxes/	SALMON-product-4872	1	6
+/product/tuf-lite-iii-6000mk-series-hub-fan-assemblies/	SALMON-product-4685	1	6

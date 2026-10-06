@@ -8,7 +8,8 @@
  * <reviewed-dir> holds one reviewed JSON per page (h2o-technical-b2b-content review: live text, surgical remediation, claim
  * notes). Output: data/restored-sections.json, keyed by path: { routeId, h1?, groups: [{ mode, anchor, source, blocks }] },
  * the shape apply-seo-pass.mjs writes to `restoredSections` (Payload blocks; rich text as Lexical). With --evidence, the
- * per-page claim notes and omissions are written there too.
+ * per-page claim notes and omissions are written there too. A reviewed page may carry its own `source` (live URL, capture time
+ * and HTML SHA-256; CT F1 ruling 2026-10-05); otherwise the Part 2 live fetch is recorded.
  *
  * Rule checks stop the build:
  *   - the wrong company name;
@@ -96,7 +97,7 @@ for(const file of readdirSync(dir).filter(f=>f.endsWith('.json')).sort()){
       else problems.push(`${where}: unsupported block type ${b.type}`)
     }
     if(!blocks.length){problems.push(`${where}: no blocks`);continue}
-    groups.push({mode:g.mode,anchor:g.anchor,source:`live https://h2ocooling.com${page.path} (CT SEO parity audit R1 live fetch, 2026-10-04); OGCS R1.2 ${page.decision}; h2o-technical-b2b-content review`,blocks})
+    groups.push({mode:g.mode,anchor:g.anchor,source:page.source??`live https://h2ocooling.com${page.path} (CT SEO parity audit R1 live fetch, 2026-10-04); OGCS R1.2 ${page.decision}; h2o-technical-b2b-content review`,blocks})
   }
   if(!groups.length){summary.push({path:page.path,groups:0,words:0,note:'nothing to restore (staging already carries the live text)'});continue}
   const words=groups.flatMap(g=>g.blocks).map(b=>JSON.stringify(b).match(/"text":"([^"]*)"|"question":"([^"]*)"|"answer":"([^"]*)"/g)??[]).flat().join(' ').replace(/"(text|question|answer)":/g,'').split(/\s+/).filter(Boolean).length

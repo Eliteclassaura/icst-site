@@ -40,8 +40,8 @@ const headingsOf=(groups:RestoredGroup[])=>groups.flatMap(g=>g.blocks).flatMap(b
 const count=(html:string,text:string)=>html.split(text.replace(/&/g,'&amp;')).length-1
 
 describe('restored-sections batch data',()=>{
-  it('carries the 19 pages decided by OGCS R1.2, every anchor resolving on the imported page',()=>{
-    expect(Object.keys(restored)).toHaveLength(19)
+  it('carries the 19 pages decided by OGCS R1.2 and the 4 F1 product panels (CT 2026-10-05), every anchor resolving on the imported page',()=>{
+    expect(Object.keys(restored)).toHaveLength(23)
     for(const [p,page] of Object.entries(restored)){
       const document=source(p)
       expect(page.routeId,p).toBe(document.routeId)

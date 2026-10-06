@@ -38,10 +38,15 @@ const EXTERNAL: Record<string, { to: string | null; evidence: string }> = {
   'http://www.osha.gov/laws-regs': { to: 'https://www.osha.gov/laws-regs', evidence: 'https 200 "Laws and Regulations | OSHA"' },
   'http://www.osha.gov/': { to: 'https://www.osha.gov/', evidence: 'https 200 "Home | OSHA"' },
   'http://www.brentwoodindustries.com/products/cooling-tower/accessories/driseals.php': { to: 'https://www.brentwoodindustries.com/products/cooling-tower/accessories-for-cooling-tower/cooling-tower-water-air-management-accessories/driseals/', evidence: 'https 301 → 200 (manufacturer moved the page; final https URL used)' },
-  'http://www.brentwoodindustries.com/products/cooling-tower/mechanical-assembly.php': { to: null, evidence: 'https 404' },
+  'http://www.brentwoodindustries.com/products/cooling-tower/mechanical-assembly.php': { to: 'https://www.brentwoodindustries.com/products/cooling-tower/', evidence: 'retired page (https 404); OGCS unlinks R1 relink to the manufacturer category page, verified 200 on 2026-10-05 "Cooling Tower Components & Solutions | Brentwood Industries" (CT accepted)' },
   'http://www.owlnet.rice.edu/~ceng402/proj05/ewalk/ceng402/intro.html': { to: null, evidence: 'https 404' },
-  'http://m.coolingtowerdepot.com/content/parts/splash-fill-packaged-cooling-tower-features': { to: null, evidence: 'no https response' },
+  'http://m.coolingtowerdepot.com/content/parts/splash-fill-packaged-cooling-tower-features': { to: '/product/splash-fill/', evidence: 'third-party retailer (no https response); OGCS unlinks R1 relink to the ICS product page (CT accepted)' },
   'http://h2cooling.com': { to: null, evidence: 'typo domain; now a parked domain-sale page' },
+}
+/** Per-page targets for an external URL (OGCS unlinks R1, CT accepted 2026-10-05): the typo domain is the company name in
+ * prose; on /industrial-cooling-towers/ "Contact ICS" links to the contact page, elsewhere it stays unlinked text. */
+const EXTERNAL_ON_PAGE: Record<string, Record<string, { to: string; evidence: string }>> = {
+  '/industrial-cooling-towers/': { 'http://h2cooling.com': { to: '/contact-us/', evidence: 'OGCS unlinks R1: "Contact ICS" → /contact-us/ (CT accepted)' } },
 }
 /** Alt texts with no sentence boundary inside 300 characters: the held fragment used (verbatim from the same alt). */
 const ALT_FRAGMENT: Record<string, string> = { '/cooling-tower-spray-nozzles/': 'Cooling Tower Spray Nozzles: A Selection Guide' }
@@ -53,7 +58,9 @@ index(uploads)
 
 const valid = (href: string) => href.startsWith('#') || /^https:\/\/[^\s/?#]+(?:[/?#][^\s]*)?$/.test(href) || (href.startsWith('/') && !href.startsWith('//') && (knownPaths.has(href.split(/[?#]/)[0]!) || publicFileExists(href)))
 type Change = { from: string; to: string | null; action: 'site-path' | 'redirect-destination' | 'held-file' | 'https' | 'unlink'; reason: string }
-function fixUrl(url: string): Change | null {
+function fixUrl(url: string, page = ''): Change | null {
+  const onPage = EXTERNAL_ON_PAGE[page]?.[url]
+  if (onPage) return { from: url, to: onPage.to, action: 'site-path', reason: onPage.evidence }
   if (valid(url)) return null
   const own = /^https?:\/\/(?:www\.)?h2ocooling\.com(\/[^?#]*)?([?#].*)?$/i.exec(url)
   if (own) {
@@ -71,14 +78,14 @@ function fixUrl(url: string): Change | null {
     return { from: url, to: null, action: 'unlink', reason: 'legacy upload path without a verified served file' }
   }
   const ext = EXTERNAL[url]
-  if (ext) return { from: url, to: ext.to, action: ext.to ? 'https' : 'unlink', reason: ext.evidence }
+  if (ext) return { from: url, to: ext.to, action: !ext.to ? 'unlink' : ext.to.startsWith('/') ? 'site-path' : 'https', reason: ext.evidence }
   return { from: url, to: null, action: 'unlink', reason: 'not a site path or a verified https destination' }
 }
 type LNode = { type: string; text?: string; format?: number; fields?: { url?: string }; children?: LNode[] } & Record<string, unknown>
-function fixLexical(state: LexicalState, changes: Change[]): LexicalState {
+function fixLexical(state: LexicalState, changes: Change[], page = ''): LexicalState {
   const visit = (nodes: LNode[]): LNode[] => nodes.flatMap((n) => {
     if (n.type === 'link') {
-      const c = fixUrl(n.fields?.url ?? '')
+      const c = fixUrl(n.fields?.url ?? '', page)
       if (!c) return [{ ...n, children: visit(n.children ?? []) }]
       changes.push(c)
       return c.to ? [{ ...n, fields: { ...n.fields, url: c.to }, children: visit(n.children ?? []) }] : visit(n.children ?? [])
@@ -97,13 +104,44 @@ function shortenAlt(p: string, alt: string): string {
   return out.trim()
 }
 
-type ClaimEdit = { path: string; op: 'remove' | 'replace'; find: string; replace?: string; reason: string }
+/** `allowEmpty` (CT F1 ruling 2026-10-05): a removal may empty its whole element (a wrong spec line or boilerplate sentence);
+ * the product template hides an empty line, and a panel left without text. */
+/** R2.2 (claims sweep): `slot` targets one element (its key); `element: 'heading'` edits a heading; `op: 'set'` replaces a
+ * text element with restricted markdown (plain text and [text](/path/) links) when a ruling adds a link. */
+type ClaimEdit = { run?: number; path: string; op: 'remove' | 'replace' | 'set'; find: string; replace?: string; markdown?: string; allowEmpty?: boolean; slot?: string; element?: 'heading'; row?: string; reason: string }
+const normText = (t: string) => t.replace(/[\s\u00a0\u200b]+/g, ' ').replace(/\s+([,.;:!?)])/g, '$1').trim()
+/** Restricted markdown → Lexical: text runs and internal links only. */
+function markdownLexical(md: string): LexicalState {
+  const text = (t: string) => ({ type: 'text', text: t, format: 0, detail: 0, mode: 'normal', style: '', version: 1 })
+  const children: unknown[] = []
+  let last = 0
+  for (const m of md.matchAll(/\[([^\]]+)\]\((\/[^)\s]*)\)/g)) {
+    if (m.index! > last) children.push(text(md.slice(last, m.index)))
+    children.push({ type: 'link', fields: { url: m[2], newTab: false, linkType: 'custom' }, children: [text(m[1]!)], format: '', indent: 0, version: 3, direction: 'ltr' })
+    last = m.index! + m[0].length
+  }
+  if (last < md.length) children.push(text(md.slice(last)))
+  return { root: { type: 'root', children: [{ type: 'paragraph', children, format: '', indent: 0, version: 1, direction: 'ltr', textFormat: 0, textStyle: '' }], format: '', indent: 0, version: 1, direction: 'ltr' } } as unknown as LexicalState
+}
 const claimEdits = (JSON.parse(readFileSync(path.join(APP, 'ops/seo-pass/data/claim-edits.json'), 'utf8')) as { edits: ClaimEdit[] }).edits
 const claimEditsFor = new Map<string, ClaimEdit[]>()
 for (const e of claimEdits) claimEditsFor.set(e.path, [...(claimEditsFor.get(e.path) ?? []), e])
 const appliedEdits = new Set<ClaimEdit>()
+/** Edits whose text no editable element holds: these belong in the text-override registry, never here (stops the build). */
+const notEditable: string[] = []
 /** Apply one claim edit to a lexical state: the text run that contains `find` (once) changes; null when no single run holds it. */
 function editLexical(state: LexicalState, edit: ClaimEdit): LexicalState | null {
+  if (edit.run !== undefined) {
+    // R2.2: one exact text run, by its position among the element's text nodes; its whole text must equal `find`.
+    let i = -1, ok = false
+    const visitRun = (nodes: LNode[]): LNode[] => nodes.map((n) => {
+      if (n.type === 'text' && typeof n.text === 'string') { i++; if (i === edit.run && n.text === edit.find) { ok = true; return { ...n, text: edit.op === 'replace' ? edit.replace ?? '' : '' } } return n }
+      return n.children ? { ...n, children: visitRun(n.children) } : n
+    })
+    const root = (state as unknown as { root: LNode }).root
+    const next = { root: { ...root, children: visitRun(root.children ?? []) } } as unknown as LexicalState
+    return ok ? next : null
+  }
   let hits = 0
   const visit = (nodes: LNode[]): LNode[] => nodes.map((n) => {
     if (n.type === 'text' && typeof n.text === 'string' && n.text.includes(edit.find)) {
@@ -176,11 +214,11 @@ for (const row of ledger.routes) {
     const changes: Change[] = []
     if (s.kind === 'text' && s.text) {
       const before = slotFieldCanon(s, 'text')
-      s.text = fixLexical(s.text, changes)
+      s.text = fixLexical(s.text, changes, row.path)
       record.slots.push({ key: s.key, kind: s.kind, field: 'text', before, after: s.text, afterCanon: slotFieldCanon(s, 'text'), changes })
     } else if (s.kind === 'action') {
       const before = slotFieldCanon(s, 'href')
-      const c = fixUrl(s.href ?? '')
+      const c = fixUrl(s.href ?? '', row.path)
       if (c) { changes.push(c); s.href = c.to ?? '' }
       record.slots.push({ key: s.key, kind: s.kind, field: 'href', before, after: s.href, afterCanon: slotFieldCanon(s, 'href'), changes })
     } else if (s.kind === 'image') {
@@ -192,12 +230,40 @@ for (const row of ledger.routes) {
     }
   }
   for (const edit of edits) {
-    const slot = next.find((s) => s.kind === 'text' && s.text && editLexical(s.text, edit))
-    if (!slot?.text) throw new Error(`${row.path}: claim edit not found in a single text run: ${edit.find.slice(0, 60)}`)
+    if (edit.element === 'heading') {
+      const h = next.find((s) => s.kind === 'heading' && (!edit.slot || s.key === edit.slot) && normText(s.heading ?? '').includes(normText(edit.find)))
+      if (!h) throw new Error(`${row.path}: heading edit not found: ${edit.find.slice(0, 60)}`)
+      const before = h.heading ?? ''
+      h.heading = normText(before).replace(normText(edit.find), normText(edit.replace ?? '')).trim()
+      record.slots.push({ key: h.key, kind: h.kind, field: 'heading' as never, before: JSON.stringify(before), after: h.heading, afterCanon: JSON.stringify(h.heading), changes: [{ from: edit.find, to: edit.replace ?? '', action: 'claim-reworded' as never, reason: edit.reason }] })
+      appliedEdits.add(edit)
+      continue
+    }
+    if (edit.op === 'set') {
+      const t = next.find((s) => s.kind === 'text' && s.text && (!edit.slot || s.key === edit.slot) && normText(lexicalText(s.text)) === normText(edit.find))
+      if (!t?.text) throw new Error(`${row.path}: set edit target not found: ${edit.find.slice(0, 60)}`)
+      const existing = record.slots.find((r) => r.key === t.key)
+      const before = existing?.before ?? slotFieldCanon(t, 'text')
+      t.text = markdownLexical(edit.markdown ?? '')
+      const change: Change = { from: edit.find, to: edit.markdown ?? '', action: 'claim-reworded' as never, reason: edit.reason }
+      if (existing) { existing.after = t.text; existing.afterCanon = slotFieldCanon(t, 'text'); existing.changes.push(change) }
+      else record.slots.push({ key: t.key, kind: t.kind, field: 'text', before, after: t.text, afterCanon: slotFieldCanon(t, 'text'), changes: [change] })
+      appliedEdits.add(edit)
+      continue
+    }
+    const slot = next.find((s) => s.kind === 'text' && s.text && (!edit.slot || s.key === edit.slot) && editLexical(s.text, edit))
+    if (!slot?.text) {
+      const target = next.find((s) => s.key === edit.slot)
+      const nodes: string[] = []
+      const collect = (n: LNode) => { if (n.type === 'text') nodes.push(n.text ?? ''); (n.children ?? []).forEach(collect) }
+      if (target?.text) collect((target.text as unknown as { root: LNode }).root)
+      notEditable.push(`${row.path}\t${edit.row ?? ''}\t${edit.find.slice(0, 80)}${edit.run !== undefined ? `\n   at run ${edit.run} of ${target?.kind ?? 'no slot'} ${edit.slot}: ${JSON.stringify((nodes[edit.run] ?? '').slice(0, 120))}` : ''}`)
+      continue
+    }
     const existing = record.slots.find((r) => r.key === slot.key)
     const before = existing?.before ?? slotFieldCanon(slot, 'text')
     slot.text = editLexical(slot.text, edit)!
-    if (!JSON.parse(slotFieldCanon(slot, 'text')).some((t: unknown[]) => t[0] === 't' && String(t[1]).trim())) throw new Error(`${row.path}: claim edit would leave ${slot.key} empty`)
+    if (!edit.allowEmpty && !JSON.parse(slotFieldCanon(slot, 'text')).some((t: unknown[]) => t[0] === 't' && String(t[1]).trim())) throw new Error(`${row.path}: claim edit would leave ${slot.key} empty`)
     const change: Change = { from: edit.find, to: edit.op === 'replace' ? edit.replace ?? '' : null, action: (edit.op === 'remove' ? 'claim-removed' : 'word-corrected') as never, reason: edit.reason }
     if (existing) { existing.after = slot.text; existing.afterCanon = slotFieldCanon(slot, 'text'); existing.changes.push(change) }
     else record.slots.push({ key: slot.key, kind: slot.kind, field: 'text', before, after: slot.text, afterCanon: slotFieldCanon(slot, 'text'), changes: [change] })
@@ -208,8 +274,19 @@ for (const row of ledger.routes) {
   fixes[row.path] = record
   fixedRoutes++
 }
+if (notEditable.length) throw new Error(`claim edits that no editable element holds (move them to content/design/text-overrides.json):\n${notEditable.join('\n')}`)
 const unapplied = claimEdits.filter((e) => !appliedEdits.has(e))
 if (unapplied.length) throw new Error(`claim edits without a published route record: ${unapplied.map((e) => e.path).join(', ')}`)
+// R2.2: an element an earlier batch already fixed starts from that batch's fixed value, not the imported one. `--baseline`
+// names the slot-fixes.json that batch applied; its fixed value is recorded as an accepted starting state (`accept`).
+const baselineFile = process.argv.find((a) => a.startsWith('--baseline='))?.slice(11)
+if (baselineFile) {
+  const prior = JSON.parse(readFileSync(baselineFile, 'utf8')) as typeof fixes
+  for (const [p, rec] of Object.entries(fixes)) for (const f of rec.slots) {
+    const was = prior[p]?.slots.find((x) => x.key === f.key && x.field === f.field)
+    if (was && was.afterCanon !== f.afterCanon && was.afterCanon !== f.before) (f as typeof f & { accept?: string[] }).accept = [was.afterCanon]
+  }
+}
 writeFileSync(path.join(APP, 'ops/seo-pass/data/slot-fixes.json'), JSON.stringify(fixes, null, 1) + '\n')
 const changes = Object.values(fixes).flatMap((r) => r.slots.flatMap((s) => s.changes))
 const evidence = process.argv.find((a) => a.startsWith('--evidence='))?.slice(11)

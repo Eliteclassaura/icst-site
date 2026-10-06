@@ -26,6 +26,7 @@
  *                 the fixed value (edited since) blocks the run.
  *   5. restored:  restoredSections (typed blocks at explicit anchors; data/restored-sections.json), one write per page. The
  *                 save hook re-validates every anchor; an unknown anchor fails the write.
+ *      (R2.2: a fixed element may also start from the value an earlier batch fixed it to, its `accept` list in slot-fixes.json.)
  *   6. hygiene:   a route in slot-fixes.json that no other phase writes gets its fixed elements on their own: slots only, its
  *                 publication status unchanged (a held draft stays a draft). Read back: elements as fixed, status unchanged.
  * A route with an unpublished editor draft pending is never overwritten: the plan reports it and the run stops.
@@ -161,7 +162,7 @@ for(const p of slotFixOf.keys()){
     if(!slot){problem=`page element ${f.key} is missing`;break}
     const now=slotFieldCanon(slot,f.field)
     if(now===f.afterCanon)continue
-    if(now!==f.before){problem=`page element ${f.key} differs from its imported value (edited since; not overwritten)`;break}
+    if(now!==f.before&&!(f.accept??[]).includes(now)){problem=`page element ${f.key} differs from its imported value and from the earlier batch's fixed value (edited since; not overwritten)`;break}
     slot[f.field]=f.after;needed=true
   }
   if(problem){plan.blocked.push({path:p,reason:problem});continue}
@@ -178,7 +179,7 @@ for(const p of writtenPaths){
     if(!slot){problem=`page element ${f.key} is missing`;break}
     const now=slotFieldCanon(slot,f.field)
     if(now===f.afterCanon)continue
-    if(now!==f.before){problem=`page element ${f.key} differs from its imported value (edited since; not overwritten)`;break}
+    if(now!==f.before&&!(f.accept??[]).includes(now)){problem=`page element ${f.key} differs from its imported value and from the earlier batch's fixed value (edited since; not overwritten)`;break}
     slot[f.field]=f.after;needed=true
   }
   if(problem){plan.blocked.push({path:p,reason:problem});continue}

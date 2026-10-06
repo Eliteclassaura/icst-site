@@ -1,5 +1,5 @@
 {
- "authority": "Control Tower ruling 2026-10-05 (option A + 保証→確保); recorded slot-fix text edits applied by apply-seo-pass (phase 6), before/after in slot-fixes.json",
+ "authority": "Control Tower ruling 2026-10-05 (option A + 保証→確保); recorded slot-fix text edits applied by apply-seo-pass (phase 6), before/after in slot-fixes.json; R2.1 (CT 2026-10-05): F1 product data corrections, OGCS template claims, C3/C4/C5 claims, unlink text edits; R2.2 (CT 2026-10-05): OGCS claims sweep R1 GATE+SHOULD rows with owner answers Q1–Q12 (row ids in `row`)",
  "edits": [
   {
    "path": "/inspect-cooling-tower-part-2/",
@@ -62,18 +62,2282 @@
    "reason": "CT ruling 2026-10-05 (Locale Part B claim hygiene, option A): unsubstantiated superlative (\"top supplier\") removed from the English page and every translation; nothing added"
   },
   {
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1311/",
+   "op": "replace",
+   "find": "Rexnord/Addax",
+   "replace": "Amarillo",
+   "reason": "CT F1 ruling 2026-10-05 (product data error): brand value corrected to the live product page (Amarillo)"
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1713/",
+   "op": "replace",
+   "find": "Rexnord/Addax",
+   "replace": "Amarillo",
+   "reason": "CT F1 ruling 2026-10-05 (product data error): brand value corrected to the live product page (Amarillo)"
+  },
+  {
+   "path": "/product/tuf-lite-iii-6000mk-series-hub-fan-assemblies/",
+   "op": "replace",
+   "find": "Rexnord/Addax",
+   "replace": "Hudson",
+   "reason": "CT F1 ruling 2026-10-05 (product data error): brand value corrected to the live product page (Hudson)"
+  },
+  {
+   "path": "/product/splash-fill/",
+   "op": "remove",
+   "find": "Rexnord/Addax",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): brand value removed (the live product page has no brand row); the empty attribute row is hidden"
+  },
+  {
+   "path": "/product/frp-square-tubes/",
+   "op": "remove",
+   "find": "Rexnord/Addax",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): brand value removed (the live product page has no brand row); the empty attribute row is hidden"
+  },
+  {
+   "path": "/product/abb-motor-example/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/abb-motor-example/",
+   "op": "remove",
+   "find": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/baldor-motor/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/baldor-motor/",
+   "op": "remove",
+   "find": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/brentwood-cellular-de-overview/",
+   "op": "remove",
+   "find": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/brentwood-cellular-de-overview/",
+   "op": "remove",
+   "find": "Spray type: Full cone or umbrella",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/brentwood-cellular-de-overview/",
+   "op": "remove",
+   "find": "Flow rate: 10–50 m³/h",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/brentwood-cellular-de-overview/",
+   "op": "remove",
+   "find": "Pressure range: 1–3.5 kg/cm²",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/brentwood-cellular-de-overview/",
+   "op": "remove",
+   "find": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/brentwood-cellular-de-overview/",
+   "op": "remove",
+   "find": "Mounting: Threaded pipe connection or snap-in grommet",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "op": "remove",
+   "find": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "op": "remove",
+   "find": "Spray type: Full cone or umbrella",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "op": "remove",
+   "find": "Flow rate: 10–50 m³/h",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "op": "remove",
+   "find": "Pressure range: 1–3.5 kg/cm²",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "op": "remove",
+   "find": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "op": "remove",
+   "find": "Mounting: Threaded pipe connection or snap-in grommet",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-ces-190-film-fill/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "op": "remove",
+   "find": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "op": "remove",
+   "find": "Spray type: Full cone or umbrella",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "op": "remove",
+   "find": "Flow rate: 10–50 m³/h",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "op": "remove",
+   "find": "Pressure range: 1–3.5 kg/cm²",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "op": "remove",
+   "find": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "op": "remove",
+   "find": "Mounting: Threaded pipe connection or snap-in grommet",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "op": "remove",
+   "find": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "op": "remove",
+   "find": "Spray type: Full cone or umbrella",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "op": "remove",
+   "find": "Flow rate: 10–50 m³/h",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "op": "remove",
+   "find": "Pressure range: 1–3.5 kg/cm²",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "op": "remove",
+   "find": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "op": "remove",
+   "find": "Mounting: Threaded pipe connection or snap-in grommet",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/glue-assembly-fill/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/high-efficiency-fill/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/low-fouling-fill/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/offset-flute-fill/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "op": "remove",
+   "find": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "op": "remove",
+   "find": "Spray type: Full cone or umbrella",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "op": "remove",
+   "find": "Flow rate: 10–50 m³/h",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "op": "remove",
+   "find": "Pressure range: 1–3.5 kg/cm²",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "op": "remove",
+   "find": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "op": "remove",
+   "find": "Mounting: Threaded pipe connection or snap-in grommet",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/site-assembly/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/site-assembly/",
+   "op": "remove",
+   "find": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/site-assembly/",
+   "op": "remove",
+   "find": "Spray type: Full cone or umbrella",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/site-assembly/",
+   "op": "remove",
+   "find": "Flow rate: 10–50 m³/h",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/site-assembly/",
+   "op": "remove",
+   "find": "Pressure range: 1–3.5 kg/cm²",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/site-assembly/",
+   "op": "remove",
+   "find": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/site-assembly/",
+   "op": "remove",
+   "find": "Mounting: Threaded pipe connection or snap-in grommet",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/teco-westinghouse-motor-example/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/vibration-switch-example/",
+   "op": "remove",
+   "find": "These nozzles are built to handle varying industrial conditions while maintaining consistent spray performance.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/vibration-switch-example/",
+   "op": "remove",
+   "find": "Each nozzle is engineered to maintain reliable flow and spray characteristics under varying loads.",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle boilerplate sentence on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/vibration-switch-example/",
+   "op": "remove",
+   "find": "Spray type: Full cone or umbrella",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/vibration-switch-example/",
+   "op": "remove",
+   "find": "Flow rate: 10–50 m³/h",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/vibration-switch-example/",
+   "op": "remove",
+   "find": "Pressure range: 1–3.5 kg/cm²",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/vibration-switch-example/",
+   "op": "remove",
+   "find": "Material: Polypropylene, ABS, PVC, or stainless steel",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/product/vibration-switch-example/",
+   "op": "remove",
+   "find": "Mounting: Threaded pipe connection or snap-in grommet",
+   "allowEmpty": true,
+   "reason": "CT F1 ruling 2026-10-05 (product data error): nozzle spec item on a non-nozzle product removed; a panel left empty is hidden"
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Factory-authorized OEM parts for every major cooling tower brand. Fast supply of fans, fill media, gearboxes, nozzles, and more, ensuring your system stays at optimal performance with minimal maintenance needs.",
+   "replace": "Replacement parts for major cooling tower brands: fans, fill, drive shafts, gearboxes and more.",
+   "reason": "OGCS template-claim rulings, CT accepted 2026-10-05: home services > Parts"
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Durable, OEM-quality parts for every cooling tower and industrial cooling system — in stock and ready to ship.",
+   "replace": "Durable replacement parts for cooling towers and industrial cooling systems. Request a quote for availability.",
+   "reason": "OGCS template-claim rulings, CT accepted 2026-10-05: home spare-parts intro"
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Our global team provides",
+   "replace": "Our team provides",
+   "reason": "OGCS template-claim rulings, CT accepted 2026-10-05: home services > Repairs & Upgrades"
+  },
+  {
+   "path": "/cooling-tower-parts-online/",
+   "op": "replace",
+   "find": "OEM-quality replacement components for every make and model — shipped fast, backed by full factory warranty.",
+   "replace": "Replacement components for crossflow and counterflow cooling towers: fans, fill, drive shafts, gearboxes and more. Request a quote for availability and lead time.",
+   "reason": "OGCS template-claim rulings, CT accepted 2026-10-05: /cooling-tower-parts-online/ hero lead"
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1713/",
+   "op": "replace",
+   "find": "Its double reduction design, strong housing, precision gearing, and AGMA/CTI-compliant construction make",
+   "replace": "Its double reduction design, strong housing and precision gearing make",
+   "reason": "OGCS template-claim rulings, CT accepted 2026-10-05: unsupported standards claim removed (rule 5)"
+  },
+  {
+   "path": "/all-projects/pttcsp/",
+   "op": "replace",
+   "find": "ICS and ICST were engaged to enhance system performance by achieving a guaranteed minimum 15% increase in airflow, along with improved static pressure control and overall thermal efficiency under defined performance guarantees.",
+   "replace": "ICS and ICST were engaged to improve system performance against the plant's performance criteria: a minimum 15% increase in airflow, plus static pressure and thermal performance targets.",
+   "reason": "OGCS pre-launch copy R1 §1 C4 (DEFAULT wording; CT accepted 2026-10-05): description"
+  },
+  {
+   "path": "/all-projects/pttcsp/",
+   "op": "replace",
+   "find": "ensuring compliance with plant requirements and performance expectations.",
+   "replace": "in line with plant requirements.",
+   "reason": "OGCS pre-launch copy R1 §1 C4 (DEFAULT wording; CT accepted 2026-10-05): closing sentence"
+  },
+  {
+   "path": "/inspect-cooling-tower-part-2/",
+   "op": "replace",
+   "find": "ICS is located in Lakewood, Colorado with offices around the world.",
+   "replace": "ICS is based in Lakewood, Colorado, with offices in Japan and Thailand.",
+   "reason": "OGCS C5 locale strings R1 (3d1ddfbe), CT accepted 2026-10-05: C5a-en (\"offices around the world\" / \"representatives located globally\" → the three authorized offices)"
+  },
+  {
+   "path": "/th/วิธีตรวจสอบหอทำความเย็/",
+   "op": "replace",
+   "find": "ICS ตั้งอยู่ในเมืองเลควูด รัฐโคโลราโด และมีสำนักงานอยู่ทั่วโลก",
+   "replace": "ICS ตั้งอยู่ในเมืองเลควูด รัฐโคโลราโด สหรัฐอเมริกา และมีสำนักงานในประเทศญี่ปุ่นและประเทศไทย",
+   "reason": "OGCS C5 locale strings R1 (3d1ddfbe), CT accepted 2026-10-05: C5a-th (\"offices around the world\" / \"representatives located globally\" → the three authorized offices)"
+  },
+  {
+   "path": "/ja/冷却塔の検査方法-パート-2/",
+   "op": "replace",
+   "find": "ICS はコロラド州レイクウッドにあり、世界中にオフィスを構えています。",
+   "replace": "ICS は米国コロラド州レイクウッドに拠点を置き、日本とタイにもオフィスを構えています。",
+   "reason": "OGCS C5 locale strings R1 (3d1ddfbe), CT accepted 2026-10-05: C5a-ja (\"offices around the world\" / \"representatives located globally\" → the three authorized offices)"
+  },
+  {
+   "path": "/id/cara-memeriksa-menara-pendingin-bagian-2/",
+   "op": "replace",
+   "find": "ICS berlokasi di Lakewood, Colorado dengan kantor di seluruh dunia.",
+   "replace": "ICS berlokasi di Lakewood, Colorado, Amerika Serikat, dengan kantor di Jepang dan Thailand.",
+   "reason": "OGCS C5 locale strings R1 (3d1ddfbe), CT accepted 2026-10-05: C5a-id (\"offices around the world\" / \"representatives located globally\" → the three authorized offices)"
+  },
+  {
+   "path": "/vi/cach-kiem-tra-thap-giai-nhiet-phan-2/",
+   "op": "replace",
+   "find": "ICS có trụ sở tại Lakewood, Colorado với các văn phòng trên khắp thế giới.",
+   "replace": "ICS có trụ sở tại Lakewood, Colorado, Hoa Kỳ, với các văn phòng tại Nhật Bản và Thái Lan.",
+   "reason": "OGCS C5 locale strings R1 (3d1ddfbe), CT accepted 2026-10-05: C5a-vi (\"offices around the world\" / \"representatives located globally\" → the three authorized offices)"
+  },
+  {
+   "path": "/th/วิธีการตรวจสอบคูลลิ่งท/",
+   "op": "replace",
+   "find": "มีสำนักงานใหญ่ในเมืองเลควูด รัฐโคโลราโด เรามีตำแหน่งงานในญี่ปุ่น ไทย รวมถึงตัวแทนที่ตั้งอยู่ทั่วโลก",
+   "replace": "มีสำนักงานใหญ่ในเมืองเลควูด รัฐโคโลราโด สหรัฐอเมริกา และมีสำนักงานในประเทศญี่ปุ่นและประเทศไทย รวมถึงตัวแทนที่ตั้งอยู่ทั่วโลก",
+   "reason": "OGCS C5 locale strings R1 C5b-th, amended by owner answer Q9 (CT relay 2026-10-05): \"representatives located globally\" restored; the mistranslation ตำแหน่งงาน (job positions) fixed with the C5 office wording"
+  },
+  {
+   "path": "/axial-fans-guide/",
+   "op": "replace",
+   "find": "H2cooling.com",
+   "replace": "ICS",
+   "reason": "OGCS pre-launch unlinks R1 §6 (c3e48eac), CT accepted 2026-10-05: company name in prose → \"ICS\""
+  },
+  {
+   "path": "/industrial-cooling-towers/",
+   "op": "replace",
+   "find": "H2cooling.com",
+   "replace": "ICS",
+   "reason": "OGCS pre-launch unlinks R1 §6 (c3e48eac), CT accepted 2026-10-05: company name in prose → \"ICS\" (the link goes to /contact-us/)"
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "op": "replace",
+   "find": "Guaranteed Thermal Performance and Energy Efficiency",
+   "replace": "Thermal Performance and Energy Efficiency",
+   "element": "heading",
+   "slot": "body.3.1.1.7.11",
+   "row": "CS004",
+   "reason": "OGCS claims sweep R1 CS004 (GATE; CT accepted 2026-10-05): Performance guarantee (heading)."
+  },
+  {
+   "path": "/cooling-tower-cmms/",
+   "op": "replace",
+   "find": " engineering team to design a CMMS integration plan that guarantees uptime and efficiency.",
+   "replace": " engineering team to design a CMMS integration plan that supports uptime and efficiency.",
+   "run": 2,
+   "slot": "body.3.1.1.7.71",
+   "row": "CS005",
+   "reason": "OGCS claims sweep R1 CS005 (GATE; CT accepted 2026-10-05): Outcome guarantee in an ICS CTA."
+  },
+  {
+   "path": "/cooling-tower-cold-weather-operation/",
+   "op": "replace",
+   "find": "Guaranteed Operational Uptime:",
+   "replace": "Operational Uptime:",
+   "run": 0,
+   "slot": "body.3.1.1.7.101.5",
+   "row": "CS006",
+   "reason": "OGCS claims sweep R1 CS006 (GATE; CT accepted 2026-10-05): Uptime guarantee."
+  },
+  {
+   "path": "/cooling-tower-construction-repair-in-united-states/",
+   "op": "replace",
+   "find": "\n\t\t\t\t\t\tOur strategically located offices and service teams ensure rapid response times and seamless support across the United States.\t\t\t\t\t",
+   "replace": "\n\t\t\t\t\t\tFrom our Lakewood, Colorado office, our service teams support projects across the United States.\t\t\t\t\t",
+   "run": 0,
+   "slot": "body.1.7.1.1.1.1.1.1.1.1.1.1.3.3",
+   "row": "CS007",
+   "reason": "OGCS claims sweep R1 CS007 (GATE; CT accepted 2026-10-05): ICS has one authorized US office; response-time promise."
+  },
+  {
+   "path": "/cooling-tower-fill-media-replacement/",
+   "op": "replace",
+   "find": "The cooling tower fill installation process is as important as the material itself. A poor installation compromises the performance of the most advanced media. ICS follows a strict protocol to guarantee peak operation.",
+   "replace": "The cooling tower fill installation process is as important as the material itself. A poor installation compromises the performance of the most advanced media. ICS follows a strict protocol aimed at peak operation.",
+   "run": 0,
+   "slot": "body.3.1.1.7.57",
+   "row": "CS008",
+   "reason": "OGCS claims sweep R1 CS008 (GATE; CT accepted 2026-10-05): Outcome guarantee."
+  },
+  {
+   "path": "/cooling-tower-inspection-checklist/",
+   "op": "replace",
+   "find": "repair and proactive maintenance",
+   "replace": "repair and proactive maintenance,",
+   "run": 1,
+   "slot": "body.3.1.1.7.211",
+   "row": "CS010",
+   "reason": "OGCS claims sweep R1 CS010 (GATE; CT accepted 2026-10-05): Outcome guarantee in an ICS CTA."
+  },
+  {
+   "path": "/cooling-tower-inspection-checklist/",
+   "op": "replace",
+   "find": " that guarantees peak performance, visit the ",
+   "replace": " visit the ",
+   "run": 2,
+   "slot": "body.3.1.1.7.211",
+   "row": "CS010",
+   "reason": "OGCS claims sweep R1 CS010 (GATE; CT accepted 2026-10-05): Outcome guarantee in an ICS CTA."
+  },
+  {
+   "path": "/cooling-tower-lifespan/",
+   "op": "replace",
+   "find": "The ICS Promise guarantees superior operational results. We do not merely sell equipment; we provide 40-year thermal solutions built to withstand the harshest environments. We ensure your facility achieves optimum cooling capacity while protecting your long-term capital investments.",
+   "replace": "We do not merely sell equipment; we provide 40-year thermal solutions built to withstand the harshest environments. We ensure your facility achieves optimum cooling capacity while protecting your long-term capital investments.",
+   "run": 0,
+   "slot": "body.3.1.1.7.105",
+   "row": "CS011",
+   "reason": "OGCS claims sweep R1 CS011 (GATE; CT accepted 2026-10-05): Outcome guarantee."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "CTI-certified performance:",
+   "replace": "",
+   "run": 0,
+   "slot": "body.3.1.1.7.59.3",
+   "allowEmpty": true,
+   "row": "CS012",
+   "reason": "OGCS claims sweep R1 CS012 (GATE [owner]; CT accepted 2026-10-05): Blanket CTI certification of all ICS towers is unverified; CTI certifies specific product lines."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": " All ICS towers are tested and certified by the Cooling Technology Institute, guaranteeing that rated thermal performance is actually delivered in the field.",
+   "replace": "",
+   "run": 1,
+   "slot": "body.3.1.1.7.59.3",
+   "allowEmpty": true,
+   "row": "CS012",
+   "reason": "OGCS claims sweep R1 CS012 (GATE [owner]; CT accepted 2026-10-05): Blanket CTI certification of all ICS towers is unverified; CTI certifies specific product lines."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "ICS | The #1 Cooling Tower Manufacturer in the USA",
+   "replace": "ICS | Cooling Tower Manufacturer in the USA",
+   "run": 0,
+   "slot": "body.3.1.1.7.45",
+   "row": "CS013",
+   "reason": "OGCS claims sweep R1 CS013 (GATE; CT accepted 2026-10-05): \"#1\" ranking."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": " (ICS) has established itself as the most trusted name among cooling tower manufacturers in the USA. With decades of engineering experience and manufacturing facilities operating across the country, ICS brings together deep technical expertise and a true nationwide service footprint.",
+   "replace": " (ICS) designs, builds, and repairs industrial cooling towers from its base in Lakewood, Colorado. With extensive engineering experience and manufacturing facilities operating across the country, ICS brings together deep technical expertise and a true nationwide service footprint.",
+   "run": 1,
+   "slot": "body.3.1.1.7.49",
+   "row": "CS014+CS021",
+   "reason": "OGCS claims sweep R1 CS014 (GATE; CT accepted 2026-10-05): \"Most trusted\" ranking. | OGCS claims sweep R1 CS021 (GATE [owner]; CT accepted 2026-10-05): \"Manufacturing facilities across the country\" and \"nationwide service footprint\" unverified."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "Why ICS is the Top Choice in the USA",
+   "replace": "Why Choose ICS",
+   "element": "heading",
+   "slot": "body.3.1.1.7.53",
+   "row": "CS015",
+   "reason": "OGCS claims sweep R1 CS015 (GATE; CT accepted 2026-10-05): Ranking (heading)."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "For industrial buyers seeking the best cooling tower manufacturers in the USA, Industrial Cooling Solutions represents the industry benchmark. ",
+   "replace": "",
+   "run": 0,
+   "slot": "body.3.1.1.7.143",
+   "allowEmpty": true,
+   "row": "CS016",
+   "reason": "OGCS claims sweep R1 CS016 (GATE; CT accepted 2026-10-05): Ranking claim."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "The leading manufacturers include ICS, SPX Cooling Technologies, Baltimore Aircoil Company, EVAPCO, and Delta Cooling Towers. ICS is widely regarded as the top supplier for large-scale industrial and energy-sector applications, offering full customization and nationwide service coverage.",
+   "replace": "",
+   "run": 0,
+   "slot": "body.3.1.1.7.149",
+   "allowEmpty": true,
+   "row": "CS017+CS018",
+   "reason": "OGCS claims sweep R1 CS017 (GATE; CT accepted 2026-10-05): Names competitors (house rule: no competitor names). | OGCS claims sweep R1 CS018 (GATE; CT accepted 2026-10-05): Ranking claim and \"nationwide service coverage\"."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "Why is ICS considered the leading cooling tower manufacturer?",
+   "replace": "What does ICS offer as a cooling tower manufacturer?",
+   "element": "heading",
+   "slot": "body.3.1.1.7.151",
+   "row": "CS019",
+   "reason": "OGCS claims sweep R1 CS019 (GATE; CT accepted 2026-10-05): Ranking (FAQ question; FAQ schema if present)."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "Among CTI-certified cooling tower manufacturers in the US, ICS consistently receives top ratings on all five criteria. Their combination of full customization, certified performance, and nationwide service coverage makes them the benchmark for industrial buyers.",
+   "replace": "Their combination of full customization, certified performance, and nationwide service coverage makes them the benchmark for industrial buyers.",
+   "run": 0,
+   "slot": "body.3.1.1.7.133",
+   "row": "CS020",
+   "reason": "OGCS claims sweep R1 CS020 (GATE; CT accepted 2026-10-05): Unsourced rating claim."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "This comparison helps buyers quickly identify which supplier aligns with their specific application, budget, and geographic requirements. ICS stands out as the only manufacturer offering full customization with nationwide service coverage and dual CTI and ",
+   "replace": "This comparison helps buyers quickly identify which supplier aligns with their specific application, budget, and geographic requirements.",
+   "run": 0,
+   "slot": "body.3.1.1.7.113",
+   "row": "CS022",
+   "reason": "OGCS claims sweep R1 CS022 (GATE; CT accepted 2026-10-05): \"Only\", CTI and ISO certification unverified."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "ISO",
+   "replace": "",
+   "run": 1,
+   "slot": "body.3.1.1.7.113",
+   "allowEmpty": true,
+   "row": "CS022",
+   "reason": "OGCS claims sweep R1 CS022 (GATE; CT accepted 2026-10-05): \"Only\", CTI and ISO certification unverified."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": " certification.",
+   "replace": "",
+   "run": 2,
+   "slot": "body.3.1.1.7.113",
+   "allowEmpty": true,
+   "row": "CS022",
+   "reason": "OGCS claims sweep R1 CS022 (GATE; CT accepted 2026-10-05): \"Only\", CTI and ISO certification unverified."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "ICS leads the market due to its combination of advanced custom engineering, CTI and ISO certification, high-efficiency thermal designs, durable industrial materials, rapid lead times, and a comprehensive nationwide service network.",
+   "replace": "ICS combines custom engineering, high-efficiency thermal design, and durable industrial materials.",
+   "run": 0,
+   "slot": "body.3.1.1.7.153",
+   "row": "CS023",
+   "reason": "OGCS claims sweep R1 CS023 (GATE; CT accepted 2026-10-05): Market-leader, certification, lead-time and nationwide-network claims."
+  },
+  {
+   "path": "/cooling-tower-performance-curve/",
+   "op": "replace",
+   "find": "ICS insists on certified performance verification for all cooling tower installations. Facilities should not accept baseline data without rigorous field testing.",
+   "replace": "ICS recommends independent performance verification for cooling tower installations. Facilities should not accept baseline data without rigorous field testing.",
+   "run": 0,
+   "slot": "body.103",
+   "row": "CS024",
+   "reason": "OGCS claims sweep R1 CS024 (GATE; CT accepted 2026-10-05): Implied certification of all installations."
+  },
+  {
+   "path": "/cooling-tower-performance-testing/",
+   "op": "replace",
+   "find": " is CTI-licensed and has decades of experience conducting independent, third-party performance tests that protect your investment.",
+   "replace": " is CTI-licensed and has extensive experience conducting independent, third-party performance tests that protect your investment.",
+   "run": 2,
+   "slot": "body.3.1.1.7.79",
+   "row": "CS025",
+   "reason": "OGCS claims sweep R1 CS025 (GATE [owner]; CT accepted 2026-10-05): CTI licensed testing agency is a specific status; unverified. \"Decades\" and \"independent third-party\" also removed."
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": "Guaranteed Performance",
+   "replace": "Performance Checked",
+   "run": 0,
+   "slot": "body.53.3",
+   "row": "CS026",
+   "reason": "OGCS claims sweep R1 CS026 (GATE; CT accepted 2026-10-05): Outcome guarantee on a service page."
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": " — Equipment runs efficiently and safely after every repair.",
+   "replace": " — We verify that equipment runs efficiently and safely after each repair.",
+   "run": 1,
+   "slot": "body.53.3",
+   "row": "CS026",
+   "reason": "OGCS claims sweep R1 CS026 (GATE; CT accepted 2026-10-05): Outcome guarantee on a service page."
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": "In an emergency, time is everything. Our technicians are available 24/7 for emergency industrial cooling calls, with guaranteed fast dispatch — because downtime doesn’t wait for business hours. Our ",
+   "replace": "In an emergency, time is everything. Our ",
+   "run": 0,
+   "slot": "body.39",
+   "row": "CS027",
+   "reason": "OGCS claims sweep R1 CS027 (GATE [owner]; CT accepted 2026-10-05): 24/7 availability and guaranteed dispatch: no owner basis (CT rejected 24/7 claims for the emergency CTA)."
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": "1. Rapid Deployment and 24/7 Availability",
+   "replace": "1. Emergency Repair Support",
+   "run": 0,
+   "slot": "body.5.3.0.2.1.0",
+   "row": "CS029",
+   "reason": "OGCS claims sweep R1 CS029 (GATE [owner]; CT accepted 2026-10-05): 24/7 promise (heading)."
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": "1. Rapid Deployment and 24/7 Availability",
+   "replace": "1. Emergency Repair Support",
+   "element": "heading",
+   "slot": "body.37",
+   "row": "CS029",
+   "reason": "OGCS claims sweep R1 CS029 (GATE [owner]; CT accepted 2026-10-05): 24/7 promise (heading)."
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": "Around-the-Clock Support",
+   "replace": "",
+   "run": 0,
+   "slot": "body.41.1",
+   "allowEmpty": true,
+   "row": "CS030",
+   "reason": "OGCS claims sweep R1 CS030 (GATE [owner]; CT accepted 2026-10-05): Round-the-clock response promise."
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": " — Our team responds to your call, day or night.",
+   "replace": "",
+   "run": 1,
+   "slot": "body.41.1",
+   "allowEmpty": true,
+   "row": "CS030",
+   "reason": "OGCS claims sweep R1 CS030 (GATE [owner]; CT accepted 2026-10-05): Round-the-clock response promise."
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": "True 24/7 emergency response",
+   "replace": "",
+   "run": 0,
+   "slot": "body.103.5",
+   "allowEmpty": true,
+   "row": "CS031",
+   "reason": "OGCS claims sweep R1 CS031 (GATE [owner]; CT accepted 2026-10-05): 24/7 promise."
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": ", not a call center queue.",
+   "replace": "",
+   "run": 1,
+   "slot": "body.103.5",
+   "allowEmpty": true,
+   "row": "CS031",
+   "reason": "OGCS claims sweep R1 CS031 (GATE [owner]; CT accepted 2026-10-05): 24/7 promise."
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": "Yes. H2O Cooling’s emergency Cooling Tower Repair Service operates 24/7, including weekends and holidays, with no reduction in response speed or repair quality.",
+   "replace": "Yes.",
+   "run": 0,
+   "slot": "body.137",
+   "row": "CS032",
+   "reason": "OGCS claims sweep R1 CS032 (GATE [owner]; CT accepted 2026-10-05): 24/7 promise with response-speed claim."
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": "Quality drives every repair. Our technicians are trained and certified to work on all major cooling tower brands, using only certified spare parts that meet or exceed OEM specifications. Our ",
+   "replace": "Quality drives every repair. Our technicians are trained to work on towers from many manufacturers, using spare parts matched to OEM specifications. Our ",
+   "run": 0,
+   "slot": "body.51",
+   "row": "CS033",
+   "reason": "OGCS claims sweep R1 CS033 (GATE; CT accepted 2026-10-05): Certification and universality claims."
+  },
+  {
+   "path": "/cooling-tower-repair-team/",
+   "op": "replace",
+   "find": "The 120-Day Thermal Performance Guarantee:",
+   "replace": "",
+   "run": 0,
+   "slot": "body.3.1.1.7.61.5",
+   "allowEmpty": true,
+   "row": "CS034",
+   "reason": "OGCS claims sweep R1 CS034 (GATE [owner]; CT accepted 2026-10-05): Specific performance guarantee with a free-labor remedy; no contract basis on file."
+  },
+  {
+   "path": "/cooling-tower-repair-team/",
+   "op": "replace",
+   "find": " Confidence in quality and service means the tower must reach its guaranteed cold water temperature within 120 days post-repair, or labor for secondary repairs is free. This drives tower performance and customer satisfaction for all cooling tower services.",
+   "replace": "This drives tower performance and customer satisfaction for all cooling tower services.",
+   "run": 1,
+   "slot": "body.3.1.1.7.61.5",
+   "row": "CS034",
+   "reason": "OGCS claims sweep R1 CS034 (GATE [owner]; CT accepted 2026-10-05): Specific performance guarantee with a free-labor remedy; no contract basis on file."
+  },
+  {
+   "path": "/cooling-tower-replacement-cost/",
+   "op": "replace",
+   "find": "We guarantee that your new installation meets or exceeds all modern regulatory and environmental standards. Our mechanical designs ensure strict compliance with Cooling Technology Institute (CTI) guidelines and ASHRAE Standard 188. We also configure your system to meet emerging local water scarcity mandates and blowdown restrictions.",
+   "replace": "We design new installations to meet applicable regulatory and environmental requirements. Our mechanical designs ensure strict compliance with Cooling Technology Institute (CTI) guidelines and ASHRAE Standard 188. We also configure your system to meet emerging local water scarcity mandates and blowdown restrictions.",
+   "run": 0,
+   "slot": "body.3.1.1.7.103",
+   "row": "CS035",
+   "reason": "OGCS claims sweep R1 CS035 (GATE; CT accepted 2026-10-05): Compliance guarantee."
+  },
+  {
+   "path": "/cooling-tower-replacement/",
+   "op": "replace",
+   "find": "Partner with ICS for scheduled maintenance, cooling tower repair, and replacement parts support recommended by leading cooling tower manufacturers. Professional servicing ensures early fault detection, optimized system efficiency, and reduced maintenance cost while extending the operational lifespan of the cooling tower system.",
+   "replace": "Partner with ICS for scheduled maintenance, cooling tower repair, and replacement parts support. Professional servicing ensures early fault detection, optimized system efficiency, and reduced maintenance cost while extending the operational lifespan of the cooling tower system.",
+   "run": 0,
+   "slot": "body.15.1.1.5.1.7.1.1.1",
+   "row": "CS036",
+   "reason": "OGCS claims sweep R1 CS036 (GATE; CT accepted 2026-10-05): Implied endorsement by manufacturers."
+  },
+  {
+   "path": "/cooling-tower-spares/",
+   "op": "replace",
+   "find": "\n\t\t\t\t\t\tSame-Day Quote Turnaround\t\t\t\t\t",
+   "replace": "",
+   "run": 0,
+   "slot": "body.3.1.1.1.1.1.1.3.1",
+   "allowEmpty": true,
+   "row": "CS037",
+   "reason": "OGCS claims sweep R1 CS037 (GATE [owner]; CT accepted 2026-10-05): Turnaround promise."
+  },
+  {
+   "path": "/cooling-tower-spares/",
+   "op": "replace",
+   "find": "\n\t\t\t\t\t\t24/7 Emergency Parts Line\t\t\t\t\t",
+   "replace": "",
+   "run": 0,
+   "slot": "body.3.1.1.3.3.1.1.3.1",
+   "allowEmpty": true,
+   "row": "CS038",
+   "reason": "OGCS claims sweep R1 CS038 (GATE [owner]; CT accepted 2026-10-05): 24/7 promise."
+  },
+  {
+   "path": "/cooling-tower-thermal-storage/",
+   "op": "replace",
+   "find": "We ensure your cooling tower can support the new storage system through inspection, performance assessment, upgrades, and commissioning support, guaranteeing project success from the start.",
+   "replace": "We ensure your cooling tower can support the new storage system through inspection, performance assessment, upgrades, and commissioning support from the start of the project.",
+   "run": 0,
+   "slot": "body.3.1.1.7.171",
+   "row": "CS039",
+   "reason": "OGCS claims sweep R1 CS039 (GATE; CT accepted 2026-10-05): Outcome guarantee."
+  },
+  {
+   "path": "/cooling-tower-ton-calculation/",
+   "op": "replace",
+   "find": "Always validate site-specific WBT before finalizing your design. Do not rely solely on standard benchmarks. The ICS Engineering Standard advocates for a holistic view. We look at the gpm, the dt, and the energy needed to guarantee your tower delivers its rated tonnage under peak stress.",
+   "replace": "Always validate site-specific WBT before finalizing your design. Do not rely solely on standard benchmarks. The ICS Engineering Standard advocates for a holistic view. We look at the gpm, the dt, and the energy needed for your tower to deliver its rated tonnage under peak load.",
+   "run": 0,
+   "slot": "body.3.1.1.7.123",
+   "row": "CS040",
+   "reason": "OGCS claims sweep R1 CS040 (GATE; CT accepted 2026-10-05): Performance guarantee."
+  },
+  {
+   "path": "/cost-effective-new-cooling-tower/",
+   "op": "replace",
+   "find": "In this authoritative guide, we will leverage our expertise to walk you through the three critical phases of planning a project that achieves both a manageable budget and a guaranteed long-term ROI.",
+   "replace": "In this guide, we walk you through the three critical phases of planning a project that achieves both a manageable budget and a strong long-term ROI.",
+   "run": 0,
+   "slot": "body.7",
+   "row": "CS041",
+   "reason": "OGCS claims sweep R1 CS041 (GATE; CT accepted 2026-10-05): ROI guarantee; also drops \"authoritative\"."
+  },
+  {
+   "path": "/dry-soda-blast-cleaning-services-2/",
+   "op": "replace",
+   "find": "There are various ways to increase the performance of your current ACHE without buying new air coolers. We provide a modern, green solution to guarantee your air cooler systems’ best performance and lifespan. ",
+   "replace": "There are various ways to increase the performance of your current ACHE without buying new air coolers. We provide a modern, green cleaning method that helps restore air cooler performance and extend service life. ",
+   "run": 0,
+   "slot": "body.1.5.1.1.1.1.1.3.1.1.1.1",
+   "row": "CS042",
+   "reason": "OGCS claims sweep R1 CS042 (GATE; CT accepted 2026-10-05): Outcome guarantee."
+  },
+  {
+   "path": "/dry-soda-blast-cleaning-services-2/",
+   "op": "replace",
+   "find": "\n\t\t\t\t\t\tICS Dry Cleaning provides immediate performance results as the fouling is removed from the system. Your control room will see increased performance in the system as we clean. ICS Group would be pleased to work with you to optimize your Air Coolers further to maximize the cooling and performance of the plant with ICS’s GUARANTEED upgrades.\t\t\t\t\t",
+   "replace": "\n\t\t\t\t\t\tICS Dry Cleaning provides immediate performance results as the fouling is removed from the system. Your control room will see increased performance in the system as we clean. ICS Group would be pleased to work with you to optimize your Air Coolers further to maximize the cooling and performance of the plant with ICS upgrades.\t\t\t\t\t",
+   "run": 0,
+   "slot": "body.1.13.1.1.1.13.1.1.3.3",
+   "row": "CS043",
+   "reason": "OGCS claims sweep R1 CS043 (GATE; CT accepted 2026-10-05): Upgrade guarantee."
+  },
+  {
+   "path": "/energy-efficient-cooling-tower/",
+   "op": "replace",
+   "find": "This guide reveals the $100,000 blueprint for an ",
+   "replace": "This guide sets out a practical blueprint for an ",
+   "run": 0,
+   "slot": "body.3.1.1.7.3",
+   "row": "CS044",
+   "reason": "OGCS claims sweep R1 CS044 (GATE; CT accepted 2026-10-05): C3 family: unsourced $100,000 figure and \"proven … 30% reduction\" outcome claim. The C3 tile is likely this article’s image."
+  },
+  {
+   "path": "/energy-efficient-cooling-tower/",
+   "op": "replace",
+   "find": "energy efficient cooling tower",
+   "replace": "energy efficient cooling tower:",
+   "run": 1,
+   "slot": "body.3.1.1.7.3",
+   "row": "CS044",
+   "reason": "OGCS claims sweep R1 CS044 (GATE; CT accepted 2026-10-05): C3 family: unsourced $100,000 figure and \"proven … 30% reduction\" outcome claim. The C3 tile is likely this article’s image."
+  },
+  {
+   "path": "/energy-efficient-cooling-tower/",
+   "op": "replace",
+   "find": ", a proven set of strategies that go beyond ordinary upkeep to deliver a 30% reduction in power consumption. Discover the advanced optimization steps, actionable insights, and engineering secrets that put you ahead of the curve. ",
+   "replace": " strategies that go beyond ordinary upkeep to reduce power consumption. Discover the advanced optimization steps, actionable insights, and engineering secrets that put you ahead of the curve. ",
+   "run": 2,
+   "slot": "body.3.1.1.7.3",
+   "row": "CS044",
+   "reason": "OGCS claims sweep R1 CS044 (GATE; CT accepted 2026-10-05): C3 family: unsourced $100,000 figure and \"proven … 30% reduction\" outcome claim. The C3 tile is likely this article’s image."
+  },
+  {
+   "path": "/evaporative-vs-dry-cooling/",
+   "op": "replace",
+   "find": "H2ocooling",
+   "replace": "ICS,",
+   "run": 1,
+   "slot": "body.3.1.1.7.77",
+   "row": "CS045",
+   "reason": "OGCS claims sweep R1 CS045 (GATE; CT accepted 2026-10-05): CTI does not certify water treatment; \"H2ocooling\" naming."
+  },
+  {
+   "path": "/evaporative-vs-dry-cooling/",
+   "op": "replace",
+   "find": ",",
+   "replace": "",
+   "run": 2,
+   "slot": "body.3.1.1.7.77",
+   "allowEmpty": true,
+   "row": "CS045",
+   "reason": "OGCS claims sweep R1 CS045 (GATE; CT accepted 2026-10-05): CTI does not certify water treatment; \"H2ocooling\" naming."
+  },
+  {
+   "path": "/evaporative-vs-dry-cooling/",
+   "op": "replace",
+   "find": " we specialize in CTI-certified water treatment and component refurbishment that ensures both performance and compliance.",
+   "replace": " we specialize in component refurbishment that supports both performance and compliance.",
+   "run": 3,
+   "slot": "body.3.1.1.7.77",
+   "row": "CS045",
+   "reason": "OGCS claims sweep R1 CS045 (GATE; CT accepted 2026-10-05): CTI does not certify water treatment; \"H2ocooling\" naming."
+  },
+  {
+   "path": "/frp-members/",
+   "op": "replace",
+   "find": "ICS is an OEM supplier of Bedford, Strongwell and others and provides the best pricing and delivery on FRP structural shapes.",
+   "replace": "ICS supplies FRP structural shapes from Bedford, Strongwell, and other manufacturers.",
+   "run": 0,
+   "slot": "body.3.3.1.1",
+   "row": "CS046",
+   "reason": "OGCS claims sweep R1 CS046 (GATE [owner]; CT accepted 2026-10-05): \"OEM supplier\" relationship and \"best pricing and delivery\" unverified."
+  },
+  {
+   "path": "/ics-awarded-multimillion-dollar-contract-for-28-cell-cooling-tower-at-new-petronas-refinery-in-malaysia/",
+   "op": "replace",
+   "find": "\nIndustrial Cooling Solutions, Inc. (ICS) utilizes cutting-edge technology to provide turnkey water cooling management solutions nationally and internationally. The company’s products and services include the installation, repair and upgrade of custom-designed water cooling towers, as well as the provision of water treatment and filtration supplies and a full spectrum of cooling tower parts. ICS’s international headquarters are located in Lakewood, Colorado, while the company serves its global network through offices in Thailand, Japan, and Saudi Arabia. For more information please go to ",
+   "replace": "\nIndustrial Cooling Solutions, Inc. (ICS) utilizes cutting-edge technology to provide turnkey water cooling management solutions nationally and internationally. The company’s products and services include the installation, repair and upgrade of custom-designed water cooling towers, as well as the provision of water treatment and filtration supplies and a full spectrum of cooling tower parts. ICS’s headquarters are located in Lakewood, Colorado, and the company serves its clients through offices in Thailand and Japan. For more information please go to ",
+   "run": 10,
+   "slot": "body.0",
+   "row": "CS048",
+   "reason": "OGCS claims sweep R1 CS048 (GATE [owner]; CT accepted 2026-10-05): Saudi Arabia office is not among the 3 authorized offices. Dated 2015 press release: owner may keep it if the office existed in 2015."
+  },
+  {
+   "path": "/inspect-cooling-tower-part-2/",
+   "op": "replace",
+   "find": ", upgrades, a complete system install, or a simple repair. Our dedicated staff has an immense amount of experience with applications in all industries. The quality of our products and services are unmatched by our competitors, so ",
+   "replace": ", upgrades, a complete system install, or a simple repair. Our dedicated staff has an immense amount of experience with applications in all industries. To learn more, ",
+   "run": 3,
+   "slot": "body.32",
+   "row": "CS050",
+   "reason": "OGCS claims sweep R1 CS050 (GATE; CT accepted 2026-10-05): Comparative superiority claim. Same sentence in ja/id/th/vi rows below."
+  },
+  {
+   "path": "/inspect-cooling-tower-part-2/",
+   "op": "replace",
+   "find": "browse our site",
+   "replace": "browse our site.",
+   "run": 6,
+   "slot": "body.32",
+   "row": "CS050",
+   "reason": "OGCS claims sweep R1 CS050 (GATE; CT accepted 2026-10-05): Comparative superiority claim. Same sentence in ja/id/th/vi rows below."
+  },
+  {
+   "path": "/inspect-cooling-tower-part-2/",
+   "op": "replace",
+   "find": " to learn more.",
+   "replace": "",
+   "run": 7,
+   "slot": "body.32",
+   "allowEmpty": true,
+   "row": "CS050",
+   "reason": "OGCS claims sweep R1 CS050 (GATE; CT accepted 2026-10-05): Comparative superiority claim. Same sentence in ja/id/th/vi rows below."
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "This data allows our expert design service to engineer a system that guarantees performance. We design your",
+   "replace": "This data allows our design team to engineer a system to meet your performance requirements. We design your",
+   "run": 0,
+   "slot": "body.25",
+   "row": "CS052",
+   "reason": "OGCS claims sweep R1 CS052 (GATE; CT accepted 2026-10-05): Performance guarantee on a service page."
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "How do we guarantee the long-term reliability of your new cooling tower? We combine expert craftsmanship with high-quality materials during every phase of installation. Our team conducts thorough testing and quality checks to ensure optimal performance.",
+   "replace": "How do we build long-term reliability into your new cooling tower? We combine expert craftsmanship with high-quality materials during every phase of installation. Our team conducts thorough testing and quality checks to ensure optimal performance.",
+   "run": 0,
+   "slot": "body.61",
+   "row": "CS053",
+   "reason": "OGCS claims sweep R1 CS053 (GATE; CT accepted 2026-10-05): Reliability guarantee (heading)."
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "Our teams then expertly erect the tower structure, using durable materials to guarantee structural integrity for years to come.",
+   "replace": "Our teams then erect the tower structure, using durable materials selected for long-term structural integrity.",
+   "run": 0,
+   "slot": "body.69",
+   "row": "CS054",
+   "reason": "OGCS claims sweep R1 CS054 (GATE; CT accepted 2026-10-05): Outcome guarantee."
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "ICS’s meticulous approach ensures every part works in harmony, safeguarding your investment and guaranteeing operational reliability from day one.",
+   "replace": "ICS’s meticulous approach ensures every part works in harmony, to protect your investment and support reliable operation from day one.",
+   "run": 0,
+   "slot": "body.79",
+   "row": "CS055",
+   "reason": "OGCS claims sweep R1 CS055 (GATE; CT accepted 2026-10-05): Outcome guarantee."
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "Through a series of rigorous, protocol-based tests, we meticulously validate every aspect of its operation, guaranteeing optimal efficiency and capacity from day one.",
+   "replace": "Through a series of protocol-based tests, we validate every aspect of its operation to confirm efficiency and capacity at commissioning.",
+   "run": 0,
+   "slot": "body.93",
+   "row": "CS056",
+   "reason": "OGCS claims sweep R1 CS056 (GATE; CT accepted 2026-10-05): Outcome guarantee."
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "set",
+   "find": "Cooling tower costs vary by size, materials, and design. Small commercial towers (up to 200 tons) typically cost $50,000 – $150,000, while medium commercial towers (200 – 500 tons) range from $150,000 – $500,000. Large or custom-engineered towers may require higher investments depending on capacity and site conditions.",
+   "markdown": "Cooling tower costs vary by size, materials, and design. For typical market price ranges by tower size, see our [cooling tower cost guide](/cooling-tower-cost/). Large or custom-engineered towers may require higher investments depending on capacity and site conditions.",
+   "slot": "body.125",
+   "row": "CS057",
+   "reason": "OGCS claims sweep R1 CS057 (GATE; CT accepted 2026-10-05): Price ranges on an ICS service page read as ICS pricing; market ranges belong in cost articles (link /cooling-tower-cost/). [service-page price ranges replaced by a link to the cost guide (OGCS reason: link /cooling-tower-cost/)]"
+  },
+  {
+   "path": "/privacy-policy/",
+   "op": "replace",
+   "find": "Internal ICS teams across global offices",
+   "replace": "Internal ICS teams in our USA, Japan, and Thailand offices",
+   "run": 0,
+   "slot": "body.3.1.1.1.63.1",
+   "row": "CS058",
+   "reason": "OGCS claims sweep R1 CS058 (GATE; CT accepted 2026-10-05): C5 family in the privacy policy."
+  },
+  {
+   "path": "/reducing-cooling-tower-maintenance-costs/",
+   "op": "replace",
+   "find": " today to set up your annual bulk order plan and guarantee access to critical spare parts.",
+   "replace": " today to set up an annual bulk order plan for critical spare parts.",
+   "run": 2,
+   "slot": "body.3.1.1.7.75",
+   "row": "CS060",
+   "reason": "OGCS claims sweep R1 CS060 (GATE; CT accepted 2026-10-05): Supply/availability guarantee."
+  },
+  {
+   "path": "/resources/cooling-tower-brochures/",
+   "op": "replace",
+   "find": "[vc_row][vc_column][vc_column_text]Download our brochures to learn how ICS incorporates leading technology and lifetime customer support in its design of custom cooling tower solutions. Learn more about cooling tower safety & maintenance information.",
+   "replace": "Download our brochures to learn how ICS incorporates current technology and ongoing customer support in its design of custom cooling tower solutions. Learn more about cooling tower safety & maintenance information.",
+   "run": 0,
+   "slot": "body.0.1.3.1.1.1.1.1.1",
+   "row": "CS061",
+   "reason": "OGCS claims sweep R1 CS061 (GATE; CT accepted 2026-10-05): \"Lifetime customer support\" promise. The page also renders raw [vc_row] shortcodes (see defects)."
+  },
+  {
+   "path": "/resources/cooling-tower-brochures/",
+   "op": "replace",
+   "find": "[/vc_column_text][/vc_tta_section][vc_tta_section title=”ICS: 2024 Brochure” tab_id=”1637257295468-3d4c0a13-ed33″][vc_column_text]ICS incorporates leading technology and lifetime customer support in its design of custom cooling solutions, providing you with superior performance and cost-effective cooling service.",
+   "replace": "ICS incorporates current technology and ongoing customer support in its design of custom cooling solutions.",
+   "run": 0,
+   "slot": "body.0.1.3.1.1.1.1.1.6",
+   "row": "CS062",
+   "reason": "OGCS claims sweep R1 CS062 (GATE; CT accepted 2026-10-05): \"Lifetime customer support\" promise and superlative; strip the shortcodes."
+  },
+  {
+   "path": "/right-industrial-cooling-system/",
+   "op": "replace",
+   "find": "ICS systems meet certifications such as ISO, ASHRAE, and DOE, prioritizing safety, quality, and regulatory compliance. They are ",
+   "replace": "They are ",
+   "run": 0,
+   "slot": "body.3.1.1.7.51",
+   "row": "CS064",
+   "reason": "OGCS claims sweep R1 CS064 (GATE; CT accepted 2026-10-05): ASHRAE and DOE are not certifications; ISO certification unverified."
+  },
+  {
+   "path": "/id/cara-memeriksa-menara-pendingin-bagian-2/",
+   "op": "replace",
+   "find": "Solusi Pendinginan Industri menggabungkan teknik yang berbasis di Amerika dengan teknik lokal dan layanan lapangan untuk menyediakan layanan pendinginan industri kelas dunia kepada setiap klien dengan harga yang kompetitif. Kami menyediakan solusi untuk Pembangkit Listrik, Tenaga Panas Bumi, Pengilangan, Petrokimia, industri Kimia, dan banyak lagi. Saat Anda menghubungi Solusi Pendinginan Industri, kami akan bekerja sama dengan Anda untuk mengetahui masalah apa yang Anda alami. Kami akan membantu Anda memutuskan apakah Anda memerlukan penggantian komponen menara pendingin, peningkatan, pemasangan sistem secara lengkap, atau perbaikan sederhana. Staf kami yang berdedikasi memiliki banyak pengalaman dengan aplikasi di semua industri. Kualitas produk dan layanan kami tidak tertandingi oleh pesaing kami, jadi hubungi kami sekarang atau jelajahi situs kami untuk mempelajari lebih lanjut.",
+   "replace": "Solusi Pendinginan Industri menggabungkan teknik yang berbasis di Amerika dengan teknik lokal dan layanan lapangan untuk menyediakan layanan pendinginan industri kelas dunia kepada setiap klien dengan harga yang kompetitif. Kami menyediakan solusi untuk Pembangkit Listrik, Tenaga Panas Bumi, Pengilangan, Petrokimia, industri Kimia, dan banyak lagi. Saat Anda menghubungi Solusi Pendinginan Industri, kami akan bekerja sama dengan Anda untuk mengetahui masalah apa yang Anda alami. Kami akan membantu Anda memutuskan apakah Anda memerlukan penggantian komponen menara pendingin, peningkatan, pemasangan sistem secara lengkap, atau perbaikan sederhana. Staf kami yang berdedikasi memiliki banyak pengalaman dengan aplikasi di semua industri. Hubungi kami sekarang atau jelajahi situs kami untuk mempelajari lebih lanjut.",
+   "run": 0,
+   "slot": "body.29",
+   "row": "CS068",
+   "reason": "OGCS claims sweep R1 CS068 (GATE; CT accepted 2026-10-05): Comparative superiority claim. Back-translation: \"Contact us now or browse our site to learn more.\""
+  },
+  {
+   "path": "/id/tetap-sejuk-aman-apakah-kipas-menara-pendingin-anda-baik-baik-saja/",
+   "op": "replace",
+   "find": "Desain ramping kipas menara pendingin kami menghadirkan angin segar ke ruangan mana pun. Dengan kendali jarak jauh yang nyaman dan layar LED, pengaturan pengaturan menjadi mudah. ​​Baik untuk kantor rumah atau kamar tidur Anda, kipas menara kami dari ICS menawarkan kinerja dan gaya pendinginan yang unggul.",
+   "replace": "Desain ramping kipas menara pendingin kami menghadirkan angin segar ke ruangan mana pun. Dengan kendali jarak jauh yang nyaman dan layar LED, pengaturan pengaturan menjadi mudah.",
+   "run": 0,
+   "slot": "body.73",
+   "row": "CS070",
+   "reason": "OGCS claims sweep R1 CS070 (GATE; CT accepted 2026-10-05): Consumer \"tower fan\" content (home office or bedroom, remote control, LED display). Remove the whole closing paragraph from \"Tetap sejuk dan gunakan kipas menara pendingin kendali jarak jauh…\". See defect D2 for the whole article."
+  },
+  {
    "path": "/ja/冷却塔とは何ですか/",
    "op": "replace",
-   "find": "安全性と寿命が保証されます",
-   "replace": "安全性と寿命が確保されます",
-   "reason": "CT ruling 2026-10-05: mistranslation corrected — the English says \"ensure\"; 保証 reads as \"guarantee\". Only this word changes (保証 → 確保)"
+   "find": " タワーの修理、アップグレード、再構築が必要な場合でも、当社はソリューションをカスタマイズしてタワーを最適な状態と運用パフォーマンスに復元します。 当社の革新的な設計により、タワーの効率が向上し、収益性が向上し、安全性と寿命が保証されます。 見積もりを依頼するには今すぐお問い合わせください。",
+   "replace": " タワーの修理、アップグレード、再構築が必要な場合でも、当社はソリューションをカスタマイズしてタワーを最適な状態と運用パフォーマンスに復元します。 当社の革新的な設計は、タワーの効率と収益性を高め、安全性の確保と長寿命化に貢献します。 見積もりを依頼するには今すぐお問い合わせください。",
+   "run": 0,
+   "slot": "body.35",
+   "row": "CS071",
+   "reason": "OGCS claims sweep R1 CS071 (GATE; CT accepted 2026-10-05): Safety and lifespan guarantee. Back-translation: \"Our innovative designs raise tower efficiency and profitability and help ensure safety and longer life.\""
+  },
+  {
+   "path": "/ja/冷却塔の検査方法-パート-2/",
+   "op": "replace",
+   "find": "産業用冷却ソリューションは、アメリカを拠点とするエンジニアリングと現地のエンジニアリングおよびフィールド サービスを組み合わせて、各クライアントに世界クラスの産業用冷却サービスを競争力のある価格で提供します。 発電、地熱、精製、石油化学、化学産業などにソリューションを提供しています。 産業用冷却ソリューションにご連絡いただくと、どのような問題が発生しているのかを確認するために緊密に連携します。 冷却塔の交換コンポーネント、アップグレード、完全なシステムの設置、または簡単な修理が必要かどうかを判断するお手伝いをいたします。 当社の専任スタッフは、あらゆる業界のアプリケーションに関して豊富な経験を持っています。 当社の製品とサービスの品質は競合他社の追随を許しません。詳細については、今すぐお電話いただくか、当社のサイトをご覧ください。",
+   "replace": "産業用冷却ソリューションは、アメリカを拠点とするエンジニアリングと現地のエンジニアリングおよびフィールド サービスを組み合わせて、各クライアントに世界クラスの産業用冷却サービスを競争力のある価格で提供します。 発電、地熱、精製、石油化学、化学産業などにソリューションを提供しています。 産業用冷却ソリューションにご連絡いただくと、どのような問題が発生しているのかを確認するために緊密に連携します。 冷却塔の交換コンポーネント、アップグレード、完全なシステムの設置、または簡単な修理が必要かどうかを判断するお手伝いをいたします。 当社の専任スタッフは、あらゆる業界のアプリケーションに関して豊富な経験を持っています。 詳細については、今すぐお電話いただくか、当社のサイトをご覧ください。詳細については、今すぐお電話いただくか、当社のサイトをご覧ください。",
+   "run": 0,
+   "slot": "body.29",
+   "row": "CS072",
+   "reason": "OGCS claims sweep R1 CS072 (GATE; CT accepted 2026-10-05): Comparative superiority claim (EN row above). Back-translation: \"For details, call us now or visit our site.\""
   },
   {
    "path": "/ja/寒冷地の冷却塔/",
    "op": "replace",
-   "find": "常に安全性と寿命を保証するように",
-   "replace": "常に安全性と寿命を確保するように",
-   "reason": "CT ruling 2026-10-05: mistranslation corrected — the English says \"ensure\"; 保証 reads as \"guarantee\". Only this word changes (保証 → 確保)"
+   "find": "Industrial Cooling Solutions は、米国に本拠を置く冷却塔会社で、顧客に冷却塔の交換、修理、アップグレード、設置サービスを提供しています。 当社の経験豊富なスタッフは、あらゆる用途および業界の冷却塔の保守に経験があり、当社にお問い合わせいただいた各企業の成功に全力で取り組んでいます。 当社の洗練された冷却塔サービスは、塔の効率を向上させ、収益性を高め、常に安全性と寿命を保証するように設計されています。 ICS についてさらに詳しく知りたい場合は、当社の Web サイトを読むか、今すぐお問い合わせください。 ぜひご連絡ください。",
+   "replace": "Industrial Cooling Solutions は、米国に本拠を置く冷却塔会社で、顧客に冷却塔の交換、修理、アップグレード、設置サービスを提供しています。 当社の経験豊富なスタッフは、あらゆる用途および業界の冷却塔の保守に経験があり、当社にお問い合わせいただいた各企業の成功に全力で取り組んでいます。 当社の冷却塔サービスは、塔の効率と収益性を高め、安全性の確保と長寿命化に貢献するよう設計されています。 ICS についてさらに詳しく知りたい場合は、当社の Web サイトを読むか、今すぐお問い合わせください。 ぜひご連絡ください。",
+   "run": 0,
+   "slot": "body.25",
+   "row": "CS075",
+   "reason": "OGCS claims sweep R1 CS075 (GATE; CT accepted 2026-10-05): Safety and lifespan guarantee. Back-translation: \"Our cooling tower services are designed to raise efficiency and profitability and to help ensure safety and longer life.\""
+  },
+  {
+   "path": "/th/วิธีตรวจสอบหอทำความเย็/",
+   "op": "replace",
+   "find": "โซลูชันการทำความเย็นทางอุตสาหกรรมผสมผสานวิศวกรรมที่มีฐานในอเมริกาเข้ากับวิศวกรรมเฉพาะที่และบริการภาคสนาม เพื่อให้ลูกค้าแต่ละรายได้รับบริการทำความเย็นทางอุตสาหกรรมระดับโลกในราคาที่แข่งขันได้ เราจัดหาโซลูชั่นสำหรับการผลิตไฟฟ้า พลังงานความร้อนใต้พิภพ การกลั่น ปิโตรเคมี เคมีภัณฑ์ และอื่นๆ เมื่อคุณติดต่อ Industrial Cooling Solutions เราจะทำงานอย่างใกล้ชิดกับคุณเพื่อพิจารณาว่าคุณประสบปัญหาใด เราจะช่วยคุณตัดสินใจว่าคุณต้องการชิ้นส่วนทดแทนหอทำความเย็น การอัพเกรด การติดตั้งระบบทั้งหมด หรือการซ่อมแซมง่ายๆ พนักงานที่ทุ่มเทของเรามีประสบการณ์มากมายในการใช้งานในทุกอุตสาหกรรม คุณภาพของผลิตภัณฑ์และบริการของเราไม่มีใครเทียบได้กับคู่แข่ง ดังนั้นโทรหาเราวันนี้หรือเรียกดูเว็บไซต์ของเราเพื่อเรียนรู้เพิ่มเติม",
+   "replace": "โซลูชันการทำความเย็นทางอุตสาหกรรมผสมผสานวิศวกรรมที่มีฐานในอเมริกาเข้ากับวิศวกรรมเฉพาะที่และบริการภาคสนาม เพื่อให้ลูกค้าแต่ละรายได้รับบริการทำความเย็นทางอุตสาหกรรมระดับโลกในราคาที่แข่งขันได้ เราจัดหาโซลูชั่นสำหรับการผลิตไฟฟ้า พลังงานความร้อนใต้พิภพ การกลั่น ปิโตรเคมี เคมีภัณฑ์ และอื่นๆ เมื่อคุณติดต่อ Industrial Cooling Solutions เราจะทำงานอย่างใกล้ชิดกับคุณเพื่อพิจารณาว่าคุณประสบปัญหาใด เราจะช่วยคุณตัดสินใจว่าคุณต้องการชิ้นส่วนทดแทนหอทำความเย็น การอัพเกรด การติดตั้งระบบทั้งหมด หรือการซ่อมแซมง่ายๆ ไม่ว่าคุณจะไว้วางใจเราด้วยบริการใด เป้าหมายของเราคือการเพิ่มประสิทธิภาพของทาวเวอร์ ความสามารถในการทำกำไร ความปลอดภัย และอายุการใช้งาน พนักงานที่ทุ่มเทของเรามีประสบการณ์มากมายในการใช้งานในทุกอุตสาหกรรม โทรหาเราวันนี้หรือเรียกดูเว็บไซต์ของเราเพื่อเรียนรู้เพิ่มเติม",
+   "run": 0,
+   "slot": "body.29",
+   "row": "CS077+CS077+CS077",
+   "reason": "OGCS claims sweep R1 CS077 (GATE; CT accepted 2026-10-05): Three claims on /th/วิธีตรวจสอบหอทำความเย็/ (world-class; guaranteed outcomes; unmatched by competitors). Back-translations: \"industrial cooling services at a competitive price\"; \"our aim is to improve tower efficiency, profitability, safety and service life\"; \"call us today\". | OGCS claims sweep R1 CS077 (GATE; CT accepted 2026-10-05): Three claims on /th/วิธีตรวจสอบหอทำความเย็/ (world-class; guaranteed outcomes; unmatched by competitors). Back-translations: \"industrial cooling services at a competitive price\"; \"our aim is to improve tower efficiency, profitability, safety and service life\"; \"call us today\". | OGCS claims sweep R1 CS077 (GATE; CT accepted 2026-10-05): Three claims on /th/วิธีตรวจสอบหอทำความเย็/ (world-class; guaranteed outcomes; unmatched by competitors). Back-translations: \"industrial cooling services at a competitive price\"; \"our aim is to improve tower efficiency, profitability, safety and service life\"; \"call us today\"."
+  },
+  {
+   "path": "/th/วิธีป้องกันแบคทีเรีย-legionella/",
+   "op": "replace",
+   "find": "ผู้เชี่ยวชาญของ International Cooling Solutions ภูมิใจเสนอบริการบำบัดน้ำที่มีคุณภาพ และเสนอคำแนะนำเฉพาะบุคคลเกี่ยวกับวิธีหลีกเลี่ยงการผลิตแบคทีเรียลีเจียนเนลลาในหอหล่อเย็นของคุณ หากต้องการทราบข้อมูลเพิ่มเติมและจองเวลานัดหมาย โปรดติดต่อเราทันที!",
+   "replace": "ผู้เชี่ยวชาญของ Industrial Cooling Solutions ภูมิใจเสนอบริการบำบัดน้ำที่มีคุณภาพ และเสนอคำแนะนำเฉพาะบุคคลเกี่ยวกับวิธีหลีกเลี่ยงการผลิตแบคทีเรียลีเจียนเนลลาในหอหล่อเย็นของคุณ หากต้องการทราบข้อมูลเพิ่มเติมและจองเวลานัดหมาย โปรดติดต่อเราทันที!",
+   "run": 0,
+   "slot": "body.125",
+   "row": "CS079",
+   "reason": "OGCS claims sweep R1 CS079 (GATE; CT accepted 2026-10-05): Wrong company name (\"International Cooling Solutions\"). Back-translation: unchanged except the name."
+  },
+  {
+   "path": "/th/หอทำความเย็นคืออะไร/",
+   "op": "replace",
+   "find": " ไม่ว่าคุณจะต้องการซ่อมแซม อัพเกรด หรือสร้างทาวเวอร์ของคุณใหม่ เราก็ปรับแต่งโซลูชันเพื่อฟื้นฟูทาวเวอร์ของคุณให้อยู่ในสภาพที่เหมาะสมที่สุดและประสิทธิภาพการทำงาน การออกแบบเชิงนวัตกรรมของเราจะเพิ่มประสิทธิภาพของทาวเวอร์ เพิ่มผลกำไร และรับประกันความปลอดภัยและอายุการใช้งานที่ยืนยาว ติดต่อเราวันนี้เพื่อขอใบเสนอราคา!",
+   "replace": " ไม่ว่าคุณจะต้องการซ่อมแซม อัพเกรด หรือสร้างทาวเวอร์ของคุณใหม่ เราก็ปรับแต่งโซลูชันเพื่อฟื้นฟูทาวเวอร์ของคุณให้อยู่ในสภาพที่เหมาะสมที่สุดและประสิทธิภาพการทำงาน การออกแบบเชิงนวัตกรรมของเราจะเพิ่มประสิทธิภาพของทาวเวอร์ เพิ่มผลกำไร และช่วยเสริมความปลอดภัยและยืดอายุการใช้งาน ติดต่อเราวันนี้เพื่อขอใบเสนอราคา!",
+   "run": 0,
+   "slot": "body.35",
+   "row": "CS081",
+   "reason": "OGCS claims sweep R1 CS081 (GATE; CT accepted 2026-10-05): Safety and lifespan guarantee. Back-translation of the new clause: \"and help improve safety and extend service life\"."
+  },
+  {
+   "path": "/th/อยู่ให้เย็นและปลอดภัย-พ/",
+   "op": "replace",
+   "find": "การออกแบบที่เพรียวบางของพัดลมทาวเวอร์ระบายความร้อนของเราทำให้ห้องใดๆ ก็สดชื่นขึ้นได้ ด้วยรีโมทคอนโทรลที่สะดวกสบายและจอแสดงผล LED ทำให้ปรับการตั้งค่าได้อย่างง่ายดาย ไม่ว่าจะเป็นในสำนักงานที่บ้านหรือห้องนอน พัดลมทาวเวอร์ของเราจาก ICS มอบประสิทธิภาพการทำความเย็นและสไตล์ที่เหนือกว่า",
+   "replace": "",
+   "run": 0,
+   "slot": "body.73",
+   "allowEmpty": true,
+   "row": "CS082",
+   "reason": "OGCS claims sweep R1 CS082 (GATE; CT accepted 2026-10-05): Consumer \"tower fan\" content (home office, bedroom, remote control, LED display). Remove the closing paragraph. See defect D2."
+  },
+  {
+   "path": "/vi/cach-kiem-tra-thap-giai-nhiet-phan-2/",
+   "op": "replace",
+   "find": "Giải pháp làm mát công nghiệp kết hợp kỹ thuật có trụ sở tại Mỹ với kỹ thuật địa phương và dịch vụ hiện trường để cung cấp cho mỗi khách hàng dịch vụ làm mát công nghiệp đẳng cấp thế giới với mức giá cạnh tranh. Chúng tôi cung cấp các giải pháp cho ngành Sản xuất điện, Năng lượng địa nhiệt, Lọc dầu, Hóa dầu, Hóa chất, v.v. Khi bạn liên hệ với Giải pháp làm mát công nghiệp, chúng tôi sẽ hợp tác chặt chẽ với bạn để xác định vấn đề bạn đang gặp phải. Chúng tôi sẽ giúp bạn quyết định xem bạn cần các bộ phận thay thế tháp giải nhiệt, nâng cấp, cài đặt hệ thống hoàn chỉnh hay sửa chữa đơn giản. Đội ngũ nhân viên tận tâm của chúng tôi có nhiều kinh nghiệm với các ứng dụng trong tất cả các ngành. Chất lượng sản phẩm và dịch vụ của chúng tôi không thể so sánh với các đối thủ cạnh tranh, vì vậy hãy gọi cho chúng tôi ngay hôm nay hoặc duyệt qua trang web của chúng tôi để tìm hiểu thêm.",
+   "replace": "Giải pháp làm mát công nghiệp kết hợp kỹ thuật có trụ sở tại Mỹ với kỹ thuật địa phương và dịch vụ hiện trường để cung cấp cho mỗi khách hàng dịch vụ làm mát công nghiệp đẳng cấp thế giới với mức giá cạnh tranh. Chúng tôi cung cấp các giải pháp cho ngành Sản xuất điện, Năng lượng địa nhiệt, Lọc dầu, Hóa dầu, Hóa chất, v.v. Khi bạn liên hệ với Giải pháp làm mát công nghiệp, chúng tôi sẽ hợp tác chặt chẽ với bạn để xác định vấn đề bạn đang gặp phải. Chúng tôi sẽ giúp bạn quyết định xem bạn cần các bộ phận thay thế tháp giải nhiệt, nâng cấp, cài đặt hệ thống hoàn chỉnh hay sửa chữa đơn giản. Đội ngũ nhân viên tận tâm của chúng tôi có nhiều kinh nghiệm với các ứng dụng trong tất cả các ngành. Hãy gọi cho chúng tôi ngay hôm nay hoặc duyệt qua trang web của chúng tôi để tìm hiểu thêm.",
+   "run": 0,
+   "slot": "body.29",
+   "row": "CS084",
+   "reason": "OGCS claims sweep R1 CS084 (GATE; CT accepted 2026-10-05): Comparative superiority claim. Back-translation: \"Call us today or browse our website to learn more.\""
+  },
+  {
+   "path": "/vi/giu-mat-va-an-toan-quat-thap-giai-nhiet-cua-ban-co-on-khong/",
+   "op": "replace",
+   "find": "Thiết kế đẹp mắt của quạt tháp giải nhiệt của chúng tôi mang đến làn gió tươi mát cho mọi căn phòng. Với điều khiển từ xa tiện lợi và màn hình LED, việc điều chỉnh cài đặt trở nên dễ dàng. Cho dù là cho văn phòng tại nhà hay phòng ngủ của bạn, quạt tháp của chúng tôi từ ICS đều mang đến hiệu suất làm mát và kiểu dáng vượt trội.",
+   "replace": "Thiết kế đẹp mắt của quạt tháp giải nhiệt của chúng tôi mang đến làn gió tươi mát cho mọi căn phòng. Với điều khiển từ xa tiện lợi và màn hình LED, việc điều chỉnh cài đặt trở nên dễ dàng.",
+   "run": 0,
+   "slot": "body.75",
+   "row": "CS087",
+   "reason": "OGCS claims sweep R1 CS087 (GATE; CT accepted 2026-10-05): Consumer \"tower fan\" content. Remove the closing paragraph from \"Giữ mát và sử dụng quạt tháp giải nhiệt điều khiển từ xa…\". See defect D2."
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Our industrial cooling solutions are operating across power plants, heavy industry, and manufacturing facilities worldwide, delivering efficient cooling, reduced energy costs, and proven operational performance on every project.",
+   "replace": "Our industrial cooling solutions operate in power plants, heavy industry, and manufacturing facilities in the USA and Asia, delivering efficient cooling and reduced energy costs.",
+   "run": 0,
+   "slot": "body.11.1.1.1.5.1",
+   "row": "CS088",
+   "reason": "OGCS claims sweep R1 CS088 (SHOULD; CT accepted 2026-10-05): \"Worldwide\" and \"proven performance on every project\"."
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Trusted by heavy industrial facilities, power plants, and manufacturers worldwide to deliver efficient, reliable industrial cooling solutions that reduce energy costs and protect operational performance.",
+   "replace": "Trusted by heavy industrial facilities, power plants, and manufacturers in the USA and Asia to deliver efficient, reliable industrial cooling solutions that reduce energy costs and protect operational performance.",
+   "run": 0,
+   "slot": "body.19.5.1",
+   "row": "CS089",
+   "reason": "OGCS claims sweep R1 CS089 (SHOULD; CT accepted 2026-10-05): Global presence (homepage)."
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "find": "ICS delivers world-class cooling tower solutions across geothermal, petrochemical, chemical, and power industries. Each project reflects precision engineering, high-efficiency design, and proven long-term operational reliability.",
+   "replace": "ICS delivers cooling tower solutions across geothermal, petrochemical, chemical, and power industries. Each project reflects precision engineering, high-efficiency design, and proven long-term operational reliability.",
+   "run": 0,
+   "slot": "body.1.1.1.1.3.1",
+   "row": "CS092",
+   "reason": "OGCS claims sweep R1 CS092 (SHOULD; CT accepted 2026-10-05): \"World-class\"."
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "find": "ICS Cooling Tower Projects | Global Engineering Excellence",
+   "replace": "ICS Cooling Tower Projects | Engineering Across Industries",
+   "element": "heading",
+   "slot": "body.1.1.1.1.1.1",
+   "row": "CS093",
+   "reason": "OGCS claims sweep R1 CS093 (SHOULD; CT accepted 2026-10-05): Global excellence claim."
+  },
+  {
+   "path": "/cooling-tower-access-ladde/",
+   "op": "replace",
+   "find": " to meet top OSHA standards. ",
+   "replace": " to meet OSHA requirements. ",
+   "run": 4,
+   "slot": "body.161",
+   "row": "CS094",
+   "reason": "OGCS claims sweep R1 CS094 (SHOULD; CT accepted 2026-10-05): There is no \"top\" OSHA standard."
+  },
+  {
+   "path": "/cooling-tower-brochures/",
+   "op": "replace",
+   "find": " to learn about ICS cooling tower technologies, system design standards, maintenance requirements, repair services, and global project delivery capabilities.",
+   "replace": " to learn about ICS cooling tower technologies, system design standards, maintenance requirements, repair services, and international project experience.",
+   "run": 2,
+   "slot": "body.3.1.1.1.1.1",
+   "row": "CS095",
+   "reason": "OGCS claims sweep R1 CS095 (SHOULD; CT accepted 2026-10-05): Global capability claim."
+  },
+  {
+   "path": "/cooling-tower-brochures/",
+   "op": "replace",
+   "find": "Review our latest company profile, cooling tower technologies, engineering capabilities, project experience, and global service network.",
+   "replace": "Review our latest company profile, cooling tower technologies, engineering capabilities, and project experience.",
+   "run": 0,
+   "slot": "body.3.1.1.1.3.1.3.3.1.1.1",
+   "row": "CS096+CS097",
+   "reason": "OGCS claims sweep R1 CS096 (SHOULD; CT accepted 2026-10-05): \"Global service network\". | OGCS claims sweep R1 CS097 (SHOULD; CT accepted 2026-10-05): \"Global service network\"."
+  },
+  {
+   "path": "/cooling-tower-construction-repair-in-united-states/",
+   "op": "replace",
+   "find": "\n\t\t\t\t\t\tWith decades of experience in the cooling tower industry, our team of engineers, technicians, and project managers brings unparalleled knowledge to every project.\t\t\t\t\t",
+   "replace": "\n\t\t\t\t\t\tOur team of engineers, technicians, and project managers brings deep cooling tower knowledge to every project.\t\t\t\t\t",
+   "run": 0,
+   "slot": "body.1.7.1.1.1.1.1.1.1.3.1.1.3.3",
+   "row": "CS099",
+   "reason": "OGCS claims sweep R1 CS099 (SHOULD [owner]; CT accepted 2026-10-05): Superlative; \"decades\" unverified."
+  },
+  {
+   "path": "/cooling-tower-corrosion-testing/",
+   "op": "replace",
+   "find": " and repair, trust the industry-leading experts at",
+   "replace": " and repair, contact the experts at",
+   "run": 2,
+   "slot": "body.3.1.1.7.193",
+   "row": "CS100",
+   "reason": "OGCS claims sweep R1 CS100 (SHOULD; CT accepted 2026-10-05): Leader claim."
+  },
+  {
+   "path": "/cooling-tower-fan-not-working/",
+   "op": "replace",
+   "find": "The ICS promise guarantees that we do not just fix the fan. We optimize the entire drivetrain for maximum 2026 efficiency. We ensure your water temperature, sprinkler output, and air flow return to the specified level.",
+   "replace": "ICS does not just fix the fan. We optimize the entire drivetrain for maximum 2026 efficiency. We ensure your water temperature, sprinkler output, and air flow return to the specified level.",
+   "run": 0,
+   "slot": "body.3.1.1.7.59",
+   "row": "CS101",
+   "reason": "OGCS claims sweep R1 CS101 (SHOULD; CT accepted 2026-10-05): Guarantee wording."
+  },
+  {
+   "path": "/cooling-tower-inspection-steps/",
+   "op": "replace",
+   "find": "H2OCooling:",
+   "replace": "ICS",
+   "run": 0,
+   "slot": "body.105.9",
+   "row": "CS102",
+   "reason": "OGCS claims sweep R1 CS102 (SHOULD; CT accepted 2026-10-05): Global trust claim; \"H2OCooling\" naming."
+  },
+  {
+   "path": "/cooling-tower-inspection-steps/",
+   "op": "replace",
+   "find": " We are trusted globally for inspections, upgrades, rebuilds, and maintenance because we understand the intricate physics of thermal rejection and structural integrity.",
+   "replace": " provides inspections, upgrades, rebuilds, and maintenance grounded in the physics of thermal rejection and structural integrity.",
+   "run": 1,
+   "slot": "body.105.9",
+   "row": "CS102",
+   "reason": "OGCS claims sweep R1 CS102 (SHOULD; CT accepted 2026-10-05): Global trust claim; \"H2OCooling\" naming."
+  },
+  {
+   "path": "/cooling-tower-malaysia/",
+   "op": "replace",
+   "find": "What Makes ICS One of the Best Cooling Tower Brands in Malaysia",
+   "replace": "What ICS Offers Cooling Tower Owners in Malaysia",
+   "element": "heading",
+   "slot": "body.13.3.1.1",
+   "row": "CS103",
+   "reason": "OGCS claims sweep R1 CS103 (SHOULD; CT accepted 2026-10-05): Ranking (heading) on a ranking page (98 GSC clicks); the H1 is unaffected."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "We will walk you through the leading brands, compare their core strengths, break down key certifications, and explain exactly what to look for in a long-term manufacturing partner.",
+   "replace": "We explain the key certifications and what to look for in a long-term manufacturing partner.",
+   "run": 0,
+   "slot": "body.3.1.1.7.5",
+   "row": "CS104",
+   "reason": "OGCS claims sweep R1 CS104 (SHOULD; CT accepted 2026-10-05): Sets up the competitor comparison."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": " configurations and optimized airflow modeling to achieve superior energy efficiency.",
+   "replace": " configurations and optimized airflow modeling to improve energy efficiency.",
+   "run": 3,
+   "slot": "body.3.1.1.7.59.5",
+   "row": "CS105",
+   "reason": "OGCS claims sweep R1 CS105 (SHOULD; CT accepted 2026-10-05): Superlative."
+  },
+  {
+   "path": "/cooling-tower-market-growth/",
+   "op": "replace",
+   "find": "H2ocooling",
+   "replace": "ICS:",
+   "run": 0,
+   "slot": "body.3.1.1.7.145.1",
+   "row": "CS106",
+   "reason": "OGCS claims sweep R1 CS106 (SHOULD; CT accepted 2026-10-05): Leader claim."
+  },
+  {
+   "path": "/cooling-tower-market-growth/",
+   "op": "replace",
+   "find": ": A leading provider of industrial cooling solutions, specializing in cooling tower rehabilitation, maintenance, and performance optimization. The company focuses on enhancing operational efficiency, ensuring regulatory compliance, and extending the lifespan of cooling towers.",
+   "replace": " a provider of industrial cooling solutions, specializing in cooling tower rehabilitation, maintenance, and performance optimization. The company focuses on enhancing operational efficiency, ensuring regulatory compliance, and extending the lifespan of cooling towers.",
+   "run": 1,
+   "slot": "body.3.1.1.7.145.1",
+   "row": "CS106",
+   "reason": "OGCS claims sweep R1 CS106 (SHOULD; CT accepted 2026-10-05): Leader claim."
+  },
+  {
+   "path": "/cooling-tower-parts-2/",
+   "op": "replace",
+   "find": " fails, the immediate reaction is often to find the cheapest, quickest replacement cooling tower parts. This decision may seem logical, but it can lock in decades of high energy bills, major repairs, and operational headaches. This single choice is a $1 million mistake that guarantees inflated operating expenses for cooling towers and related equipment.",
+   "replace": " fails, the immediate reaction is often to find the cheapest, quickest replacement cooling tower parts. This decision may seem logical, but it can lock in decades of high energy bills, major repairs, and operational headaches. This single choice can add significantly to operating expenses for cooling towers and related equipment.",
+   "run": 2,
+   "slot": "body.1",
+   "row": "CS107",
+   "reason": "OGCS claims sweep R1 CS107 (SHOULD; CT accepted 2026-10-05): Unsourced dollar figure plus guarantee wording."
+  },
+  {
+   "path": "/cooling-tower-parts-3/",
+   "op": "replace",
+   "find": "In this blog post, we will walk you through a three-step process for retrofitting your cooling tower for maximum performance and detail the highest-impact upgrades to restore your system’s power and efficiency. To browse our full inventory of high-performance, certified ",
+   "replace": "In this blog post, we will walk you through a three-step process for retrofitting your cooling tower for maximum performance and detail the highest-impact upgrades to restore your system’s power and efficiency. To browse our ",
+   "run": 0,
+   "slot": "body.5",
+   "row": "CS108",
+   "reason": "OGCS claims sweep R1 CS108 (SHOULD; CT accepted 2026-10-05): \"Certified\" parts, \"full inventory\" and \"measurable results\" claims."
+  },
+  {
+   "path": "/cooling-tower-parts-3/",
+   "op": "replace",
+   "find": "cooling tower parts",
+   "replace": "cooling tower parts,",
+   "run": 1,
+   "slot": "body.5",
+   "row": "CS108",
+   "reason": "OGCS claims sweep R1 CS108 (SHOULD; CT accepted 2026-10-05): \"Certified\" parts, \"full inventory\" and \"measurable results\" claims."
+  },
+  {
+   "path": "/cooling-tower-parts-3/",
+   "op": "replace",
+   "find": " engineered to deliver measurable results, visit our main catalog page.",
+   "replace": " visit our main catalog page.",
+   "run": 2,
+   "slot": "body.5",
+   "row": "CS108",
+   "reason": "OGCS claims sweep R1 CS108 (SHOULD; CT accepted 2026-10-05): \"Certified\" parts, \"full inventory\" and \"measurable results\" claims."
+  },
+  {
+   "path": "/cooling-tower-project-budget/",
+   "op": "replace",
+   "find": "Guarantees long-term utility savings.",
+   "replace": "Supports long-term utility savings.",
+   "run": 0,
+   "slot": "body.3.1.1.7.93.0.0.5.3",
+   "row": "CS109",
+   "reason": "OGCS claims sweep R1 CS109 (SHOULD; CT accepted 2026-10-05): Savings guarantee."
+  },
+  {
+   "path": "/cooling-tower-repair-team/",
+   "op": "replace",
+   "find": " performs surgical, high-speed repairs and restorations using methods unknown to other companies. We will now reveal the three “Top Secret” strategies this team uses to slash tower downtime, increase efficiency, and guarantee cooling tower asset integrity, completely rewriting what is possible in an emergency cooling tower repair project.",
+   "replace": " performs surgical, high-speed repairs and restorations using methods unknown to other companies. We will now set out three strategies this team uses to reduce tower downtime, increase efficiency, and protect cooling tower asset integrity in an emergency repair project.",
+   "run": 2,
+   "slot": "body.3.1.1.7.5",
+   "row": "CS110",
+   "reason": "OGCS claims sweep R1 CS110 (SHOULD; CT accepted 2026-10-05): Guarantee wording and hype."
+  },
+  {
+   "path": "/cooling-tower-replacement/",
+   "op": "replace",
+   "find": "With decades of experience, ICS has successfully completed cooling tower replacement projects across power plants, petrochemical facilities, and industrial process sites worldwide.",
+   "replace": "ICS has completed cooling tower replacement projects across power plants, petrochemical facilities, and industrial process sites in the USA and Asia.",
+   "run": 0,
+   "slot": "body.13.1.1.5.1.1.1.1.1",
+   "row": "CS111",
+   "reason": "OGCS claims sweep R1 CS111 (SHOULD [owner]; CT accepted 2026-10-05): \"Decades\" unverified; \"worldwide\"."
+  },
+  {
+   "path": "/cooling-tower-rubber-manufacturing/",
+   "op": "replace",
+   "find": "Industrial Cooling Solutions (ICS) brings deep engineering experience to every rubber plant cooling tower project. As one of the leading cooling tower manufacturers serving the rubber and tire industry in the USA and internationally, ICS takes an engineering-first approach: thermal modeling and site assessment come before any equipment specification.",
+   "replace": "Industrial Cooling Solutions (ICS) brings deep engineering experience to every rubber plant cooling tower project. Serving the rubber and tire industry in the USA and internationally, ICS takes an engineering-first approach: thermal modeling and site assessment come before any equipment specification.",
+   "run": 0,
+   "slot": "body.3.1.1.7.293",
+   "row": "CS112",
+   "reason": "OGCS claims sweep R1 CS112 (SHOULD; CT accepted 2026-10-05): Ranking claim."
+  },
+  {
+   "path": "/cooling-tower-spare-parts/",
+   "op": "replace",
+   "find": " that meet the highest industry standards. Here’s why we’re the preferred choice for businesses worldwide:",
+   "replace": " that meet the highest industry standards. Here’s why businesses choose ICS:",
+   "run": 4,
+   "slot": "body.3.1.1.7.157",
+   "row": "CS113",
+   "reason": "OGCS claims sweep R1 CS113 (SHOULD; CT accepted 2026-10-05): Ranking and global claim."
+  },
+  {
+   "path": "/cooling-tower-spare-parts/",
+   "op": "replace",
+   "find": ", we provide top-tier spare parts designed to deliver unmatched performance and reliability.",
+   "replace": ", we provide durable spare parts selected for performance and reliability.",
+   "run": 2,
+   "slot": "body.3.1.1.7.95",
+   "row": "CS114",
+   "reason": "OGCS claims sweep R1 CS114 (SHOULD; CT accepted 2026-10-05): Superlative."
+  },
+  {
+   "path": "/cooling-tower-spare-parts/",
+   "op": "replace",
+   "find": "Superior Quality",
+   "replace": "Quality",
+   "run": 0,
+   "slot": "body.3.1.1.7.159.3",
+   "row": "CS115",
+   "reason": "OGCS claims sweep R1 CS115 (SHOULD; CT accepted 2026-10-05): Superlative and unverified testing claim."
+  },
+  {
+   "path": "/cooling-tower-spare-parts/",
+   "op": "replace",
+   "find": ": Our parts are made from durable materials and rigorously tested for performance.",
+   "replace": ": Our parts are made from durable materials.",
+   "run": 1,
+   "slot": "body.3.1.1.7.159.3",
+   "row": "CS115",
+   "reason": "OGCS claims sweep R1 CS115 (SHOULD; CT accepted 2026-10-05): Superlative and unverified testing claim."
+  },
+  {
+   "path": "/cooling-tower-thailand/",
+   "op": "replace",
+   "find": "Review our latest company profile, cooling tower technologies, engineering capabilities, project experience, and global service network.",
+   "replace": "Review our latest company profile, cooling tower technologies, engineering capabilities, and project experience.",
+   "run": 0,
+   "slot": "body.19.3.1.3.3.1.1.1",
+   "row": "CS116",
+   "reason": "OGCS claims sweep R1 CS116 (SHOULD; CT accepted 2026-10-05): \"Global service network\"."
+  },
+  {
+   "path": "/cooling-tower-water-conservation/",
+   "op": "replace",
+   "find": "The ICS promise guarantees expert guidance through this transition. We do not merely sell towers; we engineer completely water-balanced ecosystems. Our team provides the exact tools and service required to protect your investment and optimize your operation.",
+   "replace": "ICS provides expert guidance through this transition. We do not merely sell towers; we engineer completely water-balanced ecosystems. Our team provides the exact tools and service required to protect your investment and optimize your operation.",
+   "run": 0,
+   "slot": "body.3.1.1.7.67",
+   "row": "CS117",
+   "reason": "OGCS claims sweep R1 CS117 (SHOULD; CT accepted 2026-10-05): Guarantee wording."
+  },
+  {
+   "path": "/cooling-tower/",
+   "op": "replace",
+   "find": "Our Best Cooling Tower Services",
+   "replace": "Our Cooling Tower Services",
+   "element": "heading",
+   "slot": "body.7.1.1.3.1",
+   "row": "CS118",
+   "reason": "OGCS claims sweep R1 CS118 (SHOULD; CT accepted 2026-10-05): Superlative (heading)."
+  },
+  {
+   "path": "/cooling-towers-in-the-usa/",
+   "op": "replace",
+   "find": "As independent engineering specialists, ICS works with all major brands, including Midwest Cooling Towers, Delta Cooling Towers, and other leaders in the field. This allows us to design and implement the best solution for each unique application. ",
+   "replace": "As independent engineering specialists, ICS works on towers from many manufacturers. This allows us to design and implement the best solution for each unique application. ",
+   "run": 0,
+   "slot": "body.57",
+   "row": "CS119",
+   "reason": "OGCS claims sweep R1 CS119 (SHOULD; CT accepted 2026-10-05): Names competitors; \"all major brands\"."
+  },
+  {
+   "path": "/cost-effective-new-cooling-tower/",
+   "op": "replace",
+   "find": "As industry leaders with decades of experience in cooling tower solutions, we understand that a holistic approach is key. Focusing on the complete lifecycle picture allows for the construction of a high-performing asset that delivers sustained value.",
+   "replace": "With extensive experience in cooling tower solutions, we understand that a holistic approach is key. Focusing on the complete lifecycle picture allows for the construction of a high-performing asset that delivers sustained value.",
+   "run": 0,
+   "slot": "body.5",
+   "row": "CS120",
+   "reason": "OGCS claims sweep R1 CS120 (SHOULD [owner]; CT accepted 2026-10-05): Leader claim; \"decades\" unverified."
+  },
+  {
+   "path": "/drive-shafts-assembles/",
+   "op": "replace",
+   "find": "ICS supplies the finest couplings in the business from Addax and Amarillo for all cooling tower applications. Complete cooling tower drive shafts and assemblies to shim packs and hardware, ICS has what you need.",
+   "replace": "ICS supplies Addax and Amarillo couplings for cooling tower applications. Complete cooling tower drive shafts and assemblies to shim packs and hardware, ICS has what you need.",
+   "run": 0,
+   "slot": "body.3.3.1.2",
+   "row": "CS121",
+   "reason": "OGCS claims sweep R1 CS121 (SHOULD; CT accepted 2026-10-05): Superlative and \"all applications\"."
+  },
+  {
+   "path": "/dry-soda-blast-cleaning-services-2/",
+   "op": "replace",
+   "find": "We are committed to providing unparalleled service that goes beyond simple cleaning. Our goal is to completely transform how industrial air coolers are maintained so they operate at their peak efficiency and protect the environment for the coming generations",
+   "replace": "We provide thorough service that goes beyond simple cleaning. Our goal is to completely transform how industrial air coolers are maintained so they operate at their peak efficiency and protect the environment for the coming generations",
+   "run": 0,
+   "slot": "body.1.15.1.1.1.1.1.1.1.3.1.1",
+   "row": "CS122",
+   "reason": "OGCS claims sweep R1 CS122 (SHOULD; CT accepted 2026-10-05): Superlative."
+  },
+  {
+   "path": "/expert-cooling-tower-repair/",
+   "op": "replace",
+   "find": "ICS’s certified service team ensures all field repair work adheres to strict safety protocols, including ",
+   "replace": "ICS’s service team follows strict safety protocols for all field repair work, including ",
+   "run": 0,
+   "slot": "body.59",
+   "row": "CS123",
+   "reason": "OGCS claims sweep R1 CS123 (SHOULD; CT accepted 2026-10-05): \"Certified\" unverified."
+  },
+  {
+   "path": "/expert-cooling-tower-repair/",
+   "op": "replace",
+   "find": "ICS stands as your definitive partner, bringing unparalleled expertise in cooling tower solutions. Our commitment ensures your production schedule is protected, safety is enhanced, and a clear return on investment is achieved, solidifying our role as the cooling tower experts.",
+   "replace": "ICS brings deep expertise in cooling tower solutions. Our commitment ensures your production schedule is protected, safety is enhanced, and a clear return on investment is achieved, solidifying our role as the cooling tower experts.",
+   "run": 0,
+   "slot": "body.65",
+   "row": "CS124",
+   "reason": "OGCS claims sweep R1 CS124 (SHOULD; CT accepted 2026-10-05): Superlative."
+  },
+  {
+   "path": "/fans-cooling-tower/",
+   "op": "replace",
+   "find": "Why ICS is a leading platform?",
+   "replace": "Why choose ICS?",
+   "run": 0,
+   "slot": "body.12.3.0.6.1.0",
+   "row": "CS125",
+   "reason": "OGCS claims sweep R1 CS125 (SHOULD; CT accepted 2026-10-05): Leader claim (heading)."
+  },
+  {
+   "path": "/fans-cooling-tower/",
+   "op": "replace",
+   "find": "Why ICS is a leading platform?",
+   "replace": "Why choose ICS?",
+   "element": "heading",
+   "slot": "body.142",
+   "row": "CS125",
+   "reason": "OGCS claims sweep R1 CS125 (SHOULD; CT accepted 2026-10-05): Leader claim (heading)."
+  },
+  {
+   "path": "/history-frp-pt-1/",
+   "op": "replace",
+   "find": " that we have available here at Industrial Cooling Solutions Inc. We have been leaders in the industrial cooling tower sector for years and we are dedicated to providing the best materials possible in order to make sure that all of our clients are able to make sure that their ",
+   "replace": " that we have available here at Industrial Cooling Solutions Inc. We have worked in the industrial cooling tower sector for years, and we focus on providing durable materials so that our clients’ ",
+   "run": 2,
+   "slot": "body.28",
+   "row": "CS126",
+   "reason": "OGCS claims sweep R1 CS126 (SHOULD; CT accepted 2026-10-05): Leader claim."
+  },
+  {
+   "path": "/history-frp-pt-1/",
+   "op": "replace",
+   "find": "cooling towers are performing as efficiently",
+   "replace": "cooling towers perform as efficiently",
+   "run": 3,
+   "slot": "body.28",
+   "row": "CS126",
+   "reason": "OGCS claims sweep R1 CS126 (SHOULD; CT accepted 2026-10-05): Leader claim."
+  },
+  {
+   "path": "/hybrid-cooling-systems/",
+   "op": "replace",
+   "find": "Reach out to our certified service team today for a Hybrid System Performance Audit and a customized PLC calibration quote. Ensure your cooling system operates with the precision it was designed for. Visit ",
+   "replace": "Reach out to our service team today for a Hybrid System Performance Audit and a customized PLC calibration quote. Ensure your cooling system operates with the precision it was designed for. Visit ",
+   "run": 0,
+   "slot": "body.3.1.1.7.89",
+   "row": "CS127",
+   "reason": "OGCS claims sweep R1 CS127 (SHOULD; CT accepted 2026-10-05): \"Certified\" unverified."
+  },
+  {
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "op": "replace",
+   "find": "By using advanced, corrosion-resistant materials, ICS ensures long-lasting performance, making it the go-to choice for businesses worldwide. Their expertise and commitment to quality set them apart as the top experts in industrial cooling.",
+   "replace": "By using advanced, corrosion-resistant materials, ICS designs for long-lasting performance. Their expertise and commitment to quality set them apart as the top experts in industrial cooling.",
+   "run": 0,
+   "slot": "body.123",
+   "row": "CS129",
+   "reason": "OGCS claims sweep R1 CS129 (SHOULD; CT accepted 2026-10-05): Ranking and global claim."
+  },
+  {
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "op": "replace",
+   "find": "Among these, ICS stands out as the expert, offering unmatched solutions that align with modern sustainability and efficiency goals. Trusted by leading industries worldwide, ICS has a proven track record of delivering reliable and innovative cooling systems. Their commitment to quality and customer satisfaction makes them the go-to choice for businesses looking to optimize performance and reduce environmental impact.",
+   "replace": "ICS offers solutions aligned with modern sustainability and efficiency goals. ICS has delivered cooling systems for power, petrochemical, and industrial clients. Their commitment to quality and customer satisfaction makes them the go-to choice for businesses looking to optimize performance and reduce environmental impact.",
+   "run": 0,
+   "slot": "body.129",
+   "row": "CS130+CS132",
+   "reason": "OGCS claims sweep R1 CS130 (SHOULD; CT accepted 2026-10-05): Unverifiable trust/track-record claim. | OGCS claims sweep R1 CS132 (SHOULD; CT accepted 2026-10-05): Superlative."
+  },
+  {
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "op": "replace",
+   "find": "Need a trusted partner for top-notch industrial cooling solutions? ICS is a leader in the industry, offering tailored solutions that prioritize durability, energy efficiency, and sustainability. ",
+   "replace": "Need a trusted partner for top-notch industrial cooling solutions? ICS offers tailored solutions that prioritize durability, energy efficiency, and sustainability. ",
+   "run": 0,
+   "slot": "body.121",
+   "row": "CS131",
+   "reason": "OGCS claims sweep R1 CS131 (SHOULD; CT accepted 2026-10-05): Leader claim."
+  },
+  {
+   "path": "/inspect-cooling-tower-part-2/",
+   "op": "replace",
+   "find": "Industrial Cooling Solutions combines American-based engineering with localized engineering and field service to provide each client with world-class industrial cooling services at a competitive price. We provide solutions for Power Generation, Geothermal Power, Refining, Petrochemical, Chemical industries, and more. ",
+   "replace": "Industrial Cooling Solutions combines American-based engineering with localized engineering and field service to provide each client with industrial cooling services at a competitive price. We provide solutions for Power Generation, Geothermal Power, Refining, Petrochemical, Chemical industries, and more. ",
+   "run": 0,
+   "slot": "body.32",
+   "row": "CS133",
+   "reason": "OGCS claims sweep R1 CS133 (SHOULD; CT accepted 2026-10-05): \"World-class\". Same sentence in th row below."
+  },
+  {
+   "path": "/new-cooling-tower-page/",
+   "op": "replace",
+   "find": "ICS is a leading provider of new cooling towers, offering engineering, construction, and maintenance services. Our comprehensive solutions include:",
+   "replace": "ICS provides new cooling towers, with engineering, construction, and maintenance services. Our comprehensive solutions include:",
+   "run": 0,
+   "slot": "body.1.7.5.1.1",
+   "row": "CS134",
+   "reason": "OGCS claims sweep R1 CS134 (SHOULD; CT accepted 2026-10-05): Leader claim."
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "Before we hand over the reins, we put your new cooling tower through its paces. How do we ensure it not only meets but exceeds its promised performance specifications?",
+   "replace": "Before we hand over the reins, we put your new cooling tower through its paces. How do we verify that it meets its specified performance?",
+   "run": 0,
+   "slot": "body.91",
+   "row": "CS135",
+   "reason": "OGCS claims sweep R1 CS135 (SHOULD; CT accepted 2026-10-05): Implied over-performance promise."
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "Dedicated Technical Support:",
+   "replace": "Technical Support:",
+   "run": 0,
+   "slot": "body.101.7",
+   "row": "CS136",
+   "reason": "OGCS claims sweep R1 CS136 (SHOULD; CT accepted 2026-10-05): Rapid-response promise."
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": " Our team remains available for technical consultation and rapid response, ensuring any operational challenges are addressed swiftly and effectively.",
+   "replace": " Our team remains available for technical consultation after commissioning.",
+   "run": 1,
+   "slot": "body.101.7",
+   "row": "CS136",
+   "reason": "OGCS claims sweep R1 CS136 (SHOULD; CT accepted 2026-10-05): Rapid-response promise."
+  },
+  {
+   "path": "/product/amarillo-a-series-double-reduction-gearbox/",
+   "op": "replace",
+   "find": " is a heavy-duty right angle gear drive designed for cooling tower fan applications and direct Marley® gearbox replacement. Built by Amarillo Gear Company, this series matches critical Marley® mounting dimensions, shaft sizes, keyways, and gear housing foot patterns. Its double reduction design, durable gearing, and AGMA/CTI-rated performance help reduce installation work, support reliable fan operation, and extend gearbox service life.",
+   "replace": " is a heavy-duty right angle gear drive designed for cooling tower fan applications and direct Marley® gearbox replacement. Built by Amarillo Gear Company, this series matches critical Marley® mounting dimensions, shaft sizes, keyways, and gear housing foot patterns. Its double reduction design and durable gearing help reduce installation work, support reliable fan operation, and extend gearbox service life.",
+   "run": 2,
+   "slot": "body.1.1.1.3.1.1",
+   "row": "CS137",
+   "reason": "OGCS claims sweep R1 CS137 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/amarillo-double-reduction-gearbox/",
+   "op": "replace",
+   "find": " is a heavy-duty right angle gear drive designed for cooling tower fan applications and direct Marley® gearbox replacement. Built by Amarillo Gear Company, this series matches critical Marley® mounting dimensions, shaft sizes, keyways, and gear housing foot patterns. Its double reduction design, durable gearing, and AGMA/CTI-rated performance help reduce installation work, support reliable fan operation, and extend gearbox service life.",
+   "replace": " is a heavy-duty right angle gear drive designed for cooling tower fan applications and direct Marley® gearbox replacement. Built by Amarillo Gear Company, this series matches critical Marley® mounting dimensions, shaft sizes, keyways, and gear housing foot patterns. Its double reduction design and durable gearing help reduce installation work, support reliable fan operation, and extend gearbox service life.",
+   "run": 2,
+   "slot": "body.1.1.1.3.1.1",
+   "row": "CS138",
+   "reason": "OGCS claims sweep R1 CS138 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "op": "replace",
+   "find": "Standards: ",
+   "replace": "",
+   "run": 0,
+   "slot": "body.3.1.1.5.3.15",
+   "allowEmpty": true,
+   "row": "CS139",
+   "reason": "OGCS claims sweep R1 CS139 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "op": "replace",
+   "find": "AGMA compliant, ISO 9001 certified manufacturing",
+   "replace": "",
+   "run": 1,
+   "slot": "body.3.1.1.5.3.15",
+   "allowEmpty": true,
+   "row": "CS139",
+   "reason": "OGCS claims sweep R1 CS139 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-175/",
+   "op": "replace",
+   "find": " is a heavy-duty single-reduction gearbox designed for cooling towers, air-fin heat exchangers, and industrial fan drive systems. Built by Amarillo Gear Company, it delivers reliable speed reduction, high torque transfer, and long service life. Its rugged construction, precision spiral bevel gearing, and AGMA/CTI-compliant design make it suitable for demanding cooling tower operations.",
+   "replace": " is a heavy-duty single-reduction gearbox designed for cooling towers, air-fin heat exchangers, and industrial fan drive systems. Built by Amarillo Gear Company, it delivers reliable speed reduction, high torque transfer, and long service life. Its rugged construction and precision spiral bevel gearing make it suitable for demanding cooling tower operations.",
+   "run": 2,
+   "slot": "body.1.1.1.3.1.1",
+   "row": "CS140",
+   "reason": "OGCS claims sweep R1 CS140 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-175/",
+   "op": "replace",
+   "find": "AGMA and CTI compliant construction supports demanding cooling tower applications.",
+   "replace": ".",
+   "run": 0,
+   "slot": "body.3.1.1.3.3.5",
+   "row": "CS141",
+   "reason": "OGCS claims sweep R1 CS141 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "op": "replace",
+   "find": "The Amarillo Single Reduction Gearbox is a heavy-duty right-angle speed reducer engineered for cooling towers, air-cooled condensers, and fin-fan heat exchangers. Designed to meet or exceed AGMA and CTI standards, it delivers efficient torque transmission, dependable operation, and long service life in demanding industrial environments.",
+   "replace": "The Amarillo Single Reduction Gearbox is a heavy-duty right-angle speed reducer engineered for cooling towers, air-cooled condensers, and fin-fan heat exchangers. It delivers efficient torque transmission, dependable operation, and long service life in demanding industrial environments.",
+   "run": 0,
+   "slot": "body.1.1.1.3.1.1",
+   "row": "CS142",
+   "reason": "OGCS claims sweep R1 CS142 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "op": "replace",
+   "find": "AGMA and CTI compliant construction supports long-term industrial reliability",
+   "replace": "",
+   "run": 0,
+   "slot": "body.3.1.1.3.3.5",
+   "allowEmpty": true,
+   "row": "CS143",
+   "reason": "OGCS claims sweep R1 CS143 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "op": "replace",
+   "find": "Design Standards:",
+   "replace": "",
+   "run": 0,
+   "slot": "body.3.1.1.5.3.11",
+   "allowEmpty": true,
+   "row": "CS144",
+   "reason": "OGCS claims sweep R1 CS144 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "op": "replace",
+   "find": " AGMA and CTI Compliant",
+   "replace": "",
+   "run": 1,
+   "slot": "body.3.1.1.5.3.11",
+   "allowEmpty": true,
+   "row": "CS144",
+   "reason": "OGCS claims sweep R1 CS144 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/sumitomo-hansen-p4-single-stage-gearbox/",
+   "op": "replace",
+   "find": "Manufactured to AGMA standards for proven performance and durability",
+   "replace": "",
+   "run": 0,
+   "slot": "body.3.1.1.3.3.19",
+   "allowEmpty": true,
+   "row": "CS145",
+   "reason": "OGCS claims sweep R1 CS145 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/sumitomo-hansen-p4-single-stage-gearbox/",
+   "op": "replace",
+   "find": "Design Standard:",
+   "replace": "",
+   "run": 0,
+   "slot": "body.3.1.1.5.3.7",
+   "allowEmpty": true,
+   "row": "CS146",
+   "reason": "OGCS claims sweep R1 CS146 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/product/sumitomo-hansen-p4-single-stage-gearbox/",
+   "op": "replace",
+   "find": " AGMA Rated Gearing",
+   "replace": "",
+   "run": 1,
+   "slot": "body.3.1.1.5.3.7",
+   "allowEmpty": true,
+   "row": "CS146",
+   "reason": "OGCS claims sweep R1 CS146 (SHOULD [datasheet]; CT accepted 2026-10-05): CT AGMA/CTI rule: standards compliance is the manufacturer’s claim; keep only with a cited manufacturer datasheet."
+  },
+  {
+   "path": "/reducing-cooling-tower-maintenance-costs/",
+   "op": "replace",
+   "find": "For those who need immediate solutions, you can view our full inventory of certified ",
+   "replace": "For those who need immediate solutions, you can view our ",
+   "run": 0,
+   "slot": "body.3.1.1.7.7",
+   "row": "CS148",
+   "reason": "OGCS claims sweep R1 CS148 (SHOULD; CT accepted 2026-10-05): \"Certified\" parts and \"full inventory\" (stock) claims."
+  },
+  {
+   "path": "/reducing-cooling-tower-maintenance-costs/",
+   "op": "replace",
+   "find": " and components by visiting our online catalog.",
+   "replace": " and components in our online catalog.",
+   "run": 2,
+   "slot": "body.3.1.1.7.7",
+   "row": "CS148",
+   "reason": "OGCS claims sweep R1 CS148 (SHOULD; CT accepted 2026-10-05): \"Certified\" parts and \"full inventory\" (stock) claims."
+  },
+  {
+   "path": "/right-industrial-cooling-system/",
+   "op": "replace",
+   "find": "ICS stands out as a trusted leader with a proven track record, offering unmatched customization, advanced solutions, and comprehensive support. Our systems are designed to optimize cooling efficiency while driving operational excellence for industries in 2025 and beyond.",
+   "replace": "ICS offers custom-engineered solutions, advanced technology, and comprehensive support. Our systems are designed to optimize cooling efficiency while driving operational excellence for industries in 2025 and beyond.",
+   "run": 0,
+   "slot": "body.3.1.1.7.119",
+   "row": "CS149",
+   "reason": "OGCS claims sweep R1 CS149 (SHOULD; CT accepted 2026-10-05): Leader and \"unmatched\" claims."
+  },
+  {
+   "path": "/right-industrial-cooling-system/",
+   "op": "replace",
+   "find": "Industrial Cooling Solutions delivers cutting-edge cooling systems trusted by countless clients across industries. Here’s why industries across Asia trust ICS in 2025 and beyond:",
+   "replace": "Industrial Cooling Solutions delivers cooling systems for clients across power, petrochemical, and industrial sectors. Here’s why industries across Asia trust ICS in 2025 and beyond:",
+   "run": 0,
+   "slot": "body.3.1.1.7.105",
+   "row": "CS150",
+   "reason": "OGCS claims sweep R1 CS150 (SHOULD; CT accepted 2026-10-05): \"Countless clients\"."
+  },
+  {
+   "path": "/right-industrial-cooling-system/",
+   "op": "replace",
+   "find": "But how do you choose the right cooling system manufacturer when so much is at stake? Identifying a trusted and reliable supplier is really challenging. That’s why we’ve created this guide to help you evaluate key factors in selecting the right industrial cooling system manufacturer. Plus, we’ll explore why ",
+   "replace": "But how do you choose the right cooling system manufacturer when so much is at stake? Identifying a trusted and reliable supplier is really challenging. That’s why we’ve created this guide to help you evaluate key factors in selecting the right industrial cooling system manufacturer. Plus, we’ll explore how ",
+   "run": 0,
+   "slot": "body.3.1.1.7.3",
+   "row": "CS151",
+   "reason": "OGCS claims sweep R1 CS151 (SHOULD; CT accepted 2026-10-05): Leader claim."
+  },
+  {
+   "path": "/right-industrial-cooling-system/",
+   "op": "replace",
+   "find": "(ICS) is a leading choice across Asia in 2025.",
+   "replace": "(ICS) supports projects across Asia.",
+   "run": 2,
+   "slot": "body.3.1.1.7.3",
+   "row": "CS151",
+   "reason": "OGCS claims sweep R1 CS151 (SHOULD; CT accepted 2026-10-05): Leader claim."
+  },
+  {
+   "path": "/the-benefits-of-frp-fans-in-industrial-cooling/",
+   "op": "replace",
+   "find": " might not be at the top of the mind for the average person, these crucial systems, which incorporate metal, concrete, plastic fans, axial fans, and FRP exhaust fans, underpin the industries that produce our essential goods. Here at Industrial Cooling Solutions, Inc., we have been in the business of",
+   "replace": " might not be at the top of the mind for the average person, these crucial systems, which incorporate metal, concrete, plastic fans, axial fans, and FRP exhaust fans, underpin the industries that produce our essential goods. Here at Industrial Cooling Solutions, Inc., we have been ",
+   "run": 3,
+   "slot": "body.34",
+   "row": "CS152",
+   "reason": "OGCS claims sweep R1 CS152 (SHOULD [owner]; CT accepted 2026-10-05): \"Decades\" unverified."
+  },
+  {
+   "path": "/the-benefits-of-frp-fans-in-industrial-cooling/",
+   "op": "replace",
+   "find": " ",
+   "replace": "",
+   "run": 4,
+   "slot": "body.34",
+   "allowEmpty": true,
+   "row": "CS152",
+   "reason": "OGCS claims sweep R1 CS152 (SHOULD [owner]; CT accepted 2026-10-05): \"Decades\" unverified."
+  },
+  {
+   "path": "/the-benefits-of-frp-fans-in-industrial-cooling/",
+   "op": "replace",
+   "find": " for decades.",
+   "replace": " for many years.",
+   "run": 9,
+   "slot": "body.34",
+   "row": "CS152",
+   "reason": "OGCS claims sweep R1 CS152 (SHOULD [owner]; CT accepted 2026-10-05): \"Decades\" unverified."
+  },
+  {
+   "path": "/id/cuaca-dingin-menghadirkan-masalah-unik-pada-menara-pendingin/",
+   "op": "replace",
+   "find": "Terima kasih telah meluangkan waktu untuk membaca seri blog singkat kami tentang langkah-langkah yang harus diambil untuk memastikan menara pendingin industri Anda mampu bekerja secara optimal pada kondisi cuaca dingin. Jika Anda ingin mempelajari lebih lanjut tentang cara terbaik untuk memastikan menara pendingin Anda mampu bekerja selama kondisi cuaca dingin, silakan hubungi kami hari ini di Industrial Cooling Solutions, Inc. Kami memiliki rekam jejak dalam menyediakan menara pendingin terbaik pemasangan, bagian-bagian menara pendingin, seperti bilah kipas menara pendingin, poros penggerak, dan motor, serta layanan konsultasi. Hubungi kami hari ini dan lihat mengapa kami adalah nama tepercaya di industri menara pendingin industri.",
+   "replace": "Terima kasih telah meluangkan waktu untuk membaca seri blog singkat kami tentang langkah-langkah yang harus diambil untuk memastikan menara pendingin industri Anda mampu bekerja secara optimal pada kondisi cuaca dingin. Jika Anda ingin mempelajari lebih lanjut tentang cara terbaik untuk memastikan menara pendingin Anda mampu bekerja selama kondisi cuaca dingin, silakan hubungi kami hari ini di Industrial Cooling Solutions, Inc. Kami memiliki rekam jejak dalam menyediakan pemasangan menara pendingin, bagian-bagian menara pendingin, seperti bilah kipas menara pendingin, poros penggerak, dan motor, serta layanan konsultasi. Hubungi kami hari ini dan lihat mengapa kami adalah nama tepercaya di industri menara pendingin industri.",
+   "run": 0,
+   "slot": "body.19",
+   "row": "CS154",
+   "reason": "OGCS claims sweep R1 CS154 (SHOULD; CT accepted 2026-10-05): \"Best\". Back-translation: \"We have a track record of providing cooling tower installation, parts such as fan blades, drive shafts and motors, and consulting.\""
+  },
+  {
+   "path": "/id/langkah-menuju-menara-pendinginan-yang-lebih-efisien-energi/",
+   "op": "replace",
+   "find": "ICS berspesialisasi dalam menyediakan teknik, konstruksi, peningkatan termal, dan suku cadang terdepan untuk menara pendingin Anda, di seluruh dunia. Ada banyak jenis menara berbeda yang terbukti lebih merupakan aset bagi industri tertentu dibandingkan industri lainnya. Saat Anda memilih menara pendingin atau membutuhkan suku cadang pengganti, penting untuk mengetahui secara pasti apa yang Anda butuhkan. Kami memiliki menara pendingin kayu, fiberglass dan beton selain menara counterflow dan crossflow, jadi hubungi kami hari ini untuk konsultasi.",
+   "replace": "ICS berspesialisasi dalam menyediakan teknik, konstruksi, peningkatan termal, dan suku cadang pengganti untuk menara pendingin Anda. Ada banyak jenis menara berbeda yang terbukti lebih merupakan aset bagi industri tertentu dibandingkan industri lainnya. Saat Anda memilih menara pendingin atau membutuhkan suku cadang pengganti, penting untuk mengetahui secara pasti apa yang Anda butuhkan. Kami memiliki menara pendingin kayu, fiberglass dan beton selain menara counterflow dan crossflow, jadi hubungi kami hari ini untuk konsultasi.",
+   "run": 0,
+   "slot": "body.23",
+   "row": "CS155",
+   "reason": "OGCS claims sweep R1 CS155 (SHOULD; CT accepted 2026-10-05): \"Leading\" (mistranslated \"leading edge\") and \"worldwide\". Back-translation: \"ICS specializes in providing engineering, construction, thermal upgrades and replacement parts for your cooling towers.\""
+  },
+  {
+   "path": "/ja/よりエネルギー効率の高い冷却塔へのステップ/",
+   "op": "replace",
+   "find": "ICS は、最先端のエンジニアリング、建設、熱アップグレード、冷却塔の交換部品を世界中に提供することを専門としています。 特定の業界にとって他の業界よりも資産となる可能性のあるさまざまなタイプのタワーが多数あります。 冷却塔を選択する場合、または交換部品が必要な場合は、何が必要かを正確に知ることが重要です。 当社では向流塔や直交流塔に加えて、木製、グラスファイバー、コンクリートの冷却塔も取り揃えておりますので、今すぐご相談ください。",
+   "replace": "ICS は、冷却塔のエンジニアリング、建設、熱性能アップグレード、交換部品の提供を専門としています。 特定の業界にとって他の業界よりも資産となる可能性のあるさまざまなタイプのタワーが多数あります。 冷却塔を選択する場合、または交換部品が必要な場合は、何が必要かを正確に知ることが重要です。 当社では向流塔や直交流塔に加えて、木製、グラスファイバー、コンクリートの冷却塔も取り揃えておりますので、今すぐご相談ください。",
+   "run": 0,
+   "slot": "body.23",
+   "row": "CS156",
+   "reason": "OGCS claims sweep R1 CS156 (SHOULD; CT accepted 2026-10-05): \"Cutting-edge\" and \"worldwide\". Back-translation: \"ICS specializes in cooling tower engineering, construction, thermal upgrades and replacement parts.\""
+  },
+  {
+   "path": "/ja/寒冷気候は冷却塔に特有の問題を引き起こす/",
+   "op": "replace",
+   "find": "寒い天候下でも業界の冷却塔が確実に最適に動作できるようにするための手順に関する短いブログ シリーズをお読みいただき、ありがとうございます。 寒冷な気象条件下でも冷却塔が確実に動作できるようにするための最良の方法について詳しく知りたい場合は、Industrial Cooling Solutions, Inc. まで今すぐお問い合わせください。当社には最高の冷却塔を提供してきた実績があります。 設置、冷却塔ファンブレード、ドライブシャフト、モーターなどの冷却塔部品、およびコンサルティングサービス。 今すぐお問い合わせいただき、当社が産業用冷却塔業界で信頼されるブランドである理由をご確認ください。",
+   "replace": "寒い天候下でも業界の冷却塔が確実に最適に動作できるようにするための手順に関する短いブログ シリーズをお読みいただき、ありがとうございます。 寒冷な気象条件下でも冷却塔が確実に動作できるようにするための最良の方法について詳しく知りたい場合は、Industrial Cooling Solutions, Inc. まで今すぐお問い合わせください。当社には冷却塔を提供してきた実績があります。 設置、冷却塔ファンブレード、ドライブシャフト、モーターなどの冷却塔部品、およびコンサルティングサービス。 今すぐお問い合わせいただき、当社が産業用冷却塔業界で信頼されるブランドである理由をご確認ください。",
+   "run": 0,
+   "slot": "body.19",
+   "row": "CS157",
+   "reason": "OGCS claims sweep R1 CS157 (SHOULD; CT accepted 2026-10-05): \"Best\". Back-translation: \"We have a track record of supplying cooling towers.\""
+  },
+  {
+   "path": "/th/ก้าวไปสู่หอทำความเย็นท/",
+   "op": "replace",
+   "find": "ICS เชี่ยวชาญในการให้บริการด้านวิศวกรรม การก่อสร้าง การอัพเกรดด้านความร้อน และชิ้นส่วนอะไหล่สำหรับหอทำความเย็นของคุณในระดับชั้นนำทั่วโลก มีหอคอยประเภทต่างๆ มากมายที่สามารถพิสูจน์ได้ว่าเป็นทรัพย์สินของอุตสาหกรรมบางประเภทมากกว่าอุตสาหกรรมอื่นๆ เมื่อคุณเลือกหอทำความเย็นหรือต้องการชิ้นส่วนทดแทน สิ่งสำคัญคือต้องทราบอย่างชัดเจนว่าคุณต้องการอะไร เรามีหอหล่อเย็นไม้ ไฟเบอร์กลาส และคอนกรีต นอกเหนือจากหอหล่อเย็นแบบไหลย้อนและแบบไหลข้าม ดังนั้น โปรดติดต่อเราวันนี้เพื่อขอคำปรึกษา",
+   "replace": "ICS เชี่ยวชาญในการให้บริการด้านวิศวกรรม การก่อสร้าง การอัพเกรดด้านความร้อน และชิ้นส่วนอะไหล่สำหรับหอทำความเย็นของคุณ มีหอคอยประเภทต่างๆ มากมายที่สามารถพิสูจน์ได้ว่าเป็นทรัพย์สินของอุตสาหกรรมบางประเภทมากกว่าอุตสาหกรรมอื่นๆ เมื่อคุณเลือกหอทำความเย็นหรือต้องการชิ้นส่วนทดแทน สิ่งสำคัญคือต้องทราบอย่างชัดเจนว่าคุณต้องการอะไร เรามีหอหล่อเย็นไม้ ไฟเบอร์กลาส และคอนกรีต นอกเหนือจากหอหล่อเย็นแบบไหลย้อนและแบบไหลข้าม ดังนั้น โปรดติดต่อเราวันนี้เพื่อขอคำปรึกษา",
+   "run": 0,
+   "slot": "body.23",
+   "row": "CS158",
+   "reason": "OGCS claims sweep R1 CS158 (SHOULD; CT accepted 2026-10-05): \"Leading worldwide\". Back-translation of the result: \"…and spare parts for your cooling tower.\""
+  },
+  {
+   "path": "/th/สภาพอากาศหนาวเย็นนำเสน/",
+   "op": "replace",
+   "find": "ขอขอบคุณที่สละเวลาอ่านบล็อกสั้นๆ ของเราเกี่ยวกับขั้นตอนในการดำเนินการเพื่อให้แน่ใจว่าหอทำความเย็นในอุตสาหกรรมของคุณสามารถทำงานได้ดีที่สุดในช่วงสภาพอากาศหนาวเย็น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่ดีที่สุดเพื่อให้แน่ใจว่าคูลลิ่งทาวเวอร์ของคุณสามารถทำงานได้ดีในช่วงสภาพอากาศหนาวเย็น โปรดติดต่อเราวันนี้ที่ Industrial Cooling Solutions, Inc. เรามีประวัติในการจัดหาคูลลิ่งทาวเวอร์ที่ดีที่สุด การติดตั้งชิ้นส่วนคูลลิ่งทาวเวอร์ เช่น ใบพัดลมคูลลิ่งทาวเวอร์ เพลาขับ และมอเตอร์ ตลอดจนบริการให้คำปรึกษา ติดต่อเราวันนี้เพื่อดูว่าเหตุใดเราจึงเป็นชื่อที่เชื่อถือได้ในอุตสาหกรรมหอทำความเย็นอุตสาหกรรม",
+   "replace": "ขอขอบคุณที่สละเวลาอ่านบล็อกสั้นๆ ของเราเกี่ยวกับขั้นตอนในการดำเนินการเพื่อให้แน่ใจว่าหอทำความเย็นในอุตสาหกรรมของคุณสามารถทำงานได้ดีที่สุดในช่วงสภาพอากาศหนาวเย็น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่ดีที่สุดเพื่อให้แน่ใจว่าคูลลิ่งทาวเวอร์ของคุณสามารถทำงานได้ดีในช่วงสภาพอากาศหนาวเย็น โปรดติดต่อเราวันนี้ที่ Industrial Cooling Solutions, Inc. เรามีประวัติในการจัดหาคูลลิ่งทาวเวอร์ การติดตั้งชิ้นส่วนคูลลิ่งทาวเวอร์ เช่น ใบพัดลมคูลลิ่งทาวเวอร์ เพลาขับ และมอเตอร์ ตลอดจนบริการให้คำปรึกษา ติดต่อเราวันนี้เพื่อดูว่าเหตุใดเราจึงเป็นชื่อที่เชื่อถือได้ในอุตสาหกรรมหอทำความเย็นอุตสาหกรรม",
+   "run": 0,
+   "slot": "body.19",
+   "row": "CS159",
+   "reason": "OGCS claims sweep R1 CS159 (SHOULD; CT accepted 2026-10-05): \"Best\". Back-translation: \"We have a history of supplying cooling towers…\""
+  },
+  {
+   "path": "/vi/cac-buoc-de-co-thap-giai-nhiet-hieu-qua-nang-luong-hon/",
+   "op": "replace",
+   "find": "ICS chuyên cung cấp kỹ thuật, xây dựng, nâng cấp nhiệt và các bộ phận thay thế hàng đầu cho tháp giải nhiệt của bạn trên toàn thế giới. Có rất nhiều loại tháp khác nhau có thể chứng tỏ là tài sản của một số ngành nhất định hơn những loại khác. Khi bạn chọn tháp giải nhiệt hoặc cần các bộ phận thay thế, điều quan trọng là phải biết chính xác những gì bạn cần. Chúng tôi có các tháp giải nhiệt bằng gỗ, sợi thủy tinh và bê tông ngoài các tháp dòng chảy ngược và dòng chảy ngang, vì vậy hãy liên hệ với chúng tôi ngay hôm nay để được tư vấn.",
+   "replace": "ICS chuyên cung cấp kỹ thuật, xây dựng, nâng cấp nhiệt và các bộ phận thay thế cho tháp giải nhiệt của bạn. Có rất nhiều loại tháp khác nhau có thể chứng tỏ là tài sản của một số ngành nhất định hơn những loại khác. Khi bạn chọn tháp giải nhiệt hoặc cần các bộ phận thay thế, điều quan trọng là phải biết chính xác những gì bạn cần. Chúng tôi có các tháp giải nhiệt bằng gỗ, sợi thủy tinh và bê tông ngoài các tháp dòng chảy ngược và dòng chảy ngang, vì vậy hãy liên hệ với chúng tôi ngay hôm nay để được tư vấn.",
+   "run": 0,
+   "slot": "body.23",
+   "row": "CS160",
+   "reason": "OGCS claims sweep R1 CS160 (SHOULD; CT accepted 2026-10-05): \"Leading\" and \"worldwide\". Back-translation: \"ICS specializes in engineering, construction, thermal upgrades and replacement parts for your cooling tower.\""
+  },
+  {
+   "path": "/cooling-tower-performance-curve/",
+   "op": "replace",
+   "find": "Scale and biological growth destroy thermal efficiency. Just $0.005$ inches of scale on the fill media shifts your capability curve downward significantly. This minor fouling forces fan motors to work up to $15%$ harder to achieve the same cooling effect.",
+   "replace": "Scale and biological growth destroy thermal efficiency. Just 0.005 inches of scale on the fill media shifts your capability curve downward significantly. This minor fouling forces fan motors to work up to 15% harder to achieve the same cooling effect.",
+   "run": 0,
+   "slot": "body.85",
+   "row": "D4-1",
+   "reason": "OGCS claims sweep R1 D4-1 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D4, broken LaTeX markup rendered as text (\"$15%$\", \"$10^{circ}text{C}$\")"
+  },
+  {
+   "path": "/cooling-tower-performance-curve/",
+   "op": "replace",
+   "find": "Excessive space between the fan blade tip and the fan cylinder causes major efficiency losses. A one-inch gap in the fan cylinder can result in a $5%$ loss of total thermal capacity.",
+   "replace": "Excessive space between the fan blade tip and the fan cylinder causes major efficiency losses. A one-inch gap in the fan cylinder can result in a 5% loss of total thermal capacity.",
+   "run": 0,
+   "slot": "body.93",
+   "row": "D4-2",
+   "reason": "OGCS claims sweep R1 D4-2 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D4, broken LaTeX markup rendered as text (\"$15%$\", \"$10^{circ}text{C}$\")"
+  },
+  {
+   "path": "/cooling-tower-performance-curve/",
+   "op": "replace",
+   "find": "The capability percentage reveals the true health of your system. If a test shows your tower operates at $85%$ of its design curve, you are paying for capacity you do not receive. Audits highlight these deficiencies so you can implement corrective actions.",
+   "replace": "The capability percentage reveals the true health of your system. If a test shows your tower operates at 85% of its design curve, you are paying for capacity you do not receive. Audits highlight these deficiencies so you can implement corrective actions.",
+   "run": 0,
+   "slot": "body.111",
+   "row": "D4-3",
+   "reason": "OGCS claims sweep R1 D4-3 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D4, broken LaTeX markup rendered as text (\"$15%$\", \"$10^{circ}text{C}$\")"
+  },
+  {
+   "path": "/cooling-tower-thermography/",
+   "op": "replace",
+   "find": "Flow Restriction $Delta T$ Alert",
+   "replace": "Flow Restriction ΔT Alert",
+   "element": "heading",
+   "slot": "body.3.1.1.7.19",
+   "row": "D4-4",
+   "reason": "OGCS claims sweep R1 D4-4 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D4, broken LaTeX markup rendered as text (\"$15%$\", \"$10^{circ}text{C}$\")"
+  },
+  {
+   "path": "/cooling-tower-thermography/",
+   "op": "replace",
+   "find": "Monitor the temperature difference ($Delta T$) across the fill media.",
+   "replace": "Monitor the temperature difference (ΔT) across the fill media.",
+   "run": 0,
+   "slot": "body.3.1.1.7.25.1",
+   "row": "D4-5",
+   "reason": "OGCS claims sweep R1 D4-5 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D4, broken LaTeX markup rendered as text (\"$15%$\", \"$10^{circ}text{C}$\")"
+  },
+  {
+   "path": "/cooling-tower-thermography/",
+   "op": "replace",
+   "find": "$10^{circ}text{C}$ hotter",
+   "replace": "10 °C hotter",
+   "run": 1,
+   "slot": "body.3.1.1.7.25.3",
+   "row": "D4-6",
+   "reason": "OGCS claims sweep R1 D4-6 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D4, broken LaTeX markup rendered as text (\"$15%$\", \"$10^{circ}text{C}$\")"
+  },
+  {
+   "path": "/cooling-tower-thermography/",
+   "op": "replace",
+   "find": "$20^{circ}text{C}$ rule",
+   "replace": "20 °C rule",
+   "run": 1,
+   "slot": "body.3.1.1.7.35.3",
+   "row": "D4-7",
+   "reason": "OGCS claims sweep R1 D4-7 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D4, broken LaTeX markup rendered as text (\"$15%$\", \"$10^{circ}text{C}$\")"
+  },
+  {
+   "path": "/cooling-tower-thermography/",
+   "op": "replace",
+   "find": ". If a connection point or component measures $20^{circ}text{C}$ higher than ambient or a similar load, it is a critical “Hot Spot.”",
+   "replace": ". If a connection point or component measures 20 °C higher than ambient or a similar load, it is a critical “Hot Spot.”",
+   "run": 2,
+   "slot": "body.3.1.1.7.35.3",
+   "row": "D4-8",
+   "reason": "OGCS claims sweep R1 D4-8 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D4, broken LaTeX markup rendered as text (\"$15%$\", \"$10^{circ}text{C}$\")"
+  },
+  {
+   "path": "/cooling-tower-thermography/",
+   "op": "replace",
+   "find": "$>20^{circ}text{C}$ rise above ambient",
+   "replace": ">20 °C rise above ambient",
+   "run": 0,
+   "slot": "body.3.1.1.7.133.0.0.1.0",
+   "row": "D4-9",
+   "reason": "OGCS claims sweep R1 D4-9 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D4, broken LaTeX markup rendered as text (\"$15%$\", \"$10^{circ}text{C}$\")"
+  },
+  {
+   "path": "/cooling-tower-thermography/",
+   "op": "replace",
+   "find": "$>10^{circ}text{C}$ variance (Hotter)",
+   "replace": ">10 °C variance (Hotter)",
+   "run": 0,
+   "slot": "body.3.1.1.7.133.0.0.3.0",
+   "row": "D4-10",
+   "reason": "OGCS claims sweep R1 D4-10 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D4, broken LaTeX markup rendered as text (\"$15%$\", \"$10^{circ}text{C}$\")"
+  },
+  {
+   "path": "/cooling-tower-variable-frequency-drive/",
+   "op": "replace",
+   "find": "Instead of a static set point (e.g., 85°F), program the VFD to follow the ambient wet-bulb temperature plus a fixed approach (e.g., $7°F$). This floating logic maximizes the Chiller’s Coefficient of Performance (COP). It ensures the cooling tower provides the coldest water possible without wasting energy on hot days or during high humidity.",
+   "replace": "Instead of a static set point (e.g., 85°F), program the VFD to follow the ambient wet-bulb temperature plus a fixed approach (e.g., 7°F). This floating logic maximizes the Chiller’s Coefficient of Performance (COP). It ensures the cooling tower provides the coldest water possible without wasting energy on hot days or during high humidity.",
+   "run": 0,
+   "slot": "body.53",
+   "row": "D4-11",
+   "reason": "OGCS claims sweep R1 D4-11 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D4, broken LaTeX markup rendered as text (\"$15%$\", \"$10^{circ}text{C}$\")"
+  },
+  {
+   "path": "/resources/cooling-tower-brochures/",
+   "op": "replace",
+   "find": "[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_tta_accordion][vc_tta_section title=”ICS – Your Geothermal Cooling Tower Parts Resource” tab_id=”1637257295456-7b8a8446-da9f”][vc_column_text]",
+   "replace": "",
+   "run": 0,
+   "slot": "body.0.1.3.1.1.1.1.1.4",
+   "allowEmpty": true,
+   "row": "D3-12",
+   "reason": "OGCS claims sweep R1 D3-12 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D3, raw WPBakery shortcodes rendered as text"
+  },
+  {
+   "path": "/resources/cooling-tower-brochures/",
+   "op": "replace",
+   "find": "[/vc_column_text][/vc_tta_section][vc_tta_section title=”ICS: Cooling Tower Repair” tab_id=”1637257301007-cc25db64-57cb”][vc_column_text]ICS has the experience and expertise to repair or upgrade your water cooling tower for maximum performance with minimum downtime.",
+   "replace": " ICS has the experience and expertise to repair or upgrade your water cooling tower for maximum performance with minimum downtime.",
+   "run": 1,
+   "slot": "body.0.1.3.1.1.1.1.1.7",
+   "row": "D3-13",
+   "reason": "OGCS claims sweep R1 D3-13 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D3, raw WPBakery shortcodes rendered as text"
+  },
+  {
+   "path": "/resources/cooling-tower-brochures/",
+   "op": "replace",
+   "find": "[/vc_column_text][/vc_tta_section][/vc_tta_accordion][/vc_column][/vc_row]",
+   "replace": "",
+   "run": 1,
+   "slot": "body.0.1.3.1.1.1.1.1.8",
+   "allowEmpty": true,
+   "row": "D3-14",
+   "reason": "OGCS claims sweep R1 D3-14 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D3, raw WPBakery shortcodes rendered as text"
   }
  ]
 }
