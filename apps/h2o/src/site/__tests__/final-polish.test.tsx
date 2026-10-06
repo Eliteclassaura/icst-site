@@ -72,6 +72,7 @@ describe('final polish authority and semantic safety',()=>{
     expect(commercialNavigation.flat()).not.toContain('/author/tbozic/')
     const ledger=JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8'))
     const author=ledger.routes.find((row:{path:string})=>row.path==='/author/tbozic/')
-    expect(author).toMatchObject({export:true,indexable:false,sitemap:false,searchable:false})
+    // R2.5 (CT ruling, fresh production DB): the retired author address is withdrawn to its 301 to /author/timbozic/
+    expect(author).toMatchObject({state:'REDIRECT',export:false,indexable:false,sitemap:false,searchable:false,redirect:'/author/timbozic/'})
   })
 })

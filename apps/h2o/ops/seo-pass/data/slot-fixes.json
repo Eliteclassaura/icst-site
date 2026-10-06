@@ -234,6 +234,262 @@
    }
   ]
  },
+ "/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b9%81%e0%b8%a2%e0%b8%81%e0%b8%a2%e0%b9%88%e0%b8%ad%e0%b8%a2%e0%b8%95%e0%b9%89%e0%b8%99%e0%b8%97%e0%b8%b8%e0%b8%99-%e0%b8%95%e0%b9%89%e0%b8%99%e0%b8%97%e0%b8%b8-2/": {
+  "routeId": "SALMON-posts-3364",
+  "slots": [
+   {
+    "key": "body.3.1.1.7.37",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"โดยสรุป ต้นทุนหอทำความเย็นต้องอาศัยการพิจารณาอย่างรอบคอบทั้งในด้านขนาด ประเภท และฟังก์ชัน การได้รับคำแนะนำจากผู้เชี่ยวชาญที่เหมาะสมและการประเมินที่ครอบคลุมนำไปสู่การตัดสินใจที่มีเหตุผลและมีประสิทธิภาพ ในขณะที่เทคโนโลยีพัฒนาขึ้นในปี 2024 กระบวนการประเมินต้นทุนที่ปรับแต่งได้ซึ่งปรับให้ตรงตามความต้องการเฉพาะกลายเป็นสิ่งสำคัญสำหรับประสิทธิภาพที่มีประสิทธิภาพและการลงทุนระยะยาว\",0],[\"a\",\"https://h2ocooling.com/author/tbozic/\"],[\"/a\"],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "โดยสรุป ต้นทุนหอทำความเย็นต้องอาศัยการพิจารณาอย่างรอบคอบทั้งในด้านขนาด ประเภท และฟังก์ชัน การได้รับคำแนะนำจากผู้เชี่ยวชาญที่เหมาะสมและการประเมินที่ครอบคลุมนำไปสู่การตัดสินใจที่มีเหตุผลและมีประสิทธิภาพ ในขณะที่เทคโนโลยีพัฒนาขึ้นในปี 2024 กระบวนการประเมินต้นทุนที่ปรับแต่งได้ซึ่งปรับให้ตรงตามความต้องการเฉพาะกลายเป็นสิ่งสำคัญสำหรับประสิทธิภาพที่มีประสิทธิภาพและการลงทุนระยะยาว",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "/author/timbozic/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"โดยสรุป ต้นทุนหอทำความเย็นต้องอาศัยการพิจารณาอย่างรอบคอบทั้งในด้านขนาด ประเภท และฟังก์ชัน การได้รับคำแนะนำจากผู้เชี่ยวชาญที่เหมาะสมและการประเมินที่ครอบคลุมนำไปสู่การตัดสินใจที่มีเหตุผลและมีประสิทธิภาพ ในขณะที่เทคโนโลยีพัฒนาขึ้นในปี 2024 กระบวนการประเมินต้นทุนที่ปรับแต่งได้ซึ่งปรับให้ตรงตามความต้องการเฉพาะกลายเป็นสิ่งสำคัญสำหรับประสิทธิภาพที่มีประสิทธิภาพและการลงทุนระยะยาว\",0],[\"a\",\"/author/timbozic/\"],[\"/a\"],[\"p\"]]",
+    "changes": [
+     {
+      "from": "https://h2ocooling.com/author/tbozic/",
+      "to": "/author/timbozic/",
+      "action": "redirect-destination",
+      "reason": "internal link to a 301 source → its final URL /author/timbozic/"
+     }
+    ]
+   }
+  ]
+ },
+ "/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5-5/": {
+  "routeId": "SALMON-posts-3421",
+  "slots": [
+   {
+    "key": "body.3.1.1.7.31",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ขอบคุณ\",0],[\"a\",\"https://h2ocooling.com/author/tbozic/\"],[\"/a\"],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ขอบคุณ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "/author/timbozic/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ขอบคุณ\",0],[\"a\",\"/author/timbozic/\"],[\"/a\"],[\"p\"]]",
+    "changes": [
+     {
+      "from": "https://h2ocooling.com/author/tbozic/",
+      "to": "/author/timbozic/",
+      "action": "redirect-destination",
+      "reason": "internal link to a 301 source → its final URL /author/timbozic/"
+     }
+    ]
+   }
+  ]
+ },
+ "/%e0%b8%aa%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%ad%e0%b8%b2%e0%b8%81%e0%b8%b2%e0%b8%a8%e0%b8%ab%e0%b8%99%e0%b8%b2%e0%b8%a7%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%99%e0%b8%b3%e0%b9%80%e0%b8%aa%e0%b8%99-2/": {
+  "routeId": "SALMON-posts-3457",
+  "slots": [
+   {
+    "key": "body.3.1.1.7.19",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ขอขอบคุณที่สละเวลาอ่านบล็อกสั้นๆ ของเราเกี่ยวกับขั้นตอนในการดำเนินการเพื่อให้แน่ใจว่าหอทำความเย็นในอุตสาหกรรมของคุณสามารถทำงานได้ดีที่สุดในช่วงสภาพอากาศหนาวเย็น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่ดีที่สุดเพื่อให้แน่ใจว่าคูลลิ่งทาวเวอร์ของคุณสามารถทำงานได้ดีในช่วงสภาพอากาศหนาวเย็น โปรดติดต่อเราวันนี้ที่ Industrial Cooling Solutions, Inc. เรามีประวัติในการจัดหาคูลลิ่งทาวเวอร์ที่ดีที่สุด การติดตั้งชิ้นส่วนคูลลิ่งทาวเวอร์ เช่น ใบพัดลมคูลลิ่งทาวเวอร์ เพลาขับ และมอเตอร์ ตลอดจนบริการให้คำปรึกษา ติดต่อเราวันนี้เพื่อดูว่าเหตุใดเราจึงเป็นชื่อที่เชื่อถือได้ในอุตสาหกรรมหอทำความเย็นอุตสาหกรรม\",0],[\"a\",\"https://h2ocooling.com/author/tbozic/\"],[\"/a\"],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ขอขอบคุณที่สละเวลาอ่านบล็อกสั้นๆ ของเราเกี่ยวกับขั้นตอนในการดำเนินการเพื่อให้แน่ใจว่าหอทำความเย็นในอุตสาหกรรมของคุณสามารถทำงานได้ดีที่สุดในช่วงสภาพอากาศหนาวเย็น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่ดีที่สุดเพื่อให้แน่ใจว่าคูลลิ่งทาวเวอร์ของคุณสามารถทำงานได้ดีในช่วงสภาพอากาศหนาวเย็น โปรดติดต่อเราวันนี้ที่ Industrial Cooling Solutions, Inc. เรามีประวัติในการจัดหาคูลลิ่งทาวเวอร์ที่ดีที่สุด การติดตั้งชิ้นส่วนคูลลิ่งทาวเวอร์ เช่น ใบพัดลมคูลลิ่งทาวเวอร์ เพลาขับ และมอเตอร์ ตลอดจนบริการให้คำปรึกษา ติดต่อเราวันนี้เพื่อดูว่าเหตุใดเราจึงเป็นชื่อที่เชื่อถือได้ในอุตสาหกรรมหอทำความเย็นอุตสาหกรรม",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "/author/timbozic/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ขอขอบคุณที่สละเวลาอ่านบล็อกสั้นๆ ของเราเกี่ยวกับขั้นตอนในการดำเนินการเพื่อให้แน่ใจว่าหอทำความเย็นในอุตสาหกรรมของคุณสามารถทำงานได้ดีที่สุดในช่วงสภาพอากาศหนาวเย็น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่ดีที่สุดเพื่อให้แน่ใจว่าคูลลิ่งทาวเวอร์ของคุณสามารถทำงานได้ดีในช่วงสภาพอากาศหนาวเย็น โปรดติดต่อเราวันนี้ที่ Industrial Cooling Solutions, Inc. เรามีประวัติในการจัดหาคูลลิ่งทาวเวอร์ที่ดีที่สุด การติดตั้งชิ้นส่วนคูลลิ่งทาวเวอร์ เช่น ใบพัดลมคูลลิ่งทาวเวอร์ เพลาขับ และมอเตอร์ ตลอดจนบริการให้คำปรึกษา ติดต่อเราวันนี้เพื่อดูว่าเหตุใดเราจึงเป็นชื่อที่เชื่อถือได้ในอุตสาหกรรมหอทำความเย็นอุตสาหกรรม\",0],[\"a\",\"/author/timbozic/\"],[\"/a\"],[\"p\"]]",
+    "changes": [
+     {
+      "from": "https://h2ocooling.com/author/tbozic/",
+      "to": "/author/timbozic/",
+      "action": "redirect-destination",
+      "reason": "internal link to a 301 source → its final URL /author/timbozic/"
+     }
+    ]
+   }
+  ]
+ },
+ "/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e-pt-2-2/": {
+  "routeId": "SALMON-posts-3422",
+  "slots": [
+   {
+    "key": "body.3.1.1.7.31",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ありがとう\",0],[\"a\",\"https://h2ocooling.com/author/tbozic/\"],[\"/a\"],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ありがとう",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "/author/timbozic/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ありがとう\",0],[\"a\",\"/author/timbozic/\"],[\"/a\"],[\"p\"]]",
+    "changes": [
+     {
+      "from": "https://h2ocooling.com/author/tbozic/",
+      "to": "/author/timbozic/",
+      "action": "redirect-destination",
+      "reason": "internal link to a 301 source → its final URL /author/timbozic/"
+     }
+    ]
+   }
+  ]
+ },
  "/3-cell-counterflow-cooling-towers/": {
   "routeId": "SALMON-posts-3488",
   "slots": [
@@ -637,6 +893,70 @@
       "to": "/the-benefits-of-frp-fans-in-industrial-cooling/",
       "action": "redirect-destination",
       "reason": "internal link to a 301 source → its final URL /the-benefits-of-frp-fans-in-industrial-cooling/"
+     }
+    ]
+   }
+  ]
+ },
+ "/arus-balik-vs-aliran-silang-2/": {
+  "routeId": "SALMON-posts-3408",
+  "slots": [
+   {
+    "key": "body.3.1.1.7.57",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Hubungi kami untuk mengetahui lebih lanjut jenis menara pendingin mana yang tepat untuk perusahaan Anda,\",0],[\"a\",\"https://h2ocooling.com/author/tbozic/\"],[\"/a\"],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Hubungi kami untuk mengetahui lebih lanjut jenis menara pendingin mana yang tepat untuk perusahaan Anda,",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "/author/timbozic/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Hubungi kami untuk mengetahui lebih lanjut jenis menara pendingin mana yang tepat untuk perusahaan Anda,\",0],[\"a\",\"/author/timbozic/\"],[\"/a\"],[\"p\"]]",
+    "changes": [
+     {
+      "from": "https://h2ocooling.com/author/tbozic/",
+      "to": "/author/timbozic/",
+      "action": "redirect-destination",
+      "reason": "internal link to a 301 source → its final URL /author/timbozic/"
      }
     ]
    }
@@ -2705,9 +3025,6 @@
       "action": "site-path",
       "reason": "own-site absolute link → site path"
      }
-    ],
-    "accept": [
-     "[[\"t\",\"Implement these safety frameworks to secure your facility, protect your personnel, and maintain flawless cooling system operations. For expert guidance on comprehensive cooling tower safety and \",0],[\"a\",\"https://h2ocooling.com/cooling-tower-water-treatment/\"],[\"t\",\"water treatment solutions\",0],[\"/a\"],[\"t\",\", visit \",0],[\"a\",\"/\"],[\"t\",\"H2Ocooling.com\",0],[\"/a\"],[\"t\",\" today.\",0],[\"p\"]]"
     ]
    }
   ]
@@ -6306,9 +6623,6 @@
       "action": "redirect-destination",
       "reason": "internal link to a 301 source → its final URL /cooling-tower-inspection-guide/"
      }
-    ],
-    "accept": [
-     "[[\"t\",\"For expert service and to ensure your system operates at peak efficiency, visit \",0],[\"a\",\"/\"],[\"t\",\"H2Ocooling.com\",0],[\"/a\"],[\"t\",\" to \",0],[\"a\",\"https://h2ocooling.com/cooling-tower-inspection-guide-2/\"],[\"t\",\"schedule an inspection\",0],[\"/a\"],[\"t\",\" with our specialists today.\",0],[\"p\"]]"
     ]
    }
   ]
@@ -6434,7 +6748,7 @@
           "children": [
            {
             "type": "text",
-            "text": " Contact us",
+            "text": " Contact ICS",
             "format": 0,
             "detail": 0,
             "mode": "normal",
@@ -6449,7 +6763,7 @@
          },
          {
           "type": "text",
-          "text": " for premium services and book your maintenance appointment Now!",
+          "text": " to request a quote for maintenance.",
           "format": 0,
           "detail": 0,
           "mode": "normal",
@@ -6471,14 +6785,29 @@
       "direction": "ltr"
      }
     },
-    "afterCanon": "[[\"t\",\" Whether your cooling tower needs components repair, air cools, upgrading, preventative maintenance, or new tower installations, our substantial cooling tower quality services are designed to perfectly address your demands and preferences. \",0],[\"a\",\"/cooling-tower-maintenance-repair-upgrade/\"],[\"t\",\" Contact us\",0],[\"/a\"],[\"t\",\" for premium services and book your maintenance appointment Now!\",0],[\"p\"]]",
+    "afterCanon": "[[\"t\",\" Whether your cooling tower needs components repair, air cools, upgrading, preventative maintenance, or new tower installations, our substantial cooling tower quality services are designed to perfectly address your demands and preferences. \",0],[\"a\",\"/cooling-tower-maintenance-repair-upgrade/\"],[\"t\",\" Contact ICS\",0],[\"/a\"],[\"t\",\" to request a quote for maintenance.\",0],[\"p\"]]",
     "changes": [
      {
       "from": "http://h2ocooling.com/cooling-tower-maintenance-repair-upgrade/",
       "to": "/cooling-tower-maintenance-repair-upgrade/",
       "action": "site-path",
       "reason": "own-site absolute link → site path"
+     },
+     {
+      "from": " Contact us",
+      "to": " Contact ICS",
+      "action": "word-corrected",
+      "reason": "OGCS claims sweep R1 CS161 (CT accepted; R2.5 pre-flight): puffery; quote-only CTA. The link stays on \"Contact ICS\"."
+     },
+     {
+      "from": " for premium services and book your maintenance appointment Now!",
+      "to": " to request a quote for maintenance.",
+      "action": "word-corrected",
+      "reason": "OGCS claims sweep R1 CS161 (CT accepted; R2.5 pre-flight): puffery; quote-only CTA. The link stays on \"Contact ICS\"."
      }
+    ],
+    "accept": [
+     "[[\"t\",\" Whether your cooling tower needs components repair, air cools, upgrading, preventative maintenance, or new tower installations, our substantial cooling tower quality services are designed to perfectly address your demands and preferences. \",0],[\"a\",\"/cooling-tower-maintenance-repair-upgrade/\"],[\"t\",\" Contact us\",0],[\"/a\"],[\"t\",\" for premium services and book your maintenance appointment Now!\",0],[\"p\"]]"
     ]
    }
   ]
@@ -8124,6 +8453,940 @@
    }
   ]
  },
+ "/cooling-tower-operating-cost/": {
+  "routeId": "SALMON-posts-3909",
+  "slots": [
+   {
+    "key": "body.3.1.1.7.49.5",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Risk Mitigation:\",1],[\"t\",\" Routine biocide dosing costs a fraction of the $10,000 required for a single Legionella remediation event.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Risk Mitigation:",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": " Routine biocide dosing costs a fraction of a single Legionella remediation event, which can run from several thousand to tens of thousands of dollars.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Risk Mitigation:\",1],[\"t\",\" Routine biocide dosing costs a fraction of a single Legionella remediation event, which can run from several thousand to tens of thousands of dollars.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": " Routine biocide dosing costs a fraction of the $10,000 required for a single Legionella remediation event.",
+      "to": " Routine biocide dosing costs a fraction of a single Legionella remediation event, which can run from several thousand to tens of thousands of dollars.",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.51",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Predictive Maintenance (PdM) represents the optimal method for facility management. Installing Internet of Things (IoT) vibration sensors allows you to monitor equipment performance in real time. These sensors detect early bearing wear months before it causes a $50,000 motor failure.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Predictive Maintenance (PdM) represents the optimal method for facility management. Installing Internet of Things (IoT) vibration sensors allows you to monitor equipment performance in real time. These sensors can detect early bearing wear months before it leads to a motor failure costing tens of thousands of dollars.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Predictive Maintenance (PdM) represents the optimal method for facility management. Installing Internet of Things (IoT) vibration sensors allows you to monitor equipment performance in real time. These sensors can detect early bearing wear months before it leads to a motor failure costing tens of thousands of dollars.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "These sensors detect early bearing wear months before it causes a $50,000 motor failure.",
+      "to": "These sensors can detect early bearing wear months before it leads to a motor failure costing tens of thousands of dollars.",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.55",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"To understand the financial difference optimization makes, review these estimates. This table outlines the annual expenses for a typical 500-ton industrial unit operating 3,000 hours per year.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "To understand the financial difference optimization makes, review these illustrative estimates for a typical 500-ton industrial unit operating 3,000 hours per year. They are industry estimates, not an ICS quote; actual costs depend on site conditions.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"To understand the financial difference optimization makes, review these illustrative estimates for a typical 500-ton industrial unit operating 3,000 hours per year. They are industry estimates, not an ICS quote; actual costs depend on site conditions.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "To understand the financial difference optimization makes, review these estimates. This table outlines the annual expenses for a typical 500-ton industrial unit operating 3,000 hours per year.",
+      "to": "To understand the financial difference optimization makes, review these illustrative estimates for a typical 500-ton industrial unit operating 3,000 hours per year. They are industry estimates, not an ICS quote; actual costs depend on site conditions.",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.59",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Transitioning from a legacy setup to an optimized system recovers $22,200 annually. You can reinvest these savings into further facility improvements or direct them to the company’s bottom line.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "In this illustrative example, moving from a legacy setup to an optimized system can save roughly $15,000 to $25,000 a year. You can reinvest these savings into further facility improvements or direct them to the company’s bottom line.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"In this illustrative example, moving from a legacy setup to an optimized system can save roughly $15,000 to $25,000 a year. You can reinvest these savings into further facility improvements or direct them to the company’s bottom line.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Transitioning from a legacy setup to an optimized system recovers $22,200 annually.",
+      "to": "In this illustrative example, moving from a legacy setup to an optimized system can save roughly $15,000 to $25,000 a year.",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.0.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ICS Optimized (VFD + IoT)\",1],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Optimized Setup (VFD + IoT)",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Optimized Setup (VFD + IoT)\",1],[\"p\"]]",
+    "changes": [
+     {
+      "from": "ICS Optimized (VFD + IoT)",
+      "to": "Optimized Setup (VFD + IoT)",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table header)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.0.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"2026 Savings Potential\",1],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Typical Savings Range",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Typical Savings Range\",1],[\"p\"]]",
+    "changes": [
+     {
+      "from": "2026 Savings Potential",
+      "to": "Typical Savings Range",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table header)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"$36,000\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "$30,000 – $40,000",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"$30,000 – $40,000\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "$36,000",
+      "to": "$30,000 – $40,000",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.1.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"$19,800\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "$17,000 – $23,000",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"$17,000 – $23,000\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "$19,800",
+      "to": "$17,000 – $23,000",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.1.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"45% (Cube Law)\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "35–50% (Cube Law)",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"35–50% (Cube Law)\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "45% (Cube Law)",
+      "to": "35–50% (Cube Law)",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.2.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"$12,500\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "$10,000 – $15,000",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"$10,000 – $15,000\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "$12,500",
+      "to": "$10,000 – $15,000",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.2.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"$9,400\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "$8,000 – $11,000",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"$8,000 – $11,000\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "$9,400",
+      "to": "$8,000 – $11,000",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.2.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"25% (High CoC)\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "20–30% (High CoC)",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"20–30% (High CoC)\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "25% (High CoC)",
+      "to": "20–30% (High CoC)",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"$5,800\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "$5,000 – $7,000",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"$5,000 – $7,000\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "$5,800",
+      "to": "$5,000 – $7,000",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.3.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"$4,600\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "$4,000 – $5,500",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"$4,000 – $5,500\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "$4,600",
+      "to": "$4,000 – $5,500",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"20% (Auto-Dosing)\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "15–25% (Auto-Dosing)",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"15–25% (Auto-Dosing)\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "20% (Auto-Dosing)",
+      "to": "15–25% (Auto-Dosing)",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.4.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"$4,500\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "$4,000 – $5,500",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"$4,000 – $5,500\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "$4,500",
+      "to": "$4,000 – $5,500",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.4.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"$2,800\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "$2,500 – $3,500",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"$2,500 – $3,500\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "$2,800",
+      "to": "$2,500 – $3,500",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.5.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"$58,800\",1],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "$49,000 – $67,500",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"$49,000 – $67,500\",1],[\"p\"]]",
+    "changes": [
+     {
+      "from": "$58,800",
+      "to": "$49,000 – $67,500",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.5.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"$36,600\",1],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "$31,500 – $43,000",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"$31,500 – $43,000\",1],[\"p\"]]",
+    "changes": [
+     {
+      "from": "$36,600",
+      "to": "$31,500 – $43,000",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.57.0.0.5.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"$22,200 Annual ROI\",1],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "About $15,000 – $25,000 per year",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"About $15,000 – $25,000 per year\",1],[\"p\"]]",
+    "changes": [
+     {
+      "from": "$22,200 Annual ROI",
+      "to": "About $15,000 – $25,000 per year",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+     }
+    ]
+   }
+  ]
+ },
  "/cooling-tower-operator-training/": {
   "routeId": "SALMON-posts-4061",
   "slots": [
@@ -9578,6 +10841,52 @@
       "to": "We design new installations to meet applicable regulatory and environmental requirements. Our mechanical designs ensure strict compliance with Cooling Technology Institute (CTI) guidelines and ASHRAE Standard 188. We also configure your system to meet emerging local water scarcity mandates and blowdown restrictions.",
       "action": "word-corrected",
       "reason": "OGCS claims sweep R1 CS035 (GATE; CT accepted 2026-10-05): Compliance guarantee."
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.95",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"We begin by thoroughly evaluating your existing infrastructure and support steel. Our structural engineers determine if your current basin or dunnage can safely accommodate a tower-only swap. Reusing structurally sound base components can yield immediate project savings of $25,000 or more.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "We begin by thoroughly evaluating your existing infrastructure and support steel. Our structural engineers determine if your current basin or dunnage can safely accommodate a tower-only swap. Reusing structurally sound base components can reduce project costs.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"We begin by thoroughly evaluating your existing infrastructure and support steel. Our structural engineers determine if your current basin or dunnage can safely accommodate a tower-only swap. Reusing structurally sound base components can reduce project costs.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Reusing structurally sound base components can yield immediate project savings of $25,000 or more.",
+      "to": "Reusing structurally sound base components can reduce project costs.",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
      }
     ]
    }
@@ -27979,6 +29288,61 @@
       "reason": "alt shortened 322 → 163 characters (held text)"
      }
     ]
+   },
+   {
+    "key": "body.75.5",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Preventative vs. Reactive Costs:\",1],[\"t\",\" A proactive approach to maintenance always wins. A $500 sensor that predicts a motor failure can prevent a $50,000 emergency repair and the associated downtime. Following a comprehensive maintenance checklist is key to avoiding unexpected expenses.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Preventative vs. Reactive Costs:",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": " A proactive approach to maintenance usually pays. A sensor costing a few hundred dollars that predicts a motor failure can prevent an emergency repair costing tens of thousands of dollars, plus the associated downtime. Following a comprehensive maintenance checklist is key to avoiding unexpected expenses.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Preventative vs. Reactive Costs:\",1],[\"t\",\" A proactive approach to maintenance usually pays. A sensor costing a few hundred dollars that predicts a motor failure can prevent an emergency repair costing tens of thousands of dollars, plus the associated downtime. Following a comprehensive maintenance checklist is key to avoiding unexpected expenses.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": " A proactive approach to maintenance always wins. A $500 sensor that predicts a motor failure can prevent a $50,000 emergency repair and the associated downtime. Following a comprehensive maintenance checklist is key to avoiding unexpected expenses.",
+      "to": " A proactive approach to maintenance usually pays. A sensor costing a few hundred dollars that predicts a motor failure can prevent an emergency repair costing tens of thousands of dollars, plus the associated downtime. Following a comprehensive maintenance checklist is key to avoiding unexpected expenses.",
+      "action": "word-corrected",
+      "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
+     }
+    ]
    }
   ]
  },
@@ -37503,9 +38867,6 @@
       "action": "word-corrected",
       "reason": "OGCS claims sweep R1 CS126 (SHOULD; CT accepted 2026-10-05): Leader claim."
      }
-    ],
-    "accept": [
-     "[[\"t\",\"Learn more about the \",0],[\"a\",\"https://h2ocooling.com/product-category/fans/\"],[\"t\",\"FRP fan blade options\",0],[\"/a\"],[\"t\",\" that we have available here at Industrial Cooling Solutions Inc. We have worked in the industrial cooling tower sector for years, and we focus on providing durable materials so that our clients’ \",0],[\"a\",\"https://h2ocooling.com/cooling-tower-repair-upgrade/\"],[\"t\",\"cooling towers perform as efficiently\",0],[\"/a\"],[\"t\",\" as possible. \",0],[\"p\"]]"
     ]
    }
   ]
@@ -38474,9 +39835,6 @@
       "action": "word-corrected",
       "reason": "OGCS claims sweep R1 CS133 (SHOULD; CT accepted 2026-10-05): \"World-class\". Same sentence in th row below."
      }
-    ],
-    "accept": [
-     "[[\"t\",\"Industrial Cooling Solutions combines American-based engineering with localized engineering and field service to provide each client with industrial cooling services at a competitive price. We provide solutions for Power Generation, Geothermal Power, Refining, Petrochemical, Chemical industries, and more. \",0],[\"t\",\"When you contact Industrial Cooling Solutions, we’ll work closely with you to determine what issue you’re having. We’ll help you decide whether you need \",0],[\"a\",\"https://h2ocooling.com/cooling-tower-parts/\"],[\"t\",\"cooling tower replacement components\",0],[\"/a\"],[\"t\",\", upgrades, a complete system install, or a simple repair. Our dedicated staff has an immense amount of experience with applications in all industries. To learn more, \",0],[\"a\",\"https://h2ocooling.com/contact/\"],[\"t\",\"give us a call today\",0],[\"/a\"],[\"t\",\" or \",0],[\"t\",\"browse our site.\",0],[\"t\",\"\",0],[\"p\"]]"
     ]
    },
    {
@@ -40539,9 +41897,6 @@
       "action": "word-corrected",
       "reason": "OGCS claims sweep R1 CS152 (SHOULD [owner]; CT accepted 2026-10-05): \"Decades\" unverified."
      }
-    ],
-    "accept": [
-     "[[\"t\",\"In the world of industrial cooling towers, efficiency is paramount. While\",0],[\"a\",\"https://en.wikipedia.org/wiki/Cooling_tower\"],[\"t\",\" \",0],[\"t\",\"cooling towers\",0],[\"/a\"],[\"t\",\" might not be at the top of the mind for the average person, these crucial systems, which incorporate metal, concrete, plastic fans, axial fans, and FRP exhaust fans, underpin the industries that produce our essential goods. Here at Industrial Cooling Solutions, Inc., we have been \",0],[\"a\",\"https://h2ocooling.com/cooling-tower\"],[\"t\",\"\",0],[\"t\",\"constructing\",0],[\"/a\"],[\"t\",\", maintaining,\",0],[\"a\",\"https://h2ocooling.com/cooling-tower-repair-upgrade\"],[\"t\",\" \",0],[\"t\",\"and repairing cooling towers\",0],[\"/a\"],[\"t\",\" for many years.\",0],[\"p\"]]"
     ]
    }
   ]
@@ -41260,6 +42615,70 @@
    }
   ]
  },
+ "/id/arus-balik-vs-aliran-silang/": {
+  "routeId": "LIVE-LOCALE-id-14662",
+  "slots": [
+   {
+    "key": "body.59",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Hubungi kami untuk mengetahui lebih lanjut jenis menara pendingin mana yang tepat untuk perusahaan Anda,\",0],[\"a\",\"https://h2ocooling.com/author/tbozic/\"],[\"/a\"],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Hubungi kami untuk mengetahui lebih lanjut jenis menara pendingin mana yang tepat untuk perusahaan Anda,",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "/author/timbozic/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Hubungi kami untuk mengetahui lebih lanjut jenis menara pendingin mana yang tepat untuk perusahaan Anda,\",0],[\"a\",\"/author/timbozic/\"],[\"/a\"],[\"p\"]]",
+    "changes": [
+     {
+      "from": "https://h2ocooling.com/author/tbozic/",
+      "to": "/author/timbozic/",
+      "action": "redirect-destination",
+      "reason": "internal link to a 301 source → its final URL /author/timbozic/"
+     }
+    ]
+   }
+  ]
+ },
  "/id/hal-hal-yang-perlu-anda-ketahui-tentang-pengisi-menara-pendingin/": {
   "routeId": "LIVE-LOCALE-id-14586",
   "slots": [
@@ -41357,6 +42776,134 @@
       "to": "Desain ramping kipas menara pendingin kami menghadirkan angin segar ke ruangan mana pun. Dengan kendali jarak jauh yang nyaman dan layar LED, pengaturan pengaturan menjadi mudah.",
       "action": "word-corrected",
       "reason": "OGCS claims sweep R1 CS070 (GATE; CT accepted 2026-10-05): Consumer \"tower fan\" content (home office or bedroom, remote control, LED display). Remove the whole closing paragraph from \"Tetap sejuk dan gunakan kipas menara pendingin kendali jarak jauh…\". See defect D2 for the whole article."
+     }
+    ]
+   }
+  ]
+ },
+ "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%ae%e3%83%95%e3%82%a1%e3%83%b3%e5%8a%b9%e7%8e%87%e3%81%ae%e6%a4%9c%e8%a8%8e-pt-2/": {
+  "routeId": "LIVE-LOCALE-ja-14690",
+  "slots": [
+   {
+    "key": "body.31",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ありがとう\",0],[\"a\",\"https://h2ocooling.com/author/tbozic/\"],[\"/a\"],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ありがとう",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "/author/timbozic/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ありがとう\",0],[\"a\",\"/author/timbozic/\"],[\"/a\"],[\"p\"]]",
+    "changes": [
+     {
+      "from": "https://h2ocooling.com/author/tbozic/",
+      "to": "/author/timbozic/",
+      "action": "redirect-destination",
+      "reason": "internal link to a 301 source → its final URL /author/timbozic/"
+     }
+    ]
+   }
+  ]
+ },
+ "/th/%e0%b8%94%e0%b8%b9%e0%b8%9b%e0%b8%a3%e0%b8%b0%e0%b8%aa%e0%b8%b4%e0%b8%97%e0%b8%98%e0%b8%b4%e0%b8%a0%e0%b8%b2%e0%b8%9e%e0%b8%9e%e0%b8%b1%e0%b8%94%e0%b8%a5%e0%b8%a1%e0%b8%84%e0%b8%b9%e0%b8%a5%e0%b8%a5-4/": {
+  "routeId": "LIVE-LOCALE-th-14688",
+  "slots": [
+   {
+    "key": "body.31",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ขอบคุณ\",0],[\"a\",\"https://h2ocooling.com/author/tbozic/\"],[\"/a\"],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ขอบคุณ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "/author/timbozic/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ขอบคุณ\",0],[\"a\",\"/author/timbozic/\"],[\"/a\"],[\"p\"]]",
+    "changes": [
+     {
+      "from": "https://h2ocooling.com/author/tbozic/",
+      "to": "/author/timbozic/",
+      "action": "redirect-destination",
+      "reason": "internal link to a 301 source → its final URL /author/timbozic/"
      }
     ]
    }
@@ -41823,6 +43370,70 @@
    }
   ]
  },
+ "/th/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b9%81%e0%b8%a2%e0%b8%81%e0%b8%a2%e0%b9%88%e0%b8%ad%e0%b8%a2%e0%b8%95%e0%b9%89%e0%b8%99%e0%b8%97%e0%b8%b8%e0%b8%99-%e0%b8%95%e0%b9%89%e0%b8%99%e0%b8%97%e0%b8%b8%e0%b8%99/": {
+  "routeId": "LIVE-LOCALE-th-14572",
+  "slots": [
+   {
+    "key": "body.39",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"โดยสรุป ต้นทุนหอทำความเย็นต้องอาศัยการพิจารณาอย่างรอบคอบทั้งในด้านขนาด ประเภท และฟังก์ชัน การได้รับคำแนะนำจากผู้เชี่ยวชาญที่เหมาะสมและการประเมินที่ครอบคลุมนำไปสู่การตัดสินใจที่มีเหตุผลและมีประสิทธิภาพ ในขณะที่เทคโนโลยีพัฒนาขึ้นในปี 2024 กระบวนการประเมินต้นทุนที่ปรับแต่งได้ซึ่งปรับให้ตรงตามความต้องการเฉพาะกลายเป็นสิ่งสำคัญสำหรับประสิทธิภาพที่มีประสิทธิภาพและการลงทุนระยะยาว\",0],[\"a\",\"https://h2ocooling.com/author/tbozic/\"],[\"/a\"],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "โดยสรุป ต้นทุนหอทำความเย็นต้องอาศัยการพิจารณาอย่างรอบคอบทั้งในด้านขนาด ประเภท และฟังก์ชัน การได้รับคำแนะนำจากผู้เชี่ยวชาญที่เหมาะสมและการประเมินที่ครอบคลุมนำไปสู่การตัดสินใจที่มีเหตุผลและมีประสิทธิภาพ ในขณะที่เทคโนโลยีพัฒนาขึ้นในปี 2024 กระบวนการประเมินต้นทุนที่ปรับแต่งได้ซึ่งปรับให้ตรงตามความต้องการเฉพาะกลายเป็นสิ่งสำคัญสำหรับประสิทธิภาพที่มีประสิทธิภาพและการลงทุนระยะยาว",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "/author/timbozic/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"โดยสรุป ต้นทุนหอทำความเย็นต้องอาศัยการพิจารณาอย่างรอบคอบทั้งในด้านขนาด ประเภท และฟังก์ชัน การได้รับคำแนะนำจากผู้เชี่ยวชาญที่เหมาะสมและการประเมินที่ครอบคลุมนำไปสู่การตัดสินใจที่มีเหตุผลและมีประสิทธิภาพ ในขณะที่เทคโนโลยีพัฒนาขึ้นในปี 2024 กระบวนการประเมินต้นทุนที่ปรับแต่งได้ซึ่งปรับให้ตรงตามความต้องการเฉพาะกลายเป็นสิ่งสำคัญสำหรับประสิทธิภาพที่มีประสิทธิภาพและการลงทุนระยะยาว\",0],[\"a\",\"/author/timbozic/\"],[\"/a\"],[\"p\"]]",
+    "changes": [
+     {
+      "from": "https://h2ocooling.com/author/tbozic/",
+      "to": "/author/timbozic/",
+      "action": "redirect-destination",
+      "reason": "internal link to a 301 source → its final URL /author/timbozic/"
+     }
+    ]
+   }
+  ]
+ },
  "/th/%e0%b8%81%e0%b9%89%e0%b8%b2%e0%b8%a7%e0%b9%84%e0%b8%9b%e0%b8%aa%e0%b8%b9%e0%b9%88%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%97/": {
   "routeId": "LIVE-LOCALE-th-14664",
   "slots": [
@@ -42004,7 +43615,7 @@
          {
           "type": "link",
           "fields": {
-           "url": "https://h2ocooling.com/author/tbozic/",
+           "url": "/author/timbozic/",
            "newTab": false,
            "linkType": "custom"
           },
@@ -42029,14 +43640,23 @@
       "direction": "ltr"
      }
     },
-    "afterCanon": "[[\"t\",\"ขอขอบคุณที่สละเวลาอ่านบล็อกสั้นๆ ของเราเกี่ยวกับขั้นตอนในการดำเนินการเพื่อให้แน่ใจว่าหอทำความเย็นในอุตสาหกรรมของคุณสามารถทำงานได้ดีที่สุดในช่วงสภาพอากาศหนาวเย็น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่ดีที่สุดเพื่อให้แน่ใจว่าคูลลิ่งทาวเวอร์ของคุณสามารถทำงานได้ดีในช่วงสภาพอากาศหนาวเย็น โปรดติดต่อเราวันนี้ที่ Industrial Cooling Solutions, Inc. เรามีประวัติในการจัดหาคูลลิ่งทาวเวอร์ การติดตั้งชิ้นส่วนคูลลิ่งทาวเวอร์ เช่น ใบพัดลมคูลลิ่งทาวเวอร์ เพลาขับ และมอเตอร์ ตลอดจนบริการให้คำปรึกษา ติดต่อเราวันนี้เพื่อดูว่าเหตุใดเราจึงเป็นชื่อที่เชื่อถือได้ในอุตสาหกรรมหอทำความเย็นอุตสาหกรรม\",0],[\"a\",\"https://h2ocooling.com/author/tbozic/\"],[\"/a\"],[\"p\"]]",
+    "afterCanon": "[[\"t\",\"ขอขอบคุณที่สละเวลาอ่านบล็อกสั้นๆ ของเราเกี่ยวกับขั้นตอนในการดำเนินการเพื่อให้แน่ใจว่าหอทำความเย็นในอุตสาหกรรมของคุณสามารถทำงานได้ดีที่สุดในช่วงสภาพอากาศหนาวเย็น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่ดีที่สุดเพื่อให้แน่ใจว่าคูลลิ่งทาวเวอร์ของคุณสามารถทำงานได้ดีในช่วงสภาพอากาศหนาวเย็น โปรดติดต่อเราวันนี้ที่ Industrial Cooling Solutions, Inc. เรามีประวัติในการจัดหาคูลลิ่งทาวเวอร์ การติดตั้งชิ้นส่วนคูลลิ่งทาวเวอร์ เช่น ใบพัดลมคูลลิ่งทาวเวอร์ เพลาขับ และมอเตอร์ ตลอดจนบริการให้คำปรึกษา ติดต่อเราวันนี้เพื่อดูว่าเหตุใดเราจึงเป็นชื่อที่เชื่อถือได้ในอุตสาหกรรมหอทำความเย็นอุตสาหกรรม\",0],[\"a\",\"/author/timbozic/\"],[\"/a\"],[\"p\"]]",
     "changes": [
+     {
+      "from": "https://h2ocooling.com/author/tbozic/",
+      "to": "/author/timbozic/",
+      "action": "redirect-destination",
+      "reason": "internal link to a 301 source → its final URL /author/timbozic/"
+     },
      {
       "from": "ขอขอบคุณที่สละเวลาอ่านบล็อกสั้นๆ ของเราเกี่ยวกับขั้นตอนในการดำเนินการเพื่อให้แน่ใจว่าหอทำความเย็นในอุตสาหกรรมของคุณสามารถทำงานได้ดีที่สุดในช่วงสภาพอากาศหนาวเย็น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่ดีที่สุดเพื่อให้แน่ใจว่าคูลลิ่งทาวเวอร์ของคุณสามารถทำงานได้ดีในช่วงสภาพอากาศหนาวเย็น โปรดติดต่อเราวันนี้ที่ Industrial Cooling Solutions, Inc. เรามีประวัติในการจัดหาคูลลิ่งทาวเวอร์ที่ดีที่สุด การติดตั้งชิ้นส่วนคูลลิ่งทาวเวอร์ เช่น ใบพัดลมคูลลิ่งทาวเวอร์ เพลาขับ และมอเตอร์ ตลอดจนบริการให้คำปรึกษา ติดต่อเราวันนี้เพื่อดูว่าเหตุใดเราจึงเป็นชื่อที่เชื่อถือได้ในอุตสาหกรรมหอทำความเย็นอุตสาหกรรม",
       "to": "ขอขอบคุณที่สละเวลาอ่านบล็อกสั้นๆ ของเราเกี่ยวกับขั้นตอนในการดำเนินการเพื่อให้แน่ใจว่าหอทำความเย็นในอุตสาหกรรมของคุณสามารถทำงานได้ดีที่สุดในช่วงสภาพอากาศหนาวเย็น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่ดีที่สุดเพื่อให้แน่ใจว่าคูลลิ่งทาวเวอร์ของคุณสามารถทำงานได้ดีในช่วงสภาพอากาศหนาวเย็น โปรดติดต่อเราวันนี้ที่ Industrial Cooling Solutions, Inc. เรามีประวัติในการจัดหาคูลลิ่งทาวเวอร์ การติดตั้งชิ้นส่วนคูลลิ่งทาวเวอร์ เช่น ใบพัดลมคูลลิ่งทาวเวอร์ เพลาขับ และมอเตอร์ ตลอดจนบริการให้คำปรึกษา ติดต่อเราวันนี้เพื่อดูว่าเหตุใดเราจึงเป็นชื่อที่เชื่อถือได้ในอุตสาหกรรมหอทำความเย็นอุตสาหกรรม",
       "action": "word-corrected",
       "reason": "OGCS claims sweep R1 CS159 (SHOULD; CT accepted 2026-10-05): \"Best\". Back-translation: \"We have a history of supplying cooling towers…\""
      }
+    ],
+    "accept": [
+     "[[\"t\",\"ขอขอบคุณที่สละเวลาอ่านบล็อกสั้นๆ ของเราเกี่ยวกับขั้นตอนในการดำเนินการเพื่อให้แน่ใจว่าหอทำความเย็นในอุตสาหกรรมของคุณสามารถทำงานได้ดีที่สุดในช่วงสภาพอากาศหนาวเย็น หากคุณต้องการเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่ดีที่สุดเพื่อให้แน่ใจว่าคูลลิ่งทาวเวอร์ของคุณสามารถทำงานได้ดีในช่วงสภาพอากาศหนาวเย็น โปรดติดต่อเราวันนี้ที่ Industrial Cooling Solutions, Inc. เรามีประวัติในการจัดหาคูลลิ่งทาวเวอร์ การติดตั้งชิ้นส่วนคูลลิ่งทาวเวอร์ เช่น ใบพัดลมคูลลิ่งทาวเวอร์ เพลาขับ และมอเตอร์ ตลอดจนบริการให้คำปรึกษา ติดต่อเราวันนี้เพื่อดูว่าเหตุใดเราจึงเป็นชื่อที่เชื่อถือได้ในอุตสาหกรรมหอทำความเย็นอุตสาหกรรม\",0],[\"a\",\"https://h2ocooling.com/author/tbozic/\"],[\"/a\"],[\"p\"]]"
     ]
    }
   ]

@@ -92,6 +92,8 @@ export function composePublicDocument(record: RouteRecord): Doc {
     if (i >= 0) meta[i] = { ...meta[i]!, value: o.description }
     else meta.push({ name: 'description', value: o.description })
     seo.meta = meta
+    // R2.5 (CT 2026-10-05): a decided description is marked, so a paginated archive keeps its own (servedDescription).
+    seo.decidedDescription = true
     social(['og:description', 'twitter:description'], o.description)
   }
   base.seo = seo

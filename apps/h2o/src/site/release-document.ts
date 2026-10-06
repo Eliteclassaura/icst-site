@@ -49,9 +49,11 @@ function publicReleaseDocumentWith(row:ReleaseRow,doc:SalmonDocument,origin:stri
         if(['h2ocooling.com','www.h2ocooling.com','salmon-rhinoceros-754457.hostingersite.com'].includes(url.hostname)&&!url.pathname.startsWith('/wp-content/')){
           const target=routes.find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(url.pathname))
           const redirect=redirects.find(candidate=>decodeURIComponent(candidate.source)===decodeURIComponent(url.pathname))
-          if(target?.state==='PUBLIC')attrs.href=target.path+url.search+url.hash
+          // R2.5 (CT ruling on the SEO pre-flight, 2026-10-05): an active redirect wins over a route row, so a link never
+          // points at an address that answers 301.
+          if(redirect&&routes.some(candidate=>candidate.path===redirect.destination&&candidate.state==='PUBLIC'))attrs.href=redirect.destination+url.search+url.hash
+          else if(target?.state==='PUBLIC')attrs.href=target.path+url.search+url.hash
           else if(target?.redirect)attrs.href=target.redirect+url.search+url.hash
-          else if(redirect&&routes.some(candidate=>candidate.path===redirect.destination&&candidate.state==='PUBLIC'))attrs.href=redirect.destination+url.search+url.hash
           else delete attrs.href
         }
       }catch{/* Existing non-URL anchors retain their source value. */}

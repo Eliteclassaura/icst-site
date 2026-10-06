@@ -1,4 +1,5 @@
 import type {ReactNode} from 'react'
+import {provenanceRef} from './media-delivery'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {SalmonSeo,renderSalmonNode} from './SalmonCanonical'
 import {HOME_CRUMB} from './breadcrumb-schema'
@@ -21,7 +22,7 @@ export function ProductMedia({doc,compact=false}:{doc:SalmonDocument;compact?:bo
   const primary=productPrimaryMedia(doc)
   if(!primary)return <div className={`wave3-product-media-fallback${compact?' wave3-card-media':''}`} data-media-recovery="MEDIA_RECOVERY_HOLD"><span>{nameFor(doc)}</span><small>Product image pending source verification</small></div>
   const {image,media,src}=primary
-  return <div className={`wave3-product-media${compact?' wave3-card-media':''}`} data-media-sha256={media.sha256} data-source-url={image.src}>
+  return <div className={`wave3-product-media${compact?' wave3-card-media':''}`} data-media-sha256={media.sha256} data-source-url={provenanceRef(image.src)}>
     <img src={src} width={media.width} height={media.height} style={{maxWidth:media.width}} alt={image.alt??''} loading={compact?'lazy':'eager'} fetchPriority={compact?undefined:'high'}/>
   </div>
 }

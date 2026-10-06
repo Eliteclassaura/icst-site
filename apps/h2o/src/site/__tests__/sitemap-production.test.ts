@@ -22,6 +22,8 @@ const FIXTURES: Array<{ row: Row; reason: string | null }> = [
   { row: pub('/listed/'), reason: null },
   { row: pub('/no-canonical-field/', { canonical: null }), reason: null },
   { row: pub('/held/', { state: 'REVIEW_HOLD', sitemap: false }), reason: 'state REVIEW_HOLD' },
+  // R2.5: a row marked noindex is excluded even when its sitemap flag is still true (SEO pre-flight D11)
+  { row: pub('/noindex-flagged/', { indexable: false }), reason: 'noindex' },
   { row: pub('/held-flag/', { state: 'REVIEW_HOLD' }), reason: 'state REVIEW_HOLD' },
   { row: pub('/moved/', { state: 'REDIRECT' }), reason: 'state REDIRECT' },
   { row: pub('/crm/inbox/'), reason: 'private surface' },
@@ -59,7 +61,7 @@ describe('mutation discrimination on the inclusion filter', () => {
   const dir = path.join(APP, 'node_modules/.cache/sitemap-mutants')
   afterEach(() => rmSync(dir, { recursive: true, force: true }))
   it('has a guard per rule and every mutant changes at least one fixture outcome', async () => {
-    expect(guards).toHaveLength(10)
+    expect(guards).toHaveLength(11) // R2.5: + the noindex guard
     mkdirSync(dir, { recursive: true })
     for (const [i, guard] of guards.entries()) {
       const mutated = source.replace(guard, guard.replace(/^ {2}if \(.*\) return /, '  if (false) return '))

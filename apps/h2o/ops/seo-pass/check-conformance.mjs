@@ -34,7 +34,7 @@
  */
 import {existsSync,readFileSync,writeFileSync} from 'node:fs'
 import path from 'node:path'
-import {headProblems,paginationProblems,servedTitleOf,entities} from './head-assertions.mjs'
+import {authorProblems,headProblems,paginationProblems,servedTitleOf,entities} from './head-assertions.mjs'
 
 const [baseArg,...rest]=process.argv.slice(2)
 const BASE=(baseArg??'').replace(/\/+$/,'')
@@ -142,7 +142,7 @@ const robotsProblems=(html,url)=>{
 }
 /** R2.4: the head checks for one served page (title and meta as served). */
 const metaValuesOf=(html,key)=>[...html.matchAll(/<meta\b[^>]*>/g)].map(m=>m[0]).filter(t=>new RegExp(`\\s(?:name|property)="${key}"`).test(t)).map(t=>entities((t.match(/\scontent="([^"]*)"/)||[])[1]??''))
-const headOf=(html,url,options)=>{const title=servedTitleOf(html),meta=metaValuesOf(html,'description')[0]??'';return [...headProblems(html,{title,meta},{...options,projectPage:/^\/all-projects\/[^/]+\/$/.test(decode(url))}),...paginationProblems(decode(url.replace(/\?.*$/,'')),{title,meta}),...robotsProblems(html,url)]}
+const headOf=(html,url,options)=>{const title=servedTitleOf(html),meta=metaValuesOf(html,'description')[0]??'';return [...authorProblems(html).problems,...headProblems(html,{title,meta},{...options,projectPage:/^\/all-projects\/[^/]+\/$/.test(decode(url))}),...paginationProblems(decode(url.replace(/\?.*$/,'')),{title,meta}),...robotsProblems(html,url)]}
 // R2.4 rows beyond the decisions: paginated archives, the template pages that had no head, the noindex pages, every ledger redirect.
 {
   const ledgerAll=JSON.parse(readFileSync(path.join(DATA,'..','..','..','content/release/route-ledger.json'),'utf8'))
@@ -199,6 +199,20 @@ if(existsSync(h1File)){
     const r=await get(row.path)
     const h1=entities(((r.body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)||[])[1]??'').replace(/<[^>]+>/g,'')).replace(/\s+/g,' ').trim()
     results.push(r.status===200&&h1===row.h1?{url:row.path,ok:true,h1:true}:{url:row.path,ok:false,status:r.status,reason:`h1 "${h1.slice(0,80)}" ≠ "${row.h1}"`})
+  }
+}
+// R2.5: the recorded edits of the OGCS pre-flight fixes and CS161, as served: each new text present, each replaced sentence gone.
+{
+  const edits=JSON.parse(readFileSync(path.join(DATA,'claim-edits.json'),'utf8')).edits.filter(e=>e.row==='CS161'||String(e.row??'').startsWith('R25-OGCS-'))
+  const byPage=new Map();for(const e of edits)byPage.set(e.path,[...(byPage.get(e.path)??[]),e])
+  const norm=v=>entities(v.replace(/<[^>]+>/g,'')).replace(/[\s\u00a0]+/g,' ')
+  for(const [p,list] of byPage){
+    const r=await get(p)
+    const text=norm(r.body)
+    const missing=list.filter(e=>!text.includes(norm(e.replace??'').trim())).map(e=>`missing "${(e.replace??'').trim().slice(0,60)}"`)
+    const stale=list.filter(e=>e.find.trim().length>30&&text.includes(norm(e.find).trim())).map(e=>`still serves "${e.find.trim().slice(0,60)}"`)
+    const problems=r.status!==200?[`status ${r.status}`]:[...missing,...stale]
+    results.push(problems.length?{url:p,ok:false,reason:`R2.5 edits: ${problems.slice(0,3).join('; ')}`}:{url:p,ok:true,r25Edits:list.length})
   }
 }
 // R2.4: the served release covers the latest committed event (readiness publication "current"), checked after every page.

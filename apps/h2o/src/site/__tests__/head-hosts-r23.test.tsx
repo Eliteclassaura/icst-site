@@ -59,7 +59,7 @@ describe('public head URLs',()=>{
 describe('sitewide guard: every rendered head names only this site and the allowlisted third parties',()=>{
   it('every public route (repository mode, every template)',async()=>{
     const allowed=new Set([...headOrigins().map(o=>new URL(o).host),...HEAD_THIRD_PARTY_HOSTS])
-    const foreign=new Map<string,string[]>(),unserved:string[]=[],projectPhotos:string[]=[]
+    const foreign=new Map<string,string[]>(),unserved:string[]=[],projectPhotos:string[]=[],salmonHost:string[]=[]
     const registry=projectMediaRegistry(),withheld=Object.values(registry.withheld??{}).flatMap(w=>w.withheldSha256)
     let pages=0
     for(const {slug} of generateStaticParams()){
@@ -69,6 +69,8 @@ describe('sitewide guard: every rendered head names only this site and the allow
       const head=headOf(html),p='/'+slug.join('/')+'/'
       for(const h of hostsIn(head))if(!allowed.has(h))foreign.set(h,[...(foreign.get(h)??[]),p].slice(0,3))
       // the project photo rule (Design Fixes A1) holds in the head too: no withheld photo anywhere; a project page names only its own
+      // R2.5 (CT ruling on the SEO pre-flight): the old Salmon staging host appears nowhere in a served page, head or body
+      if(html.includes('salmon-rhinoceros'))salmonHost.push(p)
       for(const sha of withheld)if(head.includes(sha))projectPhotos.push(`${p} names withheld ${sha.slice(0,12)}`)
       if(/^\/all-projects\/[^/]+\/$/.test(p))for(const m of head.matchAll(/\/media\/[a-z-]+\/([0-9a-f]{64})\./g))if(m[1]!==registry.projects[p]?.media.sha256)projectPhotos.push(`${p} names ${m[1]!.slice(0,12)}`)
       // every media URL on this site's origin is a file this site serves (no legacy /wp-content path left unheld)
@@ -78,5 +80,6 @@ describe('sitewide guard: every rendered head names only this site and the allow
     expect(Object.fromEntries(foreign)).toEqual({})
     expect(unserved.slice(0,10)).toEqual([])
     expect(projectPhotos).toEqual([])
+    expect(salmonHost).toEqual([])
   },900000)
 })

@@ -13,7 +13,7 @@ import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
 import {ProjectDetail} from './ProjectDetail'
 import {commerceException,commerceMetaException,ownerHref,ownerText,releaseRouteFor,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,withheldSource,type SalmonDocument,type SalmonNode} from './salmon'
 import {normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
-import {deliverySrc} from './media-delivery'
+import {deliverySrc,provenanceRef} from './media-delivery'
 import {PUBLIC_AUTHOR} from './public-author-identity'
 import {BreadcrumbSchema,HOME_CRUMB,isBreadcrumbList,type Crumb} from './breadcrumb-schema'
 import {decodeEntities} from './text-repair'
@@ -55,11 +55,11 @@ function sourceImage(source:string,alt:string|undefined,key:string,doc:SalmonDoc
   if(withheldSource(source,doc.sourceUrl))return null
   const media=salmonMedia(source,doc.sourceUrl)
   const local=media&&salmonMediaPath(media)
-  if(!local&&doc.routeId.startsWith('LIVE-'))return <span key={key} className="r2-media-unavailable" role="img" aria-label={alt||'Historical source image unavailable'} data-source-src={source} data-source-media="UNAVAILABLE">Historical source image unavailable</span>
+  if(!local&&doc.routeId.startsWith('LIVE-'))return <span key={key} className="r2-media-unavailable" role="img" aria-label={alt||'Historical source image unavailable'} data-source-src={provenanceRef(source)} data-source-media="UNAVAILABLE">Historical source image unavailable</span>
   if(!local)return null
   // R2.4 (item l, CLS): a media row without a recorded size takes the held file's own (./image-size), so the box is reserved.
   const size=media.width&&media.height?{width:media.width,height:media.height}:heldImageSize(local)
-  return createElement('img',{key,src:deliverySrc(local),alt,'data-source-src':source,'data-source-kind':kind,'data-source-sha256':media.sha256,width:size?.width,height:size?.height,loading:'lazy',style:{maxWidth:size?.width??'100%',height:'auto'}})
+  return createElement('img',{key,src:deliverySrc(local),alt,'data-source-src':provenanceRef(source),'data-source-kind':kind,'data-source-sha256':media.sha256,width:size?.width,height:size?.height,loading:'lazy',style:{maxWidth:size?.width??'100%',height:'auto'}})
 }
 export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,suppressSourceByline=false):ReactNode{
   // Runtime RFQ (Payload content mode only): quote-intent actions use the approved adapter; D2 duplicate suppressed.
@@ -170,6 +170,8 @@ export function servedTitle(doc:SalmonDocument):string{
 /** The meta description search sees — and, mirrored, og:description and twitter:description. */
 export function servedDescription(doc:SalmonDocument):string|undefined{
   const own=publicDescription(doc)
+  // R2.5 (CT ruling on the SEO pre-flight, 2026-10-05): a decided per-page meta wins; root inheritance only fills the rest
+  if(own&&doc.seo.decidedDescription)return own
   // page 2+ of an archive: its archive's meta with "Page N: " (an imported page meta repeats the archive's word for word)
   const page=archiveRoot(doc)
   const rootMeta=page?.root?publicDescription(page.root):undefined

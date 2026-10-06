@@ -229,6 +229,20 @@ export function robotsResponse(): NextResponse {
   return new NextResponse(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache' } })
 }
 
+/**
+ * R2.5 (CT 2026-10-05, launch indexing contract): the X-Robots-Tag decision in payload runtime, made per request from
+ * H2O_INDEXING_POLICY. Fail closed: unless the policy is exactly "production", every response is `noindex, nofollow`. In
+ * production the page's own decision applies (per route, below). The admin, the API and the CRM are noindex in every policy.
+ */
+const PRIVATE_SURFACE = /^\/(admin|api|crm)(\/|$)/
+const productionIndexing = (): boolean => process.env.H2O_INDEXING_POLICY === 'production'
+const withRobots = (res: NextResponse, value: string | null): NextResponse => {
+  if (value !== null) res.headers.set('X-Robots-Tag', value)
+  return res
+}
+/** The policy floor for a response that has no page decision of its own (rewrites, redirects, files, robots.txt). */
+const policyFloor = (pathname: string): string | null => (PRIVATE_SURFACE.test(pathname) || !productionIndexing() ? 'noindex, nofollow' : null)
+
 function payloadPublic(req: NextRequest): NextResponse {
   const pathname = req.nextUrl.pathname
   // R1B: the sitemap is answered by an internal route handler (it subtracts withdrawals the release does not
@@ -244,10 +258,10 @@ function payloadPublic(req: NextRequest): NextResponse {
     // header the proxy sets itself (a client-supplied value is overwritten).
     const headers = new Headers(req.headers)
     headers.set(SITEMAP_FILE_HEADER, pathname.slice(1))
-    return NextResponse.rewrite(target, { request: { headers } })
+    return withRobots(NextResponse.rewrite(target, { request: { headers } }), policyFloor(pathname))
   }
-  if (pathname === '/robots.txt') return robotsResponse()
-  if (EXCLUDED.test(pathname)) return passThrough(req)
+  if (pathname === '/robots.txt') return withRobots(robotsResponse(), policyFloor(pathname))
+  if (EXCLUDED.test(pathname)) return withRobots(passThrough(req), policyFloor(pathname))
   if (CRM_PATH.test(pathname)) return crmResponse(req)
   if (GONE_PATHS.has(pathKeyOf(pathname)))
     return new NextResponse('Gone', { status: 410, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'no-cache' } })
@@ -255,7 +269,7 @@ function payloadPublic(req: NextRequest): NextResponse {
   const redirect = ledger?.redirects.find((r) => pathKeyOf(r.source) === pathKeyOf(pathname))
   // R2.4 (CT 2026-10-05, SEO Checker item k): every published redirect — ledger consolidations and withdrawals — is a
   // 301, whatever the stored status (imported records default to 308; the batch normalises them too).
-  if (redirect) return NextResponse.redirect(redirectLocation(redirect.destination, req), 301)
+  if (redirect) return withRobots(NextResponse.redirect(redirectLocation(redirect.destination, req), 301), policyFloor(pathname))
   const nonce = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('base64')
   const csp = payloadPublicPolicy(nonce, pathname)
   const requestHeaders = new Headers(req.headers)
@@ -264,7 +278,7 @@ function payloadPublic(req: NextRequest): NextResponse {
   // Locale Part B: the page language reaches the layout's <html lang> (preserved locale pages; English otherwise).
   requestHeaders.set(LANGUAGE_HEADER, languageFor(pathname))
   const preview = req.cookies.has('__prerender_bypass')
-  const production = process.env.H2O_INDEXING_POLICY === 'production'
+  const production = productionIndexing()
   const row = ledger?.routes.find((r) => pathKeyOf(r.path) === pathKeyOf(pathname))
   const published = !preview && production && row?.state === 'PUBLIC'
   const robots = published && NOINDEX_FOLLOW_PATHS.has(row.path) ? 'noindex, follow' : published && row.indexable ? null : 'noindex, nofollow'

@@ -13,7 +13,7 @@ import {Wave4ArticleDetail} from '../Wave4Presentation'
 import {articleByline,matchedWave4Article} from '../wave4'
 import {aliasReleaseDocument} from '../release-document'
 import {articleMetadataTitle} from '../article-metadata'
-import {projectPublicAuthorIdentity} from '../public-author-identity'
+import {PUBLIC_AUTHOR_DESCRIPTION,projectPublicAuthorIdentity} from '../public-author-identity'
 import {releaseRoutes,salmonDocument,type SalmonDocument} from '../salmon'
 
 /** Admin redirect records Commander creates for this round (the /contact/ record belongs to the 4f3abda3 round). */
@@ -76,7 +76,8 @@ describe('public author identity',()=>{
       if(raw.includes('faizasyed'))affected.push(row.path)
     }
     // 65 hosted pages carried the dummy author in JSON-LD; 5 of them (the dummy archive, four shop pages) become redirects.
-    expect(affected).toHaveLength(60)
+    // R2.5: /contact/ (a 301 source that was still PUBLIC) is withdrawn to its redirect too.
+    expect(affected).toHaveLength(59)
     for(const p of affected){
       const html=renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean).map(decodeURIComponent)}),searchParams:Promise.resolve({})}))
       expect(html,p).not.toContain('faizasyed')
@@ -91,7 +92,8 @@ describe('public author identity',()=>{
     const doc={routeId:'SYNTHETIC',targetPath:'/x/',title:'X',children:[{tag:'a',attrs:{href:'/author/faizasyed-ai/'},children:['ICS Editorial Team']}],seo:{title:'X',h1:[],canonical:[],meta:[{name:'twitter:data1',value:'ICS Editorial Team'}],schema:[schema]}} as unknown as SalmonDocument
     const out=projectPublicAuthorIdentity(doc)
     const person=(JSON.parse(out.seo.schema[0]!) as {'@graph':Array<Record<string,unknown>>})['@graph'][1]!
-    expect(person).toEqual({'@type':'Person','@id':'https://h2ocooling.com/#/schema/person/1','name':'Tim Bozic','url':'https://h2ocooling.com/author/timbozic/'})
+    // R2.5 (CS153): the public author's graph node carries the approved description
+    expect(person).toEqual({'@type':'Person','@id':'https://h2ocooling.com/#/schema/person/1','name':'Tim Bozic','url':'https://h2ocooling.com/author/timbozic/',description:PUBLIC_AUTHOR_DESCRIPTION})
     expect(out.seo.meta).toEqual([{name:'twitter:data1',value:'Tim Bozic'}])
     expect(JSON.stringify(out.children)).toContain('"href":"/author/timbozic/"')
     expect(JSON.stringify(out)).not.toMatch(/faizasyed|example\.invalid/)

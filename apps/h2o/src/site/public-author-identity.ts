@@ -13,6 +13,12 @@ import type {SalmonDocument,SalmonNode} from './salmon'
  * covers documents imported before this decision without a re-import. Route identity fields are never touched.
  */
 export const PUBLIC_AUTHOR={name:'Tim Bozic',path:'/author/timbozic/'} as const
+/**
+ * R2.5 (CT ruling on the SEO pre-flight, 2026-10-05; OGCS claims sweep R1 CS153, CT accepted): the public author's
+ * description. It replaces the imported author biography (and the "Meet Tim Bozic…" variant) on every Person node that is
+ * the public author, on English and locale pages alike.
+ */
+export const PUBLIC_AUTHOR_DESCRIPTION='Tim Bozic is President of Industrial Cooling Solutions, with over two decades of experience in the industrial and manufacturing sectors. He leads ICS’s work in cooling tower engineering, construction, and upgrades for industrial clients in the USA and Asia.'
 /** The import-time neutral label (`content/public-author.ts`), as stored in already-imported documents. */
 const NEUTRAL_AUTHOR_LABEL='ICS Editorial Team'
 const RETIRED_AUTHOR_PATH=/\/author\/(?:faizasyed-ai|tbozic|altaf)\//g
@@ -42,6 +48,9 @@ function schemaValue(value:Json,inAuthor:boolean):Json{
     delete out.image
     if(typeof out.url==='string')out.url=/^https?:\/\//.test(out.url)?new URL(PUBLIC_AUTHOR.path,out.url).href:PUBLIC_AUTHOR.path
   }
+  // the public author's own Person node (with a description, or the graph node with an @id) carries the approved text
+  const isPublicAuthor=person&&(out.name===PUBLIC_AUTHOR.name||typeof out.url==='string'&&out.url.endsWith(PUBLIC_AUTHOR.path)||typeof out['@id']==='string'&&out['@id'].endsWith(PUBLIC_AUTHOR.path))
+  if(isPublicAuthor&&('description' in out||'@id' in out))out.description=PUBLIC_AUTHOR_DESCRIPTION
   return out
 }
 

@@ -40,9 +40,9 @@ describe('canonicals never resolve to a redirect',()=>{
       expect(publicPaths.has(decode(url.pathname)),`${row.path} -> ${row.canonical}`).toBe(true)
     }
   })
-  it('a public row that is itself a redirect source is never indexable, in the sitemap or in search (R2 shop remnants only)',()=>{
+  it('a public row is never a redirect source (R2.5: the R2 shop remnants and /contact/ are withdrawn to their 301s)',()=>{
     const redirected=ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export&&redirectSources.has(decode(row.path)))
-    expect(redirected.map(row=>row.path).sort()).toEqual(['/cart/','/checkout/','/contact/','/my-account/','/my-account/lost-password/'])
+    expect(redirected.map(row=>row.path).sort()).toEqual([])
     for(const row of redirected)expect(row,row.path).toMatchObject({indexable:false,sitemap:false,searchable:false})
   })
   it('the three audited canonical/redirect loops are self-canonical in the ledger and the rendered metadata',async()=>{
@@ -65,7 +65,8 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     expect(data('redirects-retired.tsv').some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
     expect(data('redirects-retired.tsv')).toHaveLength(0)
     // R2.4 creates one: /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
-    expect(data('redirects.tsv').filter(r=>r.action!=='UNCHANGED').map(r=>[r.source,r.action])).toEqual([['/new-cooling-tower-page/','CREATE']])
+    // R2.5 creates the eleven live-chain middle addresses (CT approved); everything else is in place
+    expect(data('redirects.tsv').filter(r=>r.action!=='UNCHANGED').map(r=>r.action)).toEqual(Array(11).fill('CREATE'))
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
     // Locale Part B: the locale and blog variants now go one hop to their preserved locale pages (and the locale URLs serve

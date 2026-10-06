@@ -119,7 +119,8 @@ for(const row of retiredRows){
 }
 for(const row of tsv('seo-fields.tsv')){
   const pending=row.meta_origin.includes('PENDING_OGCS')
-  if(row.action!=='UPDATE'){plan.seo.unchanged.push(row.path);continue}
+  // R2.5 (fresh production DB): every decided row is compared with the stored record, not only the delta's UPDATE rows, so one
+  // replay onto a freshly imported database writes them all; on staging a row already in place stays unchanged.
   const r=await getRoute(row.path),doc=r.published
   if(!doc&&!tsv('route-dispositions.tsv').some(d=>d.action==='PUBLISH'&&decode(d.path)===decode(row.path))){plan.blocked.push({path:row.path,reason:'published route record not found'});continue}
   if(pendingDraft(r)){plan.blocked.push({path:row.path,reason:'unpublished editor draft pending'});continue}

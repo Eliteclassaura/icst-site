@@ -3662,8 +3662,8 @@
       "sourceFile": "documents/SALMON-7a930f374040c43c.json",
       "sourceSha256": "0d772edeb4f7fcbf9349d7099062bb5fdcb81d6bb467132ca1a175b1aeb14f8f",
       "routeClass": "link-discovered",
-      "state": "PUBLIC",
-      "export": true,
+      "state": "REDIRECT",
+      "export": false,
       "indexable": false,
       "sitemap": false,
       "searchable": false,
@@ -3672,7 +3672,7 @@
       "sourceRobots": "follow, noindex",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/author/timbozic/"
     },
     {
       "path": "/author/tbozic/",
@@ -3680,8 +3680,8 @@
       "sourceFile": "documents/SALMON-b2503fcd6ca86806.json",
       "sourceSha256": "c15f7985e5a2b471368160a337fe128f825551cf35fa4cd93bba4f0ba4eea530",
       "routeClass": "link-discovered",
-      "state": "PUBLIC",
-      "export": true,
+      "state": "REDIRECT",
+      "export": false,
       "indexable": false,
       "sitemap": false,
       "searchable": false,
@@ -3690,7 +3690,7 @@
       "sourceRobots": "follow, noindex",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/author/timbozic/"
     },
     {
       "path": "/axial-fans-cooling-tower-applications-in-industrial-cooling-systems/",
@@ -4130,8 +4130,8 @@
       "sourceFile": "documents/SALMON-pages-525.json",
       "sourceSha256": "5012c030c32a4c6f7e4ea5410a8670e8f313fe80c75a75f4719ded83ace7b611",
       "routeClass": "pages",
-      "state": "PUBLIC",
-      "export": true,
+      "state": "REDIRECT",
+      "export": false,
       "indexable": false,
       "sitemap": false,
       "searchable": false,
@@ -4140,7 +4140,7 @@
       "sourceRobots": "noindex, follow",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/contact-us/"
     },
     {
       "path": "/category/blog/",
@@ -5660,8 +5660,8 @@
       "sourceFile": "documents/SALMON-pages-526.json",
       "sourceSha256": "5433d2f3e39fa53974a07805b64b064a9cf8a1f240c3f50642dc35890be56339",
       "routeClass": "pages",
-      "state": "PUBLIC",
-      "export": true,
+      "state": "REDIRECT",
+      "export": false,
       "indexable": false,
       "sitemap": false,
       "searchable": false,
@@ -5670,7 +5670,7 @@
       "sourceRobots": "noindex, follow",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/contact-us/"
     },
     {
       "path": "/chi-phi-giam-gia-chi-phi-thap-giai-nhiet-cong-nghiep-nam-2024-2/",
@@ -5948,8 +5948,8 @@
       "sourceFile": "documents/SALMON-pages-9.json",
       "sourceSha256": "93612fbacabf65189ec25ed1033137b66224875d1fee730a7b861f9657f2b304",
       "routeClass": "pages",
-      "state": "PUBLIC",
-      "export": true,
+      "state": "REDIRECT",
+      "export": false,
       "indexable": false,
       "sitemap": false,
       "searchable": false,
@@ -5958,7 +5958,7 @@
       "sourceRobots": "follow, noindex",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/contact-us/"
     },
     {
       "path": "/control-cooling-tower-silica-scaling/",
@@ -11330,8 +11330,8 @@
       "sourceFile": "documents/SALMON-pages-527.json",
       "sourceSha256": "63d2eeceb598b645c87703be9c94768860a23823b446cc158867d9bc05285257",
       "routeClass": "pages",
-      "state": "PUBLIC",
-      "export": true,
+      "state": "REDIRECT",
+      "export": false,
       "indexable": false,
       "sitemap": false,
       "searchable": false,
@@ -11340,7 +11340,7 @@
       "sourceRobots": "noindex, follow",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/contact-us/"
     },
     {
       "path": "/my-account/lost-password/",
@@ -11348,8 +11348,8 @@
       "sourceFile": "documents/SALMON-d9db9b44624216c7.json",
       "sourceSha256": "654e6f3997217ec54c625f160a2a3c1ed556d400355f99c2930943179428775f",
       "routeClass": "link-discovered",
-      "state": "PUBLIC",
-      "export": true,
+      "state": "REDIRECT",
+      "export": false,
       "indexable": false,
       "sitemap": false,
       "searchable": false,
@@ -11358,7 +11358,7 @@
       "sourceRobots": "noindex, follow",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/contact-us/"
     },
     {
       "path": "/near-net-zero-water-in-industrial-cooling-towers-for-2025/",

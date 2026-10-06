@@ -48,6 +48,44 @@ node ops/seo-pass/check-redirect-chains.mjs <staging-origin>
 - **frameworkSlashHopAccepted:** 1, the malformed tcf.com URL (308 → 301 → 200, CT ruling 3). A framework hop on any other source fails.
 - **Metas pending OGCS:** 0 after the R1.2 supplement.
 
+## R2.5: pre-launch fix pack (CT ruling on the SEO Checker's Round 9 pre-flight, 2026-10-05)
+
+One delta on the state R2.4 R2 leaves on staging (`--baseline=<R2.4 R2 data>`), and **one complete replay onto a fresh database**.
+
+**Code (ships in the image):**
+- The public author's JSON-LD description is the approved CS153 text on every Person node (EN and locale).
+- Sitemap: a noindex row is never listed, whatever its sitemap flag says.
+- A decided per-page meta wins on paginated archives; "Page N:" inheritance only fills pages without one.
+- Link resolution prefers an active redirect over a route row.
+- Provenance attributes no longer name the old Salmon host (no served page carries it); 123 product-gallery derivatives are
+  mapped to held originals (`content/salmon/r25-gallery-derivatives.json`).
+- X-Robots-Tag is decided at RUNTIME by the proxy from H2O_INDEXING_POLICY: anything but "production" is `noindex, nofollow`
+  on every response; in production the page's own decision applies; /admin, /api, /crm are always noindex. Payload builds
+  compile no robots header (next.config), so one image serves staging and production.
+
+**Batch** (`--ct-decisions=…,data/r25-ct-decisions.tsv --seo-set=data/r24-seo-set.tsv,data/r25-seo-set.tsv`):
+- The five redirect sources still PUBLIC (/contact/, /cart/, /checkout/, /my-account/, /my-account/lost-password/) and the two
+  author aliases are withdrawn to their 301s. The author aliases are now batch redirects (they were pre-existing Payload records).
+- The eleven live-chain middle addresses (`/look-cooling-tower-fan-efficiency-pt-2/` and ten more) 301 one hop to their final page.
+- OGCS R2.5: the /cooling-tower-construction/ title, the Robertshaw meta; cost figures as labelled ranges and CS161 as recorded
+  edits (`data/claim-edits.json` R25-OGCS-*, CS161); three decided metas cleaned of import residue.
+- `apply-seo-pass.mjs` plans SEO fields from the stored state (as every other phase already did), not from the delta's action
+  column, so one apply onto a freshly imported database writes them all.
+
+| Phase (staging, delta) | Expected |
+|---|---|
+| redirects | create 11, unchanged 396, normalise 0 |
+| routes | withdraw 7 |
+| seoFields | update 5 |
+| hygiene | routes 14 |
+| everything else, blocked | 0 |
+
+**Fresh production database:** authority import of this release, then ONE apply with
+`--expectations=expectations.fresh-db.json` (redirects create 389 / unchanged 18, seo 498, h1 9, restored 23, slot fixes 180,
+hygiene 95). The rehearsal's end state equals the staging chain's (every route field and every active redirect); the only
+differences are not served (retired redirect history; stale SEO fields on two withdrawn duplicates).
+`state-diff.mjs export|compare` lists anything that exists only in one database (run it on staging and on a fresh replay).
+
 ## R2.4: pre-launch SEO fix pack (CT 2026-10-05; SEO Checker baseline triage §3 a–l)
 
 One delta on the state Round 5 leaves on staging (`--baseline=<Round 5 data>`).

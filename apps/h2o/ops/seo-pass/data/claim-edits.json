@@ -2338,6 +2338,242 @@
    "allowEmpty": true,
    "row": "D3-14",
    "reason": "OGCS claims sweep R1 D3-14 (GATE; CT accepted 2026-10-05): CT ruling 2026-10-05: FIX D3, raw WPBakery shortcodes rendered as text"
+  },
+  {
+   "path": "/cooling-tower-cost/",
+   "op": "replace",
+   "find": " A proactive approach to maintenance always wins. A $500 sensor that predicts a motor failure can prevent a $50,000 emergency repair and the associated downtime. Following a comprehensive maintenance checklist is key to avoiding unexpected expenses.",
+   "replace": " A proactive approach to maintenance usually pays. A sensor costing a few hundred dollars that predicts a motor failure can prevent an emergency repair costing tens of thousands of dollars, plus the associated downtime. Following a comprehensive maintenance checklist is key to avoiding unexpected expenses.",
+   "run": 1,
+   "slot": "body.75.5",
+   "row": "R25-OGCS-4",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": " Routine biocide dosing costs a fraction of the $10,000 required for a single Legionella remediation event.",
+   "replace": " Routine biocide dosing costs a fraction of a single Legionella remediation event, which can run from several thousand to tens of thousands of dollars.",
+   "run": 1,
+   "slot": "body.3.1.1.7.49.5",
+   "row": "R25-OGCS-5",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "These sensors detect early bearing wear months before it causes a $50,000 motor failure.",
+   "replace": "These sensors can detect early bearing wear months before it leads to a motor failure costing tens of thousands of dollars.",
+   "slot": "body.3.1.1.7.51",
+   "row": "R25-OGCS-6",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "To understand the financial difference optimization makes, review these estimates. This table outlines the annual expenses for a typical 500-ton industrial unit operating 3,000 hours per year.",
+   "replace": "To understand the financial difference optimization makes, review these illustrative estimates for a typical 500-ton industrial unit operating 3,000 hours per year. They are industry estimates, not an ICS quote; actual costs depend on site conditions.",
+   "slot": "body.3.1.1.7.55",
+   "row": "R25-OGCS-7",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "Transitioning from a legacy setup to an optimized system recovers $22,200 annually.",
+   "replace": "In this illustrative example, moving from a legacy setup to an optimized system can save roughly $15,000 to $25,000 a year.",
+   "slot": "body.3.1.1.7.59",
+   "row": "R25-OGCS-14",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
+  },
+  {
+   "path": "/cooling-tower-replacement-cost/",
+   "op": "replace",
+   "find": "Reusing structurally sound base components can yield immediate project savings of $25,000 or more.",
+   "replace": "Reusing structurally sound base components can reduce project costs.",
+   "slot": "body.3.1.1.7.95",
+   "row": "R25-OGCS-15",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "ICS Optimized (VFD + IoT)",
+   "replace": "Optimized Setup (VFD + IoT)",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.0.2",
+   "row": "R25-OGCS-8",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table header)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "2026 Savings Potential",
+   "replace": "Typical Savings Range",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.0.3",
+   "row": "R25-OGCS-8",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table header)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "$36,000",
+   "replace": "$30,000 – $40,000",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.1.1",
+   "row": "R25-OGCS-9",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "$19,800",
+   "replace": "$17,000 – $23,000",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.1.2",
+   "row": "R25-OGCS-9",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "45% (Cube Law)",
+   "replace": "35–50% (Cube Law)",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.1.3",
+   "row": "R25-OGCS-9",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "$12,500",
+   "replace": "$10,000 – $15,000",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.2.1",
+   "row": "R25-OGCS-10",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "$9,400",
+   "replace": "$8,000 – $11,000",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.2.2",
+   "row": "R25-OGCS-10",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "25% (High CoC)",
+   "replace": "20–30% (High CoC)",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.2.3",
+   "row": "R25-OGCS-10",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "$5,800",
+   "replace": "$5,000 – $7,000",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.3.1",
+   "row": "R25-OGCS-11",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "$4,600",
+   "replace": "$4,000 – $5,500",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.3.2",
+   "row": "R25-OGCS-11",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "20% (Auto-Dosing)",
+   "replace": "15–25% (Auto-Dosing)",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.3.3",
+   "row": "R25-OGCS-11",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "$4,500",
+   "replace": "$4,000 – $5,500",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.4.1",
+   "row": "R25-OGCS-12",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "$2,800",
+   "replace": "$2,500 – $3,500",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.4.2",
+   "row": "R25-OGCS-12",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "$58,800",
+   "replace": "$49,000 – $67,500",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.5.1",
+   "row": "R25-OGCS-13",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "$36,600",
+   "replace": "$31,500 – $43,000",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.5.2",
+   "row": "R25-OGCS-13",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-operating-cost/",
+   "op": "replace",
+   "find": "$22,200 Annual ROI",
+   "replace": "About $15,000 – $25,000 per year",
+   "run": 0,
+   "slot": "body.3.1.1.7.57.0.0.5.3",
+   "row": "R25-OGCS-13",
+   "reason": "OGCS pre-flight fixes R2.5 (3d4f2ad4, CT accepted 2026-10-05): cost figures become labelled ranges (table row)"
+  },
+  {
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "op": "replace",
+   "find": " Contact us",
+   "replace": " Contact ICS",
+   "run": 1,
+   "slot": "body.3.1.1.7.119",
+   "row": "CS161",
+   "reason": "OGCS claims sweep R1 CS161 (CT accepted; R2.5 pre-flight): puffery; quote-only CTA. The link stays on \"Contact ICS\"."
+  },
+  {
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "op": "replace",
+   "find": " for premium services and book your maintenance appointment Now!",
+   "replace": " to request a quote for maintenance.",
+   "run": 2,
+   "slot": "body.3.1.1.7.119",
+   "row": "CS161",
+   "reason": "OGCS claims sweep R1 CS161 (CT accepted; R2.5 pre-flight): puffery; quote-only CTA. The link stays on \"Contact ICS\"."
   }
  ]
 }

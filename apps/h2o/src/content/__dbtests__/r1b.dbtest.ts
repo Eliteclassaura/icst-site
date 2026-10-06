@@ -27,10 +27,15 @@ type Exec = { execute: (q: unknown) => Promise<{ rows?: Array<Record<string, unk
 const FANS = 'SALMON-pages-2712' // /fans/: D1 product cards + D3 "Contact for pricing"
 const SOLUTIONS = 'SALMON-pages-7'
 const INDUSTRIES = 'SALMON-pages-8'
-const D6_PAGE = 'LIVE-pages-19498'
+// The page a test withdraws and republishes: an ordinary published LIVE page (PUBLIC, exported, indexable, in the sitemap; not
+// structural, no quote intent, no exclusions). R2.5: it was /new-cooling-tower-page/ (LIVE-pages-19498) until R2.4 R2 withdrew
+// that page to a 301 on a CT ruling — a REDIRECT record is frozen reference data, so an editor's unpublish is refused (403),
+// correctly. The tests' intent is unchanged.
+const WITHDRAWABLE_PAGE = 'LIVE-pages-5010'
+const WITHDRAWABLE_PATH = '/dry-soda-blast-cleaning-services-2/'
 const AUTHOR = 'SALMON-7a930f374040c43c'
 const CONTACT = 'SALMON-pages-1446'
-const SLICE = new Set([FANS, SOLUTIONS, INDUSTRIES, D6_PAGE, AUTHOR, 'SALMON-pages-48', 'SALMON-posts-3968', 'RELEASE-SEARCH', CONTACT])
+const SLICE = new Set([FANS, SOLUTIONS, INDUSTRIES, WITHDRAWABLE_PAGE, AUTHOR, 'SALMON-pages-48', 'SALMON-posts-3968', 'RELEASE-SEARCH', CONTACT])
 let admin: TestUser, editor: TestUser, sales: TestUser
 let product = ''
 const sys = { overrideAccess: true as const, depth: 0 }
@@ -38,6 +43,15 @@ const db = async () => ((await payload()).db as unknown as { drizzle: Exec }).dr
 const seqNow = async () => maxVisibleSeq(await db())
 const rec = async (routeId: string, draft = false): Promise<Doc> =>
   (await (await payload()).find({ collection: 'public-routes' as never, where: { routeId: { equals: routeId } } as never, limit: 1, draft, ...sys })).docs[0] as unknown as Doc
+/** The withdrawal target, checked first (CT 2026-10-05): a page that is no longer published, PUBLIC and exported fails here
+ * with a clear message instead of a bare 403 from the authority freeze further down. */
+const withdrawableTarget = async (): Promise<Doc> => {
+  const r = await rec(WITHDRAWABLE_PAGE)
+  const d = (r?.disposition ?? {}) as Doc
+  if (!r || r._status !== 'published' || d.state !== 'PUBLIC' || d.export !== true)
+    throw new Error(`fixture no longer withdrawable: ${WITHDRAWABLE_PAGE} (${WITHDRAWABLE_PATH}) is ${r ? `${String(r._status)}, ${String(d.state)}, export ${String(d.export)}` : 'missing'}; pick another published, exported LIVE page`)
+  return r
+}
 /** The records actually inside the promoted Pagefind index (decoded fragment files). */
 const searchRecords = (): Array<{ url: string; content: string }> => {
   const dir = path.join(searchDirOf(currentRelease()!), 'pagefind', 'fragment')
@@ -174,7 +188,7 @@ describe('PUBLISH_FAILURE_RETRY (probe F4.1/F4.2)', () => {
 describe('WITHDRAWAL_DURING_SNAPSHOT (probe F5)', () => {
   it('a withdrawal committed between the index and document reads: the build stays one coherent snapshot, the withdrawal is revoked at once and the next release drops it', async () => {
     const p = await payload()
-    const target = await rec(D6_PAGE)
+    const target = await withdrawableTarget()
     let committed = 0
     buildBarriers.afterIndex = async () => {
       buildBarriers.afterIndex = null
@@ -186,15 +200,15 @@ describe('WITHDRAWAL_DURING_SNAPSHOT (probe F5)', () => {
     expect(out.outcome).toBe('PROMOTED')
     expect(committed).toBeGreaterThan(0)
     // The release reflects the snapshot it read (page still listed) — never a mixed/older-file fallback …
-    expect(ledgerRow(D6_PAGE)!.state).toBe('PUBLIC')
+    expect(ledgerRow(WITHDRAWABLE_PAGE)!.state).toBe('PUBLIC')
     // … and the withdrawal is not covered, so it is revoked for every public request right now.
     resetRevocationCache()
     const rev = await computeRevocations(p)
-    expect(rev.routeIds.has(D6_PAGE)).toBe(true)
-    expect(rev.paths.has('/new-cooling-tower-page/')).toBe(true)
+    expect(rev.routeIds.has(WITHDRAWABLE_PAGE)).toBe(true)
+    expect(rev.paths.has(WITHDRAWABLE_PATH)).toBe(true)
     const next = await runPublishingSync(p, committed)
     expect(next.outcome).toBe('PROMOTED')
-    expect(ledgerRow(D6_PAGE)).toBeUndefined()
+    expect(ledgerRow(WITHDRAWABLE_PAGE)).toBeUndefined()
     resetRevocationCache()
     expect((await computeRevocations(p)).routeIds.size).toBe(0)
     await rest.patch(`public-routes/${String(target.id)}?draft=false`, editor.token, { _status: 'published' })
@@ -202,16 +216,16 @@ describe('WITHDRAWAL_DURING_SNAPSHOT (probe F5)', () => {
   })
   it('a withdrawal stays revoked while the runner keeps failing (no stale release presents it)', async () => {
     const p = await payload()
-    const target = await rec(D6_PAGE)
+    const target = await withdrawableTarget()
     await rest.patch(`public-routes/${String(target.id)}`, editor.token, { _status: 'draft' })
     armFault('search-build')
     await expect(runPublishingSync(p, await seqNow())).rejects.toThrow()
     resetRevocationCache()
-    expect((await computeRevocations(p)).paths.has('/new-cooling-tower-page/')).toBe(true)
+    expect((await computeRevocations(p)).paths.has(WITHDRAWABLE_PATH)).toBe(true)
     disarmFaults()
     await rest.patch(`public-routes/${String(target.id)}?draft=false`, editor.token, { _status: 'published' })
     resetRevocationCache()
-    expect((await computeRevocations(p)).paths.has('/new-cooling-tower-page/')).toBe(false) // republished: live again
+    expect((await computeRevocations(p)).paths.has(WITHDRAWABLE_PATH)).toBe(false) // republished: live again
     await runPublishingSync(p, await seqNow())
   })
 })
@@ -265,16 +279,16 @@ describe('READINESS_RELEASE_COHERENCE and ROLLBACK_SCOPE_AND_PROOF (probe F6)', 
   it('rollback re-points the derived content+search pair only; later withdrawals stay revoked; the database is unchanged', async () => {
     const p = await payload()
     const before = currentRelease()!
-    const target = await rec(D6_PAGE)
+    const target = await withdrawableTarget()
     await rest.patch(`public-routes/${String(target.id)}`, editor.token, { _status: 'draft' })
     await runPublishingSync(p, await seqNow())
-    expect(ledgerRow(D6_PAGE)).toBeUndefined()
+    expect(ledgerRow(WITHDRAWABLE_PAGE)).toBeUndefined()
     const rolled = repointRelease(before.id)
     expect(currentRelease()!.id).toBe(rolled.id)
     expect(releaseReadiness().ok).toBe(true)
-    expect((await rec(D6_PAGE))._status).toBe('draft') // DB untouched by the rollback
+    expect((await rec(WITHDRAWABLE_PAGE))._status).toBe('draft') // DB untouched by the rollback
     resetRevocationCache()
-    expect((await computeRevocations(p)).paths.has('/new-cooling-tower-page/')).toBe(true)
+    expect((await computeRevocations(p)).paths.has(WITHDRAWABLE_PATH)).toBe(true)
     expect(listReleases().length).toBeGreaterThan(1)
     await rest.patch(`public-routes/${String(target.id)}?draft=false`, editor.token, { _status: 'published' })
     await runPublishingSync(p, await seqNow())
@@ -291,7 +305,7 @@ describe('EDITOR_BODY_MEDIA_GLOBALS (typed controls, not raw JSON)', () => {
   })
   it('every imported slot round-trips through Payload unedited (an untouched page renders exactly as imported)', async () => {
     const { slotEdited } = await import('../content-slots')
-    for (const id of [FANS, INDUSTRIES, D6_PAGE, 'SALMON-pages-48']) {
+    for (const id of [FANS, INDUSTRIES, WITHDRAWABLE_PAGE, 'SALMON-pages-48']) {
       const r = await rec(id, true)
       expect((r.slots as ContentSlot[]).filter((s) => slotEdited(s)).map((s) => s.key)).toEqual([])
     }

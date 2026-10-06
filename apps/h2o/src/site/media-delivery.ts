@@ -17,3 +17,15 @@ export function deliverySrc(src:string|undefined):string|undefined{
   derivatives??=new Map((JSON.parse(readFileSync(path.join(process.cwd(),'content/media-derivatives.json'),'utf8')) as {items:Derivative[]}).items.map(item=>[item.src,item.derivative]))
   return derivatives.get(src)??src
 }
+
+/**
+ * R2.5 (CT ruling on the SEO pre-flight, 2026-10-05): the provenance attributes (data-source-src / data-source-url) name the
+ * imported image without the old Salmon staging host, so no served page carries that host (`salmon:/wp-content/…`).
+ * Other sources pass through unchanged.
+ */
+export const SALMON_HOST_ORIGIN=/^https?:\/\/salmon-rhinoceros-754457\.hostingersite\.com(?=\/|$)/
+export function provenanceRef(src:string):string
+export function provenanceRef(src:string|undefined):string|undefined
+export function provenanceRef(src:string|undefined):string|undefined{
+  return src?src.replace(SALMON_HOST_ORIGIN,'salmon:'):src
+}

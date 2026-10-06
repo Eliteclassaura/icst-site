@@ -19,7 +19,6 @@ import path from 'node:path'
 // redirect table is compiled in and the public X-Robots-Tag is decided per request by the indexing policy.
 // Repository mode (tests, static release, plain dev) keeps the accepted behaviour exactly.
 const payloadRuntime = process.env.H2O_CONTENT_SOURCE === 'payload'
-const productionIndexing = process.env.H2O_INDEXING_POLICY === 'production'
 const nextConfig: NextConfig = {
   output: 'standalone',
   // Monorepo: trace workspace packages (@factory/agency-core) from the repository root.
@@ -35,9 +34,12 @@ const nextConfig: NextConfig = {
   async headers() {
     // Payload admin is never framed (clickjacking); it opens previews in a new tab, not a live-preview iframe.
     const adminFraming = { source: '/admin/:path*', headers: [{ key: 'X-Frame-Options', value: 'DENY' }, { key: 'Content-Security-Policy', value: "frame-ancestors 'none'" }] }
-    if (payloadRuntime && productionIndexing)
-      return [adminFraming, ...['/admin/:path*', '/api/:path*', '/crm/:path*'].map((source) => ({ source, headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] }))]
-    return [...(payloadRuntime ? [adminFraming] : []), {source:'/:path*',headers:[{key:'X-Robots-Tag',value:'noindex, nofollow'}]}]
+    // R2.5 (CT 2026-10-05, launch indexing contract): in payload runtime the X-Robots-Tag decision is the proxy's, at RUNTIME,
+    // from H2O_INDEXING_POLICY (src/proxy.ts) — one image serves staging (private) and production. A header compiled here at
+    // build time would follow the build environment, not the running one, and override the proxy on every page.
+    if (payloadRuntime) return [adminFraming]
+    // Repository mode (tests, the static release path, plain dev): unchanged.
+    return [{source:'/:path*',headers:[{key:'X-Robots-Tag',value:'noindex, nofollow'}]}]
   },
   async redirects() {
     if (payloadRuntime) return []

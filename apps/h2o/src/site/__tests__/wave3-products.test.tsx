@@ -7,6 +7,7 @@ import {PartsIndex,ProductDetail} from '../Wave3Presentation'
 import {activeProductRoutes,productPanels,productPrimaryMedia,productSummary} from '../Wave3Products'
 import {salmonDocument,salmonNodeText,salmonRoutes} from '../salmon'
 import {productMountGate} from '../gate'
+import {provenanceRef} from '../media-delivery'
 
 const env={H2O_TYPEFORM_FORM_ID:'F22cAgx3',H2O_TYPEFORM_ORIGIN:'https://form.typeform.com'}
 const withForm=<T,>(run:()=>T):T=>{
@@ -47,7 +48,8 @@ describe('Wave 3 accepted product archetype',()=>{
       expect(html,route.targetPath).toContain('data-wave3-archetype="ProductDetail"')
       expect(html,route.targetPath).toContain(doc.seo.h1[0].replaceAll('&','&amp;'))
       expect(html,route.targetPath).toContain(`data-salmon-document="${route.routeId}"`)
-      expect(html,route.targetPath).toContain(`data-source-url="${doc.images[0].src.replaceAll('&','&amp;')}"`)
+      // R2.5: the provenance attribute names the source without the old Salmon staging host
+      expect(html,route.targetPath).toContain(`data-source-url="${provenanceRef(doc.images[0].src).replaceAll('&','&amp;')}"`)
       expect(html,route.targetPath).toContain('https://form.typeform.com/to/F22cAgx3')
       expect(html,route.targetPath).toContain('product_id='+route.routeId.split('-').at(-1))
       expect(html,route.targetPath).not.toMatch(/<button[^>]*>\s*(?:Add to Cart|Buy Now|Checkout)/i)

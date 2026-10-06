@@ -35,10 +35,17 @@
     "/cooling-tower-automation/": "/industrial-cooling-tower-automation/",
     "/cooling-tower-thermal-upgrade/": "/thermal-upgrade/",
     "/aluminum-versus-frp-fan-blades-2/": "/aluminum-vs-frp-fan-blades/",
+    "/contact/": "/contact-us/",
+    "/author/faizasyed-ai/": "/author/timbozic/",
+    "/author/tbozic/": "/author/timbozic/",
     "/build-a-new-cooling-tower/": "/build-new-cooling-tower/",
+    "/cart/": "/contact-us/",
+    "/checkout/": "/contact-us/",
     "/cooling-tower-construction-repair-in-singapore/contact-us/": "/contact-us/",
     "/cooling-tower-inspection-guide-2/": "/cooling-tower-inspection-guide/",
     "/crossflow-vs-counterflow-cooling-tower/": "/counterflow-vs-crossflow/",
+    "/my-account/": "/contact-us/",
+    "/my-account/lost-password/": "/contact-us/",
     "/new-cooling-tower-page/": "/new-cooling-towers/"
   }
 }

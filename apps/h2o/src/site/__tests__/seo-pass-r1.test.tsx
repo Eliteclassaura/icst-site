@@ -49,7 +49,8 @@ describe('release authority and route ledger',()=>{
     for(const p of overrides.index){expect(auth.get(p),p).toMatchObject({state:'PUBLIC',indexable:true,sitemap:true});expect(EMPTY_ARCHIVE_PATHS,p).not.toContain(p)}
   })
   it('the 18 consolidated pages (and R2.4’s /new-cooling-tower-page/) become REDIRECT rows pointing at a PUBLIC route; the two designed pages are kept (CT ruling 2026-10-04)',()=>{
-    expect(Object.keys(overrides.redirectSources)).toHaveLength(19)
+    // R2.5: + the five redirect sources that were still PUBLIC (/contact/ and the shop remnants) and the two author aliases
+    expect(Object.keys(overrides.redirectSources)).toHaveLength(26)
     expect(overrides.redirectSources['/new-cooling-tower-page/']).toBe('/new-cooling-towers/')
     // Reversed for the designed pages: the live duplicates are withdrawn into them.
     expect(overrides.redirectSources['/cooling-tower-thermal-upgrade/']).toBe('/thermal-upgrade/')
@@ -147,7 +148,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: the published Thai Salmon page (its own title, the live meta).
     // R2.2: + the D3 portfolio row (CT-ruled meta and title). R2.4: + 12 rows of the OGCS R2.4 titles/metas (13 pages; the
     // /industrial-cooling-towers/ row existed). R2.4 R2: + the 15 archive metas (OGCS R2.4A).
-    expect(seo).toHaveLength(497)
+    expect(seo).toHaveLength(498) // R2.5: + the /cooling-tower-construction/ title row (OGCS R2.5)
     const titles=seo.map(row=>row.title!)
     expect(new Set(titles).size).toBe(titles.length)
     // a meta-only row keeps the page's current title (two noindex tag archives keep their term-list titles)
@@ -168,11 +169,12 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     expect(seo.find(row=>row.path==='/category/cooling-tower-cost/')?.meta).toBe('ICS articles on cooling tower cost: replacement budgeting, ROI and hidden expenses, plus risk management strategies for commercial cooling towers.')
     expect(EMPTY_ARCHIVE_PATHS).toContain('/category/cooling-tower-cost/')
   })
-  it('redirects: unique sources, single hop to a 200 target, no loops or self-redirects; author rows dropped',()=>{
+  it('redirects: unique sources, single hop to a 200 target, no loops or self-redirects; author aliases owned by the batch',()=>{
     // 474, plus the 13 translated posts outside the Part A universe (CT sitemap parity ruling 2026-10-05).
     // Locale Part B: 98 R1 locale→English redirects retire (the locale page is preserved), 4 locale redirects are new.
     // R2.4: + /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
-    expect(redirects).toHaveLength(394)
+    // R2.5: + the two author aliases (the batch owns them; fresh production DB) and the eleven live-chain middle addresses.
+    expect(redirects).toHaveLength(407)
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -184,7 +186,9 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
       expect(served.has(target)||existsSync(path.join(APP,'public',target)),`${row.source} -> ${target}`).toBe(true)
       expect(row.source,row.source).toMatch(/^\/[^\s<>"]*$/)
     }
-    for(const p of ['/author/tbozic/','/author/faizasyed-ai/'])expect(sources.has(p),p).toBe(false)
+    // R2.5 (CT ruling, fresh production DB): the two author aliases are no longer pre-existing Payload records; the batch owns
+    // their single-hop 301 to the public author archive.
+    for(const p of ['/author/tbozic/','/author/faizasyed-ai/'])expect(redirects.find(row=>row.source===p),p).toMatchObject({destination:'/author/timbozic/',status:'301'})
     expect(redirects.find(row=>row.source==='/aluminum-vs-frp-fan-blades/https:/www.tcf.com/wp-content/uploads/2021/12/High-Temperature-Fans-FE-32/')?.destination).toBe('/aluminum-vs-frp-fan-blades/')
     // Redirects that pointed at a held article that failed the content check follow its fallback.
     expect(redirects.find(row=>row.source==='/cooling-tower-nozzle-clogging/')?.destination).toBe('/nozzles/')
@@ -194,20 +198,21 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
   it('conformance contract: 1,125 rows (the OGCS and CT rulings, OGCS Locale Part A deciding every locale URL, the R2.2 D3 row and R2.4), none held',()=>{
     // R2.4: + 10 pages of the OGCS R2.4 titles/metas (the two designed pages had rows) and the /new-cooling-tower-page/ 301;
     // R2.4 R2: + the 15 archives with an OGCS meta.
-    expect(conformance).toHaveLength(1125)
+    // R2.5: + 13 redirect rows and the /cooling-tower-construction/ title row.
+    expect(conformance).toHaveLength(1139)
     expect(conformance.filter(row=>row.kind==='locale')).toHaveLength(166)
     const count=(kind:string)=>conformance.filter(row=>row.expect===kind).length
-    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([721,394,10,0]) // R2.2: + the D3 portfolio (200)
+    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([722,407,10,0]) // R2.2: + the D3 portfolio (200)
     for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
-    // R2.4 (CT 2026-10-05) is ONE delta on the state Round 5 leaves on staging: the /new-cooling-tower-page/ withdrawal and its
-    // 301, the 50 imported 308 records set to 301, the OGCS R2.4 titles/metas on 13 pages and the 15 archive metas (R2.4 R2), and internal links re-pointed at
-    // final URLs (2 routes the batch writes anyway, 105 on their own).
-    expect(expectations.expect.routes).toEqual({publish:0,withdraw:1,index:0,canonical:0})
-    expect(expectations.expect.redirects).toEqual({create:1,update:0,unchanged:393,retire:0,normalise:50})
-    expect(expectations.expect.seoFields).toMatchObject({update:28,pendingOgcs:0})
-    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:2})
-    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:105})
+    // R2.5 (CT 2026-10-05) is ONE delta on the state R2.4 R2 leaves on staging: the five redirect sources still PUBLIC and the two
+    // author aliases withdrawn to their 301s, the eleven live-chain middle addresses created, the OGCS R2.5 title/meta and three
+    // cleaned metas, and the recorded cost/CS161 edits plus author-alias link re-points (14 routes on their own).
+    expect(expectations.expect.routes).toEqual({publish:0,withdraw:7,index:0,canonical:0})
+    expect(expectations.expect.redirects).toEqual({create:11,update:0,unchanged:396,retire:0,normalise:0})
+    expect(expectations.expect.seoFields).toMatchObject({update:5,pendingOgcs:0})
+    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:0})
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:14})
     expect(expectations.expect.h1).toEqual({update:0})
     expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:0})
     expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)
@@ -215,7 +220,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     const repoint=tsv('locale-b-repoint.tsv')
     expect(repoint.map(row=>row.source)).toEqual(['/วิธีป้องกันแบคทีเรีย-legionella/','/逆流-vs-クロスフロー/'])
     for(const row of repoint)expect(decode(redirects.find(r=>decode(r.source!)===decode(row.source!))!.destination!),row.source).toBe(row.destination_after_locale_b)
-    expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(19)
+    expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(26)
     expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT').map(row=>[row.path,row.redirect])).toEqual(Object.entries(overrides.redirectSources))
   })
   it('restored files are byte-identical to the verified backup copies in the ledger',()=>{

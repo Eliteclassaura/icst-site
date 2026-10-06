@@ -12,7 +12,8 @@ export type SalmonDocument = {
   routeId:string;sourceUrl:string;targetPath:string;type:string;title:string
   sourceIdentity:{sha256:string};text:string;children:SalmonNode[]
   chrome:Array<{region:string;text:string;tree:SalmonNode}>
-  seo:{title:string;meta:Array<{name:string;value:string}>;canonical:string[];h1:string[];schema:string[]}
+  /** decidedDescription (R2.5): the description meta is the record's own SEO field (a decided value), not the import's. */
+  seo:{title:string;meta:Array<{name:string;value:string}>;canonical:string[];h1:string[];schema:string[];decidedDescription?:boolean}
   images:Array<{src:string;section:string;order:number;alt:string|null}>
 }
 export type SalmonMedia = {url:string;state:string;file?:string;sha256?:string;width?:number;height?:number}

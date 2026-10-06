@@ -203,7 +203,10 @@ const baseline=baselineDir?{
 const dispositionKey=d=>`${d.action} ${safeDecode(d.path)} ${d.redirect??''}${d.canonical??''}`
 const applied=d=>Boolean(baseline?.dispositions.has(dispositionKey(d)))
 
-const DROPPED=new Set([`${ORIGIN}/author/tbozic/`,`${ORIGIN}/author/faizasyed-ai/`])
+/** CT 2026-10-04: OGCS's two author rows are not taken; both addresses 301 to the public author archive. R2.5 (CT ruling,
+ * fresh production database): those 301s were Payload records made before the batch existed, so the batch now owns them. */
+const AUTHOR_ALIASES=new Set([`${ORIGIN}/author/tbozic/`,`${ORIGIN}/author/faizasyed-ai/`])
+for(const d of decisions)if(AUTHOR_ALIASES.has(d.url))Object.assign(d,{state:'301',redirect_target:`${ORIGIN}/author/timbozic/`,final_title:'',final_meta:'',canonical:'',reason:'CT ruling 2026-10-04 (author identity) and R2.5 (fresh production DB): single-hop 301 to the public author archive'})
 /** Rows held for a Control Tower ruling are marked HELD_FOR_CT_RULING and not applied. The two R1 holds (/thermal-upgrade/,
  * /cooling-tower-japan/) were ruled on 2026-10-04 (REVERSED_FOR_DESIGNED above); nothing is held now. */
 const HELD_FOR_RULING=new Set()
@@ -248,7 +251,6 @@ const conformance=[],redirects=[],seo=[],dispositions=[],gone=[],retired=[]
 const problemsEarly=[]
 const expect={redirects:{create:0,update:0,unchanged:0,retire:0,normalise:0},routes:{publish:0,withdraw:0,index:0,canonical:0},seoFields:{update:0,unchanged:0,pendingOgcs:0},files:0,gone:0}
 for(const d of decisions){
-  if(DROPPED.has(d.url))continue
   const {path:reqPath,query,key}=requestPath(d.url)
   const now=probe.get(d.url)
   if(HELD_FOR_RULING.has(key)){conformance.push({url:reqPath,expect:'HELD_FOR_CT_RULING',target:pathOf(d.redirect_target)});continue}
@@ -266,7 +268,10 @@ for(const d of decisions){
   if(state==='301'){
     // The proxy compares decoded paths; store the browser's encoded form (the collection refuses raw whitespace).
     const destination=resolveTarget(target)
-    const live=now?now.status===200:d.live_route==='yes'
+    // R2.5 (CT 2026-10-05): a published route behind a decided 301 is withdrawn too, even where staging already answered the
+    // 301 (an older redirect record served over it) — the ledger must not list a redirect source as PUBLIC.
+    const baseRoute=routeByKey.get(key)
+    const live=(now?now.status===200:d.live_route==='yes')||Boolean(baseRoute&&baseRoute.state==='PUBLIC'&&baseRoute.export)
     const source=/\/$/.test(key)||/\.[A-Za-z0-9]{2,5}$/.test(key)?reqPath:`${reqPath}/`
     const prior=baseline?.redirects.get(safeDecode(source))
     // The action is decided after repointToFinal (the destination may still change).
@@ -368,7 +373,8 @@ if(claimsSeoFile)for(const c of tsv(claimsSeoFile).filter(c=>c.field!=='h1')){
 // meta, the decided field set). Same rule checks as every decided row.
 const seoSetFile=flag('seo-set')
 let seoSetApplied=0
-const seoSetRows=seoSetFile?tsv(seoSetFile).filter(r=>r.path):[]
+// R2.5: several files, comma-separated (R2.4's, then R2.5's); a later row for the same path and field wins
+const seoSetRows=seoSetFile?seoSetFile.split(',').flatMap(f=>tsv(f)).filter(r=>r.path):[]
 for(const c of seoSetRows){
   const key=safeDecode(c.path)
   if(!['title','meta'].includes(c.field)){problemsEarly.push(`seo set: field ${c.field} ${c.path}`);continue}
@@ -446,7 +452,9 @@ expect.redirects.retire=retired.length
 // base ledger the rebuild starts from); no batch before R2.4 wrote or retired one of them.
 {
   const touched=new Set([...redirects.filter(r=>r.action==='CREATE'||r.action==='UPDATE').map(r=>safeDecode(r.source)),...retired.map(r=>safeDecode(r.source))])
-  const statusRows=ledger.redirects.filter(r=>String(r.status)!=='301'&&!touched.has(safeDecode(r.source))).map(r=>({source:r.source,destination:r.destination,status_now:String(r.status),status:'301'}))
+  // R2.5: records the applied batch already normalised (its redirect-status.tsv) are 301 on staging now
+  const normalisedBefore=new Set(baselineDir&&existsSync(path.join(baselineDir,'redirect-status.tsv'))?tsv(path.join(baselineDir,'redirect-status.tsv')).map(r=>safeDecode(r.source)):[])
+  const statusRows=ledger.redirects.filter(r=>String(r.status)!=='301'&&!touched.has(safeDecode(r.source))&&!normalisedBefore.has(safeDecode(r.source))).map(r=>({source:r.source,destination:r.destination,status_now:String(r.status),status:'301'}))
   expect.redirects.normalise=statusRows.length
   writeTsv('redirect-status.tsv',['source','destination','status_now','status'],statusRows)
 }

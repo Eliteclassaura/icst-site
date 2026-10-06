@@ -184,12 +184,12 @@ describe('redirects and the R2.4 batch (items h, k; CT rulings)',()=>{
     expect(ledger.redirects.length).toBeGreaterThan(0)
     expect(ledger.redirects.filter(r=>r.status!==301)).toEqual([])
   },120_000)
-  it('the batch sets every imported 308 record to 301 (redirect-status.tsv) and expects exactly those',()=>{
+  it('the batch normalises every imported 308 record to 301 once (R2.4 set the 50; R2.5, a delta on R2.4, expects none)',()=>{
     const rows=tsv('redirect-status.tsv')
     const exp=JSON.parse(readFileSync(path.join(APP,'ops/seo-pass/data/expectations.json'),'utf8')).expect
     expect(rows.every(r=>r.status_now==='308'&&r.status==='301')).toBe(true)
     expect(exp.redirects.normalise).toBe(rows.length)
-    expect(rows.map(r=>r.source)).toEqual(expect.arrayContaining(['/cooling-tower-parts/','/cooling-tower-repair/','/cooling-tower-retrofit/','/hybrid-cooling-tower/','/cooling-tower-fill-media-replacement-2026/','/cooling-tower-fan-parts/','/cooling-tower-repair-upgrade-maintenance/','/tower-repair/']))
+    expect(rows).toEqual([])
   },120_000)
   it('no fixed page element links to a page that answers 301 (internal links point at final URLs)',()=>{
     const sources=new Set([...tsv('redirects.tsv').map(r=>decodeURIComponent(r.source!)),...ledger.redirects.map(r=>decodeURIComponent(r.source))])
@@ -204,7 +204,8 @@ describe('redirects and the R2.4 batch (items h, k; CT rulings)',()=>{
   },120_000)
   it('/new-cooling-tower-page/ is withdrawn with a 301 to /new-cooling-towers/ (CT ruling) and leaves the sitemap',()=>{
     expect(tsv('route-dispositions.tsv').find(r=>r.path==='/new-cooling-tower-page/')).toMatchObject({action:'WITHDRAW_TO_REDIRECT',redirect:'/new-cooling-towers/'})
-    expect(tsv('redirects.tsv').find(r=>r.source==='/new-cooling-tower-page/')).toMatchObject({destination:'/new-cooling-towers/',status:'301',action:'CREATE'})
+    // created by R2.4; R2.5 is a delta on it
+    expect(tsv('redirects.tsv').find(r=>r.source==='/new-cooling-tower-page/')).toMatchObject({destination:'/new-cooling-towers/',status:'301',action:'UNCHANGED'})
     expect(ledger.routes.find(r=>r.path==='/new-cooling-tower-page/')).toMatchObject({state:'REDIRECT',export:false,sitemap:false,redirect:'/new-cooling-towers/'})
   },120_000)
   it('the OGCS R2.4 titles and metas are the batch’s values (the withdrawn page’s title dropped; /search/ in code)',()=>{

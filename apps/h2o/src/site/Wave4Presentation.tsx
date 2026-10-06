@@ -7,7 +7,7 @@ import {articleByline,articleCardImage,articleDirectoryDocuments,articleDisplayT
 import {R2Discovery} from './R2Discovery'
 import {RfqMount} from './RfqMount'
 import {cssBackground} from './salmon-source'
-import {deliverySrc} from './media-delivery'
+import {deliverySrc,provenanceRef} from './media-delivery'
 import {PUBLIC_AUTHOR} from './public-author-identity'
 
 const exactImage='/media/figma-wave4/figma-w4-e7d87492.png'
@@ -39,7 +39,7 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
     <LuxuryHeader page={pageFor(doc)} routePath={path}/>
     <main id="main" className="wave4-library">
       <section className="wave4-photo-hero" aria-labelledby="wave4-title">
-        {salmonHero?<img src={deliverySrc(salmonHero.src)} width={salmonHero.width} height={salmonHero.height} alt="" fetchPriority="high" data-source-sha256={salmonHero.sha256} data-source-src={salmonHero.sourceUrl}/>:<img src={exactImage} width="2338" height="1957" alt="" fetchPriority="high" data-figma-image-ref="ee9f44091102d839dbcbdb7362b15e9b394a6a17"/>}
+        {salmonHero?<img src={deliverySrc(salmonHero.src)} width={salmonHero.width} height={salmonHero.height} alt="" fetchPriority="high" data-source-sha256={salmonHero.sha256} data-source-src={provenanceRef(salmonHero.sourceUrl)}/>:<img src={exactImage} width="2338" height="1957" alt="" fetchPriority="high" data-figma-image-ref="ee9f44091102d839dbcbdb7362b15e9b394a6a17"/>}
         <div className="wave4-photo-scrim"/>
         <div className="wave4-hero-content"><h1 id="wave4-title">{title}</h1><p>{lead}</p><a href="/contact-us/" className="wave4-action">Contact Our Team <span aria-hidden="true">→</span></a></div>
       </section>

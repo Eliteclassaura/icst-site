@@ -14,7 +14,7 @@
  * themselves emitted, so every member of a cluster emits the same set (reciprocity) and a cluster fills in on
  * its own as Locale Part B publishes the locale pages.
  */
-export type SitemapLedgerRow = { path: string; state: string; sitemap?: boolean; canonical?: string | null; routeClass?: string }
+export type SitemapLedgerRow = { path: string; state: string; sitemap?: boolean; indexable?: boolean; canonical?: string | null; routeClass?: string }
 export type HreflangMember = { hreflang: string; url: string }
 export type LocaleData = { clusters: HreflangMember[][]; languages: Record<string, string> }
 export type SitemapEntry = { child: string; loc: string; key: string; lastmod?: string; alternates?: HreflangMember[] }
@@ -83,6 +83,8 @@ export function exclusionReason(row: SitemapLedgerRow, input: SitemapInput): str
   if (input.redirected?.has(key)) return '301 redirect'
   if (input.revoked?.has(row.path) || input.revoked?.has(key)) return 'revoked (withdrawn since the release)'
   if (input.noindexFollow?.has(row.path) || input.noindexFollow?.has(key)) return 'noindex,follow'
+  // R2.5 (CT 2026-10-05, SEO pre-flight): a noindex row is never listed, whatever its sitemap flag says
+  if (row.indexable === false) return 'noindex'
   if (!row.sitemap) return 'not sitemap-approved'
   // CT 2026-10-05: paginated archive pages keep serving (index,follow, self-canonical) but are not landing pages.
   if (/\/page\/[0-9]+\/$/.test(key)) return 'paginated archive page'

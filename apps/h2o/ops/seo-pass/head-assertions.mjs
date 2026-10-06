@@ -61,3 +61,28 @@ export function paginationProblems(pathname, { title, meta }) {
   if (!meta) problems.push('no meta description')
   return problems
 }
+
+/** R2.5 (CT ruling on the SEO pre-flight, 2026-10-05; OGCS claims sweep R1 CS153): the public author's approved description,
+ * and the original biography's phrases that no JSON-LD may carry. */
+export const PUBLIC_AUTHOR_DESCRIPTION = 'Tim Bozic is President of Industrial Cooling Solutions, with over two decades of experience in the industrial and manufacturing sectors. He leads ICS’s work in cooling tower engineering, construction, and upgrades for industrial clients in the USA and Asia.'
+export const CS153_ORIGINAL = ['seasoned leader', 'proven track record', 'clients worldwide', 'cutting-edge', 'passionate about delivering']
+/** Problems with the author identity in a page's JSON-LD: an original CS153 phrase, or a public-author Person description that
+ * is not the approved text. Returns the number of public-author Person descriptions seen too. */
+export function authorProblems(html) {
+  const problems = []
+  let described = 0
+  for (const m of html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
+    for (const phrase of CS153_ORIGINAL) if (m[1].includes(phrase)) problems.push(`JSON-LD carries "${phrase}"`)
+    let data
+    try { data = JSON.parse(m[1]) } catch { continue }
+    const walk = (v) => {
+      if (Array.isArray(v)) v.forEach(walk)
+      else if (v && typeof v === 'object') {
+        if ([v['@type']].flat().includes('Person') && v.name === 'Tim Bozic' && 'description' in v) { described++; if (v.description !== PUBLIC_AUTHOR_DESCRIPTION) problems.push('public author description is not the approved CS153 text') }
+        Object.values(v).forEach(walk)
+      }
+    }
+    walk(data)
+  }
+  return { problems, described }
+}
