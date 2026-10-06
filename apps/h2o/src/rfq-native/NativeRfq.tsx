@@ -10,7 +10,8 @@
  * targets are 44px; motion is off under prefers-reduced-motion (CSS). No third-party script: everything is this bundle.
  */
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
-import { ChipGroup, Confirmation, CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, PrivacyNote, ReviewList } from './fields'
+import { captureFirstTouch } from './attribution'
+import { ChipGroup, Confirmation, CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, PrivacyNote, ReviewList, UnavailableNote } from './fields'
 import { displayValue, nextQuestion, questionsFor, validate } from './flow'
 import { t, type Question, type Registry } from './model'
 import { cleanContext, type RfqContext } from './submission'
@@ -21,6 +22,16 @@ export const RFQ_OPEN_EVENT = 'h2o:rfq-open'
 export type RfqOpenDetail = { context?: Record<string, unknown>; label?: string; trigger?: HTMLElement | null }
 /** Launcher strings, rendered before the registry loads (server-supplied from the same registry keys). */
 export type LauncherStrings = { label: string; aria: string; tooltip: string }
+
+/**
+ * The page's own name for the context note (CT R5.1, ruling 4): its H1, whitespace collapsed. Display only — the contract
+ * carries the page as `page_path`; nothing here is sent.
+ */
+export const pageLabel = (): string => {
+  const h1 = document.querySelector('main h1') ?? document.querySelector('h1')
+  const text = (h1?.textContent ?? '').replace(/\s+/g, ' ').trim()
+  return text.length <= 120 ? text : ''
+}
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
@@ -65,11 +76,15 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
   const openWith = useCallback((detail: RfqOpenDetail) => {
     const ctx: RfqContext = cleanContext(detail.context ?? { page_path: window.location.pathname, context_type: 'page', cta_placement: 'launcher' })
     setContext(ctx)
-    setContextLabel(detail.label ?? '')
+    setContextLabel(detail.label || pageLabel())
     returnTo.current = detail.trigger ?? (document.activeElement as HTMLElement | null)
     setOpen(true)
     start()
   }, [setContext, start])
+
+  // First-touch attribution (CT R5.1): the launcher renders on every public page, so the session's first page load records
+  // its landing tags here; nothing is sent until "Send request".
+  useEffect(() => { captureFirstTouch(window) }, [])
 
   // Any RFQ control on the page opens this panel with its own context.
   useEffect(() => {
@@ -148,7 +163,7 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
         </header>
         <div ref={logRef} className={styles.log} role="log" aria-live="polite" aria-relevant="additions" hidden={done}>
           {s.phase === 'loading' ? <p className={styles.bot} aria-busy="true"><span className={styles.dots} aria-hidden="true">…</span></p> : null}
-          {s.phase === 'unavailable' || !reg ? (s.phase === 'unavailable' ? <p className={styles.bot}><a href={OFFICES_HREF}>{launcher.label}</a></p> : null) : <>
+          {s.phase === 'unavailable' ? (reg ? <UnavailableNote reg={reg}/> : <p className={styles.bot}><a href={OFFICES_HREF}>{launcher.label}</a></p>) : !reg ? null : <>
             <p className={styles.bot}>{t(reg, 'greeting')}</p>
             {contextLabel ? <p className={styles.bot}>{t(reg, 'context.note', { context_label: contextLabel })}</p> : null}
             {s.phase === 'resume' ? <p className={styles.bot}>{t(reg, 'resume.prompt')}</p> : null}
@@ -163,7 +178,7 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
             </> : null}
           </>}
         </div>
-        {reg ? <div className={styles.footer} data-rfq-focus="">
+        {reg && s.phase !== 'unavailable' ? <div className={styles.footer} data-rfq-focus="">
           {s.phase === 'resume' ? <div className={styles.chips}>
             <button type="button" className={styles.chip} onClick={() => s.resume(true)}>{t(reg, 'resume.continue')}</button>
             <button type="button" className={styles.chip} onClick={() => s.resume(false)}>{t(reg, 'resume.restart')}</button>

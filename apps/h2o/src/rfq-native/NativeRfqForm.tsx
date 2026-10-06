@@ -7,7 +7,7 @@
  */
 import { useEffect, useId, useRef, useState } from 'react'
 import { searchCountries } from './countries'
-import { Confirmation, ErrorText, FailureNote, Honeypot, PrivacyNote, ReviewList } from './fields'
+import { Confirmation, ErrorText, FailureNote, Honeypot, PrivacyNote, ReviewList, UnavailableNote } from './fields'
 import { questionsFor } from './flow'
 import { t, type Question, type Registry } from './model'
 import { cleanContext } from './submission'
@@ -53,7 +53,8 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
   }, [errorIds, s.phase, s.registry, s.errors])
 
   const reg = s.registry
-  if (!reg) return s.phase === 'unavailable' ? null : <div className={styles.form} aria-busy="true"/>
+  if (s.phase === 'unavailable') return reg ? <div className={styles.form}><UnavailableNote reg={reg}/></div> : null
+  if (!reg) return <div className={styles.form} aria-busy="true"/>
   if (s.phase === 'sent') return <section className={styles.form} aria-live="polite"><Confirmation reg={reg} rfqNumber={s.rfqNumber}/></section>
   if (s.phase === 'review' || s.phase === 'sending') return <section className={styles.form} aria-labelledby={headingId}>
     <h3 id={headingId} className={styles.formHeading}>{t(reg, 'review.heading')}</h3>
@@ -68,7 +69,7 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
     {questions.map((q) => <Field key={q.id} reg={reg} q={q} value={s.answers[q.id] ?? ''} error={s.errors[q.id]} onChange={(v) => s.setAll({ ...s.answers, [q.id]: v })}/>)}
     <Honeypot reg={reg} value={hp} onChange={setHp}/>
     <PrivacyNote reg={reg}/>
-    <button type="submit" className={styles.primary}>{t(reg, 'review.heading')}</button>
+    <button type="submit" className={styles.primary}>{t(reg, 'form.continue')}</button>
   </form>
 }
 

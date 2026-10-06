@@ -77,6 +77,8 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
     void (async () => {
       const reg = await loader(locale)
       if (!reg || !reg.enabled) {
+        // a switched-off registry still carries its strings: the panel says so and points to the offices
+        if (reg) setRegistry(reg)
         setPhase('unavailable')
         return
       }

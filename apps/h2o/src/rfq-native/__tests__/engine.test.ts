@@ -10,7 +10,7 @@ import { createHash } from 'node:crypto'
 import { fixtureRegistry, CT_STRING_AMENDMENTS } from '../registry'
 import { answer, complete, migrate, nextQuestion, questionsFor, reopen, reviewGroups, submittedAnswers, validate, validateAll, type Answers } from '../flow'
 import { cleanContext, formToken, submitRfq } from '../submission'
-import { readAttribution, sessionAttribution } from '../attribution'
+import { ATTR_KEY, captureFirstTouch, readAttribution, sessionAttribution } from '../attribution'
 import { DRAFT_KEY, clearDraft, loadDraft, saveDraft } from '../draft'
 import { searchCountries } from '../countries'
 
@@ -37,8 +37,15 @@ describe('registry fixture = contract §1.1 seeded structure, strings from the O
     expect(reg.questions.find((q) => q.id === 'towers_cells')!.chips!.map((c) => c.value)).toEqual(['1', '2_4', '5_10', '11_plus', 'not_sure'])
     expect(reg.registryVersion).toMatch(/^rfq-r1-[0-9a-f]{8}$/)
   })
-  it('carries the CT amendments: "Email" with its hint, and the no-number confirmation', () => {
-    expect(CT_STRING_AMENDMENTS).toEqual({ 'contact.email.q': 'Email', 'contact.email.hint': 'A work email helps us reach the right team', 'confirm.body_no_number': 'Request sent. Thank you. A member of our team will review your request and contact you.' })
+  it('carries the CT amendments: "Email" with its hint, the no-number confirmation, and the Round 5 seed keys (R5.1)', () => {
+    expect(CT_STRING_AMENDMENTS).toEqual({
+      'contact.email.q': 'Email', 'contact.email.hint': 'A work email helps us reach the right team', 'confirm.body_no_number': 'Request sent. Thank you. A member of our team will review your request and contact you.',
+      'privacy.link_text': 'Privacy Policy', 'form.continue': 'Continue',
+      'panel.unavailable': 'Online requests are unavailable right now. Please contact one of {{offices_link}}.', 'offices.link_text': 'our offices',
+      'err.rate_limited': 'Too many requests from this connection. Please wait a few minutes and try again, or call one of {{offices_link}}.',
+      'err.server': "Something went wrong and your request wasn't sent. Please try again, or call one of {{offices_link}}.",
+    })
+    expect(reg.questions.find((q) => q.id === 'phone')).toMatchObject({ required: false, skippable: true })
     for (const [k, v] of Object.entries(CT_STRING_AMENDMENTS)) expect(reg.strings[k]).toBe(v)
   })
 })
@@ -150,13 +157,17 @@ describe('attribution and draft', () => {
     expect(a).toEqual({ utm_source: 'google', utm_campaign: 'q4', gclid: 'abc', landing_page: '/fans/', referrer: 'https://www.google.com/search' })
     expect(readAttribution('https://h2ocooling.com/', '', '_ga=GA1.1.123456.789012', true).ga_client_id).toBe('123456.789012')
   })
-  it('first touch wins for the session; consent is read now, never stored', () => {
+  it('first touch (R5.1): captured on the first page load under h2o.rfq.attr.v1; later pages never overwrite it; consent is read at send, never stored', () => {
     const store = new Map<string, string>()
     const sessionStorage = { getItem: (k: string) => store.get(k) ?? null, setItem: (k: string, v: string) => void store.set(k, v), removeItem: (k: string) => void store.delete(k) } as unknown as Storage
-    const win = (href: string, consent?: string) => ({ location: { href }, sessionStorage, document: { referrer: '', cookie: '_ga=GA1.1.1.2', documentElement: { dataset: consent ? { analyticsConsent: consent } : {} } } })
-    expect(sessionAttribution(win('https://h2ocooling.com/a/?utm_source=x', 'granted'))).toEqual({ utm_source: 'x', landing_page: '/a/', ga_client_id: '1.2' })
-    expect(JSON.parse(store.get('h2o.rfq.attribution.v1')!)).toEqual({ utm_source: 'x', landing_page: '/a/' })
-    expect(sessionAttribution(win('https://h2ocooling.com/b/'))).toEqual({ utm_source: 'x', landing_page: '/a/' })
+    const win = (href: string, consent?: string) => ({ location: { href }, sessionStorage, document: { referrer: 'https://www.google.com/search?q=fans', cookie: '_ga=GA1.1.1.2', documentElement: { dataset: consent ? { analyticsConsent: consent } : {} } } })
+    // nothing stored yet: the send falls back to the current page
+    expect(sessionAttribution(win('https://h2ocooling.com/x/?utm_source=now'))).toEqual({ utm_source: 'now', landing_page: '/x/', referrer: 'https://www.google.com/search' })
+    captureFirstTouch(win('https://h2ocooling.com/a/?utm_source=ads&utm_campaign=q4&gbraid=g1', 'granted'))
+    expect(JSON.parse(store.get(ATTR_KEY)!)).toEqual({ utm_source: 'ads', utm_campaign: 'q4', gbraid: 'g1', landing_page: '/a/', referrer: 'https://www.google.com/search' })
+    captureFirstTouch(win('https://h2ocooling.com/b/?utm_source=other'))
+    expect(sessionAttribution(win('https://h2ocooling.com/b/'))).toEqual({ utm_source: 'ads', utm_campaign: 'q4', gbraid: 'g1', landing_page: '/a/', referrer: 'https://www.google.com/search' })
+    expect(sessionAttribution(win('https://h2ocooling.com/b/', 'granted')).ga_client_id).toBe('1.2')
   })
   it('the draft lives under h2o.rfq.draft.v1 and survives a blocked store', () => {
     const store = new Map<string, string>()

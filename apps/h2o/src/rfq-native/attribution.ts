@@ -1,16 +1,21 @@
 /**
- * Native RFQ: attribution, captured natively (contract §4 "client capture rules"): utm_*, gclid, gbraid and wbraid from the
- * session's first page, with that page as landing_page; the referrer reduced to origin + path. Never a query string, never
- * a search term. The GA4 client id is read only when analytics consent is granted — the site has no analytics today, so the
- * signal (`<html data-analytics-consent="granted">`) is never set and the id is never sent.
+ * Native RFQ: first-touch attribution (contract §4 "client capture rules"; CT R5.1). On the session's FIRST page load the
+ * launcher (mounted on every public page) records utm_*, gclid, gbraid, wbraid, the landing path and the referrer
+ * (origin + path) in sessionStorage under `h2o.rfq.attr.v1`; "Send request" uses that record, so moving around the site
+ * never loses the landing tags. Nothing is sent before submit; no localStorage, no cookie is written, no query string or
+ * search term is kept. Values are trimmed and length-limited here; the server sanitises them to the contract limits.
+ * The GA4 client id stays dormant (owner: no GA for now): it is read only under `<html data-analytics-consent="granted">`,
+ * which nothing sets.
  */
 import type { Attribution } from './submission'
 
-const KEY = 'h2o.rfq.attribution.v1'
+export const ATTR_KEY = 'h2o.rfq.attr.v1'
 const TAGS: Array<[keyof Attribution, number]> = [['utm_source', 64], ['utm_medium', 64], ['utm_campaign', 128], ['utm_term', 128], ['utm_content', 128], ['gclid', 256], ['gbraid', 256], ['wbraid', 256]]
+// eslint-disable-next-line no-control-regex
+const CONTROL = /[\u0000-\u001f\u007f]/
 const clean = (v: string | null | undefined, max: number): string | undefined => {
   const s = (v ?? '').trim()
-  return s && s.length <= max && !s.includes('@') && /^[\p{L}\p{N} ._:/+~-]*$/u.test(s) ? s : undefined
+  return s && s.length <= max && !s.includes('@') && !CONTROL.test(s) ? s : undefined
 }
 
 /** What one page view says (pure: the caller passes the location, the referrer and the cookie string). */
@@ -43,23 +48,34 @@ export function readAttribution(href: string, referrer: string, cookie: string, 
   return out
 }
 
-/** The session's attribution: first touch wins (the landing page's tags), kept in sessionStorage. */
-export function sessionAttribution(win: { location: { href: string }; sessionStorage?: Storage; document: { referrer: string; cookie: string; documentElement?: { dataset?: DOMStringMap } } }): Attribution {
-  const consent = win.document.documentElement?.dataset?.analyticsConsent === 'granted'
-  const now = readAttribution(win.location.href, win.document.referrer, win.document.cookie, consent)
+type Win = { location: { href: string }; sessionStorage?: Storage; document: { referrer: string; cookie: string; documentElement?: { dataset?: DOMStringMap } } }
+const consentOf = (win: Win) => win.document.documentElement?.dataset?.analyticsConsent === 'granted'
+const held = (win: Win): Attribution | null => {
   try {
-    const held = win.sessionStorage?.getItem(KEY)
-    if (held) {
-      const first = JSON.parse(held) as Attribution
-      // the client id follows the current consent, never the stored one
-      delete first.ga_client_id
-      return { ...first, ...(now.ga_client_id ? { ga_client_id: now.ga_client_id } : {}) }
-    }
-    const { ga_client_id: _omit, ...stored } = now
-    void _omit
-    win.sessionStorage?.setItem(KEY, JSON.stringify(stored))
+    const raw = win.sessionStorage?.getItem(ATTR_KEY)
+    return raw ? (JSON.parse(raw) as Attribution) : null
   } catch {
-    /* storage unavailable: this page view only */
+    return null
   }
-  return now
+}
+
+/** First page load of the session: record this page's attribution once (later pages never overwrite it). */
+export function captureFirstTouch(win: Win): void {
+  if (held(win)) return
+  const { ga_client_id: _consentBound, ...first } = readAttribution(win.location.href, win.document.referrer, '', false)
+  void _consentBound
+  try {
+    win.sessionStorage?.setItem(ATTR_KEY, JSON.stringify(first))
+  } catch {
+    /* storage unavailable: the send falls back to the current page */
+  }
+}
+
+/** At "Send request": the session's first touch, else (nothing stored) the current page; the GA id only under consent. */
+export function sessionAttribution(win: Win): Attribution {
+  const first = held(win) ?? readAttribution(win.location.href, win.document.referrer, '', false)
+  const { ga_client_id: _stale, ...rest } = first
+  void _stale
+  const ga = consentOf(win) ? readAttribution(win.location.href, '', win.document.cookie, true).ga_client_id : undefined
+  return ga ? { ...rest, ga_client_id: ga } : rest
 }

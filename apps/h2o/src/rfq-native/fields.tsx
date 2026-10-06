@@ -47,10 +47,20 @@ export function Honeypot({ reg, value, onChange }: { reg: Registry; value: strin
   </div>
 }
 
+/** A registry string with one placeholder rendered as a link (its text is a registry string too). */
+export function Linked({ reg, textKey, placeholder, href, linkTextKey }: { reg: Registry; textKey: string; placeholder: string; href: string; linkTextKey: string }) {
+  const parts = (reg.strings[textKey] ?? '').split(`{{${placeholder}}}`)
+  return <>{parts.map((part, i) => <span key={i}>{part}{i < parts.length - 1 ? <a href={href}>{t(reg, linkTextKey)}</a> : null}</span>)}</>
+}
+
 /** "We use these details only to respond to your request. See our Privacy Policy." with the link in place. */
 export function PrivacyNote({ reg }: { reg: Registry }) {
-  const [before, after = ''] = (reg.strings['privacy.note'] ?? '').split('{{privacy_policy_link}}')
-  return <p className={styles.privacy}>{before}<a href="/privacy-policy/">Privacy Policy</a>{after}</p>
+  return <p className={styles.privacy}><Linked reg={reg} textKey="privacy.note" placeholder="privacy_policy_link" href="/privacy-policy/" linkTextKey="privacy.link_text"/></p>
+}
+
+/** The intake is switched off (registry `enabled: false`): the line pointing to the offices (CT Round 5 ruling 1). */
+export function UnavailableNote({ reg }: { reg: Registry }) {
+  return <p className={styles.failure} role="status"><Linked reg={reg} textKey="panel.unavailable" placeholder="offices_link" href={OFFICES_HREF} linkTextKey="offices.link_text"/></p>
 }
 
 /** The review list: each answer with its own "Edit" control. */
@@ -65,12 +75,10 @@ export function ReviewList({ reg, answers, onEdit }: { reg: Registry; answers: A
   </div>
 }
 
-/** A send failure: its message, with the office telephones where the message points to them. */
-export function FailureNote({ reg, failure }: { reg: Registry; failure: { key: string } | null }) {
+/** A send failure: its message, with `{{offices_link}}` as the link to the office telephones (CT Round 5 ruling 1). */
+export function FailureNote({ reg, failure }: { reg: Registry; failure: { key: string; values?: Record<string, string> } | null }) {
   if (!failure) return null
-  const text = t(reg, failure.key)
-  const [lead, tail] = text.split(/(call an ICS office\.?)$/)
-  return <p className={styles.failure} role="alert">{tail ? <>{lead}<a href={OFFICES_HREF}>{tail}</a></> : text}</p>
+  return <p className={styles.failure} role="alert"><Linked reg={{ ...reg, strings: { ...reg.strings, [failure.key]: t(reg, failure.key, { ...failure.values, offices_link: '{{offices_link}}' }) } }} textKey={failure.key} placeholder="offices_link" href={OFFICES_HREF} linkTextKey="offices.link_text"/></p>
 }
 
 /** The confirmation: the RFQ number when there is one (contract amendment (a): the no-number line otherwise). */

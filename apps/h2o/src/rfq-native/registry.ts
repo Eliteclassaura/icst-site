@@ -10,11 +10,21 @@ import path from 'node:path'
 import { COUNTRY_CODES } from './countries'
 import type { Purpose, Question, Registry } from './model'
 
-/** CT amendments to the OGCS seed (contract §1.1). */
+/**
+ * CT amendments to the OGCS seed: contract §1.1 (2026-10-05), and the Round 5 rulings (CT, 2026-10-05) the CRM seed will
+ * serve — the privacy link text, the inline form's continue button, the intake-unavailable line, and `{{offices_link}}` in
+ * place of the "call an ICS office" phrase (its link text is `offices.link_text`).
+ */
 export const CT_STRING_AMENDMENTS: Record<string, string> = {
   'contact.email.q': 'Email',
   'contact.email.hint': 'A work email helps us reach the right team',
   'confirm.body_no_number': 'Request sent. Thank you. A member of our team will review your request and contact you.',
+  'privacy.link_text': 'Privacy Policy',
+  'form.continue': 'Continue',
+  'panel.unavailable': 'Online requests are unavailable right now. Please contact one of {{offices_link}}.',
+  'offices.link_text': 'our offices',
+  'err.rate_limited': 'Too many requests from this connection. Please wait a few minutes and try again, or call one of {{offices_link}}.',
+  'err.server': "Something went wrong and your request wasn't sent. Please try again, or call one of {{offices_link}}.",
 }
 
 export const parseCopyTable = (tsv: string): Record<string, string> => {
@@ -59,7 +69,7 @@ export function registryFromCopy(tsv: string): Registry {
     question({ id: 'name', step: 'contact', branches: ['all'], type: 'text', required: true, labelKey: 'contact.name.q', maxLength: 120 }),
     question({ id: 'company', step: 'contact', branches: ['all'], type: 'text', required: true, labelKey: 'contact.company.q', maxLength: 160 }),
     question({ id: 'email', step: 'contact', branches: ['all'], type: 'email', required: true, labelKey: 'contact.email.q', placeholderKey: 'contact.email.ph', hintKey: 'contact.email.hint', pattern: 'email', maxLength: 254 }),
-    question({ id: 'phone', step: 'contact', branches: ['all'], type: 'tel', required: false, labelKey: 'contact.phone.q', hintKey: 'contact.phone.hint', pattern: 'tel', maxLength: 40 }),
+    question({ id: 'phone', step: 'contact', branches: ['all'], type: 'tel', required: false, labelKey: 'contact.phone.q', hintKey: 'contact.phone.hint', pattern: 'tel', skippable: true, maxLength: 40 }), // skippable: CT Round 5 ruling 2
     question({ id: 'country', step: 'contact', branches: ['all'], type: 'country', required: true, labelKey: 'contact.country.q', placeholderKey: 'contact.country.search_ph', pattern: 'iso2', maxLength: 2 }),
   ]
   const structure = { purposes, questions, countries: [...COUNTRY_CODES] }

@@ -80,10 +80,8 @@ describe('corner panel (NATIVE_CHAT)', () => {
     await type(email, 'not-an-email'); await key(email, 'Enter')
     expect(panel()!.textContent).toContain(s('err.email'))
     await type(email, 'a@gmail.com'); await key(email, 'Enter')
-    // phone: optional but not `skippable` in the contract, so no Skip chip; an empty answer passes it
-    expect(button(s('chip.skip'))).toBeUndefined()
-    const tel = panel()!.querySelector('input[type="tel"]') as HTMLInputElement
-    await key(tel, 'Enter')
+    // phone: optional and skippable (CT Round 5 ruling 2): a Skip chip
+    await click(button(s('chip.skip')))
     const search = panel()!.querySelector('input[type="search"]') as HTMLInputElement
     await type(search, 'thai')
     await click(button('Thailand'))
@@ -159,8 +157,9 @@ describe('corner panel (NATIVE_CHAT)', () => {
     expect(fetcher.mock.calls.filter((c) => c[0] === '/api/rfq/submit/')).toHaveLength(1)
     await act(async () => { release(json(500, { ok: false, code: 'SERVER' })) })
     await flush()
-    expect(panel()!.querySelector('[role="alert"]')?.textContent).toContain(s('err.server').replace(/call an ICS office\.?$/, ''))
+    expect(panel()!.querySelector('[role="alert"]')?.textContent).toBe(s('err.server', { offices_link: s('offices.link_text') }))
     expect(panel()!.querySelector('[role="alert"] a')?.getAttribute('href')).toBe('/contact-us/#offices')
+    expect(panel()!.querySelector('[role="alert"] a')?.textContent).toBe(s('offices.link_text'))
     expect(JSON.parse(sessionStorage.getItem(DRAFT_KEY)!).submissionId).toBe('sub-1')
   })
 
@@ -173,11 +172,46 @@ describe('corner panel (NATIVE_CHAT)', () => {
     expect(panel()!.textContent).toContain(s('confirm.body_no_number'))
   })
 
-  it('a registry that is off (or unreachable) shows no question', async () => {
+  it('a registry that is off shows the unavailable line with the offices link (R5.1); unreachable shows no question', async () => {
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => ({ ...reg, enabled: false })} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     expect(log()).not.toContain(s('purpose.q'))
-    expect(panel()!.querySelector('a')?.getAttribute('href')).toBe('/contact-us/#offices')
+    expect(log()).toBe(s('panel.unavailable', { offices_link: s('offices.link_text') }))
+    expect(panel()!.querySelector('[role="log"] a')?.getAttribute('href')).toBe('/contact-us/#offices')
+    await act(async () => root.unmount())
+    root = createRoot(host)
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => null} fetcher={api(() => json(500, {})) as never}/>))
+    await click(host.querySelector('[data-rfq-launcher]'))
+    expect(log()).not.toContain(s('purpose.q'))
+    expect(panel()!.querySelector('[role="log"] a')?.getAttribute('href')).toBe('/contact-us/#offices')
+  })
+
+  it('first touch survives navigation: the landing page’s tags are sent from a later page (R5.1)', async () => {
+    const fetcher = api(() => json(200, { ok: true, rfqNumber: 'RFQ-3', replay: false }))
+    window.history.replaceState(null, '', '/fans/?utm_source=ads&utm_campaign=q4&gclid=abc')
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={fetcher as never}/>))
+    expect(JSON.parse(sessionStorage.getItem('h2o.rfq.attr.v1')!)).toMatchObject({ utm_source: 'ads', utm_campaign: 'q4', gclid: 'abc', landing_page: '/fans/' })
+    expect(fetcher).not.toHaveBeenCalled() // nothing is sent before submit
+    // a later page in the same session
+    await act(async () => root.unmount())
+    window.history.replaceState(null, '', '/contact-us/')
+    root = createRoot(host)
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-3', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'X', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={fetcher as never}/>))
+    await click(host.querySelector('[data-rfq-launcher]'))
+    await click(button(s('resume.continue')))
+    await click(button(s('review.send')))
+    const body = JSON.parse((fetcher.mock.calls.find((c) => c[0] === '/api/rfq/submit/') as unknown as [string, RequestInit])[1].body as string)
+    expect(body.attribution).toMatchObject({ utm_source: 'ads', utm_campaign: 'q4', gclid: 'abc', landing_page: '/fans/' })
+    expect(body.attribution.ga_client_id).toBeUndefined()
+    expect(body.context).toMatchObject({ page_path: '/contact-us/' })
+  })
+
+  it('a page-level control shows the page’s own H1 in the context note (R5.1); it is not sent', async () => {
+    const fetcher = api(() => json(500, {}))
+    await act(async () => root.render(<><main><h1>Cooling Tower   Fans</h1></main><NativeRfqTrigger placement="editorial_inline" context={{ context_type: 'page', page_path: '/fans/' }}>Request a Quote</NativeRfqTrigger><NativeRfq launcher={LAUNCHER} loader={loader} fetcher={fetcher as never}/></>))
+    await click(host.querySelector('a[data-rfq-native]'))
+    expect(log()).toContain(s('context.note', { context_label: 'Cooling Tower Fans' }))
   })
 })
 
