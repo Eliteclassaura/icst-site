@@ -2,9 +2,10 @@ import {createElement,type ReactNode} from 'react'
 import {SalmonSeo} from './SalmonCanonical'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {pageForSegments} from './cohort'
-import {ownerText,salmonMedia,salmonMediaPath,type SalmonDocument,type SalmonNode} from './salmon'
+import {ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {SalmonTabsController} from './SalmonTabsController'
-import {renderQuoteAction} from '../content/rfq-controls'
+import {heroQuoteAction,renderQuoteAction} from '../content/rfq-controls'
+import {heroActionFor} from './hero-actions'
 
 // Static presentation of the two owner-selected Salmon pages. Content remains
 // sourced from the frozen Salmon documents; no WordPress scripts or forms run.
@@ -28,6 +29,9 @@ function localHref(value:string,doc:SalmonDocument):string|undefined {
 function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
   // Accepted exclusion stub (../content/public-exclusions): renders nothing, keeps sibling keys.
   if(typeof node!=='string'&&(node as {attrs?:Record<string,string>}).attrs?.['data-public-exclusion'])return null
+  // Design Fixes R2 (#7): the hero's source quote link is the quote action, label from content/design/hero-actions.json.
+  const hero=heroActionFor(doc.targetPath)
+  if(hero?.sourceLabel&&typeof node!=='string'&&node.tag==='a'&&salmonNodeText(node).replace(/\s+/g,' ').trim()===hero.sourceLabel)return heroQuoteAction(doc,key,hero.label)
   // Runtime RFQ (Payload content mode only), as in renderSalmonNode.
   const quote=renderQuoteAction(doc,node as never,key,(original,k)=>sourceNode(original as SalmonNode,k,doc))
   if(quote!==undefined)return quote

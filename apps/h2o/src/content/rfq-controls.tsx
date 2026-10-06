@@ -114,6 +114,14 @@ export function rfqControlLabelAt(_doc: Doc, key: string, nodes: Map<string, Nod
   return null
 }
 
+/**
+ * Design Fixes R2 (#7): a legacy service hero's primary action (../site/hero-actions). The approved adapter where the gate
+ * mounts it, otherwise the verified `/contact-us/` link with the same label, so the hero always carries the quote action.
+ */
+export function heroQuoteAction(doc: Doc, key: string, label: string): ReactNode {
+  return rfqControlElement(doc, key, label) ?? fallback(key, label)
+}
+
 /** The generic adapter control for a key-addressed renderer (same gate and fallback rules). */
 export function rfqControlElement(doc: Doc, key: string, label: string): ReactNode | undefined {
   const gate = publicMountGate(doc.targetPath, 'editorial_inline')

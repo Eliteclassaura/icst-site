@@ -10,6 +10,10 @@
   --df-scroll-shadow: rgb(0 0 0 / 18%);
   --df-soft: rgb(246 247 248);
   --df-muted: rgb(110 110 110);
+  --df-step: rgb(242 246 250);
+  --df-step-number: rgb(11 85 165);
+  --df-step-ink: rgb(10 61 114);
+  --df-signal-soft: rgb(234 241 247);
 }
 
 /* A1 — a project card without a verified own photo keeps its frame and says so (never another project's photo). */
@@ -126,4 +130,158 @@
   font-size: clamp(36px, 4.4vw, 64px) !important;
   line-height: 1.04 !important;
   text-wrap: balance;
+}
+
+/*
+ * Design Fixes R2 (Control Tower 2026-10-05; design audit R1 #7, #14, #15, #25, #10). Presentation only; wording unchanged.
+ */
+/* #7 — legacy service pages (wave2 composition): the crossflow template's button component (solid, 999px, no gradient,
+ * no shadow; white on the dark stages, brand blue on the light ones) and its radius tokens (hero 42px / 26px on a phone,
+ * media 20px, feature cards 28px). The hero's primary action is the quote action (content/design/hero-actions.json). */
+.wave2-service .wave2-stage .lux-section .lux-signal {
+  --h2o-cta-bg: transparent;
+  --h2o-cta-fg: currentcolor;
+  --h2o-cta-border: transparent;
+  --h2o-cta-radius: 999px;
+
+  min-block-size: 48px !important;
+  padding: 0 23px !important;
+  border: 1px solid var(--df-blue);
+  border-radius: 999px !important;
+  background: var(--df-blue) !important;
+  box-shadow: none;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+.wave2-service .wave2-stage .lux-section .lux-signal :is(.rfq a, a.lux-button) {
+  min-block-size: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  box-shadow: none;
+  font: inherit;
+  text-decoration: none;
+}
+.wave2-service .wave2-stage .lux-section .lux-signal:hover {
+  border-color: var(--df-blue-hover);
+  background: var(--df-blue-hover) !important;
+}
+.wave2-service :is(.wave2-stage--hero, .wave2-stage--blue-band, .wave2-stage--recovery, .wave2-stage--photo-cta) .lux-section .lux-signal {
+  border-color: var(--df-white);
+  background: var(--df-white) !important;
+}
+.wave2-service :is(.wave2-stage--hero, .wave2-stage--blue-band, .wave2-stage--recovery, .wave2-stage--photo-cta) .lux-section .lux-signal :is(a, span) {
+  color: var(--df-blue) !important;
+}
+.wave2-service :is(.wave2-stage--hero, .wave2-stage--blue-band, .wave2-stage--recovery, .wave2-stage--photo-cta) .lux-section .lux-signal:hover {
+  border-color: var(--df-signal-soft);
+  background: var(--df-signal-soft) !important;
+}
+.wave2-service .wave2-stage--hero .lux-section {
+  border-radius: 42px;
+}
+.wave2-service :is(.wave2-media, .wave2-media--circle, .wave2-media--pill, .wave2-stage--intro .lux-section > .wave2-media, .wave2-stage--services .wave2-media) {
+  border-radius: 20px;
+}
+.wave2-service :is(.wave2-media--band, .wave2-media--chart, .wave2-stage--hero .lux-section .wave2-media, .wave2-stage--photo-band .lux-section .wave2-media, .wave2-stage--service-types [data-layout-node="25"] > div > .wave2-media, .wave2-stage--recovery [data-layout-node="25"] > .wave2-media) {
+  border-radius: 0;
+}
+.wave2-service .lux-recovery-media img {
+  border-radius: 20px;
+}
+.wave2-service .wave2-stage--photo-cta [data-layout-node="45"] {
+  border-radius: 28px;
+}
+
+@media (width <= 800px) {
+  .wave2-service .wave2-stage--hero .lux-section {
+    border-radius: 26px;
+  }
+}
+
+/* #14 — /contact-us/: no grey strip above the hero; on wider screens the photo is a full-height panel on the right half
+ * (the lead stays on the navy half) and the grid texture stays on the text side; the Japan card is as tall as its content. */
+.salmon-canonical.figma-contact {
+  background: var(--df-white);
+}
+
+@media (width > 768px) {
+  /* The photo file is a square with transparent bands (content rows 14.97%-90.03%): the box is sized so that band fills
+   * the panel's full height (100% / 75.06% tall, shifted up by 14.97% of that). */
+  .figma-contact .figma-contact-hero-photo {
+    inset-block: -19.94% auto;
+    inset-inline: 50% 0;
+    inline-size: 50%;
+    block-size: 133.23%;
+    object-fit: cover;
+  }
+  .figma-contact .figma-contact-hero::after {
+    inset-inline-end: 50%;
+  }
+  .figma-contact .figma-contact-hero::before {
+    inset-inline-end: 50%;
+  }
+  .figma-contact .figma-contact-hero-inner {
+    padding-inline-end: calc(50% + 40px);
+  }
+}
+.figma-contact .figma-contact-office-list address[data-office="japan"] {
+  align-self: start;
+  min-block-size: 0;
+}
+
+/* #15 — crossflow template: the four process steps carry equal weight (no permanently filled step). */
+.luxury-site .english-service-process article:nth-child(3) {
+  background: var(--df-step);
+}
+.luxury-site .english-service-process article:nth-child(3) span {
+  color: var(--df-step-number);
+}
+.luxury-site .english-service-process article:nth-child(3) h3 {
+  color: var(--df-step-ink);
+}
+
+/* #25 — RFQ dialog: a translucent navy scrim (the page stays visible behind it) and a navy ghost close button with an
+ * 18px glyph on a 44px target. Site rules for header and Salmon buttons no longer reach the dialog's own buttons. */
+:has(> [role="dialog"][aria-modal="true"]) {
+  --df-dialog-scrim: rgb(7 24 48 / 72%);
+  --df-dialog-navy: rgb(11 75 140);
+  --df-dialog-white: rgb(255 255 255);
+
+  background: var(--df-dialog-scrim) !important;
+}
+:has(> [role="dialog"][aria-modal="true"]) > button[tabindex="-1"],
+:has(> [role="dialog"][aria-modal="true"]) > button[tabindex="-1"]:is(:hover, :focus, :active) {
+  border: 0 !important;
+  background: transparent !important;
+}
+[role="dialog"][aria-modal="true"] > div:first-child > button {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  padding: 0;
+  border: 1px solid var(--df-dialog-navy);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--df-dialog-navy);
+}
+[role="dialog"][aria-modal="true"] > div:first-child > button:is(:hover, :focus-visible) {
+  background: var(--df-dialog-navy);
+  color: var(--df-dialog-white);
+}
+[role="dialog"][aria-modal="true"] > div:first-child > button:focus:not(:focus-visible) {
+  background: transparent;
+  color: var(--df-dialog-navy);
+}
+[role="dialog"][aria-modal="true"] > div:first-child > button > span[aria-hidden="true"] {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* #10 — article hero tile: 48px above (the article's own 32px top margin + 16px) and 48px below. The tile itself is
+ * unchanged (OGCS C6). */
+.figma-wave4 .wave4-detail-body > div:first-child:not(:has(:is(p, h2, h3, li))) img {
+  margin-block: 16px 48px;
 }

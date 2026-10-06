@@ -12,7 +12,8 @@ import {HomePartsCatalog} from './HomePartsCatalog'
 import {homePartCatalogData} from './HomePartsData'
 import {SalmonPresentation} from './SalmonPresentation'
 import {englishServicePages} from './EnglishServices'
-import {rfqControlElement,rfqControlLabelAt} from '../content/rfq-controls'
+import {heroQuoteAction,rfqControlElement,rfqControlLabelAt} from '../content/rfq-controls'
+import {heroActionFor} from './hero-actions'
 import {deliverySrc} from './media-delivery'
 import {RestoredSlot} from './RestoredSlot'
 type LayoutNode={tag:string;style?:CSSProperties;id?:number;children?:LayoutNode[];ref?:string;refs?:string[];slice?:{ref:string;start:number;end:number};decor?:string;action?:string;src?:string;alt?:string;key?:string}
@@ -25,6 +26,10 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  const model=JSON.parse(readFileSync(path.join(process.cwd(),'content/luxury',doc.routeId.split('-').at(-1)+'.json'),'utf8')) as Model
  const serviceComposition=serviceCompositions[doc.routeId]
  const homeParts=doc.targetPath==='/'?homePartCatalogData():null
+ // Design Fixes R2 (#7): the hero's first signal action is the quote action, label from content/design/hero-actions.json.
+ const heroAction=serviceComposition?heroActionFor(doc.targetPath):undefined
+ const firstSignal=(n:LayoutNode|undefined):LayoutNode|undefined=>!n?undefined:n.style?.background==='#B2461C'?n:(n.children??[]).reduce<LayoutNode|undefined>((found,c)=>found??firstSignal(c),undefined)
+ const heroSignal=heroAction&&!heroAction.sourceLabel?firstSignal(model.tree[0]):undefined
  const nodes=new Map<string,SalmonNode>(),ancestors=new Map<string,string[]>(),usedImages=new Set<string>()
  function index(n:SalmonNode,key:string,parents:string[]){nodes.set(key,n);ancestors.set(key,parents);if(typeof n!=='string')n.children.forEach((c,i)=>index(c,key+'.'+i,[...parents,key]))}
  doc.children.forEach((n,i)=>index(n,'body.'+i,[]))
@@ -65,6 +70,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
   if(n.action==='search')return null
   if(n.action==='search-form')return <LuxurySearch key={key} label={n.refs?.[0]?source(n.refs[0]):undefined} submit={n.refs?.[1]?source(n.refs[1]):undefined}/>
   if(n.decor)return <span {...props} aria-hidden="true">{n.decor}</span>
+  if(heroAction&&n===heroSignal)return createElement(n.tag,{...props,'data-hero-action':'quote'},heroQuoteAction(doc,'hero-primary',heroAction.label))
   if(n.slice){const value=nodes.get(n.slice.ref);return typeof value==='string'?createElement(n.tag,props,leaf(value.slice(n.slice.start,n.slice.end),n.slice.ref,n.slice.start,n.slice.end)):null}
   const refs=n.ref?[n.ref]:n.refs??[]
   if(refs.length){

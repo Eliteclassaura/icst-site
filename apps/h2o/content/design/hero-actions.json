@@ -1,0 +1,11 @@
+{
+  "authority": "Control Tower Design Fixes R2 (2026-10-05), design audit R1 #7 (and #3): on the legacy service pages the hero's primary action is the quote action, wired to the existing RFQ control (editorial_inline, verified /contact-us/ fallback). The label is data: an OGCS wording change edits `label` here and nothing else.",
+  "routes": {
+    "/cooling-tower/": { "label": "Request a Quote", "sourceLabel": "Request a New Cooling Tower Quote" },
+    "/cooling-tower-replacement/": { "label": "Request a Quote" },
+    "/thermal-upgrade/": { "label": "Request a Quote" },
+    "/cooling-tower-maintenance-repair-upgrade/": { "label": "Request a Quote" },
+    "/disaster-recovery/": { "label": "Request a Quote" },
+    "/air-coolers/": { "label": "Request a Quote" }
+  }
+}
