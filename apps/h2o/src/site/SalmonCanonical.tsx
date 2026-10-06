@@ -2,9 +2,7 @@ import {createElement,Fragment,type ReactNode} from 'react'
 import {Testimonials} from './HomeTestimonials'
 import {LuxuryHeader,LuxuryFooter} from './LuxuryShell'
 import {pageForSegments} from './cohort'
-import {RfqMount} from './RfqMount'
 import {renderQuoteAction,suppressedDuplicate} from '../content/rfq-controls'
-import {contactOffices} from './contact'
 import {AuthorityEditorial} from './AuthorityEditorial'
 import {articleByline,articleDisplayTitle,articleHeadingNodes} from './wave4'
 import {articleMetadataTitle} from './article-metadata'
@@ -17,7 +15,6 @@ import {deliverySrc,provenanceRef} from './media-delivery'
 import {PUBLIC_AUTHOR} from './public-author-identity'
 import {BreadcrumbSchema,HOME_CRUMB,isBreadcrumbList,type Crumb} from './breadcrumb-schema'
 import {decodeEntities} from './text-repair'
-import {pageCopy} from './page-copy'
 import {publicMeta,publicSchema,servedOrigin} from './public-urls'
 import {publicFileExists} from '../content/public-files'
 import {projectHeadImagePolicy} from './project-media'
@@ -25,8 +22,9 @@ import {MetaTags,OrganizationWebsiteSchema,standardSocialMeta} from './standard-
 import {linkLabel} from './link-context'
 import {heldImageSize} from './image-size'
 import {PUBLIC_ORIGIN} from '../content/config'
-import {nativeIntakeOn} from '../rfq-native/server'
-import {NativeRfqFormSection} from '../rfq-native/NativeRfqForm'
+// Design R3 (CT 2026-10-06): /contact-us/ is the owner's Contact design.
+import {ContactComposition} from './ContactComposition'
+import {DesignR3StickyBar} from './DesignR3StickyBar'
 export {aboutGeographyCorrections,normalizeWave3IndexEditorial,normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 // Start tags that implicitly close an open <p> in the HTML parser. A source <p> holding one of these cannot be
 // represented in HTML: the browser closes the paragraph first and hydration then sees a different tree (#418).
@@ -237,57 +235,14 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
 export function SalmonCanonical({doc}:{doc:SalmonDocument}){
   const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
   const isContact=doc.targetPath==='/contact-us/'
-  const copy=pageCopy().contact
   const isEditorial=['SALMON-pages-1931','SALMON-b2503fcd6ca86806'].includes(doc.routeId)
   return <div className={`salmon-canonical${isContact?' figma-contact':''}`} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc}/>
     <div className="luxury-site"><LuxuryHeader page={page} routePath={doc.targetPath}/></div>
-    {isContact?<main className="luxury-site figma-contact-main" id="main" data-salmon-region="body">
-      <section className="figma-contact-hero">
-        <img className="figma-contact-hero-photo" src="/media/figma-wave2/figma-image-2b0fc0527234a0c7.png" alt="" width="2338" height="2338" data-media-authority="ACCEPTED_WAVE2_INDUSTRIAL_SOURCE"/>
-        <div className="figma-contact-hero-inner">
-          <div className="figma-contact-title">{doc.children.map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</div>
-          <p className="figma-contact-lead">Tell us what your tower is doing and what you need it to do.</p>
-        </div>
-      </section>
-      {/* OGCS pre-launch copy R1 §2 (CT accepted 2026-10-05): the copy is data, content/design/page-copy.json. */}
-      <div className="figma-contact-introduction">{copy.eyebrow?<span>{copy.eyebrow}</span>:null}<h2 id="figma-contact-intro-heading">{copy.heading}</h2><p>{copy.lead}</p></div>
-      <section className="figma-contact-rfq" aria-labelledby={copy.requestHeading?'figma-contact-rfq-heading':'figma-contact-intro-heading'}>
-        <div className="figma-contact-rfq-copy">
-          {copy.requestHeading?<h2 id="figma-contact-rfq-heading">{copy.requestHeading}</h2>:null}
-          <p>{copy.requestBody}</p>
-          <h3>What to send</h3>
-          <ul>
-            <li>What you need: cooling tower parts, a new or rebuilt cooling tower, or repair and maintenance work</li>
-            <li>The make, model, cell arrangement and duty of the tower</li>
-            <li>Any documentation you hold for it — drawings, data sheets, previous inspection reports</li>
-          </ul>
-        </div>
-        <div className="figma-contact-rfq-action" data-owner-override="OWNER_CONTACT_AUTHORITY_OVERRIDE_2026_09_21">
-          {/* Native RFQ (CT brief 2026-10-05): with native intake on, the inline form replaces the Typeform action here. */}
-          {!nativeIntakeOn()&&page?<div className="client-rfq figma-contact-action"><RfqMount mountId="rfq_page" page={page}/></div>:null}
-          <p>Contact by phone</p>
-          <div className="figma-contact-rfq-phones">{contactOffices.map(office=><a key={office.officeKey} href={office.telephoneHref}><span>{office.displayLabel}</span><strong>{office.telephoneDisplay}</strong></a>)}</div>
-        </div>
-      </section>
-      {/* Native RFQ (CT brief 2026-10-05): with native intake on, the inline quote form is its own section here. */}
-      {nativeIntakeOn()?<NativeRfqFormSection/>:null}
-      <section className="figma-contact-offices" id="offices" aria-labelledby="figma-contact-offices-heading" data-owner-override="OWNER_CONTACT_AUTHORITY_OVERRIDE_2026_09_21">
-        <div className="figma-contact-offices-inner">
-          <h2 id="figma-contact-offices-heading">Offices</h2>
-          <div className="figma-contact-office-list">{contactOffices.map(office=><address key={office.officeKey} data-office={office.officeKey}>
-            <h3>{copy.officeTitles[office.officeKey]??office.displayLabel}</h3>
-            {office.company?<span>{office.company}</span>:null}
-            {office.addressLines.map(line=><span key={line}>{line}</span>)}
-            {office.city?<span>{office.city}{office.region?`, ${office.region}`:''}{office.postalCode?` ${office.postalCode}`:''}</span>:null}
-            {office.officeKey!=='japan'?<span>{office.countryName}</span>:null}
-            <a href={office.telephoneHref}>{office.addressLines.length===0?copy.phoneOnlyPrefix:''}{office.telephoneDisplay}</a>
-          </address>)}</div>
-        </div>
-      </section>
-    </main>:isEditorial?<AuthorityEditorial doc={doc}/>:doc.routeId==='SALMON-pages-1353'?<ProjectAuthorityIndex doc={doc}/>:doc.targetPath.startsWith('/all-projects/')?<ProjectDetail doc={doc}/>:<main className="shell article" id="main" data-salmon-region="body">{(doc.routeId==='SALMON-pages-5792'?articleHeadingNodes(doc.children):doc.children).map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</main>}
+    {isContact?<ContactComposition page={page} routePath={doc.targetPath} title={doc.children.map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}/>:isEditorial?<AuthorityEditorial doc={doc}/>:doc.routeId==='SALMON-pages-1353'?<ProjectAuthorityIndex doc={doc}/>:doc.targetPath.startsWith('/all-projects/')?<ProjectDetail doc={doc}/>:<main className="shell article" id="main" data-salmon-region="body">{(doc.routeId==='SALMON-pages-5792'?articleHeadingNodes(doc.children):doc.children).map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</main>}
     {doc.routeId==='SALMON-pages-1761'?<R2Discovery kind="pages"/>:null}
     {doc.targetPath==='/'?<section className="shell" data-owner-override="OWNER_TESTIMONIAL_AUTHORITY_OVERRIDE_2026_09_21"><Testimonials/></section>:null}
     <div className="luxury-site"><LuxuryFooter page={page} routePath={doc.targetPath}/></div>
+    {isContact?<DesignR3StickyBar routePath={doc.targetPath}/>:null}
   </div>
 }

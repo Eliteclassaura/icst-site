@@ -1,0 +1,1389 @@
+/*
+ * Design R3 (CT approval 2026-10-06): the owner's About and Contact designs, with the Design Director's visual direction.
+ * Loaded last. Colours are tokens (no literal colour in a colour property); logical properties only.
+ * Type: DM Sans throughout; Bebas Neue (held, OFL) only for the About "Commitment" display heading.
+ */
+.dr3,
+.dr3-sticky {
+  --r3-ink: rgb(15 27 42);
+  --r3-body: rgb(62 74 88);
+  --r3-muted: rgb(84 96 110);
+  --r3-caption: rgb(88 98 110);
+  --r3-wordmark: rgb(110 118 129);
+  --r3-blue: rgb(11 75 140);
+  --r3-blue-deep: rgb(9 52 98);
+  --r3-accent: rgb(12 72 140);
+  --r3-white: rgb(255 255 255);
+  --r3-soft: rgb(242 245 249);
+  --r3-line: rgb(219 226 234);
+  --r3-wash: rgb(240 244 248);
+  --r3-wash-clear: rgb(240 244 248 / 0%);
+  --r3-wash-band: rgb(255 255 255 / 84%);
+  --r3-navy-cell: rgb(9 30 56 / 86%);
+  --r3-scrim-top: rgb(8 22 40 / 74%);
+  --r3-scrim-mid: rgb(8 22 40 / 66%);
+  --r3-scrim-bottom: rgb(8 22 40 / 82%);
+  --r3-shadow: rgb(15 27 42 / 10%);
+  --r3-focus: rgb(11 75 140);
+  --r3-ring-fill: rgb(255 255 255 / 7%);
+  --r3-ring-line: rgb(255 255 255 / 28%);
+  --r3-radius: 20px;
+  --r3-width: min(1192px, calc(100% - 48px));
+}
+
+.dr3 {
+  color: var(--r3-ink);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--r3-white);
+}
+.dr3 .dr3-main,
+.dr3.dr3-contact {
+  overflow-x: clip;
+}
+.dr3 a:focus-visible,
+.dr3 [tabindex="0"]:focus-visible,
+.dr3-sticky a:focus-visible {
+  outline: 3px solid var(--r3-focus);
+  outline-offset: 3px;
+}
+.dr3 img {
+  display: block;
+  max-inline-size: 100%;
+}
+.dr3 h1,
+.dr3 h2,
+.dr3 h3 {
+  color: var(--r3-ink);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  text-wrap: balance;
+}
+.dr3 .dr3-section {
+  inline-size: var(--r3-width);
+  margin-inline: auto;
+  padding-block: 112px 0;
+}
+.dr3 .dr3-section h2,
+.dr3 .dr3-contact-intro h2 {
+  margin: 0 0 16px;
+  font-size: clamp(32px, 3.4vw, 44px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.dr3 .dr3-section-head p {
+  max-inline-size: 64ch;
+  margin: 0 0 8px;
+  color: var(--r3-muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.dr3 .dr3-chip-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid var(--r3-line);
+  border-radius: 999px;
+  color: var(--r3-ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+.dr3 .dr3-chip-label::before,
+.dr3 .dr3-badge::before,
+.dr3 .dr3-badge-pill::before {
+  content: '';
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%;
+  background: var(--r3-blue);
+}
+.dr3 .dr3-button,
+.dr3-sticky .dr3-sticky-quote .rfq a,
+.dr3-sticky .dr3-sticky-quote > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 52px;
+  padding: 0 28px;
+  border-radius: 999px;
+  color: var(--r3-white);
+  background: var(--r3-blue);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.dr3 .dr3-button:hover {
+  background: var(--r3-blue-deep);
+}
+
+/* ----- About: hero ----- */
+.dr3-about .dr3-about-hero {
+  position: relative;
+  display: grid;
+  inline-size: min(1312px, calc(100% - 48px));
+  min-block-size: 648px;
+  margin: 24px auto 0;
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--r3-wash);
+}
+.dr3-about .dr3-about-hero-photo {
+  position: absolute;
+  inset-block: 0;
+  inset-inline: 34% 0;
+  inline-size: 66%;
+  block-size: 100%;
+  max-inline-size: none;
+  object-fit: cover;
+  object-position: 60% 40%;
+}
+.dr3-about .dr3-about-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--r3-wash) 0%, var(--r3-wash) 56%, var(--r3-wash-clear) 84%);
+  pointer-events: none;
+}
+.dr3-about .dr3-about-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 48px;
+  padding: 72px 56px 168px;
+}
+.dr3 .dr3-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dr3 .dr3-rail li {
+  display: grid;
+  place-items: center;
+  inline-size: 34px;
+  block-size: 34px;
+  border: 1px solid var(--r3-line);
+  border-radius: 50%;
+  color: var(--r3-ink);
+  background: var(--r3-white);
+  font-size: 13px;
+  font-weight: 600;
+}
+.dr3 .dr3-rail li.is-current {
+  box-shadow: 0 6px 16px var(--r3-shadow);
+}
+.dr3-about .dr3-about-hero-copy {
+  max-inline-size: 560px;
+}
+.dr3 .dr3-eyebrow {
+  margin: 0 0 16px;
+  color: var(--r3-ink);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.dr3-about .dr3-about-hero h1 {
+  margin: 0 0 24px;
+  font-size: clamp(44px, 5.6vw, 76px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.dr3-about .dr3-about-hero-copy p {
+  margin: 0 0 16px;
+  color: var(--r3-body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.dr3-about .dr3-about-hero-copy .dr3-lead {
+  color: var(--r3-ink);
+  font-size: 18px;
+}
+.dr3 .dr3-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-block-start: 32px;
+}
+.dr3 .dr3-quote-circle .rfq a,
+.dr3 .dr3-quote-circle > a {
+  position: relative;
+  display: inline-block;
+  inline-size: 52px;
+  block-size: 52px;
+  min-block-size: 0;
+  padding: 0;
+  border: 1px solid var(--r3-line);
+  border-radius: 50%;
+  background: var(--r3-white);
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 120%;
+}
+.dr3 .dr3-quote-circle .rfq a::after,
+.dr3 .dr3-quote-circle > a::after {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  inline-size: 12px;
+  block-size: 12px;
+  border: 3px solid var(--r3-blue);
+  border-radius: 50%;
+  translate: -50% -50%;
+}
+.dr3-about .dr3-presence-card {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  inline-size: min(400px, 100%);
+  padding: 22px 28px 24px;
+  border-start-start-radius: 28px;
+  border-end-end-radius: 28px;
+  background: var(--r3-white);
+}
+.dr3-about .dr3-presence-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-block-size: 52px;
+  padding: 0 18px;
+  border-radius: 14px;
+  color: var(--r3-ink);
+  background: var(--r3-soft);
+  font-weight: 600;
+  text-decoration: none;
+}
+.dr3-about .dr3-presence-places {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: var(--r3-soft);
+}
+.dr3-about .dr3-presence-places strong {
+  display: block;
+  font-size: 14px;
+}
+.dr3-about .dr3-presence-places span span {
+  color: var(--r3-muted);
+  font-size: 13px;
+}
+.dr3-about .dr3-avatars {
+  display: flex;
+}
+.dr3-about .dr3-avatars img {
+  inline-size: 40px;
+  block-size: 40px;
+  margin-inline-start: -10px;
+  border: 2px solid var(--r3-white);
+  border-radius: 50%;
+  object-fit: cover;
+}
+.dr3-about .dr3-avatars img:first-child {
+  margin-inline-start: 0;
+}
+
+/* ----- About: follow + client strip ----- */
+.dr3-about .dr3-strip {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  inline-size: var(--r3-width);
+  margin: 32px auto 0;
+}
+.dr3-about .client-socials--compact {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 6px 4px 18px;
+  border: 1px solid var(--r3-line);
+  border-radius: 999px;
+}
+.dr3-about .client-socials--compact .client-socials-label {
+  color: var(--r3-muted);
+  font-size: 13px;
+}
+.dr3-about .client-socials--compact > div {
+  display: flex;
+  gap: 4px;
+}
+.dr3-about .client-socials--compact a {
+  display: grid;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  min-block-size: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--r3-ink);
+  background: transparent;
+}
+.dr3-about .dr3-clients {
+  flex: 1;
+  min-inline-size: 0;
+}
+.dr3-about .dr3-clients ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dr3-about .dr3-wordmark {
+  color: var(--r3-wordmark);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.dr3-about .dr3-clients img {
+  block-size: 32px;
+  inline-size: auto;
+  filter: grayscale(1);
+  opacity: 0.75;
+}
+.dr3-about .dr3-client-extra {
+  display: none;
+}
+
+/* ----- About: Global Presence ----- */
+.dr3 .dr3-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-block-end: 32px;
+}
+.dr3 .dr3-arrow-link {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  min-block-size: 46px;
+  color: var(--r3-ink);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.dr3 .dr3-arrow-link span {
+  display: grid;
+  place-items: center;
+  inline-size: 46px;
+  block-size: 46px;
+  border-radius: 50%;
+  color: var(--r3-white);
+  background: var(--r3-ink);
+}
+.dr3-about .dr3-office-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dr3 .dr3-office-photo {
+  margin: 0;
+}
+.dr3 .dr3-office-photo img {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 384 / 230;
+  border-radius: var(--r3-radius);
+  object-fit: cover;
+}
+.dr3 .dr3-office-photo figcaption {
+  margin-block-start: 8px;
+  color: var(--r3-caption);
+  font-size: 12px;
+  line-height: 16px;
+}
+.dr3 [data-office="thailand"] .dr3-office-photo img {
+  object-position: 30% 85%;
+}
+.dr3 .dr3-office-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.dr3-about .dr3-office-title {
+  margin-block-start: 16px;
+}
+.dr3 .dr3-office-title h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.dr3 .dr3-chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--r3-white);
+  background: var(--r3-blue);
+  font-size: 12px;
+  font-weight: 700;
+}
+.dr3 .dr3-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 0;
+  color: var(--r3-muted);
+  font-size: 13px;
+}
+.dr3-about .dr3-office-text {
+  margin-block-start: 16px;
+  padding-block-start: 16px;
+  border-block-start: 1px solid var(--r3-line);
+}
+.dr3-about .dr3-office-text p {
+  margin: 0 0 8px;
+  color: var(--r3-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.dr3-about .dr3-office-text .dr3-office-subheading {
+  color: var(--r3-ink);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ----- About: Expert Engineering Team ----- */
+.dr3 .dr3-centered {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.dr3-about .dr3-team-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: 16px;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.dr3-about .dr3-team-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 20px;
+  min-block-size: 300px;
+  padding: 32px;
+  border-radius: var(--r3-radius);
+  overflow: hidden;
+  background: var(--r3-soft);
+}
+.dr3-about .dr3-team-card p {
+  margin: 0;
+  color: var(--r3-body);
+  font-size: 16px;
+  line-height: 1.65;
+}
+.dr3-about .dr3-team-card img {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 322 / 150;
+  border-radius: 16px;
+  object-fit: cover;
+}
+.dr3 .dr3-index {
+  position: absolute;
+  inset-block-start: 32px;
+  inset-inline-start: 32px;
+  display: grid;
+  place-items: center;
+  inline-size: 48px;
+  block-size: 48px;
+  border: 1px solid var(--r3-line);
+  border-radius: 50%;
+  color: var(--r3-ink);
+  background: var(--r3-white);
+  font-size: 14px;
+  font-weight: 600;
+}
+.dr3-about .dr3-team-card--accent {
+  min-block-size: 380px;
+  color: var(--r3-white);
+  background: var(--r3-blue);
+}
+.dr3-about .dr3-team-card--accent p {
+  position: relative;
+  color: var(--r3-white);
+}
+.dr3-about .dr3-team-card--accent::before,
+.dr3-about .dr3-team-card--accent::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.dr3-about .dr3-team-card--accent::before {
+  inset-block-start: -50px;
+  inset-inline-end: -30px;
+  inline-size: 170px;
+  block-size: 170px;
+  background: var(--r3-ring-fill);
+}
+.dr3-about .dr3-team-card--accent::after {
+  inset-block-start: -6px;
+  inset-inline-end: 14px;
+  inline-size: 82px;
+  block-size: 82px;
+  border: 1px solid var(--r3-ring-line);
+}
+.dr3-about .dr3-team-card--accent .dr3-index {
+  color: var(--r3-white);
+  background: transparent;
+}
+.dr3-about .dr3-team-card--accent a {
+  position: relative;
+  color: var(--r3-white);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ----- About: What We Do ----- */
+.dr3-about .dr3-services {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 72px;
+}
+.dr3-about .dr3-services-copy > p {
+  margin: 0 0 24px;
+  color: var(--r3-muted);
+  font-size: 16px;
+}
+.dr3-about .dr3-service-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dr3-about .dr3-service-list li {
+  display: flex;
+  gap: 24px;
+  padding-block: 16px;
+  border-block-end: 1px solid var(--r3-line);
+  font-size: 17px;
+  line-height: 1.35;
+}
+.dr3-about .dr3-service-list li span {
+  flex: none;
+  inline-size: 24px;
+  color: var(--r3-blue);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 23px;
+}
+.dr3-about .dr3-closing {
+  margin: 24px 0 0;
+  color: var(--r3-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.dr3-about .dr3-services-photo {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 560 / 540;
+  border-radius: var(--r3-radius);
+  object-fit: cover;
+}
+
+/* ----- About: Commitment ----- */
+.dr3-about .dr3-commitment {
+  display: grid;
+  grid-template-columns: minmax(0, 404px) minmax(0, 1fr);
+  gap: 32px;
+}
+.dr3-about .dr3-commitment-media img {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 404 / 380;
+  border-radius: var(--r3-radius);
+  object-fit: cover;
+  object-position: center 60%;
+}
+.dr3-about .dr3-badge-plate {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 16px 0 0;
+  padding: 18px 24px;
+  border-radius: 18px;
+  background: var(--r3-soft);
+}
+.dr3-about .dr3-badge-plate strong {
+  color: var(--r3-blue);
+  font-size: 28px;
+}
+.dr3-about .dr3-badge-plate span {
+  color: var(--r3-muted);
+  font-size: 13px;
+}
+.dr3-about .dr3-commitment-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  align-content: start;
+  gap: 16px 32px;
+}
+.dr3-about .dr3-section h2.dr3-display {
+  grid-column: 1;
+  margin: 0;
+  font-family: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
+  font-size: clamp(48px, 5.6vw, 80px);
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+.dr3-about .dr3-display span {
+  display: block;
+}
+.dr3-about .dr3-display .is-accent {
+  color: var(--r3-accent);
+}
+.dr3-about .dr3-commitment-lead {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  margin: 0;
+  color: var(--r3-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.dr3-about .dr3-commitment-body {
+  grid-column: 1;
+  max-inline-size: 44ch;
+  margin: 0;
+  color: var(--r3-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.dr3-about .dr3-band {
+  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  gap: 6px;
+  min-block-size: 129px;
+  padding: 24px 32px;
+  border-radius: var(--r3-radius);
+  overflow: hidden;
+  color: var(--r3-ink);
+  text-align: center;
+  text-decoration: none;
+}
+.dr3-about .dr3-band-photo {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+.dr3-about .dr3-band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--r3-wash-band);
+}
+.dr3-about .dr3-band-text,
+.dr3-about .dr3-band-link {
+  position: relative;
+  z-index: 1;
+}
+.dr3-about .dr3-band-text {
+  max-inline-size: 56ch;
+  color: var(--r3-body);
+  font-size: 15px;
+}
+.dr3-about .dr3-band-link {
+  font-size: 24px;
+  font-weight: 700;
+}
+.dr3-about .dr3-band:hover .dr3-band-link {
+  text-decoration: underline;
+}
+.dr3-about .dr3-main {
+  padding-block-end: 112px;
+}
+
+/* ----- Contact: hero + phone strip ----- */
+.dr3-contact .dr3-contact-hero {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-block-size: 680px;
+  overflow: hidden;
+  color: var(--r3-white);
+}
+.dr3-contact .dr3-contact-hero-photo {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  max-inline-size: none;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+.dr3-contact .dr3-contact-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, var(--r3-scrim-top) 0%, var(--r3-scrim-mid) 45%, var(--r3-scrim-bottom) 100%);
+}
+.dr3-contact .dr3-contact-hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  padding: 96px 24px;
+  text-align: center;
+}
+.dr3-contact .dr3-contact-title h1 {
+  margin: 0;
+  color: var(--r3-white);
+  font-size: clamp(64px, 11vw, 160px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.dr3-contact .dr3-contact-lead {
+  max-inline-size: 30ch;
+  margin: 24px 0 0;
+  color: var(--r3-white);
+  font-size: 18px;
+  line-height: 1.45;
+}
+.dr3-contact .dr3-phone-strip {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.13fr);
+}
+.dr3-contact .dr3-phone-strip > a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  min-block-size: 82px;
+  padding: 0 28px;
+  border-inline-end: 1px solid var(--r3-scrim-mid);
+  color: var(--r3-white);
+  background: var(--r3-navy-cell);
+  font-size: 13px;
+  text-decoration: none;
+}
+.dr3-contact .dr3-phone-strip > a strong {
+  font-size: 15px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.dr3-contact .dr3-phone-strip > a:hover strong {
+  text-decoration: underline;
+}
+.dr3-contact .dr3-phone-strip-quote {
+  display: grid;
+  background: var(--r3-white);
+}
+.dr3-contact .dr3-phone-strip-quote .rfq,
+.dr3-contact .dr3-phone-strip-quote .rfq a,
+.dr3-contact .dr3-phone-strip-quote > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 82px;
+  border: 0;
+  border-radius: 0;
+  color: var(--r3-ink);
+  background: var(--r3-white);
+  box-shadow: none;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.dr3-contact .dr3-phone-strip-quote .rfq a::after,
+.dr3-contact .dr3-phone-strip-quote > a::after {
+  content: '→';
+  margin-inline-start: 10px;
+}
+
+/* ----- Contact: intro ----- */
+.dr3-contact .dr3-contact-intro {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  inline-size: var(--r3-width);
+  margin: 96px auto 0;
+  text-align: center;
+}
+.dr3-contact .dr3-contact-intro h2 {
+  max-inline-size: 20ch;
+  font-size: clamp(36px, 4.6vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+.dr3-contact .dr3-contact-intro p {
+  max-inline-size: 52ch;
+  margin: 0;
+  color: var(--r3-muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+.dr3-contact .dr3-progress {
+  display: flex;
+  align-items: center;
+  margin-block-start: 32px;
+}
+.dr3-contact .dr3-progress span {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: var(--r3-blue);
+}
+.dr3-contact .dr3-progress span:nth-child(2) {
+  inline-size: 160px;
+  block-size: 0;
+  border-block-start: 2px dashed var(--r3-line);
+  border-radius: 0;
+  background: transparent;
+}
+.dr3-contact .dr3-progress span:last-child {
+  inline-size: 22px;
+  block-size: 22px;
+  border: 5px solid var(--r3-white);
+  outline: 2px solid var(--r3-blue);
+}
+
+/* ----- Contact: 01 Request a quote (native inline form) + What to send ----- */
+.dr3-contact .dr3-start {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: start;
+  gap: 48px;
+}
+.dr3-contact .dr3-start-copy h2 {
+  margin-block-start: 20px;
+}
+.dr3-contact .dr3-start-copy > p {
+  max-inline-size: 46ch;
+  margin: 0 0 24px;
+  color: var(--r3-muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.dr3-contact .dr3-send {
+  position: sticky;
+  inset-block-start: 24px;
+}
+.dr3-contact .dr3-send h3 {
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.dr3-contact .dr3-send-cards {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 0.93fr;
+  align-items: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dr3-contact .dr3-send-card {
+  display: grid;
+  gap: 14px;
+}
+.dr3-contact .dr3-send-card:nth-child(2) {
+  margin-block-start: 60px;
+}
+.dr3-contact .dr3-send-card:nth-child(3) {
+  margin-block-start: 40px;
+}
+.dr3-contact .dr3-send-photo {
+  position: relative;
+  display: block;
+}
+.dr3-contact .dr3-send-photo img {
+  inline-size: 100%;
+  block-size: 320px;
+  border: 1px solid var(--r3-line);
+  border-radius: var(--r3-radius);
+  object-fit: cover;
+}
+.dr3-contact .dr3-send-card:first-child .dr3-send-photo img {
+  object-position: center 75%;
+}
+.dr3-contact .dr3-send-card:nth-child(2) .dr3-send-photo img {
+  block-size: 260px;
+}
+.dr3-contact .dr3-send-card:nth-child(3) .dr3-send-photo img {
+  block-size: 220px;
+}
+.dr3-contact .dr3-send-index {
+  position: absolute;
+  inset-block-end: 16px;
+  inset-inline-start: 16px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--r3-white);
+  background: var(--r3-navy-cell);
+  font-size: 13px;
+  font-weight: 600;
+}
+.dr3-contact .dr3-send-card p {
+  margin: 0;
+  padding-inline: 8px;
+  color: var(--r3-body);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* The native inline form fills its panel (the panel's padding equals on every side). */
+.dr3-contact .dr3-start #request-a-quote {
+  padding: 36px;
+  border-radius: var(--r3-radius);
+}
+.dr3-contact .dr3-start #request-a-quote form,
+.dr3-contact .dr3-start #request-a-quote > section,
+.dr3-contact .dr3-start #request-a-quote > div {
+  max-inline-size: none;
+}
+.dr3-contact .dr3-start #request-a-quote input:not([type="radio"]),
+.dr3-contact .dr3-start #request-a-quote select,
+.dr3-contact .dr3-start #request-a-quote textarea {
+  inline-size: 100%;
+  max-inline-size: none;
+}
+
+/* ----- Contact: 02 Offices ----- */
+.dr3-contact .dr3-offices {
+  padding-block-end: 112px;
+  scroll-margin-block-start: 24px;
+}
+.dr3-contact .dr3-offices-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-block-end: 24px;
+}
+.dr3-contact .dr3-offices-head h2 {
+  margin: 16px 0 0;
+  font-size: clamp(48px, 6.4vw, 92px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.dr3-contact .dr3-offices-head p {
+  margin: 0;
+  color: var(--r3-muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+.dr3-contact .dr3-contact-offices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dr3-contact .dr3-contact-office {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--r3-line);
+  border-radius: var(--r3-radius);
+  background: var(--r3-white);
+  box-shadow: 0 10px 30px var(--r3-shadow);
+}
+.dr3-contact .dr3-office-subtitle {
+  margin: 2px 0 0;
+  color: var(--r3-muted);
+  font-size: 13px;
+}
+.dr3 .dr3-badge-pill {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--r3-line);
+  border-radius: 999px;
+  color: var(--r3-ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+.dr3-contact .dr3-contact-office address {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--r3-body);
+  font-size: 15px;
+  font-style: normal;
+  line-height: 1.55;
+}
+.dr3-contact .dr3-phone-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-block-size: 62px;
+  margin-block-start: auto;
+  padding: 0 16px;
+  border-radius: 14px;
+  color: var(--r3-blue);
+  background: var(--r3-soft);
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+.dr3-contact .dr3-contact-office address span + .dr3-phone-pill {
+  margin-block-start: auto;
+}
+.dr3-contact .dr3-contact-office address > span:last-of-type {
+  margin-block-end: 20px;
+}
+.dr3-contact .dr3-phone-pill span {
+  display: grid;
+  place-items: center;
+  inline-size: 34px;
+  block-size: 34px;
+  border-radius: 50%;
+  color: var(--r3-white);
+  background: var(--r3-ink);
+  font-size: 14px;
+}
+.dr3-contact .dr3-phone-pill:hover {
+  text-decoration: underline;
+}
+
+/* ----- Mobile action bar (both pages, below 768 px) ----- */
+.dr3-sticky {
+  display: none;
+}
+
+/* ----- Tablet ----- */
+@media (width <= 1024px) {
+  .dr3-about .dr3-about-hero-inner {
+    padding-inline: 40px;
+  }
+  .dr3-about .dr3-clients ul {
+    gap: 28px;
+  }
+  .dr3-about .dr3-wordmark {
+    font-size: 18px;
+  }
+  .dr3-about .dr3-services {
+    gap: 40px;
+  }
+  .dr3-contact .dr3-start {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dr3-contact .dr3-send {
+    position: static;
+  }
+}
+
+/* ----- Phone ----- */
+@media (width < 768px) {
+  .dr3 {
+    --r3-width: calc(100% - 40px);
+  }
+  .dr3 .dr3-section {
+    padding-block-start: 64px;
+  }
+  .dr3 .dr3-section-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dr3 .dr3-centered {
+    align-items: center;
+  }
+
+  /* About */
+  .dr3-about .dr3-about-hero {
+    inline-size: calc(100% - 24px);
+    min-block-size: 0;
+    margin-block-start: 12px;
+    border-radius: 24px;
+  }
+  .dr3-about .dr3-about-hero-photo {
+    inset-inline: 0;
+    inline-size: 100%;
+  }
+  .dr3-about .dr3-about-hero::after {
+    background: linear-gradient(180deg, var(--r3-wash) 0%, var(--r3-wash) 62%, var(--r3-wash-clear) 100%);
+  }
+  .dr3-about .dr3-about-hero-inner {
+    flex-direction: column;
+    gap: 24px;
+    padding: 28px 22px 32px;
+  }
+  .dr3 .dr3-rail {
+    flex-direction: row;
+    gap: 28px;
+  }
+  .dr3-about .dr3-presence-card {
+    position: relative;
+    justify-self: end;
+    inline-size: calc(100% - 44px);
+    padding: 14px 16px 16px;
+    border-start-start-radius: 24px;
+  }
+  .dr3-about .dr3-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .dr3-about .dr3-clients {
+    inline-size: 100%;
+    overflow-x: auto;
+    mask-image: linear-gradient(90deg, var(--r3-ink) 82%, var(--r3-wash-clear) 100%);
+    scrollbar-width: none;
+  }
+  .dr3-about .dr3-clients ul {
+    justify-content: flex-start;
+    gap: 28px;
+    inline-size: max-content;
+    padding-inline-end: 48px;
+  }
+  .dr3-about .dr3-client-extra {
+    display: list-item;
+  }
+  .dr3-about .dr3-office-track {
+    margin-inline: -20px;
+    padding-inline: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 20px;
+    scrollbar-width: none;
+  }
+  .dr3-about .dr3-office-cards {
+    grid-template-columns: none;
+    grid-auto-columns: calc(100% - 28px);
+    grid-auto-flow: column;
+    gap: 14px;
+  }
+  .dr3-about .dr3-office-card {
+    padding: 9px 9px 19px;
+    border: 1px solid var(--r3-line);
+    border-radius: var(--r3-radius);
+    scroll-snap-align: start;
+  }
+  .dr3-about .dr3-office-title,
+  .dr3-about .dr3-badge,
+  .dr3-about .dr3-office-text {
+    margin-inline: 10px;
+  }
+  .dr3-about .dr3-team-cards,
+  .dr3-about .dr3-services,
+  .dr3-about .dr3-commitment,
+  .dr3-about .dr3-commitment-copy {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dr3-about .dr3-team-card,
+  .dr3-about .dr3-team-card--accent {
+    min-block-size: 0;
+    padding: 96px 24px 24px;
+  }
+  .dr3-about .dr3-index {
+    inset-block-start: 20px;
+    inset-inline-start: 20px;
+  }
+  .dr3-about .dr3-services-photo {
+    grid-row: 1;
+    aspect-ratio: 350 / 240;
+  }
+  .dr3-about .dr3-commitment-lead,
+  .dr3-about .dr3-commitment-body {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  /* Figma 3:2978 order: heading, lead, photo, "We focus…" card, then the CTA card; no badge plate. */
+  .dr3-about .dr3-commitment {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .dr3-about .dr3-commitment-copy {
+    display: contents;
+  }
+  .dr3-about .dr3-section h2.dr3-display {
+    order: 1;
+  }
+  .dr3-about .dr3-commitment-lead {
+    order: 2;
+  }
+  .dr3-about .dr3-commitment-media {
+    order: 3;
+  }
+  .dr3-about .dr3-commitment-body {
+    order: 4;
+    padding: 20px;
+    border-radius: 18px;
+    background: var(--r3-soft);
+  }
+  .dr3-about .dr3-band {
+    order: 5;
+  }
+  .dr3-about .dr3-badge-plate {
+    display: none;
+  }
+  .dr3-about .dr3-commitment-media img {
+    aspect-ratio: 350 / 260;
+  }
+  .dr3-contact .dr3-start #request-a-quote {
+    padding: 22px;
+  }
+
+  /* Contact */
+  .dr3-contact .dr3-contact-hero {
+    min-block-size: 560px;
+  }
+  .dr3-contact .dr3-contact-hero-photo {
+    object-position: 45% 50%;
+  }
+  .dr3-contact .dr3-contact-title h1 {
+    font-size: clamp(56px, 17vw, 72px);
+  }
+  .dr3-contact .dr3-contact-lead {
+    font-size: 16px;
+  }
+  .dr3-contact .dr3-phone-strip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dr3-contact .dr3-phone-strip > a {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-block-size: 48px;
+    padding: 0 20px;
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--r3-scrim-mid);
+  }
+  .dr3-contact .dr3-phone-strip-quote .rfq a,
+  .dr3-contact .dr3-phone-strip-quote > a {
+    min-block-size: 56px;
+  }
+  .dr3-contact .dr3-contact-intro {
+    margin-block-start: 64px;
+  }
+  .dr3-contact .dr3-send-cards {
+    grid-template-columns: none;
+    grid-auto-columns: 72%;
+    grid-auto-flow: column;
+    gap: 14px;
+    margin-inline: -20px;
+    padding-inline: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .dr3-contact .dr3-send-card {
+    scroll-snap-align: start;
+  }
+  .dr3-contact .dr3-send-card:nth-child(n) {
+    margin-block-start: 0;
+  }
+  .dr3-contact .dr3-send-card:nth-child(n) .dr3-send-photo img {
+    block-size: 220px;
+  }
+  .dr3-contact .dr3-contact-offices {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dr3-contact .dr3-offices {
+    padding-block-end: 64px;
+  }
+
+  /* Mobile action bar: the page reserves its height; the corner launcher sits above it. */
+  .dr3-sticky {
+    position: fixed;
+    inset-inline: 0;
+    inset-block-end: 0;
+    z-index: 30;
+    display: flex;
+    gap: 10px;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: var(--r3-white);
+    box-shadow: 0 -8px 24px var(--r3-shadow);
+  }
+  .dr3-sticky .dr3-sticky-call {
+    display: grid;
+    flex: none;
+    place-items: center;
+    inline-size: 52px;
+    block-size: 52px;
+    border: 1px solid var(--r3-line);
+    border-radius: 50%;
+    color: var(--r3-ink);
+    font-size: 22px;
+    text-decoration: none;
+  }
+  .dr3-sticky .dr3-sticky-quote {
+    display: grid;
+    flex: 1;
+  }
+  .dr3-sticky .dr3-sticky-quote .rfq {
+    display: grid;
+  }
+  .dr3-sticky .dr3-sticky-quote .rfq a,
+  .dr3-sticky .dr3-sticky-quote > a {
+    min-block-size: 52px;
+    border: 0;
+    box-shadow: none;
+  }
+  /* The bar (76px) and the corner launcher lifted above it (about 64px) never cover the end of the page. */
+  .dr3.dr3-about,
+  .salmon-canonical.figma-contact {
+    padding-block-end: calc(148px + env(safe-area-inset-bottom));
+  }
+  /* With the bar, the corner launcher becomes a 48 px icon circle 12 px above it (its accessible name is unchanged). */
+  body:has(.dr3-sticky) [data-rfq-launcher] {
+    inset-block-end: calc(88px + env(safe-area-inset-bottom));
+    inset-inline-end: 16px;
+    justify-content: center;
+    gap: 0;
+    inline-size: 48px;
+    block-size: 48px;
+    min-block-size: 0;
+    padding: 0;
+  }
+  body:has(.dr3-sticky) [data-rfq-launcher] > span {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dr3 .dr3-office-track,
+  .dr3 .dr3-clients,
+  .dr3 .dr3-send-cards {
+    scroll-behavior: auto;
+  }
+}

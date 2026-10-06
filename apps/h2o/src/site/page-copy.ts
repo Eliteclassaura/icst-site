@@ -6,7 +6,10 @@ import path from 'node:path'
  * wording change edits that file only. A null value renders no element.
  */
 export type PageCopy={
-  contact:{eyebrow:string|null;heading:string;lead:string;requestHeading:string|null;requestBody:string;officeTitles:Record<string,string>;phoneOnlyPrefix:string}
+  contact:{eyebrow:string|null;heading:string;lead:string;requestHeading:string|null;requestBody:string;officeTitles:Record<string,string>;phoneOnlyPrefix:string
+    /** Design R3 (CT 2026-10-06; OGCS Contact review bdc9a49b). */
+    heroLead:string;requestChip:string;requestTitle:string;sendHeading:string;send:Array<{text:string;media:string}>
+    officesChip:string;officesHeading:string;officesNote:string|null;officeSubtitles:Record<string,string>;officeBadges:Record<string,string>;callLabel:string;formLink:string}
   englishServices:{evidenceCaption:string|null}
 }
 let cache:PageCopy|undefined

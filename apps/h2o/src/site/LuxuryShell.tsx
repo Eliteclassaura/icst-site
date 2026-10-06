@@ -3,6 +3,7 @@ import path from 'node:path'
 import {contactOffices} from './contact'
 import type {ReactNode} from 'react'
 import {ClientSocialLinks} from './ClientReview'
+import {pageCopy} from './page-copy'
 import type {CohortPage} from './cohort'
 import type {SalmonDocument} from './salmon'
 import {RfqMount} from './RfqMount'
@@ -31,7 +32,7 @@ const linkList=(links:SiteChrome['footer']['columns'][number]['links'])=><ul>{li
 const officeLocation=(key:string,fallback:string)=>key==='usa'?'Lakewood, Colorado, USA':fallback
 export function LuxuryFooter({page=null,routePath,product}:{page?:CohortPage|null;routePath?:string;product?:SalmonDocument}){const f=renderableChrome().footer;const useful=f.columns[0];return <div className="salmon-copy global-chrome"><footer className="salmon-parity-footer sp-footer" data-footer-architecture="SALMON_FOOTER_R1" data-owner-override="OWNER_CONTACT_AUTHORITY_OVERRIDE_2026_09_21">
   <div className="sp-footer-inner">
-   <div className="sp-footer-top"><h2>{f.heading}</h2><div className="sp-footer-actions">{quoteAction('footer_rfq_band',page,undefined,routePath,product)}<a className="sp-footer-contact" href="/contact-us/">{f.contactLabel}</a></div></div>
+   <div className="sp-footer-top"><h2>{f.heading}</h2><div className="sp-footer-actions">{quoteAction('footer_rfq_band',page,undefined,routePath,product)}{routePath==='/contact-us/'?<a className="sp-footer-contact" href="#how-to-request">{pageCopy().contact.formLink}</a>:<a className="sp-footer-contact" href="/contact-us/">{f.contactLabel}</a>}</div></div>
    <div className="sp-footer-main">
     <section className="sp-footer-about" aria-label="About ICS"><a className="sp-footer-logo" href="/" aria-label="ICS homepage"><img src="/media/salmon/a8f4b38d0f7ede838b277c9bcd00a3b75a268ce23a5fccfb86ec263774e3b844.png" width="196" height="50" alt="ICS — Industrial Cooling Solutions"/></a><h3>About ICS</h3><p>{f.description}</p><div className="sp-footer-cti"><img src="/media/salmon/c0060d855e27dfa01cb59100bba1dd217e2e6796d995aaa0e4ef4fa73d9b006c.png" width="952" height="272" alt="Cooling Technology Institute (CTI)" loading="lazy" decoding="async"/></div><ClientSocialLinks/></section>
     <nav className="sp-footer-list" aria-label={useful?.ariaLabel}><h3>{useful?.title}</h3>{linkList(useful?.links??[])}</nav>

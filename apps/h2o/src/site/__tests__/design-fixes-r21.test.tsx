@@ -112,7 +112,9 @@ describe('OGCS §2 contact and §5 caption (data)',()=>{
     expect(html).not.toContain('Start Here')
     expect(html).toContain(copy.heading)
     expect(html).toContain(copy.lead.replace(/'/g,'&#x27;'))
-    for(const title of ['USA office','Japan office','Thailand office'])expect(html).toContain(`<h3>${title}</h3>`)
+    // Design R3 (OGCS Contact review bdc9a49b rows 20/24/28): USA, Japan office, Thailand
+    for(const title of Object.values(copy.officeTitles))expect(html).toContain(`<h3>${title}</h3>`)
+    expect(Object.values(copy.officeTitles)).toEqual(['USA','Japan','Thailand']) // CT direct ruling 2026-10-06: Japan as the others
   })
   it('the crossflow-template evidence caption is removed (null renders no element)',async()=>{
     expect(pageCopy().englishServices.evidenceCaption).toBeNull()

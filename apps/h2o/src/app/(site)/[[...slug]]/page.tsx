@@ -4,6 +4,7 @@ import {salmonDocument,releaseRouteFor,salmonRoutes} from '../../../site/salmon'
 import {aliasReleaseDocument} from '../../../site/release-document'
 import {SalmonCanonical,publicDescription,servedDescription,servedTitle} from '../../../site/SalmonCanonical'
 import {SalmonFamilyPage,salmonFamilyFor} from '../../../site/SalmonFamilies'
+import {ABOUT_ROUTE_ID,AboutComposition} from '../../../site/AboutComposition'
 import {ArchivePage,isArchiveDocument} from '../../../site/ArchivePresentation'
 import {LuxuryCanonical,luxuryIds} from '../../../site/LuxuryCanonical'
 import {PartsIndex,ProductDetail} from '../../../site/Wave3Presentation'
@@ -99,6 +100,8 @@ export default async function Page({params,searchParams}:Params){
   const row=aliasSource??releaseRouteFor(slug)
   if(!row)notFound()
   const doc=alias&&aliasSource?aliasReleaseDocument(salmonDocument(aliasSource),alias.path,alias.canonical):salmonDocument(row)
+  // Design R3 (CT 2026-10-06): the owner's About design replaces the transitional Salmon about family on this route.
+  if(doc.routeId===ABOUT_ROUTE_ID&&!alias)return <AboutComposition doc={doc}/>
   const family=salmonFamilyFor(doc)
   if(family)return <SalmonFamilyPage doc={doc} config={family}/>
   if(isArchiveDocument(doc))return <ArchivePage doc={doc}/>

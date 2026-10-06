@@ -30,10 +30,11 @@ const authority = JSON.parse(
 export const CONTACT_AUTHORITY_ID = authority.authorityId
 export const CONTACT_AUTHORITY_DATE = authority.authorityDate
 /**
- * Display spelling of a number, keyed by its unchanged tel: link (Design Fixes R1 A7, CT 2026-10-04): the owner authority
- * file is kept byte-for-byte; only the grouping shown to visitors follows the international format.
+ * Display spelling of a number, keyed by its unchanged tel: link. Design R3 (CT ruling 5, OGCS About row 38 and Contact rows
+ * 4/31/35, 2026-10-06): the site shows each number exactly as the owner authority file publishes it (Thailand +662-661-7723),
+ * superseding the Design Fixes R1 A7 regrouping. An entry here would override the authority's display for one number.
  */
-export const TELEPHONE_DISPLAY: Readonly<Record<string, string>> = { 'tel:+6626617723': '+66-2-661-7723' }
+export const TELEPHONE_DISPLAY: Readonly<Record<string, string>> = {}
 export const contactOffices: ContactOffice[] = authority.offices.map((office) => ({ ...office, telephoneDisplay: TELEPHONE_DISPLAY[office.telephoneHref] ?? office.telephoneDisplay }))
 
 export const postalAddressFor = (office: ContactOffice): Record<string, string> | null => {

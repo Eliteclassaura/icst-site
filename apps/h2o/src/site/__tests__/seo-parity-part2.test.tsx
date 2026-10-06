@@ -65,8 +65,9 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     expect(data('redirects-retired.tsv').some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
     expect(data('redirects-retired.tsv')).toHaveLength(0)
     // R2.4 creates one: /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
-    // R2.5 creates the eleven live-chain middle addresses (CT approved); everything else is in place
-    expect(data('redirects.tsv').filter(r=>r.action!=='UNCHANGED').map(r=>r.action)).toEqual(Array(11).fill('CREATE'))
+    // R2.5 created the eleven live-chain middle addresses (CT approved). Design R3 is a delta on the R2.5 batch: it creates
+    // only /about-us/ → /about-ics-industrial-cooling-solutions/ (CT ruling 2026-10-06); everything else is in place
+    expect(data('redirects.tsv').filter(r=>r.action!=='UNCHANGED').map(r=>`${r.action} ${r.source} ${r.destination}`)).toEqual(['CREATE /about-us/ /about-ics-industrial-cooling-solutions/'])
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
     // Locale Part B: the locale and blog variants now go one hop to their preserved locale pages (and the locale URLs serve

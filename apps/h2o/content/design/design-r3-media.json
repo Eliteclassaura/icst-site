@@ -1,0 +1,435 @@
+{
+ "authority": "Design R3 (CT approval 2026-10-06: A1 stands; D1(a) office cards show a verified project from each country with an honest caption, never implying the office building; D2 PTT LLDPE II; D3 Lanxess; D4(b) Contact hero replaced; D5 client logos pending from the owner). Corpus search: h2o-corpus-asset-curator, 8,205 originals fingerprinted.",
+ "slots": {
+  "about.hero": {
+   "figma": {
+    "fileKey": "CAqW9ItKIAxm7EiGO1qWat",
+    "node": "3:2997",
+    "figmaSha256": [
+     "4a34f7bf5630a66e26bf71b34da2379b6026a071ea8e4b392e913a925f6ef583",
+     "736ccb698c65c9df1924772d8af8154a827afb25309e65eb99a854e0eb225a5b"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped); source scene: PETRONAS RAPID fan deck"
+   },
+   "media": {
+    "src": "/media/projects/aa8134b17464f9d2c9b6ff0deee45701e346f64204fc6b53b1d778079007742a.jpg",
+    "sha256": "aa8134b17464f9d2c9b6ff0deee45701e346f64204fc6b53b1d778079007742a",
+    "width": 1600,
+    "height": 1200,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2025/02/RAPID-Fan-Deck.jpg",
+     "sha256": "8cd8b3bca1e566c4b3285ec82f77bccf642fecce47c641e01e428abc10b4eff2",
+     "width": 2304,
+     "height": 1728
+    },
+    "registry": "/all-projects/pertonas-rapid/",
+    "identity": "ESTABLISHED",
+    "alt": "PETRONAS RAPID cooling tower fan deck under construction"
+   },
+   "disposition": "REPLACE"
+  },
+  "about.office.usa": {
+   "figma": {
+    "fileKey": "CAqW9ItKIAxm7EiGO1qWat",
+    "node": "3:3201",
+    "figmaSha256": [
+     "f7c76ee85bd53ff38e176cefab7adf2eee2d50974708a900b8d0f166c06c4c66",
+     "9315b3fdae634cdb4b31dd09a779aafe605f48e832d7f7945f6ab02482946a13"
+    ],
+    "reason": "Real LIVE photo of Mitsui, Jurong Island, Singapore (2015): another country's project, not the USA office (D1)"
+   },
+   "media": {
+    "src": "/media/projects/4e4b80ce707d5b82ea06536c91b2c3b63694e31988bc260cf749788f07ee91b0.jpg",
+    "sha256": "4e4b80ce707d5b82ea06536c91b2c3b63694e31988bc260cf749788f07ee91b0",
+    "width": 1280,
+    "height": 1077,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2025/02/B115-M-01-Feb.272015-006-12-353x297-1-1.jpg",
+     "sha256": "4e4b80ce707d5b82ea06536c91b2c3b63694e31988bc260cf749788f07ee91b0",
+     "width": 1280,
+     "height": 1077
+    },
+    "registry": "/all-projects/pvc-plant-freeport-texas/",
+    "identity": "ESTABLISHED",
+    "alt": "Cooling tower at a PVC plant in Freeport, Texas",
+    "caption": "ICS project: PVC plant, Freeport, Texas"
+   },
+   "disposition": "REPLACE"
+  },
+  "about.office.thailand": {
+   "figma": {
+    "fileKey": "CAqW9ItKIAxm7EiGO1qWat",
+    "node": "3:3262",
+    "figmaSha256": [
+     "b96a7fee3634d9e34e18f6e168104ead95dad85f4b2dc3ce79fb6b76243cda71"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped); source: Lanxess side view; not a Thailand project (D1)"
+   },
+   "media": {
+    "src": "/media/projects/f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc.jpg",
+    "sha256": "f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc",
+    "width": 1600,
+    "height": 1200,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2024/06/PTT-Cracker.jpg",
+     "sha256": "6a2312c033fcf7f540fded009eab9b6f986222d82974bc4a94a94a8179371366",
+     "width": 3456,
+     "height": 2592
+    },
+    "registry": "/all-projects/ptt-cracker-project/",
+    "identity": "ESTABLISHED",
+    "alt": "Cooling towers at the PTT Cracker project in Thailand",
+    "caption": "ICS project: PTT Cracker, Thailand"
+   },
+   "disposition": "REPLACE"
+  },
+  "about.office.japan": {
+   "figma": {
+    "fileKey": "CAqW9ItKIAxm7EiGO1qWat",
+    "node": "3:3321",
+    "figmaSha256": [
+     "c55458bf6e7fa3bb27f84d11baa996b50dbfcb71a0cac046427c0de3c9a63df9"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped); source: KBR crossflow tower; not a Japan project (D1)"
+   },
+   "media": {
+    "src": "/media/design-r3/b4c4a3afd84cd1976b64f644245ceeacaadaaea04bc41c5d24b88a07faad70ef.jpg",
+    "sha256": "b4c4a3afd84cd1976b64f644245ceeacaadaaea04bc41c5d24b88a07faad70ef",
+    "width": 1600,
+    "height": 1200,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2022/05/IBPG-Hokkaido-Japan.jpg",
+     "sha256": "dff0cf1dd0bedc59f40df59193c2bac8f69e53e33d37940a3246795940385e31",
+     "width": 4032,
+     "height": 3024
+    },
+    "identity": "ICS_JAPAN_PROJECT",
+    "derivative": "magick -auto-orient -resize 1600x -strip -quality 82 (JPEG, progressive)",
+    "alt": "ICS cooling tower project in Japan",
+    "caption": "ICS project in Japan"
+   },
+   "disposition": "REPLACE"
+  },
+  "about.team.installation": {
+   "figma": {
+    "fileKey": "CAqW9ItKIAxm7EiGO1qWat",
+    "node": "3:3391",
+    "figmaSha256": [
+     "5f17856208d923bca9dd43604a1ed9736df7e6f84cfe73a178e26fb3c01358ef"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped); source: ICS Japan project (Japan-Project.jpg)"
+   },
+   "media": {
+    "src": "/media/projects/5a42189fd6ba2edddc1923b96a6f89f65db682b83eae894e865a23729f85da46.jpg",
+    "sha256": "5a42189fd6ba2edddc1923b96a6f89f65db682b83eae894e865a23729f85da46",
+    "width": 1600,
+    "height": 1200,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2024/06/Keramasan-Construction-min.jpg",
+     "sha256": "5a42189fd6ba2edddc1923b96a6f89f65db682b83eae894e865a23729f85da46",
+     "width": 1600,
+     "height": 1200
+    },
+    "registry": "/all-projects/keramasan-power-project/",
+    "identity": "ESTABLISHED",
+    "alt": "Cooling tower installation at the Keramasan power project"
+   },
+   "disposition": "REPLACE"
+  },
+  "about.whatWeDo": {
+   "figma": {
+    "fileKey": "CAqW9ItKIAxm7EiGO1qWat",
+    "node": "3:3444",
+    "figmaSha256": [
+     "801553643cdcb9c2ed5446a7ffa9892cecfb094bb53ee06cce0b502a3772eeef",
+     "d1ff3dcc5555a75201df2652d64d35b977b421ae52fea37b1882876ce957c79f"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped); source: Patuha (Geo Dipa Energi), original 353 px, too small for the slot (D2)"
+   },
+   "media": {
+    "src": "/media/projects/2059312dd38c1107312199a11084a3aa9281c5ad9eda4062884b201149a7e231.jpg",
+    "sha256": "2059312dd38c1107312199a11084a3aa9281c5ad9eda4062884b201149a7e231",
+    "width": 1600,
+    "height": 1200,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2024/06/PTT-LLDPE2-min.jpg",
+     "sha256": "5fc2fd8e508dfa0234f4bbac988e92756bb1ac02a271ee1480797e1ea4e2aad3",
+     "width": 4608,
+     "height": 3456
+    },
+    "registry": "/all-projects/ptt-ldpe-ii-project/",
+    "identity": "ESTABLISHED",
+    "alt": "Cooling tower cells at the PTT LLDPE II project"
+   },
+   "disposition": "REPLACE"
+  },
+  "about.commitment": {
+   "figma": {
+    "fileKey": "CAqW9ItKIAxm7EiGO1qWat",
+    "node": "3:3489",
+    "figmaSha256": [
+     "bba415b32441dd45bce010a05dcb80663d5c94990bfdb3160d217230d413869f",
+     "f267f6c1d9afdec312862eb4d2f56176c063d44490124377596086cb87d67d8f"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped) (Gemini watermark); source: Thailand Projects PB030157, original 353 px (D3)"
+   },
+   "media": {
+    "src": "/media/projects/7f2900b273ec01a51841a9effd0664692184fe1a9157132346323010b030b436.jpg",
+    "sha256": "7f2900b273ec01a51841a9effd0664692184fe1a9157132346323010b030b436",
+    "width": 1600,
+    "height": 1200,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2021/10/Lanxess-side-view.jpg",
+     "sha256": "7190617ef87c92f132a8a14d024a2152fdfbfaa603913857f745eeadfcd2eed3",
+     "width": 4000,
+     "height": 3000
+    },
+    "registry": "/all-projects/lanxess/",
+    "identity": "ESTABLISHED",
+    "alt": "Cooling tower at the Lanxess project, side view"
+   },
+   "disposition": "REPLACE"
+  },
+  "about.ctaBand": {
+   "figma": {
+    "fileKey": "CAqW9ItKIAxm7EiGO1qWat",
+    "node": "3:3501",
+    "figmaSha256": [
+     "4a34f7bf5630a66e26bf71b34da2379b6026a071ea8e4b392e913a925f6ef583",
+     "736ccb698c65c9df1924772d8af8154a827afb25309e65eb99a854e0eb225a5b"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped); repeats the hero. Empire Farms under the hero's light wash (Design Director)."
+   },
+   "media": {
+    "src": "/media/projects/8f73e27fa0f7eac107105bc869fe6120afe34420a7e4843d9f1a706b9be5bf79.jpg",
+    "sha256": "8f73e27fa0f7eac107105bc869fe6120afe34420a7e4843d9f1a706b9be5bf79",
+    "width": 1280,
+    "height": 1077,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2025/02/96-126-Empire-Farms1-353x297-1-1.jpg",
+     "sha256": "8f73e27fa0f7eac107105bc869fe6120afe34420a7e4843d9f1a706b9be5bf79",
+     "width": 1280,
+     "height": 1077
+    },
+    "registry": "/all-projects/empire-farms/",
+    "identity": "ESTABLISHED",
+    "alt": ""
+   },
+   "disposition": "REPLACE"
+  },
+  "contact.hero": {
+   "figma": {
+    "fileKey": "HyH4ognJmJfSxxezLish01",
+    "node": "3:91",
+    "figmaSha256": [
+     "2a8107c7ccc4d5ef5f7c6196e14921fbaa80a4a20665625a92146b2ca6607103",
+     "8cd30da7f56921a633f716458c9eedb8354a749c3869245ba5678cc108723d4b"
+    ],
+    "reason": "AI re-render of the 2011 fill-handling site photo; the accepted 2338 px upscale is replaced too (D4). D4: IBPG Hokkaido chosen with the Design Director (native width at every viewport; sky and finished tower carry the headline; Keramasan at 1600 px would upscale on viewports wider than 1600)."
+   },
+   "media": {
+    "src": "/media/design-r3/6497df0a93ba23bb6188460ac18cf19024f57a1a3985f0a837c42a4496ecf064.jpg",
+    "sha256": "6497df0a93ba23bb6188460ac18cf19024f57a1a3985f0a837c42a4496ecf064",
+    "width": 1920,
+    "height": 1440,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2022/05/IBPG-Hokkaido-Japan.jpg",
+     "sha256": "dff0cf1dd0bedc59f40df59193c2bac8f69e53e33d37940a3246795940385e31",
+     "width": 4032,
+     "height": 3024
+    },
+    "identity": "ICS_JAPAN_PROJECT",
+    "derivative": "magick -auto-orient -resize {1280,1920,2560}x -strip -quality 80 (JPEG, progressive)",
+    "srcset": [
+     {
+      "src": "/media/design-r3/6048b0e444768962aeb6497f4d7108730cbda93ecbb10ff2cfa46a3fe43c45fe.jpg",
+      "sha256": "6048b0e444768962aeb6497f4d7108730cbda93ecbb10ff2cfa46a3fe43c45fe",
+      "width": 1280,
+      "height": 960
+     },
+     {
+      "src": "/media/design-r3/6497df0a93ba23bb6188460ac18cf19024f57a1a3985f0a837c42a4496ecf064.jpg",
+      "sha256": "6497df0a93ba23bb6188460ac18cf19024f57a1a3985f0a837c42a4496ecf064",
+      "width": 1920,
+      "height": 1440
+     },
+     {
+      "src": "/media/design-r3/1177c7a5362aaeaf909caf7bdfb684bb8cf3a8e19ae3490fbb9e236a3890c1fa.jpg",
+      "sha256": "1177c7a5362aaeaf909caf7bdfb684bb8cf3a8e19ae3490fbb9e236a3890c1fa",
+      "width": 2560,
+      "height": 1920
+     }
+    ],
+    "alt": ""
+   },
+   "disposition": "REPLACE"
+  },
+  "contact.send.need": {
+   "figma": {
+    "fileKey": "HyH4ognJmJfSxxezLish01",
+    "node": "3:158",
+    "figmaSha256": [
+     "5f17856208d923bca9dd43604a1ed9736df7e6f84cfe73a178e26fb3c01358ef"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped); source: ICS Japan project. Replacement chosen with the Design Director (IBPG is the Contact hero; no photo repeats on a page)."
+   },
+   "media": {
+    "src": "/media/projects/5a42189fd6ba2edddc1923b96a6f89f65db682b83eae894e865a23729f85da46.jpg",
+    "sha256": "5a42189fd6ba2edddc1923b96a6f89f65db682b83eae894e865a23729f85da46",
+    "width": 1600,
+    "height": 1200,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2024/06/Keramasan-Construction-min.jpg",
+     "sha256": "5a42189fd6ba2edddc1923b96a6f89f65db682b83eae894e865a23729f85da46",
+     "width": 1600,
+     "height": 1200
+    },
+    "registry": "/all-projects/keramasan-power-project/",
+    "identity": "ESTABLISHED",
+    "alt": "Cooling tower construction at the Keramasan power project"
+   },
+   "disposition": "REPLACE"
+  },
+  "contact.send.tower": {
+   "figma": {
+    "fileKey": "HyH4ognJmJfSxxezLish01",
+    "node": "3:165",
+    "figmaSha256": [
+     "801553643cdcb9c2ed5446a7ffa9892cecfb094bb53ee06cce0b502a3772eeef",
+     "d1ff3dcc5555a75201df2652d64d35b977b421ae52fea37b1882876ce957c79f"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped); source: Patuha (353 px)"
+   },
+   "media": {
+    "src": "/media/projects/2059312dd38c1107312199a11084a3aa9281c5ad9eda4062884b201149a7e231.jpg",
+    "sha256": "2059312dd38c1107312199a11084a3aa9281c5ad9eda4062884b201149a7e231",
+    "width": 1600,
+    "height": 1200,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2024/06/PTT-LLDPE2-min.jpg",
+     "sha256": "5fc2fd8e508dfa0234f4bbac988e92756bb1ac02a271ee1480797e1ea4e2aad3",
+     "width": 4608,
+     "height": 3456
+    },
+    "registry": "/all-projects/ptt-ldpe-ii-project/",
+    "identity": "ESTABLISHED",
+    "alt": "Cooling tower cells seen from above, PTT LLDPE II project"
+   },
+   "disposition": "REPLACE"
+  },
+  "contact.send.documents": {
+   "figma": {
+    "fileKey": "HyH4ognJmJfSxxezLish01",
+    "node": "3:173",
+    "figmaSha256": [
+     "bba415b32441dd45bce010a05dcb80663d5c94990bfdb3160d217230d413869f",
+     "f267f6c1d9afdec312862eb4d2f56176c063d44490124377596086cb87d67d8f"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped) (Gemini watermark); the original itself is used here at native size"
+   },
+   "media": {
+    "src": "/media/projects/9d99444145ca0b19b72b7b067fae33c012488b6fd0698c19108aa9cd3e761ed7.jpg",
+    "sha256": "9d99444145ca0b19b72b7b067fae33c012488b6fd0698c19108aa9cd3e761ed7",
+    "width": 353,
+    "height": 297,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2022/09/PB030157-1600x1128-353x297-1.jpg",
+     "sha256": "9d99444145ca0b19b72b7b067fae33c012488b6fd0698c19108aa9cd3e761ed7",
+     "width": 353,
+     "height": 297
+    },
+    "registry": "/all-projects/thailand-projects/",
+    "identity": "ESTABLISHED",
+    "alt": "Industrial plant with cooling towers, Thailand"
+   },
+   "disposition": "REPLACE"
+  },
+  "contact.office.usa": {
+   "figma": {
+    "fileKey": "HyH4ognJmJfSxxezLish01",
+    "node": "3:54",
+    "figmaSha256": [
+     "f7c76ee85bd53ff38e176cefab7adf2eee2d50974708a900b8d0f166c06c4c66",
+     "9315b3fdae634cdb4b31dd09a779aafe605f48e832d7f7945f6ab02482946a13"
+    ],
+    "reason": "Mitsui, Jurong Island, Singapore: not the USA office (D1)"
+   },
+   "media": {
+    "src": "/media/projects/4e4b80ce707d5b82ea06536c91b2c3b63694e31988bc260cf749788f07ee91b0.jpg",
+    "sha256": "4e4b80ce707d5b82ea06536c91b2c3b63694e31988bc260cf749788f07ee91b0",
+    "width": 1280,
+    "height": 1077,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2025/02/B115-M-01-Feb.272015-006-12-353x297-1-1.jpg",
+     "sha256": "4e4b80ce707d5b82ea06536c91b2c3b63694e31988bc260cf749788f07ee91b0",
+     "width": 1280,
+     "height": 1077
+    },
+    "registry": "/all-projects/pvc-plant-freeport-texas/",
+    "identity": "ESTABLISHED",
+    "alt": "Cooling tower at a PVC plant in Freeport, Texas",
+    "caption": "ICS project: PVC plant, Freeport, Texas"
+   },
+   "disposition": "REPLACE"
+  },
+  "contact.office.japan": {
+   "figma": {
+    "fileKey": "HyH4ognJmJfSxxezLish01",
+    "node": "3:67",
+    "figmaSha256": [
+     "c55458bf6e7fa3bb27f84d11baa996b50dbfcb71a0cac046427c0de3c9a63df9"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped); KBR (D1)"
+   },
+   "media": {
+    "src": "/media/design-r3/5b81244ff1148b9316dd5543a737da18787da8f48f9c466bdfbec97b83acd192.jpg",
+    "sha256": "5b81244ff1148b9316dd5543a737da18787da8f48f9c466bdfbec97b83acd192",
+    "width": 1600,
+    "height": 1200,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2022/05/Japan-Project.jpg",
+     "sha256": "969aa66a977b121960cbd88b4114857920e7afb729b211d32a574c8196e44b80",
+     "width": 3264,
+     "height": 2448
+    },
+    "identity": "ICS_JAPAN_PROJECT",
+    "derivative": "magick -auto-orient -resize 1600x -strip -quality 82 (JPEG, progressive)",
+    "alt": "ICS cooling tower project in Japan",
+    "caption": "ICS project in Japan"
+   },
+   "disposition": "REPLACE"
+  },
+  "contact.office.thailand": {
+   "figma": {
+    "fileKey": "HyH4ognJmJfSxxezLish01",
+    "node": "3:83",
+    "figmaSha256": [
+     "b96a7fee3634d9e34e18f6e168104ead95dad85f4b2dc3ce79fb6b76243cda71"
+    ],
+    "reason": "AI-retouched copy of a held ICS project photo (A1: not shipped); Lanxess (D1)"
+   },
+   "media": {
+    "src": "/media/projects/f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc.jpg",
+    "sha256": "f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc",
+    "width": 1600,
+    "height": 1200,
+    "original": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2024/06/PTT-Cracker.jpg",
+     "sha256": "6a2312c033fcf7f540fded009eab9b6f986222d82974bc4a94a94a8179371366",
+     "width": 3456,
+     "height": 2592
+    },
+    "registry": "/all-projects/ptt-cracker-project/",
+    "identity": "ESTABLISHED",
+    "alt": "Cooling towers at the PTT Cracker project in Thailand",
+    "caption": "ICS project: PTT Cracker, Thailand"
+   },
+   "disposition": "REPLACE"
+  }
+ },
+ "clientLogos": {
+  "status": "PENDING_OWNER_FILES",
+  "permission": "owner, 2026-10-06 (CT relay)",
+  "note": "Figma holds the client strip as text only (all frames); logos are added here as {name, src, sha256, width, height} with no code change."
+ }
+}

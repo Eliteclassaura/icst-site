@@ -51,7 +51,7 @@ describe('footer social icon buttons',()=>{
 
 describe('footer facts unchanged',()=>{
   it('keeps the owner phone facts, the four columns and the RFQ band',()=>{
-    for(const fact of ['+1-303-462-2000','+81-90-4204-6742','+66-2-661-7723'])expect(html).toContain(fact)
+    for(const fact of ['+1-303-462-2000','+81-90-4204-6742','+662-661-7723'])expect(html).toContain(fact)
     expect(html).not.toContain('+66-2-260-6598')
     const main=html.slice(html.indexOf('<div class="sp-footer-main">'),html.indexOf('<div class="sp-footer-legal">'))
     expect([...main.matchAll(/<(?:section|nav) class="(sp-footer-[a-z -]+)"/g)].map(([,cls])=>cls)).toEqual(['sp-footer-about','sp-footer-list','sp-footer-list sp-footer-category','sp-footer-phone'])
@@ -60,14 +60,14 @@ describe('footer facts unchanged',()=>{
   })
 })
 
-describe('Thailand phone display (Design Fixes R1 A7)',()=>{
-  it('shows +66-2-661-7723 everywhere while the tel: link and the owner authority file stay unchanged',async()=>{
+describe('Thailand phone display (Design R3, CT ruling 5; supersedes Design Fixes R1 A7)',()=>{
+  it('shows the owner authority display +662-661-7723 everywhere, with the tel: link unchanged',async()=>{
     const {contactOffices,TELEPHONE_DISPLAY}=await import('../contact')
     const thailand=contactOffices.find(office=>office.officeKey==='thailand')!
-    expect(thailand).toMatchObject({telephoneDisplay:'+66-2-661-7723',telephoneHref:'tel:+6626617723'})
-    expect(TELEPHONE_DISPLAY).toEqual({'tel:+6626617723':'+66-2-661-7723'})
+    expect(thailand).toMatchObject({telephoneDisplay:'+662-661-7723',telephoneHref:'tel:+6626617723'})
+    expect(TELEPHONE_DISPLAY).toEqual({})
     expect(readFileSync('content/2d-launch-cohort/OWNER_CONTACT_AUTHORITY_OVERRIDE_2026_09_21.json','utf8')).toContain('"telephoneDisplay": "+662-661-7723"')
     const {ownerText}=await import('../salmon')
-    expect(ownerText('Call +662-661-7723 or +66-2-260-6598')).toBe('Call +66-2-661-7723 or +66-2-661-7723')
+    expect(ownerText('Call +662-661-7723 or +66-2-260-6598')).toBe('Call +662-661-7723 or +662-661-7723')
   })
 })

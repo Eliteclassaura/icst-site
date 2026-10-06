@@ -174,7 +174,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: 98 R1 locale→English redirects retire (the locale page is preserved), 4 locale redirects are new.
     // R2.4: + /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
     // R2.5: + the two author aliases (the batch owns them; fresh production DB) and the eleven live-chain middle addresses.
-    expect(redirects).toHaveLength(407)
+    expect(redirects).toHaveLength(408) // Design R3: + /about-us/
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -199,20 +199,20 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // R2.4: + 10 pages of the OGCS R2.4 titles/metas (the two designed pages had rows) and the /new-cooling-tower-page/ 301;
     // R2.4 R2: + the 15 archives with an OGCS meta.
     // R2.5: + 13 redirect rows and the /cooling-tower-construction/ title row.
-    expect(conformance).toHaveLength(1139)
+    expect(conformance).toHaveLength(1140) // Design R3: + /about-us/
     expect(conformance.filter(row=>row.kind==='locale')).toHaveLength(166)
     const count=(kind:string)=>conformance.filter(row=>row.expect===kind).length
-    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([722,407,10,0]) // R2.2: + the D3 portfolio (200)
+    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([722,408,10,0]) // R2.2: + the D3 portfolio (200); Design R3: + /about-us/ (301)
     for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
-    // R2.5 (CT 2026-10-05) is ONE delta on the state R2.4 R2 leaves on staging: the five redirect sources still PUBLIC and the two
-    // author aliases withdrawn to their 301s, the eleven live-chain middle addresses created, the OGCS R2.5 title/meta and three
-    // cleaned metas, and the recorded cost/CS161 edits plus author-alias link re-points (14 routes on their own).
-    expect(expectations.expect.routes).toEqual({publish:0,withdraw:7,index:0,canonical:0})
-    expect(expectations.expect.redirects).toEqual({create:11,update:0,unchanged:396,retire:0,normalise:0})
-    expect(expectations.expect.seoFields).toMatchObject({update:5,pendingOgcs:0})
+    // Design R3 (CT 2026-10-06) is ONE delta on the state R2.5 leaves on staging: it creates /about-us/ (301 to the About page)
+    // and writes nothing else. (R2.5 was the delta on R2.4 R2: 7 withdrawals, 11 created middle addresses, 5 SEO fields and 14
+    // hygiene routes; those are now in place, and the fresh-database replay applies them from expectations.fresh-db.json.)
+    expect(expectations.expect.routes).toEqual({publish:0,withdraw:0,index:0,canonical:0})
+    expect(expectations.expect.redirects).toEqual({create:1,update:0,unchanged:407,retire:0,normalise:0})
+    expect(expectations.expect.seoFields).toMatchObject({update:0,pendingOgcs:0})
     expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:0})
-    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:14})
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:0})
     expect(expectations.expect.h1).toEqual({update:0})
     expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:0})
     expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)

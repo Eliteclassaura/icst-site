@@ -40,14 +40,15 @@ describe('final polish authority and semantic safety',()=>{
     expect(html).toContain('with offices in Japan and Bangkok, Thailand')
     for(const stale of ['branch offices','the Philippines','Saudi Arabia','regional hub','rapid deployment across Asia','serves Japan, Korea, and China'])expect(html).not.toContain(stale)
   })
-  it('places the existing RFQ mount after the Contact hero and renders exactly three authorized offices',()=>{
+  it('places the RFQ action in "How to request a quote" after the Contact hero and renders exactly three authorized offices',()=>{
     const html=renderToStaticMarkup(<SalmonCanonical doc={documentFor('SALMON-pages-1891')}/> )
-    const hero=html.match(/<section class="figma-contact-hero">([\s\S]*?)<\/section>/)?.[1]??''
+    // Design R3 (CT 2026-10-06): the hero carries the title, the three office numbers and one Request a Quote (phone strip)
+    const hero=html.match(/<section class="dr3-contact-hero">([\s\S]*?)<\/section>/)?.[1]??''
     expect(hero).toContain('Contact Us')
-    expect(hero).not.toContain('Request a Quote')
-    expect(html).toContain('figma-contact-rfq')
-    expect(html).toContain('figma-contact-action')
-    const offices=html.match(/<div class="figma-contact-office-list">([\s\S]*?)<\/div>/)?.[1]??''
+    expect(hero.match(/Request a Quote/g)).toHaveLength(1)
+    const start=html.match(/<section class="dr3-section dr3-start"[^>]*>([\s\S]*?)<\/section>/)?.[1]??''
+    expect(start).toContain('figma-contact-action')
+    const offices=html.match(/<ul class="dr3-contact-offices">([\s\S]*?)<\/ul>/)?.[1]??''
     expect(offices.match(/<address data-office=/g)).toHaveLength(3)
     for(const phone of ['tel:+13034622000','tel:+819042046742','tel:+6626617723'])expect(html).toContain(phone)
     expect(html).not.toContain('+66-2-260-6598')

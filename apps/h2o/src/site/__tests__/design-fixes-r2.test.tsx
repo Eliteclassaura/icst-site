@@ -76,7 +76,10 @@ describe('#14 /contact-us/',()=>{
   it('the page text is the OGCS copy (R2.1, page-copy data); the Japan office telephone unchanged',async()=>{
     const html=await render('/contact-us/')
     expect(html).toContain('Tell us what your tower is doing and what you need it to do.')
-    expect(html).toMatch(/<address data-office="japan"><h3>Japan office<\/h3>[^]*?<a href="tel:\+819042046742">\+81-90-4204-6742<\/a>[^]*?<\/address>/)
+    // Design R3 (CT 2026-10-06, direct copy ruling): the Japan card reads "Japan" with the bare number, like the other cards;
+    // its address holds the phone only
+    expect(html).toMatch(/data-office="japan"><div class="dr3-office-title"><div><h3>Japan<\/h3>/)
+    expect(html).toMatch(/<address data-office="japan"><a class="dr3-phone-pill" href="tel:\+819042046742">\+81-90-4204-6742<span aria-hidden="true">↗<\/span><\/a><\/address>/)
   })
 })
 

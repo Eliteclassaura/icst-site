@@ -69,7 +69,7 @@ describe('English completion release boundary',()=>{
       expect(html).not.toContain('Start Here')
       expect(html).toContain('Request a quote for parts, new towers or repair work')
       expect(html).toContain('https://form.typeform.com/to/F22cAgx3')
-      expect(html).toContain('figma-contact-hero-photo')
+      expect(html).toContain('dr3-contact-hero-photo') // Design R3 (CT 2026-10-06)
       expect(html).not.toContain('+66-2-260-6598')
       expect(html.slice(html.indexOf('<main'))).not.toContain('<form')
     }finally{

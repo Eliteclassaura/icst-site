@@ -5,7 +5,7 @@
   "seoFields": 498,
   "expect": {
     "redirects": {
-      "create": 389,
+      "create": 390,
       "update": 0,
       "unchanged": 18,
       "retire": 0,

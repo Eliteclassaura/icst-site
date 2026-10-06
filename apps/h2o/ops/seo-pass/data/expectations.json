@@ -1,24 +1,24 @@
 {
-  "rows": 1139,
-  "redirects": 407,
+  "rows": 1140,
+  "redirects": 408,
   "seoFields": 498,
   "expect": {
     "redirects": {
-      "create": 11,
+      "create": 1,
       "update": 0,
-      "unchanged": 396,
+      "unchanged": 407,
       "retire": 0,
       "normalise": 0
     },
     "routes": {
       "publish": 0,
-      "withdraw": 7,
+      "withdraw": 0,
       "index": 0,
       "canonical": 0
     },
     "seoFields": {
-      "update": 5,
-      "unchanged": 493,
+      "update": 0,
+      "unchanged": 498,
       "pendingOgcs": 0
     },
     "files": 22,
@@ -33,7 +33,7 @@
       "routes": 0
     },
     "hygiene": {
-      "routes": 14
+      "routes": 0
     }
   },
   "deltaSkipped": [
