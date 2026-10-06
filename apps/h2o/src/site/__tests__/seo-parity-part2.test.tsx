@@ -89,8 +89,10 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     expect(seo.get('/product-category/gearboxes/')).toBe('Amarillo Gearbox Replacement | Cooling Tower Gearbox Parts')
     expect(seo.get('/product/tuf-lite-iii-5000k-series-hub-fan-assemblies/')).toBe('TUF-LITE III 5000K Series Hub Fan Assemblies | Cooling Tower Fans')
     expect(data('h1-fields.tsv').map(r=>[r.path,r.via,r.h1]).slice(0,3)).toEqual([['/cooling-tower/','slot','New Cooling Tower Engineering & Construction'],['/product-category/gearboxes/','slot','Amarillo Cooling Tower Gearboxes'],['/product-category/drive-shafts-assemblies/','slot','Cooling Tower Couplings & Drive Shafts']])
-    // Restored live bodies bring their live H1 (the record title article templates render).
-    expect(data('h1-fields.tsv').filter(r=>r.via==='title').map(r=>r.path).sort()).toEqual(['/chiller-and-cooling-tower/','/cooling-tower-approach/','/cooling-tower-fill-media-replacement/','/cooling-tower-inspection-guide/','/cooling-tower-ph-control/'])
+    // Restored live bodies bring their live H1 (the record title article templates render); Round 5 adds the CT-ruled heading
+    // of /cooling-tower-repair-service/ (claims-seo field h1).
+    expect(data('h1-fields.tsv').filter(r=>r.via==='title').map(r=>r.path).sort()).toEqual(['/chiller-and-cooling-tower/','/cooling-tower-approach/','/cooling-tower-fill-media-replacement/','/cooling-tower-inspection-guide/','/cooling-tower-ph-control/','/cooling-tower-repair-service/'])
+    expect(data('h1-fields.tsv').find(r=>r.path==='/cooling-tower-repair-service/')).toMatchObject({via:'title',action:'UPDATE',h1:'Industrial Cooling Tower Repair Service'})
   })
   it('lists every live project card on /all-projects/',async()=>{
     const html=mainOf(await render('/all-projects/'))

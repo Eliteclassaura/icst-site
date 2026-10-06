@@ -20,6 +20,8 @@ import {decodeEntities} from './text-repair'
 import {pageCopy} from './page-copy'
 import {publicMeta,publicSchema,servedOrigin} from './public-urls'
 import {projectHeadImagePolicy} from './project-media'
+import {nativeIntakeOn} from '../rfq-native/server'
+import {NativeRfqFormSection} from '../rfq-native/NativeRfqForm'
 export {aboutGeographyCorrections,normalizeWave3IndexEditorial,normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 // Start tags that implicitly close an open <p> in the HTML parser. A source <p> holding one of these cannot be
 // represented in HTML: the browser closes the paragraph first and hydration then sees a different tree (#418).
@@ -187,12 +189,15 @@ export function SalmonCanonical({doc}:{doc:SalmonDocument}){
           </ul>
         </div>
         <div className="figma-contact-rfq-action" data-owner-override="OWNER_CONTACT_AUTHORITY_OVERRIDE_2026_09_21">
-          {page?<div className="client-rfq figma-contact-action"><RfqMount mountId="rfq_page" page={page}/></div>:null}
+          {/* Native RFQ (CT brief 2026-10-05): with native intake on, the inline form replaces the Typeform action here. */}
+          {!nativeIntakeOn()&&page?<div className="client-rfq figma-contact-action"><RfqMount mountId="rfq_page" page={page}/></div>:null}
           <p>Contact by phone</p>
           <div className="figma-contact-rfq-phones">{contactOffices.map(office=><a key={office.officeKey} href={office.telephoneHref}><span>{office.displayLabel}</span><strong>{office.telephoneDisplay}</strong></a>)}</div>
         </div>
       </section>
-      <section className="figma-contact-offices" aria-labelledby="figma-contact-offices-heading" data-owner-override="OWNER_CONTACT_AUTHORITY_OVERRIDE_2026_09_21">
+      {/* Native RFQ (CT brief 2026-10-05): with native intake on, the inline quote form is its own section here. */}
+      {nativeIntakeOn()?<NativeRfqFormSection/>:null}
+      <section className="figma-contact-offices" id="offices" aria-labelledby="figma-contact-offices-heading" data-owner-override="OWNER_CONTACT_AUTHORITY_OVERRIDE_2026_09_21">
         <div className="figma-contact-offices-inner">
           <h2 id="figma-contact-offices-heading">Offices</h2>
           <div className="figma-contact-office-list">{contactOffices.map(office=><address key={office.officeKey} data-office={office.officeKey}>

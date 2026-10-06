@@ -35,7 +35,7 @@
  *   - --meta-rewrites=<tsv> (path, old_meta, new_meta): CT ruling 2026-10-05 — OGCS finals that end in a truncation mark are
  *     rewritten as complete sentences (no new claims); a row applies only when the batch meta still equals old_meta.
  *   - CONTENT_FALLBACKS: a content decision's fallback 301, applied while the restoration has not shipped.
- *   - --claims-seo=<tsv> (row, path, field, old, new): R2.2 ruled title/meta strings (OGCS claims sweep R1, CT 2026-10-05).
+ *   - --claims-seo=<tsv> (row, path, field, old, new): R2.2 ruled title/meta strings (OGCS claims sweep R1, CT 2026-10-05); Round 5: field h1, a ruled page heading.
  *   - --baseline=<dir>: the data directory of the batch already applied on staging (R1). Actions and expectations are then the
  *     delta against that applied state, so the dry run counts exactly what this round changes.
  *
@@ -340,7 +340,7 @@ for(const rows of byMeta.values())if(rows.length>1)for(const row of rows)if(!sup
 // (its current title and meta, the ruled field changed). The JSON-LD copies are the text-override registry's.
 const claimsSeoFile=flag('claims-seo')
 let claimsSeoApplied=0
-if(claimsSeoFile)for(const c of tsv(claimsSeoFile)){
+if(claimsSeoFile)for(const c of tsv(claimsSeoFile).filter(c=>c.field!=='h1')){
   const key=safeDecode(c.path)
   let row=seo.find(r=>safeDecode(r.path)===key)
   if(!row){
@@ -353,6 +353,8 @@ if(claimsSeoFile)for(const c of tsv(claimsSeoFile)){
     seo.push(row);conformance.push({url:route.path,expect:'200',kind:'html',title:row.title,meta:row.meta})
   }
   const field=c.field==='title'?'title':'meta'
+  // already applied (an earlier batch wrote it; this batch's baseline holds it): nothing to change
+  if(!row[field].includes(c.old)&&row[field].includes(c.new)){claimsSeoApplied++;continue}
   if(!row[field].includes(c.old)){problemsEarly.push(`claims seo ${c.row}: ${c.path} ${field} no longer holds the ruled text`);continue}
   row[field]=row[field].replace(c.old,c.new);row.meta_origin+=`+CLAIMS_SWEEP_${c.row}`;claimsSeoApplied++
   const cf=conformance.find(x=>safeDecode(x.url)===key);if(cf)cf[field]=row[field]
@@ -379,7 +381,7 @@ expect.files=restore.restored.length
 const problems=[...problemsEarly]
 const titles=new Set();for(const row of seo){if(row.title.length>69)problems.push(`title>69 ${row.path}`);if(titles.has(row.title))problems.push(`duplicate title ${row.path}`);titles.add(row.title);if(FORBIDDEN.test(row.title))problems.push(`title word ${row.path}`)}
 if(metaRewritesApplied!==metaRewrites.size)problems.push(`meta rewrites applied ${metaRewritesApplied} of ${metaRewrites.size}`)
-if(claimsSeoFile&&claimsSeoApplied!==tsv(claimsSeoFile).length)problems.push(`claims seo applied ${claimsSeoApplied} of ${tsv(claimsSeoFile).length}`)
+if(claimsSeoFile&&claimsSeoApplied!==tsv(claimsSeoFile).filter(c=>c.field!=='h1').length)problems.push(`claims seo applied ${claimsSeoApplied} of ${tsv(claimsSeoFile).filter(c=>c.field!=='h1').length}`)
 for(const row of seo){if(!row.meta_origin.includes('PENDING_OGCS')&&/…|\.\.\.$/.test(row.meta))problems.push(`meta ends in a truncation mark ${row.path}`)}
 for(const row of seo){if(row.meta_origin.includes('PENDING_OGCS'))continue;if(row.meta.length<70||row.meta.length>158)problems.push(`meta length ${row.path} ${row.meta.length}`);if(FORBIDDEN.test(row.meta))problems.push(`meta word ${row.path}: ${row.meta.match(FORBIDDEN)[0]}`)}
 // Full-set uniqueness (CT ruling 2026-10-04 (b)): every meta this batch writes (R1 + R1.1 + supplement), compared with every
@@ -420,6 +422,16 @@ if(contentDecisionsFile){
     if(now===undefined){problems.push(`h1 decision but no h1 node ${route.path}`);continue}
     h1Rows.push({path:route.path,routeId:route.routeId,via:'slot',h1:decided,h1_now:now,action:decided===now||baseline?.h1.has(`${safeDecode(route.path)} slot ${decided}`)?'UNCHANGED':'UPDATE'})
   }
+}
+// Round 5 (CT ruling 2026-10-05): a ruled page heading in --claims-seo (field h1). Article templates render the record title as
+// the page heading, so it is written as the title (via=title), like a restored live H1; the ruled old text must still be there.
+if(claimsSeoFile)for(const c of tsv(claimsSeoFile).filter(c=>c.field==='h1')){
+  const route=routeByKey.get(safeDecode(c.path))
+  if(!route||route.state!=='PUBLIC'){problems.push(`claims h1 ${c.row}: no published route ${c.path}`);continue}
+  const doc=JSON.parse(readFileSync(path.join(APP,'content/salmon',route.sourceFile),'utf8'))
+  const now=String((doc.seo?.h1??[])[0]??doc.title??'')
+  if(now!==c.old&&!baseline?.h1.has(`${safeDecode(route.path)} title ${c.new}`)){problems.push(`claims h1 ${c.row}: ${c.path} heading is "${now}", not the ruled text`);continue}
+  h1Rows.push({path:route.path,routeId:route.routeId,via:'title',h1:c.new,h1_now:now,action:c.new===now||baseline?.h1.has(`${safeDecode(route.path)} title ${c.new}`)?'UNCHANGED':'UPDATE'})
 }
 // A restored live body brings its live H1: article templates render the record title as the page heading.
 for(const [p,page] of Object.entries(restored)){

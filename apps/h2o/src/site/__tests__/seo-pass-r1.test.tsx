@@ -192,17 +192,15 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([696,393,10,0]) // R2.2: + the D3 portfolio (200)
     for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
-    // R2.2 (CT 2026-10-05) is ONE delta on the state Locale Part B leaves on staging (Locale B's own delta: 166 preserved locale
-    // pages imported, 98 R1 redirects retired, 120 repointed, 3 new, the Thai Salmon page published, 12 claim edits). R2.2
-    // writes the 4 ruled SEO rows (CS028, CS090, CS147, D3), the 4 F1 product panels, and its claim edits: with those writes on
-    // 3 routes, on their own (hygiene) on 105. No redirect, publication or canonical changes.
+    // Round 5 (CT 2026-10-05) is ONE delta on the state R2.2a leaves on staging (R2.2a's own delta: the 4 ruled SEO rows, the 4
+    // F1 panels, claim edits on 108 routes). Round 5 writes one thing: the CT-ruled page heading of /cooling-tower-repair-service/.
     expect(expectations.expect.routes).toEqual({publish:0,withdraw:0,index:0,canonical:0})
     expect(expectations.expect.redirects).toEqual({create:0,update:0,unchanged:393,retire:0})
-    expect(expectations.expect.seoFields).toMatchObject({update:4,pendingOgcs:0})
-    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:3})
-    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:105})
-    expect(expectations.expect.h1).toEqual({update:0})
-    expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:4})
+    expect(expectations.expect.seoFields).toMatchObject({update:0,pendingOgcs:0})
+    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:0})
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:0})
+    expect(expectations.expect.h1).toEqual({update:1})
+    expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:0})
     expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)
     // The two translated posts that pointed at the English final page of a then-pending locale page now point at it (one hop).
     const repoint=tsv('locale-b-repoint.tsv')

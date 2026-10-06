@@ -16,6 +16,8 @@ import { headers } from 'next/headers'
 import { isPayloadContent } from '../../content/runtime-read'
 import { estateHasPublicationReadyRoute } from '../../site/gate'
 import {QuietMotion} from '../../site/QuietMotion'
+import { NativeRfq } from '../../rfq-native/NativeRfq'
+import { launcherStrings, nativeIntakeOn } from '../../rfq-native/server'
 import './site.css'
 import './r3.css'
 import './r4.css'
@@ -65,6 +67,8 @@ const SiteLayout = async ({ children }: { children: ReactNode }) => {
           Skip to content
         </a>
         {children}
+        {/* Native RFQ (CT brief 2026-10-05): the corner launcher and panel, on every public page, when native intake is on. */}
+        {nativeIntakeOn() ? <NativeRfq launcher={launcherStrings()} locale={lang} /> : null}
         <QuietMotion/>
       </body>
     </html>

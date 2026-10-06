@@ -24,6 +24,8 @@ import { QuoteCta } from '../conversion/QuoteCta'
 import { resolveQuoteCta } from '../conversion/resolve'
 import {productSlug} from './Wave3Products'
 import type {SalmonDocument} from './salmon'
+import {nativeIntakeOn} from '../rfq-native/server'
+import {NativeRfqTrigger} from '../rfq-native/NativeRfqTrigger'
 
 export type RfqMountProps = {
   /** The accepted `mount_id` this surface renders. */
@@ -35,7 +37,48 @@ export type RfqMountProps = {
  |{mountId:PublicMountId;routePath:string;label?:string;page?:never;product?:never}
  |{mountId:'category_and_family';routePath:string;cardProduct:SalmonDocument|null;cardHref:string;label?:string;page?:never;product?:never}
 
+/** Native intake (H2O_NATIVE_INTAKE=on): a gate passes when every rule but the Typeform configuration holds (config is checked last). */
+const nativeEligible=(gate:{mounted:boolean;reason:string}):boolean=>gate.mounted||gate.reason==='CONFIGURATION_UNRESOLVED'
+const productTitle=(doc:SalmonDocument):string=>(doc.seo?.h1?.[0]||doc.title||'').replace(/\s+/g,' ').trim()
+
+/**
+ * Native RFQ (Control Tower brief 2026-10-05): every existing RFQ control, on the same surfaces and under the same route and
+ * product rules, opens the corner panel with its page context (a link to the /contact-us/ form before hydration). The
+ * Typeform adapter below stays in code, switched off by the same flag (contract §4.2).
+ */
+const NativeRfqMount=(props:RfqMountProps)=>{
+  const {mountId}=props
+  const trigger=(context:Record<string,string|undefined>,label:string,routeAttr?:string,contextLabel?:string)=>
+    <span className="rfq rfq-signal" data-rfq-public-route={routeAttr}><NativeRfqTrigger context={context} contextLabel={contextLabel} placement={mountId}>{label}</NativeRfqTrigger></span>
+  if('cardProduct' in props&&props.mountId==='category_and_family'){
+    const gate=categoryAndFamilyGate(props.routePath,props.cardProduct,props.cardHref)
+    const product=props.cardProduct
+    if(!nativeEligible(gate)||!product)return null
+    const id=product.routeId.split('-').at(-1),slug=productSlug(product)
+    if(!id||!slug)return null
+    return trigger({context_type:'product',context_id:id,product_id:id,product_slug:slug,product_path:product.targetPath,product_title:productTitle(product),page_path:props.routePath},props.label??'Request a Quote',props.routePath,productTitle(product))
+  }
+  if(props.product){
+    if(!['header_action','footer_rfq_band','rfq_page'].includes(mountId))return null
+    const product=props.product
+    if(!nativeEligible(productMountGate(product)))return null
+    const id=product.routeId.split('-').at(-1),slug=productSlug(product)
+    if(!id||!slug)return null
+    return trigger({context_type:'product',context_id:id,product_id:id,product_slug:slug,product_path:product.targetPath,product_title:productTitle(product),page_path:product.targetPath},'Request a Quote',undefined,productTitle(product))
+  }
+  if(props.routePath){
+    if(!nativeEligible(publicMountGate(props.routePath,mountId)))return null
+    return trigger({context_type:'page',page_path:props.routePath},props.label??'Request a Quote',props.routePath)
+  }
+  const {page}=props
+  if(!page||!page.ctaPresent)return null
+  const mount=implementedMounts().find((candidate)=>candidate.mountId===mountId)??null
+  if(mount===null||!nativeEligible(mountGate(page,{mountId})))return null
+  return trigger({context_type:'page',page_path:page.canonicalPath},mount.label)
+}
+
 export const RfqMount = (props: RfqMountProps) => {
+  if(nativeIntakeOn())return NativeRfqMount(props)
   const {mountId}=props
   if('cardProduct' in props&&props.mountId==='category_and_family'){
     // D1: the listing page is page_path; product context comes from the verified card relation only.

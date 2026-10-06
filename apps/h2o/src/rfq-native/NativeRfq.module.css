@@ -1,0 +1,526 @@
+/*
+ * Native RFQ: the corner launcher, the chat panel and the inline form. Site tokens (design-fixes.css --df-*) with fallbacks.
+ * Targets are at least 44px; the panel is a full-height sheet on phones; no motion under prefers-reduced-motion.
+ */
+
+/* An RFQ control as the native intake renders it: the same --h2o-cta-* hooks the site already sets for the Typeform CTA
+ * (src/conversion/QuoteCta.module.css .cta), so every surface keeps its accepted button design. */
+.trigger {
+  align-items: center;
+  background: var(--h2o-cta-bg, ButtonFace);
+  border: 1px solid var(--h2o-cta-border, currentColor);
+  border-radius: var(--h2o-cta-radius, 0.375rem);
+  color: var(--h2o-cta-fg, ButtonText);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  gap: 0.5rem;
+  justify-content: center;
+  line-height: 1.2;
+  /* 44px minimum target on touch, per WCAG 2.5.5. */
+  min-block-size: 2.75rem;
+  padding: 0.625rem 1.25rem;
+  text-decoration: none;
+}
+
+.trigger:focus-visible {
+  outline: 3px solid var(--h2o-focus-ring, Highlight);
+  outline-offset: 2px;
+}
+
+.launcher {
+  position: fixed;
+  inset-block-end: max(20px, env(safe-area-inset-bottom));
+  inset-inline-end: max(20px, env(safe-area-inset-right));
+  z-index: 900;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  min-block-size: 48px;
+  padding-block: 12px;
+  padding-inline: 18px 22px;
+  border: 0;
+  border-radius: 999px;
+  font: 600 16px/1.2 "DM Sans", "IBM Plex Sans", sans-serif;
+  color: var(--df-white, rgb(255 255 255));
+  cursor: pointer;
+  background: var(--df-blue, rgb(11 75 140));
+  box-shadow: 0 6px 22px rgb(7 24 48 / 28%);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.launcher:hover {
+  background: var(--df-blue-hover, rgb(33 102 171));
+  transform: translateY(-1px);
+}
+
+.launcher:focus-visible,
+.panel :focus-visible,
+.form :focus-visible {
+  outline: 3px solid var(--df-step-number, rgb(11 85 165));
+  outline-offset: 2px;
+}
+
+.launcherIcon {
+  flex: none;
+}
+
+.overlay {
+  position: fixed;
+  inset-block-end: max(20px, env(safe-area-inset-bottom));
+  inset-inline-end: max(20px, env(safe-area-inset-right));
+  z-index: 1000;
+}
+
+.panel,
+.form {
+  --rfq-ink: rgb(16 22 35);
+  --rfq-danger: rgb(178 34 34);
+  --rfq-veil: rgb(255 255 255 / 14%);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  inline-size: min(400px, calc(100vw - 40px));
+  block-size: min(620px, calc(100dvh - 40px));
+  overflow: hidden;
+  border-radius: 18px;
+  font: 400 16px/1.5 "DM Sans", "IBM Plex Sans", sans-serif;
+  color: var(--rfq-ink);
+  background: var(--df-white, rgb(255 255 255));
+  box-shadow: 0 18px 60px rgb(7 24 48 / 32%);
+  animation: rfq-rise 0.18s ease-out;
+}
+
+@keyframes rfq-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-block: 18px 14px;
+  padding-inline: 20px 12px;
+  color: var(--df-white, rgb(255 255 255));
+  background: var(--df-blue, rgb(11 75 140));
+}
+
+.title {
+  margin: 0;
+  font: 700 18px/1.25 Archivo, "DM Sans", sans-serif;
+}
+
+.subtitle {
+  margin: 2px 0 0;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.close {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  border: 0;
+  border-radius: 50%;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+}
+
+.close:hover {
+  background: var(--rfq-veil);
+}
+
+.log {
+  display: flex;
+  flex: 1 1 0;
+  min-block-size: 120px;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  overflow-y: auto;
+  background: var(--df-soft, rgb(246 247 248));
+}
+
+.log > div {
+  display: contents;
+}
+
+.bot,
+.me {
+  max-inline-size: 85%;
+  margin: 0;
+  padding-block: 10px;
+  padding-inline: 14px;
+  border-radius: 14px;
+  overflow-wrap: anywhere;
+}
+
+.bot {
+  align-self: flex-start;
+  border-end-start-radius: 4px;
+  background: var(--df-white, rgb(255 255 255));
+  box-shadow: 0 1px 2px rgb(16 22 35 / 8%);
+}
+
+.me {
+  align-self: flex-end;
+  border-end-end-radius: 4px;
+  color: var(--df-white, rgb(255 255 255));
+  background: var(--df-blue, rgb(11 75 140));
+}
+
+.dots {
+  letter-spacing: 0.2em;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 18px 16px;
+  overflow-y: auto;
+  border-block-start: 1px solid rgb(16 22 35 / 10%);
+  max-block-size: 72%;
+}
+
+/* Review and confirmation: the conversation is done; its summary takes the whole panel. */
+.panel:is([data-phase="review"], [data-phase="sending"], [data-phase="sent"]) .footer {
+  flex: 1 1 auto;
+  max-block-size: none;
+  border-block-start: 0;
+}
+
+/* "Send request" stays in view while the review list scrolls. */
+.panel:is([data-phase="review"], [data-phase="sending"]) .primary {
+  position: sticky;
+  inset-block-end: 0;
+  box-shadow: 0 -10px 16px var(--df-white, rgb(255 255 255));
+}
+
+.log[hidden] {
+  display: none;
+}
+
+.answer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip,
+.radioChip {
+  min-block-size: 44px;
+  padding-block: 10px;
+  padding-inline: 16px;
+  border: 1.5px solid var(--df-blue, rgb(11 75 140));
+  border-radius: 999px;
+  font: inherit;
+  color: var(--df-blue, rgb(11 75 140));
+  cursor: pointer;
+  background: var(--df-white, rgb(255 255 255));
+}
+
+.chip:hover,
+.chip[aria-pressed="true"] {
+  color: var(--df-white, rgb(255 255 255));
+  background: var(--df-blue, rgb(11 75 140));
+}
+
+.skip {
+  border-style: dashed;
+  color: var(--df-muted, rgb(110 110 110));
+  border-color: var(--df-muted, rgb(110 110 110));
+}
+
+.composer {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.input {
+  flex: 1 1 auto;
+  inline-size: 100%;
+  min-block-size: 44px;
+  padding-block: 10px;
+  padding-inline: 12px;
+  border: 1.5px solid rgb(16 22 35 / 24%);
+  border-radius: 10px;
+  font: inherit;
+  color: inherit;
+  background: var(--df-white, rgb(255 255 255));
+}
+
+.input[aria-invalid="true"] {
+  border-color: var(--rfq-danger);
+}
+
+textarea.input {
+  resize: vertical;
+}
+
+.send,
+.primary {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  border: 0;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--df-white, rgb(255 255 255));
+  cursor: pointer;
+  background: var(--df-blue, rgb(11 75 140));
+}
+
+.primary {
+  inline-size: 100%;
+  padding-block: 12px;
+  padding-inline: 18px;
+  border-radius: 999px;
+}
+
+.send:hover,
+.primary:hover {
+  background: var(--df-blue-hover, rgb(33 102 171));
+}
+
+.primary:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.hint,
+.privacy,
+.form p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--df-muted, rgb(110 110 110));
+}
+
+.privacy a,
+.failure a {
+  color: var(--df-blue, rgb(11 75 140));
+}
+
+.error,
+.failure {
+  margin: 0;
+  font-size: 14px;
+  color: var(--rfq-danger);
+}
+
+.country {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.countryList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.countryOption {
+  min-block-size: 44px;
+  padding-block: 8px;
+  padding-inline: 12px;
+  border: 1px solid rgb(16 22 35 / 20%);
+  border-radius: 8px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: var(--df-white, rgb(255 255 255));
+}
+
+.countryOption:hover {
+  border-color: var(--df-blue, rgb(11 75 140));
+}
+
+/* The honeypot: present for bots, never seen or reached by people (not display:none, per the contract). */
+.hp {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reviewGroup {
+  margin: 0;
+  padding-block: 4px;
+  padding-inline: 12px;
+  border-radius: 10px;
+  background: var(--df-step, rgb(242 246 250));
+}
+
+.reviewItem {
+  padding-block: 8px;
+  border-block-end: 1px solid rgb(16 22 35 / 8%);
+}
+
+.reviewItem:last-child {
+  border-block-end: 0;
+}
+
+.reviewItem dt {
+  font-size: 13px;
+  color: var(--df-muted, rgb(110 110 110));
+}
+
+.reviewItem dd {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.edit {
+  flex: none;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  border: 0;
+  font: inherit;
+  font-size: 14px;
+  color: var(--df-blue, rgb(11 75 140));
+  text-decoration: underline;
+  cursor: pointer;
+  background: transparent;
+}
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.confirm p {
+  margin: 0;
+}
+
+.confirmHeading,
+.formHeading {
+  margin: 0;
+  font: 700 20px/1.25 Archivo, "DM Sans", sans-serif;
+  color: var(--df-step-ink, rgb(10 61 114));
+}
+
+/* The inline form on /contact-us/. */
+.formSection {
+  padding-block: 56px 72px;
+  padding-inline: max(20px, 6.111vw);
+  background: var(--df-step, rgb(242 246 250));
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-inline-size: 720px;
+  margin-inline: auto;
+  font: 400 16px/1.5 "DM Sans", "IBM Plex Sans", sans-serif;
+  color: var(--rfq-ink);
+}
+
+.field,
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.label {
+  padding: 0;
+  font-weight: 600;
+}
+
+.radioChip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.radioChip input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+
+.radioChip:has(input:checked) {
+  color: var(--df-white, rgb(255 255 255));
+  background: var(--df-blue, rgb(11 75 140));
+}
+
+.radioChip:has(input:focus-visible) {
+  outline: 3px solid var(--df-step-number, rgb(11 85 165));
+  outline-offset: 2px;
+}
+
+/* Phones: the panel is a full-height sheet; the launcher keeps clear of the page edges. */
+@media (width <= 600px) {
+  .overlay {
+    inset: 0;
+  }
+
+  .panel {
+    inline-size: 100vw;
+    block-size: 100dvh;
+    border-radius: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .launcher,
+  .panel {
+    transition: none;
+    animation: none;
+  }
+
+  .launcher:hover {
+    transform: none;
+  }
+}

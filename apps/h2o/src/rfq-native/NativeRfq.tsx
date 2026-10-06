@@ -1,0 +1,191 @@
+'use client'
+/**
+ * Native RFQ: the corner launcher and chat panel (brief §Scope 1; contract §5). A launcher button bottom-right on every public
+ * page opens a small panel (a full-height sheet on phones) that asks one question per bubble — chips where the registry has
+ * them, a text box otherwise — then a review and an explicit "Send request". Any RFQ control on the page opens the same
+ * panel with its page context (the `h2o:rfq-open` event, ./NativeRfqTrigger).
+ *
+ * Accessibility: a modal dialog labelled by its title; focus moves into it on open, Tab stays inside, Escape closes it and
+ * focus returns to the control that opened it; the transcript is a polite live log, so each new question is announced once;
+ * targets are 44px; motion is off under prefers-reduced-motion (CSS). No third-party script: everything is this bundle.
+ */
+import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
+import { ChipGroup, Confirmation, CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, PrivacyNote, ReviewList } from './fields'
+import { displayValue, nextQuestion, questionsFor, validate } from './flow'
+import { t, type Question, type Registry } from './model'
+import { cleanContext, type RfqContext } from './submission'
+import { fetchRegistry, useRfqSession, type RegistryLoader } from './useRfqSession'
+import styles from './NativeRfq.module.css'
+
+export const RFQ_OPEN_EVENT = 'h2o:rfq-open'
+export type RfqOpenDetail = { context?: Record<string, unknown>; label?: string; trigger?: HTMLElement | null }
+/** Launcher strings, rendered before the registry loads (server-supplied from the same registry keys). */
+export type LauncherStrings = { label: string; aria: string; tooltip: string }
+
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
+/** One question's answer box (chat): chips, the country picker, or a text box with a send button. */
+function Answer({ reg, q, error, onAnswer }: { reg: Registry; q: Question; error?: { key: string; values?: Record<string, string> }; onAnswer: (v: string) => void }) {
+  const [value, setValue] = useState('')
+  const labelId = useId(), errorId = useId(), hintId = useId()
+  const described = [error ? errorId : '', q.hintKey ? hintId : ''].filter(Boolean).join(' ') || undefined
+  const label = <span id={labelId} className={styles.srOnly}>{t(reg, q.labelKey)}</span>
+  if (q.type === 'chips') return <div className={styles.answer}>{label}<ChipGroup reg={reg} q={q} onPick={onAnswer} labelledBy={labelId}/><ErrorText reg={reg} id={errorId} error={error}/></div>
+  if (q.type === 'country') return <div className={styles.answer}>{label}<CountryPicker reg={reg} onPick={onAnswer} labelId={labelId} describedBy={described}/><ErrorText reg={reg} id={errorId} error={error}/></div>
+  const submit = () => onAnswer(value)
+  const common = { id: `rfq-chat-${q.id}`, className: styles.input, value, 'aria-labelledby': labelId, 'aria-describedby': described, 'aria-invalid': error ? true : undefined, placeholder: t(reg, q.placeholderKey) || t(reg, 'input.ph'), maxLength: q.validation.maxLength + 1 }
+  const onKey = (e: ReactKeyboardEvent) => { if (e.key === 'Enter' && !(q.type === 'textarea' && e.shiftKey)) { e.preventDefault(); submit() } }
+  return <div className={styles.answer}>
+    {label}
+    {q.hintKey ? <p className={styles.hint} id={hintId}>{t(reg, q.hintKey)}</p> : null}
+    <div className={styles.composer}>
+      {q.type === 'textarea'
+        ? <textarea {...common} rows={2} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>
+        : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} inputMode={q.type === 'number_or_text' ? 'text' : undefined} autoComplete={q.id === 'name' ? 'name' : q.id === 'company' ? 'organization' : q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'off'} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>}
+      <button type="button" className={styles.send} onClick={submit} aria-label={t(reg, 'input.send.aria')}><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 20.5 21 12 3 3.5v6.6L15 12 3 13.9z"/></svg></button>
+    </div>
+    {q.skippable ? <div className={styles.chips}><button type="button" className={`${styles.chip} ${styles.skip}`} onClick={() => onAnswer('')}>{t(reg, 'chip.skip')}</button></div> : null}
+    <ErrorText reg={reg} id={errorId} error={error}/>
+  </div>
+}
+
+export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fetcher }: { launcher: LauncherStrings; locale?: string; loader?: RegistryLoader; fetcher?: typeof fetch }) {
+  const s = useRfqSession('NATIVE_CHAT', locale, loader, fetcher)
+  const [open, setOpen] = useState(false)
+  const [hp, setHp] = useState('')
+  const [contextLabel, setContextLabel] = useState('')
+  const [chatError, setChatError] = useState<{ id: string; key: string; values?: Record<string, string> } | null>(null)
+  const dialogRef = useRef<HTMLDivElement | null>(null)
+  const logRef = useRef<HTMLDivElement | null>(null)
+  const launcherRef = useRef<HTMLButtonElement | null>(null)
+  const returnTo = useRef<HTMLElement | null>(null)
+  const titleId = useId()
+
+  const { setContext, start } = s
+  const openWith = useCallback((detail: RfqOpenDetail) => {
+    const ctx: RfqContext = cleanContext(detail.context ?? { page_path: window.location.pathname, context_type: 'page', cta_placement: 'launcher' })
+    setContext(ctx)
+    setContextLabel(detail.label ?? '')
+    returnTo.current = detail.trigger ?? (document.activeElement as HTMLElement | null)
+    setOpen(true)
+    start()
+  }, [setContext, start])
+
+  // Any RFQ control on the page opens this panel with its own context.
+  useEffect(() => {
+    const onOpen = (e: Event) => {
+      const detail = ((e as CustomEvent<RfqOpenDetail & { handled?: boolean }>).detail ?? {})
+      detail.handled = true
+      openWith(detail)
+    }
+    window.addEventListener(RFQ_OPEN_EVENT, onOpen)
+    return () => window.removeEventListener(RFQ_OPEN_EVENT, onOpen)
+  }, [openWith])
+
+  const { phase, reset } = s
+  const close = useCallback(() => {
+    setOpen(false)
+    if (phase === 'sent') reset()
+  }, [phase, reset])
+
+  // Focus: into the panel on open and onto each new question; back to the opener on close (after the panel is gone).
+  const current = s.registry && s.phase === 'asking' ? nextQuestion(s.registry, s.answers) : undefined
+  useEffect(() => {
+    if (!open) return
+    const node = dialogRef.current
+    // the answer area first (each selector alternative scoped to it), else anything in the panel
+    const scoped = FOCUSABLE.split(', ').map((sel) => `[data-rfq-focus] ${sel}`).join(', ')
+    const target = node?.querySelector<HTMLElement>(scoped) ?? node?.querySelector<HTMLElement>(FOCUSABLE)
+    target?.focus()
+  }, [open, s.phase, current?.id])
+  useEffect(() => {
+    if (open) return
+    const target = returnTo.current
+    returnTo.current = null
+    target?.focus()
+  }, [open])
+
+  // Escape closes; Tab stays inside the panel.
+  useEffect(() => {
+    const node = dialogRef.current
+    if (!open || !node) return undefined
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { e.preventDefault(); close(); return }
+      if (e.key !== 'Tab') return
+      const items = [...node.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((el) => el.offsetParent !== null || el === document.activeElement)
+      if (!items.length) return
+      const first = items[0]!, last = items[items.length - 1]!
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+    }
+    node.addEventListener('keydown', onKey)
+    return () => node.removeEventListener('keydown', onKey)
+  }, [open, close])
+
+  // after the last question, straight to the review
+  const readyForReview = s.phase === 'asking' && Boolean(s.registry) && !current
+  const review = s.review
+  useEffect(() => { if (readyForReview) review() }, [readyForReview, review])
+
+  // the newest message stays in view
+  const answeredCount = Object.keys(s.answers).length
+  useEffect(() => { const l = logRef.current; if (l) l.scrollTop = l.scrollHeight }, [open, answeredCount, s.phase, chatError])
+
+  const reg = s.registry
+  const done = s.phase === 'review' || s.phase === 'sending' || s.phase === 'sent'
+  const asked = reg ? questionsFor(reg, s.answers).filter((q) => q.id in s.answers) : []
+  const firstContact = reg?.questions.find((q) => q.step === 'contact')?.id
+
+  return <>
+    <button ref={launcherRef} type="button" className={styles.launcher} aria-label={launcher.aria} title={launcher.tooltip} aria-haspopup="dialog" aria-expanded={open} data-rfq-launcher="" onClick={() => openWith({ trigger: launcherRef.current })} hidden={open}>
+      <svg aria-hidden="true" className={styles.launcherIcon} viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span>{launcher.label}</span>
+    </button>
+    {open ? <div className={styles.overlay}>
+      <div ref={dialogRef} className={styles.panel} role="dialog" aria-modal="true" aria-labelledby={titleId} data-rfq-panel="" data-phase={s.phase}>
+        <header className={styles.header}>
+          <div><h2 id={titleId} className={styles.title}>{reg ? t(reg, 'panel.title') : launcher.label}</h2>{reg ? <p className={styles.subtitle}>{t(reg, 'panel.subtitle')}</p> : null}</div>
+          <button type="button" className={styles.close} onClick={close} aria-label={reg ? t(reg, 'panel.close.aria') : launcher.aria}><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3z"/></svg></button>
+        </header>
+        <div ref={logRef} className={styles.log} role="log" aria-live="polite" aria-relevant="additions" hidden={done}>
+          {s.phase === 'loading' ? <p className={styles.bot} aria-busy="true"><span className={styles.dots} aria-hidden="true">…</span></p> : null}
+          {s.phase === 'unavailable' || !reg ? (s.phase === 'unavailable' ? <p className={styles.bot}><a href={OFFICES_HREF}>{launcher.label}</a></p> : null) : <>
+            <p className={styles.bot}>{t(reg, 'greeting')}</p>
+            {contextLabel ? <p className={styles.bot}>{t(reg, 'context.note', { context_label: contextLabel })}</p> : null}
+            {s.phase === 'resume' ? <p className={styles.bot}>{t(reg, 'resume.prompt')}</p> : null}
+            {s.phase !== 'resume' ? asked.map((q) => <div key={q.id}>
+              {q.id === firstContact ? <p className={styles.bot}>{t(reg, 'contact.intro')}</p> : null}
+              <p className={styles.bot}>{t(reg, q.labelKey)}</p>
+              <p className={styles.me}>{s.answers[q.id] ? displayValue(reg, q, s.answers[q.id]) : t(reg, 'chip.skip')}</p>
+            </div>) : null}
+            {current ? <>
+              {current.id === firstContact ? <p className={styles.bot}>{t(reg, 'contact.intro')}</p> : null}
+              <p className={styles.bot}>{t(reg, current.labelKey)}</p>
+            </> : null}
+          </>}
+        </div>
+        {reg ? <div className={styles.footer} data-rfq-focus="">
+          {s.phase === 'resume' ? <div className={styles.chips}>
+            <button type="button" className={styles.chip} onClick={() => s.resume(true)}>{t(reg, 'resume.continue')}</button>
+            <button type="button" className={styles.chip} onClick={() => s.resume(false)}>{t(reg, 'resume.restart')}</button>
+          </div> : null}
+          {s.phase === 'asking' && current ? <Answer key={current.id} reg={reg} q={current} error={chatError?.id === current.id ? chatError : s.errors[current.id]} onAnswer={(v) => {
+            // the chat checks each answer as it is given (the server checks everything again)
+            const err = validate(reg, current, v, 'chat')
+            if (err) { setChatError({ id: current.id, ...err }); return }
+            setChatError(null)
+            s.answer(current.id, v)
+          }}/> : null}
+          {s.phase === 'review' || s.phase === 'sending' ? <>
+            <h3 className={styles.confirmHeading} tabIndex={-1}>{t(reg, 'review.heading')}</h3>
+            <ReviewList reg={reg} answers={s.answers} onEdit={s.edit}/>
+            <FailureNote reg={reg} failure={s.failure}/>
+            <button type="button" className={styles.primary} disabled={s.phase === 'sending'} aria-busy={s.phase === 'sending'} onClick={() => void s.send(hp)}>{t(reg, s.phase === 'sending' ? 'review.sending' : 'review.send')}</button>
+          </> : null}
+          {s.phase === 'sent' ? <Confirmation reg={reg} rfqNumber={s.rfqNumber}><button type="button" className={styles.primary} onClick={close}>{t(reg, 'confirm.close')}</button></Confirmation> : null}
+          {current?.step === 'contact' || s.phase === 'review' ? <PrivacyNote reg={reg}/> : null}
+          <Honeypot reg={reg} value={hp} onChange={setHp}/>
+        </div> : null}
+      </div>
+    </div> : null}
+  </>
+}

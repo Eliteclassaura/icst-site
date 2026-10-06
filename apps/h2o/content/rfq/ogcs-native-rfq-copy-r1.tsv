@@ -1,0 +1,79 @@
+id	step	type	branch	required	text_en	notes
+launcher.label	launcher	button	all		Request a quote	Matches the site-wide primary CTA.
+launcher.tooltip	launcher	tooltip	all		Ask about parts, towers or service	
+launcher.aria	launcher	aria-label	all		Open the quote request panel	
+panel.title	panel	heading	all		Request a quote	Panel header.
+panel.subtitle	panel	text	all		Industrial Cooling Solutions	
+panel.close.aria	panel	aria-label	all		Close the quote request panel	The draft stays in this browser session.
+greeting	panel	bubble	all		Hi! Answer a few quick questions and we'll prepare your quote.	No time estimate, no response-time promise.
+context.note	panel	bubble	all		We'll include the page you came from: {{context_label}}.	Shown only when context exists (product, service, category, page). Never asks the visitor to repeat it.
+resume.prompt	panel	bubble	all		Welcome back. Do you want to continue your request?	When a session draft exists.
+resume.continue	panel	chip	all		Continue	
+resume.restart	panel	chip	all		Start over	
+purpose.q	purpose	question	all	required	What do you need help with?	
+purpose.chip.new_tower	purpose	chip	towers		New cooling tower	Routes to the branch shown in the 'branch' column.
+purpose.chip.repair	purpose	chip	service		Repair	Routes to the branch shown in the 'branch' column.
+purpose.chip.upgrade	purpose	chip	towers + service.issue (optional)		Upgrade or retrofit	Routes to the branch shown in the 'branch' column.
+purpose.chip.inspection	purpose	chip	service		Inspection or maintenance	Routes to the branch shown in the 'branch' column.
+purpose.chip.rebuild	purpose	chip	towers		Rebuild or replacement	Routes to the branch shown in the 'branch' column.
+purpose.chip.parts	purpose	chip	parts		Parts	Routes to the branch shown in the 'branch' column.
+purpose.chip.other	purpose	chip	other		Something else	Routes to the branch shown in the 'branch' column.
+parts.part.q	details	question	parts	required	Which part do you need?	Free text.
+parts.part.ph	details	placeholder	parts		For example: fan blades, gearbox, drift eliminators, fill	
+parts.model.q	details	question	parts	optional	Do you have a model or serial number?	Free text, with a 'Skip' chip.
+parts.model.ph	details	placeholder	parts		Model, serial or part number	
+parts.qty.q	details	question	parts	optional	How many do you need?	Number or free text (e.g. 'one set per cell'), with a 'Skip' chip.
+towers.type.q	details	question	towers	required	What type of tower is it?	For new towers: the type you have in mind.
+towers.type.chip.crossflow	details	chip	towers		Crossflow	
+towers.type.chip.counterflow	details	chip	towers		Counterflow	
+towers.type.chip.hybrid_dry	details	chip	towers		Hybrid or dry	
+towers.type.chip.air_cooler	details	chip	towers		Air cooler	
+towers.type.chip.not_sure	details	chip	towers		Not sure	
+towers.cells.q	details	question	towers	optional	How many cells?	
+towers.cells.chip.1	details	chip	towers		1	
+towers.cells.chip.2_4	details	chip	towers		2–4	
+towers.cells.chip.5_10	details	chip	towers		5–10	
+towers.cells.chip.11_plus	details	chip	towers		More than 10	
+towers.cells.chip.not_sure	details	chip	towers		Not sure	
+towers.site.q	details	question	towers	optional	Where is the site? City or region is enough.	Country is asked in the contact step, so it isn't repeated here.
+towers.site.ph	details	placeholder	towers		City or region	
+service.issue.q	details	question	service	required	Briefly, what is happening with the tower?	For 'Upgrade or retrofit' this question becomes optional, with the alternative wording below.
+service.issue.q_upgrade	details	question	upgrade	optional	What would you like to improve?	Upgrade or retrofit branch only.
+service.issue.ph	details	placeholder	service		For example: high cold-water temperature, fan vibration, leaking basin	
+service.timing.q	details	question	service	optional	When do you need the work done?	
+service.timing.chip.urgent	details	chip	service		Urgent: the tower is down or at risk	Captures the visitor's timing only. ICS makes no response-time promise.
+service.timing.chip.1_month	details	chip	service		Within a month	Captures the visitor's timing only. ICS makes no response-time promise.
+service.timing.chip.1_6_months	details	chip	service		In the next 1–6 months	Captures the visitor's timing only. ICS makes no response-time promise.
+service.timing.chip.planning	details	chip	service		Planning or budgeting	Captures the visitor's timing only. ICS makes no response-time promise.
+other.q	details	question	other	required	Tell us briefly what you need.	Free text.
+notes.q	details	question	all	optional	Anything else we should know?	Last details question on every branch; free text, with a 'Skip' chip.
+chip.skip	details	chip	all		Skip	For optional questions.
+contact.intro	contact	bubble	all		Thanks. Now, where should we send your quote?	
+contact.name.q	contact	question	all	required	Your name	
+contact.company.q	contact	question	all	required	Company	
+contact.email.q	contact	question	all	required	Work email	
+contact.email.ph	contact	placeholder	all		name@company.com	
+contact.phone.q	contact	question	all	optional	Phone (optional)	Include the country code.
+contact.phone.hint	contact	hint	all		Include your country code	
+contact.country.q	contact	question	all	required	Country	Picker, used for routing. Label says just 'Country' (the site country is often the same; if it differs, the visitor can say so in the notes).
+contact.country.search_ph	contact	placeholder	all		Search countries	
+contact.country.empty	contact	empty-state	all		No matching country	
+privacy.note	contact	text	all		We use these details only to respond to your request. See our {{privacy_policy_link}}.	Link text: 'Privacy Policy' → /privacy-policy/.
+honeypot.label	contact	label (hidden)	all		Leave this field empty	Hidden from people and screen readers (aria-hidden, off-screen). Never shown.
+review.heading	review	heading	all		Check your request	
+review.edit	review	link	all		Edit	Per answer group.
+review.send	review	button	all		Send request	
+review.sending	review	status	all		Sending…	Button state during submit.
+confirm.heading	confirm	heading	all		Request sent	
+confirm.body	confirm	text	all		Thank you. Your RFQ number is {{rfq_number}}. A member of our team will review your request and contact you.	No response-time promise. If CT later confirms T1's 'within one business day', the same config value can feed this line.
+confirm.attachments	confirm	text	all		You can send photos or drawings by replying to our email.	Brief wording, unchanged.
+confirm.close	confirm	button	all		Close	
+err.required	any	error	all		Please answer this question to continue.	Chat surface.
+err.required.form	any	error	all		This field is required.	Inline form surface.
+err.email	contact	error	all		Please enter a valid email address, for example name@company.com.	
+err.too_long	any	error	all		Please keep this under {{max}} characters.	
+err.rate_limited	review	error	all		Too many requests from this connection. Please wait a few minutes and try again, or call an ICS office.	'call an ICS office' links to the phone block on /contact-us/.
+err.offline	review	error	all		You appear to be offline. Your answers are saved here; reconnect and select Send request again.	Draft stays in memory/sessionStorage only.
+err.server	review	error	all		Something went wrong and your request wasn't sent. Please try again, or call an ICS office.	Generic failure. On a duplicate submit the server returns the same RFQ silently, so no message is needed.
+input.ph	any	placeholder	all		Type your answer	Chat free-text box.
+input.send.aria	any	aria-label	all		Send answer	
