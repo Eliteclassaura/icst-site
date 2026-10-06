@@ -4,7 +4,7 @@
  * on the first open, not in the page bundle), resumes the session draft, fetches the form token when the visitor starts,
  * and sends exactly once per "Send request" with the draft's submissionId (contract §4).
  */
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { sessionAttribution } from './attribution'
 import { clearDraft, loadDraft, saveDraft, type Draft } from './draft'
 import { answer as setAnswer, migrate, nextQuestion, prune, questionsFor, reopen, submittedAnswers, validateAll, type Answers } from './flow'
@@ -39,6 +39,8 @@ export type RfqSession = {
   /** The latest send failure (err.* key), cleared on the next action. */
   failure: { key: string; disabled?: boolean } | null
   rfqNumber: string | null
+  /** Seconds until a rate-limited send may be retried (429 Retry-After); 0 when Send is allowed. */
+  retryIn: number
   context: RfqContext
   start: () => void
   setContext: (context: RfqContext) => void
@@ -61,6 +63,19 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
   const [failure, setFailure] = useState<RfqSession['failure']>(null)
   const [rfqNumber, setRfqNumber] = useState<string | null>(null)
   const [context, setContextState] = useState<RfqContext>({})
+  const [retryAt, setRetryAt] = useState<number | null>(null)
+  const [now, setNow] = useState(() => Date.now())
+  // the 429 countdown: tick each second until Retry-After has passed, then allow the retry
+  useEffect(() => {
+    if (retryAt === null) return undefined
+    const timer = setInterval(() => {
+      const t = Date.now()
+      setNow(t)
+      if (t >= retryAt) setRetryAt(null)
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [retryAt])
+  const retryIn = retryAt === null ? 0 : Math.max(0, Math.ceil((retryAt - now) / 1000))
   const started = useRef(false)
   const draft = useRef<Draft | null>(null)
   const token = useRef<{ formToken: string; fetchedAt: number } | null>(null)
@@ -123,7 +138,7 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
   }, [registry, answers, source, persist])
 
   const send = useCallback(async (hp: string) => {
-    if (!registry || phase === 'sending') return
+    if (!registry || phase === 'sending' || retryIn > 0) return
     setPhase('sending')
     setFailure(null)
     if (!draft.current) persist(answers, 'review', registry)
@@ -143,18 +158,33 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
         setPhase('sent')
         return
       }
-      if (o.kind === 'invalid') {
-        // show each server error beside its field; the chat goes back to the first failing question
-        setErrors(Object.fromEntries(Object.entries(o.fields).map(([id, key]) => [id, { key }])))
-        const first = registry!.questions.find((q) => q.id in o.fields)
+      // 413: the body is over the limit — the longest answer is the one to shorten (contract §4.1)
+      const fields: Record<string, string> = o.kind === 'invalid' ? o.fields : o.kind === 'too_large' ? longestAnswer() : {}
+      if (o.kind === 'invalid' || o.kind === 'too_large') {
+        // show each server error beside its field, `{max}` filled from the question's own limit; the chat goes back to the
+        // first failing question
+        setErrors(Object.fromEntries(Object.entries(fields).map(([id, key]) => {
+          const q = registry!.questions.find((x) => x.id === id)
+          return [id, q && key === q.errorKeys.tooLong ? { key, values: { max: String(q.validation.maxLength) } } : { key }]
+        })))
+        const first = registry!.questions.find((q) => q.id in fields)
         if (first && source === 'NATIVE_CHAT') setAnswers((a) => reopen(a, first.id))
         setPhase(source === 'NATIVE_CHAT' ? 'asking' : 'review')
         return
       }
+      if (o.retryAfterSeconds) {
+        const t = Date.now()
+        setNow(t)
+        setRetryAt(t + o.retryAfterSeconds * 1000)
+      }
       setFailure({ key: o.key, ...(o.disabled ? { disabled: true } : {}) })
       setPhase('review')
     }
-  }, [registry, phase, answers, context, source, fetcher, persist])
+    function longestAnswer(): Record<string, string> {
+      const id = Object.entries(submittedAnswers(registry!, answers)).sort((a, b) => b[1].length - a[1].length)[0]?.[0]
+      return id ? { [id]: 'err.too_long' } : {}
+    }
+  }, [registry, phase, retryIn, answers, context, source, fetcher, persist])
 
   const resume = useCallback((continueDraft: boolean) => {
     if (!registry) return
@@ -182,7 +212,7 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
   }, [])
 
   return {
-    registry, phase, answers, errors, failure, rfqNumber, context,
+    registry, phase, answers, errors, failure, rfqNumber, retryIn, context,
     start, setContext: setContextState, answer: answerFn, edit, setAll: setAnswers, review, send, resume, reset,
   }
 }

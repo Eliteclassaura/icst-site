@@ -40,7 +40,7 @@ describe('registry fixture = contract §1.1 seeded structure, strings from the O
   it('carries the CT amendments: "Email" with its hint, the no-number confirmation, and the Round 5 seed keys (R5.1)', () => {
     expect(CT_STRING_AMENDMENTS).toEqual({
       'contact.email.q': 'Email', 'contact.email.hint': 'A work email helps us reach the right team', 'confirm.body_no_number': 'Request sent. Thank you. A member of our team will review your request and contact you.',
-      'privacy.link_text': 'Privacy Policy', 'form.continue': 'Continue',
+      'privacy.link_text': 'Privacy Policy', 'form.continue': 'Continue', 'confirm.response_time': "We'll respond within one business day.",
       'panel.unavailable': 'Online requests are unavailable right now. Please contact one of {{offices_link}}.', 'offices.link_text': 'our offices',
       'err.rate_limited': 'Too many requests from this connection. Please wait a few minutes and try again, or call one of {{offices_link}}.',
       'err.server': "Something went wrong and your request wasn't sent. Please try again, or call one of {{offices_link}}.",
@@ -133,11 +133,20 @@ describe('submit client: contract §4.1', () => {
   it('422 → field errors; 429 → rate limited; 413 → too long; 503 → disabled; 500 → server; network → offline', async () => {
     const one = (status: number, body: unknown) => submitRfq(vi.fn(async () => json(status, body)) as never, request, token).then((r) => r.outcome)
     expect(await one(422, { ok: false, code: 'VALIDATION', fields: { email: 'err.email' } })).toEqual({ kind: 'invalid', fields: { email: 'err.email' } })
-    expect(await one(429, { ok: false, code: 'RATE_LIMITED', retryAfterSeconds: 60 })).toEqual({ kind: 'error', key: 'err.rate_limited' })
-    expect(await one(413, { ok: false, code: 'TOO_LARGE' })).toEqual({ kind: 'error', key: 'err.too_long' })
+    expect(await one(429, { ok: false, code: 'RATE_LIMITED', retryAfterSeconds: 60 })).toEqual({ kind: 'error', key: 'err.rate_limited', retryAfterSeconds: 60 })
+    expect(await one(429, { ok: false, code: 'RATE_LIMITED' })).toEqual({ kind: 'error', key: 'err.rate_limited' })
+    expect(await one(413, { ok: false, code: 'TOO_LARGE' })).toEqual({ kind: 'too_large' })
     expect(await one(503, { ok: false, code: 'INTAKE_DISABLED' })).toEqual({ kind: 'error', key: 'err.server', disabled: true })
     expect(await one(500, { ok: false, code: 'SERVER' })).toEqual({ kind: 'error', key: 'err.server' })
     expect((await submitRfq(vi.fn(async () => { throw new TypeError('offline') }) as never, request, token)).outcome).toEqual({ kind: 'error', key: 'err.offline' })
+  })
+  it('R5.2: a 429 Retry-After header wins over the body (clamped to an hour); a replay is the same RFQ, flagged', async () => {
+    const withHeader = vi.fn(async () => new Response(JSON.stringify({ ok: false, code: 'RATE_LIMITED', retryAfterSeconds: 600 }), { status: 429, headers: { 'retry-after': '42' } }))
+    expect((await submitRfq(withHeader as never, request, token)).outcome).toEqual({ kind: 'error', key: 'err.rate_limited', retryAfterSeconds: 42 })
+    const huge = vi.fn(async () => new Response('{}', { status: 429, headers: { 'retry-after': '99999' } }))
+    expect((await submitRfq(huge as never, request, token)).outcome).toEqual({ kind: 'error', key: 'err.rate_limited', retryAfterSeconds: 3600 })
+    const replay = vi.fn(async () => json(200, { ok: true, rfqNumber: 'RFQ-1', replay: true }))
+    expect((await submitRfq(replay as never, request, token)).outcome).toEqual({ kind: 'sent', rfqNumber: 'RFQ-1', replay: true })
   })
   it('the token is reused while younger than 90 minutes', async () => {
     const f = vi.fn(async () => json(200, { formToken: 'fresh' }))

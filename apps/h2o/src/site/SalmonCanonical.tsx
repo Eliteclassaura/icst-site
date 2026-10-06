@@ -19,6 +19,7 @@ import {BreadcrumbSchema,HOME_CRUMB,isBreadcrumbList,type Crumb} from './breadcr
 import {decodeEntities} from './text-repair'
 import {pageCopy} from './page-copy'
 import {publicMeta,publicSchema,servedOrigin} from './public-urls'
+import {publicFileExists} from '../content/public-files'
 import {projectHeadImagePolicy} from './project-media'
 import {nativeIntakeOn} from '../rfq-native/server'
 import {NativeRfqFormSection} from '../rfq-native/NativeRfqForm'
@@ -85,7 +86,9 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
     const original=attrs.href??''
     const media=salmonMedia(original,doc.sourceUrl)
     if(media?.state==='SOURCE_UNAVAILABLE'&&/\.pdf(?:[?#]|$)/i.test(original))return <span key={key} data-source-href={original} data-source-download-unavailable="SOURCE_MEDIA_UNAVAILABLE">{children}</span>
-    const local=media&&salmonMediaPath(media)
+    // A link that already names a file this site serves (a held public file, e.g. a restored WordPress upload) keeps that
+    // canonical path; only links without one are rewritten to the hashed media alias (CT follow-up, Round 1 hosted checks).
+    const local=servedFilePath(original,doc.sourceUrl)??(media&&salmonMediaPath(media))
     const commerce=/[?&]add-to-cart=|\/(?:checkout|cart)\/?(?:[?#]|$)/i.test(original)
     props.href=commerce?undefined:hrefSafe(ownerHref(local??original))
     props['data-source-href']=original
@@ -131,6 +134,15 @@ export const publicDescription=(doc:SalmonDocument):string|undefined=>{const val
 /** The page's own name in its breadcrumb trail: the rendered H1, else the document title. */
 export const breadcrumbName=(doc:SalmonDocument):string=>articleDisplayTitle(decodeEntities(doc.seo.h1[0]||doc.title)).replace(/\s+/g,' ').trim()
 /** `breadcrumb` is the trail the template renders above the page (default: Home). */
+const OWN_HOSTS=new Set(['h2ocooling.com','www.h2ocooling.com','salmon-rhinoceros-754457.hostingersite.com'])
+/** The site path of a link to a held public file (public-files), or undefined. */
+export const servedFilePath=(href:string,base:string):string|undefined=>{
+  try{
+    const u=new URL(href,base)
+    if(!OWN_HOSTS.has(u.hostname)||u.search||!publicFileExists(u.pathname))return undefined
+    return u.pathname+u.hash
+  }catch{return undefined}
+}
 export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbName}:{doc:SalmonDocument;canonicalOverride?:string;breadcrumb?:Crumb[];crumbName?:string}){
   const metaValue=(name:string,value:string)=>{
     if(name==='og:url'&&canonicalOverride&&value===doc.seo.canonical[0])return canonicalOverride

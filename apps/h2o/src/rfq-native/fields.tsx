@@ -81,12 +81,21 @@ export function FailureNote({ reg, failure }: { reg: Registry; failure: { key: s
   return <p className={styles.failure} role="alert"><Linked reg={{ ...reg, strings: { ...reg.strings, [failure.key]: t(reg, failure.key, { ...failure.values, offices_link: '{{offices_link}}' }) } }} textKey={failure.key} placeholder="offices_link" href={OFFICES_HREF} linkTextKey="offices.link_text"/></p>
 }
 
-/** The confirmation: the RFQ number when there is one (contract amendment (a): the no-number line otherwise). */
+/** The confirmation: the RFQ number when there is one (contract amendment (a): the no-number line otherwise), then the
+ * response promise (owner-confirmed, CT 2026-10-05) and the attachments line. */
 export function Confirmation({ reg, rfqNumber, children }: { reg: Registry; rfqNumber: string | null; children?: ReactNode }) {
   return <div className={styles.confirm}>
     <h3 className={styles.confirmHeading}>{t(reg, 'confirm.heading')}</h3>
     <p>{rfqNumber ? t(reg, 'confirm.body', { rfq_number: rfqNumber }) : t(reg, 'confirm.body_no_number')}</p>
+    {reg.strings['confirm.response_time'] ? <p>{t(reg, 'confirm.response_time')}</p> : null}
     <p>{t(reg, 'confirm.attachments')}</p>
     {children}
   </div>
+}
+
+/** The send button: "Sending…" in flight; disabled with the time left while a rate limit's Retry-After runs. */
+export function SendButton({ reg, phase, retryIn, onSend }: { reg: Registry; phase: string; retryIn: number; onSend: () => void }) {
+  const sending = phase === 'sending'
+  const wait = retryIn > 0 ? ` (${Math.floor(retryIn / 60)}:${String(retryIn % 60).padStart(2, '0')})` : ''
+  return <button type="button" className={styles.primary} disabled={sending || retryIn > 0} aria-busy={sending} onClick={onSend}>{t(reg, sending ? 'review.sending' : 'review.send')}{wait}</button>
 }

@@ -27,9 +27,10 @@ export type SubmitRequest = {
 }
 /** What the UI does next. */
 export type SubmitOutcome =
-  | { kind: 'sent'; rfqNumber: string | null }
+  | { kind: 'sent'; rfqNumber: string | null; replay?: boolean }
   | { kind: 'invalid'; fields: Record<string, string> }
-  | { kind: 'error'; key: 'err.rate_limited' | 'err.offline' | 'err.server' | 'err.too_long'; disabled?: boolean }
+  | { kind: 'too_large' }
+  | { kind: 'error'; key: 'err.rate_limited' | 'err.offline' | 'err.server'; disabled?: boolean; retryAfterSeconds?: number }
 
 /** Context keys and the server's length limits (contract §4: the safe-context limits). */
 const CONTEXT_LIMITS: Record<keyof RfqContext, number> = { context_type: 16, context_id: 64, page_path: 512, product_id: 64, product_slug: 128, product_path: 512, product_title: 160, cta_placement: 64 }
@@ -92,13 +93,14 @@ export async function submitRfq(
     } catch {
       return { outcome: { kind: 'error', key: 'err.offline' }, token: tok }
     }
-    let data: { ok?: boolean; rfqNumber?: string | null; code?: string; fields?: Record<string, string> } = {}
+    let data: { ok?: boolean; rfqNumber?: string | null; replay?: boolean; code?: string; fields?: Record<string, string>; retryAfterSeconds?: number } = {}
     try {
       data = (await res.json()) as typeof data
     } catch {
       /* a body that is not JSON is a server error */
     }
-    if (res.ok && data.ok) return { outcome: { kind: 'sent', rfqNumber: typeof data.rfqNumber === 'string' ? data.rfqNumber : null }, token: tok }
+    // a replay (same submissionId, same answers) is the original request's RFQ: the same confirmation, not a new submit
+    if (res.ok && data.ok) return { outcome: { kind: 'sent', rfqNumber: typeof data.rfqNumber === 'string' ? data.rfqNumber : null, ...(data.replay === true ? { replay: true } : {}) }, token: tok }
     if (res.status === 409 && data.code === 'TOKEN_INVALID' && !retriedToken) {
       retriedToken = true
       tok = await formToken(fetcher, null)
@@ -113,8 +115,13 @@ export async function submitRfq(
       continue
     }
     if (res.status === 422 && data.code === 'VALIDATION' && data.fields) return { outcome: { kind: 'invalid', fields: data.fields }, token: tok }
-    if (res.status === 429) return { outcome: { kind: 'error', key: 'err.rate_limited' }, token: tok }
-    if (res.status === 413) return { outcome: { kind: 'error', key: 'err.too_long' }, token: tok }
+    if (res.status === 429) {
+      // Retry-After (seconds) from the header, else the body; clamped to an hour
+      const header = Number(res.headers.get('retry-after'))
+      const wait = Number.isFinite(header) && header > 0 ? header : Number(data.retryAfterSeconds)
+      return { outcome: { kind: 'error', key: 'err.rate_limited', ...(Number.isFinite(wait) && wait > 0 ? { retryAfterSeconds: Math.min(Math.ceil(wait), 3600) } : {}) }, token: tok }
+    }
+    if (res.status === 413) return { outcome: { kind: 'too_large' }, token: tok }
     if (res.status === 503) return { outcome: { kind: 'error', key: 'err.server', disabled: true }, token: tok }
     return { outcome: { kind: 'error', key: 'err.server' }, token: tok }
   }

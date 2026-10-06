@@ -97,6 +97,8 @@ describe('corner panel (NATIVE_CHAT)', () => {
     expect(Object.keys(body.answers)).not.toContain('parts_model')
     expect(panel()!.textContent).toContain(s('confirm.body', { rfq_number: 'RFQ-20261005-7K3M9QX2' }))
     expect(panel()!.textContent).toContain(s('confirm.attachments'))
+    // the response promise sits directly under the RFQ number line
+    expect([...panel()!.querySelectorAll('p')].map((p) => p.textContent).join('|')).toContain(`${s('confirm.body', { rfq_number: 'RFQ-20261005-7K3M9QX2' })}|${s('confirm.response_time')}|${s('confirm.attachments')}`)
     expect(sessionStorage.getItem(DRAFT_KEY)).toBeNull()
   })
 
@@ -163,6 +165,60 @@ describe('corner panel (NATIVE_CHAT)', () => {
     expect(JSON.parse(sessionStorage.getItem(DRAFT_KEY)!).submissionId).toBe('sub-1')
   })
 
+  const reviewDraft = (id: string, extra: Record<string, string> = {}) => sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: id, registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'Basin repair', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '', country: 'US', ...extra }, source: 'NATIVE_CHAT' }))
+  const openToReview = async (fetcher: unknown) => {
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={fetcher as never}/>))
+    await click(host.querySelector('[data-rfq-launcher]'))
+    await click(button(s('resume.continue')))
+  }
+
+  it('R5.2: a 429 disables Send with the Retry-After countdown, then allows the retry; the draft is kept', async () => {
+    let n = 0
+    const fetcher = api(() => (n++ === 0 ? new Response(JSON.stringify({ ok: false, code: 'RATE_LIMITED', retryAfterSeconds: 1 }), { status: 429, headers: { 'retry-after': '1' } }) : json(200, { ok: true, rfqNumber: 'RFQ-5', replay: false })))
+    reviewDraft('sub-429')
+    await openToReview(fetcher)
+    await click(button(s('review.send')))
+    const waiting = [...host.querySelectorAll('button')].find((b) => b.textContent?.startsWith(s('review.send')))!
+    expect(waiting.disabled).toBe(true)
+    expect(waiting.textContent).toBe(`${s('review.send')} (0:01)`)
+    expect(panel()!.querySelector('[role="alert"]')?.textContent).toBe(s('err.rate_limited', { offices_link: s('offices.link_text') }))
+    await act(async () => { waiting.click() })
+    expect(fetcher.mock.calls.filter((c) => c[0] === '/api/rfq/submit/')).toHaveLength(1)
+    await act(async () => { await new Promise((r) => setTimeout(r, 1300)) })
+    await flush()
+    expect(button(s('review.send')).disabled).toBe(false)
+    await click(button(s('review.send')))
+    expect(panel()!.textContent).toContain(s('confirm.body', { rfq_number: 'RFQ-5' }))
+    const bodies = fetcher.mock.calls.filter((c) => c[0] === '/api/rfq/submit/').map((c) => JSON.parse((c as unknown as [string, RequestInit])[1].body as string).submissionId)
+    expect(bodies).toEqual(['sub-429', 'sub-429']) // the retry is the same submission
+  })
+
+  it('R5.2: a 200 replay shows the same confirmation with the returned RFQ number', async () => {
+    reviewDraft('sub-replay')
+    await openToReview(api(() => json(200, { ok: true, rfqNumber: 'RFQ-ORIGINAL', replay: true })))
+    await click(button(s('review.send')))
+    expect(panel()!.textContent).toContain(s('confirm.body', { rfq_number: 'RFQ-ORIGINAL' }))
+    expect(panel()!.textContent).toContain(s('confirm.response_time'))
+    expect(sessionStorage.getItem(DRAFT_KEY)).toBeNull()
+  })
+
+  it('R5.2: a 422 too-long error names the limit ({max} from the registry); a 413 lands on the longest answer', async () => {
+    reviewDraft('sub-422')
+    await openToReview(api(() => json(422, { ok: false, code: 'VALIDATION', fields: { other_need: 'err.too_long' } })))
+    await click(button(s('review.send')))
+    // the chat goes back to the failing question, its error filled with the field's own limit
+    expect(log()).toContain(s('other.q'))
+    expect(panel()!.textContent).toContain(s('err.too_long', { max: '2000' }))
+    await act(async () => root.unmount())
+    root = createRoot(host)
+    sessionStorage.clear()
+    reviewDraft('sub-413', { notes: 'x'.repeat(1900) })
+    await openToReview(api(() => json(413, { ok: false, code: 'TOO_LARGE' })))
+    await click(button(s('review.send')))
+    expect(log()).toContain(s('notes.q'))
+    expect(panel()!.textContent).toContain(s('err.too_long', { max: '2000' }))
+  })
+
   it('a null RFQ number shows the no-number confirmation (contract amendment (a))', async () => {
     sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-2', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'X', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={api(() => json(200, { ok: true, rfqNumber: null, replay: false })) as never}/>))
@@ -170,6 +226,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
     await click(button(s('resume.continue')))
     await click(button(s('review.send')))
     expect(panel()!.textContent).toContain(s('confirm.body_no_number'))
+    expect(panel()!.textContent).toContain(s('confirm.response_time'))
   })
 
   it('a registry that is off shows the unavailable line with the offices link (R5.1); unreachable shows no question', async () => {

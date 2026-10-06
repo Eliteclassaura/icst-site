@@ -23,6 +23,8 @@ export const CT_STRING_AMENDMENTS: Record<string, string> = {
   'form.continue': 'Continue',
   'panel.unavailable': 'Online requests are unavailable right now. Please contact one of {{offices_link}}.',
   'offices.link_text': 'our offices',
+  // owner-confirmed response promise (CT 2026-10-05): shown on the confirmation, under the RFQ number
+  'confirm.response_time': "We'll respond within one business day.",
   'err.rate_limited': 'Too many requests from this connection. Please wait a few minutes and try again, or call one of {{offices_link}}.',
   'err.server': "Something went wrong and your request wasn't sent. Please try again, or call one of {{offices_link}}.",
 }

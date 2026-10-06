@@ -11,7 +11,7 @@
  */
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { captureFirstTouch } from './attribution'
-import { ChipGroup, Confirmation, CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, PrivacyNote, ReviewList, UnavailableNote } from './fields'
+import { ChipGroup, Confirmation, CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, PrivacyNote, ReviewList, SendButton, UnavailableNote } from './fields'
 import { displayValue, nextQuestion, questionsFor, validate } from './flow'
 import { t, type Question, type Registry } from './model'
 import { cleanContext, type RfqContext } from './submission'
@@ -194,7 +194,7 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
             <h3 className={styles.confirmHeading} tabIndex={-1}>{t(reg, 'review.heading')}</h3>
             <ReviewList reg={reg} answers={s.answers} onEdit={s.edit}/>
             <FailureNote reg={reg} failure={s.failure}/>
-            <button type="button" className={styles.primary} disabled={s.phase === 'sending'} aria-busy={s.phase === 'sending'} onClick={() => void s.send(hp)}>{t(reg, s.phase === 'sending' ? 'review.sending' : 'review.send')}</button>
+            <SendButton reg={reg} phase={s.phase} retryIn={s.retryIn} onSend={() => void s.send(hp)}/>
           </> : null}
           {s.phase === 'sent' ? <Confirmation reg={reg} rfqNumber={s.rfqNumber}><button type="button" className={styles.primary} onClick={close}>{t(reg, 'confirm.close')}</button></Confirmation> : null}
           {current?.step === 'contact' || s.phase === 'review' ? <PrivacyNote reg={reg}/> : null}

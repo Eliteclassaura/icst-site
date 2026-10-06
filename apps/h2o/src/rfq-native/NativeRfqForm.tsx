@@ -7,7 +7,7 @@
  */
 import { useEffect, useId, useRef, useState } from 'react'
 import { searchCountries } from './countries'
-import { Confirmation, ErrorText, FailureNote, Honeypot, PrivacyNote, ReviewList, UnavailableNote } from './fields'
+import { Confirmation, ErrorText, FailureNote, Honeypot, PrivacyNote, ReviewList, SendButton, UnavailableNote } from './fields'
 import { questionsFor } from './flow'
 import { t, type Question, type Registry } from './model'
 import { cleanContext } from './submission'
@@ -61,7 +61,7 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
     <ReviewList reg={reg} answers={s.answers} onEdit={s.edit}/>
     <FailureNote reg={reg} failure={s.failure}/>
     <Honeypot reg={reg} value={hp} onChange={setHp}/>
-    <button type="button" className={styles.primary} disabled={s.phase === 'sending'} aria-busy={s.phase === 'sending'} onClick={() => void s.send(hp)}>{t(reg, s.phase === 'sending' ? 'review.sending' : 'review.send')}</button>
+    <SendButton reg={reg} phase={s.phase} retryIn={s.retryIn} onSend={() => void s.send(hp)}/>
   </section>
   const questions = questionsFor(reg, s.answers)
   return <form ref={formRef} className={styles.form} noValidate aria-labelledby={headingId} onSubmit={(e) => { e.preventDefault(); s.review() }}>
