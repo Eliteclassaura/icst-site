@@ -351,13 +351,25 @@ export const publicProjectRows=():LedgerRow[]=>{
 function withProjectDetailLinks(doc:SalmonDocument):SalmonDocument{
   if(isPayloadContent()){
     const current=new Set(publicProjectRows().map(row=>row.path))
+    // R3.5: the release document has already followed each card's /projects/<identity>/ redirect. One of them
+    // (/projects/cooling-tower-replacement/) lands on a public service page, not the project; that card is recognised by
+    // the exact published redirect identity (unique destination, project public), so it keeps its project.
+    const viaRedirect=new Map<string,string>()
+    const seen=new Map<string,number>()
+    for(const r of (releaseLedger() as {redirects?:Array<{source:string;destination:string}>}).redirects??[]){
+      const slug=r.source.match(/^\/projects\/([^/?#]+)\/$/)?.[1]
+      if(!slug||!current.has(`/all-projects/${slug}/`)||r.destination===`/all-projects/${slug}/`)continue
+      seen.set(r.destination,(seen.get(r.destination)??0)+1)
+      viaRedirect.set(r.destination,`/all-projects/${slug}/`)
+    }
+    for(const [href,count] of seen)if(count>1)viaRedirect.delete(href)
     // The source portfolio uses /projects/<identity>/; accepted detail destinations use
     // /all-projects/<identity>/. Match that complete destination, never labels or partial slugs.
     const destination=(value:SalmonNode):string|undefined=>{
       if(typeof value==='string'||value.tag!=='a')return undefined
       const href=localHref(value.attrs.href,doc)
       const match=href?.match(/^\/(?:all-projects|projects)\/([^/?#]+)\/(?:[?#].*)?$/)
-      return match?`/all-projects/${match[1]}/`:undefined
+      return match?`/all-projects/${match[1]}/`:href?viaRedirect.get(href.replace(/[?#].*$/,'')):undefined
     }
     const destinations=(value:SalmonNode):Set<string>=>{
       const found=new Set<string>()
