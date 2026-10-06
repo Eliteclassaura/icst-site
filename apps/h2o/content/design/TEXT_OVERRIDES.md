@@ -15,6 +15,7 @@ Text that *is* editable was corrected in the page itself (content batch R2.2), s
 | TO-005 | /cooling-tower-construction-repair-in-united-states/ | text placed in a layout block | "world-class expertise … to the United States." | "… expertise to clients across the United States." | CS098 |
 | TO-006 | /all-projects/pttcsp/ | project highlight (icon list) | "…upgraded to achieve a minimum 15% airflow improvement" | "…upgraded against a minimum 15% airflow-improvement target" | C4 default |
 | TO-007 | /all-projects/pttcsp/ | project highlight (icon list) | "Thermal and static pressure performance guarantees were successfully achieved" | "Fan system re-engineered to meet the plant's thermal and static pressure requirements" | C4 default |
+| TO-008 | /cooling-tower-repair-service/ | structured data name and headline (3×) | "Cooling Tower Repair Service \| Fast & Certified Repairs" | "Cooling Tower Repair Service for Industrial Facilities - ICS" | CT ruling (R2.2a), owner Q1 family |
 
 **Rules (Control Tower guardrails):**
 - An entry applies only when its exact text appears exactly the stated number of times.

@@ -31,7 +31,7 @@ const imported=(routeId:string)=>{const r=routes.find(x=>x.routeId===routeId)!;r
 describe('text-override registry (guardrails 1–4)',()=>{
   const entries=textOverrides()
   it('1. every entry matches its imported document exactly `count` times in its scope, applies, and is idempotent',()=>{
-    expect(entries.map(o=>o.id)).toEqual(['TO-001','TO-002','TO-003','TO-004','TO-005','TO-006','TO-007'])
+    expect(entries.map(o=>o.id)).toEqual(['TO-001','TO-002','TO-003','TO-004','TO-005','TO-006','TO-007','TO-008'])
     for(const routeId of new Set(entries.map(o=>o.routeId))){
       const doc=imported(routeId)
       const once=applyTextOverrides(doc)

@@ -78,6 +78,17 @@
       "replace": "Fan system re-engineered to meet the plant's thermal and static pressure requirements",
       "count": 1,
       "reason": "OGCS pre-launch copy R1 §1 C4 DEFAULT, highlight 2: an icon-list item, not an editable element"
+    },
+    {
+      "id": "TO-008",
+      "row": "CS-T1",
+      "routeId": "LIVE-posts-17386",
+      "path": "/cooling-tower-repair-service/",
+      "scope": "schema",
+      "find": "Cooling Tower Repair Service | Fast &amp; Certified Repairs",
+      "replace": "Cooling Tower Repair Service for Industrial Facilities - ICS",
+      "count": 3,
+      "reason": "CT ruling 2026-10-05 (R2.2a, owner Q1 family): the JSON-LD copies of the SEO title (the title itself is the R2.2a seo field)"
     }
   ]
 }
