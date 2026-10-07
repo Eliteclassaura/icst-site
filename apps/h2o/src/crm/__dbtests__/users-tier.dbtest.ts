@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest'
-import { as, payload, rest, user, userWith, type TestUser } from './harness'
+import { as, PASSWORD, payload, rest, user, userWith, type TestUser } from './harness'
 
 /**
  * SEC-MAIN-1 against the isolated synthetic database: only a platform-admin manages platform-admins (CT ruling).
@@ -18,6 +18,8 @@ beforeAll(async () => {
   target = await userWith('platform-admin.target@example.test', 'platform-admin')
 })
 
+/** SEC-MAIN-1.2: a refusal is any 4xx (Payload versions differ on 400 vs 403); the proof is that nothing changed. */
+const refused = (status: number) => status >= 400 && status < 500
 const read = async (id: string) => (await (await payload()).findByID({ collection: 'users', id, ...sys })) as unknown as Doc
 
 describe('a client-admin cannot touch a platform-admin account', () => {
@@ -25,10 +27,12 @@ describe('a client-admin cannot touch a platform-admin account', () => {
     const before = await read(target.id)
     for (const body of [{ password: 'Synthetic-Taken-1!' }, { email: 'taken@example.test' }, { roles: ['viewer'] }, { mfa_reset: true }, { name: 'taken' }]) {
       const res = await rest.patch(`users/${target.id}`, client.token, body)
-      expect(res.status, JSON.stringify(body)).toBe(403)
+      expect(refused(res.status), `${JSON.stringify(body)} → ${res.status}`).toBe(true)
     }
     const after = await read(target.id)
     expect(after).toMatchObject({ email: before.email, roles: before.roles, name: before.name, mfa_enabled: before.mfa_enabled })
+    // the password is unchanged: the original still signs in
+    expect((await (await payload()).login({ collection: 'users', data: { email: String(before.email), password: PASSWORD } })).token).toBeTruthy()
   })
   it('the admin UI document access shows the account read-only', async () => {
     const res = await rest.get(`users/access/${target.id}`, client.token)
@@ -42,9 +46,10 @@ describe('a client-admin cannot touch a platform-admin account', () => {
 
 describe('a client-admin cannot grant platform-admin', () => {
   it('not to a sales user, not to themself, not on create', async () => {
-    expect((await rest.patch(`users/${sales.id}`, client.token, { roles: ['platform-admin', 'sales'] })).status).toBe(403)
-    expect((await rest.patch(`users/${client.id}`, client.token, { roles: ['platform-admin'] })).status).toBe(403)
-    expect((await rest.post('users', client.token, { email: 'new.pa@example.test', password: 'Synthetic-Password-1!', roles: ['platform-admin'] })).status).toBe(403)
+    expect(refused((await rest.patch(`users/${sales.id}`, client.token, { roles: ['platform-admin', 'sales'] })).status)).toBe(true)
+    expect(refused((await rest.patch(`users/${client.id}`, client.token, { roles: ['platform-admin'] })).status)).toBe(true)
+    expect(refused((await rest.post('users', client.token, { email: 'new.pa@example.test', password: 'Synthetic-Password-1!', roles: ['platform-admin'] })).status)).toBe(true)
+    expect((await (await payload()).find({ collection: 'users', where: { email: { equals: 'new.pa@example.test' } }, ...sys })).totalDocs).toBe(0)
     expect((await read(sales.id)).roles).toEqual(['sales'])
     expect((await read(client.id)).roles).toEqual(['client-admin'])
   })
