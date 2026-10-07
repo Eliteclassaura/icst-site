@@ -212,7 +212,8 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     expect(expectations.expect.redirects).toEqual({create:0,update:0,unchanged:408,retire:0,normalise:0})
     expect(expectations.expect.seoFields).toMatchObject({update:0,pendingOgcs:0})
     expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:0})
-    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:1})
+    // Design R4 (CT 2026-10-07) is ONE delta on the state CLAIMS-R2 leaves: two hygiene routes (parts hub R4C-01…06, Dry Soda R4C-07).
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:2})
     expect(expectations.expect.h1).toEqual({update:0})
     expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:0})
     expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)

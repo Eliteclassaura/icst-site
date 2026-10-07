@@ -23,10 +23,10 @@ describe('site completion R1.1 boundaries',()=>{
     for(const label of ['About ICS','Useful Links','Towers &amp; Services','Product Category','Phone','Privacy Policy',...contactOffices.map(office=>office.telephoneDisplay)])expect(footer).toContain(label)
     expect(footer).not.toContain('+66-2-260-6598')
   })
-  it('removes only the misleading Air Coolers hero photograph',()=>{
+  it('removes only the misleading Air Coolers hero photograph (Design R4: the owner-approved edited hero, general imagery)',()=>{
     expect(serviceCompositions['SALMON-pages-1668'].inside[1]).toBeUndefined()
     const html=renderToStaticMarkup(<LuxuryCanonical doc={documentFor('SALMON-pages-1668')}/>)
-    expect(html).toContain('data-air-cooler-hero="TYPE_LED"')
+    expect(html).toContain('data-r4-media="aircoolers.hero"')
     expect(html).not.toContain('figma-image-d01e70f05845e3dd.png')
     expect(html).toContain('High-Performance Industrial Air Cooler Solutions')
   })

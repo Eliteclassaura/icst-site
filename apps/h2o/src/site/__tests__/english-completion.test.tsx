@@ -56,7 +56,7 @@ describe('English completion release boundary',()=>{
   })
   it('keeps all thirteen Resources documents and gives the three approved library pathways',()=>{
     const html=renderToStaticMarkup(<Wave4Library doc={documentFor('SALMON-pages-1761')}/>)
-    expect(html).toContain('wave4-photo-hero')
+    expect(html).toContain('class="dr4-hero dr4-hero--hub dr4-hero--resources"') // Design R4 (CT GO 2026-10-07): the shared R4 hub hero (DD P1 sizing)
     expect(html).toContain('RESOURCE LIBRARY / 13 source-listed documents')
     for(const href of ['/cooling-tower-brochures/','/cooling-tower-resources/tools/','/tech-articles/'])expect(html).toContain(`href="${href}"`)
     expect((html.match(/class="wave4-document(?: wave4-document-flat)?"/g)??[])).toHaveLength(13)

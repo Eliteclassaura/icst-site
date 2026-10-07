@@ -34,8 +34,8 @@ describe('A1 project photos: each project its own verified photo, never another 
   })
   it('no two project cards on /all-projects/ share an image, and each card shows its own project’s photo',async()=>{
     const html=await render('/all-projects/')
-    // Each card: its photo (background sha) and the first project link after it.
-    const cards=[...html.matchAll(/data-source-background-sha256="([0-9a-f]{64})"(?:(?!data-source-background-sha256)[^])*?href="(\/all-projects\/[^"/]+\/)"/g)].map(m=>({sha:m[1]!,href:m[2]!}))
+    // Design R4: each card is one <li data-project-href> holding its own <img data-source-sha256> (no CSS background).
+    const cards=[...html.matchAll(/<li class="dr4-proj" data-project-href="(\/all-projects\/[^"/]+\/)">(?:(?!<\/li>)[^])*?data-source-sha256="([0-9a-f]{64})"/g)].map(m=>({sha:m[2]!,href:m[1]!}))
     const projectCards=cards.filter(card=>registry[card.href])
     expect(projectCards.length).toBe(20)
     expect(new Set(projectCards.map(card=>card.sha)).size).toBe(projectCards.length)
@@ -48,14 +48,15 @@ describe('A1 project photos: each project its own verified photo, never another 
     expect(Object.keys(withheld)).toEqual(['/all-projects/pttcsp/','/all-projects/ptt-csp3/'])
     const listing=await render('/all-projects/')
     for(const [p,w] of Object.entries(withheld)){
-      expect(listing,p).toMatch(new RegExp(`<div class="sp-con sp-col sp-rounded"[^>]*style="--sp-minh:[^"]*"><div class="sp-btn-row"><a class="sp-btn sp-btn--outline" href="${p}">`))
+      // Design R4 text card: a navy panel in the photo's place, no image.
+      expect(listing,p).toMatch(new RegExp(`<li class="dr4-proj dr4-proj--text" data-project-href="${p}"><div class="dr4-proj-media dr4-proj-panel">`))
       const detail=await render(p)
       for(const sha of w.withheldSha256){expect(detail,`${p} ${sha}`).not.toContain(sha);if(sha!=='aa6edfe6c9fb42e5b87a59345a747d735c3eb6f1c5a6e2fee50713d9e7f294d9')expect(listing,`${p} ${sha}`).not.toContain(sha)}
     }
   })
   it('EDC: the card year follows its own record (2018) and its detail hero is its own photo',async()=>{
     const html=await render('/all-projects/')
-    expect(html).toMatch(/href="\/all-projects\/edc\/">2018</)
+    expect(html).toMatch(/data-project-href="\/all-projects\/edc\/">(?:(?!<\/li>)[^])*?<span class="dr4-proj-year">2018<\/span>/)
     const detail=await render('/all-projects/edc/')
     expect(detail).toContain(registry['/all-projects/edc/']!.media.src)
     for(const [p,e] of Object.entries(registry))if(p!=='/all-projects/edc/')expect(detail,p).not.toContain(e.media.src)
@@ -94,7 +95,7 @@ describe('A2–A6 stylesheet',()=>{
   it('is imported last and uses colour tokens only',()=>{
     const imports=[...readFileSync(path.join(APP,'src/app/(site)/layout.tsx'),'utf8').matchAll(/^import '\.\/([^']+\.css)'/gm)].map(m=>m[1])
     // Design R3 (CT 2026-10-06) adds its page stylesheet after this one; design-fixes.css stays last before it.
-    expect(imports.slice(-3)).toEqual(['design-fixes.css','design-r3.css','a11y-fixes.css']) // + LEGAL-FIX-1 contrast overrides, last
+    expect(imports.slice(-4)).toEqual(['design-fixes.css','design-r3.css','a11y-fixes.css','design-r4.css']) // + LEGAL-FIX-1 contrast overrides, then Design R4, last
     for(const line of css.split('\n').filter(l=>/^\s*(color|background(-color)?|border(-color)?)\s*:/.test(l)))expect(line,line).not.toMatch(/#[0-9a-f]{3,8}\b|rgb\(/i)
   })
   it('carries each audit fix',()=>{
@@ -108,13 +109,13 @@ describe('A2–A6 stylesheet',()=>{
 })
 
 describe('R1.1 (CT 2026-10-05)',()=>{
-  it('the /all-projects/ hero is a project’s own verified photo, not the AI-enhanced Palinpinon copy',async()=>{
+  it('the /all-projects/ hero is a verified original, never the AI-enhanced Palinpinon copy, and repeats no project card photo',async()=>{
+    // Design R4 final review F2 (DD 07ef220a): the hero is LIVE Japan-Project.jpg (general imagery), not a card's own photo.
     const hero=projectMediaRegistry().portfolioHero!
     const html=await render('/all-projects/')
     expect(html).not.toContain(hero.replaces)
-    const own=projectMediaRegistry().projects[hero.project]!
-    expect(html).toContain(`class="sp-photo-img" src="${own.media.src}"`)
-    expect((own as unknown as {original:{width:number}}).original.width).toBeGreaterThanOrEqual(1440)
+    expect(html).toMatch(/<img class="dr4-hero-img"[^>]*data-r4-media="projects\.hero" data-source-sha256="969aa66a977b121960cbd88b4114857920e7afb729b211d32a574c8196e44b80"/)
+    for(const [p,e] of Object.entries(projectMediaRegistry().projects))expect((e as unknown as {original?:{sha256:string}}).original?.sha256,p).not.toBe('969aa66a977b121960cbd88b4114857920e7afb729b211d32a574c8196e44b80')
   })
   it('English service pages number their sections once each, in order',()=>{
     const src=readFileSync(path.join(APP,'src/site/EnglishServices.tsx'),'utf8')

@@ -59,8 +59,8 @@ describe('R2.2 conformance on the composed pages (mock apply)',()=>{
   it('every page in the list is a public imported record',()=>{
     for(const c of [...conformance.absent,...conformance.present])expect(rowFor(c.path),c.path).toBeDefined()
     expect(conformance.absent.length).toBeGreaterThan(200)
-    // 11 owner-restored strings, and the 10 CLAIMS-R2 Home wordings (CT 2026-10-06)
-    expect(conformance.present).toHaveLength(21)
+    // 11 owner-restored strings, the 10 CLAIMS-R2 Home wordings (CT 2026-10-06), and the 7 R4 wordings (R4C-01…07, CT 2026-10-07)
+    expect(conformance.present).toHaveLength(28)
   })
   it('the check is live: before the batch, the ruled strings are on their pages',()=>{
     const notBefore=conformance.absent.filter(c=>!pageAfterApply(c.path,false).includes(c.text)).map(c=>c.row)

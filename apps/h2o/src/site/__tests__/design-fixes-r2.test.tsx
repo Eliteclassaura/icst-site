@@ -17,7 +17,12 @@ afterEach(()=>{process.env={...env}})
 const authority=JSON.parse(readFileSync(path.join(APP,'content/design/hero-actions.json'),'utf8')) as {routes:Record<string,{label:string;sourceLabel?:string}>}
 const LEGACY:Record<string,string>={'/cooling-tower-replacement/':'Contact Us','/thermal-upgrade/':'Talk to a Cooling Tower Specialist','/cooling-tower-maintenance-repair-upgrade/':'Contact Us','/disaster-recovery/':'Request a Consultation','/air-coolers/':'Discuss Your Air Cooler Project'}
 /** The hero stage of a wave2 service page. */
-const heroOf=(html:string)=>{const start=html.indexOf('data-wave2-section="hero"');return html.slice(start,html.indexOf('data-wave2-section=',start+30))}
+const heroOf=(html:string)=>{
+  // Design R4 (CT GO 2026-10-07): the R4 pages carry the shared R4 hero; the same quote contract holds there.
+  const r4=html.indexOf('<section class="dr4-hero ')
+  if(r4>=0)return html.slice(r4,html.indexOf('</section>',r4))
+  const start=html.indexOf('data-wave2-section="hero"');return html.slice(start,html.indexOf('data-wave2-section=',start+30))
+}
 const css=readFileSync(path.join(APP,'src/app/(site)/design-fixes.css'),'utf8')
 const r2=css.slice(css.indexOf('Design Fixes R2'))
 

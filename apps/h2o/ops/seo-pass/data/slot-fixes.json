@@ -10045,6 +10045,252 @@
       "reason": "OGCS template-claim rulings, CT accepted 2026-10-05: /cooling-tower-parts-online/ hero lead"
      }
     ]
+   },
+   {
+    "key": "body.5.3.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ICS specializes in performance upgrades for all cooling tower configurations — including high-efficiency FRP fan replacements that deliver immediate ROI over legacy aluminum fans.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ICS specializes in performance upgrades for industrial cooling towers, including high-efficiency FRP fan replacements for legacy aluminum fans.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ICS specializes in performance upgrades for industrial cooling towers, including high-efficiency FRP fan replacements for legacy aluminum fans.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "ICS specializes in performance upgrades for all cooling tower configurations — including high-efficiency FRP fan replacements that deliver immediate ROI over legacy aluminum fans.",
+      "to": "ICS specializes in performance upgrades for industrial cooling towers, including high-efficiency FRP fan replacements for legacy aluminum fans.",
+      "action": "word-corrected",
+      "reason": "OGCS R4 copy review B row 1 (CT accepted 2026-10-07; folder H2O_OGCS_R4_COPY_REVIEW_2026-10-07, SUMS seal 7ccb765b): 'All configurations' is universality; 'deliver immediate ROI' is an unsubstantiated outcome claim."
+     }
+    ]
+   },
+   {
+    "key": "body.7.1.1.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Cooling towers are essential heat rejection systems for condensers, HVAC infrastructure, and industrial process cooling. Properly maintained towers extend service life to 15–20+ years — but that performance depends on the quality and compatibility of replacement components.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Industrial cooling towers reject heat from condensers and process cooling systems in power, petrochemical, and manufacturing plants. Properly maintained towers commonly stay in service for 15–20 years or more, and that depends on the quality and fit of replacement components.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Industrial cooling towers reject heat from condensers and process cooling systems in power, petrochemical, and manufacturing plants. Properly maintained towers commonly stay in service for 15–20 years or more, and that depends on the quality and fit of replacement components.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Cooling towers are essential heat rejection systems for condensers, HVAC infrastructure, and industrial process cooling. Properly maintained towers extend service life to 15–20+ years — but that performance depends on the quality and compatibility of replacement components.",
+      "to": "Industrial cooling towers reject heat from condensers and process cooling systems in power, petrochemical, and manufacturing plants. Properly maintained towers commonly stay in service for 15–20 years or more, and that depends on the quality and fit of replacement components.",
+      "action": "word-corrected",
+      "reason": "OGCS R4 copy review B row 2 (CT accepted 2026-10-07; folder H2O_OGCS_R4_COPY_REVIEW_2026-10-07, SUMS seal 7ccb765b): Industrial-only rule: 'HVAC infrastructure' is removed. The service-life range is a general industry figure, consistent with the site's lifespan article, and rephrased as typical rather than guaranteed ('extend … to')."
+     }
+    ]
+   },
+   {
+    "key": "body.7.1.1.3.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ICS stocks parts for every major tower type and manufacturer. Whether you’re a plant engineer performing scheduled maintenance, a mechanical contractor managing a full tower rebuild, or a procurement specialist sourcing components for multiple sites, ICS provides the specifications, pricing, and support you need.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ICS supplies replacement parts for crossflow and counterflow cooling towers from many manufacturers. Whether you’re a plant engineer performing scheduled maintenance, a mechanical contractor managing a full tower rebuild, or a procurement specialist sourcing components for multiple sites, ICS provides the specifications, quotations, and support you need.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ICS supplies replacement parts for crossflow and counterflow cooling towers from many manufacturers. Whether you’re a plant engineer performing scheduled maintenance, a mechanical contractor managing a full tower rebuild, or a procurement specialist sourcing components for multiple sites, ICS provides the specifications, quotations, and support you need.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "ICS stocks parts for every major tower type and manufacturer. Whether you’re a plant engineer performing scheduled maintenance, a mechanical contractor managing a full tower rebuild, or a procurement specialist sourcing components for multiple sites, ICS provides the specifications, pricing, and support you need.",
+      "to": "ICS supplies replacement parts for crossflow and counterflow cooling towers from many manufacturers. Whether you’re a plant engineer performing scheduled maintenance, a mechanical contractor managing a full tower rebuild, or a procurement specialist sourcing components for multiple sites, ICS provides the specifications, quotations, and support you need.",
+      "action": "word-corrected",
+      "reason": "OGCS R4 copy review B row 3 (CT accepted 2026-10-07; folder H2O_OGCS_R4_COPY_REVIEW_2026-10-07, SUMS seal 7ccb765b): 'Stocks parts for every major tower type and manufacturer' is a universality and stock claim (ruled class: Main template claims 1–2). 'Pricing' becomes 'quotations' under the quote-only rule."
+     }
+    ]
+   },
+   {
+    "key": "body.7.1.3.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"OEM Cooling Tower Parts Supplier — U.S.-Based, Globally Shipped\"",
+    "after": "Cooling Tower Parts Supplier — U.S.-Based, Shipped Internationally",
+    "afterCanon": "\"Cooling Tower Parts Supplier — U.S.-Based, Shipped Internationally\"",
+    "changes": [
+     {
+      "from": "OEM Cooling Tower Parts Supplier — U.S.-Based, Globally Shipped",
+      "to": "Cooling Tower Parts Supplier — U.S.-Based, Shipped Internationally",
+      "action": "claim-reworded",
+      "reason": "OGCS R4 copy review B row 4 (CT accepted 2026-10-07; folder H2O_OGCS_R4_COPY_REVIEW_2026-10-07, SUMS seal 7ccb765b): Drops the implied 'OEM supplier' status; 'globally' becomes 'internationally'. Heading level unchanged."
+     }
+    ]
+   },
+   {
+    "key": "body.7.1.3.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Headquartered in the United States, ICS ships cooling tower components to customers in Canada, Japan, Thailand, Singapore, South Korea, China, Indonesia, Vietnam, Saudi Arabia, and across the Middle East. As a factory-authorized OEM supplier, ICS maintains quality standards aligned with original equipment specifications.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Headquartered in the United States, ICS ships cooling tower components to customers internationally, including Japan, Thailand, the Philippines, Malaysia, Indonesia, and Vietnam. ICS supplies parts from manufacturers including Amarillo, Brentwood, Hudson, Howden, and Addax, matched to original equipment specifications.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Headquartered in the United States, ICS ships cooling tower components to customers internationally, including Japan, Thailand, the Philippines, Malaysia, Indonesia, and Vietnam. ICS supplies parts from manufacturers including Amarillo, Brentwood, Hudson, Howden, and Addax, matched to original equipment specifications.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Headquartered in the United States, ICS ships cooling tower components to customers in Canada, Japan, Thailand, Singapore, South Korea, China, Indonesia, Vietnam, Saudi Arabia, and across the Middle East. As a factory-authorized OEM supplier, ICS maintains quality standards aligned with original equipment specifications.",
+      "to": "Headquartered in the United States, ICS ships cooling tower components to customers internationally, including Japan, Thailand, the Philippines, Malaysia, Indonesia, and Vietnam. ICS supplies parts from manufacturers including Amarillo, Brentwood, Hudson, Howden, and Addax, matched to original equipment specifications.",
+      "action": "word-corrected",
+      "reason": "OGCS R4 copy review B row 5 (CT accepted 2026-10-07; folder H2O_OGCS_R4_COPY_REVIEW_2026-10-07, SUMS seal 7ccb765b): 'Factory-authorized OEM supplier' is unsubstantiated: the same class was ruled out on Home (Main claim 1) and CS046, and the owner chose default wording for OEM-supplier status (Q10). The country list is narrowed to countries evidenced by ICS offices and projects; Saudi Arabia was ruled out as an office (Q8). The brand list matches the accepted CLAIMS-R2 phrasing and the parts catalog."
+     }
+    ]
+   },
+   {
+    "key": "body.7.1.3.3.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ICS also provides contractor services: tower inspections, major structural repairs, side-stream filtration, evaporative condenser replacement, and cooling tower conversions. Contact our team for an O&M budget assessment and customized maintenance plan.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ICS also provides contractor services, including tower inspections, major structural repairs, thermal upgrades, and cooling tower rebuilds. Contact our team to request a quote for a maintenance plan.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ICS also provides contractor services, including tower inspections, major structural repairs, thermal upgrades, and cooling tower rebuilds. Contact our team to request a quote for a maintenance plan.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "ICS also provides contractor services: tower inspections, major structural repairs, side-stream filtration, evaporative condenser replacement, and cooling tower conversions. Contact our team for an O&M budget assessment and customized maintenance plan.",
+      "to": "ICS also provides contractor services, including tower inspections, major structural repairs, thermal upgrades, and cooling tower rebuilds. Contact our team to request a quote for a maintenance plan.",
+      "action": "word-corrected",
+      "reason": "OGCS R4 copy review B row 6 (CT accepted 2026-10-07; folder H2O_OGCS_R4_COPY_REVIEW_2026-10-07, SUMS seal 7ccb765b): Services are limited to those on the site's own service pages (repair, thermal upgrade, rebuilds). 'Side-stream filtration' and 'evaporative condenser replacement' aren't offered anywhere else on the site; evaporative condensers also lean HVAC/refrigeration (industrial-only rule). The quote-only CTA replaces 'O&M budget assessment'."
+     }
+    ]
    }
   ]
  },
@@ -14879,6 +15125,57 @@
       "to": "ICS supplies Addax and Amarillo couplings for cooling tower applications. Complete cooling tower drive shafts and assemblies to shim packs and hardware, ICS has what you need.",
       "action": "word-corrected",
       "reason": "OGCS claims sweep R1 CS121 (SHOULD; CT accepted 2026-10-05): Superlative and \"all applications\"."
+     }
+    ]
+   }
+  ]
+ },
+ "/dry-soda-blasting/": {
+  "routeId": "SALMON-pages-1722",
+  "slots": [
+   {
+    "key": "body.13.1.1.1.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Dry soda blasting provides a balanced solution using soft abrasive media that ensures quality surface preparation without damaging coatings or substrates.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Dry soda blasting provides a balanced solution, using soft abrasive media designed for quality surface preparation without damaging coatings or substrates.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Dry soda blasting provides a balanced solution, using soft abrasive media designed for quality surface preparation without damaging coatings or substrates.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Dry soda blasting provides a balanced solution using soft abrasive media that ensures quality surface preparation without damaging coatings or substrates.",
+      "to": "Dry soda blasting provides a balanced solution, using soft abrasive media designed for quality surface preparation without damaging coatings or substrates.",
+      "action": "word-corrected",
+      "reason": "OGCS R4 copy review A (Dry Soda source line, REVISE optional; CT approved 2026-10-07): 'ensures' is an outcome word (CLAIMS-R2 pattern)."
      }
     ]
    }

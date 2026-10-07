@@ -16,6 +16,9 @@ import {heroQuoteAction,rfqControlElement,rfqControlLabelAt} from '../content/rf
 import {heroActionFor,heroSecondaryHref} from './hero-actions'
 import {deliverySrc} from './media-delivery'
 import {RestoredSlot} from './RestoredSlot'
+import {r4Builders,r4PlacesRestored} from './r4/R4Pages'
+import {R4LauncherReveal} from './r4/R4LauncherReveal'
+import type {R4Api,R4ButtonVariant} from './r4/R4System'
 type LayoutNode={tag:string;style?:CSSProperties;id?:number;children?:LayoutNode[];ref?:string;refs?:string[];slice?:{ref:string;start:number;end:number};decor?:string;action?:string;src?:string;alt?:string;key?:string}
 type Model={route:string;sourceId:string;tree:LayoutNode[];remaining:Array<{sourceSection:string;tree:LayoutNode}>}
 export const luxuryIds=new Set(['SALMON-pages-48','SALMON-pages-1230','SALMON-pages-1446','SALMON-pages-1534','SALMON-pages-1555','SALMON-pages-1572','SALMON-pages-1668','SALMON-pages-1722','SALMON-pages-411'])
@@ -103,6 +106,23 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  function productRemainder(n:LayoutNode):ReactNode{const refs:LayoutNode[]=[];function collect(v:LayoutNode){if(v.ref||v.slice)refs.push(v);v.children?.forEach(collect)}collect(n);const groups:LayoutNode[][]=[];for(const item of refs){const text=item.ref?salmonNodeText(nodes.get(item.ref)!):'';if(text.trim()==='Buy Now'&&groups.length)groups.at(-1)!.push(item);else groups.push([item])}return <div className="lux-complete-product-index">{groups.map((items,i)=><div key={i}>{items.map((item,j)=>remainder(item,'product-remainder.'+i+'.'+j))}</div>)}</div>}
  const placement=new Map<number,typeof model.remaining>()
  for(const r of model.remaining){let best=0,score=0;model.tree.forEach((t,i)=>{let count=0;function walk(n:LayoutNode){count+=(n.ref?.startsWith(r.sourceSection+'.')?1:0)+(n.refs??[]).filter(k=>k.startsWith(r.sourceSection+'.')).length;n.children?.forEach(walk)}walk(t);if(count>score){best=i;score=count}});placement.set(best,[...(placement.get(best)??[]),r])}
+ // Design R4 (CT GO 2026-10-07): the page's own source text, by key, for the shared R4 system (src/site/r4).
+ const r4=r4Builders[doc.routeId]
+ const r4Api:R4Api={
+  inner:(ref)=>{const n=nodes.get(ref);if(n===undefined)throw new Error(`Design R4 source key missing: ${doc.routeId} ${ref}`);return typeof n==='string'?leaf(n,ref):n.children.map((c,i)=>content(c,ref+'.'+i))},
+  tag:(ref)=>{const n=nodes.get(ref);return n===undefined||typeof n==='string'?'':n.tag},
+  restored:(slot)=><RestoredSlot doc={doc} slot={slot} className="dr4-restored" key={'restored-'+slot}/>,
+  quote:(key,label,variant:R4ButtonVariant,heroAction?:'quote')=><span className={`dr4-btn dr4-btn--${variant}`} key={key} data-hero-action={heroAction}>{heroQuoteAction(doc,key,label)}</span>,
+  action:(ref,variant:R4ButtonVariant)=>{
+   const n=nodes.get(ref)
+   if(n===undefined)throw new Error(`Design R4 action key missing: ${doc.routeId} ${ref}`)
+   const text=salmonNodeText(n).replace(/\s+/g,' ').trim()
+   if(/^request/i.test(text))return <span className={`dr4-btn dr4-btn--${variant}`} key={ref}>{heroQuoteAction(doc,ref,text)}</span>
+   const link=hrefFor(ref)
+   const destination=link?href(link):/services|product/i.test(text)?'/cooling-tower/':/project/i.test(text)?'/all-projects/':'/contact-us/'
+   return <a className={`dr4-btn dr4-btn--${variant}`} href={destination} key={ref} data-canonical-text={ref}>{text}<span className="dr4-btn-arrow" aria-hidden="true">→</span></a>
+  },
+ }
  const home=doc.targetPath==='/'
  const sectionAt=(i:number)=>{
   const body=<div className="lux-section-wrap" key={i}>{design(model.tree[i],'design.'+i,true)}{i===0&&doc.targetPath==='/disaster-recovery/'?<div className="lux-recovery-media"><img src="/media/luxury/ics-storm-damage.jpeg" alt="Cooling tower storm damage"/><img src="/media/luxury/ics-slep-complete.jpeg" alt="Completed cooling tower structure"/></div>:null}{(placement.get(i)??[]).map((r,j)=><div className="lux-remainder" key={j}>{['SALMON-pages-48','SALMON-pages-411'].includes(doc.routeId)&&JSON.stringify(r.tree).length>2000?productRemainder(r.tree):remainder(r.tree,'remainder.'+j)}</div>)}</div>
@@ -112,8 +132,8 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  return <div className={'luxury-site luxury-'+doc.routeId.split('-').at(-1)+(home?' figma-home':'')} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
   <SalmonSeo doc={doc}/>{home?<><link rel="preload" href="/fonts/figma-home/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><link rel="preload" href="/fonts/figma-home/dm-sans-latin-400-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/></>:null}<LuxuryHeader page={page} routePath={doc.targetPath}/>
   <main id="main" data-luxury-body className={home?'figma-home-main':undefined}>
-   {home?<><div className="figma-home-hero-stage">{sectionAt(0)}<div className="figma-home-hero-side">{sectionAt(3)}{sectionAt(1)}</div></div>{[2,4,5,6,7,8].map(sectionAt)}</>:serviceComposition?<ServicePage routeId={doc.routeId} sections={model.tree.map((_,i)=>sectionAt(i))}/>:model.tree.map((_,i)=>sectionAt(i))}
-   <RestoredSlot doc={doc} slot="body-end" className="lux-section-wrap wave3-source-content"/>
+   {r4?<div className="dr4" data-r4-route={doc.targetPath}>{r4(r4Api,doc.targetPath)}<R4LauncherReveal/></div>:home?<><div className="figma-home-hero-stage">{sectionAt(0)}<div className="figma-home-hero-side">{sectionAt(3)}{sectionAt(1)}</div></div>{[2,4,5,6,7,8].map(sectionAt)}</>:serviceComposition?<ServicePage routeId={doc.routeId} sections={model.tree.map((_,i)=>sectionAt(i))}/>:model.tree.map((_,i)=>sectionAt(i))}
+   {r4PlacesRestored.has(doc.routeId)?null:<RestoredSlot doc={doc} slot="body-end" className="lux-section-wrap wave3-source-content"/>}
   </main><LuxuryFooter page={page} routePath={doc.targetPath}/>
  </div>
 }

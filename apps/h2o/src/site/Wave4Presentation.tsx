@@ -9,6 +9,9 @@ import {RfqMount} from './RfqMount'
 import {cssBackground} from './salmon-source'
 import {deliverySrc,provenanceRef} from './media-delivery'
 import {PUBLIC_AUTHOR} from './public-author-identity'
+import {R4Img,Eyebrow} from './r4/R4System'
+import {R4LauncherReveal} from './r4/R4LauncherReveal'
+import {r4Copy} from './design-r4-media'
 
 const exactImage='/media/figma-wave4/figma-w4-e7d87492.png'
 const resourcePath=(doc:SalmonDocument)=>doc.routeId==='SALMON-pages-1761'?'/resources/':doc.targetPath
@@ -34,6 +37,40 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
   </article>
   // Salmon parity: each library route shows its own held Salmon hero background (Elementor CSS).
   const salmonHero=cssBackground(doc.routeId,'8f448f5')
+  // Design R4 (CT GO 2026-10-07; spec H2O_DESIGN_R4_SPEC_resources.md): /resources/ takes the shared R4 hub hero, link
+  // cards and the two-column library. Same strings and document rows as before; brochures and tools are unchanged.
+  if(isResources)return <div className="luxury-site figma-wave4 salmon-family salmon-family--library dr4 dr4-resources" data-wave4-route={path} data-r4-route={path} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
+    <SalmonSeo doc={doc} canonicalOverride="https://h2ocooling.com/resources/"/>
+    <LuxuryHeader page={pageFor(doc)} routePath={path}/>
+    <main id="main" className="wave4-library dr4-library-main">
+      <section className="dr4-hero dr4-hero--hub dr4-hero--resources" aria-labelledby="wave4-title">
+        <R4Img slot="resources.hero" eager className="dr4-hero-img" sizes="(min-width: 1300px) 1260px, calc(100vw - 32px)"/>
+        <div className="dr4-hero-body">
+          <Eyebrow label={r4Copy().eyebrows['/resources/']?.hero??''} tone="dark"/>
+          <h1 id="wave4-title" className="dr4-hero-title">{title}</h1>
+          <p className="dr4-hero-lead">{lead}</p>
+        </div>
+        <div className="dr4-hero-corner"><a href="/contact-us/" className="dr4-btn dr4-btn--white">Contact Our Team <span className="dr4-btn-arrow" aria-hidden="true">→</span></a></div>
+      </section>
+      <R4LauncherReveal/>
+      <nav className="dr4-pathways" aria-label="Explore technical resources">
+        <a href="/cooling-tower-brochures/" className="dr4-pathway"><span aria-hidden="true">01 / Documents</span><strong>Brochures</strong><small>Explore the public brochure library and its own verified document identities.</small><em aria-hidden="true">↗</em></a>
+        <a href="/cooling-tower-resources/tools/" className="dr4-pathway"><span aria-hidden="true">02 / Engineering</span><strong>Tools</strong><small>Find the separate tools and technical-chart collection.</small><em aria-hidden="true">↗</em></a>
+        <a href="/tech-articles/" className="dr4-pathway dr4-pathway--navy"><span aria-hidden="true">03 / Reading</span><strong>Technical Articles</strong><small>Browse source-reconciled industrial cooling articles.</small><em aria-hidden="true">↗</em></a>
+      </nav>
+      <section className="dr4-library" aria-labelledby="wave4-library-heading">
+        <div className="dr4-library-aside">
+          <p className="dr4-library-count">RESOURCE LIBRARY / {items.length} source-listed documents</p>
+          <h2 id="wave4-library-heading" className="dr4-h2">{heading}</h2>
+          {intro?<p className="dr4-prose">{intro}</p>:null}
+          <div className="wave4-library-crosslinks dr4-library-chips"><a href="/resources/" aria-current="page">Resources</a><a href="/cooling-tower-brochures/">Brochures</a><a href="/cooling-tower-resources/tools/">Tools</a><a href="/tech-articles/">Technical Articles</a></div>
+        </div>
+        <ol className="wave4-document-list dr4-library-list">{primaryItems.map((item,index)=><li key={`${item.title}-${index}`} className="dr4-library-item"><span className="dr4-library-num" aria-hidden="true">{String(index+1).padStart(2,'0')}</span>{renderRow(item,index)}</li>)}</ol>
+      </section>
+      <R2Discovery kind="pages"/>
+    </main>
+    <LuxuryFooter page={pageFor(doc)} routePath={path}/>
+  </div>
   return <div className="luxury-site figma-wave4 salmon-family salmon-family--library" data-wave4-route={path} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc} canonicalOverride={path==='/resources/'?'https://h2ocooling.com/resources/':undefined}/>
     <LuxuryHeader page={pageFor(doc)} routePath={path}/>

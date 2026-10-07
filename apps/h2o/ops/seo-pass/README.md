@@ -48,6 +48,22 @@ node ops/seo-pass/check-redirect-chains.mjs <staging-origin>
 - **frameworkSlashHopAccepted:** 1, the malformed tcf.com URL (308 → 301 → 200, CT ruling 3). A framework hop on any other source fails.
 - **Metas pending OGCS:** 0 after the R1.2 supplement.
 
+## Design R4: parts hub and Dry Soda claim wording (CT 2026-10-07, OGCS R4 copy review, SUMS seal 7ccb765b)
+
+One delta on the state CLAIMS-R2 (and R2.5.1) leave on staging.
+
+- **Batch:** 7 recorded claim edits (`data/claim-edits.json` R4C-01…07), written by apply phase 6.
+  - R4C-01…06 cover the `/cooling-tower-parts-online/` lower SEO block: 5 paragraphs and the supplier H2. OGCS row 7, the "Why Engineers…" heading, is KEEP.
+  - R4C-07 is the Dry Soda line "ensures" → "designed for".
+- **Code:** the parts template matches its supplier block by heading text, and now also matches "Shipped Internationally" (`Wave3Presentation.tsx`).
+- **Conformance:** `data/claims-conformance.json` lists each old string as absent and each new wording as present (`check-claims.mjs`: 256 absent, 28 present).
+
+| Phase | Staging (delta) | Fresh DB (`expectations.fresh-db.json`) |
+|---|---|---|
+| redirects | unchanged 408 | unchanged (create 390 …) |
+| hygiene | routes 2 (`/cooling-tower-parts-online/`, `/dry-soda-blasting/`) | routes 96 (was 95; `/dry-soda-blasting/` is new) |
+| everything else | 0 | unchanged |
+
 ## CLAIMS-R2: Home claim wording (CT 2026-10-06, OGCS CLAIMS-R2 L10, TSV b74f3286)
 
 One delta on the state Design R3 (Round 11) leaves on staging (`--baseline=<Design R3 data>`, with the union `redirect-status.tsv`).

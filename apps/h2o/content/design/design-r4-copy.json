@@ -1,0 +1,62 @@
+{
+ "authority": "Design R4 (CT GO 2026-10-07). eyebrows: decorative section labels taken from the owner's 7-OCT / 8-OCT Figma files (aria-hidden, not headings; listed for OGCS in the R4 return). statBar: the Dry Soda StatBar text per the OGCS QUALIFY ruling (CT rulings 2026-10-07, spec H2O_DESIGN_R4_SPEC_dry-soda-blasting.md section 'CT rulings' item 2); it replaces the source line 'Need to improve your ACHE performance by up to 40%? Request a Quote today.'",
+ "eyebrows": {
+  "/cooling-tower-maintenance-repair-upgrade/": {
+   "hero": "Services / Repair & Maintenance",
+   "overview": "01 / Overview",
+   "types": "02 / Tower Types",
+   "repairs": "03 / Repairs",
+   "maintenance": "04 / Maintenance"
+  },
+  "/thermal-upgrade/": {
+   "hero": "Services / Thermal Upgrade",
+   "problem": "01 / The Problem",
+   "signs": "Warning Signs",
+   "solution": "02 / The Solution",
+   "scope": "03 / Scope"
+  },
+  "/dry-soda-blasting/": {
+   "hero": "Services / Dry Soda Blasting",
+   "problem": "01 / The Problem",
+   "solution": "02 / The Solution",
+   "process": "03 / Process",
+   "results": "04 / Results",
+   "why": "05 / Why ICS",
+   "comparison": "06 / Method Comparison"
+  },
+  "/resources/": {
+   "hero": "ICS / Resources"
+  },
+  "/cooling-tower-replacement/": {
+   "hero": "Services / Cooling Tower Replacement",
+   "overview": "01 / Overview",
+   "reasons": "02 / Why Towers Fail",
+   "benefits": "03 / Benefits",
+   "why": "04 / Why ICS",
+   "maintain": "05 / Maintenance"
+  },
+  "/air-coolers/": {
+   "hero": "Air Coolers",
+   "overview": "01 / Overview",
+   "performance": "02 / Performance",
+   "options": "03 / Upgrade Options",
+   "maintenance": "04 / Maintenance",
+   "services": "05 / Services"
+  },
+  "/all-projects/": {
+   "hero": "ICS / Projects"
+  }
+ },
+ "comparisonLabels": [
+  "Traditional abrasive",
+  "Dry ice",
+  "Dry soda · ICS"
+ ],
+ "statBar": {
+  "stat": "Up to 40%",
+  "label": "potential ACHE/ACC performance gain when cleaning is combined with a fan upgrade",
+  "footnote": "Results depend on the existing fans and system condition.",
+  "ctaText": "Need more ACHE performance? Ask ICS about fan upgrades alongside dry soda blast cleaning.",
+  "authority": "OGCS QUALIFY ruling 2026-10-07 (CT rulings, Dry Soda spec item 2)"
+ }
+}

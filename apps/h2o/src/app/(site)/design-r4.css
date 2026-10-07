@@ -1,0 +1,2016 @@
+/*
+ * Design R4 (CT GO 2026-10-07): the shared hero and section system (H2O_DESIGN_R4_SPEC_SHARED_SYSTEM.md) for the R4
+ * pages, plus two site-wide R4a fixes: the product and parts "Request a Quote" controls take the site's blue pill, and
+ * the parts hub loses its nested frame. Loaded last. Colours are tokens (no literal colour in a colour property);
+ * logical properties only. Type: Bebas Neue for display, DM Sans for everything else.
+ */
+.dr4,
+.wave3-site {
+  --dr4-blue: rgb(11 75 140);
+  --dr4-blue-hover: rgb(9 60 112);
+  --dr4-navy: rgb(13 41 69);
+  --dr4-soft: rgb(242 245 249);
+  --dr4-line: rgb(219 226 234);
+  --dr4-ink: rgb(15 27 42);
+  --dr4-body: rgb(55 66 80);
+  --dr4-muted: rgb(84 96 110);
+  --dr4-white: rgb(255 255 255);
+  --dr4-on-navy: rgb(255 255 255 / 86%);
+  --dr4-pill-line: rgb(255 255 255 / 30%);
+  --dr4-pill-fill: rgb(255 255 255 / 8%);
+  --dr4-ghost-hover: rgb(255 255 255 / 14%);
+  --dr4-scrim-strong: rgb(10 30 60 / 88%);
+  --dr4-scrim-mid: rgb(10 30 60 / 66%);
+  --dr4-scrim-soft: rgb(10 30 60 / 18%);
+  --dr4-scrim-flat: rgb(10 30 60 / 80%);
+  --dr4-scrim-clear: rgb(10 30 60 / 5%);
+  --dr4-scrim-90: rgb(10 30 60 / 90%);
+  --dr4-scrim-84: rgb(10 30 60 / 84%);
+  --dr4-scrim-78: rgb(10 30 60 / 78%);
+  --dr4-scrim-70: rgb(10 30 60 / 70%);
+  --dr4-scrim-60: rgb(10 30 60 / 60%);
+  --dr4-scrim-15: rgb(10 30 60 / 15%);
+  --dr4-shadow: rgb(15 27 42 / 10%);
+  --dr4-display: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
+  --dr4-text: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --dr4-rhythm: clamp(56px, 7vw, 112px);
+}
+
+.dr4 {
+  box-sizing: border-box;
+  color: var(--dr4-body);
+  font-family: var(--dr4-text);
+  margin-inline: auto;
+  max-inline-size: 1308px;
+  padding-inline: clamp(16px, 3vw, 24px);
+}
+
+.dr4 *,
+.dr4 *::before,
+.dr4 *::after {
+  box-sizing: border-box;
+}
+
+.dr4 :focus-visible {
+  outline: 3px solid var(--dr4-blue);
+  outline-offset: 3px;
+}
+
+.dr4 :is(p, ol, ul, li, h1, h2, h3, h4) {
+  margin-block: 0;
+}
+
+.dr4 :is(ol, ul) {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+/* Eyebrow: "● 0N / Label" (decorative) */
+.dr4 .dr4-eyebrow {
+  align-items: center;
+  border: 1px solid var(--dr4-line);
+  border-radius: 999px;
+  color: var(--dr4-ink);
+  display: inline-flex;
+  font-family: var(--dr4-text);
+  font-size: 11px;
+  font-weight: 600;
+  gap: 8px;
+  letter-spacing: 0.06em;
+  margin-block-end: 16px;
+  padding-block: 6px;
+  padding-inline: 12px;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-eyebrow-dot {
+  background: var(--dr4-blue);
+  block-size: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  flex: none;
+  inline-size: 6px;
+}
+
+.dr4 .dr4-eyebrow--dark,
+.dr4 .dr4-eyebrow--on-photo {
+  background: var(--dr4-pill-fill);
+  border-color: var(--dr4-pill-line);
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-eyebrow--dark .dr4-eyebrow-dot,
+.dr4 .dr4-eyebrow--on-photo .dr4-eyebrow-dot {
+  background: var(--dr4-white);
+}
+
+/* Buttons: white pill, ghost pill, blue pill; the RFQ control inside a pill takes the pill */
+.dr4 .dr4-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block-start: 24px;
+}
+
+.dr4 .dr4-actions--center {
+  justify-content: center;
+}
+
+.dr4 .dr4-btn {
+  display: inline-flex;
+}
+
+.dr4 .dr4-btn > a,
+.dr4 a.dr4-btn,
+.dr4 .dr4-btn .rfq a,
+.dr4 .dr4-btn a[data-rfq-native] {
+  align-items: center;
+  background: var(--dr4-blue);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--dr4-white);
+  display: inline-flex;
+  font-family: var(--dr4-text);
+  font-size: 15px;
+  font-weight: 600;
+  gap: 10px;
+  line-height: 1.2;
+  min-block-size: 48px;
+  padding-block: 12px;
+  padding-inline: 26px;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.dr4 .dr4-btn > a:hover,
+.dr4 a.dr4-btn:hover,
+.dr4 .dr4-btn .rfq a:hover,
+.dr4 .dr4-btn a[data-rfq-native]:hover {
+  background: var(--dr4-blue-hover);
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-btn--white > a,
+.dr4 a.dr4-btn--white,
+.dr4 .dr4-btn--white .rfq a,
+.dr4 .dr4-btn--white a[data-rfq-native] {
+  background: var(--dr4-white);
+  color: var(--dr4-navy);
+}
+
+/* The verified quote fallback (`a.lux-button`, an unresolved RFQ configuration) keeps each pill's label: the global
+ * `.lux-button` white label is important (figma-home.css), so the white pill's navy label needs one too. */
+.dr4 .dr4-btn a.lux-button {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.dr4 .dr4-btn--white a.lux-button,
+.dr4 .dr4-btn--white a.lux-button:hover {
+  color: var(--dr4-navy) !important;
+}
+
+.dr4 .dr4-btn--white > a:hover,
+.dr4 a.dr4-btn--white:hover,
+.dr4 .dr4-btn--white .rfq a:hover,
+.dr4 .dr4-btn--white a[data-rfq-native]:hover {
+  background: var(--dr4-soft);
+  color: var(--dr4-navy);
+}
+
+.dr4 .dr4-btn--ghost > a,
+.dr4 a.dr4-btn--ghost,
+.dr4 .dr4-btn--navy-ghost .rfq a,
+.dr4 .dr4-btn--navy-ghost a[data-rfq-native] {
+  background: transparent;
+  border-color: var(--dr4-pill-line);
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-btn--ghost > a:hover,
+.dr4 a.dr4-btn--ghost:hover,
+.dr4 .dr4-btn--navy-ghost .rfq a:hover,
+.dr4 .dr4-btn--navy-ghost a[data-rfq-native]:hover {
+  background: var(--dr4-ghost-hover);
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-btn--white a[data-rfq-native]::after,
+.dr4 a.dr4-btn--white .dr4-btn-arrow {
+  align-items: center;
+  background: var(--dr4-navy);
+  block-size: 30px;
+  border-radius: 50%;
+  color: var(--dr4-white);
+  content: '→';
+  display: inline-flex;
+  inline-size: 30px;
+  justify-content: center;
+  margin-inline-end: -14px;
+}
+
+.dr4 a.dr4-btn--white .dr4-btn-arrow {
+  content: none;
+}
+
+/* Hero: one contained card; full-cover photo under a left navy ramp; text at least 4.5:1 */
+.dr4 .dr4-hero {
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-block: 24px 0;
+  min-block-size: clamp(520px, 58vh, 640px);
+  overflow: hidden;
+  padding-block: 64px;
+  padding-inline: clamp(24px, 5vw, 64px);
+  position: relative;
+}
+
+/*
+ * Anchored to the text column, not a percentage: the heading and lead keep at least 6.4:1 against the brightest pixel at
+ * 1440, 1280, 1024 and 768 (R4 phase 2 evidence; the percentage ramp let the lead reach the light zone at 768–1280).
+ */
+.dr4 .dr4-hero::before {
+  background-image: linear-gradient(90deg, var(--dr4-scrim-78) 0, var(--dr4-scrim-70) 640px, var(--dr4-scrim-15) 100%);
+  content: '';
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.dr4 .dr4-hero-img {
+  block-size: 100%;
+  inline-size: 100%;
+  inset: 0;
+  max-inline-size: none;
+  object-fit: cover;
+  position: absolute;
+}
+
+.dr4 .dr4-hero-body {
+  max-inline-size: 760px;
+  position: relative;
+  z-index: 2;
+}
+
+.dr4 .dr4-hero-title {
+  color: var(--dr4-white);
+  font-family: var(--dr4-display);
+  font-size: clamp(44px, 5.4vw, 88px);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  line-height: 0.95;
+  margin-block-end: 20px;
+  max-inline-size: 14ch;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-hero-lead {
+  color: var(--dr4-white);
+  font-family: var(--dr4-text);
+  font-size: 16px;
+  line-height: 1.6;
+  max-inline-size: 52ch;
+}
+
+.dr4 .dr4-hero--hub {
+  justify-content: flex-end;
+  min-block-size: clamp(480px, 56vh, 600px);
+}
+
+/* Measured: the H1 and lead stay at or above 4.5:1 against the brightest pixel behind them (R4 evidence, r4-axe.json) */
+.dr4 .dr4-hero--hub::before {
+  background-image: linear-gradient(0deg, var(--dr4-scrim-90) 0%, var(--dr4-scrim-84) 50%, var(--dr4-scrim-60) 75%, var(--dr4-scrim-15) 100%);
+}
+
+.dr4 .dr4-hero--hub .dr4-hero-title {
+  font-size: clamp(56px, 7vw, 112px);
+  max-inline-size: none;
+}
+
+.dr4 .dr4-hero-corner {
+  inset-block-end: 64px;
+  inset-inline-end: clamp(24px, 5vw, 64px);
+  position: absolute;
+  z-index: 2;
+}
+
+/* Sections */
+.dr4 .dr4-section {
+  padding-block: var(--dr4-rhythm) 0;
+  scroll-margin-block-start: 96px;
+}
+
+.dr4 .dr4-h2 {
+  color: var(--dr4-ink);
+  font-family: var(--dr4-display);
+  font-size: clamp(32px, 3.6vw, 60px);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  line-height: 1;
+  margin-block-end: 20px;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-h2--sm {
+  font-size: clamp(30px, 3vw, 48px);
+}
+
+.dr4 .dr4-h2--on-navy {
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-lead {
+  color: var(--dr4-body);
+  font-size: 18px;
+  line-height: 1.6;
+  max-inline-size: 64ch;
+}
+
+.dr4 .dr4-lead--on-navy {
+  color: var(--dr4-on-navy);
+}
+
+.dr4 .dr4-prose {
+  display: grid;
+  font-size: 16px;
+  gap: 16px;
+  line-height: 1.7;
+  max-inline-size: 66ch;
+}
+
+.dr4 .dr4-prose--ruled {
+  margin-block-start: 20px;
+}
+
+.dr4 .dr4-prose--ruled > :last-child {
+  border-inline-start: 3px solid var(--dr4-blue);
+  padding-inline-start: 18px;
+}
+
+.dr4 .dr4-prose--on-navy {
+  color: var(--dr4-on-navy);
+}
+
+.dr4 .dr4-prose a,
+.dr4 .dr4-card-body a,
+.dr4 .dr4-lead a {
+  color: var(--dr4-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dr4 .dr4-intro-row {
+  align-items: end;
+  display: grid;
+  gap: 24px 48px;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  margin-block-end: 40px;
+}
+
+/* Split section: photo card beside text; alternates; photo first when stacked */
+.dr4 .dr4-split {
+  align-items: center;
+  display: grid;
+  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.dr4 .dr4-split--reverse .dr4-split-media {
+  order: 2;
+}
+
+.dr4 .dr4-photo {
+  block-size: auto;
+  border-radius: 20px;
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  object-fit: cover;
+}
+
+.dr4 .dr4-photo--4x3 {
+  aspect-ratio: 4 / 3;
+}
+
+.dr4 .dr4-photo--4x5 {
+  aspect-ratio: 4 / 5;
+}
+
+.dr4 .dr4-photo--5x4 {
+  aspect-ratio: 5 / 4;
+}
+
+.dr4 .dr4-photo--16x10 {
+  aspect-ratio: 16 / 10;
+}
+
+.dr4 .dr4-photo--3x2 {
+  aspect-ratio: 3 / 2;
+  margin-block: 24px 0;
+}
+
+.dr4 .dr4-photo--card {
+  aspect-ratio: 554 / 520;
+}
+
+.dr4 .dr4-photo--circle {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-inline: auto;
+  max-inline-size: 440px;
+}
+
+.dr4 .dr4-split--navy-text .dr4-split-text {
+  background: var(--dr4-navy);
+  border-radius: 28px;
+  padding: clamp(28px, 4vw, 56px);
+}
+
+.dr4 .dr4-stack {
+  display: grid;
+  gap: 16px;
+  margin-block-start: 8px;
+}
+
+.dr4 .dr4-panel {
+  background: var(--dr4-soft);
+  border-radius: 16px;
+  color: var(--dr4-body);
+  font-size: 16px;
+  line-height: 1.65;
+  padding: 22px;
+}
+
+.dr4 .dr4-panel--navy {
+  background: var(--dr4-navy);
+  color: var(--dr4-white);
+}
+
+/* Navy panel */
+.dr4 .dr4-navy {
+  background: var(--dr4-navy);
+  border-radius: 28px;
+  color: var(--dr4-on-navy);
+  padding: clamp(24px, 4vw, 48px);
+}
+
+.dr4 .dr4-navy--split {
+  display: grid;
+  gap: 32px 48px;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+}
+
+/* Numbered cards */
+.dr4 .dr4-cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-block-start: 32px;
+}
+
+.dr4 .dr4-cards--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-block-start: 0;
+}
+
+.dr4 .dr4-card {
+  background: var(--dr4-soft);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 26px;
+}
+
+.dr4 .dr4-card--wide {
+  grid-column: 1 / -1;
+}
+
+.dr4 .dr4-card--navy {
+  background: var(--dr4-navy);
+  color: var(--dr4-on-navy);
+}
+
+.dr4 .dr4-badge,
+.dr4 .dr4-chip-num,
+.dr4 .dr4-row-num,
+.dr4 .dr4-library-num,
+.dr4 .dr4-tab-num {
+  color: var(--dr4-blue);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.dr4 .dr4-card--navy .dr4-badge {
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-card-title {
+  color: var(--dr4-ink);
+  font-family: var(--dr4-display);
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-card-title--sm {
+  font-family: var(--dr4-text);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: none;
+}
+
+.dr4 .dr4-card--navy .dr4-card-title {
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-card-body {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.dr4 .dr4-card-link {
+  align-items: center;
+  color: var(--dr4-blue);
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 6px;
+  margin-block-start: auto;
+  min-block-size: 44px;
+  text-decoration: none;
+}
+
+/* Chips */
+.dr4 .dr4-chips {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-block-start: 32px;
+}
+
+.dr4 .dr4-chip {
+  background: var(--dr4-soft);
+  border-radius: 16px;
+  color: var(--dr4-ink);
+  display: grid;
+  font-size: 18px;
+  font-weight: 600;
+  gap: 10px;
+  line-height: 1.35;
+  padding: 22px;
+}
+
+/* Steps and rows */
+.dr4 .dr4-steps,
+.dr4 .dr4-rows {
+  display: grid;
+}
+
+.dr4 .dr4-step {
+  border-block-end: 1px solid var(--dr4-line);
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 64px minmax(0, 1fr);
+  padding-block: 28px;
+}
+
+.dr4 .dr4-step-num {
+  color: var(--dr4-blue);
+  font-family: var(--dr4-display);
+  font-size: 56px;
+  line-height: 0.9;
+}
+
+.dr4 .dr4-step-title {
+  color: var(--dr4-ink);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-block-end: 8px;
+}
+
+.dr4 .dr4-step-body {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.dr4 .dr4-rows {
+  gap: 12px;
+}
+
+.dr4 .dr4-row {
+  align-items: baseline;
+  background: var(--dr4-pill-fill);
+  border: 1px solid var(--dr4-pill-line);
+  border-radius: 14px;
+  color: var(--dr4-white);
+  display: grid;
+  font-size: 17px;
+  gap: 18px;
+  grid-template-columns: 40px minmax(0, 1fr);
+  line-height: 1.5;
+  padding-block: 16px;
+  padding-inline: 18px;
+}
+
+.dr4 .dr4-row-num {
+  color: var(--dr4-on-navy);
+}
+
+.dr4 .dr4-aside-grid {
+  align-items: start;
+  display: grid;
+  gap: 32px 56px;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+}
+
+/* Tabbed list (disclosure buttons): list left, open card right at desktop; accordion below */
+.dr4 .dr4-tabs {
+  display: grid;
+  gap: 8px 40px;
+  grid-auto-flow: dense;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  margin-block-start: 32px;
+}
+
+.dr4 .dr4-tab {
+  display: contents;
+}
+
+.dr4 .dr4-tab-heading {
+  grid-column: 1;
+}
+
+.dr4 .dr4-tab-button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-block-end: 1px solid var(--dr4-pill-line);
+  color: var(--dr4-on-navy);
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  gap: 16px;
+  inline-size: 100%;
+  min-block-size: 56px;
+  padding-block: 14px;
+  padding-inline: 4px;
+  text-align: start;
+}
+
+.dr4 .dr4-tab-button[aria-expanded='true'] {
+  background: var(--dr4-white);
+  border-block-end-color: transparent;
+  border-radius: 12px;
+  color: var(--dr4-navy);
+  padding-inline: 16px;
+}
+
+.dr4 .dr4-tab-button[aria-expanded='true'] .dr4-tab-num {
+  color: var(--dr4-blue);
+}
+
+.dr4 .dr4-tab-button .dr4-tab-num {
+  color: var(--dr4-on-navy);
+}
+
+.dr4 .dr4-tab-panel {
+  align-self: start;
+  background: var(--dr4-white);
+  border-radius: 20px;
+  color: var(--dr4-body);
+  grid-column: 2;
+  grid-row: 1 / span 8;
+  padding: clamp(24px, 3vw, 40px);
+}
+
+.dr4 .dr4-tab-panel[hidden] {
+  display: none;
+}
+
+.dr4 .dr4-tab-count {
+  color: var(--dr4-blue);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dr4 .dr4-tab-panel-title {
+  color: var(--dr4-ink);
+  font-family: var(--dr4-display);
+  font-size: clamp(28px, 2.6vw, 40px);
+  line-height: 1;
+  margin-block: 12px 16px;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-tab-body {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.dr4 .dr4-tab-footer {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  margin-block-start: 28px;
+}
+
+.dr4 .dr4-tab-panel .dr4-btn--navy-ghost .rfq a,
+.dr4 .dr4-tab-panel .dr4-btn--navy-ghost a[data-rfq-native] {
+  background: var(--dr4-blue);
+  border-color: transparent;
+}
+
+.dr4 .dr4-tab-nav {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.dr4 .dr4-tab-step {
+  background: var(--dr4-soft);
+  block-size: 44px;
+  border: 1px solid var(--dr4-line);
+  border-radius: 50%;
+  color: var(--dr4-navy);
+  cursor: pointer;
+  font-size: 18px;
+  inline-size: 44px;
+}
+
+/* CTA band: a different photo from the hero, under a flat navy scrim */
+.dr4 .dr4-cta-band {
+  border-radius: 28px;
+  margin-block: var(--dr4-rhythm) 0;
+  overflow: hidden;
+  padding-block: clamp(48px, 7vw, 96px);
+  padding-inline: clamp(24px, 5vw, 64px);
+  position: relative;
+}
+
+.dr4 .dr4-cta-band::before {
+  background: var(--dr4-scrim-flat);
+  content: '';
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.dr4 .dr4-cta-img {
+  block-size: 100%;
+  inline-size: 100%;
+  inset: 0;
+  max-inline-size: none;
+  object-fit: cover;
+  position: absolute;
+}
+
+.dr4 .dr4-cta-body {
+  align-items: center;
+  display: grid;
+  gap: 16px 48px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  position: relative;
+  text-align: start;
+  z-index: 2;
+}
+
+.dr4 .dr4-cta-body > .dr4-actions {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin-block-start: 0;
+}
+
+.dr4 .dr4-cta-title {
+  color: var(--dr4-white);
+  font-family: var(--dr4-display);
+  font-size: clamp(36px, 4vw, 72px);
+  font-weight: 400;
+  line-height: 1;
+  margin-block-end: 16px;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-cta-lead {
+  color: var(--dr4-white);
+  display: grid;
+  font-size: 17px;
+  gap: 12px;
+  line-height: 1.6;
+}
+
+/* Dry Soda */
+.dr4 .dr4-statbar {
+  align-items: center;
+  background: var(--dr4-navy);
+  border-radius: 20px;
+  color: var(--dr4-on-navy);
+  display: grid;
+  gap: 8px 32px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-block-start: 32px;
+  padding-block: 24px;
+  padding-inline: 28px;
+}
+
+.dr4 .dr4-statbar .dr4-actions {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  margin-block-start: 0;
+}
+
+.dr4 .dr4-stat {
+  color: var(--dr4-white);
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.dr4 .dr4-stat-value {
+  font-family: var(--dr4-display);
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1;
+  margin-inline-end: 8px;
+}
+
+.dr4 .dr4-stat-footnote {
+  color: var(--dr4-on-navy);
+  font-size: 13px;
+}
+
+.dr4 .dr4-stat-cta {
+  color: var(--dr4-white);
+  font-size: 16px;
+}
+
+.dr4 .dr4-statement {
+  color: var(--dr4-ink);
+  font-size: clamp(20px, 2.2vw, 32px);
+  font-weight: 600;
+  line-height: 1.35;
+  margin-inline: auto;
+  max-inline-size: 30ch;
+  text-align: center;
+}
+
+.dr4 .dr4-charts {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-block-start: 32px;
+}
+
+.dr4 .dr4-chart {
+  background: var(--dr4-white);
+  border-radius: 16px;
+  display: block;
+  padding: 12px;
+}
+
+.dr4 .dr4-chart-img {
+  block-size: auto;
+  display: block;
+  inline-size: 100%;
+  object-fit: contain;
+}
+
+.dr4 .dr4-why-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+}
+
+.dr4 .dr4-photo-card {
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.dr4 .dr4-photo-card .dr4-photo {
+  block-size: 100%;
+  border-radius: 0;
+}
+
+.dr4 .dr4-photo-card::after {
+  background-image: linear-gradient(0deg, var(--dr4-scrim-strong) 0%, var(--dr4-scrim-mid) 45%, var(--dr4-scrim-clear) 80%);
+  content: '';
+  inset: 0;
+  position: absolute;
+}
+
+.dr4 .dr4-photo-card-body {
+  color: var(--dr4-white);
+  font-size: 17px;
+  inset-block-end: 24px;
+  inset-inline: 24px;
+  line-height: 1.5;
+  position: absolute;
+  z-index: 1;
+}
+
+.dr4 .dr4-compare {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-block-start: 32px;
+}
+
+.dr4 .dr4-compare-card {
+  border: 1px solid var(--dr4-line);
+  border-radius: 16px;
+  font-size: 16px;
+  line-height: 1.65;
+  padding: 28px;
+}
+
+.dr4 .dr4-compare-card--ics {
+  background: var(--dr4-navy);
+  border-color: transparent;
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-compare-label {
+  align-items: center;
+  color: var(--dr4-ink);
+  display: flex;
+  font-size: 13px;
+  font-weight: 700;
+  justify-content: space-between;
+  letter-spacing: 0.06em;
+  margin-block-end: 16px;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-compare-card--ics .dr4-compare-label {
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-compare-mark {
+  align-items: center;
+  background: var(--dr4-soft);
+  block-size: 32px;
+  border-radius: 50%;
+  color: var(--dr4-navy);
+  display: inline-flex;
+  inline-size: 32px;
+  justify-content: center;
+}
+
+.dr4 .dr4-compare-footer {
+  align-items: center;
+  border-block-start: 1px solid var(--dr4-line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  justify-content: space-between;
+  margin-block-start: 24px;
+  padding-block-start: 24px;
+}
+
+/* Resources (hub) */
+.dr4 .dr4-pathways {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-block-start: 24px;
+}
+
+.dr4 .dr4-pathway {
+  background: var(--dr4-soft);
+  border-radius: 20px;
+  color: var(--dr4-ink);
+  display: grid;
+  gap: 10px;
+  min-block-size: 220px;
+  padding: 28px;
+  position: relative;
+  text-decoration: none;
+}
+
+.dr4 .dr4-pathway span {
+  color: var(--dr4-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-pathway strong {
+  font-family: var(--dr4-display);
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-pathway small {
+  color: var(--dr4-body);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.dr4 .dr4-pathway em {
+  font-style: normal;
+  inset-block-start: 24px;
+  inset-inline-end: 24px;
+  position: absolute;
+}
+
+.dr4 .dr4-pathway--navy {
+  background: var(--dr4-blue);
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-pathway--navy span,
+.dr4 .dr4-pathway--navy small {
+  color: var(--dr4-on-navy);
+}
+
+.dr4 .dr4-library {
+  align-items: start;
+  display: grid;
+  gap: 32px 56px;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  padding-block: var(--dr4-rhythm) 0;
+}
+
+.dr4 .dr4-library-aside {
+  inset-block-start: 112px;
+  position: sticky;
+}
+
+.dr4 .dr4-library-count {
+  color: var(--dr4-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin-block-end: 12px;
+}
+
+.dr4 .dr4-library-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-block-start: 24px;
+}
+
+.dr4 .dr4-library-chips a {
+  align-items: center;
+  border: 1px solid var(--dr4-line);
+  border-radius: 999px;
+  color: var(--dr4-ink);
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 600;
+  min-block-size: 44px;
+  padding-inline: 16px;
+  text-decoration: none;
+}
+
+.dr4 .dr4-library-chips a[aria-current='page'] {
+  background: var(--dr4-navy);
+  border-color: transparent;
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-library-list {
+  display: grid;
+  gap: 0;
+}
+
+.dr4 .dr4-library-item {
+  align-items: start;
+  border-block-end: 1px solid var(--dr4-line);
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 40px minmax(0, 1fr);
+  padding-block: 8px;
+}
+
+.dr4 .dr4-library-num {
+  padding-block-start: 20px;
+}
+
+.dr4 .dr4-library-item .wave4-document {
+  border: 0;
+  margin: 0;
+}
+
+.dr4 .dr4-library-item summary {
+  min-block-size: 56px;
+}
+
+.dr4 .dr4-library-item:has(details[open]) {
+  background: var(--dr4-soft);
+  border-block-end-color: transparent;
+  border-radius: 16px;
+  padding-inline: 12px;
+}
+
+.dr4-resources .r2-discovery {
+  margin-block-start: var(--dr4-rhythm);
+}
+
+@media (width < 1024px) {
+  .dr4 .dr4-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dr4 .dr4-chips {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dr4 .dr4-tabs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dr4 .dr4-tab {
+    display: block;
+  }
+
+  .dr4 .dr4-tab-panel {
+    grid-column: auto;
+    grid-row: auto;
+    margin-block: 8px 16px;
+  }
+
+  .dr4 .dr4-tab-panel-title {
+    display: none;
+  }
+
+  .dr4 .dr4-library,
+  .dr4 .dr4-why-grid,
+  .dr4 .dr4-aside-grid,
+  .dr4 .dr4-navy--split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dr4 .dr4-library-aside {
+    position: static;
+  }
+}
+
+@media (width < 768px) {
+  .dr4 .dr4-hero {
+    border-radius: 20px;
+    justify-content: flex-end;
+    margin-block-start: 16px;
+    min-block-size: 600px;
+    padding-block: 32px;
+    padding-inline: 24px;
+  }
+
+  .dr4 .dr4-hero::before {
+    background-image: linear-gradient(0deg, var(--dr4-scrim-strong) 0%, var(--dr4-scrim-78) 55%, var(--dr4-scrim-70) 100%);
+  }
+
+  .dr4 .dr4-hero-title {
+    font-size: clamp(44px, 13vw, 52px);
+    max-inline-size: none;
+  }
+
+  .dr4 .dr4-hero .dr4-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dr4 .dr4-hero .dr4-btn,
+  .dr4 .dr4-hero .dr4-btn span:has(a),
+  .dr4 .dr4-hero .dr4-btn > a,
+  .dr4 .dr4-hero a.dr4-btn,
+  .dr4 .dr4-hero .dr4-btn .rfq,
+  .dr4 .dr4-hero .dr4-btn .rfq a,
+  .dr4 .dr4-hero .dr4-btn a[data-rfq-native] {
+    inline-size: 100%;
+    justify-content: center;
+  }
+
+  .dr4 .dr4-hero .dr4-btn span:has(a) {
+    display: flex;
+  }
+
+  .dr4 .dr4-hero-corner {
+    margin-block-start: 20px;
+    position: static;
+  }
+
+  .dr4 .dr4-split,
+  .dr4 .dr4-intro-row,
+  .dr4 .dr4-cards,
+  .dr4 .dr4-cards--2,
+  .dr4 .dr4-charts,
+  .dr4 .dr4-compare,
+  .dr4 .dr4-pathways,
+  .dr4 .dr4-statbar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dr4 .dr4-split--reverse .dr4-split-media {
+    order: 0;
+  }
+
+  .dr4 .dr4-statbar .dr4-actions {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .dr4 .dr4-step {
+    gap: 16px;
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  .dr4 .dr4-step-num {
+    font-size: 36px;
+  }
+
+  .dr4 .dr4-cta-band {
+    border-radius: 20px;
+  }
+
+  .dr4 .dr4-cta-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dr4 .dr4-cta-body > .dr4-actions {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .dr4 .dr4-photo-card .dr4-photo {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dr4 .dr4-btn > a,
+  .dr4 a.dr4-btn,
+  .dr4 .dr4-btn .rfq a,
+  .dr4 .dr4-btn a[data-rfq-native] {
+    transition: none;
+  }
+}
+
+/* R4a (June 2026 parity, CT GO): product detail, product cards and the parts hub take the site's blue pill CTA */
+.wave3-site .wave3-detail-action .rfq a[data-rfq-native],
+.wave3-site .wave3-card-rfq .rfq a[data-rfq-native],
+.wave3-site .wave3-detail-action .rfq-signal a,
+.wave3-site .wave3-card-rfq .rfq-signal a {
+  align-items: center;
+  background: var(--dr4-blue);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--dr4-white);
+  display: inline-flex;
+  font-family: var(--dr4-text);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  min-block-size: 44px;
+  padding-block: 10px;
+  padding-inline: 26px;
+}
+
+.wave3-site .wave3-detail-action .rfq a[data-rfq-native]:hover,
+.wave3-site .wave3-card-rfq .rfq a[data-rfq-native]:hover,
+.wave3-site .wave3-detail-action .rfq-signal a:hover,
+.wave3-site .wave3-card-rfq .rfq-signal a:hover {
+  background: var(--dr4-blue-hover);
+  border-color: transparent;
+  color: var(--dr4-white);
+}
+
+/* R4a: the parts hub hero is one card (the outer photo frame around it is removed) */
+.sp-family--parts-index .sp-section--hero .sp-section-inner > .sp-con.sp-overlay--dark {
+  border-radius: 0;
+  padding: 0;
+}
+
+.sp-family--parts-index .sp-section--hero .sp-section-inner > .sp-con.sp-overlay--dark > .sp-photo-img,
+.sp-family--parts-index .sp-section--hero .sp-section-inner > .sp-con.sp-overlay--dark > .sp-photo-shade {
+  display: none;
+}
+
+/*
+ * DD R4 phase 1 M1 (2026-10-07): the hero is ONE card. The card's photo is its only image layer (inset 0, the card's
+ * radius, unchanged); the fan-stack cut-out sits directly on it. The panel's own rounded box and inset shade (the second,
+ * lighter-blue rectangle) are removed.
+ */
+/* Measured (R4 evidence): the heading and lead stay at or above 5:1 against the brightest pixel at 1440 and 390 */
+.sp-family--parts-index .sp-section--hero .sp-overlay--dark > .sp-photo-content > .sp-con.sp-overlay--blue > .sp-photo-shade {
+  opacity: 0.75;
+}
+
+.sp-family--parts-index .sp-section--hero .sp-overlay--dark > .sp-photo-content > .sp-con.sp-overlay--blue .sp-media--panel {
+  border-radius: 0;
+}
+
+.sp-family--parts-index .sp-section--hero .sp-overlay--dark > .sp-photo-content > .sp-con.sp-overlay--blue .sp-media--panel > .sp-photo-shade {
+  display: none;
+}
+
+/*
+ * Design R4 phase 2: Replacement, Air Coolers, All Projects, and the parts-hub intro layout.
+ */
+
+/* Split hero (Air Coolers): the 1024 px owner image sits in the right column at >= 1024, never wider than its file */
+@media (width >= 1024px) {
+  .dr4 .dr4-hero--split {
+    background: var(--dr4-navy);
+    display: grid;
+    grid-template-columns: minmax(0, 52fr) minmax(0, 48fr);
+    padding: 0;
+  }
+
+  .dr4 .dr4-hero--split::before {
+    content: none;
+  }
+
+  .dr4 .dr4-hero--split .dr4-hero-img {
+    block-size: 100%;
+    grid-column: 2;
+    grid-row: 1;
+    max-inline-size: 1024px;
+    position: static;
+  }
+
+  .dr4 .dr4-hero--split .dr4-hero-title {
+    font-size: clamp(44px, 4.4vw, 68px);
+    max-inline-size: none;
+  }
+
+  .dr4 .dr4-hero--split .dr4-hero-body {
+    align-self: center;
+    grid-column: 1;
+    grid-row: 1;
+    padding-block: 64px;
+    padding-inline: clamp(32px, 5vw, 64px);
+  }
+}
+
+/* Rows on navy: title and body (Replacement benefits) */
+.dr4 .dr4-rows--2 {
+  gap: 12px 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-block-start: 32px;
+}
+
+.dr4 .dr4-row-title {
+  color: var(--dr4-white);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-block-end: 6px;
+}
+
+.dr4 .dr4-row-body {
+  color: var(--dr4-on-navy);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.dr4 .dr4-statement--left {
+  margin-block-start: 40px;
+  margin-inline: 0;
+  max-inline-size: 48ch;
+  text-align: start;
+}
+
+/* Case study (Replacement) */
+.dr4 .dr4-case-label,
+.dr4 .dr4-fact-label,
+.dr4 .dr4-fact dt {
+  color: var(--dr4-blue);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-case-head {
+  display: grid;
+  gap: 8px;
+  margin-block: 16px 28px;
+}
+
+.dr4 .dr4-facts {
+  border-block: 1px solid var(--dr4-line);
+  display: grid;
+  gap: 16px 24px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-block: 0 40px;
+  padding-block: 20px;
+}
+
+.dr4 .dr4-fact {
+  display: grid;
+  gap: 6px;
+}
+
+.dr4 .dr4-fact dd {
+  color: var(--dr4-ink);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.dr4 .dr4-case-grid {
+  align-items: start;
+  display: grid;
+  gap: 32px 56px;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+}
+
+.dr4 .dr4-case-text {
+  display: grid;
+  gap: 20px;
+}
+
+.dr4 .dr4-case-points {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+}
+
+.dr4 .dr4-case-points > div {
+  border-inline-start: 3px solid var(--dr4-blue);
+  display: grid;
+  gap: 6px;
+  padding-inline-start: 18px;
+}
+
+.dr4 .dr4-prose--quote {
+  color: var(--dr4-ink);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.dr4 .dr4-figure {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.dr4 .dr4-caption {
+  color: var(--dr4-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Replacement reasons: the fifth (navy) card completes the second row */
+.dr4 .dr4-cards--sentence .dr4-card--wide {
+  grid-column: span 2;
+}
+
+/* Chips with text, or headings only in three columns */
+.dr4 .dr4-chips--text .dr4-chip {
+  align-content: start;
+}
+
+.dr4 .dr4-chips--text .dr4-card-body {
+  color: var(--dr4-body);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.dr4 .dr4-chips--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-block-start: 0;
+}
+
+.dr4 .dr4-panel--navy .dr4-card-title {
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-chip-title {
+  color: var(--dr4-ink);
+  font-size: 17px;
+  font-weight: 600;
+  hyphens: auto;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* Photo card trio with checklists (Air Coolers upgrade options) */
+.dr4 .dr4-trio {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin-block-start: 32px;
+  padding: 0;
+}
+
+.dr4 .dr4-trio-card {
+  background: var(--dr4-white);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dr4 .dr4-trio-card .dr4-photo {
+  border-radius: 0;
+}
+
+.dr4 .dr4-trio-body {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+}
+
+.dr4 .dr4-checks {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.dr4 .dr4-checks li {
+  align-items: start;
+  color: var(--dr4-body);
+  display: grid;
+  font-size: 15px;
+  gap: 10px;
+  grid-template-columns: 18px minmax(0, 1fr);
+  line-height: 1.55;
+}
+
+.dr4 .dr4-check {
+  block-size: 18px;
+  color: var(--dr4-blue);
+  inline-size: 18px;
+  margin-block-start: 2px;
+}
+
+/* Restored sections placed by the composition (Air Coolers benefits); renders only when the page has them */
+.dr4 .dr4-restored {
+  background: var(--dr4-navy);
+  margin-block-start: var(--dr4-rhythm);
+  border-radius: 28px;
+  color: var(--dr4-on-navy);
+  font-size: 16px;
+  line-height: 1.65;
+  padding: clamp(24px, 4vw, 48px);
+}
+
+.dr4 .dr4-restored :is(h2, h3) {
+  color: var(--dr4-white);
+  font-family: var(--dr4-display);
+  font-size: clamp(32px, 3.6vw, 52px);
+  font-weight: 400;
+  line-height: 1;
+  margin-block: 0 24px;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-restored ul {
+  display: grid;
+  gap: 12px 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  padding: 0;
+}
+
+.dr4 .dr4-restored li {
+  background: var(--dr4-pill-fill);
+  border: 1px solid var(--dr4-pill-line);
+  border-radius: 14px;
+  padding-block: 16px;
+  padding-inline: 18px;
+}
+
+.dr4 .dr4-restored :is(strong, b) {
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-restored a {
+  color: var(--dr4-white);
+}
+
+/* DD R4 phase 1 P1 (2026-10-07, APPROVED): the Resources hero height and H1 per Figma 3:24 */
+.dr4 .dr4-hero--resources {
+  min-block-size: clamp(440px, 48vh, 560px);
+}
+
+.dr4 .dr4-hero--resources .dr4-hero-title {
+  font-size: clamp(56px, 6.5vw, 104px);
+}
+
+/* Measured (R4 evidence, r4-axe.json): with the taller P1 heading, the H1 and lead stay at or above 4.5:1 at the brightest pixel */
+@media (width >= 768px) {
+  .dr4 .dr4-hero--resources::before {
+    background-image: linear-gradient(0deg, var(--dr4-scrim-90) 0%, var(--dr4-scrim-84) 50%, var(--dr4-scrim-70) 75%, var(--dr4-scrim-soft) 100%);
+  }
+
+  /*
+   * DD R4 final F2: the All Projects hero takes a text-column-anchored scrim, measured for its wider H1 and the bright fan
+   * stacks behind it (H1, line and lead at or above 6.3:1 at 1440/1280/1024/768); the photo reads from 700 px rightwards.
+   */
+  .dr4 .dr4-hero--portfolio::before {
+    background-image: linear-gradient(90deg, var(--dr4-scrim-strong) 0, var(--dr4-scrim-84) 700px, var(--dr4-scrim-15) 100%);
+  }
+}
+
+/* All Projects (spec H2O_DESIGN_R4_SPEC_all-projects.md): hub hero, sticky chip bar, one uniform card grid */
+.dr4 .dr4-hero--portfolio {
+  min-block-size: clamp(320px, 40vh, 420px);
+}
+
+.dr4 .dr4-hero-subtitle {
+  color: var(--dr4-white);
+  font-family: var(--dr4-text);
+  font-size: clamp(17px, 1.5vw, 20px);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-block-end: 12px;
+  max-inline-size: 60ch;
+}
+
+.dr4 .dr4-country-chips {
+  background: var(--dr4-white);
+  border-block-end: 1px solid var(--dr4-line);
+  inset-block-start: 0;
+  margin-block-start: 24px;
+  padding-block: 12px;
+  position: sticky;
+  z-index: 5;
+}
+
+.dr4 .dr4-country-chips ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.dr4 .dr4-country-chips a {
+  align-items: center;
+  background: var(--dr4-soft);
+  border: 1px solid var(--dr4-line);
+  border-radius: 999px;
+  color: var(--dr4-ink);
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 600;
+  gap: 10px;
+  min-block-size: 44px;
+  padding-inline: 18px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dr4 .dr4-country-chips a:hover {
+  background: var(--dr4-white);
+  border-color: var(--dr4-blue);
+}
+
+.dr4 .dr4-country-chips img {
+  block-size: 14px;
+  inline-size: 20px;
+  object-fit: cover;
+}
+
+.dr4 .dr4-proj-flag {
+  block-size: auto;
+  inline-size: 22px;
+}
+
+.dr4 .dr4-portfolio-intro {
+  margin-block-start: 32px;
+  max-inline-size: 72ch;
+}
+
+.dr4 .dr4-country-head {
+  align-items: baseline;
+  border-block-end: 1px solid var(--dr4-line);
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-block-end: 28px;
+  padding-block-end: 16px;
+}
+
+.dr4 .dr4-country-count {
+  color: var(--dr4-blue);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dr4 .dr4-section--country {
+  scroll-margin-block-start: 88px;
+}
+
+.dr4 .dr4-section--country + .dr4-section--country,
+.dr4 .dr4-section--country + .dr4-country-row,
+.dr4 .dr4-country-row + .dr4-section--country {
+  padding-block-start: clamp(40px, 5vw, 72px);
+}
+
+/*
+ * One card size everywhere: columns are at least 300 px and at most 369 px (the 353 px held photos plus the 8 px frame),
+ * so no card photo is ever drawn wider than its file.
+ */
+.dr4 .dr4-proj-grid,
+.dr4 .dr4-country-row {
+  display: grid;
+  gap: clamp(18px, 2.2vw, 30px);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 369px));
+  list-style: none;
+  padding: 0;
+}
+
+/* Consecutive single-project countries share a row, each keeping its own section and heading */
+/* DD R4 final F3: every section of a shared row starts on one top line (the `section + section` spacing does not apply) */
+.dr4 .dr4-country-row > .dr4-section--country {
+  display: flex;
+  flex-direction: column;
+  padding-block-start: var(--dr4-rhythm);
+}
+
+.dr4 .dr4-country-row .dr4-proj-grid {
+  flex: 1;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.dr4 .dr4-country-row .dr4-h2--country {
+  font-size: clamp(28px, 2.6vw, 36px);
+}
+
+/* DD R4 final F3: one heading block height across a shared row (a two-line country name does not push its card down) */
+.dr4 .dr4-country-row {
+  align-items: start;
+}
+
+.dr4 .dr4-country-row .dr4-country-head {
+  align-items: end;
+  min-block-size: 96px;
+}
+
+.dr4 .dr4-proj {
+  background: var(--dr4-soft);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  position: relative;
+  transition: box-shadow 0.2s ease;
+}
+
+.dr4 .dr4-proj:hover,
+.dr4 .dr4-proj:focus-within {
+  box-shadow: 0 12px 32px var(--dr4-shadow);
+}
+
+.dr4 .dr4-proj-media {
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.dr4 .dr4-proj-img {
+  block-size: 100%;
+  display: block;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+.dr4 .dr4-proj-panel {
+  align-content: end;
+  background: var(--dr4-navy);
+  display: grid;
+  gap: 8px;
+  padding: 20px;
+}
+
+.dr4 .dr4-proj-panel .dr4-proj-year {
+  color: var(--dr4-white);
+}
+
+.dr4 .dr4-proj-panel-meta {
+  color: var(--dr4-white);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.dr4 .dr4-proj-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  padding-block: 16px 14px;
+  padding-inline: 12px;
+}
+
+.dr4 .dr4-proj-top {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dr4 .dr4-proj-year {
+  color: var(--dr4-blue);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.dr4 .dr4-proj-title {
+  color: var(--dr4-ink);
+  font-family: var(--dr4-display);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.dr4 .dr4-proj-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dr4 .dr4-proj-title a::after {
+  border-radius: 20px;
+  content: '';
+  inset: 0;
+  position: absolute;
+}
+
+.dr4 .dr4-proj-meta {
+  color: var(--dr4-body);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.dr4 .dr4-proj-more {
+  color: var(--dr4-blue);
+  font-size: 14px;
+  font-weight: 600;
+  margin-block-start: auto;
+  padding-block-start: 8px;
+}
+
+@media (width < 1024px) {
+  .dr4 .dr4-country-chips {
+    position: static;
+  }
+}
+
+@media (width < 768px) {
+  .dr4 .dr4-hero--portfolio {
+    min-block-size: 0;
+    padding: 0;
+  }
+
+  .dr4 .dr4-hero--portfolio::before {
+    content: none;
+  }
+
+  .dr4 .dr4-hero--portfolio .dr4-hero-img {
+    aspect-ratio: 4 / 3;
+    block-size: auto;
+    position: static;
+  }
+
+  .dr4 .dr4-hero--portfolio .dr4-hero-body {
+    background: var(--dr4-navy);
+    padding-block: 28px 32px;
+    padding-inline: 24px;
+  }
+
+  .dr4 .dr4-country-chips ul {
+    flex-wrap: nowrap;
+    mask-image: linear-gradient(90deg, var(--dr4-navy) 85%, transparent);
+    overflow-x: auto;
+    padding-inline-end: 32px;
+  }
+
+  .dr4 .dr4-proj-media {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media (width < 1024px) {
+  .dr4 .dr4-facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dr4 .dr4-case-grid,
+  .dr4 .dr4-trio {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dr4 .dr4-chips--3,
+  .dr4 .dr4-restored ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width < 768px) {
+  .dr4 .dr4-cards--sentence .dr4-card--wide {
+    grid-column: auto;
+  }
+
+  .dr4 .dr4-rows--2,
+  .dr4 .dr4-restored ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dr4 .dr4-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Parts hub: the restored intro (two headed blocks) as two columns, not a three-column grid with an empty cell */
+.wave3-site section.wave3-index-intro[data-restored-slot-render='intro'] {
+  display: grid;
+  gap: 16px 48px;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto 1fr;
+}
+
+.wave3-site section.wave3-index-intro[data-restored-slot-render='intro'] > h2 {
+  font-family: var(--dr4-display);
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+@media (width < 1100px) {
+  .wave3-site section.wave3-index-intro[data-restored-slot-render='intro'] {
+    grid-auto-flow: row;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+}
+
+/*
+ * DD R4 phase 1 M2 (2026-10-07; the R3 M1 rule): below 768 on every R4 page the corner launcher is a 48 px icon circle,
+ * 16 px from the corner (R4 pages carry no sticky bar), and the page reserves room for it so it never covers a CTA.
+ * The accessible name is the button's aria-label, unchanged.
+ */
+@media (width < 768px) {
+  body:has([data-r4-route]) [data-rfq-launcher] {
+    block-size: 48px;
+    gap: 0;
+    inline-size: 48px;
+    inset-block-end: calc(16px + env(safe-area-inset-bottom));
+    inset-inline-end: 16px;
+    justify-content: center;
+    min-block-size: 0;
+    padding: 0;
+  }
+
+  body:has([data-r4-route]) [data-rfq-launcher] > span {
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .dr4[data-r4-route] {
+    padding-block-end: calc(80px + env(safe-area-inset-bottom));
+  }
+
+  /* DD R4 final F1: with the script, the launcher appears only once the hero is out of view (R4LauncherReveal.tsx) */
+  :root[data-r4-reveal] [data-rfq-launcher] {
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  :root[data-r4-reveal]:not([data-r4-hero-out]) [data-rfq-launcher] {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  /* No-JS fallback: the launcher stays, so the hero lead and actions keep 64 px clear at the inline end */
+  :root:not([data-r4-reveal]) [data-r4-route] .dr4-hero :is(.dr4-hero-lead, .dr4-actions) {
+    padding-inline-end: 64px;
+  }
+}
+
+@media (width < 768px) and (prefers-reduced-motion: reduce) {
+  :root[data-r4-reveal] [data-rfq-launcher] {
+    transition: none;
+  }
+}

@@ -7,6 +7,8 @@ import {SalmonFamilyPage,salmonFamilyFor} from '../../../site/SalmonFamilies'
 import {ABOUT_ROUTE_ID,AboutComposition} from '../../../site/AboutComposition'
 import {ArchivePage,isArchiveDocument} from '../../../site/ArchivePresentation'
 import {LuxuryCanonical,luxuryIds} from '../../../site/LuxuryCanonical'
+import {r4Builders} from '../../../site/r4/R4Pages'
+import {R4PortfolioPage,R4_PORTFOLIO_ROUTE} from '../../../site/r4/R4Portfolio'
 import {PartsIndex,ProductDetail} from '../../../site/Wave3Presentation'
 import {LiveEnglishDetail,Wave4ArticleDetail,Wave4ArticleIndex,Wave4Library} from '../../../site/Wave4Presentation'
 import {matchedWave4Article} from '../../../site/wave4'
@@ -102,6 +104,9 @@ export default async function Page({params,searchParams}:Params){
   const doc=alias&&aliasSource?aliasReleaseDocument(salmonDocument(aliasSource),alias.path,alias.canonical):salmonDocument(row)
   // Design R3 (CT 2026-10-06): the owner's About design replaces the transitional Salmon about family on this route.
   if(doc.routeId===ABOUT_ROUTE_ID&&!alias)return <AboutComposition doc={doc}/>
+  // Design R4 (CT GO 2026-10-07): the owner's 7-OCT designs replace the earlier presentation (incl. the Dry Soda Salmon family).
+  if(r4Builders[doc.routeId]&&!alias)return <LuxuryCanonical doc={doc}/>
+  if(doc.routeId===R4_PORTFOLIO_ROUTE&&!alias)return <R4PortfolioPage doc={doc}/>
   const family=salmonFamilyFor(doc)
   if(family)return <SalmonFamilyPage doc={doc} config={family}/>
   if(isArchiveDocument(doc))return <ArchivePage doc={doc}/>

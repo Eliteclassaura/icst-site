@@ -16,6 +16,8 @@ import {LuxuryFooter} from '../LuxuryShell'
 import {PartsIndex} from '../Wave3Presentation'
 import {Wave4ArticleIndex,Wave4Library} from '../Wave4Presentation'
 import {EnglishServicePage,englishServicePages} from '../EnglishServices'
+import {r4Builders} from '../r4/R4Pages'
+import {r4Media} from '../design-r4-media'
 import {LuxuryCanonical,luxuryIds} from '../LuxuryCanonical'
 import {serviceCompositions} from '../ServiceComposition'
 import {cssBackground} from '../salmon-source'
@@ -118,10 +120,17 @@ describe('Dry Soda route-specific Salmon authority',()=>{
     expect(html).not.toContain('english-service')
     expect(html).toMatch(/sp-section--hero[\s\S]*?sp-photo[\s\S]*?<h1/)
   })
+  it('Design R4 (CT GO 2026-10-07): on its route, Dry Soda renders the owner\'s 7-OCT design (shared R4 system), not the family',()=>{
+    expect(r4Builders['SALMON-pages-1722']).toBeDefined()
+    const html=renderToStaticMarkup(<LuxuryCanonical doc={byPath('/dry-soda-blasting/')}/>)
+    expect(html).toContain('data-r4-route="/dry-soda-blasting/"')
+    expect(html).not.toContain('data-salmon-family')
+  })
   it('leaves the six accepted Figma service routes and five Figma compositions untouched',()=>{
     expect(englishServicePages()).toHaveLength(6)
     for(const service of englishServicePages()){const html=renderToStaticMarkup(<EnglishServicePage service={service}/>);expect(html).toContain('english-service-hero');expect(html).not.toContain('salmon-family')}
-    for(const id of ['SALMON-pages-1446','SALMON-pages-1534','SALMON-pages-1555','SALMON-pages-1572','SALMON-pages-1668']){expect(luxuryIds.has(id)).toBe(true);expect(salmonFamilyFor(doc(id))).toBeUndefined();expect(renderToStaticMarkup(<LuxuryCanonical doc={doc(id)}/>)).toContain('wave2-service')}
+    // Design R4 (CT GO 2026-10-07): Repair and Thermal take the shared R4 system; the other three keep Wave 2 until R4 phase 2.
+    for(const id of ['SALMON-pages-1446','SALMON-pages-1534','SALMON-pages-1555','SALMON-pages-1572','SALMON-pages-1668']){expect(luxuryIds.has(id)).toBe(true);expect(salmonFamilyFor(doc(id))).toBeUndefined();expect(renderToStaticMarkup(<LuxuryCanonical doc={doc(id)}/>)).toContain(r4Builders[id]?'data-r4-route=':'wave2-service')}
     expect(serviceCompositions['SALMON-pages-1446']).toBeDefined()
   })
 })
@@ -153,7 +162,10 @@ describe('P1 presentations keep their accepted function',()=>{
     expect(html).toContain('Confirmed ICS presence')
   })
   it('library pages use their own held Salmon hero backgrounds and keep downloads',()=>{
-    for(const id of ['SALMON-pages-1761','SALMON-pages-1797','SALMON-pages-1870']){const html=renderToStaticMarkup(<Wave4Library doc={doc(id)}/>);expect(html,id).toContain(cssBackground(id,'8f448f5')!.sha256);expect(html,id).toContain('wave4-document')}
+    for(const id of ['SALMON-pages-1797','SALMON-pages-1870']){const html=renderToStaticMarkup(<Wave4Library doc={doc(id)}/>);expect(html,id).toContain(cssBackground(id,'8f448f5')!.sha256);expect(html,id).toContain('wave4-document')}
+    // Design R4 (CT GO 2026-10-07): /resources/ takes the owner's 8-OCT hub hero (byte-exact Figma fill), downloads unchanged.
+    const resources=renderToStaticMarkup(<Wave4Library doc={doc('SALMON-pages-1761')}/>)
+    expect(resources).toContain(r4Media('resources.hero').source.sha256);expect(resources).toContain('wave4-document')
     const articles=renderToStaticMarkup(<Wave4ArticleIndex doc={doc('SALMON-pages-1875')}/>)
     expect(articles).toContain('sp-articles-band')
     expect(articles).toContain('action="/search/"')

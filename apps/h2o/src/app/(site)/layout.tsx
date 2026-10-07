@@ -41,6 +41,7 @@ import './salmon-families.css'
 import './design-fixes.css'
 import './design-r3.css'
 import './a11y-fixes.css'
+import './design-r4.css'
 
 export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }

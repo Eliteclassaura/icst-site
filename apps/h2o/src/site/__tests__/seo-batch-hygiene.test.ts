@@ -54,7 +54,7 @@ describe('slot hygiene: data fixed, validator strict', () => {
     // 301 point at its final URL (321 more links), 636 elements; R2.5: the OGCS cost/table edits, CS161 and author-alias links
     // (31 more), 667 elements; CLAIMS-R2 (CT 2026-10-06): ten Home elements reworded, seven of them newly fixed, 674 in all (some
     // carry several kinds).
-    expect(fixed).toBe(674)
+    expect(fixed).toBe(681) // R4 (CT 2026-10-07): + 6 parts hub elements and 1 Dry Soda element (OGCS R4C-01…07)
   }, 120000)
   it('reproduces the R1 failures: without the fixes the strict validator rejects exactly the recorded elements', () => {
     const row = ledger.routes.find((r) => r.path === '/understanding-cooling-tower-parts/')!
@@ -68,7 +68,7 @@ describe('slot hygiene: data fixed, validator strict', () => {
   })
   it('records every change; https only for verified targets; an unlinked link keeps its text', () => {
     const changes = Object.values(fixes).flatMap((f) => f.slots.flatMap((s) => s.changes.map((c) => ({ ...c, s }))))
-    expect(changes).toHaveLength(738) // CLAIMS-R2: + 10 Home rewordings
+    expect(changes).toHaveLength(745) // CLAIMS-R2: + 10 Home rewordings; R4: + 7 (R4C-01…07)
     for (const c of changes) {
       expect(c.reason.length, c.from).toBeGreaterThan(0)
       if (c.action === 'https') expect(c.to).toMatch(/^https:\/\//)
@@ -137,7 +137,7 @@ describe('claim edits (Locale Part B option A; R2.2: F1, OGCS template claims, C
   const n = (hay: string, needle: string) => hay.split(needle).length - 1
   const fixFor = (p: string) => Object.entries(fixes).find(([k]) => decodeURIComponent(k) === p)?.[1]
   it('every recorded edit is applied once on its element and recorded as a change with its reason', () => {
-    expect(edits).toHaveLength(292) // R2.5: + 23 OGCS pre-flight edits and CS161; CLAIMS-R2: + 10 Home edits
+    expect(edits).toHaveLength(299) // R2.5: + 23 OGCS pre-flight edits and CS161; CLAIMS-R2: + 10 Home edits; R4: + 7 (R4C)
     for (const e of edits) {
       const slot = fixFor(e.path)?.slots.find((s) => (!e.slot || s.key === e.slot) && s.changes.some((c) => c.from === e.find))
       expect(slot, `${e.path} ${e.find.slice(0, 50)}`).toBeDefined()

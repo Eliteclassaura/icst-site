@@ -83,7 +83,8 @@ const partsCopy=(doc:SalmonDocument)=>{
     if(typeof node==='string')return
     const text=salmonNodeText(node).trim().replace(/\s+/g,' ')
     if(node.tag==='h2'){
-      current=/Why Engineers|Critical Industrial Applications|Globally Shipped/i.test(text)?{heading:text,paragraphs:[]}:undefined
+      // R4 (OGCS R4C-04, CT 2026-10-07): the supplier heading now reads "…, Shipped Internationally"; both wordings are matched.
+      current=/Why Engineers|Critical Industrial Applications|Globally Shipped|Shipped Internationally/i.test(text)?{heading:text,paragraphs:[]}:undefined
       if(current)sections.push(current)
       return
     }

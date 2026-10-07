@@ -1,5 +1,5 @@
 {
- "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed. CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows R2L10-01..10, each current string absent and its CT-accepted wording present.",
+ "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed. CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows R2L10-01..10, each current string absent and its CT-accepted wording present.; R4 (CT 2026-10-07): OGCS R4 copy review rows R4C-01…07, each old string absent and each new wording present",
  "absent": [
   {
    "row": "LocaleB-A",
@@ -1494,6 +1494,48 @@
    "path": "/",
    "text": "Explore cooling towers, spare parts, and services engineered for optimal performance, lower energy consumption, and long-term reliability in demanding industrial settings.",
    "source": "claim-edit replace"
+  },
+  {
+   "row": "R4C-01",
+   "path": "/cooling-tower-parts-online/",
+   "text": "ICS specializes in performance upgrades for all cooling tower configurations — including high-efficiency FRP fan replacements that deliver immediate ROI over legacy aluminum fans.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R4C-02",
+   "path": "/cooling-tower-parts-online/",
+   "text": "Cooling towers are essential heat rejection systems for condensers, HVAC infrastructure, and industrial process cooling. Properly maintained towers extend service life to 15–20+ years — but that performance depends on the quality and compatibility of replacement components.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R4C-03",
+   "path": "/cooling-tower-parts-online/",
+   "text": "ICS stocks parts for every major tower type and manufacturer. Whether you’re a plant engineer performing scheduled maintenance, a mechanical contractor managing a full tower rebuild, or a procurement specialist sourcing components for multiple sites, ICS provides the specifications, pricing, and support you need.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R4C-04",
+   "path": "/cooling-tower-parts-online/",
+   "text": "OEM Cooling Tower Parts Supplier — U.S.-Based, Globally Shipped",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R4C-05",
+   "path": "/cooling-tower-parts-online/",
+   "text": "Headquartered in the United States, ICS ships cooling tower components to customers in Canada, Japan, Thailand, Singapore, South Korea, China, Indonesia, Vietnam, Saudi Arabia, and across the Middle East. As a factory-authorized OEM supplier, ICS maintains quality standards aligned with original equipment specifications.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R4C-06",
+   "path": "/cooling-tower-parts-online/",
+   "text": "ICS also provides contractor services: tower inspections, major structural repairs, side-stream filtration, evaporative condenser replacement, and cooling tower conversions. Contact our team for an O&M budget assessment and customized maintenance plan.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R4C-07",
+   "path": "/dry-soda-blasting/",
+   "text": "Dry soda blasting provides a balanced solution using soft abrasive media that ensures quality surface preparation without damaging coatings or substrates.",
+   "source": "claim-edit replace"
   }
  ],
  "present": [
@@ -1622,6 +1664,48 @@
    "path": "/",
    "text": "Explore cooling towers, spare parts, and services engineered for strong performance, lower energy consumption, and long-term reliability in demanding industrial settings.",
    "source": "CLAIMS-R2 wording"
+  },
+  {
+   "row": "R4C-01",
+   "path": "/cooling-tower-parts-online/",
+   "text": "ICS specializes in performance upgrades for industrial cooling towers, including high-efficiency FRP fan replacements for legacy aluminum fans.",
+   "source": "OGCS R4 copy review wording"
+  },
+  {
+   "row": "R4C-02",
+   "path": "/cooling-tower-parts-online/",
+   "text": "Industrial cooling towers reject heat from condensers and process cooling systems in power, petrochemical, and manufacturing plants. Properly maintained towers commonly stay in service for 15–20 years or more, and that depends on the quality and fit of replacement components.",
+   "source": "OGCS R4 copy review wording"
+  },
+  {
+   "row": "R4C-03",
+   "path": "/cooling-tower-parts-online/",
+   "text": "ICS supplies replacement parts for crossflow and counterflow cooling towers from many manufacturers. Whether you’re a plant engineer performing scheduled maintenance, a mechanical contractor managing a full tower rebuild, or a procurement specialist sourcing components for multiple sites, ICS provides the specifications, quotations, and support you need.",
+   "source": "OGCS R4 copy review wording"
+  },
+  {
+   "row": "R4C-04",
+   "path": "/cooling-tower-parts-online/",
+   "text": "Cooling Tower Parts Supplier — U.S.-Based, Shipped Internationally",
+   "source": "OGCS R4 copy review wording"
+  },
+  {
+   "row": "R4C-05",
+   "path": "/cooling-tower-parts-online/",
+   "text": "Headquartered in the United States, ICS ships cooling tower components to customers internationally, including Japan, Thailand, the Philippines, Malaysia, Indonesia, and Vietnam. ICS supplies parts from manufacturers including Amarillo, Brentwood, Hudson, Howden, and Addax, matched to original equipment specifications.",
+   "source": "OGCS R4 copy review wording"
+  },
+  {
+   "row": "R4C-06",
+   "path": "/cooling-tower-parts-online/",
+   "text": "ICS also provides contractor services, including tower inspections, major structural repairs, thermal upgrades, and cooling tower rebuilds. Contact our team to request a quote for a maintenance plan.",
+   "source": "OGCS R4 copy review wording"
+  },
+  {
+   "row": "R4C-07",
+   "path": "/dry-soda-blasting/",
+   "text": "Dry soda blasting provides a balanced solution, using soft abrasive media designed for quality surface preparation without damaging coatings or substrates.",
+   "source": "OGCS R4 copy review wording"
   }
  ]
 }
