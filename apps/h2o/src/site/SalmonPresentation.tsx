@@ -3,7 +3,7 @@ import {SalmonSeo} from './SalmonCanonical'
 import {linkLabel,namelessLink} from './link-context'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {pageForSegments} from './cohort'
-import {ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
+import {ownerText,provenanceHref,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {SalmonTabsController} from './SalmonTabsController'
 import {heroQuoteAction,renderQuoteAction} from '../content/rfq-controls'
 import {heroActionFor,heroSecondaryHref} from './hero-actions'
@@ -94,7 +94,7 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
   if(nameless?.kind==='unwrap')return createElement(Fragment,{key},...node.children.map((child,i)=>sourceNode(child,`${key}.${i}`,doc)))
   if(nameless?.kind==='decorative'){props['aria-hidden']='true';props.tabIndex=-1}
   props.href=href
-  props['data-source-href']=node.attrs.href
+  props['data-source-href']=provenanceHref(node.attrs.href)
   if(node.attrs.target==='_blank'){props.target='_blank';props.rel='noopener noreferrer'}
   // R2.4 (item l): a "Learn more"-style link is named by its card's heading (./link-context); its visible text is unchanged.
   const label=nameless?.kind==='label'?nameless.label:linkLabel(doc,key)

@@ -21,8 +21,8 @@ export const PUBLIC_AUTHOR={name:'Tim Bozic',path:'/author/timbozic/'} as const
 export const PUBLIC_AUTHOR_DESCRIPTION='Tim Bozic is President of Industrial Cooling Solutions, with over two decades of experience in the industrial and manufacturing sectors. He leads ICS’s work in cooling tower engineering, construction, and upgrades for industrial clients in the USA and Asia.'
 /** The import-time neutral label (`content/public-author.ts`), as stored in already-imported documents. */
 const NEUTRAL_AUTHOR_LABEL='ICS Editorial Team'
-const RETIRED_AUTHOR_PATH=/\/author\/(?:faizasyed-ai|tbozic|altaf)\//g
-const RETIRED_AUTHOR_URL=/\/author\/(?:faizasyed-ai|tbozic|altaf)\//
+const RETIRED_AUTHOR_PATH=/\/author\/(?:faizasyed-ai|tbozic|altaf|h2ocooling)\//g
+const RETIRED_AUTHOR_URL=/\/author\/(?:faizasyed-ai|tbozic|altaf|h2ocooling)\//
 const RETIRED_AUTHOR_NAMES=new Set(['Rhonda Miller'])
 const EMAIL_SHAPE=/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
 const AUTHOR_META=new Set(['author','article:author','twitter:data1'])

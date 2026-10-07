@@ -33,7 +33,7 @@ const stripTags = (s) => entities(s.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' 
  * R2.3 (CT 2026-10-05): the third parties a page's head may name — the same list as src/site/public-urls.ts
  * HEAD_THIRD_PARTY_HOSTS (a test keeps them equal). Every other head URL names the swept host or the canonical host.
  */
-export const HEAD_THIRD_PARTY_HOSTS = ['schema.org', 'www.facebook.com', 'facebook.com', 'www.linkedin.com', 'linkedin.com', 'form.typeform.com', 'typeform.com']
+export const HEAD_THIRD_PARTY_HOSTS = ['schema.org', 'www.facebook.com', 'facebook.com', 'www.linkedin.com', 'linkedin.com', 'form.typeform.com', 'typeform.com', 'www.instagram.com', 'instagram.com', 'www.youtube.com', 'youtube.com', 'www.tiktok.com', 'tiktok.com']
 const HEAD_MEDIA = /\.(?:jpe?g|png|gif|webp|avif|svg|ico|pdf)$/i
 export function parsePage(html) {
   const head = html.slice(0, Math.max(html.indexOf('</head>'), 0) || html.length)

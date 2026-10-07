@@ -8,7 +8,7 @@ import { mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, symlinkSync, 
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import * as sitemap from '../../content/sitemap'
-import { GONE_PATHS, NOINDEX_FOLLOW_PATHS } from '../../content/config'
+import { GONE_PATHS, NOINDEX_FOLLOW_PATHS, productTagNoindex } from '../../content/config'
 
 const { childFor, exclusionReason, sitemapChildren, sitemapChildXml, sitemapEntries, sitemapIndexXml, SITEMAP_FILE } = sitemap
 type Row = sitemap.SitemapLedgerRow
@@ -32,19 +32,22 @@ const FIXTURES: Array<{ row: Row; reason: string | null }> = [
   { row: pub('/redirected/'), reason: '301 redirect' },
   { row: pub('/withdrawn/'), reason: 'revoked (withdrawn since the release)' },
   { row: pub('/author/timbozic/'), reason: 'noindex,follow' },
+  // SEO-FIX-1: product-tag archives (except the ones with Google clicks) are noindex,follow by rule
+  { row: pub('/product-tag/blade-de/'), reason: 'noindex,follow (rule)' },
+  { row: pub('/product-tag/paramax-sfc/'), reason: null },
   { row: pub('/not-approved/', { sitemap: false }), reason: 'not sitemap-approved' },
   { row: pub('/duplicate/', { canonical: `${O}/winner/` }), reason: 'canonical points elsewhere' },
   { row: pub('/category/blog/page/2/', { routeClass: 'link-discovered' }), reason: 'paginated archive page' },
   { row: pub('/file.pdf', { canonical: null }), reason: 'not a trailing-slash page path' },
 ]
 const input = (rows: Row[], extra: Partial<sitemap.SitemapInput> = {}): sitemap.SitemapInput => ({
-  rows, origin: O, redirected: new Set(['/redirected/']), gone: GONE_PATHS, revoked: new Set(['/withdrawn/']), noindexFollow: NOINDEX_FOLLOW_PATHS, ...extra,
+  rows, origin: O, redirected: new Set(['/redirected/']), gone: GONE_PATHS, revoked: new Set(['/withdrawn/']), noindexFollow: NOINDEX_FOLLOW_PATHS, noindexFollowPath: productTagNoindex, ...extra,
 })
 
 describe('who gets in', () => {
   it('lists only published PUBLIC, sitemap-approved, self-canonical page paths; every excluded class has its own reason', () => {
     for (const f of FIXTURES) expect(exclusionReason(f.row, input([f.row])), f.row.path).toBe(f.reason)
-    expect(sitemapEntries(input(FIXTURES.map((f) => f.row))).map((e) => e.loc)).toEqual([`${O}/listed/`, `${O}/no-canonical-field/`])
+    expect(sitemapEntries(input(FIXTURES.map((f) => f.row))).map((e) => e.loc)).toEqual([`${O}/listed/`, `${O}/no-canonical-field/`, `${O}/product-tag/paramax-sfc/`])
   })
   it('a decoded and an encoded spelling of the same path are one URL (no duplicates; revocation by either spelling)', () => {
     const rows = [pub('/caf%c3%a9/'), pub('/café/')]
@@ -61,7 +64,7 @@ describe('mutation discrimination on the inclusion filter', () => {
   const dir = path.join(APP, 'node_modules/.cache/sitemap-mutants')
   afterEach(() => rmSync(dir, { recursive: true, force: true }))
   it('has a guard per rule and every mutant changes at least one fixture outcome', async () => {
-    expect(guards).toHaveLength(11) // R2.5: + the noindex guard
+    expect(guards).toHaveLength(12) // R2.5: + the noindex guard; SEO-FIX-1: + the product-tag guard
     mkdirSync(dir, { recursive: true })
     for (const [i, guard] of guards.entries()) {
       const mutated = source.replace(guard, guard.replace(/^ {2}if \(.*\) return /, '  if (false) return '))

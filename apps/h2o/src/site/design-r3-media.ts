@@ -7,7 +7,8 @@ import path from 'node:path'
  * rejected (A1: AI-retouched copies, or another country's project on an office card); each slot names its replacement,
  * its original's path and SHA-256, and its identity. Client logos join this file when the owner supplies them.
  */
-export type DesignR3Media={src:string;sha256:string;width:number;height:number;alt:string;caption?:string;identity:string;original:{path:string;sha256:string;width:number;height:number}}
+/** `srcset` / `thumb`: SEO-FIX-1 responsive WebP variants of the same original (smaller files; the original stays the identity). */
+export type DesignR3Media={src:string;sha256:string;width:number;height:number;alt:string;caption?:string;identity:string;original:{path:string;sha256:string;width:number;height:number};srcset?:Array<{src:string;width:number}>;thumb?:{src:string;width:number;height:number}}
 type DesignR3Ledger={slots:Record<string,{figma:{fileKey:string;node:string;figmaSha256:string[];reason:string};media:DesignR3Media;disposition:string}>;clientLogos:{status:string;logos?:Record<string,{src:string;sha256:string;width:number;height:number}>}}
 let cache:DesignR3Ledger|undefined
 export const designR3Ledger=():DesignR3Ledger=>cache??=JSON.parse(readFileSync(path.join(process.cwd(),'content/design/design-r3-media.json'),'utf8')) as DesignR3Ledger

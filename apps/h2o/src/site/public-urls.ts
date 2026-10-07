@@ -11,16 +11,23 @@
  * - Allowlisted third parties (schema.org vocabulary, the company's social profiles, Typeform while it remains) are kept;
  *   any other host is dropped.
  */
-import { PUBLIC_ORIGIN } from '../content/config'
+import { PUBLIC_ORIGIN, indexingPolicy } from '../content/config'
 import { publicFileExists } from '../content/public-files'
 import { heldMediaForUrl, salmonMediaPath, socialImageOverride } from './salmon'
 
 export const LEGACY_HOSTS: ReadonlySet<string> = new Set(['salmon-rhinoceros-754457.hostingersite.com', 'h2ocooling.com', 'www.h2ocooling.com'])
-export const HEAD_THIRD_PARTY_HOSTS: ReadonlySet<string> = new Set(['schema.org', 'www.facebook.com', 'facebook.com', 'www.linkedin.com', 'linkedin.com', 'form.typeform.com', 'typeform.com'])
+// SEO-FIX-1: + the company's Instagram, YouTube and TikTok profiles (owner-confirmed, the Organization's sameAs)
+export const HEAD_THIRD_PARTY_HOSTS: ReadonlySet<string> = new Set(['schema.org', 'www.facebook.com', 'facebook.com', 'www.linkedin.com', 'linkedin.com', 'form.typeform.com', 'typeform.com', 'www.instagram.com', 'instagram.com', 'www.youtube.com', 'youtube.com', 'www.tiktok.com', 'tiktok.com'])
 const MEDIA_PATH = /\.(?:jpe?g|png|gif|webp|avif|svg|ico|pdf)$/i
 
-/** The origin this deployment serves from (media URLs); the canonical origin where none is configured. */
+/**
+ * The origin this deployment serves from (media URLs); the canonical origin where none is configured.
+ * SEO-FIX-1 (CT 2026-10-07, H2O_SEO_DEEP_R1 LB-3): under the production indexing policy media URLs take the canonical
+ * origin, as canonical links do, whatever NEXT_PUBLIC_SERVER_URL says (a staging or sslip value never reaches og:image,
+ * twitter:image or JSON-LD on production). Private deployments keep naming their own host so their previews resolve.
+ */
 export const servedOrigin = (): string => {
+  if (indexingPolicy() === 'production') return PUBLIC_ORIGIN
   const configured = process.env.NEXT_PUBLIC_SERVER_URL
   if (configured)
     try {

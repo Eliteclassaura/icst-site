@@ -26,6 +26,8 @@ export type SitemapInput = {
   redirected?: ReadonlySet<string>
   gone?: ReadonlySet<string>
   noindexFollow?: ReadonlySet<string>
+  /** SEO-FIX-1: a noindex,follow rule over paths (product-tag archives, ./config productTagNoindex) */
+  noindexFollowPath?: (path: string) => boolean
   /** Decoded path → ISO `updatedAt` of the published document. */
   lastmod?: ReadonlyMap<string, string>
   locale?: LocaleData
@@ -83,6 +85,7 @@ export function exclusionReason(row: SitemapLedgerRow, input: SitemapInput): str
   if (input.redirected?.has(key)) return '301 redirect'
   if (input.revoked?.has(row.path) || input.revoked?.has(key)) return 'revoked (withdrawn since the release)'
   if (input.noindexFollow?.has(row.path) || input.noindexFollow?.has(key)) return 'noindex,follow'
+  if (input.noindexFollowPath?.(row.path)) return 'noindex,follow (rule)'
   // R2.5 (CT 2026-10-05, SEO pre-flight): a noindex row is never listed, whatever its sitemap flag says
   if (row.indexable === false) return 'noindex'
   if (!row.sitemap) return 'not sitemap-approved'

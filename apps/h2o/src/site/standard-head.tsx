@@ -14,6 +14,7 @@ import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { PUBLIC_ORIGIN } from '../content/config'
 import { servedOrigin } from './public-urls'
+import { ORGANIZATION_ID, organizationNode, websiteNode } from './schema-graph'
 
 export type Meta = { name: string; value: string }
 /** `defaultImage: false`: no site default og:image (a project page shows only its own verified photo — Design Fixes A1). */
@@ -25,8 +26,7 @@ export const ogDefault = (): OgDefault =>
   (ogDefaultCache ??= JSON.parse(readFileSync(path.join(process.cwd(), 'content/design/og-default.json'), 'utf8')).image as OgDefault)
 
 export const SITE_NAME = 'ICS'
-export const ORGANIZATION_ID = `${PUBLIC_ORIGIN}/#organization`
-export const WEBSITE_ID = `${PUBLIC_ORIGIN}/#website`
+export { ORGANIZATION_ID, WEBSITE_ID } from './schema-graph'
 
 /**
  * The page's meta tags with the standard social set in place. `meta` is the page's own (already public-urls rewritten)
@@ -56,14 +56,18 @@ export function standardSocialMeta(meta: ReadonlyArray<Meta>, facts: HeadFacts):
   return [...out, ...add]
 }
 
-/** The Organization / WebSite nodes the page's own structured data lacks (by @id), as one JSON-LD graph, or null. */
-export function organizationWebsiteGraph(schemaJson: ReadonlyArray<string>): Record<string, unknown> | null {
-  const all = schemaJson.join('\n')
-  const nodes: Array<Record<string, unknown>> = []
-  if (!all.includes(`"${ORGANIZATION_ID}"`)) nodes.push({ '@type': 'Organization', '@id': ORGANIZATION_ID, name: 'Industrial Cooling Solutions', alternateName: SITE_NAME, url: `${PUBLIC_ORIGIN}/` })
-  if (!all.includes(`"${WEBSITE_ID}"`)) nodes.push({ '@type': 'WebSite', '@id': WEBSITE_ID, name: SITE_NAME, url: `${PUBLIC_ORIGIN}/`, publisher: { '@id': ORGANIZATION_ID } })
-  return nodes.length ? { '@context': 'https://schema.org', '@graph': nodes } : null
+/**
+ * The site's Organization and WebSite nodes (SEO-FIX-1: one canonical entity on every page, ./schema-graph), plus the
+ * page's Service on a service route. `schemaJson` is kept for callers; the imported nodes are normalized away by
+ * `normalizeGraph`, so the canonical nodes are always emitted.
+ */
+export function organizationWebsiteGraph(_schemaJson: ReadonlyArray<string> = [], service?: ServiceFacts): Record<string, unknown> {
+  void _schemaJson
+  const nodes: Array<Record<string, unknown>> = [organizationNode(), websiteNode()]
+  if (service) nodes.push({ '@type': 'Service', '@id': `${PUBLIC_ORIGIN}${service.path}#service`, name: service.name, serviceType: service.name, ...(service.description ? { description: service.description } : {}), url: `${PUBLIC_ORIGIN}${service.path}`, provider: { '@id': ORGANIZATION_ID } })
+  return { '@context': 'https://schema.org', '@graph': nodes }
 }
+export type ServiceFacts = { name: string; path: string; description?: string }
 
 const tag = (m: Meta, i: number) =>
   m.name.startsWith('og:') || m.name.startsWith('article:') ? <meta key={`s${i}`} property={m.name} content={m.value} /> : <meta key={`s${i}`} name={m.name} content={m.value} />
@@ -72,15 +76,15 @@ const tag = (m: Meta, i: number) =>
 export const MetaTags = ({ meta }: { meta: ReadonlyArray<Meta> }) => <>{meta.map(tag)}</>
 
 /** JSON-LD for the Organization / WebSite nodes a page lacks. */
-export function OrganizationWebsiteSchema({ schemaJson = [] }: { schemaJson?: ReadonlyArray<string> }) {
-  const graph = organizationWebsiteGraph(schemaJson)
+export function OrganizationWebsiteSchema({ schemaJson = [], service }: { schemaJson?: ReadonlyArray<string>; service?: ServiceFacts }) {
+  const graph = organizationWebsiteGraph(schemaJson, service)
   return graph ? <script type="application/ld+json" data-standard-schema="" dangerouslySetInnerHTML={{ __html: JSON.stringify(graph).replaceAll('<', '\\u003c') }} /> : null
 }
 
 /** The whole standard head for a template with no imported document (English services, /search/). */
-export function StandardHead({ facts }: { facts: HeadFacts }) {
+export function StandardHead({ facts, service }: { facts: HeadFacts; service?: ServiceFacts }) {
   return <>
     <MetaTags meta={standardSocialMeta([], facts)} />
-    <OrganizationWebsiteSchema />
+    <OrganizationWebsiteSchema service={service} />
   </>
 }

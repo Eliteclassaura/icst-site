@@ -1,4 +1,5 @@
 import {createElement,type CSSProperties,type ReactNode} from 'react'
+import {deliverySrc} from '../media-delivery'
 import {r4Media,type R4Media} from '../design-r4-media'
 
 /**
@@ -49,7 +50,7 @@ export function R4Img({slot,media,eager=false,className,sizes,alt,style}:{slot?:
 
 /** A held staging image reused at its own size (no new bytes). */
 export function HeldImg({src,width,height,alt,className,position='50% 50%'}:{src:string;width:number;height:number;alt:string;className?:string;position?:string}){
-  return <img className={className} src={src} width={width} height={height} alt={alt} loading="lazy" decoding="async" style={{objectPosition:position}}/>
+  return <img className={className} src={deliverySrc(src)} width={width} height={height} alt={alt} loading="lazy" decoding="async" style={{objectPosition:position}}/>
 }
 
 export function R4Hero({api,slot,eyebrow,eyebrowRef,h1,lead,actions,variant='photo',id='r4-hero-title'}:{api:R4Api;slot:string;eyebrow?:string;eyebrowRef?:string;h1:string;lead:string|string[];actions:ReactNode;variant?:'photo'|'hub'|'split';id?:string}){

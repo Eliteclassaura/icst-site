@@ -71,7 +71,31 @@ export const ARCHIVE_TAXONOMY_PATH = /^\/(?:category|product-category|product-ta
  * surfaces) stays `noindex, nofollow`.
  */
 export const isNoindexFollow = (path: string, indexable: boolean | null | undefined): boolean =>
-  NOINDEX_FOLLOW_PATHS.has(path) || (!indexable && ARCHIVE_TAXONOMY_PATH.test(path))
+  NOINDEX_FOLLOW_PATHS.has(path) || (!indexable && ARCHIVE_TAXONOMY_PATH.test(path)) || productTagNoindex(path)
+
+/**
+ * SEO-FIX-1 (Codex staging crawl R1 (c), CT 2026-10-07): product-tag archives duplicate their product-category titles, so
+ * under the production policy they are noindex,follow (URLs unchanged; their product links stay followed) and are not in
+ * the sitemap. The product tags that earned Google clicks (H2O_SEO_DEEP_R1 ranking_protection/money_urls.tsv) keep their
+ * indexing.
+ */
+export const PRODUCT_TAG_KEEP_INDEXED: ReadonlySet<string> = new Set([
+  '/product-tag/paramax-sfc/',
+  '/product-tag/crown-nozzle/',
+  '/product-tag/drive-shafts/',
+  '/product-tag/drive-shafts/page/2/',
+  '/product-tag/htp25/',
+  '/product-tag/driveshaft/',
+])
+export const productTagNoindex = (path: string): boolean => {
+  let p = path
+  try {
+    p = decodeURI(path)
+  } catch {
+    /* keep the raw path */
+  }
+  return /^\/product-tag\//.test(p) && !PRODUCT_TAG_KEEP_INDEXED.has(p)
+}
 
 /**
  * The page-metadata robots for a route record (the proxy sends the matching X-Robots-Tag). Private policy and previews are

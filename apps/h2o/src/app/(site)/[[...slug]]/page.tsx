@@ -36,7 +36,22 @@ export function generateStaticParams():Array<{slug:string[]}> {
   return [...salmonRoutes().map(r=>({slug:r.targetPath.split('/').filter(Boolean).map(decodeURIComponent)})),...englishServicePages().map(service=>({slug:service.path.split('/').filter(Boolean)})),{slug:['resources']}]
 }
 type Params={params:Promise<{slug?:string[]}>;searchParams?:Promise<{q?:string;page?:string}>}
-export async function generateMetadata({params}:Params):Promise<Metadata>{
+/**
+ * SEO-FIX-1 (Codex staging crawl R1 (b), CT 2026-10-07): the parts hub's ?page=N (N ≥ 2) names its page in the title and
+ * meta description, as the paginated archives already do ("… - Page N", "Page N: …"); the canonical stays the hub's own.
+ */
+export const pagedHubMetadata=(m:Metadata,page:number):Metadata=>{
+  if(!(page>=2))return m
+  const title=typeof m.title==='object'&&m.title&&'absolute' in m.title?m.title.absolute:typeof m.title==='string'?m.title:undefined
+  return {...m,...(title?{title:{absolute:`${title.replace(/\s+-\s+ICS$/,'')} - Page ${page}`}}:{}),...(typeof m.description==='string'?{description:`Page ${page}: ${m.description}`}:{})}
+}
+export async function generateMetadata({params,searchParams}:Params):Promise<Metadata>{
+  const base=await baseMetadata({params})
+  if(requestPathOf((await params).slug)!=='/cooling-tower-parts-online/')return base
+  const page=Number.parseInt((await searchParams)?.page??'',10)
+  return pagedHubMetadata(base,page)
+}
+async function baseMetadata({params}:Pick<Params,'params'>):Promise<Metadata>{
   // R2.4 R2: an empty archive's page N is a 404
   if(isEmptyArchivePage(requestPathOf((await params).slug)))return {robots:{index:false,follow:false}}
   if(isPayloadContent()){

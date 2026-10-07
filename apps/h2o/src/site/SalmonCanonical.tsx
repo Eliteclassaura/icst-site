@@ -9,16 +9,18 @@ import {articleMetadataTitle} from './article-metadata'
 import {R2Discovery} from './R2Discovery'
 import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
 import {ProjectDetail} from './ProjectDetail'
-import {commerceException,commerceMetaException,ownerHref,ownerText,releaseRouteFor,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,withheldSource,type SalmonDocument,type SalmonNode} from './salmon'
+import {commerceException,commerceMetaException,ownerHref,ownerText,provenanceHref,releaseRouteFor,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,withheldSource,type SalmonDocument,type SalmonNode} from './salmon'
 import {normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 import {deliverySrc,provenanceRef} from './media-delivery'
 import {PUBLIC_AUTHOR} from './public-author-identity'
 import {BreadcrumbSchema,HOME_CRUMB,isBreadcrumbList,type Crumb} from './breadcrumb-schema'
 import {decodeEntities} from './text-repair'
-import {publicMeta,publicSchema,servedOrigin} from './public-urls'
+import {publicHeadUrl,publicMeta,publicSchema,servedOrigin} from './public-urls'
 import {publicFileExists} from '../content/public-files'
 import {projectHeadImagePolicy} from './project-media'
 import {MetaTags,OrganizationWebsiteSchema,standardSocialMeta} from './standard-head'
+import {SERVICE_ROUTES,normalizeGraph} from './schema-graph'
+import {languageFor} from '../content/locale-language'
 import {linkLabel,namelessLink} from './link-context'
 import {heldImageSize} from './image-size'
 import {PUBLIC_ORIGIN} from '../content/config'
@@ -49,6 +51,20 @@ const priceSpecLabel=(node:Exclude<SalmonNode,string>,doc:SalmonDocument):string
   const technicalLabel=match[1].trim()
   return /^(?:Estimated)?$/i.test(technicalLabel)?null:technicalLabel
 }
+/**
+ * SEO-FIX-1 (H2O_SEO_DEEP_R1 SF-11): an article's featured image (its first body image, the likely LCP) loads eagerly with
+ * high fetch priority, as the product and project templates already do. The article template registers its key.
+ */
+const lcpImageKeys=new WeakMap<SalmonDocument,string>()
+export function markLcpImage(doc:SalmonDocument,prefix='body'):void{
+  const visit=(node:SalmonNode,key:string):string|undefined=>{
+    if(typeof node==='string')return undefined
+    if(node.tag==='img'&&(node.attrs['data-src']||node.attrs.src))return key
+    for(let i=0;i<node.children.length;i++){const found=visit(node.children[i]!,`${key}.${i}`);if(found)return found}
+    return undefined
+  }
+  for(let i=0;i<doc.children.length;i++){const found=visit(doc.children[i]!,`${prefix}.${i}`);if(found){lcpImageKeys.set(doc,found);return}}
+}
 function sourceImage(source:string,alt:string|undefined,key:string,doc:SalmonDocument,kind='img'):ReactNode{
   if(withheldSource(source,doc.sourceUrl))return null
   const media=salmonMedia(source,doc.sourceUrl)
@@ -57,7 +73,7 @@ function sourceImage(source:string,alt:string|undefined,key:string,doc:SalmonDoc
   if(!local)return null
   // R2.4 (item l, CLS): a media row without a recorded size takes the held file's own (./image-size), so the box is reserved.
   const size=media.width&&media.height?{width:media.width,height:media.height}:heldImageSize(local)
-  return createElement('img',{key,src:deliverySrc(local),alt,'data-source-src':provenanceRef(source),'data-source-kind':kind,'data-source-sha256':media.sha256,width:size?.width,height:size?.height,loading:'lazy',style:{maxWidth:size?.width??'100%',height:'auto'}})
+  return createElement('img',{key,src:deliverySrc(local),alt,'data-source-src':provenanceRef(source),'data-source-kind':kind,'data-source-sha256':media.sha256,width:size?.width,height:size?.height,...(lcpImageKeys.get(doc)===key?{loading:'eager',fetchPriority:'high'}:{loading:'lazy'}),style:{maxWidth:size?.width??'100%',height:'auto'}})
 }
 export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,suppressSourceByline=false):ReactNode{
   // Runtime RFQ (Payload content mode only): quote-intent actions use the approved adapter; D2 duplicate suppressed.
@@ -90,13 +106,13 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   if(tag==='a'){
     const original=attrs.href??''
     const media=salmonMedia(original,doc.sourceUrl)
-    if(media?.state==='SOURCE_UNAVAILABLE'&&/\.pdf(?:[?#]|$)/i.test(original))return <span key={key} data-source-href={original} data-source-download-unavailable="SOURCE_MEDIA_UNAVAILABLE">{children}</span>
+    if(media?.state==='SOURCE_UNAVAILABLE'&&/\.pdf(?:[?#]|$)/i.test(original))return <span key={key} data-source-href={provenanceHref(original)} data-source-download-unavailable="SOURCE_MEDIA_UNAVAILABLE">{children}</span>
     // A link that already names a file this site serves (a held public file, e.g. a restored WordPress upload) keeps that
     // canonical path; only links without one are rewritten to the hashed media alias (CT follow-up, Round 1 hosted checks).
     const local=servedFilePath(original,doc.sourceUrl)??(media&&salmonMediaPath(media))
     const commerce=/[?&]add-to-cart=|\/(?:checkout|cart)\/?(?:[?#]|$)/i.test(original)
     props.href=commerce?undefined:hrefSafe(ownerHref(local??original))
-    props['data-source-href']=original
+    props['data-source-href']=provenanceHref(original)
     // LEGAL-FIX-1 (L07): a link with no accessible name is unwrapped, made decorative beside its named twin, or named by its card
     const nameless=namelessLink(doc,key,node)
     if(nameless?.kind==='unwrap')return createElement(Fragment,{key},...children)
@@ -201,7 +217,9 @@ const scopeArticles=(value:unknown,isArticle:boolean):unknown=>{
   return {...rest,'@type':'WebPage'}
 }
 /** The page's own name in its breadcrumb trail: the rendered H1, else the document title. */
-export const breadcrumbName=(doc:SalmonDocument):string=>articleDisplayTitle(decodeEntities(doc.seo.h1[0]||doc.title)).replace(/\s+/g,' ').trim()
+/** SEO-FIX-1 (SF-5): an all-capitals source heading names its crumb in title case ("THAILAND COOLING TOWER" → "Thailand Cooling Tower"). */
+const crumbCase=(name:string):string=>/[A-Z]/.test(name)&&name===name.toUpperCase()?name.toLowerCase().replace(/(^|[\s(/-])(\p{L})/gu,(_,b:string,c:string)=>b+c.toUpperCase()):name
+export const breadcrumbName=(doc:SalmonDocument):string=>crumbCase(articleDisplayTitle(decodeEntities(doc.seo.h1[0]||doc.title)).replace(/\s+/g,' ').trim())
 /** `breadcrumb` is the trail the template renders above the page (default: Home). */
 const OWN_HOSTS=new Set(['h2ocooling.com','www.h2ocooling.com','salmon-rhinoceros-754457.hostingersite.com'])
 /** The site path of a link to a held public file (public-files), or undefined. */
@@ -216,9 +234,10 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
   // R2.3 (CT 2026-10-05): every URL in the head names this site (./public-urls): identity URLs the canonical origin, media the
   // served file on the serving origin (C1–C6 crop/withhold included); an unheld image or a foreign host is dropped.
   const images=projectHeadImagePolicy(canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath,servedOrigin())
+  const pagePath=canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath
   return <>
     {/* R2.4: the standard social set (./standard-head) mirrors the served title and description on every page. */}
-    <MetaTags meta={standardSocialMeta(publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)),{title:servedTitle(doc),description:servedDescription(doc)??'',url:canonicalOverride??doc.seo.canonical[0]??`${PUBLIC_ORIGIN}${doc.targetPath}`,type:doc.type==='posts'?'article':'website',defaultImage:!/^\/all-projects\/[^/]+\/$/.test(doc.targetPath)})}/>
+    <MetaTags meta={standardSocialMeta(publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)),{title:servedTitle(doc),description:servedDescription(doc)??'',url:canonicalOverride??(doc.seo.canonical[0]&&publicHeadUrl(doc.seo.canonical[0]))??`${PUBLIC_ORIGIN}${doc.targetPath}`,type:doc.type==='posts'?'article':'website',defaultImage:!/^\/all-projects\/[^/]+\/$/.test(doc.targetPath)})}/>
     {doc.seo.schema.map((raw,i)=>{
       if(isBreadcrumbList(JSON.parse(raw)))return null
       // Quote-only estate: no prices, and no ratings or reviews (Control Tower ruling 2026-10-02).
@@ -228,11 +247,15 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
         if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).filter(([k])=>!['offers','price','lowPrice','highPrice','priceCurrency','aggregateRating','review','reviews'].includes(k)).map(([k,v])=>[k,stripCommerce(v)]))
         return typeof value==='string'?ownerText(value):value
       }
-      const sourceSchema=JSON.stringify(scopeArticles(publicSchema(stripCommerce(JSON.parse(raw)),images),doc.type==='posts'))
-      const canonicalSchema=canonicalOverride&&doc.seo.canonical[0]?sourceSchema.replaceAll(doc.seo.canonical[0],canonicalOverride):sourceSchema
+      const scoped=JSON.stringify(scopeArticles(publicSchema(stripCommerce(JSON.parse(raw)),images),doc.type==='posts'))
+      const canonicalScoped=canonicalOverride&&doc.seo.canonical[0]?scoped.replaceAll(doc.seo.canonical[0],canonicalOverride):scoped
+      // SEO-FIX-1: one Organization/WebSite (emitted below), one page entity, the page's language, plain text (./schema-graph)
+      const graph=normalizeGraph(JSON.parse(canonicalScoped),{path:pagePath,lang:languageFor(pagePath),article:doc.type==='posts',name:breadcrumbName(doc),description:servedDescription(doc)})
+      if(!graph)return null
+      const canonicalSchema=JSON.stringify(graph)
       return <script data-source-schema={i} key={i} type="application/ld+json" dangerouslySetInnerHTML={{__html:canonicalSchema.replaceAll('<','\\u003c')}}/>
     })}
-    <OrganizationWebsiteSchema schemaJson={doc.seo.schema.map(raw=>JSON.stringify(publicSchema(JSON.parse(raw),images)))}/>
+    <OrganizationWebsiteSchema service={SERVICE_ROUTES.has(pagePath)?{name:breadcrumbName(doc),path:pagePath,description:servedDescription(doc)}:undefined}/>
     <BreadcrumbSchema ancestors={breadcrumb} current={{name:crumbName??breadcrumbName(doc),path:canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath}}/>
   </>
 }

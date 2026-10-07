@@ -52,7 +52,31 @@
     "registry": "/all-projects/pvc-plant-freeport-texas/",
     "identity": "ESTABLISHED",
     "alt": "Cooling tower at a PVC plant in Freeport, Texas",
-    "caption": "ICS project: PVC plant, Freeport, Texas"
+    "caption": "ICS project: PVC plant, Freeport, Texas",
+    "srcset": [
+     {
+      "src": "/media/derivatives/237d4d4a6ec5a85da4b801a84c16db76e98e48e7fd83715375c0b8cb61a9340a.webp",
+      "width": 640,
+      "sha256": "237d4d4a6ec5a85da4b801a84c16db76e98e48e7fd83715375c0b8cb61a9340a"
+     },
+     {
+      "src": "/media/derivatives/7a9cb09559b2a85ef782f37cbdf1c7fb52ad96fd8dcd4d94577cca80f5263307.webp",
+      "width": 960,
+      "sha256": "7a9cb09559b2a85ef782f37cbdf1c7fb52ad96fd8dcd4d94577cca80f5263307"
+     },
+     {
+      "src": "/media/projects/4e4b80ce707d5b82ea06536c91b2c3b63694e31988bc260cf749788f07ee91b0.jpg",
+      "width": 1280,
+      "sha256": "4e4b80ce707d5b82ea06536c91b2c3b63694e31988bc260cf749788f07ee91b0"
+     }
+    ],
+    "thumb": {
+     "src": "/media/derivatives/dd13c6462ebf5da30fe3bfa223ab9f13be32cffb3f1ac17c03ec519f0f826470.webp",
+     "width": 160,
+     "height": 135,
+     "sha256": "dd13c6462ebf5da30fe3bfa223ab9f13be32cffb3f1ac17c03ec519f0f826470"
+    },
+    "variantsNote": "SEO-FIX-1 SF-14 (2026-10-07): WebP variants of this original (sharp webp q80, downscaled, aspect kept); the original stays the identity"
    },
    "disposition": "REPLACE"
   },
@@ -79,7 +103,31 @@
     "registry": "/all-projects/ptt-cracker-project/",
     "identity": "ESTABLISHED",
     "alt": "Cooling towers at the PTT Cracker project in Thailand",
-    "caption": "ICS project: PTT Cracker, Thailand"
+    "caption": "ICS project: PTT Cracker, Thailand",
+    "srcset": [
+     {
+      "src": "/media/derivatives/96ec552170ca0009a11fc64924ff41ffd061df4e76bbd65563e28ef61cb51b45.webp",
+      "width": 640,
+      "sha256": "96ec552170ca0009a11fc64924ff41ffd061df4e76bbd65563e28ef61cb51b45"
+     },
+     {
+      "src": "/media/derivatives/4d890b4681b4ac3d05bd70bbbf6d2417fc141c47ae531617a7206cb86436450e.webp",
+      "width": 960,
+      "sha256": "4d890b4681b4ac3d05bd70bbbf6d2417fc141c47ae531617a7206cb86436450e"
+     },
+     {
+      "src": "/media/projects/f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc.jpg",
+      "width": 1600,
+      "sha256": "f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc"
+     }
+    ],
+    "thumb": {
+     "src": "/media/derivatives/19a6b0d8cbb865be8104ccd136ffa02581a148cf8a336b830e53f16d97616cb3.webp",
+     "width": 160,
+     "height": 120,
+     "sha256": "19a6b0d8cbb865be8104ccd136ffa02581a148cf8a336b830e53f16d97616cb3"
+    },
+    "variantsNote": "SEO-FIX-1 SF-14 (2026-10-07): WebP variants of this original (sharp webp q80, downscaled, aspect kept); the original stays the identity"
    },
    "disposition": "REPLACE"
   },
@@ -106,7 +154,31 @@
     "identity": "ICS_JAPAN_PROJECT",
     "derivative": "magick -auto-orient -resize 1600x -strip -quality 82 (JPEG, progressive)",
     "alt": "ICS cooling tower project in Japan",
-    "caption": "ICS project in Japan"
+    "caption": "ICS project in Japan",
+    "srcset": [
+     {
+      "src": "/media/derivatives/30b1dbb3e31e92ab7ac71c564ef7baa8aead7fe749e37f9af7e8399bd875185f.webp",
+      "width": 640,
+      "sha256": "30b1dbb3e31e92ab7ac71c564ef7baa8aead7fe749e37f9af7e8399bd875185f"
+     },
+     {
+      "src": "/media/derivatives/4ffeb1560491ebe6ef051790e69776a0d10ac5b0a53d039925c26c357e5c7380.webp",
+      "width": 960,
+      "sha256": "4ffeb1560491ebe6ef051790e69776a0d10ac5b0a53d039925c26c357e5c7380"
+     },
+     {
+      "src": "/media/design-r3/b4c4a3afd84cd1976b64f644245ceeacaadaaea04bc41c5d24b88a07faad70ef.jpg",
+      "width": 1600,
+      "sha256": "b4c4a3afd84cd1976b64f644245ceeacaadaaea04bc41c5d24b88a07faad70ef"
+     }
+    ],
+    "thumb": {
+     "src": "/media/derivatives/bcddfe1a638e7a3d55faaa07e37d55edc0f33926a5ad19bbed99afbf9730e407.webp",
+     "width": 160,
+     "height": 120,
+     "sha256": "bcddfe1a638e7a3d55faaa07e37d55edc0f33926a5ad19bbed99afbf9730e407"
+    },
+    "variantsNote": "SEO-FIX-1 SF-14 (2026-10-07): WebP variants of this original (sharp webp q80, downscaled, aspect kept); the original stays the identity"
    },
    "disposition": "REPLACE"
   },
@@ -368,7 +440,31 @@
     "registry": "/all-projects/pvc-plant-freeport-texas/",
     "identity": "ESTABLISHED",
     "alt": "Cooling tower at a PVC plant in Freeport, Texas",
-    "caption": "ICS project: PVC plant, Freeport, Texas"
+    "caption": "ICS project: PVC plant, Freeport, Texas",
+    "srcset": [
+     {
+      "src": "/media/derivatives/237d4d4a6ec5a85da4b801a84c16db76e98e48e7fd83715375c0b8cb61a9340a.webp",
+      "width": 640,
+      "sha256": "237d4d4a6ec5a85da4b801a84c16db76e98e48e7fd83715375c0b8cb61a9340a"
+     },
+     {
+      "src": "/media/derivatives/7a9cb09559b2a85ef782f37cbdf1c7fb52ad96fd8dcd4d94577cca80f5263307.webp",
+      "width": 960,
+      "sha256": "7a9cb09559b2a85ef782f37cbdf1c7fb52ad96fd8dcd4d94577cca80f5263307"
+     },
+     {
+      "src": "/media/projects/4e4b80ce707d5b82ea06536c91b2c3b63694e31988bc260cf749788f07ee91b0.jpg",
+      "width": 1280,
+      "sha256": "4e4b80ce707d5b82ea06536c91b2c3b63694e31988bc260cf749788f07ee91b0"
+     }
+    ],
+    "thumb": {
+     "src": "/media/derivatives/dd13c6462ebf5da30fe3bfa223ab9f13be32cffb3f1ac17c03ec519f0f826470.webp",
+     "width": 160,
+     "height": 135,
+     "sha256": "dd13c6462ebf5da30fe3bfa223ab9f13be32cffb3f1ac17c03ec519f0f826470"
+    },
+    "variantsNote": "SEO-FIX-1 SF-14 (2026-10-07): WebP variants of this original (sharp webp q80, downscaled, aspect kept); the original stays the identity"
    },
    "disposition": "REPLACE"
   },
@@ -395,7 +491,31 @@
     "identity": "ICS_JAPAN_PROJECT",
     "derivative": "magick -auto-orient -resize 1600x -strip -quality 82 (JPEG, progressive)",
     "alt": "ICS cooling tower project in Japan",
-    "caption": "ICS project in Japan"
+    "caption": "ICS project in Japan",
+    "srcset": [
+     {
+      "src": "/media/derivatives/6f1e0a7ac83a5b78c617368538c702fea09cf9763af229ceef14db344236b791.webp",
+      "width": 640,
+      "sha256": "6f1e0a7ac83a5b78c617368538c702fea09cf9763af229ceef14db344236b791"
+     },
+     {
+      "src": "/media/derivatives/78f2d67d5d0239ffa971a83985884f255e0da1f23fe9713ae3fec12917f8b6ed.webp",
+      "width": 960,
+      "sha256": "78f2d67d5d0239ffa971a83985884f255e0da1f23fe9713ae3fec12917f8b6ed"
+     },
+     {
+      "src": "/media/design-r3/5b81244ff1148b9316dd5543a737da18787da8f48f9c466bdfbec97b83acd192.jpg",
+      "width": 1600,
+      "sha256": "5b81244ff1148b9316dd5543a737da18787da8f48f9c466bdfbec97b83acd192"
+     }
+    ],
+    "thumb": {
+     "src": "/media/derivatives/a72128f1671a8e14f3caebf189971a7b6125e062d423e5d07b33cc3ad643614f.webp",
+     "width": 160,
+     "height": 120,
+     "sha256": "a72128f1671a8e14f3caebf189971a7b6125e062d423e5d07b33cc3ad643614f"
+    },
+    "variantsNote": "SEO-FIX-1 SF-14 (2026-10-07): WebP variants of this original (sharp webp q80, downscaled, aspect kept); the original stays the identity"
    },
    "disposition": "REPLACE"
   },
@@ -422,7 +542,31 @@
     "registry": "/all-projects/ptt-cracker-project/",
     "identity": "ESTABLISHED",
     "alt": "Cooling towers at the PTT Cracker project in Thailand",
-    "caption": "ICS project: PTT Cracker, Thailand"
+    "caption": "ICS project: PTT Cracker, Thailand",
+    "srcset": [
+     {
+      "src": "/media/derivatives/96ec552170ca0009a11fc64924ff41ffd061df4e76bbd65563e28ef61cb51b45.webp",
+      "width": 640,
+      "sha256": "96ec552170ca0009a11fc64924ff41ffd061df4e76bbd65563e28ef61cb51b45"
+     },
+     {
+      "src": "/media/derivatives/4d890b4681b4ac3d05bd70bbbf6d2417fc141c47ae531617a7206cb86436450e.webp",
+      "width": 960,
+      "sha256": "4d890b4681b4ac3d05bd70bbbf6d2417fc141c47ae531617a7206cb86436450e"
+     },
+     {
+      "src": "/media/projects/f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc.jpg",
+      "width": 1600,
+      "sha256": "f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc"
+     }
+    ],
+    "thumb": {
+     "src": "/media/derivatives/19a6b0d8cbb865be8104ccd136ffa02581a148cf8a336b830e53f16d97616cb3.webp",
+     "width": 160,
+     "height": 120,
+     "sha256": "19a6b0d8cbb865be8104ccd136ffa02581a148cf8a336b830e53f16d97616cb3"
+    },
+    "variantsNote": "SEO-FIX-1 SF-14 (2026-10-07): WebP variants of this original (sharp webp q80, downscaled, aspect kept); the original stays the identity"
    },
    "disposition": "REPLACE"
   }

@@ -3,7 +3,7 @@ import path from 'node:path'
 import { NextResponse } from 'next/server'
 import type { Payload } from 'payload'
 import { PUBLISHED_PUBLIC } from './access'
-import { GONE_PATHS, NOINDEX_FOLLOW_PATHS, PUBLIC_ORIGIN } from './config'
+import { GONE_PATHS, NOINDEX_FOLLOW_PATHS, PUBLIC_ORIGIN, productTagNoindex } from './config'
 import { snapshotJson } from './runtime-read'
 import { isIndexName, pathKey, sitemapChildren, sitemapChildXml, sitemapEntries, sitemapIndexXml, type LocaleData, type SitemapEntry, type SitemapLedgerRow } from './sitemap'
 
@@ -17,7 +17,18 @@ export type SitemapOptions = { revoked?: ReadonlySet<string>; lastmod?: Readonly
 
 /** OGCS Part A hreflang clusters and locale languages (content/locale/sitemap-locale.json, built by ops/sitemap). */
 let locale: LocaleData | undefined
-const localeData = (): LocaleData => (locale ??= JSON.parse(readFileSync(path.join(process.cwd(), 'content/locale/sitemap-locale.json'), 'utf8')) as LocaleData)
+/**
+ * SEO-FIX-1 (OGCS SEO DEEP R1 section 6, CT 2026-10-07; supersedes OGCS Part A's mapping for this cluster): LOCALE_ONLY
+ * clusters list their locale members only. The "parts and functions" translations have no English equivalent (the English
+ * article 404s and the parts hub is not a translation of it), so `en` and `x-default` are dropped. Any cluster that holds
+ * one of these URLs is LOCALE_ONLY. No locale page or redirect changes.
+ */
+export const LOCALE_ONLY_MEMBERS: ReadonlySet<string> = new Set(['https://h2ocooling.com/id/komponen-dan-fungsi-menara-pendingin/'])
+export const localeOnly = (data: LocaleData): LocaleData => ({
+  ...data,
+  clusters: data.clusters.map((c) => (c.some((m) => LOCALE_ONLY_MEMBERS.has(m.url)) ? c.filter((m) => m.hreflang !== 'en' && m.hreflang !== 'x-default') : c)),
+})
+const localeData = (): LocaleData => (locale ??= localeOnly(JSON.parse(readFileSync(path.join(process.cwd(), 'content/locale/sitemap-locale.json'), 'utf8')) as LocaleData))
 
 function publishedLedger(): Ledger | null {
   try {
@@ -40,6 +51,7 @@ export function sitemapEntriesFor(opts: SitemapOptions = {}): SitemapEntry[] | n
     redirected: new Set(ledger.redirects.map((r) => pathKey(r.source))),
     gone: GONE_PATHS,
     noindexFollow: NOINDEX_FOLLOW_PATHS,
+    noindexFollowPath: productTagNoindex,
     lastmod: opts.lastmod,
     locale: localeData(),
   })

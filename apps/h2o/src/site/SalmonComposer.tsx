@@ -18,6 +18,12 @@ export type RenderContext={
   productAction?:(product:ProductCardInput)=>ReactNode
   /** The page supplies the generic quote action (approved adapter, genuine page_path). */
   quoteAction?:(label:string)=>ReactNode
+  /**
+   * SEO-FIX-1 (H2O_SEO_DEEP_R1 SF-10, OGCS 46d05c1b section 4): on a project detail the H1 comes first. The source's
+   * "Project Description" heading (placed before the H1) renders as a paragraph with the same look, and the fact cards
+   * (Project / Industry / Client / Location / Tower Type / Year) are a definition list instead of H3s.
+   */
+  projectDetail?:boolean
   /** Text shown in place of a missing product image (archive template); without it a card simply has no media. */
   mediaFallback?:string
   /** Product images fill the card width up to their native size, never upscaled (archive template). */
@@ -96,6 +102,7 @@ export function BlockView({block,ctx}:{block:Block;ctx:RenderContext}):ReactNode
     case 'container':return <ContainerView block={block} ctx={ctx}/>
     case 'heading':{
       const type=typeProps(block.style)
+      if(ctx.projectDetail&&block.level!==1&&/^project description:?$/i.test(block.text.map(t=>t.text).join('').trim()))return <p className={`sp-heading sp-heading--label ${type.className}${alignClass(block.style)}`} style={type.style} data-source-node={block.key}><Rich text={block.text}/></p>
       return createElement(`h${block.level}`,{className:`sp-heading ${type.className}${alignClass(block.style)}`,style:type.style,'data-source-node':block.key,id:block.anchorId},<Rich text={block.text}/>)
     }
     case 'text':{
@@ -114,6 +121,11 @@ export function BlockView({block,ctx}:{block:Block;ctx:RenderContext}):ReactNode
     }
     case 'iconCard':{
       const title=typeProps(block.titleStyle),text=typeProps(block.textStyle),box=frame(block.style)
+      if(ctx.projectDetail&&block.titleLevel>1&&!block.href&&block.title&&block.text)return <div className={`sp-iconbox sp-iconbox--fact${block.side?' sp-iconbox--side':''}${alignClass(block.style)}${box.className}`} style={box.style}>
+        {block.iconAfter?null:<IconView icon={block.icon}/>}
+        <dl className="sp-iconbox-body"><dt className={`sp-card-title ${title.className}`} style={title.style}><Rich text={block.title}/></dt><dd className={`sp-card-text ${text.className}`} style={text.style}><Rich text={block.text}/></dd></dl>
+        {block.iconAfter?<IconView icon={block.icon}/>:null}
+      </div>
       return <div className={`sp-iconbox${block.side?' sp-iconbox--side':''}${alignClass(block.style)}${box.className}`} style={box.style}>
         {block.iconAfter?null:<IconView icon={block.icon}/>}
         <div className="sp-iconbox-body">

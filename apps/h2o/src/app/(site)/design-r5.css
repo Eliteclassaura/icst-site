@@ -941,3 +941,13 @@
     justify-content: center;
   }
 }
+
+/* SEO-FIX-1 (SF-10): project fact cards are a definition list; the "Project Description" label is a paragraph */
+.salmon-family .sp-iconbox--fact dl,
+.salmon-family .sp-iconbox--fact dd {
+  margin: 0;
+}
+
+.salmon-family p.sp-heading--label {
+  margin-block: 0;
+}

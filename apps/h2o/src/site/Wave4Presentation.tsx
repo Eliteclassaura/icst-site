@@ -1,7 +1,7 @@
 import {heldImageAlt,type SalmonDocument} from './salmon'
 import {pageForSegments} from './cohort'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
-import {renderSalmonNode,SalmonSeo} from './SalmonCanonical'
+import {markLcpImage,renderSalmonNode,SalmonSeo} from './SalmonCanonical'
 import {HOME_CRUMB} from './breadcrumb-schema'
 import {articleByline,articleCardImage,articleDirectoryDocuments,articleDisplayTitle,articleHeadingNodes,articleTocLinks,firstText,isRecentPostsRegion,paragraphTexts,wave4LibraryItems,type Wave4Item} from './wave4'
 import {R2Discovery} from './R2Discovery'
@@ -128,6 +128,7 @@ export function Wave4ArticleIndex({doc}:{doc:SalmonDocument}){
 }
 
 export function Wave4ArticleDetail({doc}:{doc:SalmonDocument}){
+  markLcpImage(doc)
   const byline=articleByline(doc)
   const toc=articleTocLinks(doc)
   const specimen=doc.targetPath==='/how-does-a-cooling-tower-work/'
@@ -145,17 +146,23 @@ export function Wave4ArticleDetail({doc}:{doc:SalmonDocument}){
   </div>
 }
 
+/** The live location pages (Singapore, United States, Thailand) rendered by the live-English shell. */
+export const LIVE_LOCATION_PATHS:ReadonlySet<string>=new Set(['/cooling-tower-construction-repair-in-singapore/','/cooling-tower-construction-repair-in-united-states/','/thailand-cooling-tower/'])
 /** R2 live-English restoration: exact source content in the accepted article shell. */
 export function LiveEnglishDetail({doc}:{doc:SalmonDocument}){
   const isPost=doc.type==='posts'
   const isProject=doc.routeId.startsWith('LIVE-portfolio-')
+  // SEO-FIX-1 (H2O_SEO_DEEP_R1 SF-5): a location page's parent is Home, not Resources.
+  const isLocation=LIVE_LOCATION_PATHS.has(doc.targetPath)
+  const parent=isProject?{name:'Projects',path:'/all-projects/'}:isPost?{name:'Tech Articles',path:'/tech-articles/'}:isLocation?undefined:{name:'Resources',path:'/resources/'}
+  if(isPost)markLcpImage(doc)
   const byline=isPost?articleByline(doc):null
   return <div className="luxury-site figma-wave4" data-live-english={doc.routeId} data-source-rest-sha256={doc.sourceIdentity.sha256}>
-    <SalmonSeo doc={doc} breadcrumb={[HOME_CRUMB,isProject?{name:'Projects',path:'/all-projects/'}:isPost?{name:'Tech Articles',path:'/tech-articles/'}:{name:'Resources',path:'/resources/'}]}/><LuxuryHeader page={pageFor(doc)} routePath={doc.targetPath}/>
+    <SalmonSeo doc={doc} breadcrumb={parent?[HOME_CRUMB,parent]:[HOME_CRUMB]}/><LuxuryHeader page={pageFor(doc)} routePath={doc.targetPath}/>
     <main id="main" className="wave4-detail">
-      <nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{isProject?<a href="/all-projects/">Projects</a>:isPost?<a href="/tech-articles/">Tech Articles</a>:<a href="/resources/">Resources</a>}</nav>
+      <nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a>{parent?<><span aria-hidden="true">/</span><a href={parent.path}>{parent.name}</a></>:null}</nav>
       <article className="wave4-detail-body"><h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{byline?<p className="wave4-byline"><span>By <AuthorName name={byline.author}/></span><span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null}{doc.children.map((node,index)=>isRecentPostsRegion(node)?null:renderSalmonNode(node,`body.${index}`,doc,true))}</article>
-      <div className="wave4-detail-return"><a href={isProject?'/all-projects/':isPost?'/tech-articles/':'/resources/'}>← Back to {isProject?'projects':isPost?'technical articles':'resources'}</a></div>
+      <div className="wave4-detail-return"><a href={parent?.path??'/'}>← Back to {isProject?'projects':isPost?'technical articles':isLocation?'home':'resources'}</a></div>
     </main>
     <LuxuryFooter page={pageFor(doc)} routePath={doc.targetPath}/>
   </div>

@@ -21,7 +21,7 @@ export function ClientTestimonials(){return <section className="client-testimoni
   return <figure className={`client-testimonial-split${index%2?' client-testimonial-split--reverse':''}`} key={record.recordId} data-testimonial-record={record.recordId} data-figma-node={index===0?'21:991':index===1?'21:1026':'21:1008'}>
    <div className="client-testimonial-inner">
     <div className="client-testimonial-copy">
-     <img className="client-testimonial-quote-mark" src="/media/figma-testimonials/figma-quote.svg" width="38" height="31" alt="" aria-hidden="true"/>
+     <img className="client-testimonial-quote-mark" src="/media/figma-testimonials/figma-quote.svg" width="38" height="31" alt="" loading="lazy" decoding="async" aria-hidden="true"/>
      <h3>{lines.map((line,lineIndex)=><span className={`client-testimonial-heading-line${lineIndex===lines.length-1?' client-testimonial-accent':''}`} key={lineIndex}>{line}</span>)}</h3>
      <blockquote><p>{quote}</p></blockquote>
     </div>

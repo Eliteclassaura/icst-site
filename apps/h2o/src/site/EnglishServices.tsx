@@ -71,7 +71,7 @@ function heroActions(service:EnglishService){
 export function EnglishServicePage({service,head}:{service:EnglishService;head?:{title:string;description:string}}){
   return <div className="luxury-site english-service" data-english-service={service.id} data-figma-node={service.figmaNode}>
     {/* R2.4 (item d): the standard head — og/twitter mirroring the served title and description, Organization/WebSite. */}
-    <StandardHead facts={{title:head?.title??service.title+' | ICS',description:head?.description??service.lead,url:`${PUBLIC_ORIGIN}${service.path}`}}/>
+    <StandardHead facts={{title:head?.title??service.title+' | ICS',description:head?.description??service.lead,url:`${PUBLIC_ORIGIN}${service.path}`}} service={{name:service.title,path:service.path,description:head?.description??service.lead}}/>
     <BreadcrumbSchema ancestors={[HOME_CRUMB]} current={{name:service.title,path:service.path}}/>
     <LuxuryHeader routePath={service.path}/>
     <main id="main">

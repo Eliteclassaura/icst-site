@@ -1,4 +1,5 @@
 import type {ReactNode} from 'react'
+import {deliverySrc} from '../media-delivery'
 import {LuxuryFooter,LuxuryHeader} from '../LuxuryShell'
 import {SalmonSeo} from '../SalmonCanonical'
 import {pageForSegments} from '../cohort'
@@ -63,10 +64,10 @@ function ProjectCard({card}:{card:Card}){
   const id=`r4-proj-${card.key.replace(/\W+/g,'-')}`
   return <li className={`dr4-proj${card.photo?'':' dr4-proj--text'}`} data-project-href={card.href}>
     {card.photo
-      ?<div className="dr4-proj-media"><img className="dr4-proj-img" src={card.photo.src} width={card.photo.width} height={card.photo.height} alt={card.photo.alt} loading="lazy" decoding="async" data-source-sha256={card.photo.sha256}/></div>
+      ?<div className="dr4-proj-media"><img className="dr4-proj-img" src={deliverySrc(card.photo.src)} width={card.photo.width} height={card.photo.height} alt={card.photo.alt} loading="lazy" decoding="async" data-source-sha256={card.photo.sha256}/></div>
       :<div className="dr4-proj-media dr4-proj-panel">{card.year?<span className="dr4-proj-year">{card.year}</span>:null}{card.meta?<p className="dr4-proj-panel-meta">{card.meta}</p>:null}</div>}
     <div className="dr4-proj-body">
-      <div className="dr4-proj-top">{card.photo&&card.year?<span className="dr4-proj-year">{card.year}</span>:<span/>}{card.flag?<img className="dr4-proj-flag" src={card.flag.src} alt="" width={card.flag.width} height={card.flag.height}/>:null}</div>
+      <div className="dr4-proj-top">{card.photo&&card.year?<span className="dr4-proj-year">{card.year}</span>:<span/>}{card.flag?<img className="dr4-proj-flag" src={deliverySrc(card.flag.src)} alt="" width={card.flag.width} height={card.flag.height} loading="lazy" decoding="async"/>:null}</div>
       <h3 className="dr4-proj-title" id={id}><a href={card.href}>{card.title}</a></h3>
       {card.photo&&card.meta?<p className="dr4-proj-meta">{card.meta}</p>:null}
       <span className="dr4-proj-more" aria-hidden="true">View project ↗</span>
@@ -105,7 +106,7 @@ export function R4PortfolioMain({model,quote,restored}:{model:SalmonFamilyPageMo
       </section>
       <R4LauncherReveal/>
       <nav className="dr4-country-chips" aria-label="Projects by country">
-        <ul>{v.chips.map(c=><li key={c.key}><a href={c.href}>{c.flag?<img src={c.flag.src} width={20} height={14} alt=""/>:null}<span>{c.label}</span></a></li>)}</ul>
+        <ul>{v.chips.map(c=><li key={c.key}><a href={c.href}>{c.flag?<img src={deliverySrc(c.flag.src)} width={20} height={14} alt="" loading="lazy" decoding="async"/>:null}<span>{c.label}</span></a></li>)}</ul>
       </nav>
       {v.intro.length?<div className="dr4-portfolio-intro">{v.intro.map((p,i)=><p key={i} className="dr4-lead">{p}</p>)}</div>:null}
       {groups(v.countries).map(g=>g.length>1

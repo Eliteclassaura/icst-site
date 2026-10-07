@@ -6,6 +6,7 @@
  * (content/design/design-r3-media.json, ./design-r3-media). The route's decided title, meta description, canonical and
  * schema come from its record through SalmonSeo, unchanged. Headings: one H1, a H2 per section, a H3 per office card.
  */
+import {deliverySrc} from './media-delivery'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import type {SalmonDocument} from './salmon'
@@ -33,14 +34,15 @@ const CONTACT='/contact-us/'
 
 /** A verified photo at its own dimensions (never displayed wider than its native width; CSS crops with object-fit). */
 export function R3Photo({media,className,eager=false,sizes}:{media:DesignR3Media;className?:string;eager?:boolean;sizes?:string}){
-  const srcSet=(media as DesignR3Media&{srcset?:Array<{src:string;width:number}>}).srcset?.map(s=>`${s.src} ${s.width}w`).join(', ')
-  return <img className={className} src={media.src} srcSet={srcSet} sizes={srcSet?sizes:undefined} width={media.width} height={media.height} alt={media.alt}
+  // SEO-FIX-1 (SF-14): the delivered file is the compressed derivative where one exists (./media-delivery); provenance stays the original
+  const srcSet=media.srcset?.map(s=>`${deliverySrc(s.src)} ${s.width}w`).join(', ')
+  return <img className={className} src={deliverySrc(media.src)} srcSet={srcSet} sizes={srcSet?sizes:undefined} width={media.width} height={media.height} alt={media.alt}
     loading={eager?'eager':'lazy'} decoding={eager?undefined:'async'} fetchPriority={eager?'high':undefined} data-media-sha256={media.sha256}/>
 }
 /** An office card photo with its honest caption: the project it shows, never the office building (D1). */
 export function R3CaptionedPhoto({slot,className}:{slot:string;className?:string}){
   const media=designR3Media(slot)
-  return <figure className={className}><R3Photo media={media}/>{media.caption?<figcaption>{media.caption}</figcaption>:null}</figure>
+  return <figure className={className}><R3Photo media={media} sizes="(min-width: 1024px) 33vw, 100vw"/>{media.caption?<figcaption>{media.caption}</figcaption>:null}</figure>
 }
 
 export function AboutComposition({doc}:{doc:SalmonDocument}){
@@ -69,7 +71,7 @@ export function AboutComposition({doc}:{doc:SalmonDocument}){
         <div className="dr3-presence-card">
           <a href="#global-presence" className="dr3-presence-link">{copy.hero.presenceLabel}<span aria-hidden="true">→</span></a>
           <div className="dr3-presence-places">
-            <span className="dr3-avatars" aria-hidden="true">{offices.map(o=>{const m=designR3Media(o.media);return <img key={o.office} src={m.src} width={m.width} height={m.height} alt="" loading="lazy" decoding="async"/>})}</span>
+            <span className="dr3-avatars" aria-hidden="true">{offices.map(o=>{const m=designR3Media(o.media);const t=m.thumb??m;return <img key={o.office} src={deliverySrc(t.src)} width={t.width} height={t.height} alt="" loading="lazy" decoding="async"/>})}</span>
             <span><strong>{copy.hero.presencePrimary}</strong><span>{copy.hero.presenceSecondary}</span></span>
           </div>
         </div>

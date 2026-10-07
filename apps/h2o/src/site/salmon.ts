@@ -2,6 +2,7 @@ import {createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {contactOffices} from './contact'
+import {provenanceRef} from './media-delivery'
 import {publicReleaseDocument} from './release-document'
 import {decodeEntities,repairDocumentText,repairMojibake} from './text-repair'
 import {withTextOverrides} from '../content/text-overrides'
@@ -190,8 +191,16 @@ export const heldMediaForUrl=(url:string):SalmonMedia|undefined=>{
 }
 export const salmonMediaPath=(media:SalmonMedia):string|undefined=>media.file?`/media/salmon/${path.basename(media.file)}`:undefined
 const thailand=contactOffices.find(office=>office.officeKey==='thailand')!
-export const ownerText=(text:string):string=>text.replaceAll('+66-2-260-6598',thailand.telephoneDisplay).replaceAll('+662-661-7723',thailand.telephoneDisplay)
-export const ownerHref=(href:string):string=>/^tel:\+?66[- ]?2[- ]?260[- ]?6598$/i.test(href)?thailand.telephoneHref:href
+/** The retired Thailand number in any written form ("+66-2-260-6598", "66 2 260 6598", "(02) 260-6598", "2606598"). */
+export const RETIRED_THAILAND_PHONE=/(?:\+?66[\s.-]*)?(?:\(?0?2\)?[\s.-]*)?260[\s.-]*6598/g
+export const ownerText=(text:string):string=>text.replace(RETIRED_THAILAND_PHONE,thailand.telephoneDisplay).replaceAll('+662-661-7723',thailand.telephoneDisplay)
+export const ownerHref=(href:string):string=>/^tel:/i.test(href)&&new RegExp(RETIRED_THAILAND_PHONE.source).test(href)?thailand.telephoneHref:href
+/**
+ * SEO-FIX-1 (CT 2026-10-07, launch-blocking): the `data-source-href` provenance attribute never carries a contact value.
+ * A tel:, mailto: or sms: source link keeps only its public href (the retired Thailand number was leaking through it); the
+ * old Salmon staging host is named `salmon:` (R2.5 provenance rule, ./media-delivery).
+ */
+export const provenanceHref=(original:string|undefined):string|undefined=>original&&!/^\s*(?:tel|mailto|sms|callto):/i.test(original)?provenanceRef(original):undefined
 export const salmonNodeText=(node:SalmonNode):string=>typeof node==='string'?node:node.children.map(salmonNodeText).join('')
 export const commerceException=(node:Exclude<SalmonNode,string>):boolean=>/(?:^|\s)(?:price|woocommerce-Price-amount|add_to_cart_button|single_add_to_cart_button|checkout-button|cart_totals)(?:\s|$)/.test(node.attrs.class??'')
 export const commerceMetaException=(meta:{name:string;value:string},doc:SalmonDocument):boolean=>doc.type==='product'&&(/price|availability/i.test(meta.name)||/[$€£]\s*\d/.test(meta.value)||(meta.name==='twitter:label1'&&meta.value==='Price')||(meta.name==='twitter:label2'&&meta.value==='Availability')||(meta.name==='twitter:data2'&&/in stock|out of stock/i.test(meta.value)))
