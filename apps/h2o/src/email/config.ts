@@ -175,8 +175,9 @@ export function emailConfigState(cfg: EmailConfig = readEmailConfig()): 'ok' | '
  *   credentials and TLS name: the same role account as submission (H2O_SMTP_USER / _PASS /
  *   H2O_SMTP_TLS_SERVERNAME); the certificate is verified, there is no plaintext option
  *   H2O_EMAIL_REPLY_DOMAIN  the domain of the Reply-To token addresses; default: the H2O_EMAIL_FROM domain
- *   H2O_IMAP_MAILBOX        IMAP only: the folder/label read (default INBOX). A login that is not the role mailbox must
- *                           name a label: INBOX and All Mail are refused (IMAP_PERSONAL_INBOX_REFUSED, T-R2)
+ *   H2O_IMAP_MAILBOX        IMAP only: the folder/label read (default INBOX). INBOX and All Mail hold a whole mailbox and
+ *                           are refused (IMAP_PERSONAL_INBOX_REFUSED, T-R2.1) unless H2O_IMAP_ALLOW_INBOX=1
+ *   H2O_IMAP_ALLOW_INBOX    1 = allow reading INBOX / All Mail (only for a mailbox that receives nothing but CRM mail)
  */
 export type InboundSettings = {
   /** Patch C: `jmap` (Stalwart, default) or `imap` (Google Workspace: imap.gmail.com:993). */
@@ -195,14 +196,6 @@ export type InboundConfig = { enabled: boolean; errors: string[]; settings: Inbo
 
 /** IMAP folders that hold a whole mailbox rather than a chosen label (Gmail: INBOX and All Mail, in any locale/case). */
 export const WHOLE_MAILBOX_FOLDERS: ReadonlySet<string> = new Set(['inbox', '[gmail]/all mail', '[google mail]/all mail'])
-
-/** Is this IMAP login the role mailbox of H2O_EMAIL_FROM (its local part without a +tag, at its domain)? */
-export function isRoleMailbox(user: string, fromAddress: string): boolean {
-  const at = fromAddress.lastIndexOf('@')
-  if (at < 1) return false
-  const role = `${fromAddress.slice(0, at).split('+')[0]}@${fromAddress.slice(at + 1)}`.toLowerCase()
-  return user.trim().toLowerCase() === role
-}
 
 export function readInboundConfig(env: Record<string, string | undefined> = process.env): InboundConfig {
   const raw = (env.H2O_EMAIL_INBOUND ?? 'off').trim().toLowerCase()
@@ -247,11 +240,11 @@ export function readInboundConfig(env: Record<string, string | undefined> = proc
     if (!servername) errors.push('SMTP_TLS_SERVERNAME_MISSING')
   }
   if (!from) errors.push('EMAIL_FROM_MISSING_OR_INVALID')
-  // T-R2 (CT, 2026-10-06): every message in the folder read is stored in the CRM (replies on their RFQ, everything else
-  // in the review queue with its text). When the IMAP login is NOT the role mailbox (e.g. the owner's own Workspace
-  // account, sending as the sales@ alias), the inbox or All Mail would pull personal mail into the CRM: refused. Such a
-  // login must read a named label (e.g. H2O_IMAP_MAILBOX=H2O-CRM, filled by a Gmail filter); inbound stays off until then.
-  if (protocol === 'imap' && from && mailbox && !isRoleMailbox(user, from.address) && WHOLE_MAILBOX_FOLDERS.has(mailbox.toLowerCase()))
+  // T-R2 / T-R2.1 (CT, 2026-10-06): every message in the folder read is stored in the CRM (replies on their RFQ,
+  // everything else in the review queue with its text). Reading a whole mailbox (INBOX, All Mail) is therefore opt-in,
+  // whoever the login is: refused unless H2O_IMAP_ALLOW_INBOX=1. The normal setup reads a named label (e.g.
+  // H2O_IMAP_MAILBOX=H2O-CRM, filled by Gmail filters); inbound stays off until one is set or the opt-in is given.
+  if (protocol === 'imap' && mailbox && WHOLE_MAILBOX_FOLDERS.has(mailbox.toLowerCase()) && (env.H2O_IMAP_ALLOW_INBOX ?? '').trim() !== '1')
     errors.push('IMAP_PERSONAL_INBOX_REFUSED')
   if (errors.length > 0 || !from) return { enabled: false, errors, settings: null }
   const at = from.address.lastIndexOf('@')
