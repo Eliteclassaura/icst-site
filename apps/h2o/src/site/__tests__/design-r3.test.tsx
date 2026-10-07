@@ -34,7 +34,7 @@ describe('About: the owner design with the OGCS copy',()=>{
   it('carries the OGCS KEEP/REWORD values and keeps the accepted claims (CS002, CS091)',async()=>{
     const body=text(main(await render(ABOUT)))
     for(const s of ['main office in Lakewood, Colorado, with offices in Japan and Bangkok, Thailand.','ICS has an office in Bangkok, Thailand.','ICS has an office in Japan.',
-      'spare parts supply for cooling towers from many manufacturers, supporting reliable performance','spare parts matched to OEM specifications','cooling tower islands',
+      'spare parts supply for cooling towers from many manufacturers, supporting reliable performance','spare parts from manufacturers including Amarillo, Brentwood, Hudson, and Howden','cooling tower islands',
       'designed to support continuous industrial operation','to support long-term system stability',
       'Shell, Star Energy, Shintech, Shin-Etsu, TTCL, PTT Group, Pertamina, Mitsubishi, and Marubeni'])expect(body,s).toContain(s)
     for(const stale of ['confirmed presence','Confirmed presence','uninterrupted','OEM-compatible','all major cooling tower makes','ensure long-term'])expect(body,stale).not.toContain(stale)
@@ -130,12 +130,13 @@ describe('Contact: the owner design with the native inline form',()=>{
 })
 
 describe('Redirect, font and stylesheet',()=>{
-  it('/about-us/ is one recorded batch redirect to the existing About URL (create 1)',()=>{
+  it('/about-us/ is one recorded batch redirect to the existing About URL (created by Round 11; UNCHANGED in later deltas)',()=>{
     const rows=readFileSync(path.join(APP,'ops/seo-pass/data/redirects.tsv'),'utf8').split('\n').filter(l=>l.startsWith('/about-us/\t'))
     expect(rows).toHaveLength(1)
-    expect(rows[0]!.split('\t').slice(0,4)).toEqual(['/about-us/','/about-ics-industrial-cooling-solutions/','301','CREATE'])
+    // CLAIMS-R2 is a delta on the Design R3 batch (Round 11 applied the CREATE), so the row is UNCHANGED and nothing is created
+    expect(rows[0]!.split('\t').slice(0,4)).toEqual(['/about-us/','/about-ics-industrial-cooling-solutions/','301','UNCHANGED'])
     const exp=JSON.parse(readFileSync(path.join(APP,'ops/seo-pass/data/expectations.json'),'utf8')) as {expect:{redirects:{create:number}}}
-    expect(exp.expect.redirects.create).toBe(1)
+    expect(exp.expect.redirects.create).toBe(0)
     const fresh=JSON.parse(readFileSync(path.join(APP,'ops/seo-pass/data/expectations.fresh-db.json'),'utf8')) as {expect:{redirects:{create:number}}}
     expect(fresh.expect.redirects.create).toBe(390)
   })

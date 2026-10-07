@@ -1,5 +1,5 @@
 {
- "authority": "Control Tower ruling 2026-10-05 (option A + 保証→確保); recorded slot-fix text edits applied by apply-seo-pass (phase 6), before/after in slot-fixes.json; R2.1 (CT 2026-10-05): F1 product data corrections, OGCS template claims, C3/C4/C5 claims, unlink text edits; R2.2 (CT 2026-10-05): OGCS claims sweep R1 GATE+SHOULD rows with owner answers Q1–Q12 (row ids in `row`)",
+ "authority": "Control Tower ruling 2026-10-05 (option A + 保証→確保); recorded slot-fix text edits applied by apply-seo-pass (phase 6), before/after in slot-fixes.json; R2.1 (CT 2026-10-05): F1 product data corrections, OGCS template claims, C3/C4/C5 claims, unlink text edits; R2.2 (CT 2026-10-05): OGCS claims sweep R1 GATE+SHOULD rows with owner answers Q1–Q12 (row ids in `row`); CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows (row ids R2L10-*; About rows are code, content/design/about-page.json)",
  "edits": [
   {
    "path": "/inspect-cooling-tower-part-2/",
@@ -2574,6 +2574,106 @@
    "slot": "body.3.1.1.7.119",
    "row": "CS161",
    "reason": "OGCS claims sweep R1 CS161 (CT accepted; R2.5 pre-flight): puffery; quote-only CTA. The link stays on \"Contact ICS\"."
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Cooling performance GUARANTEED",
+   "replace": "Built to restore rated cooling performance",
+   "element": "heading",
+   "slot": "body.19.3.1",
+   "row": "R2L10-01",
+   "reason": "OGCS CLAIMS-R2 L10 row 1 (CT accepted 2026-10-06; TSV b74f3286): An unqualified performance guarantee. ICS does run contract-specific performance targets (e.g. PTT GSP, C4), but no blanket guarantee is on file. 'Built to restore rated performance' keeps the promise of capability without a warranty."
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Performance upgrade of a 96-bay air-cooled heat exchanger system, improving airflow, static pressure control, and overall thermal efficiency with guaranteed performance enhancement.",
+   "replace": "Performance upgrade of a 96-bay air-cooled heat exchanger system against a minimum 15% airflow-increase target, improving static pressure control and overall thermal efficiency.",
+   "run": 0,
+   "slot": "body.11.3.1.3.3.1",
+   "row": "R2L10-02",
+   "reason": "OGCS CLAIMS-R2 L10 row 2 (CT accepted 2026-10-06; TSV b74f3286): C4 family. Uses the accepted C4 default wording (a contract target, not a public guarantee)."
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "From power plants to heavy industry, our innovative cooling solutions handle high heat loads, reduce energy bills, and keep your industrial process running without costly downtime.",
+   "replace": "From power plants to heavy industry, our cooling solutions are designed to handle high heat loads, help reduce energy use, and help keep your industrial process running with less unplanned downtime.",
+   "run": 0,
+   "slot": "body.5.1.5.1",
+   "row": "R2L10-03",
+   "reason": "OGCS CLAIMS-R2 L10 row 3 (CT accepted 2026-10-06; TSV b74f3286): An absolute energy-saving and zero-downtime assertion. 'Designed to' / 'help' keeps the benefit without promising an outcome; 'innovative' is dropped as puffery."
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Custom industrial cooling towers — Counterflow & Crossflow designs in FRP, wood, and concrete. Built to maximize cooling capacity, minimize energy use, and perform reliably in harsh environments.",
+   "replace": "Custom industrial cooling towers — Counterflow & Crossflow designs in FRP, wood, and concrete. Designed for high cooling capacity, efficient energy use, and reliable operation in harsh environments.",
+   "run": 0,
+   "slot": "body.5.3.1.1.1.1.1.1",
+   "row": "R2L10-04",
+   "reason": "OGCS CLAIMS-R2 L10 row 4 (CT accepted 2026-10-06; TSV b74f3286): 'Maximize' and 'minimize' are absolutes; 'designed for' states design intent."
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Our team provides structural repairs, thermal upgrades, and regular maintenance for existing cooling towers, restoring cooling capacity and improving overall efficiency without replacing your system.",
+   "replace": "Our team provides structural repairs, thermal upgrades, and regular maintenance for existing cooling towers, designed to restore cooling capacity and improve efficiency without replacing your system.",
+   "run": 0,
+   "slot": "body.5.3.1.3.1.1.1.1",
+   "row": "R2L10-05",
+   "reason": "OGCS CLAIMS-R2 L10 row 5 (CT accepted 2026-10-06; TSV b74f3286): Presented as a certain outcome; 'designed to' qualifies it. Keeps the accepted 'Our team' fix."
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Reliable, durable, and high-performance parts for every cooling need.",
+   "replace": "Durable replacement parts from manufacturers including Amarillo, Brentwood, Hudson, Howden, and Addax.",
+   "run": 0,
+   "slot": "body.7.5.1",
+   "row": "R2L10-06",
+   "reason": "OGCS CLAIMS-R2 L10 row 6 (CT accepted 2026-10-06; TSV b74f3286): 'Every cooling need' is the universality class already ruled out. Naming supplied brands (all evidenced on the parts catalog) keeps the commercial strength."
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Engineered to handle high heat loads across the most demanding industrial applications — our industrial cooling systems deliver optimal performance, reduce energy consumption, and ensure long-term operational efficiency.",
+   "replace": "Engineered to handle high heat loads in demanding industrial applications, our cooling systems are designed for strong thermal performance, lower energy consumption, and long-term operational efficiency.",
+   "run": 0,
+   "slot": "body.9.3.1",
+   "row": "R2L10-07",
+   "reason": "OGCS CLAIMS-R2 L10 row 7 (CT accepted 2026-10-06; TSV b74f3286): 'Optimal', 'ensure' and 'the most demanding' are absolutes; 'designed for' makes it a design claim."
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Our industrial cooling solutions operate in power plants, heavy industry, and manufacturing facilities in the USA and Asia, delivering efficient cooling and reduced energy costs.",
+   "replace": "Our industrial cooling solutions operate in power plants, heavy industry, and manufacturing facilities in the USA and Asia, delivering efficient cooling and helping reduce energy costs.",
+   "run": 0,
+   "slot": "body.11.1.1.1.5.1",
+   "row": "R2L10-08",
+   "reason": "OGCS CLAIMS-R2 L10 row 8 (CT accepted 2026-10-06; TSV b74f3286): Already reworded by the claims sweep; 'helping' qualifies the remaining energy-cost assertion. (applied after CS088, same run)"
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Trusted by heavy industrial facilities, power plants, and manufacturers in the USA and Asia to deliver efficient, reliable industrial cooling solutions that reduce energy costs and protect operational performance.",
+   "replace": "Trusted by heavy industrial facilities, power plants, and manufacturers in the USA and Asia for efficient, reliable industrial cooling solutions designed to reduce energy costs and protect operational performance.",
+   "run": 0,
+   "slot": "body.19.5.1",
+   "row": "R2L10-09",
+   "reason": "OGCS CLAIMS-R2 L10 row 9 (CT accepted 2026-10-06; TSV b74f3286): Energy-cost outcome qualified as design intent. 'Trusted by' is supported by the owner-approved client list and project portfolio. (applied after CS089, same run)"
+  },
+  {
+   "path": "/",
+   "op": "replace",
+   "find": "Explore cooling towers, spare parts, and services engineered for optimal performance, lower energy consumption, and long-term reliability in demanding industrial settings.",
+   "replace": "Explore cooling towers, spare parts, and services engineered for strong performance, lower energy consumption, and long-term reliability in demanding industrial settings.",
+   "run": 0,
+   "slot": "body.1.1.3.3.3.1",
+   "row": "R2L10-10",
+   "reason": "OGCS CLAIMS-R2 L10 row 10 (CT accepted 2026-10-06; TSV b74f3286): Already stated as design intent ('engineered for'); only the absolute 'optimal' changes."
   }
  ]
 }

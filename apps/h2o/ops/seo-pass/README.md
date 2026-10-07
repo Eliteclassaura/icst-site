@@ -48,6 +48,23 @@ node ops/seo-pass/check-redirect-chains.mjs <staging-origin>
 - **frameworkSlashHopAccepted:** 1, the malformed tcf.com URL (308 → 301 → 200, CT ruling 3). A framework hop on any other source fails.
 - **Metas pending OGCS:** 0 after the R1.2 supplement.
 
+## CLAIMS-R2: Home claim wording (CT 2026-10-06, OGCS CLAIMS-R2 L10, TSV b74f3286)
+
+One delta on the state Design R3 (Round 11) leaves on staging (`--baseline=<Design R3 data>`, with the union `redirect-status.tsv`).
+
+- **Batch:** the 10 Home rewordings as recorded claim edits (`data/claim-edits.json` R2L10-01…10; 08 and 09 apply after CS088 and
+  CS089 on the same run). Row 11 is KEEP. Written by apply phase 6.
+- **Code:** the About rows are in `content/design/about-page.json` (Design R3 composition); only the turnkey parts line changes.
+- **Conformance:** `data/claims-conformance.json` has each old Home string absent and each new wording present (`check-claims.mjs`).
+
+| Phase (staging, delta) | Expected |
+|---|---|
+| redirects | unchanged 408 |
+| hygiene | routes 1 (/) |
+| everything else | 0 |
+
+The fresh-database replay is unchanged (`expectations.fresh-db.json`; the Home is already one of its 95 hygiene routes).
+
 ## R2.5: pre-launch fix pack (CT ruling on the SEO Checker's Round 9 pre-flight, 2026-10-05)
 
 One delta on the state R2.4 R2 leaves on staging (`--baseline=<R2.4 R2 data>`), and **one complete replay onto a fresh database**.

@@ -1,5 +1,5 @@
 {
- "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed.",
+ "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed. CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows R2L10-01..10, each current string absent and its CT-accepted wording present.",
  "absent": [
   {
    "row": "LocaleB-A",
@@ -1434,6 +1434,66 @@
    "path": "/all-projects/pttcsp/",
    "text": "Thermal and static pressure performance guarantees were successfully achieved",
    "source": "TO-007"
+  },
+  {
+   "row": "R2L10-01",
+   "path": "/",
+   "text": "Cooling performance GUARANTEED",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R2L10-02",
+   "path": "/",
+   "text": "Performance upgrade of a 96-bay air-cooled heat exchanger system, improving airflow, static pressure control, and overall thermal efficiency with guaranteed performance enhancement.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R2L10-03",
+   "path": "/",
+   "text": "From power plants to heavy industry, our innovative cooling solutions handle high heat loads, reduce energy bills, and keep your industrial process running without costly downtime.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R2L10-04",
+   "path": "/",
+   "text": "Custom industrial cooling towers — Counterflow & Crossflow designs in FRP, wood, and concrete. Built to maximize cooling capacity, minimize energy use, and perform reliably in harsh environments.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R2L10-05",
+   "path": "/",
+   "text": "Our team provides structural repairs, thermal upgrades, and regular maintenance for existing cooling towers, restoring cooling capacity and improving overall efficiency without replacing your system.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R2L10-06",
+   "path": "/",
+   "text": "Reliable, durable, and high-performance parts for every cooling need.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R2L10-07",
+   "path": "/",
+   "text": "Engineered to handle high heat loads across the most demanding industrial applications — our industrial cooling systems deliver optimal performance, reduce energy consumption, and ensure long-term operational efficiency.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R2L10-08",
+   "path": "/",
+   "text": "Our industrial cooling solutions operate in power plants, heavy industry, and manufacturing facilities in the USA and Asia, delivering efficient cooling and reduced energy costs.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R2L10-09",
+   "path": "/",
+   "text": "Trusted by heavy industrial facilities, power plants, and manufacturers in the USA and Asia to deliver efficient, reliable industrial cooling solutions that reduce energy costs and protect operational performance.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R2L10-10",
+   "path": "/",
+   "text": "Explore cooling towers, spare parts, and services engineered for optimal performance, lower energy consumption, and long-term reliability in demanding industrial settings.",
+   "source": "claim-edit replace"
   }
  ],
  "present": [
@@ -1502,6 +1562,66 @@
    "q": "R2.1 code (public-text.ts)",
    "path": "/about-ics-industrial-cooling-solutions/",
    "text": "with offices in Japan and Bangkok, Thailand."
+  },
+  {
+   "row": "R2L10-01",
+   "path": "/",
+   "text": "Built to restore rated cooling performance",
+   "source": "CLAIMS-R2 wording"
+  },
+  {
+   "row": "R2L10-02",
+   "path": "/",
+   "text": "Performance upgrade of a 96-bay air-cooled heat exchanger system against a minimum 15% airflow-increase target, improving static pressure control and overall thermal efficiency.",
+   "source": "CLAIMS-R2 wording"
+  },
+  {
+   "row": "R2L10-03",
+   "path": "/",
+   "text": "From power plants to heavy industry, our cooling solutions are designed to handle high heat loads, help reduce energy use, and help keep your industrial process running with less unplanned downtime.",
+   "source": "CLAIMS-R2 wording"
+  },
+  {
+   "row": "R2L10-04",
+   "path": "/",
+   "text": "Custom industrial cooling towers — Counterflow & Crossflow designs in FRP, wood, and concrete. Designed for high cooling capacity, efficient energy use, and reliable operation in harsh environments.",
+   "source": "CLAIMS-R2 wording"
+  },
+  {
+   "row": "R2L10-05",
+   "path": "/",
+   "text": "Our team provides structural repairs, thermal upgrades, and regular maintenance for existing cooling towers, designed to restore cooling capacity and improve efficiency without replacing your system.",
+   "source": "CLAIMS-R2 wording"
+  },
+  {
+   "row": "R2L10-06",
+   "path": "/",
+   "text": "Durable replacement parts from manufacturers including Amarillo, Brentwood, Hudson, Howden, and Addax.",
+   "source": "CLAIMS-R2 wording"
+  },
+  {
+   "row": "R2L10-07",
+   "path": "/",
+   "text": "Engineered to handle high heat loads in demanding industrial applications, our cooling systems are designed for strong thermal performance, lower energy consumption, and long-term operational efficiency.",
+   "source": "CLAIMS-R2 wording"
+  },
+  {
+   "row": "R2L10-08",
+   "path": "/",
+   "text": "Our industrial cooling solutions operate in power plants, heavy industry, and manufacturing facilities in the USA and Asia, delivering efficient cooling and helping reduce energy costs.",
+   "source": "CLAIMS-R2 wording"
+  },
+  {
+   "row": "R2L10-09",
+   "path": "/",
+   "text": "Trusted by heavy industrial facilities, power plants, and manufacturers in the USA and Asia for efficient, reliable industrial cooling solutions designed to reduce energy costs and protect operational performance.",
+   "source": "CLAIMS-R2 wording"
+  },
+  {
+   "row": "R2L10-10",
+   "path": "/",
+   "text": "Explore cooling towers, spare parts, and services engineered for strong performance, lower energy consumption, and long-term reliability in demanding industrial settings.",
+   "source": "CLAIMS-R2 wording"
   }
  ]
 }

@@ -59,13 +59,15 @@ describe('R2.2 conformance on the composed pages (mock apply)',()=>{
   it('every page in the list is a public imported record',()=>{
     for(const c of [...conformance.absent,...conformance.present])expect(rowFor(c.path),c.path).toBeDefined()
     expect(conformance.absent.length).toBeGreaterThan(200)
-    expect(conformance.present).toHaveLength(11)
+    // 11 owner-restored strings, and the 10 CLAIMS-R2 Home wordings (CT 2026-10-06)
+    expect(conformance.present).toHaveLength(21)
   })
   it('the check is live: before the batch, the ruled strings are on their pages',()=>{
     const notBefore=conformance.absent.filter(c=>!pageAfterApply(c.path,false).includes(c.text)).map(c=>c.row)
     // The four registry strings are already corrected by R2.1 (compose); five sweep strings are produced by an earlier edit on
-    // the same element (the Locale Part B removal next to them), so they do not exist in the imported text either.
-    expect(notBefore.sort()).toEqual(['C4','C4','CS050','CS065','CS068','CS072','CS077+CS077+CS077','CS084','CS098'])
+    // the same element (the Locale Part B removal next to them), so they do not exist in the imported text either. CLAIMS-R2 rows
+    // 05, 08 and 09 reword text that exists only after an earlier edit ("Our global team" → "Our team", CS088, CS089).
+    expect(notBefore.sort()).toEqual(['C4','C4','CS050','CS065','CS068','CS072','CS077+CS077+CS077','CS084','CS098','R2L10-05','R2L10-08','R2L10-09'])
   },600000)
   it('every ruled string is absent from its page',()=>{
     const kept=conformance.absent.filter(c=>pageAfterApply(c.path).includes(c.text)).map(c=>`${c.row} ${c.path}: ${c.text.slice(0,80)}`)

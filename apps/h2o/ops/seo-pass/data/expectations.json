@@ -4,9 +4,9 @@
   "seoFields": 498,
   "expect": {
     "redirects": {
-      "create": 1,
+      "create": 0,
       "update": 0,
-      "unchanged": 407,
+      "unchanged": 408,
       "retire": 0,
       "normalise": 0
     },
@@ -33,7 +33,7 @@
       "routes": 0
     },
     "hygiene": {
-      "routes": 0
+      "routes": 1
     }
   },
   "deltaSkipped": [

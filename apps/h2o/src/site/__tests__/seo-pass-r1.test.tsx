@@ -205,14 +205,14 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([722,408,10,0]) // R2.2: + the D3 portfolio (200); Design R3: + /about-us/ (301)
     for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
-    // Design R3 (CT 2026-10-06) is ONE delta on the state R2.5 leaves on staging: it creates /about-us/ (301 to the About page)
-    // and writes nothing else. (R2.5 was the delta on R2.4 R2: 7 withdrawals, 11 created middle addresses, 5 SEO fields and 14
+    // CLAIMS-R2 (CT 2026-10-06) is ONE delta on the state Design R3 (Round 11) leaves on staging: one hygiene route (the Home's ten
+    // reworded elements) and nothing else. (Design R3 was the delta on R2.5: it created /about-us/, 301 to the About page.) (R2.5 was the delta on R2.4 R2: 7 withdrawals, 11 created middle addresses, 5 SEO fields and 14
     // hygiene routes; those are now in place, and the fresh-database replay applies them from expectations.fresh-db.json.)
     expect(expectations.expect.routes).toEqual({publish:0,withdraw:0,index:0,canonical:0})
-    expect(expectations.expect.redirects).toEqual({create:1,update:0,unchanged:407,retire:0,normalise:0})
+    expect(expectations.expect.redirects).toEqual({create:0,update:0,unchanged:408,retire:0,normalise:0})
     expect(expectations.expect.seoFields).toMatchObject({update:0,pendingOgcs:0})
     expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:0})
-    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:0})
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:1})
     expect(expectations.expect.h1).toEqual({update:0})
     expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:0})
     expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)
