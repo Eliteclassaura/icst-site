@@ -26,6 +26,7 @@ import { crmCollections, crmEndpoints, crmGlobals } from './crm/index'
 import { withPasswordEmail } from './auth/password-email'
 import { withCrmProfile } from './crm/userProfile'
 import { withMfa } from './auth/mfa/fields'
+import { withUploadGuard } from './media/upload-guard'
 import { installMfaGuard } from './auth/mfa/guard'
 import { mfaEndpoints } from './auth/mfa/endpoint'
 import { h2oEmailAdapter } from './email/adapter'
@@ -147,7 +148,8 @@ const collections: CollectionConfig[] = [
   // Runtime content bridge: the public website's pages and redirects, Payload-managed (drafts/versions).
   PublicRoutes,
   PublicRedirects,
-]
+  // SEC-MAIN-1.1: every upload collection takes its stored-file fields from the uploaded file only (src/media/upload-guard.ts).
+].map(withUploadGuard)
 
 export default buildConfig({
   serverURL,
