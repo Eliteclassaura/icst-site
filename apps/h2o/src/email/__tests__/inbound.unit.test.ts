@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { attachmentsOf, bodyOf, classify, cleanText, htmlToText, tokensIn } from '../../crm/inbound'
-import { readInboundConfig } from '../config'
+import { isRoleMailbox, readInboundConfig } from '../config'
 import type { JmapEmail } from '../jmap'
 
 const CTX = { roleLocal: 'rfq', domain: 'example.test' }
@@ -134,5 +134,50 @@ describe('M3 inbound configuration', () => {
     const c = readInboundConfig({ ...base, H2O_EMAIL_INBOUND: 'on', ...over })
     expect(c.enabled).toBe(false)
     expect(c.errors).toContain(code)
+  })
+})
+
+/**
+ * T-R2 (CT, 2026-10-06): a login that is not the role mailbox (e.g. the owner's own Workspace account sending as the
+ * sales@ alias) must read a named label. INBOX and All Mail would pull personal mail into the CRM: refused, and
+ * inbound stays off. Synthetic addresses only.
+ */
+describe('T-R2: personal-INBOX guard', () => {
+  const owner = {
+    H2O_EMAIL_INBOUND: 'on',
+    H2O_INBOUND_PROTOCOL: 'imap',
+    H2O_IMAP_HOST: 'imap.gmail.com',
+    H2O_IMAP_USER: 'owner.synthetic@example.com',
+    H2O_IMAP_PASS: 'abcd efgh ijkl mnop',
+    H2O_EMAIL_FROM: 'Rhonda Miller <sales@example.test>',
+  }
+  it.each([undefined, 'INBOX', 'inbox', ' Inbox ', '[Gmail]/All Mail', '[GMAIL]/ALL MAIL', '[Google Mail]/All Mail'])(
+    'a personal login reading %o is refused; inbound stays off',
+    (mailbox) => {
+      const c = readInboundConfig({ ...owner, ...(mailbox === undefined ? {} : { H2O_IMAP_MAILBOX: mailbox }) })
+      expect(c).toMatchObject({ enabled: false, settings: null })
+      expect(c.errors).toContain('IMAP_PERSONAL_INBOX_REFUSED')
+    },
+  )
+  it('a personal login reading a named label is allowed (the owner setup: label H2O-CRM, From sales@)', () => {
+    const c = readInboundConfig({ ...owner, H2O_IMAP_MAILBOX: 'H2O-CRM' })
+    expect(c.errors).toEqual([])
+    expect(c.settings).toMatchObject({ protocol: 'imap', host: 'imap.gmail.com', user: 'owner.synthetic@example.com', pass: 'abcdefghijklmnop', mailbox: 'H2O-CRM', roleLocal: 'sales', domain: 'example.test' })
+  })
+  it('the role mailbox itself may read INBOX (case, spaces and a +tag in From do not matter)', () => {
+    for (const user of ['sales@example.test', ' SALES@Example.TEST ']) {
+      const c = readInboundConfig({ ...owner, H2O_IMAP_USER: user, H2O_EMAIL_FROM: 'Rhonda Miller <Sales+desk@Example.test>' })
+      expect(c.errors, user).toEqual([])
+      expect(c.enabled, user).toBe(true)
+    }
+    expect(isRoleMailbox('sales@example.test', 'sales+desk@example.test')).toBe(true)
+    expect(isRoleMailbox('sales.team@example.test', 'sales@example.test')).toBe(false)
+    expect(isRoleMailbox('sales@example.com', 'sales@example.test')).toBe(false)
+    expect(isRoleMailbox('sales@example.test', 'not-an-address')).toBe(false)
+  })
+  it('JMAP (the role account on Stalwart) is not affected', () => {
+    const c = readInboundConfig({ H2O_EMAIL_INBOUND: 'on', H2O_EMAIL_FROM: 'H2O <rfq@example.test>', H2O_SMTP_HOST: 'stalwart', H2O_SMTP_USER: 'other@example.test', H2O_SMTP_PASS: 'p', H2O_SMTP_TLS_SERVERNAME: 'mail.example.test' })
+    expect(c.errors).toEqual([])
+    expect(c.settings?.protocol).toBe('jmap')
   })
 })
