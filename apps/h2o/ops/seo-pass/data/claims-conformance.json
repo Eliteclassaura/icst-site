@@ -1,5 +1,5 @@
 {
- "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed. CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows R2L10-01..10, each current string absent and its CT-accepted wording present.; R4 (CT 2026-10-07): OGCS R4 copy review rows R4C-01…07, each old string absent and each new wording present",
+ "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed. CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows R2L10-01..10, each current string absent and its CT-accepted wording present.; R4 (CT 2026-10-07): OGCS R4 copy review rows R4C-01…07, each old string absent and each new wording present; R4 phase 2: R4C-08…11 (Air Coolers) and the All Projects lead line read from the edited heading (CS093)",
  "absent": [
   {
    "row": "LocaleB-A",
@@ -1536,6 +1536,30 @@
    "path": "/dry-soda-blasting/",
    "text": "Dry soda blasting provides a balanced solution using soft abrasive media that ensures quality surface preparation without damaging coatings or substrates.",
    "source": "claim-edit replace"
+  },
+  {
+   "row": "R4C-08",
+   "path": "/air-coolers/",
+   "text": "ICS engineers industrial air cooling solutions for process plants, manufacturing facilities, loading docks, and other large commercial areas. We assess air flow, heat load, fan condition, tube bundles, structural components, and operating limits.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R4C-09",
+   "path": "/air-coolers/",
+   "text": "They are different from traditional air conditioning systems. They improve indoor air quality in semi-open environments and support safer working conditions in high-temperature zones where heat stress is a concern.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R4C-10",
+   "path": "/air-coolers/",
+   "text": "ICS provides a full range of industrial air cooler services built on advanced evaporative cooling technology, designed to improve energy efficiency, extend equipment life, and reduce downtime across all industrial applications.",
+   "source": "claim-edit replace"
+  },
+  {
+   "row": "R4C-11",
+   "path": "/air-coolers/",
+   "text": "The Major Benefits of Air Coolers Over Cooling Towers and Other Evaporative Coolers",
+   "source": "restored-section heading (data/restored-sections.json)"
   }
  ],
  "present": [
@@ -1706,6 +1730,36 @@
    "path": "/dry-soda-blasting/",
    "text": "Dry soda blasting provides a balanced solution, using soft abrasive media designed for quality surface preparation without damaging coatings or substrates.",
    "source": "OGCS R4 copy review wording"
+  },
+  {
+   "row": "R4C-08",
+   "path": "/air-coolers/",
+   "text": "ICS engineers industrial air cooling solutions for process plants and manufacturing facilities. We assess air flow, heat load, fan condition, tube bundles, structural components, and operating limits.",
+   "source": "OGCS R4 phase 2 copy review wording"
+  },
+  {
+   "row": "R4C-09",
+   "path": "/air-coolers/",
+   "text": "Air coolers (air-cooled heat exchangers) reject process heat to the surrounding air through finned tube bundles and fans, without using cooling water.",
+   "source": "OGCS R4 phase 2 copy review wording"
+  },
+  {
+   "row": "R4C-10",
+   "path": "/air-coolers/",
+   "text": "ICS provides industrial air cooler services, including fan upgrades and tube bundle cleaning and repair, designed to improve energy efficiency, extend equipment life, and reduce downtime.",
+   "source": "OGCS R4 phase 2 copy review wording"
+  },
+  {
+   "row": "R4C-11",
+   "path": "/air-coolers/",
+   "text": "The Major Benefits of Air Coolers Compared with Cooling Towers",
+   "source": "OGCS R4 phase 2 copy review wording (restored-section heading)"
+  },
+  {
+   "row": "CS093-R4",
+   "path": "/all-projects/",
+   "text": "ICS Cooling Tower Projects | Engineering Across Industries",
+   "source": "accepted claims-sweep heading, rendered by the R4 portfolio lead line (OGCS R4 phase 2 item 1 verify)"
   }
  ]
 }

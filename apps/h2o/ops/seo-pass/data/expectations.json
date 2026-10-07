@@ -24,13 +24,13 @@
     "files": 22,
     "gone": 10,
     "restored": {
-      "update": 0
+      "update": 1
     },
     "h1": {
       "update": 0
     },
     "slotFixes": {
-      "routes": 0
+      "routes": 1
     },
     "hygiene": {
       "routes": 2

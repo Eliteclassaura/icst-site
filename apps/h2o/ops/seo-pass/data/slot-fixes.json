@@ -970,6 +970,149 @@
    }
   ]
  },
+ "/air-coolers/": {
+  "routeId": "SALMON-pages-1668",
+  "slots": [
+   {
+    "key": "body.3.1.1.1.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ICS engineers industrial air cooling solutions for process plants, manufacturing facilities, loading docks, and other large commercial areas. We assess air flow, heat load, fan condition, tube bundles, structural components, and operating limits.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ICS engineers industrial air cooling solutions for process plants and manufacturing facilities. We assess air flow, heat load, fan condition, tube bundles, structural components, and operating limits.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ICS engineers industrial air cooling solutions for process plants and manufacturing facilities. We assess air flow, heat load, fan condition, tube bundles, structural components, and operating limits.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "ICS engineers industrial air cooling solutions for process plants, manufacturing facilities, loading docks, and other large commercial areas. We assess air flow, heat load, fan condition, tube bundles, structural components, and operating limits.",
+      "to": "ICS engineers industrial air cooling solutions for process plants and manufacturing facilities. We assess air flow, heat load, fan condition, tube bundles, structural components, and operating limits.",
+      "action": "word-corrected",
+      "reason": "OGCS R4 phase 2 copy review item 3 (CT accepted 2026-10-07; folder H2O_OGCS_R4_PHASE2_COPY_REVIEW_2026-10-07, SUMS seal 50ff0169): Industrial-only rule: 'loading docks, and other large commercial areas' targets commercial spot cooling. ICS's air cooler work is air-cooled heat exchangers (fan upgrades, tube bundles: PTT GSP projects, dry soda cleaning)."
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.1.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"They are different from traditional air conditioning systems. They improve indoor air quality in semi-open environments and support safer working conditions in high-temperature zones where heat stress is a concern.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Air coolers (air-cooled heat exchangers) reject process heat to the surrounding air through finned tube bundles and fans, without using cooling water.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Air coolers (air-cooled heat exchangers) reject process heat to the surrounding air through finned tube bundles and fans, without using cooling water.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "They are different from traditional air conditioning systems. They improve indoor air quality in semi-open environments and support safer working conditions in high-temperature zones where heat stress is a concern.",
+      "to": "Air coolers (air-cooled heat exchangers) reject process heat to the surrounding air through finned tube bundles and fans, without using cooling water.",
+      "action": "word-corrected",
+      "reason": "OGCS R4 phase 2 copy review item 3 (CT accepted 2026-10-07; folder H2O_OGCS_R4_PHASE2_COPY_REVIEW_2026-10-07, SUMS seal 50ff0169): The source describes evaporative space coolers for people (air conditioning, indoor air quality, heat stress), not the process air coolers ICS services. Replacement is a factual definition matching the page's own tube-bundle and fan content. [owner/SME: confirm the page is ACHE-only.]"
+     }
+    ]
+   },
+   {
+    "key": "body.11.1.1.1.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ICS provides a full range of industrial air cooler services built on advanced evaporative cooling technology, designed to improve energy efficiency, extend equipment life, and reduce downtime across all industrial applications.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ICS provides industrial air cooler services, including fan upgrades and tube bundle cleaning and repair, designed to improve energy efficiency, extend equipment life, and reduce downtime.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ICS provides industrial air cooler services, including fan upgrades and tube bundle cleaning and repair, designed to improve energy efficiency, extend equipment life, and reduce downtime.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "ICS provides a full range of industrial air cooler services built on advanced evaporative cooling technology, designed to improve energy efficiency, extend equipment life, and reduce downtime across all industrial applications.",
+      "to": "ICS provides industrial air cooler services, including fan upgrades and tube bundle cleaning and repair, designed to improve energy efficiency, extend equipment life, and reduce downtime.",
+      "action": "word-corrected",
+      "reason": "OGCS R4 phase 2 copy review item 3 (CT accepted 2026-10-07; folder H2O_OGCS_R4_PHASE2_COPY_REVIEW_2026-10-07, SUMS seal 50ff0169): Air-cooled heat exchangers are not evaporative ('advanced evaporative cooling technology' is wrong and unsubstantiated). 'All industrial applications' is universality. The services named are evidenced: PTT GSP3/GSP6 fan upgrades and dry soda blast tube-bundle cleaning."
+     }
+    ]
+   }
+  ]
+ },
  "/all-projects/": {
   "routeId": "SALMON-pages-1353",
   "slots": [

@@ -7,6 +7,7 @@ import {
 } from '@factory/agency-core/cms/kernel'
 import { auditAfterChange, auditAfterDelete } from '@factory/agency-core/cms/foundation'
 import { requireManufacturerEvidence } from '../hooks/catalog-integrity'
+import { restoreKeepsCurrent } from '../hooks/restore-keeps-current'
 import {
   PROMOTING_EVIDENCE_STATES,
   PROMOTING_IDENTIFIER_STATES,
@@ -106,6 +107,8 @@ export const Products: CollectionConfig = {
     readVersions: canReadContentDrafts,
   },
   hooks: {
+    // RESTORE-1: a version restore keeps the current price and truth states (field-level update rules); see the hook.
+    beforeValidate: [restoreKeepsCurrent(() => Products.fields)],
     beforeChange: [requireManufacturerEvidence],
     afterChange: [auditAfterChange],
     afterDelete: [auditAfterDelete],

@@ -22,6 +22,8 @@ import {PartsIndex,ProductDetail} from '../Wave3Presentation'
 import {SalmonFamilyPage,salmonFamilyFor} from '../SalmonFamilies'
 import {LuxuryCanonical,luxuryIds} from '../LuxuryCanonical'
 import {SalmonCanonical} from '../SalmonCanonical'
+import {r4Builders} from '../r4/R4Pages'
+import {R4PortfolioPage,R4_PORTFOLIO_ROUTE} from '../r4/R4Portfolio'
 
 type Row={path:string;routeId:string;state:string;export:boolean;sourceFile?:string;matchedArticle?:boolean}
 type Fix={slots:Array<{key:string;field:string;after:unknown}>}
@@ -49,7 +51,8 @@ const pageAfterApply=(p:string,batch=true):string=>{
   const record={routeId:row.routeId,path:row.path,family:row.routeId.startsWith('LIVE-')?'live':'salmon',title:r?.h1??String(document.title??''),document,slots,restoredSections:r?.groups??null} as RouteRecord
   const doc=repairDocumentText(composePublicDocument(record) as unknown as SalmonDocument)
   const family=salmonFamilyFor(doc)
-  const el=family?<SalmonFamilyPage doc={doc} config={family}/>:isArchiveDocument(doc)?<ArchivePage doc={doc}/>:doc.routeId.startsWith('LIVE-')?<LiveEnglishDetail doc={doc}/>:doc.targetPath==='/cooling-tower-parts-online/'?<PartsIndex doc={doc}/>:doc.type==='product'&&doc.routeId.startsWith('SALMON-product-')?<ProductDetail doc={doc}/>:matchedWave4Article(doc)?<Wave4ArticleDetail doc={doc}/>:luxuryIds.has(doc.routeId)?<LuxuryCanonical doc={doc}/>:<SalmonCanonical doc={doc}/>
+  // The catch-all's dispatch order: Design R4 compositions first (they supersede the Salmon families on their routes).
+  const el=r4Builders[doc.routeId]?<LuxuryCanonical doc={doc}/>:doc.routeId===R4_PORTFOLIO_ROUTE?<R4PortfolioPage doc={doc}/>:family?<SalmonFamilyPage doc={doc} config={family}/>:isArchiveDocument(doc)?<ArchivePage doc={doc}/>:doc.routeId.startsWith('LIVE-')?<LiveEnglishDetail doc={doc}/>:doc.targetPath==='/cooling-tower-parts-online/'?<PartsIndex doc={doc}/>:doc.type==='product'&&doc.routeId.startsWith('SALMON-product-')?<ProductDetail doc={doc}/>:matchedWave4Article(doc)?<Wave4ArticleDetail doc={doc}/>:luxuryIds.has(doc.routeId)?<LuxuryCanonical doc={doc}/>:<SalmonCanonical doc={doc}/>
   const text=pageText(renderToStaticMarkup(el))
   cache.set(p+batch,text)
   return text
@@ -59,15 +62,16 @@ describe('R2.2 conformance on the composed pages (mock apply)',()=>{
   it('every page in the list is a public imported record',()=>{
     for(const c of [...conformance.absent,...conformance.present])expect(rowFor(c.path),c.path).toBeDefined()
     expect(conformance.absent.length).toBeGreaterThan(200)
-    // 11 owner-restored strings, the 10 CLAIMS-R2 Home wordings (CT 2026-10-06), and the 7 R4 wordings (R4C-01…07, CT 2026-10-07)
-    expect(conformance.present).toHaveLength(28)
+    // 11 owner-restored strings, the 10 CLAIMS-R2 Home wordings (CT 2026-10-06), the 11 R4 wordings (R4C-01…11, CT 2026-10-07) and the All Projects R4 lead line (CS093)
+    expect(conformance.present).toHaveLength(33)
   })
   it('the check is live: before the batch, the ruled strings are on their pages',()=>{
     const notBefore=conformance.absent.filter(c=>!pageAfterApply(c.path,false).includes(c.text)).map(c=>c.row)
     // The four registry strings are already corrected by R2.1 (compose); five sweep strings are produced by an earlier edit on
     // the same element (the Locale Part B removal next to them), so they do not exist in the imported text either. CLAIMS-R2 rows
     // 05, 08 and 09 reword text that exists only after an earlier edit ("Our global team" → "Our team", CS088, CS089).
-    expect(notBefore.sort()).toEqual(['C4','C4','CS050','CS065','CS068','CS072','CS077+CS077+CS077','CS084','CS098','R2L10-05','R2L10-08','R2L10-09'])
+    // R4C-11 rewords a restored-section heading, which exists only once the batch writes the restored sections.
+    expect(notBefore.sort()).toEqual(['C4','C4','CS050','CS065','CS068','CS072','CS077+CS077+CS077','CS084','CS098','R2L10-05','R2L10-08','R2L10-09','R4C-11'])
   },600000)
   it('every ruled string is absent from its page',()=>{
     const kept=conformance.absent.filter(c=>pageAfterApply(c.path).includes(c.text)).map(c=>`${c.row} ${c.path}: ${c.text.slice(0,80)}`)

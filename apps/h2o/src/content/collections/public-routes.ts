@@ -16,6 +16,7 @@ import { restoredSectionsField, validateRestoredSections, type RestoredGroup } f
 import { applyContentSlots } from '../content-slots'
 import { publicFileExists } from '../public-files'
 import { notePublicChange } from '../publishing'
+import { restoreKeepsCurrent } from '../../hooks/restore-keeps-current'
 
 /**
  * `public-routes` — one record per public route identity of the accepted release authority.
@@ -250,6 +251,9 @@ const guard: CollectionBeforeChangeHook = async ({ context, data, operation, ori
     if (!(req.user && isEditorialWriter(req))) throw new APIError('Only editors can create pages.', 403)
     await editorialIdentity(req, d)
   }
+  // RESTORE-1: an empty or stateless disposition group never overrides the stored one (it is what Payload's restore path
+  // produced before `restoreKeepsCurrent`); the authority decision below always reads a real state.
+  if (d.disposition !== undefined && !(d.disposition && typeof d.disposition === 'object' && (d.disposition as Doc).state !== undefined)) delete d.disposition
   const merged = { ...before, ...d } as Doc
   const disp = (merged.disposition ?? {}) as Doc
   const publishing = d._status === 'published'
@@ -349,7 +353,7 @@ export const PublicRoutes: CollectionConfig = {
     update: writeEditorial,
     delete: adminOnly,
   },
-  hooks: { beforeChange: [guard], afterChange: [afterChange], afterDelete: [afterDelete] },
+  hooks: { beforeValidate: [restoreKeepsCurrent(() => PublicRoutes.fields)], beforeChange: [guard], afterChange: [afterChange], afterDelete: [afterDelete] },
   fields: [
     { name: 'title', type: 'text', required: true },
     identity('routeId', { unique: true }),
