@@ -241,7 +241,7 @@ describe('sealed settings (H2O_SETTINGS_KEY)', () => {
 })
 
 describe('sending profiles: shape and opening', () => {
-  const ok = { name: 'Workspace', preset: 'GMAIL', use: 'TRANSACTIONAL', host: 'smtp.gmail.com', port: 587, tls_servername: 'smtp.gmail.com', username: 'sales@example.org', from_address: 'sales@h2ocooling.org', from_name: 'Rhonda Miller' }
+  const ok = { name: 'Workspace', preset: 'GMAIL', use: 'TRANSACTIONAL', host: 'smtp.gmail.com', port: 587, tls_servername: 'smtp.gmail.com', username: 'sales@example.org', from_address: 'sales@h2ocooling.org', from_name: 'ICS Sales Team' }
   it('accepts the Google Workspace preset; sender limited to the allowed domains; submission ports only', () => {
     expect(checkProfileShape(ok, {})).toBeNull()
     expect(checkProfileShape({ ...ok, from_address: 'sales@h2ocooling.com' }, {})).toBeNull()

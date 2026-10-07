@@ -35,6 +35,8 @@ export type Classification =
 const addrs = (list: JmapAddress[] | null | undefined): string[] =>
   (list ?? []).map((a) => (typeof a?.email === 'string' ? a.email.trim() : '')).filter(Boolean)
 
+const TAGGED_TOKEN = /^[a-z0-9]{3,16}\.([a-z2-7]{26})$/
+
 /** Distinct reply tokens found in To/Cc for our role address at our domain (case-insensitive). */
 export function tokensIn(email: JmapEmail, ctx: InboundContext): string[] {
   const found = new Set<string>()
@@ -44,7 +46,10 @@ export function tokensIn(email: JmapEmail, ctx: InboundContext): string[] {
     const local = a.slice(0, at).toLowerCase()
     const plus = local.indexOf('+')
     if (plus < 0 || local.slice(0, plus) !== ctx.roleLocal) continue
-    found.add(local.slice(plus + 1))
+    // T-R3: `<role>+<tag>.<token>` (H2O_REPLY_TAG) or the untagged `<role>+<token>`; any valid tag, so a reply to mail
+    // sent before a tag change still links.
+    const tagged = TAGGED_TOKEN.exec(local.slice(plus + 1))
+    found.add(tagged ? tagged[1]! : local.slice(plus + 1))
   }
   return [...found]
 }

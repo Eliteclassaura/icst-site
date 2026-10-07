@@ -214,7 +214,7 @@ async function queueEmail(payload: Payload, s: ErsSettings, ctx: { enr: Doc; seq
     body_html: rendered.html,
     lint: rendered.lint,
     approval_decision: 'AUTO_AUTHORIZED',
-    reply_to: cfg.fromAddress ? replyToAddress(cfg.fromAddress, token) : null,
+    reply_to: cfg.fromAddress ? replyToAddress(cfg.fromAddress, token, cfg.replyTag) : null,
     list_unsubscribe: rendered.footerUrl,
     attempts: 0,
     next_attempt_at: null,

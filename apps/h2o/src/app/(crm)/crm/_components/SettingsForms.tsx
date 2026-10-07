@@ -100,7 +100,7 @@ export function ProfileForm({ values, presets }: { values: ProfileValues; preset
       <Field name="from_address" label="Send as (address)" required hint="An address at h2ocooling.org or h2ocooling.com that this mailbox may send as.">
         {(a) => <input className="c-input" {...a} type="email" defaultValue={values.from_address ?? ''} maxLength={254} autoComplete="off" />}
       </Field>
-      <Field name="from_name" label="Send as (name)" hint="The name customers see, e.g. Rhonda Miller.">
+      <Field name="from_name" label="Send as (name)" hint="The name customers see, e.g. ICS Sales Team.">
         {(a) => <input className="c-input" {...a} defaultValue={values.from_name ?? ''} maxLength={80} autoComplete="off" />}
       </Field>
       <AdvancedServer values={values} />

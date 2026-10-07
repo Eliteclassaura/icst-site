@@ -61,7 +61,7 @@ describe('config: H2O_EMAIL_MODE fails closed', () => {
       address: 'rfq@example.test',
     })
     // Owner decision 2026-10-05: the default display name for the sales mailbox.
-    expect(parseFrom('rfq@example.test')).toEqual({ name: 'Rhonda Miller', address: 'rfq@example.test' })
+    expect(parseFrom('rfq@example.test')).toEqual({ name: 'ICS Sales Team', address: 'rfq@example.test' })
     expect(parseFrom('Evil\r\nBcc: x@example.test <rfq@example.test>')).toBeNull()
   })
   it('recipientKey is the suppression ledger key (crm/normalize emailKey().matchKey)', () => {

@@ -12,6 +12,9 @@ import { domainToASCII } from 'node:url'
  *                                                          decision 2026-10-05); Stalwart later
  *   H2O_SMTP_USER / _PASS   submission credentials        secrets: environment only, never logged
  *   H2O_SMTP_TLS_SERVERNAME certificate name to verify    e.g. the mail host name (the ACME certificate)
+ *   H2O_REPLY_TAG           optional, [a-z0-9]{3,16}      T-R3: a fixed tag in Reply-To token addresses
+ *                                                          (`<role>+<tag>.<token>@<domain>`) so a mail filter can
+ *                                                          match every CRM reply (e.g. Gmail `to:(<role>+<tag>)`)
  *
  * Patch C: the H2O_SMTP_* "environment profile" is optional. An admin's active sending profile in the CRM replaces it
  * (email/profiles.ts); H2O_EMAIL_FROM stays the role mailbox that customer replies go to (Reply-To tokens, inbound).
@@ -21,6 +24,8 @@ import { domainToASCII } from 'node:url'
  */
 
 export type EmailMode = 'off' | 'allowlist' | 'live'
+/** T-R3: the Reply-To tag: 3–16 lowercase letters or digits (no dot: the dot separates it from the token). */
+export const REPLY_TAG_RE = /^[a-z0-9]{3,16}$/
 export const EMAIL_MODES: readonly EmailMode[] = ['off', 'allowlist', 'live']
 
 export type SmtpSettings = {
@@ -45,6 +50,8 @@ export type EmailConfig = {
   customerAck: boolean
   /** The acknowledgement's first-response promise, e.g. "within one business day"; null = no promise. */
   responsePromise: string | null
+  /** T-R3: the fixed Reply-To tag (H2O_REPLY_TAG), or null for plain `<role>+<token>` addresses. */
+  replyTag?: string | null
   smtp: SmtpSettings | null
 }
 
@@ -77,11 +84,11 @@ export function recipientKey(raw: unknown): string | null {
 }
 
 /**
- * The sender's display name when none is configured (owner decision 2026-10-05: "Rhonda Miller" for sales@). It is a
- * default only: the name in H2O_EMAIL_FROM ("Name <address>") or a sending profile's "Send as (name)" replaces it.
- * The Revenue Engine signature is separate ("ICS Sales Team", settings data).
+ * The sender's display name when none is configured (owner decision 2026-10-06, T-R3: "ICS Sales Team"; it replaced
+ * "Rhonda Miller" of 2026-10-05). A default only: the name in H2O_EMAIL_FROM ("Name <address>") or a sending profile's
+ * "Send as (name)" replaces it. The Revenue Engine signature is separate (signer + email, settings data).
  */
-export const DEFAULT_SENDER_NAME = 'Rhonda Miller'
+export const DEFAULT_SENDER_NAME = 'ICS Sales Team'
 
 export function parseFrom(raw: string | undefined): { name: string; address: string } | null {
   const v = (raw ?? '').trim()
@@ -120,6 +127,10 @@ export function readEmailConfig(env: Record<string, string | undefined> = proces
   const responsePromise = promiseRaw.toLowerCase() === 'off' || promiseRaw === '' ? null : promiseRaw
   if (responsePromise && !/^[A-Za-z0-9 ,.'-]{3,60}$/.test(responsePromise)) errors.push('RESPONSE_PROMISE_INVALID')
 
+  // T-R3: an invalid tag would make replies miss the mail filter that collects them: a configuration error (fail closed).
+  const replyTag = (env.H2O_REPLY_TAG ?? '').trim()
+  if (replyTag && !REPLY_TAG_RE.test(replyTag)) errors.push('REPLY_TAG_INVALID')
+
   const ackRaw = (env.H2O_EMAIL_CUSTOMER_ACK ?? 'off').trim().toLowerCase()
   if (!['on', 'off'].includes(ackRaw)) errors.push('CUSTOMER_ACK_FLAG_INVALID')
 
@@ -157,6 +168,7 @@ export function readEmailConfig(env: Record<string, string | undefined> = proces
     salesAlertTo,
     customerAck: ackRaw === 'on',
     responsePromise,
+    replyTag: replyTag && REPLY_TAG_RE.test(replyTag) ? replyTag : null,
     smtp,
   }
 }

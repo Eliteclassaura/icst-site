@@ -16,6 +16,7 @@ import {
 import { uuidv7 } from '../ids'
 import { discardReviewItem, linkReviewItem } from '../inbound'
 import { composeReply } from '../reply'
+import { ensureTemplates } from '../settings/templates'
 import { loadRfq } from '../workspace/queries'
 import { crmSessionFor, type CrmSession } from '../workspace/session'
 import { captureLogs, payload, resetCrm, rest, user, type TestUser } from './harness'
@@ -46,6 +47,7 @@ const ENV = {
   H2O_SMTP_PASS: 'synthetic-submission-password',
   H2O_SMTP_TLS_SERVERNAME: 'mail.example.test',
   H2O_EMAIL_INBOUND: 'on',
+  H2O_REPLY_TAG: '', // T-R3: set per test; restored after each
 }
 let saved: Record<string, string | undefined> = {}
 
@@ -369,5 +371,51 @@ describe('E3: the poller is robust', () => {
     for (let i = 0; i < MAX_FAILURES; i++) await poll(mb)
     expect(mb.marked).toEqual(['P1'])
     expect((await reviewItems())[0]).toMatchObject({ reason: 'PROCESSING_FAILED' })
+  })
+})
+
+/** T-R3 (CT, 2026-10-06): a fixed Reply-To tag for mail filters, and T1 carries the reply-token address too. */
+describe('T-R3: tagged reply addresses; T1 replies thread onto the RFQ', () => {
+  it('with H2O_REPLY_TAG, replies go to rfq+<tag>.<token>@…; a reply to it, or to the untagged form, threads onto the RFQ', async () => {
+    process.env.H2O_REPLY_TAG = 'h2ocrm'
+    const rfqId = await newRfq()
+    const { replyTo } = await replied(rfqId)
+    expect(replyTo).toMatch(/^rfq\+h2ocrm\.[a-z2-7]{26}@example\.test$/)
+    const untagged = replyTo.replace('+h2ocrm.', '+')
+    const r = await poll(mailbox([customerReply('T1', replyTo), customerReply('T2', untagged)]))
+    expect(r).toMatchObject({ fetched: 2, linked: 2, review: 0 })
+    expect((await inbound(rfqId)).map((m) => m.message_id).sort()).toEqual(['<T1@northwind.example.com>', '<T2@northwind.example.com>'])
+    // Another tag (a tag change since the mail went out) still links; a foreign role or a malformed token does not.
+    const token = untagged.slice(untagged.indexOf('+') + 1, untagged.indexOf('@'))
+    const r2 = await poll(mailbox([customerReply('T3', `rfq+oldtag.${token}@example.test`), customerReply('T4', `sales+h2ocrm.${token}@example.test`), customerReply('T5', `rfq+h2ocrm.${token}x@example.test`)]))
+    expect(r2).toMatchObject({ fetched: 3, linked: 1, review: 2 })
+  })
+  it('an invalid tag is a configuration error: mail is off (fail closed)', () => {
+    for (const bad of ['H2O', 'ab', 'h2o.crm', 'a'.repeat(17), 'h2o crm']) {
+      process.env.H2O_REPLY_TAG = bad
+      const cfg = readEmailConfig()
+      expect(cfg.errors, bad).toContain('REPLY_TAG_INVALID')
+      expect(cfg.mode, bad).toBe('off')
+    }
+  })
+  it('T1 carries the RFQ reply-token address and stays Auto-Submitted; the customer’s answer threads onto the RFQ', async () => {
+    process.env.H2O_EMAIL_CUSTOMER_ACK = 'on'
+    process.env.H2O_REPLY_TAG = 'h2ocrm'
+    await ensureTemplates(p)
+    const rfqId = await newRfq()
+    const sent: MailMessage[] = []
+    await drainOutbox(p, { cfg: readEmailConfig(), transport: { send: async (m) => (sent.push(m), { messageId: m.messageId ?? null, accepted: 1 }), close: () => undefined } })
+    const ack = sent.find((m) => /^We received your request: RFQ /.test(m.subject))!
+    expect(ack).toBeTruthy()
+    expect(ack.replyTo).toMatch(/^rfq\+h2ocrm\.[a-z2-7]{26}@example\.test$/)
+    expect(ack.headers).toMatchObject({ 'Auto-Submitted': 'auto-generated', 'X-Auto-Response-Suppress': 'All' })
+    const row = (await p.find({ collection: 'crm-email-outbox', where: { kind: { equals: 'RFQ_CUSTOMER_ACK' } }, ...srv })).docs[0] as unknown as Doc
+    expect(row.reply_to).toBe(ack.replyTo)
+    // A later person reply reuses the same live token (one token per RFQ).
+    const { replyTo } = await replied(rfqId)
+    expect(replyTo).toBe(ack.replyTo)
+    const r = await poll(mailbox([customerReply('A1', ack.replyTo!, { subject: 'Re: We received your request' })]))
+    expect(r).toMatchObject({ linked: 1, review: 0 })
+    expect((await inbound(rfqId)).length).toBe(1)
   })
 })

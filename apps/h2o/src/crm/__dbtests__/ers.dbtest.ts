@@ -49,6 +49,7 @@ const ENV: Record<string, string | undefined> = {
   H2O_SMTP_TLS_SERVERNAME: 'mail.example.test',
   H2O_EMAIL_INBOUND: 'on',
   H2O_SETTINGS_KEY: undefined,
+  H2O_REPLY_TAG: 'h2ocrm', // T-R3: sequence replies use the tagged token address
 }
 const saved: Record<string, string | undefined> = {}
 const setEnv = (env: Record<string, string | undefined>) => {
@@ -227,7 +228,7 @@ describe('the qualification sequence end to end', () => {
     // The worker sends it through the gate, with one-click unsubscribe and the RFQ reply address.
     const t = recorder()
     expect(await drain(t, due1)).toMatchObject({ sent: 1 })
-    expect(t.sent[0]).toMatchObject({ to: CUSTOMER, replyTo: expect.stringMatching(/^sales\+[a-z2-7]{26}@example\.test$/) })
+    expect(t.sent[0]).toMatchObject({ to: CUSTOMER, replyTo: expect.stringMatching(/^sales\+h2ocrm\.[a-z2-7]{26}@example\.test$/) })
     expect(t.sent[0]!.headers).toMatchObject({ 'List-Unsubscribe': expect.stringMatching(/^<http.*\/api\/ers\/unsubscribe\/\?t=/), 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' })
     expect(t.sent[0]!.headers?.['Auto-Submitted']).toBeUndefined()
     ;[e] = await enrollments()

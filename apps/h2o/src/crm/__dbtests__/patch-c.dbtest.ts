@@ -75,7 +75,7 @@ async function stepUpAt(u: TestUser, at: Date) {
   const out = await confirmStepUp(p, mu, sidOf(u.token), totpCode(HARNESS_TOTP_SECRET, at), at)
   expect(out.ok).toBe(true)
 }
-const GMAIL = { name: 'Workspace', preset: 'GMAIL', use: 'TRANSACTIONAL', username: 'rfq@example.test', password: 'abcd efgh ijkl mnop', from_address: 'rfq@example.test', from_name: 'Rhonda Miller' }
+const GMAIL = { name: 'Workspace', preset: 'GMAIL', use: 'TRANSACTIONAL', username: 'rfq@example.test', password: 'abcd efgh ijkl mnop', from_address: 'rfq@example.test', from_name: 'ICS Sales Team' }
 
 async function newRfq(spec: Parameters<typeof typeformDelivery>[0] = {}): Promise<Doc> {
   const s = signed(typeformDelivery(spec), SYNTHETIC_SECRET)
@@ -219,7 +219,7 @@ describe('sending profiles: step-up, sealed password, access', () => {
     for (let i = 0; i < 3; i++) expect(await sending.testSendProfile(A, sid, id, { now: t, resolve: PUBLIC, send })).toMatchObject({ ok: true })
     expect(await sending.testSendProfile(A, sid, id, { now: t, resolve: PUBLIC, send })).toMatchObject({ ok: false, code: 'RATE_LIMITED' })
     expect(sent.map((m) => m.to)).toEqual([ADMIN_ADDR, ADMIN_ADDR, ADMIN_ADDR])
-    expect(sent[0]!.from).toBe('"Rhonda Miller" <rfq@example.test>')
+    expect(sent[0]!.from).toBe('"ICS Sales Team" <rfq@example.test>')
     const ev = (await p.find({ collection: 'crm-email-events', where: { kind: { equals: 'PROFILE_TEST' } }, ...srv })).docs as unknown as Doc[]
     expect(ev.map((e) => e.event)).toEqual(['DIRECT_SENT', 'DIRECT_SENT', 'DIRECT_SENT'])
     expect(JSON.stringify(ev)).not.toContain(ADMIN_ADDR)

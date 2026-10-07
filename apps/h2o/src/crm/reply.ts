@@ -1,6 +1,6 @@
 import { randomBytes } from 'node:crypto'
 import type { PayloadRequest } from 'payload'
-import { readEmailConfig, type EmailConfig } from '../email/config'
+import { readEmailConfig, REPLY_TAG_RE, type EmailConfig } from '../email/config'
 import { gateRecipient, recipientRef } from '../email/gate'
 import { escapeHtml } from '../email/messages'
 import { recordActivity } from './activity'
@@ -52,12 +52,16 @@ export function newReplyToken(): string {
   return out
 }
 
-/** `rfq@example.org` + token → `rfq+<token>@example.org`. Null if the sender is not a plain address. */
-export function replyToAddress(fromAddress: string, token: string): string | null {
+/**
+ * `rfq@example.org` + token → `rfq+<token>@example.org`; with a tag (T-R3, H2O_REPLY_TAG) → `rfq+<tag>.<token>@…`, so
+ * one mail filter on `rfq+<tag>` catches every CRM reply. Null if the sender is not a plain address.
+ */
+export function replyToAddress(fromAddress: string, token: string, tag?: string | null): string | null {
   const at = fromAddress.lastIndexOf('@')
   if (at < 1 || !REPLY_TOKEN_RE.test(token)) return null
   const local = fromAddress.slice(0, at).split('+')[0]
-  return `${local}+${token}@${fromAddress.slice(at + 1)}`
+  const prefix = tag && REPLY_TAG_RE.test(tag) ? `${tag}.` : ''
+  return `${local}+${prefix}${token}@${fromAddress.slice(at + 1)}`
 }
 
 export const replyHtml = (text: string): string =>
@@ -288,7 +292,7 @@ export async function composeReply(
     if (already)
       return { ok: true as const, message: 'This reply was already recorded.', id: String(already.id) }
     const token = await ensureReplyToken(req, v.rfqId, now)
-    const replyTo = replyToAddress(cfg.fromAddress, token)
+    const replyTo = replyToAddress(cfg.fromAddress, token, cfg.replyTag)
     if (!replyTo) throw new Error('REPLY_TO_UNBUILDABLE')
     const gate = gateRecipient(cfg, to)
     const queued = gate === 'SEND'

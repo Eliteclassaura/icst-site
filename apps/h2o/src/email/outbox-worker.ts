@@ -1,5 +1,5 @@
 import { sql } from '@payloadcms/db-postgres'
-import type { Payload } from 'payload'
+import { createLocalReq, type Payload } from 'payload'
 import { recordEmailActivity, recordEmailEvent } from '../crm/notify'
 import { emailKey } from '../crm/normalize'
 import { evaluateTransactionalSend, ledgerFor } from '../crm/suppression'
@@ -14,6 +14,7 @@ import { MAX_ATTEMPTS, failureCode, gateRecipient, nextAttemptAt } from './gate'
 import { renderSalesAlert, textToHtml, type Rendered } from './messages'
 import { isApproved, templateByCode, textOf } from '../crm/settings/templates'
 import { greetingFor, renderTemplate, responseSentence } from './templates'
+import { ensureReplyToken, replyToAddress } from '../crm/reply'
 import { createTransport, formatFrom, type MailTransport } from './transport'
 
 /**
@@ -97,7 +98,7 @@ async function render(
   payload: Payload,
   row: Row,
   cfg: EmailConfig,
-): Promise<{ rendered: Rendered; rfq: Record<string, unknown>; reply?: ReplyMeta } | { rfq: Record<string, unknown>; suppressed: string } | null> {
+): Promise<{ rendered: Rendered; rfq: Record<string, unknown>; reply?: ReplyMeta; ackReplyTo?: string | null } | { rfq: Record<string, unknown>; suppressed: string } | null> {
   const rfqId = rfqIdOf(row)
   if (!rfqId) return null
   if (row.kind === 'SEQUENCE_EMAIL')
@@ -150,7 +151,12 @@ async function render(
       response_sentence: responseSentence(cfg.responsePromise),
     })
     if (!r.ok) return { rfq, suppressed: r.code }
-    return { rfq, rendered: { subject: r.subject, text: r.text, html: textToHtml(r.text) } }
+    // T-R3: T1 carries the RFQ's reply-token address too, so a customer who answers the acknowledgement (it invites
+    // drawings and photos) is threaded onto the RFQ like any other reply. A token that can't be issued now throws: the
+    // row is claimed again later rather than sent without one.
+    const token = await ensureReplyToken(await createLocalReq({}, payload), rfqId, new Date())
+    const ackReplyTo = cfg.fromAddress ? replyToAddress(cfg.fromAddress, token, cfg.replyTag) : null
+    return { rfq, rendered: { subject: r.subject, text: r.text, html: textToHtml(r.text) }, ackReplyTo }
   }
   const items = await payload.find({
     collection: 'crm-rfq-items',
@@ -336,6 +342,7 @@ export async function processRow(
     subject: r.rendered.subject,
     body_text: r.rendered.text,
     body_html: r.rendered.html,
+    ...(r.ackReplyTo ? { reply_to: r.ackReplyTo } : {}),
   })
   try {
     await transport.send({
@@ -362,8 +369,9 @@ export async function processRow(
             inReplyTo: r.reply.inReplyTo ?? undefined,
             references: r.reply.references ?? undefined,
           }
-        : // RFC 3834: an automatic message. Receiving autoresponders must not answer it.
-          { headers: { 'Auto-Submitted': 'auto-generated', 'X-Auto-Response-Suppress': 'All' } }),
+        : // RFC 3834: an automatic message. Receiving autoresponders must not answer it. T1 (T-R3) also carries the
+          // RFQ's reply-token address, so a person's answer threads onto the RFQ.
+          { ...(r.ackReplyTo ? { replyTo: r.ackReplyTo } : {}), headers: { 'Auto-Submitted': 'auto-generated', 'X-Auto-Response-Suppress': 'All' } }),
     })
     await terminal('SENT', null, 'SENT', { sent_at: now.toISOString() })
     return 'sent'
