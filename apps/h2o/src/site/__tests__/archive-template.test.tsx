@@ -13,7 +13,7 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import Page from '../../app/(site)/[[...slug]]/page'
 import {salmonDocument,salmonRoutes} from '../salmon'
 import {ARCHIVE_PATH,archiveModel,decodeEntities} from '../ArchivePresentation'
-import {ProductDetail} from '../Wave3Presentation'
+import {R5ProductDetail} from '../r5/R5Product' // Design R5a: the shipped product detail
 import {activeProductRoutes,productPanels} from '../Wave3Products'
 import {categoryAndFamilyGate} from '../gate'
 import {ProductCard} from '../SalmonComposer'
@@ -124,7 +124,7 @@ describe('product pages: quote-only',()=>{
     for(const route of activeProductRoutes()){
       const doc=salmonDocument(route)
       const literature=productPanels(doc).find(panel=>panel.kind==='literature')
-      const html=renderToStaticMarkup(<ProductDetail doc={doc}/>)
+      const html=renderToStaticMarkup(<R5ProductDetail doc={doc}/>)
       const shown=html.includes('data-product-module="literature"')
       if(literature&&!shown)hidden++
       if(shown)expect(html.slice(html.indexOf('data-product-module="literature"')).slice(0,4000),route.targetPath).toMatch(/<a [^>]*href=/)
@@ -134,7 +134,7 @@ describe('product pages: quote-only',()=>{
   it('carry no rating or review schema',()=>{
     const doc=salmonDocument(activeProductRoutes().find(route=>route.targetPath==='/product/amarillo-a-series-double-reduction-gearbox/')!)
     expect(doc.seo.schema.join('')).toMatch(/aggregateRating/)
-    const html=renderToStaticMarkup(<ProductDetail doc={doc}/>)
+    const html=renderToStaticMarkup(<R5ProductDetail doc={doc}/>)
     expect(html).not.toMatch(/aggregateRating|"@type":"(?:Review|AggregateRating)"|"review"/)
   })
 })

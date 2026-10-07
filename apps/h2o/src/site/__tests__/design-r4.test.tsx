@@ -172,7 +172,8 @@ describe('DD R4 final review (07ef220a, 2026-10-07)',()=>{
     for(const f of ['src/site/LuxuryCanonical.tsx','src/site/r4/R4Portfolio.tsx','src/site/Wave4Presentation.tsx'])expect(readFileSync(path.join(APP,f),'utf8'),f).toContain('<R4LauncherReveal/>')
     const src=readFileSync(path.join(APP,'src/site/r4/R4LauncherReveal.tsx'),'utf8')
     expect(src).toContain('new IntersectionObserver(')
-    expect(src).toMatch(/document\.querySelector\('\[data-r4-route\] \.dr4-hero'\)/)
+    // Design R5a: the R5 heroes (parts hub/category, series head, product head) count as the page hero too.
+    expect(src).toMatch(/document\.querySelector\('\[data-r4-route\] :is\(\.dr4-hero, \.r5-hero, \.r5-series-head, \.r5-product-head\)'\)/)
     expect(css).toMatch(/:root\[data-r4-reveal\]:not\(\[data-r4-hero-out\]\) \[data-rfq-launcher\] \{\s*opacity: 0;\s*pointer-events: none;\s*visibility: hidden;/)
     expect(css).toMatch(/:root:not\(\[data-r4-reveal\]\) \[data-r4-route\] \.dr4-hero :is\(\.dr4-hero-lead, \.dr4-actions\) \{\s*padding-inline-end: 64px;/)
     expect(css).toMatch(/@media \(width < 768px\) and \(prefers-reduced-motion: reduce\) \{\s*:root\[data-r4-reveal\] \[data-rfq-launcher\] \{\s*transition: none;/)
@@ -275,7 +276,7 @@ describe('R4a site-wide',()=>{
   })
   it('is imported last, colours are tokens, logical properties only',()=>{
     const imports=[...readFileSync(path.join(APP,'src/app/(site)/layout.tsx'),'utf8').matchAll(/^import '\.\/([^']+\.css)'/gm)].map(m=>m[1])
-    expect(imports.at(-1)).toBe('design-r4.css')
+    expect(imports.slice(-2)).toEqual(['design-r4.css','design-r5.css']) // Design R5a loads after R4
     for(const line of css.split('\n').filter(l=>/^\s*(color|background(-color)?|border(-color)?|outline|box-shadow)\s*:/.test(l)))expect(line,line).not.toMatch(/#[0-9a-f]{3,8}\b|rgb\(/i)
     expect(css).not.toMatch(/\b(margin|padding)-(left|right|top|bottom)\s*:/)
   })

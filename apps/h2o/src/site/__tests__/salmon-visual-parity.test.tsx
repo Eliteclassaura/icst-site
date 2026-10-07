@@ -81,7 +81,8 @@ describe('Parts landing architecture',()=>{
   it('gives the 183-product index the Salmon hero without dropping its catalog',()=>{
     const html=renderToStaticMarkup(<PartsIndex doc={byPath('/cooling-tower-parts-online/')}/>)
     expect(html).toContain('data-salmon-family="parts-index"')
-    expect(html).toMatch(/sp-section--hero[\s\S]*?sp-photo/)
+    // Design R5a (CT GO 2026-10-07): the hub hero is the R5 centred hero (source photo, H1, quote, source render).
+    expect(html).toMatch(/r5-hero r5-hero--hub[\s\S]*?r5-hero-photo[\s\S]*?r5-hero-render/)
     expect(html).toContain('183 products')
     expect(count(html,/<h1\b/g)).toBe(1)
   })

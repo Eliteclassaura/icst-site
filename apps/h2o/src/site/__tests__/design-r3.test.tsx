@@ -146,6 +146,6 @@ describe('Redirect, font and stylesheet',()=>{
     expect(css).toMatch(/\.dr3-about \.dr3-section h2\.dr3-display \{[^}]*font-family: 'Bebas Neue'/)
     for(const line of css.split('\n').filter(l=>/^\s*(color|background(-color)?|border(-color)?|outline|box-shadow)\s*:/.test(l)))expect(line,line).not.toMatch(/#[0-9a-f]{3,8}\b|rgb\(/i)
     const imports=[...readFileSync(path.join(APP,'src/app/(site)/layout.tsx'),'utf8').matchAll(/^import '\.\/([^']+\.css)'/gm)].map(m=>m[1])
-    expect(imports.slice(-3)).toEqual(['design-r3.css','a11y-fixes.css','design-r4.css']) // LEGAL-FIX-1's contrast overrides, then Design R4, load after it
+    expect(imports.slice(-4)).toEqual(['design-r3.css','a11y-fixes.css','design-r4.css','design-r5.css']) // LEGAL-FIX-1's contrast overrides, then Design R4 and R5, load after it
   })
 })

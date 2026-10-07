@@ -11,7 +11,7 @@ export function R4LauncherReveal(){
   useEffect(()=>{
     const root=document.documentElement
     root.dataset.r4Reveal=''
-    const hero=document.querySelector('[data-r4-route] .dr4-hero')
+    const hero=document.querySelector('[data-r4-route] :is(.dr4-hero, .r5-hero, .r5-series-head, .r5-product-head)')
     if(!hero||!('IntersectionObserver' in window)){root.dataset.r4HeroOut='';return ()=>{delete root.dataset.r4Reveal;delete root.dataset.r4HeroOut}}
     const observer=new IntersectionObserver(([entry])=>{
       if(entry?.isIntersecting)delete root.dataset.r4HeroOut

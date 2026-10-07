@@ -18,7 +18,9 @@ import type {SalmonDocument} from '../salmon'
 import {matchedWave4Article} from '../wave4'
 import {Wave4ArticleDetail,LiveEnglishDetail} from '../Wave4Presentation'
 import {ArchivePage,isArchiveDocument} from '../ArchivePresentation'
-import {PartsIndex,ProductDetail} from '../Wave3Presentation'
+import {PartsIndex} from '../Wave3Presentation'
+import {R5PartsFamilyPage,R5_PARTS_FAMILIES} from '../r5/R5PartsPages'
+import {R5ProductDetail} from '../r5/R5Product'
 import {SalmonFamilyPage,salmonFamilyFor} from '../SalmonFamilies'
 import {LuxuryCanonical,luxuryIds} from '../LuxuryCanonical'
 import {SalmonCanonical} from '../SalmonCanonical'
@@ -51,8 +53,9 @@ const pageAfterApply=(p:string,batch=true):string=>{
   const record={routeId:row.routeId,path:row.path,family:row.routeId.startsWith('LIVE-')?'live':'salmon',title:r?.h1??String(document.title??''),document,slots,restoredSections:r?.groups??null} as RouteRecord
   const doc=repairDocumentText(composePublicDocument(record) as unknown as SalmonDocument)
   const family=salmonFamilyFor(doc)
-  // The catch-all's dispatch order: Design R4 compositions first (they supersede the Salmon families on their routes).
-  const el=r4Builders[doc.routeId]?<LuxuryCanonical doc={doc}/>:doc.routeId===R4_PORTFOLIO_ROUTE?<R4PortfolioPage doc={doc}/>:family?<SalmonFamilyPage doc={doc} config={family}/>:isArchiveDocument(doc)?<ArchivePage doc={doc}/>:doc.routeId.startsWith('LIVE-')?<LiveEnglishDetail doc={doc}/>:doc.targetPath==='/cooling-tower-parts-online/'?<PartsIndex doc={doc}/>:doc.type==='product'&&doc.routeId.startsWith('SALMON-product-')?<ProductDetail doc={doc}/>:matchedWave4Article(doc)?<Wave4ArticleDetail doc={doc}/>:luxuryIds.has(doc.routeId)?<LuxuryCanonical doc={doc}/>:<SalmonCanonical doc={doc}/>
+  // The catch-all's dispatch order: Design R4 compositions first (they supersede the Salmon families on their routes), then the
+  // Design R5a parts families and product detail.
+  const el=r4Builders[doc.routeId]?<LuxuryCanonical doc={doc}/>:doc.routeId===R4_PORTFOLIO_ROUTE?<R4PortfolioPage doc={doc}/>:family&&R5_PARTS_FAMILIES.has(family.family)?<R5PartsFamilyPage doc={doc}/>:family?<SalmonFamilyPage doc={doc} config={family}/>:isArchiveDocument(doc)?<ArchivePage doc={doc}/>:doc.routeId.startsWith('LIVE-')?<LiveEnglishDetail doc={doc}/>:doc.targetPath==='/cooling-tower-parts-online/'?<PartsIndex doc={doc}/>:doc.type==='product'&&doc.routeId.startsWith('SALMON-product-')?<R5ProductDetail doc={doc}/>:matchedWave4Article(doc)?<Wave4ArticleDetail doc={doc}/>:luxuryIds.has(doc.routeId)?<LuxuryCanonical doc={doc}/>:<SalmonCanonical doc={doc}/>
   const text=pageText(renderToStaticMarkup(el))
   cache.set(p+batch,text)
   return text

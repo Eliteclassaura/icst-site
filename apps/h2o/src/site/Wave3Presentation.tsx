@@ -9,14 +9,17 @@ import {pageForSegments} from './cohort'
 import {salmonDocument,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {partsCategories,productIndexRecords,productPanels,productPrimaryMedia,productRelated,productSummary,type ProductPanel} from './Wave3Products'
 import {R2Discovery} from './R2Discovery'
-import {SectionView} from './SalmonComposer'
+import {BlockView,Picture} from './SalmonComposer'
+import type {ImageBlock,MediaRef} from './salmon-family-model'
+import {R4LauncherReveal} from './r4/R4LauncherReveal'
+import {R5Chips,R5PartsHero,blocksOf,heroParts} from './r5/R5Parts'
 import {adaptSection,composedSectionRefs} from './salmon-family-adapter'
 import {quoteRfqAction} from './SalmonFamilies'
 import {RestoredSlot,restoredSlotNodes} from './RestoredSlot'
 
-const nameFor=(doc:SalmonDocument)=>doc.seo.h1[0]||doc.title
+export const nameFor=(doc:SalmonDocument)=>doc.seo.h1[0]||doc.title
 const subordinateSourceHeadings=(node:SalmonNode):SalmonNode=>typeof node==='string'?node:{...node,tag:node.tag==='h1'?'h2':node.tag,children:node.children.map(subordinateSourceHeadings)}
-const renderNodes=(nodes:SalmonNode[],doc:SalmonDocument,section:string):ReactNode=>nodes.map((node,i)=>renderSalmonNode(subordinateSourceHeadings(node),`${section}.${i}`,doc))
+export const renderNodes=(nodes:SalmonNode[],doc:SalmonDocument,section:string):ReactNode=>nodes.map((node,i)=>renderSalmonNode(subordinateSourceHeadings(node),`${section}.${i}`,doc))
 
 export function ProductMedia({doc,compact=false}:{doc:SalmonDocument;compact?:boolean}){
   const primary=productPrimaryMedia(doc)
@@ -109,6 +112,14 @@ const partsIntro=(doc:SalmonDocument):string=>{
   return result
 }
 
+/** Design R5a hub: a source copy group beside the hub's own source render (≤ native, capped). */
+function Split({media,cap,children,className}:{media?:MediaRef;cap:number;children:ReactNode;className:string}){
+  return <section className={`wave3-index-copy r5-split ${className}`}>
+    <div className="r5-split-text">{children}</div>
+    {media?<div className="r5-split-media"><Picture media={media} style={{inlineSize:`min(100%, ${Math.min(cap,media.width??cap)}px)`}}/></div>:null}
+  </section>
+}
+
 export function PartsIndex({doc,query='',pageNumber=1}:{doc:SalmonDocument;query?:string;pageNumber?:number}){
   const records=productIndexRecords()
   const cleanQuery=query.trim().slice(0,100)
@@ -125,15 +136,31 @@ export function PartsIndex({doc,query='',pageNumber=1}:{doc:SalmonDocument;query
   // accepted catalog; the catalog, search, category rail, product IDs and RFQ context are unchanged.
   const heroRef=composedSectionRefs(doc)[0]
   const hero=heroRef?adaptSection(doc,heroRef,0,{treatment:'hero'}):undefined
-  return <div className="luxury-site wave3-site salmon-family salmon-family--parts-index" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256} data-wave3-archetype="PartsIndex">
+  const parts=hero?heroParts(hero.root):undefined
+  // Design R5a (spec parts-hub): the hub's own source renders lead the sections they already sit beside in the source.
+  const sourceImage=(sectionIndex:number)=>{const ref=composedSectionRefs(doc)[sectionIndex];return ref?blocksOf(adaptSection(doc,ref,sectionIndex).root).find((b):b is ImageBlock=>b.type==='image')?.media:undefined}
+  const why=copy.filter(section=>/Why Engineers/i.test(section.heading))
+  const rest=copy.filter(section=>!/Why Engineers/i.test(section.heading))
+  const copyBlock=(section:{heading:string;paragraphs:string[]})=><div key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p key={paragraph}>{paragraph}</p>)}</div>
+  return <div className="luxury-site wave3-site salmon-family salmon-family--parts-index r5-site" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256} data-wave3-archetype="PartsIndex">
     <SalmonSeo doc={doc}/><LuxuryHeader page={page} routePath={doc.targetPath}/>
     <main id="main" className="wave3-main wave3-index sp-main sp-family--parts-index" data-salmon-family="parts-index" data-audit-family="PARTS_INDEX">
-      {hero?<SectionView section={hero} ctx={{quoteAction:label=>quoteRfqAction(doc.targetPath,label)}}/>:null}
-      <section className="wave3-index-intro">{hero?null:<div><h1>{doc.seo.h1[0]}</h1><p>{partsIntro(doc)}</p></div>}<form action="/cooling-tower-parts-online/" method="get" role="search" className="wave3-search"><label htmlFor="wave3-query">Search cooling tower parts</label><div><input id="wave3-query" type="search" name="q" defaultValue={cleanQuery} maxLength={100} placeholder="Search parts by name or description"/><button type="submit">Search</button></div></form></section>
-      <RestoredSlot doc={doc} slot="intro" className="wave3-index-intro wave3-source-content"/>
-      <div className="wave3-index-layout"><nav className="wave3-category-rail" aria-label="Part categories"><h2>Browse by Component Type</h2><a href="/cooling-tower-parts-online/" aria-current="page">All Parts</a>{categories.map(category=><a key={category.href} href={category.href}>{category.label}</a>)}</nav><section className="wave3-catalog" aria-labelledby="wave3-catalog-heading"><div className="wave3-catalog-heading"><h2 id="wave3-catalog-heading">Cooling Tower Parts</h2><p>{filtered.length} products</p></div>{shown.length?<div className="wave3-card-grid">{shown.map(({doc:product},index)=><PartCard key={product.routeId} doc={product} staticIndex={staticRelease?index:undefined}/>)}</div>:<div className="wave3-empty"><h3>No matching parts</h3><p>Try a product name or a broader component term.</p><a href="/cooling-tower-parts-online/">Explore all parts</a></div>}{staticRelease?<p data-static-parts-empty hidden>No matching parts. Try a product name or a broader component term.</p>:null}{pageCount>1?<nav className="wave3-pagination" aria-label="Product pages">{currentPage>1?<a href={href(currentPage-1)}>Previous</a>:null}<span>Page {currentPage} of {pageCount}</span>{currentPage<pageCount?<a href={href(currentPage+1)}>Next</a>:null}</nav>:null}</section></div>
-      {copy.length?<section className="wave3-index-copy">{copy.map(section=><div key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p key={paragraph}>{paragraph}</p>)}</div>)}</section>:null}
+      <div className="dr4 r5" data-r4-route={doc.targetPath}>
+      {parts?.h1?<R5PartsHero variant="hub" h1={parts.h1.text} lead={parts.lead?<BlockView block={parts.lead} ctx={{}}/>:undefined} action={parts.button?<BlockView block={parts.button} ctx={{quoteAction:label=>quoteRfqAction(doc.targetPath,label)}}/>:undefined} photo={parts.photo} render={parts.render} renderCap={560}/>:null}
+      <R4LauncherReveal/>
+      <section className="wave3-index-intro r5-split r5-hub-intro">
+        <div className="r5-split-text">{parts?.h1?null:<div><h1>{doc.seo.h1[0]}</h1><p>{partsIntro(doc)}</p></div>}<form action="/cooling-tower-parts-online/" method="get" role="search" className="wave3-search"><label htmlFor="wave3-query">Search cooling tower parts</label><div><input id="wave3-query" type="search" name="q" defaultValue={cleanQuery} maxLength={100} placeholder="Search parts by name or description"/><button type="submit">Search</button></div></form><RestoredSlot doc={doc} slot="intro" className="wave3-source-content"/></div>
+        {sourceImage(1)?<div className="r5-split-media"><Picture media={sourceImage(1)!} style={{inlineSize:`min(100%, ${Math.min(420,sourceImage(1)!.width??420)}px)`}}/></div>:null}
+      </section>
+      <div className="wave3-index-layout r5-browse">
+        <div className="r5-browse-head"><h2 id="r5-browse-title">Browse by Component Type</h2></div>
+        <R5Chips items={[{href:'/cooling-tower-parts-online/',label:'All Parts'},...categories]} current="/cooling-tower-parts-online/" label="Part categories"/>
+        <section className="wave3-catalog" aria-labelledby="wave3-catalog-heading"><div className="wave3-catalog-heading"><h2 id="wave3-catalog-heading">Cooling Tower Parts</h2><p>{filtered.length} products</p></div>{shown.length?<div className="wave3-card-grid r5-grid">{shown.map(({doc:product},index)=><PartCard key={product.routeId} doc={product} staticIndex={staticRelease?index:undefined}/>)}</div>:<div className="wave3-empty"><h3>No matching parts</h3><p>Try a product name or a broader component term.</p><a href="/cooling-tower-parts-online/">Explore all parts</a></div>}{staticRelease?<p data-static-parts-empty hidden>No matching parts. Try a product name or a broader component term.</p>:null}{pageCount>1?<nav className="wave3-pagination" aria-label="Product pages">{currentPage>1?<a href={href(currentPage-1)}>Previous</a>:null}<span>Page {currentPage} of {pageCount}</span>{currentPage<pageCount?<a href={href(currentPage+1)}>Next</a>:null}</nav>:null}</section>
+      </div>
+      {why.length?<Split media={sourceImage(2)} cap={520} className="r5-split--why">{why.map(copyBlock)}</Split>:null}
+      {rest.length?<Split media={sourceImage(3)} cap={420} className="r5-split--copy r5-split--flip">{rest.map(copyBlock)}</Split>:null}
       <R2Discovery kind="parts"/>
+      </div>
       {staticRelease?<StaticPartsController/>:null}
     </main><LuxuryFooter page={page} routePath={doc.targetPath}/>
   </div>

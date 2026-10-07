@@ -3,7 +3,7 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import {readFileSync} from 'node:fs'
 import {createHash} from 'node:crypto'
 import path from 'node:path'
-import {ProductDetail} from '../Wave3Presentation'
+import {R5ProductDetail} from '../r5/R5Product' // Design R5a: the shipped product detail
 import {SalmonSeo,normalizeWave3IndexEditorial,normalizeWave3ProductDescription,renderSalmonNode} from '../SalmonCanonical'
 import {activeProductRoutes} from '../Wave3Products'
 import {salmonDocument,salmonRoutes,type SalmonNode} from '../salmon'
@@ -46,7 +46,7 @@ describe('Wave 3 R3 approved commerce closure',()=>{
       const route=activeProductRoutes().find(row=>row.targetPath===routePath)!
       const doc=salmonDocument(route)
       leaves+=sourcePriceLeaves(doc.children)
-      const html=renderToStaticMarkup(<ProductDetail doc={doc}/>)
+      const html=renderToStaticMarkup(<R5ProductDetail doc={doc}/>)
       expect(html,routePath).not.toMatch(/[$€£]\s*\d/)
       expect(html,routePath).not.toMatch(/\b(?:Estimated\s+)?Price(?:\s+Range)?:/i)
       expect(html,routePath).not.toMatch(/Add to Cart|Buy Now|Checkout|type="number"/i)
@@ -54,7 +54,7 @@ describe('Wave 3 R3 approved commerce closure',()=>{
     }
     expect(leaves).toBe(17)
     const frp=salmonDocument(activeProductRoutes().find(row=>row.targetPath==='/product/frp-angles/')!)
-    const html=renderToStaticMarkup(<ProductDetail doc={frp}/>)
+    const html=renderToStaticMarkup(<R5ProductDetail doc={frp}/>)
     for(const size of ['2 Inch','3 Inch','4 Inch'])expect(html).toContain(`>${size}</li>`)
   })
 

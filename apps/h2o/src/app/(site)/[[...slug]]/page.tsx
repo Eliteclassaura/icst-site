@@ -9,7 +9,9 @@ import {ArchivePage,isArchiveDocument} from '../../../site/ArchivePresentation'
 import {LuxuryCanonical,luxuryIds} from '../../../site/LuxuryCanonical'
 import {r4Builders} from '../../../site/r4/R4Pages'
 import {R4PortfolioPage,R4_PORTFOLIO_ROUTE} from '../../../site/r4/R4Portfolio'
-import {PartsIndex,ProductDetail} from '../../../site/Wave3Presentation'
+import {PartsIndex} from '../../../site/Wave3Presentation'
+import {R5ProductDetail} from '../../../site/r5/R5Product'
+import {R5PartsFamilyPage,R5_PARTS_FAMILIES} from '../../../site/r5/R5PartsPages'
 import {LiveEnglishDetail,Wave4ArticleDetail,Wave4ArticleIndex,Wave4Library} from '../../../site/Wave4Presentation'
 import {matchedWave4Article} from '../../../site/wave4'
 import {EnglishServicePage,englishServiceForPath,englishServicePages} from '../../../site/EnglishServices'
@@ -108,6 +110,8 @@ export default async function Page({params,searchParams}:Params){
   if(r4Builders[doc.routeId]&&!alias)return <LuxuryCanonical doc={doc}/>
   if(doc.routeId===R4_PORTFOLIO_ROUTE&&!alias)return <R4PortfolioPage doc={doc}/>
   const family=salmonFamilyFor(doc)
+  // Design R5a (CT GO 2026-10-07): the parts category and series families render on the R5 parts system.
+  if(family&&R5_PARTS_FAMILIES.has(family.family)&&!alias)return <R5PartsFamilyPage doc={doc}/>
   if(family)return <SalmonFamilyPage doc={doc} config={family}/>
   if(isArchiveDocument(doc))return <ArchivePage doc={doc}/>
   if(doc.routeId.startsWith('LIVE-'))return <LiveEnglishDetail doc={doc}/>
@@ -115,7 +119,8 @@ export default async function Page({params,searchParams}:Params){
     const search=await searchParams??{}
     return <PartsIndex doc={doc} query={typeof search.q==='string'?search.q:''} pageNumber={Number(search.page)||1}/>
   }
-  if(doc.type==='product'&&doc.routeId.startsWith('SALMON-product-'))return <ProductDetail doc={doc}/>
+  // Design R5a (owner-approved product detail proposal, CT 2026-10-07).
+  if(doc.type==='product'&&doc.routeId.startsWith('SALMON-product-'))return <R5ProductDetail doc={doc}/>
   if(['SALMON-pages-1797','SALMON-pages-1870'].includes(doc.routeId))return <Wave4Library doc={doc}/>
   if(doc.routeId==='SALMON-pages-1875')return <Wave4ArticleIndex doc={doc}/>
   if(matchedWave4Article(doc))return <Wave4ArticleDetail doc={doc}/>

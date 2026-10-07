@@ -3,7 +3,8 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
-import {PartsIndex,ProductDetail} from '../Wave3Presentation'
+import {PartsIndex} from '../Wave3Presentation'
+import {R5ProductDetail} from '../r5/R5Product'
 import {activeProductRoutes,productPanels,productPrimaryMedia,productSummary} from '../Wave3Products'
 import {salmonDocument,salmonNodeText,salmonRoutes} from '../salmon'
 import {productMountGate} from '../gate'
@@ -44,7 +45,7 @@ describe('Wave 3 accepted product archetype',()=>{
     for(const route of activeProductRoutes()){
       const doc=salmonDocument(route),before=JSON.stringify(doc)
       expect(productMountGate(doc,env).mounted,route.targetPath).toBe(true)
-      const html=renderToStaticMarkup(<ProductDetail doc={doc}/>)
+      const html=renderToStaticMarkup(<R5ProductDetail doc={doc}/>)
       expect(html,route.targetPath).toContain('data-wave3-archetype="ProductDetail"')
       expect(html,route.targetPath).toContain(doc.seo.h1[0].replaceAll('&','&amp;'))
       expect(html,route.targetPath).toContain(`data-salmon-document="${route.routeId}"`)

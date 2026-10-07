@@ -16,7 +16,9 @@ import {salmonRoutes,liveRoutes,type SalmonDocument} from '../salmon'
 import {articleTocLinks,matchedWave4Article} from '../wave4'
 import {Wave4ArticleDetail,LiveEnglishDetail} from '../Wave4Presentation'
 import {ArchivePage,isArchiveDocument} from '../ArchivePresentation'
-import {PartsIndex,ProductDetail} from '../Wave3Presentation'
+import {PartsIndex} from '../Wave3Presentation'
+import {R5PartsFamilyPage,R5_PARTS_FAMILIES} from '../r5/R5PartsPages'
+import {R5ProductDetail} from '../r5/R5Product'
 import {SalmonFamilyPage,salmonFamilyFor} from '../SalmonFamilies'
 import {LuxuryCanonical,luxuryIds} from '../LuxuryCanonical'
 import {SalmonCanonical} from '../SalmonCanonical'
@@ -30,10 +32,10 @@ const compose=(p:string,groups:RestoredGroup[]|null=restored[p]!.groups,title?:s
   const record={routeId:document.routeId,path:p,family:document.routeId.startsWith('LIVE-')?'live':'salmon',title:title??document.title,document,restoredSections:groups} as RouteRecord
   return repairDocumentText(composePublicDocument(record) as unknown as SalmonDocument)
 }
-/** The catch-all's dispatch order (src/app/(site)/[[...slug]]/page.tsx). */
+/** The catch-all's dispatch order (src/app/(site)/[[...slug]]/page.tsx; Design R5a parts families and product detail). */
 const render=(doc:SalmonDocument)=>{
   const family=salmonFamilyFor(doc)
-  const el=family?<SalmonFamilyPage doc={doc} config={family}/>:isArchiveDocument(doc)?<ArchivePage doc={doc}/>:doc.routeId.startsWith('LIVE-')?<LiveEnglishDetail doc={doc}/>:doc.targetPath==='/cooling-tower-parts-online/'?<PartsIndex doc={doc}/>:doc.type==='product'&&doc.routeId.startsWith('SALMON-product-')?<ProductDetail doc={doc}/>:matchedWave4Article(doc)?<Wave4ArticleDetail doc={doc}/>:luxuryIds.has(doc.routeId)?<LuxuryCanonical doc={doc}/>:<SalmonCanonical doc={doc}/>
+  const el=family&&R5_PARTS_FAMILIES.has(family.family)?<R5PartsFamilyPage doc={doc}/>:family?<SalmonFamilyPage doc={doc} config={family}/>:isArchiveDocument(doc)?<ArchivePage doc={doc}/>:doc.routeId.startsWith('LIVE-')?<LiveEnglishDetail doc={doc}/>:doc.targetPath==='/cooling-tower-parts-online/'?<PartsIndex doc={doc}/>:doc.type==='product'&&doc.routeId.startsWith('SALMON-product-')?<R5ProductDetail doc={doc}/>:matchedWave4Article(doc)?<Wave4ArticleDetail doc={doc}/>:luxuryIds.has(doc.routeId)?<LuxuryCanonical doc={doc}/>:<SalmonCanonical doc={doc}/>
   return renderToStaticMarkup(el)
 }
 const headingsOf=(groups:RestoredGroup[])=>groups.flatMap(g=>g.blocks).flatMap(b=>b.blockType==='restoredHeading'?[b.text]:[])
