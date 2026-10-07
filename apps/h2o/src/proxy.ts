@@ -46,7 +46,8 @@ import { SITEMAP_FILE } from './content/sitemap'
 import { LANGUAGE_HEADER, languageFor } from './content/locale-language'
 import { MFA_COOKIE, mfaCookieValid } from './auth/mfa/keys'
 
-const EXCLUDED = /^\/(api|admin|_next|favicon\.ico|robots\.txt|sitemap[^/]*\.xml|brand)(\/|$)/
+// Design R3.2: the favicon set (icon.svg, the touch and home-screen PNGs, the web manifest) is a static root file like favicon.ico.
+const EXCLUDED = /^\/(api|admin|_next|favicon\.ico|icon\.svg|apple-touch-icon\.png|icon-(?:192|512)\.png|site\.webmanifest|robots\.txt|sitemap[^/]*\.xml|brand)(\/|$)/
 
 /**
  * The base policy, before the accepted Typeform allowance is merged in.

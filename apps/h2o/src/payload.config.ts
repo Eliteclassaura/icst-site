@@ -158,7 +158,15 @@ export default buildConfig({
   admin: {
     user: 'users',
     importMap: { baseDir: path.resolve(dirname) },
-    meta: { titleSuffix: ' · H2O staging admin' },
+    meta: {
+      titleSuffix: ' · H2O staging admin',
+      // Design R3.2: the admin uses the site's ICS favicon instead of Payload's default.
+      icons: [
+        { rel: 'icon', type: 'image/svg+xml', url: '/icon.svg' },
+        { rel: 'icon', sizes: 'any', url: '/favicon.ico' },
+        { rel: 'apple-touch-icon', url: '/apple-touch-icon.png' },
+      ],
+    },
     // CRM-1: one private overview view and a nav link. Both check CRM roles server-side.
     components: crmAdminComponents,
   },

@@ -45,7 +45,9 @@ export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }
 
 export const metadata: Metadata = {
-  icons: {icon: {url: '/favicon.ico', type: 'image/x-icon'}},
+  // Design R3.2 (owner-approved favicon B, CT 2026-10-06): the ICS drop mark on an ICS-blue tile.
+  icons: {icon: [{url: '/favicon.ico', sizes: 'any'}, {url: '/icon.svg', type: 'image/svg+xml'}], apple: '/apple-touch-icon.png'},
+  manifest: '/site.webmanifest',
   robots: defaultRobots(estateHasPublicationReadyRoute()),
   title: 'Industrial Cooling Solutions',
 }
