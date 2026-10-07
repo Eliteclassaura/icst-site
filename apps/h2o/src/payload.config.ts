@@ -31,6 +31,7 @@ import { installMfaGuard } from './auth/mfa/guard'
 import { mfaEndpoints } from './auth/mfa/endpoint'
 import { h2oEmailAdapter } from './email/adapter'
 import { crmAdminComponents } from './crm/admin/config'
+import { adminTitleSuffix } from './brand/admin-brand'
 import { PublicRoutes } from './content/collections/public-routes'
 import { PublicRedirects } from './content/collections/public-redirects'
 import { jobsConfig, PublicationState } from './content/jobs'
@@ -161,7 +162,8 @@ export default buildConfig({
     user: 'users',
     importMap: { baseDir: path.resolve(dirname) },
     meta: {
-      titleSuffix: ' · H2O staging admin',
+      // BRAND-ADMIN-1: environment-driven (production indexing policy → " · ICS admin"), never a fixed staging label.
+      titleSuffix: adminTitleSuffix(),
       // Design R3.2: the admin uses the site's ICS favicon instead of Payload's default.
       icons: [
         { rel: 'icon', type: 'image/svg+xml', url: '/icon.svg' },
@@ -170,7 +172,11 @@ export default buildConfig({
       ],
     },
     // CRM-1: one private overview view and a nav link. Both check CRM roles server-side.
-    components: crmAdminComponents,
+    // BRAND-ADMIN-1: the ICS logo on the login screen (the CRM login redirects there) and the emblem in the admin nav.
+    components: {
+      ...crmAdminComponents,
+      graphics: { Logo: '/brand/AdminGraphics#AdminLogo', Icon: '/brand/AdminGraphics#AdminIcon' },
+    },
   },
   collections,
   // CRM go-live: the Typeform intake webhook (404 unless ingest is enabled; signature-verified).

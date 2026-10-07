@@ -137,6 +137,19 @@
   letter-spacing: 0.02em;
 }
 
+/* BRAND-ADMIN-1: the ICS emblem in the brand slot (no frame), and the ICS logo above the two-factor sign-in */
+.c-mark--logo {
+  border: 0;
+  object-fit: cover;
+}
+
+.c-mfa-logo {
+  display: block;
+  inline-size: 200px;
+  block-size: auto;
+  margin-block-end: 24px;
+}
+
 .c-nav {
   display: flex;
   flex-direction: column;

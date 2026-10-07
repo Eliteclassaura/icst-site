@@ -8,6 +8,7 @@ import { safeNext } from '../../../../auth/mfa/next'
 import { qrSvg } from '../../../../auth/mfa/qr'
 import { beginEnrolment } from '../../../../auth/mfa/service'
 import { MfaForm } from './MfaForm'
+import { ADMIN_BRAND_ALT, ADMIN_LOGO } from '../../../../brand/admin-brand'
 
 export const metadata: Metadata = { title: 'Two-factor sign-in' }
 
@@ -27,6 +28,8 @@ export default async function MfaPage({ searchParams }: { searchParams: Promise<
     return (
       <div className="crm-app c-denied">
         <main className="c-content" id="crm-main">
+          {/* BRAND-ADMIN-1: the same ICS logo as the admin login. */}
+          <img className="c-mfa-logo" src={ADMIN_LOGO.light} width={200} height={51} alt={ADMIN_BRAND_ALT} />
           <h1>Two-factor sign-in is complete</h1>
           <p>
             <a className="c-btn is-primary" href={`/crm/mfa/done/?next=${encodeURIComponent(next)}`}>
@@ -42,6 +45,8 @@ export default async function MfaPage({ searchParams }: { searchParams: Promise<
   return (
     <div className="crm-app c-denied">
       <main className="c-content" id="crm-main">
+          {/* BRAND-ADMIN-1: the same ICS logo as the admin login. */}
+          <img className="c-mfa-logo" src={ADMIN_LOGO.light} width={200} height={51} alt={ADMIN_BRAND_ALT} />
         <h1>{key ? 'Set up two-factor sign-in' : 'Two-factor sign-in'}</h1>
         {key ? (
           <>

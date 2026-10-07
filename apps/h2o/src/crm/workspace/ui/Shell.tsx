@@ -4,6 +4,7 @@ import { DENSITY_COOKIE, densityFrom } from '../prefs'
 import { IconAccounts, IconContacts, IconInbox, IconMore, IconPipeline, IconSearch, IconSettings, IconTasks, IconWork } from './Icons'
 import { PaletteTrigger } from './PaletteTrigger'
 import { loadViews } from '../savedViews'
+import { ADMIN_EMBLEM } from '../../../brand/admin-brand'
 import type { CrmSession } from '../session'
 
 export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'accounts' | 'contacts' | 'search' | 'email' | 'settings' | 'none'
@@ -74,9 +75,8 @@ export async function Shell({
       </a>
       <nav className="c-side" aria-label="Sales Workspace">
         <div className="c-brand">
-          <span className="c-mark" aria-hidden="true">
-            ICS
-          </span>
+          {/* BRAND-ADMIN-1: the ICS emblem instead of the placeholder text mark (decorative; the label names the workspace). */}
+          <img className="c-mark c-mark--logo" src={ADMIN_EMBLEM.src} width={24} height={24} alt="" />
           <span>Sales Workspace</span>
         </div>
         <ul className="c-nav" role="list">
