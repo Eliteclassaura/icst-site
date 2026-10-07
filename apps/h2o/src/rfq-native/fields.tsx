@@ -12,9 +12,11 @@ import styles from './NativeRfq.module.css'
 /** The page that lists the ICS offices and their telephones ("call an ICS office"). */
 export const OFFICES_HREF = '/contact-us/#offices'
 
-export function ErrorText({ reg, id, error }: { reg: Registry; id: string; error?: { key: string; values?: Record<string, string> } }) {
+/** `live` (LEGAL-FIX-1 L08, WCAG 4.1.3): announce the error as it appears — the chat, where focus stays in the answer field.
+ * The inline form moves focus to the first field in error instead, whose description carries the message. */
+export function ErrorText({ reg, id, error, live = false }: { reg: Registry; id: string; error?: { key: string; values?: Record<string, string> }; live?: boolean }) {
   if (!error) return null
-  return <p className={styles.error} id={id}>{t(reg, error.key, error.values)}</p>
+  return <p className={styles.error} id={id} role={live ? 'alert' : undefined}>{t(reg, error.key, error.values)}</p>
 }
 
 /** Quick replies: one button per chip (and "Skip" for an optional question). */

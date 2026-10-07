@@ -94,7 +94,7 @@ describe('A2–A6 stylesheet',()=>{
   it('is imported last and uses colour tokens only',()=>{
     const imports=[...readFileSync(path.join(APP,'src/app/(site)/layout.tsx'),'utf8').matchAll(/^import '\.\/([^']+\.css)'/gm)].map(m=>m[1])
     // Design R3 (CT 2026-10-06) adds its page stylesheet after this one; design-fixes.css stays last before it.
-    expect(imports.slice(-2)).toEqual(['design-fixes.css','design-r3.css'])
+    expect(imports.slice(-3)).toEqual(['design-fixes.css','design-r3.css','a11y-fixes.css']) // + LEGAL-FIX-1 contrast overrides, last
     for(const line of css.split('\n').filter(l=>/^\s*(color|background(-color)?|border(-color)?)\s*:/.test(l)))expect(line,line).not.toMatch(/#[0-9a-f]{3,8}\b|rgb\(/i)
   })
   it('carries each audit fix',()=>{

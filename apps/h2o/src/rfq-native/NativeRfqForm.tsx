@@ -40,6 +40,9 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
   const s = useRfqSession('NATIVE_FORM', locale, loader, fetcher)
   const [hp, setHp] = useState('')
   const formRef = useRef<HTMLFormElement | null>(null)
+  const reviewHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const sentRef = useRef<HTMLElement | null>(null)
+  const editing = useRef<string | null>(null)
   const headingId = useId()
   // contract §2: the registry loads when the inline form mounts; §3: the token on first use (the session fetches it at start)
   const { setContext, start } = s
@@ -51,14 +54,27 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
     const first = s.registry?.questions.find((q) => q.id in s.errors)
     formRef.current?.querySelector<HTMLElement>(`[data-rfq-field="${first?.id}"] input, [data-rfq-field="${first?.id}"] textarea, [data-rfq-field="${first?.id}"] select`)?.focus()
   }, [errorIds, s.phase, s.registry, s.errors])
+  // LEGAL-FIX-1 (L08, WCAG 2.4.3): the form's content is replaced at each step, so focus moves with it — to the review heading,
+  // to the confirmation once sent, and back to the field being edited from the review.
+  useEffect(() => {
+    if (s.phase === 'review') reviewHeadingRef.current?.focus()
+    else if (s.phase === 'sent') sentRef.current?.focus()
+    else if (s.phase === 'asking' && editing.current) {
+      const id = editing.current
+      editing.current = null
+      formRef.current?.querySelector<HTMLElement>(`[data-rfq-field="${id}"] input, [data-rfq-field="${id}"] textarea, [data-rfq-field="${id}"] select`)?.focus()
+    }
+  }, [s.phase])
+  const { edit } = s
+  const onEdit = (id: string) => { editing.current = id; edit(id) }
 
   const reg = s.registry
   if (s.phase === 'unavailable') return reg ? <div className={styles.form}><UnavailableNote reg={reg}/></div> : null
   if (!reg) return <div className={styles.form} aria-busy="true"/>
-  if (s.phase === 'sent') return <section className={styles.form} aria-live="polite"><Confirmation reg={reg} rfqNumber={s.rfqNumber}/></section>
+  if (s.phase === 'sent') return <section ref={sentRef} className={styles.form} aria-live="polite" tabIndex={-1}><Confirmation reg={reg} rfqNumber={s.rfqNumber}/></section>
   if (s.phase === 'review' || s.phase === 'sending') return <section className={styles.form} aria-labelledby={headingId}>
-    <h3 id={headingId} className={styles.formHeading}>{t(reg, 'review.heading')}</h3>
-    <ReviewList reg={reg} answers={s.answers} onEdit={s.edit}/>
+    <h3 id={headingId} ref={reviewHeadingRef} className={styles.formHeading} tabIndex={-1}>{t(reg, 'review.heading')}</h3>
+    <ReviewList reg={reg} answers={s.answers} onEdit={onEdit}/>
     <FailureNote reg={reg} failure={s.failure}/>
     <Honeypot reg={reg} value={hp} onChange={setHp}/>
     <SendButton reg={reg} phase={s.phase} retryIn={s.retryIn} onSend={() => void s.send(hp)}/>

@@ -45,11 +45,12 @@ export function ContactComposition({title,page,routePath}:{title:ReactNode;page:
         {nativeIntakeOn()?<NativeRfqFormSection/>:page?<div className="client-rfq figma-contact-action dr3-start-fallback"><RfqMount mountId="rfq_page" page={page}/></div>:null}
       </div>
       <div className="dr3-send">
-        <h3>{copy.sendHeading}</h3>
-        <ol className="dr3-send-cards">{copy.send.map((item,i)=><li key={item.media} className="dr3-send-card">
+        <h3 id="dr3-send-heading">{copy.sendHeading}</h3>
+        {/* LEGAL-FIX-1 (axe scrollable-region-focusable): a phone scrolls this list sideways, so it is a named, focusable region */}
+        <div className="dr3-send-track" role="region" aria-labelledby="dr3-send-heading" tabIndex={0}><ol className="dr3-send-cards">{copy.send.map((item,i)=><li key={item.media} className="dr3-send-card">
           <span className="dr3-send-photo"><R3Photo media={designR3Media(item.media)}/><span className="dr3-send-index" aria-hidden="true">{String(i+1).padStart(2,'0')}</span></span>
           <p>{item.text}</p>
-        </li>)}</ol>
+        </li>)}</ol></div>
       </div>
     </section>
 

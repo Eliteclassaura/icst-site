@@ -1,6 +1,6 @@
-import {createElement,type ReactNode} from 'react'
+import {createElement,Fragment,type ReactNode} from 'react'
 import {SalmonSeo} from './SalmonCanonical'
-import {linkLabel} from './link-context'
+import {linkLabel,namelessLink} from './link-context'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {pageForSegments} from './cohort'
 import {ownerText,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
@@ -59,7 +59,9 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
  if(sourceColor)props.style={color:sourceColor}
  if(node.attrs.id)props.id=node.attrs.id
  else if(hero?.secondaryTargetDataId&&node.attrs['data-id']===hero.secondaryTargetDataId)props.id='service-overview'
- if(node.attrs.role)props.role=node.attrs.role
+ // LEGAL-FIX-1 (axe aria-required-children, WCAG 1.3.1): a source role="list" stays only on a container that holds list items
+ // (Elementor's loop grid declares it over headings and links)
+ if(node.attrs.role&&!(node.attrs.role==='list'&&!node.children.some(child=>typeof child!=='string'&&(child.attrs.role==='listitem'||child.tag==='li'))))props.role=node.attrs.role
  if(node.attrs['aria-label'])props['aria-label']=node.attrs['aria-label']
  if(node.attrs['data-id'])props['data-id']=node.attrs['data-id']
  for(const name of ['aria-selected','aria-controls','aria-labelledby','data-tab-index'])if(node.attrs[name])props[name]=node.attrs[name]
@@ -87,11 +89,15 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
   if(/\/testimonial-detail\/?(?:[?#]|$)/.test(node.attrs.href??''))return null
   const href=localHref(node.attrs.href??'',doc)
   if(!href)return createElement('span',props,...node.children.map((child,i)=>sourceNode(child,`${key}.${i}`,doc)))
+  // LEGAL-FIX-1 (L07): a link with no accessible name is unwrapped, made decorative beside its named twin, or named by its card
+  const nameless=namelessLink(doc,key,node)
+  if(nameless?.kind==='unwrap')return createElement(Fragment,{key},...node.children.map((child,i)=>sourceNode(child,`${key}.${i}`,doc)))
+  if(nameless?.kind==='decorative'){props['aria-hidden']='true';props.tabIndex=-1}
   props.href=href
   props['data-source-href']=node.attrs.href
   if(node.attrs.target==='_blank'){props.target='_blank';props.rel='noopener noreferrer'}
   // R2.4 (item l): a "Learn more"-style link is named by its card's heading (./link-context); its visible text is unchanged.
-  const label=linkLabel(doc,key)
+  const label=nameless?.kind==='label'?nameless.label:linkLabel(doc,key)
   if(label)props['aria-label']=label
  }
  if(tag==='button'){

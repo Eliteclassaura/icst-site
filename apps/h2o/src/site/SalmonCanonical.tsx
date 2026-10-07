@@ -19,7 +19,7 @@ import {publicMeta,publicSchema,servedOrigin} from './public-urls'
 import {publicFileExists} from '../content/public-files'
 import {projectHeadImagePolicy} from './project-media'
 import {MetaTags,OrganizationWebsiteSchema,standardSocialMeta} from './standard-head'
-import {linkLabel} from './link-context'
+import {linkLabel,namelessLink} from './link-context'
 import {heldImageSize} from './image-size'
 import {PUBLIC_ORIGIN} from '../content/config'
 // Design R3 (CT 2026-10-06): /contact-us/ is the owner's Contact design.
@@ -97,7 +97,11 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
     const commerce=/[?&]add-to-cart=|\/(?:checkout|cart)\/?(?:[?#]|$)/i.test(original)
     props.href=commerce?undefined:hrefSafe(ownerHref(local??original))
     props['data-source-href']=original
-    const label=linkLabel(doc,key) // R2.4 (item l): a non-descriptive link is named by its card's heading
+    // LEGAL-FIX-1 (L07): a link with no accessible name is unwrapped, made decorative beside its named twin, or named by its card
+    const nameless=namelessLink(doc,key,node)
+    if(nameless?.kind==='unwrap')return createElement(Fragment,{key},...children)
+    if(nameless?.kind==='decorative'){props['aria-hidden']='true';props.tabIndex=-1}
+    const label=nameless?.kind==='label'?nameless.label:linkLabel(doc,key) // R2.4 (item l): a non-descriptive link is named by its card's heading
     if(label)props['aria-label']=label
     if(commerce)props['data-salmon-exception']='NO_PUBLIC_COMMERCE'
     if(/^(?:Buy|Order|Purchase) Now$/i.test(salmonNodeText(node).trim())){props.href='/contact-us/';props['data-salmon-exception']='RFQ_ONLY'}

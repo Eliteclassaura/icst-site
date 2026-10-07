@@ -1290,16 +1290,20 @@
   .dr3-contact .dr3-contact-intro {
     margin-block-start: 64px;
   }
+  /* LEGAL-FIX-1: the focusable region scrolls (not the list inside it) */
+  .dr3-contact .dr3-send-track {
+    margin-inline: -20px;
+    padding-inline: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 20px;
+    scrollbar-width: none;
+  }
   .dr3-contact .dr3-send-cards {
     grid-template-columns: none;
     grid-auto-columns: 72%;
     grid-auto-flow: column;
     gap: 14px;
-    margin-inline: -20px;
-    padding-inline: 20px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
   }
   .dr3-contact .dr3-send-card {
     scroll-snap-align: start;
@@ -1383,7 +1387,7 @@
 @media (prefers-reduced-motion: reduce) {
   .dr3 .dr3-office-track,
   .dr3 .dr3-clients,
-  .dr3 .dr3-send-cards {
+  .dr3 .dr3-send-track {
     scroll-behavior: auto;
   }
 }

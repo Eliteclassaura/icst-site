@@ -41,8 +41,8 @@ function Answer({ reg, q, error, onAnswer }: { reg: Registry; q: Question; error
   const labelId = useId(), errorId = useId(), hintId = useId()
   const described = [error ? errorId : '', q.hintKey ? hintId : ''].filter(Boolean).join(' ') || undefined
   const label = <span id={labelId} className={styles.srOnly}>{t(reg, q.labelKey)}</span>
-  if (q.type === 'chips') return <div className={styles.answer}>{label}<ChipGroup reg={reg} q={q} onPick={onAnswer} labelledBy={labelId}/><ErrorText reg={reg} id={errorId} error={error}/></div>
-  if (q.type === 'country') return <div className={styles.answer}>{label}<CountryPicker reg={reg} onPick={onAnswer} labelId={labelId} describedBy={described}/><ErrorText reg={reg} id={errorId} error={error}/></div>
+  if (q.type === 'chips') return <div className={styles.answer}>{label}<ChipGroup reg={reg} q={q} onPick={onAnswer} labelledBy={labelId}/><ErrorText reg={reg} id={errorId} error={error} live/></div>
+  if (q.type === 'country') return <div className={styles.answer}>{label}<CountryPicker reg={reg} onPick={onAnswer} labelId={labelId} describedBy={described}/><ErrorText reg={reg} id={errorId} error={error} live/></div>
   const submit = () => onAnswer(value)
   const common = { id: `rfq-chat-${q.id}`, className: styles.input, value, 'aria-labelledby': labelId, 'aria-describedby': described, 'aria-invalid': error ? true : undefined, placeholder: t(reg, q.placeholderKey) || t(reg, 'input.ph'), maxLength: q.validation.maxLength + 1 }
   const onKey = (e: ReactKeyboardEvent) => { if (e.key === 'Enter' && !(q.type === 'textarea' && e.shiftKey)) { e.preventDefault(); submit() } }
@@ -56,7 +56,7 @@ function Answer({ reg, q, error, onAnswer }: { reg: Registry; q: Question; error
       <button type="button" className={styles.send} onClick={submit} aria-label={t(reg, 'input.send.aria')}><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 20.5 21 12 3 3.5v6.6L15 12 3 13.9z"/></svg></button>
     </div>
     {q.skippable ? <div className={styles.chips}><button type="button" className={`${styles.chip} ${styles.skip}`} onClick={() => onAnswer('')}>{t(reg, 'chip.skip')}</button></div> : null}
-    <ErrorText reg={reg} id={errorId} error={error}/>
+    <ErrorText reg={reg} id={errorId} error={error} live/>
   </div>
 }
 
@@ -70,6 +70,7 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
   const logRef = useRef<HTMLDivElement | null>(null)
   const launcherRef = useRef<HTMLButtonElement | null>(null)
   const returnTo = useRef<HTMLElement | null>(null)
+  const reviewHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const titleId = useId()
 
   const { setContext, start } = s
@@ -108,6 +109,8 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
   useEffect(() => {
     if (!open) return
     const node = dialogRef.current
+    // LEGAL-FIX-1 (L08): the review step is announced by moving focus to its heading
+    if (s.phase === 'review') { reviewHeadingRef.current?.focus(); return }
     // the answer area first (each selector alternative scoped to it), else anything in the panel
     const scoped = FOCUSABLE.split(', ').map((sel) => `[data-rfq-focus] ${sel}`).join(', ')
     const target = node?.querySelector<HTMLElement>(scoped) ?? node?.querySelector<HTMLElement>(FOCUSABLE)
@@ -118,6 +121,22 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
     const target = returnTo.current
     returnTo.current = null
     target?.focus()
+  }, [open])
+
+  // LEGAL-FIX-1 (L08, WCAG 2.4.3/4.1.2): while the panel is open the rest of the page is inert (out of the tab order and the
+  // accessibility tree), at every level from the panel up to <body>; it comes back exactly as it was when the panel closes.
+  useEffect(() => {
+    const node = dialogRef.current
+    if (!open || !node) return undefined
+    const made: HTMLElement[] = []
+    for (let el: HTMLElement | null = node.parentElement; el && el !== document.body && el.parentElement; el = el.parentElement) {
+      for (const sibling of [...el.parentElement.children] as HTMLElement[]) {
+        if (sibling === el || sibling.inert || ['SCRIPT', 'STYLE', 'TEMPLATE'].includes(sibling.tagName)) continue
+        sibling.inert = true
+        made.push(sibling)
+      }
+    }
+    return () => { for (const sibling of made) sibling.inert = false }
   }, [open])
 
   // Escape closes; Tab stays inside the panel.
@@ -191,7 +210,7 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
             s.answer(current.id, v)
           }}/> : null}
           {s.phase === 'review' || s.phase === 'sending' ? <>
-            <h3 className={styles.confirmHeading} tabIndex={-1}>{t(reg, 'review.heading')}</h3>
+            <h3 ref={reviewHeadingRef} className={styles.confirmHeading} tabIndex={-1}>{t(reg, 'review.heading')}</h3>
             <ReviewList reg={reg} answers={s.answers} onEdit={s.edit}/>
             <FailureNote reg={reg} failure={s.failure}/>
             <SendButton reg={reg} phase={s.phase} retryIn={s.retryIn} onSend={() => void s.send(hp)}/>

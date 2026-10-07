@@ -1,0 +1,33 @@
+/*
+ * LEGAL-FIX-1 (legal/accessibility review; WCAG 1.4.3 Contrast (Minimum)): the text colours axe-core 4.13 measured below 4.5:1
+ * on the review's six pages, each moved to the nearest shade that passes. Loaded last. Colours are tokens; logical properties only.
+ */
+.salmon-copy,
+.luxury-site {
+  --a11y-grey: rgb(115 115 115); /* #737373, 4.74:1 on white (was #7f7f7f, 4.0:1) */
+  --a11y-blue: rgb(59 114 173); /* #3b72ad, 5.0:1 against white (was #467fbd, 4.17:1) */
+  --a11y-white: rgb(255 255 255);
+}
+
+/* Home: the hero eyebrow line, and the projects section's grey kicker (shown on phones) */
+.salmon-copy.salmon-page-home b[data-salmon-node="body.5.1.1.1.0"],
+.salmon-copy.salmon-page-home p[data-salmon-node="body.11.1.1.1.1.1"] {
+  color: var(--a11y-grey);
+}
+
+/* Home: the three service cards' "Learn more" links */
+.salmon-copy.salmon-page-home a.elementor-button[data-salmon-node^="body.5.3.1."],
+.salmon-copy.salmon-page-home a.elementor-button[data-salmon-node^="body.5.3.1."] .elementor-button-text {
+  color: var(--a11y-blue);
+}
+
+/* Home: the "View More" button (white text on the blue fill); the doubled classes outrank the Elementor widget rule */
+.salmon-copy.salmon-copy.salmon-page-home a.elementor-button.elementor-button[data-salmon-node="body.9.5.1"] {
+  background-color: var(--a11y-blue);
+}
+
+/* Product pages: the native "Request a Quote" controls on the signal-orange fill (white, 5.55:1; was near-black, 3.57:1) */
+.wave3-detail-action .rfq a[data-rfq-native],
+.wave3-card-rfq .rfq a[data-rfq-native] {
+  color: var(--a11y-white);
+}
