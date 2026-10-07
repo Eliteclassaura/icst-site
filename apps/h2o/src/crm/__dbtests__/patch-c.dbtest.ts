@@ -262,7 +262,7 @@ describe('the worker’s transport: active profile, environment fallback, fail c
 })
 
 describe('templates T1–T6', () => {
-  it('seeds once: T1 approved (the owner’s wording, 2026-10-05), T2–T6 waiting for review; reads for CRM users, writes for nobody via the API', async () => {
+  it('seeds once: T1 approved (2026-10-05) and T2–T6 approved (T-R1, 2026-10-06), each for its exact wording; reads for CRM users, writes for nobody via the API', async () => {
     await ensureTemplates(p)
     await ensureTemplates(p)
     // T1–T6 (the ERS slice-1 sequence templates E11_* are seeded alongside; see ers.dbtest.ts).
@@ -270,7 +270,7 @@ describe('templates T1–T6', () => {
     expect(all.map((t) => t.code)).toEqual(['T1', 'T2', 'T3', 'T4', 'T5', 'T6'])
     const t1 = all[0]!
     expect(t1).toMatchObject({ approved: true, approved_hash: templateHash(SEED_TEMPLATES[0]!), version: 1 })
-    expect(all.slice(1).every((t) => t.approved === false)).toBe(true)
+    for (const t of all.slice(1)) expect(t, String(t.code)).toMatchObject({ approved: true, approved_hash: templateHash(SEED_TEMPLATES.find((x) => x.code === t.code)!), version: 1 })
     expect((await rest.get(`crm-email-templates/${String(t1.id)}`, sales.token)).status).toBe(200)
     expect((await rest.patch(`crm-email-templates/${String(t1.id)}`, admin.token, { body: 'changed' })).status).toBe(403)
     expect((await rest.post('crm-email-templates', admin.token, { code: 'T9', name: 'x', subject: 's', body: 'b', purpose: 'TRANSACTIONAL' })).status).toBe(403)
@@ -314,7 +314,8 @@ describe('templates T1–T6', () => {
   it('the composer offers approved T2–T6 only, and fills a template only when every required value exists', async () => {
     const rfq = await newRfq({ company: 'Northwind Thermal (synthetic)' })
     const A = await session(admin)
-    expect((await composerTemplates(A, rfq, { choices: [] })).options).toEqual([])
+    // T-R1: T2–T6 are seeded approved (owner, 2026-10-06), so the composer offers all five; T1 is automatic only.
+    expect((await composerTemplates(A, rfq, { choices: [] })).options.map((o) => o.code)).toEqual(['T2', 'T3', 'T4', 'T5', 'T6'])
     const t5 = (await templateByCode(p, 'T5'))!
     await setTemplateApproved(A, String(t5.id), true)
     // Owner rule 2026-10-06: the team signature only ("ICS Sales Team" + the sales address, from the Revenue Engine
@@ -322,7 +323,7 @@ describe('templates T1–T6', () => {
     await p.updateGlobal({ slug: 'crm-ers-settings' as never, data: { signature: { signer: 'ICS Sales Team', email: 'sales@example.test' } } as never, ...srv })
     invalidateErsSettings()
     let c = await composerTemplates(A, rfq, { code: 'T5', choices: ['site visit'] })
-    expect(c.options.map((o) => [o.code, o.choices])).toEqual([['T5', [['call', 'site visit']]]])
+    expect(c.options.map((o) => [o.code, o.choices])).toContainEqual(['T5', [['call', 'site visit']]])
     expect(c.picked?.result).toMatchObject({ ok: true, subject: `Scheduling a site visit for RFQ ${String(rfq.rfq_number)}` })
     expect((c.picked?.result as { body: string }).body).toContain('Best regards,\nICS Sales Team\nsales@example.test')
     // A phone set in the office settings is still never put in an email.
@@ -335,6 +336,7 @@ describe('templates T1–T6', () => {
     c = await composerTemplates(await session(admin), { ...rfq, account: acct.id }, { code: 'T5', choices: ['call'] })
     expect((c.picked?.result as { body: string }).body).toContain('a call with your team at Westbrook Utilities (synthetic).')
     // T1 (automatic) and unapproved templates can't be picked, even by URL.
+    await setTemplateApproved(A, String((await templateByCode(p, 'T2'))!.id), false)
     expect((await composerTemplates(A, rfq, { code: 'T1', choices: [] })).picked).toBeNull()
     expect((await composerTemplates(A, rfq, { code: 'T2', choices: [] })).picked).toBeNull()
     expect(await p.updateGlobal({ slug: 'crm-office-settings' as never, data: { phones: { US: 'call me <maybe>' } } as never, ...srv }).catch((e: Error) => e.message)).toMatch(/phone number/)

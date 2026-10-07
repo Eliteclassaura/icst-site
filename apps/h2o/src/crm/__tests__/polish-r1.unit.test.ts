@@ -5,6 +5,7 @@ import { parseInboxParams, weekStart } from '../workspace/queries'
 import { firstResponseDueAt, relativeAge, type BusinessCalendar } from '../workspace/time'
 import { MERGE_FIELDS, renderTemplate, SEED_TEMPLATES, SUPERSEDED_SEED_HASHES, templateHash } from '../../email/templates'
 import { renderSalesAlert } from '../../email/messages'
+import { scopeHits, scopeRefusal } from '../../email/scope-guard'
 
 /**
  * CRM polish R1: the reply-due countdown (office hours 09:00–17:00 on the office's business days), the inbox's
@@ -146,5 +147,40 @@ describe('owner rule: no phone number, no postal address in any email', () => {
     const a = renderSalesAlert({ rfqNumber: 'RFQ-1', company: 'Plant (synthetic)', products: ['Fan blades'], pagePath: '/', ctaPlacement: 'launcher', crmUrl: 'http://localhost/crm/rfqs/x/' } as never)
     expect(phoneLine(a.text)).toEqual([])
     expect(a.text).not.toMatch(/Synthetic Way|Street|Suite|P\.?O\.? Box/i)
+  })
+})
+
+/** T-R1 (owner, 2026-10-06): T2–T6 approved; every template stays industrial cooling (no HVAC / residential / small towers). */
+describe('T-R1: approved T2–T6 and the industrial-scope guard', () => {
+  it('every seed (T1–T6 and the E1.1 steps) is in scope', () => {
+    for (const t of SEED_TEMPLATES) expect(scopeHits(t.subject, t.body), t.code).toEqual([])
+  })
+  it('flags each out-of-scope term (REVIEW), word-bounded and case-insensitive', () => {
+    const cases: Array<[string, string]> = [
+      ['We service HVAC systems.', 'SCOPE_HVAC'],
+      ['hvac', 'SCOPE_HVAC'],
+      ['Rooftop units and RTU replacements', 'SCOPE_ROOFTOP_UNIT'],
+      ['roof-top unit', 'SCOPE_ROOFTOP_UNIT'],
+      ['Residential customers welcome', 'SCOPE_RESIDENTIAL'],
+      ['for your home', 'SCOPE_RESIDENTIAL'],
+      ['Small cooling towers too', 'SCOPE_SMALL_TOWER'],
+      ['smaller towers', 'SCOPE_SMALL_TOWER'],
+      ['Packaged cooling tower', 'SCOPE_PACKAGED_TOWER'],
+      ['air-conditioning', 'SCOPE_AIR_CONDITIONING'],
+      ['Air conditioners and A/C', 'SCOPE_AIR_CONDITIONING'],
+    ]
+    for (const [text, rule] of cases) expect(scopeHits('', text).map((h) => h.rule_id), text).toContain(rule)
+    expect(scopeHits('', 'HVAC').every((h) => h.severity === 'REVIEW')).toBe(true)
+    // Word boundaries: no false positives on in-scope words.
+    for (const ok of ['Visit our homepage', 'industrial cooling tower', 'thermal performance', 'conditions of the site', 'the start-up date', 'virtual tour'])
+      expect(scopeHits('', ok), ok).toEqual([])
+    expect(scopeRefusal('S', 'We do HVAC')).toMatch(/“HVAC”.*industrial cooling/)
+    expect(scopeRefusal('S', 'Industrial cooling tower parts')).toBeNull()
+  })
+  it('T2–T6 are seeded approved; T6 closes with the industrial-scope line; the R1.1 T6 is superseded', () => {
+    for (const code of ['T1', 'T2', 'T3', 'T4', 'T5', 'T6']) expect(SEED_TEMPLATES.find((t) => t.code === code)!.approved, code).toBe(true)
+    const t6 = SEED_TEMPLATES.find((t) => t.code === 'T6')!
+    expect(t6.body).toContain("We'd be glad to help with industrial cooling tower parts, maintenance and repairs, dry soda blasting or new towers in the future. Just reply to this email.")
+    expect(SUPERSEDED_SEED_HASHES.T6).toContain('75b7e9c3f8ea90a4f723405cb111c48fe1ad96f0ce772c779b9d540ed7499e72')
   })
 })

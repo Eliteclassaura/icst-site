@@ -1,5 +1,6 @@
 import type { Payload } from 'payload'
 import { lintCopy } from '../../email/copy-lint'
+import { scopeRefusal } from '../../email/scope-guard'
 import { readEmailConfig } from '../../email/config'
 import { choicesOf, fieldsOf, greetingFor, lintTemplate, renderTemplate, responseSentence, SEED_TEMPLATES, SUPERSEDED_SEED_HASHES, templateHash, type MergeValues, type RenderResult, type TemplateText } from '../../email/templates'
 import { ersSettings } from '../ers/settings'
@@ -19,9 +20,11 @@ const fail = (code: string, message: string): Outcome => ({ ok: false, code, mes
 const NOT_ADMIN = fail('FORBIDDEN', 'Email templates are edited by admins.')
 
 /**
- * Insert any missing seed template (unapproved). Safe to call often and from several processes.
- * Owner rule 2026-10-06 (no phone, no address): a stored T2–T6 that is still exactly its earlier seed (unedited and
- * unapproved) is replaced with the current seed text; anything edited or approved is never touched.
+ * Insert any missing seed template (approved when the owner approved its wording: T1–T6 and the E1.1 steps). Safe to
+ * call often and from several processes.
+ * A stored seed that is still unapproved and exactly an earlier seed (owner rule 2026-10-06; T-R1) or the current seed
+ * is brought to the current seed text, approved when the seed is (T-R1: the owner approved T2–T6 on 2026-10-06).
+ * Anything edited or already approved is never touched.
  */
 export async function ensureTemplates(payload: Payload): Promise<void> {
   const have = await payload.find({ collection: SLUG, limit: 100, depth: 0, overrideAccess: true, pagination: false })
@@ -29,10 +32,13 @@ export async function ensureTemplates(payload: Payload): Promise<void> {
   for (const t of SEED_TEMPLATES) {
     const old = stored.get(t.code)
     if (old) {
-      const superseded = SUPERSEDED_SEED_HASHES[t.code] ?? []
-      if (old.approved !== true && superseded.includes(templateHash(textOf(old)))) {
-        const { approved: _a, code: _c, name: _n, ...text } = t
-        await payload.update({ collection: SLUG, id: String(old.id), data: text as never, ...sys }).catch(() => null)
+      const { approved, code: _c, name: _n, ...text } = t
+      const have = templateHash(textOf(old))
+      const unedited = (SUPERSEDED_SEED_HASHES[t.code] ?? []).includes(have) || have === templateHash(text)
+      // Never approved and never withdrawn (a withdrawal is marked WITHDRAWN): an admin's decision always stands.
+      if (old.approved !== true && old.approved_hash !== WITHDRAWN && unedited) {
+        const seal = approved ? { approved: true, approved_hash: templateHash(text), approved_at: new Date().toISOString() } : {}
+        await payload.update({ collection: SLUG, id: String(old.id), data: { ...text, ...seal } as never, ...sys }).catch(() => null)
       }
       continue
     }
@@ -45,6 +51,9 @@ export async function ensureTemplates(payload: Payload): Promise<void> {
     }
   }
 }
+
+/** `approved_hash` of a template whose approval an admin withdrew (fits the column; never a real SHA-256). */
+export const WITHDRAWN = 'WITHDRAWN'
 
 export const textOf = (d: Doc): TemplateText => ({ subject: String(d.subject ?? ''), body: String(d.body ?? ''), purpose: String(d.purpose ?? '') })
 export const isApproved = (d: Doc): boolean => d.approved === true && d.approved_hash === templateHash(textOf(d))
@@ -88,6 +97,9 @@ export async function setTemplateApproved(s: CrmSession, id: string | undefined,
   // The admin approves the text they were looking at: if it changed meanwhile, they must look again.
   if (approve && expectedHash && expectedHash !== hash) return fail('STALE', 'The template changed since you opened it. Reload and review it again.')
   if (approve && lintTemplate(textOf(doc)).length) return fail('TEMPLATE_INVALID', 'Fix the template before approving it.')
+  // T-R1 (owner condition 2026-10-06): every template stays industrial cooling (no HVAC, residential or small-tower wording).
+  const outOfScope = approve ? scopeRefusal(String(doc.subject ?? ''), String(doc.body ?? '')) : null
+  if (outOfScope) return fail('TEMPLATE_OUT_OF_SCOPE', outOfScope)
   // Revenue Engine: a sequence template must pass the E1.1 copy-risk linter (BLOCK or REVIEW hits refuse approval).
   if (approve && doc.purpose === 'SEQUENCE') {
     const lint = lintCopy(String(doc.subject), String(doc.body), 'TEMPLATE')
@@ -99,7 +111,8 @@ export async function setTemplateApproved(s: CrmSession, id: string | undefined,
     id: String(doc.id),
     data: (approve
       ? { approved: true, approved_hash: hash, approved_by: s.user.id, approved_at: new Date().toISOString() }
-      : { approved: false, approved_hash: null, approved_by: null, approved_at: null }) as never,
+      : // A withdrawal is marked, so re-seeding never re-approves wording an admin deliberately withdrew (T-R1).
+        { approved: false, approved_hash: WITHDRAWN, approved_by: null, approved_at: null }) as never,
     ...sys,
     user: s.user as never,
   })

@@ -208,19 +208,22 @@ const FOOTER = 'You’re receiving this email because you sent a request through
 /**
  * T1–T6, English, from the CT-accepted OGCS prelaunch copy R1 §7 (sender and reply addresses are headers, not text).
  * T1 is seeded approved: the owner approved its wording on 2026-10-05 (as returned with Patch L, without the OGCS
- * footer line). T2–T6 are seeded unapproved until the owner reviews them in the templates UI.
+ * footer line). T2–T6 are seeded approved too: the owner approved their wording on 2026-10-06 (T-R1, with the T6
+ * industrial-scope line), on the condition that every template stays industrial cooling (see `scope-guard.ts`).
  */
 /**
- * Owner rule 2026-10-06 (no phone, no address): the hashes of the earlier T2–T6 seeds, which carried an {{office_phone}}
- * line. A stored template still exactly equal to its earlier seed (never edited, never approved) is replaced with the
- * current seed; an edited one is left alone for an admin to fix (it no longer passes the template check).
+ * Earlier seed wordings, by code: the Round 9 T2–T6 (with an {{office_phone}} line; owner rule 2026-10-06) and the R1.1
+ * T6 (before its T-R1 industrial-scope closing line). A stored template still exactly equal to an earlier seed (never
+ * edited, never approved) is replaced with the current seed, approved when the seed is; an edited or approved one is
+ * left alone for an admin.
  */
 export const SUPERSEDED_SEED_HASHES: Readonly<Record<string, readonly string[]>> = {
   T2: ['8bab7df48e8322a56e3453c4c860d6c4aed1c315b531ce7589139b18469103a1'],
   T3: ['70bebcfaffd1c5de92b259794ebe56218c4dfeeabcb3784fe141cc69a880b0bb'],
   T4: ['e96e73a47fc81c2851597b090ff1d51e83543a2c481062cfb0e077594a1fca1a'],
   T5: ['396950a8f996c1a06ce8ae8ee45bf12ecbf8599ec5b2ecb3c588f987abd8ac85'],
-  T6: ['99b02cb25a44a5ff2aa6a63be9bfc0ffdef6fbdf6f0134c0c9c500a7c48f93ee'],
+  // T-R1 (2026-10-06): the R1.1 T6, before its industrial-scope closing line.
+  T6: ['99b02cb25a44a5ff2aa6a63be9bfc0ffdef6fbdf6f0134c0c9c500a7c48f93ee', '75b7e9c3f8ea90a4f723405cb111c48fe1ad96f0ce772c779b9d540ed7499e72'],
 }
 
 export const SEED_TEMPLATES: Array<{ code: string; name: string; purpose: TemplatePurpose; subject: string; body: string; approved?: boolean }> = [
@@ -246,6 +249,7 @@ Industrial Cooling Solutions (ICS)`,
     code: 'T2',
     name: 'Request for more information',
     purpose: 'TRANSACTIONAL',
+    approved: true, // owner-approved 2026-10-06 (T-R1)
     subject: 'A few details to scope RFQ {{rfq_number}}',
     body: `Hi {{customer_first_name}},
 
@@ -268,6 +272,7 @@ ${FOOTER}`,
     code: 'T3',
     name: 'Quote sent / proposal follow-up',
     purpose: 'TRANSACTIONAL',
+    approved: true, // owner-approved 2026-10-06 (T-R1)
     subject: 'Your ICS proposal: RFQ {{rfq_number}}',
     body: `Hi {{customer_first_name}},
 
@@ -286,6 +291,7 @@ ${FOOTER}`,
     code: 'T4',
     name: 'Follow-up, no response (5–7 days after the quote)',
     purpose: 'TRANSACTIONAL',
+    approved: true, // owner-approved 2026-10-06 (T-R1)
     subject: 'Following up on RFQ {{rfq_number}}',
     body: `Hi {{customer_first_name}},
 
@@ -302,6 +308,7 @@ ${FOOTER}`,
     code: 'T5',
     name: 'Site visit / call scheduling',
     purpose: 'TRANSACTIONAL',
+    approved: true, // owner-approved 2026-10-06 (T-R1)
     subject: 'Scheduling a {{choice:call|site visit}} for RFQ {{rfq_number}}',
     body: `Hi {{customer_first_name}},
 
@@ -318,12 +325,13 @@ ${FOOTER}`,
     code: 'T6',
     name: 'Closing, not a fit',
     purpose: 'TRANSACTIONAL',
+    approved: true, // owner-approved 2026-10-06 (T-R1)
     subject: 'Update on RFQ {{rfq_number}}',
     body: `Hi {{customer_first_name}},
 
 Thank you for considering ICS for this request. After reviewing RFQ {{rfq_number}}, we don't believe we're the right fit for this particular scope, and we'd rather tell you now than slow your project down.
 
-We'd be glad to help with cooling tower parts, repairs or new towers in the future. Just reply to this email.
+We'd be glad to help with industrial cooling tower parts, maintenance and repairs, dry soda blasting or new towers in the future. Just reply to this email.
 
 Best regards,
 ${SIGNATURE}

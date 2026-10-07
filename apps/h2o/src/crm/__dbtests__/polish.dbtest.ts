@@ -8,7 +8,7 @@ import { loadDashboard, loadInbox, loadMyWork, parseInboxParams } from '../works
 import { crmSessionFor } from '../workspace/session'
 import { payload, resetCrm, user } from './harness'
 import { SEED_TEMPLATES, SUPERSEDED_SEED_HASHES, templateHash } from '../../email/templates'
-import { ensureTemplates } from '../settings/templates'
+import { ensureTemplates, saveTemplate, setTemplateApproved, templateByCode } from '../settings/templates'
 
 /**
  * CRM polish R1 against the isolated synthetic database: the reply-due countdown on inquiry rows, the inbox's
@@ -180,7 +180,8 @@ describe('owner rule 2026-10-06: no phone, no address — stored templates', () 
     const t2 = await get('T2')
     expect(t2.body).toBe(SEED_TEMPLATES.find((x) => x.code === 'T2')!.body)
     expect(String(t2.body)).not.toMatch(/office_phone/)
-    expect(t2.approved).not.toBe(true) // re-seeding never approves
+    // T-R1: the seed is owner-approved (2026-10-06), so the re-seeded copy is approved for exactly the new wording.
+    expect(t2).toMatchObject({ approved: true, approved_hash: templateHash(SEED_TEMPLATES.find((x) => x.code === 'T2')!) })
     expect(String((await get('T3')).body)).toContain('Edited by an admin.')
     expect(String((await get('T4')).body)).toContain('{{office_phone}}')
     // An approved T2 that is exactly the earlier seed is still never replaced (only an admin changes approved wording).
@@ -190,5 +191,64 @@ describe('owner rule 2026-10-06: no phone, no address — stored templates', () 
     const approvedT2 = await get('T2')
     expect(approvedT2.approved).toBe(true)
     expect(String(approvedT2.body)).toContain('{{office_phone}}')
+  })
+})
+
+describe('T-R1: T2–T6 approved seeds and the industrial-scope guard', () => {
+  it('an unapproved, unedited R1.1 T6 or current-seed T3 becomes the approved seed; an edited one stays unapproved', async () => {
+    const p = await payload()
+    const drizzle = (p.db as unknown as { drizzle: { execute: (q: unknown) => Promise<unknown> } }).drizzle
+    await drizzle.execute(sql`DELETE FROM crm_email_templates WHERE code IN ('T3', 'T4', 'T6')`)
+    const seed = (code: string) => SEED_TEMPLATES.find((x) => x.code === code)!
+    const r11T6 = seed('T6').body.replace(
+      'industrial cooling tower parts, maintenance and repairs, dry soda blasting or new towers in the future.',
+      'cooling tower parts, repairs or new towers in the future.',
+    )
+    expect(SUPERSEDED_SEED_HASHES.T6).toContain(templateHash({ subject: seed('T6').subject, body: r11T6, purpose: 'TRANSACTIONAL' }))
+    const put = async (code: string, body: string) => {
+      const t = seed(code)
+      await p.create({ collection: 'crm-email-templates' as never, data: { code, name: code, locale: 'en', version: 1, subject: t.subject, body: t.body, purpose: t.purpose, approved: false } as never, ...sys, context: { crmServer: {} } })
+      await drizzle.execute(sql`UPDATE crm_email_templates SET body = ${body}, approved = false, approved_hash = NULL WHERE code = ${code}`)
+    }
+    await put('T6', r11T6) // the R1.1 wording, never approved
+    await put('T3', seed('T3').body) // the current wording, never approved
+    await put('T4', `${seed('T4').body}\nEdited by an admin.`) // edited
+    await ensureTemplates(p)
+    const get = async (code: string) => (await p.find({ collection: 'crm-email-templates' as never, where: { code: { equals: code } } as never, ...sys })).docs[0] as unknown as Doc
+    const t6 = await get('T6')
+    expect(t6).toMatchObject({ approved: true, approved_hash: templateHash(seed('T6')) })
+    expect(String(t6.body)).toContain('industrial cooling tower parts, maintenance and repairs, dry soda blasting or new towers in the future. Just reply to this email.')
+    expect(await get('T3')).toMatchObject({ approved: true, approved_hash: templateHash(seed('T3')) })
+    const t4 = await get('T4')
+    expect(t4.approved).not.toBe(true)
+    expect(String(t4.body)).toContain('Edited by an admin.')
+    // An admin's withdrawal stands: re-seeding never re-approves a template whose approval was withdrawn.
+    const admin = await user('platform-admin')
+    expect(await setTemplateApproved(crmSessionFor(p, admin.user)!, String(t6.id), false)).toMatchObject({ ok: true })
+    await ensureTemplates(p)
+    await ensureTemplates(p)
+    expect(await get('T6')).toMatchObject({ approved: false, approved_hash: 'WITHDRAWN' })
+    expect(await setTemplateApproved(crmSessionFor(p, admin.user)!, String(t6.id), true)).toMatchObject({ ok: true })
+    expect(await get('T6')).toMatchObject({ approved: true, approved_hash: templateHash(seed('T6')) })
+  })
+  it('approval refuses out-of-scope wording on every template kind (transactional and sequence), naming the term', async () => {
+    const admin = await user('platform-admin')
+    const p = await payload()
+    const A = crmSessionFor(p, admin.user)!
+    await ensureTemplates(p)
+    const t3 = (await templateByCode(p, 'T3'))!
+    expect(await saveTemplate(A, { id: String(t3.id), name: 'T3', subject: String(t3.subject), body: `${String(t3.body)}\nWe also service HVAC rooftop units.`, purpose: 'TRANSACTIONAL' })).toMatchObject({ ok: true })
+    const refused = await setTemplateApproved(A, String(t3.id), true)
+    expect(refused).toMatchObject({ ok: false, code: 'TEMPLATE_OUT_OF_SCOPE' })
+    expect((refused as { message: string }).message).toMatch(/“HVAC”.*“rooftop unit”/)
+    expect((await templateByCode(p, 'T3'))!.approved).not.toBe(true)
+    const e11 = (await templateByCode(p, 'E11_QUAL_1'))!
+    expect(await saveTemplate(A, { id: String(e11.id), name: 'E11', subject: String(e11.subject), body: `${String(e11.body)}\nSmall cooling towers for your home too.`, purpose: 'SEQUENCE' })).toMatchObject({ ok: true })
+    const refusedSeq = await setTemplateApproved(A, String(e11.id), true)
+    expect(refusedSeq).toMatchObject({ ok: false, code: 'TEMPLATE_OUT_OF_SCOPE' })
+    expect((refusedSeq as { message: string }).message).toMatch(/“residential \/ home”.*“small cooling tower”/)
+    // In scope again → approvable.
+    expect(await saveTemplate(A, { id: String(t3.id), name: 'T3', subject: String(t3.subject), body: SEED_TEMPLATES.find((x) => x.code === 'T3')!.body, purpose: 'TRANSACTIONAL' })).toMatchObject({ ok: true })
+    expect(await setTemplateApproved(A, String(t3.id), true)).toMatchObject({ ok: true })
   })
 })

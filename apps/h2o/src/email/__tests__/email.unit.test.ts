@@ -319,8 +319,8 @@ describe('E1 messages', () => {
         'If you have drawings, nameplate photos or earlier inspection reports, reply to this email and attach them. They help us scope your request accurately.\n\n' +
         'The ICS team\nIndustrial Cooling Solutions (ICS)\n',
     )
-    // T1 is the only approved transactional seed; the E1.1 sequence seeds (owner-accepted copy) are approved too.
-    expect(SEED_TEMPLATES.filter((t) => t.approved && t.purpose === 'TRANSACTIONAL').map((t) => t.code)).toEqual(['T1'])
+    // T1 (2026-10-05) and, since T-R1, T2–T6 (owner approval 2026-10-06) are the approved transactional seeds; the E1.1 sequence steps are approved too.
+    expect(SEED_TEMPLATES.filter((t) => t.approved && t.purpose === 'TRANSACTIONAL').map((t) => t.code)).toEqual(['T1', 'T2', 'T3', 'T4', 'T5', 'T6'])
     expect(SEED_TEMPLATES.filter((t) => t.approved && t.purpose === 'SEQUENCE').map((t) => t.code)).toEqual(['E11_QUAL_1', 'E11_QUAL_2', 'E11_MISS_1', 'E11_MISS_2'])
   })
   it('T1 echoes only the RFQ number and a one-line first name, never markup or a second line', () => {
