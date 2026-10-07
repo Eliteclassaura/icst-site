@@ -35,8 +35,15 @@ describe('a client-admin cannot touch a platform-admin account', () => {
     expect((await (await payload()).login({ collection: 'users', data: { email: String(before.email), password: PASSWORD } })).token).toBeTruthy()
   })
   it('the admin UI document access shows the account read-only', async () => {
+    // SEC-MAIN-1.2a: Payload 3.90 sanitizePermissions deletes denied (false) entries, so a denied update is absent;
+    // a grant is `true` or `{ permission: true }`. The platform-admin control proves the response is not vacuous.
+    const granted = (u: unknown) => u === true || (typeof u === 'object' && (u as { permission?: boolean } | null)?.permission === true)
     const res = await rest.get(`users/access/${target.id}`, client.token)
-    expect((res.body.update as { permission?: boolean } | undefined)?.permission).toBe(false)
+    expect(res.status).toBe(200)
+    expect(granted(res.body.update)).toBe(false)
+    const control = await rest.get(`users/access/${target.id}`, platform.token)
+    expect(control.status).toBe(200)
+    expect(granted(control.body.update)).toBe(true)
   })
   it('Local API with access on: update refused', async () => {
     const p = await payload()
