@@ -38,10 +38,11 @@ describe('a client-admin cannot touch a platform-admin account', () => {
     // SEC-MAIN-1.2a: Payload 3.90 sanitizePermissions deletes denied (false) entries, so a denied update is absent;
     // a grant is `true` or `{ permission: true }`. The platform-admin control proves the response is not vacuous.
     const granted = (u: unknown) => u === true || (typeof u === 'object' && (u as { permission?: boolean } | null)?.permission === true)
-    const res = await rest.get(`users/access/${target.id}`, client.token)
+    // SEC-MAIN-1.2b: the doc-access endpoint is POST /api/users/access/:id in Payload 3.90 (GET is 404).
+    const res = await rest.post(`users/access/${target.id}`, client.token, {})
     expect(res.status).toBe(200)
     expect(granted(res.body.update)).toBe(false)
-    const control = await rest.get(`users/access/${target.id}`, platform.token)
+    const control = await rest.post(`users/access/${target.id}`, platform.token, {})
     expect(control.status).toBe(200)
     expect(granted(control.body.update)).toBe(true)
   })
