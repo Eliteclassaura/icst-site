@@ -1,4 +1,4 @@
-import type { Access, FieldAccess, PayloadRequest, Where } from 'payload'
+import { Forbidden, type Access, type CollectionBeforeChangeHook, type FieldAccess, type PayloadRequest, type Where } from 'payload'
 import { ADMINS, CONTENT_READERS, CONTENT_WRITERS, CRM_USERS, SEARCH_USERS, type Role } from './roles'
 
 type UserLike = { id: string | number; roles?: Role[] | null; email?: string } | null | undefined
@@ -46,6 +46,46 @@ export const selfOrAdmin: Access = ({ req }) => {
   const u = req.user as UserLike
   if (!u) return false
   return { id: { equals: u.id } } as Where
+}
+
+/**
+ * SEC-MAIN-1 (security audit R1, users.client-admin-platform-admin-takeover; CT ruling): platform-admin is the agency
+ * tier. Only a platform-admin may grant or revoke platform-admin, or change a platform-admin account (password, email,
+ * two-factor reset, anything else). Client-admins manage only non-platform users. Enforced three ways, so REST, GraphQL,
+ * the admin UI and the Local API with a user all agree:
+ *   - collection `update` access (`usersUpdate`): a client-admin is refused a platform-admin target by id (the admin
+ *     UI shows that account read-only);
+ *   - field access (`tierFieldAccess`) on `roles` and on app fields such as the two-factor reset;
+ *   - a `beforeChange` guard (`guardPlatformTier`) on every create/update made by a signed-in user, which also covers
+ *     bulk updates and a grant of platform-admin. Server code without a user (seed, break-glass) is not affected.
+ */
+export const PLATFORM_ADMIN: Role = 'platform-admin'
+export const isPlatformAdminUser = (req: PayloadRequest): boolean => hasRole(req, [PLATFORM_ADMIN])
+const holdsPlatformAdmin = (doc: unknown): boolean =>
+  Array.isArray((doc as { roles?: unknown } | null | undefined)?.roles) && ((doc as { roles: unknown[] }).roles).includes(PLATFORM_ADMIN)
+
+/** Users collection update: self, or an admin; a client-admin never a platform-admin account. */
+export const usersUpdate: Access = async ({ req, id }) => {
+  if (isPlatformAdminUser(req)) return true
+  if (hasRole(req, ADMINS)) {
+    if (id == null) return true // bulk update: guardPlatformTier refuses each platform-admin row
+    const target = await req.payload.findByID({ collection: 'users', id, depth: 0, overrideAccess: true, req, disableErrors: true })
+    return !holdsPlatformAdmin(target)
+  }
+  const u = req.user as UserLike
+  if (!u) return false
+  return { id: { equals: u.id } } as Where
+}
+
+/** Field access for tier-sensitive user fields: a platform-admin always; another admin only on a non-platform account. */
+export const tierFieldAccess: FieldAccess = ({ req, doc }) => isPlatformAdminUser(req) || (hasRole(req, ADMINS) && !holdsPlatformAdmin(doc))
+
+/** Users beforeChange: refuse a non-platform actor who grants platform-admin or changes a platform-admin account. */
+export const guardPlatformTier: CollectionBeforeChangeHook = ({ data, originalDoc, req }) => {
+  if (!req.user || isPlatformAdminUser(req)) return data
+  if (holdsPlatformAdmin(data)) throw new Forbidden(req.t)
+  if (holdsPlatformAdmin(originalDoc)) throw new Forbidden(req.t)
+  return data
 }
 
 /** Sensitive record collections: read-limited to a role group, never public. */

@@ -9,6 +9,9 @@ import type { NextRequest } from 'next/server'
  */
 export function redirectLocation(destination: string, req: Pick<NextRequest, 'nextUrl'>): string {
   const target = new URL(destination, req.nextUrl.origin)
+  // SEC-MAIN-1 (security audit R1, redirect.backslash-open-redirect): a ledger redirect never leaves the site. A target
+  // that resolves to another origin ("/" + backslash + "evil.example") goes to the home page instead.
+  if (target.origin !== req.nextUrl.origin) return new URL('/', req.nextUrl.origin).href
   if (!destination.includes('?')) target.search = req.nextUrl.search
   return target.href
 }

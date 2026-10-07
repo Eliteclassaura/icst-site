@@ -12,11 +12,15 @@ import { notePublicChange } from '../publishing'
  */
 type Doc = Record<string, unknown>
 
+const hasControl = (v: string) => [...v].some((c) => c.charCodeAt(0) < 0x20 || c.charCodeAt(0) === 0x7f)
+
 const validate = ({ data }: { data?: Doc }) => {
   const d = (data ?? {}) as Doc
   for (const k of ['source', 'destination'] as const) {
     const v = d[k]
-    if (v !== undefined && (typeof v !== 'string' || !v.startsWith('/') || v.startsWith('//') || /[\s<>"]/.test(v)))
+    // SEC-MAIN-1 (security audit R1, redirect.backslash-open-redirect): no backslash or control character either; a URL
+    // parser reads a backslash as "/", so "/" + backslash + "evil.example" would leave the site.
+    if (v !== undefined && (typeof v !== 'string' || !v.startsWith('/') || v.startsWith('//') || /[\s<>"\\]/.test(v) || hasControl(v)))
       throw new APIError(`${k} must be a site-relative path starting with a single "/".`, 400)
   }
   return d

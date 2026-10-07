@@ -4,6 +4,7 @@ import type {
   CollectionAfterLoginHook,
   GlobalAfterChangeHook,
 } from 'payload'
+import { clientIp, UNTRUSTED_BUCKET } from '../../intake/client-ip'
 
 /** Collections whose field VALUES must never enter the audit log (PII). Only keys are recorded. */
 const REDACT_VALUES = new Set(['submissions', 'subscribers', 'contacts', 'leads', 'activities', 'users'])
@@ -39,6 +40,17 @@ type AuditEntry = {
   summary?: string
 }
 
+/**
+ * SEC-MAIN-1 (security audit R1, audit.ip-spoofable-and-raw): the recorded address follows the same TRUSTED_PROXY rules
+ * as the rate limits (`clientIp`), and is null when no header may be trusted, so a caller cannot write its own IP into
+ * the log by sending a header.
+ */
+export function auditIp(headers: { get(name: string): string | null } | undefined, env: NodeJS.ProcessEnv = process.env): string | null {
+  if (!headers?.get) return null
+  const ip = clientIp(headers, env)
+  return ip === UNTRUSTED_BUCKET ? null : ip
+}
+
 async function write(req: Parameters<CollectionAfterChangeHook>[0]['req'], entry: AuditEntry) {
   try {
     await req.payload.create({
@@ -51,10 +63,7 @@ async function write(req: Parameters<CollectionAfterChangeHook>[0]['req'], entry
         summary: entry.summary ?? null,
         actor: req.user ? String(req.user.id) : null,
         actorEmail: (req.user as { email?: string } | null)?.email ?? null,
-        ip:
-          req.headers?.get?.('cf-connecting-ip') ??
-          req.headers?.get?.('x-forwarded-for')?.split(',')[0]?.trim() ??
-          null,
+        ip: auditIp(req.headers),
       },
       overrideAccess: true,
       req,

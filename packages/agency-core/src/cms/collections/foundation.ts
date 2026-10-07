@@ -5,11 +5,14 @@ import {
   anyone,
   canReadContentDrafts,
   canWriteContent,
+  guardPlatformTier,
   isAdmin,
   isPlatformAdmin,
   nobody,
   publishedOrContentReader,
   selfOrAdmin,
+  tierFieldAccess,
+  usersUpdate,
 } from '../access/index'
 import {
   seoFields,
@@ -48,12 +51,18 @@ export const Users: CollectionConfig = {
     // Invite-only: only admins create users. No self-signup route exists.
     create: isAdmin,
     read: selfOrAdmin,
-    update: selfOrAdmin,
+    // SEC-MAIN-1: a client-admin may not change a platform-admin account (see usersUpdate / guardPlatformTier).
+    update: usersUpdate,
     delete: isPlatformAdmin,
     admin: ({ req }) => Boolean(req.user),
     unlock: isAdmin,
   },
-  hooks: { afterChange: [auditAfterChange], afterDelete: [auditAfterDelete], afterLogin: [auditAfterLogin] },
+  hooks: {
+    beforeChange: [guardPlatformTier],
+    afterChange: [auditAfterChange],
+    afterDelete: [auditAfterDelete],
+    afterLogin: [auditAfterLogin],
+  },
   fields: [
     { name: 'name', type: 'text' },
     {
@@ -63,7 +72,8 @@ export const Users: CollectionConfig = {
       required: true,
       defaultValue: ['viewer'],
       options: ROLES.map((r) => ({ label: ROLE_LABELS[r], value: r })),
-      access: { create: adminFieldOnly, update: adminFieldOnly },
+      // Granting platform-admin is refused by guardPlatformTier unless the actor is a platform-admin.
+      access: { create: adminFieldOnly, update: tierFieldAccess },
       saveToJWT: true,
     },
     {

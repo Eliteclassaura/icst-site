@@ -4,14 +4,15 @@
 #
 # Build from the REPOSITORY ROOT:
 #   docker build -f apps/h2o/Dockerfile.runtime \
-#     --build-arg NODE_IMAGE=node:22.22.2-bookworm-slim@sha256:<reviewed digest> \
+#     [--build-arg NODE_IMAGE=node:22.22.2-bookworm-slim@sha256:<another reviewed digest>] \
 #     --build-arg NEXT_PUBLIC_SERVER_URL=https://<validation host> \
 #     --build-arg H2O_REVISION=$(git rev-parse HEAD) \
 #     -t h2o-runtime:<commit> .
 #
 # Pinning: the lockfile is used frozen (no upgrades); pnpm is the repository's packageManager version;
-# the Node base MUST be pinned by digest by the Commander at build time (NODE_IMAGE has no digest default
-# because a digest cannot be verified from inside the Factory). Node major/minor matches the tested 22.22.2.
+# the Node base is pinned by digest (SEC-MAIN-1): the default below is the multi-arch OCI index digest of
+# node:22.22.2-bookworm-slim, read from registry-1.docker.io on 2026-10-06. An override must also carry a digest.
+# Node major/minor matches the tested 22.22.2.
 #
 # One image, three roles (same bytes, different command/env — see RUNTIME_MANIFEST.md):
 #   web     node server.js                                   (default)
@@ -30,7 +31,7 @@
 # Removed duplication: the standalone output's own traced copies of node_modules, public/ and content/ are
 # not shipped (each exists once, in its own layer); salmon/documents is excluded from the build context
 # (Dockerfile.runtime.dockerignore) instead of being deleted after a COPY (which never freed the bytes).
-ARG NODE_IMAGE=node:22.22.2-bookworm-slim
+ARG NODE_IMAGE=node:22.22.2-bookworm-slim@sha256:9f6d5975c7dca860947d3915877f85607946403fc55349f39b4bc3688448bb6e
 FROM ${NODE_IMAGE} AS base
 ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH NEXT_TELEMETRY_DISABLED=1 CI=1
 RUN corepack enable && corepack prepare pnpm@10.28.0 --activate

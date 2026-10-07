@@ -21,6 +21,7 @@ import { APIError, type CollectionBeforeChangeHook, type CollectionConfig, type 
  * as the frozen catalog contract defines; none of this applies to them.
  */
 export const CATALOG_SEED_CONTEXT = 'h2oCatalogSeed'
+const PAGE_LINK_FIELDS = ['page_route', 'source_route_id'] as const
 export const EDIT_PAGE_CONTENT_COMPONENT = '/collections/admin/EditPageContentLink#EditPageContentLink'
 
 const relId = (v: unknown): unknown =>
@@ -54,7 +55,22 @@ export function pageIndexGuard(opts: {
     if (operation === 'create' && incomingRoute) {
       throw new APIError(`A ${opts.noun} is linked to its public page only by the catalog seed.`, 400, undefined, true)
     }
-    if (!indexed) return data
+    if (!indexed) {
+      // SEC-MAIN-1 (security audit R1, catalog.page-index-link-forgeable-on-update): the link fields are the seed's on an
+      // unindexed record too: no hand-made page link on update, and no authority route id the seed would need.
+      const d = (data ?? {}) as Record<string, unknown>
+      const o = (originalDoc ?? {}) as Record<string, unknown>
+      const forged = PAGE_LINK_FIELDS.filter((k) => {
+        if (!Object.prototype.hasOwnProperty.call(d, k)) return false
+        const rel = k === 'page_route'
+        return JSON.stringify(comparable(d[k], rel)) !== JSON.stringify(comparable(operation === 'update' ? o[k] : undefined, rel))
+      })
+      if (forged.length > 0) {
+        req?.payload?.logger?.info?.({ scope: 'catalog.page-index', code: 'PAGE_LINK_FIELD_REFUSED', fields: forged })
+        throw new APIError(`A ${opts.noun}'s public page link (${forged.join(', ')}) is set only by the catalog seed.`, 400, undefined, true)
+      }
+      return data
+    }
     const d = (data ?? {}) as Record<string, unknown>
     const o = (originalDoc ?? {}) as Record<string, unknown>
     const changed = [...opts.seedOwned, ...opts.pageOwned].filter((k) => {

@@ -79,8 +79,16 @@ export const basePolicy = (scriptHashes: readonly string[] = []): string =>
  *
  * Exported so the tests can assert both the addition and the refusal behaviour without a request.
  */
+/**
+ * SEC-MAIN-1 (CT ruling on LEGAL-FIX-1 L01, option a): the Typeform allowance is merged only while the Typeform
+ * fallback can render, that is while native intake is off. With `H2O_NATIVE_INTAKE=on` no page embeds Typeform, so
+ * the policy stays the base. Full retirement of the adapter is post-launch.
+ */
+export const typeformCspApplies = (env: Record<string, string | undefined> = process.env): boolean => env.H2O_NATIVE_INTAKE !== 'on'
+
 export const policyFor = (scriptHashes: readonly string[] = []): { merged: boolean; policy: string } => {
   const base = basePolicy(scriptHashes)
+  if (!typeformCspApplies()) return { merged: false, policy: base }
   const merged = mergeTypeformCsp(base)
   // Fail closed: a refused merge keeps the stricter base rather than shipping something widened.
   return merged.ok ? { merged: true, policy: merged.policy } : { merged: false, policy: base }
@@ -187,6 +195,7 @@ export const payloadPublicPolicy = (nonce: string, pathname: string): string => 
     "frame-ancestors 'none'",
     'upgrade-insecure-requests',
   ].join('; ')
+  if (!typeformCspApplies()) return base
   const merged = mergeTypeformCsp(base)
   return merged.ok ? merged.policy : base
 }
