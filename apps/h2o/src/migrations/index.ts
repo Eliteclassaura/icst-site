@@ -16,6 +16,7 @@ import * as migration_20261005_203846_crm_patch_l from './20261005_203846_crm_pa
 import * as migration_20261005_213459_crm_native_intake from './20261005_213459_crm_native_intake';
 import * as migration_20261005_222652_crm_patch_c from './20261005_222652_crm_patch_c';
 import * as migration_20261005_235820_crm_ers_slice1 from './20261005_235820_crm_ers_slice1';
+import * as migration_20261006_203222_payload_3_90_security from './20261006_203222_payload_3_90_security';
 
 export const migrations = [
   {
@@ -106,6 +107,11 @@ export const migrations = [
   {
     up: migration_20261005_235820_crm_ers_slice1.up,
     down: migration_20261005_235820_crm_ers_slice1.down,
-    name: '20261005_235820_crm_ers_slice1'
+    name: '20261005_235820_crm_ers_slice1',
+  },
+  {
+    up: migration_20261006_203222_payload_3_90_security.up,
+    down: migration_20261006_203222_payload_3_90_security.down,
+    name: '20261006_203222_payload_3_90_security'
   },
 ];

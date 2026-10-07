@@ -15,15 +15,15 @@ Pinned from the C0 compatibility spike (`spike/c0-spike`, 2026-09-03). These are
 
 | Package                          | Version | Note                                                                                                                                       |
 | -------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| next                             | 16.3.4  | App Router; `output: 'standalone'`; `proxy.ts` (Next 16's name for middleware).                                                            |
+| next                             | 16.3.8  | App Router; `output: 'standalone'`; `proxy.ts` (Next 16's name for middleware).                                                            |
 | react / react-dom                | 19.2.8  |                                                                                                                                            |
-| payload                          | 3.88.0  | Peer `graphql ^16.8.1`.                                                                                                                    |
-| @payloadcms/next                 | 3.88.0  | Peer range for next: `>=16.2.6 <17.0.0` (also 15.2.9–15.5.x windows).                                                                      |
-| @payloadcms/db-postgres          | 3.88.0  | `push: false` always — migrations only. Transitive drizzle-orm 0.45.2, pg 8.20.0.                                                          |
-| @payloadcms/richtext-lexical     | 3.88.0  | Transitive @lexical/react 0.41.0.                                                                                                          |
-| @payloadcms/storage-s3           | 3.88.0  | Transitive @aws-sdk/client-s3 3.1126.0. `forcePathStyle: true` for MinIO/R2.                                                               |
+| payload                          | 3.90.2  | Peer `graphql ^16.8.1`.                                                                                                                    |
+| @payloadcms/next                 | 3.90.2  | Peer range for next: `>=16.2.6 <17.0.0` (also 15.2.9–15.5.x windows).                                                                      |
+| @payloadcms/db-postgres          | 3.90.2  | `push: false` always — migrations only. Transitive drizzle-orm 0.45.2, pg 8.20.0.                                                          |
+| @payloadcms/richtext-lexical     | 3.90.2  | Transitive @lexical/react 0.50.0.                                                                                                          |
+| @payloadcms/storage-s3           | 3.90.2  | Transitive @aws-sdk/client-s3 3.1126.0. `forcePathStyle: true` for MinIO/R2.                                                               |
 | graphql                          | 16.14.2 |                                                                                                                                            |
-| sharp                            | 0.35.4  | Native build; approved in `.npmrc`. Upgraded at C3: 0.34.x carried libvips CVEs (CVE-2026-33327/8, -35590/1) caught by the new audit gate. |
+| sharp                            | 0.35.5  | Native build; approved in `.npmrc`. Upgraded at C3: 0.34.x carried libvips CVEs (CVE-2026-33327/8, -35590/1) caught by the new audit gate. |
 | zod                              | 4.5.4   | design-contract schema; form validation later.                                                                                             |
 | @fontsource-variable/bodoni-moda | 5.3.0   | OFL-1.1; `latin-standard` file keeps the `opsz` axis.                                                                                      |
 | @fontsource-variable/jost        | 5.3.0   | OFL-1.1; `latin-wght` file.                                                                                                                |
@@ -49,7 +49,7 @@ Pinned from the C0 compatibility spike (`spike/c0-spike`, 2026-09-03). These are
 | eslint-plugin-jsx-a11y    | 6.10.2             |                                                                                                    |
 | eslint-plugin-react       | 7.37.5             |                                                                                                    |
 | eslint-plugin-react-hooks | 7.1.1              |                                                                                                    |
-| eslint-config-next        | 16.3.4             | installed for parity with Next; the flat config in tools/eslint-config is authoritative.           |
+| eslint-config-next        | 16.3.8             | installed for parity with Next; the flat config in tools/eslint-config is authoritative.           |
 | prettier                  | 3.9.6              |                                                                                                    |
 | turbo                     | 2.10.12            | task orchestration + cache.                                                                        |
 

@@ -5,3 +5,15 @@ packages:
 onlyBuiltDependencies:
   - sharp
   - esbuild
+
+# DEP-1 (security, 2026-10-06): patched versions of transitive packages flagged by `pnpm audit --prod`, kept on the
+# major line their parents expect.
+overrides:
+  undici@7: ^7.29.1
+  fast-uri@3: ^3.1.8
+  brace-expansion@1: ^1.1.21
+  source-map-js@1: ^1.2.2
+  # @payloadcms/next pins sass 1.77.4 (chokidar 3 → braces, which has no patched release); sass 1.105+ uses chokidar 5.
+  # The h2o app compiles no .scss; syed-ai's one custom.scss builds unchanged (checked with its build).
+  sass@1: ^1.105.1
+  dompurify@3: ^3.4.16
