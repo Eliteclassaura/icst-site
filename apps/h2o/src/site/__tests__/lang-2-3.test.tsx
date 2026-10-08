@@ -66,3 +66,32 @@ describe('N-b: one violation listener, removed when the widget is up',()=>{
     }finally{t.restore()}
   })
 })
+
+describe('N-3: a failed widget load leaves nothing behind',()=>{
+  const mkWin=()=>{const opened:string[]=[];return {opened,win:{location:{pathname:'/about-ics/',hostname:'www.example.com',protocol:'https:',assign:(u:string)=>{opened.push('assign '+u)},reload:()=>{}},open:(u:string)=>{opened.push('open '+u);return {}},setTimeout:()=>0} as unknown as Window}}
+  const noFetch=()=>{const a=document.head.appendChild.bind(document.head);document.head.appendChild=(<T extends Node>(n:T)=>{(n as unknown as HTMLScriptElement).removeAttribute?.('src');return a(n)}) as typeof document.head.appendChild;return ()=>{document.head.appendChild=a as never}}
+  it('removes the script element and the global callback, so a later choice retries and loads again',()=>{
+    const restore=noFetch(),t=mkWin()
+    try{
+      translateInPlace({to:'es',fallbackHref:'https://translate.google.com/a',env:{doc:document,win:t.win}})
+      expect(document.querySelectorAll('script[data-lang-widget]')).toHaveLength(1)
+      document.querySelector<HTMLScriptElement>('script[data-lang-widget]')!.onerror!(new Event('error'))
+      expect(t.opened).toEqual(['open https://translate.google.com/a'])
+      expect(document.querySelector('script[data-lang-widget]')).toBeNull()
+      expect((t.win as unknown as Record<string,unknown>).googleTranslateElementInit).toBeUndefined()
+      translateInPlace({to:'ko',fallbackHref:'https://translate.google.com/b',env:{doc:document,win:t.win}})
+      expect(document.querySelectorAll('script[data-lang-widget]')).toHaveLength(1) // a fresh attempt, not a silent no-op
+      expect(typeof (t.win as unknown as Record<string,unknown>).googleTranslateElementInit).toBe('function')
+    }finally{restore()}
+  })
+  it('a second failure falls to the new tab again rather than doing nothing',()=>{
+    const restore=noFetch(),t=mkWin()
+    try{
+      for(const [to,href] of [['es','a'],['ko','b']] as const){
+        translateInPlace({to,fallbackHref:'https://translate.google.com/'+href,env:{doc:document,win:t.win}})
+        document.querySelector<HTMLScriptElement>('script[data-lang-widget]')!.onerror!(new Event('error'))
+      }
+      expect(t.opened).toEqual(['open https://translate.google.com/a','open https://translate.google.com/b'])
+    }finally{restore()}
+  })
+})

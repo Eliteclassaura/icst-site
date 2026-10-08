@@ -99,6 +99,9 @@ export function translateInPlace({to,from='en',fallbackHref,env=here(),timeoutMs
     if(failed)return
     failed=true
     stopWatching()
+    // N-3: leave nothing behind, so the next language choice is not mistaken for "still loading" and retries (or opens the new tab)
+    doc.querySelector('script[data-lang-widget]')?.remove?.()
+    delete (win as unknown as Record<string,unknown>)[WIDGET_CALLBACK]
     clearGoogtrans(doc,win.location.hostname)
     doc.documentElement.removeAttribute('data-translated')
     doc.documentElement.removeAttribute('data-translated-by')
