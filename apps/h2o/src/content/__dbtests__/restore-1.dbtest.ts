@@ -3,12 +3,14 @@ import { sql } from '@payloadcms/db-postgres'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { payload, user, type TestUser } from '../../crm/__dbtests__/harness'
 import { importAuthority } from '../import/authority-import'
+import { importContext } from '../collections/public-routes'
 
 /**
  * RESTORE-1 (CT 2026-10-07, pre-launch): version restore through the real Payload `restoreVersion` operation against the
  * isolated synthetic database. A restore restores editable content only: disposition, canonical, provenance, identity,
  * `document` and `requestedPath` keep their CURRENT values for every user, and the public-routes guard stays fail-closed
- * for held / private / redirect records. Products keep their current price and truth states.
+ * for held / private / redirect records. Products keep their current price and truth states. RESTORE-1.1 (Security Auditor
+ * gap 1, CT 2026-10-07): the editor cases where the current record differs from the restored version.
  */
 type Doc = Record<string, unknown>
 const IMPORTED = 'SALMON-pages-2380' // a published, PUBLIC imported page (as in bridge.dbtest.ts)
@@ -111,6 +113,48 @@ describe('RESTORE-1 public-routes', () => {
     expect(after.requestedPath ?? null).toEqual(page.requestedPath ?? null)
     const latest = (await versions('public-routes', page.id)).at(-1)!.version as Doc
     expect(latest.document).toEqual(page.document)
+  })
+})
+
+describe('RESTORE-1.1 (Security Auditor gap 1): editor restores where the current record differs from the version', () => {
+  const editorialPage = async (title: string, path: string): Promise<Doc> =>
+    (await (await payload()).create({ collection: 'public-routes' as never, data: { title, requestedPath: path } as never, draft: true, ...as(editor) })) as unknown as Doc
+
+  it('(h) disposition, source and canonical changed by an admin after v1 keep their CURRENT values when an editor restores v1', async () => {
+    const p = await payload()
+    const page = await editorialPage('RESTORE-1.1 h v1', '/restore-1-1-h-synthetic/')
+    const v1 = (await versions('public-routes', page.id))[0]!
+    const now = await byId('public-routes', page.id, true)
+    await p.update({ collection: 'public-routes' as never, id: String(page.id), data: { disposition: { ...(now.disposition as Doc), releaseOverride: 'RESTORE-1.1 admin override' } } as never, draft: true, user: admin.user as never, overrideAccess: false })
+    await p.update({ collection: 'public-routes' as never, id: String(page.id), data: { seo: { ...((now.seo ?? {}) as Doc), canonical: '/restore-1-1-h-synthetic/#admin' } } as never, draft: true, user: admin.user as never, overrideAccess: false })
+    // Provenance changes only through the reviewed import path (the guard freezes it for every editor and admin write).
+    await p.update({ collection: 'public-routes' as never, id: String(page.id), data: { source: { ...(now.source as Doc), sourceRobots: 'noindex, nofollow' } } as never, draft: true, context: importContext, ...sys })
+    const before = await byId('public-routes', page.id, true)
+    expect((before.disposition as Doc).releaseOverride).toBe('RESTORE-1.1 admin override')
+    expect((before.seo as Doc).canonical).toBe('/restore-1-1-h-synthetic/#admin')
+    expect((before.source as Doc).sourceRobots).toBe('noindex, nofollow')
+    await expect(restore('public-routes', v1.id, editor)).resolves.toBeDefined()
+    const after = await byId('public-routes', page.id, true)
+    expect(after.title).toBe('RESTORE-1.1 h v1')
+    expect(after.disposition).toEqual(before.disposition)
+    expect(after.source).toEqual(before.source)
+    expect((after.seo as Doc).canonical).toBe('/restore-1-1-h-synthetic/#admin')
+    const latest = (await versions('public-routes', page.id)).at(-1)!.version as Doc
+    expect(latest.disposition).toEqual(before.disposition)
+    expect(latest.source).toEqual(before.source)
+  })
+
+  it('(i) v1 was PUBLIC, the record is now REVIEW_HOLD: an editor restore of v1 is refused (403) and writes nothing', async () => {
+    const p = await payload()
+    const page = await editorialPage('RESTORE-1.1 i v1', '/restore-1-1-i-synthetic/')
+    const v1 = (await versions('public-routes', page.id))[0]!
+    expect(((v1.version as Doc).disposition as Doc).state).toBe('PUBLIC')
+    const now = await byId('public-routes', page.id, true)
+    await p.update({ collection: 'public-routes' as never, id: String(page.id), data: { disposition: { ...(now.disposition as Doc), state: 'REVIEW_HOLD', export: false } } as never, draft: true, user: admin.user as never, overrideAccess: false })
+    const count = (await versions('public-routes', page.id)).length
+    await expect(restore('public-routes', v1.id, editor)).rejects.toMatchObject({ status: 403 })
+    expect((await versions('public-routes', page.id)).length).toBe(count)
+    expect(((await byId('public-routes', page.id, true)).disposition as Doc).state).toBe('REVIEW_HOLD')
   })
 })
 

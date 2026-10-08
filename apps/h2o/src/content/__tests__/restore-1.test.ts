@@ -9,6 +9,8 @@ import type { Field } from 'payload'
 import { PublicRoutes } from '../collections/public-routes'
 import { Products } from '../../collections/products'
 import { SiteChromeGlobal } from '../site-chrome'
+import { EDITORIAL_BLOCKS } from '../editorial'
+import { restoredSectionsField } from '../restored-sections'
 import { keepCurrent, restoreKeepsCurrent } from '../../hooks/restore-keeps-current'
 
 type Doc = Record<string, unknown>
@@ -106,5 +108,33 @@ describe('RESTORE-1 other versioned collections', () => {
   it('both affected collections run the refill as a collection beforeValidate hook', () => {
     expect(PublicRoutes.hooks?.beforeValidate?.length).toBe(1)
     expect(Products.hooks?.beforeValidate?.length).toBe(1)
+  })
+})
+
+describe('RESTORE-1.1 (Security Auditor gap 2): no field-level update rule inside an array or block', () => {
+  // `keepCurrent` does not recurse into arrays or blocks (rows have no stable mapping between a version and the current
+  // record). This fails the build the day such a rule appears there, so the restore path is revisited before it ships.
+  type B = { slug: string; fields: F[] }
+  const insideRows = (fields: F[], at: string, inRow: boolean, out: string[]) => {
+    for (const f of fields) {
+      const p = f.name ? (at ? `${at}.${f.name}` : f.name) : at
+      if (inRow && f.name && f.access?.update) out.push(p)
+      const blocks = (f as { blocks?: B[] }).blocks
+      if (blocks) for (const b of blocks) insideRows(b.fields, `${p}[${b.slug}]`, true, out)
+      const tabs = (f as { tabs?: Array<{ name?: string; fields: F[] }> }).tabs
+      if (tabs) for (const t of tabs) insideRows(t.fields, t.name ? (p ? `${p}.${t.name}` : t.name) : p, inRow, out)
+      if (f.fields) insideRows(f.fields, p, inRow || f.type === 'array', out)
+    }
+    return out
+  }
+  it('public-routes, products, the editorial blocks and the restored-section blocks carry none', () => {
+    expect(insideRows(PublicRoutes.fields as F[], '', false, [])).toEqual([])
+    expect(insideRows(Products.fields as F[], '', false, [])).toEqual([])
+    expect(insideRows((EDITORIAL_BLOCKS as unknown as B[]).flatMap((b) => b.fields.map((f) => f)), 'sections', true, [])).toEqual([])
+    expect(insideRows([restoredSectionsField as F], '', false, [])).toEqual([])
+  })
+  it('the walker is live: a rule planted inside a block or an array row is reported', () => {
+    const planted = [{ name: 'rows', type: 'array', fields: [{ name: 'price', type: 'number', access: { update: () => false } }] }, { name: 'sections', type: 'blocks', blocks: [{ slug: 'x', fields: [{ name: 'flag', type: 'checkbox', access: { update: () => false } }] }] }] as unknown as F[]
+    expect(insideRows(planted, '', false, []).sort()).toEqual(['rows.price', 'sections[x].flag'])
   })
 })
