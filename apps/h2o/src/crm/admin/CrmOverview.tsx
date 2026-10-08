@@ -98,6 +98,12 @@ export async function CrmOverview({ initPageResult, params, searchParams }: Admi
             <span className={styles.n}>{data.emailUncertain}</span> emails unconfirmed (check before sending again)
           </a>
         ) : null}
+        {data.sheet && (data.sheet.failed > 0 || data.sheet.pending > 0) ? (
+          <a className={styles.card} href="/crm/settings/website-sheet/">
+            <span className={styles.n}>{data.sheet.failed}</span> website quote requests not in the Google Sheet ·{' '}
+            <span className={styles.n}>{data.sheet.pending}</span> on their way
+          </a>
+        ) : null}
         <a className={styles.card} href={list(admin, 'crm-assets')}>
           <span className={styles.n}>{data.installedBaseAccounts ?? '—'}</span> installed-base accounts
           {data.installedBaseAccounts === null ? ' (not available)' : ''}

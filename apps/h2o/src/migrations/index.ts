@@ -27,6 +27,7 @@ import * as migration_20261008_200000_opp_1_deals from './20261008_200000_opp_1_
 import * as migration_20261008_200500_opp_1_1_seed_deal_stages from './20261008_200500_opp_1_1_seed_deal_stages';
 import * as migration_20261008_201000_csv_fix_1_name_link_review from './20261008_201000_csv_fix_1_name_link_review';
 import * as migration_20261008_205350_mfa_admin_1 from './20261008_205350_mfa_admin_1';
+import * as migration_20261008_213813_sheet_sync_1 from './20261008_213813_sheet_sync_1';
 
 export const migrations = [
   {
@@ -172,6 +173,11 @@ export const migrations = [
   {
     up: migration_20261008_205350_mfa_admin_1.up,
     down: migration_20261008_205350_mfa_admin_1.down,
-    name: '20261008_205350_mfa_admin_1'
+    name: '20261008_205350_mfa_admin_1',
+  },
+  {
+    up: migration_20261008_213813_sheet_sync_1.up,
+    down: migration_20261008_213813_sheet_sync_1.down,
+    name: '20261008_213813_sheet_sync_1'
   },
 ];

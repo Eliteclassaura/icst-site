@@ -4,6 +4,7 @@ import { refresh } from 'next/cache'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { adminMfaAction } from '../../../../auth/mfa/admin-actions'
+import { retryFailed } from '../../../../sheets/sync'
 import { pendingSession } from '../../../../auth/mfa/guard'
 import * as routing from '../../../../email/routing'
 import * as sending from '../../../../email/sending-settings'
@@ -96,4 +97,14 @@ export async function testAlertAction(_: ActionState, _fd: FormData) {
 /** MFA-ADMIN-1: reset two-step sign-in, or turn it off / back on for a non-admin. The service repeats every check. */
 export async function peopleMfaAction(_: ActionState, fd: FormData) {
   return run((s, sid) => adminMfaAction(s, sid, { userId: f(fd, 'userId'), action: f(fd, 'action'), reason: f(fd, 'reason') }))
+}
+
+/** SHEET-SYNC-1: put the failed Google Sheet rows back in the queue. Admins only; nothing sensitive is changed. */
+export async function retrySheetRowsAction(): Promise<ActionState> {
+  const s = await actionSession()
+  if (!s) return DENIED
+  if (!s.isAdmin) return { ok: false, code: 'FORBIDDEN', message: 'This is for admins.', nonce: Date.now() }
+  const n = await retryFailed(s.payload)
+  refresh()
+  return { ok: true, message: n ? `${n} request${n === 1 ? '' : 's'} will be tried again within a minute.` : 'Nothing to retry.', nonce: Date.now() }
 }

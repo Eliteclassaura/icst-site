@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { readSheetsConfig } from '../../../../sheets/config'
 import { emailStatus } from '../../../../email/settings-page'
 import { Shell } from '../../../../crm/workspace/ui/Shell'
 import { requireCrmSession } from '../session'
@@ -17,6 +18,7 @@ export default async function SettingsPage() {
       </Shell>
     )
   const st = emailStatus()
+  const sheetOn = readSheetsConfig().enabled
   return (
     <Shell active="settings" title="Settings" userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <section className="c-panel is-settings" aria-labelledby="email-h">
@@ -41,6 +43,11 @@ export default async function SettingsPage() {
             <li>
               <a href="/crm/settings/people/">People and sign-in</a>: reset someone’s two-step sign-in, or turn it off for a staff member.
             </li>
+            {sheetOn ? (
+              <li>
+                <a href="/crm/settings/website-sheet/">Website quote requests in Google Sheets</a>: requests that did not reach the sheet yet.
+              </li>
+            ) : null}
             <li>
               <a href="/crm/settings/templates/">Email templates</a>: the acknowledgement and the reply templates T1–T6.
             </li>

@@ -41,6 +41,8 @@ export type Overview = {
   intake: { stranded: number; spam24h: number; failedPermanent: number } | null
   /** SEND-FIX-1a.1 (owner decision): admins only — emails whose delivery is unconfirmed and that a person must look at. */
   emailUncertain: number | null
+  /** SHEET-SYNC-1: admins only, and only while the Google Sheet feature is configured — website RFQs not yet in the sheet. */
+  sheet: { failed: number; pending: number } | null
   pipeline: ReturnType<typeof pipelineByCurrency>
   recentActivity: Array<{ id: string; type: string; summary: string; occurredAt: string }>
   truncated: boolean
@@ -146,6 +148,12 @@ export async function loadOverview(req: PayloadRequest, now: Date = new Date()):
     emailUncertain = await (await import('../email/outbox-worker')).uncertainNeedingAttention(p)
   }
 
+  let sheet: Overview['sheet'] = null
+  if (hasRole(req, ADMINS)) {
+    const [{ readSheetsConfig }, { sheetStats }] = await Promise.all([import('../sheets/config'), import('../sheets/sync')])
+    if (readSheetsConfig().enabled) sheet = await sheetStats(p).catch(() => null)
+  }
+
   const oppIds = openOpps.docs.map((o) => String(o.id))
   // Paged, because a non-admin page is capped (access.ts); one query per 100 open tasks, never per row.
   const withTask = new Set<string>()
@@ -209,6 +217,7 @@ export async function loadOverview(req: PayloadRequest, now: Date = new Date()):
     identityReviewsOpen: reviews.totalDocs,
     intake,
     emailUncertain,
+    sheet,
     pipeline: pipelineByCurrency(opps),
     recentActivity: recent.docs.map((a) => ({
       id: String(a.id),

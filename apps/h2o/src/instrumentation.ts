@@ -9,7 +9,8 @@
  * and drains the email outbox every 15 s (./email/outbox-worker, CRM email M1), and — when
  * H2O_EMAIL_INBOUND=on — polls the role mailbox for customer replies every 60 s (./email/inbound-poller, M3), and
  * advances Revenue Engine sequences every 60 s (./crm/ers/engine, slice 1), and finishes stranded native quote requests every
- * 60 s (./crm/intake/native/sweep, RFQ-FIX-1).
+ * 60 s (./crm/intake/native/sweep, RFQ-FIX-1), on the same tick appending new website RFQs to the Google Sheet
+ * (./sheets/sync, SHEET-SYNC-1; off unless configured).
  *
  * `onRequestError` — production builds hide Server Component error messages from the browser (correctly);
  * this records them in the server log with the request path and digest so a failed render is diagnosable.
@@ -90,6 +91,7 @@ export async function register() {
   setInterval(() => void ers(), Number(process.env.H2O_ERS_INTERVAL_MS) || 60_000).unref()
   // RFQ-FIX-1 (quote-form audit R6): finish native quote requests stranded part-way (failed, or a dead worker's lease).
   const { sweepStrandedIntake } = await import('./crm/intake/native/sweep')
+  const { syncSheets } = await import('./sheets/sync')
   let sweeping = false
   const sweep = async () => {
     if (sweeping) return
@@ -99,6 +101,14 @@ export async function register() {
       if (r.found > 0) console.warn(`[h2o] intake sweep: found=${r.found} finished=${r.finished} skipped=${r.skipped} failed=${r.failed}`)
     } catch {
       console.error('[h2o] intake sweep: failed')
+    }
+    // SHEET-SYNC-1: append new website RFQs to the Google Sheet (off unless the three H2O_SHEETS_* settings are present).
+    // Its own try: the sheet can never hold up the sweep, and never the other way round.
+    try {
+      const r = await syncSheets(payload)
+      if (r.enabled && (r.queued || r.appended || r.failed || r.retrying)) console.warn(`[h2o] sheet sync: queued=${r.queued} appended=${r.appended} retrying=${r.retrying} failed=${r.failed}`)
+    } catch {
+      console.error('[h2o] sheet sync: failed')
     } finally {
       sweeping = false
     }
