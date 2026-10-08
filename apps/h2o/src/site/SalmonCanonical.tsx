@@ -17,7 +17,7 @@ import {BreadcrumbSchema,HOME_CRUMB,isBreadcrumbList,type Crumb} from './breadcr
 import {decodeEntities} from './text-repair'
 import {publicHeadUrl,publicMeta,publicSchema,servedOrigin} from './public-urls'
 import {publicFileExists} from '../content/public-files'
-import {projectHeadImagePolicy} from './project-media'
+import {projectHeadImagePolicy,projectOwnSocialMeta} from './project-media'
 import {MetaTags,OrganizationWebsiteSchema,standardSocialMeta} from './standard-head'
 import {SERVICE_ROUTES,normalizeGraph} from './schema-graph'
 import {languageFor} from '../content/locale-language'
@@ -237,6 +237,8 @@ export const servedFilePath=(href:string,base:string):string|undefined=>{
 /** The parts hub's ?page=N (N ≥ 2) wording, one rule for the head and the social tags ("… - Page N", "Page N: …"; CT 2026-10-08, SF-03). */
 export const pagedTitle=(title:string,page:number):string=>page>=2?`${title.replace(/\s+-\s+ICS$/,'')} - Page ${page}`:title
 export const pagedDescription=(description:string,page:number):string=>page>=2?`Page ${page}: ${description}`:description
+/** SC-01: add the project's own verified photo as the social image when the imported head named none; projects without one use the site default. */
+const withProjectOwnImage=(meta:Array<{name:string;value:string}>,pagePath:string)=>meta.some(m=>m.name==='og:image')?meta:[...meta,...projectOwnSocialMeta(pagePath,servedOrigin())]
 export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbName,pageNumber=1}:{doc:SalmonDocument;canonicalOverride?:string;breadcrumb?:Crumb[];crumbName?:string;pageNumber?:number}){
   // R2.3 (CT 2026-10-05): every URL in the head names this site (./public-urls): identity URLs the canonical origin, media the
   // served file on the serving origin (C1–C6 crop/withhold included); an unheld image or a foreign host is dropped.
@@ -244,7 +246,7 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
   const pagePath=canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath
   return <>
     {/* R2.4: the standard social set (./standard-head) mirrors the served title and description on every page. */}
-    <MetaTags meta={standardSocialMeta(publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)),{title:pagedTitle(servedTitle(doc),pageNumber),description:pagedDescription(servedDescription(doc)??'',pageNumber),url:canonicalOverride??(doc.seo.canonical[0]&&publicHeadUrl(doc.seo.canonical[0]))??`${PUBLIC_ORIGIN}${doc.targetPath}`,type:doc.type==='posts'?'article':'website',defaultImage:!/^\/all-projects\/[^/]+\/$/.test(doc.targetPath)})}/>
+    <MetaTags meta={standardSocialMeta(withProjectOwnImage(publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)),pagePath),{title:pagedTitle(servedTitle(doc),pageNumber),description:pagedDescription(servedDescription(doc)??'',pageNumber),url:canonicalOverride??(doc.seo.canonical[0]&&publicHeadUrl(doc.seo.canonical[0]))??`${PUBLIC_ORIGIN}${doc.targetPath}`,type:doc.type==='posts'?'article':'website',})}/>
     {doc.seo.schema.map((raw,i)=>{
       if(isBreadcrumbList(JSON.parse(raw)))return null
       // Quote-only estate: no prices, and no ratings or reviews (Control Tower ruling 2026-10-02).

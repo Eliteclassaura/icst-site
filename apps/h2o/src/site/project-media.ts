@@ -35,6 +35,29 @@ export function projectHeadImagePolicy(pagePath:string,origin:string):(image:{ur
     return own?{url:origin+own.media.src,width:own.media.width,height:own.media.height,type:'image/jpeg',sha256:own.media.sha256}:null
   }
 }
+/**
+ * SEO-FIX-2 (SC-01; SEO Checker REPORT SC-01): a project page's own verified photo is its social image whether or not the imported
+ * head carried an eligible one (EDC emitted none although its own photo renders). Returns the tags to add, or [] when the project has
+ * no verified own photo (the standard head then falls back to the site default social image, never another project's photo).
+ */
+export function projectOwnSocialMeta(pagePath:string,origin:string):Array<{name:string;value:string}>{
+  if(!PROJECT_PATH.test(pagePath))return []
+  const registry=projectMediaRegistry()
+  const own=registry.projects[pagePath]
+  if(!own)return []
+  const withheld=new Set(Object.values(registry.withheld??{}).flatMap(w=>w.withheldSha256))
+  if(withheld.has(own.media.sha256))return []
+  const url=origin+own.media.src
+  const type=/\.png$/i.test(own.media.src)?'image/png':/\.webp$/i.test(own.media.src)?'image/webp':'image/jpeg'
+  return [
+    {name:'og:image',value:url},
+    {name:'og:image:width',value:String(own.media.width)},
+    {name:'og:image:height',value:String(own.media.height)},
+    {name:'og:image:type',value:type},
+    ...(own.media.alt?[{name:'og:image:alt',value:own.media.alt}]:[]),
+    {name:'twitter:image',value:url},
+  ]
+}
 const YEAR=/^\s*\d{4}(?:\s*-\s*\d{2,4})?\s*$/
 const children=(block:Block):Block[]=>block.type==='container'?block.children:[]
 const walk=(block:Block,visit:(block:Block)=>void):void=>{visit(block);children(block).forEach(child=>walk(child,visit))}

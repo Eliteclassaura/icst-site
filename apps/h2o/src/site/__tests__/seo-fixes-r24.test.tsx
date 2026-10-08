@@ -9,7 +9,8 @@ import {existsSync,readFileSync} from 'node:fs'
 import path from 'node:path'
 import {renderToStaticMarkup} from 'react-dom/server'
 import Page from '../../app/(site)/[[...slug]]/page'
-import SearchPage,{metadata as searchMetadata} from '../../app/(site)/search/page'
+import SearchPage,{generateMetadata as searchGenerateMetadata} from '../../app/(site)/search/page'
+const searchMetadata=searchGenerateMetadata()
 import {headProblems,jsonLdIds,LEGACY_SUFFIX,metaValues,paginationProblems,ORGANIZATION_ID,WEBSITE_ID} from '../../../ops/seo-pass/head-assertions.mjs'
 import {servedDescription,servedTitle} from '../SalmonCanonical'
 import {englishServiceForPath} from '../EnglishServices'
@@ -217,7 +218,8 @@ describe('redirects and the R2.4 batch (items h, k; CT rulings)',()=>{
     expect(seo.get('/industrial-cooling-towers/')?.meta).not.toContain('90%')
   },120_000)
   it('/search/ is noindex,follow with the OGCS meta; /thank-you/ and /search/ stay out of the sitemap',()=>{
-    expect(searchMetadata.robots).toEqual({index:false,follow:true})
+    // SEO-FIX-2 (SC-03): under the default private policy the meta mirrors the header floor (noindex, nofollow); production keeps noindex,follow
+    expect(searchMetadata.robots).toEqual({index:false,follow:false})
     expect(searchMetadata.description).toBe('Search the ICS website for cooling tower parts, services, projects, and technical articles.')
     expect(ledger.routes.find(r=>r.path==='/thank-you/')).toMatchObject({sitemap:false})
     expect(existsSync(path.join(APP,'public/sitemap.xml'))&&readFileSync(path.join(APP,'public/sitemap.xml'),'utf8').includes('/search/')).toBe(false)

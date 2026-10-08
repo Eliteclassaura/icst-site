@@ -1,3 +1,4 @@
+import {heldImageSize} from './image-size'
 import {createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
@@ -40,7 +41,9 @@ function acceptedImage(src:string){
 }
 function ServicePhoto({src,alt,priority=false}:{src:string;alt:string;priority?:boolean}){
   const media=acceptedImage(src)
-  return <img src={deliverySrc(media.src)} alt={alt} data-source-sha256={media.sha256} loading={priority?'eager':'lazy'} fetchPriority={priority?'high':undefined}/>
+  // SEO-FIX-2 (SC-02): the real intrinsic size (a delivery derivative has the original's pixel size), so every service image reserves its box.
+  const size=heldImageSize(media.src)
+  return <img src={deliverySrc(media.src)} alt={alt} width={size?.width} height={size?.height} data-source-sha256={media.sha256} loading={priority?'eager':'lazy'} fetchPriority={priority?'high':undefined}/>
 }
 
 const systemMaps:Record<EnglishService['diagramKind'],{caption:string;steps:[string,string,string,string]}>={

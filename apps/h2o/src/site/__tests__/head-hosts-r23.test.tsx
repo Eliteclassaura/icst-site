@@ -9,6 +9,7 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import Page,{generateStaticParams} from '../../app/(site)/[[...slug]]/page'
 import {HEAD_THIRD_PARTY_HOSTS,headOrigins,publicHeadUrl,publicMediaUrl,publicMeta,publicSchema,servedOrigin} from '../public-urls'
 import {projectMediaRegistry} from '../project-media'
+import {ogDefault} from '../standard-head'
 
 const APP=process.cwd()
 const env={...process.env}
@@ -72,7 +73,7 @@ describe('sitewide guard: every rendered head names only this site and the allow
       // R2.5 (CT ruling on the SEO pre-flight): the old Salmon staging host appears nowhere in a served page, head or body
       if(html.includes('salmon-rhinoceros'))salmonHost.push(p)
       for(const sha of withheld)if(head.includes(sha))projectPhotos.push(`${p} names withheld ${sha.slice(0,12)}`)
-      if(/^\/all-projects\/[^/]+\/$/.test(p))for(const m of head.matchAll(/\/media\/[a-z-]+\/([0-9a-f]{64})\./g))if(m[1]!==registry.projects[p]?.media.sha256)projectPhotos.push(`${p} names ${m[1]!.slice(0,12)}`)
+      if(/^\/all-projects\/[^/]+\/$/.test(p))for(const m of head.matchAll(/\/media\/[a-z-]+\/([0-9a-f]{64})\./g))if(m[1]!==registry.projects[p]?.media.sha256&&m[1]!==path.basename(ogDefault().file,'.jpg'))projectPhotos.push(`${p} names ${m[1]!.slice(0,12)}`)
       // every media URL on this site's origin is a file this site serves (no legacy /wp-content path left unheld)
       for(const m of head.matchAll(/https:\/\/h2ocooling\.com(\/[^"'\s\\<>]+\.(?:jpe?g|png|gif|webp|avif|svg|ico|pdf))(?=["'\s\\<>]|$)/gi))if(!served('https://h2ocooling.com'+m[1]))unserved.push(`${p} ${m[1]}`)
     }
