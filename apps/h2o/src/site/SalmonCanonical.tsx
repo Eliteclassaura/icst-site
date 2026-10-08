@@ -90,7 +90,7 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   if(commerceException(node))return <span data-salmon-exception="NO_PUBLIC_COMMERCE" data-source-node={key} key={key}/>
   if(['script','style','iframe','svg','template'].includes(node.tag))return null
   // SEO-CONTENT-1: a list item or table row emptied by a ruled removal renders nothing (no stray bullet marker, no blank row).
-  if((node.tag==='li'||node.tag==='tr')&&!hasVisibleContent(node))return null
+  if((node.tag==='li'||node.tag==='tr'||/^h[1-6]$/.test(node.tag))&&!hasVisibleContent(node))return null
   if(isEmptyTextBlock(node))return null
   if(isDroppedArticleImage(doc,node))return null
   if(doc.type==='posts'&&/(?:^|\s)elementor-widget-post-info(?:\s|$)/.test(node.attrs.class??'')){

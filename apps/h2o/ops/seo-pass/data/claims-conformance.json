@@ -1,5 +1,5 @@
 {
- "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed. CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows R2L10-01..10, each current string absent and its CT-accepted wording present.; R4 (CT 2026-10-07): OGCS R4 copy review rows R4C-01…07, each old string absent and each new wording present; R4 phase 2: R4C-08…11 (Air Coolers) and the All Projects lead line read from the edited heading (CS093); SEO-CONTENT-1 round 2 (CT 2026-10-08): rows SC1-A-*, SC1-B-050, SC1-L-*, SC1-P7-BACMAN-BODY; SEO-CONTENT-2 piece B (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece B (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece C (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece C (CT 2026-10-08): rows SC1-B-*, SC1-C-*",
+ "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed. CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows R2L10-01..10, each current string absent and its CT-accepted wording present.; R4 (CT 2026-10-07): OGCS R4 copy review rows R4C-01…07, each old string absent and each new wording present; R4 phase 2: R4C-08…11 (Air Coolers) and the All Projects lead line read from the edited heading (CS093); SEO-CONTENT-1 round 2 (CT 2026-10-08): rows SC1-A-*, SC1-B-050, SC1-L-*, SC1-P7-BACMAN-BODY; SEO-CONTENT-2 piece B (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece B (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece C (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece C (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece 2.1 (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece 2.2-A (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece 2.2-B (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece 2.2-C (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece 2.2-E (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece 2.3 (CT 2026-10-08): rows SC1-B-*, SC1-C-*",
  "absent": [
   {
    "row": "LocaleB-A",
@@ -5568,6 +5568,966 @@
    "path": "/vi/ทำความเข้าใจการใช้งานข/",
    "text": "để duy trì nhiệt độ bên trong và cần xử lý và quản lý",
    "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-CA-01a",
+   "path": "/category/cooling-tower-servicesindustrial-cooling-tower/",
+   "text": "In this age, no one can imagine living without Air",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-01a",
+   "path": "/category/cooling-tower-servicesindustrial-cooling-tower/",
+   "text": "imagine living without Air conditioning and cooling towers,",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-01a",
+   "path": "/category/cooling-tower-servicesindustrial-cooling-tower/",
+   "text": "and cooling towers, especially in the summer.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-01b",
+   "path": "/tag/cooling-towercooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-blades/page/2/",
+   "text": "In this age, no one can imagine living without Air",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-01b",
+   "path": "/tag/cooling-towercooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-blades/page/2/",
+   "text": "imagine living without Air conditioning and cooling towers,",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-01b",
+   "path": "/tag/cooling-towercooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-blades/page/2/",
+   "text": "and cooling towers, especially in the summer.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-02",
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "text": "In this age, no one can imagine living without Air",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-02",
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "text": "imagine living without Air conditioning and cooling towers,",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-02",
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "text": "and cooling towers, especially in the summer.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-03",
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "text": "compliance and ASHRAE (American Society of Heating, Refrigerating, and Air-Conditioning Engineers) must also be checked",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-04",
+   "path": "/chiller-and-cooling-tower/",
+   "text": "cooling towers, and air conditioning systems, as",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-05",
+   "path": "/cooling-tower-clearance/",
+   "text": "ASHRAE standards: The American Society of Heating, Refrigerating, and Air-Conditioning Engineers provides guidelines for",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-06",
+   "path": "/guide-about-cooling-tower/",
+   "text": "organizations like the American Society of Heating, Refrigerating and Air-Conditioning",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-06",
+   "path": "/guide-about-cooling-tower/",
+   "text": "Refrigerating and Air-Conditioning Engineers (ASHRAE) and the National Oceanic and",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-08",
+   "path": "/cooling-tower-maintenance/",
+   "text": "heat exchangers, air conditioners, and other processes.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-09",
+   "path": "/cooling-tower-replacement/",
+   "text": "engineered for industrial air conditioning, process cooling, and",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-09",
+   "path": "/cooling-tower-replacement/",
+   "text": "process cooling, and heavy-duty",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-09",
+   "path": "/cooling-tower-replacement/",
+   "text": "cooling, and heavy-duty operations.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-10",
+   "path": "/cooling-tower-replacement/",
+   "text": "performance in air conditioning and industrial cooling",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-11",
+   "path": "/cooling-tower-singapore/",
+   "text": "for industrial cooling, commercial air conditioning, and process cooling",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-12",
+   "path": "/cooling-tower/",
+   "text": "for industrial facilities, air-conditioning plants, and process-cooling",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-13",
+   "path": "/cooling-towers-in-the-middle-east/",
+   "text": "District Cooling: Large-scale commercial and residential developments rely on centralized cooling",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-13",
+   "path": "/cooling-towers-in-the-middle-east/",
+   "text": "cooling plants to provide air conditioning more efficiently than",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-14",
+   "path": "/how-does-a-cooling-tower-work/",
+   "text": "spraying technique or air conditioning condensers are used to diffuse the",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-15",
+   "path": "/international-cooling-tower/",
+   "text": "Heating and air conditioning:",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-18",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "for cooling towers or air conditioning—and use nearly all water",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-19",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "designed to serve as human comfort cooling air conditioning systems or as open, water-cooled",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-20",
+   "path": "/cooling-tower-fill/",
+   "text": "industrial operations or air conditioning systems.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-21",
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "text": "safety benchmarks. air conditioning systems",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-16",
+   "path": "/international-cooling-tower/",
+   "text": "#heating-and-air-conditioning",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-17",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "#advantages-of-cooling-towers-in-hvac-industries",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-TA-001",
+   "path": "/cooling-tower-replacement/",
+   "text": "Case Study: Palipinon Geothermal Power Plant Cooling Tower Replacement",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-002",
+   "path": "/cooling-tower-replacement/",
+   "text": "Palipinon Geothermal Power",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-003",
+   "path": "/cooling-tower-replacement/",
+   "text": "distribution systems., to ensure better",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-004",
+   "path": "/all-projects/",
+   "text": "Loong Industrial Zone – Boa Thank District, Lao Cai",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-006",
+   "path": "/all-projects/vinachem/",
+   "text": "Loong Industrial Zone – Boa Thank District, Lao Cai",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-007",
+   "path": "/cooling-tower-maintenance-contract/",
+   "text": "operational stability.. It delivers substantial",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-008",
+   "path": "/3-cell-counterflow-cooling-towers/",
+   "text": "At H2ocooling, we specialize in",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-009",
+   "path": "/3-cell-counterflow-cooling-towers/",
+   "text": "to learn more? Contact H2ocooling.com today and discover how",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-010",
+   "path": "/build-new-cooling-tower/",
+   "text": "cooling tower, visit H2OCooling.com to learn how",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-011",
+   "path": "/choosing-cooling-tower-fill-media/",
+   "text": "Consult with H2ocooling.com experts who can analyze",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-012",
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "text": "our experts at H2ocooling.com are ready to help.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-013",
+   "path": "/cooling-tower-asset-management/",
+   "text": "How H2ocooling Can Support Your Asset Program",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-014",
+   "path": "/cooling-tower-asset-management/",
+   "text": "capital decisions. H2ocooling.com can support",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-015",
+   "path": "/cooling-tower-chemical-safety/",
+   "text": "solutions, visit H2Ocooling.com today.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-016",
+   "path": "/cooling-tower-cold-weather-issues/",
+   "text": "this winter, contact H2ocooling for operational",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-017",
+   "path": "/cooling-tower-cost-in-2025/",
+   "text": "and water treatment; visit h2ocooling for expert solutions.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-018",
+   "path": "/cooling-tower-drift-eliminator-types/",
+   "text": "and repair, visit H2ocooling.com to ensure",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-019",
+   "path": "/cooling-tower-electrical-design/",
+   "text": "cooling solution at h2ocooling.com!",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-020",
+   "path": "/cooling-tower-energy-savings/",
+   "text": "efficiency? Visit H2OCooling.com today to",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-021",
+   "path": "/cooling-tower-inspection-steps/",
+   "text": "Cooling Solutions ( h2ocooling) for a complete Cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-022",
+   "path": "/cooling-tower-inspection-steps/",
+   "text": "audit, contact H2ocooling's expert team for",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-024",
+   "path": "/cooling-tower-low-water-flow/",
+   "text": "peak efficiency, visit H2Ocooling.com to schedule",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-025",
+   "path": "/cooling-tower-maintenance-and-repair/",
+   "text": "reliability? Contact H2ocooling.com today for expert",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-026",
+   "path": "/cooling-tower-material-selection/",
+   "text": "choice. Contact h2ocooling.com today for a",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-027",
+   "path": "/cooling-tower-noise-control-design/",
+   "text": "At H2ocooling.com, we specialize in",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-028",
+   "path": "/cooling-tower-noise-permit/",
+   "text": "How H2OCooling Can Help With Cooling Tower Noise Compliance",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-029",
+   "path": "/cooling-tower-noise-permit/",
+   "text": "H2OCooling can help facilities",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-030",
+   "path": "/cooling-tower-noise-permit/",
+   "text": "H2OCooling can support:",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-031",
+   "path": "/cooling-tower-noise-permit/",
+   "text": "verification testing. H2OCooling can help facilities",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-032",
+   "path": "/cooling-tower-parts-3/",
+   "text": "energy savings, contact H2ocooling.com for a comprehensive",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-033",
+   "path": "/cooling-tower-remote-monitoring/",
+   "text": "efficient future by visiting H2OCooling.com to discover how our",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-034",
+   "path": "/cooling-tower-repair-service/",
+   "text": "Why Choose H2O Cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-035",
+   "path": "/cooling-tower-repair-service/",
+   "text": "not a guessing game. H2O Cooling delivers expert",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-036",
+   "path": "/cooling-tower-repair-service/",
+   "text": "your business. Contact H2O Cooling now for immediate",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-036",
+   "path": "/cooling-tower-repair-service/",
+   "text": "H2O Cooling now for immediate emergency cooling tower",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-037",
+   "path": "/cooling-tower-repair-team/",
+   "text": "facility depends on? Visit h2o cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-038",
+   "path": "/cooling-tower-retrofit-guide-upgrading-old-towers/",
+   "text": "the future. Contact H2ocooling.com for any cooling tower",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-039",
+   "path": "/cooling-tower-spares/",
+   "text": "Why Customers Choose H2ocooling ( ICS ) for Cooling Tower Spares",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-041",
+   "path": "/cooling-tower-structural-loads/",
+   "text": "indispensable. Visit H2ocooling.com for expert",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-042",
+   "path": "/cooling-tower-thermal-storage/",
+   "text": "How H2OCooling Supports Thermal Storage Integration",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-043",
+   "path": "/cooling-tower-thermal-storage/",
+   "text": "H2OCooling provides cooling tower",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-044",
+   "path": "/cooling-tower-thermal-storage/",
+   "text": "H2OCooling's support capabilities",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-045",
+   "path": "/cooling-tower-thermal-storage/",
+   "text": "Contact H2OCooling to schedule a cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-046",
+   "path": "/cooling-tower-thermal-storage/",
+   "text": "How can H2OCooling help with thermal storage projects?",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-047",
+   "path": "/cooling-tower-upgrade-roi/",
+   "text": "Contact the experts at h2ocooling.com today for a custom",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-048",
+   "path": "/cooling-tower-winter-preparation/",
+   "text": "for the cold. Contact H2ocooling.com for winter readiness",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-049",
+   "path": "/cooling-tower-winterization-checklist/",
+   "text": "not hesitate. Contact H2oCooling today to schedule an",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-050",
+   "path": "/cooling-towers-environmental-benefit/",
+   "text": "contact our team at h2ocooling.com today. We provide",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-051",
+   "path": "/cooling-towers-in-the-middle-east/",
+   "text": "East environment, visit H2ocooling.com today to",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-060",
+   "path": "/history-of-frp/",
+   "text": "from over. Join us at H2O Cooling, where we will explore",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-061",
+   "path": "/hybrid-cooling-systems/",
+   "text": "Operational Excellence: The H2ocooling Maintenance Differentiator",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-062",
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "text": "Expert Guidance From H2ocooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-062",
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "text": "Get Expert Guidance From H2ocooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-067",
+   "path": "/legionella-control-in-industrial-cooling-towers/",
+   "text": "facility? Connect with H2ocooling to discuss your",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-068",
+   "path": "/new-cooling-towers/",
+   "text": "H2ocooling delivers predictable",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-069",
+   "path": "/new-cooling-towers/",
+   "text": "At H2ocooling, our commitment doesn't",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-070",
+   "path": "/new-cooling-towers/",
+   "text": "choose the partner who guarantees a successful outcome.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-070",
+   "path": "/new-cooling-towers/",
+   "text": "a successful outcome. H2ocooling manages the entire",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-071",
+   "path": "/new-cooling-towers/",
+   "text": "Contact H2ocooling.com to discuss your cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-073",
+   "path": "/reducing-carbon-footprint/",
+   "text": "asset? Partner with H2ocooling.com to design a modern",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-074",
+   "path": "/signs-of-cooling-tower-failure/",
+   "text": "Contact H2ocooling for advanced",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-075",
+   "path": "/vfd-cooling-tower-savings/",
+   "text": "management. Visit H2Ocooling.com to start",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-082",
+   "path": "/cooling-tower-resources/",
+   "text": "engineering, and responsive technical support, our",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-084",
+   "path": "/air-coolers/",
+   "text": "cooling performance, delivering efficient cooling, reduced energy use, and long-term stability",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-084",
+   "path": "/air-coolers/",
+   "text": "reduced energy use, and long-term stability in demanding industrial",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-084",
+   "path": "/air-coolers/",
+   "text": "stability in demanding industrial facilities. Our systems improve air circulation and control air temperature in large-scale environments where warm air buildup reduces productivity.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-085",
+   "path": "/air-coolers/",
+   "text": "High-Performance Industrial Air Cooler Solutions for Demanding Facilities",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-086",
+   "path": "/air-coolers/",
+   "text": "Enhances air circulation and distributes cool",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-086",
+   "path": "/air-coolers/",
+   "text": "air circulation and distributes cool air more evenly across",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-086",
+   "path": "/air-coolers/",
+   "text": "air more evenly across large industrial zones.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-087",
+   "path": "/air-coolers/",
+   "text": "cooler performance, air flow efficiency, and",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-087",
+   "path": "/air-coolers/",
+   "text": "and energy consumption across large industrial spaces.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-088",
+   "path": "/air-coolers/",
+   "text": "Fast Response Repair",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-089",
+   "path": "/air-coolers/",
+   "text": "Our goal is to ensure stable cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-089",
+   "path": "/air-coolers/",
+   "text": "performance using eco-friendly and energy-efficient methods",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-089",
+   "path": "/air-coolers/",
+   "text": "methods that consume much less electricity",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-089",
+   "path": "/air-coolers/",
+   "text": "much less electricity compared to older systems.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-089",
+   "path": "/air-coolers/",
+   "text": "compared to older systems.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-072",
+   "path": "/reduce-cooling-tower-vibration/",
+   "text": "Contact H2ocooling today",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-OEM-01",
+   "path": "/product/amarillo-a-series-double-reduction-gearbox/",
+   "text": "OEM replacement installations",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-02",
+   "path": "/product/amarillo-double-reduction-gearbox/",
+   "text": "OEM replacement installations",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-03",
+   "path": "/product/amarillo-drive-shaft-cf67-275l/",
+   "text": "OEM replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-04",
+   "path": "/product/amarillo-drive-shaft-cf67-425l/",
+   "text": "OEM replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-05",
+   "path": "/product/amarillo-drive-shaft-cf67-425x/",
+   "text": "OEM replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-06",
+   "path": "/product/amarillo-drive-shaft-cf83-950x/",
+   "text": "OEM replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-07",
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "text": "OEM replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-08",
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "text": "OEM-engineered for compatibility",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-09",
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "text": "is an OEM-grade cooling tower power",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-10",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1110/",
+   "text": "OEM gearbox replacement",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-11",
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-175/",
+   "text": "Suitable for OEM replacement, cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-12",
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "text": "OEM replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-13",
+   "path": "/product/amertech-atsprayer-counterflow-nozzle/",
+   "text": "Direct replacement for OEM parts",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-13",
+   "path": "/product/amertech-atsprayer-counterflow-nozzle/",
+   "text": "Direct replacement for OEM parts (Research-Cottrell, Hamon, Ecodyne)",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-14",
+   "path": "/product/amertech-atsprayer-counterflow-nozzle/",
+   "text": "build with strong OEM compatibility",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-15",
+   "path": "/product/amertech-atsprayer-yoke-style-nozzle/",
+   "text": "This nozzle is designed to match OEM performance while offering durability and",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-15",
+   "path": "/product/amertech-atsprayer-yoke-style-nozzle/",
+   "text": "and flexibility.",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-16",
+   "path": "/product/amertech-atsprayer-yoke-style-nozzle/",
+   "text": "OEM-compatible replacement design",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-16",
+   "path": "/product/amertech-atsprayer-yoke-style-nozzle/",
+   "text": "replacement design",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-17",
+   "path": "/product/dyna-fab-18′-height-fan-stack/",
+   "text": "OEM replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-18",
+   "path": "/product/dyna-fab-6-height-fan-stack/",
+   "text": "OEM cooling tower retrofits",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-PT-bacman-1-2-title",
+   "path": "/all-projects/",
+   "text": "bacman 1 & 2",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-cawayan-bacman-3-title",
+   "path": "/all-projects/",
+   "text": "cawayan bacman 3",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-cooling-tower-disaster-recovery-title",
+   "path": "/all-projects/",
+   "text": "Cooling tower disaster recovery",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-cooling-tower-replacement-title",
+   "path": "/all-projects/",
+   "text": "cooling tower replacement",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-edc-n2n-relocation-project-title",
+   "path": "/all-projects/",
+   "text": "edc n2n relocation project",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-edc-title",
+   "path": "/all-projects/",
+   "text": "edc",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-empire-farms-title",
+   "path": "/all-projects/",
+   "text": "EMPIRE FARMS",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-kbr-title",
+   "path": "/all-projects/",
+   "text": "kbr",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-lanxess-title",
+   "path": "/all-projects/",
+   "text": "lanxess",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-mak-ban-6-title",
+   "path": "/all-projects/",
+   "text": "mak ban 6",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-patuha-title",
+   "path": "/all-projects/",
+   "text": "patuha",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-ptt-csp3-title",
+   "path": "/all-projects/",
+   "text": "ptt csp3",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-pttcsp-title",
+   "path": "/all-projects/",
+   "text": "pttcsp",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-pvc-plant-freeport-texas-title",
+   "path": "/all-projects/",
+   "text": "Pvc plant freeport, texas",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-thailand-projects-title",
+   "path": "/all-projects/",
+   "text": "thailand projects",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-thailand-projects-meta",
+   "path": "/all-projects/",
+   "text": "thailand",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-ptt-csp3-meta",
+   "path": "/all-projects/",
+   "text": "PTT GSP3 FAN UPGRADE",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-edc-meta",
+   "path": "/all-projects/",
+   "text": "Air Cooler Leyte, Philippines",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-pttcsp-meta",
+   "path": "/all-projects/",
+   "text": "96-Bay, Air Cooled Heat Exchanger",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-pttcsp-meta",
+   "path": "/all-projects/",
+   "text": "Heat Exchanger (ACHE) Rayong",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PL-1",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "Cooling Solutions promise is built on objective",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-1",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "objective analysis. We leverage our independent engineering",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-1",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "expertise to ensure your selection is based",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-1",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "ensure your selection is based on verifiable, long-term",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-1",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "return on investment. We do not guess; we engineer for certainty.",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-2",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "that controls their own supply chain",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-2",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "their own supply chain prevents future warranty",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-2",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "warranty disputes and guarantees faster access to critical",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-3",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "You need localized, immediate support to protect your",
+   "source": "SEO-CONTENT-2 piece 2.3"
   }
  ],
  "present": [
@@ -7148,6 +8108,780 @@
    "path": "/vi/ทำความเข้าใจการใช้งานข/",
    "text": "để duy trì nhiệt độ quy trình và cần xử lý và quản lý",
    "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-CA-03",
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "text": "compliance and ASHRAE standards must also be checked",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-04",
+   "path": "/chiller-and-cooling-tower/",
+   "text": "cooling towers, and chiller systems, as",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-05",
+   "path": "/cooling-tower-clearance/",
+   "text": "ASHRAE standards: ASHRAE provides guidelines for",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-08",
+   "path": "/cooling-tower-maintenance/",
+   "text": "heat exchangers, and other processes.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-09",
+   "path": "/cooling-tower-replacement/",
+   "text": "process cooling and heavy-duty",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-10",
+   "path": "/cooling-tower-replacement/",
+   "text": "performance in industrial cooling",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-11",
+   "path": "/cooling-tower-singapore/",
+   "text": "for industrial cooling and process cooling",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-12",
+   "path": "/cooling-tower/",
+   "text": "for industrial facilities and process-cooling",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-13",
+   "path": "/cooling-towers-in-the-middle-east/",
+   "text": "District Cooling: Centralized cooling",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-13",
+   "path": "/cooling-towers-in-the-middle-east/",
+   "text": "cooling plants serve large-scale developments more efficiently than",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-14",
+   "path": "/how-does-a-cooling-tower-work/",
+   "text": "spraying technique is used to diffuse the",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-18",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "for cooling towers—and use nearly all water",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-19",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "designed to serve as open, water-cooled",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-20",
+   "path": "/cooling-tower-fill/",
+   "text": "industrial operations and process systems.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-21",
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "text": "safety benchmarks.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-17",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "#advantages-of-cooling-towers-in-industrial-processes",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-01a",
+   "path": "/category/cooling-tower-servicesindustrial-cooling-tower/",
+   "text": "In this age, industry cannot run without reliable cooling towers.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-01b",
+   "path": "/tag/cooling-towercooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-blades/page/2/",
+   "text": "In this age, industry cannot run without reliable cooling towers.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-02",
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "text": "In this age, industry cannot run without reliable cooling towers.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-06",
+   "path": "/guide-about-cooling-tower/",
+   "text": "organizations like ASHRAE and the National Oceanic and Atmospheric Administration",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-CA-09",
+   "path": "/cooling-tower-replacement/",
+   "text": "engineered for process cooling and heavy-duty industrial operations.",
+   "source": "SEO-CONTENT-2 piece 2.1"
+  },
+  {
+   "row": "SC1-TA-001",
+   "path": "/cooling-tower-replacement/",
+   "text": "Case Study: Palinpinon Geothermal Power Plant Cooling Tower Replacement",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-002",
+   "path": "/cooling-tower-replacement/",
+   "text": "Palinpinon Geothermal Power",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-004",
+   "path": "/all-projects/",
+   "text": "Loong Industrial Zone, Bao Thang District, Lao Cai",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-006",
+   "path": "/all-projects/vinachem/",
+   "text": "Loong Industrial Zone, Bao Thang District, Lao Cai",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-007",
+   "path": "/cooling-tower-maintenance-contract/",
+   "text": "operational stability. It delivers substantial",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-008",
+   "path": "/3-cell-counterflow-cooling-towers/",
+   "text": "At ICS, we specialize in",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-009",
+   "path": "/3-cell-counterflow-cooling-towers/",
+   "text": "to learn more? Contact ICS today and discover how",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-010",
+   "path": "/build-new-cooling-tower/",
+   "text": "cooling tower, visit h2ocooling.com to learn how",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-011",
+   "path": "/choosing-cooling-tower-fill-media/",
+   "text": "Consult with ICS experts who can analyze",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-012",
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "text": "our experts at ICS are ready to help.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-013",
+   "path": "/cooling-tower-asset-management/",
+   "text": "How ICS Can Support Your Asset Program",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-014",
+   "path": "/cooling-tower-asset-management/",
+   "text": "capital decisions. ICS can support",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-015",
+   "path": "/cooling-tower-chemical-safety/",
+   "text": "solutions, visit h2ocooling.com today.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-016",
+   "path": "/cooling-tower-cold-weather-issues/",
+   "text": "this winter, contact ICS for operational",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-017",
+   "path": "/cooling-tower-cost-in-2025/",
+   "text": "and water treatment; contact ICS for expert solutions.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-018",
+   "path": "/cooling-tower-drift-eliminator-types/",
+   "text": "and repair, visit h2ocooling.com to ensure",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-019",
+   "path": "/cooling-tower-electrical-design/",
+   "text": "cooling solution at ICS!",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-020",
+   "path": "/cooling-tower-energy-savings/",
+   "text": "efficiency? Visit h2ocooling.com today to",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-021",
+   "path": "/cooling-tower-inspection-steps/",
+   "text": "Cooling Solutions (ICS) for a complete Cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-024",
+   "path": "/cooling-tower-low-water-flow/",
+   "text": "peak efficiency, visit h2ocooling.com to schedule",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-025",
+   "path": "/cooling-tower-maintenance-and-repair/",
+   "text": "reliability? Contact ICS today for expert",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-026",
+   "path": "/cooling-tower-material-selection/",
+   "text": "choice. Contact ICS today for a",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-027",
+   "path": "/cooling-tower-noise-control-design/",
+   "text": "At ICS, we specialize in",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-028",
+   "path": "/cooling-tower-noise-permit/",
+   "text": "How ICS Can Help With Cooling Tower Noise Compliance",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-029",
+   "path": "/cooling-tower-noise-permit/",
+   "text": "ICS can help facilities",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-030",
+   "path": "/cooling-tower-noise-permit/",
+   "text": "ICS can support:",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-031",
+   "path": "/cooling-tower-noise-permit/",
+   "text": "verification testing. ICS can help facilities",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-032",
+   "path": "/cooling-tower-parts-3/",
+   "text": "energy savings, contact ICS for a comprehensive",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-033",
+   "path": "/cooling-tower-remote-monitoring/",
+   "text": "efficient future by contacting ICS to discover how our",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-034",
+   "path": "/cooling-tower-repair-service/",
+   "text": "Why Choose ICS",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-035",
+   "path": "/cooling-tower-repair-service/",
+   "text": "not a guessing game. ICS delivers expert",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-037",
+   "path": "/cooling-tower-repair-team/",
+   "text": "facility depends on? Contact ICS",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-038",
+   "path": "/cooling-tower-retrofit-guide-upgrading-old-towers/",
+   "text": "the future. Contact ICS for any cooling tower",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-039",
+   "path": "/cooling-tower-spares/",
+   "text": "Why Customers Choose ICS for Cooling Tower Spares",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-041",
+   "path": "/cooling-tower-structural-loads/",
+   "text": "indispensable. Visit h2ocooling.com for expert",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-042",
+   "path": "/cooling-tower-thermal-storage/",
+   "text": "How ICS Supports Thermal Storage Integration",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-043",
+   "path": "/cooling-tower-thermal-storage/",
+   "text": "ICS provides cooling tower",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-045",
+   "path": "/cooling-tower-thermal-storage/",
+   "text": "Contact ICS to schedule a cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-046",
+   "path": "/cooling-tower-thermal-storage/",
+   "text": "How can ICS help with thermal storage projects?",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-047",
+   "path": "/cooling-tower-upgrade-roi/",
+   "text": "Contact the experts at ICS today for a custom",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-048",
+   "path": "/cooling-tower-winter-preparation/",
+   "text": "for the cold. Contact ICS for winter readiness",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-049",
+   "path": "/cooling-tower-winterization-checklist/",
+   "text": "not hesitate. Contact ICS today to schedule an",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-050",
+   "path": "/cooling-towers-environmental-benefit/",
+   "text": "contact our team at ICS today. We provide",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-051",
+   "path": "/cooling-towers-in-the-middle-east/",
+   "text": "East environment, visit h2ocooling.com today to",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-060",
+   "path": "/history-of-frp/",
+   "text": "from over. Join us at ICS, where we will explore",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-061",
+   "path": "/hybrid-cooling-systems/",
+   "text": "Operational Excellence: The ICS Maintenance Differentiator",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-062",
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "text": "Expert Guidance From ICS",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-062",
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "text": "Get Expert Guidance From ICS",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-067",
+   "path": "/legionella-control-in-industrial-cooling-towers/",
+   "text": "facility? Connect with ICS to discuss your",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-068",
+   "path": "/new-cooling-towers/",
+   "text": "ICS delivers predictable",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-070",
+   "path": "/new-cooling-towers/",
+   "text": "choose the partner who supports a successful outcome.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-070",
+   "path": "/new-cooling-towers/",
+   "text": "a successful outcome. ICS manages the entire",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-071",
+   "path": "/new-cooling-towers/",
+   "text": "Contact ICS to discuss your cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-073",
+   "path": "/reducing-carbon-footprint/",
+   "text": "asset? Partner with ICS to design a modern",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-074",
+   "path": "/signs-of-cooling-tower-failure/",
+   "text": "Contact ICS for advanced",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-075",
+   "path": "/vfd-cooling-tower-savings/",
+   "text": "management. Visit h2ocooling.com to start",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-082",
+   "path": "/cooling-tower-resources/",
+   "text": "engineering, and technical support, our",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-085",
+   "path": "/air-coolers/",
+   "text": "High-Performance Industrial Air Cooler Solutions for Demanding Plants",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-087",
+   "path": "/air-coolers/",
+   "text": "cooler performance, airflow efficiency, and",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-087",
+   "path": "/air-coolers/",
+   "text": "and energy consumption.",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-088",
+   "path": "/air-coolers/",
+   "text": "On-Site Repair and Reconstruction",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-089",
+   "path": "/air-coolers/",
+   "text": "Our goal is stable cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-089",
+   "path": "/air-coolers/",
+   "text": "performance using energy-efficient methods",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-089",
+   "path": "/air-coolers/",
+   "text": "methods that use less electricity",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-TA-072",
+   "path": "/reduce-cooling-tower-vibration/",
+   "text": "Contact ICS today",
+   "source": "SEO-CONTENT-2 piece 2.2-A"
+  },
+  {
+   "row": "SC1-OEM-01",
+   "path": "/product/amarillo-a-series-double-reduction-gearbox/",
+   "text": "Replacement installations",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-02",
+   "path": "/product/amarillo-double-reduction-gearbox/",
+   "text": "Replacement installations",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-03",
+   "path": "/product/amarillo-drive-shaft-cf67-275l/",
+   "text": "Replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-04",
+   "path": "/product/amarillo-drive-shaft-cf67-425l/",
+   "text": "Replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-05",
+   "path": "/product/amarillo-drive-shaft-cf67-425x/",
+   "text": "Replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-06",
+   "path": "/product/amarillo-drive-shaft-cf83-950x/",
+   "text": "Replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-07",
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "text": "Replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-08",
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "text": "Designed for compatibility",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-09",
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "text": "is a cooling tower power",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-10",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1110/",
+   "text": "Gearbox replacement",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-11",
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-175/",
+   "text": "Suitable for replacement, cooling",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-12",
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "text": "Replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-14",
+   "path": "/product/amertech-atsprayer-counterflow-nozzle/",
+   "text": "build for retrofit and replacement use",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-15",
+   "path": "/product/amertech-atsprayer-yoke-style-nozzle/",
+   "text": "This nozzle is designed for durability and",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-15",
+   "path": "/product/amertech-atsprayer-yoke-style-nozzle/",
+   "text": "and flexibility in replacement and retrofit use.",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-16",
+   "path": "/product/amertech-atsprayer-yoke-style-nozzle/",
+   "text": "Replacement design",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-17",
+   "path": "/product/dyna-fab-18′-height-fan-stack/",
+   "text": "Replacement and retrofit",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-OEM-18",
+   "path": "/product/dyna-fab-6-height-fan-stack/",
+   "text": "Cooling tower retrofits",
+   "source": "SEO-CONTENT-2 piece 2.2-B"
+  },
+  {
+   "row": "SC1-PT-bacman-1-2-title",
+   "path": "/all-projects/",
+   "text": "BacMan 1 & 2",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-cawayan-bacman-3-title",
+   "path": "/all-projects/",
+   "text": "Cawayan BacMan 3",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-cooling-tower-disaster-recovery-title",
+   "path": "/all-projects/",
+   "text": "Cooling Tower Disaster Recovery",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-cooling-tower-replacement-title",
+   "path": "/all-projects/",
+   "text": "Palinpinon Cooling Tower Replacement",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-edc-n2n-relocation-project-title",
+   "path": "/all-projects/",
+   "text": "EDC N2N Relocation Project",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-edc-title",
+   "path": "/all-projects/",
+   "text": "EDC",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-empire-farms-title",
+   "path": "/all-projects/",
+   "text": "Empire Farms",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-kbr-title",
+   "path": "/all-projects/",
+   "text": "KBR",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-lanxess-title",
+   "path": "/all-projects/",
+   "text": "Lanxess",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-mak-ban-6-title",
+   "path": "/all-projects/",
+   "text": "Mak-Ban 6",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-patuha-title",
+   "path": "/all-projects/",
+   "text": "Patuha",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-ptt-csp3-title",
+   "path": "/all-projects/",
+   "text": "PTT GSP3 Fan Upgrade",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-pttcsp-title",
+   "path": "/all-projects/",
+   "text": "PTT GSP6 96-Fan ACHE Performance Upgrade",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-pvc-plant-freeport-texas-title",
+   "path": "/all-projects/",
+   "text": "Shintech PVC Plant, Freeport, Texas",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-thailand-projects-title",
+   "path": "/all-projects/",
+   "text": "Thailand Projects",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-thailand-projects-meta",
+   "path": "/all-projects/",
+   "text": "Thailand",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-edc-meta",
+   "path": "/all-projects/",
+   "text": "Air Cooler, Leyte, Philippines",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-pttcsp-meta",
+   "path": "/all-projects/",
+   "text": "96-Bay Air-Cooled Heat Exchanger",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PT-pttcsp-meta",
+   "path": "/all-projects/",
+   "text": "Heat Exchanger (ACHE), Rayong",
+   "source": "SEO-CONTENT-2 piece 2.2-C"
+  },
+  {
+   "row": "SC1-PL-1",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "Cooling Solutions approach is built on objective",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-1",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "objective analysis. We use independent engineering",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-1",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "return on investment.",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-2",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "that controls its own supply chain",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-2",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "warranty disputes and speed access to critical",
+   "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "SC1-PL-3",
+   "path": "/cooling-tower-buying-guide/",
+   "text": "You need localized support to protect your",
+   "source": "SEO-CONTENT-2 piece 2.3"
   }
  ]
 }

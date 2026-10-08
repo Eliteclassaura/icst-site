@@ -73,6 +73,11 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     expect(data('redirects.tsv').filter(r=>r.action!=='UNCHANGED').map(r=>`${r.action} ${r.source} ${r.destination}`)).toEqual([
       'UPDATE /blog/hvac-cooling-tower/ /guide-about-cooling-tower/',
       'UPDATE /blog/commercial-cooling-towers/ /legionella-control-in-industrial-cooling-towers/',
+      // SEO-CONTENT-2.1 (CT 2026-10-08, TC-001..004): the legacy locale sources go straight to the guide twins
+      'UPDATE /ja/blog/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/ /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/',
+      'UPDATE /blog/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/ /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/',
+      'UPDATE /id/blog/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/ /id/apa-itu-menara-pendinginan/',
+      'UPDATE /th/blog/%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99-hvac-%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84/ /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/',
       'CREATE /product/abb-motor-example/ /motors/',
       'CREATE /product/teco-westinghouse-motor-example/ /motors/',
       'CREATE /hvac-cooling-tower/ /guide-about-cooling-tower/',
@@ -80,11 +85,14 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
       'CREATE /cooling-tower-free-cooling-mode-cut-chiller-costs-now/ /energy-efficient-cooling-tower/',
       'CREATE /commercial-building-cooling-tower/ /cooling-tower/',
       'CREATE /commercial-cooling-towers/ /legionella-control-in-industrial-cooling-towers/',
-      // SEO-CONTENT-1 round 2 (CT 2026-10-08): the hospital article and the vibration-switch placeholder
       'CREATE /hospital-cooling-systems/ /cooling-tower/',
       'CREATE /product/vibration-switch-example/ /tower-hardware/',
-      // SEO-CONTENT-2 piece A (CT 2026-10-08): the empty Uncategorized category
       'CREATE /product-category/uncategorized/ /cooling-tower-parts-online/',
+      // SEO-CONTENT-2.1: the four held locale twins
+      'CREATE /id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/ /id/apa-itu-menara-pendinginan/',
+      'CREATE /ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/ /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/',
+      'CREATE /th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/ /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/',
+      'CREATE /vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/ /vi/thap-giai-nhiet-la-gi/',
     ])
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
@@ -108,7 +116,7 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     expect(seo.get('/cooling-tower-efficiency-calculation/')).toBe('Cooling Tower Efficiency Calculation: Formula & Steps')
     expect(seo.get('/cooling-tower-blowdown-calculation/')).toBe('Cooling Tower Blowdown Calculation: Formula & Guide')
     expect(seo.get('/product-category/gearboxes/')).toBe('Amarillo Gearbox Replacement | Cooling Tower Gearbox Parts')
-    expect(seo.get('/product/tuf-lite-iii-5000k-series-hub-fan-assemblies/')).toBe('TUF-LITE III 5000K Series Hub Fan Assemblies | Cooling Tower Fans')
+    expect(seo.get('/product/tuf-lite-iii-5000k-series-hub-fan-assemblies/')).toBe('TUF-LITE III 5000K Series Hub Fan Assemblies') // SEO-CONTENT-2.2: OGCS quick-wins title (the fan suffix trimmed)
     expect(data('h1-fields.tsv').map(r=>[r.path,r.via,r.h1]).slice(0,3)).toEqual([['/cooling-tower/','slot','New Cooling Tower Engineering & Construction'],['/product-category/gearboxes/','slot','Amarillo Cooling Tower Gearboxes'],['/product-category/drive-shafts-assemblies/','slot','Cooling Tower Couplings & Drive Shafts']])
     // Restored live bodies bring their live H1 (the record title article templates render); Round 5 adds the CT-ruled heading
     // of /cooling-tower-repair-service/ (claims-seo field h1).

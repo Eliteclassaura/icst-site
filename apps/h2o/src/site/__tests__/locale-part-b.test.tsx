@@ -25,6 +25,8 @@ const env={...process.env}
 beforeEach(()=>{process.env.H2O_PUBLIC_EXPORT='1'})
 afterEach(()=>{process.env={...env};vi.doUnmock('next/headers')})
 
+/** SEO-CONTENT-2.1 (CT 2026-10-08, TC-001..004): the locale twins of the held HVAC article are HOLD with a 301. */
+const HELD_TWINS=['/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/','/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/','/th/หอคอยทำความเย็น-hvac-คืออะไ/','/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/']
 describe('the preserved locale pages: a provenance-recorded LIVE route family',()=>{
   it('166 documents, one per OGCS Part A PRESERVE URL that has no source record and serves a body; hashes and live provenance recorded',()=>{
     // 168 Part A PRESERVE URLs: the held Thai Salmon record publishes in place, and the empty live /th/ duplicate of it
@@ -44,17 +46,18 @@ describe('the preserved locale pages: a provenance-recorded LIVE route family',(
       expect(doc.publicationStatus).toBe('publish')
       expect(doc.children.length).toBeGreaterThan(0)
       expect(pathKey(new URL(doc.seo.canonical[0]!).pathname)).toBe(pathKey(r.targetPath))
-      expect(locale.languages[pathKey(r.targetPath)],r.targetPath).toBe(doc.language)
+      if(!HELD_TWINS.some(t=>pathKey(r.targetPath)===pathKey(t)))expect(locale.languages[pathKey(r.targetPath)],r.targetPath).toBe(doc.language)
       byLang[doc.language]=(byLang[doc.language]??0)+1
     }
     expect(byLang).toEqual({id:42,ja:41,th:41,vi:42})
     // The 168th preserved page is the held Salmon record at the same path (published through the content check).
-    expect(Object.keys(locale.languages)).toHaveLength(168)
+    expect(Object.keys(locale.languages)).toHaveLength(164) // SEO-CONTENT-2.1: minus the four held HVAC twins
   })
   it('every locale row is published PUBLIC, self-canonical, in the sitemap and never in the English search index',()=>{
     const rows=ledger.routes.filter(r=>r.routeId.startsWith('LIVE-LOCALE-'))
     expect(rows).toHaveLength(166)
     for(const r of rows){
+      if(HELD_TWINS.some(t=>pathKey(r.path)===pathKey(t))){expect(r,r.path).toMatchObject({state:'REDIRECT',export:false,indexable:false,sitemap:false});continue}
       expect(r,r.path).toMatchObject({state:'PUBLIC',export:true,indexable:true,sitemap:true,searchable:false})
       expect(r.canonical,r.path).toBe('https://h2ocooling.com'+r.path)
     }
@@ -107,7 +110,7 @@ describe('hreflang and the locale sitemaps (production policy, the real ledger a
   const entries=sitemapEntries({rows:ledger.routes,origin:'https://h2ocooling.com',redirected:new Set(ledger.redirects.map(r=>pathKey(r.source))),gone:GONE_PATHS,noindexFollow:NOINDEX_FOLLOW_PATHS,locale})
   it('the four locale sitemaps list the preserved pages',()=>{
     const count=(child:string)=>entries.filter(e=>e.child===child).length
-    expect([count('sitemap-ja.xml'),count('sitemap-th.xml'),count('sitemap-id.xml'),count('sitemap-vi.xml')]).toEqual([41,42,42,42])
+    expect([count('sitemap-ja.xml'),count('sitemap-th.xml'),count('sitemap-id.xml'),count('sitemap-vi.xml')]).toEqual([40,41,41,41]) // SEO-CONTENT-2.1: minus the four held HVAC locale twins
   })
   it('every served cluster member names the identical set, self included; the swapped pair and NONE pages name none',()=>{
     const byKey=new Map(entries.map(e=>[e.key,e]))

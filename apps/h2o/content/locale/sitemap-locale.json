@@ -10,7 +10,6 @@
   }
  },
  "languages": {
-  "/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/": "id",
   "/id/apa-itu-menara-pendinginan/": "id",
   "/id/arus-balik-vs-aliran-silang/": "id",
   "/id/bagaimana-cara-kerja-menara-pendingin/": "id",
@@ -54,7 +53,6 @@
   "/id/tips-pemeriksaan-menara-pendingin/": "id",
   "/ja/2024-年の冷却塔ドリフトエリミネーターの完璧なガ/": "ja",
   "/ja/frpが木材、アルミニウム、スチール、コンクリー/": "ja",
-  "/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/": "ja",
   "/ja/アキシャルファン-基本/": "ja",
   "/ja/コストの内訳-2024-年の産業用冷却塔コスト/": "ja",
   "/ja/チラーと冷却塔でレジオネラ菌を防ぐには？/": "ja",
@@ -127,7 +125,6 @@
   "/th/วิธีป้องกันแบคทีเรีย-legionella/": "th",
   "/th/สภาพอากาศหนาวเย็นนำเสน/": "th",
   "/th/สิ่งที่คุณต้องรู้เกี่ย/": "th",
-  "/th/หอคอยทำความเย็น-hvac-คืออะไ/": "th",
   "/th/หอคอยระบายความร้อนทำงา/": "th",
   "/th/หอคอยระบายความร้อนระดั/": "th",
   "/th/หอทำความเย็นคืออะไร/": "th",
@@ -163,7 +160,6 @@
   "/vi/tam-quan-trong-cua-quat-on-dinh/": "vi",
   "/vi/tam-quan-trong-cua-viec-bao-duong-canh-quat/": "vi",
   "/vi/thap-giai-nhiet-hoat-dong-nhu-the-nao/": "vi",
-  "/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/": "vi",
   "/vi/thap-giai-nhiet-la-gi/": "vi",
   "/vi/thap-giai-nhiet-quoc-te-tim-hieu-ve-cac-loai-van-de-va-giai-phap/": "vi",
   "/vi/thap-giai-nhiet-trong-thoi-tiet-lanh/": "vi",
@@ -234,24 +230,6 @@
    {
     "hreflang": "x-default",
     "url": "https://h2ocooling.com/how-to-clean-a-cooling-tower/"
-   }
-  ],
-  [
-   {
-    "hreflang": "th",
-    "url": "https://h2ocooling.com/th/หอคอยทำความเย็น-hvac-คืออะไ/"
-   },
-   {
-    "hreflang": "vi",
-    "url": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/"
-   },
-   {
-    "hreflang": "id",
-    "url": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/"
-   },
-   {
-    "hreflang": "ja",
-    "url": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/"
    }
   ],
   [

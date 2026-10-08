@@ -1,5 +1,5 @@
 {
- "authority": "Control Tower ruling 2026-10-05 (option A + 保証→確保); recorded slot-fix text edits applied by apply-seo-pass (phase 6), before/after in slot-fixes.json; R2.1 (CT 2026-10-05): F1 product data corrections, OGCS template claims, C3/C4/C5 claims, unlink text edits; R2.2 (CT 2026-10-05): OGCS claims sweep R1 GATE+SHOULD rows with owner answers Q1–Q12 (row ids in `row`); CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows (row ids R2L10-*; About rows are code, content/design/about-page.json); R4 (CT 2026-10-07): OGCS R4 copy review, parts hub rows R4C-01…06 (row 7 KEEP) and the Dry Soda line R4C-07; R4 phase 2 (CT 2026-10-07): OGCS phase 2 copy review Air Coolers rows R4C-08…10 (page text) and R4C-11 (the restored-section heading, data/restored-sections.json); SEO-CONTENT-1 (CT 2026-10-07): OGCS SEO Deep R1 rulings + addendum (resealed fe4feb16): product HVAC applications bullets (rows SC1-P2-nn; SC1-P2-X extends the same rule to phrasings the table does not list), the ALU KEEP phrase (the approach table cell is in data/restored-sections.json), project fact-card typo (and its All Projects card copy) and the owner-directed BacMan wording, and the algae closing CTA (SC1-B-ALGAE); SEO-CONTENT-1 round 2 (CT 2026-10-08): OGCS staging QA tranche A (rows SC1-A-nnn; HVAC, guarantee wording, seminar), tranche B guide-about-cooling-tower HVAC row (SC1-B-050), OEM/stock location rows (SC1-L-nn), and the BacMan body paragraph (SC1-P7-BACMAN-BODY); SEO-CONTENT-2 piece B (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece B (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece C (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece C (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*)",
+ "authority": "Control Tower ruling 2026-10-05 (option A + 保証→確保); recorded slot-fix text edits applied by apply-seo-pass (phase 6), before/after in slot-fixes.json; R2.1 (CT 2026-10-05): F1 product data corrections, OGCS template claims, C3/C4/C5 claims, unlink text edits; R2.2 (CT 2026-10-05): OGCS claims sweep R1 GATE+SHOULD rows with owner answers Q1–Q12 (row ids in `row`); CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows (row ids R2L10-*; About rows are code, content/design/about-page.json); R4 (CT 2026-10-07): OGCS R4 copy review, parts hub rows R4C-01…06 (row 7 KEEP) and the Dry Soda line R4C-07; R4 phase 2 (CT 2026-10-07): OGCS phase 2 copy review Air Coolers rows R4C-08…10 (page text) and R4C-11 (the restored-section heading, data/restored-sections.json); SEO-CONTENT-1 (CT 2026-10-07): OGCS SEO Deep R1 rulings + addendum (resealed fe4feb16): product HVAC applications bullets (rows SC1-P2-nn; SC1-P2-X extends the same rule to phrasings the table does not list), the ALU KEEP phrase (the approach table cell is in data/restored-sections.json), project fact-card typo (and its All Projects card copy) and the owner-directed BacMan wording, and the algae closing CTA (SC1-B-ALGAE); SEO-CONTENT-1 round 2 (CT 2026-10-08): OGCS staging QA tranche A (rows SC1-A-nnn; HVAC, guarantee wording, seminar), tranche B guide-about-cooling-tower HVAC row (SC1-B-050), OEM/stock location rows (SC1-L-nn), and the BacMan body paragraph (SC1-P7-BACMAN-BODY); SEO-CONTENT-2 piece B (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece B (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece C (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece C (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece 2.1 (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece 2.2-A (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece 2.2-B (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece 2.2-C (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece 2.2-E (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece 2.3 (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*)",
  "edits": [
   {
    "path": "/inspect-cooling-tower-part-2/",
@@ -7168,6 +7168,1995 @@
    "slot": "body.25.0",
    "row": "SC1-C-108",
    "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-108: image alt text rewritten generically (P2-ALT)"
+  },
+  {
+   "path": "/category/cooling-tower-servicesindustrial-cooling-tower/",
+   "op": "replace",
+   "find": "no one can imagine living without Air conditioning and cooling towers, especially in the summer.",
+   "replace": "industry cannot run without reliable cooling towers.",
+   "slot": "body.3.1.2",
+   "row": "SC1-CA-01a",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-01a: Removes the comfort-cooling framing. Same sentence as the article intro below, so excerpt and article match."
+  },
+  {
+   "path": "/tag/cooling-towercooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-blades/page/2/",
+   "op": "replace",
+   "find": "no one can imagine living without Air conditioning and cooling towers, especially in the summer.",
+   "replace": "industry cannot run without reliable cooling towers.",
+   "slot": "body.3.7.2",
+   "row": "SC1-CA-01b",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-01b: Removes the comfort-cooling framing. Same sentence as the article intro below, so excerpt and article match."
+  },
+  {
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "op": "replace",
+   "find": "no one can imagine living without Air conditioning and cooling towers, especially in the summer.",
+   "replace": "industry cannot run without reliable cooling towers.",
+   "slot": "body.3.1.1.7.1",
+   "row": "SC1-CA-02",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-02: Same edit as the excerpt row. Apply to every instance on the page."
+  },
+  {
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "op": "replace",
+   "find": "(American Society of Heating, Refrigerating, and Air-Conditioning Engineers)",
+   "replace": "standards",
+   "slot": "body.3.1.1.7.35",
+   "row": "SC1-CA-03",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-03: ASHRAE is a standards body whose full name contains \"Air-Conditioning\". Using the acronym keeps the reference and reaches 0 mentions; KEEP is acceptable if the check allows proper names."
+  },
+  {
+   "path": "/cooling-tower-clearance/",
+   "op": "replace",
+   "find": "The American Society of Heating, Refrigerating, and Air-Conditioning Engineers",
+   "replace": "ASHRAE",
+   "slot": "body.3.1.1.7.53.3",
+   "row": "SC1-CA-05",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-05: ASHRAE is a standards body whose full name contains \"Air-Conditioning\". Using the acronym keeps the reference and reaches 0 mentions; KEEP is acceptable if the check allows proper names."
+  },
+  {
+   "path": "/guide-about-cooling-tower/",
+   "op": "replace",
+   "find": "the American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE) and ",
+   "replace": "ASHRAE and ",
+   "slot": "body.137",
+   "row": "SC1-CA-06",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-06: ASHRAE is a standards body whose full name contains \"Air-Conditioning\". Using the acronym keeps the reference and reaches 0 mentions; KEEP is acceptable if the check allows proper names."
+  },
+  {
+   "path": "/cooling-tower-maintenance/",
+   "op": "replace",
+   "find": "air conditioners, ",
+   "replace": "",
+   "slot": "body.3.1.1.7.9",
+   "row": "SC1-CA-08",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-08: Removes air conditioners; the rest of the list is industrial."
+  },
+  {
+   "path": "/cooling-tower-replacement/",
+   "op": "replace",
+   "find": "industrial air conditioning, process cooling, and heavy-duty ",
+   "replace": "process cooling and heavy-duty industrial ",
+   "slot": "body.3.1.1.1.3.2",
+   "row": "SC1-CA-09",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-09: Removes \"industrial air conditioning\"; avoids a duplicate \"cooling, process cooling\"."
+  },
+  {
+   "path": "/cooling-tower-replacement/",
+   "op": "replace",
+   "find": "air conditioning and ",
+   "replace": "",
+   "slot": "body.15.1.1.5.1.5.1.1.1",
+   "row": "SC1-CA-10",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-10: Removes air conditioning."
+  },
+  {
+   "path": "/cooling-tower-singapore/",
+   "op": "replace",
+   "find": "g, commercial air conditioning,",
+   "replace": "g",
+   "slot": "body.3.1.1.3.1.1.3",
+   "row": "SC1-CA-11",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-11: Removes commercial comfort-cooling targeting (industrial-only rule)."
+  },
+  {
+   "path": "/cooling-tower/",
+   "op": "replace",
+   "find": "s, air-conditioning plants,",
+   "replace": "s",
+   "slot": "body.15.5.1",
+   "row": "SC1-CA-12",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-12: Removes air-conditioning plants."
+  },
+  {
+   "path": "/cooling-towers-in-the-middle-east/",
+   "op": "replace",
+   "find": "Large-scale commercial and residential developments rely on centralized cooling plants to provide air conditioning",
+   "replace": "Centralized cooling plants serve large-scale developments",
+   "slot": "body.3.1.1.7.39.5",
+   "row": "SC1-CA-13",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-13: District cooling stays as a utility application (CT ruling); the comfort-cooling and residential wording goes. The separate HVAC sentence on this page is covered by tranche C."
+  },
+  {
+   "path": "/how-does-a-cooling-tower-work/",
+   "op": "replace",
+   "find": "or air conditioning condensers are",
+   "replace": "is",
+   "slot": "body.3.1.1.7.59",
+   "row": "SC1-CA-14",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-14: Removes air conditioning condensers. The phrase was also technically odd; spray distribution is the mechanism."
+  },
+  {
+   "path": "/international-cooling-tower/",
+   "op": "remove",
+   "find": "Heating and air conditioning: ",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.9.1.0.3",
+   "row": "SC1-CA-15",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-15: The paragraph under it (residential/commercial HVAC) is already REMOVE in tranche B. The heading must leave with it."
+  },
+  {
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "op": "replace",
+   "find": " or air conditioning—",
+   "replace": "—",
+   "slot": "body.3.1.1.7.155",
+   "row": "SC1-CA-18",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-18: Removes air conditioning."
+  },
+  {
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "op": "replace",
+   "find": "human comfort cooling air conditioning systems or as ",
+   "replace": "",
+   "slot": "body.3.1.1.7.163",
+   "row": "SC1-CA-19",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-19: Removes the comfort-cooling alternative."
+  },
+  {
+   "path": "/cooling-tower-fill/",
+   "op": "replace",
+   "find": "or air conditioning",
+   "replace": "and process",
+   "slot": "body.1",
+   "row": "SC1-CA-20",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-20: Removes air conditioning."
+  },
+  {
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "op": "replace",
+   "find": " air conditioning systems",
+   "replace": "",
+   "slot": "body.163",
+   "row": "SC1-CA-21",
+   "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-21: An orphan leftover with no sentence or list around it. Nothing industrial is lost."
+  },
+  {
+   "path": "/cooling-tower-replacement/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Case Study: Palipinon Geothermal Power Plant Cooling Tower Replacement",
+   "replace": "Case Study: Palinpinon Geothermal Power Plant Cooling Tower Replacement",
+   "slot": "body.9.1.1",
+   "row": "SC1-TA-001",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-001: Verified typo (CT). Project name is Palinpinon."
+  },
+  {
+   "path": "/cooling-tower-replacement/",
+   "op": "replace",
+   "find": "p",
+   "replace": "np",
+   "slot": "body.9.3.1.1.1.1.3.3",
+   "row": "SC1-TA-002",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-002: Verified typo (CT)."
+  },
+  {
+   "path": "/cooling-tower-replacement/",
+   "op": "replace",
+   "find": "s.,",
+   "replace": "s",
+   "slot": "body.3.1.1.1.3.3",
+   "row": "SC1-TA-003",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-003: Stray \".,\". The sentence also has no list continuation, so the comma goes too."
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "find": " – Boa Thank",
+   "replace": ", Bao Thang",
+   "slot": "body.19.3.1.1.3.1.1.3.3",
+   "row": "SC1-TA-004",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-004: Verified spelling \"Bao Thang District\" (CT). The comma replaces the dash to match PROJECT_TITLES.tsv. The li row is derived from the card; change it at the source and it follows. The fact-card dd on /all-projects/vinachem/ already reads \"Ba"
+  },
+  {
+   "path": "/all-projects/vinachem/",
+   "op": "replace",
+   "find": " – Boa Thank",
+   "replace": ", Bao Thang",
+   "slot": "body.1.1.1.3.1.3.1.3.3",
+   "row": "SC1-TA-006",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-006: Verified spelling \"Bao Thang District\" (CT). The comma replaces the dash to match PROJECT_TITLES.tsv. The li row is derived from the card; change it at the source and it follows. The fact-card dd on /all-projects/vinachem/ already reads \"Ba"
+  },
+  {
+   "path": "/cooling-tower-maintenance-contract/",
+   "op": "replace",
+   "find": "..",
+   "replace": ".",
+   "slot": "body.3.1.1.7.35",
+   "row": "SC1-TA-007",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-007: Double full stop."
+  },
+  {
+   "path": "/3-cell-counterflow-cooling-towers/",
+   "op": "replace",
+   "find": "H2ocooling",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.111",
+   "row": "SC1-TA-008",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-008: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/3-cell-counterflow-cooling-towers/",
+   "op": "replace",
+   "find": "H2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.131",
+   "row": "SC1-TA-009",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-009: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/build-new-cooling-tower/",
+   "op": "replace",
+   "find": "H2OC",
+   "replace": "h2oc",
+   "slot": "body.3.1.1.7.189",
+   "row": "SC1-TA-010",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-010: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/choosing-cooling-tower-fill-media/",
+   "op": "replace",
+   "find": "H2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.91",
+   "row": "SC1-TA-011",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-011: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "op": "replace",
+   "find": "H2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.139",
+   "row": "SC1-TA-012",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-012: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-asset-management/",
+   "op": "replace",
+   "element": "heading",
+   "find": "How H2ocooling Can Support Your Asset Program",
+   "replace": "How ICS Can Support Your Asset Program",
+   "slot": "body.3.1.1.7.131",
+   "row": "SC1-TA-013",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-013: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-asset-management/",
+   "op": "replace",
+   "find": "H2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.143",
+   "row": "SC1-TA-014",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-014: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-chemical-safety/",
+   "op": "replace",
+   "find": "H2O",
+   "replace": "h2o",
+   "slot": "body.3.1.1.7.163",
+   "row": "SC1-TA-015",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-015: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-cold-weather-issues/",
+   "op": "replace",
+   "find": "H2ocooling",
+   "replace": "ICS",
+   "slot": "body.101",
+   "row": "SC1-TA-016",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-016: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-cost-in-2025/",
+   "op": "replace",
+   "run": 0,
+   "find": "Blowdown systems cost $5,000–$30,000+, depending on automation and water treatment; visit ",
+   "replace": "Blowdown systems cost $5,000–$30,000+, depending on automation and water treatment; contact ICS",
+   "slot": "body.3.1.1.7.91",
+   "row": "SC1-TA-017",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-017: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-cost-in-2025/",
+   "op": "replace",
+   "run": 1,
+   "find": "h2ocooling ",
+   "replace": " ",
+   "slot": "body.3.1.1.7.91",
+   "row": "SC1-TA-017",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-017: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-drift-eliminator-types/",
+   "op": "replace",
+   "find": "H",
+   "replace": "h",
+   "slot": "body.3.1.1.7.135",
+   "row": "SC1-TA-018",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-018: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-electrical-design/",
+   "op": "replace",
+   "find": "h2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.169",
+   "row": "SC1-TA-019",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-019: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-energy-savings/",
+   "op": "replace",
+   "find": "H2OC",
+   "replace": "h2oc",
+   "slot": "body.3.1.1.7.87",
+   "row": "SC1-TA-020",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-020: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-inspection-steps/",
+   "op": "replace",
+   "find": " h2ocooling",
+   "replace": "ICS",
+   "slot": "body.103",
+   "row": "SC1-TA-021",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-021: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-inspection-steps/",
+   "op": "replace",
+   "find": "H2ocooling",
+   "replace": "ICS",
+   "slot": "body.115",
+   "row": "SC1-TA-022",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-022: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-low-water-flow/",
+   "op": "replace",
+   "find": "H2O",
+   "replace": "h2o",
+   "slot": "body.3.1.1.7.231",
+   "row": "SC1-TA-024",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-024: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-maintenance-and-repair/",
+   "op": "replace",
+   "find": "H2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.203",
+   "row": "SC1-TA-025",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-025: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-material-selection/",
+   "op": "replace",
+   "find": "h2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.101",
+   "row": "SC1-TA-026",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-026: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-noise-control-design/",
+   "op": "replace",
+   "find": "H2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.113",
+   "row": "SC1-TA-027",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-027: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-noise-permit/",
+   "op": "replace",
+   "element": "heading",
+   "find": "How H2OCooling Can Help With Cooling Tower Noise Compliance",
+   "replace": "How ICS Can Help With Cooling Tower Noise Compliance",
+   "slot": "body.3.1.1.7.145",
+   "row": "SC1-TA-028",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-028: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-noise-permit/",
+   "op": "replace",
+   "find": "H2OCooling",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.147",
+   "row": "SC1-TA-029",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-029: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-noise-permit/",
+   "op": "replace",
+   "find": "H2OCooling",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.151",
+   "row": "SC1-TA-030",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-030: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-noise-permit/",
+   "op": "replace",
+   "find": "H2OCooling",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.163",
+   "row": "SC1-TA-031",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-031: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-parts-3/",
+   "op": "replace",
+   "find": "H2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.85",
+   "row": "SC1-TA-032",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-032: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-remote-monitoring/",
+   "op": "replace",
+   "run": 0,
+   "find": "These fully autonomous cooling systems, powered by real-time alerts and remote access, guarantee that your operations will remain resilient, highly profitable, and hold a significant competitive edge. Take the first step toward a smarter, more efficient future by visiting ",
+   "replace": "These fully autonomous cooling systems, powered by real-time alerts and remote access, guarantee that your operations will remain resilient, highly profitable, and hold a significant competitive edge. Take the first step toward a smarter, more efficient future by contacting ICS",
+   "slot": "body.3.1.1.7.159",
+   "row": "SC1-TA-033",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-033: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-remote-monitoring/",
+   "op": "replace",
+   "run": 1,
+   "find": "H2OCooling.com",
+   "replace": "",
+   "slot": "body.3.1.1.7.159",
+   "row": "SC1-TA-033",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-033: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": "H2O Cooling",
+   "replace": "ICS",
+   "slot": "body.5.3.0.5",
+   "row": "SC1-TA-034",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-034: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Why Choose H2O Cooling",
+   "replace": "Why Choose ICS",
+   "slot": "body.101",
+   "row": "SC1-TA-034",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-034: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "find": "H2O Cooling",
+   "replace": "ICS",
+   "slot": "body.107",
+   "row": "SC1-TA-035",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-035: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "run": 5,
+   "find": "H2O Cooling",
+   "replace": "ICS",
+   "slot": "body.111",
+   "row": "SC1-TA-036",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-036: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-repair-service/",
+   "op": "replace",
+   "run": 6,
+   "find": " now for immediate emergency cooling tower repair service, or ",
+   "replace": " now for emergency cooling tower repair service, or ",
+   "slot": "body.111",
+   "row": "SC1-TA-036",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-036: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-repair-team/",
+   "op": "replace",
+   "run": 0,
+   "find": "When your critical cooling tower needs are on the line, the choice is clear. Are you hiring a general contractor, or are you deploying the Ghost Team to restore, repair, or install new cooling towers, ensuring the quality and performance your facility depends on? Visit ",
+   "replace": "When your critical cooling tower needs are on the line, the choice is clear. Are you hiring a general contractor, or are you deploying the Ghost Team to restore, repair, or install new cooling towers, ensuring the quality and performance your facility depends on? Contact ICS",
+   "slot": "body.3.1.1.7.69",
+   "row": "SC1-TA-037",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-037: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-repair-team/",
+   "op": "replace",
+   "run": 1,
+   "find": "h2o cooling",
+   "replace": "",
+   "slot": "body.3.1.1.7.69",
+   "row": "SC1-TA-037",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-037: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-retrofit-guide-upgrading-old-towers/",
+   "op": "replace",
+   "find": "H2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.163",
+   "row": "SC1-TA-038",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-038: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-spares/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Why Customers Choose H2ocooling ( ICS ) for Cooling Tower Spares",
+   "replace": "Why Customers Choose ICS for Cooling Tower Spares",
+   "slot": "body.9.1.1.1.1.1",
+   "row": "SC1-TA-039",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-039: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-structural-loads/",
+   "op": "replace",
+   "find": "H",
+   "replace": "h",
+   "slot": "body.3.1.1.7.187",
+   "row": "SC1-TA-041",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-041: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-thermal-storage/",
+   "op": "replace",
+   "element": "heading",
+   "find": "How H2OCooling Supports Thermal Storage Integration",
+   "replace": "How ICS Supports Thermal Storage Integration",
+   "slot": "body.3.1.1.7.131",
+   "row": "SC1-TA-042",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-042: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-thermal-storage/",
+   "op": "replace",
+   "find": "H2OCooling",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.133",
+   "row": "SC1-TA-043",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-043: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-thermal-storage/",
+   "op": "replace",
+   "find": "H2OCooling",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.135",
+   "row": "SC1-TA-044",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-044: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-thermal-storage/",
+   "op": "replace",
+   "find": "H2OCooling",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.139",
+   "row": "SC1-TA-045",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-045: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-thermal-storage/",
+   "op": "replace",
+   "element": "heading",
+   "find": "How can H2OCooling help with thermal storage projects?",
+   "replace": "How can ICS help with thermal storage projects?",
+   "slot": "body.3.1.1.7.169",
+   "row": "SC1-TA-046",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-046: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-upgrade-roi/",
+   "op": "replace",
+   "find": "h2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.127",
+   "row": "SC1-TA-047",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-047: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-winter-preparation/",
+   "op": "replace",
+   "find": "H2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.99",
+   "row": "SC1-TA-048",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-048: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-winterization-checklist/",
+   "op": "replace",
+   "find": "H2oCooling",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.107",
+   "row": "SC1-TA-049",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-049: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-towers-environmental-benefit/",
+   "op": "replace",
+   "find": "h2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.125",
+   "row": "SC1-TA-050",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-050: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-towers-in-the-middle-east/",
+   "op": "replace",
+   "find": "H",
+   "replace": "h",
+   "slot": "body.3.1.1.7.85",
+   "row": "SC1-TA-051",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-051: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/history-of-frp/",
+   "op": "replace",
+   "find": "H2O Cooling",
+   "replace": "ICS",
+   "slot": "body.119",
+   "row": "SC1-TA-060",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-060: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/hybrid-cooling-systems/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Operational Excellence: The H2ocooling Maintenance Differentiator",
+   "replace": "Operational Excellence: The ICS Maintenance Differentiator",
+   "slot": "body.3.1.1.7.59",
+   "row": "SC1-TA-061",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-061: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "op": "replace",
+   "find": "H2ocooling",
+   "replace": "ICS",
+   "slot": "body.5.3.0.6",
+   "row": "SC1-TA-062",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-062: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Get Expert Guidance From H2ocooling",
+   "replace": "Get Expert Guidance From ICS",
+   "slot": "body.131",
+   "row": "SC1-TA-062",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-062: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/legionella-control-in-industrial-cooling-towers/",
+   "op": "replace",
+   "find": "H2ocooling",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.103",
+   "row": "SC1-TA-067",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-067: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "H2ocooling",
+   "replace": "ICS",
+   "slot": "body.5",
+   "row": "SC1-TA-068",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-068: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "H2ocooling",
+   "replace": "ICS",
+   "slot": "body.99",
+   "row": "SC1-TA-069",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-069: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "guarantees a successful outcome. H2ocooling",
+   "replace": "supports a successful outcome. ICS",
+   "slot": "body.109",
+   "row": "SC1-TA-070",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-070: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "H2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.111",
+   "row": "SC1-TA-071",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-071: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/reducing-carbon-footprint/",
+   "op": "replace",
+   "find": "H2ocooling.com",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.119",
+   "row": "SC1-TA-073",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-073: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/signs-of-cooling-tower-failure/",
+   "op": "replace",
+   "find": "H2ocooling",
+   "replace": "ICS",
+   "slot": "body.3.1.1.7.129",
+   "row": "SC1-TA-074",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-074: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/vfd-cooling-tower-savings/",
+   "op": "replace",
+   "find": "H2O",
+   "replace": "h2o",
+   "slot": "body.3.1.1.7.161",
+   "row": "SC1-TA-075",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-075: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-resources/",
+   "op": "replace",
+   "find": "responsive ",
+   "replace": "",
+   "slot": "body.3.1.1.1.5.1.1.3.1.1.1",
+   "row": "SC1-TA-082",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-082: \"Responsive\" is a speed claim (same class as the accepted Malaysia ruling). Appears in the card and its list item."
+  },
+  {
+   "path": "/air-coolers/",
+   "op": "replace",
+   "find": "delivering efficient cooling, reduced energy use, and long-term stability in demanding industrial facilities. Our systems improve air circulation and control air temperature in large-scale environments where warm air buildup reduces productivity",
+   "replace": "our air-cooled heat exchanger (ACHE) services improve airflow across finned tube bundles and help keep process temperatures stable in demanding plants",
+   "slot": "body.1.1.1.3.1",
+   "row": "SC1-TA-084",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-084: Removes the room-air-conditioning framing (\"control air temperature in large-scale environments\", \"warm air buildup reduces productivity\"). Same promise in ACHE terms; no new claims."
+  },
+  {
+   "path": "/air-coolers/",
+   "op": "replace",
+   "element": "heading",
+   "find": "High-Performance Industrial Air Cooler Solutions for Demanding Facilities",
+   "replace": "High-Performance Industrial Air Cooler Solutions for Demanding Plants",
+   "slot": "body.1.1.1.1.1",
+   "row": "SC1-TA-085",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-085: \"Facilities\" is generic. \"Plants\" fits the process-plant audience. Optional."
+  },
+  {
+   "path": "/air-coolers/",
+   "op": "replace",
+   "find": "Enhances air circulation and distributes cool air more evenly across large industrial zones",
+   "replace": "Improves airflow across the tube bundle and spreads heat rejection more evenly across the bundle",
+   "slot": "body.5.1.1.1.5.3.1.1.3.3",
+   "row": "SC1-TA-086",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-086: \"Distributes cool air across large industrial zones\" describes a space cooler. This is the ACHE equivalent."
+  },
+  {
+   "path": "/air-coolers/",
+   "op": "replace",
+   "find": " flow efficiency, and energy consumption across large industrial spaces.",
+   "replace": "flow efficiency, and energy consumption.",
+   "slot": "body.13.1.1.1.3.1",
+   "row": "SC1-TA-087",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-087: \"Across large industrial spaces\" is space-cooler wording."
+  },
+  {
+   "path": "/air-coolers/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Fast Response Repair",
+   "replace": "On-Site Repair and Reconstruction",
+   "slot": "body.9.1.1.1.1.3.5.1.1.3.1",
+   "row": "SC1-TA-088",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-088: \"Fast response\" is a speed promise (ruled class). The body already says on-site repair and reconstruction."
+  },
+  {
+   "path": "/air-coolers/",
+   "op": "replace",
+   "find": "to ensure stable cooling performance using eco-friendly and energy-efficient methods that consume much less electricity compared to older ",
+   "replace": "stable cooling performance using energy-efficient methods that use less electricity than older fan ",
+   "slot": "body.5.1.1.1.7.1.3.1",
+   "row": "SC1-TA-089",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-089: Removes \"eco-friendly\" and \"much less … compared to older systems\", which are unquantified comparative claims. Optional."
+  },
+  {
+   "path": "/cooling-tower-lifespan-factors-failures-fixes/",
+   "op": "replace",
+   "element": "alt",
+   "find": "The Complete Guide to Cooling Tower Lifespan Factors, Failures, and Fixes  - h2ocooling",
+   "replace": "The Complete Guide to Cooling Tower Lifespan Factors, Failures, and Fixes",
+   "row": "SC1-TA-023",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-023: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/cooling-tower-start-up-checklist/",
+   "op": "replace",
+   "element": "alt",
+   "find": "The Definitive Cooling Tower Start-Up Checklist You Need - H2ocooling.com",
+   "replace": "The Definitive Cooling Tower Start-Up Checklist You Need",
+   "row": "SC1-TA-040",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-040: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/counterflow-vs-crossflow/",
+   "op": "replace",
+   "element": "alt",
+   "find": "Crossflow vs Counterflow Cooling Tower - h2ocooling",
+   "replace": "Crossflow vs Counterflow Cooling Tower",
+   "row": "SC1-TA-052",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-052: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/counterflow-vs-crossflow/",
+   "op": "replace",
+   "element": "alt",
+   "find": "Types of Cooling Towers - h2ocooling",
+   "replace": "Types of Cooling Towers",
+   "row": "SC1-TA-053",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-053: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/counterflow-vs-crossflow/",
+   "op": "replace",
+   "element": "alt",
+   "find": "Environmental Impact: Counter flow vs Cross flow Cooling Tower - h2ocooling",
+   "replace": "Environmental Impact: Counter flow vs Cross flow Cooling Tower",
+   "row": "SC1-TA-054",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-054: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/counterflow-vs-crossflow/",
+   "op": "replace",
+   "element": "alt",
+   "find": "Cross flow vs Counter flow Cooling Tower: Head-to-Head Comparison - h2ocooling",
+   "replace": "Cross flow vs Counter flow Cooling Tower: Head-to-Head Comparison",
+   "row": "SC1-TA-055",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-055: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/field-erected-type-cooling-towers/",
+   "op": "replace",
+   "element": "alt",
+   "find": "Field Erected Type Cooling Towers - h2ocooling.com",
+   "replace": "Field Erected Type Cooling Towers",
+   "row": "SC1-TA-056",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-056: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/field-erected-type-cooling-towers/",
+   "op": "replace",
+   "element": "alt",
+   "find": "Why Go Field-Erected: The Undeniable Advantages - h2ocooling.com",
+   "replace": "Why Go Field-Erected: The Undeniable Advantages",
+   "row": "SC1-TA-057",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-057: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/field-erected-type-cooling-towers/",
+   "op": "replace",
+   "element": "alt",
+   "find": "Where Field-Erected Cooling Towers Shine: Key Applications - h2ocooling.com",
+   "replace": "Where Field-Erected Cooling Towers Shine: Key Applications",
+   "row": "SC1-TA-058",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-058: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "op": "replace",
+   "element": "alt",
+   "find": "What Are Industrial Cooling Towers? - h2ocooling",
+   "replace": "What Are Industrial Cooling Towers?",
+   "row": "SC1-TA-063",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-063: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "op": "replace",
+   "element": "alt",
+   "find": "Types of Industrial Cooling Towers and Their Use Cases - h2ocooling",
+   "replace": "Types of Industrial Cooling Towers and Their Use Cases",
+   "row": "SC1-TA-064",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-064: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "op": "replace",
+   "element": "alt",
+   "find": "Cooling Tower Technologies -h2ocooling",
+   "replace": "Cooling Tower Technologies",
+   "row": "SC1-TA-065",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-065: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/industrial-cooling-tower-manufacturers-guide/",
+   "op": "replace",
+   "element": "alt",
+   "find": "Leading Cooling Tower Manufacturers - h2ocooling",
+   "replace": "Leading Cooling Tower Manufacturers",
+   "row": "SC1-TA-066",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-066: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+  },
+  {
+   "path": "/product/amarillo-a-series-double-reduction-gearbox/",
+   "op": "replace",
+   "find": "OEM r",
+   "replace": "R",
+   "slot": "body.1.1.1.3.1.3.19",
+   "row": "SC1-OEM-01",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-01: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only."
+  },
+  {
+   "path": "/product/amarillo-double-reduction-gearbox/",
+   "op": "replace",
+   "find": "OEM r",
+   "replace": "R",
+   "slot": "body.1.1.1.3.1.3.19",
+   "row": "SC1-OEM-02",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-02: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf67-275l/",
+   "op": "replace",
+   "find": "OEM r",
+   "replace": "R",
+   "slot": "body.1.1.1.3.1.3.9",
+   "row": "SC1-OEM-03",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-03: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf67-425l/",
+   "op": "replace",
+   "find": "OEM r",
+   "replace": "R",
+   "slot": "body.1.1.1.3.1.3.9",
+   "row": "SC1-OEM-04",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-04: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf67-425x/",
+   "op": "replace",
+   "find": "OEM r",
+   "replace": "R",
+   "slot": "body.1.1.1.3.1.3.11",
+   "row": "SC1-OEM-05",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-05: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf83-950x/",
+   "op": "replace",
+   "find": "OEM r",
+   "replace": "R",
+   "slot": "body.1.1.1.3.1.3.11",
+   "row": "SC1-OEM-06",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-06: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "op": "replace",
+   "find": "OEM r",
+   "replace": "R",
+   "slot": "body.1.1.1.3.1.3.9",
+   "row": "SC1-OEM-07",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-07: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "op": "replace",
+   "find": "OEM-engineer",
+   "replace": "Design",
+   "slot": "body.3.1.1.3.3.13",
+   "row": "SC1-OEM-08",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-08: \"OEM-engineered\" claims manufacturer status. Amarillo is an evidenced brand ICS supplies, so the compatibility statement stays."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "op": "replace",
+   "find": "an OEM-grade",
+   "replace": "a",
+   "slot": "body.1.1.1.3.1.1",
+   "row": "SC1-OEM-09",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-09: \"OEM-grade\" implies OEM status; the same sentence carries the HVAC wording (the \"both HVAC and\" edit is the accepted SC1-P2-X row). The comparison to steel shafts later in the paragraph is a technical comparison, left as is."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1110/",
+   "op": "replace",
+   "find": "OEM g",
+   "replace": "G",
+   "slot": "body.1.1.1.3.1.3.11",
+   "row": "SC1-OEM-10",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-10: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-175/",
+   "op": "replace",
+   "find": "OEM ",
+   "replace": "",
+   "slot": "body.3.1.1.3.3.21",
+   "row": "SC1-OEM-11",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-11: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only."
+  },
+  {
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "op": "replace",
+   "find": "OEM r",
+   "replace": "R",
+   "slot": "body.1.1.1.3.1.3.15",
+   "row": "SC1-OEM-12",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-12: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only."
+  },
+  {
+   "path": "/product/amertech-atsprayer-counterflow-nozzle/",
+   "op": "replace",
+   "find": "Direct replacement for OEM parts (Research-Cottrell, Hamon, Ecodyne)",
+   "replace": "Replacement nozzle for existing counterflow cooling towers",
+   "slot": "body.3.1.1.5.3.1",
+   "row": "SC1-OEM-13",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-13: Names other tower makers and claims direct interchange. The competitor-name rule and the compatibility claim both need evidence. The neutral wording keeps the purpose."
+  },
+  {
+   "path": "/product/amertech-atsprayer-counterflow-nozzle/",
+   "op": "replace",
+   "find": "with strong OEM compatibility",
+   "replace": "for retrofit and replacement use",
+   "slot": "body.3.1.1.3.3.9",
+   "row": "SC1-OEM-14",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-14: \"Strong OEM compatibility\" is an unqualified compatibility claim."
+  },
+  {
+   "path": "/product/amertech-atsprayer-yoke-style-nozzle/",
+   "op": "replace",
+   "find": "to match OEM performance while offering durability and flexibility.",
+   "replace": "for durability and flexibility in replacement and retrofit use.",
+   "slot": "body.3.1.1.3.1",
+   "row": "SC1-OEM-15",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-15: \"Match OEM performance\" is a performance-equivalence claim with no test data."
+  },
+  {
+   "path": "/product/amertech-atsprayer-yoke-style-nozzle/",
+   "op": "replace",
+   "find": "OEM-compatible replacement design",
+   "replace": "Replacement designfor existing nozzle layouts ",
+   "slot": "body.3.1.1.3.3.1",
+   "row": "SC1-OEM-16",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-16: \"OEM-compatible\" is a compatibility claim without a cross-reference."
+  },
+  {
+   "path": "/product/dyna-fab-18′-height-fan-stack/",
+   "op": "replace",
+   "find": "OEM r",
+   "replace": "R",
+   "slot": "body.1.1.1.3.1.3.11",
+   "row": "SC1-OEM-17",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-17: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only. (Page URL is the one with the prime mark in its slug.)"
+  },
+  {
+   "path": "/product/dyna-fab-6-height-fan-stack/",
+   "op": "replace",
+   "find": "OEM c",
+   "replace": "C",
+   "slot": "body.1.1.1.3.1.3.11",
+   "row": "SC1-OEM-18",
+   "reason": "OGCS OEM compatibility bullets (TSV b7a8ab9f, seal 85aee2da), CT 2026-10-08, row OEM-18: \"OEM replacement\" can read as ICS being an OEM supplier (status ruled out). Dropped \"OEM\" so the bullet describes the use case only."
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "bacman 1 & 2",
+   "replace": "BacMan 1 & 2",
+   "slot": "body.5.5.1.1.3.1.1.3.1",
+   "row": "SC1-PT-bacman-1-2-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-bacman-1-2-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "cawayan bacman 3",
+   "replace": "Cawayan BacMan 3",
+   "slot": "body.5.3.1.3.3.1.1.3.1",
+   "row": "SC1-PT-cawayan-bacman-3-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-cawayan-bacman-3-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Cooling tower disaster recovery",
+   "replace": "Cooling Tower Disaster Recovery",
+   "slot": "body.5.7.1.3.3.1.1.3.1",
+   "row": "SC1-PT-cooling-tower-disaster-recovery-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-cooling-tower-disaster-recovery-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "cooling tower replacement",
+   "replace": "Palinpinon Cooling Tower Replacement",
+   "slot": "body.5.3.1.1.3.1.1.3.1",
+   "row": "SC1-PT-cooling-tower-replacement-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-cooling-tower-replacement-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "edc n2n relocation project",
+   "replace": "EDC N2N Relocation Project",
+   "slot": "body.5.5.1.5.3.1.1.3.1",
+   "row": "SC1-PT-edc-n2n-relocation-project-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-edc-n2n-relocation-project-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "edc",
+   "replace": "EDC",
+   "slot": "body.5.7.1.1.3.1.1.3.1",
+   "row": "SC1-PT-edc-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-edc-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "EMPIRE FARMS",
+   "replace": "Empire Farms",
+   "slot": "body.17.3.1.1.3.1.1.3.1",
+   "row": "SC1-PT-empire-farms-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-empire-farms-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "kbr",
+   "replace": "KBR",
+   "slot": "body.3.3.1.1.3.1.1.3.1",
+   "row": "SC1-PT-kbr-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-kbr-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "lanxess",
+   "replace": "Lanxess",
+   "slot": "body.13.3.1.1.3.1.1.3.1",
+   "row": "SC1-PT-lanxess-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-lanxess-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "mak ban 6",
+   "replace": "Mak-Ban 6",
+   "slot": "body.5.7.1.5.3.1.1.3.1",
+   "row": "SC1-PT-mak-ban-6-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-mak-ban-6-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "patuha",
+   "replace": "Patuha",
+   "slot": "body.11.3.1.1.3.1.1.3.1",
+   "row": "SC1-PT-patuha-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-patuha-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "ptt csp3",
+   "replace": "PTT GSP3 Fan Upgrade",
+   "slot": "body.7.3.1.5.3.1.1.3.1",
+   "row": "SC1-PT-ptt-csp3-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-ptt-csp3-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "pttcsp",
+   "replace": "PTT GSP6 96-Fan ACHE Performance Upgrade",
+   "slot": "body.7.3.1.3.3.1.1.3.1",
+   "row": "SC1-PT-pttcsp-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-pttcsp-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Pvc plant freeport, texas",
+   "replace": "Shintech PVC Plant, Freeport, Texas",
+   "slot": "body.15.3.1.1.3.1.1.3.1",
+   "row": "SC1-PT-pvc-plant-freeport-texas-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-pvc-plant-freeport-texas-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "thailand projects",
+   "replace": "Thailand Projects",
+   "slot": "body.7.3.1.1.3.1.1.3.1",
+   "row": "SC1-PT-thailand-projects-title",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-thailand-projects-title: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "find": "t",
+   "replace": "T",
+   "slot": "body.7.3.1.1.3.1.1.3.3",
+   "row": "SC1-PT-thailand-projects-meta",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-thailand-projects-meta: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "find": "AN UPGRADE",
+   "replace": "an Upgrade",
+   "slot": "body.7.3.1.5.3.1.1.3.3",
+   "row": "SC1-PT-ptt-csp3-meta",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-ptt-csp3-meta: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "find": "er",
+   "replace": "er,",
+   "slot": "body.5.7.1.1.3.1.1.3.3",
+   "row": "SC1-PT-edc-meta",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-edc-meta: "
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "find": ", Air Cooled Heat Exchanger (ACHE)",
+   "replace": " Air-Cooled Heat Exchanger (ACHE),",
+   "slot": "body.7.3.1.3.3.1.1.3.3",
+   "row": "SC1-PT-pttcsp-meta",
+   "reason": "OGCS project titles (TSV ac24774d, seal bc15c675), CT 2026-10-08, row PT-pttcsp-meta: "
+  },
+  {
+   "path": "/cooling-tower-efficiency-calculation/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled What Affects Cooling Tower Efficiency?, showing a technician kneeling at a cooling tower fan",
+   "slot": "body.3.1.1.7.127.0",
+   "row": "SC1-QA-02",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-02: "
+  },
+  {
+   "path": "/cooling-tower-blowdown-calculation/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Calculating Cooling Tower Blowdown",
+   "slot": "body.3.1.1.7.21.0",
+   "row": "SC1-QA-04",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-04: "
+  },
+  {
+   "path": "/cooling-tower-blowdown-calculation/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Blowdown Rate Optimization: diminishing returns, TDS management limits and the cost of over-bleeding",
+   "slot": "body.3.1.1.7.57.0",
+   "row": "SC1-QA-05",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-05: "
+  },
+  {
+   "path": "/cooling-tower-ton-calculation/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled The Variable Pillars of Sizing: Beyond the Formula, with a natural draft cooling tower",
+   "slot": "body.3.1.1.7.57.0",
+   "row": "SC1-QA-07",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-07: "
+  },
+  {
+   "path": "/cooling-tower-replacement-cost/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide listing modern upgrades: VFD optimization, IoT vibration monitoring and high-efficiency nozzles",
+   "slot": "body.3.1.1.7.73.0",
+   "row": "SC1-QA-08",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-08: "
+  },
+  {
+   "path": "/cooling-tower-fan-blade-pitch-adjustment/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Strategic Optimization: pitch versus variable frequency drives",
+   "slot": "body.3.1.1.7.63.0",
+   "row": "SC1-QA-10",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-10: "
+  },
+  {
+   "path": "/cooling-tower-fan-blade-pitch-adjustment/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled The Hidden Risks of Poor Pitching: aerodynamic stall, tip clearance hazards and structural imbalance",
+   "slot": "body.3.1.1.7.45.0",
+   "row": "SC1-QA-11",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-11: "
+  },
+  {
+   "path": "/cooling-tower-fan/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Proactive Cooling Tower Fan Maintenance: vibration analysis, pitch angle balancing and the 5-minute visual audit",
+   "slot": "body.3.1.1.7.83.0",
+   "row": "SC1-QA-12",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-12: "
+  },
+  {
+   "path": "/cooling-tower-fan/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled FRP vs. Aluminum Blades: the rust tax and corrosion, and FRP advantages, with a photo of fan blades",
+   "slot": "body.3.1.1.7.27.0",
+   "row": "SC1-QA-13",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-13: "
+  },
+  {
+   "path": "/cooling-tower-foundation-requirements/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Load Distribution and Structural Integrity in Cooling Tower Foundations, with refinery photos",
+   "slot": "body.3.1.1.7.23.0",
+   "row": "SC1-QA-14",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-14: "
+  },
+  {
+   "path": "/cooling-tower-foundation-requirements/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Dynamic Loads, Seismic Resistance and Vibration Damping, with a process plant and heat exchangers",
+   "slot": "body.3.1.1.7.37.0",
+   "row": "SC1-QA-15",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-15: "
+  },
+  {
+   "path": "/cooling-tower-construction/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Different Types of Industrial Cooling Towers",
+   "slot": "body.3.1.1.7.23.0",
+   "row": "SC1-QA-16",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-16: "
+  },
+  {
+   "path": "/cooling-tower-construction/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Cooling Capacity Requirements, with chillers and piping in a plant room",
+   "slot": "body.3.1.1.7.37.0",
+   "row": "SC1-QA-17",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-17: "
+  },
+  {
+   "path": "/hybrid-cooling-tower-repair/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Why Industrial Facilities Choose Hybrid Cooling Tower: lower water use, reduced visible plume, seasonal adaptability",
+   "slot": "body.3.1.1.7.55.0",
+   "row": "SC1-QA-18",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-18: "
+  },
+  {
+   "path": "/hybrid-cooling-tower-repair/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Hybrid Cooling Tower Design Considerations, with engineers reviewing drawings at a cooling tower site",
+   "slot": "body.3.1.1.7.111.0",
+   "row": "SC1-QA-19",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-19: "
+  },
+  {
+   "path": "/cooling-tower-maintenance-checklist/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled The Smart Cooling Tower, innovations in 2026: IoT and remote monitoring, AI-driven blowdown control and digital logs",
+   "slot": "body.3.1.1.7.55.0",
+   "row": "SC1-QA-20",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-20: "
+  },
+  {
+   "path": "/cooling-tower-maintenance-checklist/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Health & Safety, ASHRAE 188 compliance, with workers in hard hats and masks reviewing a binder",
+   "slot": "body.3.1.1.7.15.0",
+   "row": "SC1-QA-21",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-21: "
+  },
+  {
+   "path": "/cooling-tower-float-valve/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled When and How to Replace a Float Valve, with technicians beside blue process piping",
+   "slot": "body.3.1.1.7.117.0",
+   "row": "SC1-QA-22",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-22: "
+  },
+  {
+   "path": "/cooling-tower-float-valve/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled How to Size a Cooling Tower Float Valve Correctly, with a worker at a valve and a hand at a pressure gauge",
+   "slot": "body.3.1.1.7.59.0",
+   "row": "SC1-QA-23",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-23: "
+  },
+  {
+   "path": "/cooling-tower-plume-causes/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Operational Problems Created by Excessive Plume Formation",
+   "slot": "body.3.1.1.7.147.0",
+   "row": "SC1-QA-24",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-24: "
+  },
+  {
+   "path": "/cooling-tower-plume-causes/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Main Cooling Tower Plume Causes in Industrial Systems",
+   "slot": "body.3.1.1.7.29.0",
+   "row": "SC1-QA-25",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-25: "
+  },
+  {
+   "path": "/build-new-cooling-tower/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Key Cooling Tower Parts and Their Functions",
+   "slot": "body.3.1.1.7.119.0",
+   "row": "SC1-QA-26",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-26: "
+  },
+  {
+   "path": "/build-new-cooling-tower/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Step-by-Step Process to Build a New Cooling Tower, with a packaged cooling tower on a roof",
+   "slot": "body.3.1.1.7.71.0",
+   "row": "SC1-QA-27",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-27: "
+  },
+  {
+   "path": "/commercial-building-cooling-tower/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Maintenance 4.0, predictive selection criteria",
+   "slot": "body.3.1.1.7.61.0",
+   "row": "SC1-QA-28",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-28: "
+  },
+  {
+   "path": "/commercial-building-cooling-tower/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled The Chiller-Tower Synergy: the 2°F advantage, VFD integration and wet-bulb reset strategy, with cooling tower fans",
+   "slot": "body.3.1.1.7.37.0",
+   "row": "SC1-QA-29",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-29: "
+  },
+  {
+   "path": "/cooling-tower-asset-management/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Asset Tracking for Cooling Tower Components",
+   "slot": "body.3.1.1.7.45.0",
+   "row": "SC1-QA-30",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-30: "
+  },
+  {
+   "path": "/cooling-tower-asset-management/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Replacement Planning: when to repair, rebuild or replace, with a team reviewing plans",
+   "slot": "body.3.1.1.7.85.0",
+   "row": "SC1-QA-31",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-31: "
+  },
+  {
+   "path": "/cooling-tower-basin-heater/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Technical Selection Guide, sizing and material science: sizing logic, watt density and sheath materials",
+   "slot": "body.3.1.1.7.19.0",
+   "row": "SC1-QA-32",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-32: "
+  },
+  {
+   "path": "/cooling-tower-basin-heater/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Controls, The Brain of the System, with technicians at an outdoor pipe run",
+   "slot": "body.3.1.1.7.73.0",
+   "row": "SC1-QA-33",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-33: "
+  },
+  {
+   "path": "/cooling-tower-buying-guide/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Procurement Red Flags to Avoid: lack of industry-specific references, opaque lead times and one-size-fits-all engineering",
+   "slot": "body.3.1.1.7.57.0",
+   "row": "SC1-QA-35",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-35: "
+  },
+  {
+   "path": "/cooling-tower-carbon-footprint/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Sustainable Design and Material Selection: FRP, closed-loop systems and modular designs, with FRP rod production",
+   "slot": "body.3.1.1.7.115.0",
+   "row": "SC1-QA-36",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-36: "
+  },
+  {
+   "path": "/cooling-tower-carbon-footprint/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled The Fastest Way to Cut Carbon Emissions: variable frequency drives, smart controls and optimized fan and pump operation",
+   "slot": "body.3.1.1.7.57.0",
+   "row": "SC1-QA-37",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-37: "
+  },
+  {
+   "path": "/cooling-tower-cmms/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Identifying Ghost Failures: high cold water temperature and rising water costs, with natural draft cooling towers",
+   "slot": "body.3.1.1.7.55.0",
+   "row": "SC1-QA-38",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-38: "
+  },
+  {
+   "path": "/cooling-tower-cmms/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled The Mechanical Interlocks, strategic work order automation, with gear icons",
+   "slot": "body.3.1.1.7.13.0",
+   "row": "SC1-QA-39",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-39: "
+  },
+  {
+   "path": "/cooling-tower-daily-log/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Water Quality Records: pH level, conductivity, chlorine residual and hardness, with a pH meter and cooling tower technicians",
+   "slot": "body.3.1.1.7.97.0",
+   "row": "SC1-QA-40",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-40: "
+  },
+  {
+   "path": "/cooling-tower-daily-log/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled What a Cooling Tower Daily Log Actually Tracks",
+   "slot": "body.3.1.1.7.37.0",
+   "row": "SC1-QA-41",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-41: "
+  },
+  {
+   "path": "/cooling-tower-drift-eliminator-types/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Types of Cooling Tower Drift Eliminators",
+   "slot": "body.3.1.1.7.31.0",
+   "row": "SC1-QA-42",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-42: "
+  },
+  {
+   "path": "/cooling-tower-drift-eliminator-types/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled How to Select the Right Drift Eliminator for Your Cooling Tower, with blade-type drift eliminators laid out in a workshop",
+   "slot": "body.3.1.1.7.75.0",
+   "row": "SC1-QA-43",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-43: "
+  },
+  {
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Predictive Maintenance, protecting long-term performance",
+   "slot": "body.3.1.1.7.173.0",
+   "row": "SC1-QA-44",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-44: "
+  },
+  {
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Redundancy Engineering, eliminating single points of failure",
+   "slot": "body.3.1.1.7.127.0",
+   "row": "SC1-QA-45",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-45: "
+  },
+  {
+   "path": "/cooling-tower-legionella-risk/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled The Core Risk Factors in Cooling Towers",
+   "slot": "body.3.1.1.7.35.0",
+   "row": "SC1-QA-46",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-46: "
+  },
+  {
+   "path": "/cooling-tower-legionella-risk/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled The Legionella Risk Assessment Process, step by step",
+   "slot": "body.3.1.1.7.69.0",
+   "row": "SC1-QA-47",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-47: "
+  },
+  {
+   "path": "/cooling-tower-makeup-water-calculation/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Strategies for Reducing Makeup Demand: thermal upgrades, side-stream filtration and automated blowdown controls",
+   "slot": "body.3.1.1.7.79.0",
+   "row": "SC1-QA-49",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-49: "
+  },
+  {
+   "path": "/cooling-tower-noise-permit/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled What Are the Main Cooling Tower Noise Sources, with callouts for the fan, motor, gearbox and water fall",
+   "slot": "body.3.1.1.7.75.0",
+   "row": "SC1-QA-50",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-50: "
+  },
+  {
+   "path": "/cooling-tower-noise-permit/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled How Do You Design a Noise Barrier for Cooling Towers",
+   "slot": "body.3.1.1.7.87.0",
+   "row": "SC1-QA-51",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-51: "
+  },
+  {
+   "path": "/cooling-tower-operator-training/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Certification Frameworks and Industry Standards, with a technician in a pump room",
+   "slot": "body.3.1.1.7.59.0",
+   "row": "SC1-QA-52",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-52: "
+  },
+  {
+   "path": "/cooling-tower-operator-training/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Core Competency 3: Mechanical System Maintenance and Diagnostics, with a worker holding a hard hat beside gauges",
+   "slot": "body.3.1.1.7.25.0",
+   "row": "SC1-QA-53",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-53: "
+  },
+  {
+   "path": "/cooling-tower-parts-2/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled The Replacement Checklist: performance matching, material compatibility and vibration tolerance",
+   "slot": "body.75.0",
+   "row": "SC1-QA-54",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-54: "
+  },
+  {
+   "path": "/cooling-tower-performance-kpis/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Water KPI Monitoring, the hidden cost driver",
+   "slot": "body.3.1.1.7.117.0",
+   "row": "SC1-QA-55",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-55: "
+  },
+  {
+   "path": "/cooling-tower-performance-kpis/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled What Cooling Tower Performance KPIs Actually Measure: thermal, mechanical, water management and energy efficiency indicators",
+   "slot": "body.3.1.1.7.25.0",
+   "row": "SC1-QA-56",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-56: "
+  },
+  {
+   "path": "/cooling-tower-repair-team/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Industrial Cooling Tower Automation, maximize performance and ROI",
+   "slot": "body.3.1.1.7.59.0",
+   "row": "SC1-QA-57",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-57: "
+  },
+  {
+   "path": "/cooling-tower-repair-team/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Slashing Repair Time, the unconventional toolkit, with technicians working on cooling tower fan decks",
+   "slot": "body.3.1.1.7.21.0",
+   "row": "SC1-QA-58",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-58: "
+  },
+  {
+   "path": "/cooling-tower-rubber-manufacturing/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Cooling Tower Sizing and Thermal Performance for Rubber Processing Lines",
+   "slot": "body.3.1.1.7.201.0",
+   "row": "SC1-QA-59",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-59: "
+  },
+  {
+   "path": "/cooling-tower-rubber-manufacturing/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Energy Efficiency and Sustainability in Rubber Plant Cooling",
+   "slot": "body.3.1.1.7.265.0",
+   "row": "SC1-QA-60",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-60: "
+  },
+  {
+   "path": "/cooling-tower-water-recycling/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Blowdown Recovery, the core of water recycling, with a cooling tower and piping",
+   "slot": "body.3.1.1.7.61.0",
+   "row": "SC1-QA-61",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-61: "
+  },
+  {
+   "path": "/cooling-tower-water-recycling/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled How Cooling Tower Water Recycling Systems Work",
+   "slot": "body.3.1.1.7.19.0",
+   "row": "SC1-QA-62",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-62: "
+  },
+  {
+   "path": "/injection-molding-cooling/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Tracking the Thermal Curve, the physics of solidification, with a power plant and cooling towers",
+   "slot": "body.3.1.1.7.41.0",
+   "row": "SC1-QA-63",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-63: "
+  },
+  {
+   "path": "/injection-molding-cooling/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled The Circular Thermal Economy",
+   "slot": "body.3.1.1.7.79.0",
+   "row": "SC1-QA-64",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-64: "
+  },
+  {
+   "path": "/phased-cooling-tower-replacement/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Modular/Flat-Pack Logistics, with a steel truss walkway on a rooftop",
+   "slot": "body.3.1.1.7.47.0",
+   "row": "SC1-QA-65",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-65: "
+  },
+  {
+   "path": "/phased-cooling-tower-replacement/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Slide titled Refurbish, Replace, or Phase, strategic decision point",
+   "slot": "body.3.1.1.7.97.0",
+   "row": "SC1-QA-66",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-66: "
+  },
+  {
+   "path": "/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Technicians inspecting a fan motor and guard on an air-cooled heat exchanger bay at the PTT GSP6 plant",
+   "slot": "body.0.0.13.0",
+   "row": "SC1-QA-67",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-67: "
+  },
+  {
+   "path": "/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "White FRP fan blades laid out on the deck at the air-cooled heat exchanger before installation",
+   "slot": "body.0.0.1.0",
+   "row": "SC1-QA-68",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-68: "
+  },
+  {
+   "path": "/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Air-cooled heat exchanger tube bundle deck between two process columns at the plant",
+   "slot": "body.0.0.7.0",
+   "row": "SC1-QA-69",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-69: "
+  },
+  {
+   "path": "/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Crated fan upgrade materials staged beside the heat exchanger structure at the plant",
+   "slot": "body.0.0.10.0",
+   "row": "SC1-QA-70",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-70: "
+  },
+  {
+   "path": "/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Technician working on a fan assembly with FRP blades inside an air-cooled heat exchanger bay",
+   "slot": "body.0.0.16.0",
+   "row": "SC1-QA-71",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-71: "
+  },
+  {
+   "path": "/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/",
+   "op": "replace",
+   "element": "alt",
+   "find": "",
+   "replace": "Finned tube bundles of an air-cooled heat exchanger with process columns in the background at sunset",
+   "slot": "body.0.0.4.0",
+   "row": "SC1-QA-72",
+   "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-72: "
+  },
+  {
+   "path": "/reduce-cooling-tower-vibration/",
+   "op": "replace",
+   "find": "Contact H2ocooling",
+   "replace": "Contact ICS",
+   "row": "SC1-TA-072",
+   "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-072: H2ocooling used as the company name in a call to action -> ICS."
+  },
+  {
+   "path": "/cooling-tower-buying-guide/",
+   "op": "replace",
+   "find": "promise is built on objective analysis. We leverage our independent engineering expertise to ensure your selection is based on verifiable, long-term return on investment. We do not guess; we engineer for certainty.",
+   "replace": "approach is built on objective analysis. We use independent engineering expertise to help ground your selection in verifiable, long-term return on investment.",
+   "slot": "body.3.1.1.7.65",
+   "row": "SC1-PL-1",
+   "reason": "OGCS pre-launch rows (TSV 7c176d06, seal f86f0271), CT 2026-10-08, row PL-1: "
+  },
+  {
+   "path": "/cooling-tower-buying-guide/",
+   "op": "replace",
+   "find": "their own supply chain prevents future warranty disputes and guarantees faster",
+   "replace": "its own supply chain can reduce future warranty disputes and speed",
+   "slot": "body.3.1.1.7.73",
+   "row": "SC1-PL-2",
+   "reason": "OGCS pre-launch rows (TSV 7c176d06, seal f86f0271), CT 2026-10-08, row PL-2: "
+  },
+  {
+   "path": "/cooling-tower-buying-guide/",
+   "op": "replace",
+   "find": "d, immediate",
+   "replace": "d",
+   "slot": "body.3.1.1.7.11.5",
+   "row": "SC1-PL-3",
+   "reason": "OGCS pre-launch rows (TSV 7c176d06, seal f86f0271), CT 2026-10-08, row PL-3: "
   }
  ]
 }

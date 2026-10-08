@@ -15,7 +15,7 @@ import path from 'node:path'
  */
 type Node = string | { tag: string; attrs: Record<string, string>; children: Node[] }
 type Doc = { routeId?: unknown; children?: unknown; text?: unknown; seo?: unknown } & Record<string, unknown>
-export type TextOverride = { id: string; row: string; routeId: string; path: string; scope: 'body' | 'schema' | 'body-range' | 'body-remove' | 'body-href'; find: string; replace: string; until?: string; count?: number; reason: string; unsaveable?: boolean; slotCopy?: boolean }
+export type TextOverride = { id: string; row: string; routeId: string; path: string; scope: 'body' | 'schema' | 'seo-h1' | 'body-range' | 'body-remove' | 'body-href'; find: string; replace: string; until?: string; count?: number; reason: string; unsaveable?: boolean; slotCopy?: boolean }
 /** `slotCopy`: a verbatim non-slot copy (a table-of-contents link) of text an editable element also holds; that element is changed by its claim edit, the copy here. */
 /** `body-range` (SEO-CONTENT-1 round 2): removes a run of sibling nodes in the page tree, from the node that holds `find` through the
  * node that holds `until` (`replace` is ''), with the line breaks and blank text that lead into it. For a ruled removal of markup (a
@@ -85,7 +85,13 @@ function inRemove(doc: Doc, o: TextOverride, mode: 'count' | 'apply'): { n: numb
     if (typeof x === 'string') return x
     const kids = x.children.map(walk)
     const deeper = x.children.some((k) => typeof k !== 'string' && collapse(nodeText(k)) === collapse(o.find))
-    if (!deeper && collapse(nodeText(x)) === collapse(o.find) && x.children.length > 0) { n++; return mode === 'apply' ? null : x }
+    if (!deeper && collapse(nodeText(x)) === collapse(o.find) && x.children.length > 0) {
+      n++
+      // A heading, list item or row is emptied, not dropped: the later siblings keep their positions, so the slot keys that address them stay valid
+      // (the renderer shows an emptied heading as nothing).
+      if (mode === 'apply' && /^(h[1-6]|li|tr)$/.test(x.tag)) return { ...x, children: [] }
+      return mode === 'apply' ? null : x
+    }
     return { ...x, children: kids.filter((k): k is Node => k !== null) }
   }
   const children = Array.isArray(doc.children) ? (doc.children as Node[]).map(walk).filter((k): k is Node => k !== null) : doc.children
@@ -120,6 +126,8 @@ function inScope(doc: Doc, o: TextOverride, mode: 'count' | 'apply', needle = o.
   }
   const walkJson = (v: unknown): unknown => (typeof v === 'string' ? swap(v) : Array.isArray(v) ? v.map(walkJson) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, walkJson(x)])) : v)
   const seo = (doc.seo ?? {}) as Record<string, unknown>
+  // `seo-h1` (SEO-CONTENT-2.2): the stored page H1 list, which the page's breadcrumb and Service JSON-LD are generated from
+  if (o.scope === 'seo-h1') { const h1 = walkJson(seo.h1 ?? []); return { n, doc: mode === 'apply' ? { ...doc, seo: { ...seo, h1 } } : doc } }
   const schema = walkJson(seo.schema ?? [])
   return { n, doc: mode === 'apply' ? { ...doc, seo: { ...seo, schema } } : doc }
 }

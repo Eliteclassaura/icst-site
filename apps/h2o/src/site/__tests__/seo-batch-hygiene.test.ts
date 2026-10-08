@@ -58,7 +58,7 @@ describe('slot hygiene: data fixed, validator strict', () => {
     // SEO-CONTENT-1 (CT 2026-10-07): + 134 claim-edit elements (126 product HVAC bullets and lines, the ALU phrase, the project fact cards and
     // the All Projects card, the algae closing CTA) and 34 internal links to a held page repointed to its final URL (31 of them anchors on the held
     // pages themselves): 852.
-    expect(fixed).toBe(1151) // piece C (SEO-CONTENT-2): + 115 elements // piece B (SEO-CONTENT-2): + 41 elements // round 2 (OGCS staging QA tranche A/B, OEM/stock, BacMan paragraph): + 99 elements // R4 (CT 2026-10-07): + 6 parts hub elements and 1 Dry Soda element (OGCS R4C-01…07); + 3 Air Coolers (R4C-08…10)
+    expect(fixed).toBe(1408) // SEO-CONTENT-2.3: - 6 alt rows (IMG-FIX-1), + 3 buying-guide rows; SEO-CONTENT-2.2: + 171 elements (team audit, OEM, project cards, 72 alts) // SEO-CONTENT-2.1: + 89 elements (addendum 18; the four held locale twins' own self-links 71) // piece C (SEO-CONTENT-2): + 115 elements // piece B (SEO-CONTENT-2): + 41 elements // round 2 (OGCS staging QA tranche A/B, OEM/stock, BacMan paragraph): + 99 elements // R4 (CT 2026-10-07): + 6 parts hub elements and 1 Dry Soda element (OGCS R4C-01…07); + 3 Air Coolers (R4C-08…10)
   }, 120000)
   it('reproduces the R1 failures: without the fixes the strict validator rejects exactly the recorded elements', () => {
     const row = ledger.routes.find((r) => r.path === '/understanding-cooling-tower-parts/')!
@@ -72,7 +72,7 @@ describe('slot hygiene: data fixed, validator strict', () => {
   })
   it('records every change; https only for verified targets; an unlinked link keeps its text', () => {
     const changes = Object.values(fixes).flatMap((f) => f.slots.flatMap((s) => s.changes.map((c) => ({ ...c, s }))))
-    expect(changes).toHaveLength(1262) // piece C: + 116 (HVAC tranche C) // CLAIMS-R2: + 10 Home rewordings; R4: + 7 (R4C-01…07); + 3 (R4C-08…10); R5b: + 58 run edits; SEO-CONTENT-1: + 134 claim edits, + 35 repointed links
+    expect(changes).toHaveLength(1543) // SEO-CONTENT-2.3: - 6 + 3; SEO-CONTENT-2.2: + 195 // SEO-CONTENT-2.1: + 89 // piece C: + 116 (HVAC tranche C) // CLAIMS-R2: + 10 Home rewordings; R4: + 7 (R4C-01…07); + 3 (R4C-08…10); R5b: + 58 run edits; SEO-CONTENT-1: + 134 claim edits, + 35 repointed links
     for (const c of changes) {
       expect(c.reason.length, c.from).toBeGreaterThan(0)
       if (c.action === 'https') expect(c.to).toMatch(/^https:\/\//)
@@ -141,7 +141,7 @@ describe('claim edits (Locale Part B option A; R2.2: F1, OGCS template claims, C
   const n = (hay: string, needle: string) => hay.split(needle).length - 1
   const fixFor = (p: string) => Object.entries(fixes).find(([k]) => decodeURIComponent(k) === p)?.[1]
   it('every recorded edit is applied once on its element and recorded as a change with its reason', () => {
-    expect(edits).toHaveLength(780) // piece C: + 116 (SC1-C-*) // R2.5: + 23 OGCS pre-flight edits and CS161; CLAIMS-R2: + 10 Home edits; R4: + 10 (R4C-01…10); R5b: + 58 (R5B-*); SEO-CONTENT-1: + 134 (SC1-*)
+    expect(edits).toHaveLength(990) // SEO-CONTENT-2.3: - 6 alts, + 3 PL rows; SEO-CONTENT-2.2: + 195 (SC1-TA/OEM/PT/QA) // SEO-CONTENT-2.1: + 18 (SC1-CA-*) // piece C: + 116 (SC1-C-*) // R2.5: + 23 OGCS pre-flight edits and CS161; CLAIMS-R2: + 10 Home edits; R4: + 10 (R4C-01…10); R5b: + 58 (R5B-*); SEO-CONTENT-1: + 134 (SC1-*)
     for (const e of edits) {
       const slot = fixFor(e.path)?.slots.find((s) => (!e.slot || s.key === e.slot) && s.changes.some((c) => c.from === e.find))
       expect(slot, `${e.path} ${e.find.slice(0, 50)}`).toBeDefined()

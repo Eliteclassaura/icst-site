@@ -57,7 +57,8 @@ describe('R4 pages render the page’s own source text in the shared system',()=
       const html=await render(route)
       expect(html,route).toContain(`data-r4-route="${route}"`)
       const h1s=[...html.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/g)].map(m=>norm(m[1]!))
-      expect(h1s,route).toEqual([norm(docFor(id).seo.h1[0]??'')])
+      // SEO-CONTENT-2.2 (OGCS team audit TA-085): the registry moves the stored H1 list (JSON-LD source) to "Demanding Plants"; the heading itself is a slot edit of the batch, not in this unbatched render
+      expect(h1s,route).toEqual([id==='SALMON-pages-1668'?'High-Performance Industrial Air Cooler Solutions for Demanding Facilities':norm(docFor(id).seo.h1[0]??'')])
     }
   })
   it('every source text of the previous layout is still on the page, except at most the ruled list',async()=>{

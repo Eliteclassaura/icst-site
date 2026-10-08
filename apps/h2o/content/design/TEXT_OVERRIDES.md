@@ -23,7 +23,7 @@ Text that *is* editable was corrected in the page itself (content batch R2.2), s
 | TO-013 | /thailand-cooling-tower/ | hero lead (template markup) | "The convenient geography of our service … the Middle East within a day." | "From our Bangkok office, ICS supports cooling tower projects across Thailand and neighboring markets." | OGCS R5b legacy Thailand row 2 (the same sentence in the editable paragraph is claim edit R5B-G02) |
 | TO-014 | /cooling-tower/ | structured data description | "…power plants, and large commercial facilities with high thermal performance." | "…power plants, and process plants with high thermal performance." | OGCS R5b commercial row 2 (the meta itself is the seo field) |
 | TO-015 | /product/brentwood-kelly-bar-splash-fill/ | structured data name and headline (2×) | "Brentwood Kelly Bar Splash Fill \| Drift Eliminato" | "Brentwood Kelly Bar Splash Fill \| Cooling Tower Fill" | SC1-P5-01 (SEO-CONTENT-1) |
-| TO-016 | /product/brentwood-accupac-htp25-modular-splash-fill/ | structured data name and headline (2×) | "Brentwood Accupac HTP25 Modular Splash Fill \| Drift Eliminator" | "Brentwood Accupac HTP25 Modular Splash Fill \| Cooling Tower Fill" | SC1-P5-02 (SEO-CONTENT-1) |
+| TO-016 | /product/brentwood-accupac-htp25-modular-splash-fill/ | structured data name and headline (2×) | "Brentwood Accupac HTP25 Modular Splash Fill \| Drift Eliminator" | "Brentwood Accupac HTP25 Modular Splash Fill" | SC1-P5-02 (SEO-CONTENT-1) |
 | TO-017 | /product/splash-fill/ | structured data name and headline (2×) | "Splash Fill \| Drift Eliminator" | "Splash Fill \| Cooling Tower Fill" | SC1-P5-03 (SEO-CONTENT-1) |
 | TO-018 | /product/cooling-tower-hybrid-fill/ | structured data name and headline (2×) | "Cooling Tower Hybrid Fill \| Drift Eliminator" | "Cooling Tower Hybrid Fill \| Replacement Fill Media" | SC1-P5-04 (SEO-CONTENT-1) |
 | TO-019 | /product/low-fouling-fill/ | structured data name and headline (2×) | "Low Fouling Fill \| Drift Eliminator" | "Low Fouling Fill \| Cooling Tower Fill" | SC1-P5-05 (SEO-CONTENT-1) |
@@ -57,6 +57,39 @@ Text that *is* editable was corrected in the page itself (content batch R2.2), s
 | TO-047 | /tag/cooling-tower/ | body-remove | "Apa itu Menara Pendingin HVAC: Peran Menara Pendingin dalam Sistem HVAC" | "" | SC1-C-291 (SEO-CONTENT-2) |
 | TO-048 | /tag/cooling-tower/ | body-remove | "หอคอยทำความเย็น HVAC คืออะไร: บทบาทของหอคอยทำความเย็นในระบบ HVAC" | "" | SC1-C-293 (SEO-CONTENT-2) |
 | TO-049 | /understanding-the-uses-of-cooling-towers-in-industrial-processes/ | schema | "of Cooling Towers in HVAC Industries" | "of Cooling Towers in Industrial Processes" | SC1-C-103 (SEO-CONTENT-2) |
+| TO-050 | /international-cooling-tower/ | body-remove | "Heating and air conditioning:" | "" | SC1-CA-15 (SEO-CONTENT-2) |
+| TO-051 | /international-cooling-tower/ | schema | ",{"@context":"https://schema.org","@type":"SiteNavigationElement","@id":"#rank-math-toc","name":"Heating and a" | "" | SC1-CA-16 (SEO-CONTENT-2) |
+| TO-052 | /understanding-the-uses-of-cooling-towers-in-industrial-processes/ | schema | "#advantages-of-cooling-towers-in-hvac-industries" | "#advantages-of-cooling-towers-in-industrial-processes" | SC1-CA-17 (SEO-CONTENT-2) |
+| TO-053 | /air-coolers/ | schema | "ICS designs, installs, upgrades, and services industrial air cooler systems for factories, plants, loading doc" | "ICS upgrades, repairs, and services industrial air-cooled heat exchangers (air coolers) for refineries, petroc" | SC1-TA-083 (SEO-CONTENT-2) |
+| TO-054 | /cooling-tower-cost-in-2025/ | schema | "Cooling Tower Cost 2025: Comprehensive Guide and Cost Breakdown" | "Cooling Tower Cost 2025: Guide and Cost Breakdown" | SC1-QT-01 (SEO-CONTENT-2) |
+| TO-055 | /understanding-the-uses-of-cooling-towers-in-industrial-processes/ | schema | "Understanding the Uses of Cooling Towers in Industrial Processes" | "Uses of Cooling Towers in Industrial Processes" | SC1-QT-07 (SEO-CONTENT-2) |
+| TO-056 | /cooling-tower-malaysia/ | schema | "Cooling Tower Malaysia | Heavy-Duty Industrial Cooling Solutions" | "Cooling Tower Malaysia | Industrial Cooling Solutions" | SC1-QT-11 (SEO-CONTENT-2) |
+| TO-057 | /cooling-tower-sludge-removal/ | schema | "Cooling Tower Sludge Removal: Effective Basin Cleaning Strategies" | "Cooling Tower Sludge Removal: Basin Cleaning Strategies" | SC1-QT-12 (SEO-CONTENT-2) |
+| TO-058 | /cooling-solutions-for-chemical-process-plants-cooling-towers/ | schema | "Cooling Solutions for Chemical Process Plants | Cooling Towers" | "Cooling Solutions for Chemical Process Plants" | SC1-QT-17 (SEO-CONTENT-2) |
+| TO-059 | /product/sumitomo-hansen-p4-single-stage-gearbox/ | schema | "Sumitomo Hansen P4 Single Stage Gearbox | Cooling Tower Gearbox" | "Sumitomo Hansen P4 Single Stage Gearbox" | SC1-QT-18 (SEO-CONTENT-2) |
+| TO-060 | /cooling-tower-energy-efficiency/ | schema | "Improve Cooling Tower Energy Efficiency: Proven Cost Strategies" | "Improve Cooling Tower Energy Efficiency: Cost Strategies" | SC1-QT-19 (SEO-CONTENT-2) |
+| TO-061 | /product/c-e-shepherd-square-pattern-nozzles/ | schema | "C.E. Shepherd Square Pattern Nozzles | Replacement Spray Nozzle" | "C.E. Shepherd Square Pattern Nozzles" | SC1-QT-20 (SEO-CONTENT-2) |
+| TO-062 | /product/amarillo-a-series-single-reduction-gearbox/ | schema | "Amarillo A-Series Single Reduction Gearbox | Replacement Gearbox" | "Amarillo A-Series Single Reduction Gearbox" | SC1-QT-21 (SEO-CONTENT-2) |
+| TO-063 | /cooling-tower-wet-bulb-temperature/ | schema | "Cooling Tower Wet Bulb Temperature: Measurement and Application Guide" | "Cooling Tower Wet Bulb Temperature: Measurement Guide" | SC1-QT-23 (SEO-CONTENT-2) |
+| TO-064 | /cooling-tower-wood-material/ | schema | "Cooling Tower Wood Material: Types, Durability, and Modern Shifts" | "Cooling Tower Wood Material: Types and Durability" | SC1-QT-26 (SEO-CONTENT-2) |
+| TO-065 | /cooling-tower-fan-analysis/ | schema | "Cooling Tower Fan: A Look At Cooling Tower Fan Efficiency Pt. II" | "A Look At Cooling Tower Fan Efficiency Pt. II" | SC1-QT-27 (SEO-CONTENT-2) |
+| TO-066 | /cooling-tower-basin-coating/ | schema | "Cooling Tower Basin Coating: 7 Secrets for a 30-Year Lifespan" | "Cooling Tower Basin Coating Guide" | SC1-QT-29 (SEO-CONTENT-2) |
+| TO-067 | /cooling-tower-construction-repair-in-singapore/ | schema | "Cooling Towers in Singapore | Cooling Tower Servicing Singapore" | "Cooling Towers in Singapore | Cooling Tower Servicing" | SC1-QT-32 (SEO-CONTENT-2) |
+| TO-068 | /choosing-cooling-tower-fill-media/ | schema | "Choosing Cooling Tower Fill Media: Industrial Selection Guide" | "Choosing Cooling Tower Fill Media: Selection Guide" | SC1-QT-33 (SEO-CONTENT-2) |
+| TO-069 | /product/brentwood-xf80max-cellular-drift-eliminator/ | schema | "Brentwood XF80MAX Cellular Drift Eliminator | Drift Eliminator" | "Brentwood XF80MAX Cellular Drift Eliminator" | SC1-QT-36 (SEO-CONTENT-2) |
+| TO-070 | /indicators-of-cooling-tower-trouble/ | schema | "Spotting Red Flags: Early Indicators of Cooling Tower Trouble" | "Early Indicators of Cooling Tower Trouble" | SC1-QT-37 (SEO-CONTENT-2) |
+| TO-071 | /cooling-tower-biofouling/ | schema | "Cooling Tower Biofouling: Essential Microbial Control Strategies" | "Cooling Tower Biofouling: Microbial Control Strategies" | SC1-QT-39 (SEO-CONTENT-2) |
+| TO-072 | /product/tower-components-opti-grid-splash-fill/ | schema | "Tower Components Opti Grid Splash Fill | Fill Media Replacement" | "Tower Components Opti Grid Splash Fill" | SC1-QT-46 (SEO-CONTENT-2) |
+| TO-073 | /look-cooling-tower-fan-efficiency-pt-3/ | schema | "Cooling Tower Fan: A Look At Cooling Tower Fan Efficiency Pt. III" | "A Look At Cooling Tower Fan Efficiency Pt. III" | SC1-QT-47 (SEO-CONTENT-2) |
+| TO-074 | /product-category/motors/ | schema | "Cooling Tower Motors | High-Efficiency Industrial Motor Systems" | "Cooling Tower Motors | Industrial Motor Systems" | SC1-QT-48 (SEO-CONTENT-2) |
+| TO-075 | /reducing-carbon-footprint/ | schema | "Sustainable Cooling: Reducing Carbon Footprint in Cooling Towers" | "Reducing Carbon Footprint in Cooling Towers" | SC1-QT-50 (SEO-CONTENT-2) |
+| TO-076 | /product/tower-components-opti-bar-splash-fill/ | schema | "Tower Components Opti Bar Splash Fill | Fill Media Replacement" | "Tower Components Opti Bar Splash Fill" | SC1-QT-52 (SEO-CONTENT-2) |
+| TO-077 | /cooling-tower-commissioning-procedure/ | schema | "Cooling Tower Commissioning Procedure: Ensure Peak Performance" | "Cooling Tower Commissioning Procedure" | SC1-QT-54 (SEO-CONTENT-2) |
+| TO-078 | /cooling-tower-spares/ | schema | "Cooling Tower Spares - ICS" | "Cooling Tower Spares and Replacement Parts - ICS" | SC1-QT-55 (SEO-CONTENT-2) |
+| TO-079 | /product/tower-components-opti-cell-80-drift-eliminator/ | schema | "Tower Components Opti Cell 80 Drift Eliminator | Drift Eliminator" | "Tower Components Opti Cell 80 Drift Eliminator" | SC1-QT-56 (SEO-CONTENT-2) |
+| TO-080 | /legionella-control-in-industrial-cooling-towers/ | schema | "Advanced Legionella Control in Industrial Cooling Towers by 2025" | "Legionella Control in Industrial Cooling Towers" | SC1-QT-58 (SEO-CONTENT-2) |
+| TO-081 | /air-coolers/ | seo-h1 | "High-Performance Industrial Air Cooler Solutions for Demanding Facilities" | "High-Performance Industrial Air Cooler Solutions for Demanding Plants" | SC1-TA-085 (SEO-CONTENT-2) |
+| TO-082 | /guide-about-cooling-tower/ | schema | "What is a Cooling Tower? - H2O Cooling - ICS" | "What is a Cooling Tower? - ICS" | SC1-TA-059 (SEO-CONTENT-2) |
 
 **Rules (Control Tower guardrails):**
 - An entry applies only when its exact text appears exactly the stated number of times.

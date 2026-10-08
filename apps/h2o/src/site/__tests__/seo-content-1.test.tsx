@@ -136,7 +136,7 @@ describe('route states: HOLD with a 301, one release (data and release authority
       expect(overrides.redirectSources[p],p).toBe(target)
     }
     // 27 REDIRECT rows before this batch (26 consolidations and the /resources/ alias source) + the seven held pages
-    expect(ledger.routes.filter(r=>r.state==='REDIRECT')).toHaveLength(37)
+    expect(ledger.routes.filter(r=>r.state==='REDIRECT')).toHaveLength(41) // SEO-CONTENT-2.1: + the four locale twins (TC-001..004)
   })
   it('the batch withdraws each with its 301, in the order of the release authority, and every redirect is one hop to a served page',()=>{
     const dispositions=tsv('route-dispositions.tsv').filter(r=>HELD.includes(r.path))
@@ -406,7 +406,7 @@ describe('project H1s, /fans/, BacMan, PETRONAS and the seven product titles',()
   it('seven product titles name the right category and never end mid-word',()=>{
     const want:Record<string,string>={
       '/product/brentwood-kelly-bar-splash-fill/':'Brentwood Kelly Bar Splash Fill | Cooling Tower Fill',
-      '/product/brentwood-accupac-htp25-modular-splash-fill/':'Brentwood Accupac HTP25 Modular Splash Fill | Cooling Tower Fill',
+      '/product/brentwood-accupac-htp25-modular-splash-fill/':'Brentwood Accupac HTP25 Modular Splash Fill', // SEO-CONTENT-2.2 (OGCS quick-wins titles): the SC1 title was 64 characters
       '/product/splash-fill/':'Splash Fill | Cooling Tower Fill',
       '/product/cooling-tower-hybrid-fill/':'Cooling Tower Hybrid Fill | Replacement Fill Media',
       '/product/low-fouling-fill/':'Low Fouling Fill | Cooling Tower Fill',
@@ -417,7 +417,7 @@ describe('project H1s, /fans/, BacMan, PETRONAS and the seven product titles',()
     for(const [p,title] of Object.entries(want)){
       const row=seo.find(r=>r.path===p)!
       expect(row.title,p).toBe(title)
-      expect(row.title_now,p).toBe(title)
+      expect(row.title_now,p).toBe(p.includes('accupac-htp25')?'Brentwood Accupac HTP25 Modular Splash Fill | Cooling Tower Fill':title) // SEO-CONTENT-2.2: Accupac now carries the shorter OGCS quick-wins title
       expect(row.title.length,p).toBeLessThanOrEqual(66)
     }
     // no decided product title is cut mid-word, and none labels a drift eliminator "Fill Media" or a fill "Drift Eliminator" (OGCS scan)
@@ -427,7 +427,7 @@ describe('project H1s, /fans/, BacMan, PETRONAS and the seven product titles',()
       if(/\bfill\b/i.test(name)&&!/eliminator/i.test(name))expect(suffix,row.path).not.toMatch(/Drift Eliminator/)
       if(/drift eliminator/i.test(name))expect(suffix,row.path).not.toMatch(/Fill Media|Fill Media Replacement/)
     }
-    expect(tsv('sc1-seo-set.tsv')).toHaveLength(11) // round 2: + the seminar and maintenance-checklist metas
+    expect(tsv('sc1-seo-set.tsv')).toHaveLength(70) // SEO-CONTENT-2.3: + TA-059; SEO-CONTENT-2.2: + 57 quick-win titles, + the air-coolers meta; round 2: + the seminar and maintenance-checklist metas
     // the structured data carries the corrected title too (text-override registry TO-009…015 for the JSON-LD copies)
     const was:Record<string,string>={
       '/product/brentwood-kelly-bar-splash-fill/':'Brentwood Kelly Bar Splash Fill | Drift Eliminato',
@@ -452,22 +452,22 @@ describe('apply expectations for this delta',()=>{
   const exp=json<{rows:number;redirects:number;seoFields:number;expect:Record<string,Record<string,number>>;problems:string[]}>('ops/seo-pass/data/expectations.json')
   const fresh=json<{rows:number;redirects:number;seoFields:number;expect:Record<string,Record<string,number>>}>('ops/seo-pass/data/expectations.fresh-db.json')
   it('staging delta on the state Round 16 (R4 + phase 2 copy) leaves: rehearsed on the writable mock, apply 0 failures, rerun 0',()=>{
-    expect(exp.expect.routes).toEqual({publish:1,withdraw:10,index:0,canonical:0})
-    expect(exp.expect.redirects).toEqual({create:10,update:2,unchanged:405,retire:1,normalise:0})
-    expect(exp.expect.seoFields).toMatchObject({update:11,unchanged:480,pendingOgcs:0}) // 8 SEO-CONTENT-1 + 1 R5b (/cooling-tower/ meta) + 2 round 2 (seminar, checklist metas)
+    expect(exp.expect.routes).toEqual({publish:1,withdraw:14,index:0,canonical:0})
+    expect(exp.expect.redirects).toEqual({create:14,update:6,unchanged:401,retire:1,normalise:0})
+    expect(exp.expect.seoFields).toMatchObject({update:68,unchanged:423,pendingOgcs:0}) // SEO-CONTENT-2.2: + 56 (quick-win titles, air-coolers meta); 8 SEO-CONTENT-1 + 1 R5b (/cooling-tower/ meta) + 2 round 2 (seminar, checklist metas)
     expect(exp.expect.h1).toEqual({update:26}) // + the PETRONAS record title (SEO-CONTENT-2); 23 SEO-CONTENT-1 + 2 R5b (USA, Singapore)
-    expect([exp.rows,exp.redirects,exp.seoFields]).toEqual([1143,417,491])
+    expect([exp.rows,exp.redirects,exp.seoFields]).toEqual([1143,421,491])
     expect(tsv('seo-fields.tsv')).toHaveLength(491)
-    expect(tsv('redirects.tsv')).toHaveLength(417)
+    expect(tsv('redirects.tsv')).toHaveLength(421)
     expect(tsv('conformance.tsv')).toHaveLength(1143)
     expect(tsv('h1-fields.tsv').filter(r=>r.action==='UPDATE')).toHaveLength(26)
   })
   it('fresh production database: one apply, counts as rehearsed',()=>{
     expect(fresh.expect.routes).toEqual({publish:0,withdraw:0,index:0,canonical:0})
-    expect(fresh.expect.redirects).toEqual({create:399,update:0,unchanged:18,retire:0,normalise:0})
+    expect(fresh.expect.redirects).toEqual({create:403,update:0,unchanged:18,retire:0,normalise:0})
     expect(fresh.expect.seoFields).toEqual({update:491})
     expect(fresh.expect.h1).toEqual({update:35}) // + R5b's 2, + the PETRONAS record title
-    expect([fresh.rows,fresh.redirects,fresh.seoFields]).toEqual([1143,417,491])
+    expect([fresh.rows,fresh.redirects,fresh.seoFields]).toEqual([1143,421,491])
   })
 })
 
@@ -573,4 +573,49 @@ describe('SEO-CONTENT-2 piece A (CT 2026-10-08): uncategorized hold, locale clus
     expect(ld.join(' ')).toContain('"name":"PETRONAS RAPID 28-Cell Cooling Tower, Malaysia"')
     expect(ld.join(' ')).toContain('/all-projects/pertonas-rapid/')
   })
+})
+
+describe('SEO-CONTENT-2.1 (CT 2026-10-08, TC-001..004): the four locale twins of the held /hvac-cooling-tower/ article',()=>{
+  const TWINS:Array<[string,string]>=[
+    ['/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/','/id/apa-itu-menara-pendinginan/'],
+    ['/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/','/ja/冷却塔とは何ですか/'],
+    ['/th/หอคอยทำความเย็น-hvac-คืออะไ/','/th/หอทำความเย็นคืออะไร/'],
+    ['/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/','/vi/thap-giai-nhiet-la-gi/']]
+  it('each twin is HOLD with ONE 301 to the same-language twin of /guide-about-cooling-tower/ (never English), out of the ledger sitemap',()=>{
+    for(const [twin,target] of TWINS){
+      const lang=twin.split('/')[1]
+      expect(byPath.get(twin),twin).toMatchObject({state:'REDIRECT',export:false,indexable:false,sitemap:false})
+      expect(decoded(byPath.get(twin)!.redirect!),twin).toBe(target)
+      expect(target.startsWith(`/${lang}/`)).toBe(true)
+      expect(byPath.get(target),target).toMatchObject({state:'PUBLIC',export:true})
+      expect(tsv('route-dispositions.tsv').find(r=>decoded(r.path)===twin)).toMatchObject({action:'WITHDRAW_TO_REDIRECT'})
+      expect(decoded(tsv('route-dispositions.tsv').find(r=>decoded(r.path)===twin)!.redirect)).toBe(target)
+      const rows=tsv('redirects.tsv').filter(r=>decoded(r.source)===twin)
+      expect(rows).toHaveLength(1)
+      expect(decoded(rows[0]!.destination)).toBe(target)
+      expect(rows[0]!.status).toBe('301')
+      expect(json<{redirectSources:Record<string,string>}>('content/release/seo-pass-r1.json').redirectSources[byPath.get(twin)!.path]).toBeDefined()
+      expect(tsv('conformance.tsv').filter(r=>decoded(r.url)===twin).map(r=>[r.expect,decoded(r.target)])).toEqual([['301',target]])
+    }
+  })
+  it('no hreflang cluster or language entry names a twin; the legacy /blog/ sources reach the guide twin in one hop; no redirect chains',()=>{
+    const data=json<{languages:Record<string,string>;clusters:Array<Array<{hreflang:string;url:string}>>}>('content/locale/sitemap-locale.json')
+    const twins=new Set(TWINS.map(t=>t[0]))
+    for(const cluster of data.clusters)for(const m of cluster)expect(twins.has(decoded(new URL(m.url).pathname)),m.url).toBe(false)
+    for(const k of Object.keys(data.languages))expect(twins.has(decoded(k)),k).toBe(false)
+    const rows=tsv('redirects.tsv')
+    const sources=new Set(rows.map(r=>decoded(r.source)))
+    for(const r of rows)if(sources.has(decoded(r.destination)))throw new Error(`redirect chain ${r.source} -> ${r.destination}`)
+    const legacy=rows.filter(r=>/\/blog\/(thap-giai-nhiet-hvac|apa-itu-menara-pendingin-hvac)|\/th\/blog\/.*hvac/.test(decoded(r.source)))
+    expect(legacy.length).toBeGreaterThanOrEqual(4)
+    for(const r of legacy)expect(TWINS.map(t=>t[1]),r.source).toContain(decoded(r.destination))
+  })
+  it('no public archive lists a twin',()=>{
+    for(const row of ledger.routes.filter(r=>r.state==='PUBLIC'&&r.export&&/^\/(?:category|tag)\//.test(decoded(r.path)))){
+      const route=salmonRoutes().find(r=>r.targetPath===row.path);if(!route)continue
+      const archive=renderToStaticMarkup(<ArchivePage doc={salmonDocument(route)}/>)
+      const hrefs=[...archive.matchAll(/href="([^"]*)"/g)].map(m=>decoded(m[1]!.split(/[?#]/)[0]!))
+      for(const [twin] of TWINS)expect(hrefs,row.path).not.toContain(twin)
+    }
+  },300000)
 })

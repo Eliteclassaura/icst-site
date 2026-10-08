@@ -214,7 +214,9 @@ describe('redirects and the R2.4 batch (items h, k; CT rulings)',()=>{
     const seo=new Map(tsv('seo-fields.tsv').map(r=>[r.path,r]))
     expect(set).toHaveLength(29) // 14 OGCS R2.4 rows + 15 archive metas (OGCS R2.4A)
     expect(set.some(r=>r.path==='/new-cooling-tower-page/'||r.path==='/search/')).toBe(false)
-    for(const r of set)expect(seo.get(r.path!)?.[r.field==='title'?'title':'meta'],`${r.path} ${r.field}`).toBe(r.value)
+    // SEO-CONTENT-2.2: the OGCS quick-wins titles supersede some R2.4 titles (<= 60 characters)
+    const quickWins=new Map(tsv('sc1-seo-set.tsv').filter(r=>r.field==='title'&&/OGCS quick-wins titles/.test(r.reason)).map(r=>[r.path!,r.value!]))
+    for(const r of set)expect(seo.get(r.path!)?.[r.field==='title'?'title':'meta'],`${r.path} ${r.field}`).toBe(r.field==='title'?(quickWins.get(r.path!)??r.value):r.value)
     expect(seo.get('/industrial-cooling-towers/')?.meta).not.toContain('90%')
   },120_000)
   it('/search/ is noindex,follow with the OGCS meta; /thank-you/ and /search/ stay out of the sitemap',()=>{

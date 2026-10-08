@@ -163,8 +163,8 @@ describe('hreflang (OGCS Part A clusters)', () => {
         seen.add(m.url)
       }
     }
-    expect(locale.clusters).toHaveLength(43)
-    expect(Object.keys(locale.languages)).toHaveLength(168)
+    expect(locale.clusters).toHaveLength(42) // SEO-CONTENT-2.1: the cluster of the four held HVAC locale twins is gone
+    expect(Object.keys(locale.languages)).toHaveLength(164)
     expect(seen.has(`${O}/th/工業プロセスにおける冷却塔の用途を理解する/`)).toBe(false)
     expect(seen.has(`${O}/ja/工業プロセスにおける冷却塔の用途を理解する/`)).toBe(false)
   })
