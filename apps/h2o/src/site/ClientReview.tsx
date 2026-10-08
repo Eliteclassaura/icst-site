@@ -1,6 +1,7 @@
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {testimonials,TESTIMONIAL_AUTHORITY_ID} from './testimonials'
+import {deliverySrc} from './media-delivery'
 
 type RecoveredMedia={src:string;name:string;width:number;height:number;sha256:string}
 type ClientReviewAuthority={hero:RecoveredMedia[];portraits:Array<RecoveredMedia&{person:string}>;socials:Array<{network:string;url:string}>;testimonialOverride:{sourceSections:string[];layoutNode:number;authorityId:string}}
@@ -12,12 +13,6 @@ export const figmaTestimonialMedia={
  'Daniel White':{src:'/media/figma-testimonials/f9d7170ef3523347-daniel-white.png',width:2731,height:4096,sha256:'f9d7170ef3523347deac591ac836c7a511adbdda9ad1cf36f282eb629d732f08',lines:['From initial design ','to successful ','project completion']},
  'Sophia Martinez':{src:'/media/figma-testimonials/2042b97216629ffe-sophia-martinez.png',width:800,height:800,sha256:'2042b97216629ffe687c6796d041e76bf645ecd2ce66c086bbb2a9283b8435bb',lines:['Installation ','completed smoothly ','from start to finish.']},
 } as const
-/**
- * The reviewers are shown as initials on a brand-tint circle, not as portraits (owner via CT 2026-10-08): the headshots in
- * figmaTestimonialMedia are stock photography, and a stock face beside a real person's name would mislead. Real photos can
- * replace the avatar when the owner supplies them. The name stays in the caption, so the avatar is decorative.
- */
-export const initialsOf=(name:string):string=>name.split(/\s+/).filter(Boolean).slice(0,2).map(word=>word[0]!.toUpperCase()).join('')
 export function ClientTestimonials(){return <section className="client-testimonials" data-owner-override={TESTIMONIAL_AUTHORITY_ID} aria-label="Client testimonials">
  <h2 className="visually-hidden">Client testimonials</h2>
  <div className="client-testimonial-grid">{figmaFeaturedTestimonials.map((record,index)=>{const portrait=figmaTestimonialMedia[record.person as keyof typeof figmaTestimonialMedia];if(!portrait)return null
@@ -31,7 +26,7 @@ export function ClientTestimonials(){return <section className="client-testimoni
      <blockquote><p>{quote}</p></blockquote>
     </div>
     <div className="client-testimonial-media">
-     <div className="client-testimonial-avatar" aria-hidden="true" data-initials-for={record.recordId}>{initialsOf(record.person)}</div>
+     <img src={deliverySrc(portrait.src)} width={portrait.width} height={portrait.height} alt={record.person} loading="lazy"/>
      <figcaption><strong>{record.person}</strong><span>{record.company} / {record.title}</span></figcaption>
     </div>
    </div>

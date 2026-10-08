@@ -10,7 +10,7 @@ import Page from '../../app/(site)/[[...slug]]/page'
 import {releaseRoutes} from '../salmon'
 import {isEmptyTextBlock} from '../SalmonCanonical'
 import {inlineMath,mathNodes,shortcodeNodes,stripShortcodes} from '../math-text'
-import {ClientTestimonials,initialsOf} from '../ClientReview'
+import {ClientTestimonials} from '../ClientReview'
 import {FOOTER_LOCATIONS,LuxuryFooter,footerContactLabel,footerText} from '../LuxuryShell'
 
 const APP=process.cwd()
@@ -122,17 +122,11 @@ describe('published pages',()=>{
 })
 
 describe('owner team sheet (CT 2026-10-08)',()=>{
-  it('1: the testimonials are real (owner, CT 2026-10-08) and stay; the reviewers show initials, never stock headshots',async()=>{
+  it('1: the testimonials stay exactly as the owner built them (photos included; see owner-protected-testimonials.test.tsx)',async()=>{
     process.env.H2O_PUBLIC_EXPORT='1'
     const block=renderToStaticMarkup(<ClientTestimonials/>)
     for(const name of ['Sarah Mitchell','Daniel White','Sophia Martinez'])expect(block).toContain(name)
-    expect(block).toContain('AutoParts Ltd')
-    expect(block).not.toMatch(/figma-testimonials\/[0-9a-f]{16}-/)
-    expect(block).not.toMatch(/<img[^>]*alt="(?:Sarah Mitchell|Daniel White|Sophia Martinez)"/)
-    expect([...block.matchAll(/class="client-testimonial-avatar"[^>]*>([A-Z]{2})</g)].map(m=>m[1])).toEqual(['SM','DW','SM'])
-    expect(initialsOf('Daniel White')).toBe('DW')
-    expect(initialsOf('Prince')).toBe('P')
-    // the home itself still carries the section
+    expect(block).not.toMatch(/client-testimonial-avatar/)
     const home=await render('/')
     expect(home.slice(home.indexOf('<main'),home.indexOf('</main>'))).toContain('Sarah Mitchell')
   },240000)

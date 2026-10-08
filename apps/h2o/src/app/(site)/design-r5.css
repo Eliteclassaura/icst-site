@@ -1378,22 +1378,6 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
   text-decoration: underline;
 }
 
-/* Testimonial avatar: initials on a brand-tint circle instead of stock headshots (the reviewers' real photos were never supplied) */
-.client-testimonial-avatar {
-  align-items: center;
-  aspect-ratio: 1;
-  background: var(--df-signal-soft);
-  border-radius: 50%;
-  color: var(--df-blue);
-  display: flex;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 64px;
-  inline-size: min(100%, 180px);
-  justify-content: center;
-  letter-spacing: 0.02em;
-  margin-inline: auto;
-  user-select: none;
-}
 
 /* LEGAL-1: the legal pages as plain text on the R4 system (readable measure, headings as written, tables that scroll, not squeeze) */
 /* .luxury-site main resets padding at (0,1,1); the legal page needs its own gutter (16 px at 390) and top space (32 px at 390, 48 px at 1440) */
