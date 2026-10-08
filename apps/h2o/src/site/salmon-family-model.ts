@@ -38,7 +38,7 @@ export type TextBlock=
   |{kind:'table';rows:RichText[][]}
   |{kind:'quote';content:RichText}
 /** A media library reference. In Payload: an upload relation; `src` is its public URL. */
-export type MediaRef={src:string;alt:string;width?:number;height?:number;sha256?:string;sourceUrl?:string}
+export type MediaRef={src:string;alt:string;width?:number;height?:number;sha256?:string;sourceUrl?:string;/** native-size photo centred in a soft frame (PROJ-IMG-1.1) */framed?:boolean}
 
 /* ----- presentation primitives (code-defined) ----- */
 export type ColorRole='white'|'ink'|'blue'|'muted'|'soft'

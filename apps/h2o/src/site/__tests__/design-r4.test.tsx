@@ -226,15 +226,17 @@ describe('R4 phase 2',()=>{
   })
   it('no photo repeats within an R4 page',async()=>{
     for(const route of [...Object.values(PAGES),'/all-projects/']){
-      const srcs=[...(await render(route)).matchAll(/<main[\s\S]*<\/main>/g)].flatMap(m=>[...m[0].matchAll(/<img[^>]*?\ssrc="([^"]+)"/g)].map(x=>x[1]!)).filter(src=>!/\/salmon\/[0-9a-f]{64}\.png$/.test(src))
+      const srcs=[...(await render(route)).matchAll(/<main[\s\S]*<\/main>/g)].flatMap(m=>[...m[0].matchAll(/<img[^>]*?\ssrc="([^"]+)"[^>]*>/g)].filter(x=>!/class="dr4-proj-flag"|width="20" height="14"/.test(x[0])).map(x=>x[1]!)).filter(src=>!/\/salmon\/[0-9a-f]{64}\.png$/.test(src))
       expect(srcs.length-new Set(srcs).size,route).toBe(0)
     }
   })
-  it('All Projects: one H1 first, country chips without state chips, Texas and Nevada after the United States',async()=>{
+  it('All Projects: one H1 first, country chips without state chips, Texas and Nevada inside the United States',async()=>{
     const doc=docFor('SALMON-pages-1353')
     const v=portfolioView(salmonFamilyModel(doc,salmonFamilyFor(doc)!))
-    expect(v.chips.map(c=>c.href)).toEqual(['#usa','#philip','#thai','#indo','#viet','#mala'])
-    expect(v.countries.slice(0,3).map(c=>c.anchor)).toEqual(['usa','texa','neva'])
+    expect(v.chips.map(c=>c.href).slice(0,6)).toEqual(['#usa','#philip','#thai','#indo','#viet','#mala'])
+    expect(v.chips).toHaveLength(7) // + Singapore (OGCS project titles: it has a project but no chip)
+    expect(v.countries.slice(0,1).map(c=>c.anchor)).toEqual(['usa'])
+    expect(v.countries.map(c=>c.anchor)).not.toContain('texa')
     const html=await render('/all-projects/')
     expect(html).toContain('data-r4-route="/all-projects/"')
     const heads=[...html.matchAll(/<h([12])[^>]*>([\s\S]*?)<\/h\1>/g)].map(m=>`h${m[1]} ${norm(m[2]!)}`)
@@ -252,11 +254,13 @@ describe('R4 phase 2',()=>{
     const photo=(href:string)=>cards.find(c=>c.href===href)!.photo?.sha256?.slice(0,8)
     expect(photo('/all-projects/edc/')).toBe('812239ea')
     expect(photo('/all-projects/cooling-tower-disaster-recovery/')).toBe('be858908')
-    expect(photo('/all-projects/pttcsp/')).toBeUndefined()
+    expect(photo('/all-projects/pttcsp/')).toBe('97fd8537') // PROJ-IMG-1: its own WordPress featured photo (card), no longer text-only
+    expect(photo('/all-projects/ptt-csp3/')).toBe('e4cb8408')
     const shas=cards.map(c=>c.photo?.sha256).filter(Boolean)
     expect(shas.length).toBe(new Set(shas).size)
     // Cards never draw a photo wider than its file: columns cap at 369 px = the smallest held width (353) + the 2×8 px frame.
-    expect(Math.min(...cards.flatMap(c=>c.photo?.width?[c.photo.width]:[]))).toBe(353)
+    // (the framed native-size 343 px PTT CSP3 crop sits centred in its card, PROJ-IMG-1.1, and is never scaled)
+    expect(Math.min(...cards.flatMap(c=>c.photo?.width&&!c.photo.framed?[c.photo.width]:[]))).toBe(353)
     expect(css).toMatch(/\.dr4 \.dr4-proj-grid,\n\.dr4 \.dr4-country-row \{[^}]*grid-template-columns: repeat\(auto-fill, minmax\(min\(100%, 300px\), 369px\)\);/)
     expect(css).toMatch(/\.dr4 \.dr4-proj \{[^}]*padding: 8px;/)
   })

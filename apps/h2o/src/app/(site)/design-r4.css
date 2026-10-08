@@ -1790,6 +1790,37 @@
   object-fit: cover;
 }
 
+.dr4 .dr4-proj-media--framed {
+  background: var(--dr4-soft);
+  display: grid;
+  place-items: center;
+}
+
+.dr4 .dr4-proj-media--framed .dr4-proj-img {
+  block-size: auto;
+  inline-size: auto;
+  max-inline-size: 100%;
+  object-fit: none;
+}
+
+.salmon-family .sp-figure--framed {
+  --frame-soft: rgb(242 245 249);
+
+  background: var(--frame-soft);
+  border-radius: 20px;
+  display: grid;
+  margin: 0;
+  padding: 24px;
+  place-items: center;
+}
+
+.salmon-family .sp-figure--framed .sp-img {
+  block-size: auto;
+  border-radius: 8px;
+  inline-size: auto;
+  max-inline-size: 100%;
+}
+
 .dr4 .dr4-proj-panel {
   align-content: end;
   background: var(--dr4-navy);
@@ -1857,6 +1888,13 @@
   color: var(--dr4-body);
   font-size: 15px;
   line-height: 1.5;
+}
+
+.dr4 .dr4-proj-location {
+  color: var(--dr4-body);
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
 }
 
 .dr4 .dr4-proj-more {

@@ -328,21 +328,30 @@
   },
   "/all-projects/thailand-projects/": {
    "media": {
+    "src": "/media/projects/163ced1365c364d904e9ae115ddfeb056d9fd3bc59be51bdd110dfc83a28af28.webp",
+    "sha256": "163ced1365c364d904e9ae115ddfeb056d9fd3bc59be51bdd110dfc83a28af28",
+    "width": 1600,
+    "height": 1200,
+    "alt": "Cooling tower under construction at a petrochemical plant, Thailand"
+   },
+   "original": {
+    "path": "H2O_OWNER_PHOTOS_2026-10-08/photos/IRPC Thailand.JPG (identical bytes: IMG_1014.JPG)",
+    "sha256": "6c115cf46b2e97add337d51023087a0aff9ebc74cda0c002868a1418c299e6f9",
+    "width": 3264,
+    "height": 2448,
+    "delivery": "WebP 1600x1200 (never above native)"
+   },
+   "livePage": "https://h2ocooling.com/portfolio/thailand-projects/",
+   "liveImage": "https://h2ocooling.com/wp-content/uploads/2021/10/PB030157-1600x1128-353x297-1.jpg",
+   "year": "2012",
+   "replaces": {
     "src": "/media/projects/9d99444145ca0b19b72b7b067fae33c012488b6fd0698c19108aa9cd3e761ed7.jpg",
     "sha256": "9d99444145ca0b19b72b7b067fae33c012488b6fd0698c19108aa9cd3e761ed7",
     "width": 353,
     "height": 297,
     "alt": "Thailand Projects cooling tower project"
    },
-   "original": {
-    "path": "h2ocooling.com/public_html/wp-content/uploads/2022/09/PB030157-1600x1128-353x297-1.jpg",
-    "sha256": "9d99444145ca0b19b72b7b067fae33c012488b6fd0698c19108aa9cd3e761ed7",
-    "width": 353,
-    "height": 297
-   },
-   "livePage": "https://h2ocooling.com/portfolio/thailand-projects/",
-   "liveImage": "https://h2ocooling.com/wp-content/uploads/2021/10/PB030157-1600x1128-353x297-1.jpg",
-   "year": "2012"
+   "verifiedBy": "PROJ-IMG-1 (CT GO 2026-10-08): owner-supplied original (CT ruling: thailand-projects <- IRPC Thailand). Replaces the 353 px live card photo; no faces, no third-party name visible."
   },
   "/all-projects/vinachem/": {
    "media": {
@@ -361,6 +370,87 @@
    "livePage": "https://h2ocooling.com/portfolio/vinachem/",
    "liveImage": "https://h2ocooling.com/wp-content/uploads/2021/10/Vinachem-353x297-1.jpg",
    "year": "2011"
+  },
+  "/all-projects/ptt-csp3/": {
+   "media": {
+    "src": "/media/projects/e4cb8408c77381ddf3ef59da0891b80c68b32f6f79ffa7ebbf47335cec57e97a.webp",
+    "sha256": "e4cb8408c77381ddf3ef59da0891b80c68b32f6f79ffa7ebbf47335cec57e97a",
+    "width": 343,
+    "height": 257,
+    "alt": "Process columns at the PTT Gas Separation Plant, Thailand",
+    "crop": {
+     "of": "original",
+     "left": 0,
+     "top": 0,
+     "width": 343,
+     "height": 257,
+     "reason": "Design Director C1: the original carries a baked camera date stamp (26/07/2018) in rows 261+; lossless WebP export of rows 0-256, served at native size, never enlarged"
+    }
+   },
+   "original": {
+    "path": "h2ocooling.com/public_html/wp-content/uploads/2021/10/P7260648-353x297-1.jpg",
+    "sha256": "b00dd6fab9a7b6f51de306aa2b8b102fa23ae60aebd2a7cc1a30d7f8c3b366d7",
+    "width": 353,
+    "height": 297,
+    "wp": {
+     "post": 2168,
+     "postType": "portfolio",
+     "slug": "ptt-gsp3-fan-upgrade",
+     "status": "publish",
+     "thumbnailAttachment": 2165,
+     "evidence": "owner WordPress database dump u719026620_Vy3jH.h2ocooling-com.20260906125055.sql (read-only)"
+    }
+   },
+   "year": null,
+   "verifiedBy": "PROJ-IMG-1 (CT GO 2026-10-08): the live site's featured image of its own portfolio post (post 2168 -> _thumbnail_id 2165); the WP text equals the staging page text (PTT Gas Separation Plant #3 fan upgrade, Moore aluminum fans). Viewed: plant columns, dated 26/07/2018, no third-party name or logo. Native 353x297, never enlarged. PROJ-IMG-1.1: served as a native 343x257 crop (date stamp excluded), centred in a soft panel frame on the card and the page.",
+   "framed": true
+  },
+  "/all-projects/pttcsp/": {
+   "media": {
+    "src": "/media/projects/d857a212114ab1cddf7e21eec8ffce024fbe14968a512324de42663f03f84761.webp",
+    "sha256": "d857a212114ab1cddf7e21eec8ffce024fbe14968a512324de42663f03f84761",
+    "width": 1360,
+    "height": 1020,
+    "alt": "Fan blades laid out on the air-cooled heat exchanger deck during the PTT Gas Separation Plant fan upgrade, Rayong, Thailand",
+    "crop": {
+     "of": "original",
+     "left": 595,
+     "top": 0,
+     "width": 3373,
+     "height": 2530,
+     "reason": "Design Director C2: the original carries a baked camera date stamp (03/01/2019) bottom right; crop equal to x 240-1600, y 0-1020 of the 1600-wide frame (4:3), exported as WebP 1360x1020 (a downscale of the 3373x2530 source crop, never enlarged)"
+    }
+   },
+   "card": {
+    "src": "/media/projects/97fd8537af0272b2ea095ac6833441e56943842639467096557ebb38dea7ef16.jpg",
+    "sha256": "97fd8537af0272b2ea095ac6833441e56943842639467096557ebb38dea7ef16",
+    "width": 353,
+    "height": 297,
+    "alt": "PTT Gas Separation Plant at night, Rayong, Thailand"
+   },
+   "original": {
+    "path": "h2ocooling.com/public_html/wp-content/uploads/2021/10/GSP-6-Fan-Upgrade.jpg",
+    "sha256": "9c5eac95ac24e3b3875cf1b31b19c7e3a5d42f023b6ac6afcfeb5e9bea32c498",
+    "width": 3968,
+    "height": 2976,
+    "delivery": "WebP 1600x1200 (never above native)",
+    "wp": {
+     "post": 2174,
+     "postType": "portfolio",
+     "slug": "ptt-gsp6-96-fan-ache-performance-upgrade",
+     "status": "publish",
+     "thumbnailAttachment": 2161,
+     "evidence": "owner WordPress database dump u719026620_Vy3jH.h2ocooling-com.20260906125055.sql (read-only)"
+    },
+    "card": {
+     "path": "h2ocooling.com/public_html/wp-content/uploads/2021/10/P1270289-353x297-1.jpg",
+     "sha256": "97fd8537af0272b2ea095ac6833441e56943842639467096557ebb38dea7ef16",
+     "width": 353,
+     "height": 297
+    }
+   },
+   "year": null,
+   "verifiedBy": "PROJ-IMG-1 (CT GO 2026-10-08): card = the live featured image of post 2174 (_thumbnail_id 2161); page photo = the full-size GSP-6 fan upgrade photo from the same upload folder and project (96-bay ACHE fan upgrade at PTT Gas Separation Plant, Rayong). Viewed at full size: blades and deck, one worker seen from behind, small blade decals, no third-party company name or logo. Card native 353x297, page photo 1600x1200 from 3968x2976. PROJ-IMG-1.1: cropped to exclude the baked date stamp; the worker's boots are inside the crop."
   }
  },
  "withheld": {

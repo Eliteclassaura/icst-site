@@ -23,13 +23,15 @@ describe('A1 project photos: each project its own verified photo, never another 
   const registry=projectMediaRegistry().projects
   it('the registry holds one distinct, hash-verified photo per project, never upscaled',()=>{
     const entries=Object.entries(registry)
-    expect(entries).toHaveLength(20)
+    expect(entries).toHaveLength(22)
     expect(new Set(entries.map(([,e])=>e.media.sha256)).size).toBe(entries.length)
     for(const [p,e] of entries){
       const bytes=readFileSync(path.join(APP,'public',e.media.src))
       expect(createHash('sha256').update(bytes).digest('hex'),p).toBe(e.media.sha256)
       const original=(e as unknown as {original:{width:number}}).original
       expect(e.media.width,p).toBeLessThanOrEqual(original.width)
+      const card=(e as unknown as {card?:{src:string;sha256:string;width:number}}).card
+      if(card)expect(createHash('sha256').update(readFileSync(path.join(APP,'public',card.src))).digest('hex'),p+' card').toBe(card.sha256)
     }
   })
   it('no two project cards on /all-projects/ share an image, and each card shows its own project’s photo',async()=>{
@@ -37,20 +39,22 @@ describe('A1 project photos: each project its own verified photo, never another 
     // Design R4: each card is one <li data-project-href> holding its own <img data-source-sha256> (no CSS background).
     const cards=[...html.matchAll(/<li class="dr4-proj" data-project-href="(\/all-projects\/[^"/]+\/)">(?:(?!<\/li>)[^])*?data-source-sha256="([0-9a-f]{64})"/g)].map(m=>({sha:m[2]!,href:m[1]!}))
     const projectCards=cards.filter(card=>registry[card.href])
-    expect(projectCards.length).toBe(20)
+    expect(projectCards.length).toBe(22)
     expect(new Set(projectCards.map(card=>card.sha)).size).toBe(projectCards.length)
-    for(const card of projectCards)expect(card.sha,card.href).toBe(registry[card.href]!.media.sha256)
+    for(const card of projectCards){const e=registry[card.href] as unknown as {media:{sha256:string};card?:{sha256:string}};expect(card.sha,card.href).toBe((e.card??e.media).sha256)}
     // Every card that still shows a photo shows a distinct one.
     expect(new Set(cards.map(card=>card.sha)).size).toBe(cards.length)
   })
-  it('a project with no verified own photo shows none: its unsafe held photos are gone from the listing card and the detail page',async()=>{
+  it('PROJ-IMG-1: the two projects once withheld now show their own WordPress featured photos; every old unsafe Salmon photo stays out',async()=>{
     const withheld=projectMediaRegistry().withheld!
     expect(Object.keys(withheld)).toEqual(['/all-projects/pttcsp/','/all-projects/ptt-csp3/'])
     const listing=await render('/all-projects/')
     for(const [p,w] of Object.entries(withheld)){
-      // Design R4 text card: a navy panel in the photo's place, no image.
-      expect(listing,p).toMatch(new RegExp(`<li class="dr4-proj dr4-proj--text" data-project-href="${p}"><div class="dr4-proj-media dr4-proj-panel">`))
+      const own=registry[p]!
+      expect(own,p).toBeTruthy()
+      expect(listing,p).toMatch(new RegExp(`<li class="dr4-proj" data-project-href="${p}">`))
       const detail=await render(p)
+      expect(detail,p).toContain(own.media.sha256)
       for(const sha of w.withheldSha256){expect(detail,`${p} ${sha}`).not.toContain(sha);if(sha!=='aa6edfe6c9fb42e5b87a59345a747d735c3eb6f1c5a6e2fee50713d9e7f294d9')expect(listing,`${p} ${sha}`).not.toContain(sha)}
     }
   })

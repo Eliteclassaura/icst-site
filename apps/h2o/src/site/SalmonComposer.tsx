@@ -117,7 +117,7 @@ export function BlockView({block,ctx}:{block:Block;ctx:RenderContext}):ReactNode
     }
     case 'image':{
       const style=block.style.width||block.style.radius?{maxInlineSize:block.style.width,inlineSize:block.style.width?.endsWith('%')?block.style.width:undefined,borderRadius:block.style.radius}:undefined
-      return <figure className={`sp-figure${alignClass(block.style)}`}><Picture media={block.media} className="sp-img" eager={ctx.eager} style={style}/></figure>
+      return <figure className={`sp-figure${alignClass(block.style)}${block.media.framed?' sp-figure--framed':''}`}><Picture media={block.media} className="sp-img" eager={ctx.eager} style={block.media.framed?undefined:style}/></figure>
     }
     case 'iconCard':{
       const title=typeProps(block.titleStyle),text=typeProps(block.textStyle),box=frame(block.style)

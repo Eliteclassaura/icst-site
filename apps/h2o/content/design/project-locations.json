@@ -1,0 +1,9 @@
+{
+ "authority": "OGCS project titles (CT accepted 2026-10-08, PROJECT_TITLES.tsv ac24774d): location lines shown on the /all-projects/ cards where the group heading no longer names the place (Freeport and Nevada move under the United States group; Lanxess sits under Singapore). Keyed by the public project path.",
+ "locations": {
+  "/all-projects/kbr/": "United States",
+  "/all-projects/pvc-plant-freeport-texas/": "Freeport, Texas, USA",
+  "/all-projects/empire-farms/": "Nevada, USA",
+  "/all-projects/lanxess/": "Jurong Island, Singapore"
+ }
+}

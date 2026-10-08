@@ -12,6 +12,7 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import Page from '../../app/(site)/[[...slug]]/page'
 import {generateMetadata as searchGenerateMetadata} from '../../app/(site)/search/page'
 import {metaValues} from '../../../ops/seo-pass/head-assertions.mjs'
+import {salmonRoutes} from '../salmon'
 import {englishServicePages} from '../EnglishServices'
 import {projectMediaRegistry} from '../project-media'
 import {ogDefault} from '../standard-head'
@@ -43,14 +44,21 @@ describe('SC-01: project social image',()=>{
       expect(metaValues(html,'og:image')[0],p).toMatch(new RegExp(`${entry.media.src.replace(/[./]/g,'\\$&')}$`))
     }
   },300_000)
-  it('the withheld PTT projects take the site default image and name no withheld photo',async()=>{
-    const d=ogDefault()
+  it('the two PTT projects (PROJ-IMG-1) name their own WordPress featured photo; no withheld Salmon photo is named anywhere',async()=>{
     for(const p of Object.keys(registry.withheld??{})){
       const html=await render(p)
-      const images=metaValues(html,'og:image')
-      expect(images,p).toHaveLength(1)
-      expect(images[0],p).toMatch(new RegExp(`${d.file.replace(/[./]/g,'\\$&')}$`))
+      const own=registry.projects[p]!.media
+      expect(metaValues(html,'og:image'),p).toHaveLength(1)
+      expect(metaValues(html,'og:image')[0],p).toMatch(new RegExp(`${own.src.replace(/[./]/g,'\\$&')}$`))
       for(const sha of registry.withheld![p]!.withheldSha256)expect(html,p).not.toContain(sha)
+    }
+  },120_000)
+  it('a project page without a verified own photo (if any remains) takes the site default image, never another project\'s photo',async()=>{
+    const d=ogDefault()
+    const rest=salmonRoutes().map(r=>r.targetPath).filter(p=>/^\/all-projects\/[^/]+\/$/.test(p)&&!registry.projects[p]&&!(registry.withheld??{})[p])
+    for(const p of rest.slice(0,3)){
+      const html=await render(p)
+      expect(metaValues(html,'og:image')[0],p).toMatch(new RegExp(`${d.file.replace(/[./]/g,'\\$&')}$`))
     }
   },120_000)
 })

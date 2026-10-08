@@ -12,7 +12,7 @@ import type {Block,MediaRef,SalmonFamilyPageModel} from './salmon-family-model'
  * its current photo only when no other project uses it.
  * Card years follow the project's own record: the live record where it states a year, otherwise the staging record.
  */
-type Registry={projects:Record<string,{media:MediaRef&{sha256:string;width:number;height:number};year:string|null}>;
+type Registry={projects:Record<string,{media:MediaRef&{sha256:string;width:number;height:number};/** PROJ-IMG-1: the listing-card photo where it differs from the page photo (a 353 px live featured image beside a larger page photo). */card?:MediaRef&{sha256:string;width:number;height:number};/** PROJ-IMG-1.1: a small native-size photo shown centred in a soft frame, never scaled to fill. */framed?:boolean;year:string|null}>;
   /** Projects with no verified own photo whose held photos are unsafe as project evidence: shown without a photo. */
   withheld?:Record<string,{reason:string;withheldSha256:string[]}>;
   /** The listing hero: a held image (`replaces`, by SHA-256) shown instead as a project's own verified photo. */
@@ -65,7 +65,7 @@ const buttonsIn=(block:Block):Array<Extract<Block,{type:'button'}>>=>{const out:
 /** Project destinations a block links to (buttons, icon cards, icon links, image cards). */
 const projectHrefsIn=(block:Block):string[]=>{const out:string[]=[];walk(block,b=>{const href=(b.type==='button'||b.type==='iconCard'||b.type==='iconLink'||b.type==='imageCard')?b.href:undefined;if(href&&PROJECT_PATH.test(href))out.push(href)});return out}
 /** Native-size display: a photo smaller than its frame is never stretched past its own width. */
-const media=(entry:Registry['projects'][string]):MediaRef=>({src:entry.media.src,alt:entry.media.alt,width:entry.media.width,height:entry.media.height,sha256:entry.media.sha256})
+const media=(entry:Registry['projects'][string],part:'media'|'card'='media'):MediaRef=>{const m=part==='card'?entry.card??entry.media:entry.media;return {src:m.src,alt:m.alt,width:m.width,height:m.height,sha256:m.sha256,...(entry.framed?{framed:true}:{})}}
 
 /** @param recordYear the year a project's own staging record states (used when the live record states none) */
 export function applyProjectMedia(model:SalmonFamilyPageModel,recordYear:(projectPath:string)=>string|undefined=()=>undefined):SalmonFamilyPageModel{
@@ -84,7 +84,7 @@ export function applyProjectMedia(model:SalmonFamilyPageModel,recordYear:(projec
       const link=buttonsIn(block).find(button=>button.href&&PROJECT_PATH.test(button.href))
       if(!link?.href)return
       const entry=registry[link.href]
-      if(entry)block.background={...block.background,media:media(entry)}
+      if(entry)block.background={...block.background,media:media(entry,'card')}
       else if(withheld[link.href])delete block.background
       const year=entry?.year??recordYear(link.href)
       if(year&&YEAR.test(link.label))link.label=year
@@ -96,12 +96,12 @@ export function applyProjectMedia(model:SalmonFamilyPageModel,recordYear:(projec
         if(panel.type!=='container'||!panel.background||projectHrefsIn(panel).length)continue
         const hrefs=[...new Set(block.children.filter(sibling=>sibling!==panel).flatMap(projectHrefsIn))]
         const entry=hrefs.length===1?registry[hrefs[0]!]:undefined
-        if(entry)panel.background={...panel.background,media:media(entry)}
+        if(entry)panel.background={...panel.background,media:media(entry,'card')}
         else if(hrefs.length===1&&withheld[hrefs[0]!])delete panel.background
       }
     })
   }
-  if(model.family==='project-detail'&&withheld[model.path]){
+  if(model.family==='project-detail'&&withheld[model.path]&&!registry[model.path]){
     // No verified own photo: the detail page shows its text without the held hero image.
     let done=false
     for(const section of model.sections)walk(section.root,block=>{
@@ -119,7 +119,7 @@ export function applyProjectMedia(model:SalmonFamilyPageModel,recordYear:(projec
       if(done||block.type!=='image')return
       done=true
       block.media=media(entry)
-      if(entry.media.width<720)block.style={...block.style,width:`${entry.media.width}px`}
+      if(entry.media.width<720&&!entry.framed)block.style={...block.style,width:`${entry.media.width}px`}
     })
   }
   return model

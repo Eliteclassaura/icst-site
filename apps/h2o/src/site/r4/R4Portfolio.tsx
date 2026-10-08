@@ -1,3 +1,5 @@
+import {readFileSync} from 'node:fs'
+import path from 'node:path'
 import type {ReactNode} from 'react'
 import {deliverySrc} from '../media-delivery'
 import {LuxuryFooter,LuxuryHeader} from '../LuxuryShell'
@@ -21,9 +23,12 @@ import {R4LauncherReveal} from './R4LauncherReveal'
  * United States section and keep their own headings.
  */
 export const R4_PORTFOLIO_ROUTE='SALMON-pages-1353'
+let projectLocations:Record<string,string>|undefined
+/** PROJ-TITLES (OGCS 2026-10-08): the location line of the few cards whose group heading no longer names their place. */
+const locationOf=(href:string):string|undefined=>(projectLocations??=(JSON.parse(readFileSync(path.join(process.cwd(),'content/design/project-locations.json'),'utf8')) as {locations:Record<string,string>}).locations)[href]
 const US_STATES=['texa','neva']
 
-type Card={key:string;href:string;title:string;meta:string;year?:string;photo?:MediaRef;flag?:MediaRef}
+type Card={key:string;href:string;title:string;meta:string;location?:string;year?:string;photo?:MediaRef;flag?:MediaRef}
 type Country={key:string;anchor:string;heading:string;cards:Card[]}
 
 const plain=(r?:RichText)=>(r??[]).map(x=>x.text).join('').replace(/\s+/g,' ').trim()
@@ -53,9 +58,16 @@ export function portfolioView(model:SalmonFamilyPageModel){
     walk(section.root,(x,path)=>{if(x.type==='iconCard'&&x.href?.startsWith('/all-projects/'))cards.push(cardFor(x,path))})
     return {key:section.key,anchor,heading,cards}
   }).filter(c=>c.cards.length)
+  // OGCS project titles (CT 2026-10-08): Freeport, Texas and Nevada are places in the United States, not country groups: their cards
+  // move under the one "United States" section (each carries a location line); no state sections remain.
   const states=US_STATES.map(a=>countries.find(c=>c.anchor===a)).filter((c):c is Country=>!!c)
-  const ordered=countries.filter(c=>!US_STATES.includes(c.anchor)).flatMap(c=>c.anchor==='usa'?[c,...states]:[c])
-  if(!ordered.some(c=>c.anchor==='usa'))ordered.push(...states)
+  const usa=countries.find(c=>c.anchor==='usa')
+  const ordered=countries.filter(c=>!US_STATES.includes(c.anchor))
+  if(usa)usa.cards.push(...states.flatMap(s=>s.cards))
+  else ordered.push(...states)
+  for(const c of ordered)for(const card of c.cards){const location=locationOf(card.href);if(location)card.location=location}
+  // A country that has projects but no chip in the source (Singapore) gets one, with the flag of its first card.
+  for(const c of ordered)if(!chips.some(x=>x.href==='#'+c.anchor)&&c.anchor!=='usa'&&c.cards[0]?.flag)chips.push({key:'chip-'+c.anchor,href:'#'+c.anchor,label:c.heading,flag:c.cards[0].flag})
   return {h1:plain(h1.text),h1Key:h1.key,h2:plain(h2?.text),h2Key:h2?.key,intro:texts[0]??[],lead:texts[1]??[],chips,countries:ordered}
 }
 
@@ -66,12 +78,12 @@ function ProjectCard({card}:{card:Card}){
   const id=`r4-proj-${card.key.replace(/\W+/g,'-')}`
   return <li className={`dr4-proj${card.photo?'':' dr4-proj--text'}`} data-project-href={card.href}>
     {card.photo
-      ?<div className="dr4-proj-media"><img className="dr4-proj-img" src={deliverySrc(card.photo.src)} width={card.photo.width} height={card.photo.height} alt={card.photo.alt||card.title} loading="lazy" decoding="async" data-source-sha256={card.photo.sha256}/></div>
+      ?<div className={`dr4-proj-media${card.photo.framed?' dr4-proj-media--framed':''}`}><img className="dr4-proj-img" src={deliverySrc(card.photo.src)} width={card.photo.width} height={card.photo.height} alt={card.photo.alt||card.title} loading="lazy" decoding="async" data-source-sha256={card.photo.sha256}/></div>
       :<div className="dr4-proj-media dr4-proj-panel">{card.year?<span className="dr4-proj-year">{card.year}</span>:null}{card.meta?<p className="dr4-proj-panel-meta">{card.meta}</p>:null}</div>}
     <div className="dr4-proj-body">
       <div className="dr4-proj-top">{card.photo&&card.year?<span className="dr4-proj-year">{card.year}</span>:<span/>}{card.flag?<img className="dr4-proj-flag" src={deliverySrc(card.flag.src)} alt="" width={card.flag.width} height={card.flag.height} loading="lazy" decoding="async"/>:null}</div>
       <h3 className="dr4-proj-title" id={id}><a href={card.href}>{card.title}</a></h3>
-      {card.photo&&card.meta?<p className="dr4-proj-meta">{card.meta}</p>:null}
+      {card.photo&&card.meta?<p className="dr4-proj-meta">{card.meta}</p>:null}{card.location?<p className="dr4-proj-location">{card.location}</p>:null}
       <span className="dr4-proj-more" aria-hidden="true">View project ↗</span>
     </div>
   </li>
