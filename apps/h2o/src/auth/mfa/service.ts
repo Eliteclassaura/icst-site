@@ -1,8 +1,10 @@
 import type { Payload } from 'payload'
 import { addVerifiedSession, claimRecoveryCode, claimStep, countFailure } from './atomic'
 import { writeSecurityAudit } from './audit'
+import { revokeAllDevices } from './devices'
 import { MFA_CLEARED } from './fields'
 import { decryptSecret, encryptSecret, hashRecoveryCode } from './keys'
+import { verifyEmailCode } from './email-code'
 import { attemptsLeft, lockMessage, wrongCodeMessage } from './ux'
 import { generateRecoveryCodes, generateSecret, normaliseRecoveryCode, otpauthUri, stepAt, verifyTotp } from './totp'
 
@@ -143,6 +145,34 @@ export async function verifySecondFactor(payload: Payload, u: MfaUser, sid: stri
 }
 
 /**
+ * MFA-2: sign-in with a code sent by email (non-admin users who already have two-factor set up; admins are refused in
+ * `verifyEmailCode`). Shares the sign-in lock and the 5-try counter with the app code. A passed code verifies the
+ * session exactly as an app code does; it never counts as step-up (`confirmStepUp` takes only a fresh app code).
+ */
+export async function verifySecondFactorByEmail(payload: Payload, u: MfaUser, sid: string, code: string, now = new Date()): Promise<MfaOutcome> {
+  if (u.mfa_enabled !== true) return { ok: false, code: 'NOT_ENROLLED', message: 'Two-factor is not set up yet.' }
+  const wait = locked(u, now)
+  if (wait) return { ok: false, code: 'LOCKED', message: lockMessage(wait), retryAfterSeconds: wait }
+  const r = await verifyEmailCode(payload, u as never, code, { sid, now })
+  if (!r.ok) {
+    if (r.reason === 'INELIGIBLE') return { ok: false, code: 'MISMATCH', message: 'Email codes are not available for this account. Use your authenticator app.' }
+    if (r.reason === 'LOCKED') return { ok: false, code: 'LOCKED', message: lockMessage(r.retryAfterSeconds ?? LOCK_MS / 1000), retryAfterSeconds: r.retryAfterSeconds }
+    await writeSecurityAudit(payload, { action: 'mfa-failed', userId: String(u.id), actorId: String(u.id), detail: { reason: 'EMAIL_CODE', failures: MAX_FAILURES - (r.attemptsLeft ?? 0) } })
+    const left = r.attemptsLeft ?? MAX_FAILURES
+    return { ok: false, code: 'MISMATCH', message: `That code is not right, or it has expired. Check the latest email, or send a new code.${left <= 3 ? ` ${left} ${left === 1 ? 'try' : 'tries'} left before a ${LOCK_MS / 60_000}-minute pause.` : ''}`, attemptsLeft: left }
+  }
+  await addVerifiedSession(payload, u.id, sid, now)
+  await writeSecurityAudit(payload, { action: 'mfa-email-verified', userId: String(u.id), actorId: String(u.id) })
+  return { ok: true }
+}
+
+/** MFA-2: a remembered device (checked by the caller with `isRememberedDevice`) verifies this session. Sign-in only. */
+export async function verifySessionByDevice(payload: Payload, u: MfaUser, sid: string, now = new Date()): Promise<void> {
+  await addVerifiedSession(payload, u.id, sid, now)
+  await writeSecurityAudit(payload, { action: 'mfa-device-used', userId: String(u.id), actorId: String(u.id) })
+}
+
+/**
  * Patch C step-up: sensitive settings (sending profiles) need a fresh app code, entered in this session within the
  * last 5 minutes. App codes only — a recovery code is for a lost phone, not for confirming a change. Wrong codes count
  * towards the same lock-out as sign-in; a code is never accepted twice (`mfa_last_step`).
@@ -175,6 +205,7 @@ export async function confirmStepUp(payload: Payload, u: MfaUser, sid: string, c
 /** Break-glass and admin reset share this: clear the enrolment (the user enrols again at next sign-in). */
 export async function clearMfa(payload: Payload, userId: string | number, by: 'admin' | 'break-glass', actorId: string | null): Promise<void> {
   await save(payload, userId, { ...MFA_CLEARED })
+  await revokeAllDevices(payload, userId)
   await writeSecurityAudit(payload, { action: 'mfa-reset', userId: String(userId), actorId, detail: { by } })
 }
 

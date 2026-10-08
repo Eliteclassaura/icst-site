@@ -7,5 +7,11 @@ export type MfaState = {
   recoveryRemaining?: number
   next?: string
   nonce?: number
+  /** MFA-2: the code was sent by email (the form switches to the email-code field). */
+  emailSent?: boolean
+  /** MFA-2: when the emailed code stops working (ISO) and how long until another can be requested. */
+  expiresAt?: string
+  cooldownSeconds?: number
+  maskedEmail?: string
 }
 export const INITIAL_MFA_STATE: MfaState = { ok: false, message: '' }

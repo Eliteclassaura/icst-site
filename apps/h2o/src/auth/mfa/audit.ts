@@ -6,6 +6,7 @@ import type { Payload } from 'payload'
  * code and never blocks sign-in (the same posture as the CRM audit adapter).
  */
 export type MfaAuditAction = 'mfa-enrolled' | 'mfa-verified' | 'mfa-failed' | 'mfa-locked' | 'mfa-recovery-used' | 'mfa-reset' | 'mfa-stepup'
+  | 'mfa-email-sent' | 'mfa-email-verified' | 'mfa-device-remembered' | 'mfa-device-used' | 'mfa-devices-revoked'
 
 export async function writeSecurityAudit(
   payload: Payload,

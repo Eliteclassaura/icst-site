@@ -1,14 +1,16 @@
 import config from '@payload-config'
 import type { Metadata } from 'next'
-import { headers } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
+import { DEVICE_COOKIE, isRememberedDevice } from '../../../../auth/mfa/devices'
+import { emailCodeEligible } from '../../../../auth/mfa/eligibility'
 import { pendingSession } from '../../../../auth/mfa/guard'
 import { safeNext } from '../../../../auth/mfa/next'
 import { qrSvg } from '../../../../auth/mfa/qr'
-import { beginEnrolment } from '../../../../auth/mfa/service'
+import { beginEnrolment, verifySessionByDevice } from '../../../../auth/mfa/service'
 import { groupKey } from '../../../../auth/mfa/ux'
-import { EnrolFlow, VerifyForm } from './MfaForm'
+import { DevicesLink, EnrolFlow, VerifyForm } from './MfaForm'
 import { ADMIN_BRAND_ALT, ADMIN_LOGO } from '../../../../brand/admin-brand'
 
 /** BRAND-ADMIN-1's logo; DARK-1 (R17 rebase): the white logo on the dark theme (crm.css shows one of the two). */
@@ -47,10 +49,17 @@ export default async function MfaPage({ searchParams }: { searchParams: Promise<
               Continue
             </a>
           </p>
+          {emailCodeEligible(pending.user) ? <DevicesLink /> : null}
         </main>
       </div>
     )
   const enrolled = pending.user.mfa_enabled === true
+  // MFA-2: a device this person chose to remember (non-admins only) passes the second step without a code. The check
+  // re-reads the account's roles, so a device remembered before a promotion to admin no longer works.
+  if (enrolled && (await isRememberedDevice(payload, pending.user, (await cookies()).get(DEVICE_COOKIE)?.value))) {
+    await verifySessionByDevice(payload, pending.user, pending.sid)
+    redirect(`/crm/mfa/done/?next=${encodeURIComponent(next)}`)
+  }
   const setup = enrolled ? null : await beginEnrolment(payload, pending.user)
   const key = setup && 'secret' in setup ? setup : null
   const account = String(pending.user.email ?? '')
@@ -81,7 +90,7 @@ export default async function MfaPage({ searchParams }: { searchParams: Promise<
               Signing in as <strong>{account}</strong>. Enter the 6-digit code your authenticator app shows now. Lost your phone?
               Use one of your recovery codes, or ask an admin to reset your two-factor.
             </p>
-            <VerifyForm next={next} />
+            <VerifyForm next={next} canEmail={enrolled && emailCodeEligible(pending.user)} />
           </>
         )}
         <p className="c-mfa-noprint">

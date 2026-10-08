@@ -7,11 +7,12 @@ import { createCipheriv, createDecipheriv, createHmac, hkdfSync, randomBytes, ti
  *   - `enc`    AES-256-GCM for the TOTP secrets at rest (a database dump alone cannot produce codes)
  *   - `codes`  HMAC-SHA256 for recovery codes (stored as digests only)
  *   - `cookie` HMAC-SHA256 for the `h2o-mfa` routing cookie (UX routing only; the server checks the session itself)
+ *   - `email-code` / `device` (MFA-2) HMAC-SHA256 for the emailed code digests and the remembered-device cookie
  *
  * Changing the root secret makes every enrolment unreadable: everyone re-enrols (an admin resets them). The runbook
  * says so; `H2O_MFA_KEY` exists so `PAYLOAD_SECRET` can rotate without that.
  */
-type Purpose = 'enc' | 'codes' | 'cookie'
+type Purpose = 'enc' | 'codes' | 'cookie' | 'email-code' | 'device'
 const cache = new Map<string, Buffer>()
 
 function root(): string {

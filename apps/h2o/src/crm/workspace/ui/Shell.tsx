@@ -155,6 +155,12 @@ export async function Shell({
         <div className="c-side-foot">
           <strong>{userName}</strong>
           {isAdmin ? 'Admin' : 'Sales'} · <a href="/admin/logout/">Sign out</a>
+          {isAdmin ? null : (
+            <>
+              {' · '}
+              <a href="/crm/mfa/devices/">Devices</a>
+            </>
+          )}
           <ThemeSwitch />
         </div>
       </nav>

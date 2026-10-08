@@ -303,6 +303,10 @@ export interface User {
    * Admin: tick and save to reset this person’s two-factor (lost phone, no recovery codes). They set it up again at their next sign-in. Audited.
    */
   mfa_reset?: boolean | null;
+  /**
+   * Admin: tick and save to forget every device this person chose to remember. They enter a code again at their next sign-in. Audited.
+   */
+  mfa_devices_clear?: boolean | null;
   mfa_secret?: string | null;
   mfa_pending_secret?: string | null;
   mfa_pending_at?: string | null;
@@ -336,6 +340,9 @@ export interface User {
     | number
     | boolean
     | null;
+  mfa_email_sends?: number | null;
+  mfa_email_window_start?: string | null;
+  mfa_email_last_sent?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -4397,6 +4404,7 @@ export interface UsersSelect<T extends boolean = true> {
   mfa_enabled?: T;
   mfa_enrolled_at?: T;
   mfa_reset?: T;
+  mfa_devices_clear?: T;
   mfa_secret?: T;
   mfa_pending_secret?: T;
   mfa_pending_at?: T;
@@ -4406,6 +4414,9 @@ export interface UsersSelect<T extends boolean = true> {
   mfa_failures?: T;
   mfa_locked_until?: T;
   mfa_stepup?: T;
+  mfa_email_sends?: T;
+  mfa_email_window_start?: T;
+  mfa_email_last_sent?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
