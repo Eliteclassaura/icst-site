@@ -5,6 +5,7 @@ import {renderQuoteAction,suppressedDuplicate} from '../content/rfq-controls'
 import {Testimonials} from './HomeTestimonials'
 import {AuthorityEditorial} from './AuthorityEditorial'
 import {mathNodes,shortcodeNodes} from './math-text'
+import {articleImageAlt,isDroppedArticleImage} from './article-images'
 import {articleByline,articleDisplayTitle,articleHeadingNodes} from './wave4'
 import {articleMetadataTitle} from './article-metadata'
 import {R2Discovery} from './R2Discovery'
@@ -91,6 +92,7 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   // SEO-CONTENT-1: a list item or table row emptied by a ruled removal renders nothing (no stray bullet marker, no blank row).
   if((node.tag==='li'||node.tag==='tr')&&!hasVisibleContent(node))return null
   if(isEmptyTextBlock(node))return null
+  if(isDroppedArticleImage(doc,node))return null
   if(doc.type==='posts'&&/(?:^|\s)elementor-widget-post-info(?:\s|$)/.test(node.attrs.class??'')){
     if(suppressSourceByline)return null
     const byline=articleByline(doc)
@@ -105,7 +107,7 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   const attrs=node.attrs
   // R1B: an editor-uploaded Payload media image (content slot) renders from its own public media URL.
   if(tag==='img'&&attrs['data-payload-media']&&/^\/api\/media\/file\/[A-Za-z0-9._-]+$/.test(attrs.src??''))return createElement('img',{key,src:attrs.src,alt:attrs.alt??'','data-payload-media':attrs['data-payload-media'],width:attrs.width?Number(attrs.width):undefined,height:attrs.height?Number(attrs.height):undefined,loading:'lazy',style:{maxWidth:'100%',height:'auto'}})
-  if(tag==='img')return sourceImage(attrs['data-src']||attrs.src||'',attrs.alt,key,doc)
+  if(tag==='img')return sourceImage(attrs['data-src']||attrs.src||'',articleImageAlt(doc,node)??attrs.alt,key,doc)
   const props:Record<string,unknown>={key,'data-source-node':key}
   if(attrs.id)props.id=attrs.id
   if(attrs.dir)props.dir=attrs.dir

@@ -1365,9 +1365,12 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
 }
 
 .global-chrome .sp-footer-locations a {
+  align-items: center;
   color: var(--sp-blue);
-  display: inline-block;
-  padding-block: 4px;
+  display: inline-flex;
+  min-block-size: 44px;
+  min-inline-size: 44px;
+  padding-inline: 4px;
   text-decoration: none;
 }
 

@@ -112,7 +112,7 @@ describe('published pages',()=>{
   },240000)
   it('the footer Locations links take the footer link blue, not the legacy pink',()=>{
     const css=readFileSync(path.join(APP,'src/app/(site)/design-r5.css'),'utf8')
-    expect(css).toMatch(/\.global-chrome \.sp-footer-locations a \{\s*color: var\(--sp-blue\);/)
+    expect(css).toMatch(/\.global-chrome \.sp-footer-locations a \{[^}]*color: var\(--sp-blue\);/)
   })
   it('the math styles use tokens and logical properties only',()=>{
     const css=readFileSync(path.join(APP,'src/app/(site)/design-r5.css'),'utf8')
