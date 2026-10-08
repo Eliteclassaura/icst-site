@@ -3,6 +3,8 @@ import {LauncherPlacement} from './LauncherPlacement'
 import path from 'node:path'
 import {contactOffices} from './contact'
 import type {ReactNode} from 'react'
+import {LanguageBar,LanguageMenu} from './lang/LanguageMenu'
+import {languageMenuFor} from './lang/lang-data'
 import {ClientSocialLinks} from './ClientReview'
 import {pageCopy} from './page-copy'
 import type {CohortPage} from './cohort'
@@ -20,11 +22,11 @@ export const quoteAction=(mountId:'header_action'|'footer_rfq_band',page:CohortP
   if(routePath)return <span className={wrapperClass}><RfqMount mountId={mountId} routePath={routePath}/></span>
   return null
 }
-export function LuxuryHeader({page=null,routePath,product}:{page?:CohortPage|null;routePath?:string;product?:SalmonDocument;salmonParity?:boolean}){return <div className="salmon-copy global-chrome"><LauncherPlacement/><header className="lux-header">
+export function LuxuryHeader({page=null,routePath,product}:{page?:CohortPage|null;routePath?:string;product?:SalmonDocument;salmonParity?:boolean}){const language=languageMenuFor(routePath??'/');return <div className="salmon-copy global-chrome"><LauncherPlacement/><header className="lux-header">
   <a href="/" className="lux-logo" aria-label="ICS homepage"><img src="/media/salmon/a8f4b38d0f7ede838b277c9bcd00a3b75a268ce23a5fccfb86ec263774e3b844.png" width="196" height="50" alt="ICS — Industrial Cooling Solutions"/></a>
-  <SiteNavigation mobileQuote={quoteAction('header_action',page,'lux-menu-rfq',routePath,product)} salmonParity groups={navigationGroups(renderableChrome())}/>
+  <SiteNavigation mobileQuote={quoteAction('header_action',page,'lux-menu-rfq',routePath,product)} salmonParity groups={navigationGroups(renderableChrome())} languageDesktop={<LanguageMenu data={language} variant="desktop"/>} languageMobile={<LanguageMenu data={language} variant="mobile"/>}/>
   {quoteAction('header_action',page,'lux-header-rfq',routePath,product)}
-</header></div>}
+</header><LanguageBar data={language}/></div>}
 export function LuxurySearch({label,submit}:{label?:ReactNode;submit?:ReactNode}){return <form className="lux-search" action="/search/" role="search"><label className={label?'lux-search-label':'sr-only'} htmlFor="lux-query">{label??'Search ICS'}</label><input id="lux-query" name="q" type="search" placeholder="Search" required maxLength={200}/><button type="submit">{submit??'Search'}</button></form>}
 /** Main's accepted four-column presentation with Runtime's published chrome content. */
 type FooterFlag={office:string;src:string;sha256:string;width:number;height:number;frameZoom:number}

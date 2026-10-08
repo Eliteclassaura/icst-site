@@ -99,6 +99,29 @@ export function hreflangAlternatesFor(pathname: string, now = Date.now()): Recor
   }
   return alternatesCache.byKey.get(pathKey(pathname))
 }
+/**
+ * LANG-1: the same hreflang alternates, computed from the repository's release ledger (content/release/route-ledger.json) with the
+ * identical sitemap policy and redirect guard, for renders that have no published Payload snapshot (static export, tests, plain
+ * dev). Live Payload renders use hreflangAlternatesFor.
+ */
+let repoAlternates: Map<string, Record<string, string>> | null = null
+export function repositoryAlternatesFor(pathname: string): Record<string, string> | undefined {
+  if (!repoAlternates) {
+    const ledger = JSON.parse(readFileSync(path.join(process.cwd(), 'content/release/route-ledger.json'), 'utf8')) as Ledger
+    const entries = sitemapEntries({
+      rows: ledger.routes,
+      origin: PUBLIC_ORIGIN,
+      redirected: new Set(ledger.redirects.map((r) => pathKey(r.source))),
+      gone: GONE_PATHS,
+      noindexFollow: NOINDEX_FOLLOW_PATHS,
+      noindexFollowPath: productTagNoindex,
+      locale: localeData(),
+    })
+    repoAlternates = new Map(entries.filter((e) => e.alternates).map((e) => [e.key, Object.fromEntries(e.alternates!.map((a) => [a.hreflang, a.url]))]))
+  }
+  return repoAlternates.get(pathKey(pathname))
+}
+
 export const resetAlternatesCache = (): void => {
   alternatesCache = null
 }
