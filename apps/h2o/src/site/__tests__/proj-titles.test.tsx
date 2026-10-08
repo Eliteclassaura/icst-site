@@ -29,7 +29,8 @@ describe('/all-projects/ grouping after the OGCS project titles',()=>{
     expect(sg.cards.find(c=>c.href==='/all-projects/lanxess/')!.location).toBe('Jurong Island, Singapore')
     const chip=v.chips.find(c=>c.href==='#'+sg.anchor)
     expect(chip,'a chip for the Singapore section').toBeTruthy()
-    expect(v.chips.map(c=>c.label)).toContain(sg.heading)
+    expect(sg.heading).toBe('Jurong Island, Singapore') // OGCS QF1-22
+    expect(chip!.label).toBe('Singapore') // the chip names the country, not the full group heading
   })
   it('every chip anchor exists as a section; every registered project still has exactly one card',()=>{
     const v=view()

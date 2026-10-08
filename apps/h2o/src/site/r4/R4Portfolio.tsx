@@ -27,6 +27,10 @@ let projectLocations:Record<string,string>|undefined
 /** PROJ-TITLES (OGCS 2026-10-08): the location line of the few cards whose group heading no longer names their place. */
 const locationOf=(href:string):string|undefined=>(projectLocations??=(JSON.parse(readFileSync(path.join(process.cwd(),'content/design/project-locations.json'),'utf8')) as {locations:Record<string,string>}).locations)[href]
 const US_STATES=['texa','neva']
+type ProjectTitles={titles:Record<string,string>;meta:Record<string,{find:string;replace:string}>;headings:Record<string,string>}
+let projectTitles:ProjectTitles|undefined
+/** QA-FIX-1 (OGCS rows QF1-01, QF1-05..22): display casing of the card titles, the group headings and two card lines; the source records stay as they are. */
+const titlesOf=():ProjectTitles=>projectTitles??=JSON.parse(readFileSync(path.join(process.cwd(),'content/design/project-titles.json'),'utf8')) as ProjectTitles
 
 type Card={key:string;href:string;title:string;meta:string;location?:string;year?:string;photo?:MediaRef;flag?:MediaRef}
 type Country={key:string;anchor:string;heading:string;cards:Card[]}
@@ -65,9 +69,17 @@ export function portfolioView(model:SalmonFamilyPageModel){
   const ordered=countries.filter(c=>!US_STATES.includes(c.anchor))
   if(usa)usa.cards.push(...states.flatMap(s=>s.cards))
   else ordered.push(...states)
+  const names=titlesOf()
+  for(const c of ordered){
+    c.heading=names.headings[c.heading]??c.heading
+    for(const card of c.cards){
+      card.title=names.titles[card.href]??card.title
+      const m=names.meta[card.href];if(m)card.meta=card.meta.split(m.find).join(m.replace)
+    }
+  }
   for(const c of ordered)for(const card of c.cards){const location=locationOf(card.href);if(location)card.location=location}
   // A country that has projects but no chip in the source (Singapore) gets one, with the flag of its first card.
-  for(const c of ordered)if(!chips.some(x=>x.href==='#'+c.anchor)&&c.anchor!=='usa'&&c.cards[0]?.flag)chips.push({key:'chip-'+c.anchor,href:'#'+c.anchor,label:c.heading,flag:c.cards[0].flag})
+  for(const c of ordered)if(!chips.some(x=>x.href==='#'+c.anchor)&&c.anchor!=='usa'&&c.cards[0]?.flag)chips.push({key:'chip-'+c.anchor,href:'#'+c.anchor,label:c.heading.split(',').at(-1)!.trim(),flag:c.cards[0].flag})
   return {h1:plain(h1.text),h1Key:h1.key,h2:plain(h2?.text),h2Key:h2?.key,intro:texts[0]??[],lead:texts[1]??[],chips,countries:ordered}
 }
 

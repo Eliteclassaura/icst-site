@@ -1,0 +1,34 @@
+{
+ "authority": "OGCS QA-FIX-1 rows QF1-01, QF1-05..QF1-22 (tsv 69a223f6, seal 4ca4830e; CT 2026-10-08): display text of the /all-projects/ cards and group headings, keyed by the public project path or the exact source text. URLs and slugs are unchanged.",
+ "titles": {
+  "/all-projects/kbr/": "KBR",
+  "/all-projects/pvc-plant-freeport-texas/": "Shintech PVC Plant, Freeport, Texas",
+  "/all-projects/empire-farms/": "Empire Farms",
+  "/all-projects/cooling-tower-replacement/": "Palinpinon Cooling Tower Replacement",
+  "/all-projects/cawayan-bacman-3/": "Cawayan BacMan 3",
+  "/all-projects/bacman-1-2/": "BacMan 1 & 2",
+  "/all-projects/edc-n2n-relocation-project/": "EDC N2N Relocation Project",
+  "/all-projects/edc/": "EDC",
+  "/all-projects/cooling-tower-disaster-recovery/": "Cooling Tower Disaster Recovery",
+  "/all-projects/mak-ban-6/": "Mak-Ban 6",
+  "/all-projects/thailand-projects/": "Thailand Projects",
+  "/all-projects/pttcsp/": "PTT GSP",
+  "/all-projects/ptt-csp3/": "PTT GSP3",
+  "/all-projects/patuha/": "Patuha",
+  "/all-projects/lanxess/": "Lanxess"
+ },
+ "meta": {
+  "/all-projects/thailand-projects/": {
+   "find": "thailand",
+   "replace": "Thailand"
+  },
+  "/all-projects/vinachem/": {
+   "find": "Boa Thank District",
+   "replace": "Bao Thang District"
+  }
+ },
+ "headings": {
+  "United states": "United States",
+  "Jurong Island Singapore": "Jurong Island, Singapore"
+ }
+}

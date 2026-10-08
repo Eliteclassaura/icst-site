@@ -76,7 +76,7 @@ describe('R4 pages render the page’s own source text in the shared system',()=
     expect(norm(html)).not.toContain('Need to improve your ACHE performance by up to 40%')
     expect(html).not.toMatch(/32% Reduction|13% Increase/)
     expect((html.match(/class="dr4-chart"/g)??[])).toHaveLength(2)
-    expect(html).toContain('Crew handling stacked cooling tower fill packs on an industrial site')
+    expect(html).toContain('Workers handling stacked black cooling tower fill packs on a hillside industrial site')
   })
   it('Resources keeps its thirteen documents, three pathways and the hub hero',async()=>{
     const html=await render('/resources/')
