@@ -1,5 +1,5 @@
 import type { Payload } from 'payload'
-import { claimRecoveryCode, claimStep, countFailure } from './atomic'
+import { addVerifiedSession, claimRecoveryCode, claimStep, countFailure } from './atomic'
 import { writeSecurityAudit } from './audit'
 import { MFA_CLEARED } from './fields'
 import { decryptSecret, encryptSecret, hashRecoveryCode } from './keys'
@@ -49,13 +49,6 @@ export function isSessionVerified(u: Doc, sid: string | undefined | null): boole
 
 async function save(payload: Payload, id: string | number, data: Doc) {
   await payload.update({ collection: 'users', id, data: data as never, ...sys, context: { mfaService: true } })
-}
-
-/** The verified-session list with this sid added; dead sessions dropped, so the list never grows without bound. */
-const withSession = (u: Doc, sid: string) => {
-  const live = liveSessionIds(u)
-  const kept = ((Array.isArray(u.mfa_sessions) ? u.mfa_sessions : []) as Doc[]).filter((s) => live.has(String(s.sid)) && String(s.sid) !== sid)
-  return [...kept, { sid, at: new Date().toISOString() }]
 }
 
 function locked(u: Doc, now: Date): number | null {
@@ -112,11 +105,8 @@ export async function confirmEnrolment(payload: Payload, u: MfaUser, sid: string
     mfa_pending_secret: null,
     mfa_pending_at: null,
     mfa_recovery: { hashes: codes.map(hashRecoveryCode) },
-    mfa_last_step: check.step,
-    mfa_sessions: withSession(u, sid),
-    mfa_failures: 0,
-    mfa_locked_until: null,
   })
+  await addVerifiedSession(payload, u.id, sid, now)
   await writeSecurityAudit(payload, { action: 'mfa-enrolled', userId: String(u.id), actorId: String(u.id), detail: { recoveryCodes: codes.length } })
   return { ok: true, recoveryCodes: codes }
 }
@@ -137,7 +127,7 @@ export async function verifySecondFactor(payload: Payload, u: MfaUser, sid: stri
       if (lockWait) return { ok: false, code: 'LOCKED', message: lockMessage(lockWait), retryAfterSeconds: lockWait }
       return failure(payload, u, now, 'MISMATCH')
     }
-    await save(payload, u.id, { mfa_sessions: withSession(u, sid), mfa_failures: 0, mfa_locked_until: null })
+    await addVerifiedSession(payload, u.id, sid, now)
     await writeSecurityAudit(payload, { action: 'mfa-recovery-used', userId: String(u.id), actorId: String(u.id), detail: { recoveryRemaining: remaining } })
     return { ok: true, recoveryRemaining: remaining }
   }
@@ -147,7 +137,7 @@ export async function verifySecondFactor(payload: Payload, u: MfaUser, sid: stri
   const check = verifyTotp(secret, code, now, lastStep)
   if (!check.ok) return failure(payload, u, now, check.reason)
   if (!(await claimStep(payload, u.id, check.step, now))) return lostClaim(payload, u, now)
-  await save(payload, u.id, { mfa_last_step: check.step, mfa_sessions: withSession(u, sid), mfa_failures: 0, mfa_locked_until: null })
+  await addVerifiedSession(payload, u.id, sid, now)
   await writeSecurityAudit(payload, { action: 'mfa-verified', userId: String(u.id), actorId: String(u.id) })
   return { ok: true }
 }
@@ -177,7 +167,7 @@ export async function confirmStepUp(payload: Payload, u: MfaUser, sid: string, c
   const check = verifyTotp(secret, code, now, lastStep)
   if (!check.ok) return failure(payload, u, now, check.reason)
   if (!(await claimStep(payload, u.id, check.step, now))) return lostClaim(payload, u, now)
-  await save(payload, u.id, { mfa_last_step: check.step, mfa_stepup: { sid, at: now.toISOString() }, mfa_failures: 0, mfa_locked_until: null })
+  await save(payload, u.id, { mfa_stepup: { sid, at: now.toISOString() } })
   await writeSecurityAudit(payload, { action: 'mfa-stepup', userId: String(u.id), actorId: String(u.id) })
   return { ok: true }
 }
