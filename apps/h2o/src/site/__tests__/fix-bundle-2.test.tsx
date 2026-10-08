@@ -52,7 +52,8 @@ describe('HOME-FIX',()=>{
     }
   })
   it('M5: every product photo in a card is named by its card; no content image is left without alt',()=>{
-    const empty=[...main.matchAll(/<img\b[^>]*alt=""[^>]*>/g)].length
+    // the owner's featured testimonials carry three decorative quote marks (alt="" aria-hidden, TESTIMONIALS-RESTORE-1.1): not content images
+    const empty=[...main.matchAll(/<img\b[^>]*alt=""[^>]*>/g)].filter(m=>!/client-testimonial-quote-mark/.test(m[0])).length
     expect(empty).toBeLessThanOrEqual(3) // the three decorative twins of named links (aria-hidden)
     expect(main).toMatch(/<img[^>]*alt="Sumitomo Hansen P4 Gearboxes"/)
   })

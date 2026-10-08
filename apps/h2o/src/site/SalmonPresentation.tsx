@@ -9,6 +9,7 @@ import {ownerText,provenanceHref,salmonDocument,salmonMedia,salmonMediaPath,salm
 import {salmonFamilyFor,salmonFamilyModel} from './salmon-family-adapter'
 import {portfolioView} from './r4/R4Portfolio'
 import {SalmonTabsController} from './SalmonTabsController'
+import {ClientTestimonials,clientReviewAuthority} from './ClientReview'
 import {heroQuoteAction,renderQuoteAction} from '../content/rfq-controls'
 import {heroActionFor,heroSecondaryHref} from './hero-actions'
 
@@ -202,6 +203,8 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument,inLoop:false|s
  return createElement(tag,props,...(voidTags.has(tag)?[]:children))
 }
 
+const testimonialSections=new Set(clientReviewAuthority.testimonialOverride.sourceSections)
+const testimonialFirst=Number(clientReviewAuthority.testimonialOverride.sourceSections[0].split('.')[1])
 export function SalmonPresentation({doc}:{doc:SalmonDocument}){
  const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
  const home=doc.targetPath==='/'
@@ -210,7 +213,11 @@ export function SalmonPresentation({doc}:{doc:SalmonDocument}){
   <LuxuryHeader page={page} routePath={doc.targetPath} salmonParity/>
   <main id="main" className={`salmon-copy-main elementor elementor-${home?'48':'1230'} elementor-kit-5`} data-salmon-region="body">
    <SalmonTabsController/>
-   {doc.children.map((node,i)=>sourceNode(node,`body.${i}`,doc))}
+   {doc.children.map((node,i)=>{
+    // TESTIMONIALS-RESTORE-1.1: the owner-approved featured testimonials replace the three Elementor slides (body.13/15/17) at the first slide's position, inside the .figma-home scope that carries the owner's original split presentation.
+    if(home&&testimonialSections.has(`body.${i}`))return i===testimonialFirst?<div className="figma-home" key="client-testimonials"><ClientTestimonials/></div>:null
+    return sourceNode(node,`body.${i}`,doc)
+   })}
   </main>
   <LuxuryFooter page={page} routePath={doc.targetPath}/>
  </div>
