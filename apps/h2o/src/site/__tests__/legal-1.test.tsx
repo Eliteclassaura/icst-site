@@ -60,7 +60,7 @@ describe('the pages',()=>{
     // the nested provider list is a list inside a list item
     expect(privacy).toMatch(/<li><strong>Service providers<\/strong>[^<]*<ul><li><strong>Google Workspace<\/strong>/)
     expect(await render('/terms-of-use/')).toContain('<strong>Effective date:</strong> 9 October 2026')
-    expect(await render('/cookie-notice/')).toContain('<code>h2o.rfq.draft.v1</code>')
+    expect((await render('/cookie-notice/')).replace(/<wbr\/>/g,'')).toContain('<code>h2o.rfq.draft.v1</code>')
     const accessibility=await render('/accessibility/')
     expect(accessibility).toContain('We prepared this statement on 9 October 2026.')
     expect(accessibility).toContain('+662-661-7723')
@@ -116,7 +116,7 @@ describe('markdown-lite',()=>{
     // a table that can scroll sideways is a keyboard-reachable, named region (axe scrollable-region-focusable)
     expect(html).toContain('<div class="legal-table" role="region" aria-label="T, table" tabindex="0">')
     expect(html).toContain('<th scope="col">H</th>')
-    expect(html).toContain('<th scope="row">x</th><td>y</td>')
+    expect(html).toContain('<th scope="row">x</th><td data-label="I">y</td>')
   })
 })
 
@@ -144,7 +144,7 @@ describe('the footer carries all four legal links (owner via CT 2026-10-08)',()=
   })
   it('one row at every width: the row wraps and keeps its tap size (the 390 mobile footer is the same markup)',()=>{
     const css=readFileSync(path.join(APP,'src/app/(site)/design-r5.css'),'utf8')
-    expect(css).toMatch(/\.global-chrome \.sp-footer-legal a \{\s*padding-block: 4px;/)
+    expect(css).toMatch(/\.global-chrome \.sp-footer-legal a \{[^}]*min-block-size: 44px;/)
     expect(readFileSync(path.join(APP,'src/app/(site)/salmon-families.css'),'utf8')).toMatch(/\.global-chrome \.sp-footer-legal \{\s*display: flex;\s*flex-wrap: wrap;/)
   })
   it('each of the four answers: a page renders for every href (no 404)',async()=>{

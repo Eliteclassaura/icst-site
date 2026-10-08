@@ -1396,9 +1396,10 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
 }
 
 /* LEGAL-1: the legal pages as plain text on the R4 system (readable measure, headings as written, tables that scroll, not squeeze) */
-.legal-main {
+/* .luxury-site main resets padding at (0,1,1); the legal page needs its own gutter (16 px at 390) and top space (32 px at 390, 48 px at 1440) */
+.luxury-site .legal-main {
   background: var(--dr4-bg, var(--df-white));
-  padding-block: clamp(32px, 6vw, 80px);
+  padding-block: clamp(32px, 3.4vw, 48px) clamp(48px, 6vw, 80px);
   padding-inline: clamp(16px, 4vw, 48px);
 }
 
@@ -1452,7 +1453,8 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
 .legal-doc code {
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
   font-size: 0.92em;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
 .legal-table {
@@ -1483,7 +1485,54 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
   font-weight: 600;
 }
 
-/* the footer's legal row carries four links: they wrap and keep their tap size */
+/* the footer's legal row carries four links: they wrap and keep a 44 px tap target (as the Locations row) */
 .global-chrome .sp-footer-legal a {
-  padding-block: 4px;
+  align-items: center;
+  display: inline-flex;
+  min-block-size: 44px;
+  padding-inline: 4px;
+}
+
+/* a table on a phone reads as label/value rows, not a sideways scroller (the privacy offices, the cookie list) */
+@media (width <= 600px) {
+  .legal-table {
+    overflow-x: visible;
+  }
+
+  .legal-table table {
+    min-inline-size: 0;
+  }
+
+  .legal-table thead {
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .legal-table :is(table, tbody, tr, th, td) {
+    display: block;
+  }
+
+  .legal-table tr {
+    border-block-end: 1px solid var(--sp-line, var(--df-signal-soft));
+    padding-block: 12px;
+  }
+
+  .legal-table :is(th, td) {
+    border-block-end: 0;
+    padding: 0;
+  }
+
+  .legal-table td {
+    padding-block-start: 4px;
+  }
+
+  .legal-table td[data-label]::before {
+    color: var(--sp-muted, var(--df-muted));
+    content: attr(data-label) ': ';
+    font-weight: 600;
+  }
 }

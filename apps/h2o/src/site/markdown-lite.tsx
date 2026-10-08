@@ -7,6 +7,10 @@ import {Fragment,type ReactNode} from 'react'
  */
 const INLINE = /\*\*([^*]+)\*\*|`([^`]+)`|\[([^\]]+)\]\(([^)\s]+)\)/g
 
+/** A monospace name may wrap only after a dot ("h2o.rfq.draft.v1" never splits inside "v1"): a word-break opportunity follows each dot. */
+const breakAfterDots = (text: string, key: string): ReactNode[] =>
+  text.split('.').flatMap((part, i, all) => (i < all.length - 1 ? [`${part}.`, <wbr key={`${key}.w${i}`} />] : [part]))
+
 export function inline(text: string, key: string): ReactNode[] {
   const out: ReactNode[] = []
   let last = 0
@@ -15,7 +19,7 @@ export function inline(text: string, key: string): ReactNode[] {
     const from = m.index!
     if (from > last) out.push(text.slice(last, from))
     if (m[1] !== undefined) out.push(<strong key={`${key}.${n++}`}>{inline(m[1], `${key}.${n}`)}</strong>)
-    else if (m[2] !== undefined) out.push(<code key={`${key}.${n++}`}>{m[2]}</code>)
+    else if (m[2] !== undefined) out.push(<code key={`${key}.${n++}`}>{breakAfterDots(m[2], `${key}.${n}`)}</code>)
     else out.push(<a key={`${key}.${n++}`} href={m[4]!}>{m[3]}</a>)
     last = from + m[0].length
   }
@@ -97,7 +101,7 @@ export function markdownBlocks(source: string): ReactNode[] {
             </thead>
             <tbody>
               {rows.map((row, r) => (
-                <tr key={r}>{row.map((c, k) => (k === 0 ? <th scope="row" key={k}>{inline(c, `r${n}.${r}.${k}`)}</th> : <td key={k}>{inline(c, `r${n}.${r}.${k}`)}</td>))}</tr>
+                <tr key={r}>{row.map((c, k) => (k === 0 ? <th scope="row" key={k}>{inline(c, `r${n}.${r}.${k}`)}</th> : <td key={k} data-label={head[k]}>{inline(c, `r${n}.${r}.${k}`)}</td>))}</tr>
               ))}
             </tbody>
           </table>
