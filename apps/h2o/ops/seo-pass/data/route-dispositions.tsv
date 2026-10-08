@@ -49,3 +49,4 @@ path	routeId	action	redirect	canonical
 /commercial-cooling-towers/	LIVE-posts-5282	WITHDRAW_TO_REDIRECT	/legionella-control-in-industrial-cooling-towers/	
 /hospital-cooling-systems/	SALMON-posts-3880	WITHDRAW_TO_REDIRECT	/cooling-tower/	
 /product/vibration-switch-example/	SALMON-product-4753	WITHDRAW_TO_REDIRECT	/tower-hardware/	
+/product-category/uncategorized/	SALMON-product_cat-36	WITHDRAW_TO_REDIRECT	/cooling-tower-parts-online/	

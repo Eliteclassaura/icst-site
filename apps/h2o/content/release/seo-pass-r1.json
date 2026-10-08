@@ -56,6 +56,7 @@
     "/commercial-building-cooling-tower/": "/cooling-tower/",
     "/commercial-cooling-towers/": "/legionella-control-in-industrial-cooling-towers/",
     "/hospital-cooling-systems/": "/cooling-tower/",
-    "/product/vibration-switch-example/": "/tower-hardware/"
+    "/product/vibration-switch-example/": "/tower-hardware/",
+    "/product-category/uncategorized/": "/cooling-tower-parts-online/"
   }
 }

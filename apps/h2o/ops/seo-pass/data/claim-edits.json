@@ -1,5 +1,5 @@
 {
- "authority": "Control Tower ruling 2026-10-05 (option A + 保証→確保); recorded slot-fix text edits applied by apply-seo-pass (phase 6), before/after in slot-fixes.json; R2.1 (CT 2026-10-05): F1 product data corrections, OGCS template claims, C3/C4/C5 claims, unlink text edits; R2.2 (CT 2026-10-05): OGCS claims sweep R1 GATE+SHOULD rows with owner answers Q1–Q12 (row ids in `row`); CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows (row ids R2L10-*; About rows are code, content/design/about-page.json); R4 (CT 2026-10-07): OGCS R4 copy review, parts hub rows R4C-01…06 (row 7 KEEP) and the Dry Soda line R4C-07; R4 phase 2 (CT 2026-10-07): OGCS phase 2 copy review Air Coolers rows R4C-08…10 (page text) and R4C-11 (the restored-section heading, data/restored-sections.json); SEO-CONTENT-1 (CT 2026-10-07): OGCS SEO Deep R1 rulings + addendum (resealed fe4feb16): product HVAC applications bullets (rows SC1-P2-nn; SC1-P2-X extends the same rule to phrasings the table does not list), the ALU KEEP phrase (the approach table cell is in data/restored-sections.json), project fact-card typo (and its All Projects card copy) and the owner-directed BacMan wording, and the algae closing CTA (SC1-B-ALGAE); SEO-CONTENT-1 round 2 (CT 2026-10-08): OGCS staging QA tranche A (rows SC1-A-nnn; HVAC, guarantee wording, seminar), tranche B guide-about-cooling-tower HVAC row (SC1-B-050), OEM/stock location rows (SC1-L-nn), and the BacMan body paragraph (SC1-P7-BACMAN-BODY)",
+ "authority": "Control Tower ruling 2026-10-05 (option A + 保証→確保); recorded slot-fix text edits applied by apply-seo-pass (phase 6), before/after in slot-fixes.json; R2.1 (CT 2026-10-05): F1 product data corrections, OGCS template claims, C3/C4/C5 claims, unlink text edits; R2.2 (CT 2026-10-05): OGCS claims sweep R1 GATE+SHOULD rows with owner answers Q1–Q12 (row ids in `row`); CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows (row ids R2L10-*; About rows are code, content/design/about-page.json); R4 (CT 2026-10-07): OGCS R4 copy review, parts hub rows R4C-01…06 (row 7 KEEP) and the Dry Soda line R4C-07; R4 phase 2 (CT 2026-10-07): OGCS phase 2 copy review Air Coolers rows R4C-08…10 (page text) and R4C-11 (the restored-section heading, data/restored-sections.json); SEO-CONTENT-1 (CT 2026-10-07): OGCS SEO Deep R1 rulings + addendum (resealed fe4feb16): product HVAC applications bullets (rows SC1-P2-nn; SC1-P2-X extends the same rule to phrasings the table does not list), the ALU KEEP phrase (the approach table cell is in data/restored-sections.json), project fact-card typo (and its All Projects card copy) and the owner-directed BacMan wording, and the algae closing CTA (SC1-B-ALGAE); SEO-CONTENT-1 round 2 (CT 2026-10-08): OGCS staging QA tranche A (rows SC1-A-nnn; HVAC, guarantee wording, seminar), tranche B guide-about-cooling-tower HVAC row (SC1-B-050), OEM/stock location rows (SC1-L-nn), and the BacMan body paragraph (SC1-P7-BACMAN-BODY); SEO-CONTENT-2 piece B (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece B (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece C (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*); SEO-CONTENT-2 piece C (CT 2026-10-08): OGCS tranche B / approach-range / HVAC tranche C rows (SC1-B-*, SC1-C-*)",
  "edits": [
   {
    "path": "/inspect-cooling-tower-part-2/",
@@ -5645,6 +5645,1529 @@
    "slot": "body.1.1.1.1.3.3.1",
    "row": "SC1-P7-BACMAN-BODY",
    "reason": "OWNER-DIRECTED (use the live site: BacMan 1 & 2), CT approved 2026-10-08: the first body paragraph named \"BacMan 3\" while describing two 6-cell towers; aligned with the H1, SEO title and Project fact card (SC1-P7-BACMAN)."
+  },
+  {
+   "path": "/cooling-tower-performance-kpis/",
+   "op": "replace",
+   "run": 0,
+   "find": "Comfort cooling (HVAC):",
+   "replace": "",
+   "slot": "body.3.1.1.7.85.1",
+   "row": "SC1-B-AR-01a",
+   "reason": "OGCS approach-range fix (seal 8481f1ce), CT 2026-10-08, row AR-01a: The current split (comfort 5–7°F vs industrial 7–10°F) contradicts /cooling-tower-design-parameters/ (industrial 5–7°F / 5–8°F) and has no source. A single sourced range is engineering-correct and removes the HVAC label. SUPERSEDES tranche "
+  },
+  {
+   "path": "/cooling-tower-performance-kpis/",
+   "op": "replace",
+   "run": 1,
+   "find": " Typical design approach ranges from 5°F to 7°F (2.7°C to 3.8°C).",
+   "replace": "Typical design approach: Most cooling towers are designed for a 5°F to 10°F (2.8°C to 5.6°C) approach, with 7°F (3.9°C) a common design point. About 5°F (2.8°C) is the practical minimum.",
+   "slot": "body.3.1.1.7.85.1",
+   "row": "SC1-B-AR-01a",
+   "reason": "OGCS approach-range fix (seal 8481f1ce), CT 2026-10-08, row AR-01a: The current split (comfort 5–7°F vs industrial 7–10°F) contradicts /cooling-tower-design-parameters/ (industrial 5–7°F / 5–8°F) and has no source. A single sourced range is engineering-correct and removes the HVAC label. SUPERSEDES tranche "
+  },
+  {
+   "path": "/cooling-tower-performance-kpis/",
+   "op": "remove",
+   "find": "Industrial processes: Heavy industrial applications often design for a 7°F to 10°F (3.8°C to 5.5°C) approach.",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.85.3",
+   "row": "SC1-B-AR-01b",
+   "reason": ", CT 2026-10-08, row AR-01b: "
+  },
+  {
+   "path": "/cooling-tower-performance-kpis/",
+   "op": "replace",
+   "find": "usually operate with a 10°F to 15°F (5.5°C to 8.3°C) approach",
+   "replace": "are often designed for a wider approach, balancing tower size against capital cost",
+   "slot": "body.3.1.1.7.85.5",
+   "row": "SC1-B-AR-02",
+   "reason": "OGCS approach-range fix (seal 8481f1ce), CT 2026-10-08, row AR-02: No source for the 10–15°F figure. The trade-off statement is kept without unsourced numbers."
+  },
+  {
+   "path": "/cooling-tower-design-parameters/",
+   "op": "replace",
+   "find": "7°F (2.8°C to 3.9°C) for industrial applications",
+   "replace": "10°F (2.8°C to 5.6°C), with 7°F (3.9°C) a common design point",
+   "slot": "body.3.1.1.7.29",
+   "row": "SC1-B-AR-03",
+   "reason": "OGCS approach-range fix (seal 8481f1ce), CT 2026-10-08, row AR-03: Aligns with AR-01. The page's own worked example (a 7°F approach = \"standard, cost-effective\") and its \"5°F vs 10°F\" trade-off already assume 5–10°F."
+  },
+  {
+   "path": "/cooling-tower-market-growth/",
+   "op": "replace",
+   "find": "HVAC system",
+   "replace": "manufacturing plant",
+   "slot": "body.3.1.1.7.1",
+   "row": "SC1-B-001",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-001: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/cooling-tower-market-growth/",
+   "op": "replace",
+   "find": "commercial HVAC, light manufacturing,",
+   "replace": "light manufacturing",
+   "slot": "body.3.1.1.7.105.1",
+   "row": "SC1-B-002",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-002: HVAC (owner rule: no HVAC wording). Removes the commercial HVAC item."
+  },
+  {
+   "path": "/cooling-tower-market-growth/",
+   "op": "replace",
+   "find": "commercial HVAC, ",
+   "replace": "",
+   "slot": "body.3.1.1.7.109",
+   "row": "SC1-B-003",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-003: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-market-growth/",
+   "op": "replace",
+   "find": "and HVAC ",
+   "replace": "",
+   "slot": "body.3.1.1.7.145.3",
+   "row": "SC1-B-004",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-004: HVAC (owner rule: no HVAC wording). Removes HVAC. NOTE: this list names competitors (SPX, Johnson Controls). The competitor-name question is for CT."
+  },
+  {
+   "path": "/cooling-tower-market-growth/",
+   "op": "replace",
+   "find": "building technologies and cooling infrastructure, with a significant HVAC cooling tower portfolio",
+   "replace": "cooling infrastructure and equipment",
+   "slot": "body.3.1.1.7.145.9",
+   "row": "SC1-B-005",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-005: HVAC (owner rule: no HVAC wording). Removes building/HVAC framing. Same competitor note as the row above."
+  },
+  {
+   "path": "/cooling-tower-market-growth/",
+   "op": "replace",
+   "find": "commercial HVAC, ",
+   "replace": "",
+   "slot": "body.3.1.1.7.165",
+   "row": "SC1-B-006",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-006: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/frp-vs-steel-cooling-tower/",
+   "op": "replace",
+   "run": 1,
+   "find": " Relies on a sacrificial zinc coating (G-235). While cost-effective for low-cycle ",
+   "replace": " Relies on a sacrificial zinc coating (G-235). While cost-effective for low-cycle, clean-water service",
+   "slot": "body.3.1.1.7.19.1",
+   "row": "SC1-B-007",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-007: HVAC (owner rule: no HVAC wording). Same technical meaning."
+  },
+  {
+   "path": "/frp-vs-steel-cooling-tower/",
+   "op": "replace",
+   "run": 2,
+   "find": "HVAC systems",
+   "replace": "",
+   "slot": "body.3.1.1.7.19.1",
+   "row": "SC1-B-007",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-007: HVAC (owner rule: no HVAC wording). Same technical meaning."
+  },
+  {
+   "path": "/frp-vs-steel-cooling-tower/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Scenario B: High-Precision HVAC Systems",
+   "replace": "Scenario B: Mission-Critical Facilities",
+   "slot": "body.3.1.1.7.63",
+   "row": "SC1-B-008",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-008: HVAC (owner rule: no HVAC wording). The body names hospitals and data centers (leak-proof requirement)."
+  },
+  {
+   "path": "/cooling-tower-rebuild-signs-benefits/",
+   "op": "replace",
+   "find": ", power plants, and large-scale HVAC systems",
+   "replace": " and power plants",
+   "slot": "body.3.1.1.7.1",
+   "row": "SC1-B-009",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-009: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/data-center-cooling-solutions/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "mechanical",
+   "slot": "body.3.1.1.7.41",
+   "row": "SC1-B-010",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-010: HVAC (owner rule: no HVAC wording). Same meaning."
+  },
+  {
+   "path": "/data-center-cooling-solutions/",
+   "op": "replace",
+   "run": 1,
+   "find": "HVAC solutions",
+   "replace": "building-services equipment is",
+   "slot": "body.3.1.1.7.67",
+   "row": "SC1-B-011",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-011: HVAC (owner rule: no HVAC wording). Keeps the contrast; the next sentence already says \"traditional building services\"."
+  },
+  {
+   "path": "/data-center-cooling-solutions/",
+   "op": "replace",
+   "run": 2,
+   "find": " are no longer sufficient for the demands of mission-critical infrastructure. A specialized approach is necessary to bridge the gap between traditional building services and the high-stakes world of hyperscale data centers.",
+   "replace": " no longer sufficient for the demands of mission-critical infrastructure. A specialized approach is necessary to bridge the gap between traditional building services and the high-stakes world of hyperscale data centers.",
+   "slot": "body.3.1.1.7.67",
+   "row": "SC1-B-011",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-011: HVAC (owner rule: no HVAC wording). Keeps the contrast; the next sentence already says \"traditional building services\"."
+  },
+  {
+   "path": "/right-industrial-cooling-system/",
+   "op": "remove",
+   "find": "Integration of HVAC Systems: Emerging trends also include the integration of HVAC systems in both industrial and residential applications to enhance energy efficiency. Customizing HVAC solutions for different environments helps maintain air quality and optimize energy use.",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.113.7",
+   "row": "SC1-B-020",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-020: HVAC (owner rule: no HVAC wording). Residential/HVAC trend item; no industrial content to keep."
+  },
+  {
+   "path": "/build-new-cooling-tower/",
+   "op": "remove",
+   "find": "HVAC efficiency: Large commercial and institutional buildings use cooling towers as the heat rejection component of their centralized air conditioning systems.",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.17.5",
+   "row": "SC1-B-021",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-021: HVAC (owner rule: no HVAC wording). Commercial/institutional building targeting."
+  },
+  {
+   "path": "/build-new-cooling-tower/",
+   "op": "replace",
+   "find": "e towers for commercial HVAC applications ",
+   "replace": "ed towers ",
+   "slot": "body.3.1.1.7.163",
+   "row": "SC1-B-022",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-022: HVAC (owner rule: no HVAC wording). The market range is kept (cost articles may show ranges); the HVAC targeting is removed."
+  },
+  {
+   "path": "/build-new-cooling-tower/",
+   "op": "replace",
+   "find": "facilities with large-scale commercial HVAC system",
+   "replace": "manufacturing plant",
+   "slot": "body.3.1.1.7.203",
+   "row": "SC1-B-023",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-023: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/cooling-tower-remote-monitoring/",
+   "op": "remove",
+   "find": "Large Commercial Buildings: Ensure HVAC systems provide consistent climate control for occupant comfort and safety.",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.149.3",
+   "row": "SC1-B-024",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-024: HVAC (owner rule: no HVAC wording). Commercial-building targeting. Industrial, data center and power items remain."
+  },
+  {
+   "path": "/cooling-tower-repair-solutions/",
+   "op": "replace",
+   "find": "refineries, and large-scale HVAC network",
+   "replace": "and refinerie",
+   "slot": "body.1",
+   "row": "SC1-B-025",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-025: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-contractor/",
+   "op": "replace",
+   "find": "on a commercial HVAC system",
+   "replace": "at a food processing plant",
+   "slot": "body.3.1.1.7.31",
+   "row": "SC1-B-026",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-026: HVAC (owner rule: no HVAC wording). The contrast is kept with an industrial example."
+  },
+  {
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Advantages of Cooling Towers in HVAC Industries",
+   "replace": "Advantages of Cooling Towers in Industrial Processes",
+   "slot": "body.3.1.1.7.149",
+   "row": "SC1-B-028",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-028: HVAC (owner rule: no HVAC wording). Matches the page topic/URL. If the anchor id changes, update in-page TOC links."
+  },
+  {
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "op": "replace",
+   "find": "HVAC industri",
+   "replace": "industrial process",
+   "slot": "body.3.1.1.7.151",
+   "row": "SC1-B-029",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-029: HVAC (owner rule: no HVAC wording). Same as the H2."
+  },
+  {
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "op": "replace",
+   "run": 1,
+   "find": "HVAC systems",
+   "replace": "industrial processes",
+   "slot": "body.3.1.1.7.177",
+   "row": "SC1-B-030",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-030: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "op": "replace",
+   "run": 2,
+   "find": " for maintaining internal temperatures and requiring proper water treatment and management to avoid contamination that could negatively impact equipment or human health.",
+   "replace": " for maintaining process temperatures and requiring proper water treatment and management to avoid contamination that could negatively impact equipment or human health.",
+   "slot": "body.3.1.1.7.177",
+   "row": "SC1-B-030",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-030: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/how-to-clean-a-cooling-tower/",
+   "op": "replace",
+   "find": "HVAC systems, vital in various industrial, commercial, and institutional settings that facilitate",
+   "replace": "industrial cooling systems, facilitating",
+   "slot": "body.3.1.1.7.1",
+   "row": "SC1-B-031",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-031: HVAC (owner rule: no HVAC wording). Removes HVAC and commercial/institutional targeting."
+  },
+  {
+   "path": "/international-cooling-tower/",
+   "op": "remove",
+   "find": "These cooling towers are also used in HVAC systems in residential or commercial buildings. These cooling systems absorb all the extra heat from people or other electrical equipment like computers and A.C.. They are transferred to the cooling tower, where it is removed from the atmosphere.",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.55",
+   "row": "SC1-B-032",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-032: HVAC (owner rule: no HVAC wording). Residential/commercial building use; nothing industrial to keep."
+  },
+  {
+   "path": "/cooling-towers-in-the-middle-east/",
+   "op": "replace",
+   "find": "and HVAC system",
+   "replace": "process",
+   "slot": "body.3.1.1.7.91",
+   "row": "SC1-B-034",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-034: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/3-cell-counterflow-cooling-towers/",
+   "op": "replace",
+   "run": 0,
+   "find": "HVAC for Large-Scale Facilities:",
+   "replace": "Data Centers and Large Facilities:",
+   "slot": "body.3.1.1.7.101.5",
+   "row": "SC1-B-035",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-035: HVAC (owner rule: no HVAC wording). Removes HVAC/commercial/institutional; keeps data centers."
+  },
+  {
+   "path": "/3-cell-counterflow-cooling-towers/",
+   "op": "replace",
+   "run": 1,
+   "find": " Efficiently managing heat rejection for air conditioning in massive commercial buildings, data centers, and institutional complexes.",
+   "replace": " Efficiently managing heat rejection for data centers and large industrial campuses.",
+   "slot": "body.3.1.1.7.101.5",
+   "row": "SC1-B-035",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-035: HVAC (owner rule: no HVAC wording). Removes HVAC/commercial/institutional; keeps data centers."
+  },
+  {
+   "path": "/cooling-tower-basin-heater/",
+   "op": "replace",
+   "find": "Commercial and HVAC",
+   "replace": "Packaged and small industrial",
+   "slot": "body.3.1.1.7.45.0.0.4.1",
+   "row": "SC1-B-036",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-036: HVAC (owner rule: no HVAC wording). Removes HVAC. The column contrast with \"Large-scale Industrial facilities\" is kept."
+  },
+  {
+   "path": "/cooling-tower-fan/",
+   "op": "replace",
+   "find": "HVAC ",
+   "replace": "",
+   "slot": "body.3.1.1.7.51.3",
+   "row": "SC1-B-037",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-037: HVAC (owner rule: no HVAC wording). Word deleted."
+  },
+  {
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "op": "replace",
+   "find": "HVAC or light industrial",
+   "replace": "light-duty",
+   "slot": "body.3.1.1.7.13",
+   "row": "SC1-B-038",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-038: HVAC (owner rule: no HVAC wording). The comparison is kept without HVAC."
+  },
+  {
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "light-duty",
+   "slot": "body.3.1.1.7.53",
+   "row": "SC1-B-039",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-039: HVAC (owner rule: no HVAC wording). Same."
+  },
+  {
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "op": "replace",
+   "find": "HVAC and light industrial",
+   "replace": "clean-water, light-duty",
+   "slot": "body.3.1.1.7.81.5",
+   "row": "SC1-B-040",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-040: HVAC (owner rule: no HVAC wording). Same."
+  },
+  {
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "op": "replace",
+   "find": "HVAC ",
+   "replace": "",
+   "slot": "body.3.1.1.7.191",
+   "row": "SC1-B-041",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-041: HVAC (owner rule: no HVAC wording). Word deleted."
+  },
+  {
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "light-duty",
+   "slot": "body.3.1.1.7.203",
+   "row": "SC1-B-042",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-042: HVAC (owner rule: no HVAC wording). Same."
+  },
+  {
+   "path": "/cooling-tower-heat-rejection/",
+   "op": "replace",
+   "find": "HVAC system",
+   "replace": "refinerie",
+   "slot": "body.3.1.1.7.1",
+   "row": "SC1-B-043",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-043: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/cooling-tower-legionella-risk/",
+   "op": "replace",
+   "run": 0,
+   "find": "HVAC Intake:",
+   "replace": "Air Intake:",
+   "slot": "body.3.1.1.7.29.5",
+   "row": "SC1-B-044",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-044: HVAC (owner rule: no HVAC wording). A genuine health-risk pathway, so it is kept; the HVAC word is removed."
+  },
+  {
+   "path": "/cooling-tower-legionella-risk/",
+   "op": "replace",
+   "run": 1,
+   "find": " The aerosolized bacteria are drawn into the fresh air intakes of a building’s HVAC system, circulating the contaminated air internally.",
+   "replace": " The aerosolized bacteria can be drawn into nearby building fresh-air intakes, circulating the contaminated air internally.",
+   "slot": "body.3.1.1.7.29.5",
+   "row": "SC1-B-044",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-044: HVAC (owner rule: no HVAC wording). A genuine health-risk pathway, so it is kept; the HVAC word is removed."
+  },
+  {
+   "path": "/cooling-tower-makeup-water-calculation/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Scenario 1: Standard HVAC System",
+   "replace": "Scenario 1: Light-Duty Process Loop",
+   "slot": "body.3.1.1.7.57",
+   "row": "SC1-B-045",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-045: HVAC (owner rule: no HVAC wording). Industrial framing; the numbers are unchanged."
+  },
+  {
+   "path": "/cooling-tower-makeup-water-calculation/",
+   "op": "replace",
+   "find": "commercial",
+   "replace": "light-duty process",
+   "slot": "body.3.1.1.7.59",
+   "row": "SC1-B-046",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-046: HVAC (owner rule: no HVAC wording). Pairs with the H3. NOTE: the same paragraph renders raw LaTeX (\"$10^circtext{F}$\"), a Main rendering bug to fix separately."
+  },
+  {
+   "path": "/counterflow-vs-crossflow/",
+   "op": "replace",
+   "find": "or HVAC ",
+   "replace": "",
+   "slot": "body.3.1.1.7.137",
+   "row": "SC1-B-048",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-048: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/field-erected-type-cooling-towers/",
+   "op": "replace",
+   "find": "HVAC cooling requirements in large facilities such as campuses, hospitals, airports, and other expansive spaces. Their reliability ensures comfort and operational excellence",
+   "replace": "large cooling requirements in facilities such as power plants, refineries, and large manufacturing sites. Their reliability supports continuous operation",
+   "slot": "body.3.1.1.7.103",
+   "row": "SC1-B-049",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-049: HVAC (owner rule: no HVAC wording). Removes HVAC/comfort/institutional targeting; keeps the field-erected sizing point."
+  },
+  {
+   "path": "/hybrid-cooling-tower-repair/",
+   "op": "remove",
+   "find": "Large HVAC plants",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.145.17",
+   "row": "SC1-B-051",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-051: HVAC (owner rule: no HVAC wording). District cooling and industrial items remain."
+  },
+  {
+   "path": "/steps-energy-efficient-cooling-tower/",
+   "op": "replace",
+   "find": "Like a standard in-home HVAC system, i",
+   "replace": "I",
+   "slot": "body.22",
+   "row": "SC1-B-052",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-052: HVAC (owner rule: no HVAC wording). Removes the residential analogy."
+  },
+  {
+   "path": "/the-benefits-of-frp-fans-in-industrial-cooling/",
+   "op": "replace",
+   "find": "HVAc systems, ",
+   "replace": "",
+   "slot": "body.14",
+   "row": "SC1-B-053",
+   "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-053: HVAC (owner rule: no HVAC wording). Removes HVAC (and its typo)."
+  },
+  {
+   "path": "/category/blog/page/11/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "process",
+   "slot": "body.3.7.3",
+   "row": "SC1-C-009",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-009: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/blog/page/14/",
+   "op": "replace",
+   "find": "and HVAC",
+   "replace": "process",
+   "slot": "body.3.11.3",
+   "row": "SC1-C-010",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-010: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/blog/page/17/",
+   "op": "replace",
+   "find": "HVAC systems",
+   "replace": "process equipment",
+   "slot": "body.3.11.3",
+   "row": "SC1-C-011",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-011: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/blog/page/17/",
+   "op": "replace",
+   "find": "HVAC system",
+   "replace": "refinerie",
+   "slot": "body.3.19.2",
+   "row": "SC1-C-012",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-012: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/blog/page/19/",
+   "op": "replace",
+   "find": ", power plants, and large-scale HVAC systems",
+   "replace": " and power plants",
+   "slot": "body.3.1.2",
+   "row": "SC1-C-013",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-013: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/blog/page/19/",
+   "op": "replace",
+   "find": ", manufacturing facilities, and HVAC systems, ",
+   "replace": " and manufacturing facilities, ",
+   "slot": "body.3.19.3",
+   "row": "SC1-C-014",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-014: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/blog/page/20/",
+   "op": "replace",
+   "find": "HVAC system",
+   "replace": "power plant",
+   "slot": "body.3.1.3",
+   "row": "SC1-C-015",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-015: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/blog/page/7/",
+   "op": "replace",
+   "find": "HVAC system",
+   "replace": "manufacturing plant",
+   "slot": "body.3.9.3",
+   "row": "SC1-C-016",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-016: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/blog/page/7/",
+   "op": "replace",
+   "find": "heavy industrial facilities to commercial HVAC systems, U.S.-made cooling towers are trusted across every major sector of the economy",
+   "replace": "power plants to heavy industrial facilities, U.S.-made cooling towers are trusted across every major industrial sector",
+   "slot": "body.3.19.3",
+   "row": "SC1-C-017",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-017: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/blog/page/8/",
+   "op": "replace",
+   "find": "refineries, and large-scale HVAC network",
+   "replace": "and refinerie",
+   "slot": "body.3.5.3",
+   "row": "SC1-C-018",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-018: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/blog/page/8/",
+   "op": "replace",
+   "find": "chemical processing facilities, and HVAC systems, ",
+   "replace": "and chemical processing facilities, ",
+   "slot": "body.3.11.3",
+   "row": "SC1-C-019",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-019: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/blog/page/9/",
+   "op": "remove",
+   "find": "An HVAC cooling tower is no longer an auxiliary piece of equipment. It is the thermal anchor of modern, high-performance buildings. At Industrial Cooling Solutions (ICS), we see it as the central nervous system for your entire climate control strategy. Today’s buildings face a significant challenge: managing higher heat loads from dense IT infrastructure while […]",
+   "allowEmpty": true,
+   "slot": "body.3.1.3",
+   "row": "SC1-C-021",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-021: Pure HVAC / commercial-building element with no industrial content to keep (same rule as tranche A/B deletions), or the card of a held article."
+  },
+  {
+   "path": "/category/blogothers-language/",
+   "op": "replace",
+   "find": "กระบวนการ และระบบ HVAC",
+   "replace": "และกระบวนการอุตสาหกรรมอื่นๆ",
+   "slot": "body.3.3.2",
+   "row": "SC1-C-022",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-022: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/cooling-tower-costothers-language/",
+   "op": "replace",
+   "find": "標準的な家庭用 HVAC システムと同様に、産",
+   "replace": "産",
+   "slot": "body.3.3.2",
+   "row": "SC1-C-023",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-023: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/cooling-tower-fans/",
+   "op": "replace",
+   "find": "HVAC systems, vital in various industrial, commercial, and institutional settings that facilitate",
+   "replace": "industrial cooling systems, facilitating",
+   "slot": "body.3.1.3",
+   "row": "SC1-C-024",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-024: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/cooling-tower-fillothers-language/",
+   "op": "replace",
+   "find": "proses, dan sistem HVAC",
+   "replace": "dan proses industri lainnya",
+   "slot": "body.3.1.2",
+   "row": "SC1-C-025",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-025: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/cooling-tower-fillothers-language/",
+   "op": "replace",
+   "find": "quy trình và hệ thống HVAC",
+   "replace": "và các quy trình công nghiệp",
+   "slot": "body.3.3.2",
+   "row": "SC1-C-026",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-026: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/cooling-tower-fillothers-language/",
+   "op": "replace",
+   "find": "プロセス、HVAC システム",
+   "replace": "その他のプロセス",
+   "slot": "body.3.5.2",
+   "row": "SC1-C-027",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-027: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/cooling-tower-inspection/",
+   "op": "replace",
+   "find": "and HVAC",
+   "replace": "plants and process",
+   "slot": "body.3.1.3",
+   "row": "SC1-C-028",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-028: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/cooling-tower-parts/",
+   "op": "remove",
+   "find": "HVAC systems depend on cooling towers, chillers, and Air Handling units to maintain the temperatures and humidity inside the buildings. They are necessary for commercial buildings like hospitals, offices, and shopping malls, keeping buildings cool and safe for people inside. Cooling towers extract extra waste heat from the building’s air conditioning system. With their impressive […]",
+   "allowEmpty": true,
+   "slot": "body.3.3.3",
+   "row": "SC1-C-030",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-030: Pure HVAC / commercial-building element with no industrial content to keep (same rule as tranche A/B deletions), or the card of a held article."
+  },
+  {
+   "path": "/category/industrial-cooling-towerothers-language/",
+   "op": "replace",
+   "find": "เช่นเดียวกับระบบ HVAC ",
+   "replace": "",
+   "slot": "body.3.3.2",
+   "row": "SC1-C-031",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-031: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/others-language/",
+   "op": "replace",
+   "find": "HVAC システムと産業用チラー",
+   "replace": "チラーおよび産業用冷却システム",
+   "slot": "body.3.5.2",
+   "row": "SC1-C-032",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-032: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/others-language/",
+   "op": "replace",
+   "find": "HVAC, yang sangat penting dalam berbagai pengaturan industri, komersial, dan institusional",
+   "replace": "pendinginan industri, yang sangat penting dalam berbagai pengaturan industri",
+   "slot": "body.3.9.2",
+   "row": "SC1-C-033",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-033: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/others-language/",
+   "op": "replace",
+   "find": "HVAC, đóng vai trò quan trọng trong nhiều bối cảnh công nghiệp, thương mại và tổ chức",
+   "replace": "làm mát công nghiệp, đóng vai trò quan trọng trong nhiều bối cảnh công nghiệp",
+   "slot": "body.3.11.2",
+   "row": "SC1-C-034",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-034: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/others-language/",
+   "op": "replace",
+   "find": " HVAC システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業、商業、および施設",
+   "replace": "産業用冷却システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業",
+   "slot": "body.3.13.2",
+   "row": "SC1-C-035",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-035: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/others-language/",
+   "op": "replace",
+   "find": " HVAC ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม เชิงพาณิชย์ และสถาบัน",
+   "replace": "ทำความเย็นอุตสาหกรรม ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม",
+   "slot": "body.3.15.2",
+   "row": "SC1-C-036",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-036: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/others-language/",
+   "op": "remove",
+   "find": "Sistem HVAC bergantung pada menara pendingin, pendingin, dan unit Penanganan Udara untuk menjaga suhu dan kelembapan di dalam gedung. Sistem ini diperlukan untuk gedung komersial seperti rumah sakit, kantor, dan pusat perbelanjaan, menjaga gedung tetap sejuk dan aman bagi orang-orang di dalamnya. Menara pendingin mengekstraksi panas buangan ekstra dari sistem pendingin udara gedung. Dengan efisiensi […]",
+   "allowEmpty": true,
+   "slot": "body.3.17.2",
+   "row": "SC1-C-038",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-038: Pure HVAC / commercial-building element with no industrial content to keep (same rule as tranche A/B deletions), or the card of a held article."
+  },
+  {
+   "path": "/category/others-language/",
+   "op": "remove",
+   "find": "Hệ thống HVAC phụ thuộc vào tháp giải nhiệt, máy làm lạnh và bộ xử lý không khí để duy trì nhiệt độ và độ ẩm bên trong tòa nhà. Chúng cần thiết cho các tòa nhà thương mại như bệnh viện, văn phòng và trung tâm mua sắm, giúp tòa nhà mát mẻ và […]",
+   "allowEmpty": true,
+   "slot": "body.3.19.2",
+   "row": "SC1-C-040",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-040: Pure HVAC / commercial-building element with no industrial content to keep (same rule as tranche A/B deletions), or the card of a held article."
+  },
+  {
+   "path": "/category/others-language/page/2/",
+   "op": "remove",
+   "find": "HVAC システムは、建物内の温度と湿度を維持するために、冷却塔、チラー、および空調ユニットに依存しています。これらは、病院、オフィス、ショッピング モールなどの商業ビルに必要であり、建物を涼しく保ち、内部の人々を安全に保っています。冷却塔は、建物の空調システムから余分な廃熱を抽出します。その優れた効率性と汎用性により、現代の商業ビルの設計は HVAC 冷却塔にとって不可欠なものとなっています。 この記事では、HVAC 冷却塔の基礎、その役割、利点、および重要なタイプについて説明します。また、チラーと冷却塔の主な違いを理解し、施設に最適なオプションを決定します。 冷却塔の HVAC システムとは 暖房、換気、空調 (HVAC) システムは、理想的な室内の快適さと環境品質を維持するために、産業および商業プロセスで広く使用されています。冷却塔は、これらのシステムの中で最も重要な部分であり、内部の気候のバランスをとる上で重要な役割を果たします。冷却塔内では、これらのシステムは、水の循環、温度の制御、気流の維持という 3 つの主要な機能を実行します。 冷却塔のこの機械システムの重要なコンポーネントには、次のものがあります。 油圧ネットワークは、冷却塔に水を供給するパイプ、ポンプ、および調節バルブで構成されています。この設計により、建物全体に水が均等に分配され、最適な熱拡散が可能になります。 ファンとモーター: これらは、冷却塔を通る気流を作り出します。この突風は、水を空気で冷却できるようにするため、熱伝達に必要です。 タワー セル: これらは、熱伝達媒体を含むモジュール式ユニットです。これには、水の表面積を増やすために使用される充填パックと、冷却塔全体に水を均等に分配するために必要なスプラッシュ バーが含まれます。 監視システム: HVAC のパフォーマンスを保持および調整する管理戦略。センサー、アクチュエータ、およびプログラマブル ロジック コントローラーで構成されます。 HVAC システムにおける冷却塔の役割 冷却塔は HVAC システムで重要な役割を果たし、工業用温水から最大限の熱を除去して理想的で最適なパフォーマンスを実現します。 HVAC では、冷却塔、チラー、および空調ユニット (AHU) が同時に連携して、最大限の熱放散と空調を実現します。 大規模な商業用 HVAC システムにおける冷却塔の最も有名で実用的な役割は次のとおりです。 熱放散 HVAC における冷却塔の主な役割は、蒸発冷却プロセスを通じて廃熱を除去することです。 また、大規模な商業ビルでは熱交換器としても機能します。 工業プロセスからの温水は冷却塔システムに入り、その分配システムは、鋭いスプレー ノズルから液滴の形で充填媒体に水が滑らかかつ均一に流れるようにします。 ここで、冷却塔ファンが空気の流れを生み出し、その結果、乾燥した空気と温水の間で最大限の熱交換が行われます。 水と空気の接触により、温水から余分な熱エネルギーがすべて除去されます。一部の水は蒸発により失われ、冷水が残ります。冷水は冷水槽またはタワー槽の底に集まります。 チラーと AHU との統合 冷却塔は AHU およびチラーと連携して、化学処理工場、食品加工工場、火力発電所、その他の大型建物で効果的かつ強力な冷却を行います。チラーは建物から余分な熱と潜熱を取り除き、冷却塔に向けます。 冷却塔は余分な熱をすべて取り出して水を冷やします。冷水が生成されると、空調ユニット […]",
+   "allowEmpty": true,
+   "slot": "body.3.1.2",
+   "row": "SC1-C-042",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-042: Archive/tag card (title or excerpt) of the HVAC-titled article. It leaves with the locale twin held in group TWIN-HOLD, so no rewrite is possible."
+  },
+  {
+   "path": "/category/others-language/page/2/",
+   "op": "remove",
+   "find": "ระบบ HVAC ต้องใช้หอคอยทำความเย็น เครื่องทำความเย็น และเครื่องจัดการอากาศเพื่อรักษาอุณหภูมิและความชื้นภายในอาคาร หอคอยทำความเย็นมีความจำเป็นสำหรับอาคารพาณิชย์ เช่น โรงพยาบาล สำนักงาน และห้างสรรพสินค้า ช่วยให้อาคารเย็นสบายและปลอดภัยสำหรับผู้คนภายใน หอคอยทำความเย็นจะดึงความร้อนเหลือทิ้งออกจากระบบปรับอากาศของอาคาร ด้วยประสิทธิภาพและความหลากหลายที่น่าประทับใจ การออกแบบอาคารพาณิชย์สมัยใหม่จึงกลายมาเป็นสิ่งจำเป็นสำหรับหอคอยทำความเย็น HVAC บทความนี้จะสำรวจพื้นฐานของหอคอยทำความเย็น HVAC บทบาท ประโยชน์ และประเภทที่จำเป็น นอกจากนี้ คุณยังจะพบความแตกต่างหลักระหว่างเครื่องทำความเย็นและหอคอยทำความเย็น และกำหนดตัวเลือกที่ดีที่สุดสำหรับสถานที่ของคุณ ระบบ HVAC ในหอคอยทำความเย็นคืออะไร ระบบทำความร้อน ระบายอากาศ และปรับอากาศ (HVAC) ถูกใช้กันอย่างแพร่หลายในกระบวนการทางอุตสาหกรรมและเชิงพาณิชย์เพื่อรักษาความสะดวกสบายภายในอาคารและคุณภาพของสิ่งแวดล้อมที่เหมาะสม หอคอยทำความเย็นเป็นส่วนที่สำคัญที่สุดของระบบเหล่านี้ซึ่งมีบทบาทสำคัญในการปรับสมดุลสภาพอากาศภายใน ภายในหอคอยระบายความร้อน ระบบเหล่านี้ทำหน้าที่หลักสามอย่าง ได้แก่ การหมุนเวียนน้ำ การควบคุมอุณหภูมิ และการรักษาการไหลของอากาศ ส่วนประกอบที่สำคัญบางส่วนของระบบกลไกนี้ในหอคอยระบายความร้อน ได้แก่: เครือข่ายไฮดรอลิกประกอบด้วยท่อ ปั๊ม และวาล์วควบคุมที่จ่ายน้ำไปยังหอคอยระบายความร้อน การออกแบบนี้ช่วยให้มั่นใจได้ว่าน้ำจะกระจายอย่างสม่ำเสมอทั่วทั้งอาคารและช่วยให้ความร้อนกระจายได้อย่างเหมาะสม พัดลมและมอเตอร์: สิ่งเหล่านี้สร้างการไหลของอากาศผ่านหอคอยระบายความร้อน ลมกระโชกนี้จำเป็นสำหรับการถ่ายเทความร้อน เนื่องจากช่วยให้สามารถระบายความร้อนด้วยน้ำด้วยอากาศได้ เซลล์หอคอย: เป็นหน่วยโมดูลาร์ที่ประกอบด้วยสื่อการถ่ายเทความร้อน ซึ่งรวมถึงแพ็คเติมที่ใช้เพื่อเพิ่มพื้นที่ผิวของน้ำและแถบกระเซ็น ซึ่งจำเป็นสำหรับการกระจายน้ำอย่างเท่าเทียมกันทั่วทั้งหอคอยระบายความร้อน ระบบตรวจสอบ: กลยุทธ์การจัดการที่รักษาและควบคุมประสิทธิภาพของระบบ HVAC […]",
+   "allowEmpty": true,
+   "slot": "body.3.3.2",
+   "row": "SC1-C-044",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-044: Archive/tag card (title or excerpt) of the HVAC-titled article. It leaves with the locale twin held in group TWIN-HOLD, so no rewrite is possible."
+  },
+  {
+   "path": "/category/others-language/page/6/",
+   "op": "remove",
+   "find": "冷却塔は、システムから余分な熱を大気中に抽出し、機械を冷却する熱除去装置です。冷却塔は、内部の大気を冷却するために産業や建物で広く使用されており、その効率性と機能性から非常に好まれています。 国際産業用冷却塔は、ユニットを通じて再分配される少量の水を蒸発させることで水から余分な熱を除去するという基礎に基づいて機能します。 ほとんどの産業は、冷却塔ユニットなしではうまく運営できません。冷却塔ユニットは、余分な熱を抽出することで効率的な熱交換と産業機器の冷却を保証するためです。 この詳細な記事では、冷却塔、その目的と重要性、冷却塔の種類、欠陥の検出方法などについて説明します。 冷却塔の主な目的は何ですか? 水冷塔は、水を冷却し、余分な有害な熱を取り除き、建物の大量の熱を直接大気中に放出し、より冷たい水をチラーに戻すために必要です。 水冷塔は、チラーから温水を受け取ります。この温水は、凝縮水とも呼ばれます。チラーは、金庫室や地下室などの低い場所に設置されます。その主な機能は、温水を冷却してチラーに戻してさらに熱を受け取り、プロセスが続行できるようにすることです。 国際的な冷却塔プロセスでは、温水の形で過剰な熱が発生する可能性があり、突然冷却する必要があります。温水冷却塔は余分な熱を取り除き、冷却します。 産業用冷却塔では、プロセスからの過熱水が冷却塔を流れ、再分配され、冷たい空気と接触します。水が落下すると、蒸発プロセスによって温水から熱が抽出されます。 このプロセスは蒸発冷却と呼ばれます。その後、冷却水は空気プロセスに戻り、機器を冷却します。この効率的な冷却サイクルが何度も継続的に繰り返されます。 熱い凝縮器が冷却塔に入ると、水がノズルを通過し、充填物の上に水を小さな水滴に噴霧します。最終的に水表面積が増加し、大量の蒸発によって効果的な熱損失が可能になります。 冷却塔の上部に設置されたファンは、ベースから空気を導き、それを上方に動かし、温かい凝縮器の水をあらゆる方向に循環させます。空気は、工業用冷却塔から水の蒸発によって余分な熱をすべて運び、大気中に放出します。 冷却塔の主要コンポーネント 充填材: 冷却塔の充填材は、熱水を効果的に拡散するための優れた表面積を提供します。最終的には、空気と水の接触を促進し、強化して、効率的で最大限の冷却を実現します。 スプレー ノズル: スプレー ノズルは、冷却塔の水分配器として機能し、充填材にスプレーして、一貫した長期的な冷却を保証します。プラスチック材料の他に、PVC、ABS、ポリプロピレン、ガラス入りナイロンなどの他の材料もスプレーに使用されます。 ファン: 国際的な冷却塔では、ファンは塔の上部に設置され、空気を吸い込んでシステム内に押し出し、熱損失システムに役立ちます。 さまざまな産業における冷却塔の用途 発電所: 発電所では、効率性と有用性から冷却塔が広く利用されており、蒸気発電所ではさらに多く使用されています。熱が機械エネルギーに変換されるとき、すべての熱を機械的な仕事に変換するのは困難であり、ここでは冷却塔を使用して完全に変換します。 暖房と空調: これらの冷却塔は、住宅や商業ビルの HVAC システムでも使用されています。これらの冷却システムは、人やコンピューターやエアコンなどの他の電気機器からの余分な熱をすべて吸収します。それらは冷却塔に転送され、そこで大気から除去されます。 産業: 砂糖、衣料品、石油化学、石油およびガス精製所などの工場では、冷却塔は温度を監視するために不可欠です。国際的な冷却塔は、過熱や摩耗を防ぐことで、産業機械の運用寿命を維持するのにも役立ちます。 データセンターの冷却塔 データセンターは、デジタル時代の IT インフラストラクチャの究極のサポーターです。これらのセンターには、継続的に大量の熱が発生します。冷却機構は、環境を涼しく保ち、すべての機能が正しく動作するようにするのに役立ちます。データセンターは過熱により停電する可能性があり、冷却塔の保守と修理にコストがかかり、混乱を招く可能性があります。 冷却塔の種類 さまざまな冷却塔は、余分な空気を排出するために利用できる気流生成に基づいており、その一部は次のとおりです。 機械通風式冷却塔: 機械通風式冷却塔は、単一または複数のファンを使用して、塔を通る空気の流れを作り出します。標準ファンによって強制的に空気が送り込まれ、産業や建物全体に空気が広がります。機能性から、自然通風式冷却塔よりも好まれています。 自然通風式冷却塔: 自然通風式冷却塔は、ファンなどの機械装置を使用して空気の流れを作りません。自然な空気の動きを利用して水を冷却します。コストはかかりませんが、気候条件を分析して屋外に設置する必要があります。これらの背の高い冷却塔は、適切な空気の流れを得るために、通常、双曲面形状になっています。 強制通風式冷却塔: 強制通風式冷却塔では、ファンが空気を冷却塔に引き込み、冷却塔の底部と側面に設置されます。これは、誘引通風式冷却塔に似ています。その性能は常に安定しており、高い静圧を処理する必要がある屋内用途で利用できます。 誘引通風冷却塔: 誘引通風冷却塔の上部にはファンが設置され、熱気を排出します。ドリフトエリミネーターは、流れから出る空気に水滴が閉じ込められないようにするために使用されます。 クロスフローおよびカウンターフロー冷却塔: その名の通り、クロスフロー冷却塔では、水が垂直に流れ、空気の熱交換が材料を通過して水平方向に充填されます。カウンターフロータイプの冷却塔では、水は垂直に流れ、空気は充填物を通って垂直に上向きに流れます。 節水のヒント 冷却塔は、特に湿式冷却システムでは大量の水を消費します。ただし、次のようないくつかの方法を使用して水の使用量を削減できます。 ブローダウンの削減 ブローダウンとは、溶解した固形物濃度の高い水をシステムから除去することです。ブローダウンの頻度を減らし、可能な限り水を再利用すると、節水に役立ちます。 水処理 冷却塔に入る前に水を処理することで、スケールや腐食を軽減でき、水交換の間隔を長くして水を節約できます。 損失を最小限に抑えるために早期にトラブルシューティングするには? これらのタワーの早期トラブルシューティングを分析して検証することで、時間と費用を節約できます。冷却塔に重大な損傷を引き起こす可能性のある早期警告サインは次のとおりです。 エンジン音 […]",
+   "allowEmpty": true,
+   "slot": "body.3.13.2",
+   "row": "SC1-C-045",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-045: Residential/commercial HVAC paragraph; the English equivalent was deleted (tranche B)."
+  },
+  {
+   "path": "/category/uncategorized/page/11/",
+   "op": "replace",
+   "find": "proses, dan sistem HVAC",
+   "replace": "dan proses industri lainnya",
+   "slot": "body.3.13.2",
+   "row": "SC1-C-046",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-046: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/uncategorized/page/11/",
+   "op": "replace",
+   "find": "quy trình và hệ thống HVAC",
+   "replace": "và các quy trình công nghiệp",
+   "slot": "body.3.15.2",
+   "row": "SC1-C-047",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-047: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/uncategorized/page/11/",
+   "op": "replace",
+   "find": "プロセス、HVAC システム",
+   "replace": "その他のプロセス",
+   "slot": "body.3.17.2",
+   "row": "SC1-C-048",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-048: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/uncategorized/page/11/",
+   "op": "replace",
+   "find": "กระบวนการ และระบบ HVAC",
+   "replace": "และกระบวนการอุตสาหกรรมอื่นๆ",
+   "slot": "body.3.19.2",
+   "row": "SC1-C-049",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-049: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/uncategorized/page/13/",
+   "op": "remove",
+   "find": "冷却塔は、システムから余分な熱を大気中に抽出し、機械を冷却する熱除去装置です。冷却塔は、内部の大気を冷却するために産業や建物で広く使用されており、その効率性と機能性から非常に好まれています。 国際産業用冷却塔は、ユニットを通じて再分配される少量の水を蒸発させることで水から余分な熱を除去するという基礎に基づいて機能します。 ほとんどの産業は、冷却塔ユニットなしではうまく運営できません。冷却塔ユニットは、余分な熱を抽出することで効率的な熱交換と産業機器の冷却を保証するためです。 この詳細な記事では、冷却塔、その目的と重要性、冷却塔の種類、欠陥の検出方法などについて説明します。 冷却塔の主な目的は何ですか? 水冷塔は、水を冷却し、余分な有害な熱を取り除き、建物の大量の熱を直接大気中に放出し、より冷たい水をチラーに戻すために必要です。 水冷塔は、チラーから温水を受け取ります。この温水は、凝縮水とも呼ばれます。チラーは、金庫室や地下室などの低い場所に設置されます。その主な機能は、温水を冷却してチラーに戻してさらに熱を受け取り、プロセスが続行できるようにすることです。 国際的な冷却塔プロセスでは、温水の形で過剰な熱が発生する可能性があり、突然冷却する必要があります。温水冷却塔は余分な熱を取り除き、冷却します。 産業用冷却塔では、プロセスからの過熱水が冷却塔を流れ、再分配され、冷たい空気と接触します。水が落下すると、蒸発プロセスによって温水から熱が抽出されます。 このプロセスは蒸発冷却と呼ばれます。その後、冷却水は空気プロセスに戻り、機器を冷却します。この効率的な冷却サイクルが何度も継続的に繰り返されます。 熱い凝縮器が冷却塔に入ると、水がノズルを通過し、充填物の上に水を小さな水滴に噴霧します。最終的に水表面積が増加し、大量の蒸発によって効果的な熱損失が可能になります。 冷却塔の上部に設置されたファンは、ベースから空気を導き、それを上方に動かし、温かい凝縮器の水をあらゆる方向に循環させます。空気は、工業用冷却塔から水の蒸発によって余分な熱をすべて運び、大気中に放出します。 冷却塔の主要コンポーネント 充填材: 冷却塔の充填材は、熱水を効果的に拡散するための優れた表面積を提供します。最終的には、空気と水の接触を促進し、強化して、効率的で最大限の冷却を実現します。 スプレー ノズル: スプレー ノズルは、冷却塔の水分配器として機能し、充填材にスプレーして、一貫した長期的な冷却を保証します。プラスチック材料の他に、PVC、ABS、ポリプロピレン、ガラス入りナイロンなどの他の材料もスプレーに使用されます。 ファン: 国際的な冷却塔では、ファンは塔の上部に設置され、空気を吸い込んでシステム内に押し出し、熱損失システムに役立ちます。 さまざまな産業における冷却塔の用途 発電所: 発電所では、効率性と有用性から冷却塔が広く利用されており、蒸気発電所ではさらに多く使用されています。熱が機械エネルギーに変換されるとき、すべての熱を機械的な仕事に変換するのは困難であり、ここでは冷却塔を使用して完全に変換します。 暖房と空調: これらの冷却塔は、住宅や商業ビルの HVAC システムでも使用されています。これらの冷却システムは、人やコンピューターやエアコンなどの他の電気機器からの余分な熱をすべて吸収します。それらは冷却塔に転送され、そこで大気から除去されます。 産業: 砂糖、衣料品、石油化学、石油およびガス精製所などの工場では、冷却塔は温度を監視するために不可欠です。国際的な冷却塔は、過熱や摩耗を防ぐことで、産業機械の運用寿命を維持するのにも役立ちます。 データセンターの冷却塔 データセンターは、デジタル時代の IT インフラストラクチャの究極のサポーターです。これらのセンターには、継続的に大量の熱が発生します。冷却機構は、環境を涼しく保ち、すべての機能が正しく動作するようにするのに役立ちます。データセンターは過熱により停電する可能性があり、冷却塔の保守と修理にコストがかかり、混乱を招く可能性があります。 冷却塔の種類 さまざまな冷却塔は、余分な空気を排出するために利用できる気流生成に基づいており、その一部は次のとおりです。 機械通風式冷却塔: 機械通風式冷却塔は、単一または複数のファンを使用して、塔を通る空気の流れを作り出します。標準ファンによって強制的に空気が送り込まれ、産業や建物全体に空気が広がります。機能性から、自然通風式冷却塔よりも好まれています。 自然通風式冷却塔: 自然通風式冷却塔は、ファンなどの機械装置を使用して空気の流れを作りません。自然な空気の動きを利用して水を冷却します。コストはかかりませんが、気候条件を分析して屋外に設置する必要があります。これらの背の高い冷却塔は、適切な空気の流れを得るために、通常、双曲面形状になっています。 強制通風式冷却塔: 強制通風式冷却塔では、ファンが空気を冷却塔に引き込み、冷却塔の底部と側面に設置されます。これは、誘引通風式冷却塔に似ています。その性能は常に安定しており、高い静圧を処理する必要がある屋内用途で利用できます。 誘引通風冷却塔: 誘引通風冷却塔の上部にはファンが設置され、熱気を排出します。ドリフトエリミネーターは、流れから出る空気に水滴が閉じ込められないようにするために使用されます。 クロスフローおよびカウンターフロー冷却塔: その名の通り、クロスフロー冷却塔では、水が垂直に流れ、空気の熱交換が材料を通過して水平方向に充填されます。カウンターフロータイプの冷却塔では、水は垂直に流れ、空気は充填物を通って垂直に上向きに流れます。 節水のヒント 冷却塔は、特に湿式冷却システムでは大量の水を消費します。ただし、次のようないくつかの方法を使用して水の使用量を削減できます。 ブローダウンの削減 ブローダウンとは、溶解した固形物濃度の高い水をシステムから除去することです。ブローダウンの頻度を減らし、可能な限り水を再利用すると、節水に役立ちます。 水処理 冷却塔に入る前に水を処理することで、スケールや腐食を軽減でき、水交換の間隔を長くして水を節約できます。 損失を最小限に抑えるために早期にトラブルシューティングするには? これらのタワーの早期トラブルシューティングを分析して検証することで、時間と費用を節約できます。冷却塔に重大な損傷を引き起こす可能性のある早期警告サインは次のとおりです。 エンジン音 […]",
+   "allowEmpty": true,
+   "slot": "body.3.1.2",
+   "row": "SC1-C-050",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-050: Residential/commercial HVAC paragraph; the English equivalent was deleted (tranche B)."
+  },
+  {
+   "path": "/category/uncategorized/page/16/",
+   "op": "remove",
+   "find": "HVAC システムは、建物内の温度と湿度を維持するために、冷却塔、チラー、および空調ユニットに依存しています。これらは、病院、オフィス、ショッピング モールなどの商業ビルに必要であり、建物を涼しく保ち、内部の人々を安全に保っています。冷却塔は、建物の空調システムから余分な廃熱を抽出します。その優れた効率性と汎用性により、現代の商業ビルの設計は HVAC 冷却塔にとって不可欠なものとなっています。 この記事では、HVAC 冷却塔の基礎、その役割、利点、および重要なタイプについて説明します。また、チラーと冷却塔の主な違いを理解し、施設に最適なオプションを決定します。 冷却塔の HVAC システムとは 暖房、換気、空調 (HVAC) システムは、理想的な室内の快適さと環境品質を維持するために、産業および商業プロセスで広く使用されています。冷却塔は、これらのシステムの中で最も重要な部分であり、内部の気候のバランスをとる上で重要な役割を果たします。冷却塔内では、これらのシステムは、水の循環、温度の制御、気流の維持という 3 つの主要な機能を実行します。 冷却塔のこの機械システムの重要なコンポーネントには、次のものがあります。 油圧ネットワークは、冷却塔に水を供給するパイプ、ポンプ、および調節バルブで構成されています。この設計により、建物全体に水が均等に分配され、最適な熱拡散が可能になります。 ファンとモーター: これらは、冷却塔を通る気流を作り出します。この突風は、水を空気で冷却できるようにするため、熱伝達に必要です。 タワー セル: これらは、熱伝達媒体を含むモジュール式ユニットです。これには、水の表面積を増やすために使用される充填パックと、冷却塔全体に水を均等に分配するために必要なスプラッシュ バーが含まれます。 監視システム: HVAC のパフォーマンスを保持および調整する管理戦略。センサー、アクチュエータ、およびプログラマブル ロジック コントローラーで構成されます。 HVAC システムにおける冷却塔の役割 冷却塔は HVAC システムで重要な役割を果たし、工業用温水から最大限の熱を除去して理想的で最適なパフォーマンスを実現します。 HVAC では、冷却塔、チラー、および空調ユニット (AHU) が同時に連携して、最大限の熱放散と空調を実現します。 大規模な商業用 HVAC システムにおける冷却塔の最も有名で実用的な役割は次のとおりです。 熱放散 HVAC における冷却塔の主な役割は、蒸発冷却プロセスを通じて廃熱を除去することです。 また、大規模な商業ビルでは熱交換器としても機能します。 工業プロセスからの温水は冷却塔システムに入り、その分配システムは、鋭いスプレー ノズルから液滴の形で充填媒体に水が滑らかかつ均一に流れるようにします。 ここで、冷却塔ファンが空気の流れを生み出し、その結果、乾燥した空気と温水の間で最大限の熱交換が行われます。 水と空気の接触により、温水から余分な熱エネルギーがすべて除去されます。一部の水は蒸発により失われ、冷水が残ります。冷水は冷水槽またはタワー槽の底に集まります。 チラーと AHU との統合 冷却塔は AHU およびチラーと連携して、化学処理工場、食品加工工場、火力発電所、その他の大型建物で効果的かつ強力な冷却を行います。チラーは建物から余分な熱と潜熱を取り除き、冷却塔に向けます。 冷却塔は余分な熱をすべて取り出して水を冷やします。冷水が生成されると、空調ユニット […]",
+   "allowEmpty": true,
+   "slot": "body.3.11.2",
+   "row": "SC1-C-052",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-052: Archive/tag card (title or excerpt) of the HVAC-titled article. It leaves with the locale twin held in group TWIN-HOLD, so no rewrite is possible."
+  },
+  {
+   "path": "/category/uncategorized/page/16/",
+   "op": "remove",
+   "find": "ระบบ HVAC ต้องใช้หอคอยทำความเย็น เครื่องทำความเย็น และเครื่องจัดการอากาศเพื่อรักษาอุณหภูมิและความชื้นภายในอาคาร หอคอยทำความเย็นมีความจำเป็นสำหรับอาคารพาณิชย์ เช่น โรงพยาบาล สำนักงาน และห้างสรรพสินค้า ช่วยให้อาคารเย็นสบายและปลอดภัยสำหรับผู้คนภายใน หอคอยทำความเย็นจะดึงความร้อนเหลือทิ้งออกจากระบบปรับอากาศของอาคาร ด้วยประสิทธิภาพและความหลากหลายที่น่าประทับใจ การออกแบบอาคารพาณิชย์สมัยใหม่จึงกลายมาเป็นสิ่งจำเป็นสำหรับหอคอยทำความเย็น HVAC บทความนี้จะสำรวจพื้นฐานของหอคอยทำความเย็น HVAC บทบาท ประโยชน์ และประเภทที่จำเป็น นอกจากนี้ คุณยังจะพบความแตกต่างหลักระหว่างเครื่องทำความเย็นและหอคอยทำความเย็น และกำหนดตัวเลือกที่ดีที่สุดสำหรับสถานที่ของคุณ ระบบ HVAC ในหอคอยทำความเย็นคืออะไร ระบบทำความร้อน ระบายอากาศ และปรับอากาศ (HVAC) ถูกใช้กันอย่างแพร่หลายในกระบวนการทางอุตสาหกรรมและเชิงพาณิชย์เพื่อรักษาความสะดวกสบายภายในอาคารและคุณภาพของสิ่งแวดล้อมที่เหมาะสม หอคอยทำความเย็นเป็นส่วนที่สำคัญที่สุดของระบบเหล่านี้ซึ่งมีบทบาทสำคัญในการปรับสมดุลสภาพอากาศภายใน ภายในหอคอยระบายความร้อน ระบบเหล่านี้ทำหน้าที่หลักสามอย่าง ได้แก่ การหมุนเวียนน้ำ การควบคุมอุณหภูมิ และการรักษาการไหลของอากาศ ส่วนประกอบที่สำคัญบางส่วนของระบบกลไกนี้ในหอคอยระบายความร้อน ได้แก่: เครือข่ายไฮดรอลิกประกอบด้วยท่อ ปั๊ม และวาล์วควบคุมที่จ่ายน้ำไปยังหอคอยระบายความร้อน การออกแบบนี้ช่วยให้มั่นใจได้ว่าน้ำจะกระจายอย่างสม่ำเสมอทั่วทั้งอาคารและช่วยให้ความร้อนกระจายได้อย่างเหมาะสม พัดลมและมอเตอร์: สิ่งเหล่านี้สร้างการไหลของอากาศผ่านหอคอยระบายความร้อน ลมกระโชกนี้จำเป็นสำหรับการถ่ายเทความร้อน เนื่องจากช่วยให้สามารถระบายความร้อนด้วยน้ำด้วยอากาศได้ เซลล์หอคอย: เป็นหน่วยโมดูลาร์ที่ประกอบด้วยสื่อการถ่ายเทความร้อน ซึ่งรวมถึงแพ็คเติมที่ใช้เพื่อเพิ่มพื้นที่ผิวของน้ำและแถบกระเซ็น ซึ่งจำเป็นสำหรับการกระจายน้ำอย่างเท่าเทียมกันทั่วทั้งหอคอยระบายความร้อน ระบบตรวจสอบ: กลยุทธ์การจัดการที่รักษาและควบคุมประสิทธิภาพของระบบ HVAC […]",
+   "allowEmpty": true,
+   "slot": "body.3.13.2",
+   "row": "SC1-C-054",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-054: Archive/tag card (title or excerpt) of the HVAC-titled article. It leaves with the locale twin held in group TWIN-HOLD, so no rewrite is possible."
+  },
+  {
+   "path": "/category/uncategorized/page/16/",
+   "op": "replace",
+   "find": " HVAC システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業、商業、および施設",
+   "replace": "産業用冷却システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業",
+   "slot": "body.3.15.2",
+   "row": "SC1-C-055",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-055: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/uncategorized/page/16/",
+   "op": "replace",
+   "find": " HVAC ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม เชิงพาณิชย์ และสถาบัน",
+   "replace": "ทำความเย็นอุตสาหกรรม ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม",
+   "slot": "body.3.17.2",
+   "row": "SC1-C-056",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-056: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/uncategorized/page/17/",
+   "op": "replace",
+   "find": "HVAC システムと産業用チラー",
+   "replace": "チラーおよび産業用冷却システム",
+   "slot": "body.3.1.2",
+   "row": "SC1-C-057",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-057: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/uncategorized/page/8/",
+   "op": "replace",
+   "find": "標準的な家庭用 HVAC システムと同様に、産",
+   "replace": "産",
+   "slot": "body.3.3.2",
+   "row": "SC1-C-058",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-058: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/category/uncategorized/page/8/",
+   "op": "replace",
+   "find": "เช่นเดียวกับระบบ HVAC ",
+   "replace": "",
+   "slot": "body.3.5.2",
+   "row": "SC1-C-059",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-059: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/chiller-and-cooling-tower/",
+   "op": "replace",
+   "run": 0,
+   "find": "Large-scale electric vehicle manufacturing is expanding rapidly across the American Midwest. These mega-factories use hybrid systems to handle fluctuating thermal loads. By combining towers and chillers, they maximize efficiency across dramatic seasonal weather changes. Power plants also utilize these hybrid large-scale ",
+   "replace": "Large-scale electric vehicle manufacturing is expanding rapidly across the American Midwest. These mega-factories use hybrid systems to handle fluctuating thermal loads. By combining towers and chillers, they maximize efficiency across dramatic seasonal weather changes. Power plants also use hybrid tower-and-chiller",
+   "slot": "body.3.1.1.7.57",
+   "row": "SC1-C-060",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-060: HVAC removed with the wording already accepted for the same sentence in tranche A/B (or an equivalent minimal edit); industrial framing, no new claims."
+  },
+  {
+   "path": "/chiller-and-cooling-tower/",
+   "op": "replace",
+   "run": 1,
+   "find": "HVAC",
+   "replace": "",
+   "slot": "body.3.1.1.7.57",
+   "row": "SC1-C-060",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-060: HVAC removed with the wording already accepted for the same sentence in tranche A/B (or an equivalent minimal edit); industrial framing, no new claims."
+  },
+  {
+   "path": "/chiller-and-cooling-tower/",
+   "op": "replace",
+   "find": "large-scale HVAC systems and industrial cooling solutions.",
+   "replace": "industrial cooling.",
+   "slot": "body.3.1.1.7.93",
+   "row": "SC1-C-061",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-061: HVAC removed with the wording already accepted for the same sentence in tranche A/B (or an equivalent minimal edit); industrial framing, no new claims."
+  },
+  {
+   "path": "/cooling-tower-approach/",
+   "op": "replace",
+   "find": "HVAC and ",
+   "replace": "",
+   "slot": "body.3.1.1.7.35.3",
+   "row": "SC1-C-063",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-063: HVAC removed with the wording already accepted for the same sentence in tranche A/B (or an equivalent minimal edit); industrial framing, no new claims."
+  },
+  {
+   "path": "/cooling-tower-fill-media-replacement/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "Water",
+   "slot": "body.3.1.1.7.31.0.0.1.1",
+   "row": "SC1-C-067",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-067: HVAC removed with the wording already accepted for the same sentence in tranche A/B (or an equivalent minimal edit); industrial framing, no new claims."
+  },
+  {
+   "path": "/cooling-tower-fill-media-replacement/",
+   "op": "replace",
+   "find": "ensures the lowest energy draw for clean HVAC",
+   "replace": "supports the lowest energy draw for clean-water",
+   "slot": "body.3.1.1.7.35.1",
+   "row": "SC1-C-068",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-068: HVAC removed with the wording already accepted for the same sentence in tranche A/B (or an equivalent minimal edit); industrial framing, no new claims."
+  },
+  {
+   "path": "/cooling-tower-fill-media-replacement/",
+   "op": "replace",
+   "find": "HVAC loops with clean water flow",
+   "replace": "clean-water loops",
+   "slot": "body.3.1.1.7.107",
+   "row": "SC1-C-069",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-069: HVAC removed with the wording already accepted for the same sentence in tranche A/B (or an equivalent minimal edit); industrial framing, no new claims."
+  },
+  {
+   "path": "/cooling-tower-rehabilitation-services/",
+   "op": "replace",
+   "find": "chemical processing, and commercial HVAC",
+   "replace": "and chemical processing",
+   "slot": "body.3.1.1.7.299.9",
+   "row": "SC1-C-086",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-086: HVAC removed with the wording already accepted for the same sentence in tranche A/B (or an equivalent minimal edit); industrial framing, no new claims."
+  },
+  {
+   "path": "/cooling-tower-singapore/",
+   "op": "replace",
+   "find": ", data centers, and commercial HVAC systems",
+   "replace": " and data centers",
+   "slot": "body.3.1.1.3.1.1.2",
+   "row": "SC1-C-089",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-089: HVAC removed with the wording already accepted for the same sentence in tranche A/B (or an equivalent minimal edit); industrial framing, no new claims."
+  },
+  {
+   "path": "/id/bagaimana-cara-membersihkan-menara-pendingin/",
+   "op": "replace",
+   "find": "HVAC, yang sangat penting dalam berbagai pengaturan industri, komersial, dan institusional",
+   "replace": "pendinginan industri, yang sangat penting dalam berbagai pengaturan industri",
+   "slot": "body.1",
+   "row": "SC1-C-255",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-255: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/id/bagaimana-mencegah-legionella-di-pendingin-dan-menara-pendingin/",
+   "op": "replace",
+   "find": "sistem HVAC",
+   "replace": "pada sistem chiller",
+   "slot": "body.15",
+   "row": "SC1-C-256",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-256: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/id/bagaimana-mencegah-legionella-di-pendingin-dan-menara-pendingin/",
+   "op": "replace",
+   "find": "sistem HVAC",
+   "replace": "pabrik chiller",
+   "slot": "body.67",
+   "row": "SC1-C-257",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-257: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/id/daftar-periksa-pemeliharaan-menara-pendingin-langkah-demi-langkah-untuk-kinerja-optimal/",
+   "op": "replace",
+   "find": "proses, dan sistem HVAC",
+   "replace": "dan proses industri lainnya",
+   "slot": "body.1",
+   "row": "SC1-C-258",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-258: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/id/langkah-menuju-menara-pendinginan-yang-lebih-efisien-energi/",
+   "op": "replace",
+   "find": "Seperti sistem HVAC standar di rumah, m",
+   "replace": "M",
+   "slot": "body.17",
+   "row": "SC1-C-259",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-259: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+   "op": "replace",
+   "find": "Industri HVAC",
+   "replace": "Proses Industri",
+   "slot": "body.153",
+   "row": "SC1-C-260",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-260: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+   "op": "replace",
+   "find": "industri HVAC",
+   "replace": "proses industri",
+   "slot": "body.155",
+   "row": "SC1-C-261",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-261: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+   "op": "replace",
+   "find": "sistem HVAC untuk menjaga suhu internal",
+   "replace": "proses industri untuk menjaga suhu proses",
+   "slot": "body.183",
+   "row": "SC1-C-262",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-262: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/id/menara-pendingin-internasional-memahami-jenis-masalah-dan-solusi/",
+   "op": "remove",
+   "find": "Menara pendingin ini juga digunakan dalam sistem HVAC di gedung perumahan atau komersial. Sistem pendingin ini menyerap semua panas ekstra dari orang atau peralatan listrik lainnya seperti komputer dan AC. Panas tersebut dipindahkan ke menara pendingin, tempat panas tersebut dikeluarkan dari atmosfer.",
+   "allowEmpty": true,
+   "slot": "body.43",
+   "row": "SC1-C-263",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-263: Residential/commercial HVAC paragraph; the English equivalent was deleted (tranche B)."
+  },
+  {
+   "path": "/id/perawatan-menara-pendingin-panduan-lengkap-langkah-demi-langkah/",
+   "op": "replace",
+   "find": "sistem HVAC",
+   "replace": "peralatan proses terkait",
+   "slot": "body.119",
+   "row": "SC1-C-264",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-264: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/ja/よりエネルギー効率の高い冷却塔へのステップ/",
+   "op": "replace",
+   "find": "標準的な家庭用 HVAC システムと同様に、産",
+   "replace": "産",
+   "slot": "body.17",
+   "row": "SC1-C-265",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-265: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/ja/チラーと冷却塔でレジオネラ菌を防ぐには？/",
+   "op": "replace",
+   "find": "HVAC システムと産業用チラー",
+   "replace": "チラーおよび産業用冷却システム",
+   "slot": "body.15",
+   "row": "SC1-C-266",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-266: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/ja/チラーと冷却塔でレジオネラ菌を防ぐには？/",
+   "op": "replace",
+   "find": " HVAC システム",
+   "replace": "チラープラント",
+   "slot": "body.69",
+   "row": "SC1-C-267",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-267: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/ja/冷却塔のメンテナンス-ステップバイステップの完/",
+   "op": "replace",
+   "find": "大規模な商業ビルや産業に不可欠です。冷却塔と HVAC システム",
+   "replace": "産業施設に不可欠です。冷却塔と接続されたプロセス機器",
+   "slot": "body.121",
+   "row": "SC1-C-268",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-268: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/ja/冷却塔の清掃方法/",
+   "op": "replace",
+   "find": " HVAC システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業、商業、および施設",
+   "replace": "産業用冷却システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業",
+   "slot": "body.1",
+   "row": "SC1-C-269",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-269: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/ja/国際冷却塔-種類、問題、およびソリューション/",
+   "op": "remove",
+   "find": "これらの冷却塔は、住宅や商業ビルの HVAC システムでも使用されています。これらの冷却システムは、人やコンピューターやエアコンなどの他の電気機器からの余分な熱をすべて吸収します。それらは冷却塔に転送され、そこで大気から除去されます。",
+   "allowEmpty": true,
+   "slot": "body.47",
+   "row": "SC1-C-270",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-270: Residential/commercial HVAC paragraph; the English equivalent was deleted (tranche B)."
+  },
+  {
+   "path": "/ja/工業プロセスにおける冷却塔の用途を理解する/",
+   "op": "replace",
+   "find": "อุตสาหกรรม HVAC",
+   "replace": "กระบวนการอุตสาหกรรม",
+   "slot": "body.167",
+   "row": "SC1-C-271",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-271: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/ja/工業プロセスにおける冷却塔の用途を理解する/",
+   "op": "replace",
+   "find": "อุตสาหกรรม HVAC",
+   "replace": "กระบวนการอุตสาหกรรม",
+   "slot": "body.169",
+   "row": "SC1-C-272",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-272: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/ja/工業プロセスにおける冷却塔の用途を理解する/",
+   "op": "replace",
+   "find": "ระบบ HVAC เพื่อรักษาอุณหภูมิภายใน",
+   "replace": "กระบวนการอุตสาหกรรมเพื่อรักษาอุณหภูมิกระบวนการ",
+   "slot": "body.197",
+   "row": "SC1-C-273",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-273: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/ja/最適なパフォーマンスを実現するための段階的な/",
+   "op": "replace",
+   "find": "プロセス、HVAC システム",
+   "replace": "その他のプロセス",
+   "slot": "body.1",
+   "row": "SC1-C-274",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-274: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-tower-contractorcooling-tower-solutionsindustrial-cooling-tower/",
+   "op": "replace",
+   "find": ", manufacturing facilities, and HVAC systems, ",
+   "replace": " and manufacturing facilities, ",
+   "slot": "body.3.1.3",
+   "row": "SC1-C-276",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-276: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-tower-contractorcooling-tower-solutionsindustrial-cooling-towervariable-frequency-drive/",
+   "op": "replace",
+   "find": "HVAC system",
+   "replace": "power plant",
+   "slot": "body.3.1.3",
+   "row": "SC1-C-277",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-277: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-blades/page/2/",
+   "op": "replace",
+   "find": "HVAC systems, vital in various industrial, commercial, and institutional settings that facilitate",
+   "replace": "industrial cooling systems, facilitating",
+   "slot": "body.3.3.3",
+   "row": "SC1-C-278",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-278: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-blades/page/4/",
+   "op": "remove",
+   "find": "冷却塔は、システムから余分な熱を大気中に抽出し、機械を冷却する熱除去装置です。冷却塔は、内部の大気を冷却するために産業や建物で広く使用されており、その効率性と機能性から非常に好まれています。 国際産業用冷却塔は、ユニットを通じて再分配される少量の水を蒸発させることで水から余分な熱を除去するという基礎に基づいて機能します。 ほとんどの産業は、冷却塔ユニットなしではうまく運営できません。冷却塔ユニットは、余分な熱を抽出することで効率的な熱交換と産業機器の冷却を保証するためです。 この詳細な記事では、冷却塔、その目的と重要性、冷却塔の種類、欠陥の検出方法などについて説明します。 冷却塔の主な目的は何ですか? 水冷塔は、水を冷却し、余分な有害な熱を取り除き、建物の大量の熱を直接大気中に放出し、より冷たい水をチラーに戻すために必要です。 水冷塔は、チラーから温水を受け取ります。この温水は、凝縮水とも呼ばれます。チラーは、金庫室や地下室などの低い場所に設置されます。その主な機能は、温水を冷却してチラーに戻してさらに熱を受け取り、プロセスが続行できるようにすることです。 国際的な冷却塔プロセスでは、温水の形で過剰な熱が発生する可能性があり、突然冷却する必要があります。温水冷却塔は余分な熱を取り除き、冷却します。 産業用冷却塔では、プロセスからの過熱水が冷却塔を流れ、再分配され、冷たい空気と接触します。水が落下すると、蒸発プロセスによって温水から熱が抽出されます。 このプロセスは蒸発冷却と呼ばれます。その後、冷却水は空気プロセスに戻り、機器を冷却します。この効率的な冷却サイクルが何度も継続的に繰り返されます。 熱い凝縮器が冷却塔に入ると、水がノズルを通過し、充填物の上に水を小さな水滴に噴霧します。最終的に水表面積が増加し、大量の蒸発によって効果的な熱損失が可能になります。 冷却塔の上部に設置されたファンは、ベースから空気を導き、それを上方に動かし、温かい凝縮器の水をあらゆる方向に循環させます。空気は、工業用冷却塔から水の蒸発によって余分な熱をすべて運び、大気中に放出します。 冷却塔の主要コンポーネント 充填材: 冷却塔の充填材は、熱水を効果的に拡散するための優れた表面積を提供します。最終的には、空気と水の接触を促進し、強化して、効率的で最大限の冷却を実現します。 スプレー ノズル: スプレー ノズルは、冷却塔の水分配器として機能し、充填材にスプレーして、一貫した長期的な冷却を保証します。プラスチック材料の他に、PVC、ABS、ポリプロピレン、ガラス入りナイロンなどの他の材料もスプレーに使用されます。 ファン: 国際的な冷却塔では、ファンは塔の上部に設置され、空気を吸い込んでシステム内に押し出し、熱損失システムに役立ちます。 さまざまな産業における冷却塔の用途 発電所: 発電所では、効率性と有用性から冷却塔が広く利用されており、蒸気発電所ではさらに多く使用されています。熱が機械エネルギーに変換されるとき、すべての熱を機械的な仕事に変換するのは困難であり、ここでは冷却塔を使用して完全に変換します。 暖房と空調: これらの冷却塔は、住宅や商業ビルの HVAC システムでも使用されています。これらの冷却システムは、人やコンピューターやエアコンなどの他の電気機器からの余分な熱をすべて吸収します。それらは冷却塔に転送され、そこで大気から除去されます。 産業: 砂糖、衣料品、石油化学、石油およびガス精製所などの工場では、冷却塔は温度を監視するために不可欠です。国際的な冷却塔は、過熱や摩耗を防ぐことで、産業機械の運用寿命を維持するのにも役立ちます。 データセンターの冷却塔 データセンターは、デジタル時代の IT インフラストラクチャの究極のサポーターです。これらのセンターには、継続的に大量の熱が発生します。冷却機構は、環境を涼しく保ち、すべての機能が正しく動作するようにするのに役立ちます。データセンターは過熱により停電する可能性があり、冷却塔の保守と修理にコストがかかり、混乱を招く可能性があります。 冷却塔の種類 さまざまな冷却塔は、余分な空気を排出するために利用できる気流生成に基づいており、その一部は次のとおりです。 機械通風式冷却塔: 機械通風式冷却塔は、単一または複数のファンを使用して、塔を通る空気の流れを作り出します。標準ファンによって強制的に空気が送り込まれ、産業や建物全体に空気が広がります。機能性から、自然通風式冷却塔よりも好まれています。 自然通風式冷却塔: 自然通風式冷却塔は、ファンなどの機械装置を使用して空気の流れを作りません。自然な空気の動きを利用して水を冷却します。コストはかかりませんが、気候条件を分析して屋外に設置する必要があります。これらの背の高い冷却塔は、適切な空気の流れを得るために、通常、双曲面形状になっています。 強制通風式冷却塔: 強制通風式冷却塔では、ファンが空気を冷却塔に引き込み、冷却塔の底部と側面に設置されます。これは、誘引通風式冷却塔に似ています。その性能は常に安定しており、高い静圧を処理する必要がある屋内用途で利用できます。 誘引通風冷却塔: 誘引通風冷却塔の上部にはファンが設置され、熱気を排出します。ドリフトエリミネーターは、流れから出る空気に水滴が閉じ込められないようにするために使用されます。 クロスフローおよびカウンターフロー冷却塔: その名の通り、クロスフロー冷却塔では、水が垂直に流れ、空気の熱交換が材料を通過して水平方向に充填されます。カウンターフロータイプの冷却塔では、水は垂直に流れ、空気は充填物を通って垂直に上向きに流れます。 節水のヒント 冷却塔は、特に湿式冷却システムでは大量の水を消費します。ただし、次のようないくつかの方法を使用して水の使用量を削減できます。 ブローダウンの削減 ブローダウンとは、溶解した固形物濃度の高い水をシステムから除去することです。ブローダウンの頻度を減らし、可能な限り水を再利用すると、節水に役立ちます。 水処理 冷却塔に入る前に水を処理することで、スケールや腐食を軽減でき、水交換の間隔を長くして水を節約できます。 損失を最小限に抑えるために早期にトラブルシューティングするには? これらのタワーの早期トラブルシューティングを分析して検証することで、時間と費用を節約できます。冷却塔に重大な損傷を引き起こす可能性のある早期警告サインは次のとおりです。 エンジン音 […]",
+   "allowEmpty": true,
+   "slot": "body.3.17.2",
+   "row": "SC1-C-279",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-279: Residential/commercial HVAC paragraph; the English equivalent was deleted (tranche B)."
+  },
+  {
+   "path": "/tag/cooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-bladescooling-tower-parts/",
+   "op": "remove",
+   "find": "HVAC systems depend on cooling towers, chillers, and Air Handling units to maintain the temperatures and humidity inside the buildings. They are necessary for commercial buildings like hospitals, offices, and shopping malls, keeping buildings cool and safe for people inside. Cooling towers extract extra waste heat from the building’s air conditioning system. With their impressive […]",
+   "allowEmpty": true,
+   "slot": "body.3.1.3",
+   "row": "SC1-C-281",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-281: Pure HVAC / commercial-building element with no industrial content to keep (same rule as tranche A/B deletions), or the card of a held article."
+  },
+  {
+   "path": "/tag/cooling-tower-fill/",
+   "op": "replace",
+   "find": "HVAC システムと産業用チラー",
+   "replace": "チラーおよび産業用冷却システム",
+   "slot": "body.3.3.2",
+   "row": "SC1-C-282",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-282: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-tower-fill/",
+   "op": "replace",
+   "find": " HVAC システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業、商業、および施設",
+   "replace": "産業用冷却システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業",
+   "slot": "body.3.5.2",
+   "row": "SC1-C-283",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-283: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-tower-fill/",
+   "op": "remove",
+   "find": "Hệ thống HVAC phụ thuộc vào tháp giải nhiệt, máy làm lạnh và bộ xử lý không khí để duy trì nhiệt độ và độ ẩm bên trong tòa nhà. Chúng cần thiết cho các tòa nhà thương mại như bệnh viện, văn phòng và trung tâm mua sắm, giúp tòa nhà mát mẻ và […]",
+   "allowEmpty": true,
+   "slot": "body.3.7.2",
+   "row": "SC1-C-285",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-285: Pure HVAC / commercial-building element with no industrial content to keep (same rule as tranche A/B deletions), or the card of a held article."
+  },
+  {
+   "path": "/tag/cooling-tower-parts/",
+   "op": "replace",
+   "find": " HVAC ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม เชิงพาณิชย์ และสถาบัน",
+   "replace": "ทำความเย็นอุตสาหกรรม ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม",
+   "slot": "body.3.3.2",
+   "row": "SC1-C-286",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-286: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-tower-parts/",
+   "op": "remove",
+   "find": "HVAC システムは、建物内の温度と湿度を維持するために、冷却塔、チラー、および空調ユニットに依存しています。これらは、病院、オフィス、ショッピング モールなどの商業ビルに必要であり、建物を涼しく保ち、内部の人々を安全に保っています。冷却塔は、建物の空調システムから余分な廃熱を抽出します。その優れた効率性と汎用性により、現代の商業ビルの設計は HVAC 冷却塔にとって不可欠なものとなっています。 この記事では、HVAC 冷却塔の基礎、その役割、利点、および重要なタイプについて説明します。また、チラーと冷却塔の主な違いを理解し、施設に最適なオプションを決定します。 冷却塔の HVAC システムとは 暖房、換気、空調 (HVAC) システムは、理想的な室内の快適さと環境品質を維持するために、産業および商業プロセスで広く使用されています。冷却塔は、これらのシステムの中で最も重要な部分であり、内部の気候のバランスをとる上で重要な役割を果たします。冷却塔内では、これらのシステムは、水の循環、温度の制御、気流の維持という 3 つの主要な機能を実行します。 冷却塔のこの機械システムの重要なコンポーネントには、次のものがあります。 油圧ネットワークは、冷却塔に水を供給するパイプ、ポンプ、および調節バルブで構成されています。この設計により、建物全体に水が均等に分配され、最適な熱拡散が可能になります。 ファンとモーター: これらは、冷却塔を通る気流を作り出します。この突風は、水を空気で冷却できるようにするため、熱伝達に必要です。 タワー セル: これらは、熱伝達媒体を含むモジュール式ユニットです。これには、水の表面積を増やすために使用される充填パックと、冷却塔全体に水を均等に分配するために必要なスプラッシュ バーが含まれます。 監視システム: HVAC のパフォーマンスを保持および調整する管理戦略。センサー、アクチュエータ、およびプログラマブル ロジック コントローラーで構成されます。 HVAC システムにおける冷却塔の役割 冷却塔は HVAC システムで重要な役割を果たし、工業用温水から最大限の熱を除去して理想的で最適なパフォーマンスを実現します。 HVAC では、冷却塔、チラー、および空調ユニット (AHU) が同時に連携して、最大限の熱放散と空調を実現します。 大規模な商業用 HVAC システムにおける冷却塔の最も有名で実用的な役割は次のとおりです。 熱放散 HVAC における冷却塔の主な役割は、蒸発冷却プロセスを通じて廃熱を除去することです。 また、大規模な商業ビルでは熱交換器としても機能します。 工業プロセスからの温水は冷却塔システムに入り、その分配システムは、鋭いスプレー ノズルから液滴の形で充填媒体に水が滑らかかつ均一に流れるようにします。 ここで、冷却塔ファンが空気の流れを生み出し、その結果、乾燥した空気と温水の間で最大限の熱交換が行われます。 水と空気の接触により、温水から余分な熱エネルギーがすべて除去されます。一部の水は蒸発により失われ、冷水が残ります。冷水は冷水槽またはタワー槽の底に集まります。 チラーと AHU との統合 冷却塔は AHU およびチラーと連携して、化学処理工場、食品加工工場、火力発電所、その他の大型建物で効果的かつ強力な冷却を行います。チラーは建物から余分な熱と潜熱を取り除き、冷却塔に向けます。 冷却塔は余分な熱をすべて取り出して水を冷やします。冷水が生成されると、空調ユニット […]",
+   "allowEmpty": true,
+   "slot": "body.3.5.2",
+   "row": "SC1-C-288",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-288: Archive/tag card (title or excerpt) of the HVAC-titled article. It leaves with the locale twin held in group TWIN-HOLD, so no rewrite is possible."
+  },
+  {
+   "path": "/tag/cooling-tower/",
+   "op": "replace",
+   "find": "HVAC, yang sangat penting dalam berbagai pengaturan industri, komersial, dan institusional",
+   "replace": "pendinginan industri, yang sangat penting dalam berbagai pengaturan industri",
+   "slot": "body.3.5.2",
+   "row": "SC1-C-289",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-289: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-tower/",
+   "op": "replace",
+   "find": "HVAC, đóng vai trò quan trọng trong nhiều bối cảnh công nghiệp, thương mại và tổ chức",
+   "replace": "làm mát công nghiệp, đóng vai trò quan trọng trong nhiều bối cảnh công nghiệp",
+   "slot": "body.3.7.2",
+   "row": "SC1-C-290",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-290: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-tower/",
+   "op": "remove",
+   "find": "Sistem HVAC bergantung pada menara pendingin, pendingin, dan unit Penanganan Udara untuk menjaga suhu dan kelembapan di dalam gedung. Sistem ini diperlukan untuk gedung komersial seperti rumah sakit, kantor, dan pusat perbelanjaan, menjaga gedung tetap sejuk dan aman bagi orang-orang di dalamnya. Menara pendingin mengekstraksi panas buangan ekstra dari sistem pendingin udara gedung. Dengan efisiensi […]",
+   "allowEmpty": true,
+   "slot": "body.3.9.2",
+   "row": "SC1-C-292",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-292: Pure HVAC / commercial-building element with no industrial content to keep (same rule as tranche A/B deletions), or the card of a held article."
+  },
+  {
+   "path": "/tag/cooling-tower/",
+   "op": "remove",
+   "find": "ระบบ HVAC ต้องใช้หอคอยทำความเย็น เครื่องทำความเย็น และเครื่องจัดการอากาศเพื่อรักษาอุณหภูมิและความชื้นภายในอาคาร หอคอยทำความเย็นมีความจำเป็นสำหรับอาคารพาณิชย์ เช่น โรงพยาบาล สำนักงาน และห้างสรรพสินค้า ช่วยให้อาคารเย็นสบายและปลอดภัยสำหรับผู้คนภายใน หอคอยทำความเย็นจะดึงความร้อนเหลือทิ้งออกจากระบบปรับอากาศของอาคาร ด้วยประสิทธิภาพและความหลากหลายที่น่าประทับใจ การออกแบบอาคารพาณิชย์สมัยใหม่จึงกลายมาเป็นสิ่งจำเป็นสำหรับหอคอยทำความเย็น HVAC บทความนี้จะสำรวจพื้นฐานของหอคอยทำความเย็น HVAC บทบาท ประโยชน์ และประเภทที่จำเป็น นอกจากนี้ คุณยังจะพบความแตกต่างหลักระหว่างเครื่องทำความเย็นและหอคอยทำความเย็น และกำหนดตัวเลือกที่ดีที่สุดสำหรับสถานที่ของคุณ ระบบ HVAC ในหอคอยทำความเย็นคืออะไร ระบบทำความร้อน ระบายอากาศ และปรับอากาศ (HVAC) ถูกใช้กันอย่างแพร่หลายในกระบวนการทางอุตสาหกรรมและเชิงพาณิชย์เพื่อรักษาความสะดวกสบายภายในอาคารและคุณภาพของสิ่งแวดล้อมที่เหมาะสม หอคอยทำความเย็นเป็นส่วนที่สำคัญที่สุดของระบบเหล่านี้ซึ่งมีบทบาทสำคัญในการปรับสมดุลสภาพอากาศภายใน ภายในหอคอยระบายความร้อน ระบบเหล่านี้ทำหน้าที่หลักสามอย่าง ได้แก่ การหมุนเวียนน้ำ การควบคุมอุณหภูมิ และการรักษาการไหลของอากาศ ส่วนประกอบที่สำคัญบางส่วนของระบบกลไกนี้ในหอคอยระบายความร้อน ได้แก่: เครือข่ายไฮดรอลิกประกอบด้วยท่อ ปั๊ม และวาล์วควบคุมที่จ่ายน้ำไปยังหอคอยระบายความร้อน การออกแบบนี้ช่วยให้มั่นใจได้ว่าน้ำจะกระจายอย่างสม่ำเสมอทั่วทั้งอาคารและช่วยให้ความร้อนกระจายได้อย่างเหมาะสม พัดลมและมอเตอร์: สิ่งเหล่านี้สร้างการไหลของอากาศผ่านหอคอยระบายความร้อน ลมกระโชกนี้จำเป็นสำหรับการถ่ายเทความร้อน เนื่องจากช่วยให้สามารถระบายความร้อนด้วยน้ำด้วยอากาศได้ เซลล์หอคอย: เป็นหน่วยโมดูลาร์ที่ประกอบด้วยสื่อการถ่ายเทความร้อน ซึ่งรวมถึงแพ็คเติมที่ใช้เพื่อเพิ่มพื้นที่ผิวของน้ำและแถบกระเซ็น ซึ่งจำเป็นสำหรับการกระจายน้ำอย่างเท่าเทียมกันทั่วทั้งหอคอยระบายความร้อน ระบบตรวจสอบ: กลยุทธ์การจัดการที่รักษาและควบคุมประสิทธิภาพของระบบ HVAC […]",
+   "allowEmpty": true,
+   "slot": "body.3.11.2",
+   "row": "SC1-C-294",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-294: Archive/tag card (title or excerpt) of the HVAC-titled article. It leaves with the locale twin held in group TWIN-HOLD, so no rewrite is possible."
+  },
+  {
+   "path": "/tag/cooling-tower/page/2/",
+   "op": "replace",
+   "find": "標準的な家庭用 HVAC システムと同様に、産",
+   "replace": "産",
+   "slot": "body.3.1.2",
+   "row": "SC1-C-295",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-295: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-tower/page/2/",
+   "op": "replace",
+   "find": "เช่นเดียวกับระบบ HVAC ",
+   "replace": "",
+   "slot": "body.3.3.2",
+   "row": "SC1-C-296",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-296: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-towercooling-tower-fill/",
+   "op": "replace",
+   "find": "proses, dan sistem HVAC",
+   "replace": "dan proses industri lainnya",
+   "slot": "body.3.7.2",
+   "row": "SC1-C-297",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-297: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-towercooling-tower-fill/",
+   "op": "replace",
+   "find": "quy trình và hệ thống HVAC",
+   "replace": "và các quy trình công nghiệp",
+   "slot": "body.3.9.2",
+   "row": "SC1-C-298",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-298: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-towercooling-tower-fill/",
+   "op": "replace",
+   "find": "プロセス、HVAC システム",
+   "replace": "その他のプロセス",
+   "slot": "body.3.11.2",
+   "row": "SC1-C-299",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-299: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-towercooling-tower-fillcooling-tower-maintenance/",
+   "op": "replace",
+   "find": "กระบวนการ และระบบ HVAC",
+   "replace": "และกระบวนการอุตสาหกรรมอื่นๆ",
+   "slot": "body.3.1.2",
+   "row": "SC1-C-300",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-300: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/tag/cooling-towercooling-tower-inspection/",
+   "op": "replace",
+   "find": "and HVAC",
+   "replace": "plants and process",
+   "slot": "body.3.1.3",
+   "row": "SC1-C-301",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-301: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/th/การบำรุงรักษาหอระบายคว/",
+   "op": "replace",
+   "find": "ระบบ HVAC ",
+   "replace": "อุปกรณ์กระบวนการที่เชื่อมต่อ",
+   "slot": "body.117",
+   "row": "SC1-C-302",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-302: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/th/ก้าวไปสู่หอทำความเย็นท/",
+   "op": "replace",
+   "find": "เช่นเดียวกับระบบ HVAC ในบ้านมาตรฐาน ",
+   "replace": "",
+   "slot": "body.17",
+   "row": "SC1-C-303",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-303: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/th/รายการตรวจสอบการบำรุงร/",
+   "op": "replace",
+   "find": "กระบวนการ และระบบ HVAC",
+   "replace": "และกระบวนการอุตสาหกรรมอื่นๆ",
+   "slot": "body.1",
+   "row": "SC1-C-304",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-304: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/th/วิธีทำความสะอาดหอหล่อเ/",
+   "op": "replace",
+   "find": " HVAC ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม เชิงพาณิชย์ และสถาบัน",
+   "replace": "ทำความเย็นอุตสาหกรรม ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม",
+   "slot": "body.1",
+   "row": "SC1-C-305",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-305: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/th/วิธีป้องกันแบคทีเรีย-legionella/",
+   "op": "replace",
+   "find": " HVAC และเครื่อง",
+   "replace": "เครื่องทำความเย็นและระบบ",
+   "slot": "body.15",
+   "row": "SC1-C-306",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-306: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/th/วิธีป้องกันแบคทีเรีย-legionella/",
+   "op": "replace",
+   "find": "ระบบ HVAC ",
+   "replace": "โรงงานเครื่องทำความเย็น",
+   "slot": "body.67",
+   "row": "SC1-C-307",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-307: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/th/หอคอยระบายความร้อนระดั/",
+   "op": "remove",
+   "find": "หอหล่อเย็นเหล่านี้ยังใช้ในระบบ HVAC ในอาคารที่พักอาศัยหรือเชิงพาณิชย์ ระบบทำความเย็นเหล่านี้จะดูดซับความร้อนส่วนเกินทั้งหมดจากผู้คนหรืออุปกรณ์ไฟฟ้าอื่นๆ เช่น คอมพิวเตอร์และเครื่องปรับอากาศ ความร้อนเหล่านี้จะถูกถ่ายโอนไปยังหอหล่อเย็น ซึ่งจะถูกกำจัดออกจากชั้นบรรยากาศ",
+   "allowEmpty": true,
+   "slot": "body.45",
+   "row": "SC1-C-308",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-308: Residential/commercial HVAC paragraph; the English equivalent was deleted (tranche B)."
+  },
+  {
+   "path": "/th/工業プロセスにおける冷却塔の用途を理解する/",
+   "op": "replace",
+   "find": "HVAC 業界",
+   "replace": "産業プロセス",
+   "slot": "body.161",
+   "row": "SC1-C-309",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-309: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/th/工業プロセスにおける冷却塔の用途を理解する/",
+   "op": "replace",
+   "find": "HVAC 業界",
+   "replace": "産業プロセス",
+   "slot": "body.163",
+   "row": "SC1-C-310",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-310: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/th/工業プロセスにおける冷却塔の用途を理解する/",
+   "op": "replace",
+   "find": "内部温度を維持するために HVAC システム",
+   "replace": "プロセス温度を維持するために産業プロセス",
+   "slot": "body.191",
+   "row": "SC1-C-311",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-311: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/vi/bao-tri-thap-giai-nhiet-huong-dan-day-du-tung-buoc/",
+   "op": "replace",
+   "find": "hệ thống HVAC",
+   "replace": "thiết bị quy trình liên kết",
+   "slot": "body.123",
+   "row": "SC1-C-312",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-312: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/vi/cac-buoc-de-co-thap-giai-nhiet-hieu-qua-nang-luong-hon/",
+   "op": "replace",
+   "find": "Giống như hệ thống HVAC tiêu chuẩn trong nhà, t",
+   "replace": "T",
+   "slot": "body.17",
+   "row": "SC1-C-313",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-313: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/vi/danh-sach-bao-tri-thap-giai-nhiet-tung-buoc-de-co-hieu-suat-toi-uu/",
+   "op": "replace",
+   "find": "quy trình và hệ thống HVAC",
+   "replace": "và các quy trình công nghiệp",
+   "slot": "body.1",
+   "row": "SC1-C-314",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-314: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/vi/lam-the-nao-de-ngan-ngua-vi-khuan-legionella-trong-may-lam-lanh-va-thap-giai-nhiet/",
+   "op": "replace",
+   "find": "HVAC và máy làm lạnh ",
+   "replace": "máy làm lạnh và làm mát ",
+   "slot": "body.15",
+   "row": "SC1-C-315",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-315: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/vi/lam-the-nao-de-ngan-ngua-vi-khuan-legionella-trong-may-lam-lanh-va-thap-giai-nhiet/",
+   "op": "replace",
+   "find": "hệ thống HVAC",
+   "replace": "nhà máy chiller",
+   "slot": "body.69",
+   "row": "SC1-C-316",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-316: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/vi/lam-the-nao-de-ve-sinh-thap-giai-nhiet/",
+   "op": "replace",
+   "find": "HVAC, đóng vai trò quan trọng trong nhiều bối cảnh công nghiệp, thương mại và tổ chức",
+   "replace": "làm mát công nghiệp, đóng vai trò quan trọng trong nhiều bối cảnh công nghiệp",
+   "slot": "body.1",
+   "row": "SC1-C-317",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-317: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/vi/thap-giai-nhiet-quoc-te-tim-hieu-ve-cac-loai-van-de-va-giai-phap/",
+   "op": "remove",
+   "find": "Những tháp giải nhiệt này cũng được sử dụng trong các hệ thống HVAC trong các tòa nhà dân cư hoặc thương mại. Các hệ thống làm mát này hấp thụ tất cả nhiệt lượng dư thừa từ con người hoặc các thiết bị điện khác như máy tính và A.C.. Chúng được truyền đến tháp giải nhiệt, nơi nhiệt được loại bỏ khỏi khí quyển.",
+   "allowEmpty": true,
+   "slot": "body.47",
+   "row": "SC1-C-318",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-318: Residential/commercial HVAC paragraph; the English equivalent was deleted (tranche B)."
+  },
+  {
+   "path": "/vi/ทำความเข้าใจการใช้งานข/",
+   "op": "replace",
+   "find": "ngành công nghiệp HVAC",
+   "replace": "các quy trình công nghiệp",
+   "slot": "body.161",
+   "row": "SC1-C-319",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-319: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/vi/ทำความเข้าใจการใช้งานข/",
+   "op": "replace",
+   "find": "ngành công nghiệp HVAC:",
+   "replace": "các quy trình công nghiệp:",
+   "slot": "body.163",
+   "row": "SC1-C-320",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-320: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/vi/ทำความเข้าใจการใช้งานข/",
+   "op": "replace",
+   "find": "hệ thống HVAC để duy trì nhiệt độ bên trong",
+   "replace": "các quy trình công nghiệp để duy trì nhiệt độ quy trình",
+   "slot": "body.191",
+   "row": "SC1-C-321",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-321: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
+  },
+  {
+   "path": "/fans-cooling-tower/",
+   "op": "replace",
+   "element": "alt",
+   "find": "Air conditioning (HVAC) on the roof of an industrial building Air conditioning (HVAC) on the roof of an industrial building  Cooling Tower Fan stock pictures, royalty-free photos & images",
+   "replace": "Cooling tower fan on the roof of an industrial building",
+   "slot": "body.38.0",
+   "row": "SC1-C-106",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-106: image alt text rewritten generically (P2-ALT)"
+  },
+  {
+   "path": "/fans-cooling-tower/",
+   "op": "replace",
+   "element": "alt",
+   "find": "The engineering team checks the operation of the air-chiller HVAC system of a large industrial building. The engineering team checks the operation of the air-chiller HVAC system of a large industrial building. Tower Fan stock pictures, royalty-free photos & images",
+   "replace": "Engineers inspect an industrial chiller and cooling system at a large facility.",
+   "slot": "body.66.0",
+   "row": "SC1-C-107",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-107: image alt text rewritten generically (P2-ALT) (OGCS proposed text repeats \"of a large industrial building\" after \"facility\"; applied without the repeated tail, flagged for OGCS)"
+  },
+  {
+   "path": "/guide-about-cooling-tower/",
+   "op": "replace",
+   "element": "alt",
+   "find": "specialized heat exchanger and water treatment chemicals in hvac systems",
+   "replace": "specialized heat exchanger and water treatment chemicals in industrial cooling systems",
+   "slot": "body.25.0",
+   "row": "SC1-C-108",
+   "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-108: image alt text rewritten generically (P2-ALT)"
   }
  ]
 }

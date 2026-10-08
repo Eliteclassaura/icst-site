@@ -83,6 +83,8 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
       // SEO-CONTENT-1 round 2 (CT 2026-10-08): the hospital article and the vibration-switch placeholder
       'CREATE /hospital-cooling-systems/ /cooling-tower/',
       'CREATE /product/vibration-switch-example/ /tower-hardware/',
+      // SEO-CONTENT-2 piece A (CT 2026-10-08): the empty Uncategorized category
+      'CREATE /product-category/uncategorized/ /cooling-tower-parts-online/',
     ])
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
@@ -110,7 +112,7 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     expect(data('h1-fields.tsv').map(r=>[r.path,r.via,r.h1]).slice(0,3)).toEqual([['/cooling-tower/','slot','New Cooling Tower Engineering & Construction'],['/product-category/gearboxes/','slot','Amarillo Cooling Tower Gearboxes'],['/product-category/drive-shafts-assemblies/','slot','Cooling Tower Couplings & Drive Shafts']])
     // Restored live bodies bring their live H1 (the record title article templates render); Round 5 adds the CT-ruled heading
     // of /cooling-tower-repair-service/ (claims-seo field h1).
-    expect(data('h1-fields.tsv').filter(r=>r.via==='title').map(r=>r.path).sort()).toEqual(['/chiller-and-cooling-tower/','/cooling-tower-approach/','/cooling-tower-construction-repair-in-singapore/','/cooling-tower-construction-repair-in-united-states/','/cooling-tower-fill-media-replacement/','/cooling-tower-inspection-guide/','/cooling-tower-ph-control/','/cooling-tower-repair-service/'])
+    expect(data('h1-fields.tsv').filter(r=>r.via==='title').map(r=>r.path).sort()).toEqual(['/all-projects/pertonas-rapid/','/chiller-and-cooling-tower/','/cooling-tower-approach/','/cooling-tower-construction-repair-in-singapore/','/cooling-tower-construction-repair-in-united-states/','/cooling-tower-fill-media-replacement/','/cooling-tower-inspection-guide/','/cooling-tower-ph-control/','/cooling-tower-repair-service/'])
     // R5b adds the two OGCS-ruled location H1s (USA, Singapore; via=title, UPDATE until the batch writes them).
     // Round 5 wrote it; R2.4 is a delta on Round 5, so it is in place (UNCHANGED).
     expect(data('h1-fields.tsv').find(r=>r.path==='/cooling-tower-repair-service/')).toMatchObject({via:'title',action:'UNCHANGED',h1:'Industrial Cooling Tower Repair Service'})

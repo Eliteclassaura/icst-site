@@ -31,8 +31,8 @@ const imported=(routeId:string)=>{const r=routes.find(x=>x.routeId===routeId)!;r
 describe('text-override registry (guardrails 1–4)',()=>{
   const entries=textOverrides()
   it('1. every entry matches its imported document exactly `count` times in its scope, applies, and is idempotent',()=>{
-    // TO-009…014: R5b (location, Thailand, Singapore and /cooling-tower/ registry entries); TO-024…028: SEO-CONTENT-1 round 2 (seminar contact block removal and typo, class-10000 icon-list line, JSON-LD copies of two corrected metas); TO-015…023: SEO-CONTENT-1 (JSON-LD copies of seven corrected product titles and of the owner-directed BacMan title and description)
-    expect(entries.map(o=>o.id)).toEqual(['TO-001','TO-002','TO-003','TO-004','TO-005','TO-006','TO-007','TO-008',...Array.from({length:20},(_,i)=>`TO-${String(9+i).padStart(3,'0')}`)])
+    // TO-031…049: SEO-CONTENT-2 piece C (HVAC tranche C: heading and list REMOVE copies, JSON-LD copies, unlinked trane.com/rsi.edu hrefs); TO-029, TO-030: SEO-CONTENT-2 piece B (the JSON-LD copy and the TOC link copy of a corrected heading); TO-009…014: R5b (location, Thailand, Singapore and /cooling-tower/ registry entries); TO-024…028: SEO-CONTENT-1 round 2 (seminar contact block removal and typo, class-10000 icon-list line, JSON-LD copies of two corrected metas); TO-015…023: SEO-CONTENT-1 (JSON-LD copies of seven corrected product titles and of the owner-directed BacMan title and description)
+    expect(entries.map(o=>o.id)).toEqual(['TO-001','TO-002','TO-003','TO-004','TO-005','TO-006','TO-007','TO-008',...Array.from({length:41},(_,i)=>`TO-${String(9+i).padStart(3,'0')}`)])
     for(const routeId of new Set(entries.map(o=>o.routeId))){
       const doc=imported(routeId)
       const once=applyTextOverrides(doc)
@@ -66,7 +66,7 @@ describe('text-override registry (guardrails 1–4)',()=>{
   it('2. a body entry holds only text no editor-editable element can hold',()=>{
     // R5b (CT ruling pending): a removal of a heading or card cannot be a claim edit (the editor validator rejects an empty heading), so
     // those entries are flagged `unsaveable`; every other body entry still holds only text no editor can hold.
-    for(const o of entries.filter(e=>e.scope==='body'&&!e.unsaveable)){
+    for(const o of entries.filter(e=>e.scope==='body'&&!e.unsaveable&&!e.slotCopy)){
       const r=routes.find(x=>x.routeId===o.routeId)!
       const slots=extractSlots(storedDocument({path:r.targetPath,routeId:o.routeId,sourceFile:r.file} as never),{productIds:new Map()}) as ContentSlot[]
       expect(JSON.stringify(slots.filter(s=>s.kind==='text'||s.kind==='heading')),o.id).not.toContain(JSON.stringify(o.find).slice(1,-1))
@@ -75,7 +75,7 @@ describe('text-override registry (guardrails 1–4)',()=>{
   it('3. reviewable: every entry carries row, route, before/after and reason, and the editor README lists it; 4. the backlog item is recorded',()=>{
     const readme=readFileSync(path.join(APP,'content/design/TEXT_OVERRIDES.md'),'utf8')
     for(const o of entries){
-      for(const k of ['id','row','routeId','path','scope','find','replace','reason'] as const){if(k==='replace'&&(o.scope==='body-range'||o.row==='SC1-A-HVAC-CLASS10000'))continue;expect(String(o[k]??'').length,`${o.id} ${k}`).toBeGreaterThan(0)}
+      for(const k of ['id','row','routeId','path','scope','find','replace','reason'] as const){if(k==='replace'&&(o.scope==='body-range'||o.scope==='body-remove'||o.scope==='body-href'||o.row==='SC1-A-HVAC-CLASS10000'))continue;expect(String(o[k]??'').length,`${o.id} ${k}`).toBeGreaterThan(0)}
       expect(readme).toContain(`| ${o.id} | ${o.path} |`)
     }
     expect(readme).toMatch(/\*\*Backlog \(post-launch\):\*\* migrate each entry into real, editable data/)

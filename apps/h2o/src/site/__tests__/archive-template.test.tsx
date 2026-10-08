@@ -31,7 +31,7 @@ afterEach(()=>{process.env={...env}})
 
 describe('archive template',()=>{
   it('covers the 365 public archive routes (product-category, product-tag, category, tag)',()=>{
-    expect(archives).toHaveLength(365)
+    expect(archives).toHaveLength(364) // SEO-CONTENT-2: /product-category/uncategorized/ is held with a 301
   })
   it('renders every public archive through the styled template with no sort, ratings, prices or WooCommerce UI',async()=>{
     let products=0,articles=0
@@ -78,7 +78,7 @@ describe('archive edge cases (Control Tower amendments)',()=>{
     const empties:string[]=[]
     for(const row of archives){const doc=salmonDocument(salmonRoutes().find(route=>route.targetPath===row.path)!);const model=archiveModel(doc);if(!model.products.length&&!model.articles.length)empties.push(row.path)}
     expect(empties.sort()).toEqual([...EMPTY_ARCHIVE_PATHS])
-    expect(EMPTY_ARCHIVE_PATHS).toHaveLength(144) // + /product-category/uncategorized/ (SEO-CONTENT-1 round 2)
+    expect(EMPTY_ARCHIVE_PATHS).toHaveLength(143) // /product-category/uncategorized/ is held with a 301 (SEO-CONTENT-2), not an empty archive
     for(const p of ['/category/cooling-tower-cost/',EMPTY_ARCHIVE_PATHS.find(path=>path.startsWith('/product-tag/'))!]){
       const html=await render(p)
       expect(html,p).toMatch(/<p class="sp-archive-empty">Nothing is listed here yet\. <a href="\/cooling-tower-parts-online\/">Browse cooling tower parts<\/a> or <a href="\/contact-us\/">contact us<\/a>\.<\/p>/)

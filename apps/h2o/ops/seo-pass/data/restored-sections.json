@@ -1849,7 +1849,7 @@
            },
            {
             "type": "text",
-            "text": " The heated water in a cooling tower is optimal for legionella growth and multiplication. The tower water of HVAC systems and industrial chillers is the main reason for their flourishing if left unchecked.",
+            "text": " The heated water in a cooling tower is optimal for legionella growth and multiplication. Tower water in chiller and industrial cooling systems is the main reason for their flourishing if left unchecked.",
             "format": 0,
             "detail": 0,
             "mode": "normal",
@@ -2759,7 +2759,7 @@
            },
            {
             "type": "text",
-            "text": " Regularly check water quality to maintain cooling efficiency. Keep pH within the range set by the water treatment program for your tower type, whether an induced draft or counterflow cooling tower or a large-scale HVAC system, and check the water pH at least three times a week.",
+            "text": " Regularly check water quality to maintain cooling efficiency. Keep pH within the range set by the water treatment program for your tower type, whether an induced draft or counterflow cooling tower or a large chiller plant, and check the water pH at least three times a week.",
             "format": 0,
             "detail": 0,
             "mode": "normal",
@@ -4152,7 +4152,7 @@
            },
            {
             "type": "text",
-            "text": ", while high-efficiency systems can achieve ",
+            "text": ", while high-efficiency systems are designed closer to 3°C (about 5°F), the practical minimum design approach",
             "format": 0,
             "detail": 0,
             "mode": "normal",
@@ -4161,7 +4161,7 @@
            },
            {
             "type": "text",
-            "text": "2–4°C",
+            "text": "",
             "format": 1,
             "detail": 0,
             "mode": "normal",

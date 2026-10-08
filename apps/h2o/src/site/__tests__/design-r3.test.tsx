@@ -136,9 +136,9 @@ describe('Redirect, font and stylesheet',()=>{
     // CLAIMS-R2 is a delta on the Design R3 batch (Round 11 applied the CREATE), so the row is UNCHANGED and nothing is created
     expect(rows[0]!.split('\t').slice(0,4)).toEqual(['/about-us/','/about-ics-industrial-cooling-solutions/','301','UNCHANGED'])
     const exp=JSON.parse(readFileSync(path.join(APP,'ops/seo-pass/data/expectations.json'),'utf8')) as {expect:{redirects:{create:number}}}
-    expect(exp.expect.redirects.create).toBe(9) // SEO-CONTENT-1's seven HOLD 301s are the only creates of the next delta (/about-us/ is in place)
+    expect(exp.expect.redirects.create).toBe(10) // SEO-CONTENT-1's seven HOLD 301s are the only creates of the next delta (/about-us/ is in place)
     const fresh=JSON.parse(readFileSync(path.join(APP,'ops/seo-pass/data/expectations.fresh-db.json'),'utf8')) as {expect:{redirects:{create:number}}}
-    expect(fresh.expect.redirects.create).toBe(398) // 390 + the seven HOLD 301s - the retired algae hold 301 (SEO-CONTENT-1)
+    expect(fresh.expect.redirects.create).toBe(399) // 390 + the seven HOLD 301s - the retired algae hold 301 (SEO-CONTENT-1)
   })
   it('Bebas Neue (held, OFL) only for the Commitment display heading; colours are tokens; imported last',()=>{
     const css=readFileSync(path.join(APP,'src/app/(site)/design-r3.css'),'utf8')

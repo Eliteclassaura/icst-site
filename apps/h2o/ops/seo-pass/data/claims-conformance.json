@@ -1,5 +1,5 @@
 {
- "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed. CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows R2L10-01..10, each current string absent and its CT-accepted wording present.; R4 (CT 2026-10-07): OGCS R4 copy review rows R4C-01…07, each old string absent and each new wording present; R4 phase 2: R4C-08…11 (Air Coolers) and the All Projects lead line read from the edited heading (CS093); SEO-CONTENT-1 round 2 (CT 2026-10-08): rows SC1-A-*, SC1-B-050, SC1-L-*, SC1-P7-BACMAN-BODY",
+ "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed. CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows R2L10-01..10, each current string absent and its CT-accepted wording present.; R4 (CT 2026-10-07): OGCS R4 copy review rows R4C-01…07, each old string absent and each new wording present; R4 phase 2: R4C-08…11 (Air Coolers) and the All Projects lead line read from the edited heading (CS093); SEO-CONTENT-1 round 2 (CT 2026-10-08): rows SC1-A-*, SC1-B-050, SC1-L-*, SC1-P7-BACMAN-BODY; SEO-CONTENT-2 piece B (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece B (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece C (CT 2026-10-08): rows SC1-B-*, SC1-C-*; SEO-CONTENT-2 piece C (CT 2026-10-08): rows SC1-B-*, SC1-C-*",
  "absent": [
   {
    "row": "LocaleB-A",
@@ -4302,6 +4302,1272 @@
    "path": "/cooling-tower-malaysia/",
    "text": "OEM part distribution",
    "source": "OEM/stock rulings"
+  },
+  {
+   "row": "SC1-B-AR-01a",
+   "path": "/cooling-tower-performance-kpis/",
+   "text": "Comfort cooling (HVAC): Typical design approach ranges from 5°F to 7°F (2.7°C to 3.8°C).",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-AR-01b",
+   "path": "/cooling-tower-performance-kpis/",
+   "text": "Industrial processes: Heavy industrial applications often design for a 7°F to 10°F (3.8°C to 5.5°C) approach.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-AR-02",
+   "path": "/cooling-tower-performance-kpis/",
+   "text": "Power generation: Large field-erected towers usually operate with a 10°F to 15°F (5.5°C to 8.3°C) approach.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-AR-03",
+   "path": "/cooling-tower-design-parameters/",
+   "text": "Standard design approach values often range from 5°F to 7°F (2.8°C to 3.9°C) for industrial applications.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-AR-05",
+   "path": "/cooling-tower-approach/",
+   "text": "while high-efficiency systems can achieve 2–4°C.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-001",
+   "path": "/cooling-tower-market-growth/",
+   "text": "From power plants and petrochemical facilities to data centers and HVAC systems, they regulate heat",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-002",
+   "path": "/cooling-tower-market-growth/",
+   "text": "Below 5 MW: Suited for commercial HVAC, light manufacturing, and small process industries.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-003",
+   "path": "/cooling-tower-market-growth/",
+   "text": "Additional key markets include petrochemical refining, commercial HVAC, data center infrastructure, pharmaceutical manufacturing, and food processing.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-004",
+   "path": "/cooling-tower-market-growth/",
+   "text": "offering a broad portfolio of industrial and HVAC cooling towers.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-005",
+   "path": "/cooling-tower-market-growth/",
+   "text": "Delivers integrated building technologies and cooling infrastructure, with a significant HVAC cooling tower portfolio.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-006",
+   "path": "/cooling-tower-market-growth/",
+   "text": "Power generation, petrochemical refining, data centers, pharmaceutical manufacturing, commercial HVAC, and food processing are the primary industries",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-007",
+   "path": "/frp-vs-steel-cooling-tower/",
+   "text": "While cost-effective for low-cycle HVAC systems, it is vulnerable to aggressive water chemistry.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-008",
+   "path": "/frp-vs-steel-cooling-tower/",
+   "text": "Scenario B: High-Precision HVAC Systems",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-009",
+   "path": "/cooling-tower-rebuild-signs-benefits/",
+   "text": "Cooling towers play a critical role in industrial operations, power plants, and large-scale HVAC systems by efficiently removing excess heat",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-010",
+   "path": "/data-center-cooling-solutions/",
+   "text": "The cooling tower is no longer a simple piece of HVAC equipment; it is a strategic asset.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-011",
+   "path": "/data-center-cooling-solutions/",
+   "text": "Standard HVAC solutions are no longer sufficient for the demands of mission-critical infrastructure.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-012",
+   "path": "/chiller-and-cooling-tower/",
+   "text": "The tower water of HVAC systems and industrial chillers is the main reason for their flourishing if left unchecked.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-013",
+   "path": "/chiller-and-cooling-tower/",
+   "text": "whether an induced draft or counterflow cooling tower or a large-scale HVAC system,",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-020",
+   "path": "/right-industrial-cooling-system/",
+   "text": "Integration of HVAC Systems: Emerging trends also include the integration of HVAC systems in both industrial and residential applications to enhance energy efficiency. Customizing HVAC solutions for different environments helps maintain air quality and optimize energy use.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-021",
+   "path": "/build-new-cooling-tower/",
+   "text": "HVAC efficiency: Large commercial and institutional buildings use cooling towers as the heat rejection component of their centralized air conditioning systems.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-022",
+   "path": "/build-new-cooling-tower/",
+   "text": "Small package towers for commercial HVAC applications may cost tens of thousands of dollars.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-023",
+   "path": "/build-new-cooling-tower/",
+   "text": "including power plants, oil refineries, data centers, and facilities with large-scale commercial HVAC systems.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-024",
+   "path": "/cooling-tower-remote-monitoring/",
+   "text": "Large Commercial Buildings: Ensure HVAC systems provide consistent climate control for occupant comfort and safety.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-025",
+   "path": "/cooling-tower-repair-solutions/",
+   "text": "across power plants, manufacturing units, refineries, and large-scale HVAC networks.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-026",
+   "path": "/cooling-tower-contractor/",
+   "text": "A cooling tower contractor working on a commercial HVAC system will face different demands than one handling a petrochemical refinery.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-028",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "Advantages of Cooling Towers in HVAC Industries",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-029",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "Following are the advantages of cooling towers in HVAC industries:",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-030",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "Cooling towers are an essential part of HVAC systems for maintaining internal temperatures and requiring proper water treatment",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-031",
+   "path": "/how-to-clean-a-cooling-tower/",
+   "text": "Cooling towers are integral parts of HVAC systems, vital in various industrial, commercial, and institutional settings that facilitate heat transfer and thermal management.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-032",
+   "path": "/international-cooling-tower/",
+   "text": "These cooling towers are also used in HVAC systems in residential or commercial buildings. These cooling systems absorb all the extra heat from people or other electrical equipment like computers and A.C.. They are transferred to the cooling tower, where it is removed from the atmosphere.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-034",
+   "path": "/cooling-towers-in-the-middle-east/",
+   "text": "the need to maintain industrial and HVAC system efficiency.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-035",
+   "path": "/3-cell-counterflow-cooling-towers/",
+   "text": "HVAC for Large-Scale Facilities: Efficiently managing heat rejection for air conditioning in massive commercial buildings, data centers, and institutional complexes.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-036",
+   "path": "/cooling-tower-basin-heater/",
+   "text": "Commercial and HVAC towers",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-037",
+   "path": "/cooling-tower-fan/",
+   "text": "Belt Drives: Smaller HVAC cooling towers often use belt drives.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-038",
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "text": "than equipment used in HVAC or light industrial applications.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-039",
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "text": "Standard HVAC cooling towers handle modest temperature ranges.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-040",
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "text": "Film fill: The standard choice in HVAC and light industrial cooling — not appropriate here.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-041",
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "text": "not off-the-shelf HVAC equipment adapted to the wrong environment.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-042",
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "text": "Unlike standard HVAC towers, they need corrosion-resistant materials,",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-043",
+   "path": "/cooling-tower-heat-rejection/",
+   "text": "Industrial cooling towers serve as the unsung heroes of countless manufacturing processes, power plants, and HVAC systems worldwide.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-044",
+   "path": "/cooling-tower-legionella-risk/",
+   "text": "HVAC Intake: The aerosolized bacteria are drawn into the fresh air intakes of a building’s HVAC system, circulating the contaminated air internally.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-045",
+   "path": "/cooling-tower-makeup-water-calculation/",
+   "text": "Scenario 1: Standard HVAC System",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-046",
+   "path": "/cooling-tower-makeup-water-calculation/",
+   "text": "A commercial facility operates a cooling tower at",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-048",
+   "path": "/counterflow-vs-crossflow/",
+   "text": "When selecting a cooling tower for industrial or HVAC applications,",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-049",
+   "path": "/field-erected-type-cooling-towers/",
+   "text": "Custom-built towers are essential for meeting HVAC cooling requirements in large facilities such as campuses, hospitals, airports, and other expansive spaces. Their reliability ensures comfort and operational excellence.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-051",
+   "path": "/hybrid-cooling-tower-repair/",
+   "text": "Large HVAC plants",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-052",
+   "path": "/steps-energy-efficient-cooling-tower/",
+   "text": "Like a standard in-home HVAC system, industrial cooling towers require a good filtration system in order to be energy efficient.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-053",
+   "path": "/the-benefits-of-frp-fans-in-industrial-cooling/",
+   "text": "often used in cooling towers, HVAc systems, dust collectors, and air-filtration systems.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-C-009",
+   "path": "/category/blog/page/11/",
+   "text": "many manufacturing and HVAC operations, but they",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-010",
+   "path": "/category/blog/page/14/",
+   "text": "the lungs of industrial and HVAC systems, cooling towers",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-011",
+   "path": "/category/blog/page/17/",
+   "text": "production, compromised HVAC systems, and significant",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-012",
+   "path": "/category/blog/page/17/",
+   "text": "power plants, and HVAC systems worldwide. These",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-013",
+   "path": "/category/blog/page/19/",
+   "text": "in industrial operations, power plants, and",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-013",
+   "path": "/category/blog/page/19/",
+   "text": "operations, power plants, and large-scale HVAC systems by efficiently removing",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-014",
+   "path": "/category/blog/page/19/",
+   "text": "in power plants, manufacturing",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-014",
+   "path": "/category/blog/page/19/",
+   "text": "facilities, and HVAC systems, their operation carries",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-015",
+   "path": "/category/blog/page/20/",
+   "text": "facilities and HVAC systems. They reject heat from",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-016",
+   "path": "/category/blog/page/7/",
+   "text": "to data centers and HVAC systems, they regulate heat",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-017",
+   "path": "/category/blog/page/7/",
+   "text": "in the world. From heavy industrial",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-017",
+   "path": "/category/blog/page/7/",
+   "text": "industrial facilities to commercial HVAC systems, U.S.-made cooling",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-017",
+   "path": "/category/blog/page/7/",
+   "text": "across every major sector of the economy. This guide covers the",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-018",
+   "path": "/category/blog/page/8/",
+   "text": "manufacturing units, refineries, and large-scale HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-018",
+   "path": "/category/blog/page/8/",
+   "text": "units, refineries, and large-scale HVAC networks. Relying on short-term",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-019",
+   "path": "/category/blog/page/8/",
+   "text": "plants, refineries, chemical processing",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-019",
+   "path": "/category/blog/page/8/",
+   "text": "processing facilities, and HVAC systems, where they must endure",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-020",
+   "path": "/category/blog/page/9/",
+   "text": "A Guide to 2026 HVAC Cooling Tower Systems & Optimization",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-021",
+   "path": "/category/blog/page/9/",
+   "text": "An HVAC cooling tower is no longer an auxiliary piece of equipment. It is the thermal anch",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-022",
+   "path": "/category/blogothers-language/",
+   "text": "ปิโตรเคมี เคมี กระบวนการ และระบบ HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-023",
+   "path": "/category/cooling-tower-costothers-language/",
+   "text": "ソリューション。 適切な濾過システムを使用する 標準的な家庭用 HVAC システムと同様に、産",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-024",
+   "path": "/category/cooling-tower-fans/",
+   "text": "are integral parts of HVAC systems, vital in",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-024",
+   "path": "/category/cooling-tower-fans/",
+   "text": "parts of HVAC systems, vital in various industrial, commercial, and institutional settings that facilitate heat transfer and",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-025",
+   "path": "/category/cooling-tower-fillothers-language/",
+   "text": "petrokimia, kimia, proses, dan sistem HVAC. Menara",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-025",
+   "path": "/category/cooling-tower-fillothers-language/",
+   "text": "kimia, proses, dan sistem HVAC. Menara pendingin ini",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-026",
+   "path": "/category/cooling-tower-fillothers-language/",
+   "text": "hóa dầu, hóa chất, quy trình và hệ thống",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-026",
+   "path": "/category/cooling-tower-fillothers-language/",
+   "text": "hóa chất, quy trình và hệ thống HVAC. Những tháp giải nhiệt",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-027",
+   "path": "/category/cooling-tower-fillothers-language/",
+   "text": "冷却塔は、発電、石油化学、化学、プロセス、HVAC システム",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-028",
+   "path": "/category/cooling-tower-inspection/",
+   "text": "heat in industrial and HVAC systems. But",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-028",
+   "path": "/category/cooling-tower-inspection/",
+   "text": "heat in industrial and HVAC systems. But without",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-029",
+   "path": "/category/cooling-tower-parts/",
+   "text": "What is HVAC Cooling Tower: Role of Cooling Towers in HVAC Systems",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-030",
+   "path": "/category/cooling-tower-parts/",
+   "text": "HVAC systems depend on cooling towers, chillers, and Air Handling units to maintain the te",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-031",
+   "path": "/category/industrial-cooling-towerothers-language/",
+   "text": "มีระบบการกรองที่เหมาะสม เช่นเดียวกับระบบ HVAC […]",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-032",
+   "path": "/category/others-language/",
+   "text": "HVAC システムと産業用チラーの塔水は、放置しておくと繁殖する最大の理由です。",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-033",
+   "path": "/category/others-language/",
+   "text": "integral dari sistem HVAC, yang sangat penting",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-033",
+   "path": "/category/others-language/",
+   "text": "pengaturan industri, komersial, dan institusional yang memfasilitasi",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-034",
+   "path": "/category/others-language/",
+   "text": "thể thiếu của hệ thống HVAC, đóng vai trò quan",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-034",
+   "path": "/category/others-language/",
+   "text": "bối cảnh công nghiệp, thương mại và tổ chức khác nhau, giúp truyền",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-035",
+   "path": "/category/others-language/",
+   "text": "冷却塔は HVAC システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業、商業、および施設",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-036",
+   "path": "/category/others-language/",
+   "text": "HVAC ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม เชิงพาณิชย์ และสถาบันต่างๆ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-037",
+   "path": "/category/others-language/",
+   "text": "Apa itu Menara Pendingin HVAC: Peran Menara Pendingin dalam Sistem HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-038",
+   "path": "/category/others-language/",
+   "text": "Sistem HVAC bergantung pada menara pendingin, pendingin, dan unit Penanganan Udara untuk m",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-039",
+   "path": "/category/others-language/",
+   "text": "Tháp giải nhiệt HVAC là gì: Vai trò của tháp giải nhiệt trong hệ thống HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-040",
+   "path": "/category/others-language/",
+   "text": "Hệ thống HVAC phụ thuộc vào tháp giải nhiệt, máy làm lạnh và bộ xử lý không khí để duy trì",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-041",
+   "path": "/category/others-language/page/2/",
+   "text": "HVAC 冷却塔とは: HVAC システムにおける冷却塔の役割",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-042",
+   "path": "/category/others-language/page/2/",
+   "text": "HVAC システムは、建物内の温度と湿度を維持するために、冷却塔、チラー、および空調ユニットに依存しています。これらは、病院、オフィス、ショッピング モールなどの商業ビルに必要であ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-043",
+   "path": "/category/others-language/page/2/",
+   "text": "หอคอยทำความเย็น HVAC คืออะไร: บทบาทของหอคอยทำความเย็นในระบบ HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-044",
+   "path": "/category/others-language/page/2/",
+   "text": "ระบบ HVAC ต้องใช้หอคอยทำความเย็น เครื่องทำความเย็น และเครื่องจัดการอากาศเพื่อรักษาอุณหภูมิ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-045",
+   "path": "/category/others-language/page/6/",
+   "text": "冷却塔は、システムから余分な熱を大気中に抽出し、機械を冷却する熱除去装置です。冷却塔は、内部の大気を冷却するために産業や建物で広く使用されており、その効率性と機能性から非常に好まれ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-046",
+   "path": "/category/uncategorized/page/11/",
+   "text": "petrokimia, kimia, proses, dan sistem HVAC. Menara",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-046",
+   "path": "/category/uncategorized/page/11/",
+   "text": "kimia, proses, dan sistem HVAC. Menara pendingin ini",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-047",
+   "path": "/category/uncategorized/page/11/",
+   "text": "hóa dầu, hóa chất, quy trình và hệ thống",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-047",
+   "path": "/category/uncategorized/page/11/",
+   "text": "hóa chất, quy trình và hệ thống HVAC. Những tháp giải nhiệt",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-048",
+   "path": "/category/uncategorized/page/11/",
+   "text": "冷却塔は、発電、石油化学、化学、プロセス、HVAC システム",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-049",
+   "path": "/category/uncategorized/page/11/",
+   "text": "ปิโตรเคมี เคมี กระบวนการ และระบบ HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-050",
+   "path": "/category/uncategorized/page/13/",
+   "text": "冷却塔は、システムから余分な熱を大気中に抽出し、機械を冷却する熱除去装置です。冷却塔は、内部の大気を冷却するために産業や建物で広く使用されており、その効率性と機能性から非常に好まれ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-051",
+   "path": "/category/uncategorized/page/16/",
+   "text": "HVAC 冷却塔とは: HVAC システムにおける冷却塔の役割",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-052",
+   "path": "/category/uncategorized/page/16/",
+   "text": "HVAC システムは、建物内の温度と湿度を維持するために、冷却塔、チラー、および空調ユニットに依存しています。これらは、病院、オフィス、ショッピング モールなどの商業ビルに必要であ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-053",
+   "path": "/category/uncategorized/page/16/",
+   "text": "หอคอยทำความเย็น HVAC คืออะไร: บทบาทของหอคอยทำความเย็นในระบบ HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-054",
+   "path": "/category/uncategorized/page/16/",
+   "text": "ระบบ HVAC ต้องใช้หอคอยทำความเย็น เครื่องทำความเย็น และเครื่องจัดการอากาศเพื่อรักษาอุณหภูมิ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-055",
+   "path": "/category/uncategorized/page/16/",
+   "text": "冷却塔は HVAC システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業、商業、および施設",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-056",
+   "path": "/category/uncategorized/page/16/",
+   "text": "HVAC ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม เชิงพาณิชย์ และสถาบันต่างๆ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-057",
+   "path": "/category/uncategorized/page/17/",
+   "text": "HVAC システムと産業用チラーの塔水は、放置しておくと繁殖する最大の理由です。",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-058",
+   "path": "/category/uncategorized/page/8/",
+   "text": "ソリューション。 適切な濾過システムを使用する 標準的な家庭用 HVAC システムと同様に、産",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-059",
+   "path": "/category/uncategorized/page/8/",
+   "text": "มีระบบการกรองที่เหมาะสม เช่นเดียวกับระบบ HVAC […]",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-060",
+   "path": "/chiller-and-cooling-tower/",
+   "text": "Power plants also utilize these hybrid large-scale",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-060",
+   "path": "/chiller-and-cooling-tower/",
+   "text": "utilize these hybrid large-scale HVAC systems to manage waste",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-061",
+   "path": "/chiller-and-cooling-tower/",
+   "text": "play vital roles in large-scale HVAC systems and industrial cooling",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-061",
+   "path": "/chiller-and-cooling-tower/",
+   "text": "and industrial cooling solutions.",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-063",
+   "path": "/cooling-tower-approach/",
+   "text": "and is typical for most HVAC and process cooling",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-067",
+   "path": "/cooling-tower-fill-media-replacement/",
+   "text": "Clean HVAC Loops",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-068",
+   "path": "/cooling-tower-fill-media-replacement/",
+   "text": "area per cubic foot. It ensures the lowest energy draw",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-068",
+   "path": "/cooling-tower-fill-media-replacement/",
+   "text": "energy draw for clean HVAC systems.",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-069",
+   "path": "/cooling-tower-fill-media-replacement/",
+   "text": "transfer for standard HVAC loops with clean water flow. For industrial sites",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-086",
+   "path": "/cooling-tower-rehabilitation-services/",
+   "text": "manufacturing, chemical processing, and",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-086",
+   "path": "/cooling-tower-rehabilitation-services/",
+   "text": "chemical processing, and commercial HVAC sectors provides the",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-089",
+   "path": "/cooling-tower-singapore/",
+   "text": "Manufacturing plants, data centers, and",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-089",
+   "path": "/cooling-tower-singapore/",
+   "text": "plants, data centers, and commercial HVAC systems all depend on",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-103",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "of Cooling Towers in HVAC Industries",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-255",
+   "path": "/id/bagaimana-cara-membersihkan-menara-pendingin/",
+   "text": "integral dari sistem HVAC, yang sangat penting",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-255",
+   "path": "/id/bagaimana-cara-membersihkan-menara-pendingin/",
+   "text": "pengaturan industri, komersial, dan institusional yang memfasilitasi",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-256",
+   "path": "/id/bagaimana-mencegah-legionella-di-pendingin-dan-menara-pendingin/",
+   "text": "legionella. Air menara sistem HVAC dan",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-256",
+   "path": "/id/bagaimana-mencegah-legionella-di-pendingin-dan-menara-pendingin/",
+   "text": "Air menara sistem HVAC dan pendingin industri",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-257",
+   "path": "/id/bagaimana-mencegah-legionella-di-pendingin-dan-menara-pendingin/",
+   "text": "aliran balik, dan sistem HVAC skala besar, adalah",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-258",
+   "path": "/id/daftar-periksa-pemeliharaan-menara-pendingin-langkah-demi-langkah-untuk-kinerja-optimal/",
+   "text": "petrokimia, kimia, proses, dan sistem HVAC. Menara",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-258",
+   "path": "/id/daftar-periksa-pemeliharaan-menara-pendingin-langkah-demi-langkah-untuk-kinerja-optimal/",
+   "text": "kimia, proses, dan sistem HVAC. Menara pendingin ini",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-259",
+   "path": "/id/langkah-menuju-menara-pendinginan-yang-lebih-efisien-energi/",
+   "text": "Seperti sistem HVAC standar di rumah, menara pendingin industri",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-260",
+   "path": "/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+   "text": "Menara Pendingin dalam Industri HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-260",
+   "path": "/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+   "text": "Pendingin dalam Industri HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-261",
+   "path": "/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+   "text": "menara pendingin dalam industri HVAC:",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-262",
+   "path": "/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+   "text": "bagian penting dari sistem HVAC untuk menjaga suhu",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-262",
+   "path": "/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+   "text": "HVAC untuk menjaga suhu internal dan memerlukan",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-263",
+   "path": "/id/menara-pendingin-internasional-memahami-jenis-masalah-dan-solusi/",
+   "text": "Menara pendingin ini juga digunakan dalam sistem HVAC di gedung perumahan atau komersial. ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-264",
+   "path": "/id/perawatan-menara-pendingin-panduan-lengkap-langkah-demi-langkah/",
+   "text": "menara pendingin dan sistem HVAC Anda berfungsi dengan",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-265",
+   "path": "/ja/よりエネルギー効率の高い冷却塔へのステップ/",
+   "text": "標準的な家庭用 HVAC システムと同様に、産",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-266",
+   "path": "/ja/チラーと冷却塔でレジオネラ菌を防ぐには？/",
+   "text": "HVAC システムと産業用チラーの塔水は、放置しておくと繁殖する最大の理由です。",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-267",
+   "path": "/ja/チラーと冷却塔でレジオネラ菌を防ぐには？/",
+   "text": "HVAC システムなど、ほとんどの冷却塔に推奨される水の pH",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-268",
+   "path": "/ja/冷却塔のメンテナンス-ステップバイステップの完/",
+   "text": "大規模な商業ビルや産業に不可欠です。冷却塔と HVAC システム",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-269",
+   "path": "/ja/冷却塔の清掃方法/",
+   "text": "冷却塔は HVAC システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業、商業、および施設",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-270",
+   "path": "/ja/国際冷却塔-種類、問題、およびソリューション/",
+   "text": "これらの冷却塔は、住宅や商業ビルの HVAC システムでも使用されています。これらの冷却システムは、人やコンピューターやエアコンなどの他の電気機器からの余分な熱をすべて吸収します。",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-271",
+   "path": "/ja/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "อุตสาหกรรม HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-272",
+   "path": "/ja/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "อุตสาหกรรม HVAC:",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-273",
+   "path": "/ja/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "ระบบ HVAC เพื่อรักษาอุณหภูมิภายใน",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-274",
+   "path": "/ja/最適なパフォーマンスを実現するための段階的な/",
+   "text": "冷却塔は、発電、石油化学、化学、プロセス、HVAC システム",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-276",
+   "path": "/tag/cooling-tower-contractorcooling-tower-solutionsindustrial-cooling-tower/",
+   "text": "in power plants, manufacturing",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-276",
+   "path": "/tag/cooling-tower-contractorcooling-tower-solutionsindustrial-cooling-tower/",
+   "text": "facilities, and HVAC systems, their operation carries",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-277",
+   "path": "/tag/cooling-tower-contractorcooling-tower-solutionsindustrial-cooling-towervariable-frequency-drive/",
+   "text": "facilities and HVAC systems. They reject heat from",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-278",
+   "path": "/tag/cooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-blades/page/2/",
+   "text": "are integral parts of HVAC systems, vital in",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-278",
+   "path": "/tag/cooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-blades/page/2/",
+   "text": "parts of HVAC systems, vital in various industrial, commercial, and institutional settings that facilitate heat transfer and",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-279",
+   "path": "/tag/cooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-blades/page/4/",
+   "text": "冷却塔は、システムから余分な熱を大気中に抽出し、機械を冷却する熱除去装置です。冷却塔は、内部の大気を冷却するために産業や建物で広く使用されており、その効率性と機能性から非常に好まれ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-280",
+   "path": "/tag/cooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-bladescooling-tower-parts/",
+   "text": "What is HVAC Cooling Tower: Role of Cooling Towers in HVAC Systems",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-281",
+   "path": "/tag/cooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-bladescooling-tower-parts/",
+   "text": "HVAC systems depend on cooling towers, chillers, and Air Handling units to maintain the te",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-282",
+   "path": "/tag/cooling-tower-fill/",
+   "text": "HVAC システムと産業用チラーの塔水は、放置しておくと繁殖する最大の理由です。",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-283",
+   "path": "/tag/cooling-tower-fill/",
+   "text": "冷却塔は HVAC システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業、商業、および施設",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-284",
+   "path": "/tag/cooling-tower-fill/",
+   "text": "Tháp giải nhiệt HVAC là gì: Vai trò của tháp giải nhiệt trong hệ thống HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-285",
+   "path": "/tag/cooling-tower-fill/",
+   "text": "Hệ thống HVAC phụ thuộc vào tháp giải nhiệt, máy làm lạnh và bộ xử lý không khí để duy trì",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-286",
+   "path": "/tag/cooling-tower-parts/",
+   "text": "HVAC ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม เชิงพาณิชย์ และสถาบันต่างๆ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-287",
+   "path": "/tag/cooling-tower-parts/",
+   "text": "HVAC 冷却塔とは: HVAC システムにおける冷却塔の役割",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-288",
+   "path": "/tag/cooling-tower-parts/",
+   "text": "HVAC システムは、建物内の温度と湿度を維持するために、冷却塔、チラー、および空調ユニットに依存しています。これらは、病院、オフィス、ショッピング モールなどの商業ビルに必要であ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-289",
+   "path": "/tag/cooling-tower/",
+   "text": "integral dari sistem HVAC, yang sangat penting",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-289",
+   "path": "/tag/cooling-tower/",
+   "text": "pengaturan industri, komersial, dan institusional yang memfasilitasi",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-290",
+   "path": "/tag/cooling-tower/",
+   "text": "thể thiếu của hệ thống HVAC, đóng vai trò quan",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-290",
+   "path": "/tag/cooling-tower/",
+   "text": "bối cảnh công nghiệp, thương mại và tổ chức khác nhau, giúp truyền",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-291",
+   "path": "/tag/cooling-tower/",
+   "text": "Apa itu Menara Pendingin HVAC: Peran Menara Pendingin dalam Sistem HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-292",
+   "path": "/tag/cooling-tower/",
+   "text": "Sistem HVAC bergantung pada menara pendingin, pendingin, dan unit Penanganan Udara untuk m",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-293",
+   "path": "/tag/cooling-tower/",
+   "text": "หอคอยทำความเย็น HVAC คืออะไร: บทบาทของหอคอยทำความเย็นในระบบ HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-294",
+   "path": "/tag/cooling-tower/",
+   "text": "ระบบ HVAC ต้องใช้หอคอยทำความเย็น เครื่องทำความเย็น และเครื่องจัดการอากาศเพื่อรักษาอุณหภูมิ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-295",
+   "path": "/tag/cooling-tower/page/2/",
+   "text": "ソリューション。 適切な濾過システムを使用する 標準的な家庭用 HVAC システムと同様に、産",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-296",
+   "path": "/tag/cooling-tower/page/2/",
+   "text": "มีระบบการกรองที่เหมาะสม เช่นเดียวกับระบบ HVAC […]",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-297",
+   "path": "/tag/cooling-towercooling-tower-fill/",
+   "text": "petrokimia, kimia, proses, dan sistem HVAC. Menara",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-297",
+   "path": "/tag/cooling-towercooling-tower-fill/",
+   "text": "kimia, proses, dan sistem HVAC. Menara pendingin ini",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-298",
+   "path": "/tag/cooling-towercooling-tower-fill/",
+   "text": "hóa dầu, hóa chất, quy trình và hệ thống",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-298",
+   "path": "/tag/cooling-towercooling-tower-fill/",
+   "text": "hóa chất, quy trình và hệ thống HVAC. Những tháp giải nhiệt",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-299",
+   "path": "/tag/cooling-towercooling-tower-fill/",
+   "text": "冷却塔は、発電、石油化学、化学、プロセス、HVAC システム",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-300",
+   "path": "/tag/cooling-towercooling-tower-fillcooling-tower-maintenance/",
+   "text": "ปิโตรเคมี เคมี กระบวนการ และระบบ HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-301",
+   "path": "/tag/cooling-towercooling-tower-inspection/",
+   "text": "heat in industrial and HVAC systems. But",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-301",
+   "path": "/tag/cooling-towercooling-tower-inspection/",
+   "text": "heat in industrial and HVAC systems. But without",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-302",
+   "path": "/th/การบำรุงรักษาหอระบายคว/",
+   "text": "ระบบ HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-303",
+   "path": "/th/ก้าวไปสู่หอทำความเย็นท/",
+   "text": "เช่นเดียวกับระบบ HVAC ในบ้านมาตรฐาน",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-304",
+   "path": "/th/รายการตรวจสอบการบำรุงร/",
+   "text": "ปิโตรเคมี เคมี กระบวนการ และระบบ HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-305",
+   "path": "/th/วิธีทำความสะอาดหอหล่อเ/",
+   "text": "HVAC ซึ่งมีความสำคัญในโรงงานอุตสาหกรรม เชิงพาณิชย์ และสถาบันต่างๆ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-306",
+   "path": "/th/วิธีป้องกันแบคทีเรีย-legionella/",
+   "text": "น้ำในหอคอยของระบบ HVAC และเครื่อง",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-307",
+   "path": "/th/วิธีป้องกันแบคทีเรีย-legionella/",
+   "text": "และระบบ HVAC ขนาดใหญ่ คือ 6.5-7.5",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-308",
+   "path": "/th/หอคอยระบายความร้อนระดั/",
+   "text": "หอหล่อเย็นเหล่านี้ยังใช้ในระบบ HVAC ในอาคารที่พักอาศัยหรือเชิงพาณิชย์ ระบบทำความเย็นเหล่าน",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-309",
+   "path": "/th/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "HVAC 業界における冷却塔の利点",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-310",
+   "path": "/th/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "HVAC 業界における冷却塔の利点は次のとおりです。",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-311",
+   "path": "/th/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "冷却塔は、内部温度を維持するために HVAC システム",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-312",
+   "path": "/vi/bao-tri-thap-giai-nhiet-huong-dan-day-du-tung-buoc/",
+   "text": "bảo tháp giải nhiệt và hệ thống HVAC của bạn hoạt động bình",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-313",
+   "path": "/vi/cac-buoc-de-co-thap-giai-nhiet-hieu-qua-nang-luong-hon/",
+   "text": "Giống như hệ thống HVAC tiêu chuẩn trong nhà, tháp giải nhiệt công",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-314",
+   "path": "/vi/danh-sach-bao-tri-thap-giai-nhiet-tung-buoc-de-co-hieu-suat-toi-uu/",
+   "text": "hóa dầu, hóa chất, quy trình và hệ thống",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-314",
+   "path": "/vi/danh-sach-bao-tri-thap-giai-nhiet-tung-buoc-de-co-hieu-suat-toi-uu/",
+   "text": "hóa chất, quy trình và hệ thống HVAC. Những tháp giải nhiệt",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-315",
+   "path": "/vi/lam-the-nao-de-ngan-ngua-vi-khuan-legionella-trong-may-lam-lanh-va-thap-giai-nhiet/",
+   "text": "trong tháp của hệ thống HVAC và máy làm lạnh công nghiệp",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-315",
+   "path": "/vi/lam-the-nao-de-ngan-ngua-vi-khuan-legionella-trong-may-lam-lanh-va-thap-giai-nhiet/",
+   "text": "HVAC và máy làm lạnh công nghiệp là lý do",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-316",
+   "path": "/vi/lam-the-nao-de-ngan-ngua-vi-khuan-legionella-trong-may-lam-lanh-va-thap-giai-nhiet/",
+   "text": "nhiệt dòng ngược và hệ thống HVAC quy mô lớn, là 6,5-7,5.",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-317",
+   "path": "/vi/lam-the-nao-de-ve-sinh-thap-giai-nhiet/",
+   "text": "thể thiếu của hệ thống HVAC, đóng vai trò quan",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-317",
+   "path": "/vi/lam-the-nao-de-ve-sinh-thap-giai-nhiet/",
+   "text": "bối cảnh công nghiệp, thương mại và tổ chức khác nhau, giúp truyền",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-318",
+   "path": "/vi/thap-giai-nhiet-quoc-te-tim-hieu-ve-cac-loai-van-de-va-giai-phap/",
+   "text": "Những tháp giải nhiệt này cũng được sử dụng trong các hệ thống HVAC trong các tòa nhà dân ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-319",
+   "path": "/vi/ทำความเข้าใจการใช้งานข/",
+   "text": "tháp giải nhiệt trong ngành công nghiệp HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-319",
+   "path": "/vi/ทำความเข้าใจการใช้งานข/",
+   "text": "trong ngành công nghiệp HVAC",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-320",
+   "path": "/vi/ทำความเข้าใจการใช้งานข/",
+   "text": "tháp giải nhiệt trong ngành công nghiệp HVAC:",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-320",
+   "path": "/vi/ทำความเข้าใจการใช้งานข/",
+   "text": "trong ngành công nghiệp HVAC:",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-321",
+   "path": "/vi/ทำความเข้าใจการใช้งานข/",
+   "text": "một phần thiết yếu của hệ thống HVAC để duy trì nhiệt độ bên",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-321",
+   "path": "/vi/ทำความเข้าใจการใช้งานข/",
+   "text": "để duy trì nhiệt độ bên trong và cần xử lý và quản lý",
+   "source": "SEO-CONTENT-2 piece C"
   }
  ],
  "present": [
@@ -4978,12 +6244,6 @@
    "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
   },
   {
-   "row": "SC1-A-032",
-   "path": "/cooling-tower-design-parameters/",
-   "text": "Standard design approach values often range from 5°F to 7°F (2.8°C to 3.9°C) for industrial applications.",
-   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
-  },
-  {
    "row": "SC1-A-035",
    "path": "/cooling-tower-heat-load/",
    "text": "This formula aligns with ASHRAE guidelines for precise thermal capacity design and system optimization.",
@@ -5360,6 +6620,534 @@
    "path": "/cooling-tower-construction-repair-in-singapore/",
    "text": "cannot supply the towers or replacement parts you need",
    "source": "LOC-02"
+  },
+  {
+   "row": "SC1-B-AR-01a",
+   "path": "/cooling-tower-performance-kpis/",
+   "text": "Typical design approach: Most cooling towers are designed for a 5°F to 10°F (2.8°C to 5.6°C) approach, with 7°F (3.9°C) a common design point. About 5°F (2.8°C) is the practical minimum.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-AR-02",
+   "path": "/cooling-tower-performance-kpis/",
+   "text": "Power generation: Large field-erected towers are often designed for a wider approach, balancing tower size against capital cost.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-AR-03",
+   "path": "/cooling-tower-design-parameters/",
+   "text": "Standard design approach values often range from 5°F to 10°F (2.8°C to 5.6°C), with 7°F (3.9°C) a common design point.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-AR-05",
+   "path": "/cooling-tower-approach/",
+   "text": "while high-efficiency systems are designed closer to 3°C (about 5°F), the practical minimum design approach.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-001",
+   "path": "/cooling-tower-market-growth/",
+   "text": "From power plants and petrochemical facilities to data centers and manufacturing plants, they regulate heat",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-002",
+   "path": "/cooling-tower-market-growth/",
+   "text": "Below 5 MW: Suited for light manufacturing and small process industries.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-003",
+   "path": "/cooling-tower-market-growth/",
+   "text": "Additional key markets include petrochemical refining, data center infrastructure, pharmaceutical manufacturing, and food processing.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-004",
+   "path": "/cooling-tower-market-growth/",
+   "text": "offering a broad portfolio of industrial cooling towers.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-005",
+   "path": "/cooling-tower-market-growth/",
+   "text": "Delivers integrated cooling infrastructure and equipment.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-006",
+   "path": "/cooling-tower-market-growth/",
+   "text": "Power generation, petrochemical refining, data centers, pharmaceutical manufacturing, and food processing are the primary industries",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-007",
+   "path": "/frp-vs-steel-cooling-tower/",
+   "text": "While cost-effective for low-cycle, clean-water service, it is vulnerable to aggressive water chemistry.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-008",
+   "path": "/frp-vs-steel-cooling-tower/",
+   "text": "Scenario B: Mission-Critical Facilities",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-009",
+   "path": "/cooling-tower-rebuild-signs-benefits/",
+   "text": "Cooling towers play a critical role in industrial operations and power plants by efficiently removing excess heat",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-010",
+   "path": "/data-center-cooling-solutions/",
+   "text": "The cooling tower is no longer a simple piece of mechanical equipment; it is a strategic asset.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-011",
+   "path": "/data-center-cooling-solutions/",
+   "text": "Standard building-services equipment is no longer sufficient for the demands of mission-critical infrastructure.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-012",
+   "path": "/chiller-and-cooling-tower/",
+   "text": "Tower water in chiller and industrial cooling systems is the main reason for their flourishing if left unchecked.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-013",
+   "path": "/chiller-and-cooling-tower/",
+   "text": "whether an induced draft or counterflow cooling tower or a large chiller plant,",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-022",
+   "path": "/build-new-cooling-tower/",
+   "text": "Small packaged towers may cost tens of thousands of dollars.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-023",
+   "path": "/build-new-cooling-tower/",
+   "text": "including power plants, oil refineries, data centers, and manufacturing plants.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-025",
+   "path": "/cooling-tower-repair-solutions/",
+   "text": "across power plants, manufacturing units, and refineries.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-026",
+   "path": "/cooling-tower-contractor/",
+   "text": "A cooling tower contractor working at a food processing plant will face different demands than one handling a petrochemical refinery.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-028",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "Advantages of Cooling Towers in Industrial Processes",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-029",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "Following are the advantages of cooling towers in industrial processes:",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-030",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "Cooling towers are an essential part of industrial processes for maintaining process temperatures and requiring proper water treatment",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-031",
+   "path": "/how-to-clean-a-cooling-tower/",
+   "text": "Cooling towers are integral parts of industrial cooling systems, facilitating heat transfer and thermal management.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-034",
+   "path": "/cooling-towers-in-the-middle-east/",
+   "text": "the need to maintain industrial process efficiency.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-035",
+   "path": "/3-cell-counterflow-cooling-towers/",
+   "text": "Data Centers and Large Facilities: Efficiently managing heat rejection for data centers and large industrial campuses.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-036",
+   "path": "/cooling-tower-basin-heater/",
+   "text": "Packaged and small industrial towers",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-037",
+   "path": "/cooling-tower-fan/",
+   "text": "Belt Drives: Smaller cooling towers often use belt drives.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-038",
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "text": "than equipment used in light-duty applications.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-039",
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "text": "Standard light-duty cooling towers handle modest temperature ranges.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-040",
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "text": "Film fill: The standard choice in clean-water, light-duty cooling — not appropriate here.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-041",
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "text": "not off-the-shelf equipment adapted to the wrong environment.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-042",
+   "path": "/cooling-tower-for-glass-manufacturing/",
+   "text": "Unlike standard light-duty towers, they need corrosion-resistant materials,",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-043",
+   "path": "/cooling-tower-heat-rejection/",
+   "text": "Industrial cooling towers serve as the unsung heroes of countless manufacturing processes, power plants, and refineries worldwide.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-044",
+   "path": "/cooling-tower-legionella-risk/",
+   "text": "Air Intake: The aerosolized bacteria can be drawn into nearby building fresh-air intakes, circulating the contaminated air internally.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-045",
+   "path": "/cooling-tower-makeup-water-calculation/",
+   "text": "Scenario 1: Light-Duty Process Loop",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-046",
+   "path": "/cooling-tower-makeup-water-calculation/",
+   "text": "A light-duty process facility operates a cooling tower at",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-048",
+   "path": "/counterflow-vs-crossflow/",
+   "text": "When selecting a cooling tower for industrial applications,",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-049",
+   "path": "/field-erected-type-cooling-towers/",
+   "text": "Custom-built towers are essential for meeting large cooling requirements in facilities such as power plants, refineries, and large manufacturing sites. Their reliability supports continuous operation.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-052",
+   "path": "/steps-energy-efficient-cooling-tower/",
+   "text": "Industrial cooling towers require a good filtration system in order to be energy efficient.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-B-053",
+   "path": "/the-benefits-of-frp-fans-in-industrial-cooling/",
+   "text": "often used in cooling towers, dust collectors, and air-filtration systems.",
+   "source": "SEO-CONTENT-2 piece B"
+  },
+  {
+   "row": "SC1-C-009",
+   "path": "/category/blog/page/11/",
+   "text": "many manufacturing and process operations, but they",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-012",
+   "path": "/category/blog/page/17/",
+   "text": "power plants, and refineries worldwide. These",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-014",
+   "path": "/category/blog/page/19/",
+   "text": "in power plants and manufacturing",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-014",
+   "path": "/category/blog/page/19/",
+   "text": "facilities, their operation carries",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-015",
+   "path": "/category/blog/page/20/",
+   "text": "facilities and power plants. They reject heat from",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-016",
+   "path": "/category/blog/page/7/",
+   "text": "to data centers and manufacturing plants, they regulate heat",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-017",
+   "path": "/category/blog/page/7/",
+   "text": "in the world. From power plants to heavy industrial",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-017",
+   "path": "/category/blog/page/7/",
+   "text": "industrial facilities, U.S.-made cooling",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-017",
+   "path": "/category/blog/page/7/",
+   "text": "across every major industrial sector. This guide covers the",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-019",
+   "path": "/category/blog/page/8/",
+   "text": "plants, refineries, and chemical processing",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-019",
+   "path": "/category/blog/page/8/",
+   "text": "processing facilities, where they must endure",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-086",
+   "path": "/cooling-tower-rehabilitation-services/",
+   "text": "chemical processing sectors provides the",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-103",
+   "path": "/understanding-the-uses-of-cooling-towers-in-industrial-processes/",
+   "text": "of Cooling Towers in Industrial Processes",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-255",
+   "path": "/id/bagaimana-cara-membersihkan-menara-pendingin/",
+   "text": "integral dari sistem pendinginan industri, yang sangat penting",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-255",
+   "path": "/id/bagaimana-cara-membersihkan-menara-pendingin/",
+   "text": "pengaturan industri yang memfasilitasi",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-257",
+   "path": "/id/bagaimana-mencegah-legionella-di-pendingin-dan-menara-pendingin/",
+   "text": "aliran balik, dan pabrik chiller skala besar, adalah",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-259",
+   "path": "/id/langkah-menuju-menara-pendinginan-yang-lebih-efisien-energi/",
+   "text": "Menara pendingin industri",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-261",
+   "path": "/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+   "text": "menara pendingin dalam proses industri:",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-262",
+   "path": "/id/memahami-penggunaan-menara-pendingin-dalam-proses-industri/",
+   "text": "bagian penting dari proses industri untuk menjaga suhu",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-264",
+   "path": "/id/perawatan-menara-pendingin-panduan-lengkap-langkah-demi-langkah/",
+   "text": "menara pendingin dan peralatan proses terkait Anda berfungsi dengan",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-265",
+   "path": "/ja/よりエネルギー効率の高い冷却塔へのステップ/",
+   "text": "産",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-266",
+   "path": "/ja/チラーと冷却塔でレジオネラ菌を防ぐには？/",
+   "text": "チラーおよび産業用冷却システムの塔水は、放置しておくと繁殖する最大の理由です。",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-267",
+   "path": "/ja/チラーと冷却塔でレジオネラ菌を防ぐには？/",
+   "text": "チラープラントなど、ほとんどの冷却塔に推奨される水の pH",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-268",
+   "path": "/ja/冷却塔のメンテナンス-ステップバイステップの完/",
+   "text": "産業施設に不可欠です。冷却塔と接続されたプロセス機器",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-269",
+   "path": "/ja/冷却塔の清掃方法/",
+   "text": "冷却塔は産業用冷却システムの不可欠な部分であり、熱伝達と熱管理を促進するさまざまな産業",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-271",
+   "path": "/ja/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "กระบวนการอุตสาหกรรม",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-272",
+   "path": "/ja/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "กระบวนการอุตสาหกรรม:",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-273",
+   "path": "/ja/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "กระบวนการอุตสาหกรรมเพื่อรักษาอุณหภูมิกระบวนการ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-274",
+   "path": "/ja/最適なパフォーマンスを実現するための段階的な/",
+   "text": "冷却塔は、発電、石油化学、化学、その他のプロセス",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-276",
+   "path": "/tag/cooling-tower-contractorcooling-tower-solutionsindustrial-cooling-tower/",
+   "text": "in power plants and manufacturing",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-276",
+   "path": "/tag/cooling-tower-contractorcooling-tower-solutionsindustrial-cooling-tower/",
+   "text": "facilities, their operation carries",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-277",
+   "path": "/tag/cooling-tower-contractorcooling-tower-solutionsindustrial-cooling-towervariable-frequency-drive/",
+   "text": "facilities and power plants. They reject heat from",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-302",
+   "path": "/th/การบำรุงรักษาหอระบายคว/",
+   "text": "อุปกรณ์กระบวนการที่เชื่อมต่อ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-304",
+   "path": "/th/รายการตรวจสอบการบำรุงร/",
+   "text": "ปิโตรเคมี เคมี และกระบวนการอุตสาหกรรมอื่นๆ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-305",
+   "path": "/th/วิธีทำความสะอาดหอหล่อเ/",
+   "text": "ทำความเย็นอุตสาหกรรม ซึ่งมีความสำคัญในโรงงานอุตสาหกรรมต่างๆ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-306",
+   "path": "/th/วิธีป้องกันแบคทีเรีย-legionella/",
+   "text": "น้ำในหอคอยของระบบเครื่องทำความเย็นและระบบ",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-307",
+   "path": "/th/วิธีป้องกันแบคทีเรีย-legionella/",
+   "text": "และโรงงานเครื่องทำความเย็นขนาดใหญ่ คือ 6.5-7.5",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-309",
+   "path": "/th/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "産業プロセスにおける冷却塔の利点",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-310",
+   "path": "/th/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "産業プロセスにおける冷却塔の利点は次のとおりです。",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-311",
+   "path": "/th/工業プロセスにおける冷却塔の用途を理解する/",
+   "text": "冷却塔は、プロセス温度を維持するために産業プロセス",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-312",
+   "path": "/vi/bao-tri-thap-giai-nhiet-huong-dan-day-du-tung-buoc/",
+   "text": "bảo tháp giải nhiệt và thiết bị quy trình liên kết của bạn hoạt động bình",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-313",
+   "path": "/vi/cac-buoc-de-co-thap-giai-nhiet-hieu-qua-nang-luong-hon/",
+   "text": "Tháp giải nhiệt công",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-316",
+   "path": "/vi/lam-the-nao-de-ngan-ngua-vi-khuan-legionella-trong-may-lam-lanh-va-thap-giai-nhiet/",
+   "text": "nhiệt dòng ngược và nhà máy chiller quy mô lớn, là 6,5-7,5.",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-317",
+   "path": "/vi/lam-the-nao-de-ve-sinh-thap-giai-nhiet/",
+   "text": "thể thiếu của hệ thống làm mát công nghiệp, đóng vai trò quan",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-317",
+   "path": "/vi/lam-the-nao-de-ve-sinh-thap-giai-nhiet/",
+   "text": "bối cảnh công nghiệp khác nhau, giúp truyền",
+   "source": "SEO-CONTENT-2 piece C"
+  },
+  {
+   "row": "SC1-C-321",
+   "path": "/vi/ทำความเข้าใจการใช้งานข/",
+   "text": "để duy trì nhiệt độ quy trình và cần xử lý và quản lý",
+   "source": "SEO-CONTENT-2 piece C"
   }
  ]
 }

@@ -115,7 +115,7 @@ function composed(p:string,batch=true):SalmonDocument{
   }
   const r=batch?valueOf(restored,p):undefined
   const seo=batch?seoRows.find(x=>decoded(x.path)===p):undefined
-  const record={routeId:row.routeId,path:row.path,family:row.routeId.startsWith('LIVE-')?'live':'salmon',title:r?.h1??String(document.title??''),document,slots,restoredSections:r?.groups??null,...(seo?{seo:{title:seo.title,description:seo.meta}}:{})} as RouteRecord
+  const record={routeId:row.routeId,path:row.path,family:row.routeId.startsWith('LIVE-')?'live':'salmon',title:r?.h1??h1Rows.find(x=>decoded(x.path)===p&&x.via==='title'&&batch)?.h1??String(document.title??''),document,slots,restoredSections:r?.groups??null,...(seo?{seo:{title:seo.title,description:seo.meta}}:{})} as RouteRecord
   const doc=repairDocumentText(composePublicDocument(record) as unknown as SalmonDocument)
   cache.set(p+batch,doc)
   return doc
@@ -136,7 +136,7 @@ describe('route states: HOLD with a 301, one release (data and release authority
       expect(overrides.redirectSources[p],p).toBe(target)
     }
     // 27 REDIRECT rows before this batch (26 consolidations and the /resources/ alias source) + the seven held pages
-    expect(ledger.routes.filter(r=>r.state==='REDIRECT')).toHaveLength(36)
+    expect(ledger.routes.filter(r=>r.state==='REDIRECT')).toHaveLength(37)
   })
   it('the batch withdraws each with its 301, in the order of the release authority, and every redirect is one hop to a served page',()=>{
     const dispositions=tsv('route-dispositions.tsv').filter(r=>HELD.includes(r.path))
@@ -351,7 +351,7 @@ describe('algae article: released with the one sentence replaced',()=>{
 })
 
 describe('project H1s, /fans/, BacMan, PETRONAS and the seven product titles',()=>{
-  const rows=h1Rows.filter(r=>r.path.startsWith('/all-projects/')&&r.path!=='/all-projects/')
+  const rows=h1Rows.filter(r=>r.path.startsWith('/all-projects/')&&r.path!=='/all-projects/'&&r.via==='slot')
   const h1Of=(p:string)=>{const doc=composed(p);const html=renderToStaticMarkup(<SalmonFamilyPage doc={doc} config={salmonFamilyFor(doc)!}/>);return [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)].map(m=>m[1]!.replace(/<[^>]+>/g,'').replaceAll('&amp;','&').replace(/\s+/g,' ').trim())}
   it('22 project H1 rows, all via the page\'s own H1 slot; each project page renders exactly its decided H1',()=>{
     expect(rows).toHaveLength(22)
@@ -452,22 +452,22 @@ describe('apply expectations for this delta',()=>{
   const exp=json<{rows:number;redirects:number;seoFields:number;expect:Record<string,Record<string,number>>;problems:string[]}>('ops/seo-pass/data/expectations.json')
   const fresh=json<{rows:number;redirects:number;seoFields:number;expect:Record<string,Record<string,number>>}>('ops/seo-pass/data/expectations.fresh-db.json')
   it('staging delta on the state Round 16 (R4 + phase 2 copy) leaves: rehearsed on the writable mock, apply 0 failures, rerun 0',()=>{
-    expect(exp.expect.routes).toEqual({publish:1,withdraw:9,index:0,canonical:0})
-    expect(exp.expect.redirects).toEqual({create:9,update:2,unchanged:405,retire:1,normalise:0})
+    expect(exp.expect.routes).toEqual({publish:1,withdraw:10,index:0,canonical:0})
+    expect(exp.expect.redirects).toEqual({create:10,update:2,unchanged:405,retire:1,normalise:0})
     expect(exp.expect.seoFields).toMatchObject({update:11,unchanged:480,pendingOgcs:0}) // 8 SEO-CONTENT-1 + 1 R5b (/cooling-tower/ meta) + 2 round 2 (seminar, checklist metas)
-    expect(exp.expect.h1).toEqual({update:25}) // 23 SEO-CONTENT-1 + 2 R5b (USA, Singapore)
-    expect([exp.rows,exp.redirects,exp.seoFields]).toEqual([1142,416,491])
+    expect(exp.expect.h1).toEqual({update:26}) // + the PETRONAS record title (SEO-CONTENT-2); 23 SEO-CONTENT-1 + 2 R5b (USA, Singapore)
+    expect([exp.rows,exp.redirects,exp.seoFields]).toEqual([1143,417,491])
     expect(tsv('seo-fields.tsv')).toHaveLength(491)
-    expect(tsv('redirects.tsv')).toHaveLength(416)
-    expect(tsv('conformance.tsv')).toHaveLength(1142)
-    expect(tsv('h1-fields.tsv').filter(r=>r.action==='UPDATE')).toHaveLength(25)
+    expect(tsv('redirects.tsv')).toHaveLength(417)
+    expect(tsv('conformance.tsv')).toHaveLength(1143)
+    expect(tsv('h1-fields.tsv').filter(r=>r.action==='UPDATE')).toHaveLength(26)
   })
   it('fresh production database: one apply, counts as rehearsed',()=>{
     expect(fresh.expect.routes).toEqual({publish:0,withdraw:0,index:0,canonical:0})
-    expect(fresh.expect.redirects).toEqual({create:398,update:0,unchanged:18,retire:0,normalise:0})
+    expect(fresh.expect.redirects).toEqual({create:399,update:0,unchanged:18,retire:0,normalise:0})
     expect(fresh.expect.seoFields).toEqual({update:491})
-    expect(fresh.expect.h1).toEqual({update:34}) // + R5b's 2
-    expect([fresh.rows,fresh.redirects,fresh.seoFields]).toEqual([1142,416,491])
+    expect(fresh.expect.h1).toEqual({update:35}) // + R5b's 2, + the PETRONAS record title
+    expect([fresh.rows,fresh.redirects,fresh.seoFields]).toEqual([1143,417,491])
   })
 })
 
@@ -534,5 +534,43 @@ describe('round 2 (CT 2026-10-08): staging QA tranche A/B, OEM/stock rows, HVAC 
   it('binaries: this batch adds or changes none (data, tests and two code files only)',()=>{
     // recorded in ROUND2_EVIDENCE.md; nothing to hash
     expect(true).toBe(true)
+  })
+})
+
+describe('SEO-CONTENT-2 piece A (CT 2026-10-08): uncategorized hold, locale clusters, PETRONAS breadcrumb',()=>{
+  const UNCAT='/product-category/uncategorized/'
+  it('/product-category/uncategorized/ is HOLD with one 301 to the parts hub, out of the sitemap and every listing',async()=>{
+    expect(byPath.get(UNCAT)).toMatchObject({state:'REDIRECT',export:false,indexable:false,sitemap:false,redirect:'/cooling-tower-parts-online/'})
+    expect(tsv('route-dispositions.tsv').find(r=>r.path===UNCAT)).toMatchObject({action:'WITHDRAW_TO_REDIRECT',redirect:'/cooling-tower-parts-online/'})
+    expect(tsv('redirects.tsv').find(r=>r.source===UNCAT)).toMatchObject({destination:'/cooling-tower-parts-online/',status:'301'})
+    expect(tsv('conformance.tsv').filter(r=>r.url===UNCAT)).toEqual([expect.objectContaining({expect:'301',target:'/cooling-tower-parts-online/'})])
+    process.env.H2O_CONTENT_SOURCE='payload';process.env.H2O_INDEXING_POLICY='production'
+    const {sitemapEntriesFor}=await import('../../content/sitemap-response')
+    expect((sitemapEntriesFor()??[]).some(e=>e.loc.includes('product-category/uncategorized'))).toBe(false)
+    for(const row of ledger.routes.filter(r=>r.state==='PUBLIC'&&r.export&&/^\/product-category\//.test(r.path))){
+      const archive=renderToStaticMarkup(<ArchivePage doc={salmonDocument(salmonRoutes().find(r=>r.targetPath===row.path)!)}/>)
+      expect(archive,row.path).not.toContain(UNCAT)
+    }
+    for(const route of activeProductRoutes())expect(productHtml(composed(decoded(route.targetPath))),route.targetPath).not.toContain(UNCAT)
+  },300000)
+  it('no hreflang cluster names a held or redirecting member; the Thai chemical-process member is the final URL',()=>{
+    const data=json<{clusters:Array<Array<{hreflang:string;url:string}>>}>('content/locale/sitemap-locale.json')
+    const redirecting=new Set([...ledger.routes.filter(r=>r.state!=='PUBLIC').map(r=>decoded(r.path)),...tsv('redirects.tsv').map(r=>decoded(r.source))])
+    const offenders:string[]=[]
+    for(const cluster of data.clusters)for(const m of cluster){const p=decoded(new URL(m.url).pathname);if(redirecting.has(p)||!byPath.has(p))offenders.push(`${m.hreflang} ${p}`)}
+    expect(offenders).toEqual([])
+    const chem=data.clusters.find(c=>c.some(m=>m.url==='https://h2ocooling.com/cooling-solutions-for-chemical-process-plants-cooling-towers/'))!
+    expect(chem.find(m=>m.hreflang==='th')?.url).toBe('https://h2ocooling.com/โซลูชั่นการทำความเย็นส/')
+    for(const held of ['/hvac-cooling-tower/','/hvac-cooling-tower-systems/','/commercial-cooling-towers/','/commercial-building-cooling-tower/','/cooling-tower-free-cooling-mode-cut-chiller-costs-now/','/hospital-cooling-systems/'])expect(JSON.stringify(data.clusters),held).not.toContain(held)
+  })
+  it('the PETRONAS project page carries no PERTONAS in any JSON-LD (breadcrumb name from the record title); the slug is unchanged',()=>{
+    const p='/all-projects/pertonas-rapid/'
+    const doc=composed(p)
+    const html=renderToStaticMarkup(<SalmonFamilyPage doc={doc} config={salmonFamilyFor(doc)!}/>)
+    const ld=[...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(m=>m[1]!)
+    expect(ld.length).toBeGreaterThan(0)
+    for(const block of ld)expect(block).not.toMatch(/PERTONAS/)
+    expect(ld.join(' ')).toContain('"name":"PETRONAS RAPID 28-Cell Cooling Tower, Malaysia"')
+    expect(ld.join(' ')).toContain('/all-projects/pertonas-rapid/')
   })
 })

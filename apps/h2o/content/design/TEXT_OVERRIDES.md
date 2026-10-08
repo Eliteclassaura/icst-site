@@ -36,6 +36,27 @@ Text that *is* editable was corrected in the page itself (content batch R2.2), s
 | TO-026 | /class-10000-minimum-acoustic-geometry/ | body | "HVAC cooling applications" | "" | SC1-A-HVAC-CLASS10000 (SEO-CONTENT-1 round 2) |
 | TO-027 | /ics-announces-comprehensive-cooling-technology-seminar-thailand/ | schema | "Learn everything you need to know about cooling towers and air coolers in one day! Attend expert-led sessions " | "ICS hosted a one-day seminar in Thailand on cooling tower and air cooler design, operation and technology, wit" | SC1-A-004-ld (SEO-CONTENT-1 round 2) |
 | TO-028 | /cooling-tower-maintenance-checklist/ | schema | "Maximize efficiency with our 2026 cooling tower maintenance checklist. Learn to prevent corrosion, ensure safe" | "Maximize efficiency with our 2026 cooling tower maintenance checklist. Learn to prevent corrosion, improve saf" | SC1-A-080-ld (SEO-CONTENT-1 round 2) |
+| TO-029 | /understanding-the-uses-of-cooling-towers-in-industrial-processes/ | schema | "Advantages of Cooling Towers in HVAC Industries" | "Advantages of Cooling Towers in Industrial Processes" | SC1-B-028 (SEO-CONTENT-2) |
+| TO-030 | /understanding-the-uses-of-cooling-towers-in-industrial-processes/ | body | "Advantages of Cooling Towers in HVAC Industries" | "Advantages of Cooling Towers in Industrial Processes" | SC1-B-028 (SEO-CONTENT-2) |
+| TO-031 | /category/blog/page/9/ | body-remove | "A Guide to 2026 HVAC Cooling Tower Systems & Optimization" | "" | SC1-C-020 (SEO-CONTENT-2) |
+| TO-032 | /category/cooling-tower-parts/ | body-remove | "What is HVAC Cooling Tower: Role of Cooling Towers in HVAC Systems" | "" | SC1-C-029 (SEO-CONTENT-2) |
+| TO-033 | /category/others-language/ | body-remove | "Apa itu Menara Pendingin HVAC: Peran Menara Pendingin dalam Sistem HVAC" | "" | SC1-C-037 (SEO-CONTENT-2) |
+| TO-034 | /category/others-language/ | body-remove | "Tháp giải nhiệt HVAC là gì: Vai trò của tháp giải nhiệt trong hệ thống HVAC" | "" | SC1-C-039 (SEO-CONTENT-2) |
+| TO-035 | /category/others-language/page/2/ | body-remove | "HVAC 冷却塔とは: HVAC システムにおける冷却塔の役割" | "" | SC1-C-041 (SEO-CONTENT-2) |
+| TO-036 | /category/others-language/page/2/ | body-remove | "หอคอยทำความเย็น HVAC คืออะไร: บทบาทของหอคอยทำความเย็นในระบบ HVAC" | "" | SC1-C-043 (SEO-CONTENT-2) |
+| TO-037 | /category/uncategorized/page/16/ | body-remove | "HVAC 冷却塔とは: HVAC システムにおける冷却塔の役割" | "" | SC1-C-051 (SEO-CONTENT-2) |
+| TO-038 | /category/uncategorized/page/16/ | body-remove | "หอคอยทำความเย็น HVAC คืออะไร: บทบาทของหอคอยทำความเย็นในระบบ HVAC" | "" | SC1-C-053 (SEO-CONTENT-2) |
+| TO-039 | /cooling-tower-materials/ | body-href | "https://h2ocooling.com/cooling-tower-materials/#HVAC_and_District_Cooling_Systems" | "https://h2ocooling.com/cooling-tower-materials/#District_Cooling_Systems" | SC1-C-131 (SEO-CONTENT-2) |
+| TO-040 | /cooling-tower-vs-chiller/ | body-href | "https://www.trane.com/residential/en/resources/glossary/what-is-hvac/" | "" | SC1-C-138 (SEO-CONTENT-2) |
+| TO-041 | /frp-cooling-tower-fans/ | body-href | "https://h2ocooling.com/frp-cooling-tower-fans/#Data_Centers_and_Large_HVAC_Systems" | "https://h2ocooling.com/frp-cooling-tower-fans/#Data_Centers_and_Mission-Critical_Facilities" | SC1-C-143 (SEO-CONTENT-2) |
+| TO-042 | /hybrid-and-dry-cooling-technologies/ | body-href | "https://www.rsi.edu/blog/hvacr/what-is-evaporative-cooling/" | "" | SC1-C-146 (SEO-CONTENT-2) |
+| TO-043 | /industrial-cooling-tower-automation/ | body-href | "https://www.trane.com/residential/en/resources/glossary/what-is-hvac/" | "" | SC1-C-148 (SEO-CONTENT-2) |
+| TO-044 | /tag/cooling-tower-fancooling-tower-fan-bladescooling-tower-fan-motorcooling-tower-frp-fanfan-bladesfrp-fan-bladescooling-tower-parts/ | body-remove | "What is HVAC Cooling Tower: Role of Cooling Towers in HVAC Systems" | "" | SC1-C-280 (SEO-CONTENT-2) |
+| TO-045 | /tag/cooling-tower-fill/ | body-remove | "Tháp giải nhiệt HVAC là gì: Vai trò của tháp giải nhiệt trong hệ thống HVAC" | "" | SC1-C-284 (SEO-CONTENT-2) |
+| TO-046 | /tag/cooling-tower-parts/ | body-remove | "HVAC 冷却塔とは: HVAC システムにおける冷却塔の役割" | "" | SC1-C-287 (SEO-CONTENT-2) |
+| TO-047 | /tag/cooling-tower/ | body-remove | "Apa itu Menara Pendingin HVAC: Peran Menara Pendingin dalam Sistem HVAC" | "" | SC1-C-291 (SEO-CONTENT-2) |
+| TO-048 | /tag/cooling-tower/ | body-remove | "หอคอยทำความเย็น HVAC คืออะไร: บทบาทของหอคอยทำความเย็นในระบบ HVAC" | "" | SC1-C-293 (SEO-CONTENT-2) |
+| TO-049 | /understanding-the-uses-of-cooling-towers-in-industrial-processes/ | schema | "of Cooling Towers in HVAC Industries" | "of Cooling Towers in Industrial Processes" | SC1-C-103 (SEO-CONTENT-2) |
 
 **Rules (Control Tower guardrails):**
 - An entry applies only when its exact text appears exactly the stated number of times.

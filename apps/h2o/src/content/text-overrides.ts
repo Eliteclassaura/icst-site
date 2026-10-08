@@ -15,7 +15,8 @@ import path from 'node:path'
  */
 type Node = string | { tag: string; attrs: Record<string, string>; children: Node[] }
 type Doc = { routeId?: unknown; children?: unknown; text?: unknown; seo?: unknown } & Record<string, unknown>
-export type TextOverride = { id: string; row: string; routeId: string; path: string; scope: 'body' | 'schema' | 'body-range'; find: string; replace: string; until?: string; count?: number; reason: string; unsaveable?: boolean }
+export type TextOverride = { id: string; row: string; routeId: string; path: string; scope: 'body' | 'schema' | 'body-range' | 'body-remove' | 'body-href'; find: string; replace: string; until?: string; count?: number; reason: string; unsaveable?: boolean; slotCopy?: boolean }
+/** `slotCopy`: a verbatim non-slot copy (a table-of-contents link) of text an editable element also holds; that element is changed by its claim edit, the copy here. */
 /** `body-range` (SEO-CONTENT-1 round 2): removes a run of sibling nodes in the page tree, from the node that holds `find` through the
  * node that holds `until` (`replace` is ''), with the line breaks and blank text that lead into it. For a ruled removal of markup (a
  * contact block of `<br>`-separated lines) that no editable element holds. */
@@ -75,8 +76,41 @@ function stripRangeText(text: string, original: Doc, o: TextOverride): string {
   const words = removed.split(/\s+/).filter(Boolean).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
   return words.length ? text.replace(new RegExp(`\\s*${words.join('\\s+')}`), '') : text
 }
+const collapse = (t: string) => t.replace(/[\s\u00a0]+/g, ' ').trim()
+/** `body-remove` (SEO-CONTENT-2 piece C): removes the deepest element whose whole text equals `find` (a bare chip, list item,
+ * excerpt or card line of a held article). An element left empty is dropped by the renderer (list items, table rows). */
+function inRemove(doc: Doc, o: TextOverride, mode: 'count' | 'apply'): { n: number; doc: Doc } {
+  let n = 0
+  const walk = (x: Node): Node | null => {
+    if (typeof x === 'string') return x
+    const kids = x.children.map(walk)
+    const deeper = x.children.some((k) => typeof k !== 'string' && collapse(nodeText(k)) === collapse(o.find))
+    if (!deeper && collapse(nodeText(x)) === collapse(o.find) && x.children.length > 0) { n++; return mode === 'apply' ? null : x }
+    return { ...x, children: kids.filter((k): k is Node => k !== null) }
+  }
+  const children = Array.isArray(doc.children) ? (doc.children as Node[]).map(walk).filter((k): k is Node => k !== null) : doc.children
+  return { n, doc: mode === 'apply' ? { ...doc, children } : doc }
+}
+/** `body-href` (SEO-CONTENT-2 piece C): a link whose href equals `find` points at `replace`; an empty `replace` unlinks it (the
+ * anchor text stays, as a plain span). */
+function inHref(doc: Doc, o: TextOverride, mode: 'count' | 'apply', needle: string): { n: number; doc: Doc } {
+  let n = 0
+  const walk = (x: Node): Node => {
+    if (typeof x === 'string') return x
+    const kids = x.children.map(walk)
+    if (x.tag === 'a' && x.attrs.href === needle) {
+      n++
+      if (mode === 'apply') return o.replace === '' ? { tag: 'span', attrs: {}, children: kids } : { ...x, attrs: { ...x.attrs, href: o.replace }, children: kids }
+    }
+    return { ...x, children: kids }
+  }
+  const children = Array.isArray(doc.children) ? (doc.children as Node[]).map(walk) : doc.children
+  return { n, doc: mode === 'apply' ? { ...doc, children } : doc }
+}
 function inScope(doc: Doc, o: TextOverride, mode: 'count' | 'apply', needle = o.find): { n: number; doc: Doc } {
   if (o.scope === 'body-range') return inRange(doc, o, mode)
+  if (o.scope === 'body-remove') return inRemove(doc, o, mode)
+  if (o.scope === 'body-href') return inHref(doc, o, mode, needle)
   let n = 0
   const swap = (s: string) => { const k = occurrences(s, needle); n += k; return mode === 'apply' && k ? s.split(o.find).join(o.replace) : s }
   if (o.scope === 'body') {
@@ -103,10 +137,10 @@ export function applyTextOverrides<T extends Doc>(doc: T): { doc: T; problems: s
       const before = out
       out = inScope(out, o, 'apply').doc
       // the search text carries the same words
-      if (typeof out.text === 'string') out = { ...out, text: o.scope === 'body-range' ? stripRangeText(out.text as string, before, o) : (out.text as string).split(o.find).join(o.replace) }
+      if (typeof out.text === 'string') out = { ...out, text: o.scope === 'body-range' ? stripRangeText(out.text as string, before, o) : o.scope === 'body-remove' ? (out.text as string).split(o.find).join('') : o.scope === 'body-href' ? (out.text as string) : (out.text as string).split(o.find).join(o.replace) }
       continue
     }
-    if (found === 0 && (o.scope === 'body-range' || o.replace === '')) continue // a removal: already applied
+    if (found === 0 && (o.scope === 'body-range' || o.scope === 'body-remove' || o.replace === '')) continue // a removal: already applied
     if (found === 0 && inScope(out, o, 'count', o.replace).n >= want) continue // already applied
     problems.push(`${o.id} (${o.row}) ${o.path}: "${o.find.slice(0, 60)}" found ${found}× in ${o.scope}, expected ${want}×`)
   }

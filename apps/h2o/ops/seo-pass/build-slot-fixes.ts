@@ -133,7 +133,7 @@ function shortenAlt(p: string, alt: string): string {
  * the product template hides an empty line, and a panel left without text. */
 /** R2.2 (claims sweep): `slot` targets one element (its key); `element: 'heading'` edits a heading; `op: 'set'` replaces a
  * text element with restricted markdown (plain text and [text](/path/) links) when a ruling adds a link. */
-type ClaimEdit = { run?: number; path: string; op: 'remove' | 'replace' | 'set'; find: string; replace?: string; markdown?: string; allowEmpty?: boolean; slot?: string; element?: 'heading'; row?: string; reason: string }
+type ClaimEdit = { run?: number; path: string; op: 'remove' | 'replace' | 'set'; find: string; replace?: string; markdown?: string; allowEmpty?: boolean; slot?: string; element?: 'heading' | 'alt'; row?: string; reason: string }
 const normText = (t: string) => t.replace(/[\s\u00a0\u200b]+/g, ' ').replace(/\s+([,.;:!?)])/g, '$1').trim()
 /** Restricted markdown → Lexical: text runs and internal links only. */
 function markdownLexical(md: string): LexicalState {
@@ -256,6 +256,19 @@ for (const row of ledger.routes) {
     }
   }
   for (const edit of edits) {
+    // SEO-CONTENT-2: `element: 'alt'` rewords an image element's alt text (the whole alt is replaced)
+    if (edit.element === 'alt') {
+      const im = next.find((s) => s.kind === 'image' && (!edit.slot || s.key === edit.slot) && normText(s.alt ?? '') === normText(edit.find))
+      if (!im) throw new Error(`${row.path}: alt edit not found: ${edit.find.slice(0, 60)}`)
+      const existing = record.slots.find((r) => r.key === im.key && r.field === 'alt')
+      const before = existing?.before ?? slotFieldCanon(im, 'alt')
+      im.alt = edit.replace ?? ''
+      const change: Change = { from: edit.find, to: edit.replace ?? '', action: 'claim-reworded' as never, reason: edit.reason }
+      if (existing) { existing.after = im.alt; existing.afterCanon = slotFieldCanon(im, 'alt'); existing.changes.push(change) }
+      else record.slots.push({ key: im.key, kind: im.kind, field: 'alt', before, after: im.alt, afterCanon: slotFieldCanon(im, 'alt'), changes: [change] })
+      appliedEdits.add(edit)
+      continue
+    }
     if (edit.element === 'heading') {
       const h = next.find((s) => s.kind === 'heading' && (!edit.slot || s.key === edit.slot) && normText(s.heading ?? '').includes(normText(edit.find)))
       if (!h) throw new Error(`${row.path}: heading edit not found: ${edit.find.slice(0, 60)}`)

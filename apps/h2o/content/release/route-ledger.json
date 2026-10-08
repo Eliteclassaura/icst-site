@@ -12896,8 +12896,8 @@
       "sourceFile": "documents/SALMON-product_cat-36.json",
       "sourceSha256": "92f5b253e01a369eb36eda68d517439990cce3423e5fa4f3b1a77f2715bf6af2",
       "routeClass": "product_cat",
-      "state": "PUBLIC",
-      "export": true,
+      "state": "REDIRECT",
+      "export": false,
       "indexable": false,
       "sitemap": false,
       "searchable": false,
@@ -12906,7 +12906,7 @@
       "sourceRobots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/cooling-tower-parts-online/"
     },
     {
       "path": "/product-tag/177230/",
