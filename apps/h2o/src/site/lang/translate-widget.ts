@@ -59,7 +59,7 @@ export const translatedLanguage=(doc:Document=document):string|null=>doc.documen
 /** For `useSyncExternalStore`: the attribute on <html> is the state, a MutationObserver is the subscription. */
 export function subscribeTranslated(onChange:()=>void,doc:Document=document):()=>void{
   const observer=new MutationObserver(onChange)
-  observer.observe(doc.documentElement,{attributes:true,attributeFilter:['data-translated']})
+  observer.observe(doc.documentElement,{attributes:true,attributeFilter:['data-translated','data-translated-by','data-translate-progress']})
   return ()=>observer.disconnect()
 }
 
@@ -89,13 +89,14 @@ export function translateInPlace({to,from='en',fallbackHref,env=here(),timeoutMs
   const fail=()=>{
     clearGoogtrans(doc,win.location.hostname)
     doc.documentElement.removeAttribute('data-translated')
+    doc.documentElement.removeAttribute('data-translated-by')
     if(!win.open(fallbackHref,'_blank','noopener'))win.location.assign(fallbackHref)
   }
   if(EXCLUDED_PATH.test(win.location.pathname)){fail();return}
   markNoTranslate(doc)
   setGoogtrans(doc,from,to,win.location.protocol==='https:')
   ensureContainer(doc)
-  const marked=()=>doc.documentElement.setAttribute('data-translated',to)
+  const marked=()=>{doc.documentElement.setAttribute('data-translated',to);doc.documentElement.setAttribute('data-translated-by','google')}
   // The widget is already up (an earlier choice on this page): switch through its own control.
   if((win as unknown as TranslateGlobal).google?.translate?.TranslateElement&&applyThroughCombo(doc,to)){marked();return}
   if(doc.querySelector('script[data-lang-widget]'))return // still loading: the cookie is set, the widget will pick it up
@@ -118,6 +119,7 @@ export function restoreEnglish(env:Env=here()):void{
   const {doc,win}=env
   clearGoogtrans(doc,win.location.hostname)
   doc.documentElement.removeAttribute('data-translated')
+  doc.documentElement.removeAttribute('data-translated-by')
   win.location.reload()
 }
 

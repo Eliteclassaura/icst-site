@@ -117,12 +117,12 @@ describe('the language menu',()=>{
   it('carries the translate target on each machine-translation item',()=>{
     expect(menu.translate.map(i=>(i as {tl:string}).tl)).toEqual(TRANSLATE.map(i=>i.tl))
   })
-  it('discloses the Google transfer before any selection, links both notices, and keeps the original note',()=>{
+  it('discloses the Google transfer before any selection, links both notices, and keeps a neutral note',()=>{
     const html=renderToStaticMarkup(createElement(LanguageMenu,{data:menu,variant:'desktop'}))
-    expect(html).toContain('Choosing a language loads Google Translate, which translates this page in your browser and sends the page text to Google.')
+    expect(html).toContain('Translation runs in your browser where supported. Otherwise Google Translate is used, which sends the page text to Google.')
     expect(html).toContain('href="/cookie-notice/"')
     expect(html).toContain('href="/privacy-policy/"')
-    expect(html).toContain('Machine translation by Google. ICS does not review it.')
+    expect(html).toContain('Machine translation. ICS does not review it.')
     expect(html).not.toContain('opens in a new tab')
   })
 })

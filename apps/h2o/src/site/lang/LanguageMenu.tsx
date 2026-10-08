@@ -1,7 +1,9 @@
 'use client'
 
 import {useEffect,useId,useReducer,useRef,useState,useSyncExternalStore,type MouseEvent} from 'react'
-import {resumeIfOptedIn,restoreEnglish,subscribeTranslated,translateInPlace,translatedLanguage} from './translate-widget'
+import {resumeIfOptedIn,subscribeTranslated} from './translate-widget'
+import {translateStatus} from './translate-device'
+import {restorePage,translatePage} from './translate-page'
 import {menuReducer,readDismissed,suggestionFor,writeDismissed,type LanguageMenuData,type Suggestion} from './lang-model'
 
 /**
@@ -19,12 +21,14 @@ const plain=(event:MouseEvent)=>!event.defaultPrevented&&event.button===0&&!even
  * picked a language on an earlier page (their googtrans cookie); anyone else loads nothing from Google.
  */
 export function TranslateNote({pageLanguage}:{pageLanguage:string}){
-  const translated=useSyncExternalStore(subscribeTranslated,translatedLanguage,()=>null)
+  const status=useSyncExternalStore(subscribeTranslated,()=>translateStatus(),()=>null)
   useEffect(()=>{resumeIfOptedIn(pageLanguage)},[pageLanguage])
-  if(!translated)return null
+  if(!status)return null
+  const [,by,progress]=status.split('|')
+  const text=progress?`Preparing translation on your device… ${progress}%`:by==='device'?'Translated on your device. ICS does not review it.':'Machine translation by Google. ICS does not review it.'
   return <div className="translate-note notranslate" translate="no" role="status">
-    <span>Machine translation by Google. ICS does not review it.</span>
-    <button type="button" onClick={()=>restoreEnglish()}>Show original</button>
+    <span>{text}</span>
+    <button type="button" onClick={()=>restorePage()}>Show original</button>
   </div>
 }
 
@@ -46,7 +50,7 @@ export function LanguageMenu({data,variant}:{data:LanguageMenuData;variant:'desk
     return()=>{document.removeEventListener('keydown',onKey,true);document.removeEventListener('pointerdown',onOutside);document.removeEventListener('focusin',onOutside)}
   },[state.open])
   const current=data.available.find(item=>item.current)
-  return <div ref={root} className={`lang-menu lang-menu--${variant}`} data-lang-menu={variant}>
+  return <div ref={root} className={`lang-menu lang-menu--${variant}`} data-lang-menu={variant} translate="no">
     <button ref={button} type="button" className="lang-button" aria-expanded={state.open} aria-controls={panelId} aria-label="Language" data-current={current?.native} onClick={()=>dispatch('toggle')}>
       <Globe/><span className="lang-button-label" lang={current?.lang}>{variant==='mobile'?'Language':current?.code.toUpperCase()}</span>{variant==='mobile'?<><span className="lang-current-name" lang={current?.lang}>{current?.native}</span><span className="lang-chevron" aria-hidden="true"/></>:null}
     </button>
@@ -55,17 +59,17 @@ export function LanguageMenu({data,variant}:{data:LanguageMenuData;variant:'desk
       <ul className="lang-list" aria-labelledby={`${panelId}-a`}>
         {/* LANG-1.2 (owner via CT 2026-10-08): only the languages that exist for this page are listed (usually English alone); a language with no counterpart is not shown as a disabled entry */}
         {data.available.filter(item=>item.href).map(item=><li key={item.code}>
-          <a href={item.href!} lang={item.lang} hrefLang={item.lang} aria-current={item.current?'page':undefined} onClick={event=>{if(item.code==='en'&&translatedLanguage()&&plain(event)){event.preventDefault();dispatch('select');restoreEnglish()}else dispatch('select')}}>{item.current?<span className="lang-check" aria-hidden="true">✓</span>:null}{item.native}{item.current?<span className="lang-sr"> (current language)</span>:null}</a>
+          <a href={item.href!} lang={item.lang} hrefLang={item.lang} aria-current={item.current?'page':undefined} onClick={event=>{if(item.code==='en'&&translateStatus()&&plain(event)){event.preventDefault();dispatch('select');restorePage()}else dispatch('select')}}>{item.current?<span className="lang-check" aria-hidden="true">✓</span>:null}{item.native}{item.current?<span className="lang-sr"> (current language)</span>:null}</a>
         </li>)}
       </ul>
-      <p className="lang-group-label" id={`${panelId}-t`}>Translate this page (Google Translate)</p>
-      <p className="lang-note lang-disclosure">Choosing a language loads Google Translate, which translates this page in your browser and sends the page text to Google. See our <a href="/cookie-notice/">Cookie Notice</a> and <a href="/privacy-policy/">Privacy Notice</a>.</p>
+      <p className="lang-group-label" id={`${panelId}-t`}>Translate this page</p>
+      <p className="lang-note lang-disclosure">Translation runs in your browser where supported. Otherwise Google Translate is used, which sends the page text to Google. See our <a href="/cookie-notice/">Cookie Notice</a> and <a href="/privacy-policy/">Privacy Notice</a>.</p>
       <ul className="lang-list" aria-labelledby={`${panelId}-t`}>
         {data.translate.map(item=><li key={item.code}>
-          <a href={item.href} target="_blank" rel="noopener noreferrer nofollow" lang={item.lang} dir={item.dir} onClick={event=>{dispatch('select');if(plain(event)){event.preventDefault();translateInPlace({to:item.tl,from:data.current==='en'?'en':data.current,fallbackHref:item.href})}}}>{item.native}<span className="lang-ext" aria-hidden="true">↗</span><span className="lang-sr"> (opens Google Translate in a new tab; machine translation)</span></a>
+          <a href={item.href} target="_blank" rel="noopener noreferrer nofollow" lang={item.lang} dir={item.dir} onClick={event=>{dispatch('select');if(plain(event)){event.preventDefault();void translatePage({to:item.tl,from:data.current==='en'?'en':data.current,fallbackHref:item.href})}}}>{item.native}<span className="lang-ext" aria-hidden="true">↗</span><span className="lang-sr"> (machine translation; falls back to Google Translate in a new tab if your browser cannot translate in place)</span></a>
         </li>)}
       </ul>
-      <p className="lang-note">Machine translation by Google. ICS does not review it.</p>
+      <p className="lang-note">Machine translation. ICS does not review it.</p>
     </div>
   </div>
 }
