@@ -280,7 +280,7 @@ describe('G2 mapping rules for launch', () => {
       collection: 'crm-suppressions',
       data: { address: 'avery.synthetic@northwind.example.com', reason: 'COMPLAINT' } as never,
       overrideAccess: false,
-      user: sales.user,
+      user: admin.user, // SEC-CRM-1: a complaint is recorded from evidence or by an admin, not by sales
     })
     const r = await deliver(typeformDelivery())
     expect(r.status).toBe(200)
@@ -304,7 +304,7 @@ describe('G2 mapping rules for launch', () => {
       collection: 'crm-suppressions',
       data: { address: 'avery.synthetic@northwind.example.com', reason: 'COMPLAINT' } as never,
       overrideAccess: false,
-      user: sales.user,
+      user: admin.user, // SEC-CRM-1: a complaint is recorded from evidence or by an admin, not by sales
     })
     const second = await deliver(typeformDelivery({ first: 'Morgan', last: 'Other', message: 'different' }))
     const detail = await loadRfq(S, String((await p.find({ collection: 'crm-rfqs', where: { rfq_number: { equals: second.body.rfq_number } }, ...srv })).docs[0]!.id))

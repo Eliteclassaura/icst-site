@@ -32,10 +32,39 @@ export async function GET(request: Request): Promise<Response> {
   )
 }
 
+/** SEC-CRM-1: the largest body read (a one-click POST is "List-Unsubscribe=One-Click"; the page's form is empty). */
+const MAX_BODY_BYTES = 1024
+
+/** The body as text, at most MAX_BODY_BYTES; null when it is (or declares itself) larger — it is never buffered. */
+async function smallBody(request: Request): Promise<string | null> {
+  const declared = Number(request.headers.get('content-length') ?? '0')
+  if (declared > MAX_BODY_BYTES) return null
+  if (!request.body) return ''
+  const reader = request.body.getReader()
+  const parts: Uint8Array[] = []
+  let n = 0
+  for (;;) {
+    const { done, value } = await reader.read()
+    if (done) break
+    n += value.byteLength
+    if (n > MAX_BODY_BYTES) {
+      await reader.cancel()
+      return null
+    }
+    parts.push(value)
+  }
+  return Buffer.concat(parts).toString('utf8')
+}
+
 export async function POST(request: Request): Promise<Response> {
+  // SEC-CRM-1: the token is checked first and the body is read only up to 1 KB, so an anonymous large POST costs
+  // nothing.
+  if (!verifyUnsubscribeToken(tokenOf(request))) return page('This link is not valid', '<p>The unsubscribe link is incomplete or has been changed. Reply to the email and ask us to stop, and we will.</p>', 400)
+  const body = request.headers.get('content-type')?.includes('form') ? await smallBody(request) : ''
+  if (body === null) return page('Request too large', '<p>Please use the unsubscribe button on the page.</p>', 413)
   const payload = await getPayload({ config })
   try {
-    const out = await unsubscribeByToken(payload, tokenOf(request), request.headers.get('content-type')?.includes('form') && (await request.clone().text()).includes('List-Unsubscribe=One-Click') ? 'ONE_CLICK' : 'PAGE')
+    const out = await unsubscribeByToken(payload, tokenOf(request), body.includes('List-Unsubscribe=One-Click') ? 'ONE_CLICK' : 'PAGE')
     if (out === 'INVALID') return page('This link is not valid', '<p>The unsubscribe link is incomplete or has been changed. Reply to the email and ask us to stop, and we will.</p>', 400)
     return page('You are unsubscribed', '<p>You will not receive further follow-up emails from us. If you send us a new request, we will still reply to it.</p>')
   } catch (err) {

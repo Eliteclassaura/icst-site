@@ -43,10 +43,13 @@ export function unseal(sealed: unknown, context: string): string | null {
   if (typeof sealed !== 'string') return null
   const [v, iv, tag, body] = sealed.split('.')
   if (v !== 's1' || !iv || !tag || !body) return null
+  // SEC-CRM-1: the tag is exactly 16 bytes (pinned, so a truncated tag can never be accepted).
+  const t = Buffer.from(tag, 'base64url')
+  if (t.length !== 16) return null
   try {
-    const d = createDecipheriv('aes-256-gcm', key(), Buffer.from(iv, 'base64url'))
+    const d = createDecipheriv('aes-256-gcm', key(), Buffer.from(iv, 'base64url'), { authTagLength: 16 })
     d.setAAD(Buffer.from(context, 'utf8'))
-    d.setAuthTag(Buffer.from(tag, 'base64url'))
+    d.setAuthTag(t)
     return Buffer.concat([d.update(Buffer.from(body, 'base64url')), d.final()]).toString('utf8')
   } catch (err) {
     if (err instanceof SettingsKeyError) throw err

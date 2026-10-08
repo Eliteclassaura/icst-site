@@ -1,4 +1,5 @@
 import type { Payload } from 'payload'
+import { claimRecoveryCode, claimStep, countFailure } from './atomic'
 import { writeSecurityAudit } from './audit'
 import { MFA_CLEARED } from './fields'
 import { decryptSecret, encryptSecret, hashRecoveryCode } from './keys'
@@ -75,14 +76,22 @@ export async function beginEnrolment(payload: Payload, u: MfaUser, now = new Dat
 }
 
 async function failure(payload: Payload, u: MfaUser, now: Date, code: 'FORMAT' | 'MISMATCH' | 'REPLAY'): Promise<MfaOutcome> {
-  const failures = Number(u.mfa_failures ?? 0) + 1
-  const lock = failures >= MAX_FAILURES
-  await save(payload, u.id, { mfa_failures: lock ? 0 : failures, mfa_locked_until: lock ? new Date(now.getTime() + LOCK_MS).toISOString() : null })
+  // SEC-CRM-1: counted in the database (atomic), so parallel wrong guesses each count.
+  const { failures, locked: lock } = await countFailure(payload, u.id, MAX_FAILURES, new Date(now.getTime() + LOCK_MS))
   await writeSecurityAudit(payload, { action: lock ? 'mfa-locked' : 'mfa-failed', userId: String(u.id), actorId: String(u.id), detail: { reason: code, failures } })
   if (lock) return { ok: false, code: 'LOCKED', message: lockMessage(LOCK_MS / 1000), retryAfterSeconds: LOCK_MS / 1000 }
   // MFA-UX-1: say how many tries are left once the lock is close.
   const left = attemptsLeft(failures, MAX_FAILURES)
   return { ok: false, code, message: wrongCodeMessage(code, left, LOCK_MS / 60_000), attemptsLeft: left }
+}
+
+/** SEC-CRM-1: a code that passed the check but lost the atomic claim — the user got locked meanwhile, or another
+ * request used the same code first (a replay). */
+async function lostClaim(payload: Payload, u: MfaUser, now: Date): Promise<MfaOutcome> {
+  const fresh = await loadMfaUser(payload, u.id)
+  const wait = fresh ? locked(fresh, now) : null
+  if (wait) return { ok: false, code: 'LOCKED', message: lockMessage(wait), retryAfterSeconds: wait }
+  return failure(payload, u, now, 'REPLAY')
 }
 
 /** Enrolment step 2: the first code from the app proves the setup; returns the recovery codes (shown once). */
@@ -94,6 +103,7 @@ export async function confirmEnrolment(payload: Payload, u: MfaUser, sid: string
   if (!secret) return { ok: false, code: 'NO_PENDING', message: 'The setup expired. Start again.' }
   const check = verifyTotp(secret, code, now, null)
   if (!check.ok) return failure(payload, u, now, check.reason)
+  if (!(await claimStep(payload, u.id, check.step, now))) return lostClaim(payload, u, now)
   const codes = generateRecoveryCodes()
   await save(payload, u.id, {
     mfa_enabled: true,
@@ -119,19 +129,24 @@ export async function verifySecondFactor(payload: Payload, u: MfaUser, sid: stri
   // Six digits is an app code; anything else is tried as a recovery code.
   const recovery = /^\d{6}$/.test(code.replace(/\s/g, '')) ? null : normaliseRecoveryCode(code)
   if (recovery) {
-    const hashes = (((u.mfa_recovery as Doc | null)?.hashes ?? []) as string[]).slice()
-    const i = hashes.indexOf(hashRecoveryCode(recovery))
-    if (i < 0) return failure(payload, u, now, 'MISMATCH')
-    hashes.splice(i, 1)
-    await save(payload, u.id, { mfa_recovery: { hashes }, mfa_sessions: withSession(u, sid), mfa_failures: 0, mfa_locked_until: null })
-    await writeSecurityAudit(payload, { action: 'mfa-recovery-used', userId: String(u.id), actorId: String(u.id), detail: { recoveryRemaining: hashes.length } })
-    return { ok: true, recoveryRemaining: hashes.length }
+    // SEC-CRM-1: removed atomically; only the request that removed it signs in (a code works exactly once).
+    const remaining = await claimRecoveryCode(payload, u.id, hashRecoveryCode(recovery), now)
+    if (remaining === null) {
+      const fresh = await loadMfaUser(payload, u.id)
+      const lockWait = fresh ? locked(fresh, now) : null
+      if (lockWait) return { ok: false, code: 'LOCKED', message: lockMessage(lockWait), retryAfterSeconds: lockWait }
+      return failure(payload, u, now, 'MISMATCH')
+    }
+    await save(payload, u.id, { mfa_sessions: withSession(u, sid), mfa_failures: 0, mfa_locked_until: null })
+    await writeSecurityAudit(payload, { action: 'mfa-recovery-used', userId: String(u.id), actorId: String(u.id), detail: { recoveryRemaining: remaining } })
+    return { ok: true, recoveryRemaining: remaining }
   }
   const secret = decryptSecret(u.mfa_secret)
   if (!secret) return { ok: false, code: 'NOT_ENROLLED', message: 'Two-factor needs to be set up again. Ask an admin to reset it.' }
   const lastStep = typeof u.mfa_last_step === 'number' ? u.mfa_last_step : null
   const check = verifyTotp(secret, code, now, lastStep)
   if (!check.ok) return failure(payload, u, now, check.reason)
+  if (!(await claimStep(payload, u.id, check.step, now))) return lostClaim(payload, u, now)
   await save(payload, u.id, { mfa_last_step: check.step, mfa_sessions: withSession(u, sid), mfa_failures: 0, mfa_locked_until: null })
   await writeSecurityAudit(payload, { action: 'mfa-verified', userId: String(u.id), actorId: String(u.id) })
   return { ok: true }
@@ -161,6 +176,7 @@ export async function confirmStepUp(payload: Payload, u: MfaUser, sid: string, c
   const lastStep = typeof u.mfa_last_step === 'number' ? u.mfa_last_step : null
   const check = verifyTotp(secret, code, now, lastStep)
   if (!check.ok) return failure(payload, u, now, check.reason)
+  if (!(await claimStep(payload, u.id, check.step, now))) return lostClaim(payload, u, now)
   await save(payload, u.id, { mfa_last_step: check.step, mfa_stepup: { sid, at: now.toISOString() }, mfa_failures: 0, mfa_locked_until: null })
   await writeSecurityAudit(payload, { action: 'mfa-stepup', userId: String(u.id), actorId: String(u.id) })
   return { ok: true }

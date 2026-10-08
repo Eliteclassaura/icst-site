@@ -110,8 +110,15 @@ export async function saveProfile(s: CrmSession, sid: string | null, input: Prof
   const problem = checkProfileShape({ ...(existing ?? {}), ...data, active: existing?.active === true, password_set: existing?.password_set === true || Boolean(password) })
   if (problem) return fail(problem.code, problem.message)
 
-  const changedConnection = !existing || Boolean(password) || CONNECTION_KEYS.some((k) => String(existing![k] ?? '') !== String(data[k] ?? ''))
+  const movedConnection = Boolean(existing) && CONNECTION_KEYS.some((k) => String(existing![k] ?? '') !== String(data[k] ?? ''))
+  // SEC-CRM-1: the stored password is bound to the server it was entered for. Moving the profile to another server,
+  // port, TLS name or user needs the password typed again in the same save (it is never sent anywhere new on its own),
+  // and the profile goes off until it passes a check on the new server.
+  if (movedConnection && !password)
+    return fail('PROFILE_PASSWORD_REQUIRED_FOR_CHANGE', 'Changing the server, port, TLS name or username needs the password entered again.')
+  const changedConnection = !existing || Boolean(password) || movedConnection
   const checkReset = changedConnection ? { last_check_state: null, last_check_code: null, last_check_at: null } : {}
+  if (movedConnection) data.active = false
   let id: string
   if (existing) {
     id = String(existing.id)

@@ -15,7 +15,7 @@ import { unsubscribeToken } from '../ers/unsubscribe'
 import { SYNTHETIC_FIELD_MAP, SYNTHETIC_FORM_ID, SYNTHETIC_SECRET, signed, typeformDelivery } from '../fixtures/synthetic'
 import { ingestInbound } from '../inbound'
 import { invalidateOfficeSettings } from '../officeSettings'
-import { evaluateTransactionalSend, ledgerFor } from '../suppression'
+import { activeFromLedger, evaluateTransactionalSend, ledgerFor } from '../suppression'
 import { crmSessionFor, type CrmSession } from '../workspace/session'
 import { payload, resetCrm, user, type TestUser } from './harness'
 
@@ -333,6 +333,57 @@ describe('exits and the floor', () => {
     expect(await stopEnrollment(A, String(live.id))).toMatchObject({ ok: true })
     expect((await enrollments()).find((x) => String(x.id) === String(live.id))).toMatchObject({ status: 'EXITED', exit_reason: 'MANUAL_STOP' })
   })
+
+  it('SEC-CRM-1: after an admin clears an unsubscribe, the same link unsubscribes again (a new active suppression)', async () => {
+    const seq = await start('ICS_RFQ_QUALIFICATION_FOLLOWUP')
+    await enrollRfq(seq, await newRfq())
+    const [e] = await enrollments()
+    const url = `http://127.0.0.1:3200/api/ers/unsubscribe/?t=${encodeURIComponent(unsubscribeToken(String(e!.id)))}`
+    const post = () => UNSUBSCRIBE(new Request(url, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: 'List-Unsubscribe=One-Click' }))
+    expect((await post()).status).toBe(200)
+    const first = (await p.find({ collection: 'crm-suppressions', where: { reason: { equals: 'UNSUBSCRIBED' } }, ...srv })).docs[0] as unknown as Doc
+    const key = String(first.email_match_key)
+    // The person asks to hear from us again; an admin clears it with re-consent evidence.
+    await p.create({ collection: 'crm-suppressions', data: { address: CUSTOMER, action: 'CLEAR', clears: first.id, reason_note: 'Customer asked to resume (synthetic)', evidence_ref: 'synthetic-reconsent-1' } as never, depth: 0, overrideAccess: false, user: (await p.findByID({ collection: 'users', id: A.user.id, depth: 0, overrideAccess: true })) as never })
+    expect(activeFromLedger(await ledgerFor({ payload: p } as never, key)).some((r) => r.reason === 'UNSUBSCRIBED')).toBe(false)
+    // The old link clicked again records a NEW active suppression (it used to answer "already" and record nothing).
+    expect((await post()).status).toBe(200)
+    expect(activeFromLedger(await ledgerFor({ payload: p } as never, key)).some((r) => r.reason === 'UNSUBSCRIBED')).toBe(true)
+    // And a third click is idempotent again.
+    expect((await post()).status).toBe(200)
+    expect((await p.find({ collection: 'crm-suppressions', where: { and: [{ reason: { equals: 'UNSUBSCRIBED' } }, { action: { equals: 'APPLY' } }] }, ...srv })).docs).toHaveLength(2)
+  })
+
+  it('SEC-CRM-1: the unsubscribe POST checks the token first and never reads a large body', async () => {
+    const seq = await start('ICS_RFQ_QUALIFICATION_FOLLOWUP')
+    await enrollRfq(seq, await newRfq())
+    const [e] = await enrollments()
+    const good = `http://127.0.0.1:3200/api/ers/unsubscribe/?t=${encodeURIComponent(unsubscribeToken(String(e!.id)))}`
+    const big = 'x'.repeat(5 * 1024 * 1024)
+    let pulled = 0
+    const tracked = () =>
+      new ReadableStream<Uint8Array>({
+        pull(c) {
+          pulled++
+          if (pulled > 200) return c.close()
+          c.enqueue(new TextEncoder().encode('List-Unsubscribe=One-Click&'.repeat(1000)))
+        },
+      })
+    // A bad token: refused before any body is read.
+    const badReq = new Request(`${good}x`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: tracked(), duplex: 'half' } as RequestInit)
+    const bad = await UNSUBSCRIBE(badReq)
+    expect(bad.status).toBe(400)
+    expect(badReq.bodyUsed).toBe(false) // never read (a stream pre-buffers one chunk on its own; nothing consumed it)
+    pulled = 0
+    // A good token with a declared large body: 413, nothing recorded.
+    const declared = await UNSUBSCRIBE(new Request(good, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', 'content-length': String(big.length) }, body: big }))
+    expect(declared.status).toBe(413)
+    // A good token with an undeclared (streamed) large body: the read stops after 1 KB, 413.
+    const streamed = await UNSUBSCRIBE(new Request(good, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: tracked(), duplex: 'half' } as RequestInit))
+    expect(streamed.status).toBe(413)
+    expect(pulled).toBeLessThan(5)
+    expect((await p.find({ collection: 'crm-suppressions', where: { reason: { equals: 'UNSUBSCRIBED' } }, ...srv })).docs).toHaveLength(0)
+  })
 })
 
 describe('admission at send time', () => {
@@ -396,9 +447,11 @@ describe('admission at send time', () => {
   it('a DSN arriving later records the hard bounce and marks the row', async () => {
     const t0 = await queued()
     await drain(recorder(), t0)
+    // SEC-CRM-1: the report names the message we sent (In-Reply-To = its Message-ID), as real bounce reports do.
+    const sentId = String((await seqRows())[0]!.message_id).replace(/^<|>$/g, '')
     await ingestInbound(
       p,
-      { id: 'dsn-1', from: [{ email: 'mailer-daemon@example.test' }], to: [{ email: 'sales@example.test' }], subject: 'Delivery Status Notification (Failure)', receivedAt: new Date().toISOString(), 'header:Auto-Submitted:asText': 'auto-replied', deliveryStatus: `Reporting-MTA: dns; mx.example.test\n\nFinal-Recipient: rfc822; ${CUSTOMER}\nAction: failed\nStatus: 5.1.1` },
+      { id: 'dsn-1', inReplyTo: [sentId], from: [{ email: 'mailer-daemon@example.test' }], to: [{ email: 'sales@example.test' }], subject: 'Delivery Status Notification (Failure)', receivedAt: new Date().toISOString(), 'header:Auto-Submitted:asText': 'auto-replied', deliveryStatus: `Reporting-MTA: dns; mx.example.test\n\nFinal-Recipient: rfc822; ${CUSTOMER}\nAction: failed\nStatus: 5.1.1` },
       { roleLocal: 'sales', domain: 'example.test' },
     )
     expect((await seqRows())[0]!.bounced_at).toEqual(expect.any(String))

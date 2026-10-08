@@ -12,8 +12,9 @@ let admin: TestUser, sales: TestUser
 const srv = { overrideAccess: true as const, depth: 0 }
 
 async function fixtureWorld() {
+  // SEC-CRM-1: a VERIFIED_* domain is an admin act; the fixture records it as the admin, everything else as sales.
   const acct = (name: string, domains: Array<{ domain: string; domain_status: string }> = []) =>
-    p.create({ collection: 'crm-accounts', data: { canonical_name: name, domains } as never, ...as(sales) })
+    p.create({ collection: 'crm-accounts', data: { canonical_name: name, domains } as never, ...as(domains.some((d) => d.domain_status.startsWith('VERIFIED')) ? admin : sales) })
   const a = await acct('Northwind Thermal (synthetic)', [
     { domain: 'northwind.example.com', domain_status: 'VERIFIED_OWNED' },
   ])
@@ -485,7 +486,7 @@ describe('T22 suppression is durable', () => {
   it('the ledger cannot be edited or deleted — by anyone, on any path', async () => {
     const s = await p.create({
       collection: 'crm-suppressions',
-      data: { address: 'casey@contoso.example.com', reason: 'COMPLAINT' } as never,
+      data: { address: 'casey@contoso.example.com', reason: 'DO_NOT_CONTACT' } as never, // SEC-CRM-1: sales may record DNC
       ...as(sales),
     })
     await expect(
@@ -503,10 +504,11 @@ describe('T22 suppression is durable', () => {
     expect(r.status).toBeGreaterThanOrEqual(400)
   })
   it('a hard bounce is never clearable; a complaint clears only with admin + re-consent evidence', async () => {
+    // SEC-CRM-1: HARD_BOUNCE / COMPLAINT are recorded by the server from evidence, or by an admin (not by sales).
     const hb = await p.create({
       collection: 'crm-suppressions',
       data: { contact: w.cB.id, reason: 'HARD_BOUNCE' } as never,
-      ...as(sales),
+      ...as(admin),
     })
     expect(hb.scope).toBe('ALL_EMAIL')
     await expect(
@@ -525,7 +527,7 @@ describe('T22 suppression is durable', () => {
     const cp = await p.create({
       collection: 'crm-suppressions',
       data: { contact: w.cA.id, reason: 'COMPLAINT' } as never,
-      ...as(sales),
+      ...as(admin),
     })
     await expect(
       p.create({
@@ -573,7 +575,7 @@ describe('T22 suppression is durable', () => {
       p.create({
         collection: 'crm-suppressions',
         data: { contact: w.cB.id, reason: 'HARD_BOUNCE', scope: 'MARKETING_EMAIL' } as never,
-        ...as(sales),
+        ...as(admin),
       }),
     ).rejects.toThrow(/SCOPE_TOO_NARROW/)
   })

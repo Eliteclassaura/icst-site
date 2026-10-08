@@ -40,7 +40,9 @@ export const CrmIdentityReviews: CollectionConfig = crmCollection(
     labels: { singular: 'Identity review', plural: 'Identity reviews' },
     // UI-1 (Control Tower frozen): CRM users see the queue; resolving a review is admin-only. Automation
     // opens reviews through trusted server code (overrideAccess), which this does not affect.
-    access: { update: crmAdmin },
+    // SEC-CRM-1: creating one by hand is admin-only too — otherwise a pre-resolved row with a guessed dedupe key
+    // would silence the review automation opens later for the same records.
+    access: { create: crmAdmin, update: crmAdmin },
     admin: {
       useAsTitle: 'reason',
       description:

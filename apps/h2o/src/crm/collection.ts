@@ -1,4 +1,5 @@
 import type { CollectionBeforeValidateHook, CollectionConfig } from 'payload'
+import { ADMINS, hasRole } from '@factory/agency-core/cms/kernel'
 import { capListForNonAdmins, crmCollectionAccess } from './access'
 import { crmAuditAfterChange, crmAuditAfterDelete } from './audit'
 import { canonicalIdField } from './fields'
@@ -11,9 +12,15 @@ import { assignCanonicalId, forbidDelete, isServerContext } from './guards'
  * a hand-made record is `MANUAL_ENTRY`, whatever the request body says. Only trusted server code (intake,
  * a future importer) running through the Local API with `context.crmServer` may record another source.
  */
-export const stampProvenance: CollectionBeforeValidateHook = ({ context, data, operation, req }) => {
-  if (!data || operation !== 'create') return data
-  if (isServerContext(context)) return data
+export const stampProvenance: CollectionBeforeValidateHook = ({ context, data, operation, originalDoc, req }) => {
+  if (!data || isServerContext(context)) return data
+  // SEC-CRM-1: after create, provenance (incl. the import batch an admin can undo) is evidence — a non-admin edit
+  // keeps the stored value whatever the request says.
+  if (operation === 'update') {
+    if ('provenance' in data && !hasRole(req, ADMINS)) (data as Record<string, unknown>).provenance = (originalDoc as Record<string, unknown> | undefined)?.provenance
+    return data
+  }
+  if (operation !== 'create') return data
   const prov = ((data as Record<string, unknown>).provenance ?? {}) as Record<string, unknown>
   prov.source_system = 'MANUAL_ENTRY'
   if (req.user && !prov.first_seen_at) prov.first_seen_at = new Date().toISOString()

@@ -184,10 +184,11 @@ describe('sending profiles: step-up, sealed password, access', () => {
     await sending.setProfileActive(A, sid, id2, true, { now: t })
     const rows = (await p.find({ collection: 'crm-sending-profiles' as never, ...srv, limit: 10 })).docs as unknown as Doc[]
     expect(rows.filter((x) => x.active === true).map((x) => x.id)).toEqual([id2])
-    // Editing the connection clears the check; an active profile can't be deleted.
-    await sending.saveProfile(A, sid, { ...GMAIL, id: id2, name: 'Second', username: 'other@example.test', password: '' }, { now: t })
-    expect((await p.findByID({ collection: 'crm-sending-profiles' as never, id: id2, ...srv }) as unknown as Doc).last_check_state).toBeNull()
+    // An active profile can't be deleted.
     expect(await sending.deleteProfile(A, sid, id2, { now: t })).toMatchObject({ ok: false, code: 'PROFILE_ACTIVE' })
+    // Editing the connection (SEC-CRM-1: with the password entered again) clears the check and turns the profile off.
+    await sending.saveProfile(A, sid, { ...GMAIL, id: id2, name: 'Second', username: 'other@example.test' }, { now: t })
+    expect((await p.findByID({ collection: 'crm-sending-profiles' as never, id: id2, ...srv }) as unknown as Doc)).toMatchObject({ last_check_state: null, active: false })
     expect(await sending.deleteProfile(A, sid, id, { now: t })).toMatchObject({ ok: true })
   })
 
@@ -375,5 +376,32 @@ describe('IMAP inbound (Google Workspace mode) end to end', () => {
     expect(cursor[0]).toMatchObject({ uidvalidity: 42, last_uid: 3 })
     expect(String(cursor[0]!.key)).toMatch(/^imap:[0-9a-f]{16}$/)
     expect(JSON.stringify(cursor)).not.toContain('example.test')
+  })
+})
+
+describe('SEC-CRM-1: the stored password stays bound to its server', () => {
+  it('moving a profile to another server, port, TLS name or user needs the password again, and turns the profile off', async () => {
+    const A = await session(admin)
+    const sid = sidOf(admin.token)
+    const t = later()
+    await stepUpAt(admin, t)
+    const id = ((await sending.saveProfile(A, sid, { ...GMAIL, preset: 'CUSTOM', host: 'mail.example.test', tls_servername: 'mail.example.test' }, { now: t })) as { id: string }).id
+    await p.update({ collection: 'crm-sending-profiles' as never, id, data: { active: true } as never, ...srv, context: { crmServer: {} } })
+    const sealedBefore = ((await p.findByID({ collection: 'crm-sending-profiles' as never, id, ...srv, showHiddenFields: true })) as unknown as Doc).password_sealed
+    for (const moved of [{ host: 'other.example.test', tls_servername: 'other.example.test' }, { port: '465' }, { tls_servername: 'alt.example.test' }, { username: 'someone@example.test' }]) {
+      const out = await sending.saveProfile(A, sid, { ...GMAIL, preset: 'CUSTOM', host: 'mail.example.test', tls_servername: 'mail.example.test', ...moved, id, password: '' }, { now: t })
+      expect(out).toMatchObject({ ok: false, code: 'PROFILE_PASSWORD_REQUIRED_FOR_CHANGE' })
+    }
+    const unchanged = (await p.findByID({ collection: 'crm-sending-profiles' as never, id, ...srv, showHiddenFields: true })) as unknown as Doc
+    expect(unchanged).toMatchObject({ host: 'mail.example.test', active: true })
+    expect(unchanged.password_sealed).toBe(sealedBefore)
+    // A name-only edit keeps the password and the state.
+    expect(await sending.saveProfile(A, sid, { ...GMAIL, preset: 'CUSTOM', host: 'mail.example.test', tls_servername: 'mail.example.test', name: 'Renamed', id, password: '' }, { now: t })).toMatchObject({ ok: true })
+    expect(((await p.findByID({ collection: 'crm-sending-profiles' as never, id, ...srv })) as unknown as Doc).active).toBe(true)
+    // With the password typed again the move is saved, re-sealed, and the profile is off until it passes a check.
+    expect(await sending.saveProfile(A, sid, { ...GMAIL, preset: 'CUSTOM', host: 'other.example.test', tls_servername: 'other.example.test', id }, { now: t })).toMatchObject({ ok: true })
+    const moved = (await p.findByID({ collection: 'crm-sending-profiles' as never, id, ...srv, showHiddenFields: true })) as unknown as Doc
+    expect(moved).toMatchObject({ host: 'other.example.test', active: false, last_check_state: null })
+    expect(moved.password_sealed).not.toBe(sealedBefore)
   })
 })

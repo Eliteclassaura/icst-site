@@ -203,6 +203,15 @@ export const tlsConnector: Connector = async (s) => {
 }
 
 /** The IMAP reader as the poller's mailbox (one connection per poll). */
+/** SEC-CRM-1: parse one fetched message; never throws (a failure becomes a `parseFailed` stub with only its id). */
+export function parseOne(raw: Buffer, id: string, internalDate?: string | null, size?: number | null): JmapEmail {
+  try {
+    return parseMessage(raw, id, internalDate, size)
+  } catch {
+    return { id, subject: null, from: [], to: [], cc: [], receivedAt: internalDate ?? null, size: size ?? raw.length, parseFailed: true }
+  }
+}
+
 export function imapMailbox(s: InboundSettings, deps: { cursor: CursorStore; connect?: Connector; log?: (code: string) => void }): InboundMailbox {
   const key = mailboxKey(s)
   let pending: { uidvalidity: number; base: number; uids: number[] } | null = null
@@ -238,7 +247,9 @@ export function imapMailbox(s: InboundSettings, deps: { cursor: CursorStore; con
           .filter((f): f is Fetched => f !== null && found.includes(f.uid))
           .sort((a, b) => a.uid - b.uid)
         pending = { uidvalidity, base: cur.lastUid, uids: fetched.map((f) => f.uid) }
-        return fetched.map((f) => parseMessage(f.raw, `${key}:${uidvalidity}:${f.uid}`, f.internalDate, f.size))
+        // SEC-CRM-1: each message is parsed on its own; one that cannot be parsed is returned as a parse failure
+        // (the poller quarantines it and the cursor moves on) instead of aborting the whole poll.
+        return fetched.map((f) => parseOne(f.raw, `${key}:${uidvalidity}:${f.uid}`, f.internalDate, f.size))
       } finally {
         try {
           await session.run('LOGOUT')

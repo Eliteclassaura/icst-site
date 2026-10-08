@@ -1,4 +1,5 @@
 import type { Payload } from 'payload'
+import { DSN_EVENT_PREFIX } from './suppression'
 import type { JmapAddress, JmapBodyPart, JmapEmail } from '../email/jmap'
 import { recordActivity } from './activity'
 import { relId } from './guards'
@@ -93,23 +94,76 @@ export function cleanText(s: string): string {
 }
 
 const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' }
-/** HTML reduced to text (tags, scripts, styles and comments removed). The result is only ever rendered as text. */
-export function htmlToText(html: string): string {
+/** SEC-CRM-1: HTML longer than this is cut before any processing (the stored body is capped far lower anyway). */
+export const HTML_LIMIT = 200_000
+const SKIP_BLOCKS = new Set(['script', 'style', 'head', 'title', 'template', 'noscript'])
+const BREAK_AFTER = /^(p|div|li|tr|h[1-6]|blockquote)$/
+const TAG_NAME = /\/?([a-z][a-z0-9]*)/y
+/** A code point from an entity, or a space when it is not a valid Unicode scalar (never throws). */
+const codePoint = (n: number): string => (Number.isInteger(n) && n > 0 && n <= 0x10ffff && (n < 0xd800 || n > 0xdfff) ? String.fromCodePoint(n) : ' ')
+
+/**
+ * HTML reduced to text (tags, scripts, styles and comments removed). The result is only ever rendered as text.
+ * SEC-CRM-1: one forward scan with `indexOf`, linear in the input (the old lazy regexes were quadratic on
+ * unterminated `<script` or `<!--` openers). Each "no closing marker after here" answer is remembered, because it
+ * stays true for every later position. Same output as before for well-formed HTML: an unterminated comment or
+ * skipped block loses only its opening tag; a `<` with no `>` after it is kept as text.
+ */
+export function htmlToText(input: string): string {
+  const html = input.length > HTML_LIMIT ? input.slice(0, HTML_LIMIT) : input
+  const lower = html.toLowerCase()
+  const out: string[] = []
+  const noClose = new Set<string>()
+  let i = 0
+  while (i < html.length) {
+    const lt = html.indexOf('<', i)
+    if (lt < 0) {
+      out.push(html.slice(i))
+      break
+    }
+    out.push(html.slice(i, lt))
+    if (!noClose.has('-->') && html.startsWith('<!--', lt)) {
+      const close = html.indexOf('-->', lt + 4)
+      if (close >= 0) {
+        out.push(' ')
+        i = close + 3
+        continue
+      }
+      noClose.add('-->')
+    }
+    const gt = html.indexOf('>', lt + 1)
+    if (gt < 0) {
+      out.push(html.slice(lt))
+      break
+    }
+    TAG_NAME.lastIndex = lt + 1
+    const m = TAG_NAME.exec(lower)
+    const name = m ? m[1]! : ''
+    const closing = lower[lt + 1] === '/'
+    i = gt + 1
+    if (!m) continue
+    if (!closing && SKIP_BLOCKS.has(name) && !noClose.has(name)) {
+      const end = lower.indexOf(`</${name}`, i)
+      const endGt = end < 0 ? -1 : html.indexOf('>', end)
+      if (endGt < 0) noClose.add(name)
+      else {
+        out.push(' ')
+        i = endGt + 1
+      }
+    } else if (name === 'br') out.push('\n')
+    else if (closing && BREAK_AFTER.test(name)) out.push('\n')
+  }
   return cleanText(
-    html
-      .replace(/<(script|style|head|title|template|noscript)[\s\S]*?<\/\1\s*>/gi, ' ')
-      .replace(/<!--[\s\S]*?-->/g, ' ')
-      .replace(/<br\s*\/?>/gi, '\n')
-      .replace(/<\/(p|div|li|tr|h[1-6]|blockquote)\s*>/gi, '\n')
-      .replace(/<[^>]*>/g, '')
-      .replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (m, e: string) => {
+    out
+      .join('')
+      .replace(/&(#x?[0-9a-f]{1,8}|[a-z]{1,10});/gi, (m, e: string) => {
         const k = e.toLowerCase()
-        if (k.startsWith('#x')) return String.fromCodePoint(parseInt(k.slice(2), 16) || 32)
-        if (k.startsWith('#')) return String.fromCodePoint(parseInt(k.slice(1), 10) || 32)
+        if (k.startsWith('#x')) return codePoint(parseInt(k.slice(2), 16))
+        if (k.startsWith('#')) return codePoint(parseInt(k.slice(1), 10))
         return ENTITIES[k] ?? m
       })
       .replace(/[ \t]+/g, ' ')
-      .replace(/ *\n */g, '\n'),
+      .replace(/ ?\n ?/g, '\n'),
   )
 }
 
@@ -451,30 +505,47 @@ export async function discardReviewItem(s: CrmSession, input: { reviewId?: unkno
   return { ok: true, message: 'Discarded.' }
 }
 
-/** RFC 3464: hard bounces for failed recipients; the latest sequence email to each address is marked bounced. */
+/** SEC-CRM-1: Message-IDs a delivery report names: its In-Reply-To / References, and any quoted in the report text. */
+export function reportedMessageIds(email: JmapEmail): string[] {
+  const ids = new Set<string>()
+  for (const v of [...(email.inReplyTo ?? []), ...(email.references ?? [])]) if (v) ids.add(v.replace(/^<|>$/g, '').trim())
+  for (const m of (email.deliveryStatus ?? '').slice(0, 20_000).matchAll(/^(?:original-)?message-id:\s*<?([^\s<>]{3,250})>?\s*$/gim)) ids.add(m[1]!)
+  return [...ids].filter(Boolean).slice(0, 20)
+}
+
+/**
+ * RFC 3464: hard bounces for failed recipients. SEC-CRM-1: a report is acted on only when it names a message the CRM
+ * sent (its Message-ID, via In-Reply-To / References or quoted in the report) and only for the address that message
+ * went to — the Final-Recipient the report states is matched against our own row, never trusted on its own. Anything
+ * else changes nothing (the message itself still lands in the review queue as usual). Suppressions recorded here are
+ * admin-clearable (crm/suppression.ts canClear).
+ */
 async function recordDsnBounces(payload: Payload, email: JmapEmail, now: Date): Promise<void> {
   const { parseDeliveryStatus, isHardBounce } = await import('../email/dsn')
   const { recordHardBounce } = await import('./ers/feedback')
+  const ids = reportedMessageIds(email)
+  if (ids.length === 0) return
+  const ours = (
+    await payload.find({
+      collection: 'crm-email-outbox',
+      where: {
+        and: [
+          { message_id: { in: ids.flatMap((id) => [id, `<${id}>`]) } },
+          { sent_at: { greater_than: new Date(now.getTime() - 30 * 24 * 3600_000).toISOString() } },
+        ],
+      } as never,
+      limit: 20,
+      depth: 0,
+      overrideAccess: true,
+    })
+  ).docs as unknown as Doc[]
+  if (ours.length === 0) return
   for (const r of parseDeliveryStatus(email.deliveryStatus ?? '').filter(isHardBounce)) {
     const key = emailKey(r.recipient)
     if (!key) continue
-    const recent = (
-      await payload.find({
-        collection: 'crm-email-outbox',
-        where: {
-          and: [
-            { kind: { equals: 'SEQUENCE_EMAIL' } },
-            { recipient_domain: { equals: key.domain } },
-            { sent_at: { greater_than: new Date(now.getTime() - 30 * 24 * 3600_000).toISOString() } },
-          ],
-        } as never,
-        sort: '-sent_at',
-        limit: 50,
-        depth: 0,
-        overrideAccess: true,
-      })
-    ).docs as unknown as Doc[]
-    const row = recent.find((d) => emailKey(d.to_address)?.matchKey === key.matchKey)
-    await recordHardBounce(payload, { address: key.canonical, sourceEventId: `dsn:${line(email.id, 120)}:${key.matchKey}`.slice(0, 250), outboxId: row ? String(row.id) : null }, now)
+    const row = ours.find((d) => emailKey(d.to_address)?.matchKey === key.matchKey)
+    if (!row) continue
+    const to = emailKey(row.to_address)!
+    await recordHardBounce(payload, { address: to.canonical, sourceEventId: `${DSN_EVENT_PREFIX}${line(email.id, 120)}:${to.matchKey}`.slice(0, 250), outboxId: String(row.id) }, now)
   }
 }

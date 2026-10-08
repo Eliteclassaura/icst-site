@@ -46,6 +46,11 @@ export type JmapEmail = {
   'header:List-Id:asText'?: string | null
   /** Revenue Engine slice 1: the text of a `message/delivery-status` part (RFC 3464), when the reader has it. */
   deliveryStatus?: string | null
+  /**
+   * SEC-CRM-1: set by the IMAP reader when the raw message could not be parsed at all. The poller records it in the
+   * review queue (PROCESSING_FAILED) at once and moves past it, so one malformed message never blocks the mailbox.
+   */
+  parseFailed?: boolean
 }
 
 /** What the poller needs from a mailbox. The HTTPS implementation is below; tests use an in-memory one. */

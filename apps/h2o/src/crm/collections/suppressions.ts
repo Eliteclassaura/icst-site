@@ -10,7 +10,7 @@ import { recordActivity } from '../activity'
 import { crmCollection } from '../collection'
 import { appendOnly, CrmInvariantError, isServerContext, relId } from '../guards'
 import { emailKey } from '../normalize'
-import { clearRule, ledgerFor, activeFromLedger } from '../suppression'
+import { clearRuleFor, ledgerFor, activeFromLedger } from '../suppression'
 import {
   SUPPRESSION_ACTION,
   SUPPRESSION_REASON,
@@ -20,6 +20,9 @@ import {
   options,
   type SuppressionReason,
 } from '../vocabulary'
+
+/** SEC-CRM-1: APPLY reasons a non-admin user may not record by hand. */
+export const PRIVILEGED_APPLY_REASONS: readonly SuppressionReason[] = ['HARD_BOUNCE', 'INVALID_ADDRESS', 'COMPLAINT']
 
 const SCOPE_RANK = { MARKETING_EMAIL: 1, ALL_EMAIL: 2, ALL_OUTREACH: 3 } as const
 type Scope = keyof typeof SCOPE_RANK
@@ -69,7 +72,13 @@ const resolveIdentity: CollectionBeforeValidateHook = async ({ context, data, op
   d.recorded_at = new Date().toISOString()
   d.recorded_by = req.user ? req.user.id : null
   if (!isServerContext(context)) {
-    d.source = d.action === 'CLEAR' ? 'MANUAL' : d.source === 'LEGAL_REVIEW' ? 'LEGAL_REVIEW' : 'MANUAL'
+    const admin = hasRole(req, ADMINS)
+    // SEC-CRM-1: reasons that only evidence can establish (a bounce, an invalid address, a complaint) are recorded by
+    // the server from that evidence, or by an admin — never by a sales user (two of them can never be cleared, and a
+    // complaint pauses all sequence sending). The legal-review source is an admin's statement too.
+    if (!admin && d.action !== 'CLEAR' && PRIVILEGED_APPLY_REASONS.includes(d.reason as SuppressionReason))
+      throw new CrmInvariantError('SUPPRESSION_REASON_PRIVILEGED', `Only an admin can record ${String(d.reason)}.`, 403)
+    d.source = d.action === 'CLEAR' ? 'MANUAL' : d.source === 'LEGAL_REVIEW' && admin ? 'LEGAL_REVIEW' : 'MANUAL'
     d.source_event_id = null
   }
   const reason = d.reason as SuppressionReason | undefined
@@ -108,7 +117,7 @@ const clearGate: CollectionBeforeChangeHook = async ({ context, data, operation,
       'That suppression is not active for this address.',
       409,
     )
-  const rule = clearRule(target.reason)
+  const rule = clearRuleFor(target)
   if (rule === 'NEVER')
     throw new CrmInvariantError(
       'SUPPRESSION_NEVER_CLEARABLE',

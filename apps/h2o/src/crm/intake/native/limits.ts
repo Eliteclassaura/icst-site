@@ -79,6 +79,27 @@ export async function retryAfter(payload: Payload, bucket: string, rules: Rule[]
   return Math.max(0, wait)
 }
 
+/**
+ * SEC-CRM-1: count first, then check. Each bucket's row for this request is written before the window is counted, so
+ * in a parallel burst a request sees at least as many rows as its place in line — at most `max` requests can see
+ * themselves within a limit (the old check-then-count let a burst pass every rule before any was counted). A refused
+ * request stays counted, so a burst throttles itself. Returns the seconds to wait, or 0 when the request may proceed.
+ */
+export async function admit(payload: Payload, checks: Array<{ bucket: string; rules: Rule[] }>, now: Date = new Date()): Promise<number> {
+  for (const c of checks) await count(payload, c.bucket, now)
+  let wait = 0
+  for (const c of checks)
+    for (const r of c.rules) {
+      const since = new Date(now.getTime() - r.windowMs).toISOString()
+      const res = await payload.find({ collection: 'crm-intake-rate' as never, where: { and: [{ bucket: { equals: c.bucket } }, { at: { greater_than: since } }] } as never, sort: 'at', limit: 1, depth: 0, ...sys })
+      if (res.totalDocs > maxOf(r)) {
+        const oldest = new Date(String((res.docs[0] as unknown as { at: string }).at)).getTime()
+        wait = Math.max(wait, Math.max(1, Math.ceil((oldest + r.windowMs - now.getTime()) / 1000)))
+      }
+    }
+  return wait
+}
+
 /** Count one request in the bucket, and prune rows nobody needs any more. */
 export async function count(payload: Payload, bucket: string, now: Date = new Date()): Promise<void> {
   await payload.create({ collection: 'crm-intake-rate' as never, data: { bucket, at: now.toISOString() } as never, ...sys })

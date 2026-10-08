@@ -56,6 +56,17 @@ export async function pollInbound(
     .catch(() => console.error('[h2o] email inbound: heartbeat write failed'))
   const done: string[] = []
   for (const email of emails) {
+    // SEC-CRM-1: a message the reader could not parse goes to the review queue now; retrying cannot help.
+    if (email.parseFailed) {
+      try {
+        await recordProcessingFailure(payload, email, opts.now ?? new Date())
+        done.push(email.id)
+        out.failed++
+      } catch {
+        // leave it for the next poll
+      }
+      continue
+    }
     try {
       const r: IngestResult = await ingestInbound(payload, email, ctx, opts.now ?? new Date())
       if (r === 'LINKED') out.linked++

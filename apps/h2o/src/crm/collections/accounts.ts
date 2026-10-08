@@ -100,6 +100,26 @@ const nameFromDomainClears: CollectionBeforeChangeHook = ({ context, data, origi
   return data
 }
 
+/**
+ * SEC-CRM-1: a VERIFIED_* domain drives automatic matching of new RFQs, so — like a verified relationship — adding,
+ * changing or removing one is an admin act (or trusted server code). Candidate and retired rows stay open to all.
+ */
+const verifiedStatusOf = (rows: unknown): Map<string, string> =>
+  new Map(
+    ((rows ?? []) as DomainRow[])
+      .filter((r) => (VERIFIED_DOMAIN_STATUSES as readonly string[]).includes(String(r.domain_status)))
+      .map((r) => [String(normalizeWebDomain(r.domain) ?? r.domain), String(r.domain_status)]),
+  )
+const verifiedDomainIsAdminOnly: CollectionBeforeChangeHook = ({ context, data, originalDoc, req }) => {
+  if (!('domains' in data) || isAdminOrServer(req, context)) return data
+  const before = verifiedStatusOf(originalDoc?.domains)
+  const after = verifiedStatusOf(data.domains)
+  const changed = before.size !== after.size || [...after].some(([d, st]) => before.get(d) !== st)
+  if (changed)
+    throw new CrmInvariantError('VERIFIED_DOMAIN_PRIVILEGED', 'Only an admin can mark, change or remove a verified domain.', 403)
+  return data
+}
+
 const noSelfParent: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
   if (originalDoc?.id && relId(data.parent_account) === String(originalDoc.id))
     throw new CrmInvariantError('ACCOUNT_SELF_PARENT', 'An account cannot be its own parent.')
@@ -121,6 +141,7 @@ export const CrmAccounts: CollectionConfig = crmCollection(
       beforeValidate: [stampProvenance],
       beforeChange: [
         normalizeAndGuardDomains,
+        verifiedDomainIsAdminOnly,
         noSelfParent,
         verifiedRelationshipIsAdminOnly,
         ownerHoldsCrmRole('ACCOUNT_OWNER_NOT_CRM_USER'),

@@ -5,7 +5,7 @@ import type { Registry } from '../../../rfq-native/model'
 import { readEmailConfig } from '../../../email/config'
 import { emailKey } from '../../normalize'
 import { ingestParsed, intakeLog } from '../typeform/ingest'
-import { bucketFor, count, EMAIL_RULE, requestIp, retryAfter, SUBMIT_RULES, TOKEN_RULE, UNTRUSTED_BUCKET, UNTRUSTED_RULES } from './limits'
+import { admit, bucketFor, count, EMAIL_RULE, requestIp, SUBMIT_RULES, TOKEN_RULE, UNTRUSTED_BUCKET, UNTRUSTED_RULES } from './limits'
 import { contentHash, parseEnvelope, storedPayload, toDelivery, validateAnswers } from './normalize'
 import { checkFormToken, issueFormToken } from './token'
 
@@ -68,9 +68,8 @@ export function registryReply(req: Request, env: NodeJS.ProcessEnv = process.env
 export async function tokenReply(payload: Payload, req: Request, now: Date = new Date()): Promise<Reply> {
   if (!nativeIntakeOn()) return reply(503, { ok: false, code: 'INTAKE_DISABLED' })
   const bucket = bucketFor('token', requestIp(req.headers))
-  const wait = await retryAfter(payload, bucket, [TOKEN_RULE], now)
+  const wait = await admit(payload, [{ bucket, rules: [TOKEN_RULE] }], now)
   if (wait > 0) return reply(429, { ok: false, code: 'RATE_LIMITED', retryAfterSeconds: wait }, { 'retry-after': String(wait) })
-  await count(payload, bucket, now)
   return reply(200, issueFormToken(now))
 }
 
@@ -126,13 +125,12 @@ export async function submitReply(payload: Payload, req: Request, now: Date = ne
   if (!prior) {
     const ipRules = ip === UNTRUSTED_BUCKET ? UNTRUSTED_RULES : SUBMIT_RULES
     const emailBucket = bucketFor('email', emailKey(r.answers.email)?.matchKey ?? '')
-    const wait = Math.max(await retryAfter(payload, ipBucket, ipRules, now), await retryAfter(payload, emailBucket, [EMAIL_RULE], now))
+    // SEC-CRM-1: counted before it is checked (limits.ts admit), so a parallel burst cannot pass every rule at once.
+    const wait = await admit(payload, [{ bucket: ipBucket, rules: ipRules }, { bucket: emailBucket, rules: [EMAIL_RULE] }], now)
     if (wait > 0) {
       log('RATE_LIMITED', 429)
       return reply(429, { ok: false, code: 'RATE_LIMITED', retryAfterSeconds: wait }, { 'retry-after': String(wait) })
     }
-    await count(payload, ipBucket, now)
-    await count(payload, emailBucket, now)
   }
 
   const { delivery, attributionRejected } = toDelivery(reg, r, now)

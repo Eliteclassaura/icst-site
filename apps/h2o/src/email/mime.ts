@@ -16,6 +16,9 @@ import type { JmapAddress, JmapBodyPart, JmapEmail } from './jmap'
 
 const MAX_DEPTH = 12
 const MAX_PARTS = 200
+/** SEC-CRM-1: a header parameter (e.g. a file name) is never longer than this, nor split into more segments. */
+export const MAX_PARAM_CHARS = 4096
+const MAX_PARAM_SEGMENTS = 64
 
 type Headers = Map<string, string[]>
 type Leaf = { type: string; charset: string | null; disposition: string | null; name: string | null; encoding: string; body: Buffer; size: number }
@@ -41,7 +44,7 @@ export function decodeQuotedPrintable(s: string): Buffer {
     } else {
       const code = soft.charCodeAt(i)
       if (code < 256) out.push(code)
-      else out.push(...Buffer.from(c, 'utf8'))
+      else for (const b of Buffer.from(c, 'utf8')) out.push(b)
     }
   }
   return Buffer.from(out)
@@ -120,7 +123,10 @@ export function parseParams(v: string): { value: string; params: Record<string, 
   for (const p of parts) {
     const eq = p.indexOf('=')
     if (eq < 0) continue
-    raw[p.slice(0, eq).trim().toLowerCase()] = p.slice(eq + 1).trim().replace(/^"(.*)"$/s, '$1')
+    // SEC-CRM-1: unquoted, then capped before any decoding (an attacker sets their size).
+    let val = p.slice(eq + 1).trim()
+    if (val.startsWith('"')) val = val.length > 1 && val.endsWith('"') ? val.slice(1, -1) : val.slice(1)
+    raw[p.slice(0, eq).trim().toLowerCase()] = val.slice(0, MAX_PARAM_CHARS)
   }
   const params: Record<string, string> = {}
   const continued = new Map<string, Array<{ n: number; v: string; enc: boolean }>>()
@@ -138,8 +144,17 @@ export function parseParams(v: string): { value: string; params: Record<string, 
   for (const [base, list] of continued) {
     list.sort((a, b) => a.n - b.n)
     let charset = 'utf-8'
-    const bytes: number[] = []
-    list.forEach((s, i) => {
+    // SEC-CRM-1: bytes are collected in chunks and joined once (never `push(...buffer)`, which throws on a large
+    // attacker-sized value), and the whole value stops at MAX_PARAM_CHARS bytes and MAX_PARAM_SEGMENTS segments.
+    const chunks: Buffer[] = []
+    let total = 0
+    const add = (b: Buffer) => {
+      if (total >= MAX_PARAM_CHARS) return
+      const piece = b.length > MAX_PARAM_CHARS - total ? b.subarray(0, MAX_PARAM_CHARS - total) : b
+      chunks.push(piece)
+      total += piece.length
+    }
+    list.slice(0, MAX_PARAM_SEGMENTS).forEach((s, i) => {
       let v = s.v
       if (s.enc && i === 0) {
         const q = /^([^']*)'[^']*'(.*)$/s.exec(v)
@@ -149,17 +164,19 @@ export function parseParams(v: string): { value: string; params: Record<string, 
         }
       }
       if (!s.enc) {
-        bytes.push(...Buffer.from(v, 'utf8'))
+        add(Buffer.from(v, 'utf8'))
         return
       }
-      for (let k = 0; k < v.length; k++) {
+      const run: number[] = []
+      for (let k = 0; k < v.length && total + run.length < MAX_PARAM_CHARS; k++) {
         if (v[k] === '%' && /^[0-9A-Fa-f]{2}$/.test(v.slice(k + 1, k + 3))) {
-          bytes.push(parseInt(v.slice(k + 1, k + 3), 16))
+          run.push(parseInt(v.slice(k + 1, k + 3), 16))
           k += 2
-        } else bytes.push(...Buffer.from(v[k]!, 'utf8'))
+        } else for (const b of Buffer.from(v[k]!, 'utf8')) run.push(b)
       }
+      add(Buffer.from(run))
     })
-    params[base] = decodeCharset(Buffer.from(bytes), charset)
+    params[base] = decodeCharset(Buffer.concat(chunks), charset)
   }
   return { value, params }
 }

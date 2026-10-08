@@ -24,6 +24,23 @@ export type LedgerRow = {
   reason: SuppressionReason
   scope: 'MARKETING_EMAIL' | 'ALL_EMAIL' | 'ALL_OUTREACH'
   clears?: string | { id: string } | null
+  /** SEC-CRM-1: where the row came from (a DSN-recorded hard bounce is admin-clearable; see `canClear`). */
+  source?: string | null
+  source_event_id?: string | null
+}
+
+/** SEC-CRM-1: the source-event prefix of a hard bounce recorded from an inbound delivery report (crm/inbound.ts). */
+export const DSN_EVENT_PREFIX = 'dsn:'
+
+/**
+ * Can a CLEAR take this APPLY row off? Never for HARD_BOUNCE / INVALID_ADDRESS (E0.1), except a hard bounce that came
+ * from an inbound delivery report (SEC-CRM-1: a report is mail from outside, so an admin can correct it, with a
+ * written reason — the CLEAR row and its timeline entry are the audit trail). A bounce refused by our own mail
+ * server at send time (source_event_id `send:…`) stays never-clearable.
+ */
+export function canClear(row: Pick<LedgerRow, 'reason' | 'source' | 'source_event_id'>): boolean {
+  if (!REASONS_NEVER_CLEARABLE.includes(row.reason)) return true
+  return row.reason === 'HARD_BOUNCE' && row.source === 'PROVIDER_EVENT' && typeof row.source_event_id === 'string' && row.source_event_id.startsWith(DSN_EVENT_PREFIX)
 }
 
 export type Purpose =
@@ -49,7 +66,7 @@ export function activeFromLedger(rows: readonly LedgerRow[]): LedgerRow[] {
   for (const r of rows) {
     if (r.action !== 'CLEAR') continue
     const target = applies.get(clearedId(r) ?? '')
-    if (!target || REASONS_NEVER_CLEARABLE.includes(target.reason)) continue
+    if (!target || !canClear(target)) continue
     applies.delete(String(target.id))
   }
   return [...applies.values()].sort(
@@ -124,6 +141,16 @@ export function clearRule(
 ): 'NEVER' | 'RECONSENT_REQUIRED' | 'PRIVILEGED_WITH_REASON' {
   if (REASONS_NEVER_CLEARABLE.includes(reason)) return 'NEVER'
   if (REASONS_REQUIRING_RECONSENT_TO_CLEAR.includes(reason)) return 'RECONSENT_REQUIRED'
+  return 'PRIVILEGED_WITH_REASON'
+}
+
+/** SEC-CRM-1: the clear rule for one APPLY row (a DSN-recorded hard bounce: admin with a written reason). */
+export function clearRuleFor(
+  row: Pick<LedgerRow, 'reason' | 'source' | 'source_event_id'>,
+): 'NEVER' | 'RECONSENT_REQUIRED' | 'PRIVILEGED_WITH_REASON' {
+  if (!canClear(row)) return 'NEVER'
+  if (REASONS_NEVER_CLEARABLE.includes(row.reason)) return 'PRIVILEGED_WITH_REASON'
+  if (REASONS_REQUIRING_RECONSENT_TO_CLEAR.includes(row.reason)) return 'RECONSENT_REQUIRED'
   return 'PRIVILEGED_WITH_REASON'
 }
 

@@ -1,6 +1,7 @@
 import { createHmac, hkdfSync, timingSafeEqual } from 'node:crypto'
 import type { Payload } from 'payload'
 import { relId } from '../guards'
+import { activeFromLedger, type LedgerRow } from '../suppression'
 
 /**
  * Revenue Engine slice 1: one-click unsubscribe (RFC 8058; the floor — always honoured, whatever the toggles say).
@@ -46,17 +47,20 @@ export async function unsubscribeByToken(payload: Payload, token: unknown, metho
   if (!enrollment) return 'INVALID'
   const contactId = relId(enrollment.contact)
   if (!contactId) return 'INVALID'
-  const prior = await payload.find({
-    collection: 'crm-suppressions',
-    where: { and: [{ source_event_id: { equals: `unsubscribe:${id}` } }, { action: { equals: 'APPLY' } }] },
-    limit: 1,
-    depth: 0,
-    overrideAccess: true,
-  })
-  if (prior.docs.length) return 'ALREADY'
+  const contact = (await payload.findByID({ collection: 'crm-contacts', id: contactId, depth: 0, overrideAccess: true }).catch(() => null)) as Record<string, unknown> | null
+  const matchKey = typeof contact?.email_match_key === 'string' ? contact.email_match_key : null
+  if (!matchKey) return 'INVALID'
+  // SEC-CRM-1: "already unsubscribed" means an UNSUBSCRIBED suppression is ACTIVE now for this address — not merely
+  // that one was recorded once (an admin may have cleared it since). A new click after a clear records a new row.
+  const ledger = (
+    await payload.find({ collection: 'crm-suppressions', where: { email_match_key: { equals: matchKey } }, limit: 1000, pagination: false, depth: 0, overrideAccess: true })
+  ).docs as unknown as LedgerRow[]
+  if (activeFromLedger(ledger).some((r) => r.reason === 'UNSUBSCRIBED')) return 'ALREADY'
+  const used = new Set(ledger.map((r) => r.source_event_id).filter(Boolean))
+  const eventId = used.has(`unsubscribe:${id}`) ? `unsubscribe:${id}:${used.size}` : `unsubscribe:${id}`
   await payload.create({
     collection: 'crm-suppressions',
-    data: { contact: contactId, action: 'APPLY', reason: 'UNSUBSCRIBED', source: 'RFC8058_ENDPOINT', source_event_id: `unsubscribe:${id}`, evidence_ref: method } as never,
+    data: { contact: contactId, action: 'APPLY', reason: 'UNSUBSCRIBED', source: 'RFC8058_ENDPOINT', source_event_id: eventId, evidence_ref: method } as never,
     depth: 0,
     overrideAccess: true,
     context: { crmServer: {} },
