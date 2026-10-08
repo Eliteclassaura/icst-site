@@ -4,10 +4,7 @@ import { stepUp } from '../../email/sending-settings'
 import type { Outcome } from '../../crm/workspace/mutations'
 import type { CrmSession } from '../../crm/workspace/session'
 import { writeSecurityAudit, type MfaAuditAction } from './audit'
-import { revokeAllDevices } from './devices'
-import { purgeUserMfaRows } from './email-code'
 import { isAdminUser, isExempt, mayBeExempt, rolesOf } from './eligibility'
-import { MFA_CLEARED } from './fields'
 
 /**
  * MFA-ADMIN-1 (owner decision "Reset + turn off"). An admin can
@@ -25,7 +22,9 @@ import { MFA_CLEARED } from './fields'
 type Doc = Record<string, unknown>
 type Exec = { execute: (q: unknown) => Promise<{ rows: Array<Record<string, unknown>> }> }
 const db = (payload: Payload): Exec => (payload.db as unknown as { drizzle: Exec }).drizzle
-const sys = { overrideAccess: true as const, depth: 0, showHiddenFields: true }
+const sys = { overrideAccess: true as const, depth: 0 }
+// Only what the checks and the list need: no secret, recovery code or session ever loads (MFA-ADMIN-1.1, Auditor N-4).
+const STATE_FIELDS = { email: true, name: true, roles: true, mfa_enabled: true, mfa_exempt: true } as const
 const fail = (code: string, message: string): Outcome => ({ ok: false, code, message })
 
 export type AdminMfaAction = 'reset' | 'turn-off' | 'turn-on'
@@ -52,13 +51,13 @@ export function noticeText(action: AdminMfaAction, now: Date): { subject: string
   const next = action === 'turn-off' ? 'You now sign in with your password.' : 'You will be asked to set up two-step sign-in at your next sign-in.'
   return {
     subject: `Your two-step sign-in ${what} by an administrator`,
-    text: `Your two-step sign-in ${what} by an administrator on ${date}. ${next}\n\nIf this wasn’t expected, contact your administrator.\n`,
+    text: `Your two-step sign-in ${what} by an administrator on ${date}. ${next}\n\nIf this wasn’t expected, contact your administrator.\n\nICS Sales Team\n`,
   }
 }
 
 async function recordReason(payload: Payload, e: { userId: string; actorId: string; action: AdminMfaAction; reason: string }): Promise<boolean> {
   try {
-    await db(payload).execute(sql`INSERT INTO mfa_admin_actions (user_id, actor_id, action, reason) VALUES (${e.userId}, ${e.actorId}, ${e.action}, ${e.reason})`)
+    await db(payload).execute(sql`INSERT INTO mfa_admin_actions (user_id, actor_id, action, reason, applied) VALUES (${e.userId}, ${e.actorId}, ${e.action}, ${e.reason}, false) RETURNING id`)
     return true
   } catch (err) {
     payload.logger.error({ code: 'MFA_ADMIN_REASON_WRITE_FAILED', errName: (err as Error)?.name })
@@ -66,11 +65,20 @@ async function recordReason(payload: Payload, e: { userId: string; actorId: stri
   }
 }
 
-/** Sessions: delete the user's rows in one statement; the epoch goes up in the same statement chain. */
-async function revokeSessions(payload: Payload, userId: string): Promise<number> {
-  const r = await db(payload).execute(sql`DELETE FROM users_sessions WHERE _parent_id = ${userId} RETURNING id`)
-  await db(payload).execute(sql`UPDATE users SET security_epoch = COALESCE(security_epoch, 0) + 1 WHERE id = ${userId}`)
-  return r.rows.length
+type Tx = { execute: (q: unknown) => Promise<{ rows?: Array<Record<string, unknown>> }> }
+async function applyChange(payload: Payload, userId: string, exempt: boolean, now: Date): Promise<{ devices: number; sessions: number }> {
+  const drizzle = (payload.db as unknown as { drizzle: { transaction: <T>(fn: (tx: Tx) => Promise<T>) => Promise<T> } }).drizzle
+  const iso = now.toISOString()
+  return drizzle.transaction(async (tx) => {
+    // the MFA_CLEARED values (fields.ts) plus the exemption and the credential counter
+    await tx.execute(sql`UPDATE users SET mfa_enabled = false, mfa_enrolled_at = NULL, mfa_secret = NULL, mfa_pending_secret = NULL, mfa_pending_at = NULL,
+      mfa_recovery = NULL, mfa_last_step = NULL, mfa_sessions = '[]'::jsonb, mfa_failures = 0, mfa_locked_until = NULL, mfa_stepup = NULL,
+      mfa_exempt = ${exempt}, mfa_exempt_at = ${exempt ? iso : null}::timestamptz, security_epoch = COALESCE(security_epoch, 0) + 1, updated_at = ${iso}::timestamptz WHERE id = ${userId}`)
+    const devices = await tx.execute(sql`UPDATE mfa_trusted_devices SET revoked_at = ${iso}::timestamptz WHERE user_id = ${userId} AND revoked_at IS NULL RETURNING id`)
+    await tx.execute(sql`DELETE FROM mfa_email_codes WHERE user_id = ${userId}`)
+    const sessions = await tx.execute(sql`DELETE FROM users_sessions WHERE _parent_id = ${userId} RETURNING id`)
+    return { devices: (devices.rows ?? []).length, sessions: (sessions.rows ?? []).length }
+  })
 }
 
 export async function adminMfaAction(
@@ -93,7 +101,7 @@ export async function adminMfaAction(
   if (userId === s.userId) return fail('SELF_REFUSED', 'You can’t change your own two-step sign-in here. Ask another admin.')
   let target: Doc | null
   try {
-    target = (await s.payload.findByID({ collection: 'users', id: userId, ...sys })) as unknown as Doc
+    target = (await s.payload.findByID({ collection: 'users', id: userId, select: STATE_FIELDS as never, ...sys })) as unknown as Doc
   } catch {
     target = null
   }
@@ -110,17 +118,23 @@ export async function adminMfaAction(
   } else if (target.mfa_exempt === true) {
     return fail('USE_TURN_ON', 'Two-step sign-in is turned off for this person. Turn it back on instead.')
   }
-  // The reason row and the audit entry come FIRST: if either cannot be written, nothing changes.
+  // The reason row and the audit entry come FIRST: if either cannot be written, NOTHING changes (Auditor N-1).
   if (!(await recordReason(s.payload, { userId, actorId: s.userId, action, reason }))) return fail('AUDIT_FAILED', 'Not changed: the change could not be recorded. Try again in a moment.')
   const toState = action === 'turn-off' ? { mfa: 'off', exempt: true } : { mfa: 'not-set-up', exempt: false }
-  const sessions = { n: 0 }
-  await writeSecurityAudit(s.payload, { action: AUDIT[action], userId, actorId: s.userId, detail: { from: before, to: toState, ...(action === 'reset' ? { adminTarget: isAdminUser(target) } : {}) } })
-  const exempt = action === 'turn-off' ? { mfa_exempt: true, mfa_exempt_at: now.toISOString() } : { mfa_exempt: false, mfa_exempt_at: null }
-  await s.payload.update({ collection: 'users', id: userId, data: { ...MFA_CLEARED, ...exempt } as never, ...sys, context: { mfaService: true } })
-  const devices = await revokeAllDevices(s.payload, userId, now)
-  await purgeUserMfaRows(s.payload, userId).catch(() => undefined)
-  sessions.n = await revokeSessions(s.payload, userId)
-  await writeSecurityAudit(s.payload, { action: 'mfa-devices-revoked', userId, actorId: s.userId, detail: { why: action, count: devices, sessions: sessions.n } })
+  if (!(await writeSecurityAudit(s.payload, { action: AUDIT[action], userId, actorId: s.userId, detail: { from: before, to: toState, ...(action === 'reset' ? { adminTarget: isAdminUser(target) } : {}) } })))
+    return fail('AUDIT_FAILED', 'Not changed: the change could not be recorded. Try again in a moment.')
+  // The change itself is ONE transaction (Auditor N-2): the enrolment and exemption columns, the credential counter, the
+  // sessions, the remembered devices and the emailed codes all change together or not at all.
+  let counts: { devices: number; sessions: number }
+  try {
+    counts = await applyChange(s.payload, userId, action === 'turn-off', now)
+  } catch {
+    s.payload.logger.error({ code: 'MFA_ADMIN_CHANGE_FAILED', action })
+    await writeSecurityAudit(s.payload, { action: 'mfa-admin-aborted', userId, actorId: s.userId, detail: { for: action } })
+    return fail('CHANGE_FAILED', 'Not changed: something went wrong. Try again in a moment.')
+  }
+  await db(s.payload).execute(sql`UPDATE mfa_admin_actions SET applied = true WHERE id = (SELECT max(id) FROM mfa_admin_actions WHERE user_id = ${userId} AND actor_id = ${s.userId} AND action = ${action} AND applied = false)`)
+  await writeSecurityAudit(s.payload, { action: 'mfa-devices-revoked', userId, actorId: s.userId, detail: { why: action, count: counts.devices, sessions: counts.sessions } })
   // The notice (best effort; the outcome is audited, the person's address is not).
   const to = typeof target.email === 'string' ? target.email : ''
   const n = noticeText(action, now)
@@ -142,7 +156,7 @@ export type PersonRow = { id: string; name: string; email: string; roles: string
 
 /** The people list for the admin screen: staff accounts with their two-step state. Admin only (the caller checks). */
 export async function listPeople(s: CrmSession): Promise<PersonRow[]> {
-  const res = await s.payload.find({ collection: 'users', limit: 200, depth: 0, sort: 'email', overrideAccess: true, showHiddenFields: true })
+  const res = await s.payload.find({ collection: 'users', limit: 200, depth: 0, sort: 'email', select: STATE_FIELDS as never, overrideAccess: true })
   return (res.docs as unknown as Doc[]).map((u) => {
     const st = stateOf(u)
     return {

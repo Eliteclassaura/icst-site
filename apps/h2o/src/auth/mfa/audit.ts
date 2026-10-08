@@ -7,12 +7,12 @@ import type { Payload } from 'payload'
  */
 export type MfaAuditAction = 'mfa-enrolled' | 'mfa-verified' | 'mfa-failed' | 'mfa-locked' | 'mfa-recovery-used' | 'mfa-reset' | 'mfa-stepup'
   | 'mfa-email-sent' | 'mfa-email-verified' | 'mfa-device-remembered' | 'mfa-device-used' | 'mfa-devices-revoked'
-  | 'mfa-admin-reset' | 'mfa-admin-turned-off' | 'mfa-admin-turned-on' | 'mfa-admin-notice' | 'mfa-exempt-cleared'
+  | 'mfa-admin-reset' | 'mfa-admin-turned-off' | 'mfa-admin-turned-on' | 'mfa-admin-notice' | 'mfa-exempt-cleared' | 'mfa-admin-aborted'
 
 export async function writeSecurityAudit(
   payload: Payload,
   e: { action: MfaAuditAction; userId: string; actorId: string | null; detail?: Record<string, unknown> },
-): Promise<void> {
+): Promise<boolean> {
   try {
     await payload.create({
       collection: 'audit-log',
@@ -29,7 +29,9 @@ export async function writeSecurityAudit(
       } as never,
       overrideAccess: true,
     })
+    return true
   } catch (err) {
     payload.logger.error({ code: 'MFA_AUDIT_WRITE_FAILED', action: e.action, errName: (err as Error)?.name })
+    return false
   }
 }

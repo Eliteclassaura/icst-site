@@ -3,7 +3,7 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 /**
  * MFA-ADMIN-1 (additive, reversible): users.mfa_exempt / mfa_exempt_at (an admin turned two-factor off for a non-admin) and
  * users.security_epoch (a counter that goes up when credentials change, for later token invalidation), plus a plain table
- * owned by src/auth/mfa that keeps the reason an admin gave for each reset / turn-off / turn-on. Down drops exactly this.
+ * owned by src/auth/mfa that keeps the reason an admin gave for each reset / turn-off / turn-on (marked applied only once the change went through). Down drops exactly this.
  */
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
@@ -17,6 +17,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
     "actor_id" text NOT NULL,
     "action" text NOT NULL,
     "reason" text NOT NULL,
+    "applied" boolean NOT NULL DEFAULT false,
     "created_at" timestamp(3) with time zone NOT NULL DEFAULT now()
   );
   CREATE INDEX "mfa_admin_actions_user_idx" ON "mfa_admin_actions" ("user_id", "created_at");`)

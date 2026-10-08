@@ -4,7 +4,7 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { adminMfaAction, listPeople, noticeText } from '../../auth/mfa/admin-actions'
 import { rememberDevice } from '../../auth/mfa/devices'
 import { pendingSession } from '../../auth/mfa/guard'
-import { beginEnrolment, enrolWithSecret, isSessionVerified, loadMfaUser } from '../../auth/mfa/service'
+import { beginEnrolment, enrolWithSecret, isSessionVerified, loadMfaUser, verifySecondFactorByEmail } from '../../auth/mfa/service'
 import { generateSecret } from '../../auth/mfa/totp'
 import { crmSessionFor, type CrmSession } from '../workspace/session'
 import { PASSWORD, payload, user, type TestUser } from './harness'
@@ -226,6 +226,7 @@ describe('MFA-ADMIN-1: audit, reason, notice, sessions', () => {
     expect(m.to).toBe(t.email)
     expect(m.text).toContain('2026-10-09')
     expect(m.text).toContain('contact your administrator')
+    expect(m.text.endsWith('contact your administrator.\n\nICS Sales Team\n')).toBe(true) // OGCS: signed
     expect(`${m.subject}${m.text}`.replace('2026-10-09', 'DATE')).not.toMatch(/@|https?:|\d{6}|\+?\d[\d\s().-]{8,}\d/)
     for (const a of ['reset', 'turn-off', 'turn-on'] as const) expect(noticeText(a, now).text).not.toMatch(/@|https?:/)
     expect((await auditOf(t.id, 'mfa-admin-notice'))[0]!.detail).toMatchObject({ for: 'reset', sent: true })
@@ -244,5 +245,75 @@ describe('MFA-ADMIN-1: audit, reason, notice, sessions', () => {
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy.mock.calls[0]![0]).toMatchObject({ to: t.email })
     spy.mockRestore()
+  })
+})
+
+describe('MFA-ADMIN-1.1: audit first, one transaction, narrow reads, password only', () => {
+  const applied = async (id: string) => (await exec(sql`SELECT applied FROM mfa_admin_actions WHERE user_id = ${id} ORDER BY id`)).rows.map((r) => r.applied)
+  it('a failed audit write aborts the action: nothing changes, no notice, the reason row is NOT marked applied', async () => {
+    const t = await person(['sales'])
+    const real = p.create.bind(p)
+    const spy = vi.spyOn(p, 'create').mockImplementation(((a: { collection?: string }) => (a.collection === 'audit-log' ? Promise.reject(new Error('AUDIT_DOWN')) : real(a as never))) as never)
+    const n = notices()
+    const out = await act(admin, { userId: t.id, action: 'reset' }, n)
+    spy.mockRestore()
+    expect(out).toMatchObject({ ok: false, code: 'AUDIT_FAILED' })
+    const u = await fresh(t.id)
+    expect(u.mfa_enabled).toBe(true)
+    expect(u.mfa_secret).toBeTruthy()
+    expect(await pendingSession(p, t.headers)).not.toBeNull() // session still alive
+    expect(n.sent).toHaveLength(0)
+    expect(await applied(t.id)).toEqual([false])
+    // and a good run marks its row applied
+    expect(await act(admin, { userId: t.id, action: 'reset' })).toMatchObject({ ok: true })
+    expect(await applied(t.id)).toEqual([false, true])
+  })
+  it('the change is ONE transaction: a failure part-way rolls everything back', async () => {
+    const t = await person(['sales'])
+    await rememberDevice(p, { id: t.id, roles: ['sales'] } as never)
+    const d = (p.db as unknown as { drizzle: { transaction: (fn: (tx: unknown) => Promise<unknown>) => Promise<unknown> } }).drizzle
+    const real = d.transaction.bind(d)
+    const spy = vi.spyOn(d, 'transaction').mockImplementation((fn) => real((tx) => fn(new Proxy(tx as object, { get: (target, k) => (k === 'execute' ? (q: unknown) => { if (JSON.stringify(q).includes('users_sessions')) throw new Error('BOOM'); return (target as { execute: (q: unknown) => Promise<unknown> }).execute(q) } : Reflect.get(target, k)) }))))
+    const out = await act(admin, { userId: t.id, action: 'reset' })
+    spy.mockRestore()
+    expect(out).toMatchObject({ ok: false, code: 'CHANGE_FAILED' })
+    const u = await fresh(t.id)
+    expect(u.mfa_enabled).toBe(true) // the first statement was rolled back
+    expect(u.mfa_secret).toBeTruthy()
+    expect(Number((await exec(sql`SELECT count(*)::int AS n FROM mfa_trusted_devices WHERE user_id = ${t.id} AND revoked_at IS NULL`)).rows[0]!.n)).toBe(1)
+    expect(await pendingSession(p, t.headers)).not.toBeNull()
+    expect(await applied(t.id)).toEqual([false])
+    expect(await auditOf(t.id, 'mfa-admin-aborted')).toHaveLength(1)
+  })
+  it('reads only the state fields: no hidden fields, a field select on every users read', async () => {
+    const spy = vi.spyOn(p, 'find')
+    const rows = await listPeople(session(admin))
+    const call = spy.mock.calls.find((c) => (c[0] as { collection?: string }).collection === 'users')![0] as Record<string, unknown>
+    expect(call.showHiddenFields).toBeUndefined()
+    expect(Object.keys(call.select as object).sort()).toEqual(['email', 'mfa_enabled', 'mfa_exempt', 'name', 'roles'])
+    spy.mockRestore()
+    expect(Object.keys(rows[0]!).sort()).toEqual(['admin', 'canTurnOff', 'email', 'exempt', 'id', 'isSelf', 'mfa', 'name', 'roles'])
+    const spy2 = vi.spyOn(p, 'findByID')
+    const t = await person(['sales'])
+    await act(admin, { userId: t.id, action: 'reset' })
+    const mine = spy2.mock.calls.map((c) => c[0] as Record<string, unknown>).filter((c) => c.collection === 'users' && c.id === t.id && c.select)
+    spy2.mockRestore()
+    expect(mine.length).toBeGreaterThanOrEqual(1)
+    for (const c of mine) expect(c.showHiddenFields).toBeUndefined()
+  })
+  it('turned off means PASSWORD ONLY: no second factor of any kind (no code, no device, no emailed code) and nothing is created for it', async () => {
+    const t = await person(['sales'])
+    await act(admin, { userId: t.id, action: 'turn-off' })
+    const login = await p.login({ collection: 'users', data: { email: t.email, password: PASSWORD } })
+    const headers = new Headers({ authorization: `JWT ${String(login.token)}` }) // no device cookie, no code
+    const pending = (await pendingSession(p, headers))!
+    expect(pending.verified).toBe(true)
+    expect((await p.auth({ headers })).user?.id).toBe(t.id as never)
+    const u = await fresh(t.id)
+    expect([u.mfa_enabled, u.mfa_secret ?? null, u.mfa_recovery ?? null, u.mfa_exempt]).toEqual([false, null, null, true])
+    expect(Number((await exec(sql`SELECT count(*)::int AS n FROM mfa_email_codes WHERE user_id = ${t.id}`)).rows[0]!.n)).toBe(0)
+    // the emailed-code and remembered-device paths do not apply: there is nothing to verify, and nothing remembers
+    expect(await verifySecondFactorByEmail(p, u, pending.sid, '123456')).toMatchObject({ ok: false })
+    expect(Number((await exec(sql`SELECT count(*)::int AS n FROM mfa_trusted_devices WHERE user_id = ${t.id} AND revoked_at IS NULL`)).rows[0]!.n)).toBe(0)
   })
 })
