@@ -20,6 +20,8 @@ import type {ProductCardInput} from './salmon-family-model'
 import {releaseLedger} from '../content/runtime-read'
 import {decodeEntities} from './text-repair'
 import {RestoredSlot} from './RestoredSlot'
+import {MooreFansCard} from './MooreFansCard'
+import {MOORE_LISTING_PATHS} from './moore-fans'
 import {isEmptyArchivePage} from '../content/empty-archives'
 
 export const ARCHIVE_PATH=/^\/(?:product-category|product-tag|category|tag)\//
@@ -117,6 +119,7 @@ export function ArchivePage({doc}:{doc:SalmonDocument}){
         {model.resultCount?<p className="sp-archive-count">{model.resultCount}</p>:null}
       </header>
       <RestoredSlot doc={doc} slot="intro" className="sp-section-inner wave3-source-content"/>
+      {MOORE_LISTING_PATHS.has(doc.targetPath)?<div className="sp-section-inner dr4 r5"><MooreFansCard path={doc.targetPath}/></div>:null}
       <section className="sp-section-inner sp-archive-body" aria-label={model.kind==='products'?'Products':'Articles'}>
         {empty?<p className="sp-archive-empty">Nothing is listed here yet. <a href="/cooling-tower-parts-online/">Browse cooling tower parts</a> or <a href="/contact-us/">contact us</a>.</p>
           :model.kind==='products'

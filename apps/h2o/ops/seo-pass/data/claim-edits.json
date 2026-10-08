@@ -9157,6 +9157,79 @@
    "slot": "body.3.1.1.7.11.5",
    "row": "SC1-PL-3",
    "reason": "OGCS pre-launch rows (TSV 7c176d06, seal f86f0271), CT 2026-10-08, row PL-3: "
+  },
+  {
+   "path": "/cooling-tower-replacement/",
+   "op": "replace",
+   "find": "blower wheels",
+   "replace": "gearboxes",
+   "slot": "body.5.1.1.5.1.1.1.1.1",
+   "row": "CF1-01",
+   "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-01: client ruling 2: blower wheels are not a tower part here; gearboxes."
+  },
+  {
+   "path": "/cooling-tower-replacement/",
+   "op": "replace",
+   "find": "your chiller plant and pumps",
+   "replace": "your plant and cooling system",
+   "slot": "body.5.1.1.5.1.3.1.1.1",
+   "row": "CF1-02",
+   "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-02: client ruling 3."
+  },
+  {
+   "path": "/cooling-tower-replacement/",
+   "op": "replace",
+   "find": "variable speed drives, drift eliminators, and optimized airflow design",
+   "replace": "high-efficiency film media, drift eliminators, and optimized design techniques",
+   "slot": "body.5.1.1.5.1.7.1.1.1",
+   "row": "CF1-03",
+   "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-03: client ruling 4."
+  },
+  {
+   "path": "/cooling-tower/",
+   "op": "replace",
+   "find": "Stainless Steel",
+   "replace": "Wood",
+   "element": "heading",
+   "slot": "body.17.1.7.1.1.1.1.1",
+   "row": "CF1-04",
+   "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-04: client ruling 1: the card offers a tower structure material (heading)."
+  },
+  {
+   "path": "/cooling-tower/",
+   "op": "replace",
+   "find": "Stainless steel cooling towers are widely used in industrial applications due to their superior corrosion resistance, hygiene, and structural strength.",
+   "replace": "Wood cooling towers are widely used in industrial applications, with pressure-treated lumber chosen for its corrosion resistance and structural strength.",
+   "slot": "body.17.1.7.1.1.1.3.1",
+   "row": "CF1-05",
+   "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-05: client ruling 1 (card body); OGCS-drafted wording, the client confirms."
+  },
+  {
+   "path": "/cooling-tower/",
+   "op": "replace",
+   "find": "FRP, stainless steel, concrete",
+   "replace": "FRP, wood, concrete",
+   "slot": "body.17.1.1.1.5.1",
+   "row": "CF1-06",
+   "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-06: client ruling 1 (materials intro)."
+  },
+  {
+   "path": "/new-cooling-towers/",
+   "op": "replace",
+   "find": "FRP, stainless steel, and HDPE are preferred because they resist corrosion, handle harsh environments, and provide long service life with lower maintenance needs.",
+   "replace": "FRP, wood, and HDPE are common structure materials, selected for corrosion resistance and long service life in harsh environments.",
+   "slot": "body.117",
+   "row": "CF1-07",
+   "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-07: client ruling 1; OGCS-drafted wording, the client confirms."
+  },
+  {
+   "path": "/build-new-cooling-tower/",
+   "op": "replace",
+   "find": "FRP, concrete, or stainless steel",
+   "replace": "FRP, concrete, or wood",
+   "slot": "body.3.1.1.7.185",
+   "row": "CF1-08",
+   "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-08: client ruling 1 (the only structure-material mention on the page)."
   }
  ]
 }

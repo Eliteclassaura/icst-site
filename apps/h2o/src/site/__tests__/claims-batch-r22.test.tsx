@@ -77,7 +77,7 @@ describe('R2.2 conformance on the composed pages (mock apply)',()=>{
     expect(conformance.absent.length).toBeGreaterThan(200)
     // 11 owner-restored strings, the 10 CLAIMS-R2 Home wordings (CT 2026-10-06), the 11 R4 wordings (R4C-01…11, CT 2026-10-07) and the All Projects R4 lead line (CS093)
     // R5b adds 40 (the OGCS R5b wordings: location, Disaster Recovery, Thailand and the four FAQ answers); SEO-CONTENT-1 adds 15: the ruled replacement wordings (mixed product lines, ALU, PETRONAS and BacMan cards, the approach table cell, the algae CTA)
-    expect(conformance.present).toHaveLength(392) // SEO-CONTENT-2.3: pre-launch rows; SEO-CONTENT-2.2: + 102 windows (team audit, OEM, project cards; excerpt-truncated windows dropped); SEO-CONTENT-2.1: + 21 windows (tranche C addendum); // round 3 piece C: +46 windows (HVAC tranche C; 83 archive/tag-excerpt and non-segmenting windows dropped: excerpts are truncated by the templates, the absent checks stay); piece B adds 41 (tranche B, approach range); SC1-A-032's present row is superseded by AR-03 // round 2 adds 88 (tranche A/B, OEM/stock, BacMan paragraph)
+    expect(conformance.present).toHaveLength(399) // CLIENT-FIX-1: + 7 (OGCS rows CF1-01..03, 05..08; the heading CF1-04 is pinned by client-fix-1.test); SEO-CONTENT-2.3: pre-launch rows; SEO-CONTENT-2.2: + 102 windows (team audit, OEM, project cards; excerpt-truncated windows dropped); SEO-CONTENT-2.1: + 21 windows (tranche C addendum); // round 3 piece C: +46 windows (HVAC tranche C; 83 archive/tag-excerpt and non-segmenting windows dropped: excerpts are truncated by the templates, the absent checks stay); piece B adds 41 (tranche B, approach range); SC1-A-032's present row is superseded by AR-03 // round 2 adds 88 (tranche A/B, OEM/stock, BacMan paragraph)
   })
   it('the check is live: before the batch, the ruled strings are on their pages',()=>{
     // SEO-CONTENT-1: the SC1-P2-ACCEPT rows assert "no HVAC" on every product page; they hold before the batch on the pages that never had any.
@@ -128,4 +128,35 @@ describe('F1 regression (CT ruling 2026-10-05): nozzle specification items only 
     // the check is live: the imported data carries the error on the products the F1 audit found
     expect(before.length).toBeGreaterThanOrEqual(7)
   },600000)
+})
+
+/** CLIENT-FIX-1 (client feedback, OGCS rows CF1-01..08): the corrected claims never reappear on any public page. A page is checked when its source
+ * document holds any banned phrase; each must be clean after the batch, and the check is live (the same pages carry it before the batch). */
+describe('CLIENT-FIX-1 banned phrases',()=>{
+  const BANNED:RegExp[]=[
+    /blower wheel/i,
+    /chiller plant and pumps/i,
+    /variable speed drives, drift eliminators,? and optimized airflow/i,
+    // stainless steel offered as a tower structure material (basins, hubs and fasteners are not)
+    /\bFRP, stainless steel, (?:concrete|and HDPE)/i,
+    /(?:concrete|wood), or stainless steel based on service conditions/i,
+    /Stainless steel cooling towers are widely used/i,
+  ]
+  const candidates=ledger.routes.filter(r=>r.state==='PUBLIC'&&r.export&&r.sourceFile&&/^(?:SALMON|LIVE)-/.test(r.routeId)).filter(r=>{
+    const doc=JSON.parse(readFileSync(path.join(APP,'content/salmon',r.sourceFile!),'utf8')) as {text?:string}
+    return BANNED.some(re=>re.test(String(doc.text??'')))
+  })
+  it('are found on the four corrected pages before the batch and on no public page after it',()=>{
+    const paths=candidates.map(r=>decoded(r.path))
+    for(const must of ['/cooling-tower-replacement/','/cooling-tower/','/new-cooling-towers/','/build-new-cooling-tower/'])expect(paths,must).toContain(must)
+    for(const p of paths){
+      expect(BANNED.some(re=>re.test(pageAfterApply(p,false))),`${p} carries a banned phrase before the batch`).toBe(true)
+      expect(BANNED.filter(re=>re.test(pageAfterApply(p))).map(String),p).toEqual([])
+    }
+  },600000)
+  it('the /cooling-tower/ structure-material card is Wood, not Stainless Steel',()=>{
+    const page=pageAfterApply('/cooling-tower/')
+    expect(page).toContain('Wood cooling towers are widely used')
+    expect(page).not.toMatch(/Stainless Steel\s+Stainless steel cooling towers/)
+  },300000)
 })

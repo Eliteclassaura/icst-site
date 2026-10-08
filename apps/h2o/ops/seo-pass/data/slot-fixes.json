@@ -3397,6 +3397,52 @@
       "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-27: "
      }
     ]
+   },
+   {
+    "key": "body.3.1.1.7.185",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"To ensure longevity and efficiency, incorporate corrosion rate measurement and metal loss monitoring from the start. Design for energy efficiency using VFD fans and high-performance fill media. Choose materials like FRP, concrete, or stainless steel based on service conditions, not just upfront cost. This diligence results in a durable cooling tower that can support your facility for decades.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "To ensure longevity and efficiency, incorporate corrosion rate measurement and metal loss monitoring from the start. Design for energy efficiency using VFD fans and high-performance fill media. Choose materials like FRP, concrete, or wood based on service conditions, not just upfront cost. This diligence results in a durable cooling tower that can support your facility for decades.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"To ensure longevity and efficiency, incorporate corrosion rate measurement and metal loss monitoring from the start. Design for energy efficiency using VFD fans and high-performance fill media. Choose materials like FRP, concrete, or wood based on service conditions, not just upfront cost. This diligence results in a durable cooling tower that can support your facility for decades.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "FRP, concrete, or stainless steel",
+      "to": "FRP, concrete, or wood",
+      "action": "word-corrected",
+      "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-08: client ruling 1 (the only structure-material mention on the page)."
+     }
+    ]
    }
   ]
  },
@@ -22135,6 +22181,144 @@
       "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-003: Stray \".,\". The sentence also has no list continuation, so the comma goes too."
      }
     ]
+   },
+   {
+    "key": "body.5.1.1.5.1.1.1.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Over time, tower parts like cooling tower fans, fill media, blower wheels, and motors wear out — reducing efficiency and driving up energy consumption across your system.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Over time, tower parts like cooling tower fans, fill media, gearboxes, and motors wear out — reducing efficiency and driving up energy consumption across your system.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Over time, tower parts like cooling tower fans, fill media, gearboxes, and motors wear out — reducing efficiency and driving up energy consumption across your system.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "blower wheels",
+      "to": "gearboxes",
+      "action": "word-corrected",
+      "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-01: client ruling 2: blower wheels are not a tower part here; gearboxes."
+     }
+    ]
+   },
+   {
+    "key": "body.5.1.1.5.1.3.1.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Older towers often struggle to meet modern cooling demands, leading to higher operational costs, reduced thermal output, and increased strain on your chiller plant and pumps.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Older towers often struggle to meet modern cooling demands, leading to higher operational costs, reduced thermal output, and increased strain on your plant and cooling system.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Older towers often struggle to meet modern cooling demands, leading to higher operational costs, reduced thermal output, and increased strain on your plant and cooling system.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "your chiller plant and pumps",
+      "to": "your plant and cooling system",
+      "action": "word-corrected",
+      "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-02: client ruling 3."
+     }
+    ]
+   },
+   {
+    "key": "body.5.1.1.5.1.7.1.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Older systems lack modern cooling tower technology such as variable speed drives, drift eliminators, and optimized airflow design.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Older systems lack modern cooling tower technology such as high-efficiency film media, drift eliminators, and optimized design techniques.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Older systems lack modern cooling tower technology such as high-efficiency film media, drift eliminators, and optimized design techniques.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "variable speed drives, drift eliminators, and optimized airflow design",
+      "to": "high-efficiency film media, drift eliminators, and optimized design techniques",
+      "action": "word-corrected",
+      "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-03: client ruling 4."
+     }
+    ]
    }
   ]
  },
@@ -26784,6 +26968,114 @@
       "to": "s",
       "action": "word-corrected",
       "reason": "OGCS HVAC tranche C addendum (TSV bf0dd0d9), CT 2026-10-08, row TCA-12: Removes air-conditioning plants."
+     }
+    ]
+   },
+   {
+    "key": "body.17.1.7.1.1.1.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Stainless Steel\"",
+    "after": "Wood",
+    "afterCanon": "\"Wood\"",
+    "changes": [
+     {
+      "from": "Stainless Steel",
+      "to": "Wood",
+      "action": "claim-reworded",
+      "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-04: client ruling 1: the card offers a tower structure material (heading)."
+     }
+    ]
+   },
+   {
+    "key": "body.17.1.7.1.1.1.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Stainless steel cooling towers are widely used in industrial applications due to their superior corrosion resistance, hygiene, and structural strength.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Wood cooling towers are widely used in industrial applications, with pressure-treated lumber chosen for its corrosion resistance and structural strength.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Wood cooling towers are widely used in industrial applications, with pressure-treated lumber chosen for its corrosion resistance and structural strength.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Stainless steel cooling towers are widely used in industrial applications due to their superior corrosion resistance, hygiene, and structural strength.",
+      "to": "Wood cooling towers are widely used in industrial applications, with pressure-treated lumber chosen for its corrosion resistance and structural strength.",
+      "action": "word-corrected",
+      "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-05: client ruling 1 (card body); OGCS-drafted wording, the client confirms."
+     }
+    ]
+   },
+   {
+    "key": "body.17.1.1.1.5.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ICS builds cooling towers using FRP, stainless steel, concrete, and other durable materials selected according to water quality, structural load, corrosion exposure, maintenance requirements, and operating environment. \",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ICS builds cooling towers using FRP, wood, concrete, and other durable materials selected according to water quality, structural load, corrosion exposure, maintenance requirements, and operating environment. ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ICS builds cooling towers using FRP, wood, concrete, and other durable materials selected according to water quality, structural load, corrosion exposure, maintenance requirements, and operating environment. \",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "FRP, stainless steel, concrete",
+      "to": "FRP, wood, concrete",
+      "action": "word-corrected",
+      "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-06: client ruling 1 (materials intro)."
      }
     ]
    }
@@ -68960,6 +69252,52 @@
       "to": "ICS",
       "action": "word-corrected",
       "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-071: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
+     }
+    ]
+   },
+   {
+    "key": "body.117",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"FRP, stainless steel, and HDPE are preferred because they resist corrosion, handle harsh environments, and provide long service life with lower maintenance needs.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "FRP, wood, and HDPE are common structure materials, selected for corrosion resistance and long service life in harsh environments.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"FRP, wood, and HDPE are common structure materials, selected for corrosion resistance and long service life in harsh environments.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "FRP, stainless steel, and HDPE are preferred because they resist corrosion, handle harsh environments, and provide long service life with lower maintenance needs.",
+      "to": "FRP, wood, and HDPE are common structure materials, selected for corrosion resistance and long service life in harsh environments.",
+      "action": "word-corrected",
+      "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-07: client ruling 1; OGCS-drafted wording, the client confirms."
      }
     ]
    }

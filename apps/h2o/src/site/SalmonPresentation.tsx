@@ -39,6 +39,8 @@ function localHref(value:string,doc:SalmonDocument):string|undefined {
  *   styles the heading class, not the tag).
  * - H1: the credential row shows the original ICS files with real alts (content/design/home-credentials.json).
  */
+/** The services overview the header's Services link opens (navigation-data commercialNavigation). */
+export const HOME_SERVICES_HUB='/cooling-tower-maintenance-repair-upgrade/'
 const WP_POST_DATE=/^(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, 20\d\d$/
 /** The home project-card date widgets, and the project year each should show (from the portfolio model, via the card's own project link). */
 const PROJECT_LINK=/\/(?:all-projects|projects)\/[^/?#]+\/?$/
@@ -186,7 +188,8 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument,inLoop:false|s
   const nameless=namelessLink(doc,key,node)
   if(nameless?.kind==='unwrap')return createElement(Fragment,{key},...node.children.map((child,i)=>sourceNode(child,`${key}.${i}`,doc,loop)))
   if(nameless?.kind==='decorative'){props['aria-hidden']='true';props.tabIndex=-1}
-  props.href=href
+  // CLIENT-FIX-1 (A): the home "Explore Our Services" button went to /contact-us/ in the source; it opens the services overview (the header's Services hub).
+  props.href=home&&salmonNodeText(node).replace(/\s+/g,' ').trim()==='Explore Our Services'?HOME_SERVICES_HUB:href
   props['data-source-href']=provenanceHref(node.attrs.href)
   if(node.attrs.target==='_blank'){props.target='_blank';props.rel='noopener noreferrer'}
   // R2.4 (item l): a "Learn more"-style link is named by its card's heading (./link-context); its visible text is unchanged.

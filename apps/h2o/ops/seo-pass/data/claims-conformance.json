@@ -6528,6 +6528,48 @@
    "path": "/cooling-tower-buying-guide/",
    "text": "You need localized, immediate support to protect your",
    "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "CF1-01",
+   "path": "/cooling-tower-replacement/",
+   "text": "fill media, blower wheels, and motors",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-02",
+   "path": "/cooling-tower-replacement/",
+   "text": "your chiller plant and pumps",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-03",
+   "path": "/cooling-tower-replacement/",
+   "text": "variable speed drives, drift eliminators, and optimized airflow design",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-05",
+   "path": "/cooling-tower/",
+   "text": "Stainless steel cooling towers are widely used in industrial applications",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-06",
+   "path": "/cooling-tower/",
+   "text": "ICS builds cooling towers using FRP, stainless steel, concrete",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-07",
+   "path": "/new-cooling-towers/",
+   "text": "FRP, stainless steel, and HDPE are preferred",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-08",
+   "path": "/build-new-cooling-tower/",
+   "text": "Choose materials like FRP, concrete, or stainless steel based on service conditions",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
   }
  ],
  "present": [
@@ -8882,6 +8924,48 @@
    "path": "/cooling-tower-buying-guide/",
    "text": "You need localized support to protect your",
    "source": "SEO-CONTENT-2 piece 2.3"
+  },
+  {
+   "row": "CF1-01",
+   "path": "/cooling-tower-replacement/",
+   "text": "fill media, gearboxes, and motors",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-02",
+   "path": "/cooling-tower-replacement/",
+   "text": "your plant and cooling system",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-03",
+   "path": "/cooling-tower-replacement/",
+   "text": "high-efficiency film media, drift eliminators, and optimized design techniques",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-05",
+   "path": "/cooling-tower/",
+   "text": "Wood cooling towers are widely used in industrial applications, with pressure-treated lumber",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-06",
+   "path": "/cooling-tower/",
+   "text": "ICS builds cooling towers using FRP, wood, concrete",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-07",
+   "path": "/new-cooling-towers/",
+   "text": "FRP, wood, and HDPE are common structure materials",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "CF1-08",
+   "path": "/build-new-cooling-tower/",
+   "text": "Choose materials like FRP, concrete, or wood based on service conditions",
+   "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
   }
  ]
 }

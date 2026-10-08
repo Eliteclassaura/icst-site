@@ -11,6 +11,8 @@ import {RestoredSlot} from '../RestoredSlot'
 import type {RenderContext} from '../SalmonComposer'
 import {partsCategories} from '../Wave3Products'
 import {R4LauncherReveal} from '../r4/R4LauncherReveal'
+import {MooreFansCard} from '../MooreFansCard'
+import {MOORE_LISTING_PATHS} from '../moore-fans'
 import {R5Checklist,R5Chips,R5LongCopy,R5PartsHero,R5ProductGrid,blocksOf,heroParts,plain} from './R5Parts'
 
 /**
@@ -80,6 +82,7 @@ function Landing({doc,model}:{doc:SalmonDocument;model:SalmonFamilyPageModel}){
       <div className="r5-listing-head">{intro.map(b=>b.type==='heading'?<h2 key={b.key} id="r5-listing-title" className="dr4-h2"><Rich text={(b as HeadingBlock).text}/></h2>:<BlockView key={b.key} block={b} ctx={ctx}/>)}</div>
       <R5ProductGrid grid={grid} action={productAction}/>
     </section>:null}
+    {MOORE_LISTING_PATHS.has(path)?<MooreFansCard path={path}/>:null}
     {copy.length?<section className="dr4-section r5-longcopy"><R5LongCopy blocks={copy} ctx={ctx}/></section>:null}
     {lastButton?<section className="dr4-section r5-note"><div className="r5-note-card">{note.map(b=><BlockView key={b.key} block={b} ctx={ctx}/>)}<div className="dr4-actions dr4-actions--center r5-note-action"><span className="dr4-btn"><ButtonAction block={lastButton} path={path}/></span></div></div></section>:null}
     {relatedGrid?<section className="dr4-section r5-related" aria-labelledby="r5-related-title">
