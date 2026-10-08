@@ -476,6 +476,33 @@
   padding: 0;
   list-style: none;
 }
+.dr3-about .dr3-video-figure {
+  max-inline-size: 640px;
+  margin: 0 auto;
+  padding: 0 0 8px;
+}
+.dr3-about .dr3-video-figure video {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  background: var(--r3-ink);
+}
+.dr3-about .dr3-video-figure .dr3-video-desc {
+  margin: 4px 0 0;
+  color: var(--r3-caption);
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+}
+.dr3-about .dr3-video-figure figcaption {
+  margin: 12px 0 0;
+  color: var(--r3-caption);
+  font-size: 15px;
+  line-height: 1.4;
+  text-align: center;
+}
 .dr3-about .dr3-team-card {
   position: relative;
   display: flex;
