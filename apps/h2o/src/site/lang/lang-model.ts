@@ -28,7 +28,7 @@ export const TRANSLATE:ReadonlyArray<Lang&{code:TranslateCode;tl:string}>=[
 ]
 
 export type AvailableItem={code:AvailableCode;native:string;lang:string;href:string|null;current:boolean}
-export type TranslateItem={code:TranslateCode;native:string;lang:string;dir?:'rtl';href:string}
+export type TranslateItem={code:TranslateCode;native:string;lang:string;dir?:'rtl';href:string;/** the Google language code (googtrans) */tl:string}
 export type LanguageMenuData={current:AvailableCode;available:AvailableItem[];translate:TranslateItem[]}
 
 const LOCALE_PREFIX=/^\/(th|ja|id|vi)\//
@@ -71,7 +71,7 @@ export function languageMenu(pathname:string,alternates?:Readonly<Record<string,
       const href=isCurrent?(sitePath(canonicalUrl(pathname))):(member?sitePath(member):null)
       return {code:item.code,native:item.native,lang:item.lang,href:href??null,current:isCurrent}
     }),
-    translate:TRANSLATE.map(item=>({code:item.code,native:item.native,lang:item.lang,...(item.dir?{dir:item.dir}:{}),href:translateUrl(pathname,item.tl,sl)})),
+    translate:TRANSLATE.map(item=>({code:item.code,native:item.native,lang:item.lang,...(item.dir?{dir:item.dir}:{}),href:translateUrl(pathname,item.tl,sl),tl:item.tl})),
   }
 }
 

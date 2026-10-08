@@ -262,3 +262,52 @@
   display: block;
   margin: 0;
 }
+
+/*
+ * LANG-2: in-page translation. Our menu and note are the only translation UI: Google's banner, balloons and hover highlights are
+ * hidden, and the page is not pushed down by the offset the widget puts on <body>.
+ */
+body {
+  inset-block-start: 0 !important;
+}
+
+iframe.skiptranslate,
+body > .skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.global-chrome .lang-disclosure a {
+  color: var(--lang-blue);
+}
+
+.global-chrome .translate-note {
+  align-items: center;
+  background: var(--lang-hover);
+  color: var(--lang-ink);
+  display: flex;
+  flex-wrap: wrap;
+  font: 400 13px/1.4 'DM Sans', sans-serif;
+  gap: 4px 16px;
+  justify-content: center;
+  padding-block: 8px;
+  padding-inline: 16px;
+}
+
+.global-chrome .translate-note button {
+  background: none;
+  border: 0;
+  color: var(--lang-blue);
+  cursor: pointer;
+  font: 600 13px/1.4 'DM Sans', sans-serif;
+  min-block-size: 44px;
+  padding-inline: 8px;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}

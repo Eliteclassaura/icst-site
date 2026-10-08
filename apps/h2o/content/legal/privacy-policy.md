@@ -38,6 +38,8 @@ The required details let us review your request and route it to the right office
 
 We also use Cloudflare Web Analytics to count visits to the site. It does not use cookies. See our [Cookie Notice](/cookie-notice/).
 
+When you choose a translation language, the page text is sent to Google to translate it.
+
 Please don't include sensitive personal information, passwords, or anything unrelated to your cooling project in your request.
 
 ## How we use it

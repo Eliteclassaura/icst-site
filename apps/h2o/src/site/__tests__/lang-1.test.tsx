@@ -160,7 +160,7 @@ describe('the selector in the page chrome',()=>{
       expect([...available.matchAll(/<li>/g)].length,target).toBe(1)
       expect(available,target).toContain('aria-current="page"')
       expect(html,target).toContain('Translate this page (Google Translate)')
-      expect(html,target).toContain('Machine translation by Google opens in a new tab. ICS does not review it.')
+      expect(html,target).toContain('Machine translation by Google. ICS does not review it.')
     }
   })
   it('LANG-1.2: a page that does have locale versions still lists them, and never a disabled entry',async()=>{
@@ -168,7 +168,7 @@ describe('the selector in the page chrome',()=>{
     expect(html).toMatch(/<a href="\/th\/[^"]+" lang="th" hrefLang="th">ไทย<\/a>/)
     expect(html).not.toContain('Not available for this page')
     expect(html).not.toContain('lang-disabled')
-    expect(html).toContain('Machine translation by Google opens in a new tab. ICS does not review it.')
+    expect(html).toContain('Machine translation by Google. ICS does not review it.')
   })
   it('does not change URLs, titles or hreflang: the stylesheet is the only other addition',()=>{
     const layout=readFileSync(path.join(APP,'src/app/(site)/layout.tsx'),'utf8')

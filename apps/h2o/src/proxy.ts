@@ -178,6 +178,25 @@ function crmResponse(req: NextRequest): NextResponse {
  * published state too. A draft-mode (preview) request is `private, no-store` and noindex; the page itself
  * re-checks that the viewer is an editorial user.
  */
+/**
+ * LANG-2 (opt-in in-page translation with the Google Translate website widget): the only sources the widget needs, measured in a
+ * real browser under this nonce + 'strict-dynamic' policy for every offered language (es, zh-CN, ko, ms, ar), each as narrowly as
+ * the directive allows (a path prefix, not a whole host). Scripts need nothing: 'strict-dynamic' trusts the widget script our own
+ * nonce'd code adds and the scripts it adds in turn, and no host is allowed for script-src. No 'unsafe-inline' and no
+ * 'unsafe-eval' anywhere. Nothing is requested from these hosts until a visitor chooses a translation language.
+ */
+export const GOOGLE_TRANSLATE_CSP = {
+  style: ['https://www.gstatic.com/_/translate_http/'],
+  img: [
+    'https://translate.google.com/gen204',
+    'https://www.google.com/images/cleardot.gif',
+    'https://translate.googleapis.com/translate_static/',
+    'https://fonts.gstatic.com/s/i/productlogos/translate/',
+    'https://www.gstatic.com/images/branding/',
+  ],
+  connect: ['https://translate-pa.googleapis.com/v1/', 'https://www.gstatic.com/_/translate_http/'],
+} as const
+
 export const payloadPublicPolicy = (nonce: string, pathname: string): string => {
   // Pagefind compiles its WebAssembly matcher in the search page and in its worker (whose own response CSP
   // applies), so exactly /search/ and the /pagefind/ assets get 'wasm-unsafe-eval'.
@@ -185,10 +204,10 @@ export const payloadPublicPolicy = (nonce: string, pathname: string): string => 
   const base = [
     "default-src 'self'",
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${wasm}`,
-    "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data:",
+    ["style-src 'self' 'unsafe-inline'", ...GOOGLE_TRANSLATE_CSP.style].join(' '),
+    ["img-src 'self' data:", ...GOOGLE_TRANSLATE_CSP.img].join(' '),
     "font-src 'self'",
-    "connect-src 'self'",
+    ["connect-src 'self'", ...GOOGLE_TRANSLATE_CSP.connect].join(' '),
     "manifest-src 'self'",
     "object-src 'none'",
     "base-uri 'self'",

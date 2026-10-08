@@ -4,7 +4,7 @@
 
 This notice explains the cookies and browser storage h2ocooling.com uses. "Cookies" here also covers similar technologies such as browser session storage. The site is operated by Industrial Cooling Solutions (ICS).
 
-**In short:** we use only the storage the site needs to run and to protect your quote request, plus analytics that do not use cookies. We do not use analytics cookies or advertising cookies.
+**In short:** We use storage to run the site and protect your quote request, plus analytics that do not use cookies. If you choose a translation language, Google Translate also uses cookies as described below.
 
 ## Storage that runs the site
 
@@ -21,6 +21,14 @@ This storage is needed to run the site and your quote request. It is always on.
 | Name | What it does | Provider | How long |
 |---|---|---|---|
 | `h2o.rfq.attribution.v1` (session storage) | Records how you reached the site (campaign tags, landing page and referring page), so we can see which pages and links lead to quote requests | ICS | This browser tab. If you send a request, a copy is kept with it (see our [Privacy Notice](/privacy-policy/)) |
+
+## Optional translation
+
+Google Translate loads only when you choose a translation language. It translates the page in place. Google may also set or read cookies on its own domains. Choosing English restores the original page and clears the googtrans cookie; it does not clear cookies on Google’s domains.
+
+| Name | What it does | Provider | How long |
+|---|---|---|---|
+| `googtrans` (first-party cookie) | Remembers the language you choose for in-page translation; set only when you request translation | Google Translate, on the ICS website | Until you close your browser (a session cookie). Cleared sooner when you choose English |
 
 ## Analytics without cookies
 
