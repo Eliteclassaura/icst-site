@@ -49,7 +49,7 @@ describe('About: the owner design with the OGCS copy',()=>{
   it('the hero quote button and the action bar open the native RFQ; ✆ goes to the Contact offices',async()=>{
     const html=await render(ABOUT)
     expect(html).toMatch(/<span class="dr3-quote-circle"><span class="rfq rfq-signal"[^>]*><a href="\/contact-us\/#request-a-quote"[^>]*data-rfq-native=""[^>]*>Request a Quote<\/a>/)
-    expect(html).toMatch(/<div class="dr3-sticky" data-design-r3-sticky=""><a class="dr3-sticky-call" href="\/contact-us\/#offices" aria-label="Call an ICS office">/)
+    expect(html).toMatch(/<aside class="dr3-sticky" aria-label="Quick contact" data-design-r3-sticky=""><a class="dr3-sticky-call" href="\/contact-us\/#offices" aria-label="Call an ICS office">/)
   })
 })
 
