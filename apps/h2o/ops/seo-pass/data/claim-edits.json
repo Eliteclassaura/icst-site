@@ -1,5 +1,5 @@
 {
- "authority": "Control Tower ruling 2026-10-05 (option A + 保証→確保); recorded slot-fix text edits applied by apply-seo-pass (phase 6), before/after in slot-fixes.json; R2.1 (CT 2026-10-05): F1 product data corrections, OGCS template claims, C3/C4/C5 claims, unlink text edits; R2.2 (CT 2026-10-05): OGCS claims sweep R1 GATE+SHOULD rows with owner answers Q1–Q12 (row ids in `row`); CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows (row ids R2L10-*; About rows are code, content/design/about-page.json); R4 (CT 2026-10-07): OGCS R4 copy review, parts hub rows R4C-01…06 (row 7 KEEP) and the Dry Soda line R4C-07; R4 phase 2 (CT 2026-10-07): OGCS phase 2 copy review Air Coolers rows R4C-08…10 (page text) and R4C-11 (the restored-section heading, data/restored-sections.json)",
+ "authority": "Control Tower ruling 2026-10-05 (option A + 保証→確保); recorded slot-fix text edits applied by apply-seo-pass (phase 6), before/after in slot-fixes.json; R2.1 (CT 2026-10-05): F1 product data corrections, OGCS template claims, C3/C4/C5 claims, unlink text edits; R2.2 (CT 2026-10-05): OGCS claims sweep R1 GATE+SHOULD rows with owner answers Q1–Q12 (row ids in `row`); CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows (row ids R2L10-*; About rows are code, content/design/about-page.json); R4 (CT 2026-10-07): OGCS R4 copy review, parts hub rows R4C-01…06 (row 7 KEEP) and the Dry Soda line R4C-07; R4 phase 2 (CT 2026-10-07): OGCS phase 2 copy review Air Coolers rows R4C-08…10 (page text) and R4C-11 (the restored-section heading, data/restored-sections.json); SEO-CONTENT-1 (CT 2026-10-07): OGCS SEO Deep R1 rulings + addendum (resealed fe4feb16): product HVAC applications bullets (rows SC1-P2-nn; SC1-P2-X extends the same rule to phrasings the table does not list), the ALU KEEP phrase (the approach table cell is in data/restored-sections.json), project fact-card typo (and its All Projects card copy) and the owner-directed BacMan wording, and the algae closing CTA (SC1-B-ALGAE); SEO-CONTENT-1 round 2 (CT 2026-10-08): OGCS staging QA tranche A (rows SC1-A-nnn; HVAC, guarantee wording, seminar), tranche B guide-about-cooling-tower HVAC row (SC1-B-050), OEM/stock location rows (SC1-L-nn), and the BacMan body paragraph (SC1-P7-BACMAN-BODY)",
  "edits": [
   {
    "path": "/inspect-cooling-tower-part-2/",
@@ -3388,6 +3388,2263 @@
    "allowEmpty": true,
    "row": "R5B-A27b",
    "reason": "OGCS R5b addendum (e) A27: second leaked brochure paragraph removed."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lra350-275/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lra350-275/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lra485-338/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lra485-338/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lra485-338/",
+   "op": "replace",
+   "find": "HVAC systems, ",
+   "replace": "",
+   "slot": "body.3.1.1.5.3.37",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION: the same mixed-line rule as row 14 (\"HVAC drive systems\" removed from an Application Compatibility line), applied to this line's own phrasing (\"HVAC systems\" removed; the other equipment named stays)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lra650-425/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lra650-425/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lra850-625/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lra850-625/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf350-275/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf350-275/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf375-275/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf375-275/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf450-275/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf450-275/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf485-338/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr450-275/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr485-338/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr485-338/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr485-425/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr485-425/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr650-425/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr650-425/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr650-625/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr650-625/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx450-275/",
+   "op": "remove",
+   "find": "HVAC cooling tower installations",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-10",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling tower installations\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx485-425/",
+   "op": "remove",
+   "find": "HVAC cooling tower systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-05",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling tower systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx650-425/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx650-425/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx650-825/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx650-825/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-1025/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-1025/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-1275/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-1275/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-825/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-825/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.3.3.7",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-825/",
+   "op": "replace",
+   "find": "HVAC drive systems, ",
+   "replace": "",
+   "slot": "body.3.1.1.5.3.35",
+   "row": "SC1-P2-14",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): mixed line rewritten to \"Application Compatibility: Industrial cooling towers, pumps, compressors, and rotating equipment\" (OGCS section 2, mixed line 2 of 3)."
+  },
+  {
+   "path": "/product/addax-drive-shaft-composite-coupling/",
+   "op": "replace",
+   "find": "HVAC and ",
+   "replace": "",
+   "slot": "body.1.1.1.3.1.3.1.1.1.1.1.1.1.7",
+   "row": "SC1-P2-13",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): mixed applications line rewritten to \"Heavy-duty process cooling systems\" (OGCS section 2 HVAC products, mixed line 1 of 3)."
+  },
+  {
+   "path": "/product/amarillo-a-series-single-reduction-gearbox/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf52-275l/",
+   "op": "remove",
+   "find": "HVAC cooling units",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-04",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling units\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf52-275m/",
+   "op": "remove",
+   "find": "HVAC cooling units",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-04",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling units\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf60-275l/",
+   "op": "remove",
+   "find": "HVAC applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-02",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf60-275m/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.5",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf60-275x/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.5",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf60-425l/",
+   "op": "remove",
+   "find": "Large HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-12",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Large HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf67-275l/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling towers",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-07",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling towers\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf67-275m/",
+   "op": "remove",
+   "find": "HVAC cooling installations",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-08",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling installations\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf67-275x/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf67-425l/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf67-425x/",
+   "op": "remove",
+   "find": "HVAC cooling towers",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"HVAC cooling towers\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf67-600l/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf67-600x/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf73-425l/",
+   "op": "remove",
+   "find": "HVAC cooling units",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-04",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling units\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf73-425x/",
+   "op": "remove",
+   "find": "HVAC cooling units",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-04",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling units\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf73-600l/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.5.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf73-600x/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf73-800l/",
+   "op": "remove",
+   "find": "HVAC cooling operations",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-09",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling operations\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf73-800x/",
+   "op": "remove",
+   "find": "Heavy-duty HVAC cooling tower applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.11",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"Heavy-duty HVAC cooling tower applications\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf73-950x/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf83-1150x/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.5.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf83-425x/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf83-600l/",
+   "op": "remove",
+   "find": "Heavy-duty HVAC cooling towers",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.7",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"Heavy-duty HVAC cooling towers\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf83-800l/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling towers",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.5",
+   "row": "SC1-P2-07",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling towers\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf83-800x/",
+   "op": "remove",
+   "find": "Heavy-duty HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.11",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"Heavy-duty HVAC cooling systems\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf83-950x/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "op": "replace",
+   "find": "both HVAC and large",
+   "replace": "large",
+   "slot": "body.1.1.1.3.1.1",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION: a mixed description sentence: \"for both HVAC and large field-erected cooling towers\" becomes \"for large field-erected cooling towers\" (nothing else added)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling towers",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-07",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling towers\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1008/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1311/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1311w/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1712/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1713w/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1814/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-2016/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-155/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-175/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.15",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.13",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/baldor-motor/",
+   "op": "remove",
+   "find": "HVAC Systems: Powering fans, blowers, and air handlers in commercial buildings.",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.1",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"HVAC Systems: Powering fans, blowers, and air handlers in commercial buildings.\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/brentwood-accupac-htp25-modular-splash-fill/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/brentwood-dekspray-nozzles/",
+   "op": "remove",
+   "find": "HVAC systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.5",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"HVAC systems\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/brentwood-kelly-bar-splash-fill/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/brentwood-turbosplash-modular-splash-fill/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/c-e-shepherd-ces-190-film-fill/",
+   "op": "remove",
+   "find": "HVAC cooling tower systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.7",
+   "row": "SC1-P2-05",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling tower systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/c-e-shepherd-quick-change-orifice-qco-nozzles/",
+   "op": "remove",
+   "find": "HVAC plants",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.7",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"HVAC plants\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/c-e-shepherd-square-pattern-nozzles/",
+   "op": "remove",
+   "find": "HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.5.5",
+   "row": "SC1-P2-06",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/c-e-shepherd-target-nozzles/",
+   "op": "remove",
+   "find": "HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.7",
+   "row": "SC1-P2-06",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/counterflow-nozzles/",
+   "op": "remove",
+   "find": "Large HVAC systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.5.7",
+   "row": "SC1-P2-11",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Large HVAC systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/dyna-fab-10-height-fan-stack/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/dyna-fab-14-height-fan-stack/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/dyna-fab-18′-height-fan-stack/",
+   "op": "remove",
+   "find": "Large commercial HVAC cooling towers",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"Large commercial HVAC cooling towers\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/dyna-fab-6-height-fan-stack/",
+   "op": "remove",
+   "find": "HVAC cooling tower systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-05",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling tower systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/fiberglass-fanstack/",
+   "op": "remove",
+   "find": "HVAC cooling tower systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-05",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling tower systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/high-efficiency-fill/",
+   "op": "remove",
+   "find": "Commercial HVAC cooling towers",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.1",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"Commercial HVAC cooling towers\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/high-efficiency-fill/",
+   "op": "replace",
+   "find": "HVAC and industrial",
+   "replace": "industrial",
+   "slot": "body.3.1.1.5.1",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION: mixed sentence: \"engineered for HVAC and industrial cooling towers\" becomes \"engineered for industrial cooling towers\"."
+  },
+  {
+   "path": "/product/high-efficiency-fill/",
+   "op": "replace",
+   "find": "HVAC and Industrial",
+   "replace": "Industrial",
+   "slot": "body.3.1.1.5.3.3",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION: mixed line \"Tower Compatibility: HVAC and Industrial Cooling Towers\" becomes \"Tower Compatibility: Industrial Cooling Towers\"."
+  },
+  {
+   "path": "/product/howden-pro-d-series-26-36-7-93m-10-98m-fans/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.5",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/ics-10-height-fan-stack/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/ics-14-height-fan-stack/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/ics-6-height-fan-stack/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/miscellaneous-nozzles/",
+   "op": "remove",
+   "find": "HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.5.3",
+   "row": "SC1-P2-06",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/pro-d-series-30-36-9-14m-10-98m-fans/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.7",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/pro-e-series-4-48-1-22m-14-63m-fans/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.9",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/pro-fpx-series-22-9-0-71m-2-74m-fans/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/rexnord-addax-drive-shaft-composite-coupling-lrr485-625/",
+   "op": "remove",
+   "find": "HVAC cooling tower applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.5",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"HVAC cooling tower applications\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/rexnord-addax-lra375-275/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/rexnord-addax-lra450-275/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/rexnord-addax-lrr350-275/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling tower applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.11",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"Industrial HVAC cooling tower applications\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/sumitomo-paramax-sfc-cooling-tower-drives/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/tower-components-opti-bar-splash-fill/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/tower-components-opti-grid-splash-fill/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-ii-3000-series-fan-assemblies/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.7",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-ii-3000h-series-hub-fan-assemblies/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-ii-3000hc-low-noise-series-hub-fan-assemblies/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-ii-4000h-series-hub-fan-assemblies/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-ii-5000h-series-hub-fan-assemblies/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-ii-6000h-series-hub-fan-assemblies/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-ii-7000-series-fan-assemblies/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-ii-7000h-series-hub-fan-assemblies/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-ii-8000h-series-hub-fan-assemblies/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-iii-3000k-series-hub-fan-assemblies/",
+   "op": "remove",
+   "find": "Industrial HVAC cooling systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.7",
+   "row": "SC1-P2-03",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-iii-4000kw-very-low-noise-series-hub-fan-assemblies/",
+   "op": "remove",
+   "find": "Industrial HVAC systems",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.9",
+   "row": "SC1-P2-X",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the same rule to a phrasing the ruling table does not list (the acceptance is HVAC = 0 on every product page): the whole bullet \"Industrial HVAC systems\" is HVAC wording; the list keeps its other bullets. Delete the bullet."
+  },
+  {
+   "path": "/product/tuf-lite-iii-6000k-series-hub-fan-assemblies/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/tuf-lite-iii-6000mk-series-hub-fan-assemblies/",
+   "op": "remove",
+   "find": "HVAC cooling applications",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.3",
+   "row": "SC1-P2-01",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+  },
+  {
+   "path": "/product/various-hardware/",
+   "op": "remove",
+   "find": "HVAC cooling installations",
+   "allowEmpty": true,
+   "slot": "body.1.1.1.3.1.3.19",
+   "row": "SC1-P2-08",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling installations\": delete the bullet)."
+  },
+  {
+   "path": "/product/amarillo-drive-shaft-cf52-275l/",
+   "op": "replace",
+   "find": "Small manufacturing plants",
+   "replace": "Manufacturing plants",
+   "slot": "body.1.1.1.3.1.3.7",
+   "row": "SC1-P2-15",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): mixed applications line 3 of 3 (OGCS section 2 HVAC products): \"Small manufacturing plants\" becomes \"Manufacturing plants\"."
+  },
+  {
+   "path": "/all-projects/pertonas-rapid/",
+   "op": "replace",
+   "find": "PERTONAS RAPID Ethane Cracker",
+   "replace": "PETRONAS RAPID Ethane Cracker",
+   "slot": "body.1.1.1.3.1.3.1.3.3",
+   "row": "SC1-P4-PETRONAS-1",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): section 4 project H1s: the typo \"PERTONAS\" in the fact card reads PETRONAS (the page body and the SEO title already say PETRONAS)."
+  },
+  {
+   "path": "/all-projects/pertonas-rapid/",
+   "op": "replace",
+   "find": "PERTONAS RAPID",
+   "replace": "PETRONAS RAPID",
+   "slot": "body.1.1.1.3.3.1.1.1.3.3",
+   "row": "SC1-P4-PETRONAS-2",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): section 4 project H1s: the typo \"PERTONAS\" in the Project fact card reads PETRONAS."
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "element": "heading",
+   "find": "PERTONAS RAPID",
+   "replace": "PETRONAS RAPID",
+   "slot": "body.9.3.1.1.3.1.1.3.1",
+   "row": "SC1-P4-PETRONAS-3",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the section 4 typo ruling (\"PERTONAS\" reads PETRONAS) to its copy on the All Projects portfolio card (the card title)."
+  },
+  {
+   "path": "/all-projects/",
+   "op": "replace",
+   "find": "PERTONAS RAPID Ethane Cracker",
+   "replace": "PETRONAS RAPID Ethane Cracker",
+   "slot": "body.9.3.1.1.3.1.1.3.3",
+   "row": "SC1-P4-PETRONAS-4",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): EXTENSION of the section 4 typo ruling to its copy on the All Projects portfolio card (\"Project: PETRONAS RAPID Ethane Cracker\")."
+  },
+  {
+   "path": "/all-projects/bacman-1-2/",
+   "op": "replace",
+   "find": "BacMan 3",
+   "replace": "BacMan 1 & 2",
+   "slot": "body.1.1.1.3.3.1.1.1.3.3",
+   "row": "SC1-P7-BACMAN",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): OWNER-DIRECTED (the owner said to use the live site, whose title and URL name \"BacMan 1 & 2\"): the Project fact card \"BacMan 3\" becomes \"BacMan 1 & 2\". BacMan 3 has its own page (cawayan-bacman-3)."
+  },
+  {
+   "path": "/aluminum-vs-frp-fan-blades/",
+   "op": "replace",
+   "find": "In small HVAC units with low tip speeds",
+   "replace": "On smaller fans with low tip speeds",
+   "slot": "body.3.1.1.7.103.1",
+   "row": "SC1-P2-ALU",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): KEEP the ranking article (63 clicks); rewrite only the HVAC phrase: \"Low-Speed Applications: On smaller fans with low tip speeds, the fatigue stress is minimal.\""
+  },
+  {
+   "path": "/cooling-tower-algae-prevention/",
+   "op": "set",
+   "find": "Ready to build a smarter, safer, and more cost-effective cooling system? Visit H2ocooling.com to discover our automated treatment solutions and take the first step towards a cleaner, more efficient operation.",
+   "markdown": "Ready to keep your cooling tower clean and efficient? Contact ICS to request a quote for cooling tower inspection, cleaning, or repair.",
+   "slot": "body.3.1.1.7.171",
+   "row": "SC1-B-ALGAE",
+   "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): addendum B (algae RELEASE): the one sentence that failed the content check (\"Visit H2ocooling.com to discover our automated treatment solutions\", an invented offering and the wrong brand name) is replaced by a real ICS quote CTA."
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Strategies for Guaranteed OEM Authenticity",
+   "replace": "Strategies for Verifying OEM Authenticity",
+   "slot": "body.3.1.1.7.95",
+   "row": "SC1-A-005",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-005: A guarantee claim. \"Verifying\" keeps the meaning, because the section is about checking authenticity."
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "op": "replace",
+   "find": "only reliable solution",
+   "replace": "most reliable approach",
+   "slot": "body.3.1.1.7.5",
+   "row": "SC1-A-006",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-006: Removes a guarantee and a universality claim (\"all models\", \"universal\"). Same meaning."
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "op": "replace",
+   "find": "Cooling Tower Certified Parts",
+   "replace": "certified parts",
+   "slot": "body.3.1.1.7.5",
+   "row": "SC1-A-006",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-006: Removes a guarantee and a universality claim (\"all models\", \"universal\"). Same meaning."
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "op": "replace",
+   "find": "for all models. This strategy guarantees a universal standard of quality, ensuring that every component, from fan blades to fill media, functions precisely ",
+   "replace": "matched to your tower model. This sets a consistent standard of quality, helping ensure that every component, from fan blades to fill media, functions ",
+   "slot": "body.3.1.1.7.5",
+   "row": "SC1-A-006",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-006: Removes a guarantee and a universality claim (\"all models\", \"universal\"). Same meaning."
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "op": "replace",
+   "find": "guarantee the correct material composition",
+   "replace": "are made to the material specification",
+   "slot": "body.3.1.1.7.37",
+   "row": "SC1-A-007",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-007: Guarantee → factual description."
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "op": "replace",
+   "find": "guarantees consistent quality across your entire fleet of cooling towers, regardless of the original manufacturer.",
+   "replace": "supports consistent quality across your fleet of cooling towers.",
+   "slot": "body.3.1.1.7.67",
+   "row": "SC1-A-008",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-008: Removes the guarantee and the \"regardless of manufacturer\" universality."
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "op": "replace",
+   "find": "organisation today: Choose Cooling Tower Certified Parts to guarantee peak efficiency, robust safety, and lasting value for every tower model. Contact our experts now to secure your peace of mind and optimal system performance at ",
+   "replace": "organisation: choose certified cooling tower parts for efficiency, safety, and lasting value. Contact ICS to request a quote.",
+   "slot": "body.3.1.1.7.123",
+   "row": "SC1-A-009",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-009: An ICS-voiced guarantee plus universality (\"every tower model\"). The brand name was legacy \"H2O Cooling\", and the CTA is now quote-only."
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "op": "replace",
+   "find": "H2O Cooling",
+   "replace": "",
+   "slot": "body.3.1.1.7.123",
+   "row": "SC1-A-009",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-009: An ICS-voiced guarantee plus universality (\"every tower model\"). The brand name was legacy \"H2O Cooling\", and the CTA is now quote-only."
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "op": "replace",
+   "find": "!",
+   "replace": "",
+   "slot": "body.3.1.1.7.123",
+   "row": "SC1-A-009",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-009: An ICS-voiced guarantee plus universality (\"every tower model\"). The brand name was legacy \"H2O Cooling\", and the CTA is now quote-only."
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "op": "replace",
+   "find": "guarantee",
+   "replace": "support",
+   "slot": "body.3.1.1.7.141",
+   "row": "SC1-A-010",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-010: Guarantee → support."
+  },
+  {
+   "path": "/cooling-tower-maintenance-contract/",
+   "op": "replace",
+   "find": "Guaranteed",
+   "replace": "Defined",
+   "slot": "body.3.1.1.7.37.3",
+   "row": "SC1-A-012",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-012: Removes a guarantee and an \"immediate response\" speed promise. The item becomes a contract feature buyers should look for."
+  },
+  {
+   "path": "/cooling-tower-maintenance-contract/",
+   "op": "replace",
+   "find": "You get an immediate response from the provider ",
+   "replace": "The contract sets out how the provider responds ",
+   "slot": "body.3.1.1.7.37.3",
+   "row": "SC1-A-012",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-012: Removes a guarantee and an \"immediate response\" speed promise. The item becomes a contract feature buyers should look for."
+  },
+  {
+   "path": "/cooling-tower-maintenance-contract/",
+   "op": "replace",
+   "find": "provider must guarantee 24/7",
+   "replace": "contract should state the provider's",
+   "slot": "body.3.1.1.7.57.1",
+   "row": "SC1-A-013",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-013: Guarantee 24/7 can read as an ICS offer, and the 24/7 rule applies. It is reframed as a buyer checklist item."
+  },
+  {
+   "path": "/cooling-tower-maintenance-contract/",
+   "op": "replace",
+   "find": "provider must guarantee the availability of critical parts within local warehouses.",
+   "replace": "contract should define how critical parts will be made available.",
+   "slot": "body.3.1.1.7.79.1",
+   "row": "SC1-A-014",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-014: Avoids implying a stock or warehouse claim."
+  },
+  {
+   "path": "/cooling-tower-maintenance-contract/",
+   "op": "replace",
+   "find": "guarantee",
+   "replace": "support",
+   "slot": "body.3.1.1.7.105",
+   "row": "SC1-A-015",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-015: Guarantee → support."
+  },
+  {
+   "path": "/cooling-tower-performance-testing/",
+   "op": "replace",
+   "find": "provides certainty that your investment will deliver its guaranteed performance for years to come.",
+   "replace": "helps confirm that your investment delivers its design performance.",
+   "slot": "body.3.1.1.7.77",
+   "row": "SC1-A-017",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-017: The overclaim is \"certainty … for years to come\" combined with \"guaranteed\". \"Design performance\" is the accurate test outcome. Mentions of the contractual \"thermal guarantee\" and \"design guarantee\" elsewhere on the page are KEEP (standard terms)."
+  },
+  {
+   "path": "/cooling-tower-performance-testing/",
+   "op": "replace",
+   "find": "Ready to guarantee your new equipment delivers on its promises? Visit us at ",
+   "replace": "Want to confirm your new equipment delivers its design performance? Contact ICS",
+   "slot": "body.3.1.1.7.81",
+   "row": "SC1-A-018",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-018: An ICS-voiced guarantee, and the CTA is now quote-only."
+  },
+  {
+   "path": "/cooling-tower-performance-testing/",
+   "op": "replace",
+   "find": "h2ocooling.com",
+   "replace": "",
+   "slot": "body.3.1.1.7.81",
+   "row": "SC1-A-018",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-018: An ICS-voiced guarantee, and the CTA is now quote-only."
+  },
+  {
+   "path": "/cooling-tower-performance-testing/",
+   "op": "replace",
+   "find": "schedule your cooling tower maintenance, repair, or upgrade.",
+   "replace": "request a quote for cooling tower maintenance, repair, or upgrades.",
+   "slot": "body.3.1.1.7.81",
+   "row": "SC1-A-018",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-018: An ICS-voiced guarantee, and the CTA is now quote-only."
+  },
+  {
+   "path": "/cooling-tower-performance-testing/",
+   "op": "replace",
+   "find": "securing your investment and guaranteeing",
+   "replace": "protecting your investment and supporting",
+   "slot": "body.3.1.1.7.5",
+   "row": "SC1-A-019",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-019: Guarantee → support."
+  },
+  {
+   "path": "/cost-effective-new-cooling-tower/",
+   "op": "replace",
+   "find": "that delivers guaranteed",
+   "replace": "with strong long-term",
+   "slot": "body.103",
+   "row": "SC1-A-021",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-021: Removes the guaranteed ROI, fixes the legacy brand \"H2ocooling\" → ICS, and fixes the casing."
+  },
+  {
+   "path": "/cost-effective-new-cooling-tower/",
+   "op": "replace",
+   "find": "H2ocooling",
+   "replace": "ICS",
+   "slot": "body.103",
+   "row": "SC1-A-021",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-021: Removes the guaranteed ROI, fixes the legacy brand \"H2ocooling\" → ICS, and fixes the casing."
+  },
+  {
+   "path": "/cost-effective-new-cooling-tower/",
+   "op": "replace",
+   "find": "New Cooling Tower",
+   "replace": "new cooling tower",
+   "slot": "body.103",
+   "row": "SC1-A-021",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-021: Removes the guaranteed ROI, fixes the legacy brand \"H2ocooling\" → ICS, and fixes the casing."
+  },
+  {
+   "path": "/cost-effective-new-cooling-tower/",
+   "op": "replace",
+   "find": "Guarantee",
+   "replace": "Standards",
+   "slot": "body.9.3.0.2.1.1",
+   "row": "SC1-A-022",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-022: Guarantee wording in a heading."
+  },
+  {
+   "path": "/cost-effective-new-cooling-tower/",
+   "op": "replace",
+   "element": "heading",
+   "find": "B. Thermal Component Quality Guarantee",
+   "replace": "B. Thermal Component Quality Standards",
+   "slot": "body.89",
+   "row": "SC1-A-022",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-022: Guarantee wording in a heading."
+  },
+  {
+   "path": "/cost-effective-new-cooling-tower/",
+   "op": "replace",
+   "find": "for Immediate",
+   "replace": "and",
+   "slot": "body.9.3.0.2.1.0",
+   "row": "SC1-A-023",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-023: Immediate ROI was removed elsewhere (R4C parts hub). This is a speed-of-return promise."
+  },
+  {
+   "path": "/cost-effective-new-cooling-tower/",
+   "op": "replace",
+   "element": "heading",
+   "find": "A. Fan System Investment for Immediate ROI",
+   "replace": "A. Fan System Investment and ROI",
+   "slot": "body.81",
+   "row": "SC1-A-023",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-023: Immediate ROI was removed elsewhere (R4C parts hub). This is a speed-of-return promise."
+  },
+  {
+   "path": "/cost-effective-new-cooling-tower/",
+   "op": "replace",
+   "find": "guarantees protection for your investment and prevents",
+   "replace": "protects your investment and helps prevent",
+   "slot": "body.95.5",
+   "row": "SC1-A-024",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-024: Guarantee → plain benefit."
+  },
+  {
+   "path": "/cost-effective-new-cooling-tower/",
+   "op": "replace",
+   "find": "guarantee",
+   "replace": "support",
+   "slot": "body.99",
+   "row": "SC1-A-025",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-025: Guarantee → support."
+  },
+  {
+   "path": "/cooling-tower-efficiency-calculation/",
+   "op": "replace",
+   "find": "HVAC systems,",
+   "replace": "refineries,",
+   "slot": "body.3.1.1.7.9",
+   "row": "SC1-A-026",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-026: HVAC (owner rule: no HVAC wording). Removes HVAC and keeps the list of three."
+  },
+  {
+   "path": "/cooling-tower-efficiency-calculation/",
+   "op": "replace",
+   "find": "HVAC s",
+   "replace": "Control-system s",
+   "slot": "body.3.1.1.7.85.5",
+   "row": "SC1-A-027",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-027: HVAC (owner rule: no HVAC wording). Same meaning, plant framing."
+  },
+  {
+   "path": "/cooling-tower-efficiency-calculation/",
+   "op": "replace",
+   "find": " HVAC",
+   "replace": " plant",
+   "slot": "body.3.1.1.7.85.5",
+   "row": "SC1-A-027",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-027: HVAC (owner rule: no HVAC wording). Same meaning, plant framing."
+  },
+  {
+   "path": "/closed-loop-vs-open-loop/",
+   "op": "replace",
+   "find": "General HVAC applications, power generation,",
+   "replace": "Power generation",
+   "slot": "body.3.1.1.7.89",
+   "row": "SC1-A-028",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-028: HVAC (owner rule: no HVAC wording). Removes the HVAC item only."
+  },
+  {
+   "path": "/cooling-tower-maintenance/",
+   "op": "replace",
+   "find": "HVAC or ",
+   "replace": "",
+   "slot": "body.3.1.1.7.3",
+   "row": "SC1-A-029",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-029: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-maintenance/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "downstream process",
+   "slot": "body.3.1.1.7.185",
+   "row": "SC1-A-030",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-030: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/cooling-tower-design-parameters/",
+   "op": "replace",
+   "find": "standard HVAC applications, the range typically falls between 10°F and 15°F (5.5°C to 8.3°C). However, ",
+   "replace": "applications, the range typically falls between 10°F and 15°F (5.5°C to 8.3°C). However, high-heat ",
+   "slot": "body.3.1.1.7.19",
+   "row": "SC1-A-031",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-031: HVAC (owner rule: no HVAC wording). The contrast is kept without naming HVAC, so no comfort-cooling wording is needed."
+  },
+  {
+   "path": "/cooling-tower-design-parameters/",
+   "op": "replace",
+   "find": "applications, while HVAC applications might see slightly higher values.",
+   "replace": "applications.",
+   "slot": "body.3.1.1.7.29",
+   "row": "SC1-A-032",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-032: HVAC (owner rule: no HVAC wording). The HVAC clause is removed. The industrial value is unchanged."
+  },
+  {
+   "path": "/cooling-tower-heat-load/",
+   "op": "remove",
+   "find": "HVAC Commercial Buildings",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.7.0.1.4.0",
+   "row": "SC1-A-033",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-033: HVAC (owner rule: no HVAC wording). A commercial-building row in an industrial application table (industrial-only rule)."
+  },
+  {
+   "path": "/cooling-tower-heat-load/",
+   "op": "remove",
+   "find": "12,000 BTU/ton",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.7.0.1.4.1",
+   "row": "SC1-A-033",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-033: HVAC (owner rule: no HVAC wording). A commercial-building row in an industrial application table (industrial-only rule)."
+  },
+  {
+   "path": "/cooling-tower-heat-load/",
+   "op": "remove",
+   "find": "2.4–3.0 GPM/ton",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.7.0.1.4.2",
+   "row": "SC1-A-033",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-033: HVAC (owner rule: no HVAC wording). A commercial-building row in an industrial application table (industrial-only rule)."
+  },
+  {
+   "path": "/cooling-tower-heat-load/",
+   "op": "remove",
+   "find": "Inadequate cooling affects occupant comfort, increases energy bills, and stresses chillers and condensers.",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.7.0.1.4.3",
+   "row": "SC1-A-033",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-033: HVAC (owner rule: no HVAC wording). A commercial-building row in an industrial application table (industrial-only rule)."
+  },
+  {
+   "path": "/cooling-tower-heat-load/",
+   "op": "remove",
+   "find": "Hospitals & Healthcare Facilities",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.7.0.1.13.0",
+   "row": "SC1-A-034",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-034: HVAC (owner rule: no HVAC wording). Institutional comfort-cooling row. This matches the R5 ruling that removed the Thailand \"Institutional Facilities\" card."
+  },
+  {
+   "path": "/cooling-tower-heat-load/",
+   "op": "remove",
+   "find": "12,000 BTU/ton (HVAC-driven)",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.7.0.1.13.1",
+   "row": "SC1-A-034",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-034: HVAC (owner rule: no HVAC wording). Institutional comfort-cooling row. This matches the R5 ruling that removed the Thailand \"Institutional Facilities\" card."
+  },
+  {
+   "path": "/cooling-tower-heat-load/",
+   "op": "remove",
+   "find": "2.4–3.0 GPM/ton",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.7.0.1.13.2",
+   "row": "SC1-A-034",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-034: HVAC (owner rule: no HVAC wording). Institutional comfort-cooling row. This matches the R5 ruling that removed the Thailand \"Institutional Facilities\" card."
+  },
+  {
+   "path": "/cooling-tower-heat-load/",
+   "op": "remove",
+   "find": "Temperature instability compromises patient comfort, equipment reliability, and critical care environments.",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.7.0.1.13.3",
+   "row": "SC1-A-034",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-034: HVAC (owner rule: no HVAC wording). Institutional comfort-cooling row. This matches the R5 ruling that removed the Thailand \"Institutional Facilities\" card."
+  },
+  {
+   "path": "/cooling-tower-heat-load/",
+   "op": "replace",
+   "find": "HVAC ",
+   "replace": "",
+   "slot": "body.3.1.1.7.83",
+   "row": "SC1-A-035",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-035: HVAC (owner rule: no HVAC wording). The word is deleted. The ASHRAE reference is factual and kept."
+  },
+  {
+   "path": "/signs-of-cooling-tower-failure/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "cooling",
+   "slot": "body.3.1.1.7.119",
+   "row": "SC1-A-036",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-036: HVAC (owner rule: no HVAC wording). Word swap."
+  },
+  {
+   "path": "/cooling-tower-replacement-cost/",
+   "op": "replace",
+   "find": "Commercial",
+   "replace": "Process Systems",
+   "slot": "body.3.1.1.7.11.1",
+   "row": "SC1-A-038",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-038: HVAC (owner rule: no HVAC wording). Removes the small commercial / HVAC targeting. The market range is unchanged (cost articles may show market ranges)."
+  },
+  {
+   "path": "/cooling-tower-replacement-cost/",
+   "op": "replace",
+   "find": "light commercial ",
+   "replace": "",
+   "slot": "body.3.1.1.7.11.1",
+   "row": "SC1-A-038",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-038: HVAC (owner rule: no HVAC wording). Removes the small commercial / HVAC targeting. The market range is unchanged (cost articles may show market ranges)."
+  },
+  {
+   "path": "/cooling-tower-replacement-cost/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "",
+   "slot": "body.3.1.1.7.11.1",
+   "row": "SC1-A-038",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-038: HVAC (owner rule: no HVAC wording). Removes the small commercial / HVAC targeting. The market range is unchanged (cost articles may show market ranges)."
+  },
+  {
+   "path": "/cooling-tower-replacement-cost/",
+   "op": "replace",
+   "find": " requirements and ",
+   "replace": "",
+   "slot": "body.3.1.1.7.11.1",
+   "row": "SC1-A-038",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-038: HVAC (owner rule: no HVAC wording). Removes the small commercial / HVAC targeting. The market range is unchanged (cost articles may show market ranges)."
+  },
+  {
+   "path": "/frp-fan-blades-guide/",
+   "op": "replace",
+   "find": "large-scale HVAC systems, power plant cooling towers, and petrochemical heat exchangers, ",
+   "replace": "power plant cooling towers, petrochemical heat exchangers, and other heavy-duty industrial systems, ",
+   "slot": "body.15.7",
+   "row": "SC1-A-041",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-041: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/frp-fan-blades-guide/",
+   "op": "replace",
+   "find": "& Large HVAC Systems",
+   "replace": "Plants",
+   "slot": "body.71.5",
+   "row": "SC1-A-042",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-042: HVAC (owner rule: no HVAC wording). District cooling is utility-scale. If CT counts district cooling as comfort cooling, delete the item instead."
+  },
+  {
+   "path": "/cooling-tower-clearance/",
+   "op": "replace",
+   "find": "HVAC ",
+   "replace": "",
+   "slot": "body.3.1.1.7.59.3",
+   "row": "SC1-A-043",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-043: HVAC (owner rule: no HVAC wording). Word deleted. The rest of the item is unchanged."
+  },
+  {
+   "path": "/cooling-tower-inspection-checklist/",
+   "op": "replace",
+   "find": "and HVAC",
+   "replace": "plants and process",
+   "slot": "body.3.1.1.7.3",
+   "row": "SC1-A-046",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-046: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/cooling-tower-inspection-checklist/",
+   "op": "replace",
+   "find": "or HVAC systems",
+   "replace": "and equipment",
+   "slot": "body.3.1.1.7.19",
+   "row": "SC1-A-047",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-047: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-deep-cleaning/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "industrial cooling",
+   "slot": "body.3.1.1.7.7",
+   "row": "SC1-A-048",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-048: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/cooling-tower-deep-cleaning/",
+   "op": "replace",
+   "find": "HVAC system running efficiently throughout the cooling season and beyond.",
+   "replace": "cooling system running efficiently year-round.",
+   "slot": "body.3.1.1.7.81",
+   "row": "SC1-A-049",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-049: HVAC (owner rule: no HVAC wording). Removes HVAC. \"Cooling season\" is seasonal comfort-cooling framing."
+  },
+  {
+   "path": "/cooling-tower-scale-buildup/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "process",
+   "slot": "body.3.1.1.7.1",
+   "row": "SC1-A-050",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-050: HVAC (owner rule: no HVAC wording). Word swap."
+  },
+  {
+   "path": "/cooling-tower-low-water-flow/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "comfort-cooling",
+   "slot": "body.3.1.1.7.19.1",
+   "row": "SC1-A-051",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-051: HVAC (owner rule: no HVAC wording). A genuine numeric comparison with the next item (3–5 GPM/ton for industrial process cooling), so the allowed \"comfort-cooling systems\" is used."
+  },
+  {
+   "path": "/frp-cooling-tower-fans/",
+   "op": "replace",
+   "find": "Large HVAC Systems",
+   "replace": "Mission-Critical Facilities",
+   "slot": "body.7.3.0.6.1.3",
+   "row": "SC1-A-052",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-052: HVAC (owner rule: no HVAC wording). The section body is only about data centers."
+  },
+  {
+   "path": "/frp-cooling-tower-fans/",
+   "op": "replace",
+   "element": "heading",
+   "find": "Data Centers and Large HVAC Systems",
+   "replace": "Data Centers and Mission-Critical Facilities",
+   "slot": "body.137",
+   "row": "SC1-A-052",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-052: HVAC (owner rule: no HVAC wording). The section body is only about data centers."
+  },
+  {
+   "path": "/frp-cooling-tower-fans/",
+   "op": "replace",
+   "find": "large HVAC system,",
+   "replace": "data center,",
+   "slot": "body.163",
+   "row": "SC1-A-053",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-053: HVAC (owner rule: no HVAC wording). Matches the page's own application list."
+  },
+  {
+   "path": "/axial-fans-guide/",
+   "op": "replace",
+   "find": "HVAC ",
+   "replace": "",
+   "slot": "body.3.1.1.7.23",
+   "row": "SC1-A-054",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-054: HVAC (owner rule: no HVAC wording). Word deleted. No new claim."
+  },
+  {
+   "path": "/cooling-tower-fan-not-working/",
+   "op": "replace",
+   "find": "your commercial HVAC systems.",
+   "replace": "downstream process equipment.",
+   "slot": "body.3.1.1.7.67",
+   "row": "SC1-A-055",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-055: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/cooling-tower-strainer-cleaning/",
+   "op": "replace",
+   "find": "HVAC or ",
+   "replace": "",
+   "slot": "body.3.1.1.7.7",
+   "row": "SC1-A-056",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-056: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-materials/",
+   "op": "replace",
+   "find": "HVAC and ",
+   "replace": "",
+   "slot": "body.5.3.0.6.1.3",
+   "row": "SC1-A-057",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-057: HVAC (owner rule: no HVAC wording). The body under the heading (urban space and noise) still fits district cooling plants."
+  },
+  {
+   "path": "/cooling-tower-materials/",
+   "op": "replace",
+   "find": "HVAC and ",
+   "replace": "",
+   "slot": "body.53",
+   "row": "SC1-A-057",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-057: HVAC (owner rule: no HVAC wording). The body under the heading (urban space and noise) still fits district cooling plants."
+  },
+  {
+   "path": "/cooling-tower-materials/",
+   "op": "replace",
+   "element": "heading",
+   "find": "HVAC and District Cooling Systems",
+   "replace": "District Cooling Systems",
+   "slot": "body.195",
+   "row": "SC1-A-057",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-057: HVAC (owner rule: no HVAC wording). The body under the heading (urban space and noise) still fits district cooling plants."
+  },
+  {
+   "path": "/cooling-tower-materials/",
+   "op": "replace",
+   "find": "manufacturing, HVAC",
+   "replace": "manufacturing",
+   "slot": "body.149.0.0.2.1",
+   "row": "SC1-A-058",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-058: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-materials/",
+   "op": "replace",
+   "find": "an HVAC system",
+   "replace": "a manufacturing plant",
+   "slot": "body.179",
+   "row": "SC1-A-059",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-059: HVAC (owner rule: no HVAC wording). The comparison is kept with an industrial example."
+  },
+  {
+   "path": "/cooling-tower-range/",
+   "op": "replace",
+   "find": "HVAC / ",
+   "replace": "",
+   "slot": "body.3.1.1.7.39.0.0.1.0",
+   "row": "SC1-A-060",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-060: HVAC (owner rule: no HVAC wording). A genuine comparison row (10–12°F vs process 15–25°F), so the allowed \"comfort cooling\" is used."
+  },
+  {
+   "path": "/cooling-tower-drift/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "nearby",
+   "slot": "body.3.1.1.7.65.1",
+   "row": "SC1-A-061",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-061: HVAC (owner rule: no HVAC wording). Same meaning."
+  },
+  {
+   "path": "/cycles-of-concentration/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "recovered",
+   "slot": "body.3.1.1.7.57",
+   "row": "SC1-A-062",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-062: HVAC (owner rule: no HVAC wording). Same meaning."
+  },
+  {
+   "path": "/industrial-cooling-tower-automation/",
+   "op": "replace",
+   "find": "HVAC systems",
+   "replace": "",
+   "slot": "body.13",
+   "row": "SC1-A-063",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-063: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/industrial-cooling-tower-automation/",
+   "op": "replace",
+   "find": ", industrial processes,",
+   "replace": "industrial processes",
+   "slot": "body.13",
+   "row": "SC1-A-063",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-063: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-structural-loads/",
+   "op": "replace",
+   "find": "chemical processing facilities, and HVAC systems, ",
+   "replace": "and chemical processing facilities, ",
+   "slot": "body.3.1.1.7.1",
+   "row": "SC1-A-065",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-065: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/increasing-cooling-tower-capacity/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "cooling",
+   "slot": "body.3.1.1.7.113",
+   "row": "SC1-A-066",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-066: HVAC (owner rule: no HVAC wording). Word swap."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "heavy industrial facilities to commercial HVAC systems, U.S.-made cooling towers are trusted across every major sector of the economy.",
+   "replace": "power plants to heavy industrial facilities, U.S.-made cooling towers are trusted across every major industrial sector.",
+   "slot": "body.3.1.1.7.1",
+   "row": "SC1-A-067",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-067: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "manufacturing, and commercial HVAC, ",
+   "replace": "and manufacturing, ",
+   "slot": "body.3.1.1.7.9",
+   "row": "SC1-A-068",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-068: HVAC (owner rule: no HVAC wording). Removes the commercial HVAC item."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "remove",
+   "find": "HVAC and commercial building systems",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.65.7",
+   "row": "SC1-A-069",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-069: HVAC (owner rule: no HVAC wording). An ICS-served-sector list. Industrial-only rule."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "HVAC and ",
+   "replace": "",
+   "slot": "body.3.1.1.7.87",
+   "row": "SC1-A-070",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-070: HVAC (owner rule: no HVAC wording). Removes HVAC. See README note on competitor names on this page."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "Commercial HVAC, ",
+   "replace": "",
+   "slot": "body.3.1.1.7.89.3",
+   "row": "SC1-A-071",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-071: HVAC (owner rule: no HVAC wording). Removes the commercial HVAC item."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "HVAC systems",
+   "replace": "Light industrial applications",
+   "slot": "body.3.1.1.7.111.0.1.4.4",
+   "row": "SC1-A-072",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-072: HVAC (owner rule: no HVAC wording). Consistent with the row above."
+  },
+  {
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "op": "replace",
+   "find": "HVAC energy efficiency ",
+   "replace": "minimum efficiency for heat-rejection equipment ",
+   "slot": "body.3.1.1.7.119.9",
+   "row": "SC1-A-073",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-073: HVAC (owner rule: no HVAC wording). Accurate: 90.1 sets cooling-tower efficiency minimums. No HVAC word."
+  },
+  {
+   "path": "/energy-efficient-cooling-tower/",
+   "op": "replace",
+   "find": "HVAC system",
+   "replace": "chiller condenser",
+   "slot": "body.3.1.1.7.21",
+   "row": "SC1-A-074",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-074: HVAC (owner rule: no HVAC wording). A technical equivalent with no HVAC wording."
+  },
+  {
+   "path": "/cooling-tower-construction/",
+   "op": "replace",
+   "find": "HVAC ",
+   "replace": "",
+   "slot": "body.3.1.1.7.33",
+   "row": "SC1-A-075",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-075: HVAC (owner rule: no HVAC wording). Word deleted."
+  },
+  {
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "op": "remove",
+   "find": "Commercial HVAC: Large commercial buildings often choose FRP for its blend of durability and aesthetics.",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.41.3",
+   "row": "SC1-A-076",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-076: HVAC (owner rule: no HVAC wording). Commercial-building targeting."
+  },
+  {
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "op": "replace",
+   "find": "applications, small to medium HVAC & ",
+   "replace": "applications and small to medium ",
+   "slot": "body.3.1.1.7.105.0.1.1.2",
+   "row": "SC1-A-077",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-077: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "op": "replace",
+   "find": "HVAC, light",
+   "replace": "Light",
+   "slot": "body.3.1.1.7.105.0.1.26.2",
+   "row": "SC1-A-078",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-078: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "op": "replace",
+   "find": "processing, petrochemical facilities, and commercial HVAC systems.",
+   "replace": "processing and petrochemical facilities.",
+   "slot": "body.3.1.1.7.153",
+   "row": "SC1-A-079",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-079: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-maintenance-checklist/",
+   "op": "replace",
+   "find": "HVAC systems.",
+   "replace": "plant's cooling system.",
+   "slot": "body.3.1.1.7.1",
+   "row": "SC1-A-081",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-081: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/choosing-cooling-tower-fill-media/",
+   "op": "replace",
+   "find": " (HVAC Cooling)",
+   "replace": "",
+   "slot": "body.3.1.1.7.71.0.0.2.0",
+   "row": "SC1-A-082",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-082: HVAC (owner rule: no HVAC wording). Word deleted. The row is valid."
+  },
+  {
+   "path": "/choosing-cooling-tower-fill-media/",
+   "op": "remove",
+   "find": "Commercial HVAC (Large Buildings)",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.71.0.0.6.0",
+   "row": "SC1-A-083",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-083: HVAC (owner rule: no HVAC wording). A commercial-building row in a table headed \"Industrial Application\"."
+  },
+  {
+   "path": "/choosing-cooling-tower-fill-media/",
+   "op": "remove",
+   "find": "Generally cleaner than industrial, but can accumulate dust/atmospheric debris.",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.71.0.0.6.1",
+   "row": "SC1-A-083",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-083: HVAC (owner rule: no HVAC wording). A commercial-building row in a table headed \"Industrial Application\"."
+  },
+  {
+   "path": "/choosing-cooling-tower-fill-media/",
+   "op": "remove",
+   "find": "Standard Film Fill (e.g., standard PVC film)",
+   "allowEmpty": true,
+   "slot": "body.3.1.1.7.71.0.0.6.2",
+   "row": "SC1-A-083",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-083: HVAC (owner rule: no HVAC wording). A commercial-building row in a table headed \"Industrial Application\"."
+  },
+  {
+   "path": "/cooling-tower-bypass-valve/",
+   "op": "replace",
+   "find": "High-End HVAC",
+   "replace": "Critical Process Cooling",
+   "slot": "body.3.1.1.7.59.0.0.1.2",
+   "row": "SC1-A-084",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-084: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "op": "replace",
+   "find": "large commercial buildings and industries for cooling their environment and ensuring proper functioning under ideal conditions. To ensure your cooling tower and HVAC system",
+   "replace": "industrial plants, removing process heat and keeping equipment within proper operating conditions. To ensure your cooling tower and connected process equipment",
+   "slot": "body.3.1.1.7.123",
+   "row": "SC1-A-085",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-085: HVAC (owner rule: no HVAC wording). Removes commercial-building and HVAC framing. The rest of the paragraph is unchanged."
+  },
+  {
+   "path": "/vfd-cooling-tower-savings/",
+   "op": "replace",
+   "find": "HVAC systems.",
+   "replace": "power plants.",
+   "slot": "body.3.1.1.7.1",
+   "row": "SC1-A-086",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-086: HVAC (owner rule: no HVAC wording). Industrial framing."
+  },
+  {
+   "path": "/vfd-cooling-tower-savings/",
+   "op": "replace",
+   "find": "or HVAC systems",
+   "replace": "and equipment",
+   "slot": "body.3.1.1.7.11",
+   "row": "SC1-A-087",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-087: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-towers-in-the-usa/",
+   "op": "replace",
+   "find": "processes, power plants, and HVAC systems",
+   "replace": "processes and power plants",
+   "slot": "body.143",
+   "row": "SC1-A-088",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-088: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-winter-shutdown/",
+   "op": "replace",
+   "find": "systems used exclusively for seasonal HVAC cooling ",
+   "replace": "towers used only for seasonal cooling loads ",
+   "slot": "body.3.1.1.7.119",
+   "row": "SC1-A-089",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-089: HVAC (owner rule: no HVAC wording). Same meaning."
+  },
+  {
+   "path": "/frp-cooling-towers/",
+   "op": "replace",
+   "find": "HVAC and ",
+   "replace": "",
+   "slot": "body.59.7",
+   "row": "SC1-A-090",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-090: HVAC (owner rule: no HVAC wording). Removes HVAC and commercial complexes. \"Ensuring\" → \"supporting\"."
+  },
+  {
+   "path": "/frp-cooling-towers/",
+   "op": "replace",
+   "find": "large commercial complexes or district cooling loops, the longevity and low maintenance of FRP justify the investment, ensuring consistent climate control",
+   "replace": "district cooling loops, the longevity and low maintenance of FRP justify the investment, supporting consistent cooling",
+   "slot": "body.59.7",
+   "row": "SC1-A-090",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-090: HVAC (owner rule: no HVAC wording). Removes HVAC and commercial complexes. \"Ensuring\" → \"supporting\"."
+  },
+  {
+   "path": "/frp-cooling-towers/",
+   "op": "replace",
+   "find": "HVAC, ",
+   "replace": "",
+   "slot": "body.113",
+   "row": "SC1-A-091",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-091: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-environmental-impact/",
+   "op": "replace",
+   "find": "plants, manufacturing facilities, and HVAC systems,",
+   "replace": "plants and manufacturing facilities,",
+   "slot": "body.3.1.1.7.1",
+   "row": "SC1-A-092",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-092: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-vs-chiller/",
+   "op": "replace",
+   "find": "utilize these hybrid large-scale ",
+   "replace": "use hybrid tower-and-chiller",
+   "slot": "body.59",
+   "row": "SC1-A-093",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-093: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-vs-chiller/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "",
+   "slot": "body.59",
+   "row": "SC1-A-093",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-093: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/cooling-tower-vs-chiller/",
+   "op": "replace",
+   "find": "large-scale HVAC systems and industrial cooling solutions.",
+   "replace": "industrial cooling.",
+   "slot": "body.95",
+   "row": "SC1-A-094",
+   "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-094: HVAC (owner rule: no HVAC wording). Removes HVAC."
+  },
+  {
+   "path": "/guide-about-cooling-tower/",
+   "op": "replace",
+   "find": "HVAC",
+   "replace": "cooling",
+   "slot": "body.155",
+   "row": "SC1-B-050",
+   "reason": "OGCS staging QA tranche B rulings (seal 977142f3; CT accepted: guide HVAC row only) row QA-B-050: HVAC (owner rule: no HVAC wording). PRIORITY within tranche B: this page is the 301 target for both held HVAC articles."
+  },
+  {
+   "path": "/cooling-tower-construction-repair-in-singapore/",
+   "op": "replace",
+   "find": "even OEM part distribution.",
+   "replace": "replacement parts supply.",
+   "slot": "body.1.11.1.1.1.1.1.1.1.3.1.1",
+   "row": "SC1-L-01",
+   "reason": "OGCS location/OEM/stock rulings (seal 77d54b0d; CT accepted 2026-10-08) row LOC-01: OEM part distribution implies an OEM/authorized-distributor status that was ruled out (same class as R4C parts hub and R5 Malaysia \"OEM Capabilities\")."
+  },
+  {
+   "path": "/cooling-tower-construction-repair-in-singapore/",
+   "op": "replace",
+   "find": "do not have proper towers or replacement parts in stock",
+   "replace": "cannot supply the towers or replacement parts you need",
+   "slot": "body.1.7.1.1.1.1.1.1.1.3.1.1.3.3",
+   "row": "SC1-L-02",
+   "reason": "OGCS location/OEM/stock rulings (seal 77d54b0d; CT accepted 2026-10-08) row LOC-02: Buyer guidance, not a direct ICS claim, but on an ICS page it implies ICS holds stock. Reworded to supply capability (the next sentence already says \"strong supply chain\"). Low risk; KEEP is acceptable if CT prefers."
+  },
+  {
+   "path": "/cooling-tower-malaysia/",
+   "op": "replace",
+   "element": "heading",
+   "find": "OEM Spare Parts & Components",
+   "replace": "Spare Parts & Components",
+   "slot": "body.3.1.5.1.1.3.1",
+   "row": "SC1-L-03",
+   "reason": "OGCS location/OEM/stock rulings (seal 77d54b0d; CT accepted 2026-10-08) row LOC-03: OEM status ruled out; heading stays accurate without it."
+  },
+  {
+   "path": "/cooling-tower-malaysia/",
+   "op": "replace",
+   "find": "OEM and compatible components — fill media, fans, motors, drive shafts, and structural parts — supplied on demand.",
+   "replace": "Replacement components — fill media, fans, motors, drive shafts, and structural parts — supplied for your project.",
+   "slot": "body.9.1.1.1.3.1.9.1.1.3.3",
+   "row": "SC1-L-04",
+   "reason": "OGCS location/OEM/stock rulings (seal 77d54b0d; CT accepted 2026-10-08) row LOC-04: Removes \"OEM\" and \"on demand\" (implies held stock / immediate supply). Wording matches the accepted R5 Thailand stock-claim fix (\"supplied for your project\")."
+  },
+  {
+   "path": "/cooling-tower-malaysia/",
+   "op": "replace",
+   "find": "First-class",
+   "replace": "Dedicated",
+   "slot": "body.19.1.1.1.5.1",
+   "row": "SC1-L-09",
+   "reason": "OGCS location/OEM/stock rulings (seal 77d54b0d; CT accepted 2026-10-08) row LOC-09: Puffery; keeps the three-beat rhythm."
+  },
+  {
+   "path": "/all-projects/bacman-1-2/",
+   "op": "replace",
+   "find": "at BacMan 3. The project",
+   "replace": "at BacMan 1 & 2. The project",
+   "slot": "body.1.1.1.1.3.3.1",
+   "row": "SC1-P7-BACMAN-BODY",
+   "reason": "OWNER-DIRECTED (use the live site: BacMan 1 & 2), CT approved 2026-10-08: the first body paragraph named \"BacMan 3\" while describing two 6-cell towers; aligned with the H1, SEO title and Project fact card (SC1-P7-BACMAN)."
   }
  ]
 }

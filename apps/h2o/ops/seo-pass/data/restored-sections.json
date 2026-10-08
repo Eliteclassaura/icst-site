@@ -4754,7 +4754,7 @@
           "text": "Standard industrial"
          },
          {
-          "text": "Typical for most HVAC and process cooling applications"
+          "text": "Typical for most process cooling applications"
          }
         ]
        },
@@ -8081,7 +8081,7 @@
           "children": [
            {
             "type": "text",
-            "text": "Have you ever wondered what keeps cooling towers running efficiently? Often called the lungs of industrial and HVAC systems, cooling towers release waste heat into the atmosphere.",
+            "text": "Have you ever wondered what keeps cooling towers running efficiently? Often called the lungs of industrial process systems, cooling towers release waste heat into the atmosphere.",
             "format": 0,
             "detail": 0,
             "mode": "normal",
@@ -19883,7 +19883,7 @@
           "text": "$80,000 – $450,000"
          },
          {
-          "text": "Commercial HVAC"
+          "text": "General industrial cooling"
          },
          {
           "text": "25–35 Years"
@@ -19963,7 +19963,7 @@
           "text": "$75,000 – $900,000"
          },
          {
-          "text": "HVAC & Industrial Cooling"
+          "text": "Industrial & process cooling"
          },
          {
           "text": "25–35 Years"

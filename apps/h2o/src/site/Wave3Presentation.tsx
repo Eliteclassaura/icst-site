@@ -19,7 +19,19 @@ import {RestoredSlot,restoredSlotNodes} from './RestoredSlot'
 
 export const nameFor=(doc:SalmonDocument)=>doc.seo.h1[0]||doc.title
 const subordinateSourceHeadings=(node:SalmonNode):SalmonNode=>typeof node==='string'?node:{...node,tag:node.tag==='h1'?'h2':node.tag,children:node.children.map(subordinateSourceHeadings)}
-export const renderNodes=(nodes:SalmonNode[],doc:SalmonDocument,section:string):ReactNode=>nodes.map((node,i)=>renderSalmonNode(subordinateSourceHeadings(node),`${section}.${i}`,doc))
+// SEO-CONTENT-1: a deleted bullet (an applications line ruled out, OGCS section 2) leaves an empty list item in the stored page
+// element; it renders nothing, not a stray bullet marker. Only items with no text, link or image are dropped (replaced by an empty
+// text node, so every sibling keeps its source position and key), and a list left with no items goes with them.
+const hasContent=(node:SalmonNode):boolean=>typeof node==='string'?node.trim().length>0:['a','img','svg','picture','video','iframe','input','button'].includes(node.tag)||node.children.some(hasContent)
+const withoutEmptyItems=(node:SalmonNode):SalmonNode=>{
+  if(typeof node==='string')return node
+  if(node.tag==='li'&&!hasContent(node))return ''
+  const children=node.children.map(withoutEmptyItems)
+  const items=node.children.filter(child=>typeof child!=='string'&&child.tag==='li')
+  if((node.tag==='ul'||node.tag==='ol')&&items.length>0&&!node.children.some((child,i)=>typeof child!=='string'&&child.tag==='li'&&typeof children[i]!=='string'))return ''
+  return children.some((child,i)=>child!==node.children[i])?{...node,children}:node
+}
+export const renderNodes=(nodes:SalmonNode[],doc:SalmonDocument,section:string):ReactNode=>nodes.map((node,i)=>renderSalmonNode(subordinateSourceHeadings(withoutEmptyItems(node)),`${section}.${i}`,doc))
 
 export function ProductMedia({doc,compact=false}:{doc:SalmonDocument;compact?:boolean}){
   const primary=productPrimaryMedia(doc)

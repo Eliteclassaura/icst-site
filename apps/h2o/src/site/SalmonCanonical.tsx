@@ -75,6 +75,8 @@ function sourceImage(source:string,alt:string|undefined,key:string,doc:SalmonDoc
   const size=media.width&&media.height?{width:media.width,height:media.height}:heldImageSize(local)
   return createElement('img',{key,src:deliverySrc(local),alt,'data-source-src':provenanceRef(source),'data-source-kind':kind,'data-source-sha256':media.sha256,width:size?.width,height:size?.height,...(lcpImageKeys.get(doc)===key?{loading:'eager',fetchPriority:'high'}:{loading:'lazy'}),style:{maxWidth:size?.width??'100%',height:'auto'}})
 }
+const VISIBLE_TAGS=new Set(['a','img','picture','video','input','button','select','textarea']) // svg and iframe render nothing here, so they are not content
+const hasVisibleContent=(node:SalmonNode):boolean=>typeof node==='string'?node.trim().length>0:VISIBLE_TAGS.has(node.tag)||node.children.some(hasVisibleContent)
 export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,suppressSourceByline=false):ReactNode{
   // Runtime RFQ (Payload content mode only): quote-intent actions use the approved adapter; D2 duplicate suppressed.
   // Accepted exclusion stub (../content/public-exclusions): renders nothing, keeps sibling keys.
@@ -85,6 +87,8 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   if(typeof node==='string')return doc.type==='product'&&/[$€£]\s*\d/.test(node)?<span data-salmon-exception="NO_PUBLIC_PRICE" data-source-node={key} key={key}/>:/^(?:Buy|Order|Purchase) Now$/i.test(node.trim())?<span data-salmon-exception="RFQ_ONLY" data-source-node={key} key={key}>Request a Quote</span>:publicSourceString(doc,node)
   if(commerceException(node))return <span data-salmon-exception="NO_PUBLIC_COMMERCE" data-source-node={key} key={key}/>
   if(['script','style','iframe','svg','template'].includes(node.tag))return null
+  // SEO-CONTENT-1: a list item or table row emptied by a ruled removal renders nothing (no stray bullet marker, no blank row).
+  if((node.tag==='li'||node.tag==='tr')&&!hasVisibleContent(node))return null
   if(doc.type==='posts'&&/(?:^|\s)elementor-widget-post-info(?:\s|$)/.test(node.attrs.class??'')){
     if(suppressSourceByline)return null
     const byline=articleByline(doc)

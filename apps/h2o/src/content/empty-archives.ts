@@ -66,6 +66,7 @@ export const EMPTY_ARCHIVE_PATHS: readonly string[] = [
   '/product-category/nozzles/counterflownozzles/crossflow-counterflownozzles/',
   '/product-category/splash-filluncategorized/',
   '/product-category/tower-hardware/splash-fill-tower-hardware/',
+  '/product-category/uncategorized/', // SEO-CONTENT-1 round 2: its only product (the vibration-switch placeholder) is held
   '/product-tag/177230/',
   '/product-tag/2300/',
   '/product-tag/3500/',

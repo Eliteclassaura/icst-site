@@ -31,7 +31,8 @@ const imported=(routeId:string)=>{const r=routes.find(x=>x.routeId===routeId)!;r
 describe('text-override registry (guardrails 1–4)',()=>{
   const entries=textOverrides()
   it('1. every entry matches its imported document exactly `count` times in its scope, applies, and is idempotent',()=>{
-    expect(entries.map(o=>o.id)).toEqual(['TO-001','TO-002','TO-003','TO-004','TO-005','TO-006','TO-007','TO-008','TO-009','TO-010','TO-011','TO-012','TO-013','TO-014'])
+    // TO-009…014: R5b (location, Thailand, Singapore and /cooling-tower/ registry entries); TO-024…028: SEO-CONTENT-1 round 2 (seminar contact block removal and typo, class-10000 icon-list line, JSON-LD copies of two corrected metas); TO-015…023: SEO-CONTENT-1 (JSON-LD copies of seven corrected product titles and of the owner-directed BacMan title and description)
+    expect(entries.map(o=>o.id)).toEqual(['TO-001','TO-002','TO-003','TO-004','TO-005','TO-006','TO-007','TO-008',...Array.from({length:20},(_,i)=>`TO-${String(9+i).padStart(3,'0')}`)])
     for(const routeId of new Set(entries.map(o=>o.routeId))){
       const doc=imported(routeId)
       const once=applyTextOverrides(doc)
@@ -74,7 +75,7 @@ describe('text-override registry (guardrails 1–4)',()=>{
   it('3. reviewable: every entry carries row, route, before/after and reason, and the editor README lists it; 4. the backlog item is recorded',()=>{
     const readme=readFileSync(path.join(APP,'content/design/TEXT_OVERRIDES.md'),'utf8')
     for(const o of entries){
-      for(const k of ['id','row','routeId','path','scope','find','replace','reason'] as const)expect(String(o[k]??'').length,`${o.id} ${k}`).toBeGreaterThan(0)
+      for(const k of ['id','row','routeId','path','scope','find','replace','reason'] as const){if(k==='replace'&&(o.scope==='body-range'||o.row==='SC1-A-HVAC-CLASS10000'))continue;expect(String(o[k]??'').length,`${o.id} ${k}`).toBeGreaterThan(0)}
       expect(readme).toContain(`| ${o.id} | ${o.path} |`)
     }
     expect(readme).toMatch(/\*\*Backlog \(post-launch\):\*\* migrate each entry into real, editable data/)

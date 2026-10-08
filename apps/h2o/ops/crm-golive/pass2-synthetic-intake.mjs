@@ -15,7 +15,7 @@
  *   H2O_PASS2_ADMIN_PASSWORD   its password                                               (required for checks)
  *   H2O_PASS2_FORM_ID          default F22cAgx3 (the app's H2O_TYPEFORM_FORM_ID; the app's field map must be
  *                              F22CAGX3_RECOMMENDED_FIELD_MAP — the refs below)
- *   H2O_PASS2_PRODUCT_SLUG     a seeded catalog product slug, default abb-motor-example
+ *   H2O_PASS2_PRODUCT_SLUG     a seeded catalog product slug, default baldor-motor
  *   H2O_PASS2_CATEGORY_PAGE    a parts family page for the category-card placement, default /fans/
  *   H2O_PASS2_RUN_ID           optional; default derived from the clock. Marks every record of this run.
  *
@@ -33,7 +33,7 @@ const env = process.env
 const BASE = (env.H2O_PASS2_BASE_URL ?? '').replace(/\/+$/, '')
 const SECRET = env.H2O_PASS2_SIGNING_SECRET ?? ''
 const FORM = env.H2O_PASS2_FORM_ID ?? 'F22cAgx3'
-const SLUG = env.H2O_PASS2_PRODUCT_SLUG ?? 'abb-motor-example'
+const SLUG = env.H2O_PASS2_PRODUCT_SLUG ?? 'baldor-motor'
 const CATEGORY_PAGE = env.H2O_PASS2_CATEGORY_PAGE ?? '/fans/'
 const RUN = (env.H2O_PASS2_RUN_ID ?? new Date().toISOString().replace(/[^0-9]/g, '').slice(0, 12)).replace(/[^A-Za-z0-9]/g, '')
 const MARK = `SYNTHETIC PASS2 ${RUN}`

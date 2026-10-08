@@ -35,12 +35,12 @@ afterEach(()=>{process.env={...env}})
 describe('release authority and route ledger',()=>{
   const authority=releaseAuthority(APP) as {routes:Row[]}
   const auth=new Map(authority.routes.map(row=>[row.path,row]))
-  it('publishes exactly the held articles that passed the content check; the four that failed stay held',()=>{
+  it('publishes exactly the held articles that passed the content check, and the algae article (released, SEO-CONTENT-1); the three that failed stay held',()=>{
     // The three R1 articles, and the daily log (CT sitemap parity ruling 2026-10-05: a live 200 page, content check PASS).
     // Locale Part B: the one preserved Thai page that is a held Salmon record (content check PASS).
-    expect(overrides.publish).toEqual(['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/','/%e0%b9%82%e0%b8%8b%e0%b8%a5%e0%b8%b9%e0%b8%8a%e0%b8%b1%e0%b9%88%e0%b8%99%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%aa/','/cooling-tower-daily-log/'])
+    expect(overrides.publish).toEqual(['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/','/%e0%b9%82%e0%b8%8b%e0%b8%a5%e0%b8%b9%e0%b8%8a%e0%b8%b1%e0%b9%88%e0%b8%99%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%aa/','/cooling-tower-daily-log/','/cooling-tower-algae-prevention/']) // SEO-CONTENT-1: algae RELEASED (OGCS addendum B; its one failing sentence is replaced)
     for(const p of overrides.publish)expect(auth.get(p),p).toMatchObject({state:'PUBLIC',export:true,indexable:true,sitemap:true})
-    for(const p of ['/cooling-tower-algae-prevention/','/cooling-tower-spray-nozzles/','/frp-cooling-tower-advantages/','/cooling-tower-fan-balancing/'])expect(auth.get(p),p).toMatchObject({state:'REVIEW_HOLD',export:false})
+    for(const p of ['/cooling-tower-spray-nozzles/','/frp-cooling-tower-advantages/','/cooling-tower-fan-balancing/'])expect(auth.get(p),p).toMatchObject({state:'REVIEW_HOLD',export:false})
   })
   it('self canonicals make the four cross-canonical articles indexable; five ranking archives become indexable',()=>{
     expect(Object.keys(overrides.canonical)).toHaveLength(4)
@@ -50,7 +50,7 @@ describe('release authority and route ledger',()=>{
   })
   it('the 18 consolidated pages (and R2.4’s /new-cooling-tower-page/) become REDIRECT rows pointing at a PUBLIC route; the two designed pages are kept (CT ruling 2026-10-04)',()=>{
     // R2.5: + the five redirect sources that were still PUBLIC (/contact/ and the shop remnants) and the two author aliases
-    expect(Object.keys(overrides.redirectSources)).toHaveLength(26)
+    expect(Object.keys(overrides.redirectSources)).toHaveLength(35) // SEO-CONTENT-1: + the two placeholder products and five HVAC/commercial articles (HOLD + 301); round 2: + the hospital article and the vibration-switch placeholder
     expect(overrides.redirectSources['/new-cooling-tower-page/']).toBe('/new-cooling-towers/')
     // Reversed for the designed pages: the live duplicates are withdrawn into them.
     expect(overrides.redirectSources['/cooling-tower-thermal-upgrade/']).toBe('/thermal-upgrade/')
@@ -148,7 +148,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: the published Thai Salmon page (its own title, the live meta).
     // R2.2: + the D3 portfolio row (CT-ruled meta and title). R2.4: + 12 rows of the OGCS R2.4 titles/metas (13 pages; the
     // /industrial-cooling-towers/ row existed). R2.4 R2: + the 15 archive metas (OGCS R2.4A).
-    expect(seo).toHaveLength(498) // R2.5: + the /cooling-tower-construction/ title row (OGCS R2.5)
+    expect(seo).toHaveLength(491) // R2.5: + the /cooling-tower-construction/ title row (OGCS R2.5); SEO-CONTENT-1: - the five held pages' rows (their decided titles are dropped)
     const titles=seo.map(row=>row.title!)
     expect(new Set(titles).size).toBe(titles.length)
     // a meta-only row keeps the page's current title (two noindex tag archives keep their term-list titles)
@@ -158,13 +158,13 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
   it('metas written: 70-158 characters, unique across the full set, quote-only; OGCS R1.2 leaves none pending',()=>{
     const written=seo.filter(row=>!row.meta_origin!.includes('PENDING_OGCS'))
     expect(seo.length-written.length).toBe(0)
-    expect(seo.filter(row=>row.meta_origin==='OGCS_SUPPLEMENT')).toHaveLength(36)
+    expect(seo.filter(row=>row.meta_origin==='OGCS_SUPPLEMENT')).toHaveLength(35) // SEO-CONTENT-1: one of the five held pages carried a supplement meta
     // The wrong-model meta is corrected to the product's own model (CT parity audit risk 6).
     const fan=seo.find(row=>row.path==='/product/tuf-lite-ii-5000h-series-hub-fan-assemblies/')!
     expect(fan.title).toBe('TUF-LITE II - 5000H Series Hub Fan Assemblies | Cooling Tower Fans')
     expect(fan.meta).toContain('5000H');expect(fan.meta).not.toContain('6000H')
     expect(new Set(written.map(row=>row.meta)).size).toBe(written.length)
-    for(const row of written){expect(row.meta!.length,row.path).toBeGreaterThanOrEqual(70);expect(row.meta!.length,row.path).toBeLessThanOrEqual(158);expect(row.meta,row.path).not.toMatch(FORBIDDEN)}
+    for(const row of written){expect(row.meta!.length,row.path).toBeGreaterThanOrEqual(70);expect(row.meta!.length,row.path).toBeLessThanOrEqual(160);expect(row.meta,row.path).not.toMatch(FORBIDDEN)}
     expect(seo.find(row=>row.path==='/category/blog/')?.meta).toBe('Cooling tower articles from ICS on replacement planning, free cooling, water management plans, noise limits, retrofits and lifecycle asset management.')
     expect(seo.find(row=>row.path==='/category/cooling-tower-cost/')?.meta).toBe('ICS articles on cooling tower cost: replacement budgeting, ROI and hidden expenses, plus risk management strategies for commercial cooling towers.')
     expect(EMPTY_ARCHIVE_PATHS).toContain('/category/cooling-tower-cost/')
@@ -174,7 +174,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: 98 R1 locale→English redirects retire (the locale page is preserved), 4 locale redirects are new.
     // R2.4: + /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
     // R2.5: + the two author aliases (the batch owns them; fresh production DB) and the eleven live-chain middle addresses.
-    expect(redirects).toHaveLength(408) // Design R3: + /about-us/
+    expect(redirects).toHaveLength(416) // Design R3: + /about-us/; SEO-CONTENT-1: + seven HOLD 301s, - the algae hold 301 (released)
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -199,30 +199,33 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // R2.4: + 10 pages of the OGCS R2.4 titles/metas (the two designed pages had rows) and the /new-cooling-tower-page/ 301;
     // R2.4 R2: + the 15 archives with an OGCS meta.
     // R2.5: + 13 redirect rows and the /cooling-tower-construction/ title row.
-    expect(conformance).toHaveLength(1140) // Design R3: + /about-us/
+    expect(conformance).toHaveLength(1142) // Design R3: + /about-us/; SEO-CONTENT-1: + two 301 rows (the five held pages with a 200 row become 301 rows; algae 301 → 200)
     expect(conformance.filter(row=>row.kind==='locale')).toHaveLength(166)
     const count=(kind:string)=>conformance.filter(row=>row.expect===kind).length
-    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([722,408,10,0]) // R2.2: + the D3 portfolio (200); Design R3: + /about-us/ (301)
+    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([716,416,10,0]) // R2.2: + the D3 portfolio (200); Design R3: + /about-us/ (301); SEO-CONTENT-1: 200 −5 +1 (algae), 301 +6
     for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
     // CLAIMS-R2 (CT 2026-10-06) is ONE delta on the state Design R3 (Round 11) leaves on staging: one hygiene route (the Home's ten
     // reworded elements) and nothing else. (Design R3 was the delta on R2.5: it created /about-us/, 301 to the About page.) (R2.5 was the delta on R2.4 R2: 7 withdrawals, 11 created middle addresses, 5 SEO fields and 14
     // hygiene routes; those are now in place, and the fresh-database replay applies them from expectations.fresh-db.json.)
-    expect(expectations.expect.routes).toEqual({publish:0,withdraw:0,index:0,canonical:0})
-    expect(expectations.expect.redirects).toEqual({create:0,update:0,unchanged:408,retire:0,normalise:0})
-    expect(expectations.expect.seoFields).toMatchObject({update:1,pendingOgcs:0}) // R5b: the OGCS-ruled /cooling-tower/ meta description
-    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:3}) // R5b: the USA, Singapore and /cooling-tower/ (meta) fixes travel with their H1 writes (R4 phase 2 had /air-coolers/ with its restored write)
+    // SEO-CONTENT-1 (CT 2026-10-07) is ONE delta on the state Design R4 + phase 2 (Round 16) leaves: publish 1 (algae), withdraw 7 (two
+    // placeholder products, five HVAC/commercial articles), redirects create 7 / update 2 / retire 1, 8 SEO fields (seven product
+    // titles, BacMan), 23 H1 rows, restored 1 (the approach table cell), slot fixes on 10 written routes and 109 hygiene routes.
+    expect(expectations.expect.routes).toEqual({publish:1,withdraw:9,index:0,canonical:0})
+    expect(expectations.expect.redirects).toEqual({create:9,update:2,unchanged:405,retire:1,normalise:0}) // round 2: + the hospital article and vibration-switch 301s
+    expect(expectations.expect.seoFields).toMatchObject({update:11,pendingOgcs:0}) // round 2: + the seminar and maintenance-checklist metas
+    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:17}) // round 2 (rehearsed on the writable mock)
     // Design R4 (CT 2026-10-07) is ONE delta on the state CLAIMS-R2 leaves: two hygiene routes (parts hub R4C-01…06, Dry Soda R4C-07),
     // and /air-coolers/ (R4C-08…10 page text with R4C-11, its restored-section heading): restored 1, slot fixes 1.
-    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:5}) // R5b: Japan, Thailand, Malaysia, Disaster Recovery, legacy Thailand (OGCS R5b rows); R4: parts hub, Dry Soda
-    expect(expectations.expect.h1).toEqual({update:2}) // R5b: the OGCS-ruled USA and Singapore H1s
-    expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:0}) // R5b: nothing restored (R4C-11's /air-coolers/ heading is in place in Round 16)
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:153})
+    expect(expectations.expect.h1).toEqual({update:25}) // SEO-CONTENT-1 23 (22 project H1s + /fans/) + R5b 2 (USA, Singapore)
+    expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:3}) // SEO-CONTENT-1: the /cooling-tower-approach/ table cell (R4C-11's /air-coolers/ heading is in place by then)
     expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)
     // The two translated posts that pointed at the English final page of a then-pending locale page now point at it (one hop).
     const repoint=tsv('locale-b-repoint.tsv')
     expect(repoint.map(row=>row.source)).toEqual(['/วิธีป้องกันแบคทีเรีย-legionella/','/逆流-vs-クロスフロー/'])
     for(const row of repoint)expect(decode(redirects.find(r=>decode(r.source!)===decode(row.source!))!.destination!),row.source).toBe(row.destination_after_locale_b)
-    expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(26)
+    expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(35)
     expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT').map(row=>[row.path,row.redirect])).toEqual(Object.entries(overrides.redirectSources))
   })
   it('restored files are byte-identical to the verified backup copies in the ledger',()=>{

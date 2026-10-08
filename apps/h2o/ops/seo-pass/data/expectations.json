@@ -1,39 +1,39 @@
 {
-  "rows": 1140,
-  "redirects": 408,
-  "seoFields": 498,
+  "rows": 1142,
+  "redirects": 416,
+  "seoFields": 491,
   "expect": {
     "redirects": {
-      "create": 0,
-      "update": 0,
-      "unchanged": 408,
-      "retire": 0,
+      "create": 9,
+      "update": 2,
+      "unchanged": 405,
+      "retire": 1,
       "normalise": 0
     },
     "routes": {
-      "publish": 0,
-      "withdraw": 0,
+      "publish": 1,
+      "withdraw": 9,
       "index": 0,
       "canonical": 0
     },
     "seoFields": {
-      "update": 1,
-      "unchanged": 497,
+      "update": 11,
+      "unchanged": 480,
       "pendingOgcs": 0
     },
     "files": 22,
     "gone": 10,
     "restored": {
-      "update": 0
+      "update": 3
     },
     "h1": {
-      "update": 2
+      "update": 25
     },
     "slotFixes": {
-      "routes": 3
+      "routes": 17
     },
     "hygiene": {
-      "routes": 5
+      "routes": 153
     }
   },
   "deltaSkipped": [

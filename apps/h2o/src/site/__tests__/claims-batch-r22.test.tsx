@@ -39,6 +39,8 @@ const restored=json<Record<string,{routeId:string;h1?:string;groups:RestoredGrou
 const conformance=json<{absent:Check[];present:Check[]}>('ops/seo-pass/data/claims-conformance.json')
 const products=new Map(ledger.routes.filter(r=>/^SALMON-product-[0-9]+$/.test(r.routeId)&&r.state==='PUBLIC'&&r.export).map(r=>[r.path,r.routeId] as [string,string]))
 const decoded=(p:string)=>{try{return decodeURIComponent(p)}catch{return p}}
+// SEO-CONTENT-1: the decided H1 headings (h1-fields.tsv, via=slot) are written by the same apply, so the composed page carries them.
+const h1Slots=readFileSync(path.join(APP,'ops/seo-pass/data/h1-fields.tsv'),'utf8').trimEnd().split('\n').slice(1).map(l=>l.split('\t')).filter(c=>c[2]==='slot').map(c=>({path:decoded(c[0]!),h1:c[4]!}))
 const rowFor=(p:string)=>ledger.routes.find(r=>decoded(r.path)===p&&r.sourceFile&&/^(?:SALMON|LIVE)-/.test(r.routeId))
 const valueOf=<T,>(table:Record<string,T>,p:string)=>Object.entries(table).find(([k])=>decoded(k)===p)?.[1]
 
@@ -55,6 +57,8 @@ const pageAfterApply=(p:string,batch=true):string=>{
   const document=storedDocument(row as never)
   const slots=(extractSlots(document,{productIds:products}) as ContentSlot[]).map(s=>({...s}))
   if(batch)for(const f of valueOf(fixes,p)?.slots??[])(slots.find(s=>s.key===f.key) as unknown as Record<string,unknown>)[f.field]=f.after
+  const h1=batch?h1Slots.find(x=>x.path===p):undefined
+  if(h1){const slot=slots.find(s=>s.kind==='heading'&&s.tag==='h1');if(slot)slot.heading=h1.h1}
   const r=batch?valueOf(restored,p):undefined
   const record={routeId:row.routeId,path:row.path,family:row.routeId.startsWith('LIVE-')?'live':'salmon',title:r?.h1??String(document.title??''),document,slots,restoredSections:r?.groups??null,seo:batch?seoWritten(p):null} as RouteRecord
   const doc=repairDocumentText(composePublicDocument(record) as unknown as SalmonDocument)
@@ -72,16 +76,26 @@ describe('R2.2 conformance on the composed pages (mock apply)',()=>{
     for(const c of [...conformance.absent,...conformance.present])expect(rowFor(c.path),c.path).toBeDefined()
     expect(conformance.absent.length).toBeGreaterThan(200)
     // 11 owner-restored strings, the 10 CLAIMS-R2 Home wordings (CT 2026-10-06), the 11 R4 wordings (R4C-01…11, CT 2026-10-07) and the All Projects R4 lead line (CS093)
-    expect(conformance.present).toHaveLength(73) // + the 40 OGCS R5b wordings (location, Disaster Recovery, Thailand, the four FAQ answers and three /cooling-tower/ commercial rows)
+    // R5b adds 40 (the OGCS R5b wordings: location, Disaster Recovery, Thailand and the four FAQ answers); SEO-CONTENT-1 adds 15: the ruled replacement wordings (mixed product lines, ALU, PETRONAS and BacMan cards, the approach table cell, the algae CTA)
+    expect(conformance.present).toHaveLength(176) // round 2 adds 88 (tranche A/B, OEM/stock, BacMan paragraph)
   })
   it('the check is live: before the batch, the ruled strings are on their pages',()=>{
-    const notBefore=conformance.absent.filter(c=>!pageAfterApply(c.path,false).includes(c.text)).map(c=>c.row)
+    // SEO-CONTENT-1: the SC1-P2-ACCEPT rows assert "no HVAC" on every product page; they hold before the batch on the pages that never had any.
+    const acceptRows=conformance.absent.filter(c=>c.row==='SC1-P2-ACCEPT')
+    expect(acceptRows).toHaveLength(181)
+    expect(acceptRows.filter(c=>pageAfterApply(c.path,false).includes(c.text)).length).toBeGreaterThanOrEqual(100)
+    const notBefore=conformance.absent.filter(c=>c.row!=='SC1-P2-ACCEPT').filter(c=>!pageAfterApply(c.path,false).includes(c.text)).map(c=>c.row)
     // The four registry strings are already corrected by R2.1 (compose); five sweep strings are produced by an earlier edit on
     // the same element (the Locale Part B removal next to them), so they do not exist in the imported text either. CLAIMS-R2 rows
     // 05, 08 and 09 reword text that exists only after an earlier edit ("Our global team" → "Our team", CS088, CS089).
     // R4C-11 rewords a restored-section heading, which exists only once the batch writes the restored sections.
     // R5B-L35b and R5B-L38 are registry overrides, already corrected by compose (the Institutional Facilities card text and the Thailand phone).
-    expect(notBefore.sort()).toEqual(['C4','C4','CS050','CS065','CS068','CS072','CS077+CS077+CS077','CS084','CS098','R2L10-05','R2L10-08','R2L10-09','R4C-11','R5B-L35b','R5B-L38'])
+    expect(notBefore.sort()).toEqual(['C4','C4','CS050','CS065','CS068','CS072','CS077+CS077+CS077','CS084','CS098','R2L10-05','R2L10-08','R2L10-09','R4C-11','R5B-L35b','R5B-L38','SC1-A-001','SC1-A-001','SC1-A-001','SC1-A-001','SC1-A-003','SC1-A-039','SC1-A-040','SC1-A-045','SC1-A-HVAC-CLASS10000','SC1-L-01','SC1-P2-APPROACH','SC1-P2-X'])
+    // Round 2: SC1-A-001 (four strings) and SC1-A-003 and SC1-A-HVAC-CLASS10000 are registry overrides, already applied by compose; SC1-A-039/040/045 are
+    // restored-section text (exist only once the batch writes the restored sections); SC1-L-01's second row asserts "OEM part distribution" absent from the Malaysia page.
+    // SC1-P2-APPROACH is a restored-section table cell (exists only once the batch writes the restored sections, like R4C-11); the one SC1-P2-X row
+    // is the high-efficiency-fill bullet "Commercial HVAC cooling towers", which the import renders as "Product compatibility: commercial HVAC cooling towers"
+    // (src/site/public-text.ts) until the batch empties the element.
   },600000)
   it('every ruled string is absent from its page',()=>{
     const kept=conformance.absent.filter(c=>pageAfterApply(c.path).includes(c.text)).map(c=>`${c.row} ${c.path}: ${c.text.slice(0,80)}`)

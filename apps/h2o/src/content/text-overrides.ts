@@ -15,7 +15,10 @@ import path from 'node:path'
  */
 type Node = string | { tag: string; attrs: Record<string, string>; children: Node[] }
 type Doc = { routeId?: unknown; children?: unknown; text?: unknown; seo?: unknown } & Record<string, unknown>
-export type TextOverride = { id: string; row: string; routeId: string; path: string; scope: 'body' | 'schema'; find: string; replace: string; count?: number; reason: string; unsaveable?: boolean }
+export type TextOverride = { id: string; row: string; routeId: string; path: string; scope: 'body' | 'schema' | 'body-range'; find: string; replace: string; until?: string; count?: number; reason: string; unsaveable?: boolean }
+/** `body-range` (SEO-CONTENT-1 round 2): removes a run of sibling nodes in the page tree, from the node that holds `find` through the
+ * node that holds `until` (`replace` is ''), with the line breaks and blank text that lead into it. For a ruled removal of markup (a
+ * contact block of `<br>`-separated lines) that no editable element holds. */
 
 let cache: Map<string, TextOverride[]> | undefined
 export const textOverrides = (): TextOverride[] =>
@@ -30,7 +33,50 @@ const byRoute = (): Map<string, TextOverride[]> => {
 const occurrences = (hay: string, needle: string) => (needle ? hay.split(needle).length - 1 : 0)
 
 /** Count `find` in the entry's scope, and return a copy with it replaced (body: text nodes; schema: string values). */
+const nodeText = (x: Node): string => (typeof x === 'string' ? x : x.children.map(nodeText).join(''))
+const rangeOf = (kids: Node[], o: TextOverride): [number, number] | null => {
+  const start = kids.findIndex((k) => nodeText(k).includes(o.find))
+  if (start < 0) return null
+  const end = kids.findIndex((k, i) => i >= start && nodeText(k).includes(o.until ?? ''))
+  return end < 0 ? null : [start, end]
+}
+function inRange(doc: Doc, o: TextOverride, mode: 'count' | 'apply'): { n: number; doc: Doc } {
+  let n = 0
+  const walk = (x: Node): Node => {
+    if (typeof x === 'string') return x
+    const kids = x.children
+    const range = rangeOf(kids, o)
+    // the range is a run of siblings at one level (a few nodes), never a whole container
+    if (range && range[1] - range[0] < 12 && !kids.slice(range[0], range[1] + 1).some((k) => typeof k !== 'string' && nodeText(k).length > 400)) {
+      n++
+      if (mode === 'apply') {
+        let from = range[0]
+        // the line break (and blank text) that leads into the block goes with it
+        while (from > 0 && ((typeof kids[from - 1] === 'string' && !(kids[from - 1] as string).trim()) || (typeof kids[from - 1] !== 'string' && (kids[from - 1] as { tag: string }).tag === 'br'))) from--
+        return { ...x, children: [...kids.slice(0, from), ...kids.slice(range[1] + 1)] }
+      }
+      return x
+    }
+    return { ...x, children: kids.map(walk) }
+  }
+  const children = Array.isArray(doc.children) ? (doc.children as Node[]).map(walk) : doc.children
+  return { n, doc: mode === 'apply' ? { ...doc, children } : doc }
+}
+/** The flattened search text without the removed range (whitespace-insensitive match of the removed nodes' own text). */
+function stripRangeText(text: string, original: Doc, o: TextOverride): string {
+  let removed = ''
+  const visit = (x: Node) => {
+    if (typeof x === 'string') return
+    const range = rangeOf(x.children, o)
+    if (range) removed = x.children.slice(range[0], range[1] + 1).map(nodeText).join(' ')
+    else x.children.forEach(visit)
+  }
+  ;(Array.isArray(original.children) ? (original.children as Node[]) : []).forEach(visit)
+  const words = removed.split(/\s+/).filter(Boolean).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+  return words.length ? text.replace(new RegExp(`\\s*${words.join('\\s+')}`), '') : text
+}
 function inScope(doc: Doc, o: TextOverride, mode: 'count' | 'apply', needle = o.find): { n: number; doc: Doc } {
+  if (o.scope === 'body-range') return inRange(doc, o, mode)
   let n = 0
   const swap = (s: string) => { const k = occurrences(s, needle); n += k; return mode === 'apply' && k ? s.split(o.find).join(o.replace) : s }
   if (o.scope === 'body') {
@@ -54,11 +100,13 @@ export function applyTextOverrides<T extends Doc>(doc: T): { doc: T; problems: s
     const want = o.count ?? 1
     const found = inScope(out, o, 'count').n
     if (found === want) {
+      const before = out
       out = inScope(out, o, 'apply').doc
       // the search text carries the same words
-      if (typeof out.text === 'string') out = { ...out, text: (out.text as string).split(o.find).join(o.replace) }
+      if (typeof out.text === 'string') out = { ...out, text: o.scope === 'body-range' ? stripRangeText(out.text as string, before, o) : (out.text as string).split(o.find).join(o.replace) }
       continue
     }
+    if (found === 0 && (o.scope === 'body-range' || o.replace === '')) continue // a removal: already applied
     if (found === 0 && inScope(out, o, 'count', o.replace).n >= want) continue // already applied
     problems.push(`${o.id} (${o.row}) ${o.path}: "${o.find.slice(0, 60)}" found ${found}× in ${o.scope}, expected ${want}×`)
   }

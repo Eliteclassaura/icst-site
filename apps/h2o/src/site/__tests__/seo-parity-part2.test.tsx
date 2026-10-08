@@ -63,12 +63,27 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     // Retired by Part 2 R3 (active:false) and not again. Locale Part B retired the 98 R1 locale→English redirects of preserved
     // locale pages; R2.2 is a delta on the Locale B batch, so it retires nothing and none of those sources is a redirect again.
     expect(data('redirects-retired.tsv').some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
-    expect(data('redirects-retired.tsv')).toHaveLength(0)
+    // SEO-CONTENT-1 retires one more: the algae hold 301 to /tech-articles/ (the article is released at its own URL).
+    expect(data('redirects-retired.tsv').map(r=>[r.source,r.was_destination])).toEqual([['/cooling-tower-algae-prevention/','/tech-articles/']])
     // R2.4 creates one: /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
     // R2.5 created the eleven live-chain middle addresses (CT approved). Design R3 is a delta on the R2.5 batch: it creates
     // only /about-us/ → /about-ics-industrial-cooling-solutions/ (CT ruling 2026-10-06); CLAIMS-R2 is a delta on that batch and
     // writes no redirect: everything is in place
-    expect(data('redirects.tsv').filter(r=>r.action!=='UNCHANGED').map(r=>`${r.action} ${r.source} ${r.destination}`)).toEqual([])
+    // SEO-CONTENT-1 (CT 2026-10-07) is the next delta: seven HOLD 301s created and two evidence paths repointed to the final page.
+    expect(data('redirects.tsv').filter(r=>r.action!=='UNCHANGED').map(r=>`${r.action} ${r.source} ${r.destination}`)).toEqual([
+      'UPDATE /blog/hvac-cooling-tower/ /guide-about-cooling-tower/',
+      'UPDATE /blog/commercial-cooling-towers/ /legionella-control-in-industrial-cooling-towers/',
+      'CREATE /product/abb-motor-example/ /motors/',
+      'CREATE /product/teco-westinghouse-motor-example/ /motors/',
+      'CREATE /hvac-cooling-tower/ /guide-about-cooling-tower/',
+      'CREATE /hvac-cooling-tower-systems/ /guide-about-cooling-tower/',
+      'CREATE /cooling-tower-free-cooling-mode-cut-chiller-costs-now/ /energy-efficient-cooling-tower/',
+      'CREATE /commercial-building-cooling-tower/ /cooling-tower/',
+      'CREATE /commercial-cooling-towers/ /legionella-control-in-industrial-cooling-towers/',
+      // SEO-CONTENT-1 round 2 (CT 2026-10-08): the hospital article and the vibration-switch placeholder
+      'CREATE /hospital-cooling-systems/ /cooling-tower/',
+      'CREATE /product/vibration-switch-example/ /tower-hardware/',
+    ])
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
     // Locale Part B: the locale and blog variants now go one hop to their preserved locale pages (and the locale URLs serve
@@ -81,7 +96,7 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
   })
   it('completes every truncated meta as a sentence and carries no unsupported standards claim (CT ruling 2026-10-05)',()=>{
     const seo=data('seo-fields.tsv')
-    for(const r of seo){expect(r.meta,r.path).not.toMatch(/…$|\.\.\.$/);expect(r.meta.length,r.path).toBeGreaterThanOrEqual(70);expect(r.meta.length,r.path).toBeLessThanOrEqual(158)}
+    for(const r of seo){expect(r.meta,r.path).not.toMatch(/…$|\.\.\.$/);expect(r.meta.length,r.path).toBeGreaterThanOrEqual(70);expect(r.meta.length,r.path).toBeLessThanOrEqual(160)}
     expect(seo.filter(r=>r.meta_origin.includes('CT_COMPLETE_SENTENCE'))).toHaveLength(22)
     expect(new Set(seo.map(r=>r.meta.toLowerCase())).size).toBe(seo.length)
     expect(JSON.stringify(seo)).not.toMatch(/Japan Cooling Tower Institute/)

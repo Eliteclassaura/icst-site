@@ -54,7 +54,11 @@ describe('slot hygiene: data fixed, validator strict', () => {
     // 301 point at its final URL (321 more links), 636 elements; R2.5: the OGCS cost/table edits, CS161 and author-alias links
     // (31 more), 667 elements; CLAIMS-R2 (CT 2026-10-06): ten Home elements reworded, seven of them newly fixed, 674 in all (some
     // carry several kinds).
-    expect(fixed).toBe(728) // R5b: + 44 location/Disaster Recovery/Thailand FAQ/legacy Thailand elements (OGCS R5b rows); R4 (CT 2026-10-07): + 6 parts hub elements and 1 Dry Soda element (OGCS R4C-01…07); + 3 Air Coolers (R4C-08…10)
+    // R5b (CT 2026-10-07): + 41 location, Disaster Recovery, Thailand FAQ and legacy Thailand elements: 896.
+    // SEO-CONTENT-1 (CT 2026-10-07): + 134 claim-edit elements (126 product HVAC bullets and lines, the ALU phrase, the project fact cards and
+    // the All Projects card, the algae closing CTA) and 34 internal links to a held page repointed to its final URL (31 of them anchors on the held
+    // pages themselves): 852.
+    expect(fixed).toBe(995) // round 2 (OGCS staging QA tranche A/B, OEM/stock, BacMan paragraph): + 99 elements // R4 (CT 2026-10-07): + 6 parts hub elements and 1 Dry Soda element (OGCS R4C-01…07); + 3 Air Coolers (R4C-08…10)
   }, 120000)
   it('reproduces the R1 failures: without the fixes the strict validator rejects exactly the recorded elements', () => {
     const row = ledger.routes.find((r) => r.path === '/understanding-cooling-tower-parts/')!
@@ -68,7 +72,7 @@ describe('slot hygiene: data fixed, validator strict', () => {
   })
   it('records every change; https only for verified targets; an unlinked link keeps its text', () => {
     const changes = Object.values(fixes).flatMap((f) => f.slots.flatMap((s) => s.changes.map((c) => ({ ...c, s }))))
-    expect(changes).toHaveLength(809) // R5b: + 61 run edits (OGCS R5b rows); CLAIMS-R2: + 10 Home rewordings; R4: + 7 (R4C-01…07); + 3 (R4C-08…10)
+    expect(changes).toHaveLength(1095) // CLAIMS-R2: + 10 Home rewordings; R4: + 7 (R4C-01…07); + 3 (R4C-08…10); R5b: + 58 run edits; SEO-CONTENT-1: + 134 claim edits, + 35 repointed links
     for (const c of changes) {
       expect(c.reason.length, c.from).toBeGreaterThan(0)
       if (c.action === 'https') expect(c.to).toMatch(/^https:\/\//)
@@ -137,7 +141,7 @@ describe('claim edits (Locale Part B option A; R2.2: F1, OGCS template claims, C
   const n = (hay: string, needle: string) => hay.split(needle).length - 1
   const fixFor = (p: string) => Object.entries(fixes).find(([k]) => decodeURIComponent(k) === p)?.[1]
   it('every recorded edit is applied once on its element and recorded as a change with its reason', () => {
-    expect(edits).toHaveLength(363) // R5b: + 61 OGCS R5b edits; R2.5: + 23 OGCS pre-flight edits and CS161; CLAIMS-R2: + 10 Home edits; R4: + 10 (R4C-01…10)
+    expect(edits).toHaveLength(613) // R2.5: + 23 OGCS pre-flight edits and CS161; CLAIMS-R2: + 10 Home edits; R4: + 10 (R4C-01…10); R5b: + 58 (R5B-*); SEO-CONTENT-1: + 134 (SC1-*)
     for (const e of edits) {
       const slot = fixFor(e.path)?.slots.find((s) => (!e.slot || s.key === e.slot) && s.changes.some((c) => c.from === e.find))
       expect(slot, `${e.path} ${e.find.slice(0, 50)}`).toBeDefined()

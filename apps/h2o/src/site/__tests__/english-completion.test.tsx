@@ -83,9 +83,9 @@ describe('English completion release boundary',()=>{
     const media=JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon/media-identities.json'),'utf8')) as Array<{url:string;state:string;file?:string}>
     expect(media.find(row=>row.url==='https://beeindia.gov.in/sites/default/files/3Ch7.pdf')).toMatchObject({state:'SOURCE_UNAVAILABLE'})
   })
-  it('keeps the 183-product release cohort and gives every new service an indexable canonical route',()=>{
+  it('keeps the 181-product release cohort (SEO-CONTENT-1 holds the two placeholder products) and gives every new service an indexable canonical route',()=>{
     const ledger=JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as {routes:Array<{path:string;routeClass:string;indexable:boolean;sitemap:boolean;canonical:string}>}
-    expect(ledger.routes.filter(route=>route.routeClass==='product'&&route.indexable)).toHaveLength(183)
+    expect(ledger.routes.filter(route=>route.routeClass==='product'&&route.indexable)).toHaveLength(180)
     for(const service of englishServicePages())expect(ledger.routes.find(route=>route.path===service.path)).toMatchObject({routeClass:'service',indexable:true,sitemap:true,canonical:'https://h2ocooling.com'+service.path})
   })
 })

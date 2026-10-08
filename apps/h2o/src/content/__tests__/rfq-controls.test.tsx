@@ -65,16 +65,21 @@ const render = (doc: SalmonDocument, node: Node, key = 'body.0') => renderToStat
 const rule = (r: IntentDecision['rule']) => decisions.filter((d) => d.rule === r)
 
 describe('quote-intent migration by source identity (ledger)', () => {
-  it('D1: all 992 historical product-card positions resolve to a PUBLIC product; 108 sit on the nine listing pages', () => {
-    expect(rule('D1')).toHaveLength(992)
-    expect(rule('D1_UNRESOLVED')).toHaveLength(0)
+  // SEO-CONTENT-1 (CT 2026-10-07): 992 → 978. Eight positions sat on pages that are now held (HVAC/commercial articles, the two placeholder
+  // products themselves), and six cards on public pages link a held placeholder: they resolve to no PUBLIC product (D1_UNRESOLVED:
+  // left unchanged, no product context; no listing renders those cards in Payload mode).
+  it('D1: 978 historical product-card positions resolve to a PUBLIC product (six more point at the two held placeholders); 106 sit on the nine listing pages (the other two cards there are the held placeholders)', () => {
+    expect(rule('D1')).toHaveLength(974)
+    expect(rule('D1_UNRESOLVED')).toHaveLength(6)
     const listing = new Set(['/cooling-tower-fan-stacks/', '/drive-shafts-assembles/', '/fans/', '/fill-media/', '/frp-members/', '/gear-box/', '/motors/', '/nozzles/', '/tower-hardware/'])
-    expect(rule('D1').filter((d) => listing.has(d.path))).toHaveLength(108)
+    expect(rule('D1').filter((d) => listing.has(d.path))).toHaveLength(106)
+    expect(rule('D1_UNRESOLVED').filter((d) => listing.has(d.path))).toHaveLength(2)
     for (const d of rule('D1')) expect([...publicProducts.values()]).toContain(d.product)
   })
   // Master SEO Pass R1: six matched articles are consolidated into others by redirect (177 → 171).
-  it('D2: 171 standalone duplicate widgets on matched articles, marked for conditional suppression only', () => {
-    expect(rule('D2')).toHaveLength(171)
+  // SEO-CONTENT-1: three more matched articles are held (HVAC and commercial, 171 → 168).
+  it('D2: 168 standalone duplicate widgets on matched articles, marked for conditional suppression only', () => {
+    expect(rule('D2')).toHaveLength(167)
     expect(new Set(rule('D2').map((d) => d.elementId))).toEqual(new Set(['ee68c85']))
     expect(rule('D2').every((d) => d.action === 'SUPPRESS_IF_CANONICAL_INLINE')).toBe(true)
   })
@@ -98,7 +103,7 @@ describe('quote-intent migration by source identity (ledger)', () => {
   // Master SEO Pass R1: the three held articles published at cutover carry the same "Get A Quote" widget (13 → 16); the
   // daily log published by the CT sitemap-parity ruling (Part 3) carries it too (17), and so does the preserved Thai page published
   // by Locale Part B (18).
-  it('contract rule: the 18 R1A-reconciled explicit quote buttons, and not the ten Main-owned Parts hero actions', () => {
+  it('contract rule: the 19 R1A-reconciled explicit quote buttons, and not the ten Main-owned Parts hero actions', () => {
     expect(rule('CONTRACT_QUOTE_LABEL').map((d) => `${d.routeId}|${d.elementId}|${d.label}`).sort()).toEqual([
       'SALMON-pages-1230|708f65e3|Request a New Cooling Tower Quote', 'SALMON-pages-1722|3224225|Request a Quote', 'SALMON-pages-2081|064577b|Request a Quote',
       'SALMON-pages-2106|064577b|Request a Quote', 'SALMON-pages-2106|3e00d94|Request a Quote', 'SALMON-pages-2177|3e00d94|Request a Quote',
@@ -108,6 +113,7 @@ describe('quote-intent migration by source identity (ledger)', () => {
       'SALMON-posts-3092|ee68c85|Get A Quote',
       'SALMON-posts-4065|ee68c85|Get A Quote',
       'SALMON-posts-4077|ee68c85|Get A Quote',
+      'SALMON-posts-3772|ee68c85|Get A Quote', // SEO-CONTENT-1: the released algae article carries the same widget (18 → 19)
     ].sort())
     expect(rule('MAIN_OWNED_PARTS_HERO').map((d) => d.path).sort()).toEqual([...MAIN_OWNED_PARTS_HERO_PATHS].sort())
     for (const d of rule('MAIN_OWNED_PARTS_HERO')) expect(at(docs.get(d.routeId)!.children, d.key).attrs['data-rfq-intent']).toBeUndefined()

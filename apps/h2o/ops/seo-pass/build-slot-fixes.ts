@@ -309,8 +309,12 @@ const baselineFile = process.argv.find((a) => a.startsWith('--baseline='))?.slic
 if (baselineFile) {
   const prior = JSON.parse(readFileSync(baselineFile, 'utf8')) as typeof fixes
   for (const [p, rec] of Object.entries(fixes)) for (const f of rec.slots) {
-    const was = prior[p]?.slots.find((x) => x.key === f.key && x.field === f.field)
-    if (was && was.afterCanon !== f.afterCanon && was.afterCanon !== f.before) (f as typeof f & { accept?: string[] }).accept = [was.afterCanon]
+    const was = prior[p]?.slots.find((x) => x.key === f.key && x.field === f.field) as ((typeof fixes)[string]['slots'][number] & { accept?: string[] }) | undefined
+    // SEO-CONTENT-1: a baseline that is itself a built file also carries forward the starting states it already accepted.
+    if (was) {
+      const accept = [...new Set([...(was.accept ?? []), was.afterCanon])].filter((v) => v !== f.afterCanon && v !== f.before)
+      if (accept.length) (f as typeof f & { accept?: string[] }).accept = accept
+    }
   }
 }
 writeFileSync(path.join(APP, 'ops/seo-pass/data/slot-fixes.json'), JSON.stringify(fixes, null, 1) + '\n')

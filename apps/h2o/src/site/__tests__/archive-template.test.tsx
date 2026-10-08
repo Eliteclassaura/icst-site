@@ -48,7 +48,7 @@ describe('archive template',()=>{
       if(main.includes('data-salmon-product-card')){products++;for(const [,route] of main.matchAll(/data-product-route="([^"]+)"/g))expect(publicPaths.has(route!),`${row.path} card ${route}`).toBe(true)}
       if(main.includes('sp-archive-article')){articles++;for(const [,route] of main.matchAll(/data-article-route="([^"]+)"/g))expect(publicPaths.has(route!),`${row.path} article ${route}`).toBe(true)}
     }
-    expect(products).toBe(169)
+    expect(products).toBe(168) // SEO-CONTENT-1 round 2: the vibration-switch placeholder's only archive is now empty
     // Locale Part B: the published Thai Salmon page lists on two more archives.
     expect(articles).toBe(53)
   },240000)
@@ -78,7 +78,7 @@ describe('archive edge cases (Control Tower amendments)',()=>{
     const empties:string[]=[]
     for(const row of archives){const doc=salmonDocument(salmonRoutes().find(route=>route.targetPath===row.path)!);const model=archiveModel(doc);if(!model.products.length&&!model.articles.length)empties.push(row.path)}
     expect(empties.sort()).toEqual([...EMPTY_ARCHIVE_PATHS])
-    expect(EMPTY_ARCHIVE_PATHS).toHaveLength(143)
+    expect(EMPTY_ARCHIVE_PATHS).toHaveLength(144) // + /product-category/uncategorized/ (SEO-CONTENT-1 round 2)
     for(const p of ['/category/cooling-tower-cost/',EMPTY_ARCHIVE_PATHS.find(path=>path.startsWith('/product-tag/'))!]){
       const html=await render(p)
       expect(html,p).toMatch(/<p class="sp-archive-empty">Nothing is listed here yet\. <a href="\/cooling-tower-parts-online\/">Browse cooling tower parts<\/a> or <a href="\/contact-us\/">contact us<\/a>\.<\/p>/)

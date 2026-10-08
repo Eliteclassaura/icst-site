@@ -1,5 +1,5 @@
 {
-  "authority": "Control Tower 2026-10-05 (R2.1 text-override registry, approved with guardrails): ruled claim corrections for strings that no editor-editable element can hold (icon-list spans, template-only markup, structured data). Exact match, expected count, applied when a document is read and when it is published; editable text goes through the R2.2 content batch instead, never here. Listed for editors in content/design/TEXT_OVERRIDES.md.",
+  "authority": "Control Tower 2026-10-05 (R2.1 text-override registry, approved with guardrails): ruled claim corrections for strings that no editor-editable element can hold (icon-list spans, template-only markup, structured data). Exact match, expected count, applied when a document is read and when it is published; editable text goes through the R2.2 content batch instead, never here. Listed for editors in content/design/TEXT_OVERRIDES.md. SEO-CONTENT-1 round 2 (CT 2026-10-08): TO-024 onward.",
   "date": "2026-10-05",
   "overrides": [
     {
@@ -158,6 +158,161 @@
       "replace": "ICS designs and builds new cooling tower systems for industrial facilities, power plants, and process plants with high thermal performance.",
       "count": 1,
       "reason": "OGCS R5b commercial row 2 (CT accepted 2026-10-07): the JSON-LD copy of the meta description (the meta itself is the seo field)"
+    },
+    {
+      "id": "TO-015",
+      "row": "SC1-P5-01",
+      "routeId": "SALMON-product-4436",
+      "path": "/product/brentwood-kelly-bar-splash-fill/",
+      "scope": "schema",
+      "find": "Brentwood Kelly Bar Splash Fill | Drift Eliminato",
+      "replace": "Brentwood Kelly Bar Splash Fill | Cooling Tower Fill",
+      "count": 2,
+      "reason": "OGCS SEO Deep R1 rulings section 5 (product title; CT SEO-CONTENT-1 2026-10-07): the JSON-LD copies (name, headline) of the SEO title, which the page still carries from the import with the wrong category suffix or a mid-word cut (the title itself is the SEO field, data/seo-fields.tsv)"
+    },
+    {
+      "id": "TO-016",
+      "row": "SC1-P5-02",
+      "routeId": "SALMON-product-4433",
+      "path": "/product/brentwood-accupac-htp25-modular-splash-fill/",
+      "scope": "schema",
+      "find": "Brentwood Accupac HTP25 Modular Splash Fill | Drift Eliminator",
+      "replace": "Brentwood Accupac HTP25 Modular Splash Fill | Cooling Tower Fill",
+      "count": 2,
+      "reason": "OGCS SEO Deep R1 rulings section 5 (product title; CT SEO-CONTENT-1 2026-10-07): the JSON-LD copies (name, headline) of the SEO title, which the page still carries from the import with the wrong category suffix or a mid-word cut (the title itself is the SEO field, data/seo-fields.tsv)"
+    },
+    {
+      "id": "TO-017",
+      "row": "SC1-P5-03",
+      "routeId": "SALMON-product-4642",
+      "path": "/product/splash-fill/",
+      "scope": "schema",
+      "find": "Splash Fill | Drift Eliminator",
+      "replace": "Splash Fill | Cooling Tower Fill",
+      "count": 2,
+      "reason": "OGCS SEO Deep R1 rulings section 5 (product title; CT SEO-CONTENT-1 2026-10-07): the JSON-LD copies (name, headline) of the SEO title, which the page still carries from the import with the wrong category suffix or a mid-word cut (the title itself is the SEO field, data/seo-fields.tsv)"
+    },
+    {
+      "id": "TO-018",
+      "row": "SC1-P5-04",
+      "routeId": "SALMON-product-4645",
+      "path": "/product/cooling-tower-hybrid-fill/",
+      "scope": "schema",
+      "find": "Cooling Tower Hybrid Fill | Drift Eliminator",
+      "replace": "Cooling Tower Hybrid Fill | Replacement Fill Media",
+      "count": 2,
+      "reason": "OGCS SEO Deep R1 rulings section 5 (product title; CT SEO-CONTENT-1 2026-10-07): the JSON-LD copies (name, headline) of the SEO title, which the page still carries from the import with the wrong category suffix or a mid-word cut (the title itself is the SEO field, data/seo-fields.tsv)"
+    },
+    {
+      "id": "TO-019",
+      "row": "SC1-P5-05",
+      "routeId": "SALMON-product-4772",
+      "path": "/product/low-fouling-fill/",
+      "scope": "schema",
+      "find": "Low Fouling Fill | Drift Eliminator",
+      "replace": "Low Fouling Fill | Cooling Tower Fill",
+      "count": 2,
+      "reason": "OGCS SEO Deep R1 rulings section 5 (product title; CT SEO-CONTENT-1 2026-10-07): the JSON-LD copies (name, headline) of the SEO title, which the page still carries from the import with the wrong category suffix or a mid-word cut (the title itself is the SEO field, data/seo-fields.tsv)"
+    },
+    {
+      "id": "TO-020",
+      "row": "SC1-P5-06",
+      "routeId": "SALMON-product-4407",
+      "path": "/product/brentwood-de120-blade-drift-eliminator/",
+      "scope": "schema",
+      "find": "Brentwood DE120 Blade Drift Eliminator | Cooling Tower Fill Media",
+      "replace": "Brentwood DE120 Blade Drift Eliminator - ICS",
+      "count": 2,
+      "reason": "OGCS SEO Deep R1 rulings section 5 (product title; CT SEO-CONTENT-1 2026-10-07): the JSON-LD copies (name, headline) of the SEO title, which the page still carries from the import with the wrong category suffix or a mid-word cut (the title itself is the SEO field, data/seo-fields.tsv)"
+    },
+    {
+      "id": "TO-021",
+      "row": "SC1-P5-07",
+      "routeId": "SALMON-product-4411",
+      "path": "/product/brentwood-d15-cellular-drift-eliminator/",
+      "scope": "schema",
+      "find": "Brentwood D15 Cellular Drift Eliminator | Fill Media Replacement",
+      "replace": "Brentwood D15 Cellular Drift Eliminator - ICS",
+      "count": 2,
+      "reason": "OGCS SEO Deep R1 rulings section 5 (product title; CT SEO-CONTENT-1 2026-10-07): the JSON-LD copies (name, headline) of the SEO title, which the page still carries from the import with the wrong category suffix or a mid-word cut (the title itself is the SEO field, data/seo-fields.tsv)"
+    },
+    {
+      "id": "TO-022",
+      "row": "SC1-P7-BACMAN-TITLE",
+      "routeId": "SALMON-pages-2362",
+      "path": "/all-projects/bacman-1-2/",
+      "scope": "schema",
+      "find": "BacMan 3 Cooling Tower Rehabilitation Philippines | ICS",
+      "replace": "BacMan 1 & 2 Cooling Tower Rehabilitation Philippines | ICS",
+      "count": 3,
+      "reason": "OWNER-DIRECTED (use the live site; CT SEO-CONTENT-1 2026-10-07): the JSON-LD copy of the SEO title, which still names BacMan 3 (the field itself is data/seo-fields.tsv)"
+    },
+    {
+      "id": "TO-023",
+      "row": "SC1-P7-BACMAN-META",
+      "routeId": "SALMON-pages-2362",
+      "path": "/all-projects/bacman-1-2/",
+      "scope": "schema",
+      "find": "ICS completed BacMan 3 cooling tower rehabilitation in the Philippines with a splash-to-film fill upgrade.",
+      "replace": "ICS completed BacMan 1 & 2 cooling tower rehabilitation in the Philippines with a splash-to-film fill upgrade.",
+      "count": 1,
+      "reason": "OWNER-DIRECTED (use the live site; CT SEO-CONTENT-1 2026-10-07): the JSON-LD copy of the SEO description, which still names BacMan 3 (the field itself is data/seo-fields.tsv)"
+    },
+    {
+      "id": "TO-024",
+      "row": "SC1-A-001",
+      "routeId": "LIVE-posts-2376",
+      "path": "/ics-announces-comprehensive-cooling-technology-seminar-thailand/",
+      "scope": "body-range",
+      "find": "Contact:",
+      "replace": "",
+      "until": "Tel. +66 (0)2260-6598 Fax. +66 (0)2260-6599",
+      "count": 1,
+      "reason": "OGCS tranche A QA-A-001 (LAUNCH-BLOCKING; CT accepted): the seminar page ends in a contact block for a separate Thai legal entity with the forbidden +66 (0)2260-6598 number and a fax; removed with its line breaks (nodes body.0.9 to body.0.17, no editable element holds them). Acceptance: \"260-6598\" and \"2260-6598\" absent from the page text and the search text."
+    },
+    {
+      "id": "TO-025",
+      "row": "SC1-A-003",
+      "routeId": "LIVE-posts-2376",
+      "path": "/ics-announces-comprehensive-cooling-technology-seminar-thailand/",
+      "scope": "body",
+      "find": "from 8: 30 to 5:30",
+      "replace": "from 8:30 to 5:30",
+      "count": 1,
+      "reason": "OGCS tranche A QA-A-003: time typo in the page tree (no editable element)"
+    },
+    {
+      "id": "TO-026",
+      "row": "SC1-A-HVAC-CLASS10000",
+      "routeId": "SALMON-pages-2551",
+      "path": "/class-10000-minimum-acoustic-geometry/",
+      "scope": "body",
+      "find": "HVAC cooling applications",
+      "replace": "",
+      "count": 1,
+      "reason": "CT HVAC acceptance (brief item 4): the application line \"HVAC cooling applications\" is an elementor icon-list item (no editable element); emptied, the renderer drops the empty list item"
+    },
+    {
+      "id": "TO-027",
+      "row": "SC1-A-004-ld",
+      "routeId": "LIVE-posts-2376",
+      "path": "/ics-announces-comprehensive-cooling-technology-seminar-thailand/",
+      "scope": "schema",
+      "find": "Learn everything you need to know about cooling towers and air coolers in one day! Attend expert-led sessions and participate in panel discussions on a wide",
+      "replace": "ICS hosted a one-day seminar in Thailand on cooling tower and air cooler design, operation and technology, with expert-led sessions and panel discussions.",
+      "count": 1,
+      "reason": "OGCS tranche A QA-A-004 (CT accepted): the JSON-LD copy of the corrected meta description (the meta itself is the seo field, data/seo-fields.tsv; og and twitter follow the field)"
+    },
+    {
+      "id": "TO-028",
+      "row": "SC1-A-080-ld",
+      "routeId": "SALMON-posts-3701",
+      "path": "/cooling-tower-maintenance-checklist/",
+      "scope": "schema",
+      "find": "Maximize efficiency with our 2026 cooling tower maintenance checklist. Learn to prevent corrosion, ensure safety, and optimize your HVAC systems today.",
+      "replace": "Maximize efficiency with our 2026 cooling tower maintenance checklist. Learn to prevent corrosion, improve safety, and optimize your industrial cooling system.",
+      "count": 1,
+      "reason": "OGCS tranche A QA-A-080 (CT accepted): the JSON-LD copy of the corrected meta description (the meta itself is the seo field, data/seo-fields.tsv; og and twitter follow the field)"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
- "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed. CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows R2L10-01..10, each current string absent and its CT-accepted wording present.; R4 (CT 2026-10-07): OGCS R4 copy review rows R4C-01…07, each old string absent and each new wording present; R4 phase 2: R4C-08…11 (Air Coolers) and the All Projects lead line read from the edited heading (CS093)",
+ "authority": "R2.2 claims conformance (CT 2026-10-05: OGCS claims sweep R1 rulings, owner answers Q1-Q12, F1, OGCS template claims, C4/C5, D3/D4). absent: every ruled string (16+ characters) on its page; present: every owner-restored string. Text is compared after tags are stripped, entities decoded and whitespace collapsed. CLAIMS-R2 (CT 2026-10-06): OGCS CLAIMS-R2 L10 Home rows R2L10-01..10, each current string absent and its CT-accepted wording present.; R4 (CT 2026-10-07): OGCS R4 copy review rows R4C-01…07, each old string absent and each new wording present; R4 phase 2: R4C-08…11 (Air Coolers) and the All Projects lead line read from the edited heading (CS093); SEO-CONTENT-1 round 2 (CT 2026-10-08): rows SC1-A-*, SC1-B-050, SC1-L-*, SC1-P7-BACMAN-BODY",
  "absent": [
   {
    "row": "LocaleB-A",
@@ -1794,6 +1794,2514 @@
    "path": "/cooling-tower/",
    "text": "commercial facilities",
    "source": "OGCS R5b ruled string"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra350-275/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra350-275/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra485-338/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra485-338/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra485-338/",
+   "text": "industrial pumps, HVAC systems, compressors",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra650-425/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra650-425/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra850-625/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra850-625/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf350-275/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf350-275/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf375-275/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf375-275/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf450-275/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf450-275/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf485-338/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr450-275/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr485-338/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr485-338/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr485-425/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr485-425/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr650-425/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr650-425/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr650-625/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr650-625/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-10",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx450-275/",
+   "text": "HVAC cooling tower installations",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-05",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx485-425/",
+   "text": "HVAC cooling tower systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx650-425/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx650-425/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx650-825/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx650-825/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-1025/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-1025/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-1275/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-1275/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-825/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-825/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-14",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-825/",
+   "text": "HVAC drive systems",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-13",
+   "path": "/product/addax-drive-shaft-composite-coupling/",
+   "text": "Heavy-duty HVAC and process cooling systems",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-a-series-single-reduction-gearbox/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-04",
+   "path": "/product/amarillo-drive-shaft-cf52-275l/",
+   "text": "HVAC cooling units",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-04",
+   "path": "/product/amarillo-drive-shaft-cf52-275m/",
+   "text": "HVAC cooling units",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-02",
+   "path": "/product/amarillo-drive-shaft-cf60-275l/",
+   "text": "HVAC applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/amarillo-drive-shaft-cf60-275m/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/amarillo-drive-shaft-cf60-275x/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-12",
+   "path": "/product/amarillo-drive-shaft-cf60-425l/",
+   "text": "Large HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-07",
+   "path": "/product/amarillo-drive-shaft-cf67-275l/",
+   "text": "Industrial HVAC cooling towers",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-08",
+   "path": "/product/amarillo-drive-shaft-cf67-275m/",
+   "text": "HVAC cooling installations",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/amarillo-drive-shaft-cf67-275x/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/amarillo-drive-shaft-cf67-425l/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/amarillo-drive-shaft-cf67-425x/",
+   "text": "HVAC cooling towers",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-drive-shaft-cf67-600l/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-drive-shaft-cf67-600x/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-04",
+   "path": "/product/amarillo-drive-shaft-cf73-425l/",
+   "text": "HVAC cooling units",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-04",
+   "path": "/product/amarillo-drive-shaft-cf73-425x/",
+   "text": "HVAC cooling units",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-drive-shaft-cf73-600l/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-drive-shaft-cf73-600x/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-09",
+   "path": "/product/amarillo-drive-shaft-cf73-800l/",
+   "text": "HVAC cooling operations",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/amarillo-drive-shaft-cf73-800x/",
+   "text": "Heavy-duty HVAC cooling tower applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-drive-shaft-cf73-950x/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-drive-shaft-cf83-1150x/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-drive-shaft-cf83-425x/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/amarillo-drive-shaft-cf83-600l/",
+   "text": "Heavy-duty HVAC cooling towers",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-07",
+   "path": "/product/amarillo-drive-shaft-cf83-800l/",
+   "text": "Industrial HVAC cooling towers",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/amarillo-drive-shaft-cf83-800x/",
+   "text": "Heavy-duty HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/amarillo-drive-shaft-cf83-950x/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "text": "for both HVAC and large field-erected cooling towers",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-07",
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "text": "Industrial HVAC cooling towers",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1008/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1311/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1311w/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1712/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1713w/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1814/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-2016/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-155/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-175/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/baldor-motor/",
+   "text": "HVAC Systems: Powering fans, blowers, and air handlers in commercial buildings.",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/brentwood-accupac-htp25-modular-splash-fill/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/brentwood-dekspray-nozzles/",
+   "text": "HVAC systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/brentwood-kelly-bar-splash-fill/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/brentwood-turbosplash-modular-splash-fill/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-05",
+   "path": "/product/c-e-shepherd-ces-190-film-fill/",
+   "text": "HVAC cooling tower systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/c-e-shepherd-quick-change-orifice-qco-nozzles/",
+   "text": "HVAC plants",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-06",
+   "path": "/product/c-e-shepherd-square-pattern-nozzles/",
+   "text": "HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-06",
+   "path": "/product/c-e-shepherd-target-nozzles/",
+   "text": "HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-11",
+   "path": "/product/counterflow-nozzles/",
+   "text": "Large HVAC systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/dyna-fab-10-height-fan-stack/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/dyna-fab-14-height-fan-stack/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/dyna-fab-18′-height-fan-stack/",
+   "text": "Large commercial HVAC cooling towers",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-05",
+   "path": "/product/dyna-fab-6-height-fan-stack/",
+   "text": "HVAC cooling tower systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-05",
+   "path": "/product/fiberglass-fanstack/",
+   "text": "HVAC cooling tower systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/high-efficiency-fill/",
+   "text": "Commercial HVAC cooling towers",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/high-efficiency-fill/",
+   "text": "engineered for HVAC and industrial cooling towers",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/high-efficiency-fill/",
+   "text": "HVAC and Industrial Cooling Towers",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/howden-pro-d-series-26-36-7-93m-10-98m-fans/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/ics-10-height-fan-stack/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/ics-14-height-fan-stack/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/ics-6-height-fan-stack/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-06",
+   "path": "/product/miscellaneous-nozzles/",
+   "text": "HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/pro-d-series-30-36-9-14m-10-98m-fans/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/pro-e-series-4-48-1-22m-14-63m-fans/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/pro-fpx-series-22-9-0-71m-2-74m-fans/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/rexnord-addax-drive-shaft-composite-coupling-lrr485-625/",
+   "text": "HVAC cooling tower applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/rexnord-addax-lra375-275/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/rexnord-addax-lra450-275/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/rexnord-addax-lrr350-275/",
+   "text": "Industrial HVAC cooling tower applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/sumitomo-paramax-sfc-cooling-tower-drives/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/tower-components-opti-bar-splash-fill/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/tower-components-opti-grid-splash-fill/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/tuf-lite-ii-3000-series-fan-assemblies/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/tuf-lite-ii-3000h-series-hub-fan-assemblies/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/tuf-lite-ii-3000hc-low-noise-series-hub-fan-assemblies/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/tuf-lite-ii-4000h-series-hub-fan-assemblies/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/tuf-lite-ii-5000h-series-hub-fan-assemblies/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/tuf-lite-ii-6000h-series-hub-fan-assemblies/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/tuf-lite-ii-7000-series-fan-assemblies/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/tuf-lite-ii-7000h-series-hub-fan-assemblies/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/tuf-lite-ii-8000h-series-hub-fan-assemblies/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-03",
+   "path": "/product/tuf-lite-iii-3000k-series-hub-fan-assemblies/",
+   "text": "Industrial HVAC cooling systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/tuf-lite-iii-4000kw-very-low-noise-series-hub-fan-assemblies/",
+   "text": "Industrial HVAC systems",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/tuf-lite-iii-6000k-series-hub-fan-assemblies/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-01",
+   "path": "/product/tuf-lite-iii-6000mk-series-hub-fan-assemblies/",
+   "text": "HVAC cooling applications",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-08",
+   "path": "/product/various-hardware/",
+   "text": "HVAC cooling installations",
+   "source": "claim-edit remove (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-15",
+   "path": "/product/amarillo-drive-shaft-cf52-275l/",
+   "text": "Small manufacturing plants",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P4-PETRONAS-1",
+   "path": "/all-projects/pertonas-rapid/",
+   "text": "PERTONAS RAPID Ethane Cracker",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P4-PETRONAS-2",
+   "path": "/all-projects/pertonas-rapid/",
+   "text": "Project PERTONAS RAPID",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P4-PETRONAS-3",
+   "path": "/all-projects/",
+   "text": "PERTONAS RAPID",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P4-PETRONAS-4",
+   "path": "/all-projects/",
+   "text": "Project: PERTONAS RAPID Ethane Cracker",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P7-BACMAN",
+   "path": "/all-projects/bacman-1-2/",
+   "text": "Project BacMan 3",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-ALU",
+   "path": "/aluminum-vs-frp-fan-blades/",
+   "text": "In small HVAC units with low tip speeds",
+   "source": "claim-edit replace (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-B-ALGAE",
+   "path": "/cooling-tower-algae-prevention/",
+   "text": "Ready to build a smarter, safer, and more cost-effective cooling system? Visit H2ocooling.com to discover our automated treatment solutions and take the first step towards a cleaner, more efficient operation.",
+   "source": "claim-edit set (SEO-CONTENT-1)"
+  },
+  {
+   "row": "SC1-P2-APPROACH",
+   "path": "/cooling-tower-approach/",
+   "text": "Typical for most HVAC and process cooling applications",
+   "source": "restored-section table cell (data/restored-sections.json)"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra350-275/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra485-338/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra650-425/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra850-625/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf350-275/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf375-275/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf450-275/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrf485-338/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr450-275/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr485-338/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr485-425/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr650-425/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr650-625/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr650-825/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr850-625/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrr850-825/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx450-275/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx485-425/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx650-425/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx650-625/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx650-825/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-1025/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-1275/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-625/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-825/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/addax-drive-shaft-composite-coupling/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-a-series-double-reduction-gearbox/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-a-series-fan-drives-a20/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-a-series-fan-drives-a22/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-a-series-fan-drives-a27/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-a-series-fan-drives-a32/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-a-series-fan-drives-a34/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-a-series-fan-drives-a36/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-a-series-fan-drives-a38-a40/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-a-series-single-reduction-gearbox/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-double-reduction-gearbox/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf52-275l/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf52-275m/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf60-275l/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf60-275m/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf60-275x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf60-425l/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf60-425x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf67-275l/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf67-275m/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf67-275x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf67-425l/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf67-425x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf67-600l/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf67-600x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf73-425l/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf73-425x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf73-600l/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf73-600x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf73-800l/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf73-800x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf73-950x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf83-1150x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf83-425x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf83-600l/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf83-600x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf83-800l/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf83-800x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-cf83-950x/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drive-single-reduction-135/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1008/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1110/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1311/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1311w/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1712-5/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1712-5w/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1712/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1712w/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1713/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1713w/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-1814/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-double-reduction-2016/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-110/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-155/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-175/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-65a/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-right-angle-gear-drives-single-reduction-85/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amarillo-single-reduction-gearbox/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amertech-atsprayer-counterflow-nozzle/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/amertech-atsprayer-yoke-style-nozzle/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/baldor-motor/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-accupac-cf1900-cross-fluted-film-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-accupac-htp25-modular-splash-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-accupac-of21ma-offset-fluted-low-fouling/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-accupac-vf-19-plus-vertical-fluted-anti-fouling-film-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-blade-de-overview/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-cellular-de-overview/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-cf150max-cellular-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-cf80max-cellular-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-d15-cellular-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-d15-nesting-cellular-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-de080-blade-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-de097-blade-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-de120-blade-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-dekspray-nozzles/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-kelly-bar-splash-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-turbosplash-modular-splash-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-xf150max-cellular-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/brentwood-xf80max-cellular-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/c-e-shepherd-cellular-de/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/c-e-shepherd-ces-190-film-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/c-e-shepherd-crown-nozzles/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/c-e-shepherd-quick-change-orifice-qco-nozzles/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/c-e-shepherd-sdru-xf-drift-reduction-units/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/c-e-shepherd-square-pattern-nozzles/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/c-e-shepherd-target-nozzles/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/c-e-shepherd-v-bar-splash-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/cooling-tower-hybrid-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/counterflow-nozzles/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/dyna-fab-10-height-fan-stack/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/dyna-fab-14-height-fan-stack/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/dyna-fab-18′-height-fan-stack/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/dyna-fab-6-height-fan-stack/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/fiberglass-fanstack/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/frp-angles/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/frp-beams/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/frp-channels/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/frp-deck-board/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/frp-flatsheet/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/frp-square-tubes/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/glue-assembly-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/high-efficiency-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/howden-pro-d-series-26-36-7-93m-10-98m-fans/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/ics-10-height-fan-stack/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/ics-14-height-fan-stack/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/ics-6-height-fan-stack/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/low-fouling-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/mech-assembly-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/miscellaneous-nozzles/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/offset-flute-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/pro-d-series-30-36-9-14m-10-98m-fans/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/pro-e-series-4-48-1-22m-14-63m-fans/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/pro-fpx-series-22-9-0-71m-2-74m-fans/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/rexnord-addax-drive-shaft-composite-coupling-lrr485-625/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/rexnord-addax-lra375-275/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/rexnord-addax-lra450-275/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/rexnord-addax-lrr350-275/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/rexnord-addax-lrr375-275/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/robertshaw-vibration-switch-365a-366a/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/site-assembly/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/splash-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/sumitomo-hansen-p4-gearboxes/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/sumitomo-hansen-p4-single-stage-gearbox/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/sumitomo-paramax-sfc-cooling-tower-drive-045/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/sumitomo-paramax-sfc-cooling-tower-drive-055/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/sumitomo-paramax-sfc-cooling-tower-drive-060/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/sumitomo-paramax-sfc-cooling-tower-drive-065/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/sumitomo-paramax-sfc-cooling-tower-drive-070/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/sumitomo-paramax-sfc-cooling-tower-drive-075/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/sumitomo-paramax-sfc-cooling-tower-drives/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tower-components-opti-bar-splash-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tower-components-opti-cell-150-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tower-components-opti-cell-80-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tower-components-opti-grid-splash-fill/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tower-components-opti-wave-drift-eliminator/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-ii-3000-series-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-ii-3000h-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-ii-3000hc-low-noise-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-ii-3000hc-series/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-ii-4000h-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-ii-5000h-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-ii-6000h-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-ii-6000mh-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-ii-7000-series-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-ii-7000h-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-ii-8000h-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-iii-3000k-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-iii-4000kw-very-low-noise-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-iii-5000k-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-iii-6000k-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/tuf-lite-iii-6000mk-series-hub-fan-assemblies/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/various-hardware/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-P2-ACCEPT",
+   "path": "/product/vibration-switch-example/",
+   "text": "HVAC",
+   "source": "acceptance: no HVAC wording on any product page"
+  },
+  {
+   "row": "SC1-A-005",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "Strategies for Guaranteed OEM Authenticity",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-006",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "The only reliable solution is to source genuine Cooling Tower Certified Parts and services for all models. This strategy guarantees a universal standard of quality, ensuring that every component, from fan blades to fill media, functions precisely as intended.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-007",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "Certified OEM parts guarantee the correct material composition for your specific tower.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-008",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "and guarantees consistent quality across your entire fleet of cooling towers, regardless of the original manufacturer.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-009",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "Make the smart move for your organisation today: Choose Cooling Tower Certified Parts to guarantee peak efficiency, robust safety, and lasting value for every tower model. Contact our experts now to secure your peace of mind and optimal system performance at H2O Cooling!",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-010",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "They guarantee thermal performance, structural safety, material compatibility, and compliance with health and safety regulations.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-012",
+   "path": "/cooling-tower-maintenance-contract/",
+   "text": "Guaranteed Emergency Response: You get an immediate response from the provider when critical failures occur, minimizing downtime.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-013",
+   "path": "/cooling-tower-maintenance-contract/",
+   "text": "The provider must guarantee 24/7 availability for critical system failures.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-014",
+   "path": "/cooling-tower-maintenance-contract/",
+   "text": "The provider must guarantee the availability of critical parts within local warehouses.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-015",
+   "path": "/cooling-tower-maintenance-contract/",
+   "text": "you protect your investment and guarantee long-term reliability.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-017",
+   "path": "/cooling-tower-performance-testing/",
+   "text": "provides certainty that your investment will deliver its guaranteed performance for years to come.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-018",
+   "path": "/cooling-tower-performance-testing/",
+   "text": "Ready to guarantee your new equipment delivers on its promises? Visit us at h2ocooling.com to schedule your cooling tower maintenance, repair, or upgrade.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-019",
+   "path": "/cooling-tower-performance-testing/",
+   "text": "securing your investment and guaranteeing long-term operational efficiency.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-021",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "Ready to plan a budget-friendly project that delivers guaranteed ROI? Contact H2ocooling today for a complete LCC analysis on your New Cooling Tower design.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-022",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "B. Thermal Component Quality Guarantee",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-023",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "A. Fan System Investment for Immediate ROI",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-024",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "This guarantees protection for your investment and prevents costly efficiency losses over time.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-025",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "high-efficiency components that guarantee long-term ROI.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-026",
+   "path": "/cooling-tower-efficiency-calculation/",
+   "text": "This metric matters across power plants, HVAC systems, and industrial cooling operations",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-027",
+   "path": "/cooling-tower-efficiency-calculation/",
+   "text": "HVAC sensors: Many modern HVAC control systems include integrated sensors that report wet-bulb temperature in real time.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-028",
+   "path": "/closed-loop-vs-open-loop/",
+   "text": "General HVAC applications, power generation, and heavy industrial processes may tolerate some fluid contamination without operational impact.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-029",
+   "path": "/cooling-tower-maintenance/",
+   "text": "For any facility that depends on HVAC or industrial cooling, proper maintenance is not optional",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-030",
+   "path": "/cooling-tower-maintenance/",
+   "text": "while easing strain on pumps, fans, and HVAC equipment.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-031",
+   "path": "/cooling-tower-design-parameters/",
+   "text": "In many standard HVAC applications, the range typically falls between 10°F and 15°F (5.5°C to 8.3°C). However, industrial processes may require a significantly higher range depending on the heat load.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-032",
+   "path": "/cooling-tower-design-parameters/",
+   "text": "Standard design approach values often range from 5°F to 7°F (2.8°C to 3.9°C) for industrial applications, while HVAC applications might see slightly higher values.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-035",
+   "path": "/cooling-tower-heat-load/",
+   "text": "This formula aligns with ASHRAE guidelines for precise HVAC thermal capacity design and system optimization.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-036",
+   "path": "/signs-of-cooling-tower-failure/",
+   "text": "potentially impacting production or HVAC efficiency.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-038",
+   "path": "/cooling-tower-replacement-cost/",
+   "text": "Small Commercial (Up to 200 Tons): You should expect costs between $65,000 and $185,000. These systems typically support light commercial HVAC requirements and smaller process loads.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-041",
+   "path": "/frp-fan-blades-guide/",
+   "text": "Essential for critical systems: Commonly found in large-scale HVAC systems, power plant cooling towers, and petrochemical heat exchangers, where reliability is paramount.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-042",
+   "path": "/frp-fan-blades-guide/",
+   "text": "District Cooling & Large HVAC Systems: Offers noise reduction and energy efficiency benefits.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-043",
+   "path": "/cooling-tower-clearance/",
+   "text": "Industrial HVAC installation standards:",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-046",
+   "path": "/cooling-tower-inspection-checklist/",
+   "text": "Cooling towers are essential for dissipating large-scale heat in industrial and HVAC systems.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-047",
+   "path": "/cooling-tower-inspection-checklist/",
+   "text": "Cooling towers remove heat from industrial processes or HVAC systems by transferring it to the atmosphere.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-048",
+   "path": "/cooling-tower-deep-cleaning/",
+   "text": "highlights the crucial role of proper maintenance for any HVAC system.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-049",
+   "path": "/cooling-tower-deep-cleaning/",
+   "text": "are essential for keeping your HVAC system running efficiently throughout the cooling season and beyond.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-050",
+   "path": "/cooling-tower-scale-buildup/",
+   "text": "Industrial cooling systems represent the heart of many manufacturing and HVAC operations,",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-051",
+   "path": "/cooling-tower-low-water-flow/",
+   "text": "2.5 to 3 GPM per ton for HVAC systems",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-052",
+   "path": "/frp-cooling-tower-fans/",
+   "text": "Data Centers and Large HVAC Systems",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-053",
+   "path": "/frp-cooling-tower-fans/",
+   "text": "Whether you operate a power plant, a chemical refinery, or a large HVAC system,",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-054",
+   "path": "/axial-fans-guide/",
+   "text": "centrifugal fans still appear in specific HVAC applications.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-055",
+   "path": "/cooling-tower-fan-not-working/",
+   "text": "to prevent the water temperature from rising unexpectedly and damaging your commercial HVAC systems.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-056",
+   "path": "/cooling-tower-strainer-cleaning/",
+   "text": "cascading failures throughout the entire HVAC or industrial process system.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-057",
+   "path": "/cooling-tower-materials/",
+   "text": "HVAC and District Cooling Systems",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-058",
+   "path": "/cooling-tower-materials/",
+   "text": "Chemical plants, manufacturing, HVAC",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-059",
+   "path": "/cooling-tower-materials/",
+   "text": "a power plant’s needs differ significantly from those of an HVAC system or a chemical processing facility.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-060",
+   "path": "/cooling-tower-range/",
+   "text": "HVAC / Comfort Cooling",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-061",
+   "path": "/cooling-tower-drift/",
+   "text": "Chemical-laden droplets settle on roofs, vehicles, and HVAC equipment.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-062",
+   "path": "/cycles-of-concentration/",
+   "text": "Reusing alternative sources like greywater or HVAC condensate",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-063",
+   "path": "/industrial-cooling-tower-automation/",
+   "text": "Automation enables HVAC systems, industrial processes, and process equipment to achieve sustainable performance.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-065",
+   "path": "/cooling-tower-structural-loads/",
+   "text": "Industrial cooling towers play a vital role in power plants, refineries, chemical processing facilities, and HVAC systems, where they must endure significant forces throughout their operational life.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-066",
+   "path": "/increasing-cooling-tower-capacity/",
+   "text": "Working smarter, not harder, applies to your HVAC system too.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-067",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "From heavy industrial facilities to commercial HVAC systems, U.S.-made cooling towers are trusted across every major sector of the economy.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-068",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "Driven by demand from power generation, petrochemical refining, manufacturing, and commercial HVAC, the industry",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-070",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "makes them a preferred choice for HVAC and industrial buyers with sustainability targets.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-071",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "Typical applications: Commercial HVAC, light industrial, food and beverage",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-072",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "HVAC systems",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-073",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "Addresses Legionella risk (Standard 188) and HVAC energy efficiency (Standard 90.1),",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-074",
+   "path": "/energy-efficient-cooling-tower/",
+   "text": "Hot water from an industrial process or HVAC system is pumped to the top of the tower",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-075",
+   "path": "/cooling-tower-construction/",
+   "text": "during the HVAC cooling tower planning phase?",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-077",
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "text": "Industrial applications, small to medium HVAC & process cooling",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-078",
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "text": "HVAC, light industry, manufacturing, process cooling",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-079",
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "text": "including chemical processing, petrochemical facilities, and commercial HVAC systems.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-081",
+   "path": "/cooling-tower-maintenance-checklist/",
+   "text": "Cooling towers are not just mechanical boxes; they are the lungs of your HVAC systems.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-082",
+   "path": "/choosing-cooling-tower-fill-media/",
+   "text": "Data Centers (HVAC Cooling)",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-084",
+   "path": "/cooling-tower-bypass-valve/",
+   "text": "Data Centers / High-End HVAC",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-085",
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "text": "Cooling towers are integral to large commercial buildings and industries for cooling their environment and ensuring proper functioning under ideal conditions. To ensure your cooling tower and HVAC system are functioning correctly, it is mandatory to inspect the overall tower system.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-086",
+   "path": "/vfd-cooling-tower-savings/",
+   "text": "Cooling towers are critical components in industrial facilities and HVAC systems.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-087",
+   "path": "/vfd-cooling-tower-savings/",
+   "text": "Cooling towers transfer heat from industrial processes or HVAC systems into the atmosphere.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-088",
+   "path": "/cooling-towers-in-the-usa/",
+   "text": "remove heat from industrial processes, power plants, and HVAC systems by transferring heat",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-089",
+   "path": "/cooling-tower-winter-shutdown/",
+   "text": "However, systems used exclusively for seasonal HVAC cooling must be shut down.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-090",
+   "path": "/frp-cooling-towers/",
+   "text": "HVAC and District Cooling: For large commercial complexes or district cooling loops, the longevity and low maintenance of FRP justify the investment, ensuring consistent climate control without frequent service interruptions.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-091",
+   "path": "/frp-cooling-towers/",
+   "text": "power generation, petrochemical processing, manufacturing, HVAC, district cooling, and coastal infrastructure",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-092",
+   "path": "/cooling-tower-environmental-impact/",
+   "text": "in power plants, manufacturing facilities, and HVAC systems,",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-093",
+   "path": "/cooling-tower-vs-chiller/",
+   "text": "Power plants also utilize these hybrid large-scale HVAC systems to manage waste heat effectively.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-094",
+   "path": "/cooling-tower-vs-chiller/",
+   "text": "Both systems play vital roles in large-scale HVAC systems and industrial cooling solutions.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-B-050",
+   "path": "/guide-about-cooling-tower/",
+   "text": "Next, evaluate your existing HVAC system.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-L-01",
+   "path": "/cooling-tower-construction-repair-in-singapore/",
+   "text": "We are dedicated to serving customers at every juncture of their process, from new cooling tower construction and regular maintenance to unforeseen repairs and even OEM part distribution.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-L-02",
+   "path": "/cooling-tower-construction-repair-in-singapore/",
+   "text": "The last thing you want is to select a manufacturer only to find that they do not have proper towers or replacement parts in stock and that you will be stuck waiting for months.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-L-03",
+   "path": "/cooling-tower-malaysia/",
+   "text": "OEM Spare Parts & Components",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-L-04",
+   "path": "/cooling-tower-malaysia/",
+   "text": "OEM and compatible components — fill media, fans, motors, drive shafts, and structural parts — supplied on demand.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-L-09",
+   "path": "/cooling-tower-malaysia/",
+   "text": "Engineering-led solutions. First-class service. One specialist team for your entire project.",
+   "source": "claim-edit (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-033",
+   "path": "/cooling-tower-heat-load/",
+   "text": "HVAC Commercial Buildings",
+   "source": "claim-edit remove (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-034",
+   "path": "/cooling-tower-heat-load/",
+   "text": "Hospitals & Healthcare Facilities",
+   "source": "claim-edit remove (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-069",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "HVAC and commercial building systems",
+   "source": "claim-edit remove (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-076",
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "text": "Commercial HVAC: Large commercial buildings often choose FRP for its blend of durability and aesthetics.",
+   "source": "claim-edit remove (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-083",
+   "path": "/choosing-cooling-tower-fill-media/",
+   "text": "Commercial HVAC (Large Buildings)",
+   "source": "claim-edit remove (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-039",
+   "path": "/cooling-tower-replacement-cost/",
+   "text": "Commercial HVAC",
+   "source": "restored-section table cell"
+  },
+  {
+   "row": "SC1-A-040",
+   "path": "/cooling-tower-replacement-cost/",
+   "text": "HVAC & Industrial Cooling",
+   "source": "restored-section table cell"
+  },
+  {
+   "row": "SC1-A-045",
+   "path": "/cooling-tower-fill-media-replacement/",
+   "text": "Often called the lungs of industrial and HVAC systems",
+   "source": "restored-section paragraph"
+  },
+  {
+   "row": "SC1-A-001",
+   "path": "/ics-announces-comprehensive-cooling-technology-seminar-thailand/",
+   "text": "2260-6598",
+   "source": "text override TO body-range (seminar contact block)"
+  },
+  {
+   "row": "SC1-A-001",
+   "path": "/ics-announces-comprehensive-cooling-technology-seminar-thailand/",
+   "text": "INTERNATIONAL COOLING SOLUTIONS (THAILAND)",
+   "source": "text override TO body-range (seminar contact block)"
+  },
+  {
+   "row": "SC1-A-001",
+   "path": "/ics-announces-comprehensive-cooling-technology-seminar-thailand/",
+   "text": "Serm-Mit Tower",
+   "source": "text override TO body-range (seminar contact block)"
+  },
+  {
+   "row": "SC1-A-001",
+   "path": "/ics-announces-comprehensive-cooling-technology-seminar-thailand/",
+   "text": "2260-6599",
+   "source": "text override TO body-range (seminar contact block)"
+  },
+  {
+   "row": "SC1-A-003",
+   "path": "/ics-announces-comprehensive-cooling-technology-seminar-thailand/",
+   "text": "8: 30",
+   "source": "text override"
+  },
+  {
+   "row": "SC1-A-HVAC-CLASS10000",
+   "path": "/class-10000-minimum-acoustic-geometry/",
+   "text": "HVAC",
+   "source": "text override (icon-list item)"
+  },
+  {
+   "row": "SC1-P7-BACMAN-BODY",
+   "path": "/all-projects/bacman-1-2/",
+   "text": "at BacMan 3",
+   "source": "claim-edit"
+  },
+  {
+   "row": "SC1-L-01",
+   "path": "/cooling-tower-construction-repair-in-singapore/",
+   "text": "OEM part distribution",
+   "source": "OEM/stock rulings LOC-01"
+  },
+  {
+   "row": "SC1-L-02",
+   "path": "/cooling-tower-construction-repair-in-singapore/",
+   "text": "do not have proper towers or replacement parts in stock",
+   "source": "LOC-02"
+  },
+  {
+   "row": "SC1-L-MY",
+   "path": "/cooling-tower-malaysia/",
+   "text": "OEM Spare Parts",
+   "source": "OEM/stock rulings (LOC-03, LOC-05..09; LOC-05..08 already applied by R5B-L44/A17/A18)"
+  },
+  {
+   "row": "SC1-L-MY",
+   "path": "/cooling-tower-malaysia/",
+   "text": "First-Class Service",
+   "source": "OEM/stock rulings (LOC-03, LOC-05..09; LOC-05..08 already applied by R5B-L44/A17/A18)"
+  },
+  {
+   "row": "SC1-L-MY",
+   "path": "/cooling-tower-malaysia/",
+   "text": "First-class service",
+   "source": "OEM/stock rulings (LOC-03, LOC-05..09; LOC-05..08 already applied by R5B-L44/A17/A18)"
+  },
+  {
+   "row": "SC1-L-01",
+   "path": "/cooling-tower-malaysia/",
+   "text": "OEM part distribution",
+   "source": "OEM/stock rulings"
   }
  ],
  "present": [
@@ -2234,6 +4742,624 @@
    "path": "/cooling-tower-thailand/",
    "text": "Yes. ICS supplies replacement parts for crossflow and counterflow cooling towers from many manufacturers.",
    "source": "OGCS R5b addendum (e) FAQ answer"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/addax-drive-shaft-composite-coupling-lra485-338/",
+   "text": "Cooling towers, industrial pumps, compressors, and rotating mechanical equipment",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P2-14",
+   "path": "/product/addax-drive-shaft-composite-coupling-lrx850-825/",
+   "text": "Industrial cooling towers, pumps, compressors, and rotating equipment",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P2-13",
+   "path": "/product/addax-drive-shaft-composite-coupling/",
+   "text": "Heavy-duty process cooling systems",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/amarillo-drive-shaft-composite-coupling/",
+   "text": "torque transmission for large field-erected cooling towers",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/high-efficiency-fill/",
+   "text": "engineered for industrial cooling towers operating with clean, treated process water.",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P2-X",
+   "path": "/product/high-efficiency-fill/",
+   "text": "Tower Compatibility: Industrial Cooling Towers",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P2-15",
+   "path": "/product/amarillo-drive-shaft-cf52-275l/",
+   "text": "Manufacturing plants",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P4-PETRONAS-1",
+   "path": "/all-projects/pertonas-rapid/",
+   "text": "PETRONAS RAPID Ethane Cracker",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P4-PETRONAS-2",
+   "path": "/all-projects/pertonas-rapid/",
+   "text": "Project PETRONAS RAPID",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P4-PETRONAS-3",
+   "path": "/all-projects/",
+   "text": "PETRONAS RAPID",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P4-PETRONAS-4",
+   "path": "/all-projects/",
+   "text": "Project: PETRONAS RAPID Ethane Cracker",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P7-BACMAN",
+   "path": "/all-projects/bacman-1-2/",
+   "text": "Project BacMan 1 & 2",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-P2-ALU",
+   "path": "/aluminum-vs-frp-fan-blades/",
+   "text": "On smaller fans with low tip speeds, the fatigue stress is minimal.",
+   "source": "SEO-CONTENT-1 wording"
+  },
+  {
+   "row": "SC1-B-ALGAE",
+   "path": "/cooling-tower-algae-prevention/",
+   "text": "Ready to keep your cooling tower clean and efficient? Contact ICS to request a quote for cooling tower inspection, cleaning, or repair.",
+   "source": "OGCS addendum B wording (algae closing CTA)"
+  },
+  {
+   "row": "SC1-P2-APPROACH",
+   "path": "/cooling-tower-approach/",
+   "text": "Typical for most process cooling applications",
+   "source": "OGCS SEO Deep R1 rulings section 2 (table cell); KEEP article, phrase fix only"
+  },
+  {
+   "row": "SC1-A-005",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "Strategies for Verifying OEM Authenticity",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-006",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "The most reliable approach is to source genuine certified parts and services matched to your tower model. This sets a consistent standard of quality, helping ensure that every component, from fan blades to fill media, functions as intended.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-007",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "Certified OEM parts are made to the material specification for your specific tower.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-008",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "and supports consistent quality across your fleet of cooling towers.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-009",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "Make the smart move for your organisation: choose certified cooling tower parts for efficiency, safety, and lasting value. Contact ICS to request a quote.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-010",
+   "path": "/cooling-tower-certified-parts/",
+   "text": "They support thermal performance, structural safety, material compatibility, and compliance with health and safety regulations.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-012",
+   "path": "/cooling-tower-maintenance-contract/",
+   "text": "Defined Emergency Response: The contract sets out how the provider responds when critical failures occur, minimizing downtime.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-013",
+   "path": "/cooling-tower-maintenance-contract/",
+   "text": "The contract should state the provider's availability for critical system failures.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-014",
+   "path": "/cooling-tower-maintenance-contract/",
+   "text": "The contract should define how critical parts will be made available.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-015",
+   "path": "/cooling-tower-maintenance-contract/",
+   "text": "you protect your investment and support long-term reliability.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-017",
+   "path": "/cooling-tower-performance-testing/",
+   "text": "helps confirm that your investment delivers its design performance.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-018",
+   "path": "/cooling-tower-performance-testing/",
+   "text": "Want to confirm your new equipment delivers its design performance? Contact ICS to request a quote for cooling tower maintenance, repair, or upgrades.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-019",
+   "path": "/cooling-tower-performance-testing/",
+   "text": "protecting your investment and supporting long-term operational efficiency.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-021",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "Ready to plan a budget-friendly project with strong long-term ROI? Contact ICS today for a complete LCC analysis on your new cooling tower design.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-022",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "B. Thermal Component Quality Standards",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-023",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "A. Fan System Investment and ROI",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-024",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "This protects your investment and helps prevent costly efficiency losses over time.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-025",
+   "path": "/cost-effective-new-cooling-tower/",
+   "text": "high-efficiency components that support long-term ROI.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-026",
+   "path": "/cooling-tower-efficiency-calculation/",
+   "text": "This metric matters across power plants, refineries, and industrial cooling operations",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-027",
+   "path": "/cooling-tower-efficiency-calculation/",
+   "text": "Control-system sensors: Many modern plant control systems include integrated sensors that report wet-bulb temperature in real time.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-028",
+   "path": "/closed-loop-vs-open-loop/",
+   "text": "Power generation and heavy industrial processes may tolerate some fluid contamination without operational impact.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-029",
+   "path": "/cooling-tower-maintenance/",
+   "text": "For any facility that depends on industrial cooling, proper maintenance is not optional",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-030",
+   "path": "/cooling-tower-maintenance/",
+   "text": "while easing strain on pumps, fans, and downstream process equipment.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-031",
+   "path": "/cooling-tower-design-parameters/",
+   "text": "In many applications, the range typically falls between 10°F and 15°F (5.5°C to 8.3°C). However, high-heat industrial processes may require a significantly higher range depending on the heat load.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-032",
+   "path": "/cooling-tower-design-parameters/",
+   "text": "Standard design approach values often range from 5°F to 7°F (2.8°C to 3.9°C) for industrial applications.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-035",
+   "path": "/cooling-tower-heat-load/",
+   "text": "This formula aligns with ASHRAE guidelines for precise thermal capacity design and system optimization.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-036",
+   "path": "/signs-of-cooling-tower-failure/",
+   "text": "potentially impacting production or cooling efficiency.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-038",
+   "path": "/cooling-tower-replacement-cost/",
+   "text": "Small Process Systems (Up to 200 Tons): You should expect costs between $65,000 and $185,000. These systems typically support smaller process loads.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-041",
+   "path": "/frp-fan-blades-guide/",
+   "text": "Essential for critical systems: Commonly found in power plant cooling towers, petrochemical heat exchangers, and other heavy-duty industrial systems, where reliability is paramount.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-042",
+   "path": "/frp-fan-blades-guide/",
+   "text": "District Cooling Plants: Offers noise reduction and energy efficiency benefits.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-043",
+   "path": "/cooling-tower-clearance/",
+   "text": "Industrial installation standards:",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-046",
+   "path": "/cooling-tower-inspection-checklist/",
+   "text": "Cooling towers are essential for dissipating large-scale heat in industrial plants and process systems.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-047",
+   "path": "/cooling-tower-inspection-checklist/",
+   "text": "Cooling towers remove heat from industrial processes and equipment by transferring it to the atmosphere.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-048",
+   "path": "/cooling-tower-deep-cleaning/",
+   "text": "highlights the crucial role of proper maintenance for any industrial cooling system.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-049",
+   "path": "/cooling-tower-deep-cleaning/",
+   "text": "are essential for keeping your cooling system running efficiently year-round.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-050",
+   "path": "/cooling-tower-scale-buildup/",
+   "text": "Industrial cooling systems represent the heart of many manufacturing and process operations,",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-051",
+   "path": "/cooling-tower-low-water-flow/",
+   "text": "2.5 to 3 GPM per ton for comfort-cooling systems",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-052",
+   "path": "/frp-cooling-tower-fans/",
+   "text": "Data Centers and Mission-Critical Facilities",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-053",
+   "path": "/frp-cooling-tower-fans/",
+   "text": "Whether you operate a power plant, a chemical refinery, or a data center,",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-054",
+   "path": "/axial-fans-guide/",
+   "text": "centrifugal fans still appear in specific applications.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-055",
+   "path": "/cooling-tower-fan-not-working/",
+   "text": "to prevent the water temperature from rising unexpectedly and damaging downstream process equipment.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-056",
+   "path": "/cooling-tower-strainer-cleaning/",
+   "text": "cascading failures throughout the entire industrial process system.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-057",
+   "path": "/cooling-tower-materials/",
+   "text": "District Cooling Systems",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-058",
+   "path": "/cooling-tower-materials/",
+   "text": "Chemical plants, manufacturing",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-059",
+   "path": "/cooling-tower-materials/",
+   "text": "a power plant’s needs differ significantly from those of a manufacturing plant or a chemical processing facility.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-060",
+   "path": "/cooling-tower-range/",
+   "text": "Comfort Cooling",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-061",
+   "path": "/cooling-tower-drift/",
+   "text": "Chemical-laden droplets settle on roofs, vehicles, and nearby equipment.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-062",
+   "path": "/cycles-of-concentration/",
+   "text": "Reusing alternative sources like greywater or recovered condensate",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-063",
+   "path": "/industrial-cooling-tower-automation/",
+   "text": "Automation enables industrial processes and process equipment to achieve sustainable performance.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-065",
+   "path": "/cooling-tower-structural-loads/",
+   "text": "Industrial cooling towers play a vital role in power plants, refineries, and chemical processing facilities, where they must endure significant forces throughout their operational life.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-066",
+   "path": "/increasing-cooling-tower-capacity/",
+   "text": "Working smarter, not harder, applies to your cooling system too.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-067",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "From power plants to heavy industrial facilities, U.S.-made cooling towers are trusted across every major industrial sector.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-068",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "Driven by demand from power generation, petrochemical refining, and manufacturing, the industry",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-070",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "makes them a preferred choice for industrial buyers with sustainability targets.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-071",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "Typical applications: light industrial, food and beverage",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-072",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "Light industrial applications",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-073",
+   "path": "/cooling-tower-manufacturers-in-the-usa/",
+   "text": "Addresses Legionella risk (Standard 188) and minimum efficiency for heat-rejection equipment (Standard 90.1),",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-074",
+   "path": "/energy-efficient-cooling-tower/",
+   "text": "Hot water from an industrial process or chiller condenser is pumped to the top of the tower",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-075",
+   "path": "/cooling-tower-construction/",
+   "text": "during the cooling tower planning phase?",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-077",
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "text": "Industrial applications and small to medium process cooling",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-078",
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "text": "Light industry, manufacturing, process cooling",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-079",
+   "path": "/concrete-vs-frp-cooling-towers/",
+   "text": "including chemical processing and petrochemical facilities.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-081",
+   "path": "/cooling-tower-maintenance-checklist/",
+   "text": "Cooling towers are not just mechanical boxes; they are the lungs of your plant's cooling system.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-082",
+   "path": "/choosing-cooling-tower-fill-media/",
+   "text": "Data Centers",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-084",
+   "path": "/cooling-tower-bypass-valve/",
+   "text": "Data Centers / Critical Process Cooling",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-085",
+   "path": "/cooling-tower-maintenance-a-step-by-step/",
+   "text": "Cooling towers are integral to industrial plants, removing process heat and keeping equipment within proper operating conditions. To ensure your cooling tower and connected process equipment are functioning correctly, it is mandatory to inspect the overall tower system.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-086",
+   "path": "/vfd-cooling-tower-savings/",
+   "text": "Cooling towers are critical components in industrial facilities and power plants.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-087",
+   "path": "/vfd-cooling-tower-savings/",
+   "text": "Cooling towers transfer heat from industrial processes and equipment into the atmosphere.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-088",
+   "path": "/cooling-towers-in-the-usa/",
+   "text": "remove heat from industrial processes and power plants by transferring heat",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-089",
+   "path": "/cooling-tower-winter-shutdown/",
+   "text": "However, towers used only for seasonal cooling loads must be shut down.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-090",
+   "path": "/frp-cooling-towers/",
+   "text": "District Cooling: For district cooling loops, the longevity and low maintenance of FRP justify the investment, supporting consistent cooling without frequent service interruptions.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-091",
+   "path": "/frp-cooling-towers/",
+   "text": "power generation, petrochemical processing, manufacturing, district cooling, and coastal infrastructure",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-092",
+   "path": "/cooling-tower-environmental-impact/",
+   "text": "in power plants and manufacturing facilities,",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-093",
+   "path": "/cooling-tower-vs-chiller/",
+   "text": "Power plants also use hybrid tower-and-chiller systems to manage waste heat effectively.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-094",
+   "path": "/cooling-tower-vs-chiller/",
+   "text": "Both systems play vital roles in industrial cooling.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-B-050",
+   "path": "/guide-about-cooling-tower/",
+   "text": "Next, evaluate your existing cooling system.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-L-01",
+   "path": "/cooling-tower-construction-repair-in-singapore/",
+   "text": "We are dedicated to serving customers at every juncture of their process, from new cooling tower construction and regular maintenance to unforeseen repairs and replacement parts supply.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-L-02",
+   "path": "/cooling-tower-construction-repair-in-singapore/",
+   "text": "The last thing you want is to select a manufacturer only to find that they cannot supply the towers or replacement parts you need and that you will be stuck waiting for months.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-L-03",
+   "path": "/cooling-tower-malaysia/",
+   "text": "Spare Parts & Components",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-L-04",
+   "path": "/cooling-tower-malaysia/",
+   "text": "Replacement components — fill media, fans, motors, drive shafts, and structural parts — supplied for your project.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-L-09",
+   "path": "/cooling-tower-malaysia/",
+   "text": "Engineering-led solutions. Dedicated service. One specialist team for your entire project.",
+   "source": "OGCS CT-accepted wording (SEO-CONTENT-1 round 2)"
+  },
+  {
+   "row": "SC1-A-039",
+   "path": "/cooling-tower-replacement-cost/",
+   "text": "General industrial cooling",
+   "source": "restored-section table cell"
+  },
+  {
+   "row": "SC1-A-040",
+   "path": "/cooling-tower-replacement-cost/",
+   "text": "Industrial & process cooling",
+   "source": "restored-section table cell"
+  },
+  {
+   "row": "SC1-A-045",
+   "path": "/cooling-tower-fill-media-replacement/",
+   "text": "Often called the lungs of industrial process systems",
+   "source": "restored-section paragraph"
+  },
+  {
+   "row": "SC1-A-003",
+   "path": "/ics-announces-comprehensive-cooling-technology-seminar-thailand/",
+   "text": "from 8:30 to 5:30",
+   "source": "text override"
+  },
+  {
+   "row": "SC1-P7-BACMAN-BODY",
+   "path": "/all-projects/bacman-1-2/",
+   "text": "at BacMan 1 & 2. The project",
+   "source": "claim-edit"
+  },
+  {
+   "row": "SC1-L-01",
+   "path": "/cooling-tower-construction-repair-in-singapore/",
+   "text": "replacement parts supply",
+   "source": "OEM/stock rulings LOC-01"
+  },
+  {
+   "row": "SC1-L-02",
+   "path": "/cooling-tower-construction-repair-in-singapore/",
+   "text": "cannot supply the towers or replacement parts you need",
+   "source": "LOC-02"
   }
  ]
 }

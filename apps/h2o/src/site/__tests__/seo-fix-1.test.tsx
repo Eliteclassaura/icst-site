@@ -72,7 +72,7 @@ describe('SEO-FIX-1 (a): the retired Thailand number appears nowhere in rendered
 })
 
 describe('SEO-FIX-1: product titles are never cut mid-word (H2O_SEO_DEEP_R1 SF-7)',()=>{
-  it('no served product title ends in a cut word; the one imported cut is fixed by the R5b data row',()=>{
+  it('no served product title ends in a cut word; the one imported cut is fixed by the SEO-CONTENT-1 title row',()=>{
     // No code path shortens a title (servedTitle keeps the stored title); a title cut by the old WordPress plugin shows as a
     // last word that no product page uses anywhere else. The known cut (OGCS 46d05c1b section 5) is corrected in Main-B's
     // R5b content batch; any other cut fails here.
@@ -80,8 +80,11 @@ describe('SEO-FIX-1: product titles are never cut mid-word (H2O_SEO_DEEP_R1 SF-7
     const vocabulary=new Map<string,number>()
     const words=(text:string):string[]=>text.toLowerCase().match(/[\p{L}\p{N}]+/gu)??[]
     for(const doc of products)for(const w of new Set(words(JSON.stringify(doc.children)+' '+doc.seo.title)))vocabulary.set(w,(vocabulary.get(w)??0)+1)
-    const cut=products.filter(doc=>{const last=words(servedTitle(doc)).at(-1)??'';return last.length>3&&(vocabulary.get(last)??0)<2&&!words(JSON.stringify(doc.children)).includes(last)}).map(doc=>doc.targetPath)
-    expect(cut).toEqual(['/product/brentwood-kelly-bar-splash-fill/'])
+    // SEO-CONTENT-1 (CT 2026-10-07): the decided title (data/seo-fields.tsv, written by the batch) is what is served for the cut one
+    const corrected=new Set(readFileSync(path.join(APP,'ops/seo-pass/data/sc1-seo-set.tsv'),'utf8').trimEnd().split('\n').slice(1).map(l=>l.split('\t')).filter(c=>c[1]==='title'&&c[0]!.startsWith('/product/')).map(c=>c[0]!))
+    const decided=new Map(readFileSync(path.join(APP,'ops/seo-pass/data/seo-fields.tsv'),'utf8').trimEnd().split('\n').slice(1).map(l=>l.split('\t')).filter(c=>corrected.has(c[0]!)).map(c=>[c[0]!,c[3]!] as [string,string]))
+    const cut=products.filter(doc=>{const last=words(decided.get(doc.targetPath)??servedTitle(doc)).at(-1)??'';return last.length>3&&(vocabulary.get(last)??0)<2&&!words(JSON.stringify(doc.children)).includes(last)}).map(doc=>doc.targetPath)
+    expect(cut).toEqual([])
   },300000)
 })
 

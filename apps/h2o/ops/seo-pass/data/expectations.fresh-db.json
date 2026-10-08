@@ -1,11 +1,11 @@
 {
   "note": "R2.5 (CT ruling, fresh production database): the counts of ONE apply of this batch onto a freshly imported database (the authority import of this release: its route ledger and ledger redirects, nothing else). Use with --expectations=expectations.fresh-db.json. Rehearsed on the writable mock: dry run match, apply 0 failures, rerun 0, and the end state equals the staging chain end state (Main evidence).",
-  "rows": 1139,
-  "redirects": 407,
-  "seoFields": 498,
+  "rows": 1142,
+  "redirects": 416,
+  "seoFields": 491,
   "expect": {
     "redirects": {
-      "create": 390,
+      "create": 398,
       "update": 0,
       "unchanged": 18,
       "retire": 0,
@@ -18,19 +18,19 @@
       "canonical": 0
     },
     "seoFields": {
-      "update": 498
+      "update": 491
     },
     "h1": {
-      "update": 11
+      "update": 34
     },
     "restored": {
       "update": 23
     },
     "slotFixes": {
-      "routes": 185
+      "routes": 290
     },
     "hygiene": {
-      "routes": 96
+      "routes": 104
     }
   },
   "problems": []

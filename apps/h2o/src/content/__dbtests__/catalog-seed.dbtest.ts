@@ -10,7 +10,9 @@ import { ownBrandTerms, productSlugOf, seedCatalog } from '../import/catalog-see
 /**
  * CRM go-live Pass 0 — catalog seed (Control Tower 2026-10-02), against the isolated synthetic PostgreSQL.
  * The accepted authority's product and product-category routes are imported (the same importer staging used),
- * then the seed indexes them into the catalog. Synthetic CRM payloads only; no real customer data.
+ * then the seed indexes them into the catalog. SEO-CONTENT-1 (CT 2026-10-07): the two placeholder products are REDIRECT rows in the authority (imported as
+ * drafts), so the seed sees 181 published products (157 with exactly one brand term, 12 manufacturers). Counts computed from the ledger and the
+ * seed's own ownBrandTerms; this suite needs the isolated PostgreSQL and was not run in the SEO-CONTENT-1 lane. Synthetic CRM payloads only; no real customer data.
  */
 type Doc = Record<string, unknown>
 type Exec = { execute: (q: unknown) => Promise<{ rows?: Array<Record<string, unknown>> }> }
@@ -46,11 +48,11 @@ afterAll(async () => {
 }, 300_000)
 
 describe('CS1 seed counts, dry run and idempotent rerun', () => {
-  it('a dry run writes nothing and plans 183 products and every product-category page', async () => {
+  it('a dry run writes nothing and plans 181 products and every product-category page', async () => {
     const before = await routeFingerprint()
     const dry = await seedCatalog(p, { dryRun: true })
-    expect(dry.summary.productRoutes).toBe(183)
-    expect(dry.summary.productsCreate).toBe(183)
+    expect(dry.summary.productRoutes).toBe(181)
+    expect(dry.summary.productsCreate).toBe(181)
     expect(dry.summary.categoriesCreate).toBe(dry.summary.categoryRoutes)
     expect(dry.summary.categoryRoutes).toBe(43)
     expect((await p.find({ collection: 'products', ...sys, limit: 0 })).totalDocs).toBe(0)
@@ -60,13 +62,13 @@ describe('CS1 seed counts, dry run and idempotent rerun', () => {
   it('apply creates them; public-routes are not written; a rerun reports 0 changes', async () => {
     const before = await routeFingerprint()
     const first = await seedCatalog(p, { dryRun: false })
-    expect(first.summary.productsCreate).toBe(183)
+    expect(first.summary.productsCreate).toBe(181)
     expect(first.summary.categoriesCreate).toBe(43)
-    expect((await p.find({ collection: 'products', ...sys, limit: 0 })).totalDocs).toBe(183)
+    expect((await p.find({ collection: 'products', ...sys, limit: 0 })).totalDocs).toBe(181)
     expect((await p.find({ collection: 'product-categories', ...sys, limit: 0 })).totalDocs).toBe(43)
     const again = await seedCatalog(p, { dryRun: false })
     expect(again.summary.changes).toBe(0)
-    expect(again.summary.productsUnchanged).toBe(183)
+    expect(again.summary.productsUnchanged).toBe(181)
     expect(again.summary.categoriesUnchanged).toBe(43)
     const after = await routeFingerprint()
     expect(after.n).toBe(before.n)
@@ -105,13 +107,13 @@ describe('CS1 seed counts, dry run and idempotent rerun', () => {
         expect(report.unlinkedManufacturer.map((u) => u.path)).toContain(r.path)
       }
     }
-    expect(report.unlinkedManufacturer).toHaveLength(183 - linked)
+    expect(report.unlinkedManufacturer).toHaveLength(181 - linked)
     // Known pages: a brand link outside the product's own attribute table is not evidence for this product.
     const bySlug = new Map(products.map((x) => [String(x.slug), x]))
-    expect(((bySlug.get('abb-motor-example')!.manufacturer as Doc).estate_brand_term)).toBe('ABB')
+    expect(((bySlug.get('baldor-motor')!.manufacturer as Doc).estate_brand_term)).toBe('Baldor')
     expect((bySlug.get('tuf-lite-iii-6000mk-series-hub-fan-assemblies')!.manufacturer_evidence as Doc).unknown_reason).toBe('NO_BRAND_TERM_IN_ESTATE')
     expect((bySlug.get('fiberglass-fanstack')!.manufacturer_evidence as Doc).unknown_reason).toBe('MULTIPLE_BRANDS_ON_ONE_RECORD')
-    expect(linked).toBe(159)
+    expect(linked).toBe(157)
     const mf = (await p.find({ collection: 'manufacturers', limit: 100, ...sys })).docs as unknown as Doc[]
     for (const m of mf) {
       expect(m.name).toBe(m.estate_brand_term)
@@ -120,7 +122,7 @@ describe('CS1 seed counts, dry run and idempotent rerun', () => {
   })
   it('categories come only from page evidence; parents follow the page addresses', async () => {
     const report = await seedCatalog(p, { dryRun: true })
-    expect(report.summary.productsWithCategory + report.summary.productsWithoutCategory).toBe(183)
+    expect(report.summary.productsWithCategory + report.summary.productsWithoutCategory).toBe(181)
     expect(report.summary.productsWithCategory).toBeGreaterThanOrEqual(128) // category-page links alone
     const cats = (await p.find({ collection: 'product-categories', limit: 100, depth: 1, overrideAccess: true })).docs as unknown as Doc[]
     const child = cats.find((c) => c.slug === 'film-fill')!

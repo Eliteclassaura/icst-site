@@ -126,7 +126,8 @@ describe('public author identity',()=>{
     // the un-consolidated /cooling-tower-vs-chiller/ (OGCS R1.2) joins it (249 − 2 + 1). Part 3: the published daily log (+1).
     // Locale Part B: the 166 preserved live locale articles and the published Thai Salmon page (+167).
     // R2.4: /new-cooling-tower-page/ is withdrawn to /new-cooling-towers/ (−1).
-    expect(Object.fromEntries(authors)).toEqual({'Tim Bozic':415,'(no byline)':2})
+    // SEO-CONTENT-1: five articles are held (−5 article pages with the byline) and the algae article is released (+1).
+    expect(Object.fromEntries(authors)).toEqual({'Tim Bozic':410,'(no byline)':2})
   },60000)
   it('links the Tim Bozic byline to the canonical author archive',()=>{
     const article=salmonDocument(releaseRoutes().find(route=>route.targetPath==='/3-cell-counterflow-cooling-towers/')!)

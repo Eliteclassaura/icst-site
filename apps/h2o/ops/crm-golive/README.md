@@ -59,7 +59,7 @@ This migration only adds columns and indexes:
 Pick any 5 published product pages. The local rehearsal used these:
 
 ```
-/product/abb-motor-example/  /product/amarillo-drive-shaft-cf60-275m/
+/product/baldor-motor/  /product/amarillo-drive-shaft-cf60-275m/
 /product/amarillo-right-angle-gear-drives-single-reduction-155/  /product/dyna-fab-6-height-fan-stack/
 /product/tower-components-opti-bar-splash-fill/
 ```
@@ -88,6 +88,8 @@ node node_modules/payload/bin.js run src/content/import/cli.ts -- catalog-seed /
 | `productsWithManufacturer` / `productsWithoutManufacturer` | 159 / 24 |
 | `productsWithCategory` / `productsWithoutCategory` | 137 / 46 |
 | `ambiguousCategorySlugs` | 0 |
+
+**SEO-CONTENT-1 (2026-10-07):** the table above is the Pass 0 gate on the authority as it was then. With the two placeholder products held (`/product/abb-motor-example/`, `/product/teco-westinghouse-motor-example/` are REDIRECT rows, imported as drafts), a seed that runs after this batch sees `productRoutes` 181, `productsCreate` 181, `manufacturersCreate` 12 and `productsWithManufacturer` 157 (computed from the ledger and `ownBrandTerms`; the category figures are re-read from a real seed dry run).
 
 **Any other value means STOP.** This is the same gate as the author alias. Send the four files in `/tmp/catalog-dry/` back to Control Tower and do not apply. A difference can be legitimate, for example an editor publishing or withdrawing a product page since the import, but it is a decision, not something to apply blind.
 

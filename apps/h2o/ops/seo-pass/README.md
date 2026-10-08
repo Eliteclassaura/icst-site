@@ -48,6 +48,49 @@ node ops/seo-pass/check-redirect-chains.mjs <staging-origin>
 - **frameworkSlashHopAccepted:** 1, the malformed tcf.com URL (308 → 301 → 200, CT ruling 3). A framework hop on any other source fails.
 - **Metas pending OGCS:** 0 after the R1.2 supplement.
 
+## SEO-CONTENT-1: OGCS SEO Deep R1 content rulings (CT 2026-10-07; rulings + addendum, resealed fe4feb16)
+
+One delta on the state Design R4 + the phase 2 copy batch (Round 16) leaves on staging, and a change to the fresh-database replay. Content and data rows only.
+
+- **HOLD + 301 (7 pages):** the two placeholder products (`/product/abb-motor-example/`, `/product/teco-westinghouse-motor-example/` → `/motors/`) and five articles:
+  `/hvac-cooling-tower/` and `/hvac-cooling-tower-systems/` → `/guide-about-cooling-tower/`, `/cooling-tower-free-cooling-mode-cut-chiller-costs-now/` → `/energy-efficient-cooling-tower/`,
+  `/commercial-building-cooling-tower/` → `/cooling-tower/`, `/commercial-cooling-towers/` → `/legionella-control-in-industrial-cooling-towers/` (the addendum REWRITE rows for the two HVAC articles are not applied).
+  Mechanism: `content/release/seo-pass-r1.json` redirectSources (release authority → ledger via `sync-ledger.mjs`), `route-dispositions.tsv` WITHDRAW_TO_REDIRECT, `redirects.tsv` CREATE; the two evidence paths that pointed at a held page repoint to the final page
+  (`/blog/hvac-cooling-tower/`, `/blog/commercial-cooling-towers/`); internal links to a held page follow the redirect through the slot fixes; their SEO field rows (5) and conformance 200 rows are replaced by 301 rows.
+  Listings (home part catalogue, `/motors/`, parts hub 183 → 181, product archives, related cards, product sitemap child, Technical Articles, `/category/blog/`) are ledger-driven in Payload mode; `seo-content-1.test.tsx` proves it.
+- **Algae RELEASE:** `/cooling-tower-algae-prevention/` is PUBLISHed (own URL, self canonical, in the sitemap); its hold 301 to `/tech-articles/` is removed from `redirects.tsv` and RETIRED (`redirects-retired.tsv`, record kept, `active:false`); the closing CTA sentence is replaced (claim edit `SC1-B-ALGAE`, op `set`).
+- **HVAC on product pages:** 127 recorded claim edits (`data/claim-edits.json`, rows `SC1-P2-01…15` and `SC1-P2-X`): the 12 pure phrasings of the ruling table delete the bullet (108 edits), the three mixed lines are rewritten
+  (rows 13–15; row 15, "Small manufacturing plants", has no HVAC wording), and `SC1-P2-X` (16 edits: 12 deletions, 4 rewrites) extends the same rule to phrasings the table does not list, because the acceptance is "HVAC = 0 on every product page".
+  The product template now renders a list item left empty by a deletion as nothing (`Wave3Presentation.tsx`).
+- **Other claim edits (7):** `/aluminum-vs-frp-fan-blades/` phrase; the PETRONAS typo in the project fact cards and the All Projects card (4); the owner-directed BacMan fact card; the algae CTA (above). The `/cooling-tower-approach/` cell is a restored-section table cell, edited in `data/restored-sections.json`.
+- **H1s:** 22 project H1 rows and `/fans/` (`data/h1-fields.tsv`, via=slot, 23 UPDATE rows). **Titles:** seven product titles and the BacMan title and meta (`data/seo-fields.tsv`; delta recorded in `data/sc1-seo-set.tsv`);
+  the JSON-LD copies of those titles and of the BacMan description are text overrides TO-009…017 (`content/design/text-overrides.json`).
+- **Conformance:** `claims-conformance.json` 576 absent / 48 present (`check-claims.mjs`), including one `SC1-P2-ACCEPT` row per product page (no "HVAC").
+
+| Phase | Staging (delta, once after Round 16) | Fresh DB (`expectations.fresh-db.json`) |
+|---|---|---|
+| redirects | create 7, update 2, unchanged 405, retire 1 | create 396, unchanged 18 (was 390) |
+| routes | publish 1, withdraw 7 | publish 0, withdraw 0 |
+| seo fields | update 8 (unchanged 485) | 493 (was 498) |
+| h1 | update 23 | 32 (was 9) |
+| restored | update 1 | 23 |
+| slot fixes / hygiene | routes 10 / routes 109 | routes 274 / routes 102 |
+
+Rehearsed on the writable mock (fresh-import seed; base batch applied once, then this one): dry run match, apply 0 failures and 0 read-back problems, rerun every count 0, and the staging-chain end state equals the fresh replay's
+(only the stale SEO fields of the five withdrawn pages and the retired algae redirect record differ; neither is served).
+
+## SEO-CONTENT-1 round 2: staging QA tranche A/B, OEM/stock rows, third placeholder (CT 2026-10-08)
+
+Appended to the round 1 batch above (same delta; the combined counts are in `expectations*.json`, rehearsed).
+
+- **Claim edits `SC1-A-nnn` (OGCS staging QA tranche A, seal 51999737):** 109 recorded edits on 42 pages (HVAC wording, guarantee/universality wording, list items and table rows removed). `SC1-B-050` is the one tranche B row applied (the `/guide-about-cooling-tower/` HVAC sentence); `SC1-L-nn` are the OEM/stock location rows (LOC-01 to 04, 09; LOC-05 to 08 were already applied by R5B-L44 and R5B-A17/A18). `SC1-P7-BACMAN-BODY` aligns the BacMan body paragraph.
+- **Restored sections:** the table cells and paragraph of QA-A-039, -040, -045 are edited in `data/restored-sections.json`.
+- **Registry (text overrides) TO-024…028:** the seminar contact block (`body-range` scope: a run of sibling nodes, new in `src/content/text-overrides.ts`) and its time typo, the HVAC icon-list line on `/class-10000-minimum-acoustic-geometry/`, and the JSON-LD copies of the two corrected metas.
+- **SEO fields:** seminar and maintenance-checklist metas (`seo-fields.tsv`, `sc1-seo-set.tsv`; the checklist meta is 159 characters, so the length test allows 160).
+- **HOLD + 301:** `/hospital-cooling-systems/` to `/cooling-tower/` (OGCS tranche B, rewrite rows not applied) and `/product/vibration-switch-example/` to `/tower-hardware/`. Product set 180.
+- **Renderer:** a list item or table row emptied by a ruled removal renders nothing (`SalmonCanonical.tsx`).
+- **Hand-offs:** `/thank-you/` `data-source-href` (QA-A-002) is Main's SEO-FIX-1; the SEO-FIX-1 product-title test now expects no cut title.
+
 ## Design R4: parts hub and Dry Soda claim wording (CT 2026-10-07, OGCS R4 copy review, SUMS seal 7ccb765b)
 
 One delta on the state CLAIMS-R2 (and R2.5.1) leave on staging.

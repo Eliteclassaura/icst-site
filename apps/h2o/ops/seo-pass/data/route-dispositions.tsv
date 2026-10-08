@@ -39,3 +39,13 @@ path	routeId	action	redirect	canonical
 /product-category/motors/	SALMON-product_cat-260	INDEX		
 /product-category/drift-eliminators/	SALMON-product_cat-58	INDEX		
 /product-category/nozzles/	SALMON-product_cat-39	INDEX		
+/cooling-tower-algae-prevention/	SALMON-posts-3772	PUBLISH		
+/product/abb-motor-example/	SALMON-product-4758	WITHDRAW_TO_REDIRECT	/motors/	
+/product/teco-westinghouse-motor-example/	SALMON-product-4756	WITHDRAW_TO_REDIRECT	/motors/	
+/hvac-cooling-tower/	LIVE-posts-7304	WITHDRAW_TO_REDIRECT	/guide-about-cooling-tower/	
+/hvac-cooling-tower-systems/	SALMON-posts-3818	WITHDRAW_TO_REDIRECT	/guide-about-cooling-tower/	
+/cooling-tower-free-cooling-mode-cut-chiller-costs-now/	SALMON-posts-4108	WITHDRAW_TO_REDIRECT	/energy-efficient-cooling-tower/	
+/commercial-building-cooling-tower/	SALMON-posts-3959	WITHDRAW_TO_REDIRECT	/cooling-tower/	
+/commercial-cooling-towers/	LIVE-posts-5282	WITHDRAW_TO_REDIRECT	/legionella-control-in-industrial-cooling-towers/	
+/hospital-cooling-systems/	SALMON-posts-3880	WITHDRAW_TO_REDIRECT	/cooling-tower/	
+/product/vibration-switch-example/	SALMON-product-4753	WITHDRAW_TO_REDIRECT	/tower-hardware/	
