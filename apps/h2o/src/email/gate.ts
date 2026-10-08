@@ -68,13 +68,29 @@ export function failureCode(err: unknown): { code: string; klass: FailureClass }
  *                 or a failure we cannot place: the message may have been accepted. Never retried automatically.
  */
 export type SubmissionOutcome = 'NOT_ACCEPTED' | 'UNCERTAIN'
-const BEFORE_DATA = /^(CONN|EHLO|HELO|LHLO|STARTTLS|AUTH( [A-Z0-9-]+)?|MAIL FROM|RCPT TO)$/
-const BEFORE_HANDOVER = new Set(['ECONNECTION', 'ECONNREFUSED', 'ENOTFOUND', 'EDNS', 'EHOSTUNREACH', 'ETLS', 'EAUTH', 'ENOAUTH', 'EENVELOPE', 'EMESSAGE', 'EPROTOCOL'])
+const BEFORE_DATA = /^(EHLO|HELO|LHLO|STARTTLS|AUTH( [A-Z0-9-]+)?|MAIL FROM|RCPT TO)$/
+const BEFORE_HANDOVER = new Set(['ECONNREFUSED', 'ENOTFOUND', 'EDNS', 'EHOSTUNREACH', 'ETLS', 'EAUTH', 'ENOAUTH', 'EENVELOPE', 'EMESSAGE', 'EPROTOCOL'])
+/**
+ * SEND-FIX-1a.1 (auditor B1; nodemailer 10.0.15 smtp-connection): the command `CONN` is NOT a phase. nodemailer reports
+ * a dropped socket ("Connection closed unexpectedly", ECONNECTION), the socket inactivity "Timeout" (ETIMEDOUT) and a
+ * socket error (ESOCKET) with command `CONN` at ANY point — including while waiting for the reply after DATA. Only
+ * failures that can happen solely while connecting are "not accepted": DNS, refused/unreachable, TLS setup, the
+ * connect-time "Connection timeout" / "Greeting never received", and a socket error from the `connect` syscall.
+ */
+const CONNECT_ONLY_CODES = new Set(['ECONNREFUSED', 'ENOTFOUND', 'EDNS', 'EHOSTUNREACH', 'ENETUNREACH', 'ETLS'])
+const CONNECT_ONLY_TIMEOUT = /^(Connection timeout|Greeting never received)\b/
+function connectOnly(e: { code?: unknown; message?: unknown; syscall?: unknown }): boolean {
+  const code = typeof e.code === 'string' ? e.code : ''
+  if (CONNECT_ONLY_CODES.has(code)) return true
+  if (code === 'ETIMEDOUT' && typeof e.message === 'string' && CONNECT_ONLY_TIMEOUT.test(e.message)) return true
+  return code === 'ESOCKET' && e.syscall === 'connect'
+}
 export function submissionOutcome(err: unknown): SubmissionOutcome {
-  const e = (err ?? {}) as { code?: unknown; responseCode?: unknown; command?: unknown }
+  const e = (err ?? {}) as { code?: unknown; responseCode?: unknown; command?: unknown; message?: unknown; syscall?: unknown }
   if (typeof e.responseCode === 'number') return 'NOT_ACCEPTED'
   const cmd = typeof e.command === 'string' ? e.command.trim().toUpperCase() : ''
   if (cmd === 'DATA' || cmd.startsWith('DATA')) return 'UNCERTAIN'
+  if (cmd === 'CONN') return connectOnly(e) ? 'NOT_ACCEPTED' : 'UNCERTAIN'
   if (BEFORE_DATA.test(cmd)) return 'NOT_ACCEPTED'
   if (!cmd && typeof e.code === 'string' && BEFORE_HANDOVER.has(e.code)) return 'NOT_ACCEPTED'
   return 'UNCERTAIN'

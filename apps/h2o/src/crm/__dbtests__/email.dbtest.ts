@@ -283,7 +283,7 @@ describe('E1 send: the outbox worker', () => {
     await deliver()
     const t0 = new Date()
     const t = recorder((n) =>
-      n === 1 ? Object.assign(new Error(`connect ECONNREFUSED ${SALES_INBOX}`), { code: 'ESOCKET', command: 'CONN' }) : null,
+      n === 1 ? Object.assign(new Error(`connect ECONNREFUSED ${SALES_INBOX}`), { code: 'ESOCKET', command: 'CONN', syscall: 'connect' }) : null,
     )
     expect(await drain(t, t0)).toMatchObject({ claimed: 1, retried: 1 })
     let row = byKind(await outbox(), 'RFQ_SALES_ALERT')[0]!
@@ -324,7 +324,8 @@ describe('E1 send: the outbox worker', () => {
   it('after the last attempt a transient failure is dead-lettered too', async () => {
     mode('allowlist')
     await deliver()
-    const t = recorder(() => Object.assign(new Error('timeout'), { code: 'ETIMEDOUT', command: 'CONN' }))
+    // SEND-FIX-1a.1 (auditor B1): the connect-time timeout is a known not-accepted failure; a socket "Timeout" with CONN is not
+    const t = recorder(() => Object.assign(new Error('Connection timeout'), { code: 'ETIMEDOUT', command: 'CONN' }))
     let now = new Date()
     for (let i = 0; i < 7; i++) {
       await drain(t, now)

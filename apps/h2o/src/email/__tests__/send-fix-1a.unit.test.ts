@@ -15,13 +15,32 @@ describe('R2-03: did the mail server possibly accept it?', () => {
   it('a reply code is a definite answer; a failure before DATA is not accepted; anything at or after DATA is uncertain', () => {
     expect(submissionOutcome(err({ responseCode: 421, command: 'DATA' }))).toBe('NOT_ACCEPTED')
     expect(submissionOutcome(err({ responseCode: 550, command: 'RCPT TO' }))).toBe('NOT_ACCEPTED')
-    for (const command of ['CONN', 'EHLO', 'STARTTLS', 'AUTH PLAIN', 'AUTH XOAUTH2', 'MAIL FROM', 'RCPT TO']) expect(submissionOutcome(err({ code: 'ETIMEDOUT', command })), command).toBe('NOT_ACCEPTED')
-    for (const code of ['ECONNECTION', 'ECONNREFUSED', 'EDNS', 'ETLS', 'EAUTH', 'EENVELOPE', 'EMESSAGE']) expect(submissionOutcome(err({ code })), code).toBe('NOT_ACCEPTED')
+    for (const command of ['EHLO', 'STARTTLS', 'AUTH PLAIN', 'AUTH XOAUTH2', 'MAIL FROM', 'RCPT TO']) expect(submissionOutcome(err({ code: 'ETIMEDOUT', command })), command).toBe('NOT_ACCEPTED')
+    for (const code of ['ECONNREFUSED', 'EDNS', 'ETLS', 'EAUTH', 'EENVELOPE', 'EMESSAGE']) expect(submissionOutcome(err({ code })), code).toBe('NOT_ACCEPTED')
+    expect(submissionOutcome(err({ code: 'ECONNECTION' }))).toBe('UNCERTAIN') // a dropped connection with no stage: may be after DATA
     expect(submissionOutcome(err({ code: 'ETIMEDOUT', command: 'DATA' }))).toBe('UNCERTAIN')
     expect(submissionOutcome(err({ code: 'ECONNRESET' }))).toBe('UNCERTAIN')
     expect(submissionOutcome(err({ code: 'ESOCKET' }))).toBe('UNCERTAIN')
     expect(submissionOutcome(new Error('anything else'))).toBe('UNCERTAIN')
     expect(submissionOutcome(undefined)).toBe('UNCERTAIN')
+  })
+})
+
+describe('SEND-FIX-1a.1 (auditor B1): nodemailer reports CONN in any phase', () => {
+  const nm = (message: string, o: Record<string, unknown>) => Object.assign(new Error(message), { command: 'CONN', ...o })
+  it('a dropped connection, a socket timeout or a socket error with CONN may be after DATA: UNCERTAIN', () => {
+    expect(submissionOutcome(nm('Timeout', { code: 'ETIMEDOUT' }))).toBe('UNCERTAIN')
+    expect(submissionOutcome(nm('Connection closed unexpectedly', { code: 'ECONNECTION' }))).toBe('UNCERTAIN')
+    expect(submissionOutcome(nm('read ECONNRESET', { code: 'ESOCKET' }))).toBe('UNCERTAIN')
+    expect(submissionOutcome(nm('reset', { code: 'ECONNRESET' }))).toBe('UNCERTAIN')
+  })
+  it('only failures that can happen solely while connecting are "not accepted"', () => {
+    for (const code of ['ECONNREFUSED', 'ENOTFOUND', 'EDNS', 'EHOSTUNREACH', 'ENETUNREACH', 'ETLS']) expect(submissionOutcome(nm('x', { code })), code).toBe('NOT_ACCEPTED')
+    expect(submissionOutcome(nm('Connection timeout', { code: 'ETIMEDOUT' }))).toBe('NOT_ACCEPTED')
+    expect(submissionOutcome(nm('Greeting never received', { code: 'ETIMEDOUT' }))).toBe('NOT_ACCEPTED')
+    expect(submissionOutcome(nm('connect ECONNREFUSED 127.0.0.1:1', { code: 'ESOCKET', syscall: 'connect' }))).toBe('NOT_ACCEPTED')
+    // a reply code is a definite answer in any phase
+    expect(submissionOutcome(nm('Connection closed unexpectedly: 421 bye', { code: 'ECONNECTION', responseCode: 421 }))).toBe('NOT_ACCEPTED')
   })
 })
 

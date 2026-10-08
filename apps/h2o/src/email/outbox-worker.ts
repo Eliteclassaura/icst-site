@@ -14,7 +14,7 @@ import { onSequenceRowTerminal } from '../crm/ers/engine'
 import { checkHealth, recordHardBounce } from '../crm/ers/feedback'
 import { ersSettings, inboundFresh } from '../crm/ers/settings'
 import { resolveSending, withSending, type Resolved } from './profiles'
-import { MAX_ATTEMPTS, classifyRefusal, failureCode, gateRecipient, nextAttemptAt, recipientRef, submissionOutcome } from './gate'
+import { MAX_ATTEMPTS, RETRY_DELAYS_MS, classifyRefusal, failureCode, gateRecipient, nextAttemptAt, recipientRef, submissionOutcome } from './gate'
 import { renderSalesAlert, textToHtml, type Rendered } from './messages'
 import { isApproved, templateByCode, textOf } from '../crm/settings/templates'
 import { greetingFor, renderTemplate, responseSentence } from './templates'
@@ -41,8 +41,9 @@ import { createTransport, formatFrom, type MailResult, type MailTransport } from
  *   - before the message is handed over, the attempt intent and the transport identity are recorded (SUBMITTING);
  *   - an SMTP 250 is persisted (SENT) at once, before any other bookkeeping;
  *   - a definite refusal or a failure before DATA → RETRY / DEAD as before; anything else (no reply after DATA, a
- *     database failure after acceptance, a crash while SUBMITTING) → UNCERTAIN, held for a person and never sent
- *     again automatically ("Delivery unconfirmed — not automatically retried").
+ *     database failure after acceptance, a crash while SUBMITTING) → UNCERTAIN. Customer mail is held for a person and
+ *     never sent again automatically ("Delivery unconfirmed — not automatically retried"); an internal alert is sent
+ *     once more (SEND-FIX-1a.1, owner decision: a duplicate alert is acceptable, a lost lead is not).
  * Every outcome writes an email event (ids and codes) and, when terminal, an RFQ timeline entry.
  *
  * Logs carry the outbox id, kind and outcome code only.
@@ -72,6 +73,57 @@ export async function claimBatch(payload: Payload, now: Date, limit = 10, owner:
 }
 
 /**
+ * SEND-FIX-1a.1 (owner decision 2026-10-08): an INTERNAL alert whose delivery is unconfirmed (UNCERTAIN) is sent once
+ * more — a duplicate alert is acceptable, a lost lead is not. Customer-facing mail (T1, replies, sequence email) is
+ * never resent automatically: it stays UNCERTAIN, held for a person (CRM overview → "emails unconfirmed").
+ * The resend is its own row (`<key>#resend`; the idempotency key is unique), so it happens at most once and a resend is
+ * never resent. Its Message-ID is derived from the original's, so it can be matched to it. It is gated again at send.
+ */
+export const RESEND_ONCE_KINDS: readonly string[] = ['RFQ_SALES_ALERT', 'INTAKE_FAILED_ALERT']
+export const RESEND_SUFFIX = '#resend'
+type ResendSource = Pick<Row, 'idempotency_key' | 'kind' | 'to_address' | 'recipient_ref' | 'message_id' | 'subject' | 'body_text'> & { rfq: string | null }
+export async function resendOnce(payload: Payload, row: ResendSource, now: Date): Promise<boolean> {
+  if (!RESEND_ONCE_KINDS.includes(row.kind) || row.idempotency_key.includes(RESEND_SUFFIX) || !row.to_address) return false
+  try {
+    await payload.create({
+      collection: 'crm-email-outbox',
+      data: {
+        idempotency_key: `${row.idempotency_key}${RESEND_SUFFIX}`,
+        kind: row.kind,
+        status: 'PENDING',
+        rfq: row.rfq,
+        recipient_ref: row.recipient_ref,
+        to_address: row.to_address,
+        message_id: row.message_id ? row.message_id.replace(/^<?/, '<resend.') : null,
+        attempts: 0,
+        // after one retry step (1 min): a struggling server gets a moment; the alert still goes out within minutes
+        next_attempt_at: new Date(now.getTime() + RETRY_DELAYS_MS[0]!).toISOString(),
+        last_error_code: 'UNCERTAIN_RESEND',
+        ...(row.kind === 'INTAKE_FAILED_ALERT' ? { subject: row.subject, body_text: row.body_text } : {}),
+      } as never,
+      context: { crmServer: {} },
+      depth: 0,
+      overrideAccess: true,
+    })
+    return true
+  } catch {
+    // a second attempt to resend the same row hits the unique key: it was already resent once
+    console.error(`[h2o] email outbox: the one resend of an unconfirmed internal alert was not queued (already queued, or the database refused)`)
+    return false
+  }
+}
+
+/** Unconfirmed emails a person must look at: every UNCERTAIN row, except an internal alert whose one resend was sent. */
+export async function uncertainNeedingAttention(payload: Payload): Promise<number> {
+  const res = await db(payload).execute(
+    sql`SELECT count(*)::int AS n FROM "crm_email_outbox" o
+        WHERE o."status" = 'UNCERTAIN'
+          AND NOT EXISTS (SELECT 1 FROM "crm_email_outbox" r WHERE r."idempotency_key" = o."idempotency_key" || ${RESEND_SUFFIX} AND r."status" = 'SENT')`,
+  )
+  return Number((res.rows ?? [])[0]?.n ?? 0)
+}
+
+/**
  * SEND-FIX-1a: rows left SUBMITTING by a worker that died (or whose database write failed) after handing the message
  * over may have been delivered: they become UNCERTAIN — held for a person, never sent again — with an event and an RFQ
  * timeline entry. Returns how many.
@@ -80,10 +132,11 @@ export async function holdInterrupted(payload: Payload, now: Date): Promise<numb
   const res = await db(payload).execute(
     sql`UPDATE "crm_email_outbox" SET "status" = 'UNCERTAIN', "lease_until" = NULL, "lease_owner" = NULL, "last_error_code" = 'SUBMISSION_INTERRUPTED'
         WHERE "status" = 'SUBMITTING' AND ("lease_until" IS NULL OR "lease_until" < ${now.toISOString()})
-        RETURNING "id", "kind", "rfq_id", "recipient_ref", "attempts"`,
+        RETURNING "id", "kind", "rfq_id", "recipient_ref", "attempts", "idempotency_key", "to_address", "message_id", "subject", "body_text"`,
   )
   for (const r of res.rows ?? []) {
     const rfq = r.rfq_id == null ? null : String(r.rfq_id)
+    await resendOnce(payload, { idempotency_key: String(r.idempotency_key), kind: r.kind as EmailKind, rfq, to_address: (r.to_address as string | null) ?? null, recipient_ref: String(r.recipient_ref), message_id: (r.message_id as string | null) ?? null, subject: (r.subject as string | null) ?? null, body_text: (r.body_text as string | null) ?? null }, now)
     await recordEmailEvent({ payload }, { event: 'UNCERTAIN', kind: String(r.kind), code: 'SUBMISSION_INTERRUPTED', outbox: String(r.id), rfq, recipient_ref: String(r.recipient_ref), attempt: Number(r.attempts) })
     if (rfq) await recordEmailActivity({ payload }, { id: rfq, ...(await rfqLinks(payload, rfq)) }, String(r.id), r.kind as EmailKind, 'UNCERTAIN', 'SUBMISSION_INTERRUPTED')
   }
@@ -300,9 +353,10 @@ export async function processRow(
   txCfg: EmailConfig,
   txTransport: MailTransport | null,
   now: Date,
-  txNoTransportCode?: string,
-  seq?: SequenceLane,
-  fence: { owner?: string; txIdentity?: AttemptIdentity; seqIdentity?: AttemptIdentity } = {},
+  txNoTransportCode: string | undefined,
+  seq: SequenceLane | undefined,
+  // SEND-FIX-1a.1 (auditor N5): the lease owner is required — every hand-over is fenced to the worker that claimed it
+  fence: { owner: string; txIdentity?: AttemptIdentity; seqIdentity?: AttemptIdentity },
 ): Promise<keyof Omit<DrainResult, 'claimed'>> {
   const row = (await payload.findByID({
     collection: 'crm-email-outbox',
@@ -452,8 +506,10 @@ export async function processRow(
   const identity = (isSeq ? fence.seqIdentity : fence.txIdentity) ?? attemptIdentity(isSeq ? 'REVENUE' : 'TRANSACTIONAL', cfg, null)
   await recordEmailEvent({ payload }, { ...base, event: 'SUBMITTED', code: null })
   const owned = await db(payload).execute(
-    sql`UPDATE "crm_email_outbox" SET "status" = 'SUBMITTING', "submitted_at" = ${now.toISOString()}, "attempt_identity" = ${JSON.stringify(identity)}::jsonb
-        WHERE "id" = ${id} AND "status" = 'SENDING' AND ${fence.owner ? sql`"lease_owner" = ${fence.owner}` : sql`TRUE`}
+    // auditor N6: the lease is extended on the move to SUBMITTING, so a slow server does not expire it mid-submission
+    sql`UPDATE "crm_email_outbox" SET "status" = 'SUBMITTING', "submitted_at" = ${now.toISOString()}, "attempt_identity" = ${JSON.stringify(identity)}::jsonb,
+          "lease_until" = ${new Date(now.getTime() + LEASE_MS).toISOString()}
+        WHERE "id" = ${id} AND "status" = 'SENDING' AND "lease_owner" = ${fence.owner}
         RETURNING "id"`,
   )
   if ((owned.rows ?? []).length !== 1) return 'deferred' // the lease moved to another worker: hand nothing over
@@ -500,6 +556,7 @@ export async function processRow(
     if (submissionOutcome(err) === 'UNCERTAIN') {
       // No reply after the message was handed over: it may have been delivered. Held, never retried automatically.
       await terminal('UNCERTAIN', `UNCERTAIN_${f.code}`.slice(0, 60), 'UNCERTAIN')
+      await resendOnce(payload, { ...row, rfq: rfqId }, now)
       return 'uncertain'
     }
     // R4-03: a permanent refusal is never retried unchanged; its class (policy, size, unknown) is kept for review. A

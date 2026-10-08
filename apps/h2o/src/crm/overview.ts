@@ -39,6 +39,8 @@ export type Overview = {
   /** RFQ-FIX-1 (quote-form audit R5, R6): admins only (null for others) — requests stranded part-way, and requests held
    * as spam (hidden field filled) in the last 24 hours. */
   intake: { stranded: number; spam24h: number; failedPermanent: number } | null
+  /** SEND-FIX-1a.1 (owner decision): admins only — emails whose delivery is unconfirmed and that a person must look at. */
+  emailUncertain: number | null
   pipeline: ReturnType<typeof pipelineByCurrency>
   recentActivity: Array<{ id: string; type: string; summary: string; occurredAt: string }>
   truncated: boolean
@@ -132,6 +134,7 @@ export async function loadOverview(req: PayloadRequest, now: Date = new Date()):
   ])
 
   let intake: Overview['intake'] = null
+  let emailUncertain: Overview['emailUncertain'] = null
   if (hasRole(req, ADMINS)) {
     const { failedPermanentWhere, strandedWhere } = await import('./intake/native/sweep')
     const [stranded, spam, gaveUp] = await Promise.all([
@@ -140,6 +143,7 @@ export async function loadOverview(req: PayloadRequest, now: Date = new Date()):
       p.count({ collection: 'crm-intake-events', where: failedPermanentWhere, ...asUser }),
     ])
     intake = { stranded: stranded.totalDocs, spam24h: spam.totalDocs, failedPermanent: gaveUp.totalDocs }
+    emailUncertain = await (await import('../email/outbox-worker')).uncertainNeedingAttention(p)
   }
 
   const oppIds = openOpps.docs.map((o) => String(o.id))
@@ -204,6 +208,7 @@ export async function loadOverview(req: PayloadRequest, now: Date = new Date()):
     installedBaseAccounts,
     identityReviewsOpen: reviews.totalDocs,
     intake,
+    emailUncertain,
     pipeline: pipelineByCurrency(opps),
     recentActivity: recent.docs.map((a) => ({
       id: String(a.id),

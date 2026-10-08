@@ -93,6 +93,11 @@ export async function CrmOverview({ initPageResult, params, searchParams }: Admi
             <span className={styles.n}>{data.intake.spam24h}</span> held as spam (24 h)
           </a>
         ) : null}
+        {data.emailUncertain !== null && data.emailUncertain !== undefined ? (
+          <a className={styles.card} href={list(admin, 'crm-email-outbox', { 'where[status][equals]': 'UNCERTAIN' })}>
+            <span className={styles.n}>{data.emailUncertain}</span> emails unconfirmed (check before sending again)
+          </a>
+        ) : null}
         <a className={styles.card} href={list(admin, 'crm-assets')}>
           <span className={styles.n}>{data.installedBaseAccounts ?? '—'}</span> installed-base accounts
           {data.installedBaseAccounts === null ? ' (not available)' : ''}

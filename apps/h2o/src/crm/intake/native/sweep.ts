@@ -44,7 +44,7 @@ export const strandedWhere = (now: Date, allSources = false): Where => ({
   ],
 })
 
-export type SweepResult = { found: number; finished: number; skipped: number; failed: number; gaveUp?: number; prunedSpam?: number }
+export type SweepResult = { found: number; finished: number; skipped: number; failed: number; gaveUp?: number; prunedSpam?: number; alertsReconciled?: number }
 
 /** SEND-FIX-1a (auditor note on 1.1): spam pruning runs at most hourly (the state and received_at columns are indexed). */
 let lastPruneAt = 0
@@ -89,7 +89,12 @@ export async function sweepStrandedIntake(payload: Payload, now: Date = new Date
       out.gaveUp!++
       intakeLog(payload, 'error', { code: 'INTAKE_SWEEP_GAVE_UP', event_id: doc.source_event_id })
       // SEND-FIX-1a (auditor note on 1.1): a lead that could not be processed is never silent
-      await enqueueIntakeFailedAlert(payload, { id: String(doc.id), eventId: doc.source_event_id, receivedAt: doc.received_at }, now)
+      // auditor N1: a failure to queue the alert never stops the sweep; the reconcile pass below queues it later
+      try {
+        await enqueueIntakeFailedAlert(payload, { id: String(doc.id), eventId: doc.source_event_id, receivedAt: doc.received_at }, now)
+      } catch {
+        intakeLog(payload, 'error', { code: 'INTAKE_FAILED_ALERT_NOT_QUEUED', event_id: doc.source_event_id })
+      }
       continue
     }
     await db(payload).execute(sql`UPDATE "crm_intake_events" SET "sweep_attempts" = ${attempts}, "last_sweep_at" = ${now.toISOString()} WHERE "id" = ${String(doc.id)}`)
@@ -115,7 +120,32 @@ export async function sweepStrandedIntake(payload: Payload, now: Date = new Date
       intakeLog(payload, 'error', { code: 'INTAKE_SWEEP_FAILED', event_id: doc.source_event_id, source: r.source })
     }
   }
+  out.alertsReconciled = await reconcileIntakeFailedAlerts(payload, now)
   return out
+}
+
+/**
+ * SEND-FIX-1a.1 (auditor N1): every given-up request has its internal alert. A give-up whose alert was not queued (the
+ * queueing failed, or the process stopped in between) gets it now; the idempotency key `intake-failed:<id>` makes this
+ * safe to repeat. At most 25 per sweep.
+ */
+export async function reconcileIntakeFailedAlerts(payload: Payload, now: Date = new Date()): Promise<number> {
+  const missing = await db(payload).execute(
+    sql`SELECT e."id", e."source_event_id", e."received_at" FROM "crm_intake_events" e
+        WHERE e."processing_state" = 'FAILED_PERMANENT'
+          AND NOT EXISTS (SELECT 1 FROM "crm_email_outbox" o WHERE o."idempotency_key" = 'intake-failed:' || e."id"::text)
+        ORDER BY e."received_at" LIMIT 25`,
+  )
+  let n = 0
+  for (const r of missing.rows ?? []) {
+    try {
+      await enqueueIntakeFailedAlert(payload, { id: String(r.id), eventId: String(r.source_event_id), receivedAt: new Date(String(r.received_at)).toISOString() }, now)
+      n++
+    } catch {
+      intakeLog(payload, 'error', { code: 'INTAKE_FAILED_ALERT_NOT_QUEUED', event_id: String(r.source_event_id) })
+    }
+  }
+  return n
 }
 
 /** RFQ-FIX-1.1: requests the sweeper gave up on (FAILED_PERMANENT), for the admin overview. */

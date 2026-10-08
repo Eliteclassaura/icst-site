@@ -74,8 +74,10 @@ export async function recordEmailActivity(
   code?: string | null,
 ): Promise<void> {
   const r = rfq as RfqDoc
-  // SEND-FIX-1a: an uncertain submission says so plainly; a person decides whether to send it again
-  const verb = status === 'SENT' ? 'sent' : status === 'DEAD' ? 'failed' : status === 'UNCERTAIN' ? 'delivery unconfirmed — not automatically retried' : `not sent (${status})`
+  // SEND-FIX-1a / 1a.1 (owner decision): an uncertain submission says so plainly. An internal alert is sent once more
+  // automatically; customer mail is held for a person to decide.
+  const resend = kind === 'RFQ_SALES_ALERT' || kind === 'INTAKE_FAILED_ALERT'
+  const verb = status === 'SENT' ? 'sent' : status === 'DEAD' ? 'failed' : status === 'UNCERTAIN' ? (resend ? 'delivery unconfirmed — sent once more automatically' : 'delivery unconfirmed — not automatically retried') : `not sent (${status})`
   await recordActivity(req, {
     type: kind === 'RFQ_REPLY' ? 'EMAIL_REPLY' : 'EMAIL_NOTIFICATION',
     summary: `${KIND_LABEL[kind]} ${verb}`.slice(0, 240),

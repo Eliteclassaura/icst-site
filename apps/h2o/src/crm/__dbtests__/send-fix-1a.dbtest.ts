@@ -2,11 +2,11 @@ import { sql } from '@payloadcms/db-postgres'
 import type { Payload } from 'payload'
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { DEFAULT_SALES_ADDRESS, readEmailConfig } from '../../email/config'
-import { claimBatch, drainOutbox, processRow } from '../../email/outbox-worker'
+import { LEASE_MS, claimBatch, drainOutbox, processRow, uncertainNeedingAttention } from '../../email/outbox-worker'
 import type { MailMessage, MailTransport } from '../../email/transport'
 import { fixtureRegistry } from '../../rfq-native/registry'
 import { submitReply } from '../intake/native/handlers'
-import { sweepStrandedIntake } from '../intake/native/sweep'
+import { reconcileIntakeFailedAlerts, sweepStrandedIntake } from '../intake/native/sweep'
 import { issueFormToken } from '../intake/native/token'
 import { composeReply, replyReadiness } from '../reply'
 import { ensureTemplates } from '../settings/templates'
@@ -218,6 +218,8 @@ describe('auditor notes on RFQ-FIX-1.1: a lost lead is never silent; the sweeper
     const ev = await intakeEvent(1, 'FAILED_RETRYABLE', { sweep_attempts: 10 })
     const r = await sweepStrandedIntake(p, later(1))
     expect(r.gaveUp).toBe(1)
+    // the fast path on its own: the give-up itself queued the alert, so the reconcile pass had nothing to add
+    expect(r.alertsReconciled).toBe(0)
     const [row] = await rows('INTAKE_FAILED_ALERT')
     expect(row).toMatchObject({ status: 'PENDING', to_address: `${ALERTS}, team.two@example.test` })
     await sweepStrandedIntake(p, later(120)) // never a second alert for the same event
@@ -229,6 +231,18 @@ describe('auditor notes on RFQ-FIX-1.1: a lost lead is never silent; the sweeper
     expect(s.sent[0]!.text).toContain('A quote request could not be processed: check CRM → overview.')
     expect(s.sent[0]!.text).toContain(ev.source_event_id)
     expect(s.sent[0]!.text).not.toContain('not-an-email')
+  })
+  it('auditor N1: a give-up whose alert was never queued gets it from the reconcile pass, once', async () => {
+    process.env.H2O_SALES_ALERT_TO = ALERTS
+    const ev = await intakeEvent(7, 'FAILED_PERMANENT')
+    expect(await reconcileIntakeFailedAlerts(p, later(1))).toBe(1)
+    expect(await reconcileIntakeFailedAlerts(p, later(2))).toBe(0)
+    const alerts = await rows('INTAKE_FAILED_ALERT')
+    expect(alerts.map((a) => a.idempotency_key)).toEqual([`intake-failed:${ev.id}`])
+    // the sweep runs the reconcile pass too, and a failure to queue never stops it
+    const ev2 = await intakeEvent(8, 'FAILED_PERMANENT')
+    expect((await sweepStrandedIntake(p, later(3))).alertsReconciled).toBe(1)
+    expect((await rows('INTAKE_FAILED_ALERT')).map((a) => a.idempotency_key)).toContain(`intake-failed:${ev2.id}`)
   })
   it('quarantined spam is pruned at most once an hour', async () => {
     await sweepStrandedIntake(p, later(300))
@@ -288,28 +302,41 @@ describe('R2-03: accepted mail is never handed over twice; ambiguity is held', (
     await drainOutbox(p, { cfg: readEmailConfig(), transport: s2.t, now: later(2) })
     const r3 = await drainOutbox(p, { cfg: readEmailConfig(), transport: s2.t, now: later(10) })
     await drainOutbox(p, { cfg: readEmailConfig(), transport: s2.t, now: later(600) })
+    await drainOutbox(p, { cfg: readEmailConfig(), transport: s2.t, now: later(1200) })
     expect(r3.uncertain).toBe(1)
-    expect(s2.sent).toHaveLength(0)
-    expect((await rows('RFQ_SALES_ALERT'))[0]).toMatchObject({ status: 'UNCERTAIN', last_error_code: 'SUBMISSION_INTERRUPTED' })
+    // SEND-FIX-1a.1 (owner decision): the original is never handed over again; an internal alert gets ONE resend
+    expect(s2.sent).toHaveLength(1)
+    const [orig, resend] = await rows('RFQ_SALES_ALERT')
+    expect(orig).toMatchObject({ id, status: 'UNCERTAIN', last_error_code: 'SUBMISSION_INTERRUPTED' })
+    expect(resend).toMatchObject({ idempotency_key: `${String(orig!.idempotency_key)}#resend`, status: 'SENT' })
+    expect(String(resend!.message_id)).toBe(String(orig!.message_id).replace(/^</, '<resend.'))
+    expect(await rows('RFQ_SALES_ALERT')).toHaveLength(2)
     expect(await events(id)).toEqual(['QUEUED', 'SUBMITTED', 'UNCERTAIN'])
     const timeline = (await p.find({ collection: 'crm-activities', where: { summary: { like: 'Sales alert delivery unconfirmed' } }, ...sys })).docs
-    expect(timeline.map((a) => (a as unknown as Doc).summary)).toEqual(['Sales alert delivery unconfirmed — not automatically retried'])
+    expect(timeline.map((a) => (a as unknown as Doc).summary)).toEqual(['Sales alert delivery unconfirmed — sent once more automatically'])
+    // resolved: the resend was sent, so nothing needs a person
+    expect(await uncertainNeedingAttention(p)).toBe(0)
   })
   it('a timeout after DATA (no reply) is UNCERTAIN at once; a refusal before DATA or with an SMTP reply is retried', async () => {
     process.env.H2O_EMAIL_CUSTOMER_ACK = 'off'
     await newRfq()
-    const s = server(() => Object.assign(new Error('Timeout'), { code: 'ETIMEDOUT', command: 'DATA' }))
+    // auditor B1: nodemailer reports the socket timeout after DATA with command CONN
+    const s = server(() => Object.assign(new Error('Timeout'), { code: 'ETIMEDOUT', command: 'CONN' }))
     expect(await drainOutbox(p, { cfg: readEmailConfig(), transport: s.t, now: later(1) })).toMatchObject({ uncertain: 1, retried: 0 })
     expect((await rows('RFQ_SALES_ALERT'))[0]).toMatchObject({ status: 'UNCERTAIN', last_error_code: 'UNCERTAIN_ETIMEDOUT' })
     await drainOutbox(p, { cfg: readEmailConfig(), transport: s.t, now: later(600) })
-    expect(s.sent).toHaveLength(1)
+    await drainOutbox(p, { cfg: readEmailConfig(), transport: s.t, now: later(1200) })
+    // the original once, its one resend once (also unconfirmed): never a third time, and a person is told
+    expect(s.sent).toHaveLength(2)
+    expect((await rows('RFQ_SALES_ALERT')).map((r) => r.status)).toEqual(['UNCERTAIN', 'UNCERTAIN'])
+    expect(await uncertainNeedingAttention(p)).toBe(2)
     // the same message refused with a reply (421 at end of DATA) or before DATA: known not accepted → RETRY
     await resetCrm()
     await ensureTemplates(p)
     await newRfq()
     const r421 = server(() => Object.assign(new Error('try later'), { code: 'EMESSAGE', responseCode: 421, command: 'DATA' }))
     expect(await drainOutbox(p, { cfg: readEmailConfig(), transport: r421.t, now: later(1) })).toMatchObject({ retried: 1, uncertain: 0 })
-    const conn = server(() => Object.assign(new Error('refused'), { code: 'ESOCKET', command: 'CONN' }))
+    const conn = server(() => Object.assign(new Error('connect ECONNREFUSED'), { code: 'ESOCKET', command: 'CONN', syscall: 'connect' }))
     expect(await drainOutbox(p, { cfg: readEmailConfig(), transport: conn.t, now: later(3) })).toMatchObject({ retried: 1, uncertain: 0 })
     const ok = server()
     expect(await drainOutbox(p, { cfg: readEmailConfig(), transport: ok.t, now: later(30) })).toMatchObject({ sent: 1 })
@@ -327,6 +354,10 @@ describe('R2-03: accepted mail is never handed over twice; ambiguity is held', (
     const r = await drainOutbox(p, { cfg: readEmailConfig(), transport: s.t, now: later(1) })
     expect(r).toMatchObject({ uncertain: 1, claimed: 0 })
     expect(s.sent).toHaveLength(0)
+    expect((await rows('RFQ_SALES_ALERT'))[0]).toMatchObject({ status: 'UNCERTAIN' })
+    // the original is never claimed again; the internal alert's one resend goes out a minute later
+    await drainOutbox(p, { cfg: readEmailConfig(), transport: s.t, now: later(3) })
+    expect(s.sent).toHaveLength(1)
     expect((await rows('RFQ_SALES_ALERT'))[0]).toMatchObject({ status: 'UNCERTAIN' })
   })
   it('lease fencing: a worker whose lease expired and was re-claimed hands nothing over; the new owner sends once', async () => {
@@ -357,18 +388,23 @@ describe('R2-03: accepted mail is never handed over twice; ambiguity is held', (
  * once; work whose acceptance is unknown stays UNCERTAIN (held), never handed over again.
  */
 describe('ER-07: crash and replay around acceptance — RFQ alert and T1 acknowledgement', () => {
-  type Kill = 'BEFORE_DATA' | 'AFTER_DATA_NO_REPLY' | 'ACCEPTED_DB_WRITE_FAILS' | 'ACCEPTED_HISTORY_FAILS' | 'DIED_WHILE_SUBMITTING'
+  // SEND-FIX-1a.1 (auditor B1): the after-DATA kill points are what nodemailer really reports (command CONN). Owner
+  // decision: an UNCERTAIN internal alert is sent ONCE more (resend), so the server may get it twice; T1 never.
+  type Kill = 'BEFORE_DATA' | 'AFTER_DATA_TIMEOUT' | 'AFTER_DATA_CLOSED' | 'ACCEPTED_DB_WRITE_FAILS' | 'ACCEPTED_HISTORY_FAILS' | 'DIED_WHILE_SUBMITTING'
   const expected: Record<Kill, { status: string; accepted: number }> = {
     BEFORE_DATA: { status: 'SENT', accepted: 1 }, // known not accepted: retried, then accepted once
-    AFTER_DATA_NO_REPLY: { status: 'UNCERTAIN', accepted: 0 },
+    AFTER_DATA_TIMEOUT: { status: 'UNCERTAIN', accepted: 0 },
+    AFTER_DATA_CLOSED: { status: 'UNCERTAIN', accepted: 0 },
     ACCEPTED_DB_WRITE_FAILS: { status: 'UNCERTAIN', accepted: 1 },
     ACCEPTED_HISTORY_FAILS: { status: 'SENT', accepted: 1 },
     DIED_WHILE_SUBMITTING: { status: 'UNCERTAIN', accepted: 0 },
   }
+  /** the internal alert's one resend: +1 acceptance when the original ended UNCERTAIN; customer mail never */
+  const resent = (kind: string, kill: Kill) => kind === 'RFQ_SALES_ALERT' && expected[kill].status === 'UNCERTAIN'
   const kinds = [['RFQ_SALES_ALERT', ALERTS], ['RFQ_CUSTOMER_ACK', CUSTOMER]] as const
   for (const [kind, address] of kinds)
     for (const kill of Object.keys(expected) as Kill[])
-      it(`${kind} · ${kill}: accepted at most once, then ${expected[kill].status}`, async () => {
+      it(`${kind} · ${kill}: the original accepted at most once, then ${expected[kill].status}${resent(kind, kill) ? ' + one resend' : ''}`, async () => {
         await newRfq()
         const row = () => rows(kind).then((r) => r[0]!)
         let accepted = 0
@@ -397,8 +433,9 @@ describe('ER-07: crash and replay around acceptance — RFQ alert and T1 acknowl
         const t: MailTransport = {
           send: async (m) => {
             if (ours(m) && armed) {
-              if (kill === 'BEFORE_DATA') { armed = false; throw Object.assign(new Error('refused'), { code: 'ECONNECTION', command: 'CONN' }) }
-              if (kill === 'AFTER_DATA_NO_REPLY') { armed = false; throw Object.assign(new Error('timeout'), { code: 'ETIMEDOUT', command: 'DATA' }) }
+              if (kill === 'BEFORE_DATA') { armed = false; throw Object.assign(new Error('connect ECONNREFUSED'), { code: 'ECONNREFUSED', command: 'CONN' }) }
+              if (kill === 'AFTER_DATA_TIMEOUT') { armed = false; throw Object.assign(new Error('Timeout'), { code: 'ETIMEDOUT', command: 'CONN' }) }
+              if (kill === 'AFTER_DATA_CLOSED') { armed = false; throw Object.assign(new Error('Connection closed unexpectedly'), { code: 'ECONNECTION', command: 'CONN' }) }
               if (kill === 'ACCEPTED_DB_WRITE_FAILS') { armed = false; failDbNext = true }
             }
             if (ours(m)) accepted++
@@ -413,8 +450,11 @@ describe('ER-07: crash and replay around acceptance — RFQ alert and T1 acknowl
           db().execute = exec
           ;(p as unknown as { create: unknown }).create = create
         }
-        expect(accepted, 'times the server accepted it').toBe(expected[kill].accepted)
+        expect(accepted, 'times the server accepted it').toBe(expected[kill].accepted + (resent(kind, kill) ? 1 : 0))
         expect((await row()).status).toBe(expected[kill].status)
+        const all = await rows(kind)
+        expect(all.length, 'rows of this kind').toBe(resent(kind, kill) ? 2 : 1)
+        if (resent(kind, kill)) expect(all[1]).toMatchObject({ idempotency_key: `${String(all[0]!.idempotency_key)}#resend`, status: 'SENT' })
       })
 })
 
@@ -505,5 +545,53 @@ describe('review Q2: a team address refused for now (4xx) is tried again alone',
     await drainOutbox(p, { cfg: readEmailConfig(), transport: t, now: later(400) })
     expect(sent.map((m) => m.to)).toEqual([`${ALERTS}, team.two@example.test`, 'team.two@example.test'])
     expect(sent[1]!.replyTo).toBe(CUSTOMER)
+  })
+})
+
+describe('SEND-FIX-1a.1 (owner decision): unconfirmed internal alerts are sent once more; customer mail never', () => {
+  const timeout = () => Object.assign(new Error('Timeout'), { code: 'ETIMEDOUT', command: 'CONN' })
+  it('T1 to the customer: held for a person, never resent, and counted on the admin overview', async () => {
+    await newRfq()
+    const s = server((_n, m) => (m.to.includes(CUSTOMER) ? timeout() : null))
+    for (const at of [1, 10, 30, 600]) await drainOutbox(p, { cfg: readEmailConfig(), transport: s.t, now: later(at) })
+    expect(s.sent.filter((m) => m.to.includes(CUSTOMER))).toHaveLength(1)
+    expect((await rows('RFQ_CUSTOMER_ACK')).map((r) => [r.status, String(r.idempotency_key).includes('#resend')])).toEqual([['UNCERTAIN', false]])
+    expect(await uncertainNeedingAttention(p)).toBe(1)
+    const timeline = (await p.find({ collection: 'crm-activities', where: { summary: { like: 'delivery unconfirmed' } }, ...sys })).docs.map((a) => String((a as unknown as Doc).summary))
+    expect(timeline.some((t) => t.endsWith('not automatically retried'))).toBe(true)
+  })
+  it('the intake-failed alert: its one resend carries the same text, and is gated again at send', async () => {
+    process.env.H2O_SALES_ALERT_TO = ALERTS
+    const ev = (await p.create({ collection: 'crm-intake-events', data: { source_system: 'NATIVE_FORM', source_event_id: 'native:resend-1', source_event_type: 'native_form', source_form_id: 'native', signature_state: 'FORM_TOKEN_VERIFIED', raw_payload_hash: 'hr1', raw_payload: { source: 'NATIVE_FORM' } as never, received_at: new Date().toISOString(), processing_state: 'FAILED_PERMANENT', replay_count: 0 } as never, context: { crmServer: {} }, ...sys })) as unknown as { id: string }
+    await reconcileIntakeFailedAlerts(p, later(0))
+    const first = server(() => timeout())
+    await drainOutbox(p, { cfg: readEmailConfig(), transport: first.t, now: later(1) })
+    const [orig, resend] = await rows('INTAKE_FAILED_ALERT')
+    expect(orig).toMatchObject({ idempotency_key: `intake-failed:${ev.id}`, status: 'UNCERTAIN' })
+    expect(resend).toMatchObject({ idempotency_key: `intake-failed:${ev.id}#resend`, status: 'PENDING', subject: orig!.subject, body_text: orig!.body_text })
+    // gated again: the address is no longer allowed by the time the resend is due → not sent
+    process.env.H2O_EMAIL_ALLOWLIST = CUSTOMER
+    const second = server()
+    await drainOutbox(p, { cfg: readEmailConfig(), transport: second.t, now: later(5) })
+    expect(second.sent).toHaveLength(0)
+    expect((await rows('INTAKE_FAILED_ALERT'))[1]).toMatchObject({ status: 'SUPPRESSED_BY_MODE' })
+  })
+  it('auditor N6: the lease is extended when the row moves to SUBMITTING', async () => {
+    process.env.H2O_EMAIL_CUSTOMER_ACK = 'off'
+    await newRfq()
+    const t0 = later(1)
+    const [id] = await claimBatch(p, t0, 10, 'worker-n6')
+    const at = new Date(t0.getTime() + 4 * 60_000) // late in the claim lease
+    let leaseDuringSend = 0
+    const t: MailTransport = {
+      send: async (m) => {
+        const r = (await db().execute(sql`SELECT lease_until FROM crm_email_outbox WHERE id = ${id}`)).rows?.[0] as Doc
+        leaseDuringSend = new Date(String(r.lease_until)).getTime()
+        return { messageId: m.messageId ?? null, accepted: 1 }
+      },
+      close: () => undefined,
+    }
+    expect(await processRow(p, id!, readEmailConfig(), t, at, undefined, undefined, { owner: 'worker-n6' })).toBe('sent')
+    expect(leaseDuringSend).toBe(at.getTime() + LEASE_MS)
   })
 })
