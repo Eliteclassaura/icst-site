@@ -1,8 +1,11 @@
 // @vitest-environment happy-dom
 /**
  * LANG-2 B1 (Auditor): visitor-typed values must never go to, or be rewritten by, in-page machine translation. The panel and
- * form roots, the review values, the chat answers and the echoed reference number carry translate="no" statically; labels
- * stay translatable. Also: the chat's close control is a 44px target.
+ * form roots, the review values, the chat answers and the echoed reference number carry translate="no" statically.
+ * translate="no" is INHERITED: with it on the roots, the whole panel and the whole inline form stay English (labels, bot
+ * messages, title and the confirmation sentence too); only the launcher is translatable. CT ruling for launch: keep that
+ * (privacy-safe); marking the values alone is a post-launch option. The tests render inside the real roots. Also: the
+ * chat's close control is a 44px target.
  */
 import { act } from 'react'
 import { readFileSync } from 'node:fs'
@@ -13,7 +16,6 @@ import { fixtureRegistry } from '../registry'
 import { NativeRfq } from '../NativeRfq'
 import { NativeRfqForm } from '../NativeRfqForm'
 import { DRAFT_KEY } from '../draft'
-import { Confirmation, ReviewList } from '../fields'
 
 ;(globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true
 const reg = fixtureRegistry()
@@ -33,16 +35,21 @@ beforeEach(() => { sessionStorage.clear(); host = document.createElement('div');
 afterEach(async () => { await act(async () => root.unmount()); host.remove() })
 
 describe('translate="no" (LANG-2 B1)', () => {
-  it('review step values carry it and the labels do not', async () => {
-    await act(async () => root.render(<ReviewList reg={reg} answers={answers} onEdit={() => {}}/>))
+  it('inline form review (inside the real root): the values are marked and the labels inherit it (the whole form stays English)', async () => {
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...reviewDraft, source: 'NATIVE_FORM' }))
+    await act(async () => root.render(<NativeRfqForm loader={async () => reg} timing={NO_WAIT} fetcher={api() as never}/>))
+    await flush()
+    await act(async () => { host.querySelector('form')!.requestSubmit() })
+    await flush()
     const dds = [...host.querySelectorAll('dd')]
     expect(dds.length).toBeGreaterThan(5)
     for (const dd of dds) expect(noTranslate(dd.querySelector('span'))).toBe(true)
-    const texts = dds.map((d) => d.querySelector('span')!.textContent)
-    expect(texts).toEqual(expect.arrayContaining(['a@b.co', 'Basin Co']))
-    for (const dt of host.querySelectorAll('dt')) expect(dt.closest('[translate="no"]')).toBeNull()
+    expect(dds.map((d) => d.querySelector('span')!.textContent)).toEqual(expect.arrayContaining(['a@b.co', 'Basin Co']))
+    expect(host.querySelectorAll('dt').length).toBeGreaterThan(5)
+    for (const dt of host.querySelectorAll('dt')) expect(dt.closest('[translate="no"]')).not.toBeNull() // inherited
+    expect(noTranslate(host.querySelector('section'))).toBe(true)
   })
-  it('chat: panel root, overlay, transcript and review values are not translatable', async () => {
+  it('chat: panel root, overlay, transcript, review values and labels (inherited) are not translatable', async () => {
     sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...reviewDraft, source: 'NATIVE_CHAT' }))
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => reg} timing={NO_WAIT} fetcher={api() as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
@@ -50,7 +57,9 @@ describe('translate="no" (LANG-2 B1)', () => {
     expect(noTranslate(host.querySelector('[role="dialog"]'))).toBe(true)
     expect(noTranslate(host.querySelector('[role="dialog"]')!.parentElement)).toBe(true)
     expect(noTranslate(host.querySelector('[role="log"]'))).toBe(true)
-    for (const dd of host.querySelectorAll('dd')) expect(dd.querySelector('span')!.closest('[translate="no"]')).not.toBeNull()
+    for (const dd of host.querySelectorAll('dd')) expect(noTranslate(dd.querySelector('span'))).toBe(true)
+    for (const dt of host.querySelectorAll('dt')) expect(dt.closest('[translate="no"]')).not.toBeNull()
+    expect(host.querySelector('h3')!.closest('[translate="no"]')).not.toBeNull()
     expect(host.querySelector('[data-rfq-launcher]')!.closest('[translate="no"]')).toBeNull() // the launcher label may be translated
   })
   it('chat: each echoed answer in the transcript is marked', async () => {
@@ -78,12 +87,18 @@ describe('translate="no" (LANG-2 B1)', () => {
     expect(host.textContent).toContain('RFQ-20261008-ABCD1234')
     expect(noTranslate(host.querySelector('section'))).toBe(true)
   })
-  it('confirmation: the reference number is wrapped, the sentence stays translatable', async () => {
-    await act(async () => root.render(<Confirmation reg={reg} rfqNumber="RFQ-20261008-ABCD1234"/>))
-    const span = host.querySelector('span[translate="no"]')!
-    expect(span.textContent).toBe('RFQ-20261008-ABCD1234')
-    expect(span.className).toContain('notranslate')
-    expect(host.querySelector('.notranslate')).toBe(span)
+  it('confirmation (inside the real inline root): the sentence inherits translate="no" and the reference number is marked itself', async () => {
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...reviewDraft, source: 'NATIVE_FORM' }))
+    await act(async () => root.render(<NativeRfqForm loader={async () => reg} timing={NO_WAIT} fetcher={api() as never}/>))
+    await flush()
+    await act(async () => { host.querySelector('form')!.requestSubmit() })
+    await flush()
+    await click(button(reg.strings['review.send']!))
+    const span = [...host.querySelectorAll('span')].find((x) => x.textContent === 'RFQ-20261008-ABCD1234')!
+    expect(noTranslate(span)).toBe(true)
+    const sentence = span.closest('p')!
+    expect(sentence.closest('[translate="no"]')).not.toBeNull() // inherited from the form root
+    expect(host.querySelector('h3')!.closest('[translate="no"]')).not.toBeNull()
   })
 })
 

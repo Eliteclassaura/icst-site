@@ -265,6 +265,20 @@ describe('ALERTS-1: the next quote reads the settings (no restart)', () => {
     const failedAudit = (await auditRows()).find((r) => ((r.detail as Doc).notice as Doc | undefined)?.failed)
     expect(failedAudit).toBeTruthy()
   })
+  it('4C-FIX.1 N2: the list-change notices go out together under one deadline: a hung mail server cannot stall the save', async () => {
+    await saveRouting(session(admin), SID, { alerts_cc: 'a1@example.test\na2@example.test\na3@example.test\na4@example.test' })
+    const hung = () => new Promise<void>(() => {})
+    const t0 = Date.now()
+    const out = await saveRouting(session(admin), SID, { alerts_cc: 'b1@example.test' }, { notify: hung, noticeDeadlineMs: 300 })
+    const took = Date.now() - t0
+    expect(out).toMatchObject({ ok: true })
+    // five+ recipients each hanging: one deadline (300 ms), nowhere near the sum
+    expect(took).toBeLessThan(2500)
+    expect((await stored()).alerts_cc).toEqual(['b1@example.test'])
+    const a = (await auditRows()).find((r) => ((r.detail as Doc).notice as Doc | undefined)?.kind === 'alert-lists-changed' && ((r.detail as Doc).notice as Doc).sent === 0)
+    expect((a!.detail as Doc).notice).toMatchObject({ sent: 0, failed: expect.any(Number) })
+    expect(Number(((a!.detail as Doc).notice as Doc).failed)).toBeGreaterThanOrEqual(4)
+  })
   it('the audit entry is written FIRST: when it cannot be written, nothing is saved', async () => {
     const real = p.create.bind(p)
     const spy = vi.spyOn(p, 'create').mockImplementation(((args: { collection?: string }) => (args.collection === 'audit-log' ? Promise.reject(new Error('AUDIT_DOWN')) : real(args as never))) as never)

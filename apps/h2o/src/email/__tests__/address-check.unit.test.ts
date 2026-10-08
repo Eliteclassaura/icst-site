@@ -29,6 +29,19 @@ describe('RFQ-EMAIL-CHECK-1 strict syntax', () => {
   })
 })
 
+describe('4C-FIX.1 note N1: the domain that is checked is the domain that is mailed', () => {
+  it('refuses a domain that only becomes ASCII through UTS46 mapping (the mail transport would use the raw text)', () => {
+    for (const bad of ['a@\uFF45vil.com', 'a@evil\u00ADcom.com', 'a@ev\u00ADil.com', 'a@evil\u200B.com', 'a@ev\u200Bil.com', 'a@ev\u200Dil.com', 'a@evil\u3002com', 'a@evil\uFF0Ecom', 'a@\uFF25VIL.com', 'a@evil.\uFF43om'])
+      expect(strictDomainOf(bad), JSON.stringify(bad)).toBeNull()
+  })
+  it('still accepts a plain ASCII domain, its punycode form, and a real internationalised domain', () => {
+    expect(strictDomainOf('a@Example.COM')).toBe('example.com')
+    expect(strictDomainOf('a@xn--bcher-kva.example')).toBe('xn--bcher-kva.example')
+    expect(strictDomainOf('a@b\u00FCcher.example')).toBe('xn--bcher-kva.example')
+    expect(strictDomainOf('a@B\u00DCCHER.example')).toBe('xn--bcher-kva.example')
+  })
+})
+
 describe('CRM-B-4C-FIX note E: the raw domain is checked before any URL parsing', () => {
   it('refuses anything that could be read as a path, port, query, fragment, escape or userinfo in the domain', () => {
     for (const bad of ['x@evil.com/foo', 'x@evil.com\\foo', 'x@evil.com?q=1', 'x@evil.com#frag', 'x@evil.com%2Ffoo', 'x@evil.com:8080', 'x@evil.com/', 'x@a.com,b.com', 'x@a.com;b.com', 'x@a.com<b', 'x@evil.com(c)', 'x@ev il.com', 'x@evil.com\u0000', 'x@evil.com\n.org', 'x@evil.com|b.org', 'x@evil.com=', 'x@@evil.com', 'x@evil.com@evil.org'])

@@ -33,6 +33,8 @@ export type RoutingDeps = {
   send?: (s: SmtpSettings, m: MailMessage) => Promise<void>
   /** The notice to the previous sales address (default: Payload's mail adapter, same gate as the password reset). */
   notify?: (to: string, subject: string, text: string) => Promise<void>
+  /** Tests: the overall deadline for the alert-list-change notices. */
+  noticeDeadlineMs?: number
 }
 
 /** Company domains the public sales address may use (env `H2O_SALES_ADDRESS_DOMAINS`; default h2ocooling.com, h2ocooling.org). The alert lists are NOT restricted (the owner's list includes a Gmail address). */
@@ -103,18 +105,24 @@ export async function saveRouting(s: CrmSession, sid: string | null, input: Rout
     const changedNames = (['alerts_cc', 'alerts_us', 'alerts_th'] as const).filter((k) => changes[k]).map((k) => LIST_LABEL[k])
     const subject = 'Who gets new quote alerts was changed'
     const text = `The list of people who get new quote alerts on the H2O website was changed by ${actor}.\n\nChanged: ${changedNames.join('; ')}.\n\nIf this was not expected, sign in to the CRM and check Settings → Email routing.\n`
-    let sent = 0
-    let failed = 0
-    for (const to of recipients)
-      try {
-        await send(to, subject, text)
-        sent++
-      } catch {
-        failed++
-      }
+    // 4C-FIX.1 (Auditor N2): all at once under ONE overall deadline, so a slow mail server delays the save by at most the
+    // deadline, not by the sum of the timeouts. A notice still in flight when the deadline passes counts as failed.
+    const { sent, failed } = await sendAllWithin(recipients, (to) => send(to, subject, text), deps.noticeDeadlineMs ?? NOTICE_DEADLINE_MS)
     await audit(s.payload, s.userId, { notice: { kind: 'alert-lists-changed', recipients: recipients.length, sent, failed } })
   }
   return { ok: true, message: 'Saved. The next quote uses these settings.' }
+}
+
+export const NOTICE_DEADLINE_MS = 8000
+/** Run every send at once; resolve when all are done or the deadline passes, whichever is first. */
+async function sendAllWithin(items: string[], one: (to: string) => Promise<void>, ms: number): Promise<{ sent: number; failed: number }> {
+  let sent = 0
+  let failed = 0
+  const jobs = items.map((to) => one(to).then(() => void sent++, () => void failed++))
+  let timer: ReturnType<typeof setTimeout> | undefined
+  await Promise.race([Promise.all(jobs), new Promise<void>((r) => (timer = setTimeout(r, ms)))])
+  clearTimeout(timer)
+  return { sent, failed: items.length - sent }
 }
 
 const LIST_LABEL = { alerts_cc: 'everyone who gets all new quote requests', alerts_us: 'extra recipients for the US office', alerts_th: 'extra recipients for the Thailand office' } as const

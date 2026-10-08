@@ -189,6 +189,23 @@ describe('FORM-NOTICE-1.1 (Auditor N1, N2): the notice file never takes the form
     expect(log.mock.calls.map((c) => String(c[0])).join('\n')).not.toContain('FORM_NOTICE_FALLBACK')
   })
 
+  it('4C-FIX.1 N3: a transient read failure is not cached: the next request serves the full notice', () => {
+    const log = vi.spyOn(process.stderr, 'write').mockImplementation(() => true)
+    let calls = 0
+    const real = readFileSync
+    setRegistrySourceForTests((rel) => {
+      if (rel.endsWith('form-notice-source.md') && ++calls === 1) throw new Error('EAGAIN')
+      return real(path.join(process.cwd(), rel))
+    })
+    const first = fixtureRegistry()
+    expect(first.strings['privacy.details.items']).toBeUndefined() // fallback this time
+    const second = fixtureRegistry()
+    expect(second.strings['privacy.details.items']).toBeTruthy() // the file read is retried and succeeds
+    expect(fixtureRegistry()).toBe(second) // a good load IS cached
+    const lines = log.mock.calls.map((c) => String(c[0])).join('\n')
+    expect(lines.match(/FORM_NOTICE_FALLBACK/g)).toHaveLength(1)
+  })
+
   it('the approved file loads silently', () => {
     const log = vi.spyOn(process.stderr, 'write').mockImplementation(() => true)
     setRegistrySourceForTests()

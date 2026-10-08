@@ -188,4 +188,12 @@ export function setRegistrySourceForTests(read?: RegistrySource): void {
   cache = undefined
   source = read ?? diskSource
 }
-export const fixtureRegistry = (): Registry => (cache ??= buildRegistry(source))
+/** 4C-FIX.1 (Auditor N3): the fallback is NOT cached: a failed read is retried on the next request (the log line stays), so a
+ * transient failure never leaves the form on the short notice until the process restarts. */
+export const fixtureRegistry = (): Registry => {
+  if (cache) return cache
+  const notice = loadFormNotice(source)
+  const reg = registryFromCopy(source('content/rfq/ogcs-native-rfq-copy-r1.tsv').toString('utf8'), notice)
+  if (notice !== undefined) cache = reg
+  return reg
+}

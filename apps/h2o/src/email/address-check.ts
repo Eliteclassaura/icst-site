@@ -1,5 +1,5 @@
 import { promises as dns } from 'node:dns'
-import { domainToASCII } from 'node:url'
+import { domainToASCII, domainToUnicode } from 'node:url'
 import { DISPOSABLE_EMAIL_DOMAINS } from '../crm/address-quality'
 
 /**
@@ -58,7 +58,12 @@ export function strictDomainOf(address: string): string | null {
   // the IDNA conversion (so "evil.com/foo" or "a.com#x" is refused here, not "cleaned").
   const rawDomain = v.slice(at + 1).replace(/\.$/, '')
   if (rawDomain === '' || /[\s/\\?#%@:,;<>()[\]"'`|^{}=+*!$&~]/.test(rawDomain)) return null
-  const domain = domainToASCII(rawDomain.toLowerCase())
+  const rawLower = rawDomain.toLowerCase()
+  const domain = domainToASCII(rawLower)
+  // 4C-FIX.1 (Auditor N1): the UTS46 conversion above maps full-width letters, soft hyphens, zero-width characters and the
+  // ideographic full stop to plain ones, but the mail transport later converts the RAW text with plain punycode, so the two
+  // could name different hosts. Accept only a domain that already IS its ASCII form or IS the Unicode form of it.
+  if (!domain || (rawLower !== domain && rawLower !== domainToUnicode(domain))) return null
   if (!domain || domain.length > 253 || !/^[a-z0-9.-]+$/.test(domain)) return null
   const labels = domain.split('.')
   if (labels.length < 2 || !labels.every((l) => LABEL.test(l))) return null
