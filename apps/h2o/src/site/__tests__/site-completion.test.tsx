@@ -29,22 +29,25 @@ describe('site completion authority and structure',()=>{
     expect(html).not.toContain('/admin/')
   })
   it('preserves the approved New Towers H1, exact Salmon images, provenance and responsive structure',()=>{
+    // R5b (CT 2026-10-07): /cooling-tower/ is on the R4 system. The source H1 and the held droplet and draft images stay byte-exact;
+    // the forced/induced diagram is the DD's corrected cutaway (design-r5b.test.tsx pins its hashes).
     const doc=documentFor('SALMON-pages-1230'),html=renderToStaticMarkup(<LuxuryCanonical doc={doc}/>)
-    expect(html).toMatch(/<h1\b[^>]*>New Cooling Tower Systems for High-Performance Industrial Cooling<\/h1>/)
-    expect((html.match(/<h1\b/g)??[])).toHaveLength(1)
+    const h1=[...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)].map(m=>m[1]!.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim())
+    expect(h1).toEqual(['New Cooling Tower Systems for High-Performance Industrial Cooling'])
     expect(html).toContain('data-salmon-document="SALMON-pages-1230"')
     expect(html).toContain(`data-salmon-source-sha256="${doc.sourceIdentity.sha256}"`)
-    expect(html).toContain('data-salmon-region="body"')
+    expect(html).toContain('data-r4-route="/cooling-tower/"')
     for(const [sha,extension] of [
       ['0d1039c0be35c5134f2141a079f8fa71896dc0f91c060d5d2e35d8f1422fe940','jpg'],
-      ['4d50140513f4a8fdd05e9266d1028c695e23c072f4f4928dab50aeac37ab7a46','webp'],
       ['0558dfd628dbdd7c46e5132e7f45f0af7b44a34147993b574da0253a379077ca','png'],
     ]){
-      expect(html).toContain(`src="/media/salmon/${sha}.${extension}"`)
+      // the droplet is the held file itself; the draft render is served as a webp derivative of the held png (R5b media ledger)
+      if(extension==='jpg')expect(html).toContain(`src="/media/salmon/${sha}.${extension}"`)
       expect(html).toContain(`data-source-sha256="${sha}"`)
       const bytes=readFileSync(path.join(process.cwd(),`public/media/salmon/${sha}.${extension}`))
       expect(createHash('sha256').update(bytes).digest('hex')).toBe(sha)
     }
+    expect(html).toContain('/media/design-r5b/cooling-tower-cutaway-2222.webp 2222w')
     const css=readFileSync(path.join(process.cwd(),'src/app/(site)/public-chrome-article.css'),'utf8')
     expect(css).toContain('@media(max-width:1199px)')
     expect(css).toContain('.global-chrome .site-mobile-panel{position:fixed;top:var(--chrome-height)')

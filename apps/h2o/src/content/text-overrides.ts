@@ -15,7 +15,7 @@ import path from 'node:path'
  */
 type Node = string | { tag: string; attrs: Record<string, string>; children: Node[] }
 type Doc = { routeId?: unknown; children?: unknown; text?: unknown; seo?: unknown } & Record<string, unknown>
-export type TextOverride = { id: string; row: string; routeId: string; path: string; scope: 'body' | 'schema'; find: string; replace: string; count?: number; reason: string }
+export type TextOverride = { id: string; row: string; routeId: string; path: string; scope: 'body' | 'schema'; find: string; replace: string; count?: number; reason: string; unsaveable?: boolean }
 
 let cache: Map<string, TextOverride[]> | undefined
 export const textOverrides = (): TextOverride[] =>

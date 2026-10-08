@@ -276,7 +276,7 @@ describe('R4a site-wide',()=>{
   })
   it('is imported last, colours are tokens, logical properties only',()=>{
     const imports=[...readFileSync(path.join(APP,'src/app/(site)/layout.tsx'),'utf8').matchAll(/^import '\.\/([^']+\.css)'/gm)].map(m=>m[1])
-    expect(imports.slice(-2)).toEqual(['design-r4.css','design-r5.css']) // Design R5a loads after R4
+    expect(imports.slice(-3)).toEqual(['design-r4.css','design-r5.css','design-r5b.css']) // Design R5a, then R5b (CT 2026-10-07), load after R4
     for(const line of css.split('\n').filter(l=>/^\s*(color|background(-color)?|border(-color)?|outline|box-shadow)\s*:/.test(l)))expect(line,line).not.toMatch(/#[0-9a-f]{3,8}\b|rgb\(/i)
     expect(css).not.toMatch(/\b(margin|padding)-(left|right|top|bottom)\s*:/)
   })

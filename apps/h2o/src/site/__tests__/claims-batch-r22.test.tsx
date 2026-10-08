@@ -26,6 +26,7 @@ import {LuxuryCanonical,luxuryIds} from '../LuxuryCanonical'
 import {SalmonCanonical} from '../SalmonCanonical'
 import {r4Builders} from '../r4/R4Pages'
 import {R4PortfolioPage,R4_PORTFOLIO_ROUTE} from '../r4/R4Portfolio'
+import {R5bLocationPage,r5bLocationHeroes} from '../r5b/R5bLocation'
 
 type Row={path:string;routeId:string;state:string;export:boolean;sourceFile?:string;matchedArticle?:boolean}
 type Fix={slots:Array<{key:string;field:string;after:unknown}>}
@@ -41,6 +42,11 @@ const decoded=(p:string)=>{try{return decodeURIComponent(p)}catch{return p}}
 const rowFor=(p:string)=>ledger.routes.find(r=>decoded(r.path)===p&&r.sourceFile&&/^(?:SALMON|LIVE)-/.test(r.routeId))
 const valueOf=<T,>(table:Record<string,T>,p:string)=>Object.entries(table).find(([k])=>decoded(k)===p)?.[1]
 
+/** R5b: the one seo-fields row this batch writes (the /cooling-tower/ meta description, OGCS commercial row 2); the apply's seo phase puts it on the record. */
+const seoRows=readFileSync(path.join(APP,'ops/seo-pass/data/seo-fields.tsv'),'utf8').split('\n').map(l=>l.split('\t'))
+const seoHead=seoRows[0]!
+const seoWritten=(p:string)=>{const row=seoRows.find(c=>decoded(c[0]!)===p&&String(c[seoHead.indexOf('meta_origin')]).includes('OGCS_R5B_COMMERCIAL'));return row?{description:row[seoHead.indexOf('meta')]}:null}
+
 /** The page as Payload composes it after the R2.2 apply (or, with `batch` false, before it), rendered by the catch-all's template dispatch. */
 const cache=new Map<string,string>()
 const pageAfterApply=(p:string,batch=true):string=>{
@@ -50,12 +56,12 @@ const pageAfterApply=(p:string,batch=true):string=>{
   const slots=(extractSlots(document,{productIds:products}) as ContentSlot[]).map(s=>({...s}))
   if(batch)for(const f of valueOf(fixes,p)?.slots??[])(slots.find(s=>s.key===f.key) as unknown as Record<string,unknown>)[f.field]=f.after
   const r=batch?valueOf(restored,p):undefined
-  const record={routeId:row.routeId,path:row.path,family:row.routeId.startsWith('LIVE-')?'live':'salmon',title:r?.h1??String(document.title??''),document,slots,restoredSections:r?.groups??null} as RouteRecord
+  const record={routeId:row.routeId,path:row.path,family:row.routeId.startsWith('LIVE-')?'live':'salmon',title:r?.h1??String(document.title??''),document,slots,restoredSections:r?.groups??null,seo:batch?seoWritten(p):null} as RouteRecord
   const doc=repairDocumentText(composePublicDocument(record) as unknown as SalmonDocument)
   const family=salmonFamilyFor(doc)
   // The catch-all's dispatch order: Design R4 compositions first (they supersede the Salmon families on their routes), then the
   // Design R5a parts families and product detail.
-  const el=r4Builders[doc.routeId]?<LuxuryCanonical doc={doc}/>:doc.routeId===R4_PORTFOLIO_ROUTE?<R4PortfolioPage doc={doc}/>:family&&R5_PARTS_FAMILIES.has(family.family)?<R5PartsFamilyPage doc={doc}/>:family?<SalmonFamilyPage doc={doc} config={family}/>:isArchiveDocument(doc)?<ArchivePage doc={doc}/>:doc.routeId.startsWith('LIVE-')?<LiveEnglishDetail doc={doc}/>:doc.targetPath==='/cooling-tower-parts-online/'?<PartsIndex doc={doc}/>:doc.type==='product'&&doc.routeId.startsWith('SALMON-product-')?<R5ProductDetail doc={doc}/>:matchedWave4Article(doc)?<Wave4ArticleDetail doc={doc}/>:luxuryIds.has(doc.routeId)?<LuxuryCanonical doc={doc}/>:<SalmonCanonical doc={doc}/>
+  const el=r4Builders[doc.routeId]?<LuxuryCanonical doc={doc}/>:doc.routeId===R4_PORTFOLIO_ROUTE?<R4PortfolioPage doc={doc}/>:r5bLocationHeroes[doc.targetPath]?<R5bLocationPage doc={doc}/>:family&&R5_PARTS_FAMILIES.has(family.family)?<R5PartsFamilyPage doc={doc}/>:family?<SalmonFamilyPage doc={doc} config={family}/>:isArchiveDocument(doc)?<ArchivePage doc={doc}/>:doc.routeId.startsWith('LIVE-')?<LiveEnglishDetail doc={doc}/>:doc.targetPath==='/cooling-tower-parts-online/'?<PartsIndex doc={doc}/>:doc.type==='product'&&doc.routeId.startsWith('SALMON-product-')?<R5ProductDetail doc={doc}/>:matchedWave4Article(doc)?<Wave4ArticleDetail doc={doc}/>:luxuryIds.has(doc.routeId)?<LuxuryCanonical doc={doc}/>:<SalmonCanonical doc={doc}/>
   const text=pageText(renderToStaticMarkup(el))
   cache.set(p+batch,text)
   return text
@@ -66,7 +72,7 @@ describe('R2.2 conformance on the composed pages (mock apply)',()=>{
     for(const c of [...conformance.absent,...conformance.present])expect(rowFor(c.path),c.path).toBeDefined()
     expect(conformance.absent.length).toBeGreaterThan(200)
     // 11 owner-restored strings, the 10 CLAIMS-R2 Home wordings (CT 2026-10-06), the 11 R4 wordings (R4C-01…11, CT 2026-10-07) and the All Projects R4 lead line (CS093)
-    expect(conformance.present).toHaveLength(33)
+    expect(conformance.present).toHaveLength(73) // + the 40 OGCS R5b wordings (location, Disaster Recovery, Thailand, the four FAQ answers and three /cooling-tower/ commercial rows)
   })
   it('the check is live: before the batch, the ruled strings are on their pages',()=>{
     const notBefore=conformance.absent.filter(c=>!pageAfterApply(c.path,false).includes(c.text)).map(c=>c.row)
@@ -74,7 +80,8 @@ describe('R2.2 conformance on the composed pages (mock apply)',()=>{
     // the same element (the Locale Part B removal next to them), so they do not exist in the imported text either. CLAIMS-R2 rows
     // 05, 08 and 09 reword text that exists only after an earlier edit ("Our global team" → "Our team", CS088, CS089).
     // R4C-11 rewords a restored-section heading, which exists only once the batch writes the restored sections.
-    expect(notBefore.sort()).toEqual(['C4','C4','CS050','CS065','CS068','CS072','CS077+CS077+CS077','CS084','CS098','R2L10-05','R2L10-08','R2L10-09','R4C-11'])
+    // R5B-L35b and R5B-L38 are registry overrides, already corrected by compose (the Institutional Facilities card text and the Thailand phone).
+    expect(notBefore.sort()).toEqual(['C4','C4','CS050','CS065','CS068','CS072','CS077+CS077+CS077','CS084','CS098','R2L10-05','R2L10-08','R2L10-09','R4C-11','R5B-L35b','R5B-L38'])
   },600000)
   it('every ruled string is absent from its page',()=>{
     const kept=conformance.absent.filter(c=>pageAfterApply(c.path).includes(c.text)).map(c=>`${c.row} ${c.path}: ${c.text.slice(0,80)}`)

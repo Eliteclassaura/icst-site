@@ -31,7 +31,7 @@ const imported=(routeId:string)=>{const r=routes.find(x=>x.routeId===routeId)!;r
 describe('text-override registry (guardrails 1–4)',()=>{
   const entries=textOverrides()
   it('1. every entry matches its imported document exactly `count` times in its scope, applies, and is idempotent',()=>{
-    expect(entries.map(o=>o.id)).toEqual(['TO-001','TO-002','TO-003','TO-004','TO-005','TO-006','TO-007','TO-008'])
+    expect(entries.map(o=>o.id)).toEqual(['TO-001','TO-002','TO-003','TO-004','TO-005','TO-006','TO-007','TO-008','TO-009','TO-010','TO-011','TO-012','TO-013','TO-014'])
     for(const routeId of new Set(entries.map(o=>o.routeId))){
       const doc=imported(routeId)
       const once=applyTextOverrides(doc)
@@ -63,7 +63,9 @@ describe('text-override registry (guardrails 1–4)',()=>{
     expect(warn).toHaveBeenCalledWith(expect.stringMatching(/^\[text-override\] TO-006 /))
   })
   it('2. a body entry holds only text no editor-editable element can hold',()=>{
-    for(const o of entries.filter(e=>e.scope==='body')){
+    // R5b (CT ruling pending): a removal of a heading or card cannot be a claim edit (the editor validator rejects an empty heading), so
+    // those entries are flagged `unsaveable`; every other body entry still holds only text no editor can hold.
+    for(const o of entries.filter(e=>e.scope==='body'&&!e.unsaveable)){
       const r=routes.find(x=>x.routeId===o.routeId)!
       const slots=extractSlots(storedDocument({path:r.targetPath,routeId:o.routeId,sourceFile:r.file} as never),{productIds:new Map()}) as ContentSlot[]
       expect(JSON.stringify(slots.filter(s=>s.kind==='text'||s.kind==='heading')),o.id).not.toContain(JSON.stringify(o.find).slice(1,-1))

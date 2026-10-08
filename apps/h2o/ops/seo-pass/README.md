@@ -310,3 +310,23 @@ The Part 2 batch is a **delta** on the R1 batch already applied on staging (the 
 4. **Check:** `sync-ledger.mjs --check` exits 1 if any ledger row is stale.
 
 `build-live-alt.mjs <audit raw dir>` regenerates `content/salmon/live-image-alt.json`: the alt text h2ocooling.com serves for each upload, which the site uses as held alt text.
+
+## Design R5b: location pages, Disaster Recovery and Thailand FAQ wording (CT 2026-10-07; OGCS R5 location pages seal 12b31e7b, R5b legacy Thailand seal d1ab9595)
+
+One delta on the state RESTORE-1 / Round 16 leaves on staging (`--baseline=<Round 16 data>`).
+
+- **Batch:** the OGCS R5 rows that exist in source, as recorded claim edits (`data/claim-edits.json` R5B-…, 58 run edits) with five registry entries (`content/design/text-overrides.json` TO-009…013):
+  - USA, Singapore and legacy Thailand headings and bodies; Japan, Thailand and Malaysia claim wording; Disaster Recovery Leyte and speed wording;
+  - the four Thailand FAQ answers (R5B-A24…A27) replace brochure-card text that belonged to other pages;
+  - registry entries: the Thailand phone, the Institutional Facilities card, Singapore's second split heading half and the legacy Thailand hero lead (a heading cannot be saved empty, and the hero lead sits in template markup no editor can reach);
+  - the two ruled H1s (USA, Singapore) are `data/h1-fields.tsv` rows (via=title).
+  - Figma-only rows, `APPROVE-IF-ADDED` rows and `NOT-ADOPTED` rows are not applied (nothing in source to change).
+- **Code:** `src/site/r5b/*` (New Cooling Tower, Disaster Recovery, the location template for the LIVE-family pages), `design-r5b.css`, `content/design/design-r5b-media.json`.
+- **Conformance:** `data/claims-conformance.json` lists each old string as absent (R5B rows) and each new wording as present (+37).
+
+| Phase (staging, delta) | Expected | Fresh DB |
+|---|---|---|
+| h1 | update 2 | 11 (was 9) |
+| slotFixes | routes 2 (USA, Singapore, with their H1 writes) | 185 (was 181) |
+| hygiene | routes 5 (Japan, Thailand, Malaysia, Disaster Recovery, legacy Thailand) | 96 |
+| everything else | 0 | unchanged |

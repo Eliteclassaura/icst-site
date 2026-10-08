@@ -6701,6 +6701,106 @@
    }
   ]
  },
+ "/cooling-tower-japan/": {
+  "routeId": "SALMON-pages-2106",
+  "slots": [
+   {
+    "key": "body.3.1.1.3.1.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Japan’s industrial and commercial buildings rely heavily on cooling towers for air conditioning and process cooling. \",0],[\"t\",\"ICS engineers cooling tower installations for Japan, designed for seismic conditions, compact urban environments, and high humidity zones\",0],[\"t\",\". \",0],[\"br\"],[\"t\",\"ICS engineers cooling towers that account for these conditions, from space-constrained rooftop installs in Tokyo to large-scale industrial sites.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Japan’s industrial facilities rely on cooling towers for process cooling. ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "ICS engineers cooling tower installations for Japan designed for seismic conditions, compact sites, and high humidity, ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "linebreak",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "from space-constrained plant installations to large-scale industrial sites.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Japan’s industrial facilities rely on cooling towers for process cooling. \",0],[\"t\",\"ICS engineers cooling tower installations for Japan designed for seismic conditions, compact sites, and high humidity, \",0],[\"t\",\"\",0],[\"br\"],[\"t\",\"from space-constrained plant installations to large-scale industrial sites.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Japan’s industrial and commercial buildings rely heavily on cooling towers for air conditioning and process cooling. ",
+      "to": "Japan’s industrial facilities rely on cooling towers for process cooling. ",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-L28 (GATE; CT accepted 2026-10-07): OGCS R5 Industrial-only rule: drop 'commercial buildings', 'air conditioning' and 'rooftop installs in Tokyo' (HVAC/small-tower; Tokyo installs unverified). Also removes the duplicated 'ICS engineers' sentenc"
+     },
+     {
+      "from": "ICS engineers cooling tower installations for Japan, designed for seismic conditions, compact urban environments, and high humidity zones",
+      "to": "ICS engineers cooling tower installations for Japan designed for seismic conditions, compact sites, and high humidity, ",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-L28 (GATE; CT accepted 2026-10-07): OGCS R5 Industrial-only rule: drop 'commercial buildings', 'air conditioning' and 'rooftop installs in Tokyo' (HVAC/small-tower; Tokyo installs unverified). Also removes the duplicated 'ICS engineers' sentenc"
+     },
+     {
+      "from": ". ",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-L28 (GATE; CT accepted 2026-10-07): OGCS R5 Industrial-only rule: drop 'commercial buildings', 'air conditioning' and 'rooftop installs in Tokyo' (HVAC/small-tower; Tokyo installs unverified). Also removes the duplicated 'ICS engineers' sentenc"
+     },
+     {
+      "from": "ICS engineers cooling towers that account for these conditions, from space-constrained rooftop installs in Tokyo to large-scale industrial sites.",
+      "to": "from space-constrained plant installations to large-scale industrial sites.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-L28 (GATE; CT accepted 2026-10-07): OGCS R5 Industrial-only rule: drop 'commercial buildings', 'air conditioning' and 'rooftop installs in Tokyo' (HVAC/small-tower; Tokyo installs unverified). Also removes the duplicated 'ICS engineers' sentenc"
+     }
+    ]
+   }
+  ]
+ },
  "/cooling-tower-lifespan-factors-failures-fixes/": {
   "routeId": "SALMON-posts-3476",
   "slots": [
@@ -7595,6 +7695,273 @@
       "to": "What ICS Offers Cooling Tower Owners in Malaysia",
       "action": "claim-reworded",
       "reason": "OGCS claims sweep R1 CS103 (SHOULD; CT accepted 2026-10-05): Ranking (heading) on a ranking page (98 GSC clicks); the H1 is unaffected."
+     }
+    ]
+   },
+   {
+    "key": "body.7.1.1.1.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Refineries, power plants, and large manufacturing facilities run cooling loads that standard tower suppliers aren’t built to handle.\",0],[\"br\"],[\"t\",\"We specialize in heavy-duty cooling tower solutions engineered specifically for Malaysia’s oil & gas, power generation, and industrial manufacturing sectors.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Refineries, power plants, and large manufacturing facilities run heavy cooling loads.We ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "linebreak",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "specialize in heavy-duty cooling tower solutions engineered for Malaysia’s oil & gas, power generation, and industrial manufacturing sectors.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Refineries, power plants, and large manufacturing facilities run heavy cooling loads.We \",0],[\"br\"],[\"t\",\"specialize in heavy-duty cooling tower solutions engineered for Malaysia’s oil & gas, power generation, and industrial manufacturing sectors.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Refineries, power plants, and large manufacturing facilities run cooling loads that standard tower suppliers aren’t built to handle.",
+      "to": "Refineries, power plants, and large manufacturing facilities run heavy cooling loads.We ",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-L43a (GATE; CT accepted 2026-10-07): OGCS R5 row 43: remove the comparative claim"
+     },
+     {
+      "from": "We specialize in heavy-duty cooling tower solutions engineered specifically for Malaysia’s oil & gas, power generation, and industrial manufacturing sectors.",
+      "to": "specialize in heavy-duty cooling tower solutions engineered for Malaysia’s oil & gas, power generation, and industrial manufacturing sectors.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-L43a (GATE; CT accepted 2026-10-07): OGCS R5 row 43: remove the comparative claim | OGCS R5b R5B-L43b (GATE; CT accepted 2026-10-07): OGCS R5 row 43"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.7.1.1.3.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"First-Class Service & Support\"",
+    "after": "Service & Support",
+    "afterCanon": "\"Service & Support\"",
+    "changes": [
+     {
+      "from": "\n\t\t\t\t\t\t\tFirst-Class Service & Support\t\t\t\t\t\t",
+      "to": "\n\t\t\t\t\t\t\tService & Support\t\t\t\t\t\t",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-L44 (GATE; CT accepted 2026-10-07): OGCS R5 Optional puffery."
+     }
+    ]
+   },
+   {
+    "key": "body.7.1.1.1.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Why Malaysia's Heaviest Industries Trust Us With Their Cooling Tower Needs\"",
+    "after": "Cooling Tower Solutions for Malaysia's Heavy Industries",
+    "afterCanon": "\"Cooling Tower Solutions for Malaysia's Heavy Industries\"",
+    "changes": [
+     {
+      "from": "Why Malaysia's Heaviest Industries Trust Us With Their Cooling Tower Needs",
+      "to": "Cooling Tower Solutions for Malaysia's Heavy Industries",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-A16 (GATE; CT accepted 2026-10-07): OGCS R5 'Heaviest … Trust Us' is a superlative and trust claim. The neutral heading keeps the 'heavy industries' topic."
+     }
+    ]
+   },
+   {
+    "key": "body.13.1.1.5.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"OEM Capabilities\"",
+    "after": "Engineering & Component Sourcing",
+    "afterCanon": "\"Engineering & Component Sourcing\"",
+    "changes": [
+     {
+      "from": "OEM Capabilities",
+      "to": "Engineering & Component Sourcing",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-A17h (GATE; CT accepted 2026-10-07): OGCS R5 addendum (d)"
+     }
+    ]
+   },
+   {
+    "key": "body.13.1.1.5.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"In-house engineering and OEM component sourcing mean tighter quality control across every build.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "In-house engineering and careful component sourcing support quality control on every build.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"In-house engineering and careful component sourcing support quality control on every build.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "In-house engineering and OEM component sourcing mean tighter quality control across every build.",
+      "to": "In-house engineering and careful component sourcing support quality control on every build.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A17b (GATE; CT accepted 2026-10-07): OGCS R5 addendum (d)"
+     }
+    ]
+   },
+   {
+    "key": "body.13.1.1.3.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"First-Class Service Standards\"",
+    "after": "Service Standards",
+    "afterCanon": "\"Service Standards\"",
+    "changes": [
+     {
+      "from": "First-Class Service Standards",
+      "to": "Service Standards",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-A18h (GATE; CT accepted 2026-10-07): OGCS R5 addendum (d)"
+     }
+    ]
+   },
+   {
+    "key": "body.13.1.1.3.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Responsive technical support and a dedicated specialist team throughout the project lifecycle.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Technical support and a dedicated specialist team throughout the project lifecycle.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Technical support and a dedicated specialist team throughout the project lifecycle.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Responsive technical support and a dedicated specialist team throughout the project lifecycle.",
+      "to": "Technical support and a dedicated specialist team throughout the project lifecycle.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A18b (GATE; CT accepted 2026-10-07): OGCS R5 addendum (d)"
+     }
+    ]
+   },
+   {
+    "key": "body.13.1.1.7.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Quality products and durable materials are selected to maximize tower lifespan under continuous industrial use.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Quality products and durable materials are selected for long tower life under continuous industrial use.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Quality products and durable materials are selected for long tower life under continuous industrial use.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Quality products and durable materials are selected to maximize tower lifespan under continuous industrial use.",
+      "to": "Quality products and durable materials are selected for long tower life under continuous industrial use.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A19b (GATE; CT accepted 2026-10-07): OGCS R5 addendum (d)"
      }
     ]
    }
@@ -13491,7 +13858,7 @@
         "children": [
          {
           "type": "text",
-          "text": "Review our latest company profile, cooling tower technologies, engineering capabilities, and project experience.",
+          "text": "Project timing depends on scope, tower size, and site conditions. We confirm a schedule with your quotation.",
           "format": 0,
           "detail": 0,
           "mode": "normal",
@@ -13513,13 +13880,742 @@
       "direction": "ltr"
      }
     },
-    "afterCanon": "[[\"t\",\"Review our latest company profile, cooling tower technologies, engineering capabilities, and project experience.\",0],[\"p\"]]",
+    "afterCanon": "[[\"t\",\"Project timing depends on scope, tower size, and site conditions. We confirm a schedule with your quotation.\",0],[\"p\"]]",
     "changes": [
      {
       "from": "Review our latest company profile, cooling tower technologies, engineering capabilities, project experience, and global service network.",
       "to": "Review our latest company profile, cooling tower technologies, engineering capabilities, and project experience.",
       "action": "word-corrected",
       "reason": "OGCS claims sweep R1 CS116 (SHOULD; CT accepted 2026-10-05): \"Global service network\"."
+     },
+     {
+      "from": "Review our latest company profile, cooling tower technologies, engineering capabilities, and project experience.",
+      "to": "Project timing depends on scope, tower size, and site conditions. We confirm a schedule with your quotation.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A24 (CT accepted 2026-10-07): the answer was brochure-card text that belongs to another page; the supplied answer replaces it (the other runs of that paragraph are emptied). No FAQPage schema is added."
+     }
+    ],
+    "accept": [
+     "[[\"t\",\"Review our latest company profile, cooling tower technologies, engineering capabilities, and project experience.\",0],[\"p\"]]"
+    ]
+   },
+   {
+    "key": "body.7.1.1.1.1.1.1.1.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tService personnel can reach most locations across Asia within hours, and the Middle East within a day.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "\n\t\t\t\t\t\t(remove)\t\t\t\t\t",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\t(remove)\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "\n\t\t\t\t\t\tService personnel can reach most locations across Asia within hours, and the Middle East within a day.\t\t\t\t\t",
+      "to": "\n\t\t\t\t\t\t(remove)\t\t\t\t\t",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-L31 (GATE; CT accepted 2026-10-07): OGCS R5 GATE: unverified response-time promise, and the Middle East is not an authorized ICS location (owner Q8). It has the same character as the removed 24/7 and dispatch claims."
+     }
+    ]
+   },
+   {
+    "key": "body.7.1.1.1.1.1.1.1.3.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Fast Regional Response\"",
+    "after": "Regional Support from Bangkok",
+    "afterCanon": "\"Regional Support from Bangkok\"",
+    "changes": [
+     {
+      "from": "\n\t\t\t\t\t\t\tFast Regional Response\t\t\t\t\t\t",
+      "to": "\n\t\t\t\t\t\t\tRegional Support from Bangkok\t\t\t\t\t\t",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-L32 (GATE; CT accepted 2026-10-07): OGCS R5 Response-speed promise (card title)."
+     }
+    ]
+   },
+   {
+    "key": "body.13.1.1.3.5.1.1.3.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Fast technical assistance\"",
+    "after": "Technical assistance",
+    "afterCanon": "\"Technical assistance\"",
+    "changes": [
+     {
+      "from": "\n\t\t\t\t\t\t\tFast technical assistance\t\t\t\t\t\t",
+      "to": "\n\t\t\t\t\t\t\tTechnical assistance\t\t\t\t\t\t",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-L33 (GATE; CT accepted 2026-10-07): OGCS R5 Response-speed promise (item title)."
+     }
+    ]
+   },
+   {
+    "key": "body.13.1.1.3.5.1.1.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tOur Thailand-based team provides quick technical assistance, ensuring rapid troubleshooting and reduced operational delays.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "\n\t\t\t\t\t\tOur Thailand-based team provides technical assistance and troubleshooting support to help reduce operational delays.\t\t\t\t\t",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tOur Thailand-based team provides technical assistance and troubleshooting support to help reduce operational delays.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "\n\t\t\t\t\t\tOur Thailand-based team provides quick technical assistance, ensuring rapid troubleshooting and reduced operational delays.\t\t\t\t\t",
+      "to": "\n\t\t\t\t\t\tOur Thailand-based team provides technical assistance and troubleshooting support to help reduce operational delays.\t\t\t\t\t",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-L34 (GATE; CT accepted 2026-10-07): OGCS R5 Speed and outcome promise ('ensuring'). The owner confirmed only the one-business-day reply for quote requests."
+     }
+    ]
+   },
+   {
+    "key": "body.9.1.1.5.1.1.1.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tFill media, fans, drive shafts, gear boxes, motors, nozzles, and FRP structural members in stock and on order.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "\n\t\t\t\t\t\tFill media, fans, drive shafts, gear boxes, motors, nozzles, and FRP structural members supplied for your project.\t\t\t\t\t",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tFill media, fans, drive shafts, gear boxes, motors, nozzles, and FRP structural members supplied for your project.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "\n\t\t\t\t\t\tFill media, fans, drive shafts, gear boxes, motors, nozzles, and FRP structural members in stock and on order.\t\t\t\t\t",
+      "to": "\n\t\t\t\t\t\tFill media, fans, drive shafts, gear boxes, motors, nozzles, and FRP structural members supplied for your project.\t\t\t\t\t",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-L36 (GATE; CT accepted 2026-10-07): OGCS R5 Stock claim (ruled class)."
+     }
+    ]
+   },
+   {
+    "key": "body.7.1.1.1.1.5.1.1.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tNew towers, parts, repairs, and maintenance are handled by a single accountable team — no subcontractor handoffs.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "\n\t\t\t\t\t\tNew towers, parts, repairs, and maintenance are handled by a single accountable team.\t\t\t\t\t",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tNew towers, parts, repairs, and maintenance are handled by a single accountable team.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "\n\t\t\t\t\t\tNew towers, parts, repairs, and maintenance are handled by a single accountable team — no subcontractor handoffs.\t\t\t\t\t",
+      "to": "\n\t\t\t\t\t\tNew towers, parts, repairs, and maintenance are handled by a single accountable team.\t\t\t\t\t",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-L37 (GATE; CT accepted 2026-10-07): OGCS R5 'No subcontractor handoffs' is unverifiable."
+     }
+    ]
+   },
+   {
+    "key": "body.17.1.1.1.7.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Prompt service. Full project support. One accountable team from design to commissioning.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Full project support. One accountable team from design to commissioning.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Full project support. One accountable team from design to commissioning.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Prompt service. Full project support. One accountable team from design to commissioning.",
+      "to": "Full project support. One accountable team from design to commissioning.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-L39 (GATE; CT accepted 2026-10-07): OGCS R5 Optional: 'prompt service' is a vague speed claim."
+     }
+    ]
+   },
+   {
+    "key": "body.19.3.1.1.3.1.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Cost depends on tower size, capacity, height, and site conditions. Request a quote for pricing based on your specific requirements.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Cost depends on tower size, capacity, height, and site conditions. Request a quote based on your specific requirements.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Cost depends on tower size, capacity, height, and site conditions. Request a quote based on your specific requirements.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Cost depends on tower size, capacity, height, and site conditions. Request a quote for pricing based on your specific requirements.",
+      "to": "Cost depends on tower size, capacity, height, and site conditions. Request a quote based on your specific requirements.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A23 (GATE; CT accepted 2026-10-07): OGCS R5 Quote-only wording ('for pricing' dropped)."
+     }
+    ]
+   },
+   {
+    "key": "body.19.3.1.3.3.1.1.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Learn how ICS delivers reliable cooling tower solutions from design through installation and lifecycle support.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Learn how ICS delivers reliable cooling tower solutions from design through installation and lifecycle support.",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A24: second leaked brochure paragraph removed."
+     }
+    ]
+   },
+   {
+    "key": "body.19.3.1.5.3.1.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Discover specialized \",0],[\"t\",\"cooling tower repair\",1],[\"t\",\" services designed to extend equipment life, improve operational efficiency, and reduce downtime.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Yes. Regular inspection, cleaning, and preventive maintenance help protect cooling capacity and extend service life. ICS offers preventive maintenance programs for towers in service. ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Yes. Regular inspection, cleaning, and preventive maintenance help protect cooling capacity and extend service life. ICS offers preventive maintenance programs for towers in service. \",0],[\"t\",\"\",1],[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Discover specialized ",
+      "to": "Yes. Regular inspection, cleaning, and preventive maintenance help protect cooling capacity and extend service life. ICS offers preventive maintenance programs for towers in service. ",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A25 (CT accepted 2026-10-07): the answer was brochure-card text that belongs to another page; the supplied answer replaces it (the other runs of that paragraph are emptied). No FAQPage schema is added."
+     },
+     {
+      "from": "cooling tower repair",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A25 (CT accepted 2026-10-07): the answer was brochure-card text that belongs to another page; the supplied answer replaces it (the other runs of that paragraph are emptied). No FAQPage schema is added."
+     },
+     {
+      "from": " services designed to extend equipment life, improve operational efficiency, and reduce downtime.",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A25 (CT accepted 2026-10-07): the answer was brochure-card text that belongs to another page; the supplied answer replaces it (the other runs of that paragraph are emptied). No FAQPage schema is added."
+     }
+    ]
+   },
+   {
+    "key": "body.19.3.1.5.3.1.1.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Learn about structural repairs, component replacement, inspection programs, and preventive maintenance solutions.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Learn about structural repairs, component replacement, inspection programs, and preventive maintenance solutions.",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A25: second leaked brochure paragraph removed."
+     }
+    ]
+   },
+   {
+    "key": "body.19.3.1.7.3.1.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Discover specialized \",0],[\"t\",\"cooling tower repair\",1],[\"t\",\" services designed to extend equipment life, improve operational efficiency, and reduce downtime.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Yes. Our Bangkok office supports cooling tower projects across Thailand and neighboring markets. ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Yes. Our Bangkok office supports cooling tower projects across Thailand and neighboring markets. \",0],[\"t\",\"\",1],[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Discover specialized ",
+      "to": "Yes. Our Bangkok office supports cooling tower projects across Thailand and neighboring markets. ",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A26 (CT accepted 2026-10-07): the answer was brochure-card text that belongs to another page; the supplied answer replaces it (the other runs of that paragraph are emptied). No FAQPage schema is added."
+     },
+     {
+      "from": "cooling tower repair",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A26 (CT accepted 2026-10-07): the answer was brochure-card text that belongs to another page; the supplied answer replaces it (the other runs of that paragraph are emptied). No FAQPage schema is added."
+     },
+     {
+      "from": " services designed to extend equipment life, improve operational efficiency, and reduce downtime.",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A26 (CT accepted 2026-10-07): the answer was brochure-card text that belongs to another page; the supplied answer replaces it (the other runs of that paragraph are emptied). No FAQPage schema is added."
+     }
+    ]
+   },
+   {
+    "key": "body.19.3.1.7.3.1.1.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Learn about structural repairs, component replacement, inspection programs, and preventive maintenance solutions.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Learn about structural repairs, component replacement, inspection programs, and preventive maintenance solutions.",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A26: second leaked brochure paragraph removed."
+     }
+    ]
+   },
+   {
+    "key": "body.19.3.1.9.3.1.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Discover specialized \",0],[\"t\",\"cooling tower repair\",1],[\"t\",\" services designed to extend equipment life, improve operational efficiency, and reduce downtime.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Yes. ICS supplies replacement parts for crossflow and counterflow cooling towers from many manufacturers. ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Yes. ICS supplies replacement parts for crossflow and counterflow cooling towers from many manufacturers. \",0],[\"t\",\"\",1],[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Discover specialized ",
+      "to": "Yes. ICS supplies replacement parts for crossflow and counterflow cooling towers from many manufacturers. ",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A27 (CT accepted 2026-10-07): the answer was brochure-card text that belongs to another page; the supplied answer replaces it (the other runs of that paragraph are emptied). No FAQPage schema is added."
+     },
+     {
+      "from": "cooling tower repair",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A27 (CT accepted 2026-10-07): the answer was brochure-card text that belongs to another page; the supplied answer replaces it (the other runs of that paragraph are emptied). No FAQPage schema is added."
+     },
+     {
+      "from": " services designed to extend equipment life, improve operational efficiency, and reduce downtime.",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A27 (CT accepted 2026-10-07): the answer was brochure-card text that belongs to another page; the supplied answer replaces it (the other runs of that paragraph are emptied). No FAQPage schema is added."
+     }
+    ]
+   },
+   {
+    "key": "body.19.3.1.9.3.1.1.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Learn about structural repairs, component replacement, inspection programs, and preventive maintenance solutions.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Learn about structural repairs, component replacement, inspection programs, and preventive maintenance solutions.",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b addendum (e) A27: second leaked brochure paragraph removed."
      }
     ]
    }
@@ -14639,6 +15735,144 @@
       "reason": "OGCS claims sweep R1 CS118 (SHOULD; CT accepted 2026-10-05): Superlative (heading)."
      }
     ]
+   },
+   {
+    "key": "body.1.1.1.1.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Engineered cooling tower solutions built to remove heat, reduce energy consumption, and support reliable operation in demanding industrial processes, power plants, and large commercial facilities.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Engineered cooling tower solutions built to remove heat, reduce energy consumption, and support reliable operation in demanding industrial processes, power plants, and manufacturing facilities.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Engineered cooling tower solutions built to remove heat, reduce energy consumption, and support reliable operation in demanding industrial processes, power plants, and manufacturing facilities.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Engineered cooling tower solutions built to remove heat, reduce energy consumption, and support reliable operation in demanding industrial processes, power plants, and large commercial facilities.",
+      "to": "Engineered cooling tower solutions built to remove heat, reduce energy consumption, and support reliable operation in demanding industrial processes, power plants, and manufacturing facilities.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-C03 (GATE; CT accepted 2026-10-07): OGCS R5b commercial row: Industrial-only rule."
+     }
+    ]
+   },
+   {
+    "key": "body.9.11.1.5.1.1.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tFrom commercial systems to high-density data center environments, ICS builds cooling towers that deliver consistent, precision-controlled thermal management. Engineered for low-noise operation and long-term dependability, our solutions help safeguard mission-critical infrastructure while driving down energy consumption and total operating costs.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "\n\t\t\t\t\t\tFor high-density data center environments, ICS builds cooling towers that deliver consistent, precision-controlled thermal management. Engineered for low-noise operation and long-term dependability, our solutions help safeguard mission-critical infrastructure while helping reduce energy consumption and total operating costs.\t\t\t\t\t",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tFor high-density data center environments, ICS builds cooling towers that deliver consistent, precision-controlled thermal management. Engineered for low-noise operation and long-term dependability, our solutions help safeguard mission-critical infrastructure while helping reduce energy consumption and total operating costs.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "\n\t\t\t\t\t\tFrom commercial systems to high-density data center environments, ICS builds cooling towers that deliver consistent, precision-controlled thermal management. Engineered for low-noise operation and long-term dependability, our solutions help safeguard mission-critical infrastructure while driving down energy consumption and total operating costs.\t\t\t\t\t",
+      "to": "\n\t\t\t\t\t\tFor high-density data center environments, ICS builds cooling towers that deliver consistent, precision-controlled thermal management. Engineered for low-noise operation and long-term dependability, our solutions help safeguard mission-critical infrastructure while helping reduce energy consumption and total operating costs.\t\t\t\t\t",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-C04 (GATE; CT accepted 2026-10-07): OGCS R5b commercial row: Drops 'commercial systems' (industrial-only rule). Also softens 'driving down' to 'helping reduce' (CLAIMS-R2 outcome pattern)."
+     }
+    ]
+   },
+   {
+    "key": "body.11.5.1.1.1.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Crossflow cooling towers allow air to move horizontally across the falling water stream. They are suitable for applications requiring low noise, easy maintenance, stable cooling water distribution, and reliable performance in large commercial facilities and industrial plants\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Crossflow cooling towers allow air to move horizontally across the falling water stream. They are suitable for applications requiring low noise, easy maintenance, stable cooling water distribution, and reliable performance in industrial and process plants.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Crossflow cooling towers allow air to move horizontally across the falling water stream. They are suitable for applications requiring low noise, easy maintenance, stable cooling water distribution, and reliable performance in industrial and process plants.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Crossflow cooling towers allow air to move horizontally across the falling water stream. They are suitable for applications requiring low noise, easy maintenance, stable cooling water distribution, and reliable performance in large commercial facilities and industrial plants",
+      "to": "Crossflow cooling towers allow air to move horizontally across the falling water stream. They are suitable for applications requiring low noise, easy maintenance, stable cooling water distribution, and reliable performance in industrial and process plants.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-C05 (GATE; CT accepted 2026-10-07): OGCS R5b commercial row: Industrial-only rule. Also adds the missing final period."
+     }
+    ]
    }
   ]
  },
@@ -15217,6 +16451,317 @@
       "to": "/water-treatment-for-cooling-towers/",
       "action": "redirect-destination",
       "reason": "internal link to a 301 source → its final URL /water-treatment-for-cooling-towers/"
+     }
+    ]
+   }
+  ]
+ },
+ "/disaster-recovery/": {
+  "routeId": "SALMON-pages-1534",
+  "slots": [
+   {
+    "key": "body.5.3.1.3.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"When Typhoon Yolanda destroyed the \",0],[\"t\",\"Malitbog\",1],[\"t\",\" cooling towers,\",0],[\"t\",\"the Energy Development Corp (EDC) plant damaged by Typhoon Yolanda in 2013 is \",0],[\"t\",\"“Malitbog”\",1],[\"t\",\" (232-MW geothermal plant, Leyte)\",0],[\"t\",\". ICS arrived on the ground in the Philippines immediately — surveying damage and jumping into action to source emergency materials. Our team supplied all services for the rehabilitation of three power plants with multiple towers, restoring full capacity within days.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "When Typhoon Yolanda damaged the ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "cooling towers",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": " at the",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": " Energy Development Corp (EDC) Malitbog geothermal plant (232 MW, Leyte) in 2013, ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": "ICS was among the first responders on site. Our team surveyed the damage, assessed structural and mechanical condition, and supported rehabilitation planning across three geothermal power plants.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"When Typhoon Yolanda damaged the \",0],[\"t\",\"cooling towers\",1],[\"t\",\" at the\",0],[\"t\",\" Energy Development Corp (EDC) Malitbog geothermal plant (232 MW, Leyte) in 2013, \",0],[\"t\",\"\",1],[\"t\",\"\",0],[\"t\",\"ICS was among the first responders on site. Our team surveyed the damage, assessed structural and mechanical condition, and supported rehabilitation planning across three geothermal power plants.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "When Typhoon Yolanda destroyed the ",
+      "to": "When Typhoon Yolanda damaged the ",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A09 (GATE; CT accepted 2026-10-07): OGCS R5 addendum (c) Leyte body"
+     },
+     {
+      "from": "Malitbog",
+      "to": "cooling towers",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A09 (GATE; CT accepted 2026-10-07): OGCS R5 addendum (c) Leyte body"
+     },
+     {
+      "from": " cooling towers,",
+      "to": " at the",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A09 (GATE; CT accepted 2026-10-07): OGCS R5 addendum (c) Leyte body"
+     },
+     {
+      "from": "the Energy Development Corp (EDC) plant damaged by Typhoon Yolanda in 2013 is ",
+      "to": " Energy Development Corp (EDC) Malitbog geothermal plant (232 MW, Leyte) in 2013, ",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A09 (GATE; CT accepted 2026-10-07): OGCS R5 addendum (c) Leyte body"
+     },
+     {
+      "from": "“Malitbog”",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A09 (GATE; CT accepted 2026-10-07): OGCS R5 addendum (c) Leyte body"
+     },
+     {
+      "from": " (232-MW geothermal plant, Leyte)",
+      "to": "",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A09 (GATE; CT accepted 2026-10-07): OGCS R5 addendum (c) Leyte body"
+     },
+     {
+      "from": ". ICS arrived on the ground in the Philippines immediately — surveying damage and jumping into action to source emergency materials. Our team supplied all services for the rehabilitation of three power plants with multiple towers, restoring full capacity within days.",
+      "to": "ICS was among the first responders on site. Our team surveyed the damage, assessed structural and mechanical condition, and supported rehabilitation planning across three geothermal power plants.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A09 (GATE; CT accepted 2026-10-07): OGCS R5 addendum (c) Leyte body"
+     }
+    ]
+   },
+   {
+    "key": "body.5.3.1.5.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"When Every Hour Offline Costs You, ICS Moves First\"",
+    "after": "When Every Hour Offline Costs You",
+    "afterCanon": "\"When Every Hour Offline Costs You\"",
+    "changes": [
+     {
+      "from": "When Every Hour Offline Costs You, ICS Moves First",
+      "to": "When Every Hour Offline Costs You",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-A10 (GATE; CT accepted 2026-10-07): OGCS R5 'ICS Moves First' is a response promise."
+     }
+    ]
+   },
+   {
+    "key": "body.5.3.1.5.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Disasters do not wait and neither do we. ICS deploys experienced engineers and recovery teams directly to the site for immediate inspection, structural damage assessment, and execution of a clear recovery plan from day one.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ICS sends experienced engineers and recovery teams to the site for inspection, structural damage assessment, and a clear recovery plan.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ICS sends experienced engineers and recovery teams to the site for inspection, structural damage assessment, and a clear recovery plan.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Disasters do not wait and neither do we. ICS deploys experienced engineers and recovery teams directly to the site for immediate inspection, structural damage assessment, and execution of a clear recovery plan from day one.",
+      "to": "ICS sends experienced engineers and recovery teams to the site for inspection, structural damage assessment, and a clear recovery plan.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A11 (GATE; CT accepted 2026-10-07): OGCS R5 Response-speed promises removed (24/7 / dispatch class ruled out by the owner)."
+     }
+    ]
+   },
+   {
+    "key": "body.5.3.1.5.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"When damage occurs, ICS responds quickly to restore stability, rebuild critical infrastructure, and return your facility stronger, safer, and more resilient than before.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "When damage occurs, ICS works to restore stability, rebuild critical infrastructure, and return your facility to safe, reliable operation.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"When damage occurs, ICS works to restore stability, rebuild critical infrastructure, and return your facility to safe, reliable operation.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "When damage occurs, ICS responds quickly to restore stability, rebuild critical infrastructure, and return your facility stronger, safer, and more resilient than before.",
+      "to": "When damage occurs, ICS works to restore stability, rebuild critical infrastructure, and return your facility to safe, reliable operation.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A12 (GATE; CT accepted 2026-10-07): OGCS R5 Speed promise and 'stronger … than before' outcome claim removed."
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.3.1.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"ICS on the ground after a disaster, conducting visual inspection of fallen concrete, assessing structural damage, and mobilizing the recovery team immediately to prevent further deterioration.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "ICS on the ground after a disaster, inspecting fallen concrete and assessing structural damage.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"ICS on the ground after a disaster, inspecting fallen concrete and assessing structural damage.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "ICS on the ground after a disaster, conducting visual inspection of fallen concrete, assessing structural damage, and mobilizing the recovery team immediately to prevent further deterioration.",
+      "to": "ICS on the ground after a disaster, inspecting fallen concrete and assessing structural damage.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-A13 (GATE; CT accepted 2026-10-07): OGCS R5 Activity caption with no location: OK. 'Mobilizing … immediately' dropped (speed claim)."
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.1.3.1.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"This is how we left the towers after reconstruction\"",
+    "after": "Cooling towers after reconstruction",
+    "afterCanon": "\"Cooling towers after reconstruction\"",
+    "changes": [
+     {
+      "from": "This is how we left the towers after reconstruction",
+      "to": "Cooling towers after reconstruction",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-A14 (GATE; CT accepted 2026-10-07): OGCS R5 Render it as a figcaption, not an H2. 'How we left' asserts ICS did this reconstruction. Keep 'we' only if the curator ledger verifies the photo as an ICS project."
      }
     ]
    }
@@ -29729,6 +31274,59 @@
    }
   ]
  },
+ "/cooling-tower-construction-repair-in-singapore/": {
+  "routeId": "LIVE-pages-2297",
+  "slots": [
+   {
+    "key": "body.1.1.3.1.1.1.1.1.0.0",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Cooling Tower Construction\"",
+    "after": "Our Cooling Tower Services in Singapore",
+    "afterCanon": "\"Our Cooling Tower Services in Singapore\"",
+    "changes": [
+     {
+      "from": "Cooling  Tower Construction ",
+      "to": "Our Cooling Tower Services in Singapore ",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-L20 (GATE; CT accepted 2026-10-07): OGCS R5 One heading is split into two H2 elements; render it as a single H2, worded so it doesn't repeat the new H1."
+     }
+    ]
+   },
+   {
+    "key": "body.1.3.1.1.1.1.1.3.1.1.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Cooling Towers in Singapore\"",
+    "after": "What Is a Cooling Tower and Why It Matters in Singapore",
+    "afterCanon": "\"What Is a Cooling Tower and Why It Matters in Singapore\"",
+    "changes": [
+     {
+      "from": "Cooling Towers in Singapore",
+      "to": "What Is a Cooling Tower and Why It Matters in Singapore",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-L21 (GATE; CT accepted 2026-10-07): OGCS R5 Figma wording; informational intent."
+     }
+    ]
+   },
+   {
+    "key": "body.1.5.1.1.1.1.1.1.1.1.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Things to Consider When Finding A Cooling Tower Manufacturer\"",
+    "after": "What to Look for in a Cooling Tower Manufacturer",
+    "afterCanon": "\"What to Look for in a Cooling Tower Manufacturer\"",
+    "changes": [
+     {
+      "from": "Things to Consider When Finding A Cooling Tower Manufacturer",
+      "to": "What to Look for in a Cooling Tower Manufacturer",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-L22 (GATE; CT accepted 2026-10-07): OGCS R5 Figma wording."
+     }
+    ]
+   }
+  ]
+ },
  "/cooling-tower-construction-repair-in-singapore/contact-us/": {
   "routeId": "LIVE-pages-1482",
   "slots": [
@@ -29902,6 +31500,54 @@
       "to": "\n\t\t\t\t\t\tOur team of engineers, technicians, and project managers brings deep cooling tower knowledge to every project.\t\t\t\t\t",
       "action": "word-corrected",
       "reason": "OGCS claims sweep R1 CS099 (SHOULD [owner]; CT accepted 2026-10-05): Superlative; \"decades\" unverified."
+     }
+    ]
+   },
+   {
+    "key": "body.1.1.3.1.1.1.1.1.0.0",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Cooling Tower Constructions & Repair In United States\"",
+    "after": "Cooling Tower Systems Built for Industrial Performance",
+    "afterCanon": "\"Cooling Tower Systems Built for Industrial Performance\"",
+    "changes": [
+     {
+      "from": "Cooling Tower Constructions & Repair In United States",
+      "to": "Cooling Tower Systems Built for Industrial Performance",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-L03 (GATE; CT accepted 2026-10-07): OGCS R5 The current H2 repeats the H1 with a typo. The replacement is the Figma heading without the stuffed 'USA'."
+     }
+    ]
+   },
+   {
+    "key": "body.1.9.1.1.1.1.1.3.1.1.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Things to Consider When Choosing a Cooling Tower Manufacturer\"",
+    "after": "What to Look for in a Cooling Tower Manufacturer",
+    "afterCanon": "\"What to Look for in a Cooling Tower Manufacturer\"",
+    "changes": [
+     {
+      "from": "Things to Consider When Choosing a Cooling Tower Manufacturer",
+      "to": "What to Look for in a Cooling Tower Manufacturer",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-L06 (GATE; CT accepted 2026-10-07): OGCS R5 Figma wording; same intent, shorter."
+     }
+    ]
+   },
+   {
+    "key": "body.1.15.1.1.1.1.1.1.1.1.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Contact Us Today\"",
+    "after": "Plan Your U.S. Cooling Tower Project With ICS",
+    "afterCanon": "\"Plan Your U.S. Cooling Tower Project With ICS\"",
+    "changes": [
+     {
+      "from": "Contact Us Today",
+      "to": "Plan Your U.S. Cooling Tower Project With ICS",
+      "action": "claim-reworded",
+      "reason": "OGCS R5b R5B-L09 (GATE; CT accepted 2026-10-07): OGCS R5 Figma heading without the stuffed 'Cooling Tower USA'."
      }
     ]
    }
@@ -42460,6 +44106,241 @@
       "to": "/contact-us/",
       "action": "redirect-destination",
       "reason": "internal link to a 301 source → its final URL /contact-us/"
+     }
+    ]
+   }
+  ]
+ },
+ "/thailand-cooling-tower/": {
+  "routeId": "LIVE-pages-2300",
+  "slots": [
+   {
+    "key": "body.1.3.1.1.1.1.1.3.1.7.1.1.3.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tThe convenient geography of our service from our Thailand office allows us to dispatch service personnel from here to any location in Asia within hours and the Middle East within a day.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "\n\t\t\t\t\t\tFrom our Bangkok office, ICS supports cooling tower projects across Thailand and neighboring markets.\t\t\t\t\t",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tFrom our Bangkok office, ICS supports cooling tower projects across Thailand and neighboring markets.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "\n\t\t\t\t\t\tThe convenient geography of our service from our Thailand office allows us to dispatch service personnel from here to any location in Asia within hours and the Middle East within a day.\t\t\t\t\t",
+      "to": "\n\t\t\t\t\t\tFrom our Bangkok office, ICS supports cooling tower projects across Thailand and neighboring markets.\t\t\t\t\t",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-G02 (GATE; CT accepted 2026-10-07): OGCS R5 Same unverified response-time promise as the one removed on /cooling-tower-thailand/. The Middle East is not an authorized ICS location (owner Q8). The replacement matches the wording on /cooling-towe"
+     }
+    ]
+   },
+   {
+    "key": "body.1.11.1.1.1.5.1.3.1.3.1.1.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tOur cooling towers are built to last with high-quality materials that can withstand the elements. The units are also backed by warranty, ensuring you of their quality and durability.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "\n\t\t\t\t\t\tOur cooling towers are built for long service life with high-quality materials that can withstand the elements. Warranty terms, where offered, are set out in your quotation.\t\t\t\t\t",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tOur cooling towers are built for long service life with high-quality materials that can withstand the elements. Warranty terms, where offered, are set out in your quotation.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "\n\t\t\t\t\t\tOur cooling towers are built to last with high-quality materials that can withstand the elements. The units are also backed by warranty, ensuring you of their quality and durability.\t\t\t\t\t",
+      "to": "\n\t\t\t\t\t\tOur cooling towers are built for long service life with high-quality materials that can withstand the elements. Warranty terms, where offered, are set out in your quotation.\t\t\t\t\t",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-G03 (GATE; CT accepted 2026-10-07): OGCS R5 An unqualified warranty claim, plus 'ensuring' an outcome. No ICS warranty term is on file."
+     }
+    ]
+   },
+   {
+    "key": "body.1.11.1.1.1.3.1.1.1.1.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"We use the latest technology and equipment to ensure that your cooling tower is built to last. Some of the perks include:\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "We use current technology and equipment so that your cooling tower is built for long service life. Some of the benefits include:",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"We use current technology and equipment so that your cooling tower is built for long service life. Some of the benefits include:\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "We use the latest technology and equipment to ensure that your cooling tower is built to last. Some of the perks include:",
+      "to": "We use current technology and equipment so that your cooling tower is built for long service life. Some of the benefits include:",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-G04 (GATE; CT accepted 2026-10-07): OGCS R5 'Ensure … built to last' is an outcome promise."
+     }
+    ]
+   },
+   {
+    "key": "body.1.11.1.1.1.1.1.1.1.1.1.1.0.2.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"With years of extensive experience in the industry, we have a team of highly skilled professionals who can provide you with the best possible cooling tower services.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "With years of experience in the industry, our team of skilled professionals provides cooling tower services matched to your site.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"With years of experience in the industry, our team of skilled professionals provides cooling tower services matched to your site.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "With years of extensive experience in the industry, we have a team of highly skilled professionals who can provide you with the best possible cooling tower services.",
+      "to": "With years of experience in the industry, our team of skilled professionals provides cooling tower services matched to your site.",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-G05 (GATE; CT accepted 2026-10-07): OGCS R5 'Best possible' is a superlative (claims sweep row #199 class)."
+     }
+    ]
+   },
+   {
+    "key": "body.1.9.1.1.1.1.1.3.1.15.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Once completed, you’ll be able to enjoy the striking difference in quality that a cooling solution designed and installed with the help of ICS provides. Our technology is not just advanced in terms of performance, but also in terms of eco-friendliness. We are committed to upholding standards of value, service, quality, and integrity in everything that we do. If you are interested in exploring a cooling tower solution that is powerful yet environmentally conscious, contact us today!\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Once completed, your cooling tower is designed and installed with ICS engineering support, with attention to both performance and environmental impact. We are committed to upholding standards of value, service, quality, and integrity in everything that we do. If you are interested in exploring a cooling tower solution that is powerful yet environmentally conscious, contact us today!",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Once completed, your cooling tower is designed and installed with ICS engineering support, with attention to both performance and environmental impact. We are committed to upholding standards of value, service, quality, and integrity in everything that we do. If you are interested in exploring a cooling tower solution that is powerful yet environmentally conscious, contact us today!\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Once completed, you’ll be able to enjoy the striking difference in quality that a cooling solution designed and installed with the help of ICS provides. Our technology is not just advanced in terms of performance, but also in terms of eco-friendliness. We are committed to upholding standards of value, service, quality, and integrity in everything that we do. If you are interested in exploring a cooling tower solution that is powerful yet environmentally conscious, contact us today!",
+      "to": "Once completed, your cooling tower is designed and installed with ICS engineering support, with attention to both performance and environmental impact. We are committed to upholding standards of value, service, quality, and integrity in everything that we do. If you are interested in exploring a cooling tower solution that is powerful yet environmentally conscious, contact us today!",
+      "action": "word-corrected",
+      "reason": "OGCS R5b R5B-G06 (GATE; CT accepted 2026-10-07): OGCS R5 Puffery; low risk. It can ride the batch."
      }
     ]
    }

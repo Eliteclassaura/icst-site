@@ -52,8 +52,10 @@ describe('#7 legacy service pages: the hero’s primary action is the quote acti
   })
   it('/cooling-tower/: the source quote link becomes the quote action with the data label (A2 styling unchanged)',async()=>{
     const html=await render('/cooling-tower/')
-    const block=html.slice(html.indexOf('elementor-element-708f65e3'),html.indexOf('elementor-element-708f65e3')+1500)
+    // R5b: /cooling-tower/ is on the R4 system; its hero carries the same data-label quote action (and the ghost secondary).
+    const block=html.slice(html.indexOf('dr4-hero'),html.indexOf('dr4-hero')+3000)
     expect(block).toContain('>Request a Quote<')
+    expect(block).toContain('data-hero-action="secondary"')
     expect(html.slice(html.indexOf('<main'))).not.toContain('>Request a New Cooling Tower Quote<')
   })
   it('the legacy buttons use the crossflow component: solid, 999px, no gradient, no shadow; radius tokens 42/26/20/28px',()=>{

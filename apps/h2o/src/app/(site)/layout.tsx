@@ -43,6 +43,7 @@ import './design-r3.css'
 import './a11y-fixes.css'
 import './design-r4.css'
 import './design-r5.css'
+import './design-r5b.css'
 
 export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }

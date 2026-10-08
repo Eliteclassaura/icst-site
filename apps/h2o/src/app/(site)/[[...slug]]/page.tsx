@@ -12,6 +12,7 @@ import {R4PortfolioPage,R4_PORTFOLIO_ROUTE} from '../../../site/r4/R4Portfolio'
 import {PartsIndex} from '../../../site/Wave3Presentation'
 import {R5ProductDetail} from '../../../site/r5/R5Product'
 import {R5PartsFamilyPage,R5_PARTS_FAMILIES} from '../../../site/r5/R5PartsPages'
+import {R5bLocationPage,r5bLocationHeroes} from '../../../site/r5b/R5bLocation'
 import {LiveEnglishDetail,Wave4ArticleDetail,Wave4ArticleIndex,Wave4Library} from '../../../site/Wave4Presentation'
 import {matchedWave4Article} from '../../../site/wave4'
 import {EnglishServicePage,englishServiceForPath,englishServicePages} from '../../../site/EnglishServices'
@@ -123,6 +124,8 @@ export default async function Page({params,searchParams}:Params){
   if(doc.routeId===ABOUT_ROUTE_ID&&!alias)return <AboutComposition doc={doc}/>
   // Design R4 (CT GO 2026-10-07): the owner's 7-OCT designs replace the earlier presentation (incl. the Dry Soda Salmon family).
   if(r4Builders[doc.routeId]&&!alias)return <LuxuryCanonical doc={doc}/>
+  // Design R5b (CT 2026-10-07): the location template for the LIVE-family location pages.
+  if(r5bLocationHeroes[doc.targetPath]&&!alias)return <R5bLocationPage doc={doc}/>
   if(doc.routeId===R4_PORTFOLIO_ROUTE&&!alias)return <R4PortfolioPage doc={doc}/>
   const family=salmonFamilyFor(doc)
   // Design R5a (CT GO 2026-10-07): the parts category and series families render on the R5 parts system.

@@ -24,7 +24,7 @@ type Model={route:string;sourceId:string;tree:LayoutNode[];remaining:Array<{sour
 export const luxuryIds=new Set(['SALMON-pages-48','SALMON-pages-1230','SALMON-pages-1446','SALMON-pages-1534','SALMON-pages-1555','SALMON-pages-1572','SALMON-pages-1668','SALMON-pages-1722','SALMON-pages-411'])
 const safe=(href:string)=>/^(https?:|mailto:|tel:|\/|#)/i.test(href)?href:undefined
 export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
- if(doc.targetPath==='/'||doc.targetPath==='/cooling-tower/')return <SalmonPresentation doc={doc}/>
+ if(doc.targetPath==='/'||(doc.targetPath==='/cooling-tower/'&&!r4Builders[doc.routeId]))return <SalmonPresentation doc={doc}/>
  const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
  const model=JSON.parse(readFileSync(path.join(process.cwd(),'content/luxury',doc.routeId.split('-').at(-1)+'.json'),'utf8')) as Model
  const serviceComposition=serviceCompositions[doc.routeId]

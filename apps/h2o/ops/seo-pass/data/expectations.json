@@ -17,23 +17,23 @@
       "canonical": 0
     },
     "seoFields": {
-      "update": 0,
-      "unchanged": 498,
+      "update": 1,
+      "unchanged": 497,
       "pendingOgcs": 0
     },
     "files": 22,
     "gone": 10,
     "restored": {
-      "update": 1
-    },
-    "h1": {
       "update": 0
     },
+    "h1": {
+      "update": 2
+    },
     "slotFixes": {
-      "routes": 1
+      "routes": 3
     },
     "hygiene": {
-      "routes": 2
+      "routes": 5
     }
   },
   "deltaSkipped": [

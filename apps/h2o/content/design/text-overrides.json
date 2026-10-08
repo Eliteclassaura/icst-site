@@ -89,6 +89,75 @@
       "replace": "Cooling Tower Repair Service for Industrial Facilities - ICS",
       "count": 3,
       "reason": "CT ruling 2026-10-05 (R2.2a, owner Q1 family): the JSON-LD copies of the SEO title (the title itself is the R2.2a seo field)"
+    },
+    {
+      "id": "TO-009",
+      "row": "R5B-L38",
+      "routeId": "SALMON-pages-2177",
+      "path": "/cooling-tower-thailand/",
+      "scope": "body",
+      "find": "Call +66 2-661-7723",
+      "replace": "Call +662-661-7723",
+      "count": 1,
+      "reason": "OGCS R5b R5B-L38 (GATE; CT accepted 2026-10-07): OGCS R5 Published phone format (tel:+6626617723). Never the +66 2- grouping."
+    },
+    {
+      "id": "TO-010",
+      "row": "R5B-L35",
+      "routeId": "SALMON-pages-2177",
+      "path": "/cooling-tower-thailand/",
+      "scope": "body",
+      "find": "Institutional Facilities",
+      "replace": " ",
+      "count": 1,
+      "reason": "OGCS R5 row 35: remove the Institutional Facilities card (industrial-only rule). A heading cannot be saved empty, so the card text is removed at render and publish; the empty card is hidden by design-r5b.css (CT accepted 2026-10-07)",
+      "unsaveable": true
+    },
+    {
+      "id": "TO-011",
+      "row": "R5B-L35b",
+      "routeId": "SALMON-pages-2177",
+      "path": "/cooling-tower-thailand/",
+      "scope": "body",
+      "find": "Compact, low-noise cooling towers designed for space-constrained buildings requiring stable and efficient cooling performance.",
+      "replace": " ",
+      "count": 1,
+      "reason": "OGCS R5 row 35 (card body) (CT accepted 2026-10-07)",
+      "unsaveable": true
+    },
+    {
+      "id": "TO-012",
+      "row": "R5B-L20b",
+      "routeId": "LIVE-pages-2297",
+      "path": "/cooling-tower-construction-repair-in-singapore/",
+      "scope": "body",
+      "find": "Repair In Singapore",
+      "replace": " ",
+      "count": 1,
+      "reason": "OGCS R5 row 20: the split heading becomes one H2; its second half is removed at render and publish (a heading cannot be saved empty) (CT accepted 2026-10-07)",
+      "unsaveable": true
+    },
+    {
+      "id": "TO-013",
+      "row": "R5B-G02h",
+      "routeId": "LIVE-pages-2300",
+      "path": "/thailand-cooling-tower/",
+      "scope": "body",
+      "find": "\t\t\t\t\t\t\t\t\tThe convenient geography of our service from our Thailand office allows us to dispatch service personnel from here to any location in Asia within hours and the Middle East within a day.",
+      "replace": "\t\t\t\t\t\t\t\t\tFrom our Bangkok office, ICS supports cooling tower projects across Thailand and neighboring markets.",
+      "count": 1,
+      "reason": "OGCS R5b legacy Thailand row 2 (the hero lead sits in template markup no editor can reach; the same sentence in the editable paragraph is claim edit R5B-G02) (CT accepted 2026-10-07)"
+    },
+    {
+      "id": "TO-014",
+      "row": "R5B-C02",
+      "routeId": "SALMON-pages-1230",
+      "path": "/cooling-tower/",
+      "scope": "schema",
+      "find": "ICS designs and builds new cooling tower systems for industrial facilities, power plants, and large commercial facilities with high thermal performance.",
+      "replace": "ICS designs and builds new cooling tower systems for industrial facilities, power plants, and process plants with high thermal performance.",
+      "count": 1,
+      "reason": "OGCS R5b commercial row 2 (CT accepted 2026-10-07): the JSON-LD copy of the meta description (the meta itself is the seo field)"
     }
   ]
 }

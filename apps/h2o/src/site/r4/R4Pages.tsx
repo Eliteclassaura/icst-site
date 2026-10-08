@@ -4,6 +4,7 @@ import {R4Tabs} from './R4Tabs'
 import {r4Copy,r4Media,r4Reuse} from '../design-r4-media'
 import {englishServicePages} from '../EnglishServices'
 import {heroActionFor} from '../hero-actions'
+import {r5bBuilders} from '../r5b/R5bPages'
 
 /**
  * Design R4 page compositions (CT GO 2026-10-07; DD specs H2O_DESIGN_R4_SPEC_<page>.md). Each composition lays the page's
@@ -326,6 +327,6 @@ const aircoolers:Builder=(api,path)=>{
   </>
 }
 
-export const r4Builders:Record<string,Builder>={'SALMON-pages-1446':repair,'SALMON-pages-1555':thermal,'SALMON-pages-1722':drysoda,'SALMON-pages-1572':replacement,'SALMON-pages-1668':aircoolers}
+export const r4Builders:Record<string,Builder>={'SALMON-pages-1446':repair,'SALMON-pages-1555':thermal,'SALMON-pages-1722':drysoda,'SALMON-pages-1572':replacement,'SALMON-pages-1668':aircoolers,...r5bBuilders}
 /** Compositions that place the page's restored body-end sections themselves (before the CTA band). */
 export const r4PlacesRestored=new Set(['SALMON-pages-1668'])

@@ -210,13 +210,13 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // hygiene routes; those are now in place, and the fresh-database replay applies them from expectations.fresh-db.json.)
     expect(expectations.expect.routes).toEqual({publish:0,withdraw:0,index:0,canonical:0})
     expect(expectations.expect.redirects).toEqual({create:0,update:0,unchanged:408,retire:0,normalise:0})
-    expect(expectations.expect.seoFields).toMatchObject({update:0,pendingOgcs:0})
-    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:1}) // R4 phase 2: /air-coolers/ fixes travel with its restored write
+    expect(expectations.expect.seoFields).toMatchObject({update:1,pendingOgcs:0}) // R5b: the OGCS-ruled /cooling-tower/ meta description
+    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:3}) // R5b: the USA, Singapore and /cooling-tower/ (meta) fixes travel with their H1 writes (R4 phase 2 had /air-coolers/ with its restored write)
     // Design R4 (CT 2026-10-07) is ONE delta on the state CLAIMS-R2 leaves: two hygiene routes (parts hub R4C-01…06, Dry Soda R4C-07),
     // and /air-coolers/ (R4C-08…10 page text with R4C-11, its restored-section heading): restored 1, slot fixes 1.
-    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:2})
-    expect(expectations.expect.h1).toEqual({update:0})
-    expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:1}) // R4C-11: the /air-coolers/ restored heading
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:5}) // R5b: Japan, Thailand, Malaysia, Disaster Recovery, legacy Thailand (OGCS R5b rows); R4: parts hub, Dry Soda
+    expect(expectations.expect.h1).toEqual({update:2}) // R5b: the OGCS-ruled USA and Singapore H1s
+    expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:0}) // R5b: nothing restored (R4C-11's /air-coolers/ heading is in place in Round 16)
     expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)
     // The two translated posts that pointed at the English final page of a then-pending locale page now point at it (one hop).
     const repoint=tsv('locale-b-repoint.tsv')

@@ -1,0 +1,316 @@
+{
+ "authority": "Design R5b (CT 2026-10-07; DD spec H2O_DESIGN_R5_SPEC_new-cooling-tower_disaster-recovery.md): held staging/owner assets and the corrected cutaway. Variants never exceed native, except the CT-ruled cutaway 2x render.",
+ "slots": {
+  "ct.hero": {
+   "kind": "staging",
+   "source": {
+    "path": "content/luxury/client-review.json (2025/02/ICS-PTT-PO-July-16.jpeg)",
+    "sha256": "d88ec30b8ddc425c6b27429b27637a9baebefc43a188ac9668ed3ef8d50f3d35",
+    "width": 1334,
+    "height": 1001
+   },
+   "variants": [
+    {
+     "w": 960,
+     "h": 720,
+     "src": "/media/design-r5b/ct-hero-960.webp",
+     "sha256": "c0722710709062da93f6074cab2a4916a3e25f5bff33604c4f1fb48c051c78d7"
+    },
+    {
+     "w": 1334,
+     "h": 1001,
+     "src": "/media/design-r5b/ct-hero-1334.webp",
+     "sha256": "11c3090a0226e73b02be5ebc4f12a8d2fc63b6ac1dbc7cc4f7074ee3a64d6e4e",
+     "native": true
+    }
+   ],
+   "alt": "Large industrial cooling tower installation with multiple fan cells",
+   "identity": "STAGING_HELD (existing /cooling-tower/ hero; general imagery, never captioned as a project)",
+   "position": "50% 50%",
+   "note": "webp derivatives of the held original (source sha256 above); the original stays unchanged in the repository"
+  },
+  "ct.droplet": {
+   "kind": "staging",
+   "source": {
+    "path": "salmon wp-content/uploads/2026/06/Vector-1-1.jpg",
+    "sha256": "0d1039c0be35c5134f2141a079f8fa71896dc0f91c060d5d2e35d8f1422fe940",
+    "width": 286,
+    "height": 349
+   },
+   "variants": [
+    {
+     "w": 286,
+     "h": 349,
+     "src": "/media/salmon/0d1039c0be35c5134f2141a079f8fa71896dc0f91c060d5d2e35d8f1422fe940.jpg",
+     "sha256": "0d1039c0be35c5134f2141a079f8fa71896dc0f91c060d5d2e35d8f1422fe940",
+     "native": true,
+     "byteExact": true
+    }
+   ],
+   "alt": "",
+   "identity": "STAGING_HELD (decorative droplet-masked photo)",
+   "position": "50% 50%"
+  },
+  "ct.draft": {
+   "kind": "staging",
+   "source": {
+    "path": "salmon wp-content/uploads/2026/06/0ee389da9c3ef96d2d974005040ca757adbd6eaf-1024x767.png",
+    "sha256": "0558dfd628dbdd7c46e5132e7f45f0af7b44a34147993b574da0253a379077ca",
+    "width": 1024,
+    "height": 767
+   },
+   "variants": [
+    {
+     "w": 1024,
+     "h": 767,
+     "src": "/media/design-r5b/ct-draft-1024.webp",
+     "sha256": "c4d481f85c0cc5dde98e68cebf3f4e858b3b6a3b0a0bbc704a223594672b117f",
+     "native": true
+    }
+   ],
+   "alt": "",
+   "identity": "STAGING_HELD (natural versus mechanical draft illustration)",
+   "position": "50% 50%",
+   "note": "webp derivative(s) of the held original (source sha256 above); the original file stays in the repository, unchanged"
+  },
+  "ct.cutaway": {
+   "kind": "figma",
+   "source": {
+    "path": "outputs/H2O_DESIGN_R5_CUTAWAY_FIX_2026-10-07/cooling-tower-cutaway_corrected_1111.webp (DD final R2)",
+    "sha256": "a44fd9bca17a79a4436781eceab3eda9c85d62261a64157aaaecc8e5e0e3ec38",
+    "width": 1111,
+    "height": 832
+   },
+   "variants": [
+    {
+     "w": 1111,
+     "h": 832,
+     "src": "/media/design-r5b/cooling-tower-cutaway-1111.webp",
+     "sha256": "a44fd9bca17a79a4436781eceab3eda9c85d62261a64157aaaecc8e5e0e3ec38"
+    },
+    {
+     "w": 2222,
+     "h": 1664,
+     "src": "/media/design-r5b/cooling-tower-cutaway-2222.webp",
+     "sha256": "f32656ff7d924aa4c4edac03fa90365059b7e25d4938b686019163cc6520273d"
+    }
+   ],
+   "alt": "Labelled cutaway of a three-cell induced-draft cooling tower showing the fan stacks, upper water distribution header, fill media, internal support columns, cold-water basin and sump, cold-water outlets, the pump and valve assembly, and sediment drain",
+   "identity": "GENERAL_ILLUSTRATION (never captioned as an ICS project; CT-ruled 2x render exception)",
+   "position": "50% 50%",
+   "note": "OGCS R5_ADDENDUM (c) alt, with \"pump and valve assembly\" per the DD R2 label and CT ruling."
+  },
+  "dr.hero": {
+   "kind": "owner",
+   "source": {
+    "path": "content/luxury/ics-storm-damage.jpeg",
+    "sha256": "a409442faafe390fc0eb0e9ac149a3ee028fdc25bdef8116b067b84539a28910",
+    "width": 1632,
+    "height": 1224
+   },
+   "variants": [
+    {
+     "w": 960,
+     "h": 720,
+     "src": "/media/design-r5b/dr-hero-960.webp",
+     "sha256": "71d4e46281b4c7ad6135929d29174cf13d95d4c98749d32e4e3bc7428204fab6"
+    },
+    {
+     "w": 1632,
+     "h": 1224,
+     "src": "/media/design-r5b/dr-hero-1632.webp",
+     "sha256": "99a3b99ac768ea19a0d0bdd759fc230b5b6ede08489c8b4e8621879cc23d3c50",
+     "native": true
+    }
+   ],
+   "alt": "Cooling tower storm damage",
+   "identity": "OWNER_FACTUAL (must survive)",
+   "position": "50% 50%",
+   "note": "webp derivative(s) of the held original (source sha256 above); the original file stays in the repository, unchanged"
+  },
+  "dr.after": {
+   "kind": "owner",
+   "source": {
+    "path": "content/luxury/ics-slep-complete.jpeg",
+    "sha256": "cb3168efe9722f79ac9c31740615fdcb99f532cb997db5874fda6319c4e9dd6c",
+    "width": 1600,
+    "height": 1200
+   },
+   "variants": [
+    {
+     "w": 960,
+     "h": 720,
+     "src": "/media/design-r5b/dr-after-960.webp",
+     "sha256": "0c5efa4156ca13aa5b22972a63cb72c067403dd5074bfccc9c7dbc7ee8e1cf19"
+    },
+    {
+     "w": 1600,
+     "h": 1200,
+     "src": "/media/design-r5b/dr-after-1600.webp",
+     "sha256": "dcec28a92014caff645fd9a7869f7dd3acc00e60828da4796f87adfca1e77d56",
+     "native": true
+    }
+   ],
+   "alt": "Completed cooling tower structure",
+   "identity": "OWNER_FACTUAL (must survive)",
+   "position": "50% 50%",
+   "note": "webp derivative(s) of the held original (source sha256 above); the original file stays in the repository, unchanged"
+  },
+  "loc.usa": {
+   "kind": "live",
+   "source": {
+    "path": "h2ocooling.com/public_html/wp-content/uploads/2022/07/KBR-Dyno-Nobel-FRP-USA-min.jpeg",
+    "sha256": "89a2d62b6e754042e5e5d471abcc33b10fd94094ce2e685f74f5b6994069eed4",
+    "width": 2592,
+    "height": 1944
+   },
+   "variants": [
+    {
+     "w": 960,
+     "h": 720,
+     "src": "/media/design-r5b/loc-usa-960.webp",
+     "sha256": "d4ff7486c93e6799d0fff59c64f155f225ef9fa1967b92f6209675777715d910"
+    },
+    {
+     "w": 1672,
+     "h": 1254,
+     "src": "/media/design-r5b/loc-usa-1672.webp",
+     "sha256": "a3b72007750d91b6c367268538f7cc6cae7c2c822d110ae6559b6f8b29c72d87"
+    }
+   ],
+   "alt": "Industrial cooling tower installation at a process plant",
+   "identity": "LIVE_ORIGINAL (USA location hero; project identity unknown, so never captioned as a project)",
+   "position": "50% 50%"
+  },
+  "loc.sg": {
+   "kind": "live",
+   "source": {
+    "path": "h2ocooling.com/public_html/wp-content/uploads/2022/05/Mitsui-Jurong-Island-Singapore-2015.jpg",
+    "sha256": "d884ab28c6cf7bb089c9db14a103caec58464499730fbb4d8856a96a905033c4",
+    "width": 2272,
+    "height": 1704
+   },
+   "variants": [
+    {
+     "w": 960,
+     "h": 720,
+     "src": "/media/design-r5b/loc-sg-960.webp",
+     "sha256": "88dfcb07bea8cc23bc273e8a03f773ecd12dd10fc12ec42cd92552356da4b31a"
+    },
+    {
+     "w": 1672,
+     "h": 1254,
+     "src": "/media/design-r5b/loc-sg-1672.webp",
+     "sha256": "c08abe3e1e293a78479ff90ab3db2981776be50b74c87f82ad1b05224408c3ab"
+    }
+   ],
+   "alt": "Industrial cooling tower installation at a process plant",
+   "identity": "LIVE_ORIGINAL (Singapore location hero; project identity unknown, so never captioned as a project)",
+   "position": "50% 50%"
+  },
+  "loc.jp": {
+   "kind": "live",
+   "source": {
+    "path": "h2ocooling.com/public_html/wp-content/uploads/2024/06/Yonago-Japan-copy.jpg",
+    "sha256": "9dc9defbb07aeda8ab766333b2e9cf22d55ee272180131fb07b17b4fe1d4cb9d",
+    "width": 3264,
+    "height": 2448
+   },
+   "variants": [
+    {
+     "w": 960,
+     "h": 720,
+     "src": "/media/design-r5b/loc-jp-960.webp",
+     "sha256": "210ba3ccb2425aa095b8eabd0459745d50865798b6bdb598c8c5f7b55decb8cf"
+    },
+    {
+     "w": 1672,
+     "h": 1254,
+     "src": "/media/design-r5b/loc-jp-1672.webp",
+     "sha256": "5ec7e2ec22b7ae1a1994e53e1f8564311feaecee60302eeb826326053044835a"
+    }
+   ],
+   "alt": "Industrial cooling tower installation at a process plant",
+   "identity": "LIVE_ORIGINAL (Japan location hero; project identity unknown, so never captioned as a project)",
+   "position": "50% 50%"
+  },
+  "loc.th": {
+   "kind": "live",
+   "source": {
+    "path": "h2ocooling.com/public_html/wp-content/uploads/2024/06/PTT-Cracker.jpg",
+    "sha256": "6a2312c033fcf7f540fded009eab9b6f986222d82974bc4a94a94a8179371366",
+    "width": 3456,
+    "height": 2592
+   },
+   "variants": [
+    {
+     "w": 960,
+     "h": 720,
+     "src": "/media/design-r5b/loc-th-960.webp",
+     "sha256": "3c2f0b09112b8d1bc75963be08c0e3116e6fe9771cb1b654c5b92d9ef4612d35"
+    },
+    {
+     "w": 1672,
+     "h": 1254,
+     "src": "/media/design-r5b/loc-th-1672.webp",
+     "sha256": "7799de88460f9396a9847c96ece33b875d01ecb0906875ddf5689ae45b60c05b"
+    }
+   ],
+   "alt": "Industrial cooling tower installation at a process plant",
+   "identity": "LIVE_ORIGINAL (Thailand location hero; project identity unknown, so never captioned as a project)",
+   "position": "50% 50%"
+  },
+  "loc.my": {
+   "kind": "live",
+   "source": {
+    "path": "h2ocooling.com/public_html/wp-content/uploads/2024/06/PETRONAS-RAPID-CrackerJan-2018.jpg",
+    "sha256": "217703acefc59ef05f24833f09542f697e0506a9c083ec65c9b49c3df5850e8b",
+    "width": 2059,
+    "height": 1109
+   },
+   "variants": [
+    {
+     "w": 960,
+     "h": 517,
+     "src": "/media/design-r5b/loc-my-960.webp",
+     "sha256": "dbe93c8476143753096f870ac2477dc59d16a8373401a33aef6c6a32b71f4d55"
+    },
+    {
+     "w": 1672,
+     "h": 901,
+     "src": "/media/design-r5b/loc-my-1672.webp",
+     "sha256": "bfdea2c60bf363348c272284fbe851bb9d773600a63cedee4df4d2c0e3d316c7"
+    }
+   ],
+   "alt": "Industrial cooling tower installation at a process plant",
+   "identity": "LIVE_ORIGINAL (Malaysia location hero; project identity unknown, so never captioned as a project)",
+   "position": "50% 50%"
+  },
+  "ct.band": {
+   "kind": "live",
+   "source": {
+    "path": "h2ocooling.com/public_html/wp-content/uploads/2022/10/IMG_1014.jpg",
+    "sha256": "6c115cf46b2e97add337d51023087a0aff9ebc74cda0c002868a1418c299e6f9",
+    "width": 3264,
+    "height": 2448
+   },
+   "variants": [
+    {
+     "w": 960,
+     "h": 720,
+     "src": "/media/design-r5b/ct-band-960.webp",
+     "sha256": "59e862fdcff6a1b36ce6f62cf9f59a084dbfa54c0ddf1f91b0c516aba2471699"
+    },
+    {
+     "w": 1672,
+     "h": 1254,
+     "src": "/media/design-r5b/ct-band-1672.webp",
+     "sha256": "095ac5d90e56192219b8dd54ba74ba551e476f4d57a38c4927b6871093fdefb1"
+    }
+   ],
+   "alt": "",
+   "identity": "LIVE_ORIGINAL (decorative photo layer under the water-treatment band scrim; identity unknown, never captioned as a project)",
+   "position": "50% 55%"
+  }
+ }
+}

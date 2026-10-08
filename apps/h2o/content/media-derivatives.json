@@ -2075,6 +2075,66 @@
    "encoder": "sharp webp q82 effort5 smartSubsample, same pixel dimensions",
    "psnr": 41.7,
    "note": "SEO-FIX-1 SF-14 (H2O_SEO_DEEP_R1), 2026-10-07"
+  },
+  {
+   "src": "/media/salmon/5668af2cd162936a32ab6926.png",
+   "origSha256": "748e066901807eb1c579d8088e1556b30dbdf44dfec2f1fb47c7d87f3329beca",
+   "origBytes": 419060,
+   "width": 1154,
+   "height": 694,
+   "derivative": "/media/derivatives/842d74ea6b255c20a826a7ef09ab347efdc57f75d26a05faf9f1751dc38c8fe1.webp",
+   "derivativeSha256": "842d74ea6b255c20a826a7ef09ab347efdc57f75d26a05faf9f1751dc38c8fe1",
+   "derivativeBytes": 401446,
+   "encoder": "sharp webp lossless effort6, same pixel dimensions",
+   "psnr": 99
+  },
+  {
+   "src": "/media/salmon/6ba686a7e9729da1efc1711a50f32417392553dc0358ee555cb34794e3862aa6.png",
+   "origSha256": "6ba686a7e9729da1efc1711a50f32417392553dc0358ee555cb34794e3862aa6",
+   "origBytes": 449514,
+   "width": 1024,
+   "height": 857,
+   "derivative": "/media/derivatives/62316492081dc11d286b96d65f1d53d37e71589bd1252cd4bc8183c75b75144a.webp",
+   "derivativeSha256": "62316492081dc11d286b96d65f1d53d37e71589bd1252cd4bc8183c75b75144a",
+   "derivativeBytes": 109674,
+   "encoder": "sharp webp q82 effort5 smartSubsample, same pixel dimensions",
+   "psnr": 37.3
+  },
+  {
+   "src": "/media/salmon/5395fc65ac4474a9375d846e.png",
+   "origSha256": "d72f9a5511535b33db68c2c8d3dd3bd17f631bb4fd787bfd7df2726efc498e6c",
+   "origBytes": 278223,
+   "width": 347,
+   "height": 425,
+   "derivative": "/media/derivatives/9514686cf52bd65c696e8971389a7d905f6f186f450d99d8a04aba57822d8d8d.webp",
+   "derivativeSha256": "9514686cf52bd65c696e8971389a7d905f6f186f450d99d8a04aba57822d8d8d",
+   "derivativeBytes": 172472,
+   "encoder": "sharp webp lossless effort6, same pixel dimensions",
+   "psnr": 99
+  },
+  {
+   "src": "/media/salmon/4f6142ee3c132fc933cb7024.png",
+   "origSha256": "3a63e26b2b66c830af25a709cc2442ac2e52131b16ec6c0b85412c56199de79c",
+   "origBytes": 343027,
+   "width": 1170,
+   "height": 694,
+   "derivative": "/media/derivatives/af7b6d0373dc95f4c6054a77a94ad96e96df2ca11d2782f133c37b27cf3fd18a.webp",
+   "derivativeSha256": "af7b6d0373dc95f4c6054a77a94ad96e96df2ca11d2782f133c37b27cf3fd18a",
+   "derivativeBytes": 180192,
+   "encoder": "sharp webp q86 effort5 smartSubsample, same pixel dimensions",
+   "psnr": 36.1
+  },
+  {
+   "src": "/media/salmon/1ad07fa17e558c582e2d4b2e551a0facdfbc8eb482467168e71cc65b5fdca2b1.png",
+   "origSha256": "1ad07fa17e558c582e2d4b2e551a0facdfbc8eb482467168e71cc65b5fdca2b1",
+   "origBytes": 304729,
+   "width": 347,
+   "height": 425,
+   "derivative": "/media/derivatives/1303771e01605be661982b57ba633249c39d72fbd8033a84a547c43e5a10acdc.webp",
+   "derivativeSha256": "1303771e01605be661982b57ba633249c39d72fbd8033a84a547c43e5a10acdc",
+   "derivativeBytes": 196550,
+   "encoder": "sharp webp lossless effort6, same pixel dimensions",
+   "psnr": 99
   }
  ]
 }
