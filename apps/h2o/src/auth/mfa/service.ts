@@ -2,6 +2,7 @@ import type { Payload } from 'payload'
 import { writeSecurityAudit } from './audit'
 import { MFA_CLEARED } from './fields'
 import { decryptSecret, encryptSecret, hashRecoveryCode } from './keys'
+import { attemptsLeft, lockMessage, wrongCodeMessage } from './ux'
 import { generateRecoveryCodes, generateSecret, normaliseRecoveryCode, otpauthUri, stepAt, verifyTotp } from './totp'
 
 /**
@@ -17,7 +18,7 @@ type Doc = Record<string, unknown>
 export type MfaUser = Doc & { id: string | number }
 export type MfaOutcome =
   | { ok: true; recoveryCodes?: string[]; recoveryRemaining?: number }
-  | { ok: false; code: 'FORMAT' | 'MISMATCH' | 'REPLAY' | 'LOCKED' | 'NOT_ENROLLED' | 'ALREADY_ENROLLED' | 'NO_PENDING'; message: string; retryAfterSeconds?: number }
+  | { ok: false; code: 'FORMAT' | 'MISMATCH' | 'REPLAY' | 'LOCKED' | 'NOT_ENROLLED' | 'ALREADY_ENROLLED' | 'NO_PENDING'; message: string; retryAfterSeconds?: number; attemptsLeft?: number }
 
 const sys = { overrideAccess: true as const, depth: 0, showHiddenFields: true }
 
@@ -78,15 +79,17 @@ async function failure(payload: Payload, u: MfaUser, now: Date, code: 'FORMAT' |
   const lock = failures >= MAX_FAILURES
   await save(payload, u.id, { mfa_failures: lock ? 0 : failures, mfa_locked_until: lock ? new Date(now.getTime() + LOCK_MS).toISOString() : null })
   await writeSecurityAudit(payload, { action: lock ? 'mfa-locked' : 'mfa-failed', userId: String(u.id), actorId: String(u.id), detail: { reason: code, failures } })
-  if (lock) return { ok: false, code: 'LOCKED', message: 'Too many wrong codes. Try again in 15 minutes.', retryAfterSeconds: LOCK_MS / 1000 }
-  return { ok: false, code, message: code === 'REPLAY' ? 'That code was already used. Wait for the next one.' : 'That code is not right. Check the time on your phone and try again.' }
+  if (lock) return { ok: false, code: 'LOCKED', message: lockMessage(LOCK_MS / 1000), retryAfterSeconds: LOCK_MS / 1000 }
+  // MFA-UX-1: say how many tries are left once the lock is close.
+  const left = attemptsLeft(failures, MAX_FAILURES)
+  return { ok: false, code, message: wrongCodeMessage(code, left, LOCK_MS / 60_000), attemptsLeft: left }
 }
 
 /** Enrolment step 2: the first code from the app proves the setup; returns the recovery codes (shown once). */
 export async function confirmEnrolment(payload: Payload, u: MfaUser, sid: string, code: string, now = new Date()): Promise<MfaOutcome> {
   if (u.mfa_enabled === true) return { ok: false, code: 'ALREADY_ENROLLED', message: 'Two-factor is already set up.' }
   const wait = locked(u, now)
-  if (wait) return { ok: false, code: 'LOCKED', message: 'Too many wrong codes. Try again later.', retryAfterSeconds: wait }
+  if (wait) return { ok: false, code: 'LOCKED', message: lockMessage(wait), retryAfterSeconds: wait }
   const secret = decryptSecret(u.mfa_pending_secret)
   if (!secret) return { ok: false, code: 'NO_PENDING', message: 'The setup expired. Start again.' }
   const check = verifyTotp(secret, code, now, null)
@@ -112,7 +115,7 @@ export async function confirmEnrolment(payload: Payload, u: MfaUser, sid: string
 export async function verifySecondFactor(payload: Payload, u: MfaUser, sid: string, code: string, now = new Date()): Promise<MfaOutcome> {
   if (u.mfa_enabled !== true) return { ok: false, code: 'NOT_ENROLLED', message: 'Two-factor is not set up yet.' }
   const wait = locked(u, now)
-  if (wait) return { ok: false, code: 'LOCKED', message: 'Too many wrong codes. Try again later.', retryAfterSeconds: wait }
+  if (wait) return { ok: false, code: 'LOCKED', message: lockMessage(wait), retryAfterSeconds: wait }
   // Six digits is an app code; anything else is tried as a recovery code.
   const recovery = /^\d{6}$/.test(code.replace(/\s/g, '')) ? null : normaliseRecoveryCode(code)
   if (recovery) {
@@ -151,7 +154,7 @@ export function stepUpSecondsLeft(u: Doc, sid: string | null | undefined, now = 
 export async function confirmStepUp(payload: Payload, u: MfaUser, sid: string, code: string, now = new Date()): Promise<MfaOutcome> {
   if (u.mfa_enabled !== true) return { ok: false, code: 'NOT_ENROLLED', message: 'Two-factor is not set up yet.' }
   const wait = locked(u, now)
-  if (wait) return { ok: false, code: 'LOCKED', message: 'Too many wrong codes. Try again later.', retryAfterSeconds: wait }
+  if (wait) return { ok: false, code: 'LOCKED', message: lockMessage(wait), retryAfterSeconds: wait }
   if (!/^\d{6}$/.test(code.replace(/\s/g, ''))) return { ok: false, code: 'FORMAT', message: 'Enter the 6-digit code from your authenticator app.' }
   const secret = decryptSecret(u.mfa_secret)
   if (!secret) return { ok: false, code: 'NOT_ENROLLED', message: 'Two-factor needs to be set up again. Ask an admin to reset it.' }

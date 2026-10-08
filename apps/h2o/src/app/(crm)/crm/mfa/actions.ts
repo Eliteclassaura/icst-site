@@ -36,6 +36,10 @@ export async function verifyAction(_: MfaState, fd: FormData): Promise<MfaState>
   if (!pending) return { ok: false, message: 'Your sign-in has expired. Sign in again.' }
   const out = await verifySecondFactor(payload, pending.user, pending.sid, codeOf(fd))
   if (!out.ok) return { ok: false, message: out.message, nonce: Date.now() }
+  // MFA-UX-1: a recovery code was used up; say how many are left before going on. No cookie here (it would re-render
+  // the page over this message); the page's "Continue" link goes through /crm/mfa/done/, which sets it.
+  if (typeof out.recoveryRemaining === 'number')
+    return { ok: true, message: 'Signed in with a recovery code.', recoveryRemaining: out.recoveryRemaining, next: safeNext(fd.get('next')), nonce: Date.now() }
   await routingCookie(pending.sid)
   redirect(safeNext(fd.get('next')))
 }

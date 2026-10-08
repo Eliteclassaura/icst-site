@@ -190,3 +190,23 @@ export const IconRows = (p: P) => (
     <path d="M4 6h16M4 10h16M4 14h16M4 18h16" />
   </Svg>
 )
+/* MFA-UX-1: the two-factor setup page (copy the key, download or print the recovery codes). */
+export const IconCopy = (p: P) => (
+  <Svg {...p}>
+    <path d="M9 9h10v10H9z" />
+    <path d="M15 9V5H5v10h4" />
+  </Svg>
+)
+export const IconDownload = (p: P) => (
+  <Svg {...p}>
+    <path d="M12 4v11M7.5 10.5L12 15l4.5-4.5" />
+    <path d="M5 19h14" />
+  </Svg>
+)
+export const IconPrint = (p: P) => (
+  <Svg {...p}>
+    <path d="M7 9V4h10v5" />
+    <path d="M7 17H5v-8h14v8h-2" />
+    <path d="M7 14h10v6H7z" />
+  </Svg>
+)

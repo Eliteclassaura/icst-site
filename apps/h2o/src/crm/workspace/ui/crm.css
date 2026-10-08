@@ -2816,3 +2816,160 @@ details.c-tech > summary {
   background: var(--c-error-tint);
   color: var(--c-error-text);
 }
+
+/* MFA-UX-1: two-factor setup and sign-in — numbered steps, QR beside the setup key, recovery codes to save. */
+.c-mfa .c-content {
+  max-inline-size: 720px;
+}
+
+.c-mfa h2 {
+  margin-block: 0 4px;
+  font-size: 14px;
+}
+
+.c-mfa-steps {
+  display: grid;
+  gap: 0;
+  margin: 12px 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.c-mfa-steps > li {
+  padding-block: 16px;
+  border-block-start: 1px solid var(--c-rule);
+}
+
+.c-mfa-eyebrow {
+  margin-block: 0 2px;
+  color: var(--c-text-2);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.c-mfa-add {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  margin-block-start: 8px;
+}
+
+.c-mfa-add .c-qr {
+  margin: 0;
+}
+
+.c-mfa-manual > p {
+  margin-block: 0 8px;
+}
+
+.c-mfa-key {
+  display: inline-block;
+  padding-block: 6px;
+  padding-inline: 10px;
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  background: var(--c-n50);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  overflow-wrap: anywhere;
+}
+
+.c-mfa-copy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.c-mfa-said {
+  color: var(--c-text-2);
+  font-size: 12px;
+}
+
+.c-mfa-facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 2px 12px;
+  margin-block: 0 8px;
+  font-size: 12px;
+}
+
+.c-mfa-facts dt {
+  color: var(--c-text-2);
+}
+
+.c-mfa-facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.c-mfa-code {
+  max-inline-size: 16ch;
+  font-family: var(--c-mono);
+  font-size: 18px;
+  letter-spacing: 0.12em;
+}
+
+.c-mfa .c-form .c-alert,
+.c-mfa-banner {
+  margin-inline: 0;
+}
+
+.c-mfa-recovery {
+  margin-block: 12px 16px;
+  padding-block-start: 16px;
+  border-block-start: 1px solid var(--c-rule);
+}
+
+.c-mfa-codes {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 6px 40px;
+  margin-block: 12px;
+  padding-block: 12px;
+  padding-inline: 16px;
+  list-style: none;
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  background: var(--c-surface);
+  font-size: 15px;
+}
+
+.c-mfa-codes > li::before {
+  display: inline-block;
+  min-inline-size: 3.5ch;
+  color: var(--c-text-2);
+  content: counter(list-item) '.';
+}
+
+.c-mfa-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-block: 0 16px;
+}
+
+@media (max-width: 560px) {
+  .c-mfa-add {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .c-mfa-codes {
+    grid-template-columns: max-content;
+  }
+}
+
+@media print {
+  .c-mfa-noprint,
+  .c-mfa > .c-content > .c-hint {
+    display: none;
+  }
+
+  .c-mfa-codes {
+    border-color: currentcolor;
+  }
+}
