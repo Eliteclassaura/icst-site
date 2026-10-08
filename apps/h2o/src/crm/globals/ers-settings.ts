@@ -4,6 +4,7 @@ import { changedKeys, writeCrmAudit } from '../audit'
 import { invalidateErsSettings } from '../ers/settings'
 import { CrmInvariantError } from '../guards'
 import { ERS_HEALTH_STATE, options } from '../vocabulary'
+import { DEFAULT_SALES_ADDRESS } from '../../email/config'
 
 /**
  * Revenue Engine slice 1 — the engine's settings (CT rulings 2026-10-05; owner decisions). Admin-edited data, audited.
@@ -102,7 +103,7 @@ export const CrmErsSettings: GlobalConfig = {
         { name: 'signer', type: 'text', defaultValue: 'ICS Sales Team', maxLength: 80 },
         // Owner rule 2026-10-06: no phone number in any email. Kept only as a stored column (no migration); not used.
         { name: 'include_office_phone', type: 'checkbox', defaultValue: true, admin: { hidden: true, description: 'Not used: no phone number appears in any email (owner rule 2026-10-06).' } },
-        { name: 'email', type: 'text', defaultValue: 'sales@h2ocooling.org', maxLength: 120 },
+        { name: 'email', type: 'text', defaultValue: DEFAULT_SALES_ADDRESS, maxLength: 120 },
       ],
     },
     {

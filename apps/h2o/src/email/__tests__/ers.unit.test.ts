@@ -18,7 +18,7 @@ import { renderTemplate, SEED_TEMPLATES } from '../templates'
  */
 const E11 = SEED_TEMPLATES.filter((t) => t.code.startsWith('E11_'))
 // Owner rule 2026-10-06: the team signature only, no phone number, no postal address.
-const SIGNATURE = 'ICS Sales Team\nsales@h2ocooling.org'
+const SIGNATURE = 'ICS Sales Team\nsales@h2ocooling.com'
 const values = { first_name: 'Avery', rfq_reference: 'RFQ-20261005-SYN00001', missing_information_list: joinItems(['the current design specification', 'the requested project schedule']), sequence_signature: SIGNATURE }
 
 describe('copy-risk linter (ICS_COPY_RISK_LINTER_V2, frozen)', () => {
@@ -68,10 +68,12 @@ describe('RFC 3464 delivery status', () => {
     ])
     expect(r.filter(isHardBounce).map((x) => x.recipient)).toEqual(['gone@example.test'])
   })
-  it('a send-time refusal is an address bounce only for 551/553 or 550 with 5.1.x', () => {
+  it('a send-time refusal is an address bounce only for 551 or a 5.1.x refusal at RCPT (SEND-FIX-1a R4-03)', () => {
     expect(isAddressBounce({ responseCode: 550, response: '550 5.1.1 The email account does not exist' })).toBe(true)
     expect(isAddressBounce({ responseCode: 550, response: '550 5.7.1 Message rejected by policy' })).toBe(false)
-    expect(isAddressBounce({ responseCode: 553 })).toBe(true)
+    expect(isAddressBounce({ responseCode: 553 })).toBe(false) // R4-03: a bare 553 is no longer enough
+    expect(isAddressBounce({ responseCode: 553, response: '553 5.1.3 Bad recipient address syntax' })).toBe(true)
+    expect(isAddressBounce({ responseCode: 551 })).toBe(true)
     expect(isAddressBounce({ responseCode: 421 })).toBe(false)
   })
 })
@@ -107,7 +109,7 @@ describe('caps and warm-up (CT ruling 7)', () => {
   })
   it('settings from the global: empty values take the ruled defaults; the floor has no toggle', () => {
     const s = settingsFrom({ daily_cap: 40, compliance: { warmup: false } })
-    expect([s.dailyCap, s.compliance.warmup, s.signature.signer, s.signature.email]).toEqual([40, false, 'ICS Sales Team', 'sales@h2ocooling.org'])
+    expect([s.dailyCap, s.compliance.warmup, s.signature.signer, s.signature.email]).toEqual([40, false, 'ICS Sales Team', 'sales@h2ocooling.com'])
     // Owner rule 2026-10-06: no postal-address footer toggle, and the signature has no phone option.
     expect(Object.keys(s.compliance).sort()).toEqual(['business_hours', 'warmup'])
     expect(Object.keys(s.signature).sort()).toEqual(['email', 'signer'])

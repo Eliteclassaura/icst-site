@@ -1,3 +1,4 @@
+import { classifyRefusal } from './gate'
 import type { Payload } from 'payload'
 import { businessDaysBetween, inWindow, nextWindowOpen } from '../crm/ers/calendar'
 import { CLOSED_RFQ, exitReasonFor } from '../crm/ers/engine'
@@ -89,11 +90,8 @@ export async function ersAdmission(
   return { action: 'SEND' }
 }
 
-/** A definitive "no such address" refusal at send (550 with 5.1.x, 551, 553) — not a policy or content refusal. */
-export function isAddressBounce(err: unknown): boolean {
-  const e = (err ?? {}) as { responseCode?: unknown; response?: unknown }
-  const rc = typeof e.responseCode === 'number' ? e.responseCode : 0
-  const text = typeof e.response === 'string' ? e.response : ''
-  if (rc === 551 || rc === 553) return true
-  return rc === 550 && /\b5\.1\.(0|1|2|3|6|10)\b/.test(text)
-}
+/**
+ * A definitive "no such address" refusal at send — not a policy, content, size or login refusal. SEND-FIX-1a (review
+ * R4-03): from the SMTP stage and the enhanced code (gate.ts classifyRefusal); a bare 553 is no longer enough.
+ */
+export const isAddressBounce = (err: unknown): boolean => classifyRefusal(err) === 'INVALID_MAILBOX'

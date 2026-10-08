@@ -3463,7 +3463,7 @@ export interface CrmEmailOutbox {
    */
   canonical_id: string;
   idempotency_key: string;
-  kind: 'RFQ_SALES_ALERT' | 'RFQ_CUSTOMER_ACK' | 'RFQ_REPLY' | 'SEQUENCE_EMAIL';
+  kind: 'RFQ_SALES_ALERT' | 'RFQ_CUSTOMER_ACK' | 'RFQ_REPLY' | 'SEQUENCE_EMAIL' | 'MFA_CODE' | 'INTAKE_FAILED_ALERT';
   status:
     | 'PENDING'
     | 'SENDING'
@@ -3474,7 +3474,9 @@ export interface CrmEmailOutbox {
     | 'SUPPRESSED_BY_SUPPRESSION'
     | 'SUPPRESSED_ACK_DISABLED'
     | 'SUPPRESSED_NO_RECIPIENT'
-    | 'SUPPRESSED_TEMPLATE';
+    | 'SUPPRESSED_TEMPLATE'
+    | 'SUBMITTING'
+    | 'UNCERTAIN';
   rfq?: (string | null) | CrmRfq;
   conversation_message?: (string | null) | CrmEmailMessage;
   /**
@@ -3507,6 +3509,27 @@ export interface CrmEmailOutbox {
   bounced_at?: string | null;
   reply_to?: string | null;
   list_unsubscribe?: string | null;
+  lease_owner?: string | null;
+  attempt_identity?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  submitted_at?: string | null;
+  accepted_response?: string | null;
+  recipient_results?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3792,7 +3815,9 @@ export interface CrmEmailEvent {
     | 'DEAD_LETTERED'
     | 'DIRECT_SENT'
     | 'DIRECT_SUPPRESSED'
-    | 'DIRECT_FAILED';
+    | 'DIRECT_FAILED'
+    | 'SUBMITTED'
+    | 'UNCERTAIN';
   kind: string;
   /**
    * Outcome or failure code. Never a message text.
@@ -5881,6 +5906,11 @@ export interface CrmEmailOutboxSelect<T extends boolean = true> {
   bounced_at?: T;
   reply_to?: T;
   list_unsubscribe?: T;
+  lease_owner?: T;
+  attempt_identity?: T;
+  submitted_at?: T;
+  accepted_response?: T;
+  recipient_results?: T;
   updatedAt?: T;
   createdAt?: T;
 }

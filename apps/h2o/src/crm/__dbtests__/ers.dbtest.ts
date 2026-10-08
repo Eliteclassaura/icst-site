@@ -33,6 +33,8 @@ const srv = { overrideAccess: true as const, depth: 0 }
 const CUSTOMER = 'avery.synthetic@northwind.example.com'
 const DAY = 24 * 3600_000
 const ENV: Record<string, string | undefined> = {
+  // SEND-FIX-1a: these tests cover the post-launch paths (replies, sequences), so every outbox kind is allowed here
+  H2O_EMAIL_ALLOWED_KINDS: 'RFQ_SALES_ALERT,RFQ_CUSTOMER_ACK,RFQ_REPLY,SEQUENCE_EMAIL',
   H2O_CRM_TYPEFORM_INGEST_ENABLED: '1',
   H2O_CRM_TYPEFORM_WEBHOOK_SECRET: SYNTHETIC_SECRET,
   H2O_TYPEFORM_FORM_ID: SYNTHETIC_FORM_ID,
@@ -435,6 +437,21 @@ describe('admission at send time', () => {
     setEnv({ H2O_EMAIL_ALLOWLIST: 'someone.else@example.test' })
     expect(await drain(recorder(), t0)).toMatchObject({ suppressed: 1 })
     expect((await enrollments())[0]).toMatchObject({ status: 'PAUSED', hold_code: 'MODE_ALLOWLIST' })
+  })
+  it('SEND-FIX-1a: a replayed step never resets a row that was handed over (SUBMITTING) or may have been delivered (UNCERTAIN)', async () => {
+    const t0 = await queued()
+    const [row] = await seqRows()
+    const enr = (await enrollments())[0]!
+    for (const status of ['UNCERTAIN', 'SUBMITTING']) {
+      await p.update({ collection: 'crm-email-outbox', id: String(row!.id), data: { status, lease_until: null } as never, ...srv, context: { crmServer: {} } })
+      // the same step comes due again (a resumed hold, a re-run tick): the engine finds the existing row
+      await p.update({ collection: 'crm-enrollments', id: String(enr.id), data: { status: 'ACTIVE', next_action_at: t0.toISOString() } as never, ...srv, context: { crmServer: {} } })
+      await tick(p, { now: t0, inboundOk: true })
+      expect((await seqRows()).map((r) => r.status)).toEqual([status])
+    }
+    const t = recorder()
+    await drain(t, new Date(t0.getTime() + 3600_000))
+    expect(t.sent).toHaveLength(0)
   })
   it('a definitive address refusal at send is a hard bounce: suppression, row dead, enrollment bounced', async () => {
     const t0 = await queued()

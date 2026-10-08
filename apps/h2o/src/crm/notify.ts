@@ -1,7 +1,7 @@
 import { resolveAlertRecipients } from '../email/routing-read'
 import { randomUUID } from 'node:crypto'
 import type { Payload, PayloadRequest } from 'payload'
-import { readEmailConfig, type EmailConfig } from '../email/config'
+import { readEmailConfig, type EmailConfig, kindAllowed } from '../email/config'
 import { gateRecipient, recipientRef } from '../email/gate'
 import { recordActivity } from './activity'
 import { relId } from './guards'
@@ -15,7 +15,7 @@ import { isWebsiteSource, type EmailEvent, type EmailKind, type EmailOutboxStatu
  * runner's outbox worker sends it, src/email/outbox-worker.ts) or terminal SUPPRESSED_* with the reason.
  *
  * Who gets what, for an RFQ received through the website (TYPEFORM, NATIVE_FORM or NATIVE_CHAT):
- *   - RFQ_SALES_ALERT  one row per alert recipient (internal): the office list from Settings → Email routing, else H2O_SALES_ALERT_TO, plus the copy list;
+ *   - RFQ_SALES_ALERT  ONE row for the whole team (owner, SEND-FIX-1a): the office list from Settings → Email routing, else H2O_SALES_ALERT_TO, plus the copy list, all in To;
  *   - RFQ_CUSTOMER_ACK one row for the submitted address, once per RFQ, only if H2O_EMAIL_CUSTOMER_ACK=on.
  * Manually entered inquiries get neither: staff entered them, and the customer did not submit a form.
  *
@@ -61,6 +61,8 @@ const KIND_LABEL: Record<EmailKind, string> = {
   RFQ_CUSTOMER_ACK: 'Customer acknowledgement',
   RFQ_REPLY: 'Email reply',
   SEQUENCE_EMAIL: 'Sequence email',
+  MFA_CODE: 'Sign-in code',
+  INTAKE_FAILED_ALERT: 'Unprocessed request alert',
 }
 
 export async function recordEmailActivity(
@@ -72,7 +74,8 @@ export async function recordEmailActivity(
   code?: string | null,
 ): Promise<void> {
   const r = rfq as RfqDoc
-  const verb = status === 'SENT' ? 'sent' : status === 'DEAD' ? 'failed' : `not sent (${status})`
+  // SEND-FIX-1a: an uncertain submission says so plainly; a person decides whether to send it again
+  const verb = status === 'SENT' ? 'sent' : status === 'DEAD' ? 'failed' : status === 'UNCERTAIN' ? 'delivery unconfirmed — not automatically retried' : `not sent (${status})`
   await recordActivity(req, {
     type: kind === 'RFQ_REPLY' ? 'EMAIL_REPLY' : 'EMAIL_NOTIFICATION',
     summary: `${KIND_LABEL[kind]} ${verb}`.slice(0, 240),
@@ -98,7 +101,7 @@ export function planRfqNotifications(
   cfg: Pick<EmailConfig, 'mode' | 'allowlist' | 'salesAlertTo' | 'customerAck'>,
   rfq: { canonicalId: string; sourceSystem: unknown; submittedEmail: unknown },
   suppression: { allowed: boolean; blockedBy?: string[] },
-  secret?: string,
+  _secret?: string,
 ): Planned[] {
   if (!isWebsiteSource(rfq.sourceSystem)) return []
   const out: Planned[] = []
@@ -116,13 +119,16 @@ export function planRfqNotifications(
       status: 'SUPPRESSED_NO_RECIPIENT',
       code: 'SALES_ALERT_TO_UNSET',
     })
-  for (const to of cfg.salesAlertTo)
-    out.push({
-      kind: 'RFQ_SALES_ALERT',
-      key: `rfq-sales-alert:${rfq.canonicalId}:${recipientRef(to, secret)}`,
-      to,
-      ...gateStatus(to),
-    })
+  else {
+    // Owner launch requirement (CT 2026-10-08): ONE alert to the whole team list (every address in To), not one per
+    // person. Each address passes the gate on its own; the ones that don't are left out (allowlist mode).
+    const sendable = cfg.salesAlertTo.filter((to) => gateRecipient(cfg, to) === 'SEND')
+    out.push(
+      sendable.length
+        ? { kind: 'RFQ_SALES_ALERT', key: `rfq-sales-alert:${rfq.canonicalId}`, to: sendable.join(', '), status: 'PENDING', code: null }
+        : { kind: 'RFQ_SALES_ALERT', key: `rfq-sales-alert:${rfq.canonicalId}`, to: null, ...gateStatus(cfg.salesAlertTo[0]!) },
+    )
+  }
 
   const ackKey = `rfq-customer-ack:${rfq.canonicalId}`
   const email = emailKey(rfq.submittedEmail)
@@ -178,7 +184,10 @@ export async function enqueueRfqNotifications(
     suppression,
   )
   let written = 0
-  for (const p of plan) {
+  for (const planned of plan) {
+    // SEND-FIX-1a (R2-02): a kind outside the allowed set is recorded as not sent — never queued, and never an error
+    // that could roll back the RFQ it belongs to
+    const p = planned.status === 'PENDING' && !kindAllowed(planned.kind, cfg) ? { ...planned, status: 'SUPPRESSED_BY_MODE' as const, code: 'KIND_NOT_ALLOWED' } : planned
     const existing = await req.payload.find({
       collection: 'crm-email-outbox',
       where: { idempotency_key: { equals: p.key } },

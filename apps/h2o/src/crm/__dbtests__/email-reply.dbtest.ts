@@ -29,6 +29,8 @@ let S: CrmSession, A: CrmSession
 const srv = { overrideAccess: true as const, depth: 0 }
 const CUSTOMER = 'avery.synthetic@northwind.example.com'
 const INGEST = {
+  // SEND-FIX-1a: these tests cover the post-launch paths (replies, sequences), so every outbox kind is allowed here
+  H2O_EMAIL_ALLOWED_KINDS: 'RFQ_SALES_ALERT,RFQ_CUSTOMER_ACK,RFQ_REPLY,SEQUENCE_EMAIL',
   H2O_CRM_TYPEFORM_INGEST_ENABLED: '1',
   H2O_CRM_TYPEFORM_WEBHOOK_SECRET: SYNTHETIC_SECRET,
   H2O_TYPEFORM_FORM_ID: SYNTHETIC_FORM_ID,
@@ -349,7 +351,7 @@ describe('E2 refusals and the gate', () => {
     await compose(S, rfqId)
     const t = recorder(() => Object.assign(new Error('550 rejected'), { responseCode: 550 }))
     await drain(t)
-    expect((await messages(rfqId))[0]).toMatchObject({ status: 'FAILED', status_code: 'SMTP_550' })
+    expect((await messages(rfqId))[0]).toMatchObject({ status: 'FAILED', status_code: 'UNKNOWN:SMTP_550' })
     const acts = (
       await p.find({ collection: 'crm-activities', where: { type: { equals: 'EMAIL_REPLY' } }, ...srv })
     ).docs as unknown as Doc[]

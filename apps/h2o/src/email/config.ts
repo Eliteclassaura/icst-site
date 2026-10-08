@@ -12,6 +12,9 @@ import { domainToASCII } from 'node:url'
  *                                                          decision 2026-10-05); Stalwart later
  *   H2O_SMTP_USER / _PASS   submission credentials        secrets: environment only, never logged
  *   H2O_SMTP_TLS_SERVERNAME certificate name to verify    e.g. the mail host name (the ACME certificate)
+ *   H2O_EMAIL_ALLOWED_KINDS comma-separated outbox kinds  SEND-FIX-1a (review R2-02): the only kinds that may be queued or
+ *                                                          sent. Default = the launch set RFQ_SALES_ALERT,RFQ_CUSTOMER_ACK
+ *                                                          (owner 2026-10-08: CRM replies and sequences stay off at launch)
  *   H2O_REPLY_TAG           optional, [a-z0-9]{3,16}      T-R3: a fixed tag in Reply-To token addresses
  *                                                          (`<role>+<tag>.<token>@<domain>`) so a mail filter can
  *                                                          match every CRM reply (e.g. Gmail `to:(<role>+<tag>)`)
@@ -53,7 +56,22 @@ export type EmailConfig = {
   /** T-R3: the fixed Reply-To tag (H2O_REPLY_TAG), or null for plain `<role>+<token>` addresses. */
   replyTag?: string | null
   smtp: SmtpSettings | null
+  /** SEND-FIX-1a (R2-02): the outbox kinds allowed to queue and send; absent = the launch set. */
+  allowedKinds?: readonly string[]
 }
+
+/**
+ * SEND-FIX-1a (R2-02): every outbox kind, and the launch set (the internal RFQ alerts — new request, and a request that
+ * could not be processed — and the T1 acknowledgement).
+ * MFA_CODE (MFA-2's emailed sign-in code) is reserved and stays out of the launch set until MFA-2 ships and adds it.
+ * System mail is NOT an outbox kind and is never gated here: Payload's own mail (password reset, anything sent with
+ * payload.sendEmail) goes through email/adapter.ts (kind PAYLOAD_AUTH), gated only by the mode and recipient gate.
+ */
+export const OUTBOX_KINDS = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'RFQ_REPLY', 'SEQUENCE_EMAIL', 'MFA_CODE', 'INTAKE_FAILED_ALERT'] as const
+export const LAUNCH_KINDS: readonly string[] = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'INTAKE_FAILED_ALERT']
+/** May a message of this kind be queued or submitted now? Checked when queueing AND immediately before SMTP submit. */
+export const kindAllowed = (kind: string, cfg: Pick<EmailConfig, 'allowedKinds'> = readEmailConfig()): boolean =>
+  (cfg.allowedKinds ?? LAUNCH_KINDS).includes(kind)
 
 const list = (raw: string | undefined): string[] =>
   (raw ?? '')
@@ -120,6 +138,8 @@ export function readEmailConfig(env: Record<string, string | undefined> = proces
   const from = parseFrom(env.H2O_EMAIL_FROM)
   const salesAlertTo = list(env.H2O_SALES_ALERT_TO)
   if (salesAlertTo.some((a) => !recipientKey(a))) errors.push('SALES_ALERT_TO_INVALID')
+  // owner launch requirement: one alert to the whole team list (~10 addresses); more than 20 is a mistake, not a list
+  if (salesAlertTo.length > 20) errors.push('SALES_ALERT_TO_TOO_MANY')
 
   // Owner decision 2026-10-05: the acknowledgement promises a first response "within one business day" (per office).
   // `off` removes the promise sentence. Plain words only: it is inserted into a customer email.
@@ -130,6 +150,10 @@ export function readEmailConfig(env: Record<string, string | undefined> = proces
   // T-R3: an invalid tag would make replies miss the mail filter that collects them: a configuration error (fail closed).
   const replyTag = (env.H2O_REPLY_TAG ?? '').trim()
   if (replyTag && !REPLY_TAG_RE.test(replyTag)) errors.push('REPLY_TAG_INVALID')
+
+  const kindsRaw = env.H2O_EMAIL_ALLOWED_KINDS
+  const allowedKinds = kindsRaw === undefined || kindsRaw.trim() === '' ? LAUNCH_KINDS : list(kindsRaw).map((k) => k.toUpperCase())
+  if (allowedKinds.some((k) => !(OUTBOX_KINDS as readonly string[]).includes(k))) errors.push('EMAIL_ALLOWED_KINDS_INVALID')
 
   const ackRaw = (env.H2O_EMAIL_CUSTOMER_ACK ?? 'off').trim().toLowerCase()
   if (!['on', 'off'].includes(ackRaw)) errors.push('CUSTOMER_ACK_FLAG_INVALID')
@@ -170,6 +194,7 @@ export function readEmailConfig(env: Record<string, string | undefined> = proces
     responsePromise,
     replyTag: replyTag && REPLY_TAG_RE.test(replyTag) ? replyTag : null,
     smtp,
+    allowedKinds,
   }
 }
 
@@ -281,7 +306,8 @@ export function readInboundConfig(env: Record<string, string | undefined> = proc
 /**
  * The sales address (owner decision 2026-10-08: sales@h2ocooling.com everywhere). The ONE lookup for it: the quote
  * confirmation's attachments line (RFQ-FIX-1, R15) and the T1 Reply-To use it. H2O_RFQ_SALES_EMAIL, else the default; an
- * invalid value falls back. ALERTS-1 (CRM-B) replaces this body with the Settings → Email routing resolver (env fallback).
+ * invalid value falls back. This is the environment fallback; the live value (Settings → Email routing, ALERTS-1) is
+ * email/routing-read.ts resolveSalesAddressLive, which falls back to this.
  */
 export const DEFAULT_SALES_ADDRESS = 'sales@h2ocooling.com'
 export const resolveSalesAddress = (env: NodeJS.ProcessEnv = process.env): string => {

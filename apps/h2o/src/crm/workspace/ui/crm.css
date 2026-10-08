@@ -12,6 +12,9 @@
   margin: 0;
 }
 
+/* SEND-FIX-1a (review R2-11): a dialog portaled to <body> sits outside the theme wrapper, so the resolved choice is
+   carried to it here: pinned light (beats the system-dark block below), pinned dark (with the dark block). */
+.c-body:has(.c-theme[data-theme='light']) > .crm-portal-host,
 .crm-app {
   --c-canvas: rgb(247 249 250);
   --c-surface: rgb(255 255 255);
@@ -80,6 +83,7 @@
   display: contents;
 }
 
+.c-body:has(.c-theme[data-theme='dark']) > .crm-portal-host,
 [data-theme='dark'] .crm-app {
   --c-canvas: rgb(14 19 23);
   --c-surface: rgb(22 29 34);

@@ -1,7 +1,8 @@
 import type { CollectionConfig } from 'payload'
 import { crmAdmin, crmAdminField, noOne } from '../access'
 import { crmCollection } from '../collection'
-import { appendOnly } from '../guards'
+import { kindAllowed } from '../../email/config'
+import { appendOnly, CrmInvariantError } from '../guards'
 import { EMAIL_EVENT, EMAIL_KIND, EMAIL_OUTBOX_STATUS, options } from '../vocabulary'
 
 /**
@@ -28,6 +29,17 @@ export const CrmEmailOutbox: CollectionConfig = crmCollection(
       defaultColumns: ['createdAt', 'kind', 'status', 'rfq', 'attempts', 'last_error_code', 'sent_at'],
     },
     defaultSort: '-createdAt',
+    hooks: {
+      beforeChange: [
+        // SEND-FIX-1a (review R2-02): the queue-time backstop. Whatever path queues it, a message of a kind outside the
+        // allowed set (launch: RFQ alert + T1) is never written as sendable. Suppressed records stay allowed.
+        ({ data, operation }) => {
+          if (operation === 'create' && data && ['PENDING', 'RETRY'].includes(String(data.status)) && !kindAllowed(String(data.kind)))
+            throw new CrmInvariantError('EMAIL_KIND_NOT_ALLOWED', 'This kind of email is switched off on this environment.', 403)
+          return data
+        },
+      ],
+    },
     fields: [
       {
         name: 'idempotency_key',
@@ -93,6 +105,16 @@ export const CrmEmailOutbox: CollectionConfig = crmCollection(
       { name: 'bounced_at', type: 'date', index: true, admin: { readOnly: true } },
       { name: 'reply_to', type: 'text', access: { read: crmAdminField }, admin: { readOnly: true } },
       { name: 'list_unsubscribe', type: 'text', access: { read: crmAdminField }, admin: { readOnly: true } },
+      // SEND-FIX-1a (review R2-03): the claim that owns this row's lease (fencing: a worker whose lease expired can no
+      // longer move the row), the transport identity of the latest attempt (no secret: host, port, account, TLS name,
+      // envelope sender, From, profile), and the mail server's acceptance reply.
+      { name: 'lease_owner', type: 'text', admin: { readOnly: true, hidden: true } },
+      { name: 'attempt_identity', type: 'json', access: { read: crmAdminField }, admin: { readOnly: true } },
+      { name: 'submitted_at', type: 'date', admin: { readOnly: true } },
+      { name: 'accepted_response', type: 'text', admin: { readOnly: true } },
+      // SEND-FIX-1a (ER-07): for a message to several people (the team alert), which addresses the server accepted and
+      // which it refused. The row is SENT once any address is accepted, and it is never handed over again.
+      { name: 'recipient_results', type: 'json', access: { read: crmAdminField }, admin: { readOnly: true } },
     ],
   },
   { deleteAlternative: 'Outgoing email is a durable record of what was (or was not) sent.' },

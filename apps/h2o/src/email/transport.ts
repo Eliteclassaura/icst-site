@@ -25,7 +25,17 @@ export type MailMessage = {
   references?: string
   headers?: Record<string, string>
 }
-export type MailResult = { messageId: string | null; accepted: number }
+/** SEND-FIX-1a: `response` is the server's acceptance line (e.g. "250 2.0.0 OK …"), kept short on the outbox row. */
+export type MailResult = {
+  messageId: string | null
+  accepted: number
+  response?: string
+  /** SEND-FIX-1a (ER-07): the addresses the server accepted and refused (RCPT TO) for a multi-recipient message. */
+  acceptedAddresses?: string[]
+  rejectedAddresses?: string[]
+  /** The server's reply code for each refused address, when it gave one (4xx: may be retried for that address). */
+  rejectedCodes?: Record<string, number>
+}
 export type MailTransport = { send: (m: MailMessage) => Promise<MailResult>; close: () => void }
 
 export function smtpOptions(s: SmtpSettings) {
@@ -66,11 +76,23 @@ export function createTransport(cfg: EmailConfig): MailTransport | null {
       return {
         messageId: typeof info.messageId === 'string' ? info.messageId : null,
         accepted: info.accepted.length,
+        ...(typeof info.response === 'string' ? { response: info.response } : {}),
+        acceptedAddresses: addressList(info.accepted),
+        rejectedAddresses: addressList(info.rejected),
+        rejectedCodes: Object.fromEntries(
+          (Array.isArray((info as { rejectedErrors?: unknown }).rejectedErrors) ? ((info as { rejectedErrors: Array<{ recipient?: unknown; responseCode?: unknown }> }).rejectedErrors) : [])
+            .filter((e) => typeof e.recipient === 'string' && typeof e.responseCode === 'number')
+            .map((e) => [String(e.recipient).toLowerCase(), Number(e.responseCode)]),
+        ),
       }
     },
     close: () => t.close(),
   }
 }
+
+/** nodemailer reports recipients as strings or { address } objects. */
+const addressList = (v: unknown): string[] =>
+  (Array.isArray(v) ? v : []).map((a) => (typeof a === 'string' ? a : a && typeof a === 'object' && typeof (a as { address?: unknown }).address === 'string' ? (a as { address: string }).address : '')).filter(Boolean)
 
 export const formatFrom = (cfg: Pick<EmailConfig, 'fromName' | 'fromAddress'>): string =>
   `"${cfg.fromName.replace(/["\\\r\n]/g, '')}" <${cfg.fromAddress}>`

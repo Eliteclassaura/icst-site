@@ -38,6 +38,8 @@ const ADMIN_ADDR = 'platform-admin.user@example.test'
 const KEY = 'db-test-settings-key-000000000000000000000'
 const PUBLIC = async () => [{ address: '142.250.4.108' }]
 const ENV: Record<string, string | undefined> = {
+  // SEND-FIX-1a: these tests cover the post-launch paths (replies, sequences), so every outbox kind is allowed here
+  H2O_EMAIL_ALLOWED_KINDS: 'RFQ_SALES_ALERT,RFQ_CUSTOMER_ACK,RFQ_REPLY,SEQUENCE_EMAIL',
   H2O_CRM_TYPEFORM_INGEST_ENABLED: '1',
   H2O_CRM_TYPEFORM_WEBHOOK_SECRET: SYNTHETIC_SECRET,
   H2O_TYPEFORM_FORM_ID: SYNTHETIC_FORM_ID,

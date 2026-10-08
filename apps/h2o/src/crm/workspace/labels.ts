@@ -130,6 +130,9 @@ export const IDENTITY_REASON_LABEL: Record<string, string> = {
   OTHER: 'Other',
 }
 
+/** SEND-FIX-1a (owner 2026-10-08): shown instead of the reply composer while CRM replies are off (launch). */
+export const REPLIES_OFF_NOTE = 'Reply from your email for now; CRM sending turns on after launch.'
+
 export const SOURCE_LABEL: Record<string, string> = {
   TYPEFORM: 'Website form (Typeform)',
   NATIVE_FORM: 'Website form',

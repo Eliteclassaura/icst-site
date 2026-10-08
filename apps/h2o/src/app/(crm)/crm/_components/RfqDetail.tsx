@@ -1,4 +1,5 @@
 import { humanSummary,
+  REPLIES_OFF_NOTE,
   ACCOUNT_MATCH_LABEL,
   ACTIVITY_LABEL,
   CONTACT_MATCH_LABEL,
@@ -519,7 +520,9 @@ export function RfqDetailView({
             <p className="c-banner is-warning" role="note">
               <IconInfo />
               <span>
-                {reply.readiness.state === 'MODE_OFF'
+                {reply.readiness.state === 'REPLIES_OFF'
+                  ? REPLIES_OFF_NOTE
+                  : reply.readiness.state === 'MODE_OFF'
                   ? 'Email sending is turned off on this environment. Use “Log call / reference” to record an email sent elsewhere.'
                   : reply.readiness.state === 'NO_ADDRESS'
                     ? 'This inquiry has no valid email address.'

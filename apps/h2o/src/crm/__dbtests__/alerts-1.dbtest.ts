@@ -167,26 +167,31 @@ describe('ALERTS-1: the next quote reads the settings (no restart)', () => {
     expect(res.status).toBe(200)
     const rfq = (await p.find({ collection: 'crm-rfqs', ...srv, limit: 1, sort: '-createdAt' })).docs[0] as unknown as Doc
     await enqueueRfqNotifications({ payload: p } as never, { ...rfq, office, canonical_id: `${String(rfq.canonical_id)}-${canonicalSuffix}` } as never, readEmailConfig())
-    return ((await p.find({ collection: 'crm-email-outbox', ...srv, limit: 50 })).docs as unknown as Doc[]).filter((r) => r.kind === 'RFQ_SALES_ALERT' && String(r.idempotency_key).includes(`-${canonicalSuffix}:`))
+    return ((await p.find({ collection: 'crm-email-outbox', ...srv, limit: 50 })).docs as unknown as Doc[]).filter((r) => r.kind === 'RFQ_SALES_ALERT' && (String(r.idempotency_key).includes(`-${canonicalSuffix}:`) || String(r.idempotency_key).endsWith(`-${canonicalSuffix}`)))
+  }
+  // SEND-FIX-1a (owner launch requirement): ONE alert row per quote, every recipient in its To (gated one by one)
+  const to = (rows: Array<{ to_address?: string | null }>) => {
+    expect(rows.filter((r) => r.to_address)).toHaveLength(1)
+    return rows.flatMap((r) => (r.to_address ?? '').split(', ').filter(Boolean)).sort()
   }
   it('uses the office list, then the copy list; deduplicates; and a change applies to the very next quote', async () => {
     let rows = await newRfq('US', 'a')
-    expect(rows.map((r) => r.to_address)).toEqual([ENV_ALERT]) // fresh DB: the server default
+    expect(to(rows)).toEqual([ENV_ALERT]) // fresh DB: the server default
     await saveRouting(session(admin), SID, { alerts_us: US, alerts_th: TH, alerts_cc: `${CC}\n${US.toUpperCase()}` })
     rows = await newRfq('TH', 'b')
     // The copy list gets every alert; the US address is on it too, so it also hears about the Thailand quote (once).
-    expect(rows.map((r) => r.to_address).sort()).toEqual([CC, TH, US].sort())
+    expect(to(rows)).toEqual([CC, TH, US].sort())
     rows = await newRfq('US', 'c')
-    expect(rows.map((r) => r.to_address).sort()).toEqual([CC, US].sort())
+    expect(to(rows)).toEqual([CC, US].sort())
     await saveRouting(session(admin), SID, { alerts_us: 'changed@example.test', alerts_th: TH, alerts_cc: '' })
     rows = await newRfq('US', 'd')
-    expect(rows.map((r) => r.to_address)).toEqual(['changed@example.test'])
+    expect(to(rows)).toEqual(['changed@example.test'])
   })
   it('the server mode still applies: in allowlist mode only allowlisted addresses are queued', async () => {
     setEnv({ H2O_EMAIL_MODE: 'allowlist', H2O_EMAIL_ALLOWLIST: US })
     await saveRouting(session(admin), SID, { alerts_us: `${US}\nnot.allowed@example.test` })
     const rows = await newRfq('US', 'e')
-    expect(rows.map((r) => [r.to_address ?? null, r.status]).sort()).toEqual([[null, 'SUPPRESSED_BY_MODE'], [US, 'PENDING']].sort())
+    expect(rows.map((r) => [r.to_address ?? null, r.status])).toEqual([[US, 'PENDING']])
   })
   it('the sales address customers see is the setting, then the server value, then the default', async () => {
     await saveRouting(session(admin), SID, { sales_address: 'Quotes@Example.test' })

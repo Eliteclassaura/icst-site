@@ -22,6 +22,7 @@ import * as migration_20261008_040408_rfq_fix_1_spam_state from './20261008_0404
 import * as migration_20261008_052750_rfq_fix_1_1_sweep_limits from './20261008_052750_rfq_fix_1_1_sweep_limits';
 import * as migration_20261008_122143_alerts_1_email_routing from './20261008_122143_alerts_1_email_routing';
 import * as migration_20261008_122225_mfa_2_email_codes_devices from './20261008_122225_mfa_2_email_codes_devices';
+import * as migration_20261008_134113_send_fix_1a_outbox_outcomes from './20261008_134113_send_fix_1a_outbox_outcomes';
 
 export const migrations = [
   {
@@ -142,6 +143,11 @@ export const migrations = [
   {
     up: migration_20261008_122225_mfa_2_email_codes_devices.up,
     down: migration_20261008_122225_mfa_2_email_codes_devices.down,
-    name: '20261008_122225_mfa_2_email_codes_devices'
+    name: '20261008_122225_mfa_2_email_codes_devices',
+  },
+  {
+    up: migration_20261008_134113_send_fix_1a_outbox_outcomes.up,
+    down: migration_20261008_134113_send_fix_1a_outbox_outcomes.down,
+    name: '20261008_134113_send_fix_1a_outbox_outcomes'
   },
 ];

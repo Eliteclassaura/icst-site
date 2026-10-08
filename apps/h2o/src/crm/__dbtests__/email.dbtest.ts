@@ -250,7 +250,10 @@ describe('E1 send: the outbox worker', () => {
     expect(alert.from).toBe('"H2O RFQ Desk" <rfq@example.test>')
     expect(alert.text).toContain(`https://crm.example.test/crm/rfqs/${String(alertRow.rfq)}/`)
     expect(alert.text).toContain('Northwind Thermal (synthetic)')
-    expect(alert.text).not.toContain('fan stack replacement') // the customer's message body stays in the CRM
+    // SEND-FIX-1a (owner launch requirement): the alert carries every submitted field, the message included, and
+    // Reply-To is the customer so sales can answer straight from the mailbox
+    expect(alert.text).toContain('fan stack replacement')
+    expect(alert.replyTo).toBe(CUSTOMER)
     expect(rows.every((x) => x.status === 'SENT' && x.sent_at && Number(x.attempts) === 1)).toBe(true)
     expect(alertRow.body_text).toBe(alert.text)
     const ev = await events()
@@ -280,7 +283,7 @@ describe('E1 send: the outbox worker', () => {
     await deliver()
     const t0 = new Date()
     const t = recorder((n) =>
-      n === 1 ? Object.assign(new Error(`connect ECONNREFUSED ${SALES_INBOX}`), { code: 'ESOCKET' }) : null,
+      n === 1 ? Object.assign(new Error(`connect ECONNREFUSED ${SALES_INBOX}`), { code: 'ESOCKET', command: 'CONN' }) : null,
     )
     expect(await drain(t, t0)).toMatchObject({ claimed: 1, retried: 1 })
     let row = byKind(await outbox(), 'RFQ_SALES_ALERT')[0]!
@@ -290,7 +293,8 @@ describe('E1 send: the outbox worker', () => {
     expect(await drain(t, new Date(t0.getTime() + 61_000))).toMatchObject({ claimed: 1, sent: 1 })
     row = byKind(await outbox(), 'RFQ_SALES_ALERT')[0]!
     expect(row).toMatchObject({ status: 'SENT', attempts: 2 })
-    expect((await events()).map((e) => e.event)).toEqual(['QUEUED', 'SUPPRESSED', 'ATTEMPT_FAILED', 'SENT'])
+    // SEND-FIX-1a: each hand-over to the mail server is recorded first (SUBMITTED), then its outcome
+    expect((await events()).map((e) => e.event)).toEqual(['QUEUED', 'SUPPRESSED', 'SUBMITTED', 'ATTEMPT_FAILED', 'SUBMITTED', 'SENT'])
     expect(consoleLines.join('\n')).not.toContain(SALES_INBOX)
   })
   it('a permanent (5xx) failure is dead-lettered immediately', async () => {
@@ -306,7 +310,7 @@ describe('E1 send: the outbox worker', () => {
     expect(await drain(t)).toMatchObject({ dead: 1 })
     expect(byKind(await outbox(), 'RFQ_SALES_ALERT')[0]).toMatchObject({
       status: 'DEAD',
-      last_error_code: 'SMTP_550_RCPT_TO',
+      last_error_code: 'INVALID_MAILBOX:SMTP_550_RCPT_TO', // R4-03: refusal class, then the SMTP code
     })
     const act = (
       await p.find({
@@ -320,7 +324,7 @@ describe('E1 send: the outbox worker', () => {
   it('after the last attempt a transient failure is dead-lettered too', async () => {
     mode('allowlist')
     await deliver()
-    const t = recorder(() => Object.assign(new Error('timeout'), { code: 'ETIMEDOUT' }))
+    const t = recorder(() => Object.assign(new Error('timeout'), { code: 'ETIMEDOUT', command: 'CONN' }))
     let now = new Date()
     for (let i = 0; i < 7; i++) {
       await drain(t, now)
@@ -366,8 +370,9 @@ describe('E1 send: the outbox worker', () => {
     })
     await deliver()
     const now = new Date()
-    const [a, b] = await Promise.all([claimBatch(p, now, 4), claimBatch(p, now, 4)])
-    expect(a.length + b.length).toBe(7)
+    // SEND-FIX-1a (owner): six team addresses are ONE alert row (all in To) plus the acknowledgement
+    const [a, b] = await Promise.all([claimBatch(p, now, 1), claimBatch(p, now, 1)])
+    expect(a.length + b.length).toBe(2)
     expect(a.filter((id) => b.includes(id))).toEqual([])
   })
 })

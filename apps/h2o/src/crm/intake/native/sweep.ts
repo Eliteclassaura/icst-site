@@ -1,4 +1,8 @@
 import { sql } from '@payloadcms/db-postgres'
+import { kindAllowed, readEmailConfig } from '../../../email/config'
+import { gateRecipient, recipientRef } from '../../../email/gate'
+import { resolveAlertRecipients } from '../../../email/routing-read'
+import { messageIdFor } from '../../notify'
 import type { Payload, Where } from 'payload'
 import { fixtureRegistry } from '../../../rfq-native/registry'
 import { ingestParsed, intakeLog } from '../typeform/ingest'
@@ -42,17 +46,40 @@ export const strandedWhere = (now: Date, allSources = false): Where => ({
 
 export type SweepResult = { found: number; finished: number; skipped: number; failed: number; gaveUp?: number; prunedSpam?: number }
 
+/** SEND-FIX-1a (auditor note on 1.1): spam pruning runs at most hourly (the state and received_at columns are indexed). */
+let lastPruneAt = 0
+export const PRUNE_EVERY_MS = 60 * 60_000
+
 export async function sweepStrandedIntake(payload: Payload, now: Date = new Date()): Promise<SweepResult> {
   // RFQ-FIX-1.1: quarantined honeypot requests older than SPAM_KEEP_DAYS are removed (raw SQL: intake events are
   // otherwise never deleted; these are not evidence of a customer request)
-  const pruned = await db(payload).execute(
-    sql`DELETE FROM "crm_intake_events" WHERE "processing_state" = 'QUARANTINED_SPAM' AND "received_at" < ${new Date(now.getTime() - SPAM_KEEP_DAYS * 86_400_000).toISOString()} RETURNING "id"`,
+  let prunedSpam = 0
+  if (now.getTime() - lastPruneAt >= PRUNE_EVERY_MS || now.getTime() < lastPruneAt) {
+    lastPruneAt = now.getTime()
+    const pruned = await db(payload).execute(
+      sql`DELETE FROM "crm_intake_events" WHERE "processing_state" = 'QUARANTINED_SPAM' AND "received_at" < ${new Date(now.getTime() - SPAM_KEEP_DAYS * 86_400_000).toISOString()} RETURNING "id"`,
+    )
+    prunedSpam = (pruned.rows ?? []).length
+  }
+  // SEND-FIX-1a (auditor note on 1.1): the backoff is part of the query — an event is due only once 2^attempts minutes
+  // (≤ 1 h) have passed since its last sweep — so rows that are backing off never fill the batch ahead of due ones.
+  const nowIso = now.toISOString()
+  const ids = await db(payload).execute(
+    sql`SELECT "id" FROM "crm_intake_events"
+        WHERE "source_system" IN ('NATIVE_FORM', 'NATIVE_CHAT')
+          AND ("processing_state" = 'FAILED_RETRYABLE'
+               OR ("processing_state" = 'PROCESSING' AND ("processing_lease_until" IS NULL OR "processing_lease_until" < ${nowIso})))
+          AND ("last_sweep_at" IS NULL
+               OR "last_sweep_at" <= ${nowIso}::timestamptz - LEAST(POWER(2, COALESCE("sweep_attempts", 0)), 60) * INTERVAL '1 minute')
+        ORDER BY "received_at" ASC
+        LIMIT ${SWEEP_BATCH}`,
   )
-  const res = await payload.find({ collection: 'crm-intake-events', where: strandedWhere(now), sort: 'received_at', limit: SWEEP_BATCH * 5, ...sys })
+  const dueIds = (ids.rows ?? []).map((r) => String(r.id))
   type Ev = { id: string | number; source_event_id: string; raw_payload?: Record<string, unknown>; raw_payload_hash: string; received_at: string; sweep_attempts?: number | null; last_sweep_at?: string | null }
-  // backoff: an event is tried again only once 2^attempts minutes (≤ 1 h) have passed since its last sweep
-  const due = (res.docs as unknown as Ev[]).filter((d) => !d.last_sweep_at || now.getTime() - new Date(d.last_sweep_at).getTime() >= sweepBackoffMs(Number(d.sweep_attempts ?? 0))).slice(0, SWEEP_BATCH)
-  const out: SweepResult = { found: due.length, finished: 0, skipped: 0, failed: 0, gaveUp: 0, prunedSpam: (pruned.rows ?? []).length }
+  const due = dueIds.length
+    ? ((await payload.find({ collection: 'crm-intake-events', where: { id: { in: dueIds } }, sort: 'received_at', limit: SWEEP_BATCH, ...sys })).docs as unknown as Ev[])
+    : []
+  const out: SweepResult = { found: due.length, finished: 0, skipped: 0, failed: 0, gaveUp: 0, prunedSpam }
   const reg = fixtureRegistry()
   for (const doc of due) {
     // RFQ-FIX-1.1: count the attempt first; the one past the cap gives up for good (FAILED_PERMANENT, admin overview)
@@ -61,6 +88,8 @@ export async function sweepStrandedIntake(payload: Payload, now: Date = new Date
       await db(payload).execute(sql`UPDATE "crm_intake_events" SET "processing_state" = 'FAILED_PERMANENT', "failure_code" = 'SWEEP_GAVE_UP', "processing_lease_until" = NULL WHERE "id" = ${String(doc.id)} AND "processing_state" IN ('FAILED_RETRYABLE', 'PROCESSING')`)
       out.gaveUp!++
       intakeLog(payload, 'error', { code: 'INTAKE_SWEEP_GAVE_UP', event_id: doc.source_event_id })
+      // SEND-FIX-1a (auditor note on 1.1): a lead that could not be processed is never silent
+      await enqueueIntakeFailedAlert(payload, { id: String(doc.id), eventId: doc.source_event_id, receivedAt: doc.received_at }, now)
       continue
     }
     await db(payload).execute(sql`UPDATE "crm_intake_events" SET "sweep_attempts" = ${attempts}, "last_sweep_at" = ${now.toISOString()} WHERE "id" = ${String(doc.id)}`)
@@ -95,3 +124,46 @@ export const failedPermanentWhere: Where = { processing_state: { equals: 'FAILED
 /** How many intake events (any source) are stranded now (the CRM overview shows admins the same count). */
 export const countStranded = async (payload: Payload, now: Date = new Date()): Promise<number> =>
   (await payload.count({ collection: 'crm-intake-events', where: strandedWhere(now, true), overrideAccess: true })).totalDocs
+
+/**
+ * SEND-FIX-1a (auditor note on RFQ-FIX-1.1): when a quote request is given up on, the team gets one internal alert —
+ * "A quote request could not be processed: check CRM → overview" — to the same list as the new-RFQ alert, through the
+ * outbox (allowlisted kind INTAKE_FAILED_ALERT). It names the intake event id and when it arrived; no customer data.
+ */
+export async function enqueueIntakeFailedAlert(payload: Payload, ev: { id: string; eventId: string; receivedAt: string }, now: Date = new Date()): Promise<void> {
+  const cfg = readEmailConfig()
+  // ALERTS-1: the live lists (Settings → Email routing, else H2O_SALES_ALERT_TO). The request never reached an office,
+  // so both offices' lists and the copy list hear about it, each address once.
+  const [us, th] = await Promise.all([resolveAlertRecipients(payload, 'US', cfg), resolveAlertRecipients(payload, 'TH', cfg)])
+  const team = [...new Map([...us.all, ...th.all].map((a) => [a.trim().toLowerCase(), a.trim()])).values()]
+  const key = `intake-failed:${ev.id}`
+  const existing = await payload.find({ collection: 'crm-email-outbox', where: { idempotency_key: { equals: key } }, limit: 1, ...sys })
+  if (existing.docs.length) return
+  const sendable = team.filter((to) => gateRecipient(cfg, to) === 'SEND')
+  const allowed = kindAllowed('INTAKE_FAILED_ALERT', cfg)
+  const pending = sendable.length > 0 && allowed
+  const base = (process.env.NEXT_PUBLIC_SERVER_URL ?? '').replace(/\/+$/, '')
+  const text = [
+    'A quote request could not be processed: check CRM → overview.',
+    `Intake event: ${ev.eventId}\nReceived: ${ev.receivedAt}`,
+    `The request is kept in the CRM (admins: CRM overview → quote requests given up): ${base}/admin/`,
+  ].join('\n\n')
+  await payload.create({
+    collection: 'crm-email-outbox',
+    data: {
+      idempotency_key: key,
+      kind: 'INTAKE_FAILED_ALERT',
+      status: pending ? 'PENDING' : allowed ? (team.length ? 'SUPPRESSED_BY_MODE' : 'SUPPRESSED_NO_RECIPIENT') : 'SUPPRESSED_BY_MODE',
+      recipient_ref: sendable.length ? recipientRef(sendable.join(', ')) : 'r_none',
+      to_address: pending ? sendable.join(', ') : null,
+      message_id: pending ? messageIdFor(cfg) : null,
+      subject: pending ? 'A quote request could not be processed' : null,
+      body_text: pending ? `${text}\n` : null,
+      attempts: 0,
+      next_attempt_at: pending ? now.toISOString() : null,
+      last_error_code: pending ? null : allowed ? (team.length ? `MODE_${cfg.mode.toUpperCase()}` : 'SALES_ALERT_TO_UNSET') : 'KIND_NOT_ALLOWED',
+    } as never,
+    context: { crmServer: {} },
+    ...sys,
+  })
+}

@@ -143,10 +143,14 @@ describe('owner rule: no phone number, no postal address in any email', () => {
     for (const t of SEED_TEMPLATES) expect(SUPERSEDED_SEED_HASHES[t.code] ?? [], t.code).not.toContain(templateHash(t))
     expect(Object.keys(SUPERSEDED_SEED_HASHES).sort()).toEqual(['T2', 'T3', 'T4', 'T5', 'T6'])
   })
-  it('the internal sales alert carries no phone number or address', () => {
-    const a = renderSalesAlert({ rfqNumber: 'RFQ-1', company: 'Plant (synthetic)', products: ['Fan blades'], pagePath: '/', ctaPlacement: 'launcher', crmUrl: 'http://localhost/crm/rfqs/x/' } as never)
+  it('the internal sales alert carries no phone number or address of ours (no signature); only the customer\'s own phone', () => {
+    const a = renderSalesAlert({ rfqNumber: 'RFQ-1', email: null, firstName: null, lastName: null, company: 'Plant (synthetic)', interest: null, products: ['Fan blades'], phone: null, country: null, message: null, pageUrl: null, ctaPlacement: 'launcher', office: 'US', receivedAt: null, timeZone: 'America/Denver', crmUrl: 'http://localhost/crm/rfqs/x/' })
     expect(phoneLine(a.text)).toEqual([])
-    expect(a.text).not.toMatch(/Synthetic Way|Street|Suite|P\.?O\.? Box/i)
+    expect(a.text).not.toMatch(/Synthetic Way|Street|Suite|P\.?O\.? Box|661-7723|Tel\b/i)
+    // SEND-FIX-1a (owner launch requirement): the customer's typed phone is shown on its own labelled line, nothing else
+    const b = renderSalesAlert({ rfqNumber: 'RFQ-1', email: null, firstName: null, lastName: null, company: null, interest: null, products: [], phone: '+1 303 555 0100', country: null, message: null, pageUrl: null, ctaPlacement: null, office: 'US', receivedAt: null, timeZone: 'America/Denver', crmUrl: 'u' })
+    expect(phoneLine(b.text)).toEqual([])
+    expect(b.text.split('\n').filter((l) => l.includes('555'))).toEqual(['Phone: +1 303 555 0100 (normalized: +13035550100)'])
   })
 })
 

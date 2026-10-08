@@ -227,7 +227,7 @@ describe('E1 planning (who gets what, decided before anything is sent)', () => {
         to: null,
       })
   })
-  it('one sales-alert row per recipient; none configured is recorded, not silently skipped', () => {
+  it('owner launch requirement: ONE sales alert to the whole team list; none configured is recorded, not silently skipped', () => {
     const two = planRfqNotifications(
       cfg({
         H2O_EMAIL_MODE: 'live',
@@ -237,8 +237,10 @@ describe('E1 planning (who gets what, decided before anything is sent)', () => {
       ok,
     )
     const alerts = two.filter((x) => x.kind === 'RFQ_SALES_ALERT')
-    expect(alerts).toHaveLength(2)
-    expect(new Set(alerts.map((a) => a.key)).size).toBe(2)
+    expect(alerts).toEqual([{ kind: 'RFQ_SALES_ALERT', key: 'rfq-sales-alert:c1', to: 'a.synthetic@example.test, b.synthetic@example.test', status: 'PENDING', code: null }])
+    // allowlist mode: only the allowlisted addresses are in To
+    const some = planRfqNotifications(cfg({ H2O_EMAIL_MODE: 'allowlist', H2O_EMAIL_ALLOWLIST: 'b.synthetic@example.test', H2O_SALES_ALERT_TO: 'a.synthetic@example.test,b.synthetic@example.test' }), rfq, ok)
+    expect(some[0]).toMatchObject({ to: 'b.synthetic@example.test', status: 'PENDING' })
     const none = planRfqNotifications(cfg({ H2O_EMAIL_MODE: 'live', H2O_SALES_ALERT_TO: '' }), rfq, ok)
     expect(none[0]).toMatchObject({
       kind: 'RFQ_SALES_ALERT',
@@ -329,37 +331,66 @@ describe('E1 messages', () => {
     expect(hostile.html).not.toContain('Pat')
     expect(t1("Ngozi O'Neil-Phạm", null).text).toMatch(/^Hi Ngozi O'Neil-Phạm,/)
   })
-  it('the sales alert carries the RFQ, company, product, page and CRM link, and no customer message body', () => {
-    const a = renderSalesAlert({
-      rfqNumber: 'RFQ-1',
-      company: 'Northwind Synthetic',
-      products: ['Fan blade'],
-      pagePath: '/product/fan/',
-      ctaPlacement: 'rfq_page',
-      crmUrl: 'https://crm.example.test/crm/rfqs/1/',
-    })
-    expect(a.subject).toBe('New RFQ RFQ-1')
-    expect(a.subject).not.toContain('Northwind')
-    for (const s of [
-      'Northwind Synthetic',
-      'Fan blade',
-      '/product/fan/',
-      'rfq_page',
-      'https://crm.example.test/crm/rfqs/1/',
-    ])
-      expect(a.text).toContain(s)
+  // Owner launch requirement (CT 2026-10-08), shaped like the owner's old Typeform notification.
+  const owner = {
+    rfqNumber: 'RFQ-20261008-SYNTH01',
+    email: 'avery.synthetic@northwind.example.test',
+    firstName: 'Avery',
+    lastName: 'Synthetic',
+    company: 'Northwind Thermal (synthetic)',
+    interest: 'Parts and spares',
+    products: ['FRP fan blade 12 ft (synthetic)'],
+    phone: '+1 (303) 555-0100 x12',
+    country: 'Thailand',
+    message: 'We need 4 blades.\nDelivery to Map Ta Phut.',
+    pageUrl: 'https://h2ocooling.example.test/cooling-tower-parts/fan-blades/',
+    ctaPlacement: 'product_page',
+    office: 'TH',
+    receivedAt: '2026-10-08T03:15:00Z',
+    timeZone: 'Asia/Bangkok',
+    crmUrl: 'https://h2ocooling.example.test/crm/rfqs/42/',
+  }
+  it('the sales alert lists every submitted field, labelled, in the submitted order, then page, routing, time and link', () => {
+    const a = renderSalesAlert(owner)
+    expect(a.subject).toBe('New quote request — Northwind Thermal (synthetic) — Parts and spares')
+    expect(a.text.startsWith('Your website quote form has a new response:\n\n')).toBe(true)
+    const order = [
+      'Email: avery.synthetic@northwind.example.test',
+      'First name: Avery',
+      'Last name: Synthetic',
+      'Company: Northwind Thermal (synthetic)',
+      'Interest: Parts and spares',
+      'Product: FRP fan blade 12 ft (synthetic)',
+      'Phone: +1 (303) 555-0100 x12 (normalized: +13035550100 ext 12)',
+      'Country of destination: Thailand',
+      'Message:\nWe need 4 blades.\nDelivery to Map Ta Phut.',
+      'RFQ number: RFQ-20261008-SYNTH01',
+      'Page: https://h2ocooling.example.test/cooling-tower-parts/fan-blades/',
+      'Routed to: Thailand office (TH)',
+      'Received: 8 Oct 2026, 10:15 GMT+7 (Asia/Bangkok)',
+      'Open it in the CRM: https://h2ocooling.example.test/crm/rfqs/42/',
+    ]
+    let at = -1
+    for (const line of order) {
+      const k = a.text.indexOf(line)
+      expect(k, line).toBeGreaterThan(at)
+      at = k
+    }
+    for (const line of order) expect(a.html).toContain(line.split('\n')[0]!.replace(/&/g, '&amp;'))
+    // no signature, phone or postal address of ours; no tracking or images
+    expect(a.html).not.toMatch(/<img|https?:\/\/[^"]*\.(gif|png)|pixel/i)
+  })
+  it('fallbacks: no company → the name; no interest → the product; missing fields say "not given"', () => {
+    expect(renderSalesAlert({ ...owner, company: null, interest: null }).subject).toBe('New quote request — Avery Synthetic — FRP fan blade 12 ft (synthetic)')
+    const bare = renderSalesAlert({ ...owner, company: null, interest: null, products: [], firstName: null, lastName: null, phone: null })
+    expect(bare.subject).toBe('New quote request — website')
+    expect(bare.text).toContain('Phone: not given')
   })
   it('untrusted fields cannot inject headers or markup', () => {
-    const a = renderSalesAlert({
-      rfqNumber: 'RFQ-1\r\nBcc: x@example.test',
-      company: '<script>alert(1)</script>',
-      products: [],
-      pagePath: null,
-      ctaPlacement: null,
-      crmUrl: 'u',
-    })
+    const a = renderSalesAlert({ ...owner, rfqNumber: 'RFQ-1\r\nBcc: x@example.test', company: '<script>alert(1)</script>\r\nBcc: y@example.test', message: '<img src=x onerror=alert(1)>' })
     expect(a.subject).not.toMatch(/[\r\n]/)
     expect(a.html).not.toContain('<script>')
+    expect(a.html).not.toContain('<img')
     expect(a.html).toContain('&lt;script&gt;')
   })
   it('the password reset carries the link and says when it expires', () => {

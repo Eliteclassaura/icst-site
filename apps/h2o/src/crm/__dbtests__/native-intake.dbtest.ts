@@ -49,18 +49,18 @@ beforeEach(async () => {
 })
 
 describe('registry and token', () => {
-  it('serves Main\'s registry (same version), EN, the switch, the response-time line; an unchanged copy is a 304', () => {
+  it('serves Main\'s registry (same version), EN, the switch, the response-time line; an unchanged copy is a 304', async () => {
     process.env.H2O_NATIVE_INTAKE = 'off'
-    const off = registryReply(new Request('http://localhost/api/rfq/registry/?locale=th'))
+    const off = await registryReply(new Request('http://localhost/api/rfq/registry/?locale=th'))
     expect(off.status).toBe(200)
     expect(off.body).toMatchObject({ enabled: false, locale: 'en', registryVersion: fixtureRegistry().registryVersion })
     process.env.H2O_NATIVE_INTAKE = 'on'
-    const on = registryReply(new Request('http://localhost/api/rfq/registry/?locale=en'))
+    const on = await registryReply(new Request('http://localhost/api/rfq/registry/?locale=en'))
     // RFQ-FIX-1 (R15): the promise is in the body line (OGCS promise_on); the separate response-time line is retired
     expect(on.body).toMatchObject({ enabled: true, strings: { 'confirm.body': 'Thank you. Your RFQ number is {{rfq_number}}. A member of our team will review your request and contact you within one business day.' } })
     expect((on.body as { strings: Record<string, string> }).strings['confirm.response_time']).toBeUndefined()
     expect(on.headers?.['cache-control']).toMatch(/public, max-age=300/)
-    expect(registryReply(new Request('http://localhost/api/rfq/registry/', { headers: { 'if-none-match': on.headers!.etag! } })).status).toBe(304)
+    expect((await registryReply(new Request('http://localhost/api/rfq/registry/', { headers: { 'if-none-match': on.headers!.etag! } }))).status).toBe(304)
   })
   it('issues a signed token (no-store), refuses when off, and rate-limits per client', async () => {
     const p = await payload()

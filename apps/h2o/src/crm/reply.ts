@@ -1,6 +1,7 @@
 import { randomBytes } from 'node:crypto'
 import type { PayloadRequest } from 'payload'
-import { readEmailConfig, REPLY_TAG_RE, type EmailConfig } from '../email/config'
+import { kindAllowed, readEmailConfig, REPLY_TAG_RE, type EmailConfig } from '../email/config'
+import { REPLIES_OFF_NOTE } from './workspace/labels'
 import { gateRecipient, recipientRef } from '../email/gate'
 import { escapeHtml } from '../email/messages'
 import { recordActivity } from './activity'
@@ -129,7 +130,8 @@ export async function customerAddress(s: CrmSession, rfq: Doc): Promise<string |
 
 export type ReplyReadiness =
   | { state: 'READY'; to: string; mode: 'allowlist' | 'live'; allowlisted: boolean }
-  | { state: 'MODE_OFF' | 'NO_ADDRESS' | 'SUPPRESSED' | 'NOT_CONFIGURED'; to: string | null }
+  | { state: 'REPLIES_OFF' | 'MODE_OFF' | 'NO_ADDRESS' | 'SUPPRESSED' | 'NOT_CONFIGURED'; to: string | null }
+
 
 /** For the compose panel: can a reply be written here, and what will happen to it? */
 export async function replyReadiness(
@@ -138,6 +140,8 @@ export async function replyReadiness(
   cfg: EmailConfig = readEmailConfig(),
 ): Promise<ReplyReadiness> {
   const to = await customerAddress(s, rfq)
+  // SEND-FIX-1a (R2-02): replies are not in the allowed kinds at launch — the panel says so (no dead button)
+  if (!kindAllowed('RFQ_REPLY', cfg)) return { state: 'REPLIES_OFF', to }
   if (cfg.errors.length > 0) return { state: 'NOT_CONFIGURED', to }
   if (cfg.mode === 'off') return { state: 'MODE_OFF', to }
   if (!to) return { state: 'NO_ADDRESS', to: null }
@@ -245,6 +249,8 @@ export async function composeReply(
   now: Date = new Date(),
   cfg: EmailConfig = readEmailConfig(),
 ): Promise<Outcome> {
+  // SEND-FIX-1a (R2-02): refused at queue time while replies are off; nothing is recorded
+  if (!kindAllowed('RFQ_REPLY', cfg)) return { ok: false, code: 'REPLIES_OFF', message: REPLIES_OFF_NOTE }
   const v = validateReply(input)
   if (!v.ok) return v
   let rfq: Doc

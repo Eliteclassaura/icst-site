@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 import { createLocalReq, type Payload } from 'payload'
 import { lintCopy, type LintResult } from '../../email/copy-lint'
-import { readEmailConfig } from '../../email/config'
+import { readEmailConfig, kindAllowed } from '../../email/config'
 import { recipientRef } from '../../email/gate'
 import { textToHtml } from '../../email/messages'
 import { renderTemplate, templateHash, type MergeValues } from '../../email/templates'
@@ -199,6 +199,8 @@ async function queueEmail(payload: Payload, s: ErsSettings, ctx: { enr: Doc; seq
   const to = emailKey(contact.email)
   if (!to) return hold(payload, enr, 'RENDER_HOLD', 'NO_VALID_ADDRESS', now)
   const cfg = readEmailConfig()
+  // SEND-FIX-1a (R2-02): sequence email is not in the allowed kinds at launch — held for review, nothing queued
+  if (!kindAllowed('SEQUENCE_EMAIL', cfg)) return hold(payload, enr, 'RENDER_HOLD', 'KIND_NOT_ALLOWED', now)
   const token = await ensureReplyToken(await createLocalReq({}, payload), String(rfq.id), now)
   const row = {
     kind: 'SEQUENCE_EMAIL',
@@ -223,7 +225,9 @@ async function queueEmail(payload: Payload, s: ErsSettings, ctx: { enr: Doc; seq
   let rowId: string
   if (existing) {
     // The same logical message again (a held or suppressed step being resumed): the row and its Message-ID are reused.
-    if (!['PENDING', 'RETRY', 'SENDING'].includes(String(existing.status))) await payload.update({ collection: 'crm-email-outbox', id: String(existing.id), data: row as never, ...sys })
+    // SEND-FIX-1a: a row that was handed to the mail server (SUBMITTING) or may have been delivered (UNCERTAIN) is never
+    // reset to PENDING — that would send it again.
+    if (!['PENDING', 'RETRY', 'SENDING', 'SUBMITTING', 'UNCERTAIN'].includes(String(existing.status))) await payload.update({ collection: 'crm-email-outbox', id: String(existing.id), data: row as never, ...sys })
     rowId = String(existing.id)
   } else {
     const created = (await payload.create({ collection: 'crm-email-outbox', data: { ...row, idempotency_key: idem, message_id: messageIdFor(cfg) } as never, ...sys })) as unknown as Doc

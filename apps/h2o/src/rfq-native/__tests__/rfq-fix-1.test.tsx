@@ -127,16 +127,16 @@ describe('R4 + R9: size and characters', () => {
 
 describe('R15: the confirmation lines the server serves (OGCS a4b21326)', () => {
   const env = (extra: Record<string, string>) => ({ ...process.env, ...extra }) as NodeJS.ProcessEnv
-  it('promise on (default) / off; acknowledgement on / off with the configured sales address', () => {
-    const on = servedRegistry(env({ H2O_EMAIL_CUSTOMER_ACK: 'on' })).strings
+  it('promise on (default) / off; acknowledgement on / off with the configured sales address', async () => {
+    const on = (await servedRegistry(env({ H2O_EMAIL_CUSTOMER_ACK: 'on' }))).strings
     expect(on['confirm.body']).toBe(RFQ_FIX_1_STRINGS['confirm.body.promise_on'])
     expect(on['confirm.attachments']).toBe(RFQ_FIX_1_STRINGS['confirm.attachments.ack_on'])
     expect(on['confirm.response_time']).toBeUndefined()
-    const off = servedRegistry(env({ H2O_EMAIL_CUSTOMER_ACK: 'off', H2O_EMAIL_RESPONSE_PROMISE: 'off' })).strings
+    const off = (await servedRegistry(env({ H2O_EMAIL_CUSTOMER_ACK: 'off', H2O_EMAIL_RESPONSE_PROMISE: 'off' }))).strings
     expect(off['confirm.body']).toBe(RFQ_FIX_1_STRINGS['confirm.body.promise_off'])
     expect(off['confirm.attachments']).toBe('You can email photos or drawings to sales@h2ocooling.com. Please include your RFQ number, {{rfq_number}}.')
-    expect(servedRegistry(env({ H2O_RFQ_SALES_EMAIL: 'quotes@example.test' })).strings['confirm.attachments']).toContain('quotes@example.test')
-    expect(resolveSalesAddress(env({ H2O_RFQ_SALES_EMAIL: 'not an address<script>' }))).toBe('sales@h2ocooling.com')
+    expect((await servedRegistry(env({ H2O_RFQ_SALES_EMAIL: 'quotes@example.test' }))).strings['confirm.attachments']).toContain('quotes@example.test')
+    expect(await resolveSalesAddress(env({ H2O_RFQ_SALES_EMAIL: 'not an address<script>' }))).toBe('sales@h2ocooling.com')
   })
 })
 
@@ -269,7 +269,7 @@ describe('rendered', () => {
     expect(launcher.hidden).toBe(false)
   })
   it('R15: with no RFQ number, a line that needs one is left out', async () => {
-    const served = { ...reg, strings: { ...reg.strings, 'confirm.attachments': servedRegistry({ ...process.env, H2O_EMAIL_CUSTOMER_ACK: 'off' } as NodeJS.ProcessEnv).strings['confirm.attachments']! } }
+    const served = { ...reg, strings: { ...reg.strings, 'confirm.attachments': (await servedRegistry({ ...process.env, H2O_EMAIL_CUSTOMER_ACK: 'off' } as NodeJS.ProcessEnv)).strings['confirm.attachments']! } }
     await act(async () => root.render(<NativeRfqForm loader={async () => served} timing={NO_WAIT} fetcher={api(() => json(200, { ok: true, rfqNumber: null, replay: false })) as never}/>))
     await flush()
     const form = host.querySelector('form')!

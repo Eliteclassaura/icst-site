@@ -449,7 +449,9 @@ export const options = <T extends readonly string[]>(values: T) =>
   values.map((value) => ({ label: value, value }))
 
 /** CRM email M1 — the notification outbox (collections/email-outbox.ts). */
-export const EMAIL_KIND = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'RFQ_REPLY', 'SEQUENCE_EMAIL'] as const
+// SEND-FIX-1a: MFA_CODE is reserved for MFA-2's emailed sign-in code (CRM-B); off until MFA-2 ships (email/config.ts)
+// INTAKE_FAILED_ALERT: the internal "a quote request could not be processed" alert (auditor note on RFQ-FIX-1.1)
+export const EMAIL_KIND = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'RFQ_REPLY', 'SEQUENCE_EMAIL', 'MFA_CODE', 'INTAKE_FAILED_ALERT'] as const
 export type EmailKind = (typeof EMAIL_KIND)[number]
 /**
  * PENDING → SENDING → SENT, or → RETRY (backoff) → … → DEAD. The SUPPRESSED_* states are terminal and are
@@ -468,6 +470,12 @@ export const EMAIL_OUTBOX_STATUS = [
   'SUPPRESSED_NO_RECIPIENT',
   // Patch C: a template message whose template is not approved, or a required merge field is empty (fail closed).
   'SUPPRESSED_TEMPLATE',
+  // SEND-FIX-1a (review R2-03): the attempt intent is recorded and the message is being handed to the mail server.
+  // Only the worker holding the lease moves it on; an expired SUBMITTING row is never sent again (→ UNCERTAIN).
+  'SUBMITTING',
+  // SEND-FIX-1a: the mail server may or may not have accepted it (a failure after DATA with no reply, a crash or a
+  // database failure around acceptance). Held for a person: "Delivery unconfirmed — not automatically retried".
+  'UNCERTAIN',
 ] as const
 export type EmailOutboxStatus = (typeof EMAIL_OUTBOX_STATUS)[number]
 export const EMAIL_TERMINAL_STATUS: readonly EmailOutboxStatus[] = [
@@ -478,6 +486,7 @@ export const EMAIL_TERMINAL_STATUS: readonly EmailOutboxStatus[] = [
   'SUPPRESSED_ACK_DISABLED',
   'SUPPRESSED_NO_RECIPIENT',
   'SUPPRESSED_TEMPLATE',
+  'UNCERTAIN',
 ]
 export const EMAIL_EVENT = [
   'QUEUED',
@@ -488,6 +497,9 @@ export const EMAIL_EVENT = [
   'DIRECT_SENT',
   'DIRECT_SUPPRESSED',
   'DIRECT_FAILED',
+  // SEND-FIX-1a: handed to the mail server (the attempt intent is recorded first); the outcome is unknown.
+  'SUBMITTED',
+  'UNCERTAIN',
 ] as const
 export type EmailEvent = (typeof EMAIL_EVENT)[number]
 
