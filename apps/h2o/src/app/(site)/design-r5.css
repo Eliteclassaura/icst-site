@@ -978,6 +978,12 @@
   --h2o-cta-radius: 999px;
 }
 
+/* R5.1 (DD): the band's pill labels are DM Sans 600 (they fell back to the system font) */
+.salmon-copy.salmon-page-home .elementor-element:is(.elementor-element-3893a46, .elementor-element-94e87a9, .elementor-element-1e67569, .elementor-element-3914202) :is(a.elementor-button, a[data-rfq-native], .rfq a, .elementor-button-text) {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+}
+
 .salmon-copy.salmon-page-home .elementor-element.elementor-element-1e67569 :is(.rfq a, a[data-rfq-native], .lux-button, a.elementor-button) {
   align-items: center;
   background: var(--df-white);
@@ -1039,9 +1045,10 @@
 }
 
 @media (width < 768px) {
+  /* R5.1 (DD): the four pills are one width at every phone width (the "View More" container is 20 px wider than the lower row's) */
   .salmon-copy.salmon-page-home .elementor-element:is(.elementor-element-3893a46, .elementor-element-94e87a9, .elementor-element-1e67569, .elementor-element-3914202) {
-    align-self: stretch;
-    inline-size: 100%;
+    align-self: center;
+    inline-size: min(320px, calc(100vw - 70px));
   }
 
   .salmon-copy.salmon-page-home .elementor-element:is(.elementor-element-3893a46, .elementor-element-94e87a9, .elementor-element-1e67569, .elementor-element-3914202) :is(a.elementor-button, a[data-rfq-native], .rfq a) {

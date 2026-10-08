@@ -243,3 +243,10 @@ describe('Home hero text contrast (DD 2026-10-08)',()=>{
     expect(css).toMatch(/--df-ink-navy: rgb\(13 41 69\);/)
   })
 })
+
+describe('R5.1 (DD 2026-10-08): band pills',()=>{
+  it('the four pills are one width on a phone and use DM Sans 600',()=>{
+    expect(css).toMatch(/elementor-element-3914202\) \{\s*align-self: center;\s*inline-size: min\(320px, calc\(100vw - 70px\)\);/)
+    expect(css).toMatch(/elementor-element-3914202\) :is\(a\.elementor-button, a\[data-rfq-native\], \.rfq a, \.elementor-button-text\) \{\s*font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;\s*font-weight: 600;/)
+  })
+})
