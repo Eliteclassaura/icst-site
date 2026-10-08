@@ -54,13 +54,13 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
       </section>
       <R4LauncherReveal/>
       <nav className="dr4-pathways" aria-label="Explore technical resources">
-        <a href="/cooling-tower-brochures/" className="dr4-pathway"><span aria-hidden="true">01 / Documents</span><strong>Brochures</strong><small>Explore the public brochure library and its own verified document identities.</small><em aria-hidden="true">↗</em></a>
-        <a href="/cooling-tower-resources/tools/" className="dr4-pathway"><span aria-hidden="true">02 / Engineering</span><strong>Tools</strong><small>Find the separate tools and technical-chart collection.</small><em aria-hidden="true">↗</em></a>
+        <a href="/cooling-tower-brochures/" className="dr4-pathway"><span aria-hidden="true">01 / Documents</span><strong>Brochures</strong><small>Browse the ICS brochure library.</small><em aria-hidden="true">↗</em></a>
+        <a href="/cooling-tower-resources/tools/" className="dr4-pathway"><span aria-hidden="true">02 / Engineering</span><strong>Tools</strong><small>Find engineering tools and technical charts.</small><em aria-hidden="true">↗</em></a>
         <a href="/tech-articles/" className="dr4-pathway dr4-pathway--navy"><span aria-hidden="true">03 / Reading</span><strong>Technical Articles</strong><small>Browse source-reconciled industrial cooling articles.</small><em aria-hidden="true">↗</em></a>
       </nav>
       <section className="dr4-library" aria-labelledby="wave4-library-heading">
         <div className="dr4-library-aside">
-          <p className="dr4-library-count">RESOURCE LIBRARY / {items.length} source-listed documents</p>
+          <p className="dr4-library-count">RESOURCE LIBRARY / {items.length} documents</p>
           <h2 id="wave4-library-heading" className="dr4-h2">{heading}</h2>
           {intro?<p className="dr4-prose">{intro}</p>:null}
           <div className="wave4-library-crosslinks dr4-library-chips"><a href="/resources/" aria-current="page">Resources</a><a href="/cooling-tower-brochures/">Brochures</a><a href="/cooling-tower-resources/tools/">Tools</a><a href="/tech-articles/">Technical Articles</a></div>
@@ -82,12 +82,12 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
       </section>
       <section className="wave4-library-content" aria-labelledby="wave4-library-heading">
         {isResources?<nav className="wave4-resource-pathways" aria-label="Explore technical resources">
-          <a href="/cooling-tower-brochures/"><span>01 / Documents</span><strong>Brochures</strong><small>Explore the public brochure library and its own verified document identities.</small><em aria-hidden="true">↗</em></a>
-          <a href="/cooling-tower-resources/tools/"><span>02 / Engineering</span><strong>Tools</strong><small>Find the separate tools and technical-chart collection.</small><em aria-hidden="true">↗</em></a>
+          <a href="/cooling-tower-brochures/"><span>01 / Documents</span><strong>Brochures</strong><small>Browse the ICS brochure library.</small><em aria-hidden="true">↗</em></a>
+          <a href="/cooling-tower-resources/tools/"><span>02 / Engineering</span><strong>Tools</strong><small>Find engineering tools and technical charts.</small><em aria-hidden="true">↗</em></a>
           <a href="/tech-articles/"><span>03 / Reading</span><strong>Technical Articles</strong><small>Browse source-reconciled industrial cooling articles.</small><em aria-hidden="true">↗</em></a>
         </nav>:null}
         <div className="wave4-library-intro"><h2 id="wave4-library-heading">{heading}</h2>{intro?<p>{intro}</p>:null}</div>
-        {isResources?<p className="wave4-resource-count">RESOURCE LIBRARY / {items.length} source-listed documents</p>:null}
+        {isResources?<p className="wave4-resource-count">RESOURCE LIBRARY / {items.length} documents</p>:null}
         <div className="wave4-document-list">{primaryItems.map(renderRow)}</div>
         {technicalItems.length?<section className="wave4-tool-panel" aria-labelledby="wave4-tool-panel-heading"><h2 id="wave4-tool-panel-heading">Industrial Cooling Tower Tools &amp; Technical Charts</h2><p>{paragraphs[3]}</p><div className="wave4-document-list">{technicalItems.map((item,index)=>renderRow(item,index))}</div></section>:null}
         <div className="wave4-library-crosslinks"><a href="/resources/">Resources</a><a href="/cooling-tower-brochures/">Brochures</a><a href="/cooling-tower-resources/tools/">Tools</a><a href="/tech-articles/">Technical Articles</a></div>
