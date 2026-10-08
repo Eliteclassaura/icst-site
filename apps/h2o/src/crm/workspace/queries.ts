@@ -544,6 +544,9 @@ export type TaskRow = {
   rfqLabel?: string | null
   accountId: string | null
   accountName: string | null
+  /** Gate B item 4: the person the follow-up is about (its own contact, else the inquiry's contact). */
+  contactId?: string | null
+  contactName?: string | null
   updatedAt: string
   createdAt: string
 }
@@ -583,6 +586,13 @@ export async function hydrateTasks(s: CrmSession, docs: Doc[], people: Person[],
       : null,
   ])
   const rfqNo = new Map((rfqs?.docs ?? []).map((r) => [String(r.id), String(D(r).rfq_number ?? '')]))
+  const rfqContact = new Map((rfqs?.docs ?? []).map((r) => [String(r.id), id(D(r).contact)]))
+  const contactIds = [...new Set([...docs.map((t) => id(t.contact)), ...rfqContact.values()].filter(Boolean))] as string[]
+  const contactName = new Map<string, string>()
+  for (let i = 0; i < contactIds.length; i += 100) {
+    const cs = await s.payload.find({ collection: 'crm-contacts', where: { id: { in: contactIds.slice(i, i + 100) } }, depth: 0, limit: 100, pagination: false, ...asUser(s) })
+    for (const c of cs.docs) contactName.set(String(c.id), String(D(c).display_name ?? '').trim())
+  }
   const rfqName = await rfqLabels(s, rfqIds)
   const accName = new Map((accs?.docs ?? []).map((a) => [String(a.id), String(D(a).canonical_name ?? '')]))
   const names = nameMap(people)
@@ -606,6 +616,10 @@ export async function hydrateTasks(s: CrmSession, docs: Doc[], people: Person[],
       rfqLabel: rfqName.get(String(id(t.rfq))) ?? null,
       accountId: id(t.account),
       accountName: accName.get(String(id(t.account))) ?? null,
+      ...(() => {
+        const cid = id(t.contact) ?? rfqContact.get(String(id(t.rfq))) ?? null
+        return { contactId: cid, contactName: cid ? contactName.get(cid) || null : null }
+      })(),
       updatedAt: String(t.updatedAt ?? ''),
       createdAt: String(t.createdAt ?? ''),
     }

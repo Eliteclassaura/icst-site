@@ -35,6 +35,10 @@ export const CT_STRING_AMENDMENTS: Record<string, string> = {
  * the confirmation body with the response promise on or off (the server picks one per configuration, R15).
  */
 export const RFQ_FIX_1_STRINGS: Record<string, string> = {
+  "email.hint.suggest": "Did you mean {{suggestion}}?",
+  "email.hint.use": "Use {{suggestion}}",
+  "err.email_domain": "Please check your email address. We couldn't find that email domain.",
+  "err.email_disposable": "Please use a permanent email address. We can't reply to temporary inbox addresses.",
   "err.phone": "Please check this phone number. Use digits and include your country code, for example +1 555 012 3456. You can also leave it blank.",
   "confirm.attachments.ack_on": "You can send photos or drawings by replying to our email.",
   "confirm.attachments.ack_off": "You can email photos or drawings to {{sales_email}}. Please include your RFQ number, {{rfq_number}}.",
@@ -49,6 +53,39 @@ export const RFQ_FIX_1_STRINGS: Record<string, string> = {
 export const FIELD_ORDER_STRINGS: Record<string, string> = {
   'contact.first_name.q': 'First name',
   'contact.last_name.q': 'Last name',
+}
+
+/**
+ * FORM-NOTICE-1 (CT 2026-10-08): the approved quote-request collection notice (OGCS legal final, FORM_NOTICE.md, sha256
+ * b34433fb…), kept byte for byte at content/rfq/form-notice-source.md. Its short notice becomes `privacy.note` (the link
+ * text "Privacy Notice" becomes `privacy.link_text`); its expanded notice becomes the "How we use your details" list.
+ */
+export const FORM_NOTICE_SHA256 = 'b34433fb575c4c102fc8c26c98545ee293469d6427d6bc403f204ba6da5f4e5d'
+export function formNoticeStrings(md: string): Record<string, string> {
+  const section = (title: RegExp) => {
+    const lines = md.split('\n')
+    const i = lines.findIndex((l) => title.test(l))
+    if (i < 0) throw new Error('FORM_NOTICE_SECTION_MISSING')
+    const out: string[] = []
+    for (const l of lines.slice(i + 1)) {
+      if (l.startsWith('## ')) break
+      out.push(l)
+    }
+    return { heading: lines[i]!, body: out }
+  }
+  const short = section(/^## Short notice/).body.find((l) => l.startsWith('> '))
+  const linkRe = /\[([^\]]+)\]\(\/privacy-policy\/\)/
+  if (!short || !linkRe.test(short)) throw new Error('FORM_NOTICE_SHORT_MISSING')
+  const expanded = section(/^## Expanded notice/)
+  const label = /"([^"]+)"/.exec(expanded.heading)?.[1]
+  const items = expanded.body.filter((l) => l.startsWith('- ')).map((l) => l.slice(2))
+  if (!label || items.length === 0) throw new Error('FORM_NOTICE_EXPANDED_MISSING')
+  return {
+    'privacy.note': short.slice(2).replace(linkRe, '{{privacy_policy_link}}'),
+    'privacy.link_text': linkRe.exec(short)![1]!,
+    'privacy.details.link': label,
+    'privacy.details.items': items.join('\n'),
+  }
 }
 
 export const parseCopyTable = (tsv: string): Record<string, string> => {
@@ -66,8 +103,8 @@ const question = ({ maxLength, pattern, ...q }: Q): Question => ({
 })
 
 /** The contract §1.1 seeded structure, with strings from the copy table. */
-export function registryFromCopy(tsv: string): Registry {
-  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS, ...RFQ_FIX_1_STRINGS, ...FIELD_ORDER_STRINGS }
+export function registryFromCopy(tsv: string, formNotice?: string): Registry {
+  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS, ...RFQ_FIX_1_STRINGS, ...FIELD_ORDER_STRINGS, ...(formNotice ? formNoticeStrings(formNotice) : {}) }
   const purposes: Purpose[] = [
     { value: 'new_tower', labelKey: 'purpose.chip.new_tower', branch: 'towers' },
     { value: 'repair', labelKey: 'purpose.chip.repair', branch: 'service' },
@@ -111,5 +148,44 @@ export function registryFromCopy(tsv: string): Registry {
   }
 }
 
+/**
+ * FORM-NOTICE-1.1 (Auditor N1, N2): the notice file must never take quote submissions down. A missing or unparsable file
+ * degrades to the existing `privacy.note` text from the copy table (the short notice and the Privacy Policy link, without the
+ * expanded list) and logs a code; a file whose bytes differ from the approved hash is used as is and logged (never throws).
+ * Codes only: no content is logged.
+ */
+export type RegistrySource = (relativePath: string) => Buffer
+const diskSource: RegistrySource = (rel) => readFileSync(path.join(process.cwd(), rel))
+// Server-side only (the registry is built on the server). One JSON line on stderr: a code and a short reason, never content.
+const logNotice = (code: string, detail: string) => process.stderr.write(`${JSON.stringify({ level: 'error', code, detail })}\n`)
+
+export function loadFormNotice(read: RegistrySource): string | undefined {
+  let raw: Buffer
+  try {
+    raw = read('content/rfq/form-notice-source.md')
+  } catch {
+    logNotice('FORM_NOTICE_FALLBACK', 'FILE_UNREADABLE')
+    return undefined
+  }
+  if (createHash('sha256').update(raw).digest('hex') !== FORM_NOTICE_SHA256) logNotice('FORM_NOTICE_SHA256_MISMATCH', 'USED_AS_IS')
+  const text = raw.toString('utf8')
+  try {
+    formNoticeStrings(text)
+  } catch (e) {
+    logNotice('FORM_NOTICE_FALLBACK', String((e as Error).message).slice(0, 40))
+    return undefined
+  }
+  return text
+}
+
+export const buildRegistry = (read: RegistrySource): Registry =>
+  registryFromCopy(read('content/rfq/ogcs-native-rfq-copy-r1.tsv').toString('utf8'), loadFormNotice(read))
+
 let cache: Registry | undefined
-export const fixtureRegistry = (): Registry => (cache ??= registryFromCopy(readFileSync(path.join(process.cwd(), 'content/rfq/ogcs-native-rfq-copy-r1.tsv'), 'utf8')))
+let source: RegistrySource = diskSource
+/** Tests only: swap where the copy files are read from (`undefined` restores the disk) and drop the cached registry. */
+export function setRegistrySourceForTests(read?: RegistrySource): void {
+  cache = undefined
+  source = read ?? diskSource
+}
+export const fixtureRegistry = (): Registry => (cache ??= buildRegistry(source))

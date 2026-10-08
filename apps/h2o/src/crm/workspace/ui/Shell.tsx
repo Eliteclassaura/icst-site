@@ -3,6 +3,8 @@ import { cookies } from 'next/headers'
 import { DENSITY_COOKIE, densityFrom } from '../prefs'
 import { IconAccounts, IconContacts, IconInbox, IconMore, IconPipeline, IconSearch, IconSettings, IconTasks, IconWork } from './Icons'
 import { PaletteTrigger } from './PaletteTrigger'
+import { FeedbackHost } from './FeedbackHost'
+import { SignOutClear } from './SignOutClear'
 import { ThemeSwitch } from './Theme'
 import { loadViews } from '../savedViews'
 import { ADMIN_EMBLEM } from '../../../brand/admin-brand'
@@ -19,7 +21,7 @@ export const evidenceBadgeEnabled = (env: NodeJS.ProcessEnv = process.env): bool
 
 /**
  * Navigation. Desktop: the sidebar lists every section. Phone (W1-8, audit finding 9): a bottom bar with My Work,
- * Inbox, Tasks (Follow-ups), Search and More; More holds Pipeline, Accounts, Contacts and New inquiry, so every
+ * Inbox, Tasks (Follow-ups), Search and More; More holds Deals, Accounts, Contacts and New inquiry, so every
  * section is reachable on a phone.
  */
 const NAV: Array<{ key: NavKey; href: string; label: string; phone?: string; icon: ReactNode; desktop?: boolean; adminOnly?: boolean }> = [
@@ -28,7 +30,7 @@ const NAV: Array<{ key: NavKey; href: string; label: string; phone?: string; ico
   { key: 'followups', href: '/crm/follow-ups/', label: 'Follow-ups', phone: 'Tasks', icon: <IconTasks /> },
   { key: 'accounts', href: '/crm/accounts/', label: 'Accounts', icon: <IconAccounts />, desktop: true },
   { key: 'contacts', href: '/crm/contacts/', label: 'Contacts', icon: <IconContacts />, desktop: true },
-  { key: 'pipeline', href: '/crm/pipeline/', label: 'Pipeline', icon: <IconPipeline />, desktop: true },
+  { key: 'pipeline', href: '/crm/deals/', label: 'Deals', icon: <IconPipeline />, desktop: true },
   // CRM email M3: inbound email that was not linked automatically (admins only).
   { key: 'email', href: '/crm/email-review/', label: 'Email review', icon: <IconInbox />, desktop: true, adminOnly: true },
   // Patch C: sending profiles and email templates (admins only).
@@ -36,7 +38,7 @@ const NAV: Array<{ key: NavKey; href: string; label: string; phone?: string; ico
 ]
 
 const MORE: Array<{ key: NavKey; href: string; label: string; adminOnly?: boolean }> = [
-  { key: 'pipeline', href: '/crm/pipeline/', label: 'Pipeline' },
+  { key: 'pipeline', href: '/crm/deals/', label: 'Deals' },
   { key: 'accounts', href: '/crm/accounts/', label: 'Accounts' },
   { key: 'contacts', href: '/crm/contacts/', label: 'Contacts' },
   { key: 'email', href: '/crm/email-review/', label: 'Email review', adminOnly: true },
@@ -71,6 +73,8 @@ export async function Shell({
   const dense = densityFrom((await cookies()).get(DENSITY_COOKIE)?.value) === 'compact'
   return (
     <div className={`crm-app${dense ? ' is-dense' : ''}`}>
+      {/* Keep this the FIRST child: its effect must run before the list and draft restore effects below it. */}
+      <SignOutClear userId={session?.userId} />
       <a className="c-skip" href="#crm-main">
         Skip to content
       </a>
@@ -179,6 +183,7 @@ export async function Shell({
           </div>
         </header>
         <main id="crm-main" className="c-content" tabIndex={-1}>
+          <FeedbackHost />
           {children}
         </main>
       </div>

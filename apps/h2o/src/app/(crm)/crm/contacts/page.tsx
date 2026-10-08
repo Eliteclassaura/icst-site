@@ -11,6 +11,7 @@ import { AutoSubmit } from '../../../../crm/workspace/ui/AutoSubmit'
 import { IconDoNotContact, IconPlus } from '../../../../crm/workspace/ui/Icons'
 import { Shell } from '../../../../crm/workspace/ui/Shell'
 import { Chips, ListSearch, queryOf, type Chip } from '../_components/ListControls'
+import { ListContext } from '../_components/ListContext'
 import { requireCrmSession } from '../session'
 
 export const metadata: Metadata = { title: 'Contacts' }
@@ -124,6 +125,7 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
         </div>
       ) : (
         <div className="c-table-wrap" id="crm-contacts-list">
+          <ListContext kind="contacts" scopeId="crm-contacts-list" />
           <BulkBar scopeId="crm-contacts-list" kind="contacts" people={d.people} />
           <table className="c-table c-dir-table">
             <caption className="c-visually-hidden">Contacts</caption>

@@ -37,7 +37,6 @@ import {
   LinkAccountDialog,
   LogDialog,
   NoteDialog,
-  QualifyDialog,
   MoveOfficeButton,
   ReopenButton,
   RequestInfoDialog,
@@ -46,6 +45,7 @@ import {
   StartReview,
   TaskActions,
 } from './Dialogs'
+import { DealLinkSlot, QualifySlot } from './DealSlots'
 import { ReplyComposer } from './EmailPanel'
 import type { ComposerTemplates } from '../../../../crm/settings/templates'
 
@@ -153,7 +153,7 @@ export function RfqDetailView({
             On a phone this row is a sticky action bar. */}
         <div className="c-actions c-action-bar">
           {(status === 'RECEIVED' || status === 'NEEDS_REVIEW') && <StartReview rfqId={rfqId} updatedAt={updatedAt} />}
-          {status === 'IN_REVIEW' && <QualifyDialog rfqId={rfqId} updatedAt={updatedAt} accountLinked={Boolean(rfq.account)} motion={(rfq.motion as string) ?? null} />}
+          {status === 'IN_REVIEW' && <QualifySlot s={s} rfq={rfq} people={d.people} />}
           {status === 'QUALIFIED' ? <FollowUpDialog rfqId={rfqId} people={d.people} meId={s.userId} buttonClassName="c-btn is-primary" /> : null}
           {isTerminal && s.isAdmin ? <ReopenButton rfqId={rfqId} updatedAt={updatedAt} primary /> : null}
           {!isTerminal && d.row.ownerId !== s.userId ? <AssignMe rfqId={rfqId} updatedAt={updatedAt} /> : null}
@@ -344,10 +344,12 @@ export function RfqDetailView({
               </dd>
               <dt>Requirements</dt>
               <dd>{rfq.account ? 'Account linked.' : <span className="c-warn-text">Link an account to qualify.</span>}</dd>
-              {status === 'QUALIFIED' ? (
+              {rfq.opportunity ? (
                 <>
-                  <dt>Opportunity</dt>
-                  <dd className="c-muted">Creating an opportunity arrives in a later phase.</dd>
+                  <dt>Deal</dt>
+                  <dd>
+                    <DealLinkSlot s={s} opportunityId={String(typeof rfq.opportunity === 'object' ? (rfq.opportunity as Doc).id : rfq.opportunity)} />
+                  </dd>
                 </>
               ) : null}
             </dl>
@@ -366,7 +368,7 @@ export function RfqDetailView({
                       </span>
                       <span className="c-hint">
                         {t.status === 'DONE' || t.status === 'CANCELLED' ? (
-                          t.status === 'DONE' ? 'Done' : 'Cancelled'
+                          t.status === 'DONE' ? 'Done' : 'Canceled'
                         ) : (
                           <DueLabel dueAt={t.dueAt} overdue={t.overdue} now={now} zone={s.timeZone} />
                         )}{' '}

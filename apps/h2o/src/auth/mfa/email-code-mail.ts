@@ -1,5 +1,4 @@
 import type { Payload } from 'payload'
-import { resolveSalesAddressLive } from '../../email/routing-read'
 import { textToHtml, type Rendered } from '../../email/messages'
 import { CODE_TTL_MS } from './email-code'
 
@@ -27,6 +26,7 @@ export function maskEmail(email: string): string {
 /** Sends the code through the one system mail path (Payload's adapter: send gate, mode, allowlist, event log). */
 export async function deliverSignInCode(payload: Payload, to: string, code: string): Promise<void> {
   const m = renderSignInCode(code)
-  // Reply-To is the public sales address (Settings → Email routing, default sales@h2ocooling.com; never the .org address).
-  await payload.sendEmail({ to, subject: m.subject, text: m.text, html: m.html, replyTo: await resolveSalesAddressLive(payload) })
+  // No Reply-To on purpose (CT/auditor 2026-10-08): the code mail is not a conversation. Without one, a reply goes to the From
+  // address (the sales mailbox); that is low risk because a code is single use, expires in 10 minutes and needs the password.
+  await payload.sendEmail({ to, subject: m.subject, text: m.text, html: m.html })
 }

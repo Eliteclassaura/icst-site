@@ -27,8 +27,8 @@ export const UNTRUSTED_RULES: Rule[] = [
 ]
 export const EMAIL_RULE: Rule = { bucket: 'email', windowMs: 60 * MIN, max: 3, env: 'H2O_RFQ_LIMIT_EMAIL_HOUR' }
 export const TOKEN_RULE: Rule = { bucket: 'token', windowMs: 10 * MIN, max: 30, env: 'H2O_RFQ_LIMIT_TOKEN_10M' }
-/** ALERTS-1: the "Send test alert" button — one per minute per admin. */
-export const ALERT_TEST_RULE: Rule = { bucket: 'alert-test', windowMs: MIN, max: 1, env: 'H2O_ALERT_TEST_LIMIT_MIN' }
+/** ALERTS-1.1: the "Send test alert" button — one per 5 minutes per admin (CT ruling 2026-10-08). */
+export const ALERT_TEST_RULE: Rule = { bucket: 'alert-test', windowMs: 5 * MIN, max: 1, env: 'H2O_ALERT_TEST_LIMIT_MIN' }
 const PRUNE_AFTER_MS = 2 * 24 * 60 * MIN
 
 const maxOf = (r: Rule) => {

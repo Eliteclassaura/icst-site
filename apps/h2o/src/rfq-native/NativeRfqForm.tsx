@@ -7,6 +7,7 @@
  */
 import { useEffect, useId, useRef, useState } from 'react'
 import { searchCountries } from './countries'
+import { EmailTypoHint } from './EmailTypoHint'
 import { Confirmation, ErrorText, FailureNote, Honeypot, PrivacyNote, ReviewList, SendButton, UnavailableNote } from './fields'
 import { autocompleteFor, questionsFor } from './flow'
 import { t, type Question, type Registry } from './model'
@@ -34,6 +35,7 @@ function Field({ reg, q, value, error, onChange }: { reg: Registry; q: Question;
     {q.type === 'textarea' ? <><textarea {...common} rows={4} placeholder={t(reg, q.placeholderKey) || undefined}/><span className={styles.counter} aria-hidden="true">{value.length} / {q.validation.maxLength}</span></>
       : q.type === 'country' ? <select {...common} autoComplete="country"><option value="">{t(reg, 'contact.country.search_ph')}</option>{searchCountries(reg.countries, '', reg.locale).map((c) => <option key={c.code} value={c.code}>{c.name}</option>)}</select>
       : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} placeholder={t(reg, q.placeholderKey) || undefined} autoComplete={autocompleteFor(q)}/>}
+    {q.type === 'email' ? <EmailTypoHint reg={reg} value={value} onUse={onChange}/> : null}
     <ErrorText reg={reg} id={errorId} error={error}/>
   </div>
 }
@@ -83,6 +85,8 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
     <ReviewList reg={reg} answers={s.answers} onEdit={onEdit}/>
     <FailureNote reg={reg} failure={s.failure}/>
     <Honeypot reg={reg} value={hp} onChange={setHp}/>
+    {/* FORM-NOTICE-1: the collection notice sits directly above "Send request" */}
+    <PrivacyNote reg={reg}/>
     <SendButton reg={reg} phase={s.phase} retryIn={s.retryIn} onSend={() => void s.send(hp)}/>
   </section>
   const questions = questionsFor(reg, s.answers)

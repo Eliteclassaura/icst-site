@@ -27,6 +27,8 @@ export function ActionDialog({
   shortcut,
   description,
   ariaLabel,
+  draft,
+  announce,
 }: {
   label: ReactNode
   title: string
@@ -40,6 +42,10 @@ export function ActionDialog({
   description?: string
   /** Accessible name when `label` is an icon or needs context (e.g. which task). */
   ariaLabel?: string
+  /** Keep unsent text in this tab until the form is saved (see ActionForm). */
+  draft?: string
+  /** Keep the outcome on screen after the dialog closes (see ActionForm). */
+  announce?: string
 }) {
   const dialog = useRef<HTMLDialogElement>(null)
   const opener = useRef<HTMLButtonElement>(null)
@@ -68,7 +74,7 @@ export function ActionDialog({
         </button>
       </div>
       {description ? <p className="c-hint c-dialog-note">{description}</p> : null}
-      <ActionForm action={action} hidden={hidden} submitLabel={submitLabel} submitClassName={submitClassName} onSuccess={close}>
+      <ActionForm action={action} hidden={hidden} submitLabel={submitLabel} submitClassName={submitClassName} onSuccess={close} draft={draft} announce={announce}>
         {children}
       </ActionForm>
     </dialog>

@@ -46,7 +46,8 @@ describe('registry fixture = contract §1.1 seeded structure, strings from the O
       'err.server': "Something went wrong and your request wasn't sent. Please try again, or call one of {{offices_link}}.",
     })
     expect(reg.questions.find((q) => q.id === 'phone')).toMatchObject({ required: false, skippable: true })
-    for (const [k, v] of Object.entries(CT_STRING_AMENDMENTS)) expect(reg.strings[k]).toBe(v)
+    // FORM-NOTICE-1: the approved collection notice replaces the privacy note and its link text
+    for (const [k, v] of Object.entries(CT_STRING_AMENDMENTS)) if (k !== 'privacy.link_text') expect(reg.strings[k]).toBe(v)
   })
 })
 

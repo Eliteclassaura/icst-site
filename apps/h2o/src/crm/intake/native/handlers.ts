@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto'
 import type { Payload } from 'payload'
 import { fixtureRegistry } from '../../../rfq-native/registry'
 import type { Registry } from '../../../rfq-native/model'
+import { checkEmailAddress } from '../../../email/address-check'
 import { readEmailConfig, resolveSalesAddress as resolveSalesAddressEnv } from '../../../email/config'
 import { emailKey } from '../../normalize'
 import { ingestParsed, intakeLog } from '../typeform/ingest'
@@ -135,18 +136,33 @@ export async function submitReply(payload: Payload, req: Request, now: Date = ne
     return reply(409, { ok: false, code: 'SUBMISSION_CONFLICT' })
   }
 
+  // RFQ-EMAIL-CHECK-1: a first-time submission goes through the per-IP limit FIRST (so the form cannot be used to trigger
+  // unlimited DNS lookups), then the address check (syntax, disposable, DNS), then the per-email limit. DNS trouble fails
+  // open and flags the inquiry. A refused address stores nothing; a replay of an accepted submission is not checked again.
+  let emailUnverified = false
   if (!prior) {
     const ipRules = ip === UNTRUSTED_BUCKET ? UNTRUSTED_RULES : SUBMIT_RULES
-    const emailBucket = bucketFor('email', emailKey(r.answers.email)?.matchKey ?? '')
     // SEC-CRM-1: counted before it is checked (limits.ts admit), so a parallel burst cannot pass every rule at once.
-    const wait = await admit(payload, [{ bucket: ipBucket, rules: ipRules }, { bucket: emailBucket, rules: [EMAIL_RULE], refundIfRefused: true }], now)
+    const ipWait = await admit(payload, [{ bucket: ipBucket, rules: ipRules }], now)
+    if (ipWait > 0) {
+      log('RATE_LIMITED', 429)
+      return reply(429, { ok: false, code: 'RATE_LIMITED', retryAfterSeconds: ipWait }, { 'retry-after': String(ipWait) })
+    }
+    const check = await checkEmailAddress(r.answers.email)
+    if (check.status === 'REJECT') {
+      log('EMAIL_REFUSED', 422)
+      return reply(422, { ok: false, code: 'VALIDATION', fields: { email: check.key } })
+    }
+    emailUnverified = check.status === 'UNVERIFIED'
+    const emailBucket = bucketFor('email', emailKey(r.answers.email)?.matchKey ?? '')
+    const wait = await admit(payload, [{ bucket: emailBucket, rules: [EMAIL_RULE], refundIfRefused: true }], now)
     if (wait > 0) {
       log('RATE_LIMITED', 429)
       return reply(429, { ok: false, code: 'RATE_LIMITED', retryAfterSeconds: wait }, { 'retry-after': String(wait) })
     }
   }
 
-  const { delivery, attributionRejected } = toDelivery(reg, r, now)
+  const { delivery, attributionRejected } = toDelivery(reg, r, now, emailUnverified ? { email_check: 'UNVERIFIED' } : {})
   const result = await ingestParsed(payload, { d: delivery, hash, rawPayload: storedPayload(r), receivedAt: now, signatureState: 'FORM_TOKEN_VERIFIED', conflict: 'refuse' })
   if (attributionRejected.length > 0) log('ATTRIBUTION_DROPPED', 200)
   if (result.status === 409) return reply(409, { ok: false, code: 'SUBMISSION_CONFLICT' })

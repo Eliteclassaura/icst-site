@@ -59,9 +59,37 @@ export function Linked({ reg, textKey, placeholder, href, linkTextKey }: { reg: 
   return <>{parts.map((part, i) => <span key={i}>{part}{i < parts.length - 1 ? <a href={href}>{t(reg, linkTextKey)}</a> : null}</span>)}</>
 }
 
-/** "We use these details only to respond to your request. See our Privacy Policy." with the link in place. */
+/** FORM-NOTICE-1: the only links the notice may carry (the two legal pages); anything else stays plain text. */
+const NOTICE_LINKS = new Set(['/privacy-policy/', '/cookie-notice/'])
+/** One line of the approved notice: **bold** and [text](/allowed/) only; everything else is text (React escapes it). */
+export function NoticeLine({ text }: { text: string }) {
+  const parts: ReactNode[] = []
+  const re = /\*\*([^*]+)\*\*|\[([^\]]+)\]\(([^)\s]+)\)/g
+  let at = 0
+  let m: RegExpExecArray | null
+  while ((m = re.exec(text))) {
+    if (m.index > at) parts.push(text.slice(at, m.index))
+    if (m[1] !== undefined) parts.push(<strong key={m.index}>{m[1]}</strong>)
+    else parts.push(NOTICE_LINKS.has(m[3]!) ? <a key={m.index} href={m[3]}>{m[2]}</a> : `[${m[2]}](${m[3]})`)
+    at = m.index + m[0].length
+  }
+  if (at < text.length) parts.push(text.slice(at))
+  return <>{parts}</>
+}
+
+/**
+ * The collection notice (FORM-NOTICE-1, approved copy): the short notice with the Privacy Notice link, and the full notice
+ * behind a native "How we use your details" disclosure (no script). Shown directly above "Send request".
+ */
 export function PrivacyNote({ reg }: { reg: Registry }) {
-  return <p className={styles.privacy}><Linked reg={reg} textKey="privacy.note" placeholder="privacy_policy_link" href="/privacy-policy/" linkTextKey="privacy.link_text"/></p>
+  const items = (reg.strings['privacy.details.items'] ?? '').split('\n').filter(Boolean)
+  return <div className={styles.privacy}>
+    <p><Linked reg={reg} textKey="privacy.note" placeholder="privacy_policy_link" href="/privacy-policy/" linkTextKey="privacy.link_text"/></p>
+    {items.length ? <details className={styles.privacyDetails}>
+      <summary>{t(reg, 'privacy.details.link')}</summary>
+      <ul>{items.map((line, i) => <li key={i}><NoticeLine text={line}/></li>)}</ul>
+    </details> : null}
+  </div>
 }
 
 /** The intake is switched off (registry `enabled: false`): the line pointing to the offices (CT Round 5 ruling 1). */
@@ -106,5 +134,5 @@ export function Confirmation({ reg, rfqNumber, children }: { reg: Registry; rfqN
 export function SendButton({ reg, phase, retryIn, onSend }: { reg: Registry; phase: string; retryIn: number; onSend: () => void }) {
   const sending = phase === 'sending'
   const wait = retryIn > 0 ? ` (${Math.floor(retryIn / 60)}:${String(retryIn % 60).padStart(2, '0')})` : ''
-  return <button type="button" className={styles.primary} disabled={sending || retryIn > 0} aria-busy={sending} onClick={onSend}>{t(reg, sending ? 'review.sending' : 'review.send')}{wait}</button>
+  return <div className={styles.actionBar}><button type="button" className={styles.primary} disabled={sending || retryIn > 0} aria-busy={sending} onClick={onSend}>{t(reg, sending ? 'review.sending' : 'review.send')}{wait}</button></div>
 }

@@ -24,6 +24,8 @@ import type { CrmSession } from '../crm/workspace/session'
 type Doc = Record<string, unknown>
 const SLUG = 'crm-sending-profiles' as never
 const sys = { overrideAccess: true as const, depth: 0, context: { crmServer: {} } }
+/** Writes are made AS the signed-in admin (access is still overridden, as before) so the audit entry names who made the change. */
+const by = (s: CrmSession) => ({ ...sys, user: { ...s.user, collection: 'users' } as never })
 const fail = (code: string, message: string): Outcome => ({ ok: false, code, message })
 const MIN = 60_000
 const CHECK_RULE = { bucket: 'mail-check' as const, windowMs: 10 * MIN, max: 10, env: 'H2O_SMTP_LIMIT_CHECK_10M' }
@@ -124,13 +126,13 @@ export async function saveProfile(s: CrmSession, sid: string | null, input: Prof
   let id: string
   if (existing) {
     id = String(existing.id)
-    await s.payload.update({ collection: SLUG, id, data: { ...data, ...checkReset } as never, ...sys })
+    await s.payload.update({ collection: SLUG, id, data: { ...data, ...checkReset } as never, ...by(s) })
   } else {
-    const created = (await s.payload.create({ collection: SLUG, data: { ...data, active: false, password_set: false } as never, ...sys })) as unknown as Doc
+    const created = (await s.payload.create({ collection: SLUG, data: { ...data, active: false, password_set: false } as never, ...by(s) })) as unknown as Doc
     id = String(created.id)
   }
   // Sealed with the record id as context, so the value only opens for this profile.
-  if (password) await s.payload.update({ collection: SLUG, id, data: { password_sealed: seal(password, passwordContext(id)), password_set: true, ...checkReset } as never, ...sys })
+  if (password) await s.payload.update({ collection: SLUG, id, data: { password_sealed: seal(password, passwordContext(id)), password_set: true, ...checkReset } as never, ...by(s) })
   invalidateProfiles()
   return { ok: true, message: existing ? 'Profile saved.' : 'Profile added. Check the connection, then turn it on.', id }
 }
@@ -150,9 +152,9 @@ export async function setProfileActive(s: CrmSession, sid: string | null, id: st
   if (on && doc.last_check_state !== 'OK') return fail('PROFILE_NOT_CHECKED', 'Check the connection first. A profile is turned on only after a successful check.')
   if (on) {
     const others = await s.payload.find({ collection: SLUG, where: { and: [{ use: { equals: doc.use } }, { active: { equals: true } }, { id: { not_equals: doc.id } }] } as never, limit: 10, ...sys })
-    for (const o of others.docs as unknown as Doc[]) await s.payload.update({ collection: SLUG, id: String(o.id), data: { active: false } as never, ...sys })
+    for (const o of others.docs as unknown as Doc[]) await s.payload.update({ collection: SLUG, id: String(o.id), data: { active: false } as never, ...by(s) })
   }
-  await s.payload.update({ collection: SLUG, id: String(doc.id), data: { active: on } as never, ...sys })
+  await s.payload.update({ collection: SLUG, id: String(doc.id), data: { active: on } as never, ...by(s) })
   invalidateProfiles()
   return { ok: true, message: on ? 'Profile turned on. New email is sent through it.' : 'Profile turned off. Email uses the server’s default settings, if any.' }
 }
@@ -164,7 +166,7 @@ export async function deleteProfile(s: CrmSession, sid: string | null, id: strin
   const doc = await load(s, id)
   if (!doc) return fail('NOT_FOUND', 'That profile no longer exists.')
   if (doc.active === true) return fail('PROFILE_ACTIVE', 'Turn the profile off before deleting it.')
-  await s.payload.delete({ collection: SLUG, id: String(doc.id), ...sys })
+  await s.payload.delete({ collection: SLUG, id: String(doc.id), ...by(s) })
   invalidateProfiles()
   return { ok: true, message: 'Profile deleted.' }
 }
@@ -213,16 +215,15 @@ export async function checkProfile(s: CrmSession, sid: string | null, id: string
       code = failureCode(err).code
     }
   }
-  // R2-06: a check result belongs to the connection and password it ran against. If the profile was changed while the
-  // check was running, the result is thrown away (it would otherwise mark the new password as checked).
-  const again = await load(s, id)
-  if (!again || String(again.updatedAt) !== String(doc.updatedAt)) return fail('PROFILE_CHANGED', 'The profile was changed while it was being checked. Check it again.')
-  await s.payload.update({
+  // R2-06: a check result belongs to the connection and password it ran against. The write itself is conditional on the
+  // record still being the version that was checked (updatedAt): if the profile changed meanwhile, nothing is written.
+  const written = await s.payload.update({
     collection: SLUG,
-    id: String(doc.id),
+    where: { and: [{ id: { equals: String(doc.id) } }, { updatedAt: { equals: doc.updatedAt } }] } as never,
     data: { last_check_state: code ? 'FAILED' : 'OK', last_check_code: code, last_check_at: now.toISOString() } as never,
-    ...sys,
+    ...by(s),
   })
+  if (((written as { docs?: unknown[] }).docs ?? []).length !== 1) return fail('PROFILE_CHANGED', 'The profile was changed while it was being checked. Check it again.')
   invalidateProfiles()
   return code ? fail(code, checkMessage(code)) : { ok: true, message: 'Connection and sign-in work.' }
 }

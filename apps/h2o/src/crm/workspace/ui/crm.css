@@ -897,6 +897,121 @@
   font-size: 12px;
 }
 
+/* ── deals (OPP-1) ───────────────────────────────────────── */
+.c-deal-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin-block-end: 12px;
+  padding: 12px;
+}
+
+.c-deal-filters .c-field {
+  min-inline-size: 150px;
+}
+
+/* A field in a form grid keeps its rows packed at the top, so a longer hint beside it cannot push its input down. */
+.c-form-grid > .c-field {
+  align-content: start;
+}
+
+/* Value and Currency share a baseline: a datalist input is taller in Chromium, so both get the same height. */
+.c-form-grid input[inputmode='decimal'],
+.c-form-grid input[list] {
+  block-size: 32px;
+}
+
+.c-feedback {
+  position: sticky;
+  z-index: 5;
+  inset-block-start: 0;
+}
+
+.c-feedback .c-banner {
+  align-items: center;
+  justify-content: space-between;
+  margin-inline: 0;
+  border: 1px solid var(--c-rule);
+}
+
+.c-feedback-text {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.c-deal-check {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-block-size: 36px;
+  font-size: 13px;
+}
+
+.c-deals {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.c-deal {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+}
+
+.c-deal-top {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.c-deal-name {
+  color: var(--c-accent);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.c-deal-next,
+.c-deal-meta {
+  margin: 0;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.c-deal-next.is-large {
+  font-size: 16px;
+}
+
+.c-board {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: start;
+}
+
+.c-board-col {
+  display: grid;
+  gap: 8px;
+  min-inline-size: 0;
+}
+
+.c-board-head {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.c-board-more {
+  font-size: 13px;
+}
+
 /* ── inbox ───────────────────────────────────────────────── */
 .c-views {
   display: flex;
@@ -1637,6 +1752,7 @@ details.c-tech > summary {
 
 /* Tables: follow-ups (fixed columns, so a long title truncates instead of pushing the actions off-panel) */
 .c-task-table {
+  min-inline-size: 0;
   table-layout: fixed;
 }
 
@@ -1649,7 +1765,7 @@ details.c-tech > summary {
 }
 
 .c-task-table th.act {
-  inline-size: 140px;
+  inline-size: 252px;
 }
 
 .c-task-table td.due,
@@ -1665,6 +1781,143 @@ details.c-tech > summary {
 .c-task-table .two strong,
 .c-task-table .two span {
   max-inline-size: none;
+}
+
+/* Phones: one labelled card per follow-up. Title on its own line (wrapped, not cut), Due and Owner as label and
+   value, the actions in a full-width row of buttons at least 44px tall. */
+@media (max-width: 767px) {
+  .c-task-table thead {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .c-task-table,
+  .c-task-table tbody {
+    display: block;
+  }
+
+  .c-task-table tbody tr {
+    display: grid;
+    gap: 6px;
+    padding-block: 12px;
+    padding-inline: 12px;
+    border-block-end: 1px solid var(--c-rule);
+  }
+
+  .c-task-table tbody tr:last-child {
+    border-block-end: 0;
+  }
+
+  .crm-app .c-table.c-task-table td {
+    display: block;
+    block-size: auto;
+    padding: 0;
+    border: 0;
+    white-space: normal;
+  }
+
+  .crm-app .c-table.c-task-table td.sel {
+    display: none;
+  }
+
+  .c-task-table td.two {
+    order: 1;
+  }
+
+  .crm-app .c-table.c-task-table td.due,
+  .crm-app .c-table.c-task-table td.owner {
+    display: flex;
+    order: 2;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .crm-app .c-table.c-task-table td.owner {
+    order: 3;
+  }
+
+  .crm-app .c-table.c-task-table td.due::before,
+  .crm-app .c-table.c-task-table td.owner::before {
+    flex: none;
+    inline-size: 56px;
+    color: var(--c-text-2);
+    font-size: 12px;
+    content: attr(data-label);
+  }
+
+  .c-task-table td.due br {
+    display: none;
+  }
+
+  .c-task-table td.due .c-hint {
+    margin-inline-start: 8px;
+  }
+
+  .crm-app .c-table.c-task-table td.act {
+    order: 4;
+    padding-block-start: 4px;
+  }
+
+  .crm-app .c-table.c-task-table .two strong,
+  .crm-app .c-table.c-task-table .two span {
+    display: block;
+    overflow: visible;
+    max-inline-size: none;
+    line-height: 18px;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .c-task-table .c-task-actions {
+    display: flex;
+    gap: 8px;
+    inline-size: 100%;
+  }
+
+  .c-task-table .c-task-actions > form {
+    display: flex;
+    flex: 1 1 0;
+    min-inline-size: 0;
+  }
+
+  .c-task-table .c-task-actions > form > .c-actions {
+    flex: 1 1 auto;
+    inline-size: 100%;
+  }
+
+  .c-task-table .c-task-actions .c-btn.is-small {
+    flex: 1 1 auto;
+    inline-size: 100%;
+    min-block-size: 44px;
+  }
+
+  .c-task-table td.act > form {
+    display: flex;
+    inline-size: 100%;
+  }
+
+  .c-task-table td.act > form > .c-actions {
+    flex: 1 1 auto;
+    inline-size: 100%;
+  }
+
+  .c-task-table td.act > form .c-btn.is-small {
+    flex: 1 1 auto;
+    inline-size: 100%;
+    min-block-size: 44px;
+  }
+
+  .c-task-table .c-task-actions .c-overflow {
+    flex: none;
+  }
+
+  .c-task-table .c-task-actions .c-overflow .c-btn.is-small {
+    inline-size: 44px;
+  }
 }
 
 /* A link inside a sentence is underlined, so it never depends on colour alone (axe link-in-text-block). */

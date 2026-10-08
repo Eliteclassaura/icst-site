@@ -22,7 +22,7 @@ const INTEREST: Array<[string, string]> = [
  */
 export function ManualInquiryForm({ token, people, meId }: { token: string; people: Person[]; meId: string }) {
   return (
-    <ActionForm action={manualInquiryAction} hidden={{ token }} submitLabel="Create inquiry">
+    <ActionForm action={manualInquiryAction} hidden={{ token }} submitLabel="Create inquiry" draft="new-inquiry">
       <fieldset className="c-fieldset">
         <legend>Customer supplied</legend>
         <p className="c-hint">

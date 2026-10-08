@@ -21,6 +21,7 @@ import { ExportDialog } from '../_components/ExportDialog'
 import { Chips, ListSearch, queryOf, type Chip } from '../_components/ListControls'
 import { SavedViews } from '../_components/SavedViews'
 import { RFQ_TABS, RfqDetailView, type RfqTab } from '../_components/RfqDetail'
+import { ListContext } from '../_components/ListContext'
 import { requireCrmSession } from '../session'
 import { densityAction } from '../actions'
 
@@ -97,6 +98,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
     >
       <div id="crm-inbox" role="region" aria-label="RFQ list and detail" tabIndex={0}>
         <Shortcuts scopeId="crm-inbox" />
+        <ListContext kind="rfqs" scopeId="crm-inbox" />
         <PhoneRecordLinks scopeId="crm-inbox" />
         <nav className="c-views" aria-label="Saved views">
           {INBOX_VIEWS.map((v) => (

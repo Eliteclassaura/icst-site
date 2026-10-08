@@ -7,6 +7,7 @@ import { loadRfq } from '../../../../../crm/workspace/queries'
 import { Shell } from '../../../../../crm/workspace/ui/Shell'
 import { Shortcuts } from '../../../../../crm/workspace/ui/Shortcuts'
 import { RFQ_TABS, RfqDetailView, type RfqTab } from '../../_components/RfqDetail'
+import { BackToList } from '../../_components/ListContext'
 import { requireCrmSession } from '../../session'
 
 export const metadata: Metadata = { title: 'Inquiry' }
@@ -51,7 +52,7 @@ export default async function RfqPage({
     <Shell
       active="inbox"
       title={d ? String(d.rfq.rfq_number) : 'Inquiry'}
-      crumb={<a href="/crm/rfqs/">RFQ Inbox</a>}
+      crumb={<BackToList kind="rfqs" label="RFQ Inbox" />}
       userName={s.displayName} session={s}
       isAdmin={s.isAdmin}
     >

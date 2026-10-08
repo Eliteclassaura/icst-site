@@ -31,6 +31,8 @@ process.env.PAYLOAD_GRAPHQL = ''
 // The config no longer defaults an origin (deployable manifests must state it); tests use a local one.
 process.env.NEXT_PUBLIC_SERVER_URL ||= 'http://localhost:3200'
 delete process.env.H2O_CRM_DATA_LABEL
+// RFQ-EMAIL-CHECK-1: no DNS lookups from tests (the fixtures use reserved example domains); the email-check tests switch it on with a mock resolver.
+process.env.H2O_EMAIL_DNS_CHECK = 'off'
 
 // Content bridge DB tests: isolated, throwaway snapshot / search / upload directories for this run.
 import { mkdtempSync } from 'node:fs'

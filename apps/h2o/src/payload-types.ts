@@ -111,6 +111,7 @@ export interface Config {
     'crm-sequences': CrmSequence;
     'crm-sequence-versions': CrmSequenceVersion;
     'crm-enrollments': CrmEnrollment;
+    'crm-deal-stages': CrmDealStage;
     'public-routes': PublicRoute;
     'public-redirects': PublicRedirect;
     'payload-kv': PayloadKv;
@@ -197,6 +198,7 @@ export interface Config {
     'crm-sequences': CrmSequencesSelect<false> | CrmSequencesSelect<true>;
     'crm-sequence-versions': CrmSequenceVersionsSelect<false> | CrmSequenceVersionsSelect<true>;
     'crm-enrollments': CrmEnrollmentsSelect<false> | CrmEnrollmentsSelect<true>;
+    'crm-deal-stages': CrmDealStagesSelect<false> | CrmDealStagesSelect<true>;
     'public-routes': PublicRoutesSelect<false> | PublicRoutesSelect<true>;
     'public-redirects': PublicRedirectsSelect<false> | PublicRedirectsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -2631,6 +2633,14 @@ export interface CrmOpportunity {
    */
   origin_rfq?: (string | null) | CrmRfq;
   /**
+   * Makes qualifying idempotent: one deal per inquiry.
+   */
+  qualify_key?: string | null;
+  /**
+   * Office queue of the inquiry this deal came from.
+   */
+  office?: ('US' | 'TH') | null;
+  /**
    * Where this record came from. Evidence is retained; nothing is overwritten by a weaker source.
    */
   provenance: {
@@ -4056,6 +4066,28 @@ export interface CrmMailCursor {
   createdAt: string;
 }
 /**
+ * Order and wording of the deal stages. Keys are fixed.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-deal-stages".
+ */
+export interface CrmDealStage {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  key: 'NEW' | 'QUALIFYING' | 'QUALIFIED' | 'PROPOSAL' | 'NEGOTIATION' | 'DELAYED' | 'WON' | 'LOST' | 'CANCELLED';
+  label: string;
+  sort_order: number;
+  /**
+   * A disabled stage is hidden from new moves; deals already in it stay visible.
+   */
+  enabled?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-redirects".
  */
@@ -4363,6 +4395,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'crm-enrollments';
         value: string | CrmEnrollment;
+      } | null)
+    | ({
+        relationTo: 'crm-deal-stages';
+        value: string | CrmDealStage;
       } | null)
     | ({
         relationTo: 'public-routes';
@@ -5558,6 +5594,8 @@ export interface CrmOpportunitiesSelect<T extends boolean = true> {
   source_category?: T;
   source_event_id?: T;
   origin_rfq?: T;
+  qualify_key?: T;
+  office?: T;
   provenance?:
     | T
     | {
@@ -6185,6 +6223,19 @@ export interface CrmEnrollmentsSelect<T extends boolean = true> {
   exited_at?: T;
   missing_items?: T;
   awaiting_outbox?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-deal-stages_select".
+ */
+export interface CrmDealStagesSelect<T extends boolean = true> {
+  canonical_id?: T;
+  key?: T;
+  label?: T;
+  sort_order?: T;
+  enabled?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -10,6 +10,7 @@ import { FollowUpDialog } from '../../_components/Dialogs'
 import { EditAccountDialog } from '../../_components/RecordDialogs'
 import { RememberRecent } from '../../_components/SearchPanel'
 import { TaskTable } from '../../_components/TaskTable'
+import { BackToList } from '../../_components/ListContext'
 import { requireCrmSession } from '../../session'
 
 export const metadata: Metadata = { title: 'Account' }
@@ -41,7 +42,7 @@ export default async function AccountPage({ params, searchParams }: { params: Pr
   const people = a.people
   const domains = ((acc.domains ?? []) as Doc[]).filter((d) => d.domain_status !== 'RETIRED')
   return (
-    <Shell active="accounts" title={String(acc.canonical_name)} crumb={<a href="/crm/accounts/">Accounts</a>} userName={s.displayName} session={s} isAdmin={s.isAdmin}>
+    <Shell active="accounts" title={String(acc.canonical_name)} crumb={<BackToList kind="accounts" label="Accounts" />} userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <RememberRecent kind="account" id={accId} />
       <div className="c-stack">
         {sp.created === '1' ? (

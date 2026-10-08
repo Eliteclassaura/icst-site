@@ -89,7 +89,7 @@ export function contentHash(req: NativeRequest): string {
 }
 
 /** The valid request → the canonical delivery. Call only after `validateAnswers` returned no errors. */
-export function toDelivery(reg: Registry, req: NativeRequest, receivedAt: Date): { delivery: ParsedDelivery; attributionRejected: string[] } {
+export function toDelivery(reg: Registry, req: NativeRequest, receivedAt: Date, flags: Record<string, string> = {}): { delivery: ParsedDelivery; attributionRejected: string[] } {
   const a = Object.fromEntries(Object.entries(req.answers).map(([k, v]) => [k, v.trim()]))
   const flow = questionsFor(reg, a)
   const purpose = reg.purposes.find((p) => p.value === a.purpose)
@@ -106,6 +106,8 @@ export function toDelivery(reg: Registry, req: NativeRequest, receivedAt: Date):
   for (const q of details) other[q.id] = displayValue(reg, q, a[q.id])
   if (typeof contextType === 'string' && CONTEXT_TYPES.has(contextType)) other.context_type = contextType
   if (typeof contextId === 'string' && IDENT.test(contextId)) other.context_id = contextId
+  // RFQ-EMAIL-CHECK-1: non-personal flags from the server's checks (email_check: UNVERIFIED when DNS could not be asked).
+  Object.assign(other, flags)
   const qty = (a.parts_qty ?? '').trim()
 
   const attr = validateAttribution(req.attribution)

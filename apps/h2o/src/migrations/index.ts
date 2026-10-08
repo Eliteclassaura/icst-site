@@ -23,6 +23,8 @@ import * as migration_20261008_052750_rfq_fix_1_1_sweep_limits from './20261008_
 import * as migration_20261008_122143_alerts_1_email_routing from './20261008_122143_alerts_1_email_routing';
 import * as migration_20261008_122225_mfa_2_email_codes_devices from './20261008_122225_mfa_2_email_codes_devices';
 import * as migration_20261008_134113_send_fix_1a_outbox_outcomes from './20261008_134113_send_fix_1a_outbox_outcomes';
+import * as migration_20261008_200000_opp_1_deals from './20261008_200000_opp_1_deals';
+import * as migration_20261008_200500_opp_1_1_seed_deal_stages from './20261008_200500_opp_1_1_seed_deal_stages';
 
 export const migrations = [
   {
@@ -148,6 +150,16 @@ export const migrations = [
   {
     up: migration_20261008_134113_send_fix_1a_outbox_outcomes.up,
     down: migration_20261008_134113_send_fix_1a_outbox_outcomes.down,
-    name: '20261008_134113_send_fix_1a_outbox_outcomes'
+    name: '20261008_134113_send_fix_1a_outbox_outcomes',
+  },
+  {
+    up: migration_20261008_200000_opp_1_deals.up,
+    down: migration_20261008_200000_opp_1_deals.down,
+    name: '20261008_200000_opp_1_deals',
+  },
+  {
+    up: migration_20261008_200500_opp_1_1_seed_deal_stages.up,
+    down: migration_20261008_200500_opp_1_1_seed_deal_stages.down,
+    name: '20261008_200500_opp_1_1_seed_deal_stages',
   },
 ];

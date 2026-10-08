@@ -197,16 +197,16 @@ export function RoutingForm({
 }) {
   return (
     <ActionForm action={A.saveRoutingAction} submitLabel="Save routing">
-      <Field name="alerts_us" label="Who gets new quote alerts (US)" hint={`One address per line, up to 10. Leave empty to use the default (${defaults.alerts || 'none set'}).`}>
-        {(a) => <textarea className="c-input" {...a} defaultValue={values.alerts_us} rows={3} maxLength={4000} spellCheck={false} autoComplete="off" />}
+      <Field name="alerts_cc" label="Everyone who gets all new quote requests" hint={`One address per line, up to 10. Everyone here gets one email for every new quote request, from any office. Leave empty to use the default (${defaults.alerts || 'none set'}).`}>
+        {(a) => <textarea className="c-input" {...a} defaultValue={values.alerts_cc} rows={4} maxLength={4000} spellCheck={false} autoComplete="off" />}
       </Field>
-      <Field name="alerts_th" label="Who gets new quote alerts (Thailand)" hint={`One address per line, up to 10. Leave empty to use the default (${defaults.alerts || 'none set'}).`}>
-        {(a) => <textarea className="c-input" {...a} defaultValue={values.alerts_th} rows={3} maxLength={4000} spellCheck={false} autoComplete="off" />}
+      <Field name="alerts_us" label="Extra recipients for the US office" hint="Optional. Added to the list above for quotes that go to the US office.">
+        {(a) => <textarea className="c-input" {...a} defaultValue={values.alerts_us} rows={2} maxLength={4000} spellCheck={false} autoComplete="off" />}
       </Field>
-      <Field name="alerts_cc" label="Also send a copy to" hint="Optional. These addresses get every new quote alert, from both offices.">
-        {(a) => <textarea className="c-input" {...a} defaultValue={values.alerts_cc} rows={2} maxLength={4000} spellCheck={false} autoComplete="off" />}
+      <Field name="alerts_th" label="Extra recipients for the Thailand office" hint="Optional. Added to the list above for quotes that go to the Thailand office.">
+        {(a) => <textarea className="c-input" {...a} defaultValue={values.alerts_th} rows={2} maxLength={4000} spellCheck={false} autoComplete="off" />}
       </Field>
-      <Field name="sales_address" label="Sales address customers see" hint={`Shown in the quote confirmation and used for replies. Leave empty to use ${defaults.sales}.`}>
+      <Field name="sales_address" label="Sales address customers see" hint={`Shown in the quote confirmation and used for replies. Must be a company address (h2ocooling.com or h2ocooling.org). Leave empty to use ${defaults.sales}. The previous address gets a notice when you change it.`}>
         {(a) => <input className="c-input" {...a} type="email" inputMode="email" defaultValue={values.sales_address} maxLength={254} autoComplete="off" spellCheck={false} />}
       </Field>
     </ActionForm>

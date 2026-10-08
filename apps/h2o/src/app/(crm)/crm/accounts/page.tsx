@@ -11,6 +11,7 @@ import { AutoSubmit } from '../../../../crm/workspace/ui/AutoSubmit'
 import { IconPlus } from '../../../../crm/workspace/ui/Icons'
 import { Shell } from '../../../../crm/workspace/ui/Shell'
 import { Chips, ListSearch, queryOf, type Chip } from '../_components/ListControls'
+import { ListContext } from '../_components/ListContext'
 import { requireCrmSession } from '../session'
 
 export const metadata: Metadata = { title: 'Accounts' }
@@ -123,7 +124,8 @@ export default async function AccountsPage({ searchParams }: { searchParams: Pro
           </p>
         </div>
       ) : (
-        <div className="c-table-wrap">
+        <div className="c-table-wrap" id="crm-accounts-list">
+          <ListContext kind="accounts" scopeId="crm-accounts-list" />
           <table className="c-table c-dir-table">
             <caption className="c-visually-hidden">Accounts</caption>
             <thead>

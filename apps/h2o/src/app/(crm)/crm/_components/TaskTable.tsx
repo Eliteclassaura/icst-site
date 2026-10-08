@@ -72,7 +72,7 @@ export function TaskTable({
                     <input type="checkbox" className="c-check" data-bulk value={`${t.id}|${t.updatedAt}`} aria-label={`Select ${t.title}`} disabled={t.status === 'DONE' || t.status === 'CANCELLED'} />
                   </td>
                 ) : null}
-                <td className={`due${t.overdue ? ' c-overdue' : ''}`} title={due ? absoluteTime(due, zone) : undefined}>
+                <td data-label="Due" className={`due${t.overdue ? ' c-overdue' : ''}`} title={due ? absoluteTime(due, zone) : undefined}>
                   {due ? (
                     <>
                       {t.overdue ? <span className="c-visually-hidden">Overdue, due </span> : null}
@@ -93,6 +93,13 @@ export function TaskTable({
                   <span>
                     {label(TASK_KIND_LABEL, t.kind)}
                     {t.priority === 'HIGH' ? ' · High priority' : ''}
+                    {t.status === 'CANCELLED' ? ' · Canceled' : t.status === 'DONE' ? ' · Done' : ''}
+                    {t.contactId && t.contactName ? (
+                      <>
+                        {' · '}
+                        <a href={`/crm/contacts/${t.contactId}/`}>{t.contactName}</a>
+                      </>
+                    ) : null}
                     {showRelated && related ? (
                       <>
                         {' · '}
@@ -101,7 +108,7 @@ export function TaskTable({
                     ) : null}
                   </span>
                 </td>
-                {showOwner ? <td className="hide-sm owner">{t.assigneeName ?? <span className="c-warn-text">Unassigned</span>}</td> : null}
+                {showOwner ? <td data-label="Owner" className="owner">{t.assigneeName ?? <span className="c-warn-text">Unassigned</span>}</td> : null}
                 <td className="act">
                   <TaskActions task={t} isAdmin={isAdmin} people={people} />
                 </td>

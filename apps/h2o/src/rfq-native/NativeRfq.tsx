@@ -11,6 +11,7 @@
  */
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { captureFirstTouch } from './attribution'
+import { EmailTypoHint } from './EmailTypoHint'
 import { ChipGroup, Confirmation, CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, PrivacyNote, ReviewList, SendButton, UnavailableNote } from './fields'
 import { autocompleteFor, displayValue, nextQuestion, questionsFor, validate } from './flow'
 import { t, type Question, type Registry } from './model'
@@ -57,6 +58,7 @@ function Answer({ reg, q, error, onAnswer }: { reg: Registry; q: Question; error
         : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} inputMode={q.type === 'number_or_text' ? 'text' : undefined} autoComplete={autocompleteFor(q)} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>}
       <button type="button" className={styles.send} onClick={submit} aria-label={t(reg, 'input.send.aria')}><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 20.5 21 12 3 3.5v6.6L15 12 3 13.9z"/></svg></button>
     </div>
+    {q.type === 'email' ? <EmailTypoHint reg={reg} value={value} onUse={setValue}/> : null}
     {q.skippable ? <div className={styles.chips}><button type="button" className={`${styles.chip} ${styles.skip}`} onClick={() => onAnswer('')}>{t(reg, 'chip.skip')}</button></div> : null}
     <ErrorText reg={reg} id={errorId} error={error} live/>
   </div>
@@ -227,10 +229,12 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
             <h3 ref={reviewHeadingRef} className={styles.confirmHeading} tabIndex={-1}>{t(reg, 'review.heading')}</h3>
             <ReviewList reg={reg} answers={s.answers} onEdit={s.edit}/>
             <FailureNote reg={reg} failure={s.failure}/>
+            {/* FORM-NOTICE-1: the collection notice sits directly above "Send request" */}
+            <PrivacyNote reg={reg}/>
             <SendButton reg={reg} phase={s.phase} retryIn={s.retryIn} onSend={() => void s.send(hp)}/>
           </> : null}
           {s.phase === 'sent' ? <Confirmation reg={reg} rfqNumber={s.rfqNumber}><button type="button" className={styles.primary} onClick={close}>{t(reg, 'confirm.close')}</button></Confirmation> : null}
-          {current?.step === 'contact' || s.phase === 'review' ? <PrivacyNote reg={reg}/> : null}
+          {current?.step === 'contact' ? <PrivacyNote reg={reg}/> : null}
           <Honeypot reg={reg} value={hp} onChange={setHp}/>
         </div> : null}
       </div>

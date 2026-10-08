@@ -17,6 +17,7 @@ import { CrmMailCursor } from './collections/mail-cursor'
 import { CrmEnrollments } from './collections/enrollments'
 import { CrmSequences, CrmSequenceVersions } from './collections/sequences'
 import { CrmNotes } from './collections/notes'
+import { CrmDealStages } from './collections/deal-stages'
 import { CrmOpportunities } from './collections/opportunities'
 import { CrmRfqItems } from './collections/rfq-items'
 import { CrmRfqs } from './collections/rfqs'
@@ -76,6 +77,8 @@ export const crmCollections: CollectionConfig[] = [
   CrmSequences,
   CrmSequenceVersions,
   CrmEnrollments,
+  // OPP-1: deal stage order and wording (seeded defaults).
+  CrmDealStages,
 ]
 
 export const CRM_SLUGS = crmCollections.map((c) => c.slug)

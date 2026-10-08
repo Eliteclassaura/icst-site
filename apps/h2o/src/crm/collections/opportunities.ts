@@ -1,9 +1,10 @@
 import type { CollectionAfterChangeHook, CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 import { adminOnlyValues } from '../access'
+import { OFFICES } from '../offices'
 import { recordActivity } from '../activity'
 import { crmCollection, stampProvenance } from '../collection'
 import { provenanceGroup, userRelation } from '../fields'
-import { CrmInvariantError, merged, relId, writeOnce } from '../guards'
+import { CrmInvariantError, merged, relId, serverOwned, writeOnce } from '../guards'
 import { amountDisplay, economicsProblems, outcomeFor, revenueTruthFor, type Economics } from '../economics'
 import {
   AMOUNT_STATUS,
@@ -164,6 +165,29 @@ const stageTransition: CollectionBeforeChangeHook = ({ data, operation, original
   return data
 }
 
+
+/**
+ * OPP-1: one deal per qualified inquiry. `qualify_key` is `qualify:<rfq id>`, unique, and server-owned (OPP-1.1): the
+ * qualify step passes it through `context.crmServer`, REST and the admin UI cannot set or change it, and it must name
+ * this opportunity's own origin inquiry.
+ */
+const qualifyKey: CollectionBeforeChangeHook = ({ data, operation, originalDoc }) => {
+  const d = data as Doc
+  if (operation === 'update') {
+    if ('qualify_key' in d && d.qualify_key !== (originalDoc as Doc | undefined)?.qualify_key)
+      throw new CrmInvariantError('WRITE_ONCE_FIELD', 'crm-opportunities.qualify_key is write-once and cannot change.')
+    return data
+  }
+  if (d.qualify_key === undefined || d.qualify_key === null || d.qualify_key === '') {
+    d.qualify_key = null
+    return data
+  }
+  const origin = relId(d.origin_rfq)
+  if (!origin || d.qualify_key !== `qualify:${origin}`)
+    throw new CrmInvariantError('QUALIFY_KEY_MISMATCH', 'The deal key must name its own inquiry.')
+  return data
+}
+
 const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc, req }) => {
   const d = doc as Doc
   const base = { opportunity: String(d.id), account: relId(d.account), site: relId(d.site) }
@@ -222,9 +246,9 @@ export const CrmOpportunities: CollectionConfig = crmCollection(
       listSearchableFields: ['name'],
     },
     hooks: {
-      beforeValidate: [stampProvenance],
+      beforeValidate: [stampProvenance, serverOwned('crm-opportunities', ['qualify_key'])],
       // An opportunity never moves to another account: its RFQs, buying group and evidence are bound to it.
-      beforeChange: [writeOnce('crm-opportunities', ['account']), scopeBinding, stageTransition, economics],
+      beforeChange: [writeOnce('crm-opportunities', ['account']), qualifyKey, scopeBinding, stageTransition, economics],
       afterChange: [timeline],
     },
     fields: [
@@ -398,6 +422,20 @@ export const CrmOpportunities: CollectionConfig = crmCollection(
         type: 'relationship',
         relationTo: 'crm-rfqs',
         admin: { description: 'The RFQ this opportunity was qualified from, if any.' },
+      },
+      {
+        name: 'qualify_key',
+        type: 'text',
+        unique: true,
+        index: true,
+        admin: { readOnly: true, description: 'Makes qualifying idempotent: one deal per inquiry.' },
+      },
+      {
+        name: 'office',
+        type: 'select',
+        options: OFFICES.map((o) => ({ label: o, value: o })),
+        index: true,
+        admin: { description: 'Office queue of the inquiry this deal came from.' },
       },
       provenanceGroup(),
       { name: 'buying_group', type: 'join', collection: 'crm-buying-group-members', on: 'opportunity' },

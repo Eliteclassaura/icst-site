@@ -9,6 +9,7 @@ import { ClearSuppressionDialog, DoNotContactDialog, FollowUpDialog } from '../.
 import { ContactAccountDialog, EditContactDialog } from '../../_components/RecordDialogs'
 import { RememberRecent } from '../../_components/SearchPanel'
 import { TaskTable } from '../../_components/TaskTable'
+import { BackToList } from '../../_components/ListContext'
 import { requireCrmSession } from '../../session'
 
 export const metadata: Metadata = { title: 'Contact' }
@@ -48,7 +49,7 @@ export default async function ContactPage({ params, searchParams }: { params: Pr
     return r ? (r.company ?? `Inquiry ${r.rfqNumber}`) : 'Earlier inquiry'
   }
   return (
-    <Shell active="contacts" title={c.name} crumb={<a href="/crm/contacts/">Contacts</a>} userName={s.displayName} session={s} isAdmin={s.isAdmin}>
+    <Shell active="contacts" title={c.name} crumb={<BackToList kind="contacts" label="Contacts" />} userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <RememberRecent kind="contact" id={cid} />
       <div className="c-stack">
         {sp.created === '1' ? (

@@ -5,6 +5,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { discardReviewItem, linkReviewItem } from '../../../crm/inbound'
 import { composeReply } from '../../../crm/reply'
+import { editDeal, moveDealStage } from '../../../crm/workspace/deals'
 import { createManualInquiry } from '../../../crm/workspace/manualInquiry'
 import * as m from '../../../crm/workspace/mutations'
 import {
@@ -60,7 +61,50 @@ export async function startReviewAction(_: ActionState, fd: FormData) {
   return run(fd, (s) => m.startReview(s, { rfqId: f(fd, 'rfqId'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
 }
 export async function qualifyAction(_: ActionState, fd: FormData) {
-  return run(fd, (s) => m.qualifyRfq(s, { rfqId: f(fd, 'rfqId'), motion: f(fd, 'motion'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
+  return run(fd, (s) =>
+    m.qualifyRfq(s, {
+      rfqId: f(fd, 'rfqId'),
+      motion: f(fd, 'motion'),
+      expectedUpdatedAt: f(fd, 'expectedUpdatedAt'),
+      ownerId: f(fd, 'ownerId'),
+      stage: f(fd, 'stage'),
+      amount: f(fd, 'amount'),
+      currency: f(fd, 'currency'),
+      amountIsZero: f(fd, 'amountIsZero'),
+      expectedClose: f(fd, 'expectedClose'),
+      nextStep: f(fd, 'nextStep'),
+      nextDue: f(fd, 'nextDue'),
+    }),
+  )
+}
+/** OPP-1: edit a deal's owner, value, expected close and next action. */
+export async function editDealAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) =>
+    editDeal(s, {
+      dealId: f(fd, 'dealId'),
+      expectedUpdatedAt: f(fd, 'expectedUpdatedAt'),
+      ownerId: f(fd, 'ownerId'),
+      amount: f(fd, 'amount'),
+      currency: f(fd, 'currency'),
+      amountIsZero: f(fd, 'amountIsZero'),
+      expectedClose: f(fd, 'expectedClose'),
+      nextStep: f(fd, 'nextStep'),
+      nextDue: f(fd, 'nextDue'),
+    }),
+  )
+}
+/** OPP-1: move a deal to another stage with a reason. */
+export async function moveDealStageAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) =>
+    moveDealStage(s, {
+      dealId: f(fd, 'dealId'),
+      expectedUpdatedAt: f(fd, 'expectedUpdatedAt'),
+      stage: f(fd, 'stage'),
+      reason: f(fd, 'reason'),
+      nextStep: f(fd, 'nextStep'),
+      nextDue: f(fd, 'nextDue'),
+    }),
+  )
 }
 export async function closeAction(_: ActionState, fd: FormData) {
   return run(fd, (s) =>
@@ -120,6 +164,14 @@ export async function dueDateAction(_: ActionState, fd: FormData) {
 }
 export async function snoozeAction(_: ActionState, fd: FormData) {
   return run(fd, (s) => m.snoozeTask(s, { taskId: f(fd, 'taskId'), preset: f(fd, 'preset'), reason: f(fd, 'reason'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
+}
+/** Gate B item 4: edit a follow-up's title and priority. */
+export async function editFollowUpAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) => m.editFollowUp(s, { taskId: f(fd, 'taskId'), title: f(fd, 'title'), priority: f(fd, 'priority'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
+}
+/** Gate B item 4: cancel a follow-up (nothing is sent). */
+export async function cancelFollowUpAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) => m.cancelFollowUp(s, { taskId: f(fd, 'taskId'), reason: f(fd, 'reason'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))
 }
 export async function reassignTaskAction(_: ActionState, fd: FormData) {
   return run(fd, (s) => m.reassignTask(s, { taskId: f(fd, 'taskId'), assigneeId: f(fd, 'assigneeId'), expectedUpdatedAt: f(fd, 'expectedUpdatedAt') }))

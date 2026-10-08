@@ -1,3 +1,4 @@
+import { qualifyWithDeal } from './deals'
 import { crmUsers } from './queries'
 import { LOGGABLE_ACTIVITY_TYPES } from './labels'
 import { asUser, viewerCalendar, type CrmSession } from './session'
@@ -182,20 +183,32 @@ export async function moveRfqOffice(s: CrmSession, input: { rfqId: unknown; offi
   }
 }
 
-const MOTIONS = ['NEW_TOWER', 'REBUILD_REPLACEMENT', 'REPAIR', 'UPGRADE_RETROFIT', 'MAINTENANCE_INSPECTION', 'PARTS', 'OTHER_APPROVED'] as const
-
-/** Qualify: a person records the commercial motion. Creates no opportunity (Convert is deferred). */
-export async function qualifyRfq(s: CrmSession, input: { rfqId: unknown; motion: unknown; expectedUpdatedAt?: unknown }): Promise<Outcome> {
-  const motion = oneOf(input.motion, MOTIONS)
-  if (!motion) return fail('VALIDATION', 'Choose the commercial motion.', { fields: { motion: 'Required' } })
-  const target = await fresh(s, 'crm-rfqs', input.rfqId, input.expectedUpdatedAt)
-  if ('error' in target) return target.error!
-  if (String(target.doc.status) !== 'IN_REVIEW') return fail('INVALID_TRANSITION', 'Start the review before qualifying.')
+/**
+ * OPP-1 qualify: the person records the commercial motion and the inquiry gets its one deal (owner, stage, value,
+ * expected close, next action). Idempotent: qualifying again returns the existing deal. Sends nothing.
+ */
+export async function qualifyRfq(
+  s: CrmSession,
+  input: {
+    rfqId: unknown
+    motion: unknown
+    expectedUpdatedAt?: unknown
+    ownerId?: unknown
+    stage?: unknown
+    amount?: unknown
+    currency?: unknown
+    expectedClose?: unknown
+    nextStep?: unknown
+    nextDue?: unknown
+    amountIsZero?: unknown
+  },
+): Promise<Outcome> {
+  const cal = await viewerCalendar(s)
+  const nextDueDate = quickDueDates(new Date(), cal).tomorrow
   try {
-    await update(s, 'crm-rfqs', target.id, { status: 'QUALIFIED', motion, qualification_state: 'COMPLETE' }, input.expectedUpdatedAt)
-    return { ok: true, message: 'Qualified. No opportunity was created.' }
+    return await qualifyWithDeal(s, input, { nextDueDate })
   } catch (err) {
-    return failure(s, err)
+    return fromError(err)
   }
 }
 
@@ -489,6 +502,16 @@ export async function reopenTask(s: CrmSession, input: { taskId: unknown; expect
   }
 }
 
+const NOTES_MAX = 4000
+const NOTES_FULL = 'The notes on this follow-up are full (4,000 characters), so this note can’t be added. Ask an admin to trim the notes first.'
+
+/** Append a dated line to a task's notes, or null when it would pass the cap (old notes are never dropped silently). */
+function appendNote(prior: unknown, entry: string): string | null {
+  const before = typeof prior === 'string' && prior.trim() ? `${prior.trim()}\n` : ''
+  const next = `${before}${entry}`
+  return next.length <= NOTES_MAX ? next : null
+}
+
 /**
  * Change a follow-up's due date. A rule-set due date (the D-1 first response) is never moved silently: the person
  * must give a reason, which is appended to the task's notes and recorded as a note on the related record so it
@@ -511,8 +534,9 @@ export async function changeDueDate(
     return fail('VALIDATION', 'This due date was set by a rule. Say why it is changing.', { fields: { reason: 'A reason is required.' } })
   const data: Doc = { due_at: due }
   if (reason) {
-    const prior = typeof target.doc.notes === 'string' && target.doc.notes.trim() ? `${target.doc.notes.trim()}\n` : ''
-    data.notes = `${prior}${now.toISOString().slice(0, 10)} due date changed: ${reason}`.slice(-4000)
+    const notes = appendNote(target.doc.notes, `${now.toISOString().slice(0, 10)} due date changed: ${reason}`)
+    if (!notes) return fail('VALIDATION', NOTES_FULL, { fields: { reason: 'The notes are full.' } })
+    data.notes = notes
   }
   try {
     await update(s, 'crm-tasks', target.id, data, input.expectedUpdatedAt)
@@ -558,6 +582,104 @@ export async function reassignTask(s: CrmSession, input: { taskId: unknown; assi
   try {
     await update(s, 'crm-tasks', target.id, { assignee: who.id }, input.expectedUpdatedAt)
     return { ok: true, message: 'Follow-up reassigned.' }
+  } catch (err) {
+    return failure(s, err)
+  }
+}
+
+const FOLLOW_UP_PRIORITIES = ['HIGH', 'NORMAL', 'LOW'] as const
+
+/**
+ * Gate B item 4: edit a follow-up's title and priority in place. A rule-set task (the first response and the like)
+ * keeps its wording: only its priority can change. A finished follow-up cannot be edited. The change is written
+ * against the version the person was looking at, so a stale edit is refused rather than overwriting.
+ */
+export async function editFollowUp(
+  s: CrmSession,
+  input: { taskId: unknown; title?: unknown; priority?: unknown; expectedUpdatedAt?: unknown },
+  now: Date = new Date(),
+): Promise<Outcome> {
+  if (typeof input.expectedUpdatedAt !== 'string' || !input.expectedUpdatedAt.trim())
+    return fail('EXPECTED_UPDATED_AT_REQUIRED', 'Reload the follow-up and try again.')
+  const fields: FieldErrors = {}
+  const priority = oneOf(input.priority, FOLLOW_UP_PRIORITIES)
+  if (!priority) fields.priority = 'Choose a priority.'
+  const target = await fresh(s, 'crm-tasks', input.taskId, input.expectedUpdatedAt)
+  if ('error' in target) return target.error!
+  const d = target.doc
+  if (['DONE', 'CANCELLED'].includes(String(d.status))) return fail('INVALID_TRANSITION', 'This follow-up is finished.')
+  const system = d.source === 'SYSTEM_RULE'
+  const title = system ? String(d.title ?? '') : line(input.title, 160)
+  if (!title) fields.title = 'Enter a title.'
+  if (Object.keys(fields).length) return fail('VALIDATION', 'Check the highlighted fields.', { fields })
+  const data: Doc = {}
+  const titleChanged = !system && title !== String(d.title ?? '')
+  if (titleChanged) data.title = title
+  if (priority !== String(d.priority ?? 'NORMAL')) data.priority = priority
+  if (!Object.keys(data).length) return { ok: true, message: 'No changes to save.' }
+  if (titleChanged) {
+    const notes = appendNote(d.notes, `${now.toISOString().slice(0, 10)} title changed from “${String(d.title ?? '')}”`)
+    if (!notes) return fail('VALIDATION', NOTES_FULL, { fields: { title: 'The notes are full.' } })
+    data.notes = notes
+  }
+  try {
+    await update(s, 'crm-tasks', target.id, data, input.expectedUpdatedAt)
+    return { ok: true, message: 'Follow-up updated.' }
+  } catch (err) {
+    return failure(s, err)
+  }
+}
+
+/**
+ * Cancel a follow-up that is no longer needed (cancel, not delete: the record and its history stay). Cancelling an
+ * already-canceled one is a no-op success; a done one cannot be canceled. A rule-set task needs a reason, which is
+ * kept in its notes, so a first-response task is never dropped silently. Nothing is sent.
+ */
+export async function cancelFollowUp(
+  s: CrmSession,
+  input: { taskId: unknown; reason?: unknown; expectedUpdatedAt?: unknown },
+  now: Date = new Date(),
+): Promise<Outcome> {
+  const target = await fresh(s, 'crm-tasks', input.taskId, undefined)
+  if ('error' in target) return target.error!
+  if (target.doc.status === 'CANCELLED') return { ok: true, message: 'Follow-up already canceled.' }
+  if (target.doc.status === 'DONE') return fail('INVALID_TRANSITION', 'This follow-up is already done.')
+  if (typeof input.expectedUpdatedAt !== 'string' || !input.expectedUpdatedAt.trim())
+    return fail('EXPECTED_UPDATED_AT_REQUIRED', 'Reload the follow-up and try again.')
+  const reason = line(input.reason, 240)
+  if (target.doc.source === 'SYSTEM_RULE' && !reason)
+    return fail('VALIDATION', 'This follow-up was created by a rule. Say why it is being canceled.', { fields: { reason: 'A reason is required.' } })
+  const expected = input.expectedUpdatedAt
+  try {
+    return await withRowLock(s, 'crm-tasks', target.id, async (req) => {
+      const cur = (await s.payload.findByID({ collection: 'crm-tasks', id: target.id, depth: 0, req, ...asUser(s) })) as unknown as Doc
+      if (cur.status === 'CANCELLED') return { ok: true, message: 'Follow-up already canceled.' } as Outcome
+      if (cur.status === 'DONE') return fail('INVALID_TRANSITION', 'This follow-up is already done.')
+      if (String(cur.updatedAt) !== expected) throw new StaleWrite('crm-tasks', target.id, expected)
+      const data: Doc = { status: 'CANCELLED' }
+      if (reason) {
+        const notes = appendNote(cur.notes, `${now.toISOString().slice(0, 10)} canceled: ${reason}`)
+        if (!notes) return fail('VALIDATION', NOTES_FULL, { fields: { reason: 'The notes are full.' } })
+        data.notes = notes
+      }
+      await s.payload.update({ collection: 'crm-tasks', id: target.id, data: data as never, depth: 0, req, ...asUser(s) })
+      return { ok: true, message: 'Follow-up canceled.', rule: cur.source === 'SYSTEM_RULE', subject: { rfq: cur.rfq ?? null, account: cur.account ?? null, contact: cur.contact ?? null }, title: String(cur.title ?? 'follow-up') } as Outcome & { rule: boolean; subject: Doc; title: string }
+    }).then(async (out) => {
+      // A rule-made follow-up (the first response) is never dropped silently: the inquiry's timeline says so.
+      const { rule, subject, title, ...clean } = out as Outcome & { rule?: boolean; subject?: Doc; title?: string }
+      if (!clean.ok || !rule || !subject) return clean as Outcome
+      try {
+        await s.payload.create({
+          collection: 'crm-notes',
+          data: { body: `Follow-up “${title}” canceled. Reason: ${reason}`, ...subject } as never,
+          depth: 0,
+          ...asUser(s),
+        })
+        return { ok: true, message: 'Follow-up canceled.' } as Outcome
+      } catch {
+        return { ok: true, message: 'Follow-up canceled. The reason is on the follow-up, but the timeline note could not be added.' } as Outcome
+      }
+    })
   } catch (err) {
     return failure(s, err)
   }

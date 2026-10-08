@@ -66,15 +66,16 @@ describe('R4-03: why a server refused (stage + enhanced code)', () => {
 
 describe('R2-02: the allowed kinds', () => {
   it('the launch set is the RFQ alert and T1; replies and sequences need an explicit list; a bad list fails closed', () => {
-    expect(LAUNCH_KINDS).toEqual(['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'INTAKE_FAILED_ALERT'])
+    expect(LAUNCH_KINDS).toEqual(['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'INTAKE_FAILED_ALERT', 'TEST_ALERT', 'MFA_CODE'])
     const launch = readEmailConfig({})
-    for (const k of ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'INTAKE_FAILED_ALERT']) expect(kindAllowed(k, launch)).toBe(true)
+    for (const k of ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'INTAKE_FAILED_ALERT', 'MFA_CODE']) expect(kindAllowed(k, launch)).toBe(true)
     // owner launch requirement: the team list is ~10 addresses; more than 20 is a mistake (fail closed)
     const many = Array.from({ length: 21 }, (_, i) => `t${i}@example.test`).join(',')
     expect(readEmailConfig({ H2O_EMAIL_MODE: 'live', H2O_EMAIL_FROM: 'rfq@example.test', H2O_SALES_ALERT_TO: many }).errors).toContain('SALES_ALERT_TO_TOO_MANY')
     expect(readEmailConfig({ H2O_EMAIL_MODE: 'live', H2O_EMAIL_FROM: 'rfq@example.test', H2O_SALES_ALERT_TO: many.split(',').slice(0, 10).join(',') }).errors).not.toContain('SALES_ALERT_TO_TOO_MANY')
-    for (const k of ['RFQ_REPLY', 'SEQUENCE_EMAIL', 'MFA_CODE', 'ANYTHING']) expect(kindAllowed(k, launch)).toBe(false)
-    // MFA_CODE is a valid, reserved kind: MFA-2 turns it on by adding it to the list
+    for (const k of ['RFQ_REPLY', 'SEQUENCE_EMAIL', 'ANYTHING']) expect(kindAllowed(k, launch)).toBe(false)
+    // MFA_CODE is a launch kind since MFA-2.1 (Auditor N4); an explicit operator list that leaves it out turns it off
+    expect(kindAllowed('MFA_CODE', readEmailConfig({ H2O_EMAIL_ALLOWED_KINDS: 'RFQ_SALES_ALERT,RFQ_CUSTOMER_ACK' }))).toBe(false)
     expect(kindAllowed('MFA_CODE', readEmailConfig({ H2O_EMAIL_ALLOWED_KINDS: 'RFQ_SALES_ALERT,RFQ_CUSTOMER_ACK,MFA_CODE' }))).toBe(true)
     expect(kindAllowed('RFQ_REPLY', readEmailConfig({ H2O_EMAIL_ALLOWED_KINDS: 'rfq_sales_alert, RFQ_REPLY' }))).toBe(true)
     expect(kindAllowed('RFQ_CUSTOMER_ACK', readEmailConfig({ H2O_EMAIL_ALLOWED_KINDS: 'RFQ_SALES_ALERT' }))).toBe(false)
@@ -90,7 +91,7 @@ describe('system mail is not an outbox kind: the launch allowlist never blocks i
   it('under the launch allowlist a forgot-password email still sends; replies, sequences and blasts stay blocked', async () => {
     const launch = readEmailConfig({ H2O_EMAIL_MODE: 'live', H2O_EMAIL_FROM: 'Desk <rfq@example.test>', H2O_SMTP_HOST: 'smtp.example.test', H2O_SMTP_PORT: '587', H2O_SMTP_USER: 'rfq@example.test', H2O_SMTP_PASS: 'synthetic-pass', H2O_SMTP_TLS_SERVERNAME: 'smtp.example.test' })
     expect(launch.errors).toEqual([])
-    for (const k of ['RFQ_REPLY', 'SEQUENCE_EMAIL', 'BLAST', 'MFA_CODE']) expect(kindAllowed(k, launch), k).toBe(false)
+    for (const k of ['RFQ_REPLY', 'SEQUENCE_EMAIL', 'BLAST']) expect(kindAllowed(k, launch), k).toBe(false)
     const events: Array<Record<string, unknown>> = []
     const sent: MailMessage[] = []
     const send = makeSendEmail({ create: async ({ data }: { data: Record<string, unknown> }) => (events.push(data), data) } as never, launch, {

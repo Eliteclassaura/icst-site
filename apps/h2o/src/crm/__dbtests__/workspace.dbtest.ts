@@ -171,7 +171,7 @@ describe('W3 lifecycle: qualify, close, reopen', () => {
     expect((await m.qualifyRfq(S, { rfqId: id, motion: 'PARTS' })).ok).toBe(true)
     const r = await rfq(id)
     expect(r.status).toBe('QUALIFIED')
-    expect(r.opportunity ?? null).toBeNull() // Convert is deferred: qualifying creates nothing
+    expect(r.opportunity).toBeTruthy() // OPP-1: qualifying creates the one deal
     expect(r.account_match_state).toBe('MANUAL')
   })
   it('closing needs a reason; a duplicate needs a real RFQ number', async () => {

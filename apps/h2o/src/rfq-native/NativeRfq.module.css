@@ -77,6 +77,8 @@
   --rfq-ink: rgb(16 22 35);
   --rfq-danger: rgb(178 34 34);
   --rfq-veil: rgb(255 255 255 / 14%);
+
+  color-scheme: light;
 }
 
 .panel {
@@ -198,11 +200,29 @@
   border-block-start: 0;
 }
 
-/* "Send request" stays in view while the review list scrolls. */
-.panel:is([data-phase="review"], [data-phase="sending"]) .primary {
+/*
+ * FORM-NOTICE-1.1 (DD F1): the "Send request" action bar stays in view while the review list scrolls, on a SOLID panel-surface
+ * backing (the same token as the panel), a hairline top border and its own bottom padding, so nothing scrolls visibly behind it.
+ * Only in the chat panel; the inline form keeps the bar in the page flow.
+ */
+.actionBar {
+  display: block;
+}
+
+/* The footer's own bottom padding would leave a strip under the bar where content shows; the bar carries that padding itself. */
+.panel:is([data-phase="review"], [data-phase="sending"]) .footer {
+  padding-block-end: 0;
+}
+
+.panel:is([data-phase="review"], [data-phase="sending"]) .actionBar {
   position: sticky;
   inset-block-end: 0;
-  box-shadow: 0 -10px 16px var(--df-white, rgb(255 255 255));
+  z-index: 1;
+  margin-inline: -18px;
+  padding-block: 12px max(16px, env(safe-area-inset-bottom));
+  padding-inline: 18px;
+  background: var(--df-white, rgb(255 255 255));
+  border-block-start: 1px solid rgb(16 22 35 / 14%);
 }
 
 .log[hidden] {
@@ -318,6 +338,59 @@ textarea.input {
 .privacy a,
 .failure a {
   color: var(--df-blue, rgb(11 75 140));
+}
+
+/* FORM-NOTICE-1: the full collection notice behind a native disclosure; the summary is a 44px target. */
+.privacy p {
+  margin: 0;
+}
+
+/* FORM-NOTICE-1.1 (DD F2): a visible disclosure marker (a chevron that turns when open), a full-width row of at least 44px, and a focus ring. */
+.privacyDetails summary {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: 44px;
+  color: var(--df-blue, rgb(11 75 140));
+  cursor: pointer;
+  list-style: none;
+}
+
+.privacyDetails summary::-webkit-details-marker {
+  display: none;
+}
+
+.privacyDetails summary::before {
+  flex: none;
+  inline-size: 8px;
+  block-size: 8px;
+  content: "";
+  border-block-end: 2px solid currentcolor;
+  border-inline-end: 2px solid currentcolor;
+  transform: rotate(-45deg);
+}
+
+.privacyDetails[open] summary::before {
+  transform: rotate(45deg);
+}
+
+.privacyDetails summary:focus-visible {
+  outline: 3px solid var(--df-step-number, rgb(11 85 165));
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .privacyDetails summary::before {
+    transition: transform 0.12s ease-out;
+  }
+}
+
+.privacyDetails ul {
+  margin: 0;
+  padding-inline-start: 20px;
 }
 
 /* RFQ-FIX-1 (QA pre-pass M2): the form's own paragraph colour (.form p) must not turn messages grey; 6.4:1 on the form tint. */

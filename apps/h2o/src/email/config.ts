@@ -67,8 +67,11 @@ export type EmailConfig = {
  * System mail is NOT an outbox kind and is never gated here: Payload's own mail (password reset, anything sent with
  * payload.sendEmail) goes through email/adapter.ts (kind PAYLOAD_AUTH), gated only by the mode and recipient gate.
  */
-export const OUTBOX_KINDS = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'RFQ_REPLY', 'SEQUENCE_EMAIL', 'MFA_CODE', 'INTAKE_FAILED_ALERT'] as const
-export const LAUNCH_KINDS: readonly string[] = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'INTAKE_FAILED_ALERT']
+export const OUTBOX_KINDS = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'RFQ_REPLY', 'SEQUENCE_EMAIL', 'MFA_CODE', 'INTAKE_FAILED_ALERT', 'TEST_ALERT'] as const
+// TEST_ALERT (ALERTS-1.1): the "Send test alert" button of Settings → Email routing. A system-style internal kind (no customer, no
+// unsubscribe, never marketing); it is sent directly, not through the outbox, but only while this gate allows it.
+// MFA_CODE (MFA-2.1, Auditor N4): the emailed sign-in code is a launch kind too (internal staff mail, one recipient, no marketing).
+export const LAUNCH_KINDS: readonly string[] = ['RFQ_SALES_ALERT', 'RFQ_CUSTOMER_ACK', 'INTAKE_FAILED_ALERT', 'TEST_ALERT', 'MFA_CODE']
 /** May a message of this kind be queued or submitted now? Checked when queueing AND immediately before SMTP submit. */
 export const kindAllowed = (kind: string, cfg: Pick<EmailConfig, 'allowedKinds'> = readEmailConfig()): boolean =>
   (cfg.allowedKinds ?? LAUNCH_KINDS).includes(kind)

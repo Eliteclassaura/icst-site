@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { ActionDialog } from '../../../../crm/workspace/ui/ActionDialog'
 import { ActionForm, Field } from '../../../../crm/workspace/ui/ActionForm'
+import { CURRENCY_CODES } from '../../../../crm/currencies'
 import { IconCheck } from '../../../../crm/workspace/ui/Icons'
 import { Overflow } from '../../../../crm/workspace/ui/Overflow'
 import { businessDate, quickDueDates, type QuickDue } from '../../../../crm/workspace/time'
@@ -125,17 +126,117 @@ export function AssignDialog({
   )
 }
 
+export type StageOption = { key: string; label: string }
+
+/**
+ * Fields shared by the qualify and edit-deal dialogs: owner, value, expected close and, for an open deal only, the next
+ * action and its due date. A closed deal has no next action, so none is shown or asked for. Dates are calendar dates in
+ * the deal's business zone (`zoneNote` says which).
+ */
+function DealFields({
+  people,
+  owner,
+  amount,
+  currency,
+  amountIsZero,
+  expectedClose,
+  nextStep,
+  nextDue,
+  showNext = true,
+  zoneNote,
+}: {
+  people: Person[]
+  owner: string
+  amount?: string
+  currency?: string
+  amountIsZero?: boolean
+  expectedClose?: string
+  nextStep?: string
+  nextDue?: string
+  showNext?: boolean
+  zoneNote?: string
+}) {
+  return (
+    <>
+      <Field name="ownerId" label="Owner" required>
+        {(a) => (
+          <select className="c-select" {...a} defaultValue={owner}>
+            {people.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name}
+              </option>
+            ))}
+          </select>
+        )}
+      </Field>
+      <div className="c-form-grid">
+        <Field name="amount" label="Value" hint="Leave blank if it is not known yet. Use the currency’s own decimals.">
+          {(a) => <input className="c-input" inputMode="decimal" autoComplete="off" {...a} defaultValue={amount ?? ''} />}
+        </Field>
+        <Field name="currency" label="Currency" hint="An ISO code, such as USD, THB or JPY.">
+          {(a) => (
+            <>
+              <input className="c-input" autoComplete="off" maxLength={3} list="crm-iso-currencies" {...a} defaultValue={currency ?? ''} style={{ textTransform: 'uppercase' }} />
+              <datalist id="crm-iso-currencies">
+                {CURRENCY_CODES.map((c) => (
+                  <option key={c} value={c} />
+                ))}
+              </datalist>
+            </>
+          )}
+        </Field>
+        <Field name="expectedClose" label="Expected close">
+          {(a) => <input className="c-input" type="date" {...a} defaultValue={expectedClose ?? ''} />}
+        </Field>
+      </div>
+      <label className="c-deal-check">
+        <input className="c-check" type="checkbox" name="amountIsZero" defaultChecked={Boolean(amountIsZero)} />
+        <span>The value is genuinely zero (for example, confirmed in writing)</span>
+      </label>
+      {showNext ? (
+        <>
+          <Field name="nextStep" label="Next action" required wide>
+            {(a) => <input className="c-input" maxLength={160} {...a} defaultValue={nextStep ?? ''} />}
+          </Field>
+          <div className="c-form-grid">
+            <Field name="nextDue" label="Due" required hint={zoneNote}>
+              {(a) => <input className="c-input" type="date" {...a} defaultValue={nextDue ?? ''} />}
+            </Field>
+            <QuickDates field="nextDue" />
+          </div>
+        </>
+      ) : null}
+    </>
+  )
+}
+
 export function QualifyDialog({
   rfqId,
   updatedAt,
   accountLinked,
   motion,
+  people,
+  meId,
+  ownerId,
+  stages,
+  defaultStage,
+  defaultNextStep,
+  zoneNote,
 }: {
   rfqId: string
   updatedAt: string
   accountLinked: boolean
   motion: string | null
+  people: Person[]
+  meId: string
+  ownerId: string | null
+  stages: StageOption[]
+  defaultStage: string
+  defaultNextStep: string
+  /** Which business zone the due date is read in (the inquiry's office). */
+  zoneNote?: string
 }) {
+  const cal = useCrmCalendar()
   if (!accountLinked)
     return (
       <span className="c-actions">
@@ -153,11 +254,11 @@ export function QualifyDialog({
       title="Qualify inquiry"
       action={A.qualifyAction}
       hidden={{ rfqId, expectedUpdatedAt: updatedAt }}
-      submitLabel="Qualify"
+      submitLabel="Qualify and create deal"
       buttonClassName="c-btn is-primary"
-      description="Qualifying records the commercial motion. It does not create an opportunity."
+      description="Qualifying creates one deal for this inquiry. You can change every value afterwards. Nothing is sent to the customer."
     >
-      <Field name="motion" label="Commercial motion">
+      <Field name="motion" label="Commercial motion" required>
         {(a) => (
           <select className="c-select" {...a} defaultValue={motion ?? ''}>
             <option value="" disabled>
@@ -171,6 +272,124 @@ export function QualifyDialog({
           </select>
         )}
       </Field>
+      <Field name="stage" label="Stage" required>
+        {(a) => (
+          <select className="c-select" {...a} defaultValue={defaultStage}>
+            {stages.map((st) => (
+              <option key={st.key} value={st.key}>
+                {st.label}
+              </option>
+            ))}
+          </select>
+        )}
+      </Field>
+      <DealFields people={people} owner={ownerId ?? meId} nextStep={defaultNextStep} nextDue={quickDueDates(new Date(), cal).tomorrow} zoneNote={zoneNote} />
+    </ActionDialog>
+  )
+}
+
+export function EditDealDialog({
+  dealId,
+  updatedAt,
+  people,
+  owner,
+  amount,
+  currency,
+  amountIsZero,
+  expectedClose,
+  nextStep,
+  nextDue,
+  open,
+  zoneNote,
+  buttonClassName,
+}: {
+  dealId: string
+  updatedAt: string
+  people: Person[]
+  owner: string
+  amount: string
+  currency: string
+  amountIsZero: boolean
+  expectedClose: string
+  nextStep: string
+  nextDue: string
+  open: boolean
+  zoneNote?: string
+  buttonClassName?: string
+}) {
+  const cal = useCrmCalendar()
+  return (
+    <ActionDialog
+      label="Edit deal"
+      title="Edit deal"
+      action={A.editDealAction}
+      hidden={{ dealId, expectedUpdatedAt: updatedAt }}
+      submitLabel="Save deal"
+      buttonClassName={buttonClassName ?? 'c-btn'}
+      description={open ? 'An open deal always keeps a next action with a due date.' : 'This deal is closed, so it has no next action.'}
+    >
+      <DealFields people={people} owner={owner} amount={amount} currency={currency} amountIsZero={amountIsZero} expectedClose={expectedClose} nextStep={open ? nextStep : undefined} nextDue={open ? nextDue || quickDueDates(new Date(), cal).tomorrow : undefined} showNext={open} zoneNote={zoneNote} />
+    </ActionDialog>
+  )
+}
+
+export function MoveStageDialog({
+  dealId,
+  updatedAt,
+  stages,
+  current,
+  currentIsClosed,
+  buttonClassName,
+}: {
+  dealId: string
+  updatedAt: string
+  stages: Array<StageOption & { terminal: boolean }>
+  current: string
+  currentIsClosed: boolean
+  buttonClassName?: string
+}) {
+  const cal = useCrmCalendar()
+  const [target, setTarget] = useState(stages.find((x) => x.key !== current)?.key ?? current)
+  const needsNext = currentIsClosed && !(stages.find((x) => x.key === target)?.terminal ?? false)
+  return (
+    <ActionDialog
+      label="Move stage"
+      title="Move to another stage"
+      action={A.moveDealStageAction}
+      hidden={{ dealId, expectedUpdatedAt: updatedAt }}
+      submitLabel="Move deal"
+      buttonClassName={buttonClassName ?? 'c-btn is-primary'}
+      description="Say what moved the deal. The move is recorded in the deal’s history."
+    >
+      <Field name="stage" label="New stage" required>
+        {(a) => (
+          <select className="c-select" {...a} value={target} onChange={(e) => setTarget(e.target.value)}>
+            {stages
+              .filter((x) => x.key !== current)
+              .map((st) => (
+                <option key={st.key} value={st.key}>
+                  {st.label}
+                </option>
+              ))}
+          </select>
+        )}
+      </Field>
+      <Field name="reason" label="What moved it" required wide>
+        {(a) => <input className="c-input" maxLength={240} autoComplete="off" {...a} />}
+      </Field>
+      {needsNext ? (
+        <>
+          <Field name="nextStep" label="Next action" required wide>
+            {(a) => <input className="c-input" maxLength={160} {...a} />}
+          </Field>
+          <div className="c-form-grid">
+            <Field name="nextDue" label="Due" required>
+              {(a) => <input className="c-input" type="date" {...a} defaultValue={quickDueDates(new Date(), cal).tomorrow} />}
+            </Field>
+            <QuickDates field="nextDue" />
+          </div>
+        </>
+      ) : null}
     </ActionDialog>
   )
 }
@@ -178,7 +397,7 @@ export function QualifyDialog({
 export function CloseDialog({ rfqId, updatedAt, buttonClassName }: { rfqId: string; updatedAt: string; buttonClassName?: string }) {
   const [outcome, setOutcome] = useState('CLOSED')
   return (
-    <ActionDialog buttonClassName={buttonClassName} label="Close…" title="Close inquiry" action={A.closeAction} hidden={{ rfqId, expectedUpdatedAt: updatedAt }} submitLabel="Close inquiry">
+    <ActionDialog buttonClassName={buttonClassName} label="Close…" title="Close inquiry" action={A.closeAction} hidden={{ rfqId, expectedUpdatedAt: updatedAt }} submitLabel="Close inquiry" draft={`close:${rfqId}`}>
       <Field name="outcome" label="Outcome">
         {(a) => (
           <select className="c-select" {...a} value={outcome} onChange={(e) => setOutcome(e.target.value)}>
@@ -207,7 +426,7 @@ export function ReopenButton({ rfqId, updatedAt, primary }: { rfqId: string; upd
 
 export function NoteDialog({ rfqId, buttonClassName }: { rfqId: string; buttonClassName?: string }) {
   return (
-    <ActionDialog buttonClassName={buttonClassName} label="Add note" title="Add note" action={A.noteAction} hidden={{ rfqId }} submitLabel="Save note" shortcut="note" description="Notes are internal. Nothing is sent.">
+    <ActionDialog buttonClassName={buttonClassName} label="Add note" title="Add note" action={A.noteAction} hidden={{ rfqId }} submitLabel="Save note" shortcut="note" draft={`note:${rfqId}`} description="Notes are internal. Nothing is sent.">
       <Field name="body" label="Note">
         {(a) => <textarea className="c-textarea" {...a} maxLength={5000} />}
       </Field>
@@ -223,6 +442,7 @@ export function LogDialog({ rfqId, doNotContact, buttonClassName }: { rfqId: str
       title="Log what happened"
       action={A.logActivityAction}
       hidden={{ rfqId }}
+      draft={`log:${rfqId}`}
       submitLabel="Log"
       description={
         doNotContact
@@ -276,6 +496,7 @@ export function FollowUpDialog({
       hidden={{ rfqId, accountId, contactId }}
       submitLabel="Create follow-up"
       shortcut="follow-up"
+      draft={`follow-up:${rfqId ?? accountId ?? contactId ?? 'none'}`}
     >
       <Field name="title" label="Title">
         {(a) => <input className="c-input" {...a} maxLength={160} />}
@@ -320,6 +541,7 @@ export function RequestInfoDialog({ rfqId, updatedAt, buttonClassName }: { rfqId
       action={A.requestInfoAction}
       hidden={{ rfqId, expectedUpdatedAt: updatedAt }}
       submitLabel="Record request"
+      draft={`request-info:${rfqId}`}
       description="Contact the customer by phone or from your own mailbox. The CRM records what is missing as waiting for customer. Nothing is sent."
     >
       <Field name="missing" label="What is missing">
@@ -498,6 +720,7 @@ type TaskLike = {
   updatedAt: string
   dueAt: string | null
   assigneeId: string | null
+  priority?: string
 }
 
 /**
@@ -524,7 +747,7 @@ export function TaskActions({ task, isAdmin, people }: { task: TaskLike; isAdmin
   const finished = task.status === 'DONE' || task.status === 'CANCELLED'
   if (finished)
     return isAdmin ? (
-      <ActionForm inline action={A.reopenTaskAction} hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }} submitLabel="Reopen (admin)" submitClassName="c-btn is-small" />
+      <ActionForm inline action={A.reopenTaskAction} hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }} submitLabel="Reopen (admin)" submitClassName="c-btn is-small" announce={task.title} />
     ) : null
   const system = task.source === 'SYSTEM_RULE'
   return (
@@ -538,37 +761,68 @@ export function TaskActions({ task, isAdmin, people }: { task: TaskLike; isAdmin
           submitClassName="c-btn is-small"
           submitAriaLabel={`Customer replied: ${task.title}`}
           submitIcon={<IconCheck />}
+          announce={task.title}
         />
       ) : (
-        <ActionForm inline action={A.completeTaskAction} hidden={{ taskId: task.id }} submitLabel="Done" submitClassName="c-btn is-small" submitAriaLabel={`Mark done: ${task.title}`} submitIcon={<IconCheck />} />
+        <ActionForm inline action={A.completeTaskAction} hidden={{ taskId: task.id }} submitLabel="Done" submitClassName="c-btn is-small" submitAriaLabel={`Mark done: ${task.title}`} submitIcon={<IconCheck />} announce={task.title} />
       )}
+    <ActionDialog
+      label="Reschedule"
+      title="Reschedule follow-up"
+      action={A.dueDateAction}
+      hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }}
+      submitLabel="Save"
+      buttonClassName="c-btn is-small"
+      announce={task.title}
+      ariaLabel={`Reschedule: ${task.title}`}
+      description={system ? 'This due date was set by a rule (first response by the end of the next business day). Say why it is changing; the reason is kept on the record.' : undefined}
+    >
+      <Field name="due" label="Due date">
+        {(a) => <input className="c-input" type="date" {...a} defaultValue={task.dueAt ? businessDate(new Date(task.dueAt), cal.zone) : ''} />}
+      </Field>
+      <QuickDates />
+      {system ? (
+        <Field name="reason" label="Reason" required>
+          {(a) => <input className="c-input" {...a} maxLength={240} />}
+        </Field>
+      ) : null}
+    </ActionDialog>
       <Overflow label="⋯" ariaLabel={`More actions: ${task.title}`} className="c-btn is-small is-ghost c-icon-btn">
         {system ? null : (
           <>
-            <ActionForm inline action={A.snoozeAction} hidden={{ taskId: task.id, preset: 'tomorrow', expectedUpdatedAt: task.updatedAt }} submitLabel="Snooze to tomorrow" submitClassName={MENU} />
-            <ActionForm inline action={A.snoozeAction} hidden={{ taskId: task.id, preset: 'next_week', expectedUpdatedAt: task.updatedAt }} submitLabel="Snooze to next week" submitClassName={MENU} />
+            <ActionForm inline action={A.snoozeAction} hidden={{ taskId: task.id, preset: 'tomorrow', expectedUpdatedAt: task.updatedAt }} submitLabel="Snooze to tomorrow" submitClassName={MENU} announce={task.title} />
+            <ActionForm inline action={A.snoozeAction} hidden={{ taskId: task.id, preset: 'next_week', expectedUpdatedAt: task.updatedAt }} submitLabel="Snooze to next week" submitClassName={MENU} announce={task.title} />
           </>
         )}
         <ActionDialog
-          label="Change due date…"
-          title="Change due date"
-          action={A.dueDateAction}
+          label="Edit…"
+          title="Edit follow-up"
+          action={A.editFollowUpAction}
           hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }}
           submitLabel="Save"
           buttonClassName={MENU}
-          description={system ? 'This due date was set by a rule (first response by the end of the next business day). Say why it is changing; the reason is kept on the record.' : undefined}
+          announce={task.title}
+          draft={`edit-follow-up:${task.id}`}
+          description={system ? 'This follow-up was created by a rule, so its wording stays. You can change its priority.' : undefined}
         >
-          <Field name="due" label="Due date">
-            {(a) => <input className="c-input" type="date" {...a} defaultValue={task.dueAt ? businessDate(new Date(task.dueAt), cal.zone) : ''} />}
-          </Field>
-          <QuickDates />
           {system ? (
-            <Field name="reason" label="Reason" required>
-              {(a) => <input className="c-input" {...a} maxLength={240} />}
+            <p className="c-hint">{task.title}</p>
+          ) : (
+            <Field name="title" label="Title" required>
+              {(a) => <input className="c-input" {...a} defaultValue={task.title} maxLength={160} />}
             </Field>
-          ) : null}
+          )}
+          <Field name="priority" label="Priority">
+            {(a) => (
+              <select className="c-select" {...a} defaultValue={task.priority ?? 'NORMAL'}>
+                <option value="HIGH">High</option>
+                <option value="NORMAL">Normal</option>
+                <option value="LOW">Low</option>
+              </select>
+            )}
+          </Field>
         </ActionDialog>
-        <ActionDialog label="Reassign…" title="Reassign follow-up" action={A.reassignTaskAction} hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }} submitLabel="Save" buttonClassName={MENU}>
+        <ActionDialog label="Reassign…" title="Reassign follow-up" action={A.reassignTaskAction} hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }} submitLabel="Save" buttonClassName={MENU} announce={task.title}>
           <Field name="assigneeId" label="Owner">
             {(a) => (
               <select className="c-select" {...a} defaultValue={task.assigneeId ?? ''}>
@@ -582,6 +836,20 @@ export function TaskActions({ task, isAdmin, people }: { task: TaskLike; isAdmin
                 ))}
               </select>
             )}
+          </Field>
+        </ActionDialog>
+        <ActionDialog
+          label="Cancel follow-up…"
+          title="Cancel follow-up"
+          action={A.cancelFollowUpAction}
+          hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }}
+          submitLabel="Cancel follow-up"
+          buttonClassName={MENU}
+          announce={task.title}
+          description="The follow-up is kept in the history, marked canceled. Nothing is sent."
+        >
+          <Field name="reason" label={system ? 'Reason' : 'Reason (optional)'} required={system}>
+            {(a) => <input className="c-input" {...a} maxLength={240} />}
           </Field>
         </ActionDialog>
       </Overflow>

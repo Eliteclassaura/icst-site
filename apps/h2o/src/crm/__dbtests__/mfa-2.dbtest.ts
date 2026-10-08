@@ -7,8 +7,9 @@ import { deliverSignInCode, renderSignInCode } from '../../auth/mfa/email-code-m
 import { pendingSession } from '../../auth/mfa/guard'
 import { clearMfa, confirmStepUp, enrolWithSecret, isSessionVerified, loadMfaUser, stepUpSecondsLeft, verifySecondFactorByEmail, verifySessionByDevice } from '../../auth/mfa/service'
 import { generateSecret } from '../../auth/mfa/totp'
-import { DEFAULT_SALES_ADDRESS } from '../../email/config'
-import { invalidateRouting } from '../../email/routing-read'
+import { makeSendEmail } from '../../email/adapter'
+import { kindAllowed, readEmailConfig } from '../../email/config'
+import type { MailMessage, MailTransport } from '../../email/transport'
 import { PASSWORD, payload, user } from './harness'
 
 /**
@@ -191,19 +192,63 @@ describe('MFA-2 email code', () => {
     expect(all).not.toMatch(/\b(street|st\.|avenue|road|suite|po box|bangkok|thailand|japan)\b/i)
   })
 
-  it('goes out with Reply-To = the public sales address (the default, never .org; the literal is pinned in a unit test)', async () => {
+  it('goes out with NO Reply-To, so a reply quoting a live code never lands in the sales mailbox', async () => {
     const p = await payload()
-    invalidateRouting()
     const spy = vi.spyOn(p, 'sendEmail').mockResolvedValue(undefined as never)
     try {
       await deliverSignInCode(p, 'someone@example.test', '123456')
       const sent = spy.mock.calls[0]![0] as Doc
-      expect(sent.replyTo).toBe(DEFAULT_SALES_ADDRESS)
-      expect(String(sent.replyTo)).not.toMatch(/\.org$/)
       expect(sent.to).toBe('someone@example.test')
+      expect('replyTo' in sent).toBe(false)
+      expect(JSON.stringify(sent)).not.toMatch(/reply/i)
     } finally {
       spy.mockRestore()
     }
+  })
+})
+
+describe('MFA-2.1: the sign-in code sends under the default (launch) configuration', () => {
+  const live = { H2O_EMAIL_MODE: 'live', H2O_EMAIL_FROM: 'ICS Sales Team <sales@example.test>', H2O_SMTP_HOST: 'mail.example.test', H2O_SMTP_PORT: '587', H2O_SMTP_USER: 'u', H2O_SMTP_PASS: 'p', H2O_SMTP_TLS_SERVERNAME: 'mail.example.test' }
+  it('MFA_CODE is in the launch kind set, and a code goes out through the real adapter with the default allowed kinds', async () => {
+    const env = { ...live } as Record<string, string | undefined> // no H2O_EMAIL_ALLOWED_KINDS: the launch set applies
+    const cfg = readEmailConfig(env)
+    expect(cfg.errors).toEqual([])
+    expect(kindAllowed('MFA_CODE', cfg)).toBe(true)
+    const sent: MailMessage[] = []
+    const transport: MailTransport = { send: async (m) => (sent.push(m), { messageId: null, accepted: 1 }), close: () => undefined }
+    const p = await payload()
+    const send = makeSendEmail(p, cfg, transport)
+    const m = renderSignInCode('123456')
+    const out = await send({ to: 'someone@example.test', subject: m.subject, text: m.text, html: m.html })
+    expect(out).toMatchObject({ sent: 1, suppressed: 0 })
+    expect(sent).toHaveLength(1)
+    expect(sent[0]!.to).toBe('someone@example.test')
+    expect(sent[0]!.text).toContain('123456')
+    expect(sent[0]!.replyTo ?? null).toBeNull()
+  })
+  it('CRM-B-4C-FIX: a sign-in code sent the way the app sends it goes through the REAL adapter with a recording transport, H2O_EMAIL_ALLOWED_KINDS unset → exactly one message', async () => {
+    const was = process.env.H2O_EMAIL_ALLOWED_KINDS
+    delete process.env.H2O_EMAIL_ALLOWED_KINDS
+    const cfg = readEmailConfig({ ...live } as Record<string, string | undefined>)
+    const sent: MailMessage[] = []
+    const transport: MailTransport = { send: async (m) => (sent.push(m), { messageId: null, accepted: 1 }), close: () => undefined }
+    const p = await payload()
+    const adapterSend = makeSendEmail(p, cfg, transport)
+    const spy = vi.spyOn(p, 'sendEmail').mockImplementation(adapterSend as never) // payload.sendEmail IS the adapter in the app
+    try {
+      await deliverSignInCode(p, 'someone@example.test', '654321')
+    } finally {
+      spy.mockRestore()
+      if (was !== undefined) process.env.H2O_EMAIL_ALLOWED_KINDS = was
+    }
+    expect(sent).toHaveLength(1)
+    expect(sent[0]!.to).toBe('someone@example.test')
+    expect(sent[0]!.text).toContain('654321')
+    expect(sent[0]!.subject).toBe('Your sign-in code')
+    expect(sent[0]!.replyTo ?? null).toBeNull()
+  })
+  it('an operator list that leaves MFA_CODE out turns it off in kindAllowed (the explicit list wins)', () => {
+    expect(kindAllowed('MFA_CODE', readEmailConfig({ ...live, H2O_EMAIL_ALLOWED_KINDS: 'RFQ_SALES_ALERT' }))).toBe(false)
   })
 })
 

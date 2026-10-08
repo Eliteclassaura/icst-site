@@ -32,16 +32,14 @@ export default async function EmailRoutingPage() {
         </div>
         <div className="c-panel-body is-padded">
           <dl className="c-dl">
-            <dt>New quote alerts (US)</dt>
+            <dt>Everyone who gets all new quote requests</dt>
             <dd>
-              {v.effective.us.join(', ') || 'Nobody'} {v.usingDefault.us ? <ToneChip tone="terminal">using default</ToneChip> : null}
+              {v.effective.everyone.join(', ') || 'Nobody'} {v.usingDefault.everyone ? <ToneChip tone="terminal">using default</ToneChip> : null}
             </dd>
-            <dt>New quote alerts (Thailand)</dt>
-            <dd>
-              {v.effective.th.join(', ') || 'Nobody'} {v.usingDefault.th ? <ToneChip tone="terminal">using default</ToneChip> : null}
-            </dd>
-            <dt>Also a copy to</dt>
-            <dd>{v.effective.cc.join(', ') || 'Nobody'}</dd>
+            <dt>Extra recipients (US office)</dt>
+            <dd>{v.effective.us.join(', ') || 'None'}</dd>
+            <dt>Extra recipients (Thailand office)</dt>
+            <dd>{v.effective.th.join(', ') || 'None'}</dd>
             <dt>Sales address customers see</dt>
             <dd>
               {v.effective.sales} {v.usingDefault.sales ? <ToneChip tone="terminal">using default</ToneChip> : null}

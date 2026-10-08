@@ -40,14 +40,17 @@ export async function readRouting(payload: Payload, now = Date.now()): Promise<R
   return cached.value
 }
 
-export type AlertRecipients = { to: string[]; cc: string[]; all: string[]; source: 'setting' | 'default' }
+export type AlertRecipients = { everyone: string[]; extras: string[]; all: string[]; source: 'setting' | 'default' }
 
-/** Who gets the new-quote alert for an office: its list, else the server default; plus the copy list. An unknown office is US. */
+/**
+ * Who gets the new-quote alert (one email, everyone in To): the "everyone" list (`alerts_cc`; empty → the server default
+ * H2O_SALES_ALERT_TO) plus the extra recipients of the RFQ's office, deduplicated. An unknown office counts as US.
+ */
 export async function resolveAlertRecipients(payload: Payload, office: unknown, cfg: Pick<EmailConfig, 'salesAlertTo'> = readEmailConfig()): Promise<AlertRecipients> {
   const r = await readRouting(payload)
-  const list = office === 'TH' ? r.alerts_th : r.alerts_us
-  const to = list.length > 0 ? list : cfg.salesAlertTo
-  return { to, cc: r.alerts_cc, all: dedupeAddresses([to, r.alerts_cc]), source: list.length > 0 ? 'setting' : 'default' }
+  const everyone = r.alerts_cc.length > 0 ? r.alerts_cc : cfg.salesAlertTo
+  const extras = office === 'TH' ? r.alerts_th : r.alerts_us
+  return { everyone, extras, all: dedupeAddresses([everyone, extras]), source: r.alerts_cc.length > 0 ? 'setting' : 'default' }
 }
 
 /** The public sales address: the setting, else H2O_RFQ_SALES_EMAIL, else sales@h2ocooling.com. */
@@ -60,17 +63,17 @@ export async function resolveSalesAddressLive(payload: Payload, env: NodeJS.Proc
 export async function routingView(payload: Payload, env: NodeJS.ProcessEnv = process.env) {
   const stored = routingFromDoc(await payload.findGlobal({ slug: SLUG, ...sys }).catch(() => ({})))
   const cfg = readEmailConfig(env)
+  const everyone = stored.alerts_cc.length ? stored.alerts_cc : cfg.salesAlertTo
   return {
     stored,
     effective: {
-      us: stored.alerts_us.length ? stored.alerts_us : cfg.salesAlertTo,
-      th: stored.alerts_th.length ? stored.alerts_th : cfg.salesAlertTo,
-      cc: stored.alerts_cc,
+      everyone,
+      us: stored.alerts_us,
+      th: stored.alerts_th,
       sales: stored.sales_address ?? resolveSalesAddressEnv(env),
     },
-    usingDefault: { us: stored.alerts_us.length === 0, th: stored.alerts_th.length === 0, sales: stored.sales_address === null },
+    usingDefault: { everyone: stored.alerts_cc.length === 0, sales: stored.sales_address === null },
     defaultSales: DEFAULT_SALES_ADDRESS,
     defaultAlerts: cfg.salesAlertTo,
   }
 }
-

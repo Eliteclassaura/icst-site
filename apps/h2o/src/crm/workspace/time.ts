@@ -210,7 +210,7 @@ export function relativeAge(from: Date, now: Date): string {
   return `${Math.floor(h / 24)} d ago`
 }
 
-type DisplayFormats = { time: Intl.DateTimeFormat; dayTime: Intl.DateTimeFormat; date: Intl.DateTimeFormat; full: Intl.DateTimeFormat }
+type DisplayFormats = { time: Intl.DateTimeFormat; dayTime: Intl.DateTimeFormat; date: Intl.DateTimeFormat; full: Intl.DateTimeFormat; year: Intl.DateTimeFormat }
 const displayCache = new Map<string, DisplayFormats>()
 function display(zone: string): DisplayFormats {
   let f = displayCache.get(zone)
@@ -220,6 +220,7 @@ function display(zone: string): DisplayFormats {
       dayTime: new Intl.DateTimeFormat('en-US', { timeZone: zone, weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }),
       date: new Intl.DateTimeFormat('en-US', { timeZone: zone, day: 'numeric', month: 'short' }),
       full: new Intl.DateTimeFormat('en-US', { timeZone: zone, dateStyle: 'medium', timeStyle: 'short' }),
+      year: new Intl.DateTimeFormat('en-US', { timeZone: zone, year: 'numeric' }),
     }
     displayCache.set(zone, f)
   }
@@ -246,6 +247,32 @@ export function compactTime(d: Date, now: Date, zone: string = BUSINESS_TIME_ZON
 export function activityTime(d: Date, now: Date, zone: string = BUSINESS_TIME_ZONE): string {
   const t = compactTime(d, now, zone)
   return /^\d{2}:\d{2}$/.test(t) ? `Today ${t}` : t
+}
+
+/** "Oct 3": a short calendar date in the given zone. */
+export function shortDate(d: Date, zone: string = BUSINESS_TIME_ZONE, now: Date = new Date()): string {
+  const f = display(zone)
+  return f.year.format(d) === f.year.format(now) ? display(zone).date.format(d) : yearDate(zone).format(d)
+}
+
+const yearDates = new Map<string, Intl.DateTimeFormat>()
+/** "Dec 1, 2027": the same short date with its year, for a date outside the current year (so next year is not read as past). */
+const yearDate = (zone: string): Intl.DateTimeFormat => {
+  let f = yearDates.get(zone)
+  if (!f) yearDates.set(zone, (f = new Intl.DateTimeFormat('en-US', { timeZone: zone, day: 'numeric', month: 'short', year: 'numeric' })))
+  return f
+}
+
+/**
+ * "Dec 1" for a stored calendar date ("2026-12-01") in the current year, "Dec 1, 2027" in any other, so a date next
+ * year is never read as a date already past. Anything that is not a calendar date comes back unchanged.
+ */
+export function shortCalendarDate(iso: string, now: Date = new Date()): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso)
+  if (!m) return iso
+  const date = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])))
+  const thisYear = Number(display('UTC').year.format(now))
+  return Number(m[1]) === thisYear ? display('UTC').date.format(date) : yearDate('UTC').format(date)
 }
 
 /** Absolute time with zone, for tooltips and detail headers. */

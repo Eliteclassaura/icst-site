@@ -14,7 +14,9 @@ import type { SearchHit, SearchResult } from '../../../../crm/workspace/search'
  * Keyboard: ↑/↓ move through every result and action, Enter opens, Esc closes the palette (native dialog).
  */
 
-const RECENT_KEY = 'crm-recent-v1'
+/** Recent records are per tab (`sessionStorage`) and under the `crm.` prefix, so sign-out clears them. */
+const RECENT_KEY = 'crm.recent.v1'
+const LEGACY_RECENT_KEY = 'crm-recent-v1'
 const RECENT_MAX = 8
 
 type Item = { key: string; title: string; context?: string; href?: string; showAll?: boolean; group: string; recent?: { kind: 'rfq' | 'account' | 'contact'; id: string } }
@@ -28,12 +30,13 @@ const ACTIONS: Array<{ title: string; href: string; keywords: string }> = [
   { title: 'Go to follow-ups', href: '/crm/follow-ups/', keywords: 'follow-ups tasks due overdue' },
   { title: 'Go to accounts', href: '/crm/accounts/', keywords: 'accounts companies directory' },
   { title: 'Go to contacts', href: '/crm/contacts/', keywords: 'contacts people directory' },
-  { title: 'Go to pipeline', href: '/crm/pipeline/', keywords: 'pipeline opportunities' },
+  { title: 'Go to deals', href: '/crm/deals/', keywords: 'deals pipeline opportunities board' },
 ]
 
 export function readRecent(): Array<{ kind: string; id: string }> {
   try {
-    const raw = JSON.parse(window.localStorage.getItem(RECENT_KEY) ?? '[]')
+    window.localStorage.removeItem(LEGACY_RECENT_KEY) // earlier versions kept this on the device; remove it
+    const raw = JSON.parse(window.sessionStorage.getItem(RECENT_KEY) ?? '[]')
     return Array.isArray(raw) ? raw.slice(0, RECENT_MAX) : []
   } catch {
     return []
@@ -44,7 +47,7 @@ export function readRecent(): Array<{ kind: string; id: string }> {
 export function rememberRecent(kind: 'rfq' | 'account' | 'contact', id: string) {
   try {
     const next = [{ kind, id }, ...readRecent().filter((r) => !(r.kind === kind && r.id === id))].slice(0, RECENT_MAX)
-    window.localStorage.setItem(RECENT_KEY, JSON.stringify(next))
+    window.sessionStorage.setItem(RECENT_KEY, JSON.stringify(next))
   } catch {
     /* private mode or blocked storage: recents are a convenience */
   }

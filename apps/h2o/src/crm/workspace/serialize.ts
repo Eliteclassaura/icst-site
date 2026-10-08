@@ -19,6 +19,7 @@ const LOCKABLE = {
   'crm-rfqs': 'crm_rfqs',
   'crm-accounts': 'crm_accounts',
   'crm-contacts': 'crm_contacts',
+  'crm-opportunities': 'crm_opportunities',
 } as const
 export type Lockable = keyof typeof LOCKABLE
 

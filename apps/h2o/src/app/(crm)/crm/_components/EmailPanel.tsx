@@ -20,7 +20,7 @@ export function ReplyComposer({
   defaultBody?: string
 }) {
   return (
-    <ActionForm action={A.replyAction} hidden={{ rfqId, token }} submitLabel="Send reply">
+    <ActionForm action={A.replyAction} hidden={{ rfqId, token }} submitLabel="Send reply" draft={`reply:${rfqId}`}>
       <Field name="subject" label="Subject">
         {(a) => (
           <input
