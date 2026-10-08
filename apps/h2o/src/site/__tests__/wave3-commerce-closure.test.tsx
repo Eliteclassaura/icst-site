@@ -55,7 +55,9 @@ describe('Wave 3 R3 approved commerce closure',()=>{
     expect(leaves).toBe(17)
     const frp=salmonDocument(activeProductRoutes().find(row=>row.targetPath==='/product/frp-angles/')!)
     const html=renderToStaticMarkup(<R5ProductDetail doc={frp}/>)
-    for(const size of ['2 Inch','3 Inch','4 Inch'])expect(html).toContain(`>${size}</li>`)
+    // DD R5A.1 F1: the dimension lines are kept as table values ("Available Size"); the loose list repeating them is suppressed
+    for(const size of ['2 inch','3 inch','4 inch'])expect(html).toContain(`>${size}</b></span>`)
+    for(const size of ['2 Inch','3 Inch','4 Inch'])expect(html).not.toContain(`>${size}</li>`)
   })
 
   it('uses only the exact approved Parts-index replacements and preserves source files',()=>{

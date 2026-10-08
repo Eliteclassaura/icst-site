@@ -1,3 +1,5 @@
+import {readFileSync} from 'node:fs'
+import path from 'node:path'
 import {createElement,Fragment,type ReactNode} from 'react'
 import {SalmonSeo} from './SalmonCanonical'
 import {linkLabel,namelessLink} from './link-context'
@@ -27,7 +29,31 @@ function localHref(value:string,doc:SalmonDocument):string|undefined {
  return undefined
 }
 
-function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
+/**
+ * HOME-FIX (CT 2026-10-07; DD home parity 40fef549 H1, H4, H5).
+ * - H5: the hidden mobile copy of the hero H1 (an Elementor carry-over H2) is removed; the H1 itself shows at every width.
+ * - H4: a product card title inside a loop grid is an H3 (the section headings stay H2); no visual change (the source
+ *   styles the heading class, not the tag).
+ * - H1: the credential row shows the original ICS files with real alts (content/design/home-credentials.json).
+ */
+const HOME_DROPPED_ELEMENTS:ReadonlySet<string>=new Set(['be98584'])
+const HOME_SHOWN_ON_MOBILE:ReadonlySet<string>=new Set(['81bef94'])
+type Credential={replacesSha256:string;src:string;sha256:string;width:number;height:number;alt:string}
+let credentials:Map<string,Credential>|undefined
+const credentialFor=(sha:string|undefined)=>{
+  credentials??=new Map((JSON.parse(readFileSync(path.join(process.cwd(),'content/design/home-credentials.json'),'utf8')) as {logos:Credential[]}).logos.map(l=>[l.replacesSha256,l]))
+  return sha?credentials.get(sha):undefined
+}
+
+/** A loop card's own title (its first heading), the alt of the card's product photo (QA pre-pass M5; CT 2026-10-07). */
+const loopTitle=(node:SalmonNode):string|undefined=>{
+  if(typeof node==='string')return undefined
+  if(/^h[1-6]$/.test(node.tag))return salmonNodeText(node).replace(/\s+/g,' ').trim()||undefined
+  for(const child of node.children){const t=loopTitle(child);if(t)return t}
+  return undefined
+}
+
+function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument,inLoop:false|string=false):ReactNode {
   // Accepted exclusion stub (../content/public-exclusions): renders nothing, keeps sibling keys.
   if(typeof node!=='string'&&(node as {attrs?:Record<string,string>}).attrs?.['data-public-exclusion'])return null
   // Design Fixes R2 (#7): the hero's source quote link is the quote action, label from content/design/hero-actions.json.
@@ -53,8 +79,12 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
   return createElement(node.tag,props,...node.children.map((child,i)=>sourceNode(child,`${key}.${i}`,doc)))
  }
  if(node.tag==='form')return <form key={key} className="e-search-form" action="/search/" method="get" role="search"><label className="e-search-label" htmlFor={`salmon-search-${key}`}><span className="elementor-screen-only">Search</span></label><div className="e-search-input-wrapper"><input id={`salmon-search-${key}`} className="e-search-input" type="search" name="q" placeholder="Find Your Services" required maxLength={200}/></div><button className="e-search-submit" type="submit" aria-label="Search"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><path d="M8 16h15m-7-7 7 7-7 7" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></button></form>
- const tag=tags.has(node.tag)?node.tag:'span'
- const props:Record<string,unknown>={key,className:node.attrs.class,'data-salmon-node':key}
+ const home=doc.targetPath==='/'
+ if(home&&node.attrs['data-id']&&HOME_DROPPED_ELEMENTS.has(node.attrs['data-id']))return null
+ const loop:false|string=inLoop||(/(?:^|\s)e-loop-item(?:\s|$)/.test(node.attrs.class??'')?loopTitle(node)??'':false)
+ const tag=tags.has(node.tag)?(loop!==false&&node.tag==='h2'?'h3':node.tag):'span'
+ const className=home&&node.attrs['data-id']&&HOME_SHOWN_ON_MOBILE.has(node.attrs['data-id'])?node.attrs.class?.replace(/(?:^|\s)elementor-hidden-mobile(?=\s|$)/,''):node.attrs.class
+ const props:Record<string,unknown>={key,className,'data-salmon-node':key}
  const sourceColor=node.attrs.style?.match(/(?:^|;)\s*color\s*:\s*(#[0-9a-fA-F]{3,8})\s*(?:;|$)/)?.[1]
  if(sourceColor)props.style={color:sourceColor}
  if(node.attrs.id)props.id=node.attrs.id
@@ -78,20 +108,21 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
   const source=node.attrs['data-src']||node.attrs.src
   const media=source?salmonMedia(source,doc.sourceUrl):undefined
   if(!media?.file)return null
-  props.src=salmonMediaPath(media)
-  props.alt=node.attrs.alt??''
-  props.width=Number(node.attrs.width)||media.width
-  props.height=Number(node.attrs.height)||media.height
+  const credential=home?credentialFor(media.sha256):undefined
+  props.src=credential?.src??salmonMediaPath(media)
+  props.alt=credential?.alt??(node.attrs.alt||(typeof loop==='string'?loop:''))
+  props.width=credential?.width??(Number(node.attrs.width)||media.width)
+  props.height=credential?.height??(Number(node.attrs.height)||media.height)
   props.loading='lazy'
-  props['data-source-sha256']=media.sha256
+  props['data-source-sha256']=credential?.sha256??media.sha256
  }
  if(tag==='a'){
   if(/\/testimonial-detail\/?(?:[?#]|$)/.test(node.attrs.href??''))return null
   const href=localHref(node.attrs.href??'',doc)
-  if(!href)return createElement('span',props,...node.children.map((child,i)=>sourceNode(child,`${key}.${i}`,doc)))
+  if(!href)return createElement('span',props,...node.children.map((child,i)=>sourceNode(child,`${key}.${i}`,doc,loop)))
   // LEGAL-FIX-1 (L07): a link with no accessible name is unwrapped, made decorative beside its named twin, or named by its card
   const nameless=namelessLink(doc,key,node)
-  if(nameless?.kind==='unwrap')return createElement(Fragment,{key},...node.children.map((child,i)=>sourceNode(child,`${key}.${i}`,doc)))
+  if(nameless?.kind==='unwrap')return createElement(Fragment,{key},...node.children.map((child,i)=>sourceNode(child,`${key}.${i}`,doc,loop)))
   if(nameless?.kind==='decorative'){props['aria-hidden']='true';props.tabIndex=-1}
   props.href=href
   props['data-source-href']=provenanceHref(node.attrs.href)
@@ -106,7 +137,7 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument):ReactNode {
   else props.disabled=true
  }
  if(tag==='details')props.open=true
- const children=node.children.map((child,i)=>sourceNode(child,`${key}.${i}`,doc))
+ const children=node.children.map((child,i)=>sourceNode(child,`${key}.${i}`,doc,loop))
  return createElement(tag,props,...(voidTags.has(tag)?[]:children))
 }
 

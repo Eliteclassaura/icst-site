@@ -1,6 +1,6 @@
 import type {ReactNode} from 'react'
 import {LuxuryFooter,LuxuryHeader} from '../LuxuryShell'
-import {SalmonSeo,renderSalmonNode} from '../SalmonCanonical'
+import {SalmonSeo,priceSpecLabel,renderSalmonNode} from '../SalmonCanonical'
 import {HOME_CRUMB} from '../breadcrumb-schema'
 import {RfqMount} from '../RfqMount'
 import {pageForSegments} from '../cohort'
@@ -45,20 +45,22 @@ export function productGallery(doc:SalmonDocument):GalleryImage[]{
   return out
 }
 
-export type SpecRow={key:string;label:ReactNode;labelText:string;values:ReactNode[];open?:boolean}
-export type SpecReport={labelled:number;continued:string[];listed:string[];price:string[];unparsed:boolean}
+export type SpecRow={key:string;label:ReactNode;labelText:string;values:ReactNode[];valueText:string[];open?:boolean}
+export type SpecReport={labelled:number;continued:string[];listed:string[];price:string[];suppressed:string[];unparsed:boolean}
 
 /**
  * The specifications panel as a table. A source line "Label: value" (one text node, or a "Label:" text node followed by
  * the value element) is one row. A bare line (no label) continues the previous row only when that row is an open label
  * ("Available sizes:" with no value); other bare lines stay a plain list after the table, in source order. A line with a
  * price goes through the renderer (price withheld, a dimension label kept) into that list. All three cases are counted in
- * the data report. Every cell is rendered by the site renderer from the source node.
+ * the data report. Every cell is rendered by the site renderer from the source node. DD R5A.1 F1: a line of that list whose
+ * visible value already is a value in the table (case- and space-insensitive; "2 Inch" after a withheld price beside the
+ * "Available Size: 2 inch" row) is not listed again; it is counted as "duplicate, suppressed" for the data clean-up.
  */
 export function specTable(doc:SalmonDocument,nodes:SalmonNode[]):{intro:SalmonNode[];after:SalmonNode[];rows:SpecRow[];notes:SalmonNode[];report:SpecReport}{
   const rows:SpecRow[]=[]
   const notes:SalmonNode[]=[]
-  const report:SpecReport={labelled:0,continued:[],listed:[],price:[],unparsed:false}
+  const report:SpecReport={labelled:0,continued:[],listed:[],price:[],suppressed:[],unparsed:false}
   const intro:SalmonNode[]=[],after:SalmonNode[]=[]
   let listSeen=false
   nodes.forEach((node,n)=>{
@@ -76,21 +78,21 @@ export function specTable(doc:SalmonDocument,nodes:SalmonNode[]):{intro:SalmonNo
       // "Label:" text node followed by the value element(s)
       if(typeof first==='string'&&/:\s*$/.test(first)&&kids.length>1){
         const label=publicSourceString(doc,first.replace(/:\s*$/,'').trim())
-        rows.push({key,label,labelText:label,values:[kids.slice(1).map((child,c)=>renderSalmonNode(child,`${key}.v${c}`,doc))]});report.labelled++;return
+        rows.push({key,label,labelText:label,values:[kids.slice(1).map((child,c)=>renderSalmonNode(child,`${key}.v${c}`,doc))],valueText:[kids.slice(1).map(textOf).join(' ')]});report.labelled++;return
       }
       // one text node "Label: value"
       const match=kids.length===1&&typeof first==='string'?/^([^:]{1,60}):\s*(\S[\s\S]*)$/.exec(first.trim()):null
       if(match){
         const label=publicSourceString(doc,match[1]!.trim())
-        rows.push({key,label,labelText:label,values:[publicSourceString(doc,match[2]!.trim())]});report.labelled++;return
+        rows.push({key,label,labelText:label,values:[publicSourceString(doc,match[2]!.trim())],valueText:[publicSourceString(doc,match[2]!.trim())]});report.labelled++;return
       }
       // an open label: "Label:" alone
       if(kids.length===1&&typeof first==='string'&&/^[^:]{1,60}:\s*$/.test(first.trim())){
         const label=publicSourceString(doc,first.trim().replace(/:\s*$/,''))
-        rows.push({key,label,labelText:label,values:[],open:true});report.labelled++;return
+        rows.push({key,label,labelText:label,values:[],valueText:[],open:true});report.labelled++;return
       }
       const previous=rows.at(-1)
-      if(previous?.open){report.continued.push(text);previous.values.push(li.children.map((child,c)=>renderSalmonNode(child,`${key}.b${c}`,doc)));return}
+      if(previous?.open){report.continued.push(text);previous.values.push(li.children.map((child,c)=>renderSalmonNode(child,`${key}.b${c}`,doc)));previous.valueText.push(text);return}
       report.listed.push(text)
       notes.push(li)
     })
@@ -99,7 +101,23 @@ export function specTable(doc:SalmonDocument,nodes:SalmonNode[]):{intro:SalmonNo
   const filled=rows.filter(row=>row.values.length)
   rows.filter(row=>!row.values.length).forEach(row=>{notes.push(`${row.labelText}:`);report.labelled--;report.listed.push(`${row.labelText}:`)})
   if(!filled.length)report.unparsed=true
-  return {intro,after,rows:filled,notes,report}
+  const fold=(value:string)=>value.replace(/\s+/g,' ').trim().toLowerCase()
+  const tableValues=new Set(filled.flatMap(row=>row.valueText.map(fold)))
+  // What a list line shows: a withheld price line shows its dimension label only (SalmonCanonical priceSpecLabel).
+  const shown=(note:SalmonNode)=>{
+    if(!element(note))return ''
+    const text=textOf(note)
+    if(!PRICE.test(text))return text
+    const label=priceSpecLabel(note,doc)
+    return typeof label==='string'?label:''
+  }
+  const kept=notes.filter(note=>{
+    const value=shown(note)
+    if(!value||!tableValues.has(fold(value)))return true
+    report.suppressed.push(textOf(note))
+    return false
+  })
+  return {intro,after,rows:filled,notes:kept,report}
 }
 
 /**

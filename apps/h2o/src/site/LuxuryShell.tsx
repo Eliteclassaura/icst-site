@@ -1,4 +1,5 @@
 import {readFileSync} from 'node:fs'
+import {LauncherPlacement} from './LauncherPlacement'
 import path from 'node:path'
 import {contactOffices} from './contact'
 import type {ReactNode} from 'react'
@@ -19,7 +20,7 @@ export const quoteAction=(mountId:'header_action'|'footer_rfq_band',page:CohortP
   if(routePath)return <span className={wrapperClass}><RfqMount mountId={mountId} routePath={routePath}/></span>
   return null
 }
-export function LuxuryHeader({page=null,routePath,product}:{page?:CohortPage|null;routePath?:string;product?:SalmonDocument;salmonParity?:boolean}){return <div className="salmon-copy global-chrome"><header className="lux-header">
+export function LuxuryHeader({page=null,routePath,product}:{page?:CohortPage|null;routePath?:string;product?:SalmonDocument;salmonParity?:boolean}){return <div className="salmon-copy global-chrome"><LauncherPlacement/><header className="lux-header">
   <a href="/" className="lux-logo" aria-label="ICS homepage"><img src="/media/salmon/a8f4b38d0f7ede838b277c9bcd00a3b75a268ce23a5fccfb86ec263774e3b844.png" width="196" height="50" alt="ICS — Industrial Cooling Solutions"/></a>
   <SiteNavigation mobileQuote={quoteAction('header_action',page,'lux-menu-rfq',routePath,product)} salmonParity groups={navigationGroups(renderableChrome())}/>
   {quoteAction('header_action',page,'lux-header-rfq',routePath,product)}

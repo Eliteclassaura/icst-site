@@ -31,6 +31,9 @@ export const ORGANIZATION_SAME_AS = [
   'https://www.tiktok.com/@h2ocooling0',
 ] as const
 
+/** A profile URL compared without scheme, `www.`, case or trailing slash. */
+const companyProfileKey = (url: string): string => url.toLowerCase().replace(/^https?:\/\/(?:www\.)?/, '').replace(/\/+$/, '')
+
 export const organizationNode = (): Record<string, unknown> => ({
   '@type': 'Organization',
   '@id': ORGANIZATION_ID,
@@ -110,7 +113,15 @@ export function normalizeGraph(block: unknown, ctx: GraphContext): Node | null {
       // canonical archive, without a self-domain sameAs; a second Person node folds into the first
       if (id) dropped.set(id, AUTHOR_ID)
       if (kept.some((k) => typesOf(k).some((t) => PERSON.test(t)))) continue
-      kept.push({ ...n, '@id': AUTHOR_ID, url: AUTHOR_ID })
+      // the company's own profiles belong on #organization, never on a person (CT 2026-10-08); personal profiles stay
+      const person: Node = { ...n, '@id': AUTHOR_ID, url: AUTHOR_ID }
+      if (Array.isArray(person.sameAs)) {
+        const company = new Set(ORGANIZATION_SAME_AS.map(companyProfileKey))
+        const own = (person.sameAs as unknown[]).filter((x) => typeof x !== 'string' || !company.has(companyProfileKey(x)))
+        if (own.length) person.sameAs = own
+        else delete person.sameAs
+      }
+      kept.push(person)
       continue
     }
     if (id && /#richSnippet$/.test(id) && !ctx.article && !types.includes('Product')) {

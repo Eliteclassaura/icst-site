@@ -85,12 +85,12 @@ describe('R5a parts hub',()=>{
     for(const hook of ['class="wave3-catalog"','id="wave3-query"','class="wave3-pagination"','data-static-parts-empty','183 products'])expect(html,hook).toContain(hook)
     expect((mainOf(html).match(/<h1\b/g)??[]).length).toBe(1)
   },120000)
-  it('renders the hub\'s own source renders at or below their caps (hero 560, intro 420, why 520, copy 420)',()=>{
+  it('renders the hub\'s own source renders at or below their caps (hero 460 per DD R5A.1 P1, intro 420, why 520, copy 420)',()=>{
     const main=mainOf(renderToStaticMarkup(<PartsIndex doc={byPath(HUB)}/>))
     const sizes=[...main.matchAll(/style="inline-size:min\(100%, (\d+)px\)"[^>]*width="(\d+)"/g)].map(m=>[Number(m[1]),Number(m[2])])
     expect(sizes.length).toBe(4)
     for(const [shown,native] of sizes)expect(shown).toBeLessThanOrEqual(native!)
-    expect(sizes.map(s=>s[0])).toEqual([560,420,520,420])
+    expect(sizes.map(s=>s[0])).toEqual([460,420,520,420])
   })
 })
 

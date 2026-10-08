@@ -42,7 +42,7 @@ const PRICE_SPEC_ROUTES=new Set([
   '/product/frp-deck-board/',
   '/product/frp-flatsheet/',
 ])
-const priceSpecLabel=(node:Exclude<SalmonNode,string>,doc:SalmonDocument):string|null|undefined=>{
+export const priceSpecLabel=(node:Exclude<SalmonNode,string>,doc:SalmonDocument):string|null|undefined=>{
   if(!PRICE_SPEC_ROUTES.has(doc.targetPath)||!['p','li'].includes(node.tag)||node.children.length!==2)return undefined
   const [label,price]=node.children
   if(typeof label!=='string'||typeof price==='string'||price.tag!=='b'||!/^[\s\u00a0]*[$€£]\s*\d/.test(salmonNodeText(price)))return undefined
@@ -234,14 +234,17 @@ export const servedFilePath=(href:string,base:string):string|undefined=>{
     return u.pathname+u.hash
   }catch{return undefined}
 }
-export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbName}:{doc:SalmonDocument;canonicalOverride?:string;breadcrumb?:Crumb[];crumbName?:string}){
+/** The parts hub's ?page=N (N ≥ 2) wording, one rule for the head and the social tags ("… - Page N", "Page N: …"; CT 2026-10-08, SF-03). */
+export const pagedTitle=(title:string,page:number):string=>page>=2?`${title.replace(/\s+-\s+ICS$/,'')} - Page ${page}`:title
+export const pagedDescription=(description:string,page:number):string=>page>=2?`Page ${page}: ${description}`:description
+export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbName,pageNumber=1}:{doc:SalmonDocument;canonicalOverride?:string;breadcrumb?:Crumb[];crumbName?:string;pageNumber?:number}){
   // R2.3 (CT 2026-10-05): every URL in the head names this site (./public-urls): identity URLs the canonical origin, media the
   // served file on the serving origin (C1–C6 crop/withhold included); an unheld image or a foreign host is dropped.
   const images=projectHeadImagePolicy(canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath,servedOrigin())
   const pagePath=canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath
   return <>
     {/* R2.4: the standard social set (./standard-head) mirrors the served title and description on every page. */}
-    <MetaTags meta={standardSocialMeta(publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)),{title:servedTitle(doc),description:servedDescription(doc)??'',url:canonicalOverride??(doc.seo.canonical[0]&&publicHeadUrl(doc.seo.canonical[0]))??`${PUBLIC_ORIGIN}${doc.targetPath}`,type:doc.type==='posts'?'article':'website',defaultImage:!/^\/all-projects\/[^/]+\/$/.test(doc.targetPath)})}/>
+    <MetaTags meta={standardSocialMeta(publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)),{title:pagedTitle(servedTitle(doc),pageNumber),description:pagedDescription(servedDescription(doc)??'',pageNumber),url:canonicalOverride??(doc.seo.canonical[0]&&publicHeadUrl(doc.seo.canonical[0]))??`${PUBLIC_ORIGIN}${doc.targetPath}`,type:doc.type==='posts'?'article':'website',defaultImage:!/^\/all-projects\/[^/]+\/$/.test(doc.targetPath)})}/>
     {doc.seo.schema.map((raw,i)=>{
       if(isBreadcrumbList(JSON.parse(raw)))return null
       // Quote-only estate: no prices, and no ratings or reviews (Control Tower ruling 2026-10-02).

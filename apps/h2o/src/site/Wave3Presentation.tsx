@@ -49,7 +49,7 @@ export function PartCard({doc,staticIndex}:{doc:SalmonDocument;staticIndex?:numb
       <h3>{nameFor(doc)}</h3>
       <span className="wave3-card-action">Explore Part <span aria-hidden="true">↗</span></span>
     </a>
-    <div className="wave3-card-rfq"><RfqMount mountId="rfq_page" product={doc}/></div>
+    <div className="wave3-card-rfq"><RfqMount mountId="rfq_page" product={doc} named/></div>
   </article>
 }
 
@@ -132,12 +132,26 @@ function Split({media,cap,children,className}:{media?:MediaRef;cap:number;childr
   </section>
 }
 
+/**
+ * The parts hub's ONE page value (CT 2026-10-08, SEO SF-02): the requested ?page= (a plain positive integer, else 1) clamped to
+ * the page count of the search-filtered catalog. The catalog, the title/description and the social tags all take this value,
+ * so "?page=2junk" and "?page=9999" never name a page the content does not show.
+ */
+export function partsHubPage(query:string,requested:string|number|undefined):number{
+  const cleanQuery=query.trim().slice(0,100)
+  const records=productIndexRecords()
+  const count=cleanQuery?records.filter(({doc:product})=>`${nameFor(product)} ${salmonNodeText({tag:'span',attrs:{},children:productSummary(product)})}`.toLowerCase().includes(cleanQuery.toLowerCase())).length:records.length
+  const pageCount=Math.max(1,Math.ceil(count/12))
+  const number=typeof requested==='number'?requested:/^\d{1,6}$/.test(requested??'')?Number(requested):1
+  return Math.max(1,Math.min(Number.isFinite(number)?Math.trunc(number):1,pageCount))
+}
+
 export function PartsIndex({doc,query='',pageNumber=1}:{doc:SalmonDocument;query?:string;pageNumber?:number}){
   const records=productIndexRecords()
   const cleanQuery=query.trim().slice(0,100)
   const filtered=cleanQuery?records.filter(({doc:product})=>`${nameFor(product)} ${salmonNodeText({tag:'span',attrs:{},children:productSummary(product)})}`.toLowerCase().includes(cleanQuery.toLowerCase())):records
   const pageCount=Math.max(1,Math.ceil(filtered.length/12))
-  const currentPage=Math.max(1,Math.min(Number.isFinite(pageNumber)?Math.trunc(pageNumber):1,pageCount))
+  const currentPage=partsHubPage(cleanQuery,pageNumber)
   const staticRelease=process.env.H2O_PUBLIC_EXPORT==='1'
   const shown=staticRelease?filtered:filtered.slice((currentPage-1)*12,currentPage*12)
   const href=(number:number)=>`/cooling-tower-parts-online/?${new URLSearchParams({...cleanQuery?{q:cleanQuery}:{},page:String(number)}).toString()}`
@@ -155,10 +169,10 @@ export function PartsIndex({doc,query='',pageNumber=1}:{doc:SalmonDocument;query
   const rest=copy.filter(section=>!/Why Engineers/i.test(section.heading))
   const copyBlock=(section:{heading:string;paragraphs:string[]})=><div key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p key={paragraph}>{paragraph}</p>)}</div>
   return <div className="luxury-site wave3-site salmon-family salmon-family--parts-index r5-site" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256} data-wave3-archetype="PartsIndex">
-    <SalmonSeo doc={doc}/><LuxuryHeader page={page} routePath={doc.targetPath}/>
+    <SalmonSeo doc={doc} pageNumber={currentPage}/><LuxuryHeader page={page} routePath={doc.targetPath}/>
     <main id="main" className="wave3-main wave3-index sp-main sp-family--parts-index" data-salmon-family="parts-index" data-audit-family="PARTS_INDEX">
       <div className="dr4 r5" data-r4-route={doc.targetPath}>
-      {parts?.h1?<R5PartsHero variant="hub" h1={parts.h1.text} lead={parts.lead?<BlockView block={parts.lead} ctx={{}}/>:undefined} action={parts.button?<BlockView block={parts.button} ctx={{quoteAction:label=>quoteRfqAction(doc.targetPath,label)}}/>:undefined} photo={parts.photo} render={parts.render} renderCap={560}/>:null}
+      {parts?.h1?<R5PartsHero variant="hub" h1={parts.h1.text} lead={parts.lead?<BlockView block={parts.lead} ctx={{}}/>:undefined} action={parts.button?<BlockView block={parts.button} ctx={{quoteAction:label=>quoteRfqAction(doc.targetPath,label)}}/>:undefined} photo={parts.photo} render={parts.render} renderCap={460}/>:null}
       <R4LauncherReveal/>
       <section className="wave3-index-intro r5-split r5-hub-intro">
         <div className="r5-split-text">{parts?.h1?null:<div><h1>{doc.seo.h1[0]}</h1><p>{partsIntro(doc)}</p></div>}<form action="/cooling-tower-parts-online/" method="get" role="search" className="wave3-search"><label htmlFor="wave3-query">Search cooling tower parts</label><div><input id="wave3-query" type="search" name="q" defaultValue={cleanQuery} maxLength={100} placeholder="Search parts by name or description"/><button type="submit">Search</button></div></form><RestoredSlot doc={doc} slot="intro" className="wave3-source-content"/></div>

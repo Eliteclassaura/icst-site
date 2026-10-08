@@ -2,14 +2,14 @@ import type {Metadata} from 'next'
 import {notFound} from 'next/navigation'
 import {salmonDocument,releaseRouteFor,salmonRoutes} from '../../../site/salmon'
 import {aliasReleaseDocument} from '../../../site/release-document'
-import {SalmonCanonical,publicDescription,servedDescription,servedTitle} from '../../../site/SalmonCanonical'
+import {SalmonCanonical,publicDescription,pagedDescription,pagedTitle,servedDescription,servedTitle} from '../../../site/SalmonCanonical'
 import {SalmonFamilyPage,salmonFamilyFor} from '../../../site/SalmonFamilies'
 import {ABOUT_ROUTE_ID,AboutComposition} from '../../../site/AboutComposition'
 import {ArchivePage,isArchiveDocument} from '../../../site/ArchivePresentation'
 import {LuxuryCanonical,luxuryIds} from '../../../site/LuxuryCanonical'
 import {r4Builders} from '../../../site/r4/R4Pages'
 import {R4PortfolioPage,R4_PORTFOLIO_ROUTE} from '../../../site/r4/R4Portfolio'
-import {PartsIndex} from '../../../site/Wave3Presentation'
+import {PartsIndex,partsHubPage} from '../../../site/Wave3Presentation'
 import {R5ProductDetail} from '../../../site/r5/R5Product'
 import {R5PartsFamilyPage,R5_PARTS_FAMILIES} from '../../../site/r5/R5PartsPages'
 import {R5bLocationPage,r5bLocationHeroes} from '../../../site/r5b/R5bLocation'
@@ -44,13 +44,13 @@ type Params={params:Promise<{slug?:string[]}>;searchParams?:Promise<{q?:string;p
 export const pagedHubMetadata=(m:Metadata,page:number):Metadata=>{
   if(!(page>=2))return m
   const title=typeof m.title==='object'&&m.title&&'absolute' in m.title?m.title.absolute:typeof m.title==='string'?m.title:undefined
-  return {...m,...(title?{title:{absolute:`${title.replace(/\s+-\s+ICS$/,'')} - Page ${page}`}}:{}),...(typeof m.description==='string'?{description:`Page ${page}: ${m.description}`}:{})}
+  return {...m,...(title?{title:{absolute:pagedTitle(title,page)}}:{}),...(typeof m.description==='string'?{description:pagedDescription(m.description,page)}:{})}
 }
 export async function generateMetadata({params,searchParams}:Params):Promise<Metadata>{
   const base=await baseMetadata({params})
   if(requestPathOf((await params).slug)!=='/cooling-tower-parts-online/')return base
-  const page=Number.parseInt((await searchParams)?.page??'',10)
-  return pagedHubMetadata(base,page)
+  const search=await searchParams
+  return pagedHubMetadata(base,partsHubPage(typeof search?.q==='string'?search.q:'',search?.page))
 }
 async function baseMetadata({params}:Pick<Params,'params'>):Promise<Metadata>{
   // R2.4 R2: an empty archive's page N is a 404
@@ -135,7 +135,7 @@ export default async function Page({params,searchParams}:Params){
   if(doc.routeId.startsWith('LIVE-'))return <LiveEnglishDetail doc={doc}/>
   if(doc.targetPath==='/cooling-tower-parts-online/'){
     const search=await searchParams??{}
-    return <PartsIndex doc={doc} query={typeof search.q==='string'?search.q:''} pageNumber={Number(search.page)||1}/>
+    return <PartsIndex doc={doc} query={typeof search.q==='string'?search.q:''} pageNumber={partsHubPage(typeof search.q==='string'?search.q:'',search.page)}/>
   }
   // Design R5a (owner-approved product detail proposal, CT 2026-10-07).
   if(doc.type==='product'&&doc.routeId.startsWith('SALMON-product-'))return <R5ProductDetail doc={doc}/>

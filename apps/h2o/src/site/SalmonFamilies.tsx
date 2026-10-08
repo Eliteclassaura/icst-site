@@ -29,7 +29,7 @@ export {salmonFamilyFor,salmonFamilyRouteIds}
 export function productRfqAction(product:ProductCardInput,routePath?:string):ReactNode{
   const route=product.productRouteId?activeProductRoutes().find(candidate=>candidate.routeId===product.productRouteId&&candidate.targetPath===product.productPath):undefined
   if(route&&routePath&&isPayloadContent())return <RfqMount mountId="category_and_family" routePath={routePath} cardProduct={salmonDocument(route)} cardHref={route.targetPath}/>
-  return route?<RfqMount mountId="rfq_page" product={salmonDocument(route)}/>:undefined
+  return route?<RfqMount mountId="rfq_page" product={salmonDocument(route)} named/>:undefined
 }
 
 /**

@@ -59,12 +59,14 @@ export function portfolioView(model:SalmonFamilyPageModel){
   return {h1:plain(h1.text),h1Key:h1.key,h2:plain(h2?.text),h2Key:h2?.key,intro:texts[0]??[],lead:texts[1]??[],chips,countries:ordered}
 }
 
-/** One uniform card. Records without verified media get a navy panel (type and year) in the image's place (spec §1.4). */
+/** One uniform card. Records without verified media get a navy panel (type and year) in the image's place (spec §1.4).
+ * QA R16 M2: a card photo is the project's own verified photo, so with no source alt it is named by the project; the flag stays
+ * decorative (alt="", the country heading names it). */
 function ProjectCard({card}:{card:Card}){
   const id=`r4-proj-${card.key.replace(/\W+/g,'-')}`
   return <li className={`dr4-proj${card.photo?'':' dr4-proj--text'}`} data-project-href={card.href}>
     {card.photo
-      ?<div className="dr4-proj-media"><img className="dr4-proj-img" src={deliverySrc(card.photo.src)} width={card.photo.width} height={card.photo.height} alt={card.photo.alt} loading="lazy" decoding="async" data-source-sha256={card.photo.sha256}/></div>
+      ?<div className="dr4-proj-media"><img className="dr4-proj-img" src={deliverySrc(card.photo.src)} width={card.photo.width} height={card.photo.height} alt={card.photo.alt||card.title} loading="lazy" decoding="async" data-source-sha256={card.photo.sha256}/></div>
       :<div className="dr4-proj-media dr4-proj-panel">{card.year?<span className="dr4-proj-year">{card.year}</span>:null}{card.meta?<p className="dr4-proj-panel-meta">{card.meta}</p>:null}</div>}
     <div className="dr4-proj-body">
       <div className="dr4-proj-top">{card.photo&&card.year?<span className="dr4-proj-year">{card.year}</span>:<span/>}{card.flag?<img className="dr4-proj-flag" src={deliverySrc(card.flag.src)} alt="" width={card.flag.width} height={card.flag.height} loading="lazy" decoding="async"/>:null}</div>

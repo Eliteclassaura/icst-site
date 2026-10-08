@@ -37,7 +37,7 @@ export function R5PartsHero({h1,lead,action,photo,render,variant,renderCap}:{h1:
       {lead?<div className="r5-hero-lead">{lead}</div>:null}
       {action?<div className="dr4-actions dr4-actions--center r5-hero-actions"><span className="dr4-btn dr4-btn--white">{action}</span></div>:null}
     </div>
-    {render?<Picture media={render} className="r5-hero-render" eager style={{inlineSize:`min(100%, ${Math.min(renderCap,render.width??renderCap)}px)`}}/>:null}
+    {render?<Picture media={{...render,alt:render.alt||plain(h1)}} className="r5-hero-render" eager style={{inlineSize:`min(100%, ${Math.min(renderCap,render.width??renderCap)}px)`}}/>:null}
   </section>
 }
 

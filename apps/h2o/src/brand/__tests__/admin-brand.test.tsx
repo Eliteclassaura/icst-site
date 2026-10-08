@@ -13,12 +13,20 @@ const APP = process.cwd()
 const read = (p: string) => readFileSync(path.join(APP, p), 'utf8')
 
 describe('admin title suffix follows the environment', () => {
-  it('production indexing policy → " · ICS admin"', () => {
-    expect(adminTitleSuffix({ H2O_INDEXING_POLICY: 'production' } as unknown as NodeJS.ProcessEnv)).toBe(' · ICS admin')
+  it('production indexing policy → "· ICS admin"', () => {
+    expect(adminTitleSuffix({ H2O_INDEXING_POLICY: 'production' } as unknown as NodeJS.ProcessEnv)).toBe('· ICS admin')
   })
-  it('anything else (staging, unset, a typo) → " · ICS staging admin"', () => {
+  it('anything else (staging, unset, a typo) → "· ICS staging admin"', () => {
     for (const v of [undefined, 'private', 'staging', 'Production'])
-      expect(adminTitleSuffix({ H2O_INDEXING_POLICY: v } as unknown as NodeJS.ProcessEnv), String(v)).toBe(' · ICS staging admin')
+      expect(adminTitleSuffix({ H2O_INDEXING_POLICY: v } as unknown as NodeJS.ProcessEnv), String(v)).toBe('· ICS staging admin')
+  })
+  it('the suffix has no leading space, so Payload\'s own single-space join gives "Login · ICS staging admin" (QA R17B M1)', () => {
+    const join = (title: string, suffix: string) => `${title} ${suffix}` // @payloadcms/next utilities/meta.js appendTitleSuffix
+    for (const v of [undefined, 'production']) {
+      const title = join('Login', adminTitleSuffix({ H2O_INDEXING_POLICY: v } as unknown as NodeJS.ProcessEnv))
+      expect(title).not.toMatch(/\s{2,}/)
+      expect(title).toMatch(/^Login · ICS (staging )?admin$/)
+    }
   })
   it('the config uses it; the fixed staging label is gone everywhere', () => {
     const config = read('src/payload.config.ts')

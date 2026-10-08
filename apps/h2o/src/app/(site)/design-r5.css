@@ -951,3 +951,354 @@
 .salmon-family p.sp-heading--label {
   margin-block: 0;
 }
+
+/*
+ * HOME-FIX (CT 2026-10-07; DD home parity 40fef549). H5: the hero H1 is the only heading at every width (its hidden mobile
+ * copy is gone), at the copy's mobile size. H2: the Precision band's middle "Request a Quote" (the native RFQ trigger on
+ * staging) takes its siblings' ghost pill (white label, 1px white border) instead of the trigger's default colours.
+ */
+@media (width < 768px) {
+  .salmon-copy.salmon-page-home .elementor-element.elementor-element-81bef94 h1 {
+    font-size: 40px !important;
+    line-height: 40.8px !important;
+  }
+}
+
+/*
+ * Precision band buttons (owner report via CT 2026-10-08; DD R4 variant for buttons on a blue surface): "Request a Quote"
+ * (1e67569, the native RFQ trigger on staging, a plain link in the repository build) is the primary: a white pill with navy
+ * text (about 14:1) and a navy arrow circle; "View More" (3893a46, once a semi-filled pill), "View Product Details" (94e87a9)
+ * and "Download Specifications" (3914202) are the secondary: the transparent pill with a 1px white border (white on the band's
+ * blue is about 7:1). Tokens only; the shared hooks (--h2o-cta-*) carry the same values to the RFQ adapter.
+ */
+.salmon-copy.salmon-page-home .elementor-element.elementor-element-1e67569 {
+  --h2o-cta-bg: var(--df-white);
+  --h2o-cta-fg: var(--df-ink-navy);
+  --h2o-cta-border: var(--df-white);
+  --h2o-cta-radius: 999px;
+}
+
+.salmon-copy.salmon-page-home .elementor-element.elementor-element-1e67569 :is(.rfq a, a[data-rfq-native], .lux-button, a.elementor-button) {
+  align-items: center;
+  background: var(--df-white);
+  border: 1px solid var(--df-white);
+  border-radius: 999px;
+  color: var(--df-ink-navy);
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 600;
+  gap: 12px;
+  min-block-size: 48px;
+  padding-block: 10px;
+  padding-inline: 24px 10px;
+}
+
+.salmon-copy.salmon-page-home .elementor-element.elementor-element-1e67569 :is(.rfq a, a[data-rfq-native], .lux-button, a.elementor-button)::after {
+  align-items: center;
+  background: var(--df-ink-navy);
+  border-radius: 50%;
+  block-size: 28px;
+  color: var(--df-white);
+  content: '→';
+  display: inline-flex;
+  inline-size: 28px;
+  justify-content: center;
+}
+
+.salmon-copy.salmon-page-home .elementor-element.elementor-element-1e67569 :is(.rfq a, a[data-rfq-native], .lux-button, a.elementor-button):is(:hover, :focus-visible) {
+  background: var(--df-step-hover);
+  color: var(--df-ink-navy);
+}
+
+.salmon-copy.salmon-page-home .elementor-element:is(.elementor-element-3893a46, .elementor-element-94e87a9, .elementor-element-3914202) a.elementor-button {
+  background: transparent;
+  border: 1px solid var(--df-white);
+  border-radius: 999px;
+  color: var(--df-white);
+  font-weight: 600;
+  min-block-size: 48px;
+}
+
+/* "View More" had a semi-filled blue from the source button rule and an earlier contrast override (salmon-parity-overrides.css, same specificity class); the secondary is the transparent pill */
+.salmon-copy.salmon-copy.salmon-copy.salmon-page-home a.elementor-button.elementor-button[data-salmon-node='body.9.5.1'] {
+  background-color: transparent;
+}
+
+.salmon-copy.salmon-page-home .elementor-element:is(.elementor-element-3893a46, .elementor-element-94e87a9, .elementor-element-3914202) a.elementor-button:is(:hover, :focus-visible) {
+  background: var(--df-ghost-hover);
+  color: var(--df-white);
+}
+
+.salmon-copy.salmon-page-home .elementor-element:is(.elementor-element-3893a46, .elementor-element-94e87a9, .elementor-element-1e67569, .elementor-element-3914202) :is(a.elementor-button, a[data-rfq-native], .rfq a):focus-visible {
+  outline: 2px solid var(--df-white);
+  outline-offset: 2px;
+}
+
+.salmon-copy.salmon-page-home .elementor-element.elementor-element-1e67569 :is(a.elementor-button, a[data-rfq-native], .rfq a):focus-visible {
+  outline-color: var(--df-ink-navy);
+}
+
+@media (width < 768px) {
+  .salmon-copy.salmon-page-home .elementor-element:is(.elementor-element-3893a46, .elementor-element-94e87a9, .elementor-element-1e67569, .elementor-element-3914202) {
+    align-self: stretch;
+    inline-size: 100%;
+  }
+
+  .salmon-copy.salmon-page-home .elementor-element:is(.elementor-element-3893a46, .elementor-element-94e87a9, .elementor-element-1e67569, .elementor-element-3914202) :is(a.elementor-button, a[data-rfq-native], .rfq a) {
+    display: flex;
+    inline-size: 100%;
+    justify-content: center;
+  }
+}
+
+/*
+ * Shared RFQ-trigger default (owner report 2026-10-08, the legacy orange/pink and square buttons): any quote trigger that no
+ * context themes takes the system pill on a light surface (blue fill, white text, 999 radius), so a trigger never falls back
+ * to the browser/legacy colours. Contexts (design-fixes.css, the R4/R5 heroes, the bands) keep their own values.
+ */
+.luxury-site,
+.salmon-canonical {
+  --df-ink-navy: rgb(13 41 69);
+  --df-step-hover: rgb(235 241 247);
+  --df-ghost-hover: rgb(255 255 255 / 12%);
+  --df-hero-scrim: rgb(13 41 69 / 32%);
+  --h2o-cta-bg: var(--df-blue);
+  --h2o-cta-border: var(--df-blue);
+  --h2o-cta-fg: var(--df-white);
+  --h2o-cta-radius: 999px;
+}
+
+/*
+ * Home hero text contrast (DD 2026-10-08): the H1 sat on the brightest part of the photo (worst pixel 3.31:1 at 1440, 3.58 at
+ * 390). One flat navy layer (the R4 hero scrim colour, 32%) lies between the photo/wash and the text; the content is lifted
+ * above it. Measured with the text hidden, worst pixel, at 1440 and 390 (evidence/gates/h1-contrast.txt).
+ */
+.salmon-copy.salmon-page-home .elementor-element.elementor-element-2e9b867::after {
+  background: var(--df-hero-scrim);
+  border-radius: inherit;
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.salmon-copy.salmon-page-home .elementor-element.elementor-element-2e9b867 > * {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ * R16-A11Y-01 (CT 2026-10-07; axe link-in-text-block, WCAG 1.4.1): a link inside running text is underlined everywhere, so
+ * it is not identified by colour alone. Prose links render as plain anchors (no class) inside text elements; buttons, cards,
+ * chips and navigation all carry their own classes or sit in a nav, and keep their design.
+ */
+main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='button']),
+.salmon-copy .elementor :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='button']) {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='button']):is(:hover, :focus-visible),
+.salmon-copy .elementor :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='button']):is(:hover, :focus-visible) {
+  text-decoration-thickness: 2px;
+}
+
+/* 404 (owner + CT 2026-10-07): a calm navy card on the R4 system, the four ruled links as a quiet row, the parts search */
+.dr4.nf {
+  display: grid;
+  gap: clamp(24px, 4vw, 40px);
+  padding-block: clamp(24px, 4vw, 48px) clamp(56px, 7vw, 112px);
+}
+
+.nf .nf-hero {
+  background: var(--dr4-navy);
+  border-radius: 20px;
+  color: var(--dr4-white);
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+  overflow: hidden;
+  padding-block: clamp(48px, 7vw, 104px);
+  padding-inline: clamp(24px, 6vw, 88px);
+  position: relative;
+}
+
+.nf .nf-hero::after {
+  color: var(--dr4-pill-fill);
+  content: '404';
+  font-family: var(--dr4-display);
+  font-size: clamp(160px, 26vw, 360px);
+  inset-block-start: 50%;
+  inset-inline-end: clamp(-24px, -1vw, 0px);
+  line-height: 0.8;
+  pointer-events: none;
+  position: absolute;
+  translate: 0 -50%;
+  user-select: none;
+}
+
+.nf .nf-title {
+  color: var(--dr4-white);
+  font-family: var(--dr4-display);
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 400;
+  line-height: 0.95;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.nf .nf-lead {
+  color: var(--dr4-on-navy);
+  font-size: 18px;
+  line-height: 1.6;
+  max-inline-size: 46ch;
+  position: relative;
+}
+
+.nf .nf-actions {
+  position: relative;
+}
+
+.nf .nf-links ul {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nf .nf-links a {
+  align-items: center;
+  border: 1px solid var(--dr4-line);
+  border-radius: 14px;
+  color: var(--dr4-ink);
+  display: flex;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: space-between;
+  min-block-size: 64px;
+  padding-inline: 20px;
+  text-decoration: none;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+
+.nf .nf-links a:hover {
+  border-color: var(--dr4-blue);
+  color: var(--dr4-blue);
+}
+
+.nf .nf-arrow {
+  color: var(--dr4-blue);
+  font-size: 18px;
+}
+
+.nf .nf-search {
+  max-inline-size: 560px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nf .nf-links a {
+    transition: none;
+  }
+}
+
+/*
+ * Site-wide launcher placement (CT 2026-10-07; QA S3, Codex (d)): below 768 px the corner launcher is the R4 48 px icon
+ * circle on every page (its accessible name is unchanged) and is held back while the first screen or the inline quote form
+ * is in view (LauncherPlacement.tsx). Pages with the R3 action bar keep their lift above it (design-r3.css).
+ */
+@media (width < 768px) {
+  body [data-rfq-launcher] {
+    block-size: 48px;
+    gap: 0;
+    inline-size: 48px;
+    justify-content: center;
+    min-block-size: 0;
+    padding: 0;
+  }
+
+  body:not(:has(.dr3-sticky)) [data-rfq-launcher] {
+    inset-block-end: calc(16px + env(safe-area-inset-bottom));
+    inset-inline-end: 16px;
+  }
+
+  body [data-rfq-launcher] > span {
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  /* QA R17B S2: the end of the page keeps the corner clear (launcher 48 px + 16 px + the safe area), so the footer text scrolls clear of it */
+  body:not(:has(.dr3-sticky)) .sp-footer {
+    padding-block-end: calc(80px + env(safe-area-inset-bottom));
+  }
+
+  :root[data-launcher-placement] [data-rfq-launcher] {
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  :root[data-launcher-hold] [data-rfq-launcher] {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+}
+
+@media (width < 768px) and (prefers-reduced-motion: reduce) {
+  :root[data-launcher-placement] [data-rfq-launcher] {
+    transition: none;
+  }
+}
+
+/* About a11y (QA pre-pass M4): the decorative "1 2 3" rail (aria-hidden) reads as a pager on a phone, so it is not shown */
+@media (width < 768px) {
+  .dr3-about .dr3-rail {
+    display: none;
+  }
+}
+
+@media (width < 768px) {
+  .nf .nf-hero::after {
+    display: none;
+  }
+}
+
+/* DD R5A.1 P1: the hub's fan-stack render reads at about 460 px (≤ native), not capped by the category's 300 px height */
+.r5 .r5-hero--hub .r5-hero-render {
+  max-block-size: none;
+}
+
+/*
+ * DD R5A.1 F2(a): at 1024 px and wider, on a product detail the corner launcher is held back while the product header (which
+ * carries Request a Quote) is in view; the mini-bar takes over after the scroll (the R4 F1 rule, R4LauncherReveal.tsx).
+ * Without the script it simply stays. The launcher's own bottom-right placement is not changed (DD recheck 0c5efe64, F2(b) withdrawn).
+ */
+@media (width >= 1024px) {
+  :root[data-r4-reveal] body:has(.r5-product-head) [data-rfq-launcher] {
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  :root[data-r4-reveal]:not([data-r4-hero-out]) body:has(.r5-product-head) [data-rfq-launcher] {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+}
+
+@media (width >= 1024px) and (prefers-reduced-motion: reduce) {
+  :root[data-r4-reveal] body:has(.r5-product-head) [data-rfq-launcher] {
+    transition: none;
+  }
+}
+
+/* Article end band (public-chrome-article.css drew its quote button as a 4 px block): the system pill, like every other quote button */
+.figma-wave4 .wave4-article-rfq.wave4-article-rfq :is(a, .rfq a) {
+  border-radius: 999px;
+  min-block-size: 48px;
+}

@@ -108,7 +108,7 @@ function Series({doc,model}:{doc:SalmonDocument;model:SalmonFamilyPageModel}){
   const head=overview>=0?groups.splice(overview,1)[0]:undefined
   return <Shell doc={doc} model={model}>
     <section className="r5-series-head" aria-labelledby="r5-series-title">
-      {render?<div className="r5-series-media"><Picture media={render.media} eager style={{inlineSize:`min(100%, ${render.media.width}px)`}}/></div>:null}
+      {render?<div className="r5-series-media"><Picture media={{...render.media,alt:render.media.alt||plain(h1?.text)}} eager style={{inlineSize:`min(100%, ${render.media.width}px)`}}/></div>:null}
       <div className="r5-series-text">
         {h1?<h1 id="r5-series-title" className="r5-series-title"><Rich text={h1.text}/></h1>:null}
         {lead?lead.blocks.map(b=><BlockView key={b.key} block={b} ctx={ctx}/>):null}

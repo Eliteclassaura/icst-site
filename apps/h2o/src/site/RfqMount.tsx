@@ -33,7 +33,7 @@ export type RfqMountProps = {
   page: CohortPage
   product?:never
   routePath?:never
-}|{mountId:'header_action'|'footer_rfq_band'|'rfq_page';product:SalmonDocument;page?:never;routePath?:never}
+}|{mountId:'header_action'|'footer_rfq_band'|'rfq_page';product:SalmonDocument;named?:boolean;page?:never;routePath?:never}
  |{mountId:PublicMountId;routePath:string;label?:string;page?:never;product?:never}
  |{mountId:'category_and_family';routePath:string;cardProduct:SalmonDocument|null;cardHref:string;label?:string;page?:never;product?:never}
 
@@ -48,15 +48,17 @@ const productTitle=(doc:SalmonDocument):string=>(doc.seo?.h1?.[0]||doc.title||''
  */
 const NativeRfqMount=(props:RfqMountProps)=>{
   const {mountId}=props
-  const trigger=(context:Record<string,string|undefined>,label:string,routeAttr?:string,contextLabel?:string)=>
-    <span className="rfq rfq-signal" data-rfq-public-route={routeAttr}><NativeRfqTrigger context={context} contextLabel={contextLabel} placement={mountId}>{label}</NativeRfqTrigger></span>
+  // QA R16 M1: on a product card the link's name carries the product ("Request a Quote for <product>"); the added words
+  // are visually hidden, so the visible label is unchanged (the trigger itself is CRM's, rfq-native).
+  const trigger=(context:Record<string,string|undefined>,label:string,routeAttr?:string,contextLabel?:string,named?:string)=>
+    <span className="rfq rfq-signal" data-rfq-public-route={routeAttr}><NativeRfqTrigger context={context} contextLabel={contextLabel} placement={mountId}>{named?<>{label}<span className="visually-hidden"> for {named}</span></>:label}</NativeRfqTrigger></span>
   if('cardProduct' in props&&props.mountId==='category_and_family'){
     const gate=categoryAndFamilyGate(props.routePath,props.cardProduct,props.cardHref)
     const product=props.cardProduct
     if(!nativeEligible(gate)||!product)return null
     const id=product.routeId.split('-').at(-1),slug=productSlug(product)
     if(!id||!slug)return null
-    return trigger({context_type:'product',context_id:id,product_id:id,product_slug:slug,product_path:product.targetPath,product_title:productTitle(product),page_path:props.routePath},props.label??'Request a Quote',props.routePath,productTitle(product))
+    return trigger({context_type:'product',context_id:id,product_id:id,product_slug:slug,product_path:product.targetPath,product_title:productTitle(product),page_path:props.routePath},props.label??'Request a Quote',props.routePath,productTitle(product),productTitle(product))
   }
   if(props.product){
     if(!['header_action','footer_rfq_band','rfq_page'].includes(mountId))return null
@@ -64,7 +66,7 @@ const NativeRfqMount=(props:RfqMountProps)=>{
     if(!nativeEligible(productMountGate(product)))return null
     const id=product.routeId.split('-').at(-1),slug=productSlug(product)
     if(!id||!slug)return null
-    return trigger({context_type:'product',context_id:id,product_id:id,product_slug:slug,product_path:product.targetPath,product_title:productTitle(product),page_path:product.targetPath},'Request a Quote',undefined,productTitle(product))
+    return trigger({context_type:'product',context_id:id,product_id:id,product_slug:slug,product_path:product.targetPath,product_title:productTitle(product),page_path:product.targetPath},'Request a Quote',undefined,productTitle(product),props.named?productTitle(product):undefined)
   }
   if(props.routePath){
     if(!nativeEligible(publicMountGate(props.routePath,mountId)))return null

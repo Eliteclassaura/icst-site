@@ -9,6 +9,7 @@ import type {ReactElement} from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 import {RETIRED_THAILAND_PHONE,liveRoutes,ownerHref,ownerText,provenanceHref,salmonDocument,salmonRoutes,type SalmonDocument} from '../salmon'
 import {SalmonCanonical,servedDescription,servedTitle} from '../SalmonCanonical'
+import {normalizeGraph,ORGANIZATION_SAME_AS} from '../schema-graph'
 import {ABOUT_ROUTE_ID,AboutComposition} from '../AboutComposition'
 import {ArchivePage,isArchiveDocument} from '../ArchivePresentation'
 import {LuxuryCanonical,luxuryIds} from '../LuxuryCanonical'
@@ -115,6 +116,16 @@ describe('SEO-FIX-1: one Organization and WebSite, plain strings, one page entit
       for(const ref of refs)expect(ref,target).toMatch(/"@id":"https:\/\/h2ocooling\.com\/#(?:organization|website)"/)
     }
   },300000)
+  it('the article Person keeps only personal profiles: the company profiles stay on #organization (CT 2026-10-08)',()=>{
+    const linkedin='https://www.linkedin.com/in/tim-bozic-417a65a/'
+    const block={'@context':'https://schema.org','@graph':[{'@type':'Person','@id':'https://h2ocooling.com/author/timbozic/','name':'Tim Bozic','sameAs':[ORGANIZATION_SAME_AS[1],linkedin,'https://www.facebook.com/Industrial-Cooling-Solutions-Inc-ICS-807464446083414']}]}
+    const graph=(normalizeGraph(block,{path:'/cooling-tower-approach/',lang:'en',article:true,name:'Cooling Tower Approach'}) as {'@graph':Array<Record<string,unknown>>})['@graph']
+    const person=graph.find(n=>n['@type']==='Person')!
+    expect(person.sameAs).toEqual([linkedin])
+    // a person with only company profiles carries no sameAs at all
+    const bare=normalizeGraph({'@context':'https://schema.org','@graph':[{'@type':'Person','@id':'https://h2ocooling.com/author/timbozic/','sameAs':[ORGANIZATION_SAME_AS[1]]}]},{path:'/x/',lang:'en',article:true,name:'X'}) as {'@graph':Array<Record<string,unknown>>}
+    expect(bare['@graph'].find(n=>n['@type']==='Person')).not.toHaveProperty('sameAs')
+  })
   it('no JSON-LD string holds an HTML entity; one Person at most, always the public author archive (never the 404 one) without a self-domain sameAs',()=>{
     for(const target of SAMPLE){
       const doc=byPath(target)
