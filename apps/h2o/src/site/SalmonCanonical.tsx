@@ -1,9 +1,10 @@
 import {createElement,Fragment,type ReactNode} from 'react'
-import {Testimonials} from './HomeTestimonials'
 import {LuxuryHeader,LuxuryFooter} from './LuxuryShell'
 import {pageForSegments} from './cohort'
 import {renderQuoteAction,suppressedDuplicate} from '../content/rfq-controls'
+import {Testimonials} from './HomeTestimonials'
 import {AuthorityEditorial} from './AuthorityEditorial'
+import {mathNodes,shortcodeNodes} from './math-text'
 import {articleByline,articleDisplayTitle,articleHeadingNodes} from './wave4'
 import {articleMetadataTitle} from './article-metadata'
 import {R2Discovery} from './R2Discovery'
@@ -84,11 +85,12 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   if(suppressedDuplicate(doc,node as never))return null
   const quote=renderQuoteAction(doc,node as never,key,(original,k)=>renderSalmonNode(original as SalmonNode,k,doc,suppressSourceByline))
   if(quote!==undefined)return quote
-  if(typeof node==='string')return doc.type==='product'&&/[$€£]\s*\d/.test(node)?<span data-salmon-exception="NO_PUBLIC_PRICE" data-source-node={key} key={key}/>:/^(?:Buy|Order|Purchase) Now$/i.test(node.trim())?<span data-salmon-exception="RFQ_ONLY" data-source-node={key} key={key}>Request a Quote</span>:publicSourceString(doc,node)
+  if(typeof node==='string')return doc.type==='product'&&/[$€£]\s*\d/.test(node)?<span data-salmon-exception="NO_PUBLIC_PRICE" data-source-node={key} key={key}/>:/^(?:Buy|Order|Purchase) Now$/i.test(node.trim())?<span data-salmon-exception="RFQ_ONLY" data-source-node={key} key={key}>Request a Quote</span>:bodyText(doc,node,key)
   if(commerceException(node))return <span data-salmon-exception="NO_PUBLIC_COMMERCE" data-source-node={key} key={key}/>
   if(['script','style','iframe','svg','template'].includes(node.tag))return null
   // SEO-CONTENT-1: a list item or table row emptied by a ruled removal renders nothing (no stray bullet marker, no blank row).
   if((node.tag==='li'||node.tag==='tr')&&!hasVisibleContent(node))return null
+  if(isEmptyTextBlock(node))return null
   if(doc.type==='posts'&&/(?:^|\s)elementor-widget-post-info(?:\s|$)/.test(node.attrs.class??'')){
     if(suppressSourceByline)return null
     const byline=articleByline(doc)
@@ -239,6 +241,20 @@ export const pagedTitle=(title:string,page:number):string=>page>=2?`${title.repl
 export const pagedDescription=(description:string,page:number):string=>page>=2?`Page ${page}: ${description}`:description
 /** SC-01: add the project's own verified photo as the social image when the imported head named none; projects without one use the site default. */
 const withProjectOwnImage=(meta:Array<{name:string;value:string}>,pagePath:string)=>meta.some(m=>m.name==='og:image')?meta:[...meta,...projectOwnSocialMeta(pagePath,servedOrigin())]
+const MEDIA_TAGS=new Set(['img','picture','video','audio','svg','iframe','canvas','input','button','a','object','embed'])
+const hasMedia=(node:SalmonNode):boolean=>typeof node!=='string'&&(MEDIA_TAGS.has(node.tag)||node.children.some(hasMedia))
+/**
+ * An empty paragraph or heading in the source ("<p> </p>", "<h2></h2>"): rendering it leaves an empty landmark for assistive
+ * technology and a blank gap on the page (QUICK-WINS-1 sweep: 89 pages carried one). Anything holding text, a link or media stays.
+ */
+export const isEmptyTextBlock=(node:Exclude<SalmonNode,string>):boolean=>/^(?:p|h[1-6])$/.test(node.tag)&&salmonNodeText(node).replace(/[\s\u00a0\u200b]+/g,'')===''&&!hasMedia(node)
+/** Visible body text: shortcodes removed, and (in articles) formulas rendered as HTML (./math-text, QUICK-WINS-1). */
+const bodyText=(doc:SalmonDocument,node:string,key:string):ReactNode=>{
+  const text=publicSourceString(doc,node)
+  const math=(plain:string,k:string):ReactNode=>{const nodes=doc.type==='posts'?mathNodes(plain,k):null;return nodes?<Fragment key={k}>{nodes}</Fragment>:plain}
+  const parts=shortcodeNodes(text,key,math)
+  return parts?<Fragment key={key}>{parts}</Fragment>:math(text,key)
+}
 export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbName,pageNumber=1}:{doc:SalmonDocument;canonicalOverride?:string;breadcrumb?:Crumb[];crumbName?:string;pageNumber?:number}){
   // R2.3 (CT 2026-10-05): every URL in the head names this site (./public-urls): identity URLs the canonical origin, media the
   // served file on the serving origin (C1–C6 crop/withhold included); an unheld image or a foreign host is dropped.

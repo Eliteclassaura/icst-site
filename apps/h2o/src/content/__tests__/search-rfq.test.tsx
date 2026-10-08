@@ -33,7 +33,7 @@ describe('/search/ RFQ gap closure in the canonical Payload search page', () => 
 
   it('keeps all six ordinary Contact links (header nav ×2, mobile contact, no-result alternative, footer band + column) as links', () => {
     const html = renderToStaticMarkup(<ReleaseSearchPage />)
-    expect(html).toContain('<a class="sp-footer-contact" href="/contact-us/">Contact us</a>')
+    expect(html).toContain('<a class="sp-footer-contact" href="/contact-us/">Contact Us</a>')
     expect(html).toContain('<a href="/contact-us/">Contact ICS</a>')
     expect(html).toContain('<a class="site-mobile-contact" href="/contact-us/">Contact us</a>')
     expect((html.match(/href="\/contact-us\/"/g) ?? []).length).toBe(6)

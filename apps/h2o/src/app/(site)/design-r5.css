@@ -1309,3 +1309,85 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
   border-radius: 999px;
   min-block-size: 48px;
 }
+
+/* QUICK-WINS-1: article formulas rendered as HTML (src/site/math-text.tsx): inline runs, display blocks and a stacked fraction */
+.math--display {
+  display: block;
+  margin-block: 12px;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.math-frac {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.math-num {
+  border-block-end: 1px solid currentcolor;
+  padding-inline: 4px;
+}
+
+.math-den {
+  padding-inline: 4px;
+}
+
+/*
+ * Footer (QUICK-WINS-1, owner team sheet): room under the last link of the category columns so "Tower Hardware" never meets the
+ * divider at any width, and the Locations row (the five country pages) above the copyright line.
+ */
+.global-chrome .sp-footer-main {
+  padding-block-end: clamp(36px, 4vw, 52px);
+}
+
+.global-chrome .sp-footer-locations {
+  align-items: baseline;
+  border-block-end: 1px solid var(--sp-line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px clamp(16px, 2.4vw, 32px);
+  padding-block: 20px;
+}
+
+.global-chrome .sp-footer-locations h3 {
+  margin: 0;
+}
+
+.global-chrome .sp-footer-locations ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px clamp(16px, 2.4vw, 32px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.global-chrome .sp-footer-locations a {
+  color: var(--sp-blue);
+  display: inline-block;
+  padding-block: 4px;
+  text-decoration: none;
+}
+
+.global-chrome .sp-footer-locations a:is(:hover, :focus-visible) {
+  text-decoration: underline;
+}
+
+/* Testimonial avatar: initials on a brand-tint circle instead of stock headshots (the reviewers' real photos were never supplied) */
+.client-testimonial-avatar {
+  align-items: center;
+  aspect-ratio: 1;
+  background: var(--df-signal-soft);
+  border-radius: 50%;
+  color: var(--df-blue);
+  display: flex;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  inline-size: min(100%, 180px);
+  justify-content: center;
+  letter-spacing: 0.02em;
+  margin-inline: auto;
+  user-select: none;
+}

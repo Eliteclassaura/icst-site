@@ -5,7 +5,9 @@ import {SalmonSeo} from './SalmonCanonical'
 import {linkLabel,namelessLink} from './link-context'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {pageForSegments} from './cohort'
-import {ownerText,provenanceHref,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
+import {ownerText,provenanceHref,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
+import {salmonFamilyFor,salmonFamilyModel} from './salmon-family-adapter'
+import {portfolioView} from './r4/R4Portfolio'
 import {SalmonTabsController} from './SalmonTabsController'
 import {heroQuoteAction,renderQuoteAction} from '../content/rfq-controls'
 import {heroActionFor,heroSecondaryHref} from './hero-actions'
@@ -36,6 +38,57 @@ function localHref(value:string,doc:SalmonDocument):string|undefined {
  *   styles the heading class, not the tag).
  * - H1: the credential row shows the original ICS files with real alts (content/design/home-credentials.json).
  */
+const WP_POST_DATE=/^(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, 20\d\d$/
+/** The home project-card date widgets, and the project year each should show (from the portfolio model, via the card's own project link). */
+const PROJECT_LINK=/\/(?:all-projects|projects)\/[^/?#]+\/?$/
+const pathOf=(href:string):string|undefined=>{try{return new URL(href,'https://x.test').pathname}catch{return undefined}}
+const isPostDateWidget=(node:Exclude<SalmonNode,string>)=>/(?:^|\s)elementor-widget-text-editor(?:\s|$)/.test(node.attrs.class??'')&&WP_POST_DATE.test(salmonNodeText(node).replace(/\s+/g,' ').trim())
+/** The widget with its date paragraph replaced by the year (the source splits some dates over a span: "June 12, <span>2015</span>"). */
+const withDateText=(node:Exclude<SalmonNode,string>,year:string):Exclude<SalmonNode,string>=>node.tag==='p'?{...node,children:[year]}:{...node,children:node.children.map(child=>typeof child==='string'?child:withDateText(child,year))}
+let portfolioYears:Map<string,string>|undefined
+const projectYear=(href:string):string|undefined=>{
+  if(!portfolioYears){
+    portfolioYears=new Map()
+    try{
+      const route=salmonRoutes().find(r=>r.routeId==='SALMON-pages-1353')
+      const portfolio=route?salmonDocument(route):undefined
+      const family=portfolio?salmonFamilyFor(portfolio):undefined
+      if(portfolio&&family)for(const country of portfolioView(salmonFamilyModel(portfolio,family)).countries)for(const card of country.cards){
+        const year=/(?:19|20)\d{2}/.exec(card.year??'')?.[0]
+        const path=pathOf(card.href)
+        if(year&&path)portfolioYears.set(path,year)
+      }
+    }catch{/* no portfolio model: the dates are simply not shown */}
+  }
+  const path=pathOf(href)
+  return path?portfolioYears.get(path):undefined
+}
+const dateYears=new WeakMap<SalmonDocument,Map<string,string|undefined>>()
+function homeDateYears(doc:SalmonDocument):Map<string,string|undefined>{
+  const cached=dateYears.get(doc)
+  if(cached)return cached
+  const out=new Map<string,string|undefined>()
+  const projectHref=(node:SalmonNode):string|undefined=>{
+    if(typeof node==='string')return undefined
+    if(node.tag==='a'){const path=pathOf(node.attrs.href??'');if(path&&PROJECT_LINK.test(path))return node.attrs.href}
+    for(const child of node.children){const found=projectHref(child);if(found)return found}
+    return undefined
+  }
+  const visit=(node:SalmonNode,ancestors:Array<Exclude<SalmonNode,string>>)=>{
+    if(typeof node==='string')return
+    const id=node.attrs['data-id']
+    if(id&&isPostDateWidget(node)){
+      // the card is the nearest ancestor that holds a project link
+      let href:string|undefined
+      for(let i=ancestors.length-1;i>=0&&!href;i--)href=projectHref(ancestors[i]!)
+      out.set(id,href?projectYear(href):undefined)
+    }
+    for(const child of node.children)visit(child,[...ancestors,node])
+  }
+  for(const child of doc.children)visit(child,[])
+  dateYears.set(doc,out)
+  return out
+}
 const HOME_DROPPED_ELEMENTS:ReadonlySet<string>=new Set(['be98584'])
 const HOME_SHOWN_ON_MOBILE:ReadonlySet<string>=new Set(['81bef94'])
 type Credential={replacesSha256:string;src:string;sha256:string;width:number;height:number;alt:string}
@@ -81,6 +134,14 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument,inLoop:false|s
  if(node.tag==='form')return <form key={key} className="e-search-form" action="/search/" method="get" role="search"><label className="e-search-label" htmlFor={`salmon-search-${key}`}><span className="elementor-screen-only">Search</span></label><div className="e-search-input-wrapper"><input id={`salmon-search-${key}`} className="e-search-input" type="search" name="q" placeholder="Find Your Services" required maxLength={200}/></div><button className="e-search-submit" type="submit" aria-label="Search"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><path d="M8 16h15m-7-7 7 7-7 7" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></button></form>
  const home=doc.targetPath==='/'
  if(home&&node.attrs['data-id']&&HOME_DROPPED_ELEMENTS.has(node.attrs['data-id']))return null
+ // the home project cards showed the WordPress post date as if it were the project's date ("June 12, 2018"): they show the
+ // project's own year from the portfolio data, or no date when the project has none (CT 2026-10-08)
+ if(home&&isPostDateWidget(node)){
+  const id=node.attrs['data-id']
+  const year=id?homeDateYears(doc).get(id):undefined
+  if(!year)return null
+  node=withDateText(node,year)
+ }
  const loop:false|string=inLoop||(/(?:^|\s)e-loop-item(?:\s|$)/.test(node.attrs.class??'')?loopTitle(node)??'':false)
  const tag=tags.has(node.tag)?(loop!==false&&node.tag==='h2'?'h3':node.tag):'span'
  const className=home&&node.attrs['data-id']&&HOME_SHOWN_ON_MOBILE.has(node.attrs['data-id'])?node.attrs.class?.replace(/(?:^|\s)elementor-hidden-mobile(?=\s|$)/,''):node.attrs.class

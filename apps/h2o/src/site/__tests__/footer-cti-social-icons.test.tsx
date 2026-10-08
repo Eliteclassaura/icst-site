@@ -54,7 +54,7 @@ describe('footer facts unchanged',()=>{
     for(const fact of ['+1-303-462-2000','+81-90-4204-6742','+662-661-7723'])expect(html).toContain(fact)
     expect(html).not.toContain('+66-2-260-6598')
     const main=html.slice(html.indexOf('<div class="sp-footer-main">'),html.indexOf('<div class="sp-footer-legal">'))
-    expect([...main.matchAll(/<(?:section|nav) class="(sp-footer-[a-z -]+)"/g)].map(([,cls])=>cls)).toEqual(['sp-footer-about','sp-footer-list','sp-footer-list sp-footer-category','sp-footer-phone'])
+    expect([...main.matchAll(/<(?:section|nav) class="(sp-footer-[a-z -]+)"/g)].map(([,cls])=>cls)).toEqual(['sp-footer-about','sp-footer-list','sp-footer-list sp-footer-category','sp-footer-phone','sp-footer-locations'])
     expect(html).toContain('class="sp-footer-top"')
     expect(html).toContain('href="/contact-us/"')
   })
