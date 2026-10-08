@@ -33,6 +33,12 @@ type FooterFlag={office:string;src:string;sha256:string;width:number;height:numb
 const footerFlags=new Map((JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon/parity-footer-flags.json'),'utf8')) as {flags:FooterFlag[]}).flags.map(flag=>[flag.office,flag]))
 const linkList=(links:SiteChrome['footer']['columns'][number]['links'])=><ul>{links.map(({label,href})=><li key={href+label}><a href={href}>{label}</a></li>)}</ul>
 /** The country pages (R5b), linked from every footer (QUICK-WINS-1: they had no internal links). The Thailand phone stays on the owner authority. */
+/** LEGAL-1: the footer's legal row links all four legal pages (the privacy link itself stays the chrome content's own). */
+export const FOOTER_LEGAL_LINKS:ReadonlyArray<{label:string;href:string}>=[
+  {label:'Terms of Use',href:'/terms-of-use/'},
+  {label:'Cookie Notice',href:'/cookie-notice/'},
+  {label:'Accessibility',href:'/accessibility/'},
+]
 export const FOOTER_LOCATIONS:ReadonlyArray<{label:string;href:string}>=[
   {label:'USA',href:'/cooling-tower-construction-repair-in-united-states/'},
   {label:'Thailand',href:'/cooling-tower-thailand/'},
@@ -54,6 +60,6 @@ export function LuxuryFooter({page=null,routePath,product}:{page?:CohortPage|nul
     <section className="sp-footer-phone" aria-label={f.officesTitle}><h3>{f.officesTitle}</h3><ul>{contactOffices.map(office=>{const flag=footerFlags.get(office.officeKey);return <li key={office.officeKey}><address><span className="sp-footer-office">{flag?<span className="sp-footer-flag" aria-hidden="true"><img src={flag.src} width={flag.width} height={flag.height} alt="" loading="lazy" decoding="async" data-source-sha256={flag.sha256} style={flag.frameZoom!==1?{transform:`scale(${flag.frameZoom})`}:undefined}/></span>:null}<strong>{officeLocation(office.officeKey,office.officeKey==='usa'?'United States':office.countryName)}</strong><span className="sp-visually-hidden">{office.officeKey==='usa'?' United States':''}</span></span><a href={office.telephoneHref}>{office.telephoneDisplay}</a></address></li>})}</ul></section>
    </div>
    <nav className="sp-footer-locations" aria-label="Locations"><h3>Locations</h3><ul>{FOOTER_LOCATIONS.filter(link=>linkRenderable(link.href)).map(link=><li key={link.href}><a href={link.href}>{link.label}</a></li>)}</ul></nav>
-   <div className="sp-footer-legal"><span>{f.copyright}</span><a href={f.privacyHref}>{f.privacyLabel}</a></div>
+   <div className="sp-footer-legal"><span>{f.copyright}</span><a href={f.privacyHref}>{f.privacyLabel}</a>{FOOTER_LEGAL_LINKS.map(link=><a key={link.href} href={link.href}>{link.label}</a>)}</div>
   </div>
  </footer></div>}

@@ -19,6 +19,8 @@ import {EnglishServicePage,englishServiceForPath,englishServicePages} from '../.
 import {connection} from 'next/server'
 import {isEmptyArchivePage} from '../../../content/empty-archives'
 import {isPayloadContent} from '../../../content/runtime-read'
+import {LEGAL_PAGES,legalPageForPath} from '../../../site/legal-routes'
+import {LegalPage,legalMetadata} from '../../../site/LegalPage'
 import {EditorialPage,type EditorialDoc} from '../../../content/EditorialPage'
 // Content bridge (payload content mode): the route and its document are resolved from Payload's published
 // state per request (or the editor's draft in private preview), then rendered by the accepted dispatch below
@@ -34,7 +36,7 @@ export const dynamicParams=true
 export const dynamic='force-dynamic'
 export function generateStaticParams():Array<{slug:string[]}> {
   if(isPayloadContent())return []
-  return [...salmonRoutes().map(r=>({slug:r.targetPath.split('/').filter(Boolean).map(decodeURIComponent)})),...englishServicePages().map(service=>({slug:service.path.split('/').filter(Boolean)})),{slug:['resources']}]
+  return [...salmonRoutes().map(r=>({slug:r.targetPath.split('/').filter(Boolean).map(decodeURIComponent)})),...englishServicePages().map(service=>({slug:service.path.split('/').filter(Boolean)})),{slug:['resources']},...LEGAL_PAGES.filter(page=>page.path!=='/privacy-policy/').map(page=>({slug:page.path.split('/').filter(Boolean)}))]
 }
 type Params={params:Promise<{slug?:string[]}>;searchParams?:Promise<{q?:string;page?:string}>}
 /**
@@ -47,6 +49,9 @@ export const pagedHubMetadata=(m:Metadata,page:number):Metadata=>{
   return {...m,...(title?{title:{absolute:pagedTitle(title,page)}}:{}),...(typeof m.description==='string'?{description:pagedDescription(m.description,page)}:{})}
 }
 export async function generateMetadata({params,searchParams}:Params):Promise<Metadata>{
+  // LEGAL-1: the four legal pages are code routes, answered before any release or Payload lookup
+  const legal=legalPageForPath(requestPathOf((await params).slug))
+  if(legal)return legalMetadata(legal)
   const base=await baseMetadata({params})
   if(requestPathOf((await params).slug)!=='/cooling-tower-parts-online/')return base
   const search=await searchParams
@@ -93,6 +98,8 @@ export default async function Page({params,searchParams}:Params){
   let slug=(await params).slug
   // R2.4 R2 (CT ruling 2026-10-05): page 2+ of an archive that lists nothing public answers 404, not an empty page
   if(isEmptyArchivePage(requestPathOf(slug)))notFound()
+  const legalPage=legalPageForPath(requestPathOf(slug))
+  if(legalPage)return <LegalPage page={legalPage}/>
   // An alias record (a second public address of an imported route, e.g. /author/timbozic/) renders its source
   // document at its own address and canonical.
   let alias:{source:string;path:string;canonical:string}|undefined

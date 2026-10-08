@@ -30,6 +30,7 @@
  * the requested path, so the header and the page's own metadata are one decision rather than two
  * that happen to agree while nothing is publication-ready.
  */
+import { withLegalRows } from './site/legal-routes'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { verificationFileFor } from './content/verification-files'
@@ -210,7 +211,7 @@ const pathKeyOf = (p: string) => {
 }
 function publishedLedger(): Ledger | null {
   try {
-    return snapshotJson<Ledger>('ledger.json')
+    return withLegalRows(snapshotJson<Ledger>('ledger.json'))
   } catch {
     return null
   }

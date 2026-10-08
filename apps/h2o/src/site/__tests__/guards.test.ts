@@ -17,6 +17,9 @@ import { buildJsonLd, ForbiddenSchemaPropertyError } from '../metadata'
 import { generateStaticParams } from '../../app/(site)/[[...slug]]/page'
 import {salmonRoutes, salmonRedirects, salmonRouteFor} from '../salmon'
 import {englishServicePages} from '../EnglishServices'
+import {LEGAL_NEW_ROWS} from '../legal-routes'
+// LEGAL-1: the three new legal pages are code routes with their own static params, beyond the Salmon estate
+const legalPaths=LEGAL_NEW_ROWS.map(row=>row.path)
 
 const accepted = (): CohortPage[] => cohort()
 
@@ -142,15 +145,15 @@ describe('the route set is the authorized Salmon estate, Resources canonical and
     const params = generateStaticParams()
     const services=englishServicePages()
     expect(services).toHaveLength(6)
-    expect(params.length).toBe(1212)
+    expect(params.length).toBe(1212+legalPaths.length)
     expect(params.map((entry) => `/${entry.slug.join('/')}/`.replace('//', '/')).sort()).toEqual(
-      [...salmonRoutes().map((page) => decodeURIComponent(page.targetPath)), '/resources/',...services.map(service=>service.path)]
+      [...salmonRoutes().map((page) => decodeURIComponent(page.targetPath)), '/resources/',...services.map(service=>service.path),...legalPaths]
         .sort(),
     )
   })
 
   it('enumerates no route the accepted table does not carry', () => {
-    const acceptedPaths = new Set([...salmonRoutes().map((page) => decodeURIComponent(page.targetPath)), '/resources/',...englishServicePages().map(service=>service.path)])
+    const acceptedPaths = new Set([...salmonRoutes().map((page) => decodeURIComponent(page.targetPath)), '/resources/',...englishServicePages().map(service=>service.path),...legalPaths])
     for (const entry of generateStaticParams()) {
       const path = `/${entry.slug.join('/')}/`.replace('//', '/')
       expect(acceptedPaths.has(path)).toBe(true)

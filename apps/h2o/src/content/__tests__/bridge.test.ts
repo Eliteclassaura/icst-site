@@ -163,7 +163,8 @@ describe('CSP for the Payload public runtime', () => {
     expect(prod).toMatch(/<loc>https:\/\/h2ocooling\.com\/a\/<\/loc>/)
     expect(prod).not.toMatch(/\/h\//)
     // A withdrawal the release does not reflect yet is subtracted (revocation overlay).
-    expect(locs(new Set(['/a/']))).not.toMatch(/<loc>/)
+    // (LEGAL-1: the three code-route legal pages are always listed in production, so the overlay is checked on /a/ itself)
+    expect(locs(new Set(['/a/']))).not.toMatch(/h2ocooling\.com\/a\//)
   })
 })
 

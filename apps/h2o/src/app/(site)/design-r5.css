@@ -1391,3 +1391,96 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
   margin-inline: auto;
   user-select: none;
 }
+
+/* LEGAL-1: the legal pages as plain text on the R4 system (readable measure, headings as written, tables that scroll, not squeeze) */
+.legal-main {
+  background: var(--dr4-bg, var(--df-white));
+  padding-block: clamp(32px, 6vw, 80px);
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+
+.legal-doc {
+  color: var(--dr4-ink, var(--df-ink-navy));
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  margin-inline: auto;
+  max-inline-size: 72ch;
+}
+
+.legal-doc h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 400;
+  line-height: 1.05;
+  margin-block: 0 24px;
+}
+
+.legal-doc h2 {
+  font-size: clamp(22px, 3vw, 28px);
+  line-height: 1.25;
+  margin-block: 40px 12px;
+}
+
+.legal-doc h3 {
+  font-size: 19px;
+  margin-block: 28px 8px;
+}
+
+.legal-doc p,
+.legal-doc ul {
+  margin-block: 0 16px;
+}
+
+.legal-doc ul {
+  padding-inline-start: 1.25em;
+}
+
+.legal-doc li {
+  margin-block: 0 6px;
+}
+
+.legal-doc a {
+  color: var(--df-blue);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.legal-doc code {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+}
+
+.legal-table {
+  margin-block: 0 20px;
+  overflow-x: auto;
+}
+
+.legal-table:focus-visible {
+  outline: 2px solid var(--df-blue);
+  outline-offset: 2px;
+}
+
+.legal-table table {
+  border-collapse: collapse;
+  inline-size: 100%;
+  min-inline-size: 480px;
+}
+
+.legal-table :is(th, td) {
+  border-block-end: 1px solid var(--sp-line, var(--df-signal-soft));
+  padding-block: 10px;
+  padding-inline: 12px;
+  text-align: start;
+  vertical-align: top;
+}
+
+.legal-table th {
+  font-weight: 600;
+}
+
+/* the footer's legal row carries four links: they wrap and keep their tap size */
+.global-chrome .sp-footer-legal a {
+  padding-block: 4px;
+}

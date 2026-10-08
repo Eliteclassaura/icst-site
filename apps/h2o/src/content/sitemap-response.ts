@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs'
+import { withLegalRows } from '../site/legal-routes'
 import path from 'node:path'
 import { NextResponse } from 'next/server'
 import type { Payload } from 'payload'
@@ -32,7 +33,7 @@ const localeData = (): LocaleData => (locale ??= localeOnly(JSON.parse(readFileS
 
 function publishedLedger(): Ledger | null {
   try {
-    return snapshotJson<Ledger>('ledger.json')
+    return withLegalRows(snapshotJson<Ledger>('ledger.json'))
   } catch {
     return null
   }
