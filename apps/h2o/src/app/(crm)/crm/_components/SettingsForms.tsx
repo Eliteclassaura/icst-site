@@ -186,3 +186,33 @@ export function ApproveTemplateForm({ id, hash, approved }: { id: string; hash: 
     <ActionForm inline action={A.approveTemplateAction} hidden={{ id, approve: '1', hash }} submitLabel="Approve this wording" submitClassName="c-btn is-primary" />
   )
 }
+
+/** ALERTS-1: Settings → Email routing. Plain labels; one address per line; empty means "use the default". */
+export function RoutingForm({
+  values,
+  defaults,
+}: {
+  values: { alerts_us: string; alerts_th: string; alerts_cc: string; sales_address: string }
+  defaults: { alerts: string; sales: string }
+}) {
+  return (
+    <ActionForm action={A.saveRoutingAction} submitLabel="Save routing">
+      <Field name="alerts_us" label="Who gets new quote alerts (US)" hint={`One address per line, up to 10. Leave empty to use the default (${defaults.alerts || 'none set'}).`}>
+        {(a) => <textarea className="c-input" {...a} defaultValue={values.alerts_us} rows={3} maxLength={4000} spellCheck={false} autoComplete="off" />}
+      </Field>
+      <Field name="alerts_th" label="Who gets new quote alerts (Thailand)" hint={`One address per line, up to 10. Leave empty to use the default (${defaults.alerts || 'none set'}).`}>
+        {(a) => <textarea className="c-input" {...a} defaultValue={values.alerts_th} rows={3} maxLength={4000} spellCheck={false} autoComplete="off" />}
+      </Field>
+      <Field name="alerts_cc" label="Also send a copy to" hint="Optional. These addresses get every new quote alert, from both offices.">
+        {(a) => <textarea className="c-input" {...a} defaultValue={values.alerts_cc} rows={2} maxLength={4000} spellCheck={false} autoComplete="off" />}
+      </Field>
+      <Field name="sales_address" label="Sales address customers see" hint={`Shown in the quote confirmation and used for replies. Leave empty to use ${defaults.sales}.`}>
+        {(a) => <input className="c-input" {...a} type="email" inputMode="email" defaultValue={values.sales_address} maxLength={254} autoComplete="off" spellCheck={false} />}
+      </Field>
+    </ActionForm>
+  )
+}
+
+export function TestAlertForm() {
+  return <ActionForm inline action={A.testAlertAction} submitLabel="Send test alert" submitClassName="c-btn" />
+}

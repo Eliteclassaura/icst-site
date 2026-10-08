@@ -118,7 +118,9 @@ export async function saveProfile(s: CrmSession, sid: string | null, input: Prof
     return fail('PROFILE_PASSWORD_REQUIRED_FOR_CHANGE', 'Changing the server, port, TLS name or username needs the password entered again.')
   const changedConnection = !existing || Boolean(password) || movedConnection
   const checkReset = changedConnection ? { last_check_state: null, last_check_code: null, last_check_at: null } : {}
-  if (movedConnection) data.active = false
+  // SEC-CRM-1 / R2-06: ANY credential or connection change (including the password alone) turns the profile off until it
+  // passes a new check; `resolveSending` also refuses an active profile whose last check is not OK.
+  if (existing && changedConnection) data.active = false
   let id: string
   if (existing) {
     id = String(existing.id)
@@ -211,6 +213,10 @@ export async function checkProfile(s: CrmSession, sid: string | null, id: string
       code = failureCode(err).code
     }
   }
+  // R2-06: a check result belongs to the connection and password it ran against. If the profile was changed while the
+  // check was running, the result is thrown away (it would otherwise mark the new password as checked).
+  const again = await load(s, id)
+  if (!again || String(again.updatedAt) !== String(doc.updatedAt)) return fail('PROFILE_CHANGED', 'The profile was changed while it was being checked. Check it again.')
   await s.payload.update({
     collection: SLUG,
     id: String(doc.id),

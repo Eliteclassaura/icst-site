@@ -4,6 +4,7 @@ import { refresh } from 'next/cache'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { pendingSession } from '../../../../auth/mfa/guard'
+import * as routing from '../../../../email/routing'
 import * as sending from '../../../../email/sending-settings'
 import * as templates from '../../../../crm/settings/templates'
 import type { Outcome } from '../../../../crm/workspace/mutations'
@@ -80,4 +81,13 @@ export async function saveTemplateAction(_: ActionState, fd: FormData) {
 
 export async function approveTemplateAction(_: ActionState, fd: FormData) {
   return run((s) => templates.setTemplateApproved(s, f(fd, 'id'), f(fd, 'approve') === '1', f(fd, 'hash')))
+}
+
+// ── ALERTS-1: email routing ──────────────────────────────────────────────────────────────────────────────────────
+export async function saveRoutingAction(_: ActionState, fd: FormData) {
+  return run((s, sid) => routing.saveRouting(s, sid, { alerts_us: f(fd, 'alerts_us'), alerts_th: f(fd, 'alerts_th'), alerts_cc: f(fd, 'alerts_cc'), sales_address: f(fd, 'sales_address') }))
+}
+
+export async function testAlertAction(_: ActionState, _fd: FormData) {
+  return run((s, sid) => routing.sendTestAlert(s, sid))
 }

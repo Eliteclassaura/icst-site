@@ -214,12 +214,14 @@ export interface Config {
     'site-chrome': SiteChrome;
     'crm-office-settings': CrmOfficeSetting;
     'crm-ers-settings': CrmErsSetting;
+    'crm-email-routing': CrmEmailRouting;
   };
   globalsSelect: {
     'publication-state': PublicationStateSelect<false> | PublicationStateSelect<true>;
     'site-chrome': SiteChromeSelect<false> | SiteChromeSelect<true>;
     'crm-office-settings': CrmOfficeSettingsSelect<false> | CrmOfficeSettingsSelect<true>;
     'crm-ers-settings': CrmErsSettingsSelect<false> | CrmErsSettingsSelect<true>;
+    'crm-email-routing': CrmEmailRoutingSelect<false> | CrmEmailRoutingSelect<true>;
   };
   locale: 'en';
   widgets: {
@@ -6662,6 +6664,45 @@ export interface CrmErsSetting {
   createdAt?: string | null;
 }
 /**
+ * Who gets new quote alerts and which sales address customers see. Change it in the CRM: Settings → Email routing.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-routing".
+ */
+export interface CrmEmailRouting {
+  id: string;
+  alerts_us?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  alerts_th?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  alerts_cc?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  sales_address?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "publication-state_select".
  */
@@ -6817,6 +6858,19 @@ export interface CrmErsSettingsSelect<T extends boolean = true> {
   bounce_warn_ratio?: T;
   min_sends_for_ratio?: T;
   inbound_last_ok_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-routing_select".
+ */
+export interface CrmEmailRoutingSelect<T extends boolean = true> {
+  alerts_us?: T;
+  alerts_th?: T;
+  alerts_cc?: T;
+  sales_address?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

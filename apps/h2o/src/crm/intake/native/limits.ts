@@ -11,7 +11,7 @@ import type { Payload } from 'payload'
  * Each limit can be tuned by environment (H2O_RFQ_LIMIT_*), never removed. The client IP comes from the trusted proxy
  * (`TRUSTED_PROXY=cloudflare` in production reads cf-connecting-ip only); without one, everyone shares one bucket.
  */
-type Rule = { bucket: 'ip' | 'email' | 'token' | 'mail-check' | 'mail-test'; windowMs: number; max: number; env: string }
+type Rule = { bucket: 'ip' | 'email' | 'token' | 'mail-check' | 'mail-test' | 'alert-test'; windowMs: number; max: number; env: string }
 const MIN = 60_000
 export const SUBMIT_RULES: Rule[] = [
   { bucket: 'ip', windowMs: 10 * MIN, max: 5, env: 'H2O_RFQ_LIMIT_IP_10M' },
@@ -27,6 +27,8 @@ export const UNTRUSTED_RULES: Rule[] = [
 ]
 export const EMAIL_RULE: Rule = { bucket: 'email', windowMs: 60 * MIN, max: 3, env: 'H2O_RFQ_LIMIT_EMAIL_HOUR' }
 export const TOKEN_RULE: Rule = { bucket: 'token', windowMs: 10 * MIN, max: 30, env: 'H2O_RFQ_LIMIT_TOKEN_10M' }
+/** ALERTS-1: the "Send test alert" button — one per minute per admin. */
+export const ALERT_TEST_RULE: Rule = { bucket: 'alert-test', windowMs: MIN, max: 1, env: 'H2O_ALERT_TEST_LIMIT_MIN' }
 const PRUNE_AFTER_MS = 2 * 24 * 60 * MIN
 
 const maxOf = (r: Rule) => {

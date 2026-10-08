@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import type { Payload } from 'payload'
 import { fixtureRegistry } from '../../../rfq-native/registry'
 import type { Registry } from '../../../rfq-native/model'
-import { readEmailConfig, resolveSalesAddress } from '../../../email/config'
+import { readEmailConfig, resolveSalesAddress as resolveSalesAddressEnv } from '../../../email/config'
 import { emailKey } from '../../normalize'
 import { ingestParsed, intakeLog } from '../typeform/ingest'
 import { admit, bucketFor, EMAIL_RULE, requestIp, SUBMIT_RULES, TOKEN_RULE, UNTRUSTED_BUCKET, UNTRUSTED_RULES } from './limits'
@@ -48,7 +48,7 @@ function crossSite(req: Request): boolean {
  * (EN only until JA/TH data exists), the on/off switch, and the owner's response-time line (decision 2026-10-05) when
  * the promise is configured.
  */
-export function servedRegistry(env: NodeJS.ProcessEnv = process.env): Registry {
+export function servedRegistry(env: NodeJS.ProcessEnv = process.env, salesAddress: string = resolveSalesAddressEnv(env)): Registry {
   const base = fixtureRegistry()
   const cfg = readEmailConfig(env)
   const strings = { ...base.strings }
@@ -58,12 +58,13 @@ export function servedRegistry(env: NodeJS.ProcessEnv = process.env): Registry {
   const promise = cfg.responsePromise
   strings['confirm.body'] = promise ? strings['confirm.body.promise_on']!.replace('within one business day', promise) : strings['confirm.body.promise_off']!
   delete strings['confirm.response_time']
-  strings['confirm.attachments'] = cfg.customerAck ? strings['confirm.attachments.ack_on']! : strings['confirm.attachments.ack_off']!.replace('{{sales_email}}', resolveSalesAddress(env))
+  strings['confirm.attachments'] = cfg.customerAck ? strings['confirm.attachments.ack_on']! : strings['confirm.attachments.ack_off']!.replace('{{sales_email}}', salesAddress)
   return { ...base, locale: 'en', enabled: nativeIntakeOn(env), strings }
 }
 
-export function registryReply(req: Request, env: NodeJS.ProcessEnv = process.env): Reply {
-  const reg = servedRegistry(env)
+/** ALERTS-1: `salesAddress` is the live setting (email/routing-read.ts resolveSalesAddressLive); the route resolves it first. */
+export function registryReply(req: Request, env: NodeJS.ProcessEnv = process.env, salesAddress?: string): Reply {
+  const reg = servedRegistry(env, salesAddress)
   const json = JSON.stringify(reg)
   const etag = `"${createHash('sha256').update(json).digest('base64url').slice(0, 27)}"`
   const cache = { 'cache-control': 'public, max-age=300, stale-while-revalidate=86400', etag }

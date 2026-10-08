@@ -1,3 +1,4 @@
+import { resolveAlertRecipients } from '../email/routing-read'
 import { randomUUID } from 'node:crypto'
 import type { Payload, PayloadRequest } from 'payload'
 import { readEmailConfig, type EmailConfig } from '../email/config'
@@ -14,7 +15,7 @@ import { isWebsiteSource, type EmailEvent, type EmailKind, type EmailOutboxStatu
  * runner's outbox worker sends it, src/email/outbox-worker.ts) or terminal SUPPRESSED_* with the reason.
  *
  * Who gets what, for an RFQ received through the website (TYPEFORM, NATIVE_FORM or NATIVE_CHAT):
- *   - RFQ_SALES_ALERT  one row per H2O_SALES_ALERT_TO address (internal);
+ *   - RFQ_SALES_ALERT  one row per alert recipient (internal): the office list from Settings → Email routing, else H2O_SALES_ALERT_TO, plus the copy list;
  *   - RFQ_CUSTOMER_ACK one row for the submitted address, once per RFQ, only if H2O_EMAIL_CUSTOMER_ACK=on.
  * Manually entered inquiries get neither: staff entered them, and the customer did not submit a form.
  *
@@ -165,8 +166,10 @@ export async function enqueueRfqNotifications(
   const suppression = email
     ? evaluateTransactionalSend(await ledgerFor(req as PayloadRequest, email.matchKey), true)
     : { allowed: false as const, blockedBy: ['NO_VALID_ADDRESS'] }
+  // ALERTS-1: who gets the alert is read now, per the RFQ's office (Settings → Email routing, else the server default).
+  const alerts = await resolveAlertRecipients(req.payload, rfq.office, cfg)
   const plan = planRfqNotifications(
-    cfg,
+    { ...cfg, salesAlertTo: alerts.all },
     {
       canonicalId: String(rfq.canonical_id),
       sourceSystem: rfq.source_system,

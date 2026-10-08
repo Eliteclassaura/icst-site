@@ -20,6 +20,7 @@ import * as migration_20261006_203222_payload_3_90_security from './20261006_203
 import * as migration_20261007_214405_dark_1_crm_theme from './20261007_214405_dark_1_crm_theme';
 import * as migration_20261008_040408_rfq_fix_1_spam_state from './20261008_040408_rfq_fix_1_spam_state';
 import * as migration_20261008_052750_rfq_fix_1_1_sweep_limits from './20261008_052750_rfq_fix_1_1_sweep_limits';
+import * as migration_20261008_122143_alerts_1_email_routing from './20261008_122143_alerts_1_email_routing';
 
 export const migrations = [
   {
@@ -130,6 +131,11 @@ export const migrations = [
   {
     up: migration_20261008_052750_rfq_fix_1_1_sweep_limits.up,
     down: migration_20261008_052750_rfq_fix_1_1_sweep_limits.down,
-    name: '20261008_052750_rfq_fix_1_1_sweep_limits'
+    name: '20261008_052750_rfq_fix_1_1_sweep_limits',
+  },
+  {
+    up: migration_20261008_122143_alerts_1_email_routing.up,
+    down: migration_20261008_122143_alerts_1_email_routing.down,
+    name: '20261008_122143_alerts_1_email_routing'
   },
 ];

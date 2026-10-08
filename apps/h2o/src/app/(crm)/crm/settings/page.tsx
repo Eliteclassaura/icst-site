@@ -33,6 +33,9 @@ export default async function SettingsPage() {
               <a href="/crm/settings/sending/">Sending profiles</a> — the mailbox the CRM sends from (Google Workspace, Stalwart).
             </li>
             <li>
+              <a href="/crm/settings/email-routing/">Email routing</a>: who gets new quote alerts (US, Thailand) and the sales address customers see.
+            </li>
+            <li>
               <a href="/crm/settings/sequences/">Sequences</a>: the Revenue Engine, with follow-up sequences, caps and sending health.
             </li>
             <li>

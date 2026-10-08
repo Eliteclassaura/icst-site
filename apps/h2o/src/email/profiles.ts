@@ -134,7 +134,11 @@ export async function resolveSending(
   if (hit && now - hit.at < CACHE_MS) return hit.value
   let doc = await activeProfile(payload, use)
   if (!doc && use === 'REVENUE') doc = await activeProfile(payload, 'TRANSACTIONAL')
-  const value: Resolved = doc
+  // R2-06: an active profile is used only while its last connection check passed for its current connection and
+  // password (any such change clears the check). Otherwise it fails closed, never falling back to the environment.
+  const value: Resolved = doc && doc.last_check_state !== 'OK'
+    ? { ok: false, source: 'profile', profileId: String(doc.id), code: 'PROFILE_NOT_CHECKED' }
+    : doc
     ? await openProfile(doc, opts)
     : cfg.smtp
       ? { ok: true, source: 'env', profileId: null, smtp: cfg.smtp, fromAddress: cfg.fromAddress, fromName: cfg.fromName }
