@@ -28,6 +28,17 @@ export type NativeRequest = {
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 const isObj = (v: unknown): v is Record<string, unknown> => Boolean(v) && typeof v === 'object' && !Array.isArray(v)
 
+/**
+ * RFQ-FIX-1.1: a page loaded before the first/last-name split still sends one `name`; it is read as first + last name,
+ * so that request is not refused during the deploy.
+ */
+function legacyName(a: Record<string, string>): Record<string, string> {
+  if (typeof a.name !== 'string' || 'first_name' in a) return a
+  const { name, ...rest } = a
+  const n = splitName(name)
+  return { ...rest, first_name: n.first ?? '', ...(n.last ? { last_name: n.last } : {}) }
+}
+
 /** Shape check of the envelope. Anything else is a malformed request (422 VALIDATION with no field). */
 export function parseEnvelope(body: unknown): NativeRequest | null {
   if (!isObj(body)) return null
@@ -43,7 +54,7 @@ export function parseEnvelope(body: unknown): NativeRequest | null {
     registryVersion: typeof registryVersion === 'string' ? registryVersion.slice(0, 40) : '',
     locale: typeof locale === 'string' ? locale.slice(0, 8) : 'en',
     // RFQ-FIX-1 (audit R9): control characters (NUL included) and bidi overrides are removed before anything else reads them
-    answers: Object.fromEntries(Object.entries(answers as Record<string, string>).map(([k, v]) => [k, stripControls(v)])),
+    answers: legacyName(Object.fromEntries(Object.entries(answers as Record<string, string>).map(([k, v]) => [k, stripControls(v)]))),
     context: isObj(context) ? Object.fromEntries(Object.entries(context).map(([k, v]) => [k, typeof v === 'string' ? stripControls(v) : v])) : {},
     attribution: isObj(attribution) ? attribution : {},
     antiAbuse: { formToken: antiAbuse.formToken, hp: antiAbuse.hp },
@@ -84,7 +95,7 @@ export function toDelivery(reg: Registry, req: NativeRequest, receivedAt: Date):
   const purpose = reg.purposes.find((p) => p.value === a.purpose)
   // English labels: the CRM is read in English, whatever the visitor's locale.
   const purposeLabel = purpose ? (reg.strings[purpose.labelKey] ?? purpose.value) : ''
-  const name = splitName(a.name ?? null)
+  const name = { first: a.first_name || null, last: a.last_name || null }
   const details = flow.filter((q) => q.step === 'details' && a[q.id])
   const message = [`${reg.strings['purpose.q'] ?? 'Request'} ${purposeLabel}`, ...details.map((q) => `${reg.strings[q.labelKey] ?? q.id}\n${displayValue(reg, q, a[q.id])}`)].join('\n\n')
 
@@ -111,7 +122,7 @@ export function toDelivery(reg: Registry, req: NativeRequest, receivedAt: Date):
       mapped: {
         first_name: name.first,
         last_name: name.last,
-        full_name: a.name ?? null,
+        full_name: [a.first_name, a.last_name].filter(Boolean).join(' ') || null,
         email: a.email ?? null,
         // RFQ-FIX-1 (audit R3): stored in its normalised form (full-width digits as ASCII)
         phone: a.phone ? normalizePhone(a.phone) : null,

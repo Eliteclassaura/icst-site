@@ -3172,7 +3172,8 @@ export interface CrmIntakeEvent {
     | 'QUARANTINED_MALFORMED'
     | 'QUARANTINED_UNSUPPORTED'
     | 'FAILED_RETRYABLE'
-    | 'QUARANTINED_SPAM';
+    | 'QUARANTINED_SPAM'
+    | 'FAILED_PERMANENT';
   failure_code?: string | null;
   /**
    * Non-personal: which fields were present, context keys, match outcomes.
@@ -3204,6 +3205,8 @@ export interface CrmIntakeEvent {
       }[]
     | null;
   processed_at?: string | null;
+  sweep_attempts?: number | null;
+  last_sweep_at?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -5809,6 +5812,8 @@ export interface CrmIntakeEventsSelect<T extends boolean = true> {
         id?: T;
       };
   processed_at?: T;
+  sweep_attempts?: T;
+  last_sweep_at?: T;
   updatedAt?: T;
   createdAt?: T;
 }

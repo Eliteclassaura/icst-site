@@ -61,9 +61,21 @@ describe('corner panel (NATIVE_CHAT)', () => {
     expect(panel()?.querySelector('h2')?.textContent).toBe(s('panel.title'))
     expect(host.querySelector('[role="log"]')?.getAttribute('aria-live')).toBe('polite')
     expect(log()).toContain(s('greeting'))
+    // RFQ-FIX-1.1 (owner order): email first, then first and last name, then company
+    expect(log()).toContain(s('contact.email.q'))
+    expect(log()).not.toContain(s('contact.intro'))
+    const email = panel()!.querySelector('input[type="email"]') as HTMLInputElement
+    expect(document.activeElement).toBe(email)
+    expect(email.autocomplete).toBe('email')
+    await type(email, 'not-an-email'); await key(email, 'Enter')
+    expect(panel()!.textContent).toContain(s('err.email'))
+    await type(email, 'a@gmail.com'); await key(email, 'Enter')
+    for (const [v, ac] of [['A', 'given-name'], ['Person', 'family-name'], ['Plant Co', 'organization']] as const) {
+      const i = panel()!.querySelector('input[type="text"]') as HTMLInputElement
+      expect(i.autocomplete).toBe(ac)
+      await type(i, v); await key(i, 'Enter')
+    }
     expect(log()).toContain(s('purpose.q'))
-    // focus moved into the panel (the first answer chip)
-    expect(panel()!.contains(document.activeElement)).toBe(true)
     await click(button(s('purpose.chip.parts')))
     expect(log()).toContain(s('parts.part.q'))
     const box = panel()!.querySelector('input[type="text"]') as HTMLInputElement
@@ -75,27 +87,21 @@ describe('corner panel (NATIVE_CHAT)', () => {
     await key(box, 'Enter')
     await click(button(s('chip.skip'))) // model
     await click(button(s('chip.skip'))) // quantity
-    await click(button(s('chip.skip'))) // notes
-    expect(log()).toContain(s('contact.intro'))
-    for (const v of ['A Person', 'Plant Co']) { const i = panel()!.querySelector('input[type="text"]') as HTMLInputElement; await type(i, v); await key(i, 'Enter') }
-    const email = panel()!.querySelector('input[type="email"]') as HTMLInputElement
-    await type(email, 'not-an-email'); await key(email, 'Enter')
-    expect(panel()!.textContent).toContain(s('err.email'))
-    await type(email, 'a@gmail.com'); await key(email, 'Enter')
     // phone: optional and skippable (CT Round 5 ruling 2): a Skip chip
     await click(button(s('chip.skip')))
     const search = panel()!.querySelector('input[type="search"]') as HTMLInputElement
     await type(search, 'thai')
     await click(button('Thailand'))
+    await click(button(s('chip.skip'))) // notes (the message), last
     // review: every answer read back, each with its Edit control; nothing has been posted yet
     expect(panel()!.textContent).toContain(s('review.heading'))
     expect(panel()!.textContent).toContain('Fan blades')
     expect(panel()!.textContent).toContain('Thailand')
-    expect(host.querySelectorAll(`button[aria-label^="${s('review.edit')}:"]`).length).toBe(6)
+    expect(host.querySelectorAll(`button[aria-label^="${s('review.edit')}:"]`).length).toBe(7)
     expect(fetcher.mock.calls.map((c) => c[0])).toEqual(['/api/rfq/token/'])
     await click(button(s('review.send')))
     const body = JSON.parse((fetcher.mock.calls.find((c) => c[0] === '/api/rfq/submit/') as unknown as [string, RequestInit])[1].body as string)
-    expect(body).toMatchObject({ source: 'NATIVE_CHAT', registryVersion: reg.registryVersion, locale: 'en', answers: { purpose: 'parts', parts_part: 'Fan blades', name: 'A Person', company: 'Plant Co', email: 'a@gmail.com', country: 'TH' }, context: { page_path: '/', context_type: 'page', cta_placement: 'launcher' }, antiAbuse: { formToken: 'tok', hp: '' } })
+    expect(body).toMatchObject({ source: 'NATIVE_CHAT', registryVersion: reg.registryVersion, locale: 'en', answers: { purpose: 'parts', parts_part: 'Fan blades', first_name: 'A', last_name: 'Person', company: 'Plant Co', email: 'a@gmail.com', country: 'TH' }, context: { page_path: '/', context_type: 'page', cta_placement: 'launcher' }, antiAbuse: { formToken: 'tok', hp: '' } })
     expect(Object.keys(body.answers)).not.toContain('parts_model')
     expect(panel()!.textContent).toContain(s('confirm.body', { rfq_number: 'RFQ-20261005-7K3M9QX2' }))
     expect(panel()!.textContent).toContain(s('confirm.attachments'))
@@ -131,8 +137,9 @@ describe('corner panel (NATIVE_CHAT)', () => {
   it('closing keeps the draft; reopening offers to continue or start over', async () => {
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
-    await click(button(s('purpose.chip.repair')))
-    expect(JSON.parse(sessionStorage.getItem(DRAFT_KEY)!)).toMatchObject({ answers: { purpose: 'repair' }, source: 'NATIVE_CHAT' })
+    const email = panel()!.querySelector('input[type="email"]') as HTMLInputElement
+    await type(email, 'a@b.co'); await key(email, 'Enter')
+    expect(JSON.parse(sessionStorage.getItem(DRAFT_KEY)!)).toMatchObject({ answers: { email: 'a@b.co' }, source: 'NATIVE_CHAT' })
     await click(button(s('panel.close.aria')))
     expect(panel()).toBeNull()
     await act(async () => root.unmount())
@@ -141,13 +148,13 @@ describe('corner panel (NATIVE_CHAT)', () => {
     await click(host.querySelector('[data-rfq-launcher]'))
     expect(log()).toContain(s('resume.prompt'))
     await click(button(s('resume.continue')))
-    expect(log()).toContain(s('service.issue.q'))
+    expect(log()).toContain(s('contact.first_name.q'))
   })
 
   it('a send in flight cannot be sent twice; a failure keeps the draft and says so; the honeypot is hidden from people', async () => {
     let release: (r: Response) => void = () => {}
     const fetcher = api(() => new Promise<Response>((r) => { release = r }))
-    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-1', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'Basin repair', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-1', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'Basin repair', notes: '', first_name: 'A', last_name: '', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     await click(button(s('resume.continue')))
@@ -170,7 +177,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
     expect(JSON.parse(sessionStorage.getItem(DRAFT_KEY)!).submissionId).toBe('sub-1')
   })
 
-  const reviewDraft = (id: string, extra: Record<string, string> = {}) => sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: id, registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'Basin repair', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '', country: 'US', ...extra }, source: 'NATIVE_CHAT' }))
+  const reviewDraft = (id: string, extra: Record<string, string> = {}) => sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: id, registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'Basin repair', notes: '', first_name: 'A', last_name: '', company: 'B', email: 'a@b.co', phone: '', country: 'US', ...extra }, source: 'NATIVE_CHAT' }))
   const openToReview = async (fetcher: unknown) => {
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
@@ -225,7 +232,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
   })
 
   it('a null RFQ number shows the no-number confirmation (contract amendment (a))', async () => {
-    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-2', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'X', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-2', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'X', notes: '', first_name: 'A', last_name: '', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(200, { ok: true, rfqNumber: null, replay: false })) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     await click(button(s('resume.continue')))
@@ -258,7 +265,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
     await act(async () => root.unmount())
     window.history.replaceState(null, '', '/contact-us/')
     root = createRoot(host)
-    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-3', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'X', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-3', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'X', notes: '', first_name: 'A', last_name: '', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     await click(button(s('resume.continue')))
@@ -286,10 +293,11 @@ describe('inline form (NATIVE_FORM)', () => {
     expect([...form.querySelectorAll('legend, label')].map((l) => l.textContent)).toContain(s('purpose.q'))
     await click(button(s('review.heading')) ?? form.querySelector('button[type="submit"]'))
     expect(form.textContent).toContain(s('err.required.form'))
-    expect((document.activeElement as HTMLInputElement).name).toBe('rfq-form-purpose')
+    // RFQ-FIX-1.1: the first field in error in the visual order is the email
+    expect((document.activeElement as HTMLInputElement).name).toBe('email')
     await click(form.querySelector('input[value="new_tower"]'))
     await click(form.querySelector('input[name="rfq-form-towers_type"][value="crossflow"]'))
-    for (const [n, v] of [['name', 'A'], ['company', 'B'], ['email', 'a@b.co']]) await type(form.querySelector(`[name="${n}"]`) as HTMLInputElement, v)
+    for (const [n, v] of [['first_name', 'A'], ['company', 'B'], ['email', 'a@b.co']]) await type(form.querySelector(`[name="${n}"]`) as HTMLInputElement, v)
     await act(async () => { const sel = form.querySelector('select[name="country"]') as HTMLSelectElement; sel.value = 'US'; sel.dispatchEvent(new Event('change', { bubbles: true })) })
     await act(async () => { form.requestSubmit() })
     await flush()
@@ -297,7 +305,7 @@ describe('inline form (NATIVE_FORM)', () => {
     expect(host.textContent).toContain('Crossflow')
     await click(button(s('review.send')))
     const body = JSON.parse((fetcher.mock.calls.find((c) => c[0] === '/api/rfq/submit/') as unknown as [string, RequestInit])[1].body as string)
-    expect(body).toMatchObject({ source: 'NATIVE_FORM', answers: { purpose: 'new_tower', towers_type: 'crossflow', name: 'A', company: 'B', email: 'a@b.co', country: 'US' }, context: { page_path: '/contact-us/', cta_placement: 'contact_form' } })
+    expect(body).toMatchObject({ source: 'NATIVE_FORM', answers: { purpose: 'new_tower', towers_type: 'crossflow', first_name: 'A', company: 'B', email: 'a@b.co', country: 'US' }, context: { page_path: '/contact-us/', cta_placement: 'contact_form' } })
     expect(host.textContent).toContain(s('confirm.body', { rfq_number: 'RFQ-9' }))
   })
 })

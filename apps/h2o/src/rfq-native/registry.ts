@@ -42,6 +42,15 @@ export const RFQ_FIX_1_STRINGS: Record<string, string> = {
   "confirm.body.promise_off": "Thank you. Your RFQ number is {{rfq_number}}. A member of our team will review your request and contact you.",
 }
 
+/**
+ * RFQ-FIX-1.1 (owner order via CT, 2026-10-08): the contact name is asked as two fields, first and last name, with email
+ * and name first. Plain field labels as CT relayed them.
+ */
+export const FIELD_ORDER_STRINGS: Record<string, string> = {
+  'contact.first_name.q': 'First name',
+  'contact.last_name.q': 'Last name',
+}
+
 export const parseCopyTable = (tsv: string): Record<string, string> => {
   const [head, ...rows] = tsv.trimEnd().split('\n')
   const cols = head!.split('\t')
@@ -58,7 +67,7 @@ const question = ({ maxLength, pattern, ...q }: Q): Question => ({
 
 /** The contract §1.1 seeded structure, with strings from the copy table. */
 export function registryFromCopy(tsv: string): Registry {
-  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS, ...RFQ_FIX_1_STRINGS }
+  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS, ...RFQ_FIX_1_STRINGS, ...FIELD_ORDER_STRINGS }
   const purposes: Purpose[] = [
     { value: 'new_tower', labelKey: 'purpose.chip.new_tower', branch: 'towers' },
     { value: 'repair', labelKey: 'purpose.chip.repair', branch: 'service' },
@@ -81,7 +90,8 @@ export function registryFromCopy(tsv: string): Registry {
     question({ id: 'service_timing', step: 'details', branches: ['service'], type: 'chips', required: false, labelKey: 'service.timing.q', chips: chips(strings, 'service.timing.chip.'), skippable: true, maxLength: 16 }),
     question({ id: 'other_need', step: 'details', branches: ['other'], type: 'textarea', required: true, labelKey: 'other.q', maxLength: 2000 }),
     question({ id: 'notes', step: 'details', branches: ['all'], type: 'textarea', required: false, labelKey: 'notes.q', skippable: true, maxLength: 2000 }),
-    question({ id: 'name', step: 'contact', branches: ['all'], type: 'text', required: true, labelKey: 'contact.name.q', maxLength: 120 }),
+    question({ id: 'first_name', step: 'contact', branches: ['all'], type: 'text', required: true, labelKey: 'contact.first_name.q', maxLength: 80 }),
+    question({ id: 'last_name', step: 'contact', branches: ['all'], type: 'text', required: false, labelKey: 'contact.last_name.q', skippable: true, maxLength: 80 }),
     question({ id: 'company', step: 'contact', branches: ['all'], type: 'text', required: true, labelKey: 'contact.company.q', maxLength: 160 }),
     question({ id: 'email', step: 'contact', branches: ['all'], type: 'email', required: true, labelKey: 'contact.email.q', placeholderKey: 'contact.email.ph', hintKey: 'contact.email.hint', pattern: 'email', maxLength: 254 }),
     question({ id: 'phone', step: 'contact', branches: ['all'], type: 'tel', required: false, labelKey: 'contact.phone.q', hintKey: 'contact.phone.hint', pattern: 'tel', skippable: true, maxLength: 40 }), // skippable: CT Round 5 ruling 2

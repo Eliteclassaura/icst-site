@@ -1,3 +1,4 @@
+import { sql } from '@payloadcms/db-postgres'
 import type { Payload, Where } from 'payload'
 import { fixtureRegistry } from '../../../rfq-native/registry'
 import { ingestParsed, intakeLog } from '../typeform/ingest'
@@ -17,6 +18,13 @@ import { parseEnvelope, storedPayload, toDelivery, validateAnswers } from './nor
  */
 const sys = { overrideAccess: true as const, depth: 0 }
 export const SWEEP_BATCH = 20
+/** RFQ-FIX-1.1: give up after this many sweeps (→ FAILED_PERMANENT); between sweeps wait 2^attempts minutes, ≤ 1 hour. */
+export const SWEEP_MAX_ATTEMPTS = 10
+export const sweepBackoffMs = (attempts: number): number => Math.min(2 ** attempts, 60) * 60_000
+/** RFQ-FIX-1.1: quarantined honeypot requests are kept this long, then removed by the sweeper. */
+export const SPAM_KEEP_DAYS = 30
+type Exec = { execute: (q: unknown) => Promise<{ rows?: Array<Record<string, unknown>> }> }
+const db = (payload: Payload): Exec => (payload.db as unknown as { drizzle: Exec }).drizzle
 const NATIVE: Where = { source_system: { in: ['NATIVE_FORM', 'NATIVE_CHAT'] } }
 
 /** Events that need finishing: failed, or processing with an expired lease (any source when `allSources`). */
@@ -32,13 +40,30 @@ export const strandedWhere = (now: Date, allSources = false): Where => ({
   ],
 })
 
-export type SweepResult = { found: number; finished: number; skipped: number; failed: number }
+export type SweepResult = { found: number; finished: number; skipped: number; failed: number; gaveUp?: number; prunedSpam?: number }
 
 export async function sweepStrandedIntake(payload: Payload, now: Date = new Date()): Promise<SweepResult> {
-  const res = await payload.find({ collection: 'crm-intake-events', where: strandedWhere(now), sort: 'received_at', limit: SWEEP_BATCH, ...sys })
-  const out: SweepResult = { found: res.docs.length, finished: 0, skipped: 0, failed: 0 }
+  // RFQ-FIX-1.1: quarantined honeypot requests older than SPAM_KEEP_DAYS are removed (raw SQL: intake events are
+  // otherwise never deleted; these are not evidence of a customer request)
+  const pruned = await db(payload).execute(
+    sql`DELETE FROM "crm_intake_events" WHERE "processing_state" = 'QUARANTINED_SPAM' AND "received_at" < ${new Date(now.getTime() - SPAM_KEEP_DAYS * 86_400_000).toISOString()} RETURNING "id"`,
+  )
+  const res = await payload.find({ collection: 'crm-intake-events', where: strandedWhere(now), sort: 'received_at', limit: SWEEP_BATCH * 5, ...sys })
+  type Ev = { id: string | number; source_event_id: string; raw_payload?: Record<string, unknown>; raw_payload_hash: string; received_at: string; sweep_attempts?: number | null; last_sweep_at?: string | null }
+  // backoff: an event is tried again only once 2^attempts minutes (≤ 1 h) have passed since its last sweep
+  const due = (res.docs as unknown as Ev[]).filter((d) => !d.last_sweep_at || now.getTime() - new Date(d.last_sweep_at).getTime() >= sweepBackoffMs(Number(d.sweep_attempts ?? 0))).slice(0, SWEEP_BATCH)
+  const out: SweepResult = { found: due.length, finished: 0, skipped: 0, failed: 0, gaveUp: 0, prunedSpam: (pruned.rows ?? []).length }
   const reg = fixtureRegistry()
-  for (const doc of res.docs as unknown as Array<{ id: string | number; source_event_id: string; raw_payload?: Record<string, unknown>; raw_payload_hash: string; received_at: string }>) {
+  for (const doc of due) {
+    // RFQ-FIX-1.1: count the attempt first; the one past the cap gives up for good (FAILED_PERMANENT, admin overview)
+    const attempts = Number(doc.sweep_attempts ?? 0) + 1
+    if (attempts > SWEEP_MAX_ATTEMPTS) {
+      await db(payload).execute(sql`UPDATE "crm_intake_events" SET "processing_state" = 'FAILED_PERMANENT', "failure_code" = 'SWEEP_GAVE_UP', "processing_lease_until" = NULL WHERE "id" = ${String(doc.id)} AND "processing_state" IN ('FAILED_RETRYABLE', 'PROCESSING')`)
+      out.gaveUp!++
+      intakeLog(payload, 'error', { code: 'INTAKE_SWEEP_GAVE_UP', event_id: doc.source_event_id })
+      continue
+    }
+    await db(payload).execute(sql`UPDATE "crm_intake_events" SET "sweep_attempts" = ${attempts}, "last_sweep_at" = ${now.toISOString()} WHERE "id" = ${String(doc.id)}`)
     const submissionId = String(doc.source_event_id).replace(/^native:/, '')
     const raw = doc.raw_payload ?? {}
     const r = parseEnvelope({ ...raw, submissionId, antiAbuse: {} })
@@ -63,6 +88,9 @@ export async function sweepStrandedIntake(payload: Payload, now: Date = new Date
   }
   return out
 }
+
+/** RFQ-FIX-1.1: requests the sweeper gave up on (FAILED_PERMANENT), for the admin overview. */
+export const failedPermanentWhere: Where = { processing_state: { equals: 'FAILED_PERMANENT' } }
 
 /** How many intake events (any source) are stranded now (the CRM overview shows admins the same count). */
 export const countStranded = async (payload: Payload, now: Date = new Date()): Promise<number> =>

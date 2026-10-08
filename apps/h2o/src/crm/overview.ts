@@ -38,7 +38,7 @@ export type Overview = {
   identityReviewsOpen: number
   /** RFQ-FIX-1 (quote-form audit R5, R6): admins only (null for others) — requests stranded part-way, and requests held
    * as spam (hidden field filled) in the last 24 hours. */
-  intake: { stranded: number; spam24h: number } | null
+  intake: { stranded: number; spam24h: number; failedPermanent: number } | null
   pipeline: ReturnType<typeof pipelineByCurrency>
   recentActivity: Array<{ id: string; type: string; summary: string; occurredAt: string }>
   truncated: boolean
@@ -133,12 +133,13 @@ export async function loadOverview(req: PayloadRequest, now: Date = new Date()):
 
   let intake: Overview['intake'] = null
   if (hasRole(req, ADMINS)) {
-    const { strandedWhere } = await import('./intake/native/sweep')
-    const [stranded, spam] = await Promise.all([
+    const { failedPermanentWhere, strandedWhere } = await import('./intake/native/sweep')
+    const [stranded, spam, gaveUp] = await Promise.all([
       p.count({ collection: 'crm-intake-events', where: strandedWhere(now, true), ...asUser }),
       p.count({ collection: 'crm-intake-events', where: { and: [{ processing_state: { equals: 'QUARANTINED_SPAM' } }, { received_at: { greater_than: new Date(now.getTime() - day).toISOString() } }] }, ...asUser }),
+      p.count({ collection: 'crm-intake-events', where: failedPermanentWhere, ...asUser }),
     ])
-    intake = { stranded: stranded.totalDocs, spam24h: spam.totalDocs }
+    intake = { stranded: stranded.totalDocs, spam24h: spam.totalDocs, failedPermanent: gaveUp.totalDocs }
   }
 
   const oppIds = openOpps.docs.map((o) => String(o.id))

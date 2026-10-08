@@ -12,7 +12,7 @@
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { captureFirstTouch } from './attribution'
 import { ChipGroup, Confirmation, CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, PrivacyNote, ReviewList, SendButton, UnavailableNote } from './fields'
-import { displayValue, nextQuestion, questionsFor, validate } from './flow'
+import { autocompleteFor, displayValue, nextQuestion, questionsFor, validate } from './flow'
 import { t, type Question, type Registry } from './model'
 import { cleanContext, type RfqContext, type SendTiming } from './submission'
 import { fetchRegistry, useRfqSession, type RegistryLoader } from './useRfqSession'
@@ -54,7 +54,7 @@ function Answer({ reg, q, error, onAnswer }: { reg: Registry; q: Question; error
     <div className={styles.composer}>
       {q.type === 'textarea'
         ? <textarea {...common} rows={2} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>
-        : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} inputMode={q.type === 'number_or_text' ? 'text' : undefined} autoComplete={q.id === 'name' ? 'name' : q.id === 'company' ? 'organization' : q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'off'} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>}
+        : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} inputMode={q.type === 'number_or_text' ? 'text' : undefined} autoComplete={autocompleteFor(q)} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>}
       <button type="button" className={styles.send} onClick={submit} aria-label={t(reg, 'input.send.aria')}><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 20.5 21 12 3 3.5v6.6L15 12 3 13.9z"/></svg></button>
     </div>
     {q.skippable ? <div className={styles.chips}><button type="button" className={`${styles.chip} ${styles.skip}`} onClick={() => onAnswer('')}>{t(reg, 'chip.skip')}</button></div> : null}
@@ -181,7 +181,8 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
   const reg = s.registry
   const done = s.phase === 'review' || s.phase === 'sending' || s.phase === 'sent'
   const asked = reg ? questionsFor(reg, s.answers).filter((q) => q.id in s.answers) : []
-  const firstContact = reg?.questions.find((q) => q.step === 'contact')?.id
+  // RFQ-FIX-1.1: the flow now opens with the contact questions, so the "now, where should we send it" bridge has no place
+  const firstContact = reg && questionsFor(reg, s.answers)[0]?.step !== 'contact' ? reg.questions.find((q) => q.step === 'contact')?.id : undefined
 
   return <>
     <button ref={launcherRef} type="button" className={styles.launcher} aria-label={launcher.aria} title={launcher.tooltip} aria-haspopup="dialog" aria-expanded={open} data-rfq-launcher="" onClick={() => openWith({ trigger: launcherRef.current })} hidden={open || formInView}>

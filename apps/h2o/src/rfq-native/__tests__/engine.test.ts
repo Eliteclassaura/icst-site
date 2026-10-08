@@ -17,7 +17,7 @@ import { searchCountries } from '../countries'
 const reg = fixtureRegistry()
 const ids = (a: Answers) => questionsFor(reg, a).map((q) => q.id)
 const run = (pairs: Array<[string, string]>): Answers => pairs.reduce<Answers>((a, [k, v]) => answer(reg, a, k, v), {})
-const contact: Array<[string, string]> = [['name', 'A Person'], ['company', 'Plant Co'], ['email', 'a@plant.example'], ['phone', ''], ['country', 'TH']]
+const contact: Array<[string, string]> = [['first_name', 'A'], ['last_name', 'Person'], ['company', 'Plant Co'], ['email', 'a@plant.example'], ['phone', ''], ['country', 'TH']]
 
 describe('registry fixture = contract §1.1 seeded structure, strings from the OGCS table (97e83b3d) + CT amendments', () => {
   it('ships the CT-accepted OGCS copy byte for byte', () => {
@@ -30,7 +30,7 @@ describe('registry fixture = contract §1.1 seeded structure, strings from the O
       ['towers_type', 'chips', true, 16], ['towers_cells', 'chips', false, 16], ['towers_site', 'text', false, 160],
       ['service_issue', 'textarea', true, 2000], ['service_issue_upgrade', 'textarea', false, 2000], ['service_timing', 'chips', false, 16],
       ['other_need', 'textarea', true, 2000], ['notes', 'textarea', false, 2000],
-      ['name', 'text', true, 120], ['company', 'text', true, 160], ['email', 'email', true, 254], ['phone', 'tel', false, 40], ['country', 'country', true, 2],
+      ['first_name', 'text', true, 80], ['last_name', 'text', false, 80], ['company', 'text', true, 160], ['email', 'email', true, 254], ['phone', 'tel', false, 40], ['country', 'country', true, 2],
     ])
     expect(reg.purposes.map((p) => [p.value, p.branch, p.extraQuestions ?? []])).toEqual([['new_tower', 'towers', []], ['repair', 'service', []], ['upgrade', 'towers', ['service_issue_upgrade']], ['inspection', 'service', []], ['rebuild', 'towers', []], ['parts', 'parts', []], ['other', 'other', []]])
     for (const q of reg.questions) for (const key of [q.labelKey, q.placeholderKey, q.hintKey, ...(q.chips ?? []).map((c) => c.labelKey)]) if (key) expect(reg.strings[key], `${q.id} ${key}`).toBeTruthy()
@@ -51,21 +51,22 @@ describe('registry fixture = contract §1.1 seeded structure, strings from the O
 })
 
 describe('flow', () => {
-  it('each purpose asks its branch, then its extra questions, then notes, then contact', () => {
-    const tail = ['notes', 'name', 'company', 'email', 'phone', 'country']
-    expect(ids({})).toEqual(['purpose', 'name', 'company', 'email', 'phone', 'country'])
-    expect(ids({ purpose: 'parts' })).toEqual(['purpose', 'parts_part', 'parts_model', 'parts_qty', ...tail])
-    for (const p of ['new_tower', 'rebuild']) expect(ids({ purpose: p })).toEqual(['purpose', 'towers_type', 'towers_cells', 'towers_site', ...tail])
-    expect(ids({ purpose: 'upgrade' })).toEqual(['purpose', 'towers_type', 'towers_cells', 'towers_site', 'service_issue_upgrade', ...tail])
-    for (const p of ['repair', 'inspection']) expect(ids({ purpose: p })).toEqual(['purpose', 'service_issue', 'service_timing', ...tail])
-    expect(ids({ purpose: 'other' })).toEqual(['purpose', 'other_need', ...tail])
+  it('RFQ-FIX-1.1 (owner order): email, first name, last name, company; purpose and its branch; phone, country; the message last', () => {
+    const lead = ['email', 'first_name', 'last_name', 'company']
+    const tail = ['phone', 'country', 'notes']
+    expect(ids({})).toEqual([...lead, 'purpose', 'phone', 'country'])
+    expect(ids({ purpose: 'parts' })).toEqual([...lead, 'purpose', 'parts_part', 'parts_model', 'parts_qty', ...tail])
+    for (const p of ['new_tower', 'rebuild']) expect(ids({ purpose: p })).toEqual([...lead, 'purpose', 'towers_type', 'towers_cells', 'towers_site', ...tail])
+    expect(ids({ purpose: 'upgrade' })).toEqual([...lead, 'purpose', 'towers_type', 'towers_cells', 'towers_site', 'service_issue_upgrade', ...tail])
+    for (const p of ['repair', 'inspection']) expect(ids({ purpose: p })).toEqual([...lead, 'purpose', 'service_issue', 'service_timing', ...tail])
+    expect(ids({ purpose: 'other' })).toEqual([...lead, 'purpose', 'other_need', ...tail])
   })
   it('a skipped optional answer is asked once and omitted from the submission; changing purpose prunes the old branch', () => {
     let a = run([['purpose', 'parts'], ['parts_part', 'Fan blades'], ['parts_model', ''], ['parts_qty', ''], ['notes', '']])
-    expect(nextQuestion(reg, a)?.id).toBe('name')
+    expect(nextQuestion(reg, a)?.id).toBe('email')
     a = run([...Object.entries(a), ...contact])
     expect(complete(reg, a)).toBe(true)
-    expect(submittedAnswers(reg, a)).toEqual({ purpose: 'parts', parts_part: 'Fan blades', name: 'A Person', company: 'Plant Co', email: 'a@plant.example', country: 'TH' })
+    expect(submittedAnswers(reg, a)).toEqual({ purpose: 'parts', parts_part: 'Fan blades', first_name: 'A', last_name: 'Person', company: 'Plant Co', email: 'a@plant.example', country: 'TH' })
     const changed = answer(reg, a, 'purpose', 'repair')
     expect(Object.keys(changed)).not.toContain('parts_part')
     expect(nextQuestion(reg, changed)?.id).toBe('service_issue')
@@ -81,7 +82,7 @@ describe('flow', () => {
     expect(validate(reg, q('country'), 'XX')).not.toBeNull()
     expect(validate(reg, q('towers_type'), 'pyramid')).not.toBeNull()
     expect(validate(reg, q('phone'), '+66 2 123 4567')).toBeNull()
-    expect(Object.keys(validateAll(reg, { purpose: 'other' }, 'form'))).toEqual(['other_need', 'name', 'company', 'email', 'country'])
+    expect(Object.keys(validateAll(reg, { purpose: 'other' }, 'form'))).toEqual(['email', 'first_name', 'company', 'other_need', 'country'])
   })
   it('review groups read back chip labels and country names; reopen asks again', () => {
     const a = run([['purpose', 'new_tower'], ['towers_type', 'crossflow'], ['towers_cells', '2_4'], ['towers_site', 'Rayong'], ['notes', ''], ...contact])
@@ -91,8 +92,8 @@ describe('flow', () => {
     expect(nextQuestion(reg, reopen(a, 'towers_site'))?.id).toBe('towers_site')
   })
   it('a draft from another registry version keeps the answers that still exist and continues at the first unanswered', () => {
-    const old = { purpose: 'towers_only_old', name: 'A', retired_q: 'x' } as Answers
-    expect(migrate(reg, old)).toEqual({ name: 'A' })
+    const old = { purpose: 'towers_only_old', first_name: 'A', last_name: '', retired_q: 'x' } as Answers
+    expect(migrate(reg, old)).toEqual({ first_name: 'A', last_name: '' })
     expect(migrate(reg, { purpose: 'repair', service_issue: 'Vibration', retired_q: 'x' })).toEqual({ purpose: 'repair', service_issue: 'Vibration' })
   })
   it('the country picker searches the registry list by name or code', () => {

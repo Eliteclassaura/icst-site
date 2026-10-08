@@ -11,19 +11,32 @@ import type { Question, Registry } from './model'
 
 export type Answers = Record<string, string>
 
-/** The questions this visitor is asked, in order: purpose; the branch's details, then its extra questions; notes; contact. */
+/** RFQ-FIX-1.1 (owner order, CT 2026-10-08): who is asking comes first — email, first name, last name, company. */
+export const LEAD_CONTACT = ['email', 'first_name', 'last_name', 'company'] as const
+
+/**
+ * The questions this visitor is asked, in order (RFQ-FIX-1.1, owner order): email, first name, last name, company; then
+ * purpose (interest) with its branch's details and extra questions; then phone and country; then the message (notes).
+ * Every surface — the chat, the inline form, the review — follows this one order.
+ */
 export function questionsFor(reg: Registry, answers: Answers): Question[] {
   const byStep = (step: Question['step']) => reg.questions.filter((q) => q.step === step)
   const purpose = reg.purposes.find((p) => p.value === answers.purpose)
   const purposeQ = byStep('purpose')
   const contact = byStep('contact')
-  if (!purpose) return [...purposeQ, ...contact]
+  const lead = LEAD_CONTACT.map((id) => contact.find((q) => q.id === id)).filter((q): q is Question => Boolean(q))
+  const rest = contact.filter((q) => !(LEAD_CONTACT as readonly string[]).includes(q.id))
+  if (!purpose) return [...lead, ...purposeQ, ...rest]
   const details = byStep('details')
   const branch = details.filter((q) => q.branches.includes(purpose.branch))
   const extra = (purpose.extraQuestions ?? []).map((id) => reg.questions.find((q) => q.id === id)).filter((q): q is Question => Boolean(q))
   const all = details.filter((q) => q.branches.includes('all'))
-  return [...purposeQ, ...branch, ...extra, ...all, ...contact]
+  return [...lead, ...purposeQ, ...branch, ...extra, ...rest, ...all]
 }
+
+/** RFQ-FIX-1.1: the browser autocomplete token for a question (empty: none). */
+export const autocompleteFor = (q: Question): string =>
+  ({ email: 'email', first_name: 'given-name', last_name: 'family-name', company: 'organization', phone: 'tel', country: 'country-name' } as Record<string, string>)[q.id] ?? 'off'
 
 /** The next question not yet answered or skipped; undefined when the visitor can review. */
 export const nextQuestion = (reg: Registry, answers: Answers): Question | undefined => questionsFor(reg, answers).find((q) => !(q.id in answers))

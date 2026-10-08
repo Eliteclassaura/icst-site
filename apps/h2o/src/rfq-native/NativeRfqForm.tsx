@@ -8,7 +8,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { searchCountries } from './countries'
 import { Confirmation, ErrorText, FailureNote, Honeypot, PrivacyNote, ReviewList, SendButton, UnavailableNote } from './fields'
-import { questionsFor } from './flow'
+import { autocompleteFor, questionsFor } from './flow'
 import { t, type Question, type Registry } from './model'
 import { cleanContext, type SendTiming } from './submission'
 import { fetchRegistry, useRfqSession, type RegistryLoader } from './useRfqSession'
@@ -33,7 +33,7 @@ function Field({ reg, q, value, error, onChange }: { reg: Registry; q: Question;
     {q.hintKey ? <p className={styles.hint} id={hintId}>{t(reg, q.hintKey)}</p> : null}
     {q.type === 'textarea' ? <><textarea {...common} rows={4} placeholder={t(reg, q.placeholderKey) || undefined}/><span className={styles.counter} aria-hidden="true">{value.length} / {q.validation.maxLength}</span></>
       : q.type === 'country' ? <select {...common} autoComplete="country"><option value="">{t(reg, 'contact.country.search_ph')}</option>{searchCountries(reg.countries, '', reg.locale).map((c) => <option key={c.code} value={c.code}>{c.name}</option>)}</select>
-      : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} placeholder={t(reg, q.placeholderKey) || undefined} autoComplete={q.id === 'name' ? 'name' : q.id === 'company' ? 'organization' : q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'off'}/>}
+      : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} placeholder={t(reg, q.placeholderKey) || undefined} autoComplete={autocompleteFor(q)}/>}
     <ErrorText reg={reg} id={errorId} error={error}/>
   </div>
 }
@@ -49,14 +49,17 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
   // contract §2: the registry loads when the inline form mounts; §3: the token on first use (the session fetches it at start)
   const { setContext, start } = s
   useEffect(() => { setContext(cleanContext({ page_path: pagePath, context_type: 'page', cta_placement: 'contact_form' })); start() }, [setContext, start, pagePath])
+  // the questions in their visual order (changes only when the purpose changes the flow, not on every keystroke)
+  const flowOrder = s.registry ? questionsFor(s.registry, s.answers).map((q) => q.id).join(',') : ''
   // after "Check your request" with errors: focus the first field in error
   const errorIds = Object.keys(s.errors).join(',')
   useEffect(() => {
     // RFQ-FIX-1 (audit R18): also when a resumed draft is checked
     if (!errorIds || (s.phase !== 'asking' && s.phase !== 'resume')) return
-    const first = s.registry?.questions.find((q) => q.id in s.errors)
-    formRef.current?.querySelector<HTMLElement>(`[data-rfq-field="${first?.id}"] input, [data-rfq-field="${first?.id}"] textarea, [data-rfq-field="${first?.id}"] select`)?.focus()
-  }, [errorIds, s.phase, s.registry, s.errors])
+    // RFQ-FIX-1.1: the first error in the visual order (email and name first)
+    const first = flowOrder.split(',').find((id) => id in s.errors)
+    formRef.current?.querySelector<HTMLElement>(`[data-rfq-field="${first}"] input, [data-rfq-field="${first}"] textarea, [data-rfq-field="${first}"] select`)?.focus()
+  }, [errorIds, s.phase, s.errors, flowOrder])
   // LEGAL-FIX-1 (L08, WCAG 2.4.3): the form's content is replaced at each step, so focus moves with it — to the review heading,
   // to the confirmation once sent, and back to the field being edited from the review.
   useEffect(() => {

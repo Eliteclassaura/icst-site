@@ -91,7 +91,7 @@ describe('R5: a filled honeypot is kept for an admin, never dropped and never an
     const asSales = (await p.find({ collection: 'crm-intake-events', overrideAccess: false, user: sales.user, depth: 0 })).docs[0] as unknown as Doc | undefined
     expect(asSales?.raw_payload).toBeUndefined()
     const req = (u: TestUser) => ({ payload: p, user: u.user }) as never
-    expect((await loadOverview(req(admin), T0))!.intake).toEqual({ stranded: 0, spam24h: 1 })
+    expect((await loadOverview(req(admin), T0))!.intake).toEqual({ stranded: 0, spam24h: 1, failedPermanent: 0 })
     expect((await loadOverview(req(admin), new Date(T0.getTime() + 25 * 3600_000)))!.intake!.spam24h).toBe(0)
     expect((await loadOverview(req(sales), T0))!.intake).toBeNull()
   })
@@ -104,7 +104,7 @@ describe('R6: stranded native requests are finished by the sweeper', () => {
     const later = new Date(T0.getTime() + 10 * 60_000)
     expect(await countStranded(await payload(), later)).toBe(2)
     const first = await sweepStrandedIntake(await payload(), later)
-    expect(first).toEqual({ found: 2, finished: 2, skipped: 0, failed: 0 })
+    expect(first).toMatchObject({ found: 2, finished: 2, skipped: 0, failed: 0 })
     for (const e of [crashed, failed]) {
       const ev = await eventById(e.id)
       expect(ev.processing_state).toBe('PROCESSED')
@@ -116,7 +116,7 @@ describe('R6: stranded native requests are finished by the sweeper', () => {
     expect(await count('crm-rfqs')).toBe(2)
     expect(await count('crm-email-outbox', { kind: { equals: 'RFQ_SALES_ALERT' } })).toBeLessThanOrEqual(2)
     const alerts = await count('crm-email-outbox', { kind: { equals: 'RFQ_SALES_ALERT' } })
-    expect(await sweepStrandedIntake(await payload(), later)).toEqual({ found: 0, finished: 0, skipped: 0, failed: 0 })
+    expect(await sweepStrandedIntake(await payload(), later)).toMatchObject({ found: 0, finished: 0, skipped: 0, failed: 0 })
     expect(await count('crm-rfqs')).toBe(2)
     expect(await count('crm-email-outbox', { kind: { equals: 'RFQ_SALES_ALERT' } })).toBe(alerts)
     expect(await countStranded(await payload(), later)).toBe(0)
@@ -148,7 +148,7 @@ describe('R6: stranded native requests are finished by the sweeper', () => {
     const e = await stranded('FAILED_RETRYABLE', null, 6)
     const p = await payload()
     await (p.db as unknown as { drizzle: { execute: (q: unknown) => Promise<unknown> } }).drizzle.execute(sql`UPDATE crm_intake_events SET raw_payload = jsonb_set(raw_payload, '{answers,email}', '"not-an-email"') WHERE id = ${String(e.id)}`)
-    expect(await sweepStrandedIntake(p, new Date(T0.getTime() + 60_000))).toEqual({ found: 1, finished: 0, skipped: 1, failed: 0 })
+    expect(await sweepStrandedIntake(p, new Date(T0.getTime() + 60_000))).toMatchObject({ found: 1, finished: 0, skipped: 1, failed: 0 })
     expect(await count('crm-rfqs')).toBe(0)
     expect(await countStranded(p, new Date(T0.getTime() + 60_000))).toBe(1)
     const admin = await user('platform-admin')

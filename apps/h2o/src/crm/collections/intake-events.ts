@@ -112,6 +112,9 @@ export const CrmIntakeEvents: CollectionConfig = crmCollection(
         ],
       },
       { name: 'processed_at', type: 'date' },
+      // RFQ-FIX-1.1: the sweeper's attempts on a stranded native request, and when it last tried (backoff)
+      { name: 'sweep_attempts', type: 'number', defaultValue: 0, admin: { readOnly: true } },
+      { name: 'last_sweep_at', type: 'date', admin: { readOnly: true } },
     ],
   },
   { deleteAlternative: 'Intake events are the evidence trail.' },

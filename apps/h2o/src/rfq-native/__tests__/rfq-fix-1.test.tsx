@@ -8,7 +8,7 @@ import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { NextRequest } from 'next/server'
 import { fixtureRegistry, RFQ_FIX_1_STRINGS } from '../registry'
-import { normalizePhone, stripControls, submittedAnswers, validate } from '../flow'
+import { normalizePhone, questionsFor, stripControls, submittedAnswers, validate } from '../flow'
 import { submitRfq, TOKEN_MARGIN_MS } from '../submission'
 import { NativeRfq, QUOTE_FORM_ID } from '../NativeRfq'
 import { NativeRfqForm, NativeRfqFormSection } from '../NativeRfqForm'
@@ -92,10 +92,10 @@ describe('R3: phone numbers', () => {
     expect(validate(reg, q('phone'), '')).toBeNull()
     expect(reg.strings['err.phone']).toBe(RFQ_FIX_1_STRINGS['err.phone'])
     expect(normalizePhone('０３－１２３４－５６７８')).toBe('03-1234-5678')
-    expect(submittedAnswers(reg, { purpose: 'other', other_need: 'x', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '０３－１２３４ ５６７８', country: 'JP' }).phone).toBe('03-1234 5678')
+    expect(submittedAnswers(reg, { purpose: 'other', other_need: 'x', notes: '', first_name: 'A', last_name: '', company: 'B', email: 'a@b.co', phone: '０３－１２３４ ５６７８', country: 'JP' }).phone).toBe('03-1234 5678')
   })
   it('the server accepts the same numbers and stores the normalised form', () => {
-    const r = parseEnvelope({ submissionId: '01920000-0000-4000-8000-000000000002', source: 'NATIVE_FORM', registryVersion: reg.registryVersion, locale: 'en', answers: { purpose: 'other', other_need: 'x', name: 'A', company: 'B', email: 'a@b.co', phone: '＋８１ ３－１２３４－５６７８', country: 'JP' }, context: {}, attribution: {}, antiAbuse: {} })!
+    const r = parseEnvelope({ submissionId: '01920000-0000-4000-8000-000000000002', source: 'NATIVE_FORM', registryVersion: reg.registryVersion, locale: 'en', answers: { purpose: 'other', other_need: 'x', first_name: 'A', last_name: '', company: 'B', email: 'a@b.co', phone: '＋８１ ３－１２３４－５６７８', country: 'JP' }, context: {}, attribution: {}, antiAbuse: {} })!
     expect(toDelivery(reg, r, new Date()).delivery.mapped.phone).toBe('+81 3-1234-5678')
   })
 })
@@ -103,7 +103,7 @@ describe('R3: phone numbers', () => {
 describe('R4 + R9: size and characters', () => {
   it('the longest flow in Thai (3 bytes a character) with full context and attribution fits the body limit', () => {
     const th = (n: number) => 'ก'.repeat(n)
-    const answers: Record<string, string> = { purpose: 'upgrade', towers_type: 'crossflow', towers_cells: '11_plus', notes: th(2000), name: th(120), company: th(160), email: `${'a'.repeat(240)}@b.example`, phone: '+66 2 000 0000 ext. 123456', country: 'TH' }
+    const answers: Record<string, string> = { purpose: 'upgrade', towers_type: 'crossflow', towers_cells: '11_plus', notes: th(2000), company: th(160), email: `${'a'.repeat(240)}@b.example`, phone: '+66 2 000 0000 ext. 123456', country: 'TH' }
     for (const x of reg.questions) if (x.type === 'text' || x.type === 'textarea' || x.type === 'number_or_text') answers[x.id] ??= th(x.validation.maxLength)
     const body = JSON.stringify({ submissionId: '01920000-0000-4000-8000-000000000003', source: 'NATIVE_CHAT', registryVersion: reg.registryVersion, locale: 'en', answers, context: { page_path: `/${'p'.repeat(511)}`, product_path: `/${'p'.repeat(511)}`, product_title: th(160), product_slug: 's'.repeat(128), product_id: 'i'.repeat(64), context_id: 'c'.repeat(64), context_type: 'product', cta_placement: 'c'.repeat(64) }, attribution: Object.fromEntries(['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid', 'ga_client_id', 'landing_page', 'referrer'].map((k) => [k, 'x'.repeat(256)])), antiAbuse: { formToken: 'v1.'.padEnd(120, 'x'), hp: '' } })
     expect(Buffer.byteLength(body, 'utf8')).toBeLessThan(MAX_BODY_BYTES)
@@ -112,7 +112,8 @@ describe('R4 + R9: size and characters', () => {
   it('NUL, other controls and bidi overrides are removed on both sides; newlines and tabs stay', () => {
     expect(stripControls('a\u0000b\u0007c\r\nd\te‮f⁦g\u0085h')).toBe('abc\nd\tefgh')
     const r = parseEnvelope({ submissionId: '01920000-0000-4000-8000-000000000004', source: 'NATIVE_FORM', answers: { name: 'Ana\u0000 Ruiz', notes: 'line1\r\nline2' }, context: { product_title: 'Fan\u0000' }, antiAbuse: {} })!
-    expect(r.answers).toEqual({ name: 'Ana Ruiz', notes: 'line1\nline2' })
+    // RFQ-FIX-1.1: an old single `name` arrives as first and last name
+    expect(r.answers).toEqual({ first_name: 'Ana', last_name: 'Ruiz', notes: 'line1\nline2' })
     expect(r.context.product_title).toBe('Fan')
   })
   it('a body is read only up to the limit: a chunked oversize body stops early and is refused', async () => {
@@ -174,7 +175,7 @@ describe('rendered', () => {
     await flush()
     const form = host.querySelector('form')!
     await click(form.querySelector('input[value="other"]'))
-    for (const [n, v] of [['other_need', 'Basin repair'], ['name', 'A'], ['company', 'B'], ['email', 'a@b.co']] as const) await type(form.querySelector(`[name="${n}"]`) as HTMLInputElement, v)
+    for (const [n, v] of [['other_need', 'Basin repair'], ['first_name', 'A'], ['company', 'B'], ['email', 'a@b.co']] as const) await type(form.querySelector(`[name="${n}"]`) as HTMLInputElement, v)
     await act(async () => { const sel = form.querySelector('select[name="country"]') as HTMLSelectElement; sel.value = 'US'; sel.dispatchEvent(new Event('change', { bubbles: true })) })
     await act(async () => { form.requestSubmit() })
     await flush()
@@ -207,7 +208,7 @@ describe('rendered', () => {
     await flush()
     const form = host.querySelector('form')!
     expect(form.getAttribute('method')).toBe('post')
-    expect((form.querySelector('[name="name"]') as HTMLInputElement).maxLength).toBe(q('name').validation.maxLength)
+    expect((form.querySelector('[name="first_name"]') as HTMLInputElement).maxLength).toBe(q('first_name').validation.maxLength)
     await act(async () => { form.requestSubmit() })
     await flush()
     const group = form.querySelector('[data-rfq-field="purpose"] [role="radiogroup"]')!
@@ -215,6 +216,21 @@ describe('rendered', () => {
     await click(form.querySelector('input[value="other"]'))
     await type(form.querySelector('[name="other_need"]') as HTMLTextAreaElement, 'Basin')
     expect(form.textContent).toContain(`5 / ${q('other_need').validation.maxLength}`)
+  })
+  it('RFQ-FIX-1.1 (owner order): email, first name, last name, company, interest, details, phone, country, message — DOM and tab order, with autocomplete', async () => {
+    await act(async () => root.render(<NativeRfqForm loader={async () => reg} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
+    await flush()
+    const form = host.querySelector('form')!
+    const order = () => [...form.querySelectorAll('[data-rfq-field]')].map((f) => f.getAttribute('data-rfq-field'))
+    expect(order()).toEqual(['email', 'first_name', 'last_name', 'company', 'purpose', 'phone', 'country'])
+    await click(form.querySelector('input[value="other"]'))
+    expect(order()).toEqual(['email', 'first_name', 'last_name', 'company', 'purpose', 'other_need', 'phone', 'country', 'notes'])
+    // tab order follows the visual order: nothing is pulled forward with a positive tabindex
+    expect([...form.querySelectorAll('[tabindex]')].filter((e) => Number(e.getAttribute('tabindex')) > 0)).toEqual([])
+    const ac = (n: string) => form.querySelector(`[name="${n}"]`)!.getAttribute('autocomplete')
+    expect(['email', 'first_name', 'last_name', 'company', 'phone'].map(ac)).toEqual(['email', 'given-name', 'family-name', 'organization', 'tel'])
+    // the review reads back in the same order (request, then contact groups keep their own order)
+    expect(questionsFor(reg, { purpose: 'other' }).map((q) => q.id).slice(0, 4)).toEqual(['email', 'first_name', 'last_name', 'company'])
   })
   it('R11: what is typed on the inline form is kept for a refresh (debounced), before "Continue"', async () => {
     await act(async () => root.render(<NativeRfqForm loader={async () => reg} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
@@ -258,7 +274,7 @@ describe('rendered', () => {
     await flush()
     const form = host.querySelector('form')!
     await click(form.querySelector('input[value="other"]'))
-    for (const [n, v] of [['other_need', 'x'], ['name', 'A'], ['company', 'B'], ['email', 'a@b.co']] as const) await type(form.querySelector(`[name="${n}"]`) as HTMLInputElement, v)
+    for (const [n, v] of [['other_need', 'x'], ['first_name', 'A'], ['company', 'B'], ['email', 'a@b.co']] as const) await type(form.querySelector(`[name="${n}"]`) as HTMLInputElement, v)
     await act(async () => { const sel = form.querySelector('select[name="country"]') as HTMLSelectElement; sel.value = 'US'; sel.dispatchEvent(new Event('change', { bubbles: true })) })
     await act(async () => { form.requestSubmit() })
     await flush()

@@ -72,20 +72,21 @@ describe('corner panel', () => {
   it('a chat answer error is announced (role="alert"); the review step takes focus on its heading', async () => {
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
+    // RFQ-FIX-1.1: email, first name, last name and company come first
+    const emailBox = panel()!.querySelector('input[type="email"]') as HTMLInputElement
+    await type(emailBox, 'a@b.co'); await key(emailBox, 'Enter')
+    for (const v of ['A', 'B', 'Plant Co']) { const i = panel()!.querySelector('input[type="text"]') as HTMLInputElement; await type(i, v); await key(i, 'Enter') }
     await click(button(s('purpose.chip.parts')))
     const box = panel()!.querySelector('input[type="text"]') as HTMLInputElement
     await type(box, '')
     await key(box, 'Enter')
     expect(panel()!.querySelector('[role="alert"]')?.textContent).toBe(s('err.required'))
     await type(box, 'Fan blades'); await key(box, 'Enter')
-    for (let i = 0; i < 3; i++) await click(button(s('chip.skip')))
-    for (const v of ['A Person', 'Plant Co']) { const i = panel()!.querySelector('input[type="text"]') as HTMLInputElement; await type(i, v); await key(i, 'Enter') }
-    const email = panel()!.querySelector('input[type="email"]') as HTMLInputElement
-    await type(email, 'a@gmail.com'); await key(email, 'Enter')
-    await click(button(s('chip.skip')))
+    for (let i = 0; i < 3; i++) await click(button(s('chip.skip'))) // model, quantity, phone
     const search = panel()!.querySelector('input[type="search"]') as HTMLInputElement
     await type(search, 'thai')
     await click(button('Thailand'))
+    await click(button(s('chip.skip'))) // notes (the message), last
     expect(document.activeElement?.tagName).toBe('H3')
     expect(document.activeElement?.textContent).toBe(s('review.heading'))
   })
@@ -99,7 +100,7 @@ describe('inline form', () => {
     const form = () => host.querySelector('form')!
     await click(form().querySelector('input[value="new_tower"]'))
     await click(form().querySelector('input[name="rfq-form-towers_type"][value="crossflow"]'))
-    for (const [n, v] of [['name', 'A'], ['company', 'B'], ['email', 'a@b.co']]) await type(form().querySelector(`[name="${n}"]`) as HTMLInputElement, v)
+    for (const [n, v] of [['first_name', 'A'], ['company', 'B'], ['email', 'a@b.co']]) await type(form().querySelector(`[name="${n}"]`) as HTMLInputElement, v)
     await act(async () => { const sel = form().querySelector('select[name="country"]') as HTMLSelectElement; sel.value = 'US'; sel.dispatchEvent(new Event('change', { bubbles: true })) })
     await act(async () => { form().requestSubmit() })
     await flush()

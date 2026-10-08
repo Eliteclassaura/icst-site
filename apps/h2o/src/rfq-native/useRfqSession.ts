@@ -183,7 +183,7 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
           const q = registry!.questions.find((x) => x.id === id)
           return [id, q && key === q.errorKeys.tooLong ? { key, values: { max: String(q.validation.maxLength) } } : { key }]
         })))
-        const first = registry!.questions.find((q) => q.id in fields)
+        const first = questionsFor(registry!, answers).find((q) => q.id in fields) ?? registry!.questions.find((q) => q.id in fields)
         if (first && source === 'NATIVE_CHAT') setAnswers((a) => reopen(a, first.id))
         // RFQ-FIX-1 (audit R4): both surfaces go back to the questions, where each error shows beside its field (the
         // form moves focus to the first one). An error no question owns is shown as the send failure instead.

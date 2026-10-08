@@ -67,7 +67,8 @@ describe('envelope, validation, mapping', () => {
   })
   it('maps to the canonical delivery: name split, interest, numeric quantity, message, country', () => {
     const reg = fixtureRegistry()
-    const req = base({ purpose: 'parts', parts_part: 'Gearbox', parts_qty: '12', name: 'Ngozi Okafor-Phạm', company: 'Delta Cooling (synthetic)', email: 'n@example.test', country: 'VN' })
+    // RFQ-FIX-1.1: first and last name are asked separately
+    const req = base({ purpose: 'parts', parts_part: 'Gearbox', parts_qty: '12', first_name: 'Ngozi', last_name: 'Okafor-Phạm', company: 'Delta Cooling (synthetic)', email: 'n@example.test', country: 'VN' })
     expect(validateAnswers(reg, req)).toEqual({})
     const { delivery } = toDelivery(reg, req, T)
     expect(delivery).toMatchObject({ eventId: `native:${req.submissionId}`, formId: 'native', sourceSystem: 'NATIVE_CHAT', fieldMapPresent: true })
@@ -75,5 +76,9 @@ describe('envelope, validation, mapping', () => {
     expect(delivery.mapped.other).toMatchObject({ interest: 'Parts', parts_part: 'Gearbox' })
     expect(delivery.mapped.message).toContain('Gearbox')
     expect(toDelivery(reg, { ...req, answers: { ...req.answers, parts_qty: 'one set per cell' } }, T).delivery.mapped.requested_quantity).toBeNull()
+    // a page loaded before the split still sends one `name`: the envelope reads it as first + last name
+    const legacy = parseEnvelope({ ...req, answers: { purpose: 'parts', parts_part: 'Gearbox', name: 'Ngozi Okafor-Phạm', company: 'Delta Cooling (synthetic)', email: 'n@example.test', country: 'VN' } })!
+    expect(validateAnswers(reg, legacy)).toEqual({})
+    expect(toDelivery(reg, legacy, T).delivery.mapped).toMatchObject({ first_name: 'Ngozi', last_name: 'Okafor-Phạm', full_name: 'Ngozi Okafor-Phạm' })
   })
 })

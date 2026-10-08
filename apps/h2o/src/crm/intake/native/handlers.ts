@@ -5,7 +5,7 @@ import type { Registry } from '../../../rfq-native/model'
 import { readEmailConfig, resolveSalesAddress } from '../../../email/config'
 import { emailKey } from '../../normalize'
 import { ingestParsed, intakeLog } from '../typeform/ingest'
-import { admit, bucketFor, count, EMAIL_RULE, requestIp, SUBMIT_RULES, TOKEN_RULE, UNTRUSTED_BUCKET, UNTRUSTED_RULES } from './limits'
+import { admit, bucketFor, EMAIL_RULE, requestIp, SUBMIT_RULES, TOKEN_RULE, UNTRUSTED_BUCKET, UNTRUSTED_RULES } from './limits'
 import { contentHash, parseEnvelope, storedPayload, toDelivery, validateAnswers, type NativeRequest } from './normalize'
 import { checkFormToken, issueFormToken } from './token'
 
@@ -106,12 +106,13 @@ export async function submitReply(payload: Payload, req: Request, now: Date = ne
   const ip = requestIp(req.headers)
   const ipBucket = bucketFor('ip', ip)
   if (typeof r.antiAbuse.hp === 'string' && r.antiAbuse.hp !== '') {
-    // A filled honeypot: "accepted" for the sender; counted, so a bot that keeps trying is throttled. RFQ-FIX-1 (audit R5):
-    // kept as a QUARANTINED_SPAM intake event (admins only; no RFQ, no alert, no email) so a person whose browser filled the
-    // trap is never lost — an admin sees the day's count on the CRM overview and can read the request.
-    await count(payload, ipBucket, now)
-    await quarantineSpam(payload, r, now)
-    log('HONEYPOT', 200, 'QUARANTINED_SPAM')
+    // A filled honeypot: "accepted" for the sender. RFQ-FIX-1 (audit R5): kept as a QUARANTINED_SPAM intake event (admins
+    // only; no RFQ, no alert, no email) so a person whose browser filled the trap is never lost — an admin sees the day's
+    // count on the CRM overview. RFQ-FIX-1.1 (auditor): under the same per-IP limits as a real request (admit), so a bot
+    // can store at most the limit; a refused one gets the same reply and stores nothing.
+    const wait = await admit(payload, [{ bucket: ipBucket, rules: ip === UNTRUSTED_BUCKET ? UNTRUSTED_RULES : SUBMIT_RULES }], now)
+    if (wait === 0) await quarantineSpam(payload, r, now)
+    log('HONEYPOT', 200, wait === 0 ? 'QUARANTINED_SPAM' : 'RATE_LIMITED_DISCARDED')
     return reply(200, { ok: true, rfqNumber: null, replay: false })
   }
 
@@ -177,6 +178,24 @@ export async function readCapped(req: Request, max: number): Promise<string | nu
   return Buffer.concat(chunks).toString('utf8')
 }
 
+/**
+ * RFQ-FIX-1.1 (auditor): what a quarantined request keeps — at most SPAM_PAYLOAD_BYTES of it (the full content hash is
+ * stored beside it). Answers are shortened first, then context and attribution dropped, then only the answer keys kept.
+ */
+export const SPAM_PAYLOAD_BYTES = 2048
+export function cappedPayload(p: ReturnType<typeof storedPayload>, max = SPAM_PAYLOAD_BYTES): Record<string, unknown> {
+  const size = (o: unknown) => Buffer.byteLength(JSON.stringify(o), 'utf8')
+  if (size(p) <= max) return p
+  const short = (n: number) => Object.fromEntries(Object.entries(p.answers).map(([k, v]) => [k, Array.from(v).slice(0, n).join('')]))
+  for (const n of [200, 60]) {
+    const c = { ...p, answers: short(n), truncated: true }
+    if (size(c) <= max) return c
+  }
+  const bare = { source: p.source, registryVersion: p.registryVersion, locale: p.locale, answers: short(60), truncated: true }
+  if (size(bare) <= max) return bare
+  return { source: p.source, answerKeys: Object.keys(p.answers).slice(0, 40).map((k) => k.slice(0, 40)), truncated: true }
+}
+
 /** RFQ-FIX-1 (R5): the honeypot request as an admin-only intake event; once per submission id, never an RFQ. */
 async function quarantineSpam(payload: Payload, r: NativeRequest, now: Date): Promise<void> {
   try {
@@ -189,7 +208,7 @@ async function quarantineSpam(payload: Payload, r: NativeRequest, now: Date): Pr
         source_form_id: 'native',
         signature_state: 'FORM_TOKEN_VERIFIED',
         raw_payload_hash: contentHash(r),
-        raw_payload: storedPayload(r) as never,
+        raw_payload: cappedPayload(storedPayload(r)) as never,
         received_at: now.toISOString(),
         processing_state: 'QUARANTINED_SPAM',
         failure_code: 'HONEYPOT',

@@ -419,6 +419,8 @@ export const INTAKE_PROCESSING_STATE = [
   'FAILED_RETRYABLE',
   // RFQ-FIX-1 (audit R5): a native request whose hidden field was filled; admins only, never an RFQ
   'QUARANTINED_SPAM',
+  // RFQ-FIX-1.1: the sweeper gave up after SWEEP_MAX_ATTEMPTS; shown to admins on the CRM overview, never retried again
+  'FAILED_PERMANENT',
 ] as const
 
 export const IDENTITY_REVIEW_SUBJECT = ['CONTACT', 'ACCOUNT', 'SITE', 'ASSET', 'RFQ', 'INTAKE_EVENT'] as const

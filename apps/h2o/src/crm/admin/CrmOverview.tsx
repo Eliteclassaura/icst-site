@@ -87,8 +87,9 @@ export async function CrmOverview({ initPageResult, params, searchParams }: Admi
           <span className={styles.n}>{data.identityReviewsOpen}</span> open identity reviews
         </a>
         {data.intake ? (
-          <a className={styles.card} href={list(admin, 'crm-intake-events', { 'where[processing_state][in][0]': 'FAILED_RETRYABLE', 'where[processing_state][in][1]': 'PROCESSING', 'where[processing_state][in][2]': 'QUARANTINED_SPAM' })}>
+          <a className={styles.card} href={list(admin, 'crm-intake-events', { 'where[processing_state][in][0]': 'FAILED_RETRYABLE', 'where[processing_state][in][1]': 'PROCESSING', 'where[processing_state][in][2]': 'QUARANTINED_SPAM', 'where[processing_state][in][3]': 'FAILED_PERMANENT' })}>
             <span className={styles.n}>{data.intake.stranded}</span> quote requests not finished ·{' '}
+            <span className={styles.n}>{data.intake.failedPermanent}</span> given up ·{' '}
             <span className={styles.n}>{data.intake.spam24h}</span> held as spam (24 h)
           </a>
         ) : null}
