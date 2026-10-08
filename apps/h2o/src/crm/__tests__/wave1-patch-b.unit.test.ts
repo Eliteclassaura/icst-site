@@ -14,7 +14,7 @@ const UUID = '01920000-0000-7000-8000-000000000001'
 describe('W1-3 CSV reading', () => {
   it('parses quotes, escaped quotes, embedded commas/newlines, CRLF and a BOM', () => {
     const r = parseCsv('﻿email,name\r\n"a@example.test","Smith, ""Jo"""\r\nb@example.test,"two\nlines"\n')
-    expect(r).toEqual({ ok: true, header: ['email', 'name'], rows: [['a@example.test', 'Smith, "Jo"'], ['b@example.test', 'two\nlines']] })
+    expect(r).toEqual({ ok: true, header: ['email', 'name'], rows: [['a@example.test', 'Smith, "Jo"'], ['b@example.test', 'two\nlines']], longCells: [] })
   })
   it('refuses binary, empty, unterminated, headerless and oversized input with a code and no value echoed', () => {
     expect(parseCsv('a\u0000b')).toMatchObject({ ok: false, code: 'NOT_TEXT' })
@@ -83,7 +83,7 @@ describe('W1-3 value rules (CT conditions 2026-10-05)', () => {
     expect(companyHint('Acme Thermal\nPlant 2')).toBeNull()
   })
   it('options: attestation needs explicit flags; text is bounded', () => {
-    expect(parseOptions(undefined)).toEqual({ createAccounts: false, attested: false, source: null, basis: null })
+    expect(parseOptions(undefined)).toEqual({ createAccounts: false, attested: false, source: null, basis: null, truncateOversize: false })
     expect(parseOptions({ createAccounts: 'yes', attested: 1 })).toMatchObject({ createAccounts: false, attested: false })
     expect(parseOptions({ attested: true, source: 'x'.repeat(500) }).source).toHaveLength(160)
   })

@@ -138,6 +138,7 @@ export type ReviewInput = {
     | 'INTAKE_CONFLICTING_PAYLOAD'
     | 'GENERIC_SHARED_INBOX'
     | 'SUSPECT_ADDRESS_DOMAIN'
+    | 'NAME_CONTAINED_LINK'
   subject_ids: string[]
   dedupe_key: string
   contact?: string | null

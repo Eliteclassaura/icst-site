@@ -4,12 +4,13 @@ import { applyImport, planImport, planView } from '../../../../../crm/import/eng
 import { crmSessionFor } from '../../../../../crm/workspace/session'
 
 /**
- * Wave 1 W1-3 import endpoint: `POST /crm/import/run/` with `{ mode: 'dry' | 'apply', csv, mapping, options, expected }`.
+ * Wave 1 W1-3 import endpoint: `POST /crm/import/run/` with `{ mode: 'dry' | 'apply', csv, mapping, options, approval }`.
  *
  * A route handler rather than a server action because a 5 MB file exceeds the server-action body limit.
  *   - Admin only: the Payload session is verified by Payload, then the CRM role is checked; anything else is 403.
  *   - Same-origin only (CSRF): a cross-site request is refused before the body is read.
- *   - `dry` returns the plan (counts + per-row outcomes) and writes nothing.
+ *   - `dry` returns the plan (counts + per-row outcomes + over-long cells) and its approval token, and writes nothing.
+ *   - CSV-FIX-1 (review R2-07): `apply` must send back that token; the engine re-plans and refuses on any difference.
  *   - `apply` streams NDJSON progress lines and then the result, so a long load never waits on a proxy timeout.
  *   - The body is never logged, and errors never echo a value from the file.
  */
@@ -53,7 +54,7 @@ export async function POST(request: Request): Promise<Response> {
       const send = (x: unknown) => controller.enqueue(enc.encode(`${JSON.stringify(x)}\n`))
       let last = -1
       try {
-        const result = await applyImport(s, body.csv as string, body.mapping, body.options, body.expected, (p) => {
+        const result = await applyImport(s, body.csv as string, body.mapping, body.options, body.approval, (p) => {
           if (p.done === p.total || p.done - last >= 50) {
             last = p.done
             send({ type: 'progress', ...p })

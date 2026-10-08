@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto'
+import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { freemem } from 'node:os'
 import type { Where } from 'payload'
@@ -7,11 +7,11 @@ import { openIdentityReview } from '../identity'
 import { companyKey, emailKey, isConsumerDomain, nameKey, normalizeWebDomain, registrableLabel } from '../normalize'
 import { activeFromLedger, type LedgerRow } from '../suppression'
 import { asUser, type CrmSession } from '../workspace/session'
-import { line } from '../workspace/validate'
+import { cpLength, cpSlice, line } from '../workspace/validate'
 import { VERIFIED_DOMAIN_STATUSES } from '../vocabulary'
 import { countryFromEmailDomain, countryFromPhone } from '../countries'
 import { addressQualityOf, ownEmailDomains, spamPatternOf, type AddressQuality } from '../address-quality'
-import { BATCH_ROWS, isGenericInbox, isPlaceholder, normalizePhone, parseCsv, splitName, validateMapping, type ImportField, type Mapping } from './csv'
+import { BATCH_ROWS, MAX_CELL, isGenericInbox, isPlaceholder, normalizePhone, parseCsv, splitName, validateMapping, type ImportField, type Mapping } from './csv'
 
 /**
  * Wave 1 W1-3 contact import: plan (dry run), apply, undo. Admin-only (checked here and by the route).
@@ -27,8 +27,12 @@ import { BATCH_ROWS, isGenericInbox, isPlaceholder, normalizePhone, parseCsv, sp
  *   - "Owner-attested customers" (an explicit option with a recorded source and basis) records the attestation on the
  *     batch, on each record's provenance and as `relationship_basis = OWNER_ATTESTED_BATCH` (+ batch id). Per E1.3 and
  *     the CT ruling it is not a verification: new accounts are CANDIDATE, contacts keep relationship evidence UNKNOWN.
- *   - The dry run writes nothing. Apply re-plans the same file and refuses unless the plan equals the dry run the
- *     admin approved, then writes in batches of at most 2,000 rows, each its own undoable batch.
+ *   - The dry run writes nothing. CSV-FIX-1 (review R2-07): it returns a server-computed approval token over the file
+ *     hash, the mapping, the options and every row's planned action and target. Apply re-plans and refuses unless the
+ *     token is identical, then writes in batches of at most 2,000 rows, each its own undoable batch.
+ *   - CSV-FIX-1 (review R2-08): a value longer than its field allows is never cut silently. The plan lists each one
+ *     (row, column, length, limit) and apply refuses while any exist, unless the admin chose to cut them in the
+ *     preview; that choice is part of the approval and recorded on the batch and in the audit.
  *   - Created records carry `provenance.source_system = LEGACY_IMPORT` and `import_batch_id`; contacts keep
  *     `marketing_eligibility = UNKNOWN` (missing consent is not opt-in, so nothing here makes anyone emailable).
  *   - Nothing here logs a value. Failures are reported by row number and code.
@@ -41,14 +45,19 @@ const relId = (v: unknown): string | null => (v === null || v === undefined || v
 export type ImportOptions = {
   /** Create accounts from corporate email domains that match no existing account. */
   createAccounts: boolean
-  /** The owner attests every row is an existing/past customer (needs `source` and `basis`). */
+  /**
+   * The owner attests every row is an existing/past customer (needs `source` and `basis`). CSV-FIX-1 (review R2-08):
+   * this records CANDIDATE relationships for an admin to confirm, never a verified customer.
+   */
   attested: boolean
   /** Where the file came from, e.g. "email-IQ export 2026-07-14". Recorded on the batch. No personal data. */
   source: string | null
   /** Why the records may be held/treated as customers, e.g. "owner-attested existing customers (2026-10-05)". */
   basis: string | null
+  /** CSV-FIX-1 (review R2-08): the admin chose to cut over-long values to their limit (else apply refuses). */
+  truncateOversize: boolean
 }
-export const DEFAULT_OPTIONS: ImportOptions = { createAccounts: false, attested: false, source: null, basis: null }
+export const DEFAULT_OPTIONS: ImportOptions = { createAccounts: false, attested: false, source: null, basis: null, truncateOversize: false }
 export function parseOptions(raw: unknown): ImportOptions {
   const o = raw && typeof raw === 'object' ? D(raw) : {}
   return {
@@ -56,8 +65,19 @@ export function parseOptions(raw: unknown): ImportOptions {
     attested: o.attested === true,
     source: line(o.source, 160),
     basis: line(o.basis, 240),
+    truncateOversize: o.truncateOversize === true,
   }
 }
+
+/**
+ * CSV-FIX-1 (review R2-08): the longest value each mapped field stores (the `line()` limits below). Fields that are
+ * parsed rather than stored as text (email, phone, website, country, owner, do-not-contact) use the cell limit.
+ */
+const FIELD_MAX: Partial<Record<ImportField, number>> = { first_name: 80, last_name: 80, full_name: 80, title: 120, company: 160, source_ref: 120, notes: MAX_CELL }
+export const fieldMax = (f: ImportField) => FIELD_MAX[f] ?? MAX_CELL
+
+/** One over-long cell: CUT (blocks apply unless the admin chose to cut) or NOT_IMPORTED (an unmapped column). */
+export type OversizeCell = { row: number; column: string; field: ImportField | null; length: number; limit: number; treatment: 'CUT' | 'NOT_IMPORTED' }
 
 export type RowOutcome = 'CREATE' | 'FILL' | 'UNCHANGED' | 'REVIEW' | 'SKIP' | 'REJECT'
 export type AccountAction = 'LINK_VERIFIED' | 'CREATE_ACCOUNT' | 'LINK_NEW_ACCOUNT' | 'DOMAIN_REVIEW' | 'NAME_REVIEW' | 'SUSPECT_REVIEW' | 'NONE'
@@ -78,6 +98,8 @@ export type PlannedRow = {
   genericInbox: boolean
   /** CT spot-check ruling: a flagged address loads (fill-empty) but never links an account and is never sequenced. */
   addressQuality: AddressQuality | null
+  /** Owner ruling 2026-10-08: a corporate-domain row whose name held a web link loads with no name and an identity review. */
+  nameLinkCleared: boolean
   values: Partial<Record<string, string | null>>
 }
 
@@ -117,6 +139,16 @@ export type Summary = {
   placeholdersCleared: number
   warnings: number
   batches: number
+  /** CSV-FIX-1 (review R2-08): mapped cells longer than their field allows, and how many apply cuts (0 unless chosen). */
+  oversizeCells: number
+  oversizeCut: number
+  /** Owner ruling 2026-10-08: rows whose name carries a web link. Free mail: skipped (SKIP_NAME_URL), never imported.
+   *  Corporate domain: imported with the name cleared and an identity review (NAME_CONTAINED_LINK). The link-bearing
+   *  name cell is counted by length (over / within the 80-character name limit). */
+  spamNameSkipped: number
+  spamNameCleared: number
+  spamNameOver80: number
+  spamNameWithin80: number
 }
 
 export type Plan = {
@@ -130,6 +162,12 @@ export type Plan = {
   newAccounts: Map<string, string>
   /** Domains whose new account is named from the domain (no company in the file). */
   fromDomain: Set<string>
+  /** CSV-FIX-1 (review R2-08): every over-long cell, by row and column name. */
+  oversize: OversizeCell[]
+  /** Over-long mapped cells exist and the admin has not chosen to cut them: apply refuses. */
+  blocked: boolean
+  /** CSV-FIX-1 (review R2-07): what apply must receive back (null while blocked). */
+  approval: string | null
 }
 
 const cell = (row: string[], m: Mapping, f: ImportField): string | null => {
@@ -137,6 +175,24 @@ const cell = (row: string[], m: Mapping, f: ImportField): string | null => {
   if (i === undefined) return null
   const v = (row[i] ?? '').replace(/\s+/g, (x) => (x.includes('\n') ? x : ' ')).trim()
   return v === '' ? null : v
+}
+
+/**
+ * A person's name never carries a web link; a name cell that does is form spam (the legacy file: 11,395 rows with a URL
+ * in the first-name field, 96% free mail, no last name). Owner ruling 2026-10-08: on free mail the row is skipped
+ * (SKIP_NAME_URL) and never imported or measured; on a corporate domain it loads with the name cleared (never measured)
+ * and an identity review (NAME_CONTAINED_LINK).
+ */
+const LINK_IN_NAME = /https?:\/\/|www\./i
+export const nameHasLink = (r: string[], m: Mapping): boolean =>
+  (['first_name', 'last_name', 'full_name'] as const).some((f) => m[f] !== undefined && LINK_IN_NAME.test(cell(r, m, f) ?? ''))
+/** The longest name cell that carries a link (for the over/within-80 count). */
+const linkNameLength = (r: string[], m: Mapping): number =>
+  Math.max(0, ...(['first_name', 'last_name', 'full_name'] as const).filter((f) => m[f] !== undefined && LINK_IN_NAME.test(cell(r, m, f) ?? '')).map((f) => (cell(r, m, f) ?? '').length))
+/** A link-in-name row on free mail (or with no valid address) is skipped; on a corporate domain it loads without a name. */
+export const nameLinkSkips = (r: string[], m: Mapping): boolean => {
+  const k = emailKey(cell(r, m, 'email'))
+  return !k || isConsumerDomain(k.domain)
 }
 const truthy = (v: string | null) => (v ? /^(y|yes|true|1|x|dnc|do not contact|unsubscribed|opted out)$/i.test(v.trim()) : false)
 
@@ -236,7 +292,15 @@ export async function planImport(s: CrmSession, text: string, rawMapping: unknow
   if (options.createAccounts && ownEmailDomains().size === 0)
     return { error: { code: 'OWN_DOMAINS_UNSET', message: "Set H2O_OWN_EMAIL_DOMAINS (ICS's own email domains) before creating accounts from a file." } }
 
-  const keys = [...new Set(csv.rows.map((r) => emailKey(cell(r, m, 'email'))?.matchKey).filter(Boolean))] as string[]
+  // CSV-FIX-1 (review R2-08): list every over-long cell before planning. Names are measured after the same split the
+  // plan uses, so the limit applies to what would be stored.
+  const oversize = findOversize(csv.header, csv.rows, csv.longCells, m)
+  const blocking = oversize.filter((o) => o.treatment === 'CUT').length
+  // Only an explicit choice cuts a mapped cell; until then the plan is shown but cannot be applied.
+  const mappedCols = new Set(Object.values(m))
+  const rows = options.truncateOversize ? csv.rows.map((r) => r.map((c, i) => (mappedCols.has(i) && cpLength(c) > MAX_CELL ? cpSlice(c, MAX_CELL) : c))) : csv.rows
+
+  const keys = [...new Set(rows.map((r) => emailKey(cell(r, m, 'email'))?.matchKey).filter(Boolean))] as string[]
   const contacts = new Map<string, Doc>()
   const ledger = new Map<string, LedgerRow[]>()
   await chunks(keys, 200, async (part) => {
@@ -259,7 +323,7 @@ export async function planImport(s: CrmSession, text: string, rawMapping: unknow
   }
   // Per hint, every raw spelling with its count: the display name is the most frequent spelling (first seen on a tie).
   const hints = new Map<string, Map<string, { n: number; raws: Map<string, number> }>>()
-  for (const r of csv.rows) {
+  for (const r of rows) {
     const d = domainOf(r)
     if (!d || isGenericInbox(cell(r, m, 'email')) || addressQualityOf(d)) continue
     const raw = value(r, m, 'company', { n: 0 })
@@ -296,12 +360,16 @@ export async function planImport(s: CrmSession, text: string, rawMapping: unknow
   const out: PlannedRow[] = []
   let phonesNormalised = 0
   let phonesDropped = 0
+  let spamNames = 0
+  let spamCleared = 0
+  let spamNameOver80 = 0
+  let spamNameWithin80 = 0
   const nameCases = { SPLIT: 0, SPLIT_SUFFIX: 0, SINGLE_WORD: 0, SCRIPT_NOT_SPLIT: 0, COMMA: 0, EMPTY: 0 }
   const countryCases = { IMPORTED: 0, PHONE_INFERRED: 0, EMAIL_CCTLD_INFERRED: 0 }
-  csv.rows.forEach((r, idx) => {
+  rows.forEach((r, idx) => {
     const rowNo = idx + 1
     const reasons: string[] = []
-    const base: PlannedRow = { row: rowNo, outcome: 'REJECT', reasons, email: null, contactId: null, fill: [], account: 'NONE', accountId: null, domain: null, suppress: 'NONE', note: false, genericInbox: false, addressQuality: null, values: {} }
+    const base: PlannedRow = { row: rowNo, outcome: 'REJECT', reasons, email: null, contactId: null, fill: [], account: 'NONE', accountId: null, domain: null, suppress: 'NONE', note: false, genericInbox: false, addressQuality: null, nameLinkCleared: false, values: {} }
     const rawEmail = cell(r, m, 'email')
     const key = emailKey(rawEmail)
     if (!rawEmail) {
@@ -313,16 +381,32 @@ export async function planImport(s: CrmSession, text: string, rawMapping: unknow
       return out.push(base)
     }
     base.email = key.canonical
+    const link = nameHasLink(r, m)
+    if (link) {
+      if (linkNameLength(r, m) > 80) spamNameOver80++
+      else spamNameWithin80++
+    }
+    if (link && isConsumerDomain(key.domain)) {
+      base.outcome = 'SKIP'
+      reasons.push('SKIP_NAME_URL: the name contains a web link (form spam); not imported')
+      spamNames++
+      return out.push(base)
+    }
     if (seen.has(key.matchKey)) {
       reasons.push(`Same email as row ${seen.get(key.matchKey)}`)
       return out.push(base)
     }
     seen.set(key.matchKey, rowNo)
+    if (link) {
+      base.nameLinkCleared = true
+      spamCleared++
+      reasons.push('NAME_CONTAINED_LINK: the name held a web link; loaded without a name, for identity review')
+    }
 
-    let first = value(r, m, 'first_name', cleared)
-    let last = value(r, m, 'last_name', cleared)
+    let first = link ? null : value(r, m, 'first_name', cleared)
+    let last = link ? null : value(r, m, 'last_name', cleared)
     // A full name in one column (the Full name mapping, or a first-name column whose last name is empty).
-    const split = m.full_name !== undefined ? splitName(value(r, m, 'full_name', cleared)) : first && !last ? splitName(first) : null
+    const split = link ? null : m.full_name !== undefined ? splitName(value(r, m, 'full_name', cleared)) : first && !last ? splitName(first) : null
     if (split) {
       first = split.first
       last = split.last
@@ -376,7 +460,7 @@ export async function planImport(s: CrmSession, text: string, rawMapping: unknow
     }
     // CT ruling: the attestation is recorded as a basis (OWNER_ATTESTED_BATCH), never as relationship evidence.
     if (options.attested) v.relationship_basis = 'OWNER_ATTESTED_BATCH'
-    base.note = Boolean(line(value(r, m, 'notes', cleared), 5000))
+    base.note = Boolean(line(value(r, m, 'notes', cleared), fieldMax('notes')))
     base.values = v
 
     // Account from the corporate domain (free mail never links or creates).
@@ -494,13 +578,108 @@ export async function planImport(s: CrmSession, text: string, rawMapping: unknow
     placeholdersCleared: cleared.n,
     warnings: count((r) => live(r) && r.reasons.length > 0),
     batches: Math.max(1, Math.ceil(out.length / BATCH_ROWS)),
+    oversizeCells: blocking,
+    oversizeCut: options.truncateOversize ? blocking : 0,
+    spamNameSkipped: spamNames,
+    spamNameCleared: spamCleared,
+    spamNameOver80,
+    spamNameWithin80,
   }
-  return { plan: { sha256: fileSha256(text), columns, mapping: m, options, rows: out, summary, newAccounts, fromDomain } }
+  const plan: Plan = { sha256: fileSha256(text), columns, mapping: m, options, rows: out, summary, newAccounts, fromDomain, oversize, blocked: blocking > 0 && !options.truncateOversize, approval: null }
+  plan.approval = plan.blocked ? null : approvalToken(s, plan)
+  return { plan }
+}
+
+/**
+ * CSV-FIX-1 (review R2-08): every cell longer than its limit. A mapped cell is CUT only if the admin chooses it (it
+ * blocks apply otherwise); a long cell in an unmapped column is reported as NOT_IMPORTED and blocks nothing. Values
+ * are never part of the result: only row, column name, length and limit.
+ */
+/** CT 2026-10-08: each cut is recorded as a count by field (never a value); empty unless the cut was chosen. */
+export const cutByField = (p: Pick<Plan, 'oversize' | 'options'>): Record<string, number> => {
+  const out: Record<string, number> = {}
+  if (!p.options.truncateOversize) return out
+  for (const o of p.oversize) if (o.treatment === 'CUT' && o.field) out[o.field] = (out[o.field] ?? 0) + 1
+  return out
+}
+
+export function findOversize(header: string[], rows: string[][], longCells: Array<{ row: number; column: number; length: number }>, m: Mapping): OversizeCell[] {
+  const out: OversizeCell[] = []
+  const colName = (i: number) => (header[i] || `Column ${i + 1}`).slice(0, 80)
+  const mappedCols = new Set(Object.values(m))
+  for (const c of longCells) if (!mappedCols.has(c.column)) out.push({ row: c.row, column: colName(c.column), field: null, length: c.length, limit: MAX_CELL, treatment: 'NOT_IMPORTED' })
+  const measured = (Object.keys(m) as ImportField[]).filter((f) => f !== 'first_name' && f !== 'last_name' && f !== 'full_name')
+  const len = (v: string | null) => cpLength(line(v, Number.MAX_SAFE_INTEGER) ?? '')
+  rows.forEach((r, idx) => {
+    const row = idx + 1
+    const link = nameHasLink(r, m)
+    if (link && nameLinkSkips(r, m)) return // skipped as spam: never imported, so never cut
+    const add = (f: ImportField, length: number) => {
+      if (!out.some((o) => o.row === row && o.field === f)) out.push({ row, column: colName(m[f]!), field: f, length, limit: fieldMax(f), treatment: 'CUT' })
+    }
+    for (const f of measured) if (len(cell(r, m, f)) > fieldMax(f)) add(f, len(cell(r, m, f)))
+    // Names exactly as the plan derives them: placeholders cleared, then a full name split into first and last.
+    const v = (f: ImportField) => {
+      const x = cell(r, m, f)
+      return x && isPlaceholder(x) ? null : x
+    }
+    let first = v('first_name')
+    let last = v('last_name')
+    const split = m.full_name !== undefined ? splitName(v('full_name')) : first && !last ? splitName(first) : null
+    if (split) {
+      first = split.first
+      last = split.last
+    }
+    const source = (part: 'first' | 'last'): ImportField => (m.full_name !== undefined ? 'full_name' : split || part === 'first' ? 'first_name' : 'last_name')
+    if (link) return // the name is cleared on import (owner ruling), so it is never cut
+    if (len(first) > fieldMax('first_name')) add(source('first'), len(first))
+    if (len(last) > fieldMax('last_name')) add(source('last'), len(last))
+  })
+  return out.sort((a, b) => a.row - b.row || a.column.localeCompare(b.column))
+}
+
+/** Per-process key when no server secret is set: approvals then hold only within this process (fails closed). */
+const FALLBACK_KEY = randomBytes(32)
+
+/**
+ * CSV-FIX-1 (review R2-07): the approval token binds apply to exactly the plan the admin reviewed: the file SHA-256,
+ * the normalised mapping, the options (including the cut choice), each row's planned action and target ids and
+ * values, the new accounts, and the over-long cells. It is an HMAC under the server secret, so only a dry run on
+ * this server can issue it, and it is tied to the admin who ran it. Equal counts are not enough.
+ */
+export function approvalToken(s: Pick<CrmSession, 'userId'>, p: Pick<Plan, 'sha256' | 'mapping' | 'options' | 'rows' | 'newAccounts' | 'oversize'>): string {
+  const rowPlan = createHash('sha256')
+  for (const r of p.rows) {
+    const values = Object.entries(r.values).filter(([, x]) => x !== null && x !== undefined).sort(([a], [b]) => a.localeCompare(b))
+    rowPlan.update(`${JSON.stringify([r.row, r.outcome, r.contactId, r.account, r.accountId, r.domain, r.suppress, r.fill, r.note, r.genericInbox, r.addressQuality, r.nameLinkCleared, values])}\n`)
+  }
+  const o = p.options
+  const body = JSON.stringify({
+    v: 1,
+    user: s.userId,
+    file: p.sha256,
+    mapping: Object.entries(p.mapping).sort(([a], [b]) => a.localeCompare(b)),
+    options: [o.createAccounts, o.attested, o.source, o.basis, o.truncateOversize],
+    rows: rowPlan.digest('hex'),
+    accounts: [...p.newAccounts].sort(([a], [b]) => a.localeCompare(b)),
+    oversize: p.oversize.map((x) => [x.row, x.column, x.length, x.treatment]),
+  })
+  const key = process.env.PAYLOAD_SECRET ? `crm-import-approval:${process.env.PAYLOAD_SECRET}` : FALLBACK_KEY
+  return createHmac('sha256', key).update(body).digest('hex')
+}
+
+const sameToken = (a: unknown, b: string | null) => {
+  if (typeof a !== 'string' || !b || a.length !== b.length) return false
+  return timingSafeEqual(Buffer.from(a), Buffer.from(b))
 }
 
 /** What the browser sees of a plan: counts plus per-row outcomes for the admin's own file. */
 export const planView = (p: Plan) => ({
   sha256: p.sha256,
+  approval: p.approval,
+  blocked: p.blocked,
+  truncateOversize: p.options.truncateOversize,
+  oversize: p.oversize,
   summary: p.summary,
   rows: p.rows.map((r) => ({ row: r.row, outcome: r.outcome, email: r.email, account: r.account, suppress: r.suppress, fill: r.fill, reasons: r.reasons })),
 })
@@ -563,11 +742,6 @@ export type ApplyResult =
     }
   | { ok: false; code: string; message: string }
 
-const sameSummary = (a: unknown, b: Summary) => {
-  if (!a || typeof a !== 'object') return false
-  return (Object.keys(b) as Array<keyof Summary>).every((k) => Number(D(a)[k]) === b[k])
-}
-
 const errCode = (err: unknown) => String(D(D(err).data ?? {}).code ?? D(err).name ?? 'ERROR').slice(0, 60)
 
 /** Primary first, then mobile; the same number twice is stored once. */
@@ -575,7 +749,8 @@ const phoneRows = (v: PlannedRow['values']) =>
   [v.phone ? { number_raw: v.phone, kind: 'PRIMARY' } : null, v.mobile ? { number_raw: v.mobile, kind: 'MOBILE' } : null].filter(Boolean)
 
 /**
- * Apply a planned import. Re-plans the file and refuses unless the counts equal the approved dry run. Rows are
+ * Apply a planned import. Re-plans the file and refuses unless the approval token of the reviewed dry run equals the
+ * new plan's (CSV-FIX-1, review R2-07), or while over-long cells remain uncut (review R2-08). Rows are
  * written in batches of at most `BATCH_ROWS`, each with its own batch record (so each can be undone); a failed row
  * is recorded by number and code and never hides the others.
  */
@@ -584,14 +759,23 @@ export async function applyImport(
   text: string,
   rawMapping: unknown,
   rawOptions: unknown,
-  expected: unknown,
+  approval: unknown,
   onProgress?: (p: ApplyProgress) => void,
+  // PROD-IMPORT-1 N1: how the run was started and the operator's note, kept on every batch and in the audit
+  run: { via: 'import-page' | 'operator-cli'; note?: string | null } = { via: 'import-page' },
 ): Promise<ApplyResult> {
+  const runMeta = { via: run.via, operatorNote: line(run.note ?? null, 240) }
   const planned = await planImport(s, text, rawMapping, rawOptions)
   if ('error' in planned) return { ok: false, ...planned.error }
   const plan = planned.plan
-  if (!sameSummary(expected, plan.summary))
-    return { ok: false, code: 'STALE_DRY_RUN', message: 'The data changed since the dry run, or the file, mapping or options differ. Run the dry run again before applying.' }
+  if (plan.blocked)
+    return {
+      ok: false,
+      code: 'OVERSIZE_CELLS',
+      message: `${plan.summary.oversizeCells} ${plan.summary.oversizeCells === 1 ? 'cell is' : 'cells are'} longer than allowed. Shorten them in the file, or choose to cut them in the preview, then preview again.`,
+    }
+  if (!sameToken(approval, plan.approval))
+    return { ok: false, code: 'STALE_DRY_RUN', message: 'The file, mapping or the records changed since your preview — preview again.' }
   const csv = parseCsv(text)
   if (!csv.ok) return { ok: false, code: csv.code, message: csv.message }
   const m = plan.mapping
@@ -607,7 +791,7 @@ export async function applyImport(
   const failed: Array<{ row: number; code: string }> = []
   const batchIds: string[] = []
   const accountIdByDomain = new Map<string, string>()
-  const actual: Summary = { ...plan.summary, create: 0, fill: 0, review: 0, accountsCreate: 0, linkVerified: 0, contactsOnNewAccounts: 0, accountReviews: 0, genericInboxReviews: 0, suspectDomainReviews: 0, suppressAdd: 0, notes: 0 }
+  const actual: Summary = { ...plan.summary, create: 0, fill: 0, review: 0, accountsCreate: 0, linkVerified: 0, contactsOnNewAccounts: 0, accountReviews: 0, genericInboxReviews: 0, suspectDomainReviews: 0, suppressAdd: 0, notes: 0, spamNameCleared: 0 }
   const reviewedDomains = new Set<string>()
   const batches = plan.summary.batches
 
@@ -628,7 +812,8 @@ export async function applyImport(
           file_sha256: plan.sha256,
           row_count: slice.length,
           mapping: m,
-          options: { ...opts, part: b + 1, parts: batches, firstRow: slice[0]?.row ?? null, lastRow: slice.at(-1)?.row ?? null },
+          // CSV-FIX-1 (review R2-08): the cut choice and its count stay on the batch with the approval it was bound to.
+          options: { ...opts, part: b + 1, parts: batches, firstRow: slice[0]?.row ?? null, lastRow: slice.at(-1)?.row ?? null, oversizeCut: plan.summary.oversizeCut, oversizeCutByField: cutByField(plan), ...runMeta, approval: plan.approval?.slice(0, 16) ?? null },
           counts: plan.summary,
           applied_by: s.userId,
           source_label: opts.source,
@@ -763,6 +948,14 @@ export async function applyImport(
           }, { withTask: false })
           actual.review++
         }
+        if (r.nameLinkCleared && contactId) {
+          await openIdentityReview(
+            s.payload,
+            { subject_type: 'CONTACT', reason: 'NAME_CONTAINED_LINK', subject_ids: [contactId], dedupe_key: `import:${plan.sha256.slice(0, 16)}:${contactId}:namelink`, contact: contactId },
+            { withTask: false },
+          )
+          actual.spamNameCleared++
+        }
         if (r.outcome === 'CREATE' && r.genericInbox && contactId) {
           await openIdentityReview(
             s.payload,
@@ -805,7 +998,7 @@ export async function applyImport(
           })
           actual.suppressAdd++
         }
-        const note = line(value(raw, m, 'notes', { n: 0 }), 5000)
+        const note = line(value(raw, m, 'notes', { n: 0 }), fieldMax('notes'))
         if (contactId && note && r.outcome !== 'REVIEW') {
           await s.payload.create({ collection: 'crm-notes', data: { body: note, contact: contactId, account: accountId } as never, depth: 0, ...asUser(s) })
           actual.notes++
@@ -833,6 +1026,11 @@ export async function applyImport(
         parts: batches,
         rows: slice.length,
         attested: Boolean(attested),
+        // CSV-FIX-1 (review R2-08): an explicit choice to cut over-long cells is part of the audit trail.
+        truncateOversize: opts.truncateOversize,
+        oversizeCut: plan.summary.oversizeCut,
+        oversizeCutByField: cutByField(plan),
+        ...runMeta,
         failedRows: failed.filter((f) => f.row >= (slice[0]?.row ?? 0) && f.row <= (slice.at(-1)?.row ?? 0)).length,
       },
     })

@@ -3,10 +3,12 @@ import type { Where } from 'payload'
 import { writeCrmAudit } from '../audit'
 import { accountsWhere, contactsWhere, contactName, parseAccountsParams, parseContactsParams } from '../workspace/directory'
 import { CONTACT_FUNCTION_LABEL, RELATIONSHIP_LABEL, RFQ_STATUS_LABEL, SOURCE_LABEL, MOTION_LABEL, label } from '../workspace/labels'
-import { inboxWhere, parseInboxParams, crmUsers, nameMap, suppressionsByKey } from '../workspace/queries'
+import { inboxWhere, parseInboxParams, crmUsers, nameMap } from '../workspace/queries'
 import { asUser, type CrmSession } from '../workspace/session'
 import { countryName } from '../countries'
 import { INQUIRY_TYPE_LABEL, type InquiryType } from '../inquiry-type'
+import { emailKey } from '../normalize'
+import { activeFromLedger, type LedgerRow } from '../suppression'
 
 /**
  * Wave 1 W1-4 export (owner decision 2026-10-05): **admin-only, audited**, of the list the admin is looking at.
@@ -17,13 +19,22 @@ import { INQUIRY_TYPE_LABEL, type InquiryType } from '../inquiry-type'
  *     "Do not contact" column, so a suppressed person is marked in every export.
  *   - Spreadsheet formula injection is neutralised: a cell starting with = + - @ TAB or CR is prefixed with '.
  *   - Rows are streamed page by page, never stored on the server.
+ *   - CSV-FIX-1 (review R2-09): the matches are counted first. Above the cap the export is refused (and audited), never
+ *     cut short; otherwise every match is exported. A run that ends short of the count is recorded as PARTIAL.
  *   - One audit row per export: who, when, which list, a hash of the filter (not the filter or term itself), the
- *     columns and the row count. No values.
+ *     columns, requested and exported row counts and the status (COMPLETE, PARTIAL, FAILED or REFUSED). No values.
+ *   - An export is the list on screen with the chosen columns. It is not a backup of the CRM.
  */
 
 export const EXPORT_LISTS = ['contacts', 'accounts', 'inbox'] as const
 export type ExportList = (typeof EXPORT_LISTS)[number]
 export const MAX_EXPORT_ROWS = 50_000
+/** The cap in force: `MAX_EXPORT_ROWS`, or lower when `H2O_EXPORT_MAX_ROWS` says so (it can never raise it). */
+export const exportCap = () => {
+  const env = Math.floor(Number(process.env.H2O_EXPORT_MAX_ROWS))
+  return env > 0 ? Math.min(env, MAX_EXPORT_ROWS) : MAX_EXPORT_ROWS
+}
+export type ExportStatus = 'COMPLETE' | 'PARTIAL' | 'FAILED' | 'REFUSED'
 
 type Doc = Record<string, unknown>
 const D = (x: unknown): Doc => x as Doc
@@ -101,8 +112,71 @@ const BOM = String.fromCharCode(0xfeff)
 const SORT: Record<ExportList, string> = { contacts: 'display_name', accounts: 'canonical_name', inbox: '-received_at' }
 
 /**
+ * CSV-FIX-1 (review R2-09): active do-not-contact per match key, reading every ledger row for the page's keys (not a
+ * fixed first page of them), so the "Do not contact" column is right for every exported row.
+ */
+async function activeSuppressions(s: CrmSession, keys: string[]): Promise<Map<string, LedgerRow[]>> {
+  const out = new Map<string, LedgerRow[]>()
+  if (keys.length === 0) return out
+  const res = await s.payload.find({ collection: 'crm-suppressions', where: { email_match_key: { in: keys } }, depth: 0, pagination: false, ...asUser(s) })
+  const grouped = new Map<string, LedgerRow[]>()
+  for (const r of res.docs as unknown as Array<LedgerRow & { email_match_key: string }>) grouped.set(r.email_match_key, [...(grouped.get(r.email_match_key) ?? []), r])
+  for (const [k, rows] of grouped) out.set(k, activeFromLedger(rows))
+  return out
+}
+
+export type PreparedExport = { where: Where; requested: number; allowed: number }
+
+/** CSV-FIX-1 (review R2-09): the list's filter and how many rows match it, before anything is downloaded. */
+export async function prepareExport(s: CrmSession, list: ExportList, sp: Record<string, string | string[] | undefined>, term: string | null): Promise<PreparedExport> {
+  if (!s.isAdmin) throw new Error('FORBIDDEN')
+  const where = await exportWhere(s, list, sp, term)
+  const requested = (await s.payload.count({ collection: COLLECTION[list], where, ...asUser(s) })).totalDocs
+  return { where, requested, allowed: exportCap() }
+}
+
+const auditExport = (
+  s: CrmSession,
+  list: ExportList,
+  sp: Record<string, string | string[] | undefined>,
+  term: string | null,
+  columns: Array<{ key: string; label: string }>,
+  r: { requested: number; exported: number; allowed: number; status: ExportStatus },
+) =>
+  writeCrmAudit({ payload: s.payload, user: s.user } as never, {
+    action: 'export',
+    collection: COLLECTION[list],
+    docId: `export:${list}`,
+    changedKeys: columns.map((c) => c.key),
+    detail: {
+      event: 'EXPORT',
+      list,
+      filterHash: filterHash(list, sp, term),
+      searchApplied: Boolean(term),
+      columns: columns.map((c) => c.key),
+      requested: r.requested,
+      rowCount: r.exported,
+      allowed: r.allowed,
+      status: r.status,
+      complete: r.status === 'COMPLETE',
+    },
+  })
+
+/** The words shown (and returned by the route) when a list is over the cap. */
+export const overCapMessage = (requested: number, allowed: number) =>
+  `This list has ${requested.toLocaleString('en-US')} rows. An export can hold at most ${allowed.toLocaleString('en-US')}. Narrow the filters or search, then export in parts.`
+
+/** CSV-FIX-1 (review R2-09): an over-cap request is refused before any row is read, and the refusal is audited. */
+export async function refuseExport(s: CrmSession, list: ExportList, sp: Record<string, string | string[] | undefined>, term: string | null, columns: Array<{ key: string; label: string }>, prep: PreparedExport) {
+  await auditExport(s, list, sp, term, columns, { requested: prep.requested, exported: 0, allowed: prep.allowed, status: 'REFUSED' })
+  return { ok: false as const, code: 'TOO_MANY_ROWS', requested: prep.requested, allowed: prep.allowed, message: overCapMessage(prep.requested, prep.allowed) }
+}
+
+/**
  * Stream an export as CSV text chunks. Admin only (the caller also checks). Writes the audit row at the end (or
- * when the stream is cancelled, marked partial).
+ * when the stream is cancelled or fails, marked PARTIAL or FAILED). CSV-FIX-1 (review R2-09): the caller passes the
+ * prepared count; a list over the cap is refused here too. A run that stops at the cap with rows left, or ends with
+ * fewer rows than were counted, is PARTIAL, never complete.
  */
 export async function* exportRows(
   s: CrmSession,
@@ -110,15 +184,23 @@ export async function* exportRows(
   sp: Record<string, string | string[] | undefined>,
   term: string | null,
   columns: Array<{ key: string; label: string }>,
+  prepared?: PreparedExport,
 ): AsyncGenerator<string> {
   if (!s.isAdmin) throw new Error('FORBIDDEN')
-  const where = await exportWhere(s, list, sp, term)
+  const prep = prepared ?? (await prepareExport(s, list, sp, term))
+  if (prep.requested > prep.allowed) {
+    await refuseExport(s, list, sp, term, columns, prep)
+    throw new Error('TOO_MANY_ROWS')
+  }
+  const { where, allowed } = prep
   const names = nameMap(await crmUsers(s))
   let rows = 0
-  let complete = false
+  // PARTIAL until the run proves otherwise: a download cancelled mid-stream ends here without reaching either branch.
+  const run: { status: ExportStatus } = { status: 'PARTIAL' }
+  let more = false
   try {
     yield `${BOM}${csvLine(columns.map((c) => c.label))}`
-    for (let page = 1; rows < MAX_EXPORT_ROWS; page++) {
+    for (let page = 1; rows < allowed; page++) {
       const res = await s.payload.find({ collection: COLLECTION[list], where, sort: SORT[list], depth: 0, limit: 200, page, ...asUser(s) })
       const docs = res.docs as unknown as Doc[]
       if (docs.length === 0) break
@@ -131,13 +213,15 @@ export async function* exportRows(
       ])
       const accName = new Map((accs?.docs ?? []).map((a) => [String(a.id), String(D(a).canonical_name ?? '')]))
       const conById = new Map((cons?.docs ?? []).map((c) => [String(c.id), c as unknown as Doc]))
+      // CSV-FIX-1 (review R2-09): an inquiry without a linked contact uses the submitted address's match key (as the
+      // ledger does), so its "Do not contact" mark is not missed.
       const keyOf = (d: Doc): string | undefined =>
         list === 'contacts'
           ? (d.email_match_key as string)
-          : ((conById.get(String(id(d.contact)))?.email_match_key as string) ?? (typeof D(d.submitted).email === 'string' ? String(D(d.submitted).email).toLowerCase() : undefined))
-      const dnc = list === 'accounts' ? new Map() : await suppressionsByKey(s, [...new Set(docs.map(keyOf).filter(Boolean))] as string[])
+          : ((conById.get(String(id(d.contact)))?.email_match_key as string) ?? emailKey(D(d.submitted).email)?.matchKey)
+      const dnc = list === 'accounts' ? new Map<string, LedgerRow[]>() : await activeSuppressions(s, [...new Set(docs.map(keyOf).filter(Boolean))] as string[])
       let out = ''
-      for (const d of docs) {
+      for (const [i, d] of docs.entries()) {
         const owner = id(d.owner ?? d.assignee)
         const value = (key: string): unknown => {
           switch (`${list}:${key}`) {
@@ -183,19 +267,19 @@ export async function* exportRows(
         }
         out += csvLine(columns.map((c) => value(c.key)))
         rows++
-        if (rows >= MAX_EXPORT_ROWS) break
+        if (rows >= allowed) {
+          more = i < docs.length - 1 || res.hasNextPage
+          break
+        }
       }
       yield out
-      if (!res.hasNextPage) break
+      if (!res.hasNextPage || more) break
     }
-    complete = true
+    run.status = more || rows < prep.requested ? 'PARTIAL' : 'COMPLETE'
+  } catch (err) {
+    run.status = 'FAILED'
+    throw err
   } finally {
-    await writeCrmAudit({ payload: s.payload, user: s.user } as never, {
-      action: 'export',
-      collection: COLLECTION[list],
-      docId: `export:${list}`,
-      changedKeys: columns.map((c) => c.key),
-      detail: { event: 'EXPORT', list, filterHash: filterHash(list, sp, term), searchApplied: Boolean(term), columns: columns.map((c) => c.key), rowCount: rows, complete, capped: rows >= MAX_EXPORT_ROWS },
-    })
+    await auditExport(s, list, sp, term, columns, { requested: prep.requested, exported: rows, allowed, status: run.status })
   }
 }

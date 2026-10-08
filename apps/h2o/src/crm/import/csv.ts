@@ -4,18 +4,28 @@
  * RFC 4180: comma-separated, `"`-quoted fields with `""` escapes, embedded commas and line breaks inside quotes,
  * CRLF or LF rows. A UTF-8 byte-order mark is stripped. Limits are enforced here so neither side can be handed an
  * oversized file: 5 MB of text, 20,000 data rows per file (written as batches of at most 2,000 rows, each undoable on
- * its own), 60 columns, 2,000 characters per cell.
+ * its own), 60 columns. CSV-FIX-1 (review R2-08): a cell longer than 2,000 characters is kept whole and listed in
+ * `longCells`; the import plan reports it and only an explicit choice cuts it (never a silent slice here).
  */
 
 export const MAX_BYTES = 5 * 1024 * 1024
+/** PROD-IMPORT-1 N3: a cell's length in Unicode code points (as Postgres counts characters), not UTF-16 units. */
+const cpLength = (s: string): number => {
+  let n = 0
+  for (const _ of s) n++
+  return n
+}
 export const MAX_ROWS = 20000
 /** Rows per applied batch (audit D1: import in batches of ≤ 2,000). */
 export const BATCH_ROWS = 2000
 export const MAX_COLUMNS = 60
 export const MAX_CELL = 2000
 
+/** A data cell longer than `MAX_CELL` (row is 1-based, as in the import plan; column is zero-based). */
+export type LongCell = { row: number; column: number; length: number }
+
 export type CsvResult =
-  | { ok: true; header: string[]; rows: string[][] }
+  | { ok: true; header: string[]; rows: string[][]; longCells: LongCell[] }
   | { ok: false; code: 'TOO_LARGE' | 'EMPTY' | 'NO_HEADER' | 'TOO_MANY_ROWS' | 'TOO_MANY_COLUMNS' | 'UNTERMINATED_QUOTE' | 'NOT_TEXT'; message: string }
 
 export function byteLength(text: string): number {
@@ -34,7 +44,7 @@ export function parseCsv(input: string): CsvResult {
   let quoted = false
   let i = 0
   const pushCell = () => {
-    row.push(cell.length > MAX_CELL ? cell.slice(0, MAX_CELL) : cell)
+    row.push(cell)
     cell = ''
   }
   const pushRow = () => {
@@ -82,7 +92,9 @@ export function parseCsv(input: string): CsvResult {
   if (header.length > MAX_COLUMNS) return { ok: false, code: 'TOO_MANY_COLUMNS', message: `The file has more than ${MAX_COLUMNS} columns.` }
   const data = rows.slice(1)
   if (data.length > MAX_ROWS) return { ok: false, code: 'TOO_MANY_ROWS', message: `A file can hold at most ${MAX_ROWS} rows. Split it and import it in parts.` }
-  return { ok: true, header, rows: data }
+  const longCells: LongCell[] = []
+  data.forEach((r, i) => r.forEach((c, column) => c.length > MAX_CELL && cpLength(c) > MAX_CELL && longCells.push({ row: i + 1, column, length: cpLength(c) })))
+  return { ok: true, header, rows: data, longCells }
 }
 
 /**
@@ -225,7 +237,9 @@ export type PhoneResult = { kind: 'E164'; value: string } | { kind: 'DROPPED'; w
  *   - anything else is dropped and counted.
  */
 export function normalizePhone(raw: string): PhoneResult {
-  const v = raw.trim()
+  // CSV-FIX-1 (review R2-08): an export protects "+…" from spreadsheet formulas as "'+…"; one leading apostrophe
+  // before a phone character is that protection, not part of the number, so an exported phone re-imports.
+  const v = raw.trim().replace(/^'(?=[+\d(])/, '')
   if (/^\d(\.\d+)?e\+?\d+$/i.test(v)) return { kind: 'DROPPED', why: 'spreadsheet scientific notation, digits lost' }
   if (!/^[+\d\s().-]+((\s*(ext\.?|x)\s*)\d{1,6})?$/i.test(v)) return { kind: 'DROPPED', why: 'not a phone number' }
   const ext = v.match(/(?:\s*(?:ext\.?|x)\s*)(\d{1,6})$/i)?.[1]

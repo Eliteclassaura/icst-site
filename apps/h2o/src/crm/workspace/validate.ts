@@ -20,7 +20,27 @@ export function text(v: unknown, max: number): string | null {
   if (typeof v !== 'string') return null
   const t = v.replace(/\s+/g, (m) => (m.includes('\n') ? m : ' ')).trim()
   if (!t) return null
-  return t.length > max ? t.slice(0, max) : t
+  return cpLength(t) > max ? cpSlice(t, max) : t
+}
+
+/**
+ * PROD-IMPORT-1 N3: lengths and cuts count Unicode code points (as Postgres counts characters), never UTF-16 units, so
+ * a cut never splits a character such as an emoji into half a surrogate pair.
+ */
+export const cpLength = (s: string): number => {
+  let n = 0
+  for (const _ of s) n++
+  return n
+}
+export const cpSlice = (s: string, max: number): string => {
+  if (s.length <= max) return s
+  let out = ''
+  let n = 0
+  for (const ch of s) {
+    if (n++ >= max) break
+    out += ch
+  }
+  return out
 }
 
 /** Single-line text (names, company). */

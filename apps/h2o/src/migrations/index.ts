@@ -25,6 +25,7 @@ import * as migration_20261008_122225_mfa_2_email_codes_devices from './20261008
 import * as migration_20261008_134113_send_fix_1a_outbox_outcomes from './20261008_134113_send_fix_1a_outbox_outcomes';
 import * as migration_20261008_200000_opp_1_deals from './20261008_200000_opp_1_deals';
 import * as migration_20261008_200500_opp_1_1_seed_deal_stages from './20261008_200500_opp_1_1_seed_deal_stages';
+import * as migration_20261008_201000_csv_fix_1_name_link_review from './20261008_201000_csv_fix_1_name_link_review';
 
 export const migrations = [
   {
@@ -161,5 +162,10 @@ export const migrations = [
     up: migration_20261008_200500_opp_1_1_seed_deal_stages.up,
     down: migration_20261008_200500_opp_1_1_seed_deal_stages.down,
     name: '20261008_200500_opp_1_1_seed_deal_stages',
+  },
+  {
+    up: migration_20261008_201000_csv_fix_1_name_link_review.up,
+    down: migration_20261008_201000_csv_fix_1_name_link_review.down,
+    name: '20261008_201000_csv_fix_1_name_link_review'
   },
 ];

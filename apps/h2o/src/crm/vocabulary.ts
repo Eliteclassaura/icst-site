@@ -435,6 +435,8 @@ export const IDENTITY_REVIEW_REASON = [
   // E1.3 R1 AR-007: a generic/shared inbox (info@, sales@, purchasing@…) needs identity review.
   'GENERIC_SHARED_INBOX',
   'SUSPECT_ADDRESS_DOMAIN',
+  // Owner ruling 2026-10-08 (legacy load): a corporate-domain contact whose name field held a web link, loaded without a name.
+  'NAME_CONTAINED_LINK',
   'OTHER',
 ] as const
 export const IDENTITY_REVIEW_STATE = [

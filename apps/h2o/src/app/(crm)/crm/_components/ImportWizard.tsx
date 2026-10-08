@@ -4,15 +4,16 @@ import { useMemo, useRef, useState } from 'react'
 import { guessMapping, IMPORT_FIELD_LABEL, IMPORT_FIELDS, parseCsv, type ImportField, type Mapping } from '../../../../crm/import/csv'
 
 /**
- * Wave 1 W1-3 import wizard (admin). The file is read in this browser; nothing is sent until "Dry run". The dry run
- * writes nothing and returns the plan; "Apply" sends the same file, mapping and options with the approved counts,
- * and the server refuses if anything changed. Apply progress is streamed. Values from the file are shown only to the
- * admin in this page and are never put in a URL or stored in the browser.
+ * Wave 1 W1-3 import wizard (admin). The file is read in this browser; nothing is sent until "Preview". The preview
+ * (dry run) writes nothing and returns the plan; "Apply" sends the same file, mapping and options with the plan's
+ * approval token, and the server refuses if anything changed (CSV-FIX-1, review R2-07). Apply progress is streamed.
+ * Values from the file are shown only to the admin in this page and are never put in a URL or stored in the browser.
  */
 
 type Summary = Record<string, number>
 type PlanRow = { row: number; outcome: string; email: string | null; account: string; suppress: string; fill: string[]; reasons: string[] }
-type Plan = { sha256: string; summary: Summary; rows: PlanRow[] }
+type Oversize = { row: number; column: string; field: string | null; length: number; limit: number; treatment: 'CUT' | 'NOT_IMPORTED' }
+type Plan = { sha256: string; approval: string | null; blocked: boolean; truncateOversize: boolean; oversize: Oversize[]; summary: Summary; rows: PlanRow[] }
 
 const OUTCOME_LABEL: Record<string, string> = {
   CREATE: 'New contact',
@@ -55,7 +56,11 @@ const SUMMARY_ROWS: Array<[string, string]> = [
   ['namesScriptNotSplit', 'Names not split (CJK/Thai script)'],
   ['placeholdersCleared', 'Placeholder values treated as empty'],
   ['notes', 'Notes added'],
+  ['oversizeCells', 'Cells longer than allowed'],
+  ['oversizeCut', '…cut to their limit (your choice)'],
 ]
+/** CSV-FIX-1 (review R2-08): over-long cells listed in the preview (the rest are counted). */
+const OVERSIZE_SHOWN = 200
 
 export function ImportWizard() {
   const [fileName, setFileName] = useState<string | null>(null)
@@ -67,6 +72,7 @@ export function ImportWizard() {
   const [attested, setAttested] = useState(false)
   const [source, setSource] = useState('')
   const [basis, setBasis] = useState('')
+  const [truncate, setTruncate] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState<'dry' | 'apply' | null>(null)
   const [plan, setPlan] = useState<Plan | null>(null)
@@ -86,6 +92,7 @@ export function ImportWizard() {
   const onFile = async (f: File | undefined) => {
     reset()
     setHeader(null)
+    setTruncate(false)
     if (!f) return
     if (f.size > 5 * 1024 * 1024) return setError('The file is larger than 5 MB. Split it and import it in parts.')
     const t = await f.text()
@@ -98,24 +105,25 @@ export function ImportWizard() {
     setMapping(guessMapping(parsed.header))
   }
 
-  const options = { createAccounts, attested, source, basis }
+  const options = { createAccounts, attested, source, basis, truncateOversize: truncate }
   const post = async (body: Record<string, unknown>) =>
     fetch('/crm/import/run/', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), credentials: 'same-origin' })
 
-  const dryRun = async () => {
+  // CSV-FIX-1 (review R2-08): the cut choice changes the plan, so changing it runs the preview again.
+  const dryRun = async (truncateOversize = truncate) => {
     reset()
     setBusy('dry')
     try {
-      const res = await post({ mode: 'dry', csv: text.current, mapping, options })
+      const res = await post({ mode: 'dry', csv: text.current, mapping, options: { ...options, truncateOversize } })
       const out = await res.json()
-      if (!out.ok) setError(out.message ?? 'The dry run failed.')
+      if (!out.ok) setError(out.message ?? 'The preview failed.')
       else {
         setPlan(out.plan as Plan)
         setFilter('ALL')
         setPage(0)
       }
     } catch {
-      setError('The dry run could not reach the server.')
+      setError('The preview could not reach the server.')
     } finally {
       setBusy(null)
     }
@@ -123,12 +131,12 @@ export function ImportWizard() {
 
   const apply = async () => {
     confirmRef.current?.close()
-    if (!plan) return
+    if (!plan?.approval) return
     setBusy('apply')
     setResult(null)
     setProgress({ done: 0, total: plan.summary.rows ?? 0, batch: 1, batches: plan.summary.batches ?? 1 })
     try {
-      const res = await post({ mode: 'apply', csv: text.current, mapping, options, expected: plan.summary })
+      const res = await post({ mode: 'apply', csv: text.current, mapping, options: { ...options, truncateOversize: plan.truncateOversize }, approval: plan.approval })
       if (!res.ok || !res.body) {
         const out = await res.json().catch(() => ({}))
         setError((out as { message?: string }).message ?? 'The import was refused.')
@@ -174,7 +182,7 @@ export function ImportWizard() {
           </label>
           {fileName && header ? (
             <p className="c-hint" role="status">
-              {rowCount.toLocaleString()} rows, {header.length} columns. The file stays in this browser until you run the dry run.
+              {rowCount.toLocaleString()} rows, {header.length} columns. The file stays in this browser until you preview the import.
             </p>
           ) : null}
           {error ? (
@@ -202,6 +210,7 @@ export function ImportWizard() {
                     value={mapping[f] ?? ''}
                     onChange={(e) => {
                       reset()
+                      setTruncate(false)
                       const next = { ...mapping }
                       if (e.target.value === '') delete next[f]
                       else next[f] = Number(e.target.value)
@@ -237,7 +246,7 @@ export function ImportWizard() {
             </label>
             <label className="c-actions">
               <input type="checkbox" checked={attested} onChange={(e) => (reset(), setAttested(e.target.checked))} />
-              <span>The owner attests these are existing customers (new accounts become verified past customers; recorded as evidence).</span>
+              <span>Mark as candidate past customers (an admin confirms each one later). The owner&apos;s source and basis are recorded on every record.</span>
             </label>
             {attested ? (
               <div className="c-form-grid">
@@ -253,8 +262,8 @@ export function ImportWizard() {
             ) : null}
             <p className="c-hint">Imported contacts are never marked eligible for marketing email, and the import creates no follow-up tasks.</p>
             <div className="c-actions">
-              <button type="button" className="c-btn is-primary" disabled={!canDry} aria-disabled={!canDry || undefined} onClick={dryRun}>
-                {busy === 'dry' ? 'Checking…' : 'Dry run (writes nothing)'}
+              <button type="button" className="c-btn is-primary" disabled={!canDry} aria-disabled={!canDry || undefined} onClick={() => dryRun()}>
+                {busy === 'dry' ? 'Checking…' : 'Preview (writes nothing)'}
               </button>
             </div>
           </div>
@@ -264,7 +273,7 @@ export function ImportWizard() {
       {plan ? (
         <section className="c-panel" aria-labelledby="imp-plan">
           <div className="c-panel-head">
-            <h2 id="imp-plan">4. Dry run result</h2>
+            <h2 id="imp-plan">4. Preview</h2>
             <span className="c-tag">Nothing written</span>
           </div>
           <div className="c-block">
@@ -289,11 +298,68 @@ export function ImportWizard() {
                   <option value="WARN">Rows with notes</option>
                 </select>
               </label>
-              <button type="button" className="c-btn is-primary" disabled={busy !== null} onClick={() => confirmRef.current?.showModal()}>
+              <button type="button" className="c-btn is-primary" disabled={busy !== null || !plan.approval} aria-disabled={busy !== null || !plan.approval || undefined} onClick={() => confirmRef.current?.showModal()}>
                 Apply import…
               </button>
             </div>
           </div>
+          {plan.oversize.length ? (
+            <div className="c-block c-stack">
+              <p className={plan.blocked ? 'c-result is-error' : 'c-hint'} role={plan.blocked ? 'alert' : undefined}>
+                {plan.blocked
+                  ? `${plan.summary.oversizeCells.toLocaleString()} ${plan.summary.oversizeCells === 1 ? 'cell is' : 'cells are'} longer than allowed. Nothing is cut unless you choose it. Shorten them in the file and choose the file again, or cut them below.`
+                  : plan.summary.oversizeCut
+                    ? `${plan.summary.oversizeCut.toLocaleString()} ${plan.summary.oversizeCut === 1 ? 'cell' : 'cells'} will be cut to the limit. The import audit records this choice.`
+                    : 'Some long cells are in columns that are not imported. They are left out.'}
+              </p>
+              {plan.summary.oversizeCells ? (
+                <label className="c-actions">
+                  <input
+                    type="checkbox"
+                    checked={plan.truncateOversize}
+                    disabled={busy !== null}
+                    onChange={(e) => {
+                      setTruncate(e.target.checked)
+                      void dryRun(e.target.checked)
+                    }}
+                  />
+                  <span>Cut these cells to their limit (recorded in the import audit)</span>
+                </label>
+              ) : null}
+              <div className="c-table-wrap">
+                <table className="c-table">
+                  <caption className="c-visually-hidden">Cells longer than allowed</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col" className="num">
+                        Row
+                      </th>
+                      <th scope="col">Column</th>
+                      <th scope="col" className="num">
+                        Length
+                      </th>
+                      <th scope="col" className="num">
+                        Limit
+                      </th>
+                      <th scope="col">Treatment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {plan.oversize.slice(0, OVERSIZE_SHOWN).map((o) => (
+                      <tr key={`${o.row}-${o.column}-${o.field ?? ''}`}>
+                        <td className="num">{o.row}</td>
+                        <td className="c-trunc">{o.column}</td>
+                        <td className="num">{o.length.toLocaleString()}</td>
+                        <td className="num">{o.limit.toLocaleString()}</td>
+                        <td>{o.treatment === 'NOT_IMPORTED' ? 'Left out (column not imported)' : plan.truncateOversize ? `Cut to ${o.limit.toLocaleString()} characters` : 'Blocks the import until shortened or cut'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {plan.oversize.length > OVERSIZE_SHOWN ? <p className="c-hint">And {(plan.oversize.length - OVERSIZE_SHOWN).toLocaleString()} more.</p> : null}
+            </div>
+          ) : null}
           <div className="c-table-wrap">
             <table className="c-table c-import-table">
               <caption className="c-visually-hidden">Planned outcome per row</caption>
@@ -388,8 +454,9 @@ export function ImportWizard() {
             This will create <strong>{(plan?.summary.create ?? 0).toLocaleString()}</strong> contacts, fill <strong>{(plan?.summary.fill ?? 0).toLocaleString()}</strong>, create{' '}
             <strong>{(plan?.summary.accountsCreate ?? 0).toLocaleString()}</strong> accounts and open <strong>{((plan?.summary.review ?? 0) + (plan?.summary.accountReviews ?? 0)).toLocaleString()}</strong> identity reviews, in{' '}
             {plan?.summary.batches ?? 1} batches. Each batch can be undone (archived, never deleted).
+            {plan?.summary.oversizeCut ? ` ${plan.summary.oversizeCut.toLocaleString()} over-long cells will be cut to their limit.` : ''}
           </p>
-          <p className="c-hint">If anything changed since the dry run, the server refuses and asks for a new dry run.</p>
+          <p className="c-hint">If the file, mapping or records changed since the preview, the server refuses and asks you to preview again.</p>
           <div className="c-actions">
             <button type="button" className="c-btn is-primary" onClick={apply}>
               Apply now

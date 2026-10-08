@@ -44,7 +44,7 @@ async function plan(s: CrmSession, text: string, options: Doc = ATTESTED) {
 }
 async function applyOk(text: string, options: Doc = ATTESTED) {
   const p = await plan(A, text, options)
-  const out = await applyImport(A, text, MAP, options, p.summary)
+  const out = await applyImport(A, text, MAP, options, p.approval)
   if (!out.ok) throw new Error(out.code)
   return { plan: p, out }
 }
@@ -81,13 +81,15 @@ describe('W1-3 import: admin only, dry run writes nothing', () => {
     expect(after).toEqual(before)
   })
 
-  it('apply refuses a dry run that no longer matches (data changed, or tampered counts)', async () => {
+  // CSV-FIX-1 (review R2-07): apply is bound to the plan's approval token, not to client-sent counts.
+  it('apply refuses a dry run that no longer matches (data changed, or a tampered approval)', async () => {
     const text = csv('Avery,Quinn,stale@example.test,no,no,no')
     const p = await plan(A, text)
     await m.createContact(S, { email: 'stale@example.test', firstName: 'Avery', lastName: 'Quinn' })
-    expect(await applyImport(A, text, MAP, ATTESTED, p.summary)).toMatchObject({ ok: false, code: 'STALE_DRY_RUN' })
+    expect(await applyImport(A, text, MAP, ATTESTED, p.approval)).toMatchObject({ ok: false, code: 'STALE_DRY_RUN' })
     const p2 = await plan(A, text)
-    expect(await applyImport(A, text, MAP, ATTESTED, { ...p2.summary, create: 99 })).toMatchObject({ ok: false, code: 'STALE_DRY_RUN' })
+    expect(await applyImport(A, text, MAP, ATTESTED, '0'.repeat(64))).toMatchObject({ ok: false, code: 'STALE_DRY_RUN' })
+    expect(await applyImport(A, text, MAP, ATTESTED, p2.summary)).toMatchObject({ ok: false, code: 'STALE_DRY_RUN' })
     expect(await count('crm-import-batches')).toBe(0)
   })
 })
@@ -284,7 +286,7 @@ describe('W1-3 import: what an apply writes (CT legacy conditions)', () => {
     const p = await planImport(A, text, map, {})
     if ('error' in p) throw new Error('plan')
     expect(p.plan.summary.suppressAdd).toBe(1)
-    const out = await applyImport(A, text, map, {}, p.plan.summary)
+    const out = await applyImport(A, text, map, {}, p.plan.approval)
     expect(out.ok).toBe(true)
     const sup = (await (await payload()).find({ collection: 'crm-suppressions', ...sys })).docs as unknown as Doc[]
     expect(sup).toHaveLength(1)
@@ -296,7 +298,7 @@ describe('W1-3 import: what an apply writes (CT legacy conditions)', () => {
     try {
       const text = csv('A,B,mem@example.test,no,no,no')
       const p = await plan(A, text)
-      const out = await applyImport(A, text, MAP, ATTESTED, p.summary)
+      const out = await applyImport(A, text, MAP, ATTESTED, p.approval)
       expect(out).toMatchObject({ ok: true, batchIds: [], stopped: { code: 'LOW_MEMORY', fromRow: 1 } })
       expect(await count('crm-contacts')).toBe(0)
     } finally {
@@ -368,7 +370,7 @@ describe('W1-3 import route', () => {
   it('apply streams progress then the result', async () => {
     const text = csv('A,B,stream@example.test,no,no,no')
     const p = await plan(A, text, {})
-    const res = await req(admin.token, { mode: 'apply', csv: text, mapping: MAP, options: {}, expected: p.summary })
+    const res = await req(admin.token, { mode: 'apply', csv: text, mapping: MAP, options: {}, approval: p.approval })
     const lines = (await res.text()).trim().split('\n').map((l) => JSON.parse(l) as Doc)
     expect(lines.at(-1)).toMatchObject({ type: 'result', ok: true })
   })

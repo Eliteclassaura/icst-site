@@ -257,6 +257,12 @@ describe('static: UI-1 scope', () => {
         expect(t.match(/\bfetch\(/g)).toHaveLength(1)
         expect(t).toMatch(/fetch\('\/crm\/import\/run\/', \{ method: 'POST'/)
         expect(t).toMatch(/credentials: 'same-origin'/)
+      } else if (/ExportDialog\.tsx$/.test(f)) {
+        // CSV-FIX-1 (review R2-09): exactly one same-origin GET of the export route, so the dialog can report
+        // requested against exported rows.
+        expect(t.match(/\bfetch\(/g)).toHaveLength(1)
+        expect(t).toMatch(/const href = `\/crm\/export\/\?/)
+        expect(t).toMatch(/fetch\(href, \{ credentials: 'same-origin' \}\)/)
       } else expect(t, rel(f)).not.toMatch(/\bfetch\(/)
     }
   })

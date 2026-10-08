@@ -1,6 +1,6 @@
 import config from '@payload-config'
 import { getPayload } from 'payload'
-import { EXPORT_LISTS, exportRows, pickColumns, type ExportList } from '../../../../crm/export/csv-export'
+import { EXPORT_LISTS, exportRows, pickColumns, prepareExport, refuseExport, type ExportList } from '../../../../crm/export/csv-export'
 import { listSearchCookie, searchRequested, storedTerm } from '../../../../crm/workspace/prefs'
 import { crmSessionFor } from '../../../../crm/workspace/session'
 
@@ -8,6 +8,10 @@ import { crmSessionFor } from '../../../../crm/workspace/session'
  * Wave 1 W1-4: `GET /crm/export/?list=contacts|accounts|inbox&cols=…&<the list's filters>[&s=1]` → CSV download.
  * Admin only (Sales get 403), same-origin only, streamed, audited (see `csv-export.ts`). The search term comes from the
  * list-search cookie when `s=1`, exactly as on screen; it is never in this URL.
+ *
+ * CSV-FIX-1 (review R2-09): the matches are counted before anything is sent. Over the cap the answer is 413 with a
+ * JSON message naming the requested and allowed totals (audited as REFUSED); otherwise the whole list streams and
+ * `x-export-requested` carries the count, so the dialog can compare it with the rows it received.
  */
 export const dynamic = 'force-dynamic'
 
@@ -45,7 +49,10 @@ export async function GET(request: Request): Promise<Response> {
   const cookieList = list === 'inbox' ? 'inbox' : list
   const term = searchRequested(sp) ? storedTerm(cookieValue(request.headers.get('cookie'), listSearchCookie(cookieList))) : null
   const columns = pickColumns(list, url.searchParams.get('cols'))
-  const gen = exportRows(s, list, sp, term, columns)
+  const prep = await prepareExport(s, list, sp, term)
+  if (prep.requested > prep.allowed)
+    return new Response(JSON.stringify(await refuseExport(s, list, sp, term, columns, prep)), { status: 413, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } })
+  const gen = exportRows(s, list, sp, term, columns, prep)
   const enc = new TextEncoder()
   const stream = new ReadableStream<Uint8Array>({
     async pull(controller) {
@@ -69,6 +76,7 @@ export async function GET(request: Request): Promise<Response> {
       'content-disposition': `attachment; filename="h2o-${list}-${stamp}.csv"`,
       'cache-control': 'no-store',
       'x-content-type-options': 'nosniff',
+      'x-export-requested': String(prep.requested),
     },
   })
 }
