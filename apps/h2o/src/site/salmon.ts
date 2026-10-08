@@ -132,9 +132,21 @@ export const salmonMedia=(source:string,base:string):SalmonMedia|undefined=>{
 type MediaOverride={action:'crop'|'withhold';sourceStem?:string;file?:string;sha256?:string;width?:number;height?:number}
 let mediaOverrides:Map<string,MediaOverride>|undefined
 const loadMediaOverrides=()=>mediaOverrides??=new Map(Object.entries((JSON.parse(readFileSync(path.join(process.cwd(),'content/design/media-overrides.json'),'utf8')) as {overrides:Record<string,MediaOverride>}).overrides))
+/**
+ * MEDIA-1 (CT 2026-10-08): a held image served below ~1000 px is replaced by a genuinely larger original of the same picture from
+ * the owner's WordPress backup (content/design/media-upgrades.json, keyed by the held bytes' SHA-256, which stays the provenance
+ * identity). Only the file and its size follow the larger original; nothing is upscaled.
+ */
+type MediaUpgrade={file:string;sha256:string;width:number;height:number}
+let mediaUpgrades:Map<string,MediaUpgrade>|undefined
+const loadMediaUpgrades=()=>mediaUpgrades??=new Map(Object.entries((JSON.parse(readFileSync(path.join(process.cwd(),'content/design/media-upgrades.json'),'utf8')) as {upgrades:Record<string,MediaUpgrade>}).upgrades))
 const mediaOverride=(row:SalmonMedia|undefined):SalmonMedia|undefined=>{
   const overrides=loadMediaOverrides()
   const override=row?.sha256?overrides.get(row.sha256):undefined
+  if(row&&!override){
+    const upgrade=row.sha256?loadMediaUpgrades().get(row.sha256):undefined
+    if(upgrade)return {...row,file:upgrade.file,width:upgrade.width,height:upgrade.height}
+  }
   if(!row||!override)return row
   if(override.action==='withhold')return undefined
   return {...row,file:override.file,sha256:override.sha256,width:override.width,height:override.height}
