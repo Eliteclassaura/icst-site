@@ -18,6 +18,7 @@ import * as migration_20261005_222652_crm_patch_c from './20261005_222652_crm_pa
 import * as migration_20261005_235820_crm_ers_slice1 from './20261005_235820_crm_ers_slice1';
 import * as migration_20261006_203222_payload_3_90_security from './20261006_203222_payload_3_90_security';
 import * as migration_20261007_214405_dark_1_crm_theme from './20261007_214405_dark_1_crm_theme';
+import * as migration_20261008_040408_rfq_fix_1_spam_state from './20261008_040408_rfq_fix_1_spam_state';
 
 export const migrations = [
   {
@@ -118,6 +119,11 @@ export const migrations = [
   {
     up: migration_20261007_214405_dark_1_crm_theme.up,
     down: migration_20261007_214405_dark_1_crm_theme.down,
-    name: '20261007_214405_dark_1_crm_theme'
+    name: '20261007_214405_dark_1_crm_theme',
+  },
+  {
+    up: migration_20261008_040408_rfq_fix_1_spam_state.up,
+    down: migration_20261008_040408_rfq_fix_1_spam_state.down,
+    name: '20261008_040408_rfq_fix_1_spam_state'
   },
 ];

@@ -1,5 +1,5 @@
 import type { PayloadRequest, Where } from 'payload'
-import { CRM_USERS, hasRole } from '@factory/agency-core/cms/kernel'
+import { ADMINS, CRM_USERS, hasRole } from '@factory/agency-core/cms/kernel'
 import { amountDisplay, pipelineByCurrency, type Economics } from './economics'
 import { OPPORTUNITY_STAGE, TERMINAL_STAGES } from './vocabulary'
 
@@ -36,6 +36,9 @@ export type Overview = {
   tasks: { dueNext7Days: number; overdue: number; unassigned: number }
   installedBaseAccounts: number | null
   identityReviewsOpen: number
+  /** RFQ-FIX-1 (quote-form audit R5, R6): admins only (null for others) — requests stranded part-way, and requests held
+   * as spam (hidden field filled) in the last 24 hours. */
+  intake: { stranded: number; spam24h: number } | null
   pipeline: ReturnType<typeof pipelineByCurrency>
   recentActivity: Array<{ id: string; type: string; summary: string; occurredAt: string }>
   truncated: boolean
@@ -128,6 +131,16 @@ export async function loadOverview(req: PayloadRequest, now: Date = new Date()):
     }),
   ])
 
+  let intake: Overview['intake'] = null
+  if (hasRole(req, ADMINS)) {
+    const { strandedWhere } = await import('./intake/native/sweep')
+    const [stranded, spam] = await Promise.all([
+      p.count({ collection: 'crm-intake-events', where: strandedWhere(now, true), ...asUser }),
+      p.count({ collection: 'crm-intake-events', where: { and: [{ processing_state: { equals: 'QUARANTINED_SPAM' } }, { received_at: { greater_than: new Date(now.getTime() - day).toISOString() } }] }, ...asUser }),
+    ])
+    intake = { stranded: stranded.totalDocs, spam24h: spam.totalDocs }
+  }
+
   const oppIds = openOpps.docs.map((o) => String(o.id))
   // Paged, because a non-admin page is capped (access.ts); one query per 100 open tasks, never per row.
   const withTask = new Set<string>()
@@ -189,6 +202,7 @@ export async function loadOverview(req: PayloadRequest, now: Date = new Date()):
     },
     installedBaseAccounts,
     identityReviewsOpen: reviews.totalDocs,
+    intake,
     pipeline: pipelineByCurrency(opps),
     recentActivity: recent.docs.map((a) => ({
       id: String(a.id),

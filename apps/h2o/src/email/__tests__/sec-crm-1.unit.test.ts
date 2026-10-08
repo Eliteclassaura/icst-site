@@ -81,6 +81,12 @@ describe('finding 21: htmlToText is linear', () => {
     expect(htmlToText('<script>never closed <p>tail</p>')).toBe('never closed tail')
     expect(htmlToText('<!-- never closed <p>tail</p>')).toBe('tail')
   })
+  it('auditor note (b): a character whose lowercase is longer (U+0130) cannot shift the tag offsets', () => {
+    expect(htmlToText('İİİİ<script>secret()</script><p>Body</p>')).toBe('İİİİ Body')
+    const out = htmlToText('<P>İİ</P><SCRIPT>hidden()</SCRIPT>tail')
+    expect(out).not.toContain('hidden')
+    expect(out.replace(/\s+/g, ' ')).toBe('İİ tail')
+  })
   it('an out-of-range numeric entity is a space, never a thrown RangeError', () => {
     expect(() => htmlToText('a&#99999999;b&#x110000;c&#xD800;d')).not.toThrow()
     expect(htmlToText('a&#99999999;b&#x110000;c&#xD800;d')).toBe('a b c d')

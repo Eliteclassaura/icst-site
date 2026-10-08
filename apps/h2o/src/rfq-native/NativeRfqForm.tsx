@@ -10,34 +10,36 @@ import { searchCountries } from './countries'
 import { Confirmation, ErrorText, FailureNote, Honeypot, PrivacyNote, ReviewList, SendButton, UnavailableNote } from './fields'
 import { questionsFor } from './flow'
 import { t, type Question, type Registry } from './model'
-import { cleanContext } from './submission'
+import { cleanContext, type SendTiming } from './submission'
 import { fetchRegistry, useRfqSession, type RegistryLoader } from './useRfqSession'
 import styles from './NativeRfq.module.css'
 
 function Field({ reg, q, value, error, onChange }: { reg: Registry; q: Question; value: string; error?: { key: string; values?: Record<string, string> }; onChange: (v: string) => void }) {
-  const id = `rfq-form-${q.id}`, errorId = useId(), hintId = useId()
+  const id = `rfq-form-${q.id}`, errorId = useId(), hintId = useId(), legendId = useId()
   const described = [error ? errorId : '', q.hintKey ? hintId : ''].filter(Boolean).join(' ') || undefined
   const label = t(reg, q.labelKey)
   if (q.type === 'chips') return <fieldset className={styles.fieldset} aria-describedby={described} data-rfq-field={q.id}>
-    <legend className={styles.label}>{label}</legend>
-    <div className={styles.chips}>
+    <legend id={legendId} className={styles.label}>{label}</legend>
+    {/* RFQ-FIX-1 (audit R18): the choice group carries the invalid state (radio inputs cannot) */}
+    <div className={styles.chips} role="radiogroup" aria-labelledby={legendId} aria-required={q.required || undefined} aria-invalid={error ? true : undefined}>
       {(q.chips ?? []).map((c) => <label key={c.value} className={styles.radioChip}><input type="radio" name={id} value={c.value} checked={value === c.value} onChange={() => onChange(c.value)}/><span>{t(reg, c.labelKey)}</span></label>)}
     </div>
     <ErrorText reg={reg} id={errorId} error={error}/>
   </fieldset>
-  const common = { id, name: q.id, value, onChange: (e: { target: { value: string } }) => onChange(e.target.value), 'aria-describedby': described, 'aria-invalid': error ? true : undefined, required: q.required, className: styles.input }
+  // RFQ-FIX-1 (audit R10): the browser stops input at the question's own limit (the server checks it again)
+  const common = { id, name: q.id, value, onChange: (e: { target: { value: string } }) => onChange(e.target.value), 'aria-describedby': described, 'aria-invalid': error ? true : undefined, required: q.required, className: styles.input, ...(q.type === 'country' ? {} : { maxLength: q.validation.maxLength }) }
   return <div className={styles.field} data-rfq-field={q.id}>
     <label className={styles.label} htmlFor={id}>{label}</label>
     {q.hintKey ? <p className={styles.hint} id={hintId}>{t(reg, q.hintKey)}</p> : null}
-    {q.type === 'textarea' ? <textarea {...common} rows={4} placeholder={t(reg, q.placeholderKey) || undefined}/>
+    {q.type === 'textarea' ? <><textarea {...common} rows={4} placeholder={t(reg, q.placeholderKey) || undefined}/><span className={styles.counter} aria-hidden="true">{value.length} / {q.validation.maxLength}</span></>
       : q.type === 'country' ? <select {...common} autoComplete="country"><option value="">{t(reg, 'contact.country.search_ph')}</option>{searchCountries(reg.countries, '', reg.locale).map((c) => <option key={c.code} value={c.code}>{c.name}</option>)}</select>
       : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} placeholder={t(reg, q.placeholderKey) || undefined} autoComplete={q.id === 'name' ? 'name' : q.id === 'company' ? 'organization' : q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'off'}/>}
     <ErrorText reg={reg} id={errorId} error={error}/>
   </div>
 }
 
-export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader = fetchRegistry, fetcher }: { pagePath?: string; locale?: string; loader?: RegistryLoader; fetcher?: typeof fetch }) {
-  const s = useRfqSession('NATIVE_FORM', locale, loader, fetcher)
+export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader = fetchRegistry, fetcher, timing }: { pagePath?: string; locale?: string; loader?: RegistryLoader; fetcher?: typeof fetch; timing?: SendTiming }) {
+  const s = useRfqSession('NATIVE_FORM', locale, loader, fetcher, timing)
   const [hp, setHp] = useState('')
   const formRef = useRef<HTMLFormElement | null>(null)
   const reviewHeadingRef = useRef<HTMLHeadingElement | null>(null)
@@ -50,7 +52,8 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
   // after "Check your request" with errors: focus the first field in error
   const errorIds = Object.keys(s.errors).join(',')
   useEffect(() => {
-    if (!errorIds || s.phase !== 'asking') return
+    // RFQ-FIX-1 (audit R18): also when a resumed draft is checked
+    if (!errorIds || (s.phase !== 'asking' && s.phase !== 'resume')) return
     const first = s.registry?.questions.find((q) => q.id in s.errors)
     formRef.current?.querySelector<HTMLElement>(`[data-rfq-field="${first?.id}"] input, [data-rfq-field="${first?.id}"] textarea, [data-rfq-field="${first?.id}"] select`)?.focus()
   }, [errorIds, s.phase, s.registry, s.errors])
@@ -80,10 +83,12 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
     <SendButton reg={reg} phase={s.phase} retryIn={s.retryIn} onSend={() => void s.send(hp)}/>
   </section>
   const questions = questionsFor(reg, s.answers)
-  return <form ref={formRef} className={styles.form} noValidate aria-labelledby={headingId} onSubmit={(e) => { e.preventDefault(); s.review() }}>
+  // method="post" (QA pre-pass S5): even without the script nothing typed here could ever reach a URL
+  return <form ref={formRef} className={styles.form} method="post" noValidate aria-labelledby={headingId} onSubmit={(e) => { e.preventDefault(); s.review() }}>
     <h3 id={headingId} className={styles.formHeading}>{t(reg, 'panel.title')}</h3>
     {questions.map((q) => <Field key={q.id} reg={reg} q={q} value={s.answers[q.id] ?? ''} error={s.errors[q.id]} onChange={(v) => s.setAll({ ...s.answers, [q.id]: v })}/>)}
     <Honeypot reg={reg} value={hp} onChange={setHp}/>
+    <FailureNote reg={reg} failure={s.failure}/>
     <PrivacyNote reg={reg}/>
     <button type="submit" className={styles.primary}>{t(reg, 'form.continue')}</button>
   </form>

@@ -40,12 +40,16 @@ export function CountryPicker({ reg, value, onPick, labelId, describedBy }: { re
   </div>
 }
 
-/** The hidden field (contract §4): visually hidden, out of the tab order and the accessibility tree; its value is sent as `hp`. */
+/**
+ * The hidden field (contract §4): visually hidden, out of the tab order and the accessibility tree; its value is sent as `hp`.
+ * RFQ-FIX-1 (audit R5): a name no autofill profile knows, and the password managers' "ignore" markers, so a person's browser
+ * never fills it (a filled one is kept for an admin to check, never silently dropped).
+ */
 export function Honeypot({ reg, value, onChange }: { reg: Registry; value: string; onChange: (v: string) => void }) {
   const id = useId()
   return <div className={styles.hp} aria-hidden="true">
     <label htmlFor={id}>{t(reg, 'honeypot.label')}</label>
-    <input id={id} name="company_website" type="text" tabIndex={-1} autoComplete="off" value={value} onChange={(e) => onChange(e.target.value)}/>
+    <input id={id} name="h2o_hp_x" type="text" tabIndex={-1} autoComplete="off" data-1p-ignore="" data-lpignore="true" data-bwignore="" data-form-type="other" value={value} onChange={(e) => onChange(e.target.value)}/>
   </div>
 }
 
@@ -84,13 +88,16 @@ export function FailureNote({ reg, failure }: { reg: Registry; failure: { key: s
 }
 
 /** The confirmation: the RFQ number when there is one (contract amendment (a): the no-number line otherwise), then the
- * response promise (owner-confirmed, CT 2026-10-05) and the attachments line. */
+ * response promise (owner-confirmed, CT 2026-10-05) and the attachments line. RFQ-FIX-1 (audit R15): the server serves the
+ * body and attachments lines that match its configuration (promise on/off, customer acknowledgement on/off); a line that
+ * needs the RFQ number is left out when there is none. */
 export function Confirmation({ reg, rfqNumber, children }: { reg: Registry; rfqNumber: string | null; children?: ReactNode }) {
+  const attachments = reg.strings['confirm.attachments'] ?? ''
   return <div className={styles.confirm}>
     <h3 className={styles.confirmHeading}>{t(reg, 'confirm.heading')}</h3>
     <p>{rfqNumber ? t(reg, 'confirm.body', { rfq_number: rfqNumber }) : t(reg, 'confirm.body_no_number')}</p>
     {reg.strings['confirm.response_time'] ? <p>{t(reg, 'confirm.response_time')}</p> : null}
-    <p>{t(reg, 'confirm.attachments')}</p>
+    {attachments && (rfqNumber || !attachments.includes('{{rfq_number}}')) ? <p>{t(reg, 'confirm.attachments', { rfq_number: rfqNumber ?? '' })}</p> : null}
     {children}
   </div>
 }

@@ -39,7 +39,9 @@ const CONTEXT_TYPES = new Set(['product', 'service', 'category', 'page', 'search
 export function cleanContext(input: Record<string, unknown>): RfqContext {
   const out: RfqContext = {}
   for (const [k, max] of Object.entries(CONTEXT_LIMITS) as Array<[keyof RfqContext, number]>) {
-    const v = input[k]
+    let v = input[k]
+    // RFQ-FIX-1 (audit R20): a long product title is shortened (whole characters, with an ellipsis), not dropped
+    if (k === 'product_title' && typeof v === 'string' && v.length > max) v = `${Array.from(v.trim()).slice(0, max - 2).join('').trimEnd()}…`
     if (typeof v !== 'string' || !v.trim() || v.length > max || v.includes('@')) continue
     if ((k === 'page_path' || k === 'product_path') && !/^\/[^\s?#]*$/.test(v)) continue
     if (k === 'context_type' && !CONTEXT_TYPES.has(v)) continue
@@ -72,18 +74,38 @@ export async function formToken(fetcher: Fetch, held: Token | null, now = Date.n
   }
 }
 
+/** RFQ-FIX-1 (R2): how the send waits for a token the server would still call too new (injectable for tests). */
+export type SendTiming = { minSecondsToSubmit?: number; now?: () => number; sleep?: (ms: number) => Promise<void> }
+/** The server refuses a token younger than `minSecondsToSubmit` (TOO_FAST); this margin covers clock and network jitter. */
+export const TOKEN_MARGIN_MS = 750
+const realSleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms))
+
 /**
  * Send, following the contract §4.1 table: TOKEN_INVALID → a new token and one automatic resend; SUBMISSION_CONFLICT →
  * a new submissionId and one resend (`onNewSubmissionId` lets the caller keep its draft in step); network failure → offline
  * (the draft stays; the same submissionId resends later).
+ *
+ * RFQ-FIX-1 (audit R2): the held token is age-checked at send time (a page left open for hours gets a fresh one), and a
+ * token fetched just now — at send, or after TOKEN_INVALID — is not used until the server's minimum age has passed, so
+ * the first "Send request" never fails as "too fast".
  */
 export async function submitRfq(
   fetcher: Fetch,
   request: Omit<SubmitRequest, 'antiAbuse'> & { hp: string },
   token: Token | null,
   onNewSubmissionId: (id: string) => void = () => {},
+  timing: SendTiming = {},
 ): Promise<{ outcome: SubmitOutcome; token: Token | null }> {
-  let tok = token ?? (await formToken(fetcher, null))
+  const now = timing.now ?? Date.now
+  const sleep = timing.sleep ?? realSleep
+  const minMs = (timing.minSecondsToSubmit ?? 3) * 1000 + TOKEN_MARGIN_MS
+  const fresh = async (held: Token | null): Promise<Token | null> => {
+    const t = await formToken(fetcher, held, now())
+    const wait = t ? t.fetchedAt + minMs - now() : 0
+    if (wait > 0) await sleep(wait)
+    return t
+  }
+  let tok = await fresh(token)
   let body: SubmitRequest = { submissionId: request.submissionId, source: request.source, registryVersion: request.registryVersion, locale: request.locale, answers: request.answers, context: request.context, attribution: request.attribution, antiAbuse: { formToken: tok?.formToken ?? '', hp: request.hp } }
   let retriedToken = false, retriedConflict = false
   for (;;) {
@@ -103,7 +125,7 @@ export async function submitRfq(
     if (res.ok && data.ok) return { outcome: { kind: 'sent', rfqNumber: typeof data.rfqNumber === 'string' ? data.rfqNumber : null, ...(data.replay === true ? { replay: true } : {}) }, token: tok }
     if (res.status === 409 && data.code === 'TOKEN_INVALID' && !retriedToken) {
       retriedToken = true
-      tok = await formToken(fetcher, null)
+      tok = await fresh(null)
       body = { ...body, antiAbuse: { ...body.antiAbuse, formToken: tok?.formToken ?? '' } }
       continue
     }

@@ -85,8 +85,9 @@ export async function retryAfter(payload: Payload, bucket: string, rules: Rule[]
  * themselves within a limit (the old check-then-count let a burst pass every rule before any was counted). A refused
  * request stays counted, so a burst throttles itself. Returns the seconds to wait, or 0 when the request may proceed.
  */
-export async function admit(payload: Payload, checks: Array<{ bucket: string; rules: Rule[] }>, now: Date = new Date()): Promise<number> {
-  for (const c of checks) await count(payload, c.bucket, now)
+export async function admit(payload: Payload, checks: Array<{ bucket: string; rules: Rule[]; refundIfRefused?: boolean }>, now: Date = new Date()): Promise<number> {
+  const rows: Array<string | number> = []
+  for (const c of checks) rows.push(await count(payload, c.bucket, now))
   let wait = 0
   for (const c of checks)
     for (const r of c.rules) {
@@ -97,11 +98,18 @@ export async function admit(payload: Payload, checks: Array<{ bucket: string; ru
         wait = Math.max(wait, Math.max(1, Math.ceil((oldest + r.windowMs - now.getTime()) / 1000)))
       }
     }
+  // RFQ-FIX-1 (auditor note a on SEC-CRM-1): a refused request is taken back out of a `refundIfRefused` bucket (the email
+  // address), so a sustained flood naming someone's address cannot keep that address locked; the IP bucket keeps it. An
+  // admitted row is never removed, so at most `max` requests are still admitted per window.
+  if (wait > 0)
+    for (const [i, c] of checks.entries())
+      if (c.refundIfRefused) await payload.delete({ collection: 'crm-intake-rate' as never, id: rows[i]!, ...sys }).catch(() => undefined)
   return wait
 }
 
 /** Count one request in the bucket, and prune rows nobody needs any more. */
-export async function count(payload: Payload, bucket: string, now: Date = new Date()): Promise<void> {
-  await payload.create({ collection: 'crm-intake-rate' as never, data: { bucket, at: now.toISOString() } as never, ...sys })
+export async function count(payload: Payload, bucket: string, now: Date = new Date()): Promise<string | number> {
+  const row = await payload.create({ collection: 'crm-intake-rate' as never, data: { bucket, at: now.toISOString() } as never, ...sys })
   await payload.delete({ collection: 'crm-intake-rate' as never, where: { at: { less_than: new Date(now.getTime() - PRUNE_AFTER_MS).toISOString() } } as never, ...sys }).catch(() => undefined)
+  return (row as { id: string | number }).id
 }

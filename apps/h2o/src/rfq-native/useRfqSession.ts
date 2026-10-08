@@ -9,7 +9,7 @@ import { sessionAttribution } from './attribution'
 import { clearDraft, loadDraft, saveDraft, type Draft } from './draft'
 import { answer as setAnswer, migrate, nextQuestion, prune, questionsFor, reopen, submittedAnswers, validateAll, type Answers } from './flow'
 import type { Registry } from './model'
-import { formToken, newSubmissionId, submitRfq, type RfqContext, type RfqSource, type SubmitOutcome } from './submission'
+import { formToken, newSubmissionId, submitRfq, type RfqContext, type RfqSource, type SendTiming, type SubmitOutcome } from './submission'
 
 export type Phase = 'loading' | 'unavailable' | 'resume' | 'asking' | 'review' | 'sending' | 'sent'
 export type RegistryLoader = (locale: string) => Promise<Registry | null>
@@ -53,9 +53,10 @@ export type RfqSession = {
   reset: () => void
 }
 
+export const DRAFT_DEBOUNCE_MS = 400
 const defaultFetch: typeof fetch = (...a) => fetch(...a)
 
-export function useRfqSession(source: RfqSource, locale: string, loader: RegistryLoader = fetchRegistry, fetcher: typeof fetch = defaultFetch): RfqSession {
+export function useRfqSession(source: RfqSource, locale: string, loader: RegistryLoader = fetchRegistry, fetcher: typeof fetch = defaultFetch, timing?: SendTiming): RfqSession {
   const [registry, setRegistry] = useState<Registry | null>(null)
   const [phase, setPhase] = useState<Phase>('loading')
   const [answers, setAnswers] = useState<Answers>({})
@@ -94,6 +95,8 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
       if (!reg || !reg.enabled) {
         // a switched-off registry still carries its strings: the panel says so and points to the offices
         if (reg) setRegistry(reg)
+        // RFQ-FIX-1 (audit R7): a registry that failed to load is tried again on the next open, not for the rest of the visit
+        else started.current = false
         setPhase('unavailable')
         return
       }
@@ -124,6 +127,17 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
     })
   }, [registry, persist])
 
+  // RFQ-FIX-1 (audit R11): the inline form keeps what is typed (debounced) so a refresh before "Continue" loses nothing
+  const persistTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  useEffect(() => () => { if (persistTimer.current) clearTimeout(persistTimer.current) }, [])
+  const setAll = useCallback((next: Answers) => {
+    setAnswers(next)
+    setFailure(null)
+    if (!registry) return
+    if (persistTimer.current) clearTimeout(persistTimer.current)
+    persistTimer.current = setTimeout(() => { persistTimer.current = null; persist(next, 'contact', registry) }, DRAFT_DEBOUNCE_MS)
+  }, [registry, persist])
+
   const review = useCallback(() => {
     if (!registry) return false
     // on the inline form every question is shown at once: an optional field left blank is a skip
@@ -147,11 +161,13 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
       { submissionId: draft.current!.submissionId, source, registryVersion: registry.registryVersion, locale: registry.locale, answers: submittedAnswers(registry, answers), context, attribution: typeof window === 'undefined' ? {} : sessionAttribution(window), hp },
       token.current,
       (id) => { draft.current = { ...draft.current!, submissionId: id }; saveDraft(store(), draft.current) },
+      { minSecondsToSubmit: registry.limits?.minSecondsToSubmit, ...timing },
     )
     token.current = tok
     applyOutcome(outcome)
     function applyOutcome(o: SubmitOutcome) {
       if (o.kind === 'sent') {
+        if (persistTimer.current) clearTimeout(persistTimer.current)
         clearDraft(store())
         draft.current = null
         setRfqNumber(o.rfqNumber)
@@ -169,7 +185,10 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
         })))
         const first = registry!.questions.find((q) => q.id in fields)
         if (first && source === 'NATIVE_CHAT') setAnswers((a) => reopen(a, first.id))
-        setPhase(source === 'NATIVE_CHAT' ? 'asking' : 'review')
+        // RFQ-FIX-1 (audit R4): both surfaces go back to the questions, where each error shows beside its field (the
+        // form moves focus to the first one). An error no question owns is shown as the send failure instead.
+        if (!first) setFailure({ key: 'err.server' })
+        setPhase(first ? 'asking' : 'review')
         return
       }
       if (o.retryAfterSeconds) {
@@ -184,7 +203,7 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
       const id = Object.entries(submittedAnswers(registry!, answers)).sort((a, b) => b[1].length - a[1].length)[0]?.[0]
       return id ? { [id]: 'err.too_long' } : {}
     }
-  }, [registry, phase, retryIn, answers, context, source, fetcher, persist])
+  }, [registry, phase, retryIn, answers, context, source, fetcher, persist, timing])
 
   const resume = useCallback((continueDraft: boolean) => {
     if (!registry) return
@@ -213,6 +232,6 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
 
   return {
     registry, phase, answers, errors, failure, rfqNumber, retryIn, context,
-    start, setContext: setContextState, answer: answerFn, edit, setAll: setAnswers, review, send, resume, reset,
+    start, setContext: setContextState, answer: answerFn, edit, setAll, review, send, resume, reset,
   }
 }

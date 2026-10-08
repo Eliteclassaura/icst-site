@@ -14,6 +14,8 @@ import { NativeRfqTrigger } from '../NativeRfqTrigger'
 import { DRAFT_KEY } from '../draft'
 
 ;(globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true
+/** RFQ-FIX-1: the send's token-age wait (R2) is skipped here; engine.test covers it with a clock. */
+const NO_WAIT = { sleep: async () => {} }
 const reg = fixtureRegistry()
 const loader = async () => reg
 const LAUNCHER = { label: reg.strings['launcher.label']!, aria: reg.strings['launcher.aria']!, tooltip: reg.strings['launcher.tooltip']! }
@@ -50,7 +52,7 @@ afterEach(async () => {
 describe('corner panel (NATIVE_CHAT)', () => {
   it('a parts request from the launcher: chips, text, skip, contact, review, send → the RFQ number; nothing sent before Send', async () => {
     const fetcher = api(() => json(200, { ok: true, rfqNumber: 'RFQ-20261005-7K3M9QX2', replay: false }))
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={fetcher as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     const launcher = host.querySelector('[data-rfq-launcher]') as HTMLButtonElement
     expect(launcher.getAttribute('aria-label')).toBe(s('launcher.aria'))
     expect(launcher.textContent).toBe(s('launcher.label'))
@@ -103,7 +105,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
   })
 
   it('an RFQ control opens the panel with its context (shown once, never asked); Escape closes and focus returns to it', async () => {
-    await act(async () => root.render(<><NativeRfqTrigger placement="rfq_page" context={{ context_type: 'product', context_id: '4765', product_id: '4765', product_slug: 'site-assembly', page_path: '/product/site-assembly/' }} contextLabel="Site Assembly">Request a Quote</NativeRfqTrigger><NativeRfq launcher={LAUNCHER} loader={loader} fetcher={api(() => json(500, {})) as never}/></>))
+    await act(async () => root.render(<><NativeRfqTrigger placement="rfq_page" context={{ context_type: 'product', context_id: '4765', product_id: '4765', product_slug: 'site-assembly', page_path: '/product/site-assembly/' }} contextLabel="Site Assembly">Request a Quote</NativeRfqTrigger><NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/></>))
     const link = host.querySelector('a[data-rfq-native]') as HTMLAnchorElement
     expect(link.getAttribute('href')).toBe('/contact-us/#request-a-quote')
     link.focus()
@@ -116,7 +118,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
   })
 
   it('Tab stays inside the panel', async () => {
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={api(() => json(500, {})) as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     const items = [...panel()!.querySelectorAll<HTMLElement>('button, input:not([tabindex="-1"]), a[href]')]
     items.at(-1)!.focus()
@@ -127,7 +129,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
   })
 
   it('closing keeps the draft; reopening offers to continue or start over', async () => {
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={api(() => json(500, {})) as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     await click(button(s('purpose.chip.repair')))
     expect(JSON.parse(sessionStorage.getItem(DRAFT_KEY)!)).toMatchObject({ answers: { purpose: 'repair' }, source: 'NATIVE_CHAT' })
@@ -135,7 +137,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
     expect(panel()).toBeNull()
     await act(async () => root.unmount())
     root = createRoot(host)
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={api(() => json(500, {})) as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     expect(log()).toContain(s('resume.prompt'))
     await click(button(s('resume.continue')))
@@ -146,11 +148,14 @@ describe('corner panel (NATIVE_CHAT)', () => {
     let release: (r: Response) => void = () => {}
     const fetcher = api(() => new Promise<Response>((r) => { release = r }))
     sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-1', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'Basin repair', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={fetcher as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     await click(button(s('resume.continue')))
-    const hp = panel()!.querySelector('input[name="company_website"]') as HTMLInputElement
+    // RFQ-FIX-1 (audit R5): a name no autofill profile knows, with the password managers' "ignore" markers
+    expect(panel()!.querySelector('input[name="company_website"]')).toBeNull()
+    const hp = panel()!.querySelector('input[name="h2o_hp_x"]') as HTMLInputElement
     expect(hp.tabIndex).toBe(-1)
+    expect([hp.autocomplete, hp.getAttribute('data-1p-ignore'), hp.getAttribute('data-lpignore')]).toEqual(['off', '', 'true'])
     expect(hp.closest('[aria-hidden="true"]')).not.toBeNull()
     const send = button(s('review.send'))
     await act(async () => { send.click() })
@@ -167,7 +172,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
 
   const reviewDraft = (id: string, extra: Record<string, string> = {}) => sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: id, registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'Basin repair', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '', country: 'US', ...extra }, source: 'NATIVE_CHAT' }))
   const openToReview = async (fetcher: unknown) => {
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={fetcher as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     await click(button(s('resume.continue')))
   }
@@ -221,7 +226,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
 
   it('a null RFQ number shows the no-number confirmation (contract amendment (a))', async () => {
     sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-2', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'X', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={api(() => json(200, { ok: true, rfqNumber: null, replay: false })) as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(200, { ok: true, rfqNumber: null, replay: false })) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     await click(button(s('resume.continue')))
     await click(button(s('review.send')))
@@ -230,14 +235,14 @@ describe('corner panel (NATIVE_CHAT)', () => {
   })
 
   it('a registry that is off shows the unavailable line with the offices link (R5.1); unreachable shows no question', async () => {
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => ({ ...reg, enabled: false })} fetcher={api(() => json(500, {})) as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => ({ ...reg, enabled: false })} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     expect(log()).not.toContain(s('purpose.q'))
     expect(log()).toBe(s('panel.unavailable', { offices_link: s('offices.link_text') }))
     expect(panel()!.querySelector('[role="log"] a')?.getAttribute('href')).toBe('/contact-us/#offices')
     await act(async () => root.unmount())
     root = createRoot(host)
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => null} fetcher={api(() => json(500, {})) as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => null} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     expect(log()).not.toContain(s('purpose.q'))
     expect(panel()!.querySelector('[role="log"] a')?.getAttribute('href')).toBe('/contact-us/#offices')
@@ -246,7 +251,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
   it('first touch survives navigation: the landing page’s tags are sent from a later page (R5.1)', async () => {
     const fetcher = api(() => json(200, { ok: true, rfqNumber: 'RFQ-3', replay: false }))
     window.history.replaceState(null, '', '/fans/?utm_source=ads&utm_campaign=q4&gclid=abc')
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={fetcher as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     expect(JSON.parse(sessionStorage.getItem('h2o.rfq.attr.v1')!)).toMatchObject({ utm_source: 'ads', utm_campaign: 'q4', gclid: 'abc', landing_page: '/fans/' })
     expect(fetcher).not.toHaveBeenCalled() // nothing is sent before submit
     // a later page in the same session
@@ -254,7 +259,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
     window.history.replaceState(null, '', '/contact-us/')
     root = createRoot(host)
     sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-3', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'X', notes: '', name: 'A', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={fetcher as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     await click(button(s('resume.continue')))
     await click(button(s('review.send')))
@@ -266,7 +271,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
 
   it('a page-level control shows the page’s own H1 in the context note (R5.1); it is not sent', async () => {
     const fetcher = api(() => json(500, {}))
-    await act(async () => root.render(<><main><h1>Cooling Tower   Fans</h1></main><NativeRfqTrigger placement="editorial_inline" context={{ context_type: 'page', page_path: '/fans/' }}>Request a Quote</NativeRfqTrigger><NativeRfq launcher={LAUNCHER} loader={loader} fetcher={fetcher as never}/></>))
+    await act(async () => root.render(<><main><h1>Cooling Tower   Fans</h1></main><NativeRfqTrigger placement="editorial_inline" context={{ context_type: 'page', page_path: '/fans/' }}>Request a Quote</NativeRfqTrigger><NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/></>))
     await click(host.querySelector('a[data-rfq-native]'))
     expect(log()).toContain(s('context.note', { context_label: 'Cooling Tower Fans' }))
   })
@@ -275,7 +280,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
 describe('inline form (NATIVE_FORM)', () => {
   it('validates everything at once (form wording, focus on the first error), then reviews and sends as NATIVE_FORM', async () => {
     const fetcher = api(() => json(200, { ok: true, rfqNumber: 'RFQ-9', replay: false }))
-    await act(async () => root.render(<NativeRfqForm loader={loader} fetcher={fetcher as never}/>))
+    await act(async () => root.render(<NativeRfqForm loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     await flush()
     const form = host.querySelector('form')!
     expect([...form.querySelectorAll('legend, label')].map((l) => l.textContent)).toContain(s('purpose.q'))

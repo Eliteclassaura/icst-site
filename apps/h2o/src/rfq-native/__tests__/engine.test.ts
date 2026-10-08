@@ -156,7 +156,11 @@ describe('submit client: contract §4.1', () => {
   it('context: known keys within limits; paths without a query; a search context carries no term or id', () => {
     expect(cleanContext({ page_path: '/product/x/', cta_placement: 'editorial_inline', product_title: 'Fan', evil: 'x', email: 'a@b.c' })).toEqual({ page_path: '/product/x/', cta_placement: 'editorial_inline', product_title: 'Fan' })
     expect(cleanContext({ page_path: '/search/?q=fan', context_type: 'search', context_id: 'fan blades' })).toEqual({ context_type: 'search' })
-    expect(cleanContext({ product_title: 'x'.repeat(161) })).toEqual({})
+    // RFQ-FIX-1 (audit R20): an over-long product title is shortened to the limit with an ellipsis, not dropped
+    const long = cleanContext({ product_title: `${'x'.repeat(170)} ช่วง` }).product_title!
+    expect(long.length).toBeLessThanOrEqual(160)
+    expect(long.endsWith('…')).toBe(true)
+    expect(cleanContext({ product_title: 'Fan' }).product_title).toBe('Fan')
   })
 })
 

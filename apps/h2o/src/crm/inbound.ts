@@ -111,7 +111,9 @@ const codePoint = (n: number): string => (Number.isInteger(n) && n > 0 && n <= 0
  */
 export function htmlToText(input: string): string {
   const html = input.length > HTML_LIMIT ? input.slice(0, HTML_LIMIT) : input
-  const lower = html.toLowerCase()
+  // ASCII-only case folding (auditor note b): toLowerCase() can change the length (U+0130 → 2 code units), which would
+  // shift the offsets found in `lower` away from `html`
+  const lower = html.replace(/[A-Z]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 32))
   const out: string[] = []
   const noClose = new Set<string>()
   let i = 0

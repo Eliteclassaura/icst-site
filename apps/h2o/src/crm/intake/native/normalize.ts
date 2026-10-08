@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { displayValue, questionsFor, validate } from '../../../rfq-native/flow'
+import { displayValue, normalizePhone, questionsFor, stripControls, validate } from '../../../rfq-native/flow'
 import type { Registry } from '../../../rfq-native/model'
 import { splitName } from '../../import/csv'
 import { validateAttribution, type AttributionKey } from '../attribution'
@@ -42,8 +42,9 @@ export function parseEnvelope(body: unknown): NativeRequest | null {
     source,
     registryVersion: typeof registryVersion === 'string' ? registryVersion.slice(0, 40) : '',
     locale: typeof locale === 'string' ? locale.slice(0, 8) : 'en',
-    answers: answers as Record<string, string>,
-    context: isObj(context) ? context : {},
+    // RFQ-FIX-1 (audit R9): control characters (NUL included) and bidi overrides are removed before anything else reads them
+    answers: Object.fromEntries(Object.entries(answers as Record<string, string>).map(([k, v]) => [k, stripControls(v)])),
+    context: isObj(context) ? Object.fromEntries(Object.entries(context).map(([k, v]) => [k, typeof v === 'string' ? stripControls(v) : v])) : {},
     attribution: isObj(attribution) ? attribution : {},
     antiAbuse: { formToken: antiAbuse.formToken, hp: antiAbuse.hp },
   }
@@ -112,7 +113,8 @@ export function toDelivery(reg: Registry, req: NativeRequest, receivedAt: Date):
         last_name: name.last,
         full_name: a.name ?? null,
         email: a.email ?? null,
-        phone: a.phone || null,
+        // RFQ-FIX-1 (audit R3): stored in its normalised form (full-width digits as ASCII)
+        phone: a.phone ? normalizePhone(a.phone) : null,
         company: a.company ?? null,
         country_code: a.country ?? null,
         message,

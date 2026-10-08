@@ -64,7 +64,8 @@ function RecoveryCodes({ codes, account, next }: { codes: string[]; account: str
       </p>
       <p className="c-hint">
         If you lose your phone, each code signs you in once. Keep them in your password manager, or print them and store the
-        page safely. They are not shown again.
+        page safely. If you download them, store them in a password manager and delete the downloaded file afterwards. They
+        are not shown again.
       </p>
       <ol className="c-mono c-mfa-codes">
         {codes.map((c) => (
@@ -125,6 +126,9 @@ export function EnrolFlow({
         <p className="c-mfa-eyebrow">Step 2 of 4</p>
         <h2>Add your account to the app</h2>
         <div className="c-mfa-add">
+          {/* Security (MFA-UX-1 audit note): `qrHtml` is only ever the output of src/auth/mfa/qr.ts `qrSvg` (page.tsx),
+              which emits fixed SVG markup from the otpauth URI's QR modules and an escaped label. Never pass request data,
+              user-entered text or any other HTML here. */}
           <div className="c-qr" dangerouslySetInnerHTML={{ __html: qrHtml }} />
           <div className="c-mfa-manual">
             <p className="c-hint">In the app, scan this code. Can’t scan it? Enter this setup key instead:</p>

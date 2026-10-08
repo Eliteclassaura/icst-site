@@ -277,3 +277,14 @@ export function readInboundConfig(env: Record<string, string | undefined> = proc
     },
   }
 }
+
+/**
+ * The sales address (owner decision 2026-10-08: sales@h2ocooling.com everywhere). The ONE lookup for it: the quote
+ * confirmation's attachments line (RFQ-FIX-1, R15) and the T1 Reply-To use it. H2O_RFQ_SALES_EMAIL, else the default; an
+ * invalid value falls back. ALERTS-1 (CRM-B) replaces this body with the Settings → Email routing resolver (env fallback).
+ */
+export const DEFAULT_SALES_ADDRESS = 'sales@h2ocooling.com'
+export const resolveSalesAddress = (env: NodeJS.ProcessEnv = process.env): string => {
+  const v = (env.H2O_RFQ_SALES_EMAIL ?? '').trim()
+  return v.length <= 254 && /^[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+$/.test(v) ? v : DEFAULT_SALES_ADDRESS
+}

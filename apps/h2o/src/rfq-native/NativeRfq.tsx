@@ -14,11 +14,13 @@ import { captureFirstTouch } from './attribution'
 import { ChipGroup, Confirmation, CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, PrivacyNote, ReviewList, SendButton, UnavailableNote } from './fields'
 import { displayValue, nextQuestion, questionsFor, validate } from './flow'
 import { t, type Question, type Registry } from './model'
-import { cleanContext, type RfqContext } from './submission'
+import { cleanContext, type RfqContext, type SendTiming } from './submission'
 import { fetchRegistry, useRfqSession, type RegistryLoader } from './useRfqSession'
 import styles from './NativeRfq.module.css'
 
 export const RFQ_OPEN_EVENT = 'h2o:rfq-open'
+/** The inline quote form's section id (NativeRfqFormSection). */
+export const QUOTE_FORM_ID = 'request-a-quote'
 export type RfqOpenDetail = { context?: Record<string, unknown>; label?: string; trigger?: HTMLElement | null }
 /** Launcher strings, rendered before the registry loads (server-supplied from the same registry keys). */
 export type LauncherStrings = { label: string; aria: string; tooltip: string }
@@ -60,8 +62,8 @@ function Answer({ reg, q, error, onAnswer }: { reg: Registry; q: Question; error
   </div>
 }
 
-export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fetcher }: { launcher: LauncherStrings; locale?: string; loader?: RegistryLoader; fetcher?: typeof fetch }) {
-  const s = useRfqSession('NATIVE_CHAT', locale, loader, fetcher)
+export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fetcher, timing }: { launcher: LauncherStrings; locale?: string; loader?: RegistryLoader; fetcher?: typeof fetch; timing?: SendTiming }) {
+  const s = useRfqSession('NATIVE_CHAT', locale, loader, fetcher, timing)
   const [open, setOpen] = useState(false)
   const [hp, setHp] = useState('')
   const [contextLabel, setContextLabel] = useState('')
@@ -86,6 +88,17 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
   // First-touch attribution (CT R5.1): the launcher renders on every public page, so the session's first page load records
   // its landing tags here; nothing is sent until "Send request".
   useEffect(() => { captureFirstTouch(window) }, [])
+
+  // RFQ-FIX-1 (audit R16, R4 F1 rule): while the page's own quote form (#request-a-quote) is on screen the launcher steps
+  // aside, so it never covers a field or the Continue button; it comes back when the form scrolls away.
+  const [formInView, setFormInView] = useState(false)
+  useEffect(() => {
+    const form = document.getElementById(QUOTE_FORM_ID)
+    if (!form || typeof IntersectionObserver === 'undefined') return undefined
+    const io = new IntersectionObserver((entries) => setFormInView(entries.some((e) => e.isIntersecting)))
+    io.observe(form)
+    return () => io.disconnect()
+  }, [])
 
   // Any RFQ control on the page opens this panel with its own context.
   useEffect(() => {
@@ -171,7 +184,7 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
   const firstContact = reg?.questions.find((q) => q.step === 'contact')?.id
 
   return <>
-    <button ref={launcherRef} type="button" className={styles.launcher} aria-label={launcher.aria} title={launcher.tooltip} aria-haspopup="dialog" aria-expanded={open} data-rfq-launcher="" onClick={() => openWith({ trigger: launcherRef.current })} hidden={open}>
+    <button ref={launcherRef} type="button" className={styles.launcher} aria-label={launcher.aria} title={launcher.tooltip} aria-haspopup="dialog" aria-expanded={open} data-rfq-launcher="" onClick={() => openWith({ trigger: launcherRef.current })} hidden={open || formInView}>
       <svg aria-hidden="true" className={styles.launcherIcon} viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span>{launcher.label}</span>
     </button>
     {open ? <div className={styles.overlay}>

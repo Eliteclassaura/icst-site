@@ -2,11 +2,11 @@ import { createHash } from 'node:crypto'
 import type { Payload } from 'payload'
 import { fixtureRegistry } from '../../../rfq-native/registry'
 import type { Registry } from '../../../rfq-native/model'
-import { readEmailConfig } from '../../../email/config'
+import { readEmailConfig, resolveSalesAddress } from '../../../email/config'
 import { emailKey } from '../../normalize'
 import { ingestParsed, intakeLog } from '../typeform/ingest'
 import { admit, bucketFor, count, EMAIL_RULE, requestIp, SUBMIT_RULES, TOKEN_RULE, UNTRUSTED_BUCKET, UNTRUSTED_RULES } from './limits'
-import { contentHash, parseEnvelope, storedPayload, toDelivery, validateAnswers } from './normalize'
+import { contentHash, parseEnvelope, storedPayload, toDelivery, validateAnswers, type NativeRequest } from './normalize'
 import { checkFormToken, issueFormToken } from './token'
 
 /**
@@ -14,12 +14,13 @@ import { checkFormToken, issueFormToken } from './token'
  * no HTTP framework code, so DB tests drive them directly with `Request` objects.
  *
  * Submit order (each step can end the request):
- *   same-origin · size ≤ 16 KB · JSON · switch on · envelope · form token (409) · honeypot (200, nothing stored) ·
+ *   same-origin · size ≤ 32 KB · JSON · switch on · envelope · form token (409) · honeypot (200; quarantined, no RFQ) ·
  *   answers (422 keys) · replay of the same submission (200 same RFQ / 409 conflict) · rate limits (429) ·
  *   canonical ingest — persist the intake event, then the RFQ (notifications are queued with the RFQ) → 200 RFQ number.
  * Logs carry codes only: never an answer, address, IP, token or hash salt.
  */
-export const MAX_BODY_BYTES = 16 * 1024
+// RFQ-FIX-1 (audit R4): byte-safe — the longest flow in a 3-byte script with full context and attribution fits (test)
+export const MAX_BODY_BYTES = 32 * 1024
 const JSONH = { 'content-type': 'application/json', 'cache-control': 'no-store' }
 export type Reply = { status: number; body: unknown; headers?: Record<string, string> }
 const reply = (status: number, body: unknown, headers: Record<string, string> = {}): Reply => ({ status, body, headers: { ...JSONH, ...headers } })
@@ -49,9 +50,15 @@ function crossSite(req: Request): boolean {
  */
 export function servedRegistry(env: NodeJS.ProcessEnv = process.env): Registry {
   const base = fixtureRegistry()
-  const promise = readEmailConfig(env).responsePromise
+  const cfg = readEmailConfig(env)
   const strings = { ...base.strings }
-  if (promise) strings['confirm.response_time'] = `We'll respond ${promise}.`
+  // RFQ-FIX-1 (audit R15, OGCS strings a4b21326): one body line, with the promise only when it is configured (the owner's
+  // "within one business day" by default); the attachments line matches the customer acknowledgement (reply to our email
+  // when it is on; otherwise email the sales address with the RFQ number). The separate response-time line is retired.
+  const promise = cfg.responsePromise
+  strings['confirm.body'] = promise ? strings['confirm.body.promise_on']!.replace('within one business day', promise) : strings['confirm.body.promise_off']!
+  delete strings['confirm.response_time']
+  strings['confirm.attachments'] = cfg.customerAck ? strings['confirm.attachments.ack_on']! : strings['confirm.attachments.ack_off']!.replace('{{sales_email}}', resolveSalesAddress(env))
   return { ...base, locale: 'en', enabled: nativeIntakeOn(env), strings }
 }
 
@@ -77,8 +84,9 @@ export async function tokenReply(payload: Payload, req: Request, now: Date = new
 export async function submitReply(payload: Payload, req: Request, now: Date = new Date()): Promise<Reply> {
   if (crossSite(req)) return reply(403, { ok: false, code: 'CROSS_SITE' })
   if (Number(req.headers.get('content-length') ?? '0') > MAX_BODY_BYTES) return reply(413, { ok: false, code: 'TOO_LARGE' })
-  const text = await req.text()
-  if (Buffer.byteLength(text, 'utf8') > MAX_BODY_BYTES) return reply(413, { ok: false, code: 'TOO_LARGE' })
+  // RFQ-FIX-1 (audit R14): read at most the limit (+1 byte), so a chunked body without a length is never held whole
+  const text = await readCapped(req, MAX_BODY_BYTES)
+  if (text === null) return reply(413, { ok: false, code: 'TOO_LARGE' })
   if (!nativeIntakeOn()) return reply(503, { ok: false, code: 'INTAKE_DISABLED' })
   let raw: unknown
   try {
@@ -98,9 +106,12 @@ export async function submitReply(payload: Payload, req: Request, now: Date = ne
   const ip = requestIp(req.headers)
   const ipBucket = bucketFor('ip', ip)
   if (typeof r.antiAbuse.hp === 'string' && r.antiAbuse.hp !== '') {
-    // A filled honeypot: "accepted", nothing stored; counted, so a bot that keeps trying is throttled.
+    // A filled honeypot: "accepted" for the sender; counted, so a bot that keeps trying is throttled. RFQ-FIX-1 (audit R5):
+    // kept as a QUARANTINED_SPAM intake event (admins only; no RFQ, no alert, no email) so a person whose browser filled the
+    // trap is never lost — an admin sees the day's count on the CRM overview and can read the request.
     await count(payload, ipBucket, now)
-    log('HONEYPOT', 200, 'DISCARDED')
+    await quarantineSpam(payload, r, now)
+    log('HONEYPOT', 200, 'QUARANTINED_SPAM')
     return reply(200, { ok: true, rfqNumber: null, replay: false })
   }
 
@@ -126,7 +137,7 @@ export async function submitReply(payload: Payload, req: Request, now: Date = ne
     const ipRules = ip === UNTRUSTED_BUCKET ? UNTRUSTED_RULES : SUBMIT_RULES
     const emailBucket = bucketFor('email', emailKey(r.answers.email)?.matchKey ?? '')
     // SEC-CRM-1: counted before it is checked (limits.ts admit), so a parallel burst cannot pass every rule at once.
-    const wait = await admit(payload, [{ bucket: ipBucket, rules: ipRules }, { bucket: emailBucket, rules: [EMAIL_RULE] }], now)
+    const wait = await admit(payload, [{ bucket: ipBucket, rules: ipRules }, { bucket: emailBucket, rules: [EMAIL_RULE], refundIfRefused: true }], now)
     if (wait > 0) {
       log('RATE_LIMITED', 429)
       return reply(429, { ok: false, code: 'RATE_LIMITED', retryAfterSeconds: wait }, { 'retry-after': String(wait) })
@@ -145,6 +156,52 @@ export async function submitReply(payload: Payload, req: Request, now: Date = ne
   }
   const replay = result.outcome === 'DUPLICATE_DELIVERY_NOOP' || result.outcome === 'DUPLICATE_SUBMISSION_LINKED'
   return reply(200, { ok: true, rfqNumber: rfqNumber ?? null, replay })
+}
+
+/** The body as text, or null when it is longer than `max` bytes (reading stops there; the rest is cancelled). */
+export async function readCapped(req: Request, max: number): Promise<string | null> {
+  if (!req.body) return ''
+  const reader = req.body.getReader()
+  const chunks: Uint8Array[] = []
+  let size = 0
+  for (;;) {
+    const { done, value } = await reader.read()
+    if (done) break
+    size += value.byteLength
+    if (size > max) {
+      await reader.cancel().catch(() => undefined)
+      return null
+    }
+    chunks.push(value)
+  }
+  return Buffer.concat(chunks).toString('utf8')
+}
+
+/** RFQ-FIX-1 (R5): the honeypot request as an admin-only intake event; once per submission id, never an RFQ. */
+async function quarantineSpam(payload: Payload, r: NativeRequest, now: Date): Promise<void> {
+  try {
+    await payload.create({
+      collection: 'crm-intake-events',
+      data: {
+        source_system: r.source,
+        source_event_id: `native:${r.submissionId}`,
+        source_event_type: r.source.toLowerCase(),
+        source_form_id: 'native',
+        signature_state: 'FORM_TOKEN_VERIFIED',
+        raw_payload_hash: contentHash(r),
+        raw_payload: storedPayload(r) as never,
+        received_at: now.toISOString(),
+        processing_state: 'QUARANTINED_SPAM',
+        failure_code: 'HONEYPOT',
+        replay_count: 0,
+      } as never,
+      context: { crmServer: {} },
+      overrideAccess: true,
+      depth: 0,
+    })
+  } catch {
+    // the same submission again (unique event id), or a store failure: the sender's reply is unchanged either way
+  }
 }
 
 /** Next route helper: a Reply → a Response. */

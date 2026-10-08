@@ -29,6 +29,19 @@ export const CT_STRING_AMENDMENTS: Record<string, string> = {
   'err.server': "Something went wrong and your request wasn't sent. Please try again, or call one of {{offices_link}}.",
 }
 
+/**
+ * RFQ-FIX-1: the OGCS strings for the quote-form fixes (outputs/H2O_OGCS_RFQ_FIX_1_STRINGS_2026-10-07, seal a4b21326),
+ * verbatim. The phone error (audit R3); the confirmation's attachments line with the customer acknowledgement on or off;
+ * the confirmation body with the response promise on or off (the server picks one per configuration, R15).
+ */
+export const RFQ_FIX_1_STRINGS: Record<string, string> = {
+  "err.phone": "Please check this phone number. Use digits and include your country code, for example +1 555 012 3456. You can also leave it blank.",
+  "confirm.attachments.ack_on": "You can send photos or drawings by replying to our email.",
+  "confirm.attachments.ack_off": "You can email photos or drawings to {{sales_email}}. Please include your RFQ number, {{rfq_number}}.",
+  "confirm.body.promise_on": "Thank you. Your RFQ number is {{rfq_number}}. A member of our team will review your request and contact you within one business day.",
+  "confirm.body.promise_off": "Thank you. Your RFQ number is {{rfq_number}}. A member of our team will review your request and contact you.",
+}
+
 export const parseCopyTable = (tsv: string): Record<string, string> => {
   const [head, ...rows] = tsv.trimEnd().split('\n')
   const cols = head!.split('\t')
@@ -40,12 +53,12 @@ type Q = Omit<Question, 'errorKeys' | 'validation'> & { maxLength: number; patte
 const question = ({ maxLength, pattern, ...q }: Q): Question => ({
   ...q,
   validation: { maxLength, ...(pattern ? { pattern } : {}) },
-  errorKeys: { ...(q.required ? { required: 'err.required' } : {}), ...(pattern === 'email' ? { invalid: 'err.email' } : {}), tooLong: 'err.too_long' },
+  errorKeys: { ...(q.required ? { required: 'err.required' } : {}), ...(pattern === 'email' ? { invalid: 'err.email' } : pattern === 'tel' ? { invalid: 'err.phone' } : {}), tooLong: 'err.too_long' },
 })
 
 /** The contract §1.1 seeded structure, with strings from the copy table. */
 export function registryFromCopy(tsv: string): Registry {
-  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS }
+  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS, ...RFQ_FIX_1_STRINGS }
   const purposes: Purpose[] = [
     { value: 'new_tower', labelKey: 'purpose.chip.new_tower', branch: 'towers' },
     { value: 'repair', labelKey: 'purpose.chip.repair', branch: 'service' },
@@ -82,7 +95,8 @@ export function registryFromCopy(tsv: string): Registry {
     enabled: true,
     steps: ['purpose', 'details', 'contact', 'review', 'confirm'],
     ...structure,
-    limits: { maxBodyBytes: 16384, minSecondsToSubmit: 3 },
+    // RFQ-FIX-1 (R4): 32 KB holds the longest flow in 3-byte script (Thai, Japanese) with full context and attribution
+    limits: { maxBodyBytes: 32768, minSecondsToSubmit: 3 },
     strings,
   }
 }

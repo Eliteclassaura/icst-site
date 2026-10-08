@@ -56,7 +56,9 @@ describe('registry and token', () => {
     expect(off.body).toMatchObject({ enabled: false, locale: 'en', registryVersion: fixtureRegistry().registryVersion })
     process.env.H2O_NATIVE_INTAKE = 'on'
     const on = registryReply(new Request('http://localhost/api/rfq/registry/?locale=en'))
-    expect(on.body).toMatchObject({ enabled: true, strings: { 'confirm.response_time': "We'll respond within one business day." } })
+    // RFQ-FIX-1 (R15): the promise is in the body line (OGCS promise_on); the separate response-time line is retired
+    expect(on.body).toMatchObject({ enabled: true, strings: { 'confirm.body': 'Thank you. Your RFQ number is {{rfq_number}}. A member of our team will review your request and contact you within one business day.' } })
+    expect((on.body as { strings: Record<string, string> }).strings['confirm.response_time']).toBeUndefined()
     expect(on.headers?.['cache-control']).toMatch(/public, max-age=300/)
     expect(registryReply(new Request('http://localhost/api/rfq/registry/', { headers: { 'if-none-match': on.headers!.etag! } })).status).toBe(304)
   })
@@ -112,11 +114,11 @@ describe('submit: the canonical path', () => {
 })
 
 describe('submit: refusals', () => {
-  it('honeypot: "accepted" with no RFQ number, and nothing stored', async () => {
+  it('honeypot: "accepted" with no RFQ number; kept only as a quarantined intake event (RFQ-FIX-1 R5), no RFQ', async () => {
     const r = await send(body(partsTH(3), { antiAbuse: { formToken: token(), hp: 'https://spam.example' } }), { ip: '192.0.2.13' })
     expect(r).toMatchObject({ status: 200, body: { ok: true, rfqNumber: null } })
     expect(await count('crm-rfqs')).toBe(0)
-    expect(await count('crm-intake-events')).toBe(0)
+    expect(await count('crm-intake-events')).toBe(1)
   })
 
   it('form token: missing, too fast, expired or tampered → 409 TOKEN_INVALID', async () => {
@@ -162,7 +164,7 @@ describe('submit: refusals', () => {
     expect((await send(body(partsTH(30)))).status).toBe(503)
     process.env.H2O_NATIVE_INTAKE = 'on'
     expect((await send(body(partsTH(30)), { site: 'cross-site' })).status).toBe(403)
-    expect((await send(null, { raw: JSON.stringify(body({ ...partsTH(30), notes: 'x'.repeat(17000) })) })).status).toBe(413)
+    expect((await send(null, { raw: JSON.stringify(body({ ...partsTH(30), notes: 'x'.repeat(33000) })) })).status).toBe(413)
     expect((await send(null, { raw: '{not json' })).status).toBe(422)
   })
 

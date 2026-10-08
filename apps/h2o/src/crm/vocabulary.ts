@@ -417,6 +417,8 @@ export const INTAKE_PROCESSING_STATE = [
   'QUARANTINED_MALFORMED',
   'QUARANTINED_UNSUPPORTED',
   'FAILED_RETRYABLE',
+  // RFQ-FIX-1 (audit R5): a native request whose hidden field was filled; admins only, never an RFQ
+  'QUARANTINED_SPAM',
 ] as const
 
 export const IDENTITY_REVIEW_SUBJECT = ['CONTACT', 'ACCOUNT', 'SITE', 'ASSET', 'RFQ', 'INTAKE_EVENT'] as const

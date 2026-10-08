@@ -57,7 +57,23 @@ export function migrate(reg: Registry, answers: Answers): Answers {
 }
 
 const EMAIL = /^[^\s@<>()[\]\\,;:"]+@[^\s@<>()[\]\\,;:"]+\.[a-z]{2,}$/i
-const TEL = /^\+?[0-9 ().-]{4,40}$/
+/**
+ * RFQ-FIX-1 (audit R3): a phone number, after `normalizePhone`: digits with spaces, brackets, dots, hyphens or slashes, an
+ * optional leading +, and an optional extension (`x12`, `ext. 4`, `extension 4`); at least 4 digits before the extension.
+ */
+const TEL = /^\+?[0-9 ()./-]{4,40}?(?:\s*(?:x|ext\.?|extension)\s*[0-9]{1,6})?$/i
+const telDigits = (v: string) => (v.replace(/(?:x|ext\.?|extension)\s*[0-9]{1,6}$/i, '').match(/[0-9]/g) ?? []).length
+
+/** RFQ-FIX-1 (R3): full-width digits and punctuation (Japanese / Thai keyboards) read as their ASCII forms (NFKC). */
+export const normalizePhone = (v: string): string => v.normalize('NFKC').replace(/\s+/g, ' ').trim()
+
+/**
+ * RFQ-FIX-1 (audit R9): control characters never travel. C0 controls (NUL included) other than tab and newline, DEL, the C1
+ * range and the bidirectional overrides/isolates are removed; CR LF and CR become LF. Client and server both apply it.
+ */
+export const stripControls = (v: string): string =>
+  // eslint-disable-next-line no-control-regex -- matching control characters is the point
+  v.replace(/\r\n?/g, '\n').replace(/[\u0000-\u0008\u000B-\u001F\u007F-\u009F\u202A-\u202E\u2066-\u2069]/g, '')
 
 /** The error key (and placeholder values) for one answer, or null. `surface` picks the chat or form "required" wording. */
 export function validate(reg: Registry, q: Question, value: string | undefined, surface: 'chat' | 'form' = 'chat'): { key: string; values?: Record<string, string> } | null {
@@ -66,7 +82,10 @@ export function validate(reg: Registry, q: Question, value: string | undefined, 
   if (!v) return q.required ? { key: required } : null
   if (v.length > q.validation.maxLength) return { key: q.errorKeys.tooLong, values: { max: String(q.validation.maxLength) } }
   if (q.validation.pattern === 'email' && !EMAIL.test(v)) return { key: q.errorKeys.invalid ?? 'err.email' }
-  if (q.validation.pattern === 'tel' && !TEL.test(v)) return { key: q.errorKeys.invalid ?? required }
+  if (q.validation.pattern === 'tel') {
+    const n = normalizePhone(v)
+    if (!TEL.test(n) || telDigits(n) < 4) return { key: q.errorKeys.invalid ?? required }
+  }
   if (q.validation.pattern === 'iso2' && !reg.countries.includes(v)) return { key: q.errorKeys.invalid ?? required }
   if (q.type === 'chips' && !q.chips?.some((c) => c.value === v)) return { key: q.errorKeys.invalid ?? required }
   return null
@@ -99,7 +118,9 @@ export function reviewGroups(reg: Registry, answers: Answers): ReviewGroup[] {
 
 /** The submitted answers (contract §4): the flow's questions only, skipped ones omitted. */
 export const submittedAnswers = (reg: Registry, answers: Answers): Record<string, string> =>
-  Object.fromEntries(questionsFor(reg, answers).filter((q) => answers[q.id]).map((q) => [q.id, answers[q.id]!]))
+  Object.fromEntries(questionsFor(reg, answers).filter((q) => answers[q.id]).map((q) => [q.id, sentValue(q, answers[q.id]!)]))
+/** RFQ-FIX-1: what travels for one answer — controls removed, a phone in its normalised form (R3, R9). */
+export const sentValue = (q: Question, v: string): string => (q.validation.pattern === 'tel' ? normalizePhone(stripControls(v)) : stripControls(v).trim())
 
 /** Ready to send: every question asked, none invalid. */
 export const complete = (reg: Registry, answers: Answers): boolean => !nextQuestion(reg, answers) && Object.keys(validateAll(reg, answers, 'chat')).length === 0

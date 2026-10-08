@@ -8,7 +8,8 @@
  * The runner also reconciles pending publication events every minute (./content/jobs `reconcilePending`)
  * and drains the email outbox every 15 s (./email/outbox-worker, CRM email M1), and — when
  * H2O_EMAIL_INBOUND=on — polls the role mailbox for customer replies every 60 s (./email/inbound-poller, M3), and
- * advances Revenue Engine sequences every 60 s (./crm/ers/engine, slice 1).
+ * advances Revenue Engine sequences every 60 s (./crm/ers/engine, slice 1), and finishes stranded native quote requests every
+ * 60 s (./crm/intake/native/sweep, RFQ-FIX-1).
  *
  * `onRequestError` — production builds hide Server Component error messages from the browser (correctly);
  * this records them in the server log with the request path and digest so a failed render is diagnosable.
@@ -87,6 +88,22 @@ export async function register() {
     }
   }
   setInterval(() => void ers(), Number(process.env.H2O_ERS_INTERVAL_MS) || 60_000).unref()
+  // RFQ-FIX-1 (quote-form audit R6): finish native quote requests stranded part-way (failed, or a dead worker's lease).
+  const { sweepStrandedIntake } = await import('./crm/intake/native/sweep')
+  let sweeping = false
+  const sweep = async () => {
+    if (sweeping) return
+    sweeping = true
+    try {
+      const r = await sweepStrandedIntake(payload)
+      if (r.found > 0) console.warn(`[h2o] intake sweep: found=${r.found} finished=${r.finished} skipped=${r.skipped} failed=${r.failed}`)
+    } catch {
+      console.error('[h2o] intake sweep: failed')
+    } finally {
+      sweeping = false
+    }
+  }
+  setInterval(() => void sweep(), Number(process.env.H2O_INTAKE_SWEEP_INTERVAL_MS) || 60_000).unref()
 }
 
 export function onRequestError(err: unknown, request: { path: string; method: string }) {

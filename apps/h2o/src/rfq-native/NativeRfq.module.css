@@ -320,11 +320,22 @@ textarea.input {
   color: var(--df-blue, rgb(11 75 140));
 }
 
+/* RFQ-FIX-1 (QA pre-pass M2): the form's own paragraph colour (.form p) must not turn messages grey; 6.4:1 on the form tint. */
 .error,
-.failure {
+.failure,
+.form .error,
+.form .failure {
   margin: 0;
   font-size: 14px;
+  font-weight: 500;
   color: var(--rfq-danger);
+}
+
+/* RFQ-FIX-1 (audit R10): characters used / allowed under a text area. */
+.counter {
+  align-self: flex-end;
+  font-size: 13px;
+  color: var(--df-muted, rgb(90 90 90));
 }
 
 .country {

@@ -3171,7 +3171,8 @@ export interface CrmIntakeEvent {
     | 'DUPLICATE_OF_EXISTING_SUBMISSION'
     | 'QUARANTINED_MALFORMED'
     | 'QUARANTINED_UNSUPPORTED'
-    | 'FAILED_RETRYABLE';
+    | 'FAILED_RETRYABLE'
+    | 'QUARANTINED_SPAM';
   failure_code?: string | null;
   /**
    * Non-personal: which fields were present, context keys, match outcomes.

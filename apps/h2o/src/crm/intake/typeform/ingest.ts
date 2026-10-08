@@ -238,9 +238,11 @@ export async function ingestTypeformDelivery(payload: Payload, input: IngestInpu
  */
 export async function ingestParsed(
   payload: Payload,
-  args: { d: ParsedDelivery; hash: string; rawPayload: unknown; receivedAt: Date; signatureState: 'VERIFIED' | 'FORM_TOKEN_VERIFIED'; conflict: 'quarantine' | 'refuse' },
+  args: { d: ParsedDelivery; hash: string; rawPayload: unknown; receivedAt: Date; signatureState: 'VERIFIED' | 'FORM_TOKEN_VERIFIED'; conflict: 'quarantine' | 'refuse'; now?: Date },
 ): Promise<IngestResult> {
   const { d, hash, receivedAt } = args
+  // RFQ-FIX-1 (R6): the sweeper re-runs a stored request with its original receipt time; the claim uses the real clock
+  const now = args.now ?? receivedAt
   const source: IntakeSource = d.sourceSystem ?? 'TYPEFORM'
   // 3. Transport idempotency on the source event identity.
   const prior = await payload.find({
@@ -289,12 +291,12 @@ export async function ingestParsed(
       })
       return { status: 200, outcome: 'CONFLICTING_REPLAY_QUARANTINED', intakeEventId: String(intake.id) }
     }
-    await recordReplay(payload, String(intake.id), receivedAt)
+    await recordReplay(payload, String(intake.id), now)
     // Finished (or quarantined) events are a no-op. An unfinished one is completed only by whoever wins the
     // atomic claim — a concurrent duplicate, or a retry while the first attempt is still running, is not.
     const unfinished =
       intake.processing_state === 'FAILED_RETRYABLE' || intake.processing_state === 'PROCESSING'
-    if (!unfinished || !(await claimForProcessing(payload, String(intake.id), receivedAt))) {
+    if (!unfinished || !(await claimForProcessing(payload, String(intake.id), now))) {
       intakeLog(payload, 'info', {
         code: 'DUPLICATE_DELIVERY',
         event_id: d.eventId,

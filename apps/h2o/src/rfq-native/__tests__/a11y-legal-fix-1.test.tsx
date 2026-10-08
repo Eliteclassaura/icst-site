@@ -14,6 +14,8 @@ import { NativeRfqForm } from '../NativeRfqForm'
 import { NativeRfqTrigger } from '../NativeRfqTrigger'
 
 ;(globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true
+/** RFQ-FIX-1: the send's token-age wait (R2) is skipped here; engine.test covers it with a clock. */
+const NO_WAIT = { sleep: async () => {} }
 const reg = fixtureRegistry()
 const loader = async () => reg
 const LAUNCHER = { label: reg.strings['launcher.label']!, aria: reg.strings['launcher.aria']!, tooltip: reg.strings['launcher.tooltip']! }
@@ -51,7 +53,7 @@ describe('corner panel', () => {
     const outside = document.createElement('main')
     outside.innerHTML = '<a href="/x">Page link</a>'
     document.body.insertBefore(outside, host)
-    await act(async () => root.render(<><NativeRfqTrigger placement="rfq_page" context={{ context_type: 'page', page_path: '/contact-us/' }}>Request a Quote</NativeRfqTrigger><NativeRfq launcher={LAUNCHER} loader={loader} fetcher={api(() => json(500, {})) as never}/></>))
+    await act(async () => root.render(<><NativeRfqTrigger placement="rfq_page" context={{ context_type: 'page', page_path: '/contact-us/' }}>Request a Quote</NativeRfqTrigger><NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/></>))
     const trigger = host.querySelector('a[data-rfq-native]') as HTMLAnchorElement
     trigger.focus()
     await click(trigger)
@@ -68,7 +70,7 @@ describe('corner panel', () => {
     outside.remove()
   })
   it('a chat answer error is announced (role="alert"); the review step takes focus on its heading', async () => {
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} fetcher={api(() => json(500, {})) as never}/>))
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     await click(button(s('purpose.chip.parts')))
     const box = panel()!.querySelector('input[type="text"]') as HTMLInputElement
@@ -92,7 +94,7 @@ describe('corner panel', () => {
 describe('inline form', () => {
   it('review takes focus on its heading; Edit returns focus to that field; the confirmation takes focus once sent', async () => {
     const fetcher = api(() => json(200, { ok: true, rfqNumber: 'RFQ-9', replay: false }))
-    await act(async () => root.render(<NativeRfqForm loader={loader} fetcher={fetcher as never}/>))
+    await act(async () => root.render(<NativeRfqForm loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     await flush()
     const form = () => host.querySelector('form')!
     await click(form().querySelector('input[value="new_tower"]'))

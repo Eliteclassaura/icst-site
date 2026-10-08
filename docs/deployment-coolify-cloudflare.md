@@ -57,6 +57,8 @@ Both bodies are a fixed, tiny shape — `{status}` and `{status, checks:{databas
 
 **Trusted proxy — set this or rate limits do not work.** `TRUSTED_PROXY=cloudflare` makes the app key rate limits on `cf-connecting-ip` and **ignore** `x-forwarded-for`. Unset, the app trusts no header at all and throttles every caller in one shared bucket (visible and safe) rather than letting anyone mint a fresh bucket per request by changing a header. Never set `TRUSTED_PROXY=xff` unless a proxy in front of the app _overwrites_ the header.
 
+**Lock the origin to Cloudflare whenever `TRUSTED_PROXY=cloudflare` is set (quote-form audit R1).** If the origin answers anyone directly, a caller can send their own `cf-connecting-ip` and get a fresh rate-limit bucket on every request. Before launch, allow ports 80/443 only from Cloudflare's published IP ranges (or use a Cloudflare Tunnel or Authenticated Origin Pulls). Then check that a direct request to the origin IP is refused.
+
 **Cache rules.** The app is dynamic; Cloudflare should cache assets and nothing else.
 
 | Path                                       | Rule                                                                                                                      |
