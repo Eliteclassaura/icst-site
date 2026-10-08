@@ -190,13 +190,13 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
     <button ref={launcherRef} type="button" className={styles.launcher} aria-label={launcher.aria} title={launcher.tooltip} aria-haspopup="dialog" aria-expanded={open} data-rfq-launcher="" onClick={() => openWith({ trigger: launcherRef.current })} hidden={open || formInView}>
       <svg aria-hidden="true" className={styles.launcherIcon} viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span>{launcher.label}</span>
     </button>
-    {open ? <div className={styles.overlay}>
-      <div ref={dialogRef} className={styles.panel} role="dialog" aria-modal="true" aria-labelledby={titleId} data-rfq-panel="" data-phase={s.phase}>
+    {open ? <div className={`${styles.overlay} notranslate`} translate="no">
+      <div ref={dialogRef} className={`${styles.panel} notranslate`} translate="no" role="dialog" aria-modal="true" aria-labelledby={titleId} data-rfq-panel="" data-phase={s.phase}>
         <header className={styles.header}>
           <div><h2 id={titleId} className={styles.title}>{reg ? t(reg, 'panel.title') : launcher.label}</h2>{reg ? <p className={styles.subtitle}>{t(reg, 'panel.subtitle')}</p> : null}</div>
           <button type="button" className={styles.close} onClick={close} aria-label={reg ? t(reg, 'panel.close.aria') : launcher.aria}><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3z"/></svg></button>
         </header>
-        <div ref={logRef} className={styles.log} role="log" aria-live="polite" aria-relevant="additions" hidden={done}>
+        <div ref={logRef} className={`${styles.log} notranslate`} translate="no" role="log" aria-live="polite" aria-relevant="additions" hidden={done}>
           {s.phase === 'loading' ? <p className={styles.bot} aria-busy="true"><span className={styles.dots} aria-hidden="true">…</span></p> : null}
           {s.phase === 'unavailable' ? (reg ? <UnavailableNote reg={reg}/> : <p className={styles.bot}><a href={OFFICES_HREF}>{launcher.label}</a></p>) : !reg ? null : <>
             <p className={styles.bot}>{t(reg, 'greeting')}</p>
@@ -205,7 +205,7 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
             {s.phase !== 'resume' ? asked.map((q) => <div key={q.id}>
               {q.id === firstContact ? <p className={styles.bot}>{t(reg, 'contact.intro')}</p> : null}
               <p className={styles.bot}>{t(reg, q.labelKey)}</p>
-              <p className={styles.me}>{s.answers[q.id] ? displayValue(reg, q, s.answers[q.id]) : t(reg, 'chip.skip')}</p>
+              <p className={`${styles.me} notranslate`} translate="no">{s.answers[q.id] ? displayValue(reg, q, s.answers[q.id]) : t(reg, 'chip.skip')}</p>
             </div>) : null}
             {current ? <>
               {current.id === firstContact ? <p className={styles.bot}>{t(reg, 'contact.intro')}</p> : null}

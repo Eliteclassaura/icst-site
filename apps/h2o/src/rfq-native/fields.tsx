@@ -103,7 +103,7 @@ export function ReviewList({ reg, answers, onEdit }: { reg: Registry; answers: A
     {reviewGroups(reg, answers).map((g) => <dl key={g.id} className={styles.reviewGroup}>
       {g.items.map((i) => <div key={i.id} className={styles.reviewItem}>
         <dt>{t(reg, i.labelKey)}</dt>
-        <dd><span>{i.value}</span><button type="button" className={styles.edit} onClick={() => onEdit(i.id)} aria-label={`${t(reg, 'review.edit')}: ${t(reg, i.labelKey)}`}>{t(reg, 'review.edit')}</button></dd>
+        <dd><span translate="no" className="notranslate">{i.value}</span><button type="button" className={styles.edit} onClick={() => onEdit(i.id)} aria-label={`${t(reg, 'review.edit')}: ${t(reg, i.labelKey)}`}>{t(reg, 'review.edit')}</button></dd>
       </div>)}
     </dl>)}
   </div>
@@ -123,11 +123,18 @@ export function Confirmation({ reg, rfqNumber, children }: { reg: Registry; rfqN
   const attachments = reg.strings['confirm.attachments'] ?? ''
   return <div className={styles.confirm}>
     <h3 className={styles.confirmHeading}>{t(reg, 'confirm.heading')}</h3>
-    <p>{rfqNumber ? t(reg, 'confirm.body', { rfq_number: rfqNumber }) : t(reg, 'confirm.body_no_number')}</p>
+    <p>{rfqNumber ? noTranslateNumber(t(reg, 'confirm.body', { rfq_number: rfqNumber }), rfqNumber) : t(reg, 'confirm.body_no_number')}</p>
     {reg.strings['confirm.response_time'] ? <p>{t(reg, 'confirm.response_time')}</p> : null}
     {attachments && (rfqNumber || !attachments.includes('{{rfq_number}}')) ? <p>{t(reg, 'confirm.attachments', { rfq_number: rfqNumber ?? '' })}</p> : null}
     {children}
   </div>
+}
+
+/** The reference number inside a sentence is a visitor-facing identifier: keep it out of machine translation. */
+function noTranslateNumber(text: string, num: string): ReactNode {
+  const at = text.indexOf(num)
+  if (at < 0) return text
+  return <>{text.slice(0, at)}<span translate="no" className="notranslate">{num}</span>{text.slice(at + num.length)}</>
 }
 
 /** The send button: "Sending…" in flight; disabled with the time left while a rate limit's Retry-After runs. */

@@ -77,10 +77,10 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
   const onEdit = (id: string) => { editing.current = id; edit(id) }
 
   const reg = s.registry
-  if (s.phase === 'unavailable') return reg ? <div className={styles.form}><UnavailableNote reg={reg}/></div> : null
-  if (!reg) return <div className={styles.form} aria-busy="true"/>
-  if (s.phase === 'sent') return <section ref={sentRef} className={styles.form} aria-live="polite" tabIndex={-1}><Confirmation reg={reg} rfqNumber={s.rfqNumber}/></section>
-  if (s.phase === 'review' || s.phase === 'sending') return <section className={styles.form} aria-labelledby={headingId}>
+  if (s.phase === 'unavailable') return reg ? <div className={`${styles.form} notranslate`} translate="no"><UnavailableNote reg={reg}/></div> : null
+  if (!reg) return <div className={`${styles.form} notranslate`} translate="no" aria-busy="true"/>
+  if (s.phase === 'sent') return <section ref={sentRef} className={`${styles.form} notranslate`} translate="no" aria-live="polite" tabIndex={-1}><Confirmation reg={reg} rfqNumber={s.rfqNumber}/></section>
+  if (s.phase === 'review' || s.phase === 'sending') return <section className={`${styles.form} notranslate`} translate="no" aria-labelledby={headingId}>
     <h3 id={headingId} ref={reviewHeadingRef} className={styles.formHeading} tabIndex={-1}>{t(reg, 'review.heading')}</h3>
     <ReviewList reg={reg} answers={s.answers} onEdit={onEdit}/>
     <FailureNote reg={reg} failure={s.failure}/>
@@ -91,7 +91,7 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
   </section>
   const questions = questionsFor(reg, s.answers)
   // method="post" (QA pre-pass S5): even without the script nothing typed here could ever reach a URL
-  return <form ref={formRef} className={styles.form} method="post" noValidate aria-labelledby={headingId} onSubmit={(e) => { e.preventDefault(); s.review() }}>
+  return <form ref={formRef} className={`${styles.form} notranslate`} translate="no" method="post" noValidate aria-labelledby={headingId} onSubmit={(e) => { e.preventDefault(); s.review() }}>
     <h3 id={headingId} className={styles.formHeading}>{t(reg, 'panel.title')}</h3>
     {questions.map((q) => <Field key={q.id} reg={reg} q={q} value={s.answers[q.id] ?? ''} error={s.errors[q.id]} onChange={(v) => s.setAll({ ...s.answers, [q.id]: v })}/>)}
     <Honeypot reg={reg} value={hp} onChange={setHp}/>
