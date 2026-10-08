@@ -36,7 +36,9 @@ import {PROTECTED_PATTERN} from './protected-names'
  * marked translate="no" for the Google widget (translate-widget.ts).
  */
 export const NO_TRANSLATE_REGIONS='.site-nav,.site-nav-panel,.site-mobile-panel,.lux-desktop-nav,.sp-footer-list,.sp-footer-category,.sp-footer-locations,.dr3-clients'
-export const SKIP_SELECTOR='script,style,noscript,textarea,code,pre,svg,option,[translate="no"],.notranslate,[data-lang-menu],.translate-note,#google_translate_element,[contenteditable="true"],a[href^="tel:"],a[href^="mailto:"],'+NO_TRANSLATE_REGIONS+',[data-lang-keep]'
+/** React-managed native RFQ panel and launcher (src/rfq-native, owned by CRM): never wrapped or rewritten, so React can unmount them safely in a translated session. */
+export const RFQ_ROOTS='[data-rfq-panel],[data-rfq-launcher]'
+export const SKIP_SELECTOR='script,style,noscript,textarea,code,pre,svg,option,[translate="no"],.notranslate,[data-lang-menu],.translate-note,#google_translate_element,[contenteditable="true"],a[href^="tel:"],a[href^="mailto:"],'+NO_TRANSLATE_REGIONS+',[data-lang-keep],'+RFQ_ROOTS
 
 type Entry={node:Text;original:string;translated:string|null}
 type Run={id:number;entries:Entry[];translator:DeviceTranslator|null;cancelled:boolean}
@@ -64,7 +66,7 @@ export function wrapProtectedNames(doc:Document):number{
   const targets:Text[]=[]
   for(let node=walker.nextNode();node;node=walker.nextNode()){
     const parent=(node as Text).parentElement
-    if(!parent||parent.closest('script,style,noscript,textarea,code,pre,svg,[translate="no"],.notranslate,[data-lang-keep]'))continue
+    if(!parent||parent.closest('script,style,noscript,textarea,code,pre,svg,[translate="no"],.notranslate,[data-lang-keep],'+RFQ_ROOTS))continue
     PROTECTED_PATTERN.lastIndex=0
     if(PROTECTED_PATTERN.test(node.nodeValue??''))targets.push(node as Text)
   }

@@ -1,5 +1,5 @@
 import {AVAILABLE,TRANSLATE,translateUrl} from './lang-model'
-import {NO_TRANSLATE_REGIONS,unwrapProtectedNames,wrapProtectedNames} from './translate-device'
+import {NO_TRANSLATE_REGIONS,RFQ_ROOTS,unwrapProtectedNames,wrapProtectedNames} from './translate-device'
 
 /**
  * LANG-2: in-page translation with the Google Translate website widget, strictly opt-in.
@@ -57,7 +57,7 @@ export function clearGoogtrans(doc:Document,hostname:string):void{
 
 /** What the visitor typed, phone numbers and addresses stay exactly as written (Google does not alter input values; this makes the intent explicit). */
 export function markNoTranslate(doc:Document):void{
-  for(const el of doc.querySelectorAll('input,textarea,select,a[href^="tel:"],a[href^="mailto:"],[data-notranslate],'+NO_TRANSLATE_REGIONS))el.setAttribute('translate','no')
+  for(const el of doc.querySelectorAll('input,textarea,select,a[href^="tel:"],a[href^="mailto:"],[data-notranslate],'+NO_TRANSLATE_REGIONS+','+RFQ_ROOTS))el.setAttribute('translate','no')
   wrapProtectedNames(doc)
 }
 
@@ -94,9 +94,11 @@ export type TranslateOptions={to:string;from?:string;fallbackHref:string;env?:En
 export function translateInPlace({to,from='en',fallbackHref,env=here(),timeoutMs=LOAD_TIMEOUT_MS}:TranslateOptions):void{
   const {doc,win}=env
   let failed=false
+  let stopWatching=()=>{}
   const fail=()=>{
     if(failed)return
     failed=true
+    stopWatching()
     clearGoogtrans(doc,win.location.hostname)
     doc.documentElement.removeAttribute('data-translated')
     doc.documentElement.removeAttribute('data-translated-by')
@@ -115,6 +117,7 @@ export function translateInPlace({to,from='en',fallbackHref,env=here(),timeoutMs
     const ctor=(win as unknown as TranslateGlobal).google?.translate?.TranslateElement
     if(!ctor){fail();return}
     new ctor({pageLanguage:from,autoDisplay:false},CONTAINER_ID)
+    stopWatching();failed=true // loaded: a later error or violation must not tear the translation down
     marked()
   }
   const script=doc.createElement('script')
@@ -124,7 +127,13 @@ export function translateInPlace({to,from='en',fallbackHref,env=here(),timeoutMs
   script.onerror=fail
   // N3: where the page's policy cannot run an injected script (the static hash-based policy, a misconfigured header), the browser
   // reports the block at once: go straight to the new-tab link instead of waiting out the timeout.
-  doc.addEventListener?.('securitypolicyviolation',(event)=>{const v=event as SecurityPolicyViolationEvent;if(/^script-src/.test(v.effectiveDirective??'')&&/translate\.google\.com/.test(v.blockedURI??''))fail()})
+  // N-b: one listener per page, removed as soon as the widget is up, so a later unrelated violation can never navigate away.
+  const onViolation=(event:Event)=>{
+    const v=event as SecurityPolicyViolationEvent
+    if(/^script-src/.test(v.effectiveDirective??'')&&/translate\.google\.com/.test(v.blockedURI??''))fail()
+  }
+  doc.addEventListener?.('securitypolicyviolation',onViolation)
+  stopWatching=()=>doc.removeEventListener?.('securitypolicyviolation',onViolation)
   doc.head.appendChild(script)
   win.setTimeout(()=>{if(!(win as unknown as TranslateGlobal).google?.translate?.TranslateElement)fail()},timeoutMs)
 }
