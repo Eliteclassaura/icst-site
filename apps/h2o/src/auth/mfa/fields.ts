@@ -3,7 +3,7 @@ import { ADMINS, hasRole, isPlatformAdminUser, tierFieldAccess } from '@factory/
 import { writeSecurityAudit } from './audit'
 import { revokeAllDevices } from './devices'
 import { purgeUserMfaRows } from './email-code'
-import { isAdminUser } from './eligibility'
+import { isAdminUser, rolesOf } from './eligibility'
 
 /**
  * Patch L2: two-factor state on `users` (H2O-local wrapper; the shared collection is not edited).
@@ -76,8 +76,32 @@ const devicesClearOnRequest: CollectionBeforeChangeHook = ({ context, data, oper
   return data
 }
 
+/**
+ * MFA-ADMIN-1: (1) a role change that leaves the account with an admin role clears any two-factor exemption (the
+ * enforcement also re-checks the roles, so this is the tidy-up and the audit trail); (2) `security_epoch`, a counter
+ * for anything that later needs "has this account's credentials changed since...", goes up on a password change, a role
+ * change and a two-factor reset (the admin actions in admin-actions.ts bump it in SQL).
+ */
+const exemptionAndEpoch: CollectionBeforeChangeHook = ({ context, data, operation, originalDoc }) => {
+  if (operation !== 'update' || !data || !originalDoc) return data
+  const d = data as Record<string, unknown>
+  const o = originalDoc as Record<string, unknown>
+  const before = rolesOf(o).slice().sort().join(',')
+  const after = rolesOf({ roles: d.roles ?? o.roles, role: d.role ?? o.role }).slice().sort().join(',')
+  const rolesChanged = before !== after
+  if (rolesChanged && o.mfa_exempt === true && isAdminUser({ roles: d.roles ?? o.roles, role: d.role ?? o.role })) {
+    d.mfa_exempt = false
+    d.mfa_exempt_at = null
+    context.mfaExemptCleared = true
+  }
+  const pw = d.password
+  if (rolesChanged || (typeof pw === 'string' && pw) || d.mfa_reset === true) d.security_epoch = (typeof o.security_epoch === 'number' ? o.security_epoch : 0) + 1
+  return data
+}
+
 const auditReset: CollectionAfterChangeHook = async ({ context, doc, operation, previousDoc, req }) => {
   if (context.mfaReset) await writeSecurityAudit(req.payload, { action: 'mfa-reset', userId: String(doc.id), actorId: req.user ? String(req.user.id) : null, detail: { by: 'admin' } })
+  if (context.mfaExemptCleared) await writeSecurityAudit(req.payload, { action: 'mfa-exempt-cleared', userId: String(doc.id), actorId: req.user ? String(req.user.id) : null, detail: { why: 'promotion', from: { exempt: true }, to: { exempt: false } } })
   if (operation === 'update') {
     const why = context.mfaReset ? 'reset' : typeof context.mfaDevicesRevoke === 'string' ? context.mfaDevicesRevoke : !isAdminUser(previousDoc as never) && isAdminUser(doc as never) ? 'promotion' : null
     if (why) {
@@ -110,7 +134,7 @@ export function withMfa(collection: CollectionConfig): CollectionConfig {
     ...collection,
     hooks: {
       ...hooks,
-      beforeChange: [...(hooks.beforeChange ?? []), resetOnRequest, devicesClearOnRequest],
+      beforeChange: [...(hooks.beforeChange ?? []), resetOnRequest, devicesClearOnRequest, exemptionAndEpoch],
       afterChange: [...(hooks.afterChange ?? []), auditReset],
       afterOperation: [...(hooks.afterOperation ?? []), revokeAfterPasswordReset],
       afterDelete: [...(hooks.afterDelete ?? []), purgeAfterDelete],
@@ -145,6 +169,17 @@ export function withMfa(collection: CollectionConfig): CollectionConfig {
         access: { create: never, update: tierFieldAccess },
         admin: { position: 'sidebar', description: 'Admin: tick and save to forget every device this person chose to remember. They enter a code again at their next sign-in. Audited.' },
       },
+      // MFA-ADMIN-1: set only by an admin action (auth/mfa/admin-actions.ts), never through a form or the REST API.
+      {
+        name: 'mfa_exempt',
+        label: 'Two-factor turned off by an admin',
+        type: 'checkbox',
+        defaultValue: false,
+        access: { create: never, update: never },
+        admin: { readOnly: true, position: 'sidebar', description: 'Set from CRM → Settings → People and sign-in. Never possible for an admin.' },
+      },
+      { name: 'mfa_exempt_at', label: 'Turned off on', type: 'date', access: { create: never, update: never }, admin: { readOnly: true, position: 'sidebar' } },
+      hiddenField({ name: 'security_epoch', type: 'number', defaultValue: 0 }),
       hiddenField({ name: 'mfa_secret', type: 'text' }),
       hiddenField({ name: 'mfa_pending_secret', type: 'text' }),
       hiddenField({ name: 'mfa_pending_at', type: 'date' }),

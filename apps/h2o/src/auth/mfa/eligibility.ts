@@ -26,3 +26,17 @@ export function emailCodeEligible(u: RoleUser): boolean {
   const roles = rolesOf(u)
   return roles.length > 0 && !roles.some((r) => ADMIN_ROLES.includes(r))
 }
+
+/**
+ * MFA-ADMIN-1: who an admin may exempt from two-factor. Same rule as the email-code eligibility: at least one role and
+ * no admin role. Checked when the exemption is granted AND every time a session is judged (service.ts), so an account
+ * that is later promoted to an admin role stops being exempt even if the stored flag is somehow still set.
+ */
+export function mayBeExempt(u: RoleUser): boolean {
+  return emailCodeEligible(u)
+}
+
+/** True when this account is currently exempt from two-factor: the flag is set AND the account is still eligible. */
+export function isExempt(u: RoleUser): boolean {
+  return Boolean(u) && (u as Record<string, unknown>).mfa_exempt === true && mayBeExempt(u)
+}

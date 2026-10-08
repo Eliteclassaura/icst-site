@@ -10,7 +10,7 @@ import * as A from '../settings/actions'
  */
 
 /** Confirm with an app code; the settings below then work for 5 minutes in this session. */
-export function StepUpForm({ secondsLeft }: { secondsLeft: number }) {
+export function StepUpForm({ secondsLeft, what = 'Changing sending settings, checking a connection or sending a test' }: { secondsLeft: number; what?: string }) {
   return (
     <section className="c-panel is-settings" aria-labelledby="stepup-h">
       <div className="c-panel-head">
@@ -20,7 +20,7 @@ export function StepUpForm({ secondsLeft }: { secondsLeft: number }) {
         <p className="c-hint">
           {secondsLeft > 0
             ? `Confirmed. Changes are allowed for about ${Math.max(1, Math.round(secondsLeft / 60))} more minute${secondsLeft > 90 ? 's' : ''}.`
-            : 'Changing sending settings, checking a connection or sending a test needs a fresh code from your authenticator app. It lasts 5 minutes.'}
+            : `${what} needs a fresh code from your authenticator app. It lasts 5 minutes.`}
         </p>
         <ActionForm action={A.stepUpAction} submitLabel="Confirm" submitClassName="c-btn">
           <Field name="code" label="Code from your authenticator app">

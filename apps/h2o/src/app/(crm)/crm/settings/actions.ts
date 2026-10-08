@@ -3,6 +3,7 @@
 import { refresh } from 'next/cache'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { adminMfaAction } from '../../../../auth/mfa/admin-actions'
 import { pendingSession } from '../../../../auth/mfa/guard'
 import * as routing from '../../../../email/routing'
 import * as sending from '../../../../email/sending-settings'
@@ -90,4 +91,9 @@ export async function saveRoutingAction(_: ActionState, fd: FormData) {
 
 export async function testAlertAction(_: ActionState, _fd: FormData) {
   return run((s, sid) => routing.sendTestAlert(s, sid))
+}
+
+/** MFA-ADMIN-1: reset two-step sign-in, or turn it off / back on for a non-admin. The service repeats every check. */
+export async function peopleMfaAction(_: ActionState, fd: FormData) {
+  return run((s, sid) => adminMfaAction(s, sid, { userId: f(fd, 'userId'), action: f(fd, 'action'), reason: f(fd, 'reason') }))
 }

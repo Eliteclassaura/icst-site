@@ -309,6 +309,12 @@ export interface User {
    * Admin: tick and save to forget every device this person chose to remember. They enter a code again at their next sign-in. Audited.
    */
   mfa_devices_clear?: boolean | null;
+  /**
+   * Set from CRM → Settings → People and sign-in. Never possible for an admin.
+   */
+  mfa_exempt?: boolean | null;
+  mfa_exempt_at?: string | null;
+  security_epoch?: number | null;
   mfa_secret?: string | null;
   mfa_pending_secret?: string | null;
   mfa_pending_at?: string | null;
@@ -4467,6 +4473,9 @@ export interface UsersSelect<T extends boolean = true> {
   mfa_enrolled_at?: T;
   mfa_reset?: T;
   mfa_devices_clear?: T;
+  mfa_exempt?: T;
+  mfa_exempt_at?: T;
+  security_epoch?: T;
   mfa_secret?: T;
   mfa_pending_secret?: T;
   mfa_pending_at?: T;

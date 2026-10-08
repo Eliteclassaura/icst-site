@@ -3,6 +3,7 @@ import { addVerifiedSession, claimRecoveryCode, claimStep, countFailure } from '
 import { writeSecurityAudit } from './audit'
 import { revokeAllDevices } from './devices'
 import { MFA_CLEARED } from './fields'
+import { isExempt } from './eligibility'
 import { decryptSecret, encryptSecret, hashRecoveryCode } from './keys'
 import { verifyEmailCode } from './email-code'
 import { attemptsLeft, lockMessage, wrongCodeMessage } from './ux'
@@ -45,7 +46,10 @@ const verifiedSids = (u: Doc): string[] => (Array.isArray(u.mfa_sessions) ? (u.m
 
 /** True when the user has two-factor on AND passed it in this session (which must still be live). */
 export function isSessionVerified(u: Doc, sid: string | undefined | null): boolean {
-  if (!sid || u.mfa_enabled !== true) return false
+  if (!sid) return false
+  // MFA-ADMIN-1: an admin-exempted non-admin passes with a live session (isExempt re-checks the roles: never an admin).
+  if (isExempt(u)) return liveSessionIds(u).has(sid)
+  if (u.mfa_enabled !== true) return false
   return verifiedSids(u).includes(sid) && liveSessionIds(u).has(sid)
 }
 

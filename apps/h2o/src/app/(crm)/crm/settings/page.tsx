@@ -39,6 +39,9 @@ export default async function SettingsPage() {
               <a href="/crm/settings/sequences/">Sequences</a>: the Revenue Engine, with follow-up sequences, caps and sending health.
             </li>
             <li>
+              <a href="/crm/settings/people/">People and sign-in</a>: reset someone’s two-step sign-in, or turn it off for a staff member.
+            </li>
+            <li>
               <a href="/crm/settings/templates/">Email templates</a>: the acknowledgement and the reply templates T1–T6.
             </li>
           </ul>

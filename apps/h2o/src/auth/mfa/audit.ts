@@ -7,6 +7,7 @@ import type { Payload } from 'payload'
  */
 export type MfaAuditAction = 'mfa-enrolled' | 'mfa-verified' | 'mfa-failed' | 'mfa-locked' | 'mfa-recovery-used' | 'mfa-reset' | 'mfa-stepup'
   | 'mfa-email-sent' | 'mfa-email-verified' | 'mfa-device-remembered' | 'mfa-device-used' | 'mfa-devices-revoked'
+  | 'mfa-admin-reset' | 'mfa-admin-turned-off' | 'mfa-admin-turned-on' | 'mfa-admin-notice' | 'mfa-exempt-cleared'
 
 export async function writeSecurityAudit(
   payload: Payload,

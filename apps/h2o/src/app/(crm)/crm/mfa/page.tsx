@@ -4,7 +4,7 @@ import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
 import { DEVICE_COOKIE, isRememberedDevice } from '../../../../auth/mfa/devices'
-import { emailCodeEligible } from '../../../../auth/mfa/eligibility'
+import { emailCodeEligible, isExempt } from '../../../../auth/mfa/eligibility'
 import { pendingSession } from '../../../../auth/mfa/guard'
 import { safeNext } from '../../../../auth/mfa/next'
 import { qrSvg } from '../../../../auth/mfa/qr'
@@ -37,6 +37,8 @@ export default async function MfaPage({ searchParams }: { searchParams: Promise<
   const payload = await getPayload({ config })
   const pending = await pendingSession(payload, await headers())
   if (!pending) redirect(`/admin/login/?redirect=${encodeURIComponent(next)}`)
+  // MFA-ADMIN-1: an admin turned two-step off for this person: nothing to ask, straight on.
+  if (pending.verified && isExempt(pending.user)) redirect(`/crm/mfa/done/?next=${encodeURIComponent(next)}`)
   if (pending.verified)
     return (
       <div className="crm-app c-denied">
