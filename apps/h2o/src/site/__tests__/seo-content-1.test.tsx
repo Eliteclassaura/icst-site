@@ -455,18 +455,18 @@ describe('apply expectations for this delta',()=>{
     expect(exp.expect.routes).toEqual({publish:1,withdraw:14,index:0,canonical:0})
     expect(exp.expect.redirects).toEqual({create:14,update:6,unchanged:401,retire:1,normalise:0})
     expect(exp.expect.seoFields).toMatchObject({update:68,unchanged:423,pendingOgcs:0}) // SEO-CONTENT-2.2: + 56 (quick-win titles, air-coolers meta); 8 SEO-CONTENT-1 + 1 R5b (/cooling-tower/ meta) + 2 round 2 (seminar, checklist metas)
-    expect(exp.expect.h1).toEqual({update:26}) // + the PETRONAS record title (SEO-CONTENT-2); 23 SEO-CONTENT-1 + 2 R5b (USA, Singapore)
+    expect(exp.expect.h1).toEqual({update:28}) // + the PETRONAS record title (SEO-CONTENT-2); 23 SEO-CONTENT-1 + 2 R5b (USA, Singapore); + 2 DIR-LABELS-1 (dry soda, Thailand)
     expect([exp.rows,exp.redirects,exp.seoFields]).toEqual([1143,421,491])
     expect(tsv('seo-fields.tsv')).toHaveLength(491)
     expect(tsv('redirects.tsv')).toHaveLength(421)
     expect(tsv('conformance.tsv')).toHaveLength(1143)
-    expect(tsv('h1-fields.tsv').filter(r=>r.action==='UPDATE')).toHaveLength(26)
+    expect(tsv('h1-fields.tsv').filter(r=>r.action==='UPDATE')).toHaveLength(28)
   })
   it('fresh production database: one apply, counts as rehearsed',()=>{
     expect(fresh.expect.routes).toEqual({publish:0,withdraw:0,index:0,canonical:0})
     expect(fresh.expect.redirects).toEqual({create:403,update:0,unchanged:18,retire:0,normalise:0})
     expect(fresh.expect.seoFields).toEqual({update:491})
-    expect(fresh.expect.h1).toEqual({update:35}) // + R5b's 2, + the PETRONAS record title
+    expect(fresh.expect.h1).toEqual({update:37}) // + R5b's 2, + the PETRONAS record title, + 2 DIR-LABELS-1
     expect([fresh.rows,fresh.redirects,fresh.seoFields]).toEqual([1143,421,491])
   })
 })

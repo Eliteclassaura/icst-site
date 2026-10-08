@@ -214,11 +214,11 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     expect(expectations.expect.routes).toEqual({publish:1,withdraw:14,index:0,canonical:0})
     expect(expectations.expect.redirects).toEqual({create:14,update:6,unchanged:401,retire:1,normalise:0}) // round 2: + the hospital article and vibration-switch 301s
     expect(expectations.expect.seoFields).toMatchObject({update:68,pendingOgcs:0}) // SEO-CONTENT-2.2: + 56; round 2: + the seminar and maintenance-checklist metas
-    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:56}) // SEO-CONTENT-2.2: +31; SEO-CONTENT-2.1: +4 (the held locale twins); piece C: +3 routes; // round 2 (rehearsed on the writable mock)
+    expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:57}) // SEO-CONTENT-2.2: +31; SEO-CONTENT-2.1: +4 (the held locale twins); piece C: +3 routes; // round 2 (rehearsed on the writable mock)
     // Design R4 (CT 2026-10-07) is ONE delta on the state CLAIMS-R2 leaves: two hygiene routes (parts hub R4C-01…06, Dry Soda R4C-07),
     // and /air-coolers/ (R4C-08…10 page text with R4C-11, its restored-section heading): restored 1, slot fixes 1.
-    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:273}) // SEO-CONTENT-2.2: +25; SEO-CONTENT-2.1: +6; piece C: +66
-    expect(expectations.expect.h1).toEqual({update:26}) // SEO-CONTENT-1 23 (22 project H1s + /fans/) + R5b 2 (USA, Singapore)
+    expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:272}) // SEO-CONTENT-2.2: +25; SEO-CONTENT-2.1: +6; piece C: +66
+    expect(expectations.expect.h1).toEqual({update:28}) // SEO-CONTENT-1 23 (22 project H1s + /fans/) + R5b 2 (USA, Singapore)
     expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:4}) // SEO-CONTENT-2 piece B: + /chiller-and-cooling-tower/ (two paragraphs). SEO-CONTENT-1: the /cooling-tower-approach/ table cell (R4C-11's /air-coolers/ heading is in place by then)
     expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)
     // The two translated posts that pointed at the English final page of a then-pending locale page now point at it (one hop).

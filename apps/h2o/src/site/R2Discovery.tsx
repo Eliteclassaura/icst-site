@@ -1,8 +1,8 @@
 import {salmonDocument,publicReleaseRoutes} from './salmon'
 
 type Kind='pages'|'articles'|'parts'|'projects'
-/** OGCS team audit TA-080/081: a post-form confirmation page and a single product page are not site-directory entries. */
-const notListed=new Set(['/thank-you/','/dyna-fab-10-height-fan-stack/'])
+/** OGCS team audit TA-080/081: a post-form confirmation page and a single product page are not site-directory entries; DIR-LABELS-1 (OGCS): the Brochures and Tools library pages are the pathway cards at the top of /resources/, not directory items. */
+const notListed=new Set(['/thank-you/','/dyna-fab-10-height-fan-stack/','/resources/cooling-tower-brochures/','/resources/tools/'])
 const regional=['/cooling-tower-japan/','/cooling-tower-singapore/','/cooling-tower-thailand/','/cooling-tower-usa/']
 const productSpecifications=['/class-1000/','/class-10000-heavy-duty-standard-chord/','/class-10000-minimum-acoustic-geometry/','/class-10000-xc/','/class-20000/','/fans/moore-fans/']
 
