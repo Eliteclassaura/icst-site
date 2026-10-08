@@ -35,10 +35,9 @@ export function LanguageMenu({data,variant}:{data:LanguageMenuData;variant:'desk
     <div id={panelId} className="lang-panel" hidden={!state.open}>
       <p className="lang-group-label" id={`${panelId}-a`}>Available</p>
       <ul className="lang-list" aria-labelledby={`${panelId}-a`}>
-        {data.available.map(item=><li key={item.code}>
-          {item.href
-            ?<a href={item.href} lang={item.lang} hrefLang={item.lang} aria-current={item.current?'page':undefined} onClick={()=>dispatch('select')}>{item.current?<span className="lang-check" aria-hidden="true">✓</span>:null}{item.native}{item.current?<span className="lang-sr"> (current language)</span>:null}</a>
-            :<span className="lang-disabled" aria-disabled="true"><span lang={item.lang}>{item.native}</span><small>Not available for this page</small></span>}
+        {/* LANG-1.2 (owner via CT 2026-10-08): only the languages that exist for this page are listed (usually English alone); a language with no counterpart is not shown as a disabled entry */}
+        {data.available.filter(item=>item.href).map(item=><li key={item.code}>
+          <a href={item.href!} lang={item.lang} hrefLang={item.lang} aria-current={item.current?'page':undefined} onClick={()=>dispatch('select')}>{item.current?<span className="lang-check" aria-hidden="true">✓</span>:null}{item.native}{item.current?<span className="lang-sr"> (current language)</span>:null}</a>
         </li>)}
       </ul>
       <p className="lang-group-label" id={`${panelId}-t`}>Translate this page (Google Translate)</p>

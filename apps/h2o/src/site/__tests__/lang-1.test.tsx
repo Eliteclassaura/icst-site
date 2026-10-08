@@ -148,10 +148,27 @@ describe('the selector in the page chrome',()=>{
     expect(html).not.toMatch(/<script[^>]+src="[^"]*(google|gstatic)/i)
     expect(html).not.toMatch(/http-equiv="refresh"/i)
   })
-  it('a page with no counterpart shows disabled items with the reason, not links',async()=>{
-    const html=await render('/contact-us/')
-    expect(html).toContain('Not available for this page')
-    expect(html).not.toMatch(/<a href="\/th\//)
+  it('LANG-1.2: a page with no locale twins lists no unavailable language (only English), then the Google Translate section and its note as before',async()=>{
+    for(const target of ['/contact-us/','/about-ics/']){
+      const html=await render(target)
+      expect(html,target).not.toContain('Not available for this page')
+      expect(html,target).not.toContain('lang-disabled')
+      expect(html,target).not.toContain('aria-disabled')
+      expect(html,target).not.toMatch(/<a href="\/th\//)
+      // the Available group holds exactly the languages that have a page: English alone
+      const available=html.slice(html.indexOf('>Available</p>'),html.indexOf('Translate this page (Google Translate)'))
+      expect([...available.matchAll(/<li>/g)].length,target).toBe(1)
+      expect(available,target).toContain('aria-current="page"')
+      expect(html,target).toContain('Translate this page (Google Translate)')
+      expect(html,target).toContain('Machine translation by Google opens in a new tab. ICS does not review it.')
+    }
+  })
+  it('LANG-1.2: a page that does have locale versions still lists them, and never a disabled entry',async()=>{
+    const html=await render(GUIDE)
+    expect(html).toMatch(/<a href="\/th\/[^"]+" lang="th" hrefLang="th">ไทย<\/a>/)
+    expect(html).not.toContain('Not available for this page')
+    expect(html).not.toContain('lang-disabled')
+    expect(html).toContain('Machine translation by Google opens in a new tab. ICS does not review it.')
   })
   it('does not change URLs, titles or hreflang: the stylesheet is the only other addition',()=>{
     const layout=readFileSync(path.join(APP,'src/app/(site)/layout.tsx'),'utf8')
