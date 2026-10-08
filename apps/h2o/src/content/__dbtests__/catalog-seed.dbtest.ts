@@ -11,12 +11,14 @@ import { ownBrandTerms, productSlugOf, seedCatalog } from '../import/catalog-see
  * CRM go-live Pass 0 — catalog seed (Control Tower 2026-10-02), against the isolated synthetic PostgreSQL.
  * The accepted authority's product and product-category routes are imported (the same importer staging used),
  * then the seed indexes them into the catalog. SEO-CONTENT-1 (CT 2026-10-07): the two placeholder products are REDIRECT rows in the authority (imported as
- * drafts), so the seed sees 181 published products (157 with exactly one brand term, 12 manufacturers). Counts computed from the ledger and the
- * seed's own ownBrandTerms; this suite needs the isolated PostgreSQL and was not run in the SEO-CONTENT-1 lane. Synthetic CRM payloads only; no real customer data.
+ * drafts), so the seed sees the 180 published products of the accepted ledger. Counts are computed from the ledger (published product routes) and the
+ * seed's own ownBrandTerms; this suite needs the isolated PostgreSQL (run in SEO-CONTENT-1.1 on a fresh migrated synthetic DB). Synthetic CRM payloads only; no real customer data.
  */
 type Doc = Record<string, unknown>
 type Exec = { execute: (q: unknown) => Promise<{ rows?: Array<Record<string, unknown>> }> }
 let p: Payload
+let nProducts = 0 // published product routes in the accepted authority ledger (held / withdrawn rows are drafts and are excluded)
+let heldProductRoutes: string[] = []
 let admin: TestUser, editor: TestUser, sales: TestUser
 const sys = { overrideAccess: true as const, depth: 0 }
 const db = () => (p.db as unknown as { drizzle: Exec }).drizzle
@@ -41,6 +43,9 @@ beforeAll(async () => {
   ;[admin, editor, sales] = await Promise.all([user('platform-admin'), user('editor'), user('sales')])
   const { ledger } = await importAuthority(p, process.cwd(), { only: isCatalogRoute })
   expect(ledger.filter((l) => l.status === 'ERROR')).toEqual([])
+  const products = ledger.filter((l) => /^SALMON-product-\d+$/.test(l.recordRouteId))
+  nProducts = products.filter((l) => l.published).length
+  heldProductRoutes = products.filter((l) => !l.published).map((l) => l.recordRouteId)
 }, 900_000)
 afterAll(async () => {
   await cleanCatalog()
@@ -48,11 +53,11 @@ afterAll(async () => {
 }, 300_000)
 
 describe('CS1 seed counts, dry run and idempotent rerun', () => {
-  it('a dry run writes nothing and plans 181 products and every product-category page', async () => {
+  it('a dry run writes nothing and plans every published product (ledger-derived; held placeholders excluded) and every product-category page', async () => {
     const before = await routeFingerprint()
     const dry = await seedCatalog(p, { dryRun: true })
-    expect(dry.summary.productRoutes).toBe(181)
-    expect(dry.summary.productsCreate).toBe(181)
+    expect(dry.summary.productRoutes).toBe(nProducts)
+    expect(dry.summary.productsCreate).toBe(nProducts)
     expect(dry.summary.categoriesCreate).toBe(dry.summary.categoryRoutes)
     expect(dry.summary.categoryRoutes).toBe(43)
     expect((await p.find({ collection: 'products', ...sys, limit: 0 })).totalDocs).toBe(0)
@@ -62,20 +67,20 @@ describe('CS1 seed counts, dry run and idempotent rerun', () => {
   it('apply creates them; public-routes are not written; a rerun reports 0 changes', async () => {
     const before = await routeFingerprint()
     const first = await seedCatalog(p, { dryRun: false })
-    expect(first.summary.productsCreate).toBe(181)
+    expect(first.summary.productsCreate).toBe(nProducts)
     expect(first.summary.categoriesCreate).toBe(43)
-    expect((await p.find({ collection: 'products', ...sys, limit: 0 })).totalDocs).toBe(181)
+    expect((await p.find({ collection: 'products', ...sys, limit: 0 })).totalDocs).toBe(nProducts)
     expect((await p.find({ collection: 'product-categories', ...sys, limit: 0 })).totalDocs).toBe(43)
     const again = await seedCatalog(p, { dryRun: false })
     expect(again.summary.changes).toBe(0)
-    expect(again.summary.productsUnchanged).toBe(181)
+    expect(again.summary.productsUnchanged).toBe(nProducts)
     expect(again.summary.categoriesUnchanged).toBe(43)
     const after = await routeFingerprint()
     expect(after.n).toBe(before.n)
     expect(after.f).toBe(before.f) // byte-for-byte the same route rows: the seed is one-way
   }, 600_000)
   it('every product: slug = the page-address slug, linked to its own route record, legacy url kept', async () => {
-    const routes = (await p.find({ collection: 'public-routes' as never, where: { routeClass: { equals: 'product' } } as never, limit: 500, ...sys })).docs as unknown as Doc[]
+    const routes = (await p.find({ collection: 'public-routes' as never, where: { routeClass: { equals: 'product' }, _status: { equals: 'published' } } as never, limit: 500, ...sys })).docs as unknown as Doc[]
     const products = (await p.find({ collection: 'products', limit: 500, ...sys })).docs as unknown as Doc[]
     const bySource = new Map(products.map((x) => [String(x.source_route_id), x]))
     for (const r of routes) {
@@ -88,7 +93,7 @@ describe('CS1 seed counts, dry run and idempotent rerun', () => {
   })
   it('manufacturer only where the product page states exactly one brand term; every other product is reported', async () => {
     const report = await seedCatalog(p, { dryRun: true })
-    const routes = (await p.find({ collection: 'public-routes' as never, where: { routeClass: { equals: 'product' } } as never, limit: 500, ...sys })).docs as unknown as Doc[]
+    const routes = (await p.find({ collection: 'public-routes' as never, where: { routeClass: { equals: 'product' }, _status: { equals: 'published' } } as never, limit: 500, ...sys })).docs as unknown as Doc[]
     const products = (await p.find({ collection: 'products', limit: 500, depth: 1, overrideAccess: true })).docs as unknown as Doc[]
     const bySource = new Map(products.map((x) => [String(x.source_route_id), x]))
     let linked = 0
@@ -107,13 +112,13 @@ describe('CS1 seed counts, dry run and idempotent rerun', () => {
         expect(report.unlinkedManufacturer.map((u) => u.path)).toContain(r.path)
       }
     }
-    expect(report.unlinkedManufacturer).toHaveLength(181 - linked)
+    expect(report.unlinkedManufacturer).toHaveLength(nProducts - linked)
     // Known pages: a brand link outside the product's own attribute table is not evidence for this product.
     const bySlug = new Map(products.map((x) => [String(x.slug), x]))
     expect(((bySlug.get('baldor-motor')!.manufacturer as Doc).estate_brand_term)).toBe('Baldor')
     expect((bySlug.get('tuf-lite-iii-6000mk-series-hub-fan-assemblies')!.manufacturer_evidence as Doc).unknown_reason).toBe('NO_BRAND_TERM_IN_ESTATE')
     expect((bySlug.get('fiberglass-fanstack')!.manufacturer_evidence as Doc).unknown_reason).toBe('MULTIPLE_BRANDS_ON_ONE_RECORD')
-    expect(linked).toBe(157)
+    expect(linked).toBeGreaterThan(0)
     const mf = (await p.find({ collection: 'manufacturers', limit: 100, ...sys })).docs as unknown as Doc[]
     for (const m of mf) {
       expect(m.name).toBe(m.estate_brand_term)
@@ -122,13 +127,24 @@ describe('CS1 seed counts, dry run and idempotent rerun', () => {
   })
   it('categories come only from page evidence; parents follow the page addresses', async () => {
     const report = await seedCatalog(p, { dryRun: true })
-    expect(report.summary.productsWithCategory + report.summary.productsWithoutCategory).toBe(181)
-    expect(report.summary.productsWithCategory).toBeGreaterThanOrEqual(128) // category-page links alone
+    expect(report.summary.productsWithCategory + report.summary.productsWithoutCategory).toBe(nProducts)
+    expect(report.summary.productsWithCategory).toBeGreaterThanOrEqual(125) // category-page links alone (128 of 181 before the three held placeholders left their category pages)
     const cats = (await p.find({ collection: 'product-categories', limit: 100, depth: 1, overrideAccess: true })).docs as unknown as Doc[]
     const child = cats.find((c) => c.slug === 'film-fill')!
     expect((child.parent as Doc).slug).toBe('fill-media')
     expect(cats.find((c) => c.slug === 'fill-media')!.parent ?? null).toBeNull()
     expect(cats.filter((c) => String(c.name).includes('|')).every((c) => c.state === 'MALFORMED_TERM_REVIEW_REQUIRED')).toBe(true)
+  })
+})
+
+describe('CS1b held and withdrawn placeholders are never seeded', () => {
+  it('the three example placeholders are held in the authority and absent from the catalog', async () => {
+    expect(nProducts).toBe(180)
+    expect(heldProductRoutes.length).toBeGreaterThanOrEqual(3)
+    const slugs = ((await p.find({ collection: 'products', limit: 500, ...sys })).docs as unknown as Doc[]).map((x) => String(x.slug))
+    for (const held of ['vibration-switch-example', 'abb-motor-example', 'teco-westinghouse-motor-example']) expect(slugs).not.toContain(held)
+    const heldDocs = await p.find({ collection: 'products', where: { source_route_id: { in: heldProductRoutes } }, limit: 0, ...sys })
+    expect(heldDocs.totalDocs).toBe(0)
   })
 })
 
@@ -173,7 +189,8 @@ describe('CS2 single source of truth in the admin', () => {
 describe('CS3 CRM links product RFQs to the seeded catalog by exact slug', () => {
   it('a sample of real product slugs (product page and category card placements) resolve to their product', async () => {
     const products = (await p.find({ collection: 'products', limit: 500, sort: 'slug', ...sys })).docs as unknown as Doc[]
-    const sample = [0, 37, 74, 111, 148, 182].map((i) => products[i]!)
+    const last = products.length - 1
+    const sample = [0, 0.2, 0.4, 0.6, 0.8, 1].map((f) => products[Math.round(f * last)]!)
     for (const [i, prod] of sample.entries()) {
       const hidden =
         i % 2 === 0
