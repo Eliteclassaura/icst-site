@@ -16,6 +16,8 @@ import { headers } from 'next/headers'
 import { isPayloadContent } from '../../content/runtime-read'
 import { estateHasPublicationReadyRoute } from '../../site/gate'
 import {QuietMotion} from '../../site/QuietMotion'
+import {TranslateModeProvider} from '../../site/lang/TranslateMode'
+import {translateModeFor} from '../../site/lang/translate-switch'
 import { NativeRfq } from '../../rfq-native/NativeRfq'
 import { launcherStrings, nativeIntakeOn } from '../../rfq-native/server'
 import './site.css'
@@ -65,8 +67,14 @@ const pageLanguage = async (): Promise<string> => {
   return /^[a-z]{2}(?:-[A-Z]{2})?$/.test(lang) ? lang : 'en'
 }
 
+/** LANG-2.2: the translation mode of this request. The static/repository build never reads headers (it stays static) and never offers the
+ * in-page Google widget; in Payload mode a signed-in staff member (the proxy sets `x-h2o-staff`) gets plain links only. */
+const translateMode = async () =>
+  translateModeFor({ staff: isPayloadContent() && (await headers()).get('x-h2o-staff') === '1', payloadContent: isPayloadContent() })
+
 const SiteLayout = async ({ children }: { children: ReactNode }) => {
   const lang = await pageLanguage()
+  const mode = await translateMode()
   return (
     <html lang={lang}>
       <body>
@@ -74,7 +82,7 @@ const SiteLayout = async ({ children }: { children: ReactNode }) => {
         <a className="skip" href="#main">
           Skip to content
         </a>
-        {children}
+        <TranslateModeProvider mode={mode}>{children}</TranslateModeProvider>
         {/* Native RFQ (CT brief 2026-10-05): the corner launcher and panel, on every public page, when native intake is on. */}
         {nativeIntakeOn() ? <NativeRfq launcher={launcherStrings()} locale={lang} /> : null}
         <QuietMotion/>

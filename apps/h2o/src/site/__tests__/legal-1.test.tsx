@@ -25,8 +25,8 @@ const SOURCE:Record<string,string>={'privacy-policy.md':'PRIVACY_NOTICE.md','ter
 describe('the texts',()=>{
   it('are OGCS\'s files byte for byte (the sums of the sealed LEGAL-FINAL-1 folder)',()=>{
     const sums=new Map(read('SOURCE_SHA256SUMS').trim().split('\n').map(l=>{const [h,f]=l.split(/\s+/);return [f!,h!] as const}))
-    // LANG-2: counsel approved two additions (the opt-in Google Translate disclosure, 2026-10-08), so these two files differ from OGCS's by exactly that text; their sums are pinned here.
-    const COUNSEL_ADDED:Record<string,string>={'cookie-notice.md':'1b6417ef283fd16e775bb9a9ae2f6adb519d6370eec79f613af757232c2d9c7f','privacy-policy.md':'f08a25d667fe9bf7a40c91b5246138701af4ae3b7b7455678e49f63b12eef1c5'}
+    // LANG-2/2.2: these two files differ from OGCS's by counsel-approved additions (the opt-in Google Translate disclosure, 2026-10-08) and the owner-approved accuracy update for on-device translation (LANG-2.2, 2026-10-08); their sums are pinned here (previous pins 1b6417ef…, f08a25d6…).
+    const COUNSEL_ADDED:Record<string,string>={'cookie-notice.md':'1b4373a4e7ca5c1b77b2283921bbe08eb1e76975cb7fea13e8b0db705b791243','privacy-policy.md':'f7148bc2d4c0118efa29b7d6c342cafc4c4d26cb90112316f8105d64c09e8036'}
     for(const [file,original] of Object.entries(SOURCE))expect(sha(read(file)),file).toBe(COUNSEL_ADDED[file]??sums.get(original))
   })
   it('hold no drafting bracket: the only brackets are Markdown links',()=>{

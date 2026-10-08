@@ -34,6 +34,7 @@ function fakeEnv(pathname='/about-ics/',hostname='www.example.com'){
     getElementById:(id:string)=>appended.find(a=>a.id===id)??null,
     querySelector:(sel:string)=>sel==='script[data-lang-widget]'?appended.find(a=>a.tag==='script')??null:null,
     querySelectorAll:()=>[],
+    createTreeWalker:()=>({nextNode:()=>null}),
   }
   const opened:string[]=[]
   const timers:Array<()=>void>=[]

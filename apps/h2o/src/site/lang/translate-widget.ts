@@ -1,4 +1,5 @@
-import {translateUrl} from './lang-model'
+import {AVAILABLE,TRANSLATE,translateUrl} from './lang-model'
+import {NO_TRANSLATE_REGIONS,unwrapProtectedNames,wrapProtectedNames} from './translate-device'
 
 /**
  * LANG-2: in-page translation with the Google Translate website widget, strictly opt-in.
@@ -22,6 +23,10 @@ type Env={doc:Document;win:Window}
 const here=():Env=>({doc:document,win:window})
 type TranslateGlobal={google?:{translate?:{TranslateElement?:new(options:Record<string,unknown>,id:string)=>unknown}}}
 
+const FROM_CODES:ReadonlySet<string>=new Set(AVAILABLE.map(item=>item.code))
+const TO_CODES:ReadonlySet<string>=new Set(TRANSLATE.map(item=>item.tl))
+export const validPair=(from:string,to:string):boolean=>FROM_CODES.has(from)&&TO_CODES.has(to)
+
 /** `/from/to` in the cookie → the target language, or null. */
 export function readGoogtrans(doc:Document=document):{from:string;to:string}|null{
   const match=/(?:^|;\s*)googtrans=([^;]*)/.exec(doc.cookie)
@@ -29,7 +34,8 @@ export function readGoogtrans(doc:Document=document):{from:string;to:string}|nul
   let value=match[1]!
   try{value=decodeURIComponent(value)}catch{/* keep the raw value */}
   const parts=/^\/([A-Za-z-]+)\/([A-Za-z-]+)$/.exec(value)
-  return parts?{from:parts[1]!,to:parts[2]!}:null
+  // N2 (Security Auditor): the cookie is only trusted when it names a pair we offer: a page language, and one of the five translation languages.
+  return parts&&validPair(parts[1]!,parts[2]!)?{from:parts[1]!,to:parts[2]!}:null
 }
 
 /** A session cookie for this host: it records the visitor's choice and is the only thing we set. */
@@ -51,7 +57,8 @@ export function clearGoogtrans(doc:Document,hostname:string):void{
 
 /** What the visitor typed, phone numbers and addresses stay exactly as written (Google does not alter input values; this makes the intent explicit). */
 export function markNoTranslate(doc:Document):void{
-  for(const el of doc.querySelectorAll('input,textarea,select,a[href^="tel:"],a[href^="mailto:"],[data-notranslate]'))el.setAttribute('translate','no')
+  for(const el of doc.querySelectorAll('input,textarea,select,a[href^="tel:"],a[href^="mailto:"],[data-notranslate],'+NO_TRANSLATE_REGIONS))el.setAttribute('translate','no')
+  wrapProtectedNames(doc)
 }
 
 export const translatedLanguage=(doc:Document=document):string|null=>doc.documentElement.getAttribute('data-translated')
@@ -86,13 +93,17 @@ export type TranslateOptions={to:string;from?:string;fallbackHref:string;env?:En
 
 export function translateInPlace({to,from='en',fallbackHref,env=here(),timeoutMs=LOAD_TIMEOUT_MS}:TranslateOptions):void{
   const {doc,win}=env
+  let failed=false
   const fail=()=>{
+    if(failed)return
+    failed=true
     clearGoogtrans(doc,win.location.hostname)
     doc.documentElement.removeAttribute('data-translated')
     doc.documentElement.removeAttribute('data-translated-by')
+    unwrapProtectedNames(doc)
     if(!win.open(fallbackHref,'_blank','noopener'))win.location.assign(fallbackHref)
   }
-  if(EXCLUDED_PATH.test(win.location.pathname)){fail();return}
+  if(EXCLUDED_PATH.test(win.location.pathname)||!validPair(from,to)){fail();return}
   markNoTranslate(doc)
   setGoogtrans(doc,from,to,win.location.protocol==='https:')
   ensureContainer(doc)
@@ -111,6 +122,9 @@ export function translateInPlace({to,from='en',fallbackHref,env=here(),timeoutMs
   script.async=true
   script.setAttribute('data-lang-widget','')
   script.onerror=fail
+  // N3: where the page's policy cannot run an injected script (the static hash-based policy, a misconfigured header), the browser
+  // reports the block at once: go straight to the new-tab link instead of waiting out the timeout.
+  doc.addEventListener?.('securitypolicyviolation',(event)=>{const v=event as SecurityPolicyViolationEvent;if(/^script-src/.test(v.effectiveDirective??'')&&/translate\.google\.com/.test(v.blockedURI??''))fail()})
   doc.head.appendChild(script)
   win.setTimeout(()=>{if(!(win as unknown as TranslateGlobal).google?.translate?.TranslateElement)fail()},timeoutMs)
 }

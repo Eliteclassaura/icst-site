@@ -43,6 +43,7 @@ import { xRobotsTagForPath } from './site/robots'
 import { mergeTypeformCsp } from './conversion/csp'
 import { GONE_PATHS, isNoindexFollow } from './content/config'
 import { isPayloadContent, snapshotJson } from './content/runtime-read'
+import { googleWidgetEnabled } from './site/lang/translate-switch'
 import { SITEMAP_FILE } from './content/sitemap'
 import { LANGUAGE_HEADER, languageFor } from './content/locale-language'
 import { MFA_COOKIE, mfaCookieValid } from './auth/mfa/keys'
@@ -197,17 +198,25 @@ export const GOOGLE_TRANSLATE_CSP = {
   connect: ['https://translate-pa.googleapis.com/v1/', 'https://www.gstatic.com/_/translate_http/'],
 } as const
 
+/**
+ * LANG-2 policy note (Security Auditor N-note, 2026-10-08): these Google additions are a PERMANENT widening of the public Payload
+ * policy, present on every public page and not only on pages where a visitor translates, because the CSP is set per response and
+ * cannot know a choice that happens later in the browser. Each entry is path-restricted, none is a script host (scripts need
+ * 'strict-dynamic' and our own nonce'd loader), and nothing is requested from them until a visitor picks a language the browser
+ * cannot translate on its own device. The launch safety switch `H2O_TRANSLATE_GOOGLE_WIDGET=off` removes every one of them.
+ */
 export const payloadPublicPolicy = (nonce: string, pathname: string): string => {
+  const google = googleWidgetEnabled()
   // Pagefind compiles its WebAssembly matcher in the search page and in its worker (whose own response CSP
   // applies), so exactly /search/ and the /pagefind/ assets get 'wasm-unsafe-eval'.
   const wasm = pathname === '/search/' || pathname.startsWith('/pagefind/') ? " 'wasm-unsafe-eval'" : ''
   const base = [
     "default-src 'self'",
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${wasm}`,
-    ["style-src 'self' 'unsafe-inline'", ...GOOGLE_TRANSLATE_CSP.style].join(' '),
-    ["img-src 'self' data:", ...GOOGLE_TRANSLATE_CSP.img].join(' '),
+    ["style-src 'self' 'unsafe-inline'", ...(google ? GOOGLE_TRANSLATE_CSP.style : [])].join(' '),
+    ["img-src 'self' data:", ...(google ? GOOGLE_TRANSLATE_CSP.img : [])].join(' '),
     "font-src 'self'",
-    ["connect-src 'self'", ...GOOGLE_TRANSLATE_CSP.connect].join(' '),
+    ["connect-src 'self'", ...(google ? GOOGLE_TRANSLATE_CSP.connect : [])].join(' '),
     "manifest-src 'self'",
     "object-src 'none'",
     "base-uri 'self'",
@@ -307,6 +316,10 @@ function payloadPublic(req: NextRequest): NextResponse {
   requestHeaders.set('Content-Security-Policy', csp)
   // Locale Part B: the page language reaches the layout's <html lang> (preserved locale pages; English otherwise).
   requestHeaders.set(LANGUAGE_HEADER, languageFor(pathname))
+  // LANG-2.2 (N1): a signed-in staff member (the Payload auth cookie) gets the language menu as plain links only: no in-page
+  // translation. Always overwritten here, so a client cannot supply the header; the cookie is not read, only its presence.
+  const staff = req.cookies.has('payload-token')
+  requestHeaders.set('x-h2o-staff', staff ? '1' : '0')
   const preview = req.cookies.has('__prerender_bypass')
   const production = productionIndexing()
   const row = ledger?.routes.find((r) => pathKeyOf(r.path) === pathKeyOf(pathname))
@@ -319,7 +332,7 @@ function payloadPublic(req: NextRequest): NextResponse {
   }
   requestHeaders.delete(SITEMAP_FILE_HEADER)
   const res = securityHeaders(NextResponse.next({ request: { headers: requestHeaders } }), csp, robots)
-  if (preview) res.headers.set('Cache-Control', 'private, no-store')
+  if (preview || staff) res.headers.set('Cache-Control', 'private, no-store')
   return res
 }
 

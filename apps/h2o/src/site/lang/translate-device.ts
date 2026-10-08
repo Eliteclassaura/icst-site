@@ -28,7 +28,15 @@ export const AVAILABILITY_TIMEOUT_MS=3000
 export const READY_TIMEOUT_MS=15000
 const within=<T,>(promise:Promise<T>,ms:number,win:Window):Promise<T>=>new Promise((resolve,reject)=>{const timer=win.setTimeout(()=>reject(new Error('timeout')),ms);promise.then(v=>{win.clearTimeout(timer);resolve(v)},e=>{win.clearTimeout(timer);reject(e)})})
 /** Parts of the page whose text is never translated: our own controls and anything marked as untranslatable. */
-export const SKIP_SELECTOR='script,style,noscript,textarea,code,pre,svg,option,[translate="no"],.notranslate,[data-lang-menu],.translate-note,#google_translate_element,[contenteditable="true"],a[href^="tel:"],a[href^="mailto:"]'
+import {PROTECTED_PATTERN} from './protected-names'
+
+/**
+ * Only the page BODY is translated (Design Director T2): the header and mega-menu navigation, the mobile panel and the footer
+ * link lists keep their labels ("Parts" must not become "Regiones"), and so does the client-name strip. The same list is
+ * marked translate="no" for the Google widget (translate-widget.ts).
+ */
+export const NO_TRANSLATE_REGIONS='.site-nav,.site-nav-panel,.site-mobile-panel,.lux-desktop-nav,.sp-footer-list,.sp-footer-category,.sp-footer-locations,.dr3-clients'
+export const SKIP_SELECTOR='script,style,noscript,textarea,code,pre,svg,option,[translate="no"],.notranslate,[data-lang-menu],.translate-note,#google_translate_element,[contenteditable="true"],a[href^="tel:"],a[href^="mailto:"],'+NO_TRANSLATE_REGIONS+',[data-lang-keep]'
 
 type Entry={node:Text;original:string;translated:string|null}
 type Run={id:number;entries:Entry[];translator:DeviceTranslator|null;cancelled:boolean}
@@ -48,6 +56,54 @@ export function translateStatus(doc:Document=document):string|null{
 export function deviceTranslatorFor(win:DeviceEnv['win']):TranslatorApi|null{
   const api=(win as unknown as {Translator?:TranslatorApi}).Translator
   return api&&typeof api.availability==='function'&&typeof api.create==='function'?api:null
+}
+
+/** Wraps every protected name found in the page's text in a translate="no" span (the name stays exactly as written). */
+export function wrapProtectedNames(doc:Document):number{
+  const walker=doc.createTreeWalker(doc.body,4 /* SHOW_TEXT */)
+  const targets:Text[]=[]
+  for(let node=walker.nextNode();node;node=walker.nextNode()){
+    const parent=(node as Text).parentElement
+    if(!parent||parent.closest('script,style,noscript,textarea,code,pre,svg,[translate="no"],.notranslate,[data-lang-keep]'))continue
+    PROTECTED_PATTERN.lastIndex=0
+    if(PROTECTED_PATTERN.test(node.nodeValue??''))targets.push(node as Text)
+  }
+  let count=0
+  for(const node of targets){
+    const text=node.nodeValue!
+    const frag=doc.createDocumentFragment()
+    let last=0
+    PROTECTED_PATTERN.lastIndex=0
+    for(const m of text.matchAll(PROTECTED_PATTERN)){
+      if(m.index!<last)continue // swallowed by the whitespace of the previous name
+      let before=text.slice(last,m.index)
+      // the spaces next to a name travel inside its span: a translator may trim the edge of a fragment, and "About ICS" must not become "Acerca deICS"
+      const lead=/\s+$/.exec(before)?.[0]??''
+      if(lead)before=before.slice(0,before.length-lead.length)
+      if(before)frag.appendChild(doc.createTextNode(before))
+      const end=m.index!+m[0].length
+      const trail=/^\s+/.exec(text.slice(end))?.[0]??''
+      const span=doc.createElement('span')
+      span.setAttribute('translate','no');span.setAttribute('data-lang-keep','');span.textContent=lead+m[0]+trail
+      frag.appendChild(span);count++
+      last=end+trail.length
+    }
+    if(last<text.length)frag.appendChild(doc.createTextNode(text.slice(last)))
+    node.parentNode!.replaceChild(frag,node)
+  }
+  return count
+}
+
+/** Undoes `wrapProtectedNames`: the spans give their text back and neighbouring text nodes merge again. */
+export function unwrapProtectedNames(doc:Document):void{
+  const parents=new Set<Node>()
+  for(const span of Array.from(doc.querySelectorAll('span[data-lang-keep]'))){
+    const parent=span.parentNode
+    if(!parent)continue
+    parent.replaceChild(doc.createTextNode(span.textContent??''),span)
+    parents.add(parent)
+  }
+  for(const parent of parents)(parent as Element).normalize()
 }
 
 /** The visible text nodes worth translating, in document order. */
@@ -109,6 +165,7 @@ export function restoreOnDevice(doc:Document):void{
     for(const entry of run.entries)if(entry.translated!==null&&entry.node.nodeValue===entry.translated)entry.node.nodeValue=entry.original
     try{run.translator?.destroy?.()}catch{/* nothing to release */}
   }
+  unwrapProtectedNames(doc)
   clearAttrs(doc)
 }
 
@@ -147,6 +204,7 @@ export async function runOnDevice(to:string,from:string,env:DeviceEnv):Promise<b
   }catch{return fail()}
   if(run.cancelled)return false
   root.removeAttribute('data-translate-progress')
+  wrapProtectedNames(doc)
   const nodes=collectTextNodes(doc)
   const visible=nodes.filter(n=>inView(n,win)),rest=nodes.filter(n=>!visible.includes(n))
   run.entries=nodes.map(node=>({node,original:node.nodeValue!,translated:null}))

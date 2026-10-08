@@ -4,7 +4,8 @@
  * mobile it is a row inside the navigation sheet that opens in place, clear of the corner chat launcher.
  */
 .lang-menu,
-.lang-bar {
+.lang-bar,
+.global-chrome .site-mobile-toggle {
   --lang-ink: rgb(14 22 36);
   --lang-blue: rgb(11 85 165);
   --lang-rule: rgb(216 221 228);
@@ -310,4 +311,19 @@ body > .skiptranslate,
   padding-inline: 8px;
   text-decoration: underline;
   text-underline-offset: 0.18em;
+}
+
+.global-chrome .translate-note .translate-help {
+  color: var(--lang-ink);
+}
+
+/* LANG-2.2: the hamburger keeps its own colours when hovered or focused; the legacy button reset painted it crimson after a tap. */
+.global-chrome .site-mobile-toggle:is(:hover, :focus) {
+  background: var(--lang-white);
+  color: var(--lang-ink);
+}
+
+.global-chrome .site-mobile-toggle[aria-expanded='true']:is(:hover, :focus) {
+  background: var(--lang-ink);
+  color: var(--lang-white);
 }

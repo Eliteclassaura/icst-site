@@ -24,11 +24,11 @@ This storage is needed to run the site and your quote request. It is always on.
 
 ## Optional translation
 
-Google Translate loads only when you choose a translation language. It translates the page in place. Google may also set or read cookies on its own domains. Choosing English restores the original page and clears the googtrans cookie; it does not clear cookies on Google’s domains.
+In supported browsers, translation runs on your device and no translation cookie is set. Otherwise Google Translate loads only when you choose a translation language. It translates the page in place. Google may also set or read cookies on its own domains. Choosing English restores the original page and clears the googtrans cookie; it does not clear cookies on Google’s domains.
 
 | Name | What it does | Provider | How long |
 |---|---|---|---|
-| `googtrans` (first-party cookie) | Remembers the language you choose for in-page translation; set only when you request translation | Google Translate, on the ICS website | Until you close your browser (a session cookie). Cleared sooner when you choose English |
+| `googtrans` (first-party cookie) | Remembers the language you choose for in-page translation; set only when Google Translate is used | Google Translate, on the ICS website | Until you close your browser (a session cookie). Cleared sooner when you choose English |
 
 ## Analytics without cookies
 
