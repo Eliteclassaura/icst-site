@@ -3,6 +3,9 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { CrmCalendarProvider } from './_components/CalendarContext'
 import { CommandPalette } from './_components/CommandPalette'
+import { CrmThemeProvider } from '../../../crm/workspace/ui/Theme'
+import { themeAction } from './actions'
+import { themeFrom } from '../../../crm/workspace/theme'
 import { officeSettings } from '../../../crm/officeSettings'
 import { currentSession, mfaPath } from './session'
 
@@ -31,10 +34,13 @@ export default async function CrmGate({ children }: { children: ReactNode }) {
   const holidays = [...(await officeSettings(session.payload)).holidays[session.office]]
   return (
     <CrmCalendarProvider zone={session.timeZone} holidays={holidays}>
-      {children}
-      <div className="crm-app crm-portal-host">
-        <CommandPalette />
-      </div>
+      {/* DARK-1: the user's theme wraps the workspace and the palette host (crm.css token sets). */}
+      <CrmThemeProvider theme={themeFrom(session.user.crm_theme)} save={themeAction}>
+        {children}
+        <div className="crm-app crm-portal-host">
+          <CommandPalette />
+        </div>
+      </CrmThemeProvider>
     </CrmCalendarProvider>
   )
 }

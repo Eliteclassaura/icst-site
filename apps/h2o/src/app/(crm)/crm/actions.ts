@@ -21,6 +21,7 @@ import {
   SEARCH_TTL_SECONDS,
 } from '../../../crm/workspace/prefs'
 import { globalSearch, recentItems, searchTerm, type SearchHit, type SearchResult } from '../../../crm/workspace/search'
+import { themeFrom } from '../../../crm/workspace/theme'
 import type { BulkOutcome } from '../../../crm/workspace/bulk'
 import type { ActionState } from '../../../crm/workspace/ui/actionState'
 import { actionSession } from './session'
@@ -302,6 +303,17 @@ export async function densityAction(fd: FormData): Promise<void> {
   if (!(await actionSession())) redirect('/crm/')
   ;(await cookies()).set(DENSITY_COOKIE, densityFrom(f(fd, 'density')), cookieOptions(SCOPE_TTL_SECONDS, secureCookies()))
   redirect(densityReturnPath(f(fd, 'back')))
+}
+
+/**
+ * DARK-1: save the signed-in user's own CRM theme. Only this one field, only on their own user, and only a known value
+ * (anything else is "system"). The page re-renders with it.
+ */
+export async function themeAction(fd: FormData): Promise<void> {
+  const s = await actionSession()
+  if (!s) redirect('/crm/')
+  await s.payload.update({ collection: 'users', id: s.user.id, data: { crm_theme: themeFrom(f(fd, 'theme')) } as never, overrideAccess: true, depth: 0 })
+  refresh()
 }
 
 // ────────────────────────────────────────────── Wave 1 Patch B ──

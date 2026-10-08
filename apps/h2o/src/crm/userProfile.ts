@@ -1,6 +1,7 @@
 import type { CollectionConfig, FieldAccess } from 'payload'
 import { ADMINS, hasRole } from '@factory/agency-core/cms/kernel'
 import { OFFICES, OFFICE_LABEL, USER_TIME_ZONES } from './offices'
+import { THEMES, THEME_LABEL } from './workspace/theme'
 
 /**
  * Patch L1: every user has an office (US or TH; the queue they work and the calendar their quick dates use) and an
@@ -32,6 +33,16 @@ export function withCrmProfile(collection: CollectionConfig): CollectionConfig {
         maxLength: 80,
         access: { update: selfOrAdmin },
         admin: { position: 'sidebar', description: 'Shown under your name in emails sent from the CRM templates.' },
+      },
+      {
+        // DARK-1: the Sales Workspace colour theme; "system" follows the device. The person sets their own.
+        name: 'crm_theme',
+        label: 'CRM theme',
+        type: 'select',
+        defaultValue: 'system',
+        options: THEMES.map((t) => ({ label: THEME_LABEL[t], value: t })),
+        access: { update: selfOrAdmin },
+        admin: { position: 'sidebar', description: 'Light or dark colours in the Sales Workspace. System follows your device.' },
       },
       {
         name: 'time_zone',

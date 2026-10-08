@@ -61,6 +61,9 @@ describe('CRM sign-in pages carry the same brand', () => {
   })
   it('the two-factor page shows the ICS logo in both of its states', () => {
     const page = read('src/app/(crm)/crm/mfa/page.tsx')
-    expect(page.match(/<img className="c-mfa-logo" src=\{ADMIN_LOGO\.light\} width=\{200\} height=\{51\} alt=\{ADMIN_BRAND_ALT\} \/>/g)).toHaveLength(2)
+    // DARK-1 (R17 rebase): one <MfaLogo /> per state; it holds the original logo and the white one for the dark theme
+    expect(page.match(/<MfaLogo \/>/g)).toHaveLength(2)
+    expect(page).toContain('<img className="c-mfa-logo is-light" src={ADMIN_LOGO.light} width={200} height={51} alt={ADMIN_BRAND_ALT} />')
+    expect(page).toContain('<img className="c-mfa-logo is-dark" src={ADMIN_LOGO.dark} width={200} height={51} alt={ADMIN_BRAND_ALT} />')
   })
 })

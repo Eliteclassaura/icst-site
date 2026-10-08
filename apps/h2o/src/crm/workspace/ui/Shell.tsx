@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { DENSITY_COOKIE, densityFrom } from '../prefs'
 import { IconAccounts, IconContacts, IconInbox, IconMore, IconPipeline, IconSearch, IconSettings, IconTasks, IconWork } from './Icons'
 import { PaletteTrigger } from './PaletteTrigger'
+import { ThemeSwitch } from './Theme'
 import { loadViews } from '../savedViews'
 import { ADMIN_EMBLEM } from '../../../brand/admin-brand'
 import type { CrmSession } from '../session'
@@ -125,6 +126,9 @@ export async function Shell({
                     </a>
                   </li>
                 ))}
+                <li className="c-more-theme">
+                  <ThemeSwitch />
+                </li>
                 <li>
                   <a href="/admin/logout/">Sign out</a>
                 </li>
@@ -151,6 +155,7 @@ export async function Shell({
         <div className="c-side-foot">
           <strong>{userName}</strong>
           {isAdmin ? 'Admin' : 'Sales'} · <a href="/admin/logout/">Sign out</a>
+          <ThemeSwitch />
         </div>
       </nav>
       <div className="c-main">

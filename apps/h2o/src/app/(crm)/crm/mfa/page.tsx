@@ -11,6 +11,14 @@ import { groupKey } from '../../../../auth/mfa/ux'
 import { EnrolFlow, VerifyForm } from './MfaForm'
 import { ADMIN_BRAND_ALT, ADMIN_LOGO } from '../../../../brand/admin-brand'
 
+/** BRAND-ADMIN-1's logo; DARK-1 (R17 rebase): the white logo on the dark theme (crm.css shows one of the two). */
+const MfaLogo = () => (
+  <>
+    <img className="c-mfa-logo is-light" src={ADMIN_LOGO.light} width={200} height={51} alt={ADMIN_BRAND_ALT} />
+    <img className="c-mfa-logo is-dark" src={ADMIN_LOGO.dark} width={200} height={51} alt={ADMIN_BRAND_ALT} />
+  </>
+)
+
 export const metadata: Metadata = { title: 'Two-factor sign-in' }
 
 type SP = Record<string, string | string[] | undefined>
@@ -32,7 +40,7 @@ export default async function MfaPage({ searchParams }: { searchParams: Promise<
       <div className="crm-app c-denied">
         <main className="c-content" id="crm-main">
           {/* BRAND-ADMIN-1: the same ICS logo as the admin login. */}
-          <img className="c-mfa-logo" src={ADMIN_LOGO.light} width={200} height={51} alt={ADMIN_BRAND_ALT} />
+          <MfaLogo />
           <h1>Two-factor sign-in is complete</h1>
           <p>
             <a className="c-btn is-primary" href={`/crm/mfa/done/?next=${encodeURIComponent(next)}`}>
@@ -50,7 +58,7 @@ export default async function MfaPage({ searchParams }: { searchParams: Promise<
     <div className="crm-app c-denied c-mfa">
       <main className="c-content" id="crm-main">
           {/* BRAND-ADMIN-1: the same ICS logo as the admin login. */}
-          <img className="c-mfa-logo" src={ADMIN_LOGO.light} width={200} height={51} alt={ADMIN_BRAND_ALT} />
+          <MfaLogo />
         <h1>{key ? 'Set up two-factor sign-in' : 'Two-factor sign-in'}</h1>
         {key ? (
           <>

@@ -6,6 +6,9 @@
  */
 
 .c-body {
+  /* DARK-1: the page behind the workspace (overscroll, short pages) in the dark theme. */
+  --c-body-dark: rgb(14 19 23);
+
   margin: 0;
 }
 
@@ -33,11 +36,14 @@
   --c-error-text: rgb(122 26 18);
   --c-error-tint: rgb(180 35 24 / 10%);
   --c-white: rgb(255 255 255);
+  /* DARK-1: text on a strong fill (the primary button, the toast). White here; near-black in the dark theme. */
+  --c-on-strong: rgb(255 255 255);
   --c-scrim: rgb(12 19 23 / 40%);
   --c-font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --c-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   --c-side: 232px;
 
+  color-scheme: light;
   display: grid;
   grid-template-columns: var(--c-side) minmax(0, 1fr);
   min-block-size: 100dvh;
@@ -63,6 +69,81 @@
 .crm-app *::before,
 .crm-app *::after {
   box-sizing: border-box;
+}
+
+/*
+ * DARK-1: the dark theme. The same tokens, re-valued; every rule above and below uses var(), so nothing else changes.
+ * [data-theme] sits on the layout's wrapper (users.crm_theme): "dark" pins it, "light" pins the light set, "system"
+ * (default) follows the device. The two dark blocks are identical by rule (a unit test compares them).
+ */
+.c-theme {
+  display: contents;
+}
+
+[data-theme='dark'] .crm-app {
+  --c-canvas: rgb(14 19 23);
+  --c-surface: rgb(22 29 34);
+  --c-n50: rgb(31 39 45);
+  --c-rule: rgb(52 62 70);
+  --c-control: rgb(116 130 141);
+  --c-n300: rgb(86 98 108);
+  --c-text-2: rgb(163 175 184);
+  --c-n700: rgb(200 209 216);
+  --c-text: rgb(233 238 241);
+  --c-accent: rgb(126 186 228);
+  --c-accent-deep: rgb(168 210 240);
+  --c-b50: rgb(24 50 68);
+  --c-success: rgb(84 196 136);
+  --c-success-tint: rgb(84 196 136 / 14%);
+  --c-success-text: rgb(132 216 170);
+  --c-warning: rgb(226 172 64);
+  --c-warning-text: rgb(236 194 112);
+  --c-warning-tint: rgb(226 172 64 / 16%);
+  --c-error: rgb(240 108 96);
+  --c-error-text: rgb(248 160 150);
+  --c-error-tint: rgb(240 108 96 / 16%);
+  --c-on-strong: rgb(10 16 20);
+  --c-scrim: rgb(0 0 0 / 60%);
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  .crm-app:not([data-theme='light'] *) {
+    --c-canvas: rgb(14 19 23);
+    --c-surface: rgb(22 29 34);
+    --c-n50: rgb(31 39 45);
+    --c-rule: rgb(52 62 70);
+    --c-control: rgb(116 130 141);
+    --c-n300: rgb(86 98 108);
+    --c-text-2: rgb(163 175 184);
+    --c-n700: rgb(200 209 216);
+    --c-text: rgb(233 238 241);
+    --c-accent: rgb(126 186 228);
+    --c-accent-deep: rgb(168 210 240);
+    --c-b50: rgb(24 50 68);
+    --c-success: rgb(84 196 136);
+    --c-success-tint: rgb(84 196 136 / 14%);
+    --c-success-text: rgb(132 216 170);
+    --c-warning: rgb(226 172 64);
+    --c-warning-text: rgb(236 194 112);
+    --c-warning-tint: rgb(226 172 64 / 16%);
+    --c-error: rgb(240 108 96);
+    --c-error-text: rgb(248 160 150);
+    --c-error-tint: rgb(240 108 96 / 16%);
+    --c-on-strong: rgb(10 16 20);
+    --c-scrim: rgb(0 0 0 / 60%);
+
+    color-scheme: dark;
+  }
+
+  .c-body:not(:has([data-theme='light'])) {
+    background: var(--c-body-dark);
+  }
+}
+
+.c-body:has([data-theme='dark']) {
+  background: var(--c-body-dark);
 }
 
 .crm-app a {
@@ -150,6 +231,26 @@
   margin-block-end: 24px;
 }
 
+/* DARK-1 (R17 rebase): the white ICS logo on the dark theme, the original on the light one. */
+.c-mfa-logo.is-dark,
+[data-theme='dark'] .c-mfa-logo.is-light {
+  display: none;
+}
+
+[data-theme='dark'] .c-mfa-logo.is-dark {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  .crm-app:not([data-theme='light'] *) .c-mfa-logo.is-light {
+    display: none;
+  }
+
+  .crm-app:not([data-theme='light'] *) .c-mfa-logo.is-dark {
+    display: block;
+  }
+}
+
 .c-nav {
   display: flex;
   flex-direction: column;
@@ -227,6 +328,35 @@
   display: block;
   color: var(--c-text);
   font-size: 13px;
+}
+
+/* DARK-1: the theme switch (sidebar foot; phone: the More menu). Three pressed-state buttons in one row. */
+.c-theme-switch fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-inline-size: 0;
+  margin: 8px 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.c-theme-switch legend {
+  inline-size: 100%;
+  margin-block-end: 4px;
+  padding: 0;
+  color: var(--c-text-2);
+  font-size: 11px;
+}
+
+.c-more-theme {
+  padding-block: 4px 8px;
+  padding-inline: 12px;
+  border-block-end: 1px solid var(--c-rule);
+}
+
+.c-more-theme .c-btn {
+  min-block-size: 44px;
 }
 
 /* ── main + top bar ──────────────────────────────────────── */
@@ -346,7 +476,7 @@
 .c-btn.is-primary {
   border-color: var(--c-accent);
   background: var(--c-accent);
-  color: var(--c-white);
+  color: var(--c-on-strong);
 }
 
 .c-btn.is-primary:hover {
@@ -1093,7 +1223,7 @@ details.c-tech > summary {
   border: 1px solid var(--c-control);
   border-radius: 4px;
   background: var(--c-text);
-  color: var(--c-white);
+  color: var(--c-on-strong);
 }
 
 .c-result {

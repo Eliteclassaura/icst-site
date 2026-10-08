@@ -274,6 +274,10 @@ export interface User {
    */
   crm_title?: string | null;
   /**
+   * Light or dark colours in the Sales Workspace. System follows your device.
+   */
+  crm_theme?: ('system' | 'light' | 'dark') | null;
+  /**
    * Times in the CRM are shown in this zone. Blank = the office’s zone.
    */
   time_zone?:
@@ -4382,6 +4386,7 @@ export interface UsersSelect<T extends boolean = true> {
   invitedBy?: T;
   crm_office?: T;
   crm_title?: T;
+  crm_theme?: T;
   time_zone?: T;
   mfa_enabled?: T;
   mfa_enrolled_at?: T;
