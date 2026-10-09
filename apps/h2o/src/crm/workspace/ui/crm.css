@@ -3861,19 +3861,6 @@ span.c-chip {
   }
 }
 
-@media (min-width: 1280px) {
-  /* #7 (1.1) the table header stays under the 48px top bar while the page scrolls. A sticky header needs the wrapper to
-     stop being a scroll container, so on a wide screen it clips instead of scrolling (every list table fits at 1280). */
-  .c-table-wrap {
-    overflow-x: clip;
-  }
-
-  .c-table-wrap .c-table th {
-    inset-block-start: 48px;
-    z-index: 2;
-  }
-}
-
 @media (max-width: 767px) {
   /* #2 (1.1) a deal's "Open deal" on a phone card is the same text link; Done and Reschedule stay a 44px row and share its
      width equally (Reschedule used to take the whole row and squeeze Done to 18px). */
