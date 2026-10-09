@@ -37,7 +37,7 @@ export function ReplyComposer({
       </Field>
       <p className="c-hint">
         Plain text. Attachments can’t be sent from the CRM yet — send files separately and record them with
-        “Log call / reference”. The RFQ number is added at the end if the message doesn’t mention it.
+        “Log call or email”. The RFQ number is added at the end if the message doesn’t mention it.
       </p>
     </ActionForm>
   )

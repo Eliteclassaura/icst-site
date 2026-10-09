@@ -137,6 +137,19 @@ export async function noteAction(_: ActionState, fd: FormData) {
 export async function logActivityAction(_: ActionState, fd: FormData) {
   return run(fd, (s) => m.logActivity(s, { rfqId: f(fd, 'rfqId'), type: f(fd, 'type'), summary: f(fd, 'summary'), occurredAt: f(fd, 'occurredAt') }))
 }
+export async function recordReplyAction(_: ActionState, fd: FormData) {
+  return run(fd, (s) =>
+    m.recordReply(s, {
+      rfqId: f(fd, 'rfqId'),
+      summary: f(fd, 'summary'),
+      occurredAt: f(fd, 'occurredAt'),
+      followUp: f(fd, 'followUp'),
+      followUpTitle: f(fd, 'followUpTitle'),
+      followUpDue: f(fd, 'followUpDue'),
+      followUpAssigneeId: f(fd, 'followUpAssigneeId'),
+    }),
+  )
+}
 export async function followUpAction(_: ActionState, fd: FormData) {
   return run(fd, (s) =>
     m.createFollowUp(s, {

@@ -462,7 +462,7 @@ export function LogDialog({ rfqId, doNotContact, buttonClassName }: { rfqId: str
   return (
     <ActionDialog
       buttonClassName={buttonClassName}
-      label="Log call / reference"
+      label="Log call or email"
       title="Log what happened"
       action={A.logActivityAction}
       hidden={{ rfqId }}
@@ -471,7 +471,7 @@ export function LogDialog({ rfqId, doNotContact, buttonClassName }: { rfqId: str
       description={
         doNotContact
           ? 'This contact is on do-not-contact. You can still record a past call or email for the history. Nothing is sent.'
-          : 'Records a call, meeting or email that happened outside the CRM. Nothing is sent.'
+          : 'Records a call, meeting or email that happened outside the CRM. Nothing is sent. This does not complete the first response; after you answer a customer, use Record my reply.'
       }
     >
       <Field name="type" label="What happened">
@@ -489,6 +489,53 @@ export function LogDialog({ rfqId, doNotContact, buttonClassName }: { rfqId: str
       <Field name="occurredAt" label="When (optional)" hint="Leave empty for now.">
         {(a) => <input className="c-input" type="datetime-local" {...a} />}
       </Field>
+    </ActionDialog>
+  )
+}
+
+/**
+ * L06: the one deliberate way to say "I answered this customer from my mailbox". Logs the email, completes the first
+ * response, and offers the next follow-up in the same step. Nothing is sent. A call, a meeting or any email logged with
+ * "Log call or email" does not complete the first response.
+ */
+export function RecordReplyDialog({ rfqId, buttonClassName }: { rfqId: string; buttonClassName?: string }) {
+  const cal = useCrmCalendar()
+  const [follow, setFollow] = useState(true)
+  return (
+    <ActionDialog
+      buttonClassName={buttonClassName}
+      label="Record my reply"
+      title="Record my reply and complete first response"
+      action={A.recordReplyAction}
+      hidden={{ rfqId }}
+      draft={`reply:${rfqId}`}
+      submitLabel="Record reply and complete first response"
+      announce="Reply recorded"
+      description="Use this after you have answered the customer from your own mailbox. It saves your reply on the history, marks the first response done, and adds the next follow-up. Nothing is sent from here."
+    >
+      <Field name="summary" label="What you told the customer" required wide>
+        {(a) => <input className="c-input" {...a} maxLength={240} autoComplete="off" />}
+      </Field>
+      <Field name="occurredAt" label="Sent at (optional)" hint="Leave empty for now.">
+        {(a) => <input className="c-input" type="datetime-local" {...a} />}
+      </Field>
+      <label className="c-deal-check">
+        <input className="c-check" type="checkbox" name="followUp" checked={follow} onChange={(e) => setFollow(e.target.checked)} />
+        <span>Add the next follow-up</span>
+      </label>
+      {follow ? (
+        <>
+          <Field name="followUpTitle" label="Follow-up" required wide>
+            {(a) => <input className="c-input" {...a} maxLength={160} defaultValue="Follow up on my reply" />}
+          </Field>
+          <div className="c-form-grid">
+            <Field name="followUpDue" label="Due" required>
+              {(a) => <input className="c-input" type="date" {...a} defaultValue={quickDueDates(new Date(), cal).tomorrow} />}
+            </Field>
+            <QuickDates field="followUpDue" />
+          </div>
+        </>
+      ) : null}
     </ActionDialog>
   )
 }

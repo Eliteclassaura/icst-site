@@ -387,6 +387,80 @@ export async function logActivity(
   }
 }
 
+/** Stands for the deliberate act of answering the customer from the team mailbox (L06). */
+const FIRST_RESPONSE_REPLY = 'first_response_reply'
+
+/**
+ * L06: "Record my reply and complete first response". The one deliberate way to say "I answered this customer from my
+ * mailbox": it logs the email as an activity, completes the inquiry's open first-response task, and (optionally) creates
+ * the next follow-up. Nothing else completes that task: logging a call, a meeting or any email through "Log call or
+ * email", and an incoming email, all leave it open. The activity and the completion are written in one transaction under
+ * the inquiry's row lock, so a double click or a second tab records one reply and one completion. Nothing is sent.
+ * The follow-up is made afterwards: if it fails, the reply stays recorded and the message says so.
+ */
+export async function recordReply(
+  s: CrmSession,
+  input: { rfqId: unknown; summary: unknown; occurredAt?: unknown; followUp?: unknown; followUpTitle?: unknown; followUpDue?: unknown; followUpAssigneeId?: unknown },
+  now: Date = new Date(),
+): Promise<Outcome> {
+  const rfq = relationshipId(input.rfqId)
+  const summary = line(input.summary, 240)
+  const occurred = input.occurredAt ? dateTime(input.occurredAt) : now
+  const wantsFollowUp = input.followUp === true || input.followUp === 'on' || input.followUp === 'true' || input.followUp === '1'
+  const followTitle = wantsFollowUp ? line(input.followUpTitle, 160) : null
+  const followDue = wantsFollowUp ? dueFrom(input.followUpDue, s.timeZone) : null
+  const fields: FieldErrors = {}
+  if (!summary) fields.summary = 'Add a short summary of your reply.'
+  if (!occurred) fields.occurredAt = 'Enter a valid date and time.'
+  else if (occurred.getTime() > now.getTime() + 5 * 60 * 1000) fields.occurredAt = 'This records something that already happened.'
+  if (wantsFollowUp && !followTitle) fields.followUpTitle = 'Add a title for the follow-up, or turn it off.'
+  if (wantsFollowUp && !followDue) fields.followUpDue = 'Choose a due date for the follow-up, or turn it off.'
+  if (!rfq.ok || !rfq.id) return fail('INVALID_ID', 'That record reference is not valid.')
+  if (Object.keys(fields).length) return fail('VALIDATION', 'Some values need attention.', { fields })
+  const rfqId = rfq.id
+  const doc = await current(s, 'crm-rfqs', rfqId)
+  if (!doc) return fail('NOT_FOUND', 'That record no longer exists or you don’t have access to it.')
+  let recorded: Outcome
+  try {
+    recorded = await withRowLock(s, 'crm-rfqs', rfqId, async (req) => {
+      const open = await s.payload.find({
+        collection: 'crm-tasks',
+        where: { and: [{ rfq: { equals: rfqId } }, { kind: { equals: 'RFQ_FIRST_RESPONSE' } }, { status: { in: ['OPEN', 'IN_PROGRESS'] } }] },
+        limit: 1,
+        depth: 0,
+        req,
+        ...asUser(s),
+      })
+      const task = open.docs[0] as unknown as Doc | undefined
+      if (!task) return fail('INVALID_TRANSITION', 'The first response is already done for this inquiry. To note another email, use Log call or email.')
+      await s.payload.create({
+        collection: 'crm-activities',
+        data: {
+          type: 'EMAIL_REFERENCE',
+          summary,
+          occurred_at: occurred!.toISOString(),
+          rfq: rfqId,
+          task: String(task.id),
+          account: doc.account ?? null,
+          contact: doc.contact ?? null,
+          detail: { kind: FIRST_RESPONSE_REPLY },
+        } as never,
+        depth: 0,
+        req,
+        ...asUser(s),
+      })
+      await s.payload.update({ collection: 'crm-tasks', id: String(task.id), data: { status: 'DONE' } as never, depth: 0, req, ...asUser(s) })
+      return { ok: true, message: 'Reply recorded and first response done. Nothing is sent.' } as Outcome
+    })
+  } catch (err) {
+    return failure(s, err)
+  }
+  if (!recorded.ok || !wantsFollowUp) return recorded
+  const next = await createFollowUp(s, { rfqId, title: followTitle, due: input.followUpDue, assigneeId: input.followUpAssigneeId })
+  if (next.ok) return { ok: true, message: 'Reply recorded, first response done, and the follow-up is on your list. Nothing is sent.' }
+  return { ok: true, message: `Reply recorded and first response done. The follow-up was not created (${next.message}). Add it from Follow-up.` }
+}
+
 // ────────────────────────────────────────────── tasks ──
 
 /** Due date input (yyyy-mm-dd) → the end of that calendar day in the user's zone (Patch L1). */

@@ -56,7 +56,7 @@ export default async function RfqPage({
       userName={s.displayName} session={s}
       isAdmin={s.isAdmin}
     >
-      <div id="crm-rfq" role="region" aria-label="Inquiry" tabIndex={0} className="c-narrow">
+      <div id="crm-rfq" role="region" aria-label="Inquiry record" tabIndex={0} className="c-narrow">
         <Shortcuts scopeId="crm-rfq" />
         {d ? (
           <RfqDetailView d={d} s={s} tab={tab} now={now} mode="page" notices={notices} reply={reply} tabHref={(t) => `/crm/rfqs/${d.row.id}/${t === 'summary' ? '' : `?tab=${t}`}`} />

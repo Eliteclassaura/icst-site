@@ -36,6 +36,7 @@ import {
   FollowUpDialog,
   LinkAccountDialog,
   LogDialog,
+  RecordReplyDialog,
   NoteDialog,
   MoveOfficeButton,
   ReopenButton,
@@ -155,6 +156,7 @@ export function RfqDetailView({
           {(status === 'RECEIVED' || status === 'NEEDS_REVIEW') && <StartReview rfqId={rfqId} updatedAt={updatedAt} />}
           {status === 'IN_REVIEW' && <QualifySlot s={s} rfq={rfq} people={d.people} />}
           {status === 'QUALIFIED' ? <FollowUpDialog rfqId={rfqId} people={d.people} meId={s.userId} buttonClassName="c-btn is-primary" /> : null}
+          {!isTerminal && d.tasks.some((t) => t.kind === 'RFQ_FIRST_RESPONSE' && t.status !== 'DONE' && t.status !== 'CANCELLED') ? <RecordReplyDialog rfqId={rfqId} buttonClassName="c-btn" /> : null}
           {isTerminal && s.isAdmin ? <ReopenButton rfqId={rfqId} updatedAt={updatedAt} primary /> : null}
           {!isTerminal && d.row.ownerId !== s.userId ? <AssignMe rfqId={rfqId} updatedAt={updatedAt} /> : null}
           {!isTerminal && d.row.ownerId === s.userId ? (
@@ -525,7 +527,7 @@ export function RfqDetailView({
                 {reply.readiness.state === 'REPLIES_OFF'
                   ? REPLIES_OFF_NOTE
                   : reply.readiness.state === 'MODE_OFF'
-                  ? 'Email sending is turned off on this environment. Use “Log call / reference” to record an email sent elsewhere.'
+                  ? 'Email sending is turned off on this environment. After you answer from your mailbox, choose Record my reply.'
                   : reply.readiness.state === 'NO_ADDRESS'
                     ? 'This inquiry has no valid email address.'
                     : reply.readiness.state === 'SUPPRESSED'
