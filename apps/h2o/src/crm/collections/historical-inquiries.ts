@@ -11,20 +11,12 @@ import { HISTORICAL_INQUIRY_SOURCE, HISTORICAL_INQUIRY_STATE, options, RECORD_ST
  *   - written only by the server import (no create or update through the API or the admin);
  *   - one row per Typeform response: `typeform_token` is UNIQUE in the database, so a re-run or the post-DNS delta
  *     never duplicates one, and a token that comes back with different content is reported, never overwritten;
- *   - the uploaded-file link is kept as text only: https on the Typeform host, never fetched, previewed or logged.
+ *   - the uploaded-file link is stored as text, https on the Typeform host only (checked at import, here, and again when
+ *     shown; staff see it as a link with a not-scanned warning). It is never fetched, previewed or logged.
  */
-export const TYPEFORM_UPLOAD_HOSTS = ['api.typeform.com'] as const
-export function safeUploadUrl(raw: string | null | undefined): string | null {
-  const v = (raw ?? '').trim()
-  if (!v || v.length > 500) return null
-  try {
-    const u = new URL(v)
-    if (u.protocol !== 'https:' || u.username || u.password || u.port) return null
-    return (TYPEFORM_UPLOAD_HOSTS as readonly string[]).includes(u.hostname) ? u.toString() : null
-  } catch {
-    return null
-  }
-}
+import { safeUploadUrl } from '../upload-link'
+// The link rule lives in ../upload-link (also used at render time); re-exported here for existing imports.
+export { safeUploadUrl, TYPEFORM_UPLOAD_HOSTS } from '../upload-link'
 const uploadUrlOnly: FieldHook = ({ value }) => {
   if (value === null || value === undefined || value === '') return null
   const safe = safeUploadUrl(String(value))

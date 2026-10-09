@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { loadContact } from '../../../../../crm/workspace/directory'
 import { ACTIVITY_LABEL, CONTACT_FUNCTION_LABEL, LINK_CONFIDENCE_LABEL, SOURCE_LABEL, humanSummary, label } from '../../../../../crm/workspace/labels'
+import { UPLOAD_LINK_HINT, uploadLinkView } from '../../../../../crm/upload-link'
 import { absoluteTime, compactTime } from '../../../../../crm/workspace/time'
 import { IconDoNotContact, IconReview } from '../../../../../crm/workspace/ui/Icons'
 import { RfqTable } from '../../../../../crm/workspace/ui/RfqTable'
@@ -184,14 +185,23 @@ export default async function ContactPage({ params, searchParams }: { params: Pr
                     <p className="c-muted">Received {absoluteTime(new Date(q.submittedAt), s.timeZone)} (website form, before the CRM)</p>
                     {q.details ? <p className="c-past-text">{q.details}</p> : null}
                     {q.notes ? <p className="c-past-text">{q.notes}</p> : null}
-                    {q.uploadUrl ? (
-                      <p>
-                        <a href={q.uploadUrl} target="_blank" rel="noopener noreferrer">
-                          File the customer uploaded
-                        </a>{' '}
-                        <span className="c-muted">(Typeform; may need a sign-in or have expired)</span>
-                      </p>
-                    ) : null}
+                    {(() => {
+                      // IMPORT-TYPEFORM-1.1 (Auditor): the stored link is checked again here; one that fails is shown as text
+                      const up = uploadLinkView(q.uploadUrl)
+                      if (!up) return null
+                      return up.kind === 'link' ? (
+                        <p>
+                          <a href={up.href} target="_blank" rel="noopener noreferrer">
+                            File the customer uploaded
+                          </a>{' '}
+                          <span className="c-muted">({UPLOAD_LINK_HINT})</span>
+                        </p>
+                      ) : (
+                        <p className="c-muted">
+                          File link (not opened: not a Typeform file address): <span className="c-past-text">{up.text}</span>
+                        </p>
+                      )
+                    })()}
                   </div>
                 </li>
               ))}
