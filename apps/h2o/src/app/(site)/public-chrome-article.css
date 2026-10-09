@@ -139,6 +139,11 @@
 .figma-wave4 .wave4-detail-masthead h1{max-width:20ch;margin:25px 0 18px;color:#0e1624;font:400 clamp(48px,5vw,92px)/.98 'Bebas Neue',sans-serif;overflow-wrap:anywhere}
 .figma-wave4 .wave4-byline{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0;color:#4a5566;font-size:14px;line-height:1.4}
 .figma-wave4 .wave4-byline time{font-variant-numeric:tabular-nums}
+.figma-wave4 .wave4-detail-body .wave4-byline {
+  margin-block-end: 24px;
+  padding-block-end: 24px;
+  border-block-end: 1px solid rgb(74 85 102 / 0.22);
+}
 .figma-wave4 .wave4-reading-layout{display:grid;grid-template-columns:minmax(180px,245px) minmax(0,1fr);gap:55px;align-items:start}
 @media(min-width:1025px){.figma-wave4 .wave4-reading-layout>.wave4-detail-body:first-child{grid-column:1/-1;width:min(100%,760px);justify-self:center}}
 .figma-wave4 .wave4-toc-rail{position:sticky;top:100px;display:grid;gap:0;max-height:calc(100dvh - 115px);overflow-y:auto;padding:25px 12px 25px 0;border-right:1px solid #d8dde4}
