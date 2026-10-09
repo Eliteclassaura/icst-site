@@ -158,11 +158,27 @@ describe('prebuilt catalogue', () => {
 })
 
 describe('create from a prebuilt sequence', () => {
-  it('admin + step-up only; a blocked sequence is refused', async () => {
+  it('creating a draft needs NO step-up and sends nothing; activating the same sequence still does', async () => {
+    await ensureTemplates(p)
+    await importLibrary(p)
+    await revoke()
+    const before = await snapshot()
+    const out = await createFromPrebuilt(A, SID, { code: 'ICS_RFQ_QUALIFICATION_FOLLOWUP' })
+    expect(out).toMatchObject({ ok: true })
+    const after = await snapshot()
+    expect(after['crm-email-outbox']).toBe(before['crm-email-outbox'])
+    expect(after['crm-enrollments']).toBe(before['crm-enrollments'])
+    expect((await seqByKey2('ICS_RFQ_QUALIFICATION_FOLLOWUP')).run_state).not.toBe('ACTIVE')
+    expect(await activateGated(A, SID, { sequenceId: String((out as { sequenceId: string }).sequenceId) })).not.toMatchObject({ ok: true })
+  })
+
+  it('admin only; a blocked sequence is refused', async () => {
     await ensureTemplates(p)
     await importLibrary(p)
     expect(await createFromPrebuilt(S, SID, { code: 'ICS_RFQ_QUALIFICATION_FOLLOWUP' })).toMatchObject({ ok: false, code: 'FORBIDDEN' })
-    expect(await createFromPrebuilt(A, SID, { code: 'ICS_RFQ_QUALIFICATION_FOLLOWUP' })).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
+    // STEP-UP-1: creating a draft needs no step-up: a blocked sequence answers PREBUILT_BLOCKED, never STEP_UP_REQUIRED.
+    await revoke()
+    expect(await createFromPrebuilt(A, SID, { code: 'ICS_QUOTE_PROPOSAL_FOLLOWUP' })).toMatchObject({ ok: false, code: 'PREBUILT_BLOCKED' })
     await grant()
     expect(await createFromPrebuilt(A, SID, { code: 'ICS_QUOTE_PROPOSAL_FOLLOWUP' })).toMatchObject({ ok: false, code: 'PREBUILT_BLOCKED' })
     expect(await createFromPrebuilt(A, SID, { code: 'NOPE' })).toMatchObject({ ok: false, code: 'PREBUILT_UNKNOWN' })

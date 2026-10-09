@@ -236,10 +236,13 @@ export async function changeApprovalMode(
   input: { id?: string; mode?: string; reason?: string },
 ): Promise<Outcome> {
   if (!s.isAdmin) return NOT_ADMIN
-  const denied = await stepUp(s, sid, undefined)
-  if (denied) return denied
   const mode = oneOf(input.mode, LIBRARY_APPROVAL)
   if (!input.id || !mode) return fail('LIBRARY_APPROVAL_INVALID', 'Choose an approval mode.')
+  // STEP-UP-1: only switching an email to AUTOMATIC sending needs the step-up; the stricter modes never do.
+  if (mode === 'AUTO') {
+    const denied = await stepUp(s, sid, undefined)
+    if (denied) return denied
+  }
   const reason = (input.reason ?? '').trim()
   if (reason.length < 3)
     return fail('LIBRARY_REASON_REQUIRED', 'Say why the approval mode is changing (a few words).')

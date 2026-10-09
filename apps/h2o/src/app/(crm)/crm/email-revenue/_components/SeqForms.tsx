@@ -39,8 +39,8 @@ export function ActivateDialog({ sequenceId, allMet, fingerprint, children }: { 
     >
       {children}
       {allMet ? (
-        <Field name="code" label="Verification code">
-          {(a) => <input className="c-input" {...a} inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="\d{6}" />}
+        <Field name="password" label="Password">
+          {(a) => <input className="c-input" {...a} type="password" autoComplete="current-password" />}
         </Field>
       ) : null}
     </ActionDialog>

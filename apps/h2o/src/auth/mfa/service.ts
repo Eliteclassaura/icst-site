@@ -1,11 +1,12 @@
 import type { Payload } from 'payload'
-import { addVerifiedSession, claimRecoveryCode, claimStep, countFailure } from './atomic'
+import { addVerifiedSession, claimRecoveryCode, claimStep, claimStepUp, countFailure } from './atomic'
 import { writeSecurityAudit } from './audit'
 import { revokeAllDevices } from './devices'
 import { MFA_CLEARED } from './fields'
 import { isExempt } from './eligibility'
 import { decryptSecret, encryptSecret, hashRecoveryCode } from './keys'
 import { verifyEmailCode } from './email-code'
+import { verifyAccountPassword } from './password'
 import { attemptsLeft, lockMessage, wrongCodeMessage } from './ux'
 import { generateRecoveryCodes, generateSecret, normaliseRecoveryCode, otpauthUri, stepAt, verifyTotp } from './totp'
 
@@ -177,11 +178,14 @@ export async function verifySessionByDevice(payload: Payload, u: MfaUser, sid: s
 }
 
 /**
- * Patch C step-up: sensitive settings (sending profiles) need a fresh app code, entered in this session within the
- * last 5 minutes. App codes only — a recovery code is for a lost phone, not for confirming a change. Wrong codes count
- * towards the same lock-out as sign-in; a code is never accepted twice (`mfa_last_step`).
+ * STEP-UP-1 (owner 2026-10-09): sensitive settings need the user's PASSWORD again, entered in this session within the
+ * last 30 minutes. The person already passed two-factor at sign-in (or with a remembered device), so the authenticator
+ * code is not asked again; a remembered device, an app code and a recovery code are never step-up. A wrong password
+ * counts towards the same lock-out as sign-in (5 tries, 15 minutes, `countFailure`) and is audited; the lock and the
+ * failure count are shared with sign-in, so guessing here cannot outrun it. Sign-out ends the session id this is bound
+ * to, so it does not carry over (the logout hook also clears it).
  */
-export const STEP_UP_MS = 5 * 60 * 1000
+export const STEP_UP_MS = 30 * 60 * 1000
 
 export function stepUpSecondsLeft(u: Doc, sid: string | null | undefined, now = new Date()): number {
   const s = u.mfa_stepup as { sid?: unknown; at?: unknown } | null | undefined
@@ -190,19 +194,27 @@ export function stepUpSecondsLeft(u: Doc, sid: string | null | undefined, now = 
   return left > 0 && left <= STEP_UP_MS ? Math.ceil(left / 1000) : 0
 }
 
-export async function confirmStepUp(payload: Payload, u: MfaUser, sid: string, code: string, now = new Date()): Promise<MfaOutcome> {
-  if (u.mfa_enabled !== true) return { ok: false, code: 'NOT_ENROLLED', message: 'Two-factor is not set up yet.' }
+export async function confirmStepUp(payload: Payload, u: MfaUser, sid: string, password: string, now = new Date()): Promise<MfaOutcome> {
   const wait = locked(u, now)
   if (wait) return { ok: false, code: 'LOCKED', message: lockMessage(wait), retryAfterSeconds: wait }
-  if (!/^\d{6}$/.test(code.replace(/\s/g, ''))) return { ok: false, code: 'FORMAT', message: 'Enter the 6-digit code from your authenticator app.' }
-  const secret = decryptSecret(u.mfa_secret)
-  if (!secret) return { ok: false, code: 'NOT_ENROLLED', message: 'Two-factor needs to be set up again. Ask an admin to reset it.' }
-  const lastStep = typeof u.mfa_last_step === 'number' ? u.mfa_last_step : null
-  const check = verifyTotp(secret, code, now, lastStep)
-  if (!check.ok) return failure(payload, u, now, check.reason)
-  if (!(await claimStep(payload, u.id, check.step, now))) return lostClaim(payload, u, now)
-  await save(payload, u.id, { mfa_stepup: { sid, at: now.toISOString() } })
-  await writeSecurityAudit(payload, { action: 'mfa-stepup', userId: String(u.id), actorId: String(u.id) })
+  if (typeof password !== 'string' || password.length === 0) return { ok: false, code: 'FORMAT', message: 'Enter your password.' }
+  const match = await verifyAccountPassword(payload, u.id, password)
+  // No password on the account: fail closed. (Email codes are not offered to admins, and every step-up is an admin action.)
+  if (match === null) return { ok: false, code: 'NOT_ENROLLED', message: 'This account has no password to confirm with. Ask an admin for help.' }
+  if (!match) {
+    const { failures, locked: lock } = await countFailure(payload, u.id, MAX_FAILURES, new Date(now.getTime() + LOCK_MS))
+    await writeSecurityAudit(payload, { action: lock ? 'mfa-locked' : 'mfa-failed', userId: String(u.id), actorId: String(u.id), detail: { reason: 'STEPUP_PASSWORD', failures } })
+    if (lock) return { ok: false, code: 'LOCKED', message: lockMessage(LOCK_MS / 1000), retryAfterSeconds: LOCK_MS / 1000 }
+    const left = attemptsLeft(failures, MAX_FAILURES)
+    return { ok: false, code: 'MISMATCH', message: `That password is not right.${left <= 3 ? ` ${left} ${left === 1 ? 'try' : 'tries'} left before a ${LOCK_MS / 60_000}-minute pause.` : ''}`, attemptsLeft: left }
+  }
+  if (!(await claimStepUp(payload, u.id, sid, now))) {
+    // The only way to lose the claim is a lock set meanwhile (a concurrent 5th failure).
+    const fresh = await loadMfaUser(payload, u.id)
+    const wait = fresh ? locked(fresh, now) : null
+    return { ok: false, code: 'LOCKED', message: lockMessage(wait ?? LOCK_MS / 1000), retryAfterSeconds: wait ?? LOCK_MS / 1000 }
+  }
+  await writeSecurityAudit(payload, { action: 'mfa-stepup', userId: String(u.id), actorId: String(u.id), detail: { by: 'password' } })
   return { ok: true }
 }
 

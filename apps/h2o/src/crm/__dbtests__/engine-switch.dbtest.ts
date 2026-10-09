@@ -73,7 +73,7 @@ describe('the engine switch', () => {
 /** ENGINE-SCOPE-1a.1 (Auditor B1): the same rule holds at the data layer, so no other door turns the engine on. */
 describe('the engine cannot be turned on any other way', () => {
   it('updateGlobal as a signed-in admin without the switch is refused and the engine stays off', async () => {
-    await expect(p.updateGlobal({ slug: 'crm-ers-settings' as never, data: { enabled: true } as never, depth: 0, ...as(admin) })).rejects.toThrow(/verification code/)
+    await expect(p.updateGlobal({ slug: 'crm-ers-settings' as never, data: { enabled: true } as never, depth: 0, ...as(admin) })).rejects.toThrow(/after confirming your password/)
     invalidateErsSettings()
     expect(await isOn()).toBe(false)
   })

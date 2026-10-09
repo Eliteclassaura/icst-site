@@ -25,10 +25,13 @@ export async function liveWork(s: CrmSession, sequenceId: string): Promise<numbe
 
 export async function changeSequenceApprovalMode(s: CrmSession, sid: string | null, input: { sequenceId?: string; mode?: string; reason?: string }): Promise<Outcome> {
   if (!s.isAdmin) return fail('FORBIDDEN', 'Only an admin changes a program’s approval mode.')
-  const denied = await stepUp(s, sid, undefined)
-  if (denied) return denied
   const mode = input.mode === 'AUTO' || input.mode === 'REQUIRED' ? input.mode : null
   if (!mode) return fail('SEQUENCE_MODE_INVALID', 'Choose automatic sending or approval required.')
+  // STEP-UP-1: switching TO automatic sending needs the step-up; going back to "approval required" is the safer direction and never does.
+  if (mode === 'AUTO') {
+    const denied = await stepUp(s, sid, undefined)
+    if (denied) return denied
+  }
   const reason = (input.reason ?? '').trim()
   if (reason.length < 3) return fail('SEQUENCE_MODE_REASON', 'Say why the approval mode is changing (a few words).')
   const seq = input.sequenceId ? ((await s.payload.findByID({ collection: 'crm-sequences', id: input.sequenceId, depth: 0, overrideAccess: true }).catch(() => null)) as Doc | null) : null

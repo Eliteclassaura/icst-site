@@ -5,7 +5,7 @@ import { ActionForm, Field } from '../../../../../crm/workspace/ui/ActionForm'
 import { stepUpAction } from '../../settings/actions'
 import { approvalModeAction, importLibraryAction } from '../actions'
 
-/** Confirm with an app code; admin changes in the Library then work for 5 minutes in this session. */
+/** STEP-UP-1: confirm with your password; the admin changes that need it then work for 30 minutes in this session. */
 export function StepUpPanel({ secondsLeft }: { secondsLeft: number }) {
   return (
     <section className="c-panel is-settings" aria-labelledby="er-stepup-h">
@@ -16,20 +16,11 @@ export function StepUpPanel({ secondsLeft }: { secondsLeft: number }) {
         <p className="c-hint">
           {secondsLeft > 0
             ? `Confirmed. Changes are allowed for about ${Math.max(1, Math.round(secondsLeft / 60))} more minute${secondsLeft > 90 ? 's' : ''}.`
-            : 'Importing the library or changing an approval mode needs a fresh code from your authenticator app. It lasts 5 minutes.'}
+            : 'Enter your password to continue. It lasts 30 minutes.'}
         </p>
         <ActionForm action={stepUpAction} submitLabel="Confirm" submitClassName="c-btn">
-          <Field name="code" label="Code from your authenticator app">
-            {(a) => (
-              <input
-                className="c-input"
-                {...a}
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                maxLength={6}
-                pattern="\d{6}"
-              />
-            )}
+          <Field name="password" label="Password">
+            {(a) => <input className="c-input" {...a} type="password" autoComplete="current-password" />}
           </Field>
         </ActionForm>
       </div>

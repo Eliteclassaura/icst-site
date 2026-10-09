@@ -9,8 +9,8 @@ import * as A from '../settings/actions'
  * write-only: the field is always empty, and leaving it empty keeps the stored password.
  */
 
-/** Confirm with an app code; the settings below then work for 5 minutes in this session. */
-export function StepUpForm({ secondsLeft, what = 'Changing sending settings, checking a connection or sending a test' }: { secondsLeft: number; what?: string }) {
+/** STEP-UP-1: confirm with your password; the settings below then work for 30 minutes in this session. */
+export function StepUpForm({ secondsLeft }: { secondsLeft: number }) {
   return (
     <section className="c-panel is-settings" aria-labelledby="stepup-h">
       <div className="c-panel-head">
@@ -20,11 +20,11 @@ export function StepUpForm({ secondsLeft, what = 'Changing sending settings, che
         <p className="c-hint">
           {secondsLeft > 0
             ? `Confirmed. Changes are allowed for about ${Math.max(1, Math.round(secondsLeft / 60))} more minute${secondsLeft > 90 ? 's' : ''}.`
-            : `${what} needs a fresh code from your authenticator app. It lasts 5 minutes.`}
+            : 'Enter your password to continue. It lasts 30 minutes.'}
         </p>
         <ActionForm action={A.stepUpAction} submitLabel="Confirm" submitClassName="c-btn">
-          <Field name="code" label="Code from your authenticator app">
-            {(a) => <input className="c-input" {...a} inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="\d{6}" />}
+          <Field name="password" label="Password">
+            {(a) => <input className="c-input" {...a} type="password" autoComplete="current-password" />}
           </Field>
         </ActionForm>
       </div>

@@ -69,8 +69,8 @@ describe('MFA-ADMIN-1: who may do it', () => {
     const n = notices()
     expect(await act(admin, { userId: t.id, action: 'reset' }, n)).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
     expect(await act(admin, { userId: t.id, action: 'turn-off' }, n)).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
-    // a step-up older than 5 minutes does not count either
-    await grantStepUp(admin, new Date(Date.now() - 6 * 60_000))
+    // a step-up older than 30 minutes does not count either
+    await grantStepUp(admin, new Date(Date.now() - 31 * 60_000))
     expect(await act(admin, { userId: t.id, action: 'reset' }, n)).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
     expect((await fresh(t.id)).mfa_enabled).toBe(true)
     expect(n.sent).toHaveLength(0)

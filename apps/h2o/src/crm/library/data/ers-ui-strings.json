@@ -61,7 +61,7 @@
  "ers.gate.copy_check.met": "No blocking flags.",
  "ers.gate.copy_check.unmet": "{n} blocking flags. Fix them in the Library.",
  "ers.gate.stepup.name": "Admin verification",
- "ers.gate.stepup.status": "You will be asked for a verification code when you confirm.",
+ "ers.gate.stepup.status": "You will be asked for your password when you confirm.",
  "ers.gate.simulation.stale": "This simulation is out of date. Run it again.",
  "ers.gate.dialog.title": "Activate {sequence} (v{version})",
  "ers.gate.dialog.intro": "Starting this sequence lets the engine send emails to enrolled contacts.",

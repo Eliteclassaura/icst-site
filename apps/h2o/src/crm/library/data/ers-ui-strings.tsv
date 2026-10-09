@@ -61,7 +61,7 @@ ers.gate.copy_check.name	Copy check	§4.4 activation dialog gate checklist. Each
 ers.gate.copy_check.met	No blocking flags.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
 ers.gate.copy_check.unmet	{n} blocking flags. Fix them in the Library.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
 ers.gate.stepup.name	Admin verification	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Gate name.
-ers.gate.stepup.status	You will be asked for a verification code when you confirm.	"§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Shown with status ""At confirm""."
+ers.gate.stepup.status	You will be asked for your password when you confirm.	"§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Shown with status ""At confirm""."
 ers.gate.simulation.stale	This simulation is out of date. Run it again.	§4.3/§4.4 stale simulation (sequence, templates, rules or audience changed).
 ers.gate.dialog.title	Activate {sequence} (v{version})	§4.4 dialog title.
 ers.gate.dialog.intro	Starting this sequence lets the engine send emails to enrolled contacts.	§4.4 dialog first line.

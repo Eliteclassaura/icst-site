@@ -1,4 +1,3 @@
-import { stepUp } from '../../email/sending-settings'
 import { recordActivity } from '../activity'
 import { relId } from '../guards'
 import { checkVerdict, coverageOf, inCoverage, manualConfigured, unprocessedInbound } from '../ers/reply-mode'
@@ -22,8 +21,8 @@ export async function setReplyMode(
   input: { sequenceId?: string; mode?: string; ownerId?: string; days?: string; startHour?: number; endHour?: number; zone?: string; initialBatch?: number },
 ): Promise<Outcome> {
   if (!s.isAdmin) return fail('FORBIDDEN', 'Only an admin sets how replies are handled.')
-  const denied = await stepUp(s, sid, undefined)
-  if (denied) return denied
+  // STEP-UP-1: how replies are handled starts nothing and sends nothing (the sequence start and the engine switch keep their step-up).
+  void sid
   const mode = (MODES as readonly string[]).includes(input.mode ?? '') ? (input.mode as (typeof MODES)[number]) : null
   if (!mode) return fail('REPLY_MODE_INVALID', 'Choose manual, monitored or not set.')
   const seq = input.sequenceId ? ((await s.payload.findByID({ collection: 'crm-sequences', id: input.sequenceId, ...ro }).catch(() => null)) as Doc | null) : null

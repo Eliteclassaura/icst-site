@@ -3911,3 +3911,19 @@ span.c-chip {
     scroll-snap-align: start;
   }
 }
+
+/* ── STEP-UP-1 layout fixes (CSS only) ── */
+
+/* (i) The 48px top bar is opaque (the surface colour) with a hairline under it, light and dark, on a phone too. A breadcrumb
+   written as a paragraph (<p class="c-crumbs">, used by fourteen pages) kept the browser's paragraph margins and spilled out
+   of the bar, where nothing painted behind it: the page text scrolling under that overflow collided with the title. The
+   breadcrumb has no margin now, so it stays inside the bar. */
+.c-crumb .c-crumbs {
+  margin: 0;
+}
+
+/* (ii) A "Create from this…" reveal under a "Preview steps" reveal is a separate control 12px below it, never on it. */
+details + details.er-reveal {
+  margin-block-start: 12px;
+}
+

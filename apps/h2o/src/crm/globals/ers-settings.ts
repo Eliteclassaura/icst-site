@@ -31,7 +31,7 @@ const validate: GlobalBeforeChangeHook = ({ data, originalDoc, req, context }) =
   // needs shell access to run, which is a stronger credential than a session.
   const flag = (context as { crmServer?: { engineOnStepUp?: boolean } } | undefined)?.crmServer?.engineOnStepUp === true
   if (d.enabled === true && (originalDoc as Row | undefined)?.enabled !== true && req?.user && !flag)
-    throw new CrmInvariantError('ERS_ENGINE_ON_VIA_SWITCH_ONLY', 'The Revenue Engine is turned on from Settings → Sequences with a verification code, not from here.')
+    throw new CrmInvariantError('ERS_ENGINE_ON_VIA_SWITCH_ONLY', 'The Revenue Engine is turned on from Settings → Sequences after confirming your password, not from here.')
   const int = (k: string, min: number, max: number) => {
     if (d[k] === undefined || d[k] === null) return
     const n = Number(d[k])

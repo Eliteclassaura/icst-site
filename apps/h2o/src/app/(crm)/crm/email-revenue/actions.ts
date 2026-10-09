@@ -70,7 +70,7 @@ export async function markReadyAction(_: ActionState, fd: FormData) {
   return run((s) => markReady(s, { sequenceId: f(fd, 'sequenceId') }))
 }
 export async function activateGatedAction(_: ActionState, fd: FormData) {
-  return run((s, sid) => activateGated(s, sid, { sequenceId: f(fd, 'sequenceId'), code: f(fd, 'code'), seen: f(fd, 'seen') }))
+  return run((s, sid) => activateGated(s, sid, { sequenceId: f(fd, 'sequenceId'), password: f(fd, 'password'), seen: f(fd, 'seen') }))
 }
 export async function approveSimulationAction(_: ActionState, fd: FormData) {
   return run((s) => approveSimulation(s, { sequenceId: f(fd, 'sequenceId'), snapshotHash: f(fd, 'snapshotHash') }))

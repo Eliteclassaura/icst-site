@@ -15,8 +15,8 @@ export function EngineSwitch({ on }: { on: boolean }) {
       submitClassName={on ? 'c-btn' : 'c-btn is-primary'}
     >
       {on ? null : (
-        <Field name="code" label="Verification code">
-          {(a) => <input className="c-input" {...a} inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="\d{6}" />}
+        <Field name="password" label="Password">
+          {(a) => <input className="c-input" {...a} type="password" autoComplete="current-password" />}
         </Field>
       )}
     </ActionForm>
@@ -35,8 +35,8 @@ export function SequenceActions({ sequenceId, runState, draftVersionId, canActiv
         <ActionForm inline action={A.pauseAction} hidden={{ sequenceId }} submitLabel="Pause" submitClassName="c-btn" />
       ) : canActivate ? (
         <ActionForm inline action={A.activateAction} hidden={{ sequenceId }} submitLabel={runState === 'PAUSED' ? 'Resume' : 'Start the sequence'} submitClassName="c-btn is-primary">
-          <Field name="code" label="Verification code">
-            {(a) => <input className="c-input" {...a} inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="\d{6}" />}
+          <Field name="password" label="Password">
+            {(a) => <input className="c-input" {...a} type="password" autoComplete="current-password" />}
           </Field>
         </ActionForm>
       ) : null}

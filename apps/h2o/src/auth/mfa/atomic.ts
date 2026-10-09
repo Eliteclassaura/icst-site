@@ -47,6 +47,23 @@ export async function claimStep(payload: Payload, id: string | number, step: num
   return r.rows.length === 1
 }
 
+/**
+ * STEP-UP-1: record a password step-up for this session, only if the user is not locked; the same statement clears the
+ * failure count and the (expired or absent) lock, so a success can never wipe a lock that a concurrent 5th failure set.
+ * True when this request recorded it.
+ */
+export async function claimStepUp(payload: Payload, id: string | number, sid: string, now: Date): Promise<boolean> {
+  const r = await db(payload).execute(
+    sql`UPDATE users SET mfa_stepup = jsonb_build_object('sid', ${sid}::text, 'at', ${now.toISOString()}::text), mfa_failures = 0, mfa_locked_until = NULL WHERE id = ${String(id)} AND ${notLocked(now)} RETURNING id`,
+  )
+  return r.rows.length === 1
+}
+
+/** STEP-UP-1: end the user's step-up (sign-out). */
+export async function clearStepUp(payload: Payload, id: string | number): Promise<void> {
+  await db(payload).execute(sql`UPDATE users SET mfa_stepup = NULL WHERE id = ${String(id)}`)
+}
+
 /** The number of recovery codes left when this request used up `hash`, or null when it was not there (or locked). */
 export async function claimRecoveryCode(payload: Payload, id: string | number, hash: string, now: Date): Promise<number | null> {
   const r = await db(payload).execute(sql`

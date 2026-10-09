@@ -1,5 +1,6 @@
-import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, CollectionAfterOperationHook, CollectionBeforeChangeHook, CollectionConfig, Field, FieldAccess } from 'payload'
+import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, CollectionAfterLogoutHook, CollectionAfterOperationHook, CollectionBeforeChangeHook, CollectionConfig, Field, FieldAccess } from 'payload'
 import { ADMINS, hasRole, isPlatformAdminUser, tierFieldAccess } from '@factory/agency-core/cms/kernel'
+import { clearStepUp } from './atomic'
 import { writeSecurityAudit } from './audit'
 import { revokeAllDevices } from './devices'
 import { purgeUserMfaRows } from './email-code'
@@ -112,6 +113,12 @@ const auditReset: CollectionAfterChangeHook = async ({ context, doc, operation, 
   return doc
 }
 
+/** STEP-UP-1: signing out ends the step-up (it is also bound to the session id, which sign-out ends). */
+export const clearStepUpOnLogout: CollectionAfterLogoutHook = async ({ req }) => {
+  const id = req.user?.id
+  if (id !== undefined) await clearStepUp(req.payload, id).catch(() => undefined)
+}
+
 /** MFA-2: a deleted user's emailed codes and remembered devices go with them (those tables have no foreign key). */
 const purgeAfterDelete: CollectionAfterDeleteHook = async ({ id, req }) => {
   await purgeUserMfaRows(req.payload, id).catch(() => undefined)
@@ -138,6 +145,7 @@ export function withMfa(collection: CollectionConfig): CollectionConfig {
       afterChange: [...(hooks.afterChange ?? []), auditReset],
       afterOperation: [...(hooks.afterOperation ?? []), revokeAfterPasswordReset],
       afterDelete: [...(hooks.afterDelete ?? []), purgeAfterDelete],
+      afterLogout: [...(hooks.afterLogout ?? []), clearStepUpOnLogout],
     },
     fields: [
       ...collection.fields,
@@ -188,7 +196,7 @@ export function withMfa(collection: CollectionConfig): CollectionConfig {
       hiddenField({ name: 'mfa_sessions', type: 'json' }),
       hiddenField({ name: 'mfa_failures', type: 'number', defaultValue: 0 }),
       hiddenField({ name: 'mfa_locked_until', type: 'date' }),
-      // Patch C: the last step-up confirmation ({ sid, at }) — a fresh code for sensitive settings (5 minutes, this session).
+      // Patch C: the last step-up confirmation ({ sid, at }) — the user's password re-entered for sensitive settings (30 minutes, this session).
       hiddenField({ name: 'mfa_stepup', type: 'json' }),
       // MFA-2: the email-code send budget (3 per 15 minutes), counted in the database (email-code.ts).
       hiddenField({ name: 'mfa_email_sends', type: 'number' }),

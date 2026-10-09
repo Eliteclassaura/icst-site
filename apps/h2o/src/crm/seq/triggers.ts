@@ -133,12 +133,15 @@ export async function setTriggerEnabled(s: CrmSession, sid: string | null, input
 
 export async function saveTriggerConfig(s: CrmSession, sid: string | null, input: { key?: string; sequenceId?: string; idleDays?: number }): Promise<Outcome> {
   if (!s.isAdmin) return fail('FORBIDDEN', 'Only an admin changes a trigger rule.')
-  const denied = await stepUp(s, sid, undefined)
-  if (denied) return denied
   const key = (TRIGGER_KEYS as readonly string[]).includes(input.key ?? '') ? (input.key as TriggerKey) : null
   if (!key) return fail('NOT_FOUND', 'That rule does not exist.')
   await ensureTriggers(s.payload)
   const row = (await s.payload.find({ collection: 'crm-sequence-triggers', where: { key: { equals: key } } as never, limit: 1, ...ro })).docs[0] as unknown as Doc
+  // STEP-UP-1: a rule that is OFF starts nothing, so choosing its sequence needs no step-up; a rule that is ON already starts sequences on its own, so changing it does.
+  if (row.enabled === true) {
+    const denied = await stepUp(s, sid, undefined)
+    if (denied) return denied
+  }
   const data: Doc = { changed_at: new Date().toISOString(), changed_by: s.userId }
   if (input.sequenceId) {
     const seq = (await s.payload.findByID({ collection: 'crm-sequences', id: input.sequenceId, ...ro }).catch(() => null)) as Doc | null

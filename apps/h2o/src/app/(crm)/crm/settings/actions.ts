@@ -34,7 +34,7 @@ async function run(fn: (s: CrmSession, sid: string | null) => Promise<Outcome>):
 }
 
 export async function stepUpAction(_: ActionState, fd: FormData) {
-  return run((s, sid) => sending.confirmSettingsStepUp(s, sid, f(fd, 'code')))
+  return run((s, sid) => sending.confirmSettingsStepUp(s, sid, f(fd, 'password')))
 }
 
 export async function saveProfileAction(_: ActionState, fd: FormData) {

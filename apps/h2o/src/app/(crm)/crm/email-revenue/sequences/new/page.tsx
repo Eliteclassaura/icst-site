@@ -1,18 +1,15 @@
 import type { Metadata } from 'next'
-import { stepUpLeft } from '../../../../../../email/settings-page'
 import { catalogue } from '../../../../../../crm/seq/catalogue'
 import { requireCrmSession } from '../../../session'
 import { EmailRevenueFrame } from '../../_components/EmailRevenueFrame'
-import { StepUpPanel } from '../../_components/LibraryForms'
 import { CreateFromThis } from '../../_components/SeqForms'
 
 export const metadata: Metadata = { title: 'Start from a prebuilt sequence' }
 
-/** SEQ-BUILD-1: the prebuilt catalogue, assembled from the Email Library. Creating a draft is admin + step-up and sends nothing. */
+/** SEQ-BUILD-1: the prebuilt catalogue, assembled from the Email Library. Creating a draft is admin-only, needs no step-up, and sends nothing. */
 export default async function NewSequencePage() {
   const s = await requireCrmSession('/crm/email-revenue/sequences/new/')
   const rows = await catalogue(s)
-  const left = s.isAdmin ? await stepUpLeft(s) : 0
   const ready = rows.filter((r) => r.buildable).length
   const row = (r: (typeof rows)[number]) => (
     <li key={r.code} className="er-cat-row">
@@ -38,7 +35,6 @@ export default async function NewSequencePage() {
       {s.isAdmin && r.buildable ? (
         <details className="er-reveal">
           <summary className="c-btn is-primary">Create from this…</summary>
-          <StepUpPanel secondsLeft={left} />
           <CreateFromThis code={r.code} />
         </details>
       ) : null}

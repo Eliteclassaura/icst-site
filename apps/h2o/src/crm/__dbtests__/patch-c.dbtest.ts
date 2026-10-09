@@ -21,7 +21,7 @@ import { invalidateErsSettings } from '../ers/settings'
 import { composeReply } from '../reply'
 import { composerTemplates, ensureTemplates, listTemplates, saveTemplate, setTemplateApproved, templateByCode } from '../settings/templates'
 import { crmSessionFor, type CrmSession } from '../workspace/session'
-import { HARNESS_TOTP_SECRET, payload, resetCrm, rest, user, type TestUser } from './harness'
+import { HARNESS_TOTP_SECRET, PASSWORD, payload, resetCrm, rest, user, type TestUser } from './harness'
 
 /**
  * Patch C against Postgres — sending profiles (step-up, sealed write-only password, check, activation, test send,
@@ -71,10 +71,10 @@ let clock = Date.now() + 60 * 60_000
 const later = () => new Date((clock += 10 * 60_000))
 const sidOf = (token: string) => String((JSON.parse(Buffer.from(token.split('.')[1]!, 'base64url').toString('utf8')) as { sid: string }).sid)
 const session = async (u: TestUser): Promise<CrmSession> => crmSessionFor(p, await p.findByID({ collection: 'users', id: u.id, depth: 0, overrideAccess: true }))!
-/** Pass the step-up with a real app code at `at` (the harness user's synthetic secret). */
+/** Pass the step-up with the user's password at `at` (STEP-UP-1: no authenticator code). */
 async function stepUpAt(u: TestUser, at: Date) {
   const mu = (await loadMfaUser(p, u.id))!
-  const out = await confirmStepUp(p, mu, sidOf(u.token), totpCode(HARNESS_TOTP_SECRET, at), at)
+  const out = await confirmStepUp(p, mu, sidOf(u.token), PASSWORD, at)
   expect(out.ok).toBe(true)
 }
 const GMAIL = { name: 'Workspace', preset: 'GMAIL', use: 'TRANSACTIONAL', username: 'rfq@example.test', password: 'abcd efgh ijkl mnop', from_address: 'rfq@example.test', from_name: 'ICS Sales Team' }
@@ -119,19 +119,20 @@ afterAll(() => {
 })
 
 describe('sending profiles: step-up, sealed password, access', () => {
-  it('every change needs a fresh code in this session (5 minutes); a code from another session or an old one does not count', async () => {
+  it('every change needs the password in this session (30 minutes); a step-up from another session or an old one does not count', async () => {
     const A = await session(admin)
     const sid = sidOf(admin.token)
     const t0 = later()
     expect(await sending.saveProfile(A, sid, GMAIL, { now: t0 })).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
     await stepUpAt(admin, t0)
-    expect(await sending.saveProfile(A, sid, GMAIL, { now: new Date(t0.getTime() + 4 * 60_000) })).toMatchObject({ ok: true })
-    expect(await sending.saveProfile(A, sid, { ...GMAIL, name: 'x' }, { now: new Date(t0.getTime() + 6 * 60_000) })).toMatchObject({ code: 'STEP_UP_REQUIRED' })
+    expect(await sending.saveProfile(A, sid, GMAIL, { now: new Date(t0.getTime() + 29 * 60_000) })).toMatchObject({ ok: true })
+    expect(await sending.saveProfile(A, sid, { ...GMAIL, name: 'x' }, { now: new Date(t0.getTime() + 31 * 60_000) })).toMatchObject({ code: 'STEP_UP_REQUIRED' })
     expect(await sending.saveProfile(A, 'another-session-id', GMAIL, { now: t0 })).toMatchObject({ code: 'STEP_UP_REQUIRED' })
-    // A wrong code is refused and counted; a recovery-code-shaped value is not accepted for a step-up.
-    const wrong = await sending.confirmSettingsStepUp(A, sid, '000000')
-    expect(wrong.ok).toBe(false)
-    expect(await sending.confirmSettingsStepUp(A, sid, 'ABCD-EFGH')).toMatchObject({ ok: false, code: 'STEP_UP_FORMAT' })
+    // A wrong password is refused and counted; an empty one is refused; an authenticator code is just a wrong password.
+    const wrong = await sending.confirmSettingsStepUp(A, sid, 'not-the-password')
+    expect(wrong).toMatchObject({ ok: false, code: 'STEP_UP_MISMATCH' })
+    expect(await sending.confirmSettingsStepUp(A, sid, '')).toMatchObject({ ok: false, code: 'STEP_UP_PASSWORD_REQUIRED' })
+    expect(await sending.confirmSettingsStepUp(A, sid, totpCode(HARNESS_TOTP_SECRET, new Date()))).toMatchObject({ ok: false, code: 'STEP_UP_MISMATCH' })
     // Sales: not an admin, whatever the code.
     expect(await sending.saveProfile(await session(sales), sidOf(sales.token), GMAIL)).toMatchObject({ ok: false, code: 'FORBIDDEN' })
   })

@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 import { addVerifiedSession, claimRecoveryCode, claimStep, countFailure } from '../../auth/mfa/atomic'
 import { pendingSession } from '../../auth/mfa/guard'
 import { hashRecoveryCode } from '../../auth/mfa/keys'
-import { confirmStepUp, enrolWithSecret, isSessionVerified, loadMfaUser, MAX_FAILURES, verifySecondFactor } from '../../auth/mfa/service'
+import { confirmStepUp, enrolWithSecret, isSessionVerified, loadMfaUser, MAX_FAILURES, stepUpSecondsLeft, verifySecondFactor } from '../../auth/mfa/service'
 import { generateSecret, stepAt, totpCode } from '../../auth/mfa/totp'
 import { PASSWORD, payload } from './harness'
 
@@ -158,19 +158,33 @@ describe('SEC-CRM-1.1: failure count + lock in one statement; step-up; sessions'
     expect(Number(s.mfa_failures)).toBe(0)
     expect(s.mfa_locked_until).toBeTruthy()
   })
-  it('step-up: a valid code clears failures but never lowers the step; a locked user cannot step up', async () => {
+  it('step-up by password (STEP-UP-1): a wrong one counts towards the sign-in lock, the right one clears the count; a locked user cannot step up even with the right one', async () => {
     const u = await enrolled()
-    const now = new Date()
-    await set(u.p, u.id, 2, stepAt(now) + 10)
-    // A code for an older step than the stored one is refused (replay), step unchanged.
-    expect(await confirmStepUp(u.p, (await loadMfaUser(u.p, u.id))!, u.sid, totpCode(u.secret, now))).toMatchObject({ ok: false })
-    expect(Number((await state(u.p, u.id)).mfa_last_step)).toBe(stepAt(now) + 10)
-    await set(u.p, u.id, 2, stepAt(now) - 2)
-    expect(await confirmStepUp(u.p, (await loadMfaUser(u.p, u.id))!, u.sid, totpCode(u.secret, now))).toMatchObject({ ok: true })
-    const s = await state(u.p, u.id)
-    expect(Number(s.mfa_last_step)).toBe(stepAt(now))
-    expect(Number(s.mfa_failures)).toBe(0)
+    const mu = async () => (await loadMfaUser(u.p, u.id))!
+    await set(u.p, u.id, 2, null)
+    expect(await confirmStepUp(u.p, await mu(), u.sid, 'not-the-password')).toMatchObject({ ok: false, code: 'MISMATCH' })
+    expect(Number((await state(u.p, u.id)).mfa_failures)).toBe(3)
+    expect(await confirmStepUp(u.p, await mu(), u.sid, PASSWORD)).toMatchObject({ ok: true })
+    expect(Number((await state(u.p, u.id)).mfa_failures)).toBe(0)
+    expect(stepUpSecondsLeft(await mu(), u.sid)).toBeGreaterThan(0)
+    // The 5th wrong password locks; the right one is then refused and grants nothing.
+    const v = await enrolled()
+    await set(v.p, v.id, MAX_FAILURES - 1, null)
+    expect(await confirmStepUp(v.p, (await loadMfaUser(v.p, v.id))!, v.sid, 'wrong')).toMatchObject({ ok: false, code: 'LOCKED' })
+    expect(await confirmStepUp(v.p, (await loadMfaUser(v.p, v.id))!, v.sid, PASSWORD)).toMatchObject({ ok: false, code: 'LOCKED' })
+    expect(stepUpSecondsLeft((await loadMfaUser(v.p, v.id))!, v.sid)).toBe(0)
   })
+  it('real race, right password vs 5th wrong password: never "step-up granted AND lock set"', async () => {
+    for (let i = 0; i < 8; i++) {
+      const u = await enrolled()
+      await set(u.p, u.id, MAX_FAILURES - 1, null)
+      const [ok] = await Promise.all([confirmStepUp(u.p, (await loadMfaUser(u.p, u.id))!, u.sid, PASSWORD), confirmStepUp(u.p, (await loadMfaUser(u.p, u.id))!, u.sid, 'wrong')])
+      const s = await state(u.p, u.id)
+      const granted = stepUpSecondsLeft((await loadMfaUser(u.p, u.id))!, u.sid) > 0
+      if (ok.ok) expect(granted).toBe(true)
+      expect(granted && s.mfa_locked_until).toBeFalsy()
+    }
+  }, 120_000)
   it('verified sessions are appended inside the database: parallel session adds keep each other', async () => {
     const u = await enrolled()
     const login = async () => {

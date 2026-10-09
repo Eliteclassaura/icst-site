@@ -146,7 +146,6 @@ export default async function SequenceDetail({
         {s.isAdmin ? (
           <details className="er-reveal">
             <summary className="c-btn">Set manual reply handling</summary>
-            <StepUpPanel secondsLeft={left} />
             <ReplyModeForm
               sequenceId={id}
               owners={owners}

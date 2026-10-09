@@ -15,7 +15,7 @@ import type { CrmSession } from '../crm/workspace/session'
  * Patch C: the sending-profile settings (CRM → Settings → Sending profiles). Admins only.
  *
  * Every change, connection check and test send needs a step-up: a fresh app code entered in this session within the
- * last 5 minutes (auth/mfa/service.ts). Profiles are written as trusted server code (the collection has no API write
+ * last 30 minutes (auth/mfa/service.ts). Profiles are written as trusted server code (the collection has no API write
  * access), after these checks, and audited by the CRM audit adapter. The password is sealed with H2O_SETTINGS_KEY and
  * never returned. Connection checks go only to hosts the network guard allows (email/net-guard.ts).
  *
@@ -40,25 +40,25 @@ export type SendingDeps = {
 
 const NOT_ADMIN = fail('FORBIDDEN', 'Sending profiles are for admins.')
 
-/** Step-up: either the code given now, or one confirmed in this session within the last 5 minutes. */
-export async function stepUp(s: CrmSession, sid: string | null, code: string | undefined, now = new Date()): Promise<Outcome | null> {
+/** Step-up: either the password given now, or one confirmed in this session within the last 30 minutes. */
+export async function stepUp(s: CrmSession, sid: string | null, password: string | undefined, now = new Date()): Promise<Outcome | null> {
   if (!sid) return fail('STEP_UP_REQUIRED', 'Your sign-in has expired. Sign in again.')
   const u = await loadMfaUser(s.payload, s.user.id)
   if (!u) return fail('STEP_UP_REQUIRED', 'Your sign-in has expired. Sign in again.')
-  if (code && code.trim()) {
-    const out = await confirmStepUp(s.payload, u, sid, code.trim(), now)
+  if (password) {
+    const out = await confirmStepUp(s.payload, u, sid, password, now)
     return out.ok ? null : fail(`STEP_UP_${out.code}`, out.message)
   }
   if (stepUpSecondsLeft(u, sid, now) > 0) return null
-  return fail('STEP_UP_REQUIRED', 'Confirm with a code from your authenticator app first (valid for 5 minutes).')
+  return fail('STEP_UP_REQUIRED', 'Confirm with your password first (valid for 30 minutes).')
 }
 
 /** Confirm a step-up on its own (the "Confirm" form at the top of the settings page). */
-export async function confirmSettingsStepUp(s: CrmSession, sid: string | null, code: string | undefined): Promise<Outcome> {
+export async function confirmSettingsStepUp(s: CrmSession, sid: string | null, password: string | undefined): Promise<Outcome> {
   if (!s.isAdmin) return NOT_ADMIN
-  if (!code?.trim()) return fail('STEP_UP_CODE_REQUIRED', 'Enter the 6-digit code from your authenticator app.')
-  const denied = await stepUp(s, sid, code)
-  return denied ?? { ok: true, message: 'Confirmed for 5 minutes.' }
+  if (!password) return fail('STEP_UP_PASSWORD_REQUIRED', 'Enter your password.')
+  const denied = await stepUp(s, sid, password)
+  return denied ?? { ok: true, message: 'Confirmed for 30 minutes.' }
 }
 
 export type ProfileInput = {

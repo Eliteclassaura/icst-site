@@ -162,7 +162,9 @@ describe('a live program never switches approval mode silently', () => {
     await enrollRfq(started, await newRfq({ first: 'Avery' }))
     const input = { sequenceId: String(started.id), mode: 'REQUIRED', reason: 'owner asked for review' }
     expect(await changeSequenceApprovalMode(crmSessionFor(p, sales.user)!, SID, input)).toMatchObject({ ok: false, code: 'FORBIDDEN' })
-    expect(await changeSequenceApprovalMode(A, SID, input)).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
+    // STEP-UP-1: switching TO automatic sending needs the step-up; going to "approval required" does not.
+    expect(await changeSequenceApprovalMode(A, SID, { ...input, mode: 'AUTO' })).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
+    expect(await changeSequenceApprovalMode(A, SID, { ...input, reason: 'x' })).toMatchObject({ ok: false, code: 'SEQUENCE_MODE_REASON' })
     await grant()
     expect(await changeSequenceApprovalMode(A, SID, { ...input, reason: 'x' })).toMatchObject({ ok: false, code: 'SEQUENCE_MODE_REASON' })
     expect(await changeSequenceApprovalMode(A, SID, { ...input, mode: 'AUTO' })).toMatchObject({ ok: false, code: 'SEQUENCE_MODE_SAME' })
@@ -211,11 +213,12 @@ describe('manual reply mode', () => {
     return ids
   }
 
-  it('setting it needs an admin, step-up and every field; not set runs nothing while replies are not monitored', async () => {
+  it('setting it needs an admin and every field (no step-up: it starts and sends nothing); not set runs nothing while replies are not monitored', async () => {
     const seq = await start('ICS_RFQ_QUALIFICATION_FOLLOWUP')
     const base = { sequenceId: String(seq.id), mode: 'MANUAL', ownerId: admin.id, ...COVER, initialBatch: 2 }
     expect(await setReplyMode(crmSessionFor(p, sales.user)!, SID, base)).toMatchObject({ ok: false, code: 'FORBIDDEN' })
-    expect(await setReplyMode(A, SID, base)).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
+    await revoke()
+    expect(await setReplyMode(A, SID, { ...base, ownerId: undefined })).toMatchObject({ ok: false, code: 'REPLY_OWNER' }) // validation answers; the step-up is not asked
     await grant()
     expect(await setReplyMode(A, SID, { ...base, ownerId: undefined })).toMatchObject({ ok: false, code: 'REPLY_OWNER' })
     expect(await setReplyMode(A, SID, { ...base, zone: 'Not/AZone' })).toMatchObject({ ok: false, code: 'REPLY_COVERAGE' })

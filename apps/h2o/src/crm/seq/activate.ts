@@ -32,7 +32,7 @@ export async function markReady(s: CrmSession, input: { sequenceId?: string }, n
 
 export type ActivateOutcome = Outcome & { gates?: GateReport }
 
-export async function activateGated(s: CrmSession, sid: string | null, input: { sequenceId?: string; code?: string; seen?: string }): Promise<ActivateOutcome> {
+export async function activateGated(s: CrmSession, sid: string | null, input: { sequenceId?: string; password?: string; seen?: string }): Promise<ActivateOutcome> {
   if (!s.isAdmin) return NOT_ADMIN
   if (!input.sequenceId) return fail('NOT_FOUND', 'Choose a sequence.')
   const gates = await activationGates(s, { sequenceId: input.sequenceId })
@@ -40,7 +40,7 @@ export async function activateGated(s: CrmSession, sid: string | null, input: { 
     const changed = input.seen !== undefined && input.seen !== gates.fingerprint
     return { ok: false, code: 'GATES_UNMET', message: `${changed ? 'A safety check changed while this was open. ' : ''}Can’t start yet: ${gates.blocker!.reason}`, gates }
   }
-  const denied = await stepUp(s, sid, input.code)
+  const denied = await stepUp(s, sid, input.password)
   if (denied) return { ...denied, gates }
   // Re-read at the moment of confirming (a gate may have changed while the code was being checked).
   const again = await activationGates(s, { sequenceId: input.sequenceId })

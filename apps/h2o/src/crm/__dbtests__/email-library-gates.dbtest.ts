@@ -40,7 +40,9 @@ describe('approval-mode and import gates', () => {
     const r = await emailRow()
     const input = { id: String(r.id), mode: 'REQUIRED', reason: 'owner asked for review' }
     expect(await changeApprovalMode(S, SID, input)).toMatchObject({ ok: false, code: 'FORBIDDEN' })
-    expect(await changeApprovalMode(A, SID, input)).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
+    // STEP-UP-1: only switching to AUTOMATIC sending needs the step-up; the stricter modes never do.
+    expect(await changeApprovalMode(A, SID, { ...input, mode: 'AUTO' })).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
+    expect(await changeApprovalMode(A, SID, { ...input, reason: 'x' })).toMatchObject({ ok: false, code: 'LIBRARY_REASON_REQUIRED' })
     await grant()
     expect(await changeApprovalMode(A, SID, { ...input, reason: 'x' })).toMatchObject({ ok: false, code: 'LIBRARY_REASON_REQUIRED' })
     const sk = (await p.find({ collection: LIB, where: { status: { equals: 'SKELETON' } } as never, limit: 1, ...srv })).docs[0] as unknown as Doc

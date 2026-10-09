@@ -1,5 +1,4 @@
 import { createHash } from 'node:crypto'
-import { stepUp } from '../../email/sending-settings'
 import { templateHash } from '../../email/templates'
 import type { LibraryRow } from '../library/service'
 import { listLibrary } from '../library/service'
@@ -36,10 +35,12 @@ export const purposeFor = (program: string, sequenceCode: string): string =>
 
 export type BuildOutcome = Outcome & { sequenceId?: string; versionId?: string }
 
-export async function createFromPrebuilt(s: CrmSession, sid: string | null, input: { code?: string }): Promise<BuildOutcome> {
+/**
+ * STEP-UP-1: creating a sequence from the Library makes a DRAFT and sends nothing, so it needs no step-up (owner 2026-10-09). Starting
+ * it, switching it to automatic sending, turning the engine on, importing the Library and changing mail settings still do.
+ */
+export async function createFromPrebuilt(s: CrmSession, _sid: string | null, input: { code?: string }): Promise<BuildOutcome> {
   if (!s.isAdmin) return fail('FORBIDDEN', 'Only an admin creates a sequence.')
-  const denied = await stepUp(s, sid, undefined)
-  if (denied) return denied
   if (!input.code) return fail('PREBUILT_UNKNOWN', 'Choose a prebuilt sequence.')
   const all = (await listLibrary(s, { sequence: input.code })) as LibraryRow[]
   const rows = all.filter((r) => r.status !== 'LINKED').sort((a, b) => Number(a.step) - Number(b.step))

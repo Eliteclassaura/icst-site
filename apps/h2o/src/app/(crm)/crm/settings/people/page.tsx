@@ -28,7 +28,7 @@ export default async function PeoplePage() {
       <p className="c-crumbs">
         <a href="/crm/settings/">Settings</a> / People and sign-in
       </p>
-      <StepUpForm secondsLeft={left} what="Resetting or turning off two-step sign-in" />
+      <StepUpForm secondsLeft={left} />
       <section className="c-panel is-settings" aria-labelledby="people-h">
         <div className="c-panel-head">
           <h2 id="people-h">Two-step sign-in</h2>

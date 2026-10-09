@@ -33,7 +33,7 @@ export default async function TriggersPage() {
           <h2 id="er-tr-h">Trigger rules</h2>
         </div>
         <div className="c-panel-body is-padded">
-          <p>Each rule starts a sequence automatically. Nothing starts while the engine is off. {s.isAdmin ? 'Changes need a verification code.' : 'Only an admin changes rules.'}</p>
+          <p>Each rule starts a sequence automatically. Nothing starts while the engine is off. {s.isAdmin ? 'Turning a rule on needs your password.' : 'Only an admin changes rules.'}</p>
           {gates.allMet ? null : <p className="c-hint">Can’t turn a rule on yet: {gates.blocker?.reason}</p>}
           {s.isAdmin ? <StepUpPanel secondsLeft={left} /> : null}
           <ul className="er-rules">

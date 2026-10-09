@@ -162,7 +162,7 @@ export async function activationGates(s: CrmSession, input: { sequenceId?: strin
     reason: '',
     hard: false,
   })
-  program.push({ key: 'step_up', label: 'Admin and a verification code', status: 'AT_CONFIRM', reason: 'Asked when you confirm.', hard: false })
+  program.push({ key: 'step_up', label: 'Admin and your password', status: 'AT_CONFIRM', reason: 'Asked when you confirm.', hard: false })
   blocks.push({ key: 'program', label: input.trigger && !seq ? 'This rule' : 'This sequence', summary: seq ? `${String(seq.name)} · ${seq.run_state === 'ACTIVE' ? 'Running' : seq.readiness === 'READY' ? 'Ready' : seq.run_state === 'PAUSED' ? 'Paused' : 'Draft'}` : 'No sequence chosen', gates: program })
 
   const unmet = blocks.flatMap((b) => b.gates).filter((x) => x.hard && x.status === 'NOT_MET')

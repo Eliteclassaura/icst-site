@@ -39,7 +39,7 @@ export async function activateAction(_: ActionState, fd: FormData) {
   const s = await actionSession()
   if (!s) return DENIED
   const pending = await pendingSession(s.payload, await headers())
-  const out = await activateGated(s, pending?.sid ?? null, { sequenceId: f(fd, 'sequenceId'), code: f(fd, 'code') })
+  const out = await activateGated(s, pending?.sid ?? null, { sequenceId: f(fd, 'sequenceId'), password: f(fd, 'password') })
   if (out.ok) refresh()
   return { ...out, nonce: Date.now() } as ActionState
 }
@@ -58,7 +58,7 @@ export async function engineSwitchAction(_: ActionState, fd: FormData) {
   const s = await actionSession()
   if (!s) return DENIED
   const pending = await pendingSession(s.payload, await headers())
-  const out = await setEngineSwitch(s, pending?.sid ?? null, { on: f(fd, 'on') === '1', code: f(fd, 'code') })
+  const out = await setEngineSwitch(s, pending?.sid ?? null, { on: f(fd, 'on') === '1', password: f(fd, 'password') })
   if (out.ok) refresh()
   return { ...out, nonce: Date.now() } as ActionState
 }

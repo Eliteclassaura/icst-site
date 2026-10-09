@@ -99,8 +99,8 @@ describe('ALERTS-1: who may change it, and the step-up', () => {
     expect(await saveRouting(session(admin), SID, { alerts_us: 'a@example.test' })).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
     expect(await sendTestAlert(session(admin), SID)).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
     expect((await stored()).alerts_us ?? null).toBeNull()
-    // An old grant (older than 5 minutes) does not count either.
-    await grantStepUp(admin, new Date(Date.now() - 6 * 60_000))
+    // An old grant (older than 30 minutes) does not count either.
+    await grantStepUp(admin, new Date(Date.now() - 31 * 60_000))
     expect(await saveRouting(session(admin), SID, { alerts_us: 'a@example.test' })).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
     // Nor does a grant from another session.
     await grantStepUp(admin)
@@ -314,7 +314,7 @@ describe('ALERTS-1: "Send test alert"', () => {
     expect(r.sent).toHaveLength(1)
     expect(await sendTestAlert(session(admin), SID, { send: r.send, now: new Date(now.getTime() + 4 * 60_000) })).toMatchObject({ ok: false, code: 'RATE_LIMITED' })
     // A refused click stays counted (admit), so a burst throttles itself: the next one is allowed 5 minutes after the last click.
-    await grantStepUp(admin, new Date(now.getTime() + 9 * 60_000)) // the step-up itself lasts only 5 minutes
+    await grantStepUp(admin, new Date(now.getTime() + 9 * 60_000)) // the step-up itself lasts 30 minutes
     expect(await sendTestAlert(session(admin), SID, { send: r.send, now: new Date(now.getTime() + 4 * 60_000 + 301_000) })).toMatchObject({ ok: true })
     expect(r.sent).toHaveLength(2)
   })
