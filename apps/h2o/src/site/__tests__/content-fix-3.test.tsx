@@ -1,6 +1,6 @@
 /**
  * CONTENT-FIX-3 (post-launch UPDATE-2, CT 2026-10-08): OGCS UPDATE-2 HVAC meta rows (seal e7b228b7) and LOCALE-HVAC-REWRITE-1 (seal 6e23108f).
- * UP2-01 is already the stored value; UP2-02 changes the category meta; UP2-03..06 are superseded by the locale rewrite, whose metas are final.
+ * UP2-01 is already the stored value; UP2-02 changes the category meta; UP2-03..06 (locale twins) stay as stored: OGCS ruled KEEP-HOLD (the twins stay 301d to the same-language guides).
  */
 import {afterEach,beforeEach,describe,expect,it} from 'vitest'
 import {readFileSync} from 'node:fs'
@@ -12,7 +12,6 @@ const APP=process.cwd()
 const env={...process.env}
 beforeEach(()=>{process.env.H2O_PUBLIC_EXPORT='1'})
 afterEach(()=>{process.env={...env}})
-const LEDGER=JSON.parse(readFileSync(path.join(APP,'content/design/locale-hvac-rewrite-1.json'),'utf8')) as {pages:Array<{language:string;routeId:string;route:string;h1AndTitle:string;meta:string;blocks:number;h2:string[];toc:string[]}>}
 const render=async(p:string)=>renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean).map(decodeURIComponent)}),searchParams:Promise.resolve({})}))
 const seoRows=readFileSync(path.join(APP,'ops/seo-pass/data/seo-fields.tsv'),'utf8').split('\n').map(l=>l.split('\t'))
 const row=(p:string)=>seoRows.find(c=>c[0]===p)!
@@ -26,24 +25,24 @@ describe('CONTENT-FIX-3: UPDATE-2 meta rows',()=>{
   })
 })
 
-describe('CONTENT-FIX-3: the four locale articles are neutral industrial "What is a cooling tower?" articles (same URLs, no redirect)',()=>{
-  it('the ledger names exactly the four HVAC locale articles, 62 blocks each',()=>{
-    expect(LEDGER.pages.map(p=>p.routeId)).toEqual(['LIVE-LOCALE-th-14460','LIVE-LOCALE-id-14466','LIVE-LOCALE-vi-14464','LIVE-LOCALE-ja-14462'])
-    for(const p of LEDGER.pages){expect(p.blocks).toBe(62);expect(p.h2).toHaveLength(8)}
+const redirectRows=readFileSync(path.join(APP,'ops/seo-pass/data/redirects.tsv'),'utf8').split('\n').map(l=>l.split('\t'))
+const LOCALE_TWINS=['LIVE-LOCALE-th-14460','LIVE-LOCALE-id-14466','LIVE-LOCALE-vi-14464','LIVE-LOCALE-ja-14462']
+const ledger=JSON.parse(readFileSync(path.join(APP,'content/release/route-ledger.json'),'utf8')) as {routes:Array<{path:string;routeId:string;state:string;export:boolean;indexable:boolean;redirect?:string}>;redirects:Array<{source:string;destination:string;status:number}>}
+describe('CONTENT-FIX-3.1 (OGCS KEEP-HOLD): the four HVAC locale twins stay held and 301 to their same-language guides',()=>{
+  it('each twin is still a REDIRECT route (not exported, not indexable) with a one-hop 301 to a public same-language page',()=>{
+    for(const id of LOCALE_TWINS){
+      const r=ledger.routes.find(x=>x.routeId===id)!
+      expect([r.state,r.export,r.indexable],id).toEqual(['REDIRECT',false,false])
+      expect(ledger.routes.find(x=>x.path===r.redirect)?.state,id).toBe('PUBLIC')
+      const tsvRow=redirectRows.find(c=>c[0]===r.path)
+      expect([tsvRow?.[2],tsvRow?.[1]],`${id}: the batch's 301 record`).toEqual(['301',r.redirect])
+      expect(ledger.redirects.some(x=>x.source===r.redirect),`${id}: no chain`).toBe(false)
+    }
   })
-  for(const lang of ['th','id','vi','ja']){
-    it(`${lang}: new H1, title and meta, 8 sections with a table of contents, no HVAC, air-conditioning, commercial-building or stainless wording`,async()=>{
-      const page=LEDGER.pages.find(p=>p.language===lang)!
-      const html=await render(page.route)
-      expect(html).toMatch(new RegExp('<h1[^>]*>[^<]*'+page.h1AndTitle.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')))
-      expect(html).toContain(`content="${page.meta}"`)
-      const text=plain(html)
-      expect(text).not.toMatch(/HVAC|air.?condition|commercial building|stainless/i)
-      for(const h of page.h2)expect(text,h).toContain(h)
-      expect(html).toContain('ez-toc-container')
-      expect(new Set([...html.matchAll(/href="#([^"]+)"/g)].map(m=>m[1])).size).toBeGreaterThanOrEqual(page.toc.length)
-    },120000)
-  }
+  it('the twins carry no rewritten article (no "What is a cooling tower" rewrite ships for them): their stored text is the base text',()=>{
+    for(const id of LOCALE_TWINS){const doc=JSON.parse(readFileSync(path.join(APP,`content/salmon/documents/SALMON-${id}.json`),'utf8')) as {seo:{title:string}}
+      expect(doc.seo.title,id).toMatch(/hvac/i)}
+  })
 })
 
 describe('CONTENT-FIX-3: long product titles use the same display face as every other product title',()=>{
