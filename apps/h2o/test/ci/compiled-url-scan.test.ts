@@ -1,3 +1,4 @@
+import { spawnSync } from 'node:child_process'
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -41,5 +42,26 @@ describe('DEPLOY-PIPE-1 compiled-URL scan (bounded rule)', () => {
     mkdirSync(path.join(tmp, 'b'), { recursive: true })
     writeFileSync(path.join(tmp, 'b/x.js'), 'const o="https://example.test"')
     expect(scanDir(path.join(tmp, 'b'), opts)).toMatchObject({ pass: false, originSeen: false })
+  })
+})
+
+describe('DEPLOY-PIPE-1.2: an empty or malformed expected origin FAILS (Auditor F-5)', () => {
+  const scan = path.resolve(process.cwd(), 'ops/ci/compiled-url-scan.mjs')
+  const identity = path.resolve(process.cwd(), 'ops/ci/check-image-identity.sh')
+  it('the compiled-URL scan refuses to run without a valid https origin (even on a clean directory)', () => {
+    mkdirSync(path.join(tmp, 'd'), { recursive: true })
+    writeFileSync(path.join(tmp, 'd/x.js'), 'const a=1')
+    for (const args of [[], ['--origin', ''], ['--origin', 'http://h2ocooling.com'], ['--origin', 'h2ocooling.com']]) {
+      const r = spawnSync('node', [scan, path.join(tmp, 'd'), ...args], { encoding: 'utf8' })
+      expect(r.status, args.join(' ')).toBe(2)
+    }
+    expect(spawnSync('node', [scan, path.join(tmp, 'd'), '--origin', 'https://h2ocooling.com'], { encoding: 'utf8' }).status).toBe(1) // valid origin, but not compiled in
+  })
+  it('the identity script fails at once on an empty or non-https origin, before it touches docker', () => {
+    for (const origin of ['', 'http://h2ocooling.com', 'h2ocooling.com']) {
+      const r = spawnSync('bash', [identity, 'no-such-image', 'abc', '1', origin, path.join(tmp, 'ev')], { encoding: 'utf8' })
+      expect(r.status, origin).toBe(1)
+      expect(r.stdout).toContain('expected origin')
+    }
   })
 })

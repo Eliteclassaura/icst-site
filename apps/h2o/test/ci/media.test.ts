@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import os from 'node:os'
 import path from 'node:path'
 import { afterAll, describe, expect, it } from 'vitest'
-import { looksLikePointer, parseIdentity, planMedia, readEntries, POINTER } from '../../ops/ci/media.mjs'
+import { lfsEnv, looksLikePointer, parseIdentity, planMedia, readEntries, POINTER } from '../../ops/ci/media.mjs'
 
 const sha = (s: string) => createHash('sha256').update(s).digest('hex')
 const ptr = (content: string) => `version https://git-${'lfs'}.github.com/spec/v1\noid sha256:${sha(content)}\nsize ${content.length}\n`
@@ -77,5 +77,19 @@ describe('DEPLOY-PIPE-1 media apply (end to end in a temp git repo, no LFS neede
     const r = run(repo)
     expect(r.status).toBe(1)
     expect(r.stderr).toContain('media verify FAILED: apps/h2o/public/media/a.jpg')
+  })
+})
+
+describe('DEPLOY-PIPE-1.2: the LFS token (Auditor F-6)', () => {
+  it('travels as git config in the child process environment only: nothing on a command line, nothing written to disk', () => {
+    const base = { PATH: '/bin' } as unknown as NodeJS.ProcessEnv
+    expect(lfsEnv(base)).toEqual(base) // no token, no change
+    const e = lfsEnv({ ...base, H2O_LFS_TOKEN: 'tok123' }) as Record<string, string>
+    expect(e.GIT_CONFIG_COUNT).toBe('1')
+    expect(e.GIT_CONFIG_KEY_0).toBe('http.https://github.com/.extraheader')
+    expect(Buffer.from(e.GIT_CONFIG_VALUE_0!.replace('AUTHORIZATION: basic ', ''), 'base64').toString()).toBe('x-access-token:tok123')
+    const src = require('node:fs').readFileSync(path.resolve(process.cwd(), 'ops/ci/media.mjs'), 'utf8') as string
+    expect(src).toContain('env: lfsEnv(process.env)')
+    expect(src).not.toMatch(/git['"],\s*\[['"]config/)
   })
 })

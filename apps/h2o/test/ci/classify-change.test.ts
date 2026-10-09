@@ -8,7 +8,6 @@ describe('DEPLOY-PIPE-1 classify-change', () => {
   it('CSS and plain copy (and their tests and docs) are LIGHT', () => {
     expect(c(`${H}src/site/Header.module.css`)).toBe('light')
     expect(c(`${H}src/rfq-native/NativeRfq.module.css`, `${H}src/rfq-native/__tests__/x.test.tsx`)).toBe('light')
-    expect(c(`${H}content/rfq/ogcs-native-rfq-copy-r1.tsv`)).toBe('light')
     expect(c(`${H}content/pages/about.md`, `${H}docs/NOTES.md`)).toBe('light')
     expect(c(`${H}src/x/__tests__/only-a-test.test.ts`)).toBe('light')
   })
@@ -46,8 +45,10 @@ describe('DEPLOY-PIPE-1 classify-change', () => {
     expect(c(...many)).toBe('full')
     expect(c(...many.slice(0, MAX_LIGHT_FILES))).toBe('light')
   })
+  it('legal / rfq / notice / privacy / terms / cookie copy is FULL (its invariants are pinned by tests the import graph does not see) (Auditor F-4)', () => {
+    for (const p of ['content/legal/privacy-policy.md', 'content/rfq/form-notice-source.md', 'content/rfq/ogcs-native-rfq-copy-r1.tsv', 'content/pages/terms-of-use.md', 'content/pages/cookie-notice.md', 'content/x/notice.md', 'content/x/privacy.tsv']) expect(c(`${H}${p}`), p).toBe('full')
+  })
   it('a sensitive word in a content path keeps it FULL even when it is a .md/.tsv', () => {
-    expect(c(`${H}content/rfq/form-notice-source.md`)).toBe('light') // plain copy (its own tests pin the hash)
     expect(c(`${H}content/catalog-notes.md`)).toBe('full')
     expect(c(`${H}content/x/redirects.tsv`)).toBe('full')
   })

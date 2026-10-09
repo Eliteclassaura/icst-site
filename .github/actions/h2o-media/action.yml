@@ -6,6 +6,12 @@ inputs:
   image:
     description: 'Image repository, for example ghcr.io/owner/name'
     required: true
+  base-sha:
+    description: 'The head the previous image must have been built from (its revision label must equal this)'
+    required: true
+  token:
+    description: 'Job token for the LFS fetch of new or changed media only (never written to disk)'
+    required: true
   prev-digest:
     description: 'Previous production image digest (sha256, 64 hex). Empty means first run: every LFS file is fetched.'
     required: false
@@ -22,12 +28,17 @@ runs:
       env:
         IMAGE: ${{ inputs.image }}
         PREV: ${{ inputs.prev-digest }}
+        BASE: ${{ inputs.base-sha }}
+        H2O_LFS_TOKEN: ${{ inputs.token }}
       run: |
         set -euo pipefail
         git lfs install --local >/dev/null
         prev_args="--prev-identity none"
         if [ -n "$PREV" ]; then
+          printf '%s' "$PREV" | grep -Eq '^sha256:[0-9a-f]{64}$' || { echo "previous digest must be sha256:<64 hex>"; exit 1; }
           docker pull --quiet "$IMAGE@$PREV" >/dev/null
+          rev=$(docker inspect --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}' "$IMAGE@$PREV")
+          if [ "$rev" != "$BASE" ]; then echo "the previous image was built from '$rev', not from the deployed head H2O_DEPLOYED_SHA ($BASE): variables out of step"; exit 1; fi
           cid=$(docker create "$IMAGE@$PREV")
           rm -rf .prev-media && mkdir .prev-media
           docker cp "$cid:/app/apps/h2o/public" .prev-media/public >/dev/null

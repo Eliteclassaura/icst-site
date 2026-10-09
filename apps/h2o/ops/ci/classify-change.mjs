@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url'
 export const MAX_LIGHT_FILES = 25
 const H = 'apps/h2o/'
 /** Words in a path that make a content file "not plain copy" (catalog, seeds, authorities, batches, chrome, redirects…). */
-const SENSITIVE = /(catalog|seed|authorit|batch|release|redirect|sitemap|site-chrome|chrome|salmon|ledger|crm|migration|import|manifest|\.json$)/i
+const SENSITIVE = /(catalog|seed|authorit|batch|release|redirect|sitemap|site-chrome|chrome|salmon|ledger|crm|migration|import|manifest|legal|rfq|notice|privacy|terms|cookie|\.json$)/i
 
 const isTest = (p) => p.startsWith(H) && (/(^|\/)__tests__\//.test(p) || /\.test\.tsx?$/.test(p) || p.startsWith(`${H}test/`))
 const isDoc = (p) => /\.md$/.test(p) && (p.startsWith(`${H}docs/`) || !p.includes('/') || p.startsWith('docs/'))

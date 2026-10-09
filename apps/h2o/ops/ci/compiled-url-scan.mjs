@@ -67,6 +67,11 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const [dir, ...rest] = process.argv.slice(2)
   const arg = (n, d) => (rest.includes(`--${n}`) ? rest[rest.indexOf(`--${n}`) + 1] : d)
   const origin = arg('origin')
+  // required: without an expected origin the check would pass for an image built with no server URL (Auditor F-5)
+  if (!origin || !/^https:\/\/[A-Za-z0-9.-]+\/?$/.test(origin)) {
+    console.error('compiled-url-scan: --origin is required (https://host)')
+    process.exit(2)
+  }
   const forbid = ['staging.', 'sslip', ...(arg('forbid', '') ? arg('forbid').split(',').filter(Boolean) : [])]
   const res = scanDir(dir, { origin, forbid })
   const evidence = { ...res, forbidden: res.forbidden.slice(0, 20), origin, forbid }

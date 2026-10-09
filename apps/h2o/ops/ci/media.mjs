@@ -21,6 +21,17 @@ import { fileURLToPath } from 'node:url'
 export const POINTER = /^version https:\/\/git-lfs\.github\.com\/spec\/v1\noid sha256:([0-9a-f]{64})\nsize (\d+)\n?$/
 export const looksLikePointer = (buf) => buf.length < 400 && buf.toString('utf8', 0, 40).startsWith(`version https://git-${'lfs'}`) // (written so this file itself never contains the pointer signature)
 
+/**
+ * Environment for the LFS fetch ONLY: the job token travels as a git config entry in this one child process's environment, so nothing is
+ * written to .git/config or any file (the checkout runs with persist-credentials: false) and the token is never on a command line.
+ */
+export function lfsEnv(env) {
+  const token = env.H2O_LFS_TOKEN
+  if (!token) return env
+  const basic = Buffer.from(`x-access-token:${token}`).toString('base64')
+  return { ...env, GIT_CONFIG_COUNT: '1', GIT_CONFIG_KEY_0: 'http.https://github.com/.extraheader', GIT_CONFIG_VALUE_0: `AUTHORIZATION: basic ${basic}` }
+}
+
 /** Parse MEDIA_IDENTITY.sha256 lines ("<sha256>  <path>") → Map(path → sha256). Paths are repo-relative (apps/h2o/public/...). */
 export function parseIdentity(text) {
   const m = new Map()
@@ -99,7 +110,7 @@ async function main() {
   // fetch only what is new or changed, in chunks (command-line length)
   for (let i = 0; i < plan.fetch.length; i += 200) {
     const chunk = plan.fetch.slice(i, i + 200)
-    execFileSync('git', ['lfs', 'pull', '--include', chunk.join(',')], { stdio: 'inherit', cwd: repoRoot })
+    execFileSync('git', ['lfs', 'pull', '--include', chunk.join(',')], { stdio: 'inherit', cwd: repoRoot, env: lfsEnv(process.env) })
   }
   // verify: every file equals its expected sha256, and no pointer remains
   const expected = new Map(entries.map((e) => [e.path, e.expected]))
