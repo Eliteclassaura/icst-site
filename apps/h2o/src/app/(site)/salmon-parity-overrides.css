@@ -139,3 +139,11 @@
 .salmon-copy .elementor-1230 .elementor-element.elementor-element-a473787 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
   background-image: url("/media/derivatives/820883eac57c36ee7870d801ba75ba3cc865254479ec4ed774bf73ad1490eb70.webp");
 }
+
+/* HOME-HERO-1 (DD tweak): at phone width show more of the tower body in the home hero panel; 1440 is unchanged. */
+@media(max-width:767px){
+.salmon-copy .elementor-48 .elementor-element.elementor-element-b1edced:not(.elementor-motion-effects-element-type-background),
+.salmon-copy .elementor-48 .elementor-element.elementor-element-b1edced > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-position: center 60%;
+}
+}

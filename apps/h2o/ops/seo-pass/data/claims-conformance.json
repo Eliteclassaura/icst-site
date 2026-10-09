@@ -6588,6 +6588,12 @@
    "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
    "text": "The PRO SX Series 28″-34′ (0.73M-10.36M) Fans",
    "source": "OGCS CATALOG-FANS-1 Wave 2 (633d1af6)"
+  },
+  {
+   "row": "CF2-03",
+   "path": "/energy-efficient-cooling-tower/",
+   "text": "stainless steel for the structure and collection basin",
+   "source": "OGCS CLIENT-FIX-2 (seal 953abe72)"
   }
  ],
  "present": [
@@ -9008,6 +9014,12 @@
    "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
    "text": "The PRO SX Series 28″-36′ (0.71M-10.97M) Fans",
    "source": "OGCS CATALOG-FANS-1 Wave 2 (633d1af6)"
+  },
+  {
+   "row": "CF2-03",
+   "path": "/energy-efficient-cooling-tower/",
+   "text": "stainless steel for the collection basin and hardware",
+   "source": "OGCS CLIENT-FIX-2 (seal 953abe72)"
   }
  ]
 }

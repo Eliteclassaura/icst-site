@@ -29,7 +29,10 @@ describe('accepted public chrome and Technical Articles implementation',()=>{
     const html=renderToStaticMarkup(<Wave4ArticleIndex doc={doc('SALMON-pages-1875')}/>),featured=directory.find(row=>row.indexable)!
     expect(html).toContain(`data-article-route="${featured.doc.targetPath}"`)
     expect(html).toContain('data-article-route="/cooling-tower-retrofit-guide-upgrading-old-towers/"')
-    expect((html.match(/data-article-route=/g)??[])).toHaveLength(directory.length)
+    // ARTICLE-LAYOUT-1 (CT ruling): the Thai-language route is excluded from the English index; every other article has one card.
+    const english=directory.filter(row=>!/%e0%b[89a-f]/i.test(row.doc.targetPath))
+    expect(directory.length-english.length).toBe(1)
+    expect((html.match(/data-article-route=/g)??[])).toHaveLength(english.length)
     expect(html).not.toMatch(/matched articles|71 pages|matchedArticles|hello-world-2/)
   })
   it('preserves the existing article anchors while replacing the duplicated visible source TOC',()=>{

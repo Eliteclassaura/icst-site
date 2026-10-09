@@ -5783,6 +5783,18 @@
    "derivativeBytes": 15078,
    "encoder": "imagemagick webp q78 method6, same pixel dimensions",
    "psnr": 39.6
+  },
+  {
+   "src": "/media/home-hero/cooling-tower-aerial-1920.jpg",
+   "origSha256": "bd7a11f8cc086287ccde75949fd3f727a9acf6f22ac5dce40b10b95becbb1318",
+   "origBytes": 676006,
+   "width": 1920,
+   "height": 1440,
+   "derivative": "/media/derivatives/af6040c072544926cbd64f6bc01feb04204893d30ea88bc7a7e2e4055155adbc.webp",
+   "derivativeSha256": "af6040c072544926cbd64f6bc01feb04204893d30ea88bc7a7e2e4055155adbc",
+   "derivativeBytes": 481762,
+   "encoder": "sharp webp q82 effort5 smartSubsample, same pixel dimensions",
+   "psnr": 37.6
   }
  ]
 }

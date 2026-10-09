@@ -66,7 +66,9 @@ describe('every template renders restored sections exactly once',()=>{
   for(const p of cases)it(p,()=>{
     const doc=compose(p,restored[p]!.groups,restored[p]!.h1)
     const html=render(doc)
-    for(const heading of headingsOf(restored[p]!.groups))expect(count(html,heading),`${p}: ${heading}`).toBe(1)
+    // ARTICLE-LAYOUT-1: the generated contents (rail and phone list) repeat the headings by design; the page body carries each once.
+    const body=html.replace(/<nav class="wave4-toc-rail".*?<\/nav>/s,'').replace(/<details class="wave4-toc-mobile".*?<\/details>/s,'')
+    for(const heading of headingsOf(restored[p]!.groups))expect(count(body,heading),`${p}: ${heading}`).toBe(1)
     // Search indexes the composed document's public text: restored text is part of it.
     const first=headingsOf(restored[p]!.groups)[0]
     if(first)expect(publicBodyText('salmon',doc as unknown as Record<string,unknown>)).toContain(first)

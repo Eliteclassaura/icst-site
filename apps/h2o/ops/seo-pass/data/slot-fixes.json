@@ -28622,6 +28622,52 @@
       "reason": "OGCS staging QA tranche A rulings (seal 51999737; CT accepted 2026-10-07) row QA-A-074: HVAC (owner rule: no HVAC wording). A technical equivalent with no HVAC wording."
      }
     ]
+   },
+   {
+    "key": "body.3.1.1.7.101",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Using corrosion-resistant materials like FRP for the casing and stainless steel for the structure and collection basin prevents this decay, preserving the smooth surfaces needed for clean operation and long-term energy savings.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Using corrosion-resistant materials like FRP for the casing and stainless steel for the collection basin and hardware prevents this decay, preserving the smooth surfaces needed for clean operation and long-term energy savings.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Using corrosion-resistant materials like FRP for the casing and stainless steel for the collection basin and hardware prevents this decay, preserving the smooth surfaces needed for clean operation and long-term energy savings.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "stainless steel for the structure and collection basin",
+      "to": "stainless steel for the collection basin and hardware",
+      "action": "word-corrected",
+      "reason": "OGCS CLIENT-FIX-2 (seal 953abe72), CT 2026-10-08, row CF2-03: stainless named as the structure material; neutralized to the basin and hardware, where it is accurate. Body sentence only; title and meta untouched."
+     }
+    ]
    }
   ]
  },

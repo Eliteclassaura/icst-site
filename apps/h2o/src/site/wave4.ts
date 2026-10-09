@@ -76,7 +76,11 @@ export function articleDirectoryDocuments():Array<{doc:SalmonDocument;indexable:
 }
 
 /** The 29 affected source titles encode an ampersand as literal entity text. Decode for display only. */
-export const articleDisplayTitle=(value:string):string=>value.replace(/&amp;|&#0*38;|&#x0*26;/gi,'&')
+/** CLIENT-FIX-2 (CF2-21, OGCS/CT): a title that feeds an index or card carries no leading or trailing whitespace or no-break space (U+00A0; the index showed it as "Â "). */
+export const articleDisplayTitle=(value:string):string=>value.replace(/&amp;|&#0*38;|&#x0*26;/gi,'&').replace(/^[\s\u00a0]+|[\s\u00a0]+$/g,'')
+/** CLIENT-FIX-2 (CF2-22): the latest-posts slide thumbnails carry a leaked file name as their alt ("Slide on-page-free-jpeg.jpg: ..."); their card link already names them, so the alt is empty (decorative). */
+export const LEAKED_FILENAME_ALT=/^Slide\s+[\w.-]+\.(?:jpe?g|png|webp)\b/i
+export const publicAlt=<T extends string|undefined>(alt:T):T|''=>alt&&LEAKED_FILENAME_ALT.test(alt)?'':alt
 
 /** Article cards use only that article's own locally held source image, if one exists. */
 export function articleCardImage(doc:SalmonDocument):{src:string;alt:string;width:number;height:number;sha256:string}|undefined{

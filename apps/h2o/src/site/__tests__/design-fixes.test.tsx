@@ -74,7 +74,8 @@ describe('A5 article end: one call-to-action band, no legacy Recent Posts list',
     expect(html.match(/Let’s Build Efficient Industrial Cooling Systems/g)).toHaveLength(1)
     // The mount itself (data-rfq-placement="editorial_inline") renders only with the Typeform origin configured; that
     // contract is pinned in public-rfq-gate.test.tsx. Here: the inline row and its contact fallback.
-    expect(html).toMatch(/<section class="wave4-article-rfq wave4-article-rfq--inline" aria-label="Request a quote">.*<a href="\/contact-us\/">Contact us<\/a><\/section>/)
+    // ARTICLE-LAYOUT-1: the end card keeps these classes and its contact fallback, and now carries its own OGCS heading and line.
+    expect(html).toMatch(/<section class="wave4-article-rfq wave4-article-rfq--inline wave4-article-cta wave4-article-cta--end" aria-labelledby="wave4-end-cta-heading"[^>]*>.*<a href="\/contact-us\/">Contact us<\/a><\/div><\/section>/)
     expect(html).not.toMatch(/<h2[^>]*>Recent Posts<\/h2>/)
   })
   it('the Recent Posts region is skipped in every published article that carries one, and nothing else is',()=>{
@@ -99,7 +100,7 @@ describe('A2–A6 stylesheet',()=>{
   it('is imported last and uses colour tokens only',()=>{
     const imports=[...readFileSync(path.join(APP,'src/app/(site)/layout.tsx'),'utf8').matchAll(/^import '\.\/([^']+\.css)'/gm)].map(m=>m[1])
     // Design R3 (CT 2026-10-06) adds its page stylesheet after this one; design-fixes.css stays last before it.
-    expect(imports.slice(-7)).toEqual(['design-fixes.css','design-r3.css','a11y-fixes.css','design-r4.css','design-r5.css','design-r5b.css','design-lang.css']) // + LEGAL-FIX-1 contrast overrides, then Design R4, R5, R5b and LANG-1, last
+    expect(imports.slice(-8)).toEqual(['design-fixes.css','design-r3.css','a11y-fixes.css','design-r4.css','design-r5.css','design-r5b.css','design-lang.css','design-articles.css']) // + LEGAL-FIX-1 contrast overrides, then Design R4, R5, R5b and LANG-1, then ARTICLE-LAYOUT-1, last
     for(const line of css.split('\n').filter(l=>/^\s*(color|background(-color)?|border(-color)?)\s*:/.test(l)))expect(line,line).not.toMatch(/#[0-9a-f]{3,8}\b|rgb\(/i)
   })
   it('carries each audit fix',()=>{

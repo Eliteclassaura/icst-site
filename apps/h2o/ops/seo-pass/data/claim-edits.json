@@ -9275,6 +9275,15 @@
    "slot": "body.1.1.1.3.1.1",
    "row": "HWS-02",
    "reason": "OGCS CATALOG-FANS-1 Wave 2 Howden updates (WAVE2_HOWDEN_UPDATES.tsv 633d1af6), CT 2026-10-08, row HWS-02: same change in the page's lead sentence."
+  },
+  {
+   "path": "/energy-efficient-cooling-tower/",
+   "op": "replace",
+   "find": "stainless steel for the structure and collection basin",
+   "replace": "stainless steel for the collection basin and hardware",
+   "slot": "body.3.1.1.7.101",
+   "row": "CF2-03",
+   "reason": "OGCS CLIENT-FIX-2 (seal 953abe72), CT 2026-10-08, row CF2-03: stainless named as the structure material; neutralized to the basin and hardware, where it is accurate. Body sentence only; title and meta untouched."
   }
  ]
 }

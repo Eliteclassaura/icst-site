@@ -7,7 +7,7 @@ import {Testimonials} from './HomeTestimonials'
 import {AuthorityEditorial} from './AuthorityEditorial'
 import {mathNodes,shortcodeNodes} from './math-text'
 import {articleImageAlt,isDroppedArticleImage} from './article-images'
-import {articleByline,articleDisplayTitle,articleHeadingNodes} from './wave4'
+import {articleByline,articleDisplayTitle,articleHeadingNodes,publicAlt} from './wave4'
 import {articleMetadataTitle} from './article-metadata'
 import {R2Discovery} from './R2Discovery'
 import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
@@ -108,7 +108,7 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   const attrs=node.attrs
   // R1B: an editor-uploaded Payload media image (content slot) renders from its own public media URL.
   if(tag==='img'&&attrs['data-payload-media']&&/^\/api\/media\/file\/[A-Za-z0-9._-]+$/.test(attrs.src??''))return createElement('img',{key,src:attrs.src,alt:attrs.alt??'','data-payload-media':attrs['data-payload-media'],width:attrs.width?Number(attrs.width):undefined,height:attrs.height?Number(attrs.height):undefined,loading:'lazy',style:{maxWidth:'100%',height:'auto'}})
-  if(tag==='img')return sourceImage(attrs['data-src']||attrs.src||'',articleImageAlt(doc,node)??attrs.alt,key,doc)
+  if(tag==='img')return sourceImage(attrs['data-src']||attrs.src||'',publicAlt(articleImageAlt(doc,node)??attrs.alt),key,doc)
   const props:Record<string,unknown>={key,'data-source-node':key}
   if(attrs.id)props.id=attrs.id
   if(attrs.dir)props.dir=attrs.dir

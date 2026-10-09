@@ -1,18 +1,24 @@
 import {PDF_LINK_PROPS} from './link-attrs'
-import {heldImageAlt,type SalmonDocument} from './salmon'
+import type {SalmonDocument,SalmonNode} from './salmon'
 import {pageForSegments} from './cohort'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {markLcpImage,renderSalmonNode,SalmonSeo} from './SalmonCanonical'
 import {HOME_CRUMB} from './breadcrumb-schema'
-import {articleByline,articleCardImage,articleDirectoryDocuments,articleDisplayTitle,articleHeadingNodes,articleTocLinks,firstText,isRecentPostsRegion,paragraphTexts,wave4LibraryItems,type Wave4Item} from './wave4'
+import {articleByline,articleCardImage,articleDirectoryDocuments,articleDisplayTitle,articleHeadingNodes,firstText,isRecentPostsRegion,paragraphTexts,wave4LibraryItems,type Wave4Item} from './wave4'
 import {R2Discovery} from './R2Discovery'
-import {RfqMount} from './RfqMount'
 import {cssBackground} from './salmon-source'
 import {deliverySrc,provenanceRef} from './media-delivery'
 import {PUBLIC_AUTHOR} from './public-author-identity'
 import {R4Img,Eyebrow} from './r4/R4System'
 import {R4LauncherReveal} from './r4/R4LauncherReveal'
 import {r4Copy} from './design-r4-media'
+import {ArticleCard,ArticleContents,ArticleCta,ArticleMeta,ArticlePager,RelatedArticles,articleCardData,type ArticleCardData} from './ArticleParts'
+import {ArticleTopicChips} from './ArticleTopicChips'
+import {ArticleTocSpy} from './ArticleTocSpy'
+import {
+  articleCopy,articleIndexUrlsOn,articleLayout,articleModified,ctaGroup,existingIds,inlineCtaHeading,isEnglishIndexRoute,longDate,paginate,readingMinutes,
+  relatedArticles,splitAtId,topicForPath,topicHref,wantsInlineCta,withHeadingIds,wordCount
+} from './article-layout'
 
 const exactImage='/media/figma-wave4/figma-w4-e7d87492.png'
 const resourcePath=(doc:SalmonDocument)=>doc.routeId==='SALMON-pages-1761'?'/resources/':doc.targetPath
@@ -100,55 +106,100 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
   </div>
 }
 
+/**
+ * The article's excerpt (card text and deck). Industrial-only copy rule: a sentence that mentions HVAC is left out of the excerpt
+ * (the source description of /cooling-tower-maintenance-checklist/ ends "…optimize your HVAC systems today."); the stored
+ * description itself is OGCS's to correct.
+ */
+const NOT_INDUSTRIAL=/\bHVAC\b/i
+const industrialOnly=(text:string)=>NOT_INDUSTRIAL.test(text)?(text.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g)??[]).filter(sentence=>!NOT_INDUSTRIAL.test(sentence)).join('').trim():text
+const metaDescription=(doc:SalmonDocument)=>industrialOnly(doc.seo.meta.find(meta=>meta.name==='description')?.value??'')
 function articleDescription(doc:SalmonDocument){
-  return doc.seo.meta.find(meta=>meta.name==='description')?.value||doc.text.replace(/\s+/g,' ').slice(0,180)
+  return metaDescription(doc)||industrialOnly(doc.text.replace(/\s+/g,' ').slice(0,180))
 }
 // Byline: the site author links to his canonical archive (owner decision 2026-10-02); any other name stays text.
 const AuthorName=({name}:{name:string})=>name===PUBLIC_AUTHOR.name?<a href={PUBLIC_AUTHOR.path}>{name}</a>:<>{name}</>
 
-export function Wave4ArticleIndex({doc}:{doc:SalmonDocument}){
+// The English directory as card data, once per process (every article page needs its related cards).
+let directoryCards:Array<ArticleCardData&{indexable:boolean;routeId:string}>|undefined
+const englishCards=()=>directoryCards??=articleDirectoryDocuments().filter(entry=>isEnglishIndexRoute(entry.doc.targetPath)).map(({doc,indexable})=>({...articleCardData(doc,articleDescription(doc)),indexable,routeId:doc.routeId}))
+/** `view` is for the held URL scheme only (H2O_ARTICLE_INDEX_URLS=on): a topic and a page of the grid. Off: every card, one page. */
+export function Wave4ArticleIndex({doc,view}:{doc:SalmonDocument;view?:{topic?:string;page?:number}}){
   const directory=articleDirectoryDocuments()
-  const featured=directory.find(entry=>entry.indexable)
-  if(!featured)throw new Error('Technical Articles directory has no indexable featured article')
-  const remaining=directory.filter(entry=>entry.doc.routeId!==featured.doc.routeId)
-  const nextFour=remaining.slice(0,4)
-  const allOthers=remaining.slice(4)
+  // The featured article is the newest indexable English one that has a usable image (the dark placeholder panel is only a fallback).
+  const usable=(article:SalmonDocument)=>{const image=articleCardImage(article);return Boolean(image&&!/(?:slide|presentation|text overlaid|title card)/i.test(image.alt))}
+  const eligible=directory.filter(entry=>entry.indexable&&isEnglishIndexRoute(entry.doc.targetPath))
+  const featuredEntry=eligible.find(entry=>usable(entry.doc))??eligible[0]
+  if(!featuredEntry)throw new Error('Technical Articles directory has no indexable featured article')
+  const featured=featuredEntry
+  const cards=englishCards()
+  const urls=articleIndexUrlsOn()
+  const topicSlug=urls?view?.topic:undefined
+  const others=cards.filter(card=>card.routeId!==featured.doc.routeId)
+  const filtered=topicSlug?others.filter(card=>articleLayout.routes[card.path]===topicSlug):others
+  const paged=urls?paginate(filtered,view?.page??1):{items:filtered,page:1,pages:1}
+  const topics=articleLayout.topics.map(topic=>({...topic,count:cards.filter(card=>articleLayout.routes[card.path]===topic.slug).length})).filter(topic=>topic.count>0)
   const articleImage=(article:SalmonDocument)=>{const image=articleCardImage(article);return image&&!/(?:slide|presentation|text overlaid|title card)/i.test(image.alt)?image:undefined}
   const band=cssBackground(doc.routeId,'e-c1d8555')
+  const featuredImage=articleImage(featured.doc)
+  const shown=urls&&topicSlug?filtered.length:cards.length
   return <div className="luxury-site figma-wave4 salmon-family salmon-family--articles" data-wave4-route="/tech-articles/" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc} breadcrumb={[HOME_CRUMB,{name:'Resources',path:'/resources/'}]} crumbName="Tech Articles"/><LuxuryHeader page={pageFor(doc)} routePath={doc.targetPath}/>
     <main id="main" className="wave4-article-index">
       <header className={`wave4-index-header${band?' sp-articles-band':''}`} style={band?{backgroundImage:`linear-gradient(var(--sp-veil), var(--sp-veil)), url("${deliverySrc(band.src)}")`}:undefined} data-source-background-sha256={band?.sha256}><nav aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/resources/">Resources</a></nav><h1>Tech Articles</h1><p>{firstText(doc,'p')}</p><form action="/search/" role="search"><label htmlFor="wave4-article-query">Search technical articles</label><div><input id="wave4-article-query" type="search" name="q" placeholder="Search articles and technical resources" required maxLength={200}/><button type="submit">Search</button></div></form><div className="wave4-index-resource-links"><a href="/cooling-tower-brochures/">Brochures</a><a href="/cooling-tower-resources/tools/">Tools</a><a href="/resources/">Resources Library</a></div></header>
       <section className="wave4-index-content" aria-labelledby="wave4-latest"><h2 id="wave4-latest">Technical reading</h2>
-        <article className="wave4-featured-article" data-article-route={featured.doc.targetPath}><div className="wave4-featured-copy"><span>Featured article</span><h3><a href={featured.doc.targetPath}>{articleDisplayTitle(featured.doc.title)}</a></h3><p>{articleDescription(featured.doc)}</p><a className="wave4-article-read" href={featured.doc.targetPath}>Read article <span aria-hidden="true">→</span></a></div>{articleImage(featured.doc)?<img src={articleImage(featured.doc)!.src} alt={articleImage(featured.doc)!.alt} width={articleImage(featured.doc)!.width} height={articleImage(featured.doc)!.height} data-source-sha256={articleImage(featured.doc)!.sha256}/>:<div className="wave4-featured-text" aria-hidden="true">ICS / TECHNICAL READING</div>}</article>
-        <div className="wave4-next-articles">{nextFour.map(({doc:article})=>{const image=articleImage(article);return <article key={article.routeId} data-article-route={article.targetPath}><a href={article.targetPath}>{image?<img src={deliverySrc(image.src)} alt={image.alt||heldImageAlt(undefined,image.sha256)||articleDisplayTitle(article.title)} width={image.width} height={image.height} loading="lazy" data-source-sha256={image.sha256}/>:null}<span><strong>{articleDisplayTitle(article.title)}</strong><small>{articleDescription(article)}</small><em>Read article →</em></span></a></article>})}</div>
-        <section className="wave4-directory" aria-label="All technical articles"><div className="wave4-directory-heading"><h2>All technical articles</h2><span>{directory.length} articles</span></div><ol>{allOthers.slice(0,24).map(({doc:article},index)=><li key={article.routeId} data-article-route={article.targetPath}><a href={article.targetPath}><span>{String(index+6).padStart(3,'0')}</span><strong>{articleDisplayTitle(article.title)}</strong><span aria-hidden="true">→</span></a></li>)}</ol>{allOthers.length>24?<details><summary>Show all {directory.length} articles</summary><ol start={30}>{allOthers.slice(24).map(({doc:article},index)=><li key={article.routeId} data-article-route={article.targetPath}><a href={article.targetPath}><span>{String(index+30).padStart(3,'0')}</span><strong>{articleDisplayTitle(article.title)}</strong><span aria-hidden="true">→</span></a></li>)}</ol></details>:null}</section>
+        <article className="wave4-featured-article" data-article-route={featured.doc.targetPath}>
+          {featuredImage?<img className="wave4-featured-media" src={deliverySrc(featuredImage.src)} alt="" width={featuredImage.width} height={featuredImage.height} loading="eager" decoding="async" fetchPriority="high" data-source-sha256={featuredImage.sha256}/>:<div className="wave4-featured-text" aria-hidden="true">ICS / TECHNICAL READING</div>}
+          <div className="wave4-featured-copy"><span>Featured article</span><h3><a href={featured.doc.targetPath}>{articleDisplayTitle(featured.doc.title)}</a></h3><p>{articleDescription(featured.doc)}</p><a className="wave4-article-read" href={featured.doc.targetPath}>{articleCopy('index.featured.link').replace(' →','')} <span aria-hidden="true">→</span></a></div>
+        </article>
+        <ArticleTopicChips label={articleCopy('index.filter.label')} allLabel={articleCopy('index.filter.all')} countTemplate={articleCopy('index.count',{n:'{n}'})} topics={topics} total={cards.length} urls={urls} current={topicSlug}/>
+        <section className="wave4-index-grid" aria-label="All technical articles"><div className="wave4-directory-heading"><h2>All technical articles</h2><span data-article-count="">{articleCopy('index.count',{n:shown})}</span></div>
+          <ul className="wave4-article-grid">{paged.items.map(card=><ArticleCard key={card.routeId} card={card}/>)}</ul>
+          {urls?<ArticlePager page={paged.page} pages={paged.pages}/>:null}
+        </section>
       </section>
     </main>
     <LuxuryFooter page={pageFor(doc)} routePath={doc.targetPath}/>
   </div>
 }
 
+/**
+ * The article reading layout (ARTICLE-LAYOUT-1), shared by the matched Wave 4 articles and the live English posts that sit in the
+ * Tech Articles directory. `nodes` are the body nodes in their original order: a removed region is '' so every render key, the
+ * LCP key and the provenance paths stay those of the unsplit article.
+ */
+function ArticleReading({doc,nodes:source,specimen=false}:{doc:SalmonDocument;nodes:SalmonNode[];specimen?:boolean}){
+  const byline=articleByline(doc)
+  const topic=topicForPath(doc.targetPath),group=ctaGroup(topic?.slug)
+  const {nodes,headings,chars}=withHeadingIds(source,existingIds(source))
+  const cut=wantsInlineCta(wordCount(doc.text),group)?inlineCtaHeading(headings,chars):undefined
+  const halves=cut?splitAtId(nodes,cut.id):undefined
+  const renderList=(list:SalmonNode[])=>list.map((node,index)=>node===''?null:renderSalmonNode(node,`body.${index}`,doc,true))
+  const modified=articleModified(doc),minutes=readingMinutes(doc.text)
+  const related=relatedArticles(doc.targetPath,englishCards()).map(({indexable:_i,routeId:_r,...card})=>card)
+  // The deck is the article's own description; an article without one gets none (its opening paragraph is the body).
+  const deck=metaDescription(doc)
+  return <main id="main" className="wave4-detail"><header className="wave4-detail-masthead"><nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tech-articles/">Tech Articles</a></nav>{topic?<a className="wave4-article-eyebrow" href={topicHref(topic.slug)}>{topic.name}</a>:null}<h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{deck?<p className="wave4-article-deck">{deck}</p>:null}{byline?<ArticleMeta authorNode={<AuthorName name={byline.author}/>} published={byline.date} publishedIso={byline.dateTime} updated={modified&&modified!==byline.dateTime?{text:longDate(modified),iso:modified}:undefined} minutes={minutes}/>:null}</header>
+    <div className="wave4-reading-layout"><ArticleContents headings={headings}/><ArticleTocSpy ids={headings.map(heading=>heading.id)}/><article className="wave4-detail-body">{halves?<>{renderList(halves.before)}<ArticleCta kind="inline" group={group} doc={doc}/>{renderList(halves.after)}</>:renderList(nodes)}</article></div>
+    {specimen?<nav className="wave4-related-pathways" aria-label="Related technical pathways"><h2>Continue your research</h2><a href="/wp-content/uploads/2021/11/How-Cooling-Towers-Work.pdf" {...PDF_LINK_PROPS}>How Cooling Towers Work PDF</a><a href="/crossflow-cooling-tower-repair-maintenance/">Crossflow towers</a><a href="/fill-media/">Fill media</a></nav>:null}
+    {/* Design Fixes R1 A5: the article's quote action is an inline row; the one "Let’s Build…" band is the site footer's. ARTICLE-LAYOUT-1: the end card carries its own OGCS heading, worded differently from that band. */}
+    <ArticleCta kind="end" group={group} doc={doc}/>
+    <RelatedArticles cards={related}/>
+    <div className="wave4-detail-return"><a href="/tech-articles/">{articleCopy('related.back')}</a></div>
+  </main>
+}
+
 export function Wave4ArticleDetail({doc}:{doc:SalmonDocument}){
   markLcpImage(doc)
-  const byline=articleByline(doc)
-  const toc=articleTocLinks(doc)
-  const specimen=doc.targetPath==='/how-does-a-cooling-tower-work/'
   const page=pageFor(doc)
+  const source=articleHeadingNodes(doc.children,true).map(node=>isRecentPostsRegion(node)?'':node)
   return <div className="luxury-site figma-wave4" data-wave4-article={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc} breadcrumb={[HOME_CRUMB,{name:'Tech Articles',path:'/tech-articles/'}]}/><LuxuryHeader page={page} routePath={doc.targetPath}/>
-    <main id="main" className="wave4-detail"><header className="wave4-detail-masthead"><nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tech-articles/">Tech Articles</a></nav><h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{byline?<p className="wave4-byline"><span>By <AuthorName name={byline.author}/></span><span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null}</header>
-      <div className="wave4-reading-layout">{toc.length?<><nav className="wave4-toc-rail" aria-label="Table of Contents" data-pagefind-ignore><h2>Table of Contents</h2>{toc.map(link=><a href={link.href} key={link.href}>{link.label}</a>)}</nav><details className="wave4-toc-mobile" data-pagefind-ignore><summary>Table of Contents</summary><nav aria-label="Table of Contents">{toc.map(link=><a href={link.href} key={link.href}>{link.label}</a>)}</nav></details></>:null}<article className="wave4-detail-body">{articleHeadingNodes(doc.children,true).map((node,index)=>isRecentPostsRegion(node)?null:renderSalmonNode(node,`body.${index}`,doc,true))}</article></div>
-      {specimen?<nav className="wave4-related-pathways" aria-label="Related technical pathways"><h2>Continue your research</h2><a href="/wp-content/uploads/2021/11/How-Cooling-Towers-Work.pdf" {...PDF_LINK_PROPS}>How Cooling Towers Work PDF</a><a href="/crossflow-cooling-tower-repair-maintenance/">Crossflow towers</a><a href="/fill-media/">Fill media</a></nav>:null}
-      {/* Design Fixes R1 A5: the article's quote action is an inline row; the one "Let’s Build…" band is the site footer's. */}
-      <section className="wave4-article-rfq wave4-article-rfq--inline" aria-label="Request a quote">{page?<RfqMount mountId="editorial_inline" page={page}/>:<RfqMount mountId="editorial_inline" routePath={doc.targetPath}/>}<a href="/contact-us/">Contact us</a></section>
-      <div className="wave4-detail-return"><a href="/tech-articles/">← Back to technical articles</a></div>
-    </main>
+    <ArticleReading doc={doc} nodes={source} specimen={doc.targetPath==='/how-does-a-cooling-tower-work/'}/>
     <LuxuryFooter page={pageFor(doc)} routePath={doc.targetPath}/>
   </div>
 }
 
-/** The live location pages (Singapore, United States, Thailand) rendered by the live-English shell. */
 export const LIVE_LOCATION_PATHS:ReadonlySet<string>=new Set(['/cooling-tower-construction-repair-in-singapore/','/cooling-tower-construction-repair-in-united-states/','/thailand-cooling-tower/'])
 /** R2 live-English restoration: exact source content in the accepted article shell. */
 export function LiveEnglishDetail({doc}:{doc:SalmonDocument}){
@@ -159,6 +210,12 @@ export function LiveEnglishDetail({doc}:{doc:SalmonDocument}){
   const parent=isProject?{name:'Projects',path:'/all-projects/'}:isPost?{name:'Tech Articles',path:'/tech-articles/'}:isLocation?undefined:{name:'Resources',path:'/resources/'}
   if(isPost)markLcpImage(doc)
   const byline=isPost?articleByline(doc):null
+  // ARTICLE-LAYOUT-1: a live English post that is in the Tech Articles directory gets the same reading layout as the matched articles.
+  if(isPost&&englishCards().some(card=>card.path===doc.targetPath))return <div className="luxury-site figma-wave4" data-live-english={doc.routeId} data-source-rest-sha256={doc.sourceIdentity.sha256}>
+    <SalmonSeo doc={doc} breadcrumb={[HOME_CRUMB,{name:'Tech Articles',path:'/tech-articles/'}]}/><LuxuryHeader page={pageFor(doc)} routePath={doc.targetPath}/>
+    <ArticleReading doc={doc} nodes={articleHeadingNodes(doc.children,true).map(node=>isRecentPostsRegion(node)?'':node)}/>
+    <LuxuryFooter page={pageFor(doc)} routePath={doc.targetPath}/>
+  </div>
   return <div className="luxury-site figma-wave4" data-live-english={doc.routeId} data-source-rest-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc} breadcrumb={parent?[HOME_CRUMB,parent]:[HOME_CRUMB]}/><LuxuryHeader page={pageFor(doc)} routePath={doc.targetPath}/>
     <main id="main" className="wave4-detail">

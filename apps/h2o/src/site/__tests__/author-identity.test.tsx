@@ -132,7 +132,7 @@ describe('public author identity',()=>{
   it('links the Tim Bozic byline to the canonical author archive',()=>{
     const article=salmonDocument(releaseRoutes().find(route=>route.targetPath==='/3-cell-counterflow-cooling-towers/')!)
     const html=renderToStaticMarkup(<Wave4ArticleDetail doc={article}/>)
-    expect(html).toContain('<p class="wave4-byline"><span>By <a href="/author/timbozic/">Tim Bozic</a></span>')
+    expect(html).toContain('<p class="wave4-byline wave4-article-meta"><span>By <a href="/author/timbozic/">Tim Bozic</a></span>') // ARTICLE-LAYOUT-1: the meta row keeps the byline class and the author link
     for(const block of jsonLd(html))expect(block).not.toMatch(/\/author\/tbozic\/|ICS Editorial Team/)
   })
 })

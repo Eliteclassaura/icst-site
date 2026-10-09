@@ -1,4 +1,5 @@
 import {isPdfHref} from './link-attrs'
+import {LEAKED_FILENAME_ALT} from './wave4'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {createElement,Fragment,type ReactNode} from 'react'
@@ -175,7 +176,7 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument,inLoop:false|s
   if(!media?.file)return null
   const credential=home?credentialFor(media.sha256):undefined
   props.src=credential?.src??salmonMediaPath(media)
-  props.alt=credential?.alt??(node.attrs.alt||(typeof loop==='string'?loop:''))
+  props.alt=credential?.alt??(LEAKED_FILENAME_ALT.test(node.attrs.alt??'')?'':node.attrs.alt||(typeof loop==='string'?loop:''))
   props.width=credential?.width??(Number(node.attrs.width)||media.width)
   props.height=credential?.height??(Number(node.attrs.height)||media.height)
   props.loading='lazy'
