@@ -3797,10 +3797,33 @@ span.c-chip {
   outline-offset: -2px;
 }
 
+/* #5 (1.1) a button in a list row (My Work "Assign to me") is a text link at every width: accent, no border, 13px, a 32px
+   hit area (the phone's 44px minimum for loose buttons does not apply to a row action). */
+.crm-app .c-list > li .c-btn:not(.is-primary):not(.is-danger) {
+  block-size: 32px;
+  min-block-size: 32px;
+  padding-inline: 8px;
+  border-color: transparent;
+  background: transparent;
+  color: var(--c-accent);
+  font-size: 13px;
+}
+
+.crm-app .c-list > li .c-btn:not(.is-primary):not(.is-danger):hover {
+  background: color-mix(in srgb, var(--c-b50) 50%, transparent);
+  text-decoration: underline;
+}
+
+/* #7 (1.1) figures and dates use tabular numerals so a column lines up. */
+.c-table td.received,
+.c-table td.due,
+.c-table td.reply {
+  font-variant-numeric: tabular-nums;
+}
+
 @media (min-width: 768px) {
   /* #5 row actions are text links: accent, no border, 13px, a 32px hit area. At most one filled button per section. */
-  .crm-app td.act .c-btn:not(.is-primary):not(.is-danger),
-  .crm-app .c-list > li .c-btn:not(.is-primary):not(.is-danger) {
+  .crm-app td.act .c-btn:not(.is-primary):not(.is-danger) {
     block-size: 32px;
     padding-inline: 8px;
     border-color: transparent;
@@ -3809,8 +3832,7 @@ span.c-chip {
     font-size: 13px;
   }
 
-  .crm-app td.act .c-btn:not(.is-primary):not(.is-danger):hover,
-  .crm-app .c-list > li .c-btn:not(.is-primary):not(.is-danger):hover {
+  .crm-app td.act .c-btn:not(.is-primary):not(.is-danger):hover {
     background: color-mix(in srgb, var(--c-b50) 50%, transparent);
     text-decoration: underline;
   }
@@ -3824,6 +3846,12 @@ span.c-chip {
     margin-block: -2px;
   }
 
+  /* #7 (1.1) Reply due (RFQ Inbox) is right-aligned, header and chip. */
+  .c-rfq-table th.reply,
+  .c-rfq-table td.reply {
+    text-align: end;
+  }
+
   /* #1 the owner is one line, cut with an ellipsis, never a wrapped name. */
   .c-task-table td.owner {
     max-inline-size: 140px;
@@ -3833,7 +3861,39 @@ span.c-chip {
   }
 }
 
+@media (min-width: 1280px) {
+  /* #7 (1.1) the table header stays under the 48px top bar while the page scrolls. A sticky header needs the wrapper to
+     stop being a scroll container, so on a wide screen it clips instead of scrolling (every list table fits at 1280). */
+  .c-table-wrap {
+    overflow-x: clip;
+  }
+
+  .c-table-wrap .c-table th {
+    inset-block-start: 48px;
+    z-index: 2;
+  }
+}
+
 @media (max-width: 767px) {
+  /* #2 (1.1) a deal's "Open deal" on a phone card is the same text link; Done and Reschedule stay a 44px row and share its
+     width equally (Reschedule used to take the whole row and squeeze Done to 18px). */
+  .crm-app .c-table.c-task-table td.act > a.c-btn.is-small {
+    block-size: 32px;
+    min-block-size: 32px;
+    padding-inline: 0;
+    border-color: transparent;
+    background: transparent;
+    color: var(--c-accent);
+    font-size: 13px;
+  }
+
+  .crm-app .c-table.c-task-table .c-task-actions > form,
+  .crm-app .c-table.c-task-table .c-task-actions > .c-btn.is-small {
+    flex: 1 1 0;
+    inline-size: auto;
+    min-inline-size: 0;
+  }
+
   /* #4 on a phone the engine strip is the chip alone. */
   .er-strip-detail {
     display: none;
