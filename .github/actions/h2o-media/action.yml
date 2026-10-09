@@ -1,0 +1,42 @@
+name: h2o-media
+description: >
+  Fill apps/h2o/public/ without downloading Git-LFS media on every run: reuse the previous production image's media (verified by sha256
+  against the LFS pointer oids), fetch only new or changed files from LFS. The caller has logged in to GHCR and checked out with lfs: false.
+inputs:
+  image:
+    description: 'Image repository, for example ghcr.io/owner/name'
+    required: true
+  prev-digest:
+    description: 'Previous production image digest (sha256, 64 hex). Empty means first run: every LFS file is fetched.'
+    required: false
+    default: ''
+outputs:
+  media-count:
+    description: Number of files in apps/h2o/public after assembly
+    value: ${{ steps.apply.outputs.count }}
+runs:
+  using: composite
+  steps:
+    - id: apply
+      shell: bash
+      env:
+        IMAGE: ${{ inputs.image }}
+        PREV: ${{ inputs.prev-digest }}
+      run: |
+        set -euo pipefail
+        git lfs install --local >/dev/null
+        prev_args="--prev-identity none"
+        if [ -n "$PREV" ]; then
+          docker pull --quiet "$IMAGE@$PREV" >/dev/null
+          cid=$(docker create "$IMAGE@$PREV")
+          rm -rf .prev-media && mkdir .prev-media
+          docker cp "$cid:/app/apps/h2o/public" .prev-media/public >/dev/null
+          docker cp "$cid:/app/MEDIA_IDENTITY.sha256" .prev-media/MEDIA_IDENTITY.sha256 >/dev/null
+          docker rm -f "$cid" >/dev/null
+          prev_args="--prev-dir .prev-media/public --prev-identity .prev-media/MEDIA_IDENTITY.sha256"
+        fi
+        node apps/h2o/ops/ci/media.mjs plan $prev_args
+        # shellcheck disable=SC2086
+        node apps/h2o/ops/ci/media.mjs apply $prev_args | tee .media-apply.json
+        rm -rf .prev-media
+        echo "count=$(find apps/h2o/public -type f | wc -l | tr -d ' ')" >> "$GITHUB_OUTPUT"

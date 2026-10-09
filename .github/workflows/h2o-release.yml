@@ -1,0 +1,319 @@
+name: H2O release
+
+# DEPLOY-PIPE-1. Builds, gates and publishes the H2O runtime image from a SEALED head. It does NOT deploy and holds no Coolify or VPS
+# credential: the Commander redeploys the digest this workflow reports (see apps/h2o/docs/DEPLOY_PIPELINE.md).
+#
+# INERT until the repository variable H2O_RELEASE_CI_ENABLED is 'true' (switch on only after the owner's GO).
+#
+# Trigger (both supported): the Commander pushes the sealed head to `release/<head12>` (add-only: never force-push; protect `release/**`), OR dispatches
+# the workflow with the head SHA as an input. The build uses exactly that commit either way.
+# Variables (not secrets): H2O_DEPLOYED_SHA (the head production runs now), H2O_DEPLOYED_DIGEST (its image digest), H2O_SERVER_URL
+#   (https://h2ocooling.com), H2O_FORBIDDEN_HOSTS (optional, comma list, e.g. the VPS IP), H2O_TEST_NOW (optional frozen clock), GHCR_USER.
+# Secret: GHCR_PUSH_TOKEN (write:packages PAT; never printed) is the supported credential. The GITHUB_TOKEN fallback only works if the package grants
+# this repo Actions write access: do not rely on it.
+on:
+  push:
+    branches: ['release/**']
+  workflow_dispatch:
+    inputs:
+      head_sha:
+        description: 'The sealed head to build (full 40-hex commit sha). Empty = the commit the workflow was started on.'
+        required: false
+        default: ''
+      base_sha:
+        description: 'The head production runs now (the diff base). Empty = the H2O_DEPLOYED_SHA variable.'
+        required: false
+        default: ''
+      prev_digest:
+        description: 'Previous production image digest (sha256, 64 hex). Empty = the H2O_DEPLOYED_DIGEST variable.'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: h2o-release
+  cancel-in-progress: false
+
+env:
+  H2O_IMAGE: ghcr.io/eliteclassaura/h2o-unified-runtime
+  HEAD_SHA: ${{ inputs.head_sha || github.sha }}
+  BASE_SHA: ${{ inputs.base_sha || vars.H2O_DEPLOYED_SHA }}
+  PREV_DIGEST: ${{ inputs.prev_digest || vars.H2O_DEPLOYED_DIGEST }}
+  NEXT_TELEMETRY_DISABLED: '1'
+
+jobs:
+  gate:
+    name: enabled?
+    runs-on: ubuntu-latest
+    outputs:
+      on: ${{ steps.g.outputs.on }}
+    steps:
+      - id: g
+        env:
+          ENABLED: ${{ vars.H2O_RELEASE_CI_ENABLED }}
+        run: |
+          if [ "$ENABLED" = "true" ] && ! printf '%s' "$HEAD_SHA" | grep -Eq '^[0-9a-f]{40}$'; then echo "HEAD_SHA must be a full 40-hex commit sha"; exit 1; fi
+          if [ "$ENABLED" = "true" ]; then echo "on=true" >> "$GITHUB_OUTPUT"; else echo "on=false" >> "$GITHUB_OUTPUT"; echo "H2O release CI is switched off (H2O_RELEASE_CI_ENABLED != true)."; fi
+
+  classify:
+    needs: gate
+    if: needs.gate.outputs.on == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      class: ${{ steps.c.outputs.class }}
+      reasons: ${{ steps.c.outputs.reasons }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0, lfs: false, ref: '${{ env.HEAD_SHA }}' }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - id: c
+        run: node apps/h2o/ops/ci/classify-change.mjs "$BASE_SHA" "$HEAD_SHA"
+
+  # ── LIGHT: css / copy only ────────────────────────────────────────────────────────────────────────────
+  gates-light:
+    needs: classify
+    if: needs.classify.outputs.class == 'light'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0, lfs: false, ref: '${{ env.HEAD_SHA }}' }
+      - uses: ./.github/actions/h2o-setup
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ vars.GHCR_USER || github.repository_owner }}
+          password: ${{ secrets.GHCR_PUSH_TOKEN || secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions/h2o-media
+        with: { image: '${{ env.H2O_IMAGE }}', prev-digest: '${{ env.PREV_DIGEST }}' }
+      - name: Typecheck
+        run: pnpm --filter @factory/h2o typecheck
+      - name: ESLint
+        run: pnpm --filter @factory/h2o lint
+      - name: Stylelint per-rule counts equal base (changed css files)
+        run: node apps/h2o/ops/ci/stylelint-counts.mjs "$BASE_SHA" "$HEAD_SHA"
+      - name: Tests related to the changed files
+        run: |
+          set -euo pipefail
+          files=$(git diff --name-only --no-renames --diff-filter=AM "$BASE_SHA" "$HEAD_SHA" -- apps/h2o/src apps/h2o/content | sed 's#^apps/h2o/##' | tr '\n' ' ')
+          if [ -z "$files" ]; then echo "no related files"; exit 0; fi
+          # shellcheck disable=SC2086
+          pnpm --filter @factory/h2o exec vitest related --run --passWithNoTests --testTimeout=60000 $files
+
+  # ── FULL: everything else ─────────────────────────────────────────────────────────────────────────────
+  static:
+    needs: classify
+    if: needs.classify.outputs.class == 'full'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0, lfs: false, ref: '${{ env.HEAD_SHA }}' }
+      - uses: ./.github/actions/h2o-setup
+      - run: pnpm --filter @factory/h2o typecheck
+      - run: pnpm --filter @factory/h2o lint
+      - name: Stylelint per-rule counts equal base (changed css files)
+        run: node apps/h2o/ops/ci/stylelint-counts.mjs "$BASE_SHA" "$HEAD_SHA"
+
+  unit:
+    needs: classify
+    if: needs.classify.outputs.class == 'full'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0, lfs: false, ref: '${{ env.HEAD_SHA }}' }
+      - uses: ./.github/actions/h2o-setup
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ vars.GHCR_USER || github.repository_owner }}
+          password: ${{ secrets.GHCR_PUSH_TOKEN || secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions/h2o-media
+        with: { image: '${{ env.H2O_IMAGE }}', prev-digest: '${{ env.PREV_DIGEST }}' }
+      - run: pnpm --filter @factory/h2o exec vitest run --maxWorkers=2 --testTimeout=60000
+
+  crm-db:
+    needs: classify
+    if: needs.classify.outputs.class == 'full'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_USER: postgres, POSTGRES_PASSWORD: postgres, POSTGRES_DB: h2o_ci_test }
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      DATABASE_URI: postgres://postgres:postgres@localhost:5432/h2o_ci_test
+      H2O_CRM_TEST_DATABASE_URI: postgres://postgres:postgres@localhost:5432/h2o_ci_test
+      PAYLOAD_SECRET: ci-only-placeholder-secret
+      NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0, lfs: false, ref: '${{ env.HEAD_SHA }}' }
+      - uses: ./.github/actions/h2o-setup
+      - name: Frozen test clock (optional variable)
+        if: vars.H2O_TEST_NOW != ''
+        env: { NOW: '${{ vars.H2O_TEST_NOW }}' }
+        run: echo "H2O_TEST_NOW=$NOW" >> "$GITHUB_ENV"
+      - name: Migrate the empty test database
+        run: pnpm --filter @factory/h2o exec payload migrate
+      - name: CRM DB suite, shard ${{ matrix.shard }} of 4
+        run: pnpm --filter @factory/h2o exec vitest run -c vitest.crm-db.config.ts --shard=${{ matrix.shard }}/4 --maxWorkers=2
+
+  schema:
+    needs: classify
+    if: needs.classify.outputs.class == 'full'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_USER: postgres, POSTGRES_PASSWORD: postgres, POSTGRES_DB: h2o_ci_test }
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      DATABASE_URI: postgres://postgres:postgres@localhost:5432/h2o_ci_test
+      PAYLOAD_SECRET: ci-only-placeholder-secret
+      NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0, lfs: false, ref: '${{ env.HEAD_SHA }}' }
+      - uses: ./.github/actions/h2o-setup
+      - name: Migrate from empty
+        run: pnpm --filter @factory/h2o exec payload migrate
+      - name: migrate:create finds "No schema changes"
+        run: |
+          set -euo pipefail
+          out=$(echo n | pnpm --filter @factory/h2o exec payload migrate:create ci_probe 2>&1 || true)
+          if echo "$out" | grep -q "No schema changes detected"; then echo "No schema changes detected"; else echo "FAIL: the schema snapshots do not match the collections"; exit 1; fi
+          git status --porcelain apps/h2o/src/migrations | grep . && { echo "FAIL: a migration file was created"; exit 1; } || true
+      - name: generate:types is identical
+        run: |
+          pnpm --filter @factory/h2o exec payload generate:types
+          git diff --exit-code -- apps/h2o/src/payload-types.ts
+
+  # ── image (parallel with the gates) ──────────────────────────────────────────────────────────────────
+  image:
+    needs: classify
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      digest: ${{ steps.build.outputs.digest }}
+      media_count: ${{ steps.media.outputs.media-count }}
+      identity_ok: ${{ steps.identity.outputs.ok }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0, lfs: false, ref: '${{ env.HEAD_SHA }}' }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ vars.GHCR_USER || github.repository_owner }}
+          password: ${{ secrets.GHCR_PUSH_TOKEN || secrets.GITHUB_TOKEN }}
+      - id: media
+        uses: ./.github/actions/h2o-media
+        with: { image: '${{ env.H2O_IMAGE }}', prev-digest: '${{ env.PREV_DIGEST }}' }
+      - uses: docker/setup-buildx-action@v3
+      - id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: apps/h2o/Dockerfile.runtime
+          platforms: linux/amd64
+          push: true
+          provenance: false
+          tags: ${{ env.H2O_IMAGE }}:candidate-${{ env.HEAD_SHA }}
+          cache-from: type=registry,ref=${{ env.H2O_IMAGE }}:buildcache
+          cache-to: type=registry,ref=${{ env.H2O_IMAGE }}:buildcache,mode=max
+          build-args: |
+            NEXT_PUBLIC_SERVER_URL=${{ vars.H2O_SERVER_URL }}
+            H2O_REVISION=${{ env.HEAD_SHA }}
+      - id: identity
+        name: Image identity (revision, media count, 0 LFS pointers, bounded compiled-URL scan)
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+          COUNT: ${{ steps.media.outputs.media-count }}
+          ORIGIN: ${{ vars.H2O_SERVER_URL }}
+          FORBID: ${{ vars.H2O_FORBIDDEN_HOSTS }}
+        run: |
+          set -euo pipefail
+          docker pull --quiet "$H2O_IMAGE@$DIGEST" >/dev/null
+          if bash apps/h2o/ops/ci/check-image-identity.sh "$H2O_IMAGE@$DIGEST" "$HEAD_SHA" "$COUNT" "$ORIGIN" evidence "$FORBID"; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "ok=false" >> "$GITHUB_OUTPUT"; exit 1; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: image-evidence
+          path: |
+            evidence/identity.json
+            evidence/compiled-url-scan.json
+            .media-apply.json
+          if-no-files-found: ignore
+
+  # ── publish: only a fully green release gets a deployable tag ───────────────────────────────────────
+  publish:
+    needs: [classify, image, gates-light, static, unit, crm-db, schema]
+    if: always() && needs.classify.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - id: verdict
+        env:
+          CLASS: ${{ needs.classify.outputs.class }}
+          REASONS: ${{ needs.classify.outputs.reasons }}
+          IMAGE_R: ${{ needs.image.result }}
+          LIGHT_R: ${{ needs['gates-light'].result }}
+          STATIC_R: ${{ needs.static.result }}
+          UNIT_R: ${{ needs.unit.result }}
+          DB_R: ${{ needs['crm-db'].result }}
+          SCHEMA_R: ${{ needs.schema.result }}
+        run: |
+          set -euo pipefail
+          ok=true
+          [ "$IMAGE_R" = success ] || ok=false
+          if [ "$CLASS" = light ]; then [ "$LIGHT_R" = success ] || ok=false
+          else for r in "$STATIC_R" "$UNIT_R" "$DB_R" "$SCHEMA_R"; do [ "$r" = success ] || ok=false; done; fi
+          echo "ok=$ok" >> "$GITHUB_OUTPUT"
+          {
+            echo "## H2O release ${HEAD_SHA:0:12}"
+            echo "- change class: **$CLASS** ($REASONS)"
+            echo "- image: $IMAGE_R · light gates: $LIGHT_R · static: $STATIC_R · unit: $UNIT_R · CRM DB: $DB_R · schema: $SCHEMA_R"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: docker/login-action@v3
+        if: steps.verdict.outputs.ok == 'true'
+        with:
+          registry: ghcr.io
+          username: ${{ vars.GHCR_USER || github.repository_owner }}
+          password: ${{ secrets.GHCR_PUSH_TOKEN || secrets.GITHUB_TOKEN }}
+      - name: Promote the verified digest to the deployable tag
+        if: steps.verdict.outputs.ok == 'true'
+        env:
+          DIGEST: ${{ needs.image.outputs.digest }}
+        run: |
+          set -euo pipefail
+          tag="${HEAD_SHA:0:12}-production"
+          docker buildx imagetools create -t "$H2O_IMAGE:$tag" "$H2O_IMAGE@$DIGEST"
+          {
+            echo "### DEPLOYABLE"
+            echo "\`$H2O_IMAGE@$DIGEST\` (tag \`$tag\`)"
+            echo "Commander: redeploy THIS digest (apps/h2o/docs/DEPLOY_PIPELINE.md), then run the read-back."
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Not deployable
+        if: steps.verdict.outputs.ok != 'true'
+        run: |
+          echo "### NOT DEPLOYABLE: a gate failed. Do not deploy any candidate image from this run." >> "$GITHUB_STEP_SUMMARY"
+          exit 1

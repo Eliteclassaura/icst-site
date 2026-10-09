@@ -1,0 +1,11 @@
+name: h2o-setup
+description: Node + pnpm + frozen install (cached). No secrets.
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+      with: { version: 10.28.0 }
+    - uses: actions/setup-node@v4
+      with: { node-version: 22, cache: pnpm }
+    - run: pnpm install --frozen-lockfile
+      shell: bash

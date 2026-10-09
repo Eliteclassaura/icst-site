@@ -1,0 +1,97 @@
+{
+  "_comment": "Template for the private review phase (noindex). Copy per release. The three 'chrome:' checks read the LIVE published site-chrome global (it overrides the code defaults): the first two are the UPDATE-1 case (footer Useful Links; the Parts -> Fans menu); fill or delete the third. Contains no secrets and no customer data.",
+  "everywhereNotContains": [
+    "localhost",
+    "sslip",
+    "staging.h2ocooling"
+  ],
+  "checks": [
+    {
+      "name": "ready",
+      "path": "/api/ready",
+      "status": 200
+    },
+    {
+      "name": "home (noindex)",
+      "path": "/",
+      "status": 200,
+      "contains": [
+        "noindex"
+      ]
+    },
+    {
+      "name": "contact page",
+      "path": "/contact-us/",
+      "status": 200
+    },
+    {
+      "name": "parts page",
+      "path": "/cooling-tower-parts/",
+      "status": 200
+    },
+    {
+      "name": "CRM sign-in page",
+      "path": "/admin/login/",
+      "status": 200
+    },
+    {
+      "name": "CRM redirects to sign-in when signed out",
+      "path": "/crm/",
+      "status": 307,
+      "location": "login"
+    },
+    {
+      "name": "quote form registry",
+      "path": "/api/rfq/registry/?locale=en",
+      "status": 200,
+      "contains": [
+        "registryVersion"
+      ]
+    },
+    {
+      "name": "chrome: footer Useful Links = the code default (published site-chrome global)",
+      "path": "/",
+      "status": 200,
+      "region": "footer",
+      "contains": [
+        "About ICS",
+        "All Projects",
+        "Resources Library",
+        "Technical Articles",
+        "Brochures",
+        "Tools",
+        "Contact Us"
+      ],
+      "notContains": [
+        "Expert Industrial Cooling Solutions",
+        ">Search</a>"
+      ]
+    },
+    {
+      "name": "chrome: header Parts -> Fans menu = FANS-MENU-1 (incl. TUF-LITE IV)",
+      "path": "/",
+      "status": 200,
+      "region": "header",
+      "contains": [
+        "Hudson",
+        "TUF-LITE II",
+        "TUF-LITE III",
+        "TUF-LITE IV",
+        "Howden",
+        "Moore"
+      ]
+    },
+    {
+      "name": "chrome: any release-specific chrome string (fill per release)",
+      "path": "/",
+      "status": 200,
+      "region": "footer",
+      "contains": [
+        "<<FILL: a footer string this release changed>>"
+      ],
+      "notContains": [
+        "<<FILL: the old default text that must be gone>>"
+      ]
+    }
+  ]
+}
