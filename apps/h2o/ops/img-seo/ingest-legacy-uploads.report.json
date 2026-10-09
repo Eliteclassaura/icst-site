@@ -1,0 +1,18 @@
+{
+ "keys": 631,
+ "recovered": 625,
+ "filesCopied": 247,
+ "filesAlreadyInStore": 378,
+ "bytesAdded": 41439059,
+ "mbAdded": 41.4,
+ "missingInBackups": [
+  "2025/08/closed-loop-vs-open-loop-cooling-tower-industrial-comparison.jpg",
+  "2026/02/cooling-tower-approach-guide.jpg",
+  "2026/03/cooling-tower-efficiency-calculation-step-by-step-guide.jpg",
+  "2026/06/1132264e6386fadd5aac512b23f03b076434cb2d.png",
+  "2026/06/5a81791e8dc3945fd3b289874b92376d1d93eaa8.png",
+  "2026/06/b95ce15eb0570fbdab96fe91ac9655e21ade1ff1.png"
+ ],
+ "onlyAsVariantInBackups": [],
+ "note": "counts are from the first run (a re-run is idempotent and finds every file already in the store). 625 recovered files total 87.4 MB; 378 of them were already held under other URLs (same sha256), so 247 files / 41.4 MB are new to the store."
+}

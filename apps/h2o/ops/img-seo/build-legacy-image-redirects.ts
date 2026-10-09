@@ -29,6 +29,7 @@ for(const r of identities)add({url:r.url,sha256:r.sha256,file:r.file,width:r.wid
 for(const r of read<Array<{url:string;file?:string;sha256?:string}>>('r2-live-media-identities.json'))add({url:r.url,sha256:r.sha256,file:r.file,exact:true,from:'r2-live'})
 for(const r of read<{rows:Array<{url:string;file?:string;sha256?:string;width?:number}>}>('r24-recovered-media-identities.json').rows)add({url:r.url,sha256:r.sha256,file:r.file,width:r.width,exact:true,from:'r24-recovered'})
 for(const r of read<Array<{url:string;file?:string;sha256?:string;width?:number}>>('chrome-media-supplement.json'))add({url:r.url,sha256:r.sha256,file:r.file,width:r.width,exact:true,from:'chrome-supplement'})
+for(const r of read<{rows:Array<{url:string;file?:string;sha256?:string;width?:number}>}>('legacy-uploads-recovered-media-identities.json').rows)add({url:r.url,sha256:r.sha256,file:r.file,width:r.width,exact:true,from:'legacy-uploads-recovered'})
 const library=read<Array<{attachmentId:number;sourceUrl:string;publicPath:string;sha256:string;width?:number}>>('original-library.json')
 for(const r of library)add({url:r.sourceUrl,sha256:r.sha256,file:r.publicPath,width:r.width,exact:true,from:'original-library'})
 for(const r of read<Array<{attachment_id:number;source_url:string}>>('attachments.json')){

@@ -4,6 +4,7 @@
  */
 import {afterEach,describe,expect,it,vi} from 'vitest'
 import {existsSync,readFileSync,readdirSync,statSync} from 'node:fs'
+import {createHash} from 'node:crypto'
 import path from 'node:path'
 import {legacyImageKey,legacyImageTarget} from '../../content/legacy-image-redirects'
 
@@ -24,6 +25,7 @@ const manifestUrls=():string[]=>{
   for(const r of read<Array<{url:string;file?:string}>>('media-identities.json'))if(r.file&&isUpload(r.url))urls.push(r.url)
   for(const r of read<{rows:Array<{url:string;file?:string}>}>('r24-recovered-media-identities.json').rows)if(r.file&&isUpload(r.url))urls.push(r.url)
   for(const r of read<Array<{url:string;file?:string}>>('chrome-media-supplement.json'))if(r.file&&isUpload(r.url))urls.push(r.url)
+  for(const r of read<{rows:Array<{url:string;file?:string}>}>('legacy-uploads-recovered-media-identities.json').rows)if(r.file&&isUpload(r.url))urls.push(r.url)
   for(const r of read<Array<{sourceUrl:string}>>('original-library.json'))if(isUpload(r.sourceUrl))urls.push(r.sourceUrl)
   for(const p of read<Array<{src?:string;srcset?:string;source_url?:string;binary?:{file?:string}}>>('media-placements.json'))if(p.binary?.file)for(const u of [p.src,p.source_url,...(p.srcset??'').split(',').map(s=>s.trim().split(/\s+/)[0])])if(u&&isUpload(u))urls.push(u)
   return urls
@@ -58,6 +60,38 @@ describe('the map',()=>{
       const key=line.split('  <- ')[0]!
       expect(legacyImageTarget(`/wp-content/uploads/${key}`),key).toBeUndefined()
     }
+  })
+})
+
+describe('LEGACY-IMG-REDIRECTS-1.1: the uploads recovered from the owner\'s local WordPress backups',()=>{
+  const recovered=read<{rows:Array<{url:string;sha256:string;bytes:number;file:string;width:number;height:number;format:string;authority:string;source:string}>}>('legacy-uploads-recovered-media-identities.json').rows
+  it('625 held binaries: stored as <sha256>.<ext> byte-for-byte, with their size and source recorded',()=>{
+    expect(recovered).toHaveLength(625)
+    for(const r of recovered){
+      expect(r.file,r.url).toBe(`media/${r.sha256}.${r.file.split('.').pop()}`)
+      const bytes=readFileSync(path.join(APP,'public/media/salmon',path.basename(r.file)))
+      expect(bytes.length,r.url).toBe(r.bytes)
+      expect(createHash('sha256').update(bytes).digest('hex'),r.url).toBe(r.sha256)
+      expect(r.width,r.url).toBeGreaterThan(0);expect(r.height,r.url).toBeGreaterThan(0)
+      expect(r.authority).toBe('LEGACY_IMG_REDIRECTS_1_1_LOCAL_BACKUP_RECOVERED')
+      expect(r.source).toContain('wp-content/uploads/')
+    }
+  })
+  it('every one redirects, its size variants too, to its own file',()=>{
+    for(const r of recovered){
+      const p=pathOf(r.url)
+      expect(legacyImageTarget(p),r.url).toBeDefined()
+      expect(existsSync(path.join(APP,'public',legacyImageTarget(p)!)),r.url).toBe(true)
+      expect(legacyImageTarget(p.replace(/(\.[a-z0-9]+)$/i,'-1024x768$1')),r.url).toBe(legacyImageTarget(p))
+    }
+  })
+  it('only six named uploads remain unmapped (not in the backups)',()=>{
+    expect(report.unresolved.map(l=>l.split('  <- ')[0]).sort()).toEqual([
+      '2025/08/closed-loop-vs-open-loop-cooling-tower-industrial-comparison.jpg','2026/02/cooling-tower-approach-guide.jpg','2026/03/cooling-tower-efficiency-calculation-step-by-step-guide.jpg',
+      '2026/06/1132264e6386fadd5aac512b23f03b076434cb2d.png','2026/06/5a81791e8dc3945fd3b289874b92376d1d93eaa8.png','2026/06/b95ce15eb0570fbdab96fe91ac9655e21ade1ff1.png'])
+  })
+  it('pages do not read the recovered manifest: no page gains or loses an image',()=>{
+    expect(readFileSync(path.join(APP,'src/site/salmon.ts'),'utf8')).not.toContain('legacy-uploads-recovered')
   })
 })
 
