@@ -139,8 +139,27 @@ export function R5bLocationPage({doc}:{doc:SalmonDocument}){
   </section>:null
   const featuredSection=featured?<section key="featured" className="dr4-section r5b-featured">{heading(featured)}{featuredIntro(featured.intro)}{featured.cards.length?cardGrid(featured,featured.cards.length===3?3:2):null}{prose(featured.outro)}</section>:null
 
+  // LOCATION-FAQ-FIX-1: an imported "Frequently Asked Questions" section (a question in its own block, its answer paragraphs after it, and a
+  // leftover "Download/View" widget button per answer) becomes the template's FAQ list (native disclosures, left-aligned, one readable
+  // column) with ONE "Request a Quote" button; the leftover buttons are dropped. No wording changes: the questions and answers are the source's.
+  const faqPairs=(s:Section):Array<{q:string;a:string[]}>=>{
+    if(!/^\s*frequently asked questions\s*$/i.test(s.h2.map(h=>salmonNodeText(h.node)).join(' ')))return []
+    const out:Array<{q:string;a:string[]}>=[]
+    for(const item of s.intro){
+      const text=salmonNodeText(item.node).replace(/\s+/g,' ').trim()
+      if(!text)continue
+      if(item.node.tag==='p'){out.at(-1)?.a.push(text)}else out.push({q:text,a:[]})
+    }
+    return out.filter(pair=>pair.a.length)
+  }
   function render(s:Section,index:number):ReactNode{
     const headText=s.h2.map(h=>salmonNodeText(h.node)).join(' ')
+    const faq=faqPairs(s)
+    if(faq.length>=2)return <Fragment key={index}>{featuredSection}{officeBand}<section className="dr4-section r5b-closing r5b-faq-band" aria-labelledby="r5b-faq-title"><div className="dr4-navy r5b-closing-panel">
+      {s.h2.map(h=><Text key={h.key} item={h} className="dr4-h2 dr4-h2--on-navy"/>)}
+      <div className="page-faq-list">{faq.map(pair=><details key={pair.q}><summary>{pair.q}</summary>{pair.a.map(a=><p key={a}>{a}</p>)}</details>)}</div>
+      <div className="dr4-actions">{quote('faq-quote','Request a Quote','white')}</div>
+    </div></section></Fragment>
     const closing=index===rest.length-1&&!s.cards.length&&!s.imgs.length&&s.links.length>0
     if(closing)return <Fragment key={index}>{featuredSection}{officeBand}<PageFaq path={doc.targetPath}/><section className="dr4-section r5b-closing"><div className="dr4-navy r5b-closing-panel">{s.h2.map(h=><Text key={h.key} item={h} className="dr4-h2 dr4-h2--on-navy"/>)}{s.intro.length?<div className="dr4-prose dr4-prose--on-navy">{s.intro.map(p=><Text key={p.key} item={p}/>)}</div>:null}{actions(s,'white')}</div></section></Fragment>
     const img=s.imgs[0]

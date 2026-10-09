@@ -256,3 +256,46 @@
   min-block-size: 44px;
   text-decoration: none;
 }
+
+/* LOCATION-FAQ-FIX-1: the FAQ list on the location template (the restored Japan FAQ and the imported Thailand one): native disclosures, left-aligned, one readable column */
+.dr4 .page-faq-list {
+  border-block-start: 1px solid rgb(74 85 102 / 22%);
+  display: grid;
+  margin-block-start: 24px;
+  max-inline-size: 760px;
+  text-align: start;
+}
+
+.dr4 .page-faq-list details {
+  border-block-end: 1px solid rgb(74 85 102 / 22%);
+  padding-block: 18px;
+}
+
+.dr4 .page-faq-list summary {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.dr4 .page-faq-list p {
+  font-size: 17px;
+  line-height: 1.65;
+  margin-block: 12px 0;
+  max-inline-size: 760px;
+}
+
+.dr4 .r5b-faq-band .page-faq-list {
+  border-color: var(--dr4-pill-line);
+  inline-size: min(100%, 760px);
+  margin-inline: auto;
+}
+
+.dr4 .r5b-faq-band .page-faq-list details {
+  border-color: var(--dr4-pill-line);
+}
+
+.dr4 .r5b-faq-band .dr4-actions {
+  justify-content: center;
+  margin-block-start: 32px;
+}
