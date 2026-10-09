@@ -202,6 +202,30 @@ describe('LISTING-MERGE-1.1: the four real held listing records, stored by an ol
     expect(plan.report.refusedElements).toHaveLength(1)
     expect(plan.report.newElements.length).toBeGreaterThanOrEqual(shift)
   }, 120000)
+  it('LISTING-MERGE-1.2: a results-count paragraph (count text before and after, differing in dash/space form) resolves to the source; free text still refuses. Count text (stored and old source) differing only in dash/space form is resolved to the source, the route is MERGE with 0 refused; free text still refuses', () => {
+    const p = '/product-category/fans/page/2/'
+    const shift = olderStored(p, 0, false).removed
+    const o = olderStored(p, shift)
+    for (const variant of [(t: string) => t.replace('–', '-'), (t: string) => t.replace('Showing ', 'Showing\u00a0'), (t: string) => t.replace(' of ', '  of ')]) {
+      const edited = structuredClone(o.slots)
+      const c = edited.find((s) => /Showing/.test(JSON.stringify(s.text ?? '')))!
+      c.text = JSON.parse(variant(JSON.stringify(c.text)))
+      const plan = planListingMerge(rec(p, { ...o, slots: edited }), o.newDoc as Doc, o.row.sourceSha256!, productIds)
+      expect(plan.report.action).toBe('MERGE')
+      expect(plan.report.refusedElements).toEqual([])
+      expect(plan.report.resolvedElements).toHaveLength(1)
+      expect(plan.report.resolvedElements[0]!.reason).toBe('resolved: count paragraph -> source')
+      expect(JSON.stringify(plan.slots!.find((s) => /Showing/.test(JSON.stringify(s.text ?? '')))!.text)).toContain('of 33 results')
+    }
+    // free text in the count paragraph is not count data: refused for that element only
+    const free = structuredClone(o.slots)
+    const f = free.find((s) => /Showing/.test(JSON.stringify(s.text ?? '')))!
+    f.text = JSON.parse(JSON.stringify(f.text).replace(/Showing[^"]*results/, 'Our complete range of fans'))
+    const refused = planListingMerge(rec(p, { ...o, slots: free }), o.newDoc as Doc, o.row.sourceSha256!, productIds)
+    expect(refused.report.action).toBe('MERGE_PARTIAL')
+    expect(refused.report.refusedElements).toHaveLength(1)
+    expect(refused.report.resolvedElements).toEqual([])
+  }, 120000)
 })
 
 describe('LISTING-MERGE-1.1: mergeListings against an in-memory Payload (find/update wiring)', () => {
@@ -255,6 +279,21 @@ describe('LISTING-MERGE-1.1: mergeListings against an in-memory Payload (find/up
     const rerun = await mergeListings(payload, APP, { apply: true })
     expect(rerun.map((r) => r.action)).toEqual(['UNCHANGED', 'UNCHANGED', 'UNCHANGED', 'UNCHANGED'])
     expect(updates).toHaveLength(4)
+  }, 180000)
+  it('LISTING-MERGE-1.2: a stored count paragraph that differs in form (batch-touched) is resolved to the source on all four routes: 4 x MERGE, 0 refused, the rerun is 4 x UNCHANGED', async () => {
+    const records = PATHS.map(oldRecord)
+    for (const r of records) {
+      const c = (r.slots as ContentSlot[]).find((s) => /Showing/.test(JSON.stringify(s.text ?? '')))
+      if (c) c.text = JSON.parse(JSON.stringify(c.text).replace('Showing ', 'Showing\u00a0').replace('–', '-'))
+    }
+    const { payload } = fake(records)
+    const dry = await mergeListings(payload, APP, { apply: false })
+    expect(dry.map((r) => r.action)).toEqual(['MERGE', 'MERGE', 'MERGE', 'MERGE'])
+    expect(dry.map((r) => r.refusedElements.length)).toEqual([0, 0, 0, 0])
+    expect(dry.filter((r) => r.resolvedElements.length === 1).length).toBeGreaterThanOrEqual(1)
+    await mergeListings(payload, APP, { apply: true })
+    const rerun = await mergeListings(payload, APP, { apply: true })
+    expect(rerun.map((r) => r.action)).toEqual(['UNCHANGED', 'UNCHANGED', 'UNCHANGED', 'UNCHANGED'])
   }, 180000)
   it('an element-level conflict is applied for the rest of the route and reported (MERGE_PARTIAL, the edited element keeps its stored value)', async () => {
     const records = PATHS.map(oldRecord)

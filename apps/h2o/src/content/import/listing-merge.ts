@@ -25,6 +25,9 @@ import { extractSlots, type ContentSlot } from '../content-slots'
  *   - new in theirs                         -> take theirs (an added card, a new count line);
  *   - removed in theirs and unedited        -> dropped; removed and edited -> the whole route is REFUSED (a stored edit would be lost).
  * The structure (`document`) becomes the new imported document, as the import would have made it. Nothing else on the record is touched: no SEO
+ * LISTING-MERGE-1.2: one explicit exception to the refusal. A results-count paragraph ("Showing 17-33 of 33 results") is derived data, not free text: when
+ * BOTH the stored text and the stored structure's own text for it (the old source) are count texts, the new source text is taken even though the stored
+ * element differs (the SEO batch/hygiene normalises these paragraphs). It is reported as "resolved". Anything else that conflicts still REFUSES that element.
  * title/meta/H1/canonical, no restored sections, no other field. A route whose disposition differs from the authority row is REFUSED. A second run
  * changes nothing (the stored source hash equals the authority's).
  */
@@ -50,6 +53,8 @@ export type MergeReport = {
   refusedElements: ElementNote[]
   /** Elements new in the authority (an added card, a new count line). */
   newElements: ElementNote[]
+  /** Results-count paragraphs whose source changed and whose stored value differed (count text both before and after): the new source text was taken. */
+  resolvedElements: ElementNote[]
   /** Elements whose source changed and that were not edited: the authority's value was taken. */
   takenElements: ElementNote[]
   /** Elements dropped because the authority removed them (never edited). */
@@ -64,12 +69,31 @@ export type MergeReport = {
 export type MergePlan = { report: MergeReport; document?: Doc; slots?: ContentSlot[]; sourceSha256?: string }
 
 const COUNT = /Showing (?:all )?(?:\d+–)?\d+(?: of \d+)? results?/
+/** The plain text of a rich-text element when it holds only text (no link, no other inline node); null otherwise. */
+const plainText = (state: unknown): string | null => {
+  let out = ''
+  let ok = true
+  const walk = (n: { type?: string; text?: string; children?: unknown[] }) => {
+    if (n.type === 'text') out += n.text ?? ''
+    else if (n.type !== 'root' && n.type !== 'paragraph') ok = false
+    for (const c of (n.children ?? []) as never[]) walk(c)
+  }
+  const root = (state as { root?: never } | null | undefined)?.root
+  if (!root) return null
+  walk(root)
+  return ok ? out : null
+}
+/** A results-count text after normalising whitespace (NBSP included) and dashes: "Showing 1-16 of 33 results", "Showing all 27 results". */
+const countText = (state: unknown): boolean => {
+  const t = plainText(state)
+  return t !== null && /^Showing (?:all )?[\d–-]+(?: of \d+)? results?$/.test(t.replace(/[\s\u00a0]+/g, ' ').replace(/[\u2010-\u2015\u2212]/g, '–').trim())
+}
 const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
 const slotValues = (s: ContentSlot) => JSON.stringify([s.text ?? null, s.label ?? null, s.href ?? null, s.productRouteId ?? null, s.intent ?? null, s.image ?? null, s.imageUrl ?? null, s.imageWidth ?? null, s.imageHeight ?? null, s.alt ?? null, s.copy ?? null, s.heading ?? null])
 const sig = (s: ContentSlot) => `${s.kind}|${s.tag}|${s.elementId ?? ''}|${s.sourceHash}`
 const loose = (s: ContentSlot) => `${s.kind}|${s.tag}|${s.elementId ?? ''}`
 const note = (s: ContentSlot, reason?: string): ElementNote => ({ key: s.key, title: String(s.title ?? s.label ?? s.heading ?? '').slice(0, 90), ...(reason ? { reason } : {}) })
-const emptyReport = (stored: Pick<StoredListing, 'path' | 'routeId'>): MergeReport => ({ path: stored.path, routeId: stored.routeId, action: 'UNCHANGED', refusals: [], refusedElements: [], newElements: [], takenElements: [], droppedElements: [], countChanges: [], keptElements: 0, keptEditedElements: 0, documentFieldsChanged: [] })
+const emptyReport = (stored: Pick<StoredListing, 'path' | 'routeId'>): MergeReport => ({ path: stored.path, routeId: stored.routeId, action: 'UNCHANGED', refusals: [], refusedElements: [], resolvedElements: [], newElements: [], takenElements: [], droppedElements: [], countChanges: [], keptElements: 0, keptEditedElements: 0, documentFieldsChanged: [] })
 
 /** Order-preserving matches of two signature lists (longest common subsequence). */
 function lcsPairs(a: string[], b: string[]): Array<[number, number]> {
@@ -133,7 +157,10 @@ export function planListingMerge(stored: StoredListing, newDocument: Doc, newSou
         report.takenElements.push(note(t))
         merged.push(t)
       } else if (slotValues(s) === slotValues(t)) merged.push({ ...s, key: t.key }) // the edit already equals the new source value
-      else {
+      else if (countText(s.text) && countText(baseFresh.get(s.key)?.text)) {
+        report.resolvedElements.push(note(t, 'resolved: count paragraph -> source'))
+        merged.push(t)
+      } else {
         report.refusedElements.push(note(t, `its source changed AND it was edited in the database (stored value kept; key ${s.key})`))
         merged.push({ ...s, key: t.key })
       }

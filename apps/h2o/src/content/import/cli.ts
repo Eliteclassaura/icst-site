@@ -110,15 +110,15 @@ async function main() {
     writeFileSync(
       path.join(out, 'listing-merge-ledger.tsv'),
       tsv([
-        ['PATH', 'ROUTE_ID', 'ACTION', 'NEW_ELEMENTS', 'COUNT_CHANGES', 'TAKEN_FROM_AUTHORITY', 'KEPT', 'KEPT_EDITED', 'REFUSED_ELEMENTS', 'DROPPED', 'DOCUMENT_FIELDS_CHANGED', 'ROUTE_REFUSALS'],
-        ...reports.map((r) => [r.path, r.routeId, r.action, el(r.newElements), r.countChanges.map((c) => `${c.before} -> ${c.after}`).join(' | '), el(r.takenElements), r.keptElements, r.keptEditedElements, el(r.refusedElements), el(r.droppedElements), r.documentFieldsChanged.join(','), r.refusals.join(' | ')]),
+        ['PATH', 'ROUTE_ID', 'ACTION', 'NEW_ELEMENTS', 'COUNT_CHANGES', 'TAKEN_FROM_AUTHORITY', 'RESOLVED_COUNT_PARAGRAPH', 'KEPT', 'KEPT_EDITED', 'REFUSED_ELEMENTS', 'DROPPED', 'DOCUMENT_FIELDS_CHANGED', 'ROUTE_REFUSALS'],
+        ...reports.map((r) => [r.path, r.routeId, r.action, el(r.newElements), r.countChanges.map((c) => `${c.before} -> ${c.after}`).join(' | '), el(r.takenElements), el(r.resolvedElements), r.keptElements, r.keptEditedElements, el(r.refusedElements), el(r.droppedElements), r.documentFieldsChanged.join(','), r.refusals.join(' | ')]),
       ]),
     )
     const count = (a: string) => reports.filter((r) => r.action === a).length
     const summary = { mode: apply ? 'APPLY' : 'DRY_RUN', routes: reports.length, merge: count('MERGE'), mergePartial: count('MERGE_PARTIAL'), unchanged: count('UNCHANGED'), refused: count('REFUSE') }
     writeFileSync(path.join(out, 'listing-merge-summary.json'), JSON.stringify(summary, null, 2))
     for (const r of reports)
-      out1(`${r.action.padEnd(13)} ${r.path}  new+${r.newElements.length} taken ${r.takenElements.length} kept ${r.keptElements} (${r.keptEditedElements} edited) dropped ${r.droppedElements.length} counts ${r.countChanges.map((c) => `${c.before} -> ${c.after}`).join(' ; ') || '-'}${r.refusedElements.length ? `  REFUSED ELEMENTS: ${el(r.refusedElements)}` : ''}${r.refusals.length ? `  REFUSED: ${r.refusals.join(' | ')}` : ''}`)
+      out1(`${r.action.padEnd(13)} ${r.path}  new+${r.newElements.length} taken ${r.takenElements.length} resolved ${r.resolvedElements.length} kept ${r.keptElements} (${r.keptEditedElements} edited) dropped ${r.droppedElements.length} counts ${r.countChanges.map((c) => `${c.before} -> ${c.after}`).join(' ; ') || '-'}${r.resolvedElements.length ? `  RESOLVED (count paragraph -> source): ${el(r.resolvedElements)}` : ''}${r.refusedElements.length ? `  REFUSED ELEMENTS: ${el(r.refusedElements)}` : ''}${r.refusals.length ? `  REFUSED: ${r.refusals.join(' | ')}` : ''}`)
     if (apply && summary.merge + summary.mergePartial) {
       await recordPublicationEvent(payload, null, 'import', null)
       out1(JSON.stringify(await runPublishingSync(payload, null)))
