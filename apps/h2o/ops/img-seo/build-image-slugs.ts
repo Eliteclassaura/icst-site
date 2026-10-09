@@ -13,6 +13,7 @@
  * image sits under; the registry caption or name; else a plain fallback. Lowercase ASCII, hyphens, at most 60 characters, never padded
  * with keywords. A derivative (a delivery WebP) takes its original's slug.
  */
+import {testimonialBackgroundUrls} from './testimonial-portraits'
 import {createHash} from 'node:crypto'
 import {existsSync,readFileSync,readdirSync,statSync,writeFileSync} from 'node:fs'
 import path from 'node:path'
@@ -119,8 +120,9 @@ const walk=(node:unknown,inheritedSrc?:string,inheritedWords?:Info)=>{
 }
 for(const dir of ['content/design','content/projects','content/luxury'])for(const name of readdirSync(path.join(APP,dir)))if(name.endsWith('.json'))walk(JSON.parse(readFileSync(path.join(APP,dir,name),'utf8')))
 // 4. a delivery derivative takes its original's words
+const derivByPath=new Map<string,{origSha256:string}>()
 const derivOf=new Map<string,string>()
-for(const it of read<{items:Array<{src:string;derivative:string}>}>('content/media-derivatives.json').items)derivOf.set(it.derivative,it.src)
+for(const it of read<{items:Array<{src:string;derivative:string}>}>('content/media-derivatives.json').items){derivOf.set(it.derivative,it.src);derivByPath.set(it.derivative,{origSha256:(it as unknown as {origSha256:string}).origSha256})}
 
 /** OGCS rows by hash8 + extension (the bytes), so a later change of an image's alt wording does not detach its fix. */
 const overrides=new Map<string,string>()
@@ -143,10 +145,20 @@ collect(path.join(PUBLIC,'media'))
 // A held copy of an owner-protected testimonial image (same bytes, another directory) keeps its URL too: never altered or renamed.
 const protectedShas=new Set<string>()
 for(const dir of ['figma-testimonials','client-review'])for(const name of readdirSync(path.join(PUBLIC,'media',dir)))if(RASTER.test(name))protectedShas.add(createHash('sha256').update(readFileSync(path.join(PUBLIC,'media',dir,name))).digest('hex'))
+// IMG-SEO-1.2: the home testimonial portraits the stylesheets name (derived from the testimonial source sections, ./testimonial-portraits):
+// their files, the originals they are derivatives of, and every derivative of those originals keep their URLs too.
+const protectedPaths=new Set<string>()
+for(const url of testimonialBackgroundUrls(APP)){
+  const physical=url
+  protectedPaths.add(physical)
+  const item=derivByPath.get(physical)
+  if(item)protectedShas.add(item.origSha256)
+  else{const m=/([0-9a-f]{64})\.[a-z0-9]+$/.exec(physical);if(m)protectedShas.add(m[1]!)}
+}
 files.sort()
 const isProtectedFile=(f:string):boolean=>protectedShas.has(shaOfFile(f)??createHash('sha256').update(readFileSync(path.join(PUBLIC,f))).digest('hex'))
 // ...and so does a delivery derivative of one (the home testimonial portraits are served as derivatives)
-const kept=files.filter(f=>!isProtectedFile(f)&&!(derivOf.get(f)&&(EXCLUDED_DIRS.has(derivOf.get(f)!.split('/')[2]??'')||(existsSync(path.join(PUBLIC,derivOf.get(f)!))&&isProtectedFile(derivOf.get(f)!)))))
+const kept=files.filter(f=>!protectedPaths.has(f)&&!(derivByPath.get(f)&&protectedShas.has(derivByPath.get(f)!.origSha256))&&!isProtectedFile(f)&&!(derivOf.get(f)&&(EXCLUDED_DIRS.has(derivOf.get(f)!.split('/')[2]??'')||(existsSync(path.join(PUBLIC,derivOf.get(f)!))&&isProtectedFile(derivOf.get(f)!)))))
 files.length=0;files.push(...kept)
 
 type Row={file:string;url:string;source:string;basis:string;sha:string;page:string}
