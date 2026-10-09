@@ -1354,6 +1354,16 @@ button):hover {
   margin-inline-start: auto;
 }
 
+/*
+ * FOOTER-ALIGN-1.1: from 768px the fixed corner launcher is the pill (48px high, 20px from the bottom: NativeRfq.module.css), and the
+ * legal links now sit at the right end of the last row, so the page's end keeps 48 + 20 + 12px clear for it (open or closed).
+ */
+@media (min-width: 768px) {
+  .global-chrome .sp-footer {
+    padding-block-end: calc(80px + env(safe-area-inset-bottom));
+  }
+}
+
 @media (max-width: 899.98px) {
   .global-chrome .sp-footer-legal > span {
     flex: 0 0 100%;

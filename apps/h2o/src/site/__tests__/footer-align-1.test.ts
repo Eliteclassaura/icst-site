@@ -31,3 +31,17 @@ describe('FOOTER-ALIGN-1',()=>{
     expect(r5).toMatch(/@media \(max-width: 600px\) \{\s*\.global-chrome \.sp-footer-locations ul \{\s*margin-inline-start: -4px;/)
   })
 })
+
+describe('FOOTER-ALIGN-1.1: the last row clears the corner launcher',()=>{
+  const families=css('salmon-families.css')
+  const launcher=readFileSync(path.join(process.cwd(),'src/rfq-native/NativeRfq.module.css'),'utf8')
+  const px=(sheet:string,selector:string,prop:string)=>Number(new RegExp(`${prop}: (?:max\\()?(\\d+)px`).exec(block(sheet,selector))?.[1])
+  it('the footer end padding from 768px is at least the launcher height plus its bottom offset (read from the launcher CSS)',()=>{
+    const height=px(launcher,'.launcher','min-block-size'),offset=px(launcher,'.launcher','inset-block-end')
+    expect(height).toBeGreaterThanOrEqual(48)
+    expect(offset).toBeGreaterThanOrEqual(20)
+    const m=/@media \(min-width: 768px\) \{\s*\.global-chrome \.sp-footer \{\s*padding-block-end: calc\((\d+)px \+ env\(safe-area-inset-bottom\)\)/.exec(families)
+    expect(m,'footer end padding rule').toBeTruthy()
+    expect(Number(m![1])).toBeGreaterThanOrEqual(height+offset+8)
+  })
+})
