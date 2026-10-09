@@ -29,5 +29,10 @@
   {"source":"/projects/","destination":"/all-projects/"},
   {"source":"/portfolio/","destination":"/all-projects/"},
   {"source":"/shop/","destination":"/cooling-tower-parts-online/"},
-  {"source":"/rt-portfolios/petronas-rapid/","destination":"/all-projects/pertonas-rapid/"}
+  {"source":"/rt-portfolios/petronas-rapid/","destination":"/all-projects/pertonas-rapid/"},
+  {"source":"/about/","destination":"/about-ics-industrial-cooling-solutions/"},
+  {"source":"/services/","destination":"/cooling-tower-maintenance-repair-upgrade/"},
+  {"source":"/cooling-towers/","destination":"/cooling-tower/"},
+  {"source":"/fan-stacks/","destination":"/cooling-tower-fan-stacks/"},
+  {"source":"/index.php","destination":"/"}
 ]

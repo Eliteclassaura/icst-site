@@ -174,7 +174,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: 98 R1 locale→English redirects retire (the locale page is preserved), 4 locale redirects are new.
     // R2.4: + /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
     // R2.5: + the two author aliases (the batch owns them; fresh production DB) and the eleven live-chain middle addresses.
-    expect(redirects).toHaveLength(421) // SEO-CONTENT-2.1: + four locale-twin HOLD 301s; // Design R3: + /about-us/; SEO-CONTENT-1: + seven HOLD 301s, - the algae hold 301 (released)
+    expect(redirects).toHaveLength(426) // REDIRECTS-ADD-1: + five catch-all redirects; SEO-CONTENT-2.1: + four locale-twin HOLD 301s; // Design R3: + /about-us/; SEO-CONTENT-1: + seven HOLD 301s, - the algae hold 301 (released)
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -212,7 +212,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // placeholder products, five HVAC/commercial articles), redirects create 7 / update 2 / retire 1, 8 SEO fields (seven product
     // titles, BacMan), 23 H1 rows, restored 1 (the approach table cell), slot fixes on 10 written routes and 109 hygiene routes.
     expect(expectations.expect.routes).toEqual({publish:1,withdraw:14,index:0,canonical:0})
-    expect(expectations.expect.redirects).toEqual({create:14,update:6,unchanged:401,retire:1,normalise:0}) // round 2: + the hospital article and vibration-switch 301s
+    expect(expectations.expect.redirects).toEqual({create:19,update:6,unchanged:401,retire:1,normalise:0}) // round 2: + the hospital article and vibration-switch 301s
     expect(expectations.expect.seoFields).toMatchObject({update:69,pendingOgcs:0}) // CONTENT-FIX-3: + 1 (UP2-02 category meta); SEO-CONTENT-2.2: + 56; round 2: + the seminar and maintenance-checklist metas
     expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:57}) // SEO-CONTENT-2.2: +31; SEO-CONTENT-2.1: +4 (the held locale twins); piece C: +3 routes; // round 2 (rehearsed on the writable mock)
     // Design R4 (CT 2026-10-07) is ONE delta on the state CLAIMS-R2 leaves: two hygiene routes (parts hub R4C-01…06, Dry Soda R4C-07),

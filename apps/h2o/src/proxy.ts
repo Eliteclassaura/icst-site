@@ -231,6 +231,7 @@ export const payloadPublicPolicy = (nonce: string, pathname: string): string => 
 }
 
 type Ledger = { routes: Array<{ path: string; indexable?: boolean; state: string }>; redirects: Array<{ source: string; destination: string; status: number }> }
+const ARCHIVE_PAGE = /^(\/[a-z0-9][a-z0-9/%-]*\/)page\/\d+\/?$/i
 const pathKeyOf = (p: string) => {
   try {
     return decodeURIComponent(p)
@@ -310,6 +311,11 @@ function payloadPublic(req: NextRequest): NextResponse {
   // R2.4 (CT 2026-10-05, SEO Checker item k): every published redirect — ledger consolidations and withdrawals — is a
   // 301, whatever the stored status (imported records default to 308; the batch normalises them too).
   if (redirect) return withRobots(NextResponse.redirect(redirectLocation(redirect.destination, req), 301), policyFloor(pathname))
+  // REDIRECTS-ADD-1 (CT 2026-10-09, QA R18): the live site answers /<section>/page/<n>/ on archives that have no real pagination (canonical
+  // = page 1). A path of that shape that is not itself a ledger route (real paginated archives are routes) goes to the public section page.
+  const paged = ARCHIVE_PAGE.exec(pathname)
+  if (paged && ledger && !ledger.routes.some((r) => pathKeyOf(r.path) === pathKeyOf(pathname)) && ledger.routes.some((r) => r.state === 'PUBLIC' && pathKeyOf(r.path) === pathKeyOf(paged[1]!)))
+    return withRobots(NextResponse.redirect(redirectLocation(paged[1]!, req), 301), policyFloor(pathname))
   const nonce = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('base64')
   const csp = payloadPublicPolicy(nonce, pathname)
   const requestHeaders = new Headers(req.headers)

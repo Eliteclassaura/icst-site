@@ -93,6 +93,12 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
       'CREATE /ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/ /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/',
       'CREATE /th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/ /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/',
       'CREATE /vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/ /vi/thap-giai-nhiet-la-gi/',
+      // REDIRECTS-ADD-1 (CT 2026-10-09, QA R18): live catch-alls that went to the home page go to their best real page
+      'CREATE /about/ /about-ics-industrial-cooling-solutions/',
+      'CREATE /services/ /cooling-tower-maintenance-repair-upgrade/',
+      'CREATE /cooling-towers/ /cooling-tower/',
+      'CREATE /fan-stacks/ /cooling-tower-fan-stacks/',
+      'CREATE /index.php /',
     ])
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)
