@@ -23,7 +23,7 @@ if [ "$lfs" = "0" ]; then echo "LFS pointers OK (0)"; else echo "FAIL: LFS point
 cid=$(docker create "$IMG")
 trap 'docker rm -f "$cid" >/dev/null 2>&1 || true' EXIT
 rm -rf "$EV/next-scan" && mkdir -p "$EV/next-scan"
-docker cp "$cid:/app/apps/h2o/.next" "$EV/next-scan/.next" >/dev/null
+docker cp "$cid:/app/apps/h2o/.next" - | tar -x -C "$EV/next-scan" --exclude='.next/node_modules'
 if node "$(dirname "$0")/compiled-url-scan.mjs" "$EV/next-scan/.next" --origin "$ORIGIN" --forbid "$FORBID" --out "$EV/compiled-url-scan.json"; then echo "compiled-URL scan OK"; else echo "FAIL: compiled-URL scan"; fail=1; fi
 rm -rf "$EV/next-scan"
 printf '{"revision":"%s","platform":"%s","mediaCount":%s,"lfsPointers":%s,"pass":%s}\n' "$rev" "$arch" "${media:-0}" "${lfs:-0}" "$([ $fail = 0 ] && echo true || echo false)" > "$EV/identity.json"
