@@ -7,7 +7,7 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import Page from '../../app/(site)/[[...slug]]/page'
 import {salmonNavigation} from '../navigation-data'
 import {HOME_SERVICES_HUB} from '../SalmonPresentation'
-import {MOORE_FANS_HREF,MOORE_FANS_LINKS} from '../moore-fans'
+import {FAN_MENU_LINKS,MOORE_FANS_HREF,MOORE_FANS_LINKS} from '../moore-fans'
 
 const env={...process.env}
 beforeEach(()=>{process.env.H2O_PUBLIC_EXPORT='1'})
@@ -36,7 +36,8 @@ describe('CLIENT-FIX-1 C: Moore Fans',()=>{
     const parts=salmonNavigation.find(g=>g.label==='Parts')!
     const hrefsInMenu=parts.items.map(i=>i[1])
     const at=hrefsInMenu.indexOf('/fans/')
-    expect(hrefsInMenu.slice(at,at+1+MOORE_FANS_LINKS.length)).toEqual(['/fans/',...MOORE_FANS_LINKS.map(l=>l[1])])
+    expect(hrefsInMenu.slice(at,at+1+FAN_MENU_LINKS.length)).toEqual(['/fans/',...FAN_MENU_LINKS.map(l=>l[1])]) // brands and families (CATALOG-FANS-1), then Moore Fans and its pages
+    for(const [,href] of MOORE_FANS_LINKS)expect(hrefsInMenu,href).toContain(href)
   })
   it('every page renders the Moore links in both the desktop and the mobile menu',async()=>{
     const html=await render(['fans'])

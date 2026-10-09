@@ -39,7 +39,7 @@ describe('R5a parts category and series templates',()=>{
       const main=mainOf(renderToStaticMarkup(<R5PartsFamilyPage doc={doc}/>))
       expect(main,target).toContain('class="dr4 r5"')
       expect((main.match(/<h1\b/g)??[]).length,target).toBe(1)
-      const rendered=[...main.matchAll(/<(h[1-3])\b[^>]*>([\s\S]*?)<\/\1>/g)].map(m=>`${m[1]} ${textOf(m[2]!).trim()}`).filter(h=>!/^h3 /.test(h)&&!(target==='/fans/'&&h==='h2 Moore Fans')) // CLIENT-FIX-1: the Moore Fans card is the one added heading (not source copy)
+      const rendered=[...main.matchAll(/<(h[1-3])\b[^>]*>([\s\S]*?)<\/\1>/g)].map(m=>`${m[1]} ${textOf(m[2]!).trim()}`).filter(h=>!/^h3 /.test(h)&&!(target==='/fans/'&&h==='h2 Fans by brand')) // CLIENT-FIX-1: the Fans by brand tiles are the one added heading (not source copy)
       const source:string[]=[]
       const walk=(b:{type:string;level?:number;text?:Array<{text:string}>;children?:unknown[]}):void=>{if(b.type==='heading'&&b.level!<=2)source.push(`h${b.level} ${b.text!.map(t=>t.text).join('').replace(/\s+/g,' ').trim()}`);(b.children as typeof b[]|undefined)?.forEach(walk)}
       model.sections.forEach(section=>walk(section.root as never))
