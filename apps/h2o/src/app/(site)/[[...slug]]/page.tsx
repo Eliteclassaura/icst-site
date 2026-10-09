@@ -1,4 +1,5 @@
 import type {Metadata} from 'next'
+import {withServerTiming} from '../../../content/server-timing'
 import {notFound} from 'next/navigation'
 import {salmonDocument,releaseRouteFor,salmonRoutes} from '../../../site/salmon'
 import {aliasReleaseDocument} from '../../../site/release-document'
@@ -52,7 +53,8 @@ export async function generateMetadata({params,searchParams}:Params):Promise<Met
   // LEGAL-1: the four legal pages are code routes, answered before any release or Payload lookup
   const legal=legalPageForPath(requestPathOf((await params).slug))
   if(legal)return legalMetadata(legal)
-  const base=await baseMetadata({params})
+  // SPEED-1: the page read's durations, in the head, for private review only (never when H2O_INDEXING_POLICY is "production")
+  const base=withServerTiming(await baseMetadata({params}))
   if(requestPathOf((await params).slug)!=='/cooling-tower-parts-online/')return base
   const search=await searchParams
   return pagedHubMetadata(base,partsHubPage(typeof search?.q==='string'?search.q:'',search?.page))

@@ -6,6 +6,8 @@ import { composePublicDocument, type RouteRecord } from './compose'
 import { PUBLIC_ORIGIN, publicRobots } from './config'
 import { markPublishedEditorial, requestDocuments, requestServices, setRequestRevocations } from './runtime-read'
 import { computeRevocations } from './revocation'
+import { cache } from 'react'
+import { timed } from './server-timing'
 
 /**
  * Page-level Payload reads for the public runtime (payload content mode only).
@@ -50,27 +52,34 @@ async function previewUser(): Promise<unknown | null> {
   return user
 }
 
-export async function resolvePublicPath(requestPath: string): Promise<Resolved | null> {
-  const payload = await getPayload({ config })
+/**
+ * SPEED-1: read once per request. `generateMetadata` and the page both resolve the same path; without a request-level cache the page record
+ * (and its slots) was read from the database and composed twice. React `cache` scopes the result to one server render (outside a render it is
+ * a plain call), so nothing is shared between requests or visitors. The durations of the parts feed the staging-only server-timing meta tag.
+ */
+export const resolvePublicPath = cache(resolvePublicPathUncached)
+
+async function resolvePublicPathUncached(requestPath: string): Promise<Resolved | null> {
+  const payload = await timed('payload', () => getPayload({ config }))
   // R1B: withdrawals the active release does not reflect yet are subtracted from every derived list this
   // request renders (listings, related links, product cards, RFQ eligibility).
-  setRequestRevocations(await computeRevocations(payload))
+  setRequestRevocations(await timed('revocations', () => computeRevocations(payload)))
   const key = pathKey(requestPath)
   const user = await previewUser()
-  const res = await payload.find({
+  const res = await timed('db', () => payload.find({
     collection: 'public-routes' as never,
     where: { pathKey: { equals: key } } as never,
     depth: 0,
     limit: 1,
     select: SELECT as never,
     ...(user ? { draft: true, user: user as never, overrideAccess: false } : { draft: false, overrideAccess: false }),
-  })
+  }))
   const record = res.docs[0] as unknown as RouteRecord | undefined
   if (!record) return null
   if (!user && !(record._status === 'published' && record.disposition?.state === 'PUBLIC' && record.disposition?.export)) return null
   if (record.family === 'search') return null
   if (record.family === 'alias') return { record, dispatchPath: record.path, preview: Boolean(user) }
-  const doc = composePublicDocument(record)
+  const doc = await timed('compose', () => composePublicDocument(record))
   if (record.family === 'editorial') {
     // Generic RFQ eligibility for a published editor-created page (R1B.1); never for a draft in preview.
     if (record._status === 'published' && record.disposition?.state === 'PUBLIC' && record.disposition?.export && !user) markPublishedEditorial(record.path)
