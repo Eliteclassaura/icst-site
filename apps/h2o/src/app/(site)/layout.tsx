@@ -17,6 +17,7 @@ import { isPayloadContent } from '../../content/runtime-read'
 import { estateHasPublicationReadyRoute } from '../../site/gate'
 import {QuietMotion} from '../../site/QuietMotion'
 import {TranslateModeProvider} from '../../site/lang/TranslateMode'
+import {TranslateProxyNav} from '../../site/lang/TranslateProxyNav'
 import {translateModeFor} from '../../site/lang/translate-switch'
 import { NativeRfq } from '../../rfq-native/NativeRfq'
 import { launcherStrings, nativeIntakeOn } from '../../rfq-native/server'
@@ -87,6 +88,8 @@ const SiteLayout = async ({ children }: { children: ReactNode }) => {
         {/* Native RFQ (CT brief 2026-10-05): the corner launcher and panel, on every public page, when native intake is on. */}
         {nativeIntakeOn() ? <NativeRfq launcher={launcherStrings()} locale={lang} /> : null}
         <QuietMotion/>
+        {/* LANG-PROXY-NAV-1: keeps the Google Translate proxy's _x_tr_* parameters on in-site navigation (that host only) */}
+        <TranslateProxyNav/>
       </body>
     </html>
   )
