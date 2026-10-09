@@ -15,7 +15,6 @@ afterEach(()=>{process.env={...env}})
 const render=async(p:string)=>renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean).map(decodeURIComponent)}),searchParams:Promise.resolve({})}))
 const seoRows=readFileSync(path.join(APP,'ops/seo-pass/data/seo-fields.tsv'),'utf8').split('\n').map(l=>l.split('\t'))
 const row=(p:string)=>seoRows.find(c=>c[0]===p)!
-const plain=(html:string)=>html.replace(/<script[\s\S]*?<\/script>/g,'').replace(/<style[\s\S]*?<\/style>/g,'').replace(/(?:href|src|content|data-[a-z-]+)="[^"]*"/g,'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ')
 
 describe('CONTENT-FIX-3: UPDATE-2 meta rows',()=>{
   it('UP2-01 is the stored value (no HVAC); UP2-02 is the neutral industrial category meta',()=>{
