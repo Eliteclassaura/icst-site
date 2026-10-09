@@ -21,6 +21,7 @@ import {decodeEntities} from './text-repair'
 import {publicHeadUrl,publicMeta,publicSchema,servedOrigin} from './public-urls'
 import {publicFileExists} from '../content/public-files'
 import {projectHeadImagePolicy,projectOwnSocialMeta} from './project-media'
+import {pageFaqJsonLd} from './page-faq'
 import {MetaTags,OrganizationWebsiteSchema,standardSocialMeta} from './standard-head'
 import {SERVICE_ROUTES,normalizeGraph} from './schema-graph'
 import {languageFor} from '../content/locale-language'
@@ -284,6 +285,7 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
       const canonicalSchema=JSON.stringify(graph)
       return <script data-source-schema={i} key={i} type="application/ld+json" dangerouslySetInnerHTML={{__html:canonicalSchema.replaceAll('<','\\u003c')}}/>
     })}
+    {pageFaqJsonLd(pagePath)?<script data-page-faq="" type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(pageFaqJsonLd(pagePath)).replaceAll('<','\\u003c')}}/>:null}
     <OrganizationWebsiteSchema service={SERVICE_ROUTES.has(pagePath)?{name:breadcrumbName(doc),path:pagePath,description:servedDescription(doc)}:undefined}/>
     <BreadcrumbSchema ancestors={breadcrumb} current={{name:crumbName??breadcrumbName(doc),path:canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath}}/>
   </>

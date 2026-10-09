@@ -10,6 +10,7 @@ import {heroQuoteAction} from '../../content/rfq-controls'
 import {R4Img} from '../r4/R4System'
 import {R4LauncherReveal} from '../r4/R4LauncherReveal'
 import {r5bMedia} from './r5b-media'
+import {PageFaq} from '../PageFaq'
 
 /**
  * Design R5b location template (CT 2026-10-07; DD spec H2O_DESIGN_R5_SPEC_location-template.md). One template for the
@@ -121,7 +122,7 @@ export function R5bLocationPage({doc}:{doc:SalmonDocument}){
   function render(s:Section,index:number):ReactNode{
     const headText=s.h2.map(h=>salmonNodeText(h.node)).join(' ')
     const closing=index===rest.length-1&&!s.cards.length&&!s.imgs.length&&s.links.length>0
-    if(closing)return <Fragment key={index}>{featuredSection}<section className="dr4-section r5b-closing"><div className="dr4-navy r5b-closing-panel">{s.h2.map(h=><Text key={h.key} item={h} className="dr4-h2 dr4-h2--on-navy"/>)}{s.intro.length?<div className="dr4-prose dr4-prose--on-navy">{s.intro.map(p=><Text key={p.key} item={p}/>)}</div>:null}{actions(s,'white')}</div></section></Fragment>
+    if(closing)return <Fragment key={index}>{featuredSection}<PageFaq path={doc.targetPath}/><section className="dr4-section r5b-closing"><div className="dr4-navy r5b-closing-panel">{s.h2.map(h=><Text key={h.key} item={h} className="dr4-h2 dr4-h2--on-navy"/>)}{s.intro.length?<div className="dr4-prose dr4-prose--on-navy">{s.intro.map(p=><Text key={p.key} item={p}/>)}</div>:null}{actions(s,'white')}</div></section></Fragment>
     const img=s.imgs[0]
     const process=/process|how we|how ics/i.test(headText)&&s.cards.length>=3
     const reasons=/why|trust|stand out/i.test(headText)&&s.cards.length>=2
@@ -158,7 +159,7 @@ export function R5bLocationPage({doc}:{doc:SalmonDocument}){
         </div>
       </section>:null}
       {rest.map(render)}
-      {featuredSection&&!(rest.length&&rest.at(-1)!.links.length&&!rest.at(-1)!.cards.length&&!rest.at(-1)!.imgs.length)?featuredSection:null}
+      {!(rest.length&&rest.at(-1)!.links.length&&!rest.at(-1)!.cards.length&&!rest.at(-1)!.imgs.length)?<>{featuredSection}<PageFaq path={doc.targetPath}/></>:null}
       <R4LauncherReveal/>
     </main></div>
     <LuxuryFooter page={page} routePath={doc.targetPath}/>

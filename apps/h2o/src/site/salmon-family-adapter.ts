@@ -16,7 +16,9 @@ import path from 'node:path'
 import {publicSourceString} from './public-text'
 import {isPayloadContent,releaseLedger} from '../content/runtime-read'
 import {MAIN_OWNED_PARTS_HERO_PATHS} from '../content/rfq-intent'
-import {salmonDocument,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
+import {heldImageAlt,salmonDocument,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
+/** DD country-page review F6: the country pages' photos carry a factual alt from the held alt registry (content/salmon/live-image-alt.json); other families keep their background photos decorative. */
+const COUNTRY_SERVICE_ROUTES=new Set(['SALMON-pages-2106','SALMON-pages-2228','SALMON-pages-2081','SALMON-pages-2177','SALMON-pages-2042'])
 import {activeProductRoutes} from './Wave3Products'
 import {articleHeadingNodes} from './wave4'
 import {applyProjectMedia} from './project-media'
@@ -325,7 +327,7 @@ function container(ref:SourceRef,ctx:AdaptContext):ContainerBlock{
   const panel=panelOf(layout),overlay=overlayOf(layout)
   const template=layout.gridTemplate&&/^(?:[0-9.]+fr ?)+$/.test(layout.gridTemplate)?layout.gridTemplate:undefined
   const shape:ContainerLayout={direction:layout.gridColumns||template?'grid':layout.direction==='row'?'row':'column',...(layout.gridColumns?{gridColumns:layout.gridColumns}:{}),...(template?{gridTemplate:template}:{}),...(layout.widthPct&&layout.widthPct<100?{widthPct:layout.widthPct}:{}),...alignOf(layout),...(layout.justify?{justify:layout.justify}:{}),...(layout.rounded?{rounded:true}:{}),...(layout.radius?{radiusPx:Math.min(layout.radius,56)}:{}),...(image&&layout.minHeight?{minHeightPx:layout.minHeight}:{}),...(panel?{panel}:{}),...(overlay?{overlay}:{})}
-  const background=image?{media:{src:image.src,alt:'',width:image.width,height:image.height,sha256:image.sha256,sourceUrl:image.sourceUrl},mode:readable(ref)?'photo' as const:children.length?'backdrop' as const:'image' as const,...(image.fit?{fit:image.fit}:{}),...(image.position?{position:image.position}:{})}:undefined
+  const background=image?{media:{src:image.src,alt:COUNTRY_SERVICE_ROUTES.has(ctx.doc.routeId)?heldImageAlt(image.sourceUrl,image.sha256)??'':'',width:image.width,height:image.height,sha256:image.sha256,sourceUrl:image.sourceUrl},mode:readable(ref)?'photo' as const:children.length?'backdrop' as const:'image' as const,...(image.fit?{fit:image.fit}:{}),...(image.position?{position:image.position}:{})}:undefined
   const id=elementId(ref.node)
   return {type:'container',key:ref.key,...(id?{elementId:id}:{}),layout:shape,...(background?{background}:{}),children}
 }

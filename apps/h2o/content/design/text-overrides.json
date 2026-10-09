@@ -922,6 +922,17 @@
       "replace": "What is a Cooling Tower? - ICS",
       "count": 3,
       "reason": "OGCS team audit copy (TSV c219e0e4), TA-059 corrected title accepted by CT (OGCS proposal doubled ICS), CT 2026-10-08, row TA-059: JSON-LD copy of the corrected title"
+    },
+    {
+      "id": "TO-083",
+      "row": "DD-COUNTRY-M2",
+      "routeId": "SALMON-pages-2177",
+      "path": "/cooling-tower-thailand/",
+      "scope": "body-href",
+      "find": "tel:+66%202-661-7723",
+      "replace": "tel:+6626617723",
+      "count": 1,
+      "reason": "DD country-page review M2 (CT 2026-10-09): the Thailand call link must be tel:+6626617723 (owner phone format; never the +66 2- grouping), the visible text was already corrected by TO-009"
     }
   ]
 }

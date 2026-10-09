@@ -15,6 +15,7 @@ import {SalmonSeo} from './SalmonCanonical'
 import {pageForSegments} from './cohort'
 import {RfqMount} from './RfqMount'
 import {ProjectGallery} from './ProjectGallery'
+import {PageFaq} from './PageFaq'
 import {R2Discovery} from './R2Discovery'
 import {activeProductRoutes} from './Wave3Products'
 import {salmonDocument,type SalmonDocument} from './salmon'
@@ -70,7 +71,7 @@ export function SalmonFamilyView({model,doc}:{model:SalmonFamilyPageModel;doc:Sa
   return <div className={`luxury-site salmon-family salmon-family--${model.family}`} data-salmon-document={model.routeId} data-salmon-source-sha256={model.source.sha256}>
     <SalmonSeo doc={doc}/>
     <LuxuryHeader page={page} routePath={model.path}/>
-    <SalmonFamilyMain model={model} ctx={{productAction:product=>productRfqAction(product,model.path),quoteAction:label=>quoteRfqAction(model.path,label),projectDetail:model.family==='project-detail'}} restored={<><ProjectGallery path={model.path}/><RestoredSlot doc={doc} slot="body-end" className="sp-section-inner wave3-source-content"/></>}/>
+    <SalmonFamilyMain model={model} ctx={{productAction:product=>productRfqAction(product,model.path),quoteAction:label=>quoteRfqAction(model.path,label),projectDetail:model.family==='project-detail'}} restored={<><ProjectGallery path={model.path}/><PageFaq path={model.path}/><RestoredSlot doc={doc} slot="body-end" className="sp-section-inner wave3-source-content"/></>}/>
     <LuxuryFooter page={page} routePath={model.path}/>
   </div>
 }

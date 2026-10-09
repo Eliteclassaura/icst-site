@@ -205,7 +205,8 @@ export const salmonMediaPath=(media:SalmonMedia):string|undefined=>media.file?`/
 const thailand=contactOffices.find(office=>office.officeKey==='thailand')!
 /** The retired Thailand number in any written form ("+66-2-260-6598", "66 2 260 6598", "(02) 260-6598", "2606598"). */
 export const RETIRED_THAILAND_PHONE=/(?:\+?66[\s.-]*)?(?:\(?0?2\)?[\s.-]*)?260[\s.-]*6598/g
-export const ownerText=(text:string):string=>text.replace(RETIRED_THAILAND_PHONE,thailand.telephoneDisplay).replaceAll('+662-661-7723',thailand.telephoneDisplay)
+/** DD country-page review M1: a placeholder "(remove)" left by an editor-side removal (the R5B-L31 claim edit could not save an empty paragraph) never renders. */
+export const ownerText=(text:string):string=>text.trim()==='(remove)'?'':text.replace(RETIRED_THAILAND_PHONE,thailand.telephoneDisplay).replaceAll('+662-661-7723',thailand.telephoneDisplay)
 export const ownerHref=(href:string):string=>/^tel:/i.test(href)&&new RegExp(RETIRED_THAILAND_PHONE.source).test(href)?thailand.telephoneHref:href
 /**
  * SEO-FIX-1 (CT 2026-10-07, launch-blocking): the `data-source-href` provenance attribute never carries a contact value.
