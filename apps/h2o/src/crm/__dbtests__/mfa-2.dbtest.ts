@@ -35,7 +35,10 @@ async function makeUser(roles: string[], enrol = true) {
 type M = Awaited<ReturnType<typeof makeUser>>
 const fresh = async (p: Payload, id: string) => (await loadMfaUser(p, id))!
 const exec = async (p: Payload, q: unknown) => (p.db as unknown as { drizzle: { execute: (q: unknown) => Promise<{ rows: Doc[] }> } }).drizzle.execute(q)
-const T0 = new Date('2026-10-08T12:00:00Z')
+// TEST-CLOCK-FIX-2: T0 was a fixed instant (2026-10-08 12:00 UTC). Codes issued at it expire 10 minutes later, and the
+// housekeeping test purges everything expired for more than a day, so from 2026-10-09 12:10 UTC on it deleted these rows
+// too (got 6, expected 2). T0 is now the instant the file starts (honouring H2O_TEST_NOW), so the rows are always fresh.
+const T0 = new Date(Math.floor(Date.now() / 1000) * 1000)
 const at = (ms: number) => new Date(T0.getTime() + ms)
 const issue = async (u: M, now?: Date, sid = u.sid) => issueEmailCode(u.p, await fresh(u.p, u.id), { sid, now })
 const verify = async (u: M, code: string, now?: Date, sid = u.sid) => verifyEmailCode(u.p, await fresh(u.p, u.id), code, { sid, now })
@@ -130,7 +133,7 @@ describe('MFA-2 email code', () => {
     await exec(u.p, sql`UPDATE users SET mfa_failures = 3 WHERE id = ${u.id}`)
     expect(await verify(u, sent.code, undefined, 'wrong-session')).toMatchObject({ ok: false })
     expect(await failures(u)).toBe(4)
-    await exec(u.p, sql`UPDATE users SET mfa_failures = 0, mfa_locked_until = now() + interval '10 minutes' WHERE id = ${u.id}`)
+    await exec(u.p, sql`UPDATE users SET mfa_failures = 0, mfa_locked_until = ${new Date(Date.now() + 10 * 60_000).toISOString()}::timestamptz WHERE id = ${u.id}`)
     expect(await verify(u, sent.code)).toMatchObject({ ok: false, reason: 'LOCKED' })
     expect((await exec(u.p, sql`SELECT mfa_locked_until FROM users WHERE id = ${u.id}`)).rows[0]!.mfa_locked_until).toBeTruthy()
     expect((await exec(u.p, sql`SELECT used_at FROM mfa_email_codes WHERE user_id = ${u.id}`)).rows[0]!.used_at).toBeNull()
@@ -258,7 +261,7 @@ describe('MFA-2 admins stay on the authenticator app', () => {
       const u = await makeUser(roles)
       const user = await fresh(u.p, u.id)
       expect(await issue(u)).toMatchObject({ ok: false, reason: 'INELIGIBLE' })
-      await exec(u.p, sql`INSERT INTO mfa_email_codes (user_id, sid, purpose, code_hash, expires_at) VALUES (${u.id}, ${u.sid}, 'signin', ${hashCode(u.id, u.sid, 'signin', '424242')}, now() + interval '5 minutes')`)
+      await exec(u.p, sql`INSERT INTO mfa_email_codes (user_id, sid, purpose, code_hash, expires_at) VALUES (${u.id}, ${u.sid}, 'signin', ${hashCode(u.id, u.sid, 'signin', '424242')}, ${new Date(Date.now() + 5 * 60_000).toISOString()}::timestamptz)`)
       expect(await verify(u, '424242')).toMatchObject({ ok: false, reason: 'INELIGIBLE' })
       expect(await verifySecondFactorByEmail(u.p, user, u.sid, '424242')).toMatchObject({ ok: false })
       expect(isSessionVerified(await fresh(u.p, u.id), u.sid)).toBe(false)
@@ -371,7 +374,7 @@ describe('MFA-2 remembered devices', () => {
     await a.p.update({ collection: 'users', id: a.id, data: { password: 'another-Synthetic-Password-2!' } as never, ...sys })
     expect(await isRememberedDevice(a.p, await fresh(a.p, a.id), c1)).toBe(false)
     const c2 = (await rememberDevice(a.p, await fresh(a.p, a.id)))!
-    await exec(a.p, sql`UPDATE users SET reset_password_token = 'mfa2-synthetic-token', reset_password_expiration = now() + interval '1 hour' WHERE id = ${a.id}`)
+    await exec(a.p, sql`UPDATE users SET reset_password_token = 'mfa2-synthetic-token', reset_password_expiration = ${new Date(Date.now() + 3600_000).toISOString()}::timestamptz WHERE id = ${a.id}`)
     const keys = ['H2O_EMAIL_MODE', 'H2O_EMAIL_FROM', 'H2O_EMAIL_ALLOWLIST'] as const
     const was = keys.map((k) => process.env[k])
     process.env.H2O_EMAIL_MODE = 'allowlist'
@@ -393,9 +396,12 @@ describe('MFA-2 remembered devices', () => {
 describe('MFA-2 housekeeping', () => {
   it('purges old expired/used codes, long-expired and long-revoked devices, and rows of users that no longer exist', async () => {
     const u = await makeUser(['sales'])
-    await exec(u.p, sql`INSERT INTO mfa_email_codes (user_id, sid, purpose, code_hash, expires_at) VALUES (${u.id}, 's', 'signin', 'old', now() - interval '3 days'), (${u.id}, 's', 'signin', 'live', now() + interval '5 minutes'), ('00000000-0000-0000-0000-00000000dead', 's', 'signin', 'orphan', now() + interval '5 minutes')`)
-    await exec(u.p, sql`INSERT INTO mfa_trusted_devices (id, user_id, token_hash, expires_at, revoked_at) VALUES (gen_random_uuid(), ${u.id}, 'a', now() + interval '10 days', now() - interval '40 days'), (gen_random_uuid(), ${u.id}, 'b', now() - interval '20 days', NULL), (gen_random_uuid(), ${u.id}, 'c', now() + interval '10 days', NULL), (gen_random_uuid(), '00000000-0000-0000-0000-00000000dead', 'd', now() + interval '10 days', NULL)`)
-    const out = await purgeMfaRows(u.p)
+    // Every instant below comes from one `now`, the same Date the purge is given (not the database clock), so the test also holds under H2O_TEST_NOW.
+    const now = new Date()
+    const from = (days: number, minutes = 0) => new Date(now.getTime() + days * 86_400_000 + minutes * 60_000).toISOString()
+    await exec(u.p, sql`INSERT INTO mfa_email_codes (user_id, sid, purpose, code_hash, expires_at) VALUES (${u.id}, 's', 'signin', 'old', ${from(-3)}::timestamptz), (${u.id}, 's', 'signin', 'live', ${from(0, 5)}::timestamptz), ('00000000-0000-0000-0000-00000000dead', 's', 'signin', 'orphan', ${from(0, 5)}::timestamptz)`)
+    await exec(u.p, sql`INSERT INTO mfa_trusted_devices (id, user_id, token_hash, expires_at, revoked_at) VALUES (gen_random_uuid(), ${u.id}, 'a', ${from(10)}::timestamptz, ${from(-40)}::timestamptz), (gen_random_uuid(), ${u.id}, 'b', ${from(-20)}::timestamptz, NULL), (gen_random_uuid(), ${u.id}, 'c', ${from(10)}::timestamptz, NULL), (gen_random_uuid(), '00000000-0000-0000-0000-00000000dead', 'd', ${from(10)}::timestamptz, NULL)`)
+    const out = await purgeMfaRows(u.p, now)
     expect(out).toEqual({ codes: 2, devices: 3 })
     expect(await count(u, 'mfa_email_codes')).toBe(1)
     expect(await count(u, 'mfa_trusted_devices')).toBe(1)

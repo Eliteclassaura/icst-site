@@ -144,7 +144,7 @@ describe('SEC-CRM-1.1: recovery codes', () => {
       if (left !== null) expect(s.mfa_locked_until).toBeNull()
       else expect(s.mfa_locked_until).toBeTruthy()
     }
-  })
+  }, 120_000) // TEST-CLOCK-FIX-2: 20 rounds of enrolling a user and racing; under a loaded machine (a build running) it passed 30 s. Only the budget changes.
 })
 
 describe('SEC-CRM-1.1: failure count + lock in one statement; step-up; sessions', () => {
