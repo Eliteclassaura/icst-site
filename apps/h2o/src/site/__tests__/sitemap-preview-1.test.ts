@@ -143,3 +143,64 @@ describe('SITEMAP-PREVIEW-1: the proxy names the request origin itself', () => {
     expect(robots.headers.get('x-robots-tag')).toBe('noindex, nofollow')
   })
 })
+
+describe('SITEMAP-PREVIEW-1.1: the origin comes from the edge headers, not the standalone server\'s own address (Auditor C1)', () => {
+  beforeEach(() => { process.env.H2O_CONTENT_SOURCE = 'payload' })
+  const INTERNAL = 'http://0.0.0.0:3000'
+  /** what the proxy hands the route, for a request whose nextUrl is the server's internal address */
+  const headerFor = async (headers: Record<string, string>, name = 'sitemap_index.xml') => {
+    const { proxy } = await import('../../proxy')
+    const { NextRequest } = await import('next/server')
+    const { SITEMAP_ORIGIN_HEADER } = await import('../../content/sitemap-request')
+    return proxy(new NextRequest(`${INTERNAL}/${name}`, { headers })).headers.get(`x-middleware-request-${SITEMAP_ORIGIN_HEADER}`)
+  }
+  const bodyFor = async (origin: string | null) => {
+    const { sitemapResponse, sitemapPreviewOrigin } = await load()
+    return xml(await sitemapResponse('sitemap_index.xml', { previewOrigin: sitemapPreviewOrigin(origin) }))
+  }
+  it('internal nextUrl (0.0.0.0:3000) + forwarded staging host and https: the staging origin is named and the index is populated', async () => {
+    const origin = await headerFor({ host: '0.0.0.0:3000', 'x-forwarded-host': 'staging.h2ocooling.org', 'x-forwarded-proto': 'https' })
+    expect(origin).toBe(STAGING)
+    const body = await bodyFor(origin)
+    expect(locs(body).length).toBeGreaterThan(4)
+    expect(locs(body).every((u) => u.startsWith(STAGING + '/'))).toBe(true)
+  })
+  it('the Host header alone (no forwarded headers) also names the staging origin; a missing proto means https', async () => {
+    expect(await headerFor({ host: 'staging.h2ocooling.org' })).toBe(STAGING)
+    expect(await headerFor({ host: 'x', 'x-forwarded-host': 'staging.h2ocooling.org' })).toBe(STAGING)
+    expect(await headerFor({ 'x-forwarded-host': 'STAGING.h2ocooling.org:443', 'x-forwarded-proto': 'https' })).toBe(STAGING)
+  })
+  it('any other forwarded host (evil.test, the production host, a look-alike, another port or scheme) is named as itself and the index is empty', async () => {
+    const empty = '<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n</sitemapindex>\n'
+    for (const h of [
+      { 'x-forwarded-host': 'evil.test', 'x-forwarded-proto': 'https' },
+      { 'x-forwarded-host': 'h2ocooling.com', 'x-forwarded-proto': 'https' },
+      { 'x-forwarded-host': 'staging.h2ocooling.org.evil.test', 'x-forwarded-proto': 'https' },
+      { 'x-forwarded-host': 'staging.h2ocooling.org:8443', 'x-forwarded-proto': 'https' },
+      { 'x-forwarded-host': 'staging.h2ocooling.org', 'x-forwarded-proto': 'http' },
+      { host: '0.0.0.0:3000' },
+      { 'x-forwarded-host': 'staging.h2ocooling.org/../x', 'x-forwarded-proto': 'https' },
+      {},
+    ] as Array<Record<string, string>>) {
+      const origin = await headerFor(h)
+      expect(origin, JSON.stringify(h)).not.toBe(STAGING)
+      expect(await bodyFor(origin), JSON.stringify(h)).toBe(empty)
+    }
+  })
+  it('a client-supplied x-h2o-sitemap-origin is never used: the proxy overwrites it with the normalised request origin', async () => {
+    const origin = await headerFor({ 'x-forwarded-host': 'evil.test', 'x-forwarded-proto': 'https', 'x-h2o-sitemap-origin': STAGING })
+    expect(origin).toBe('https://evil.test')
+  })
+  it('production policy: the staging forwarded host changes nothing (canonical origin, no preview)', async () => {
+    process.env.H2O_INDEXING_POLICY = 'production'
+    const { sitemapPreviewOrigin } = await load()
+    expect(sitemapPreviewOrigin(await headerFor({ 'x-forwarded-host': 'staging.h2ocooling.org', 'x-forwarded-proto': 'https' }))).toBeUndefined()
+  })
+  it('requestOrigin: first forwarded value wins; unparseable hosts fall back to the framework origin', async () => {
+    const { requestOrigin } = await import('../../content/sitemap-request')
+    const h = (o: Record<string, string>) => new Headers(o)
+    expect(requestOrigin(h({ 'x-forwarded-host': 'staging.h2ocooling.org, 10.0.0.2', 'x-forwarded-proto': 'https, http' }), INTERNAL)).toBe(STAGING)
+    expect(requestOrigin(h({ 'x-forwarded-host': 'a b', 'x-forwarded-proto': 'https' }), INTERNAL)).toBe(INTERNAL)
+    expect(requestOrigin(h({}), INTERNAL)).toBe(INTERNAL)
+  })
+})

@@ -39,7 +39,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { redirectLocation } from './redirect-location'
 import { legacyImageTarget } from './content/legacy-image-redirects'
 import { descriptiveImagePath, physicalImagePath } from './content/image-slugs'
-import { SITEMAP_FILE_HEADER, SITEMAP_ORIGIN_HEADER } from './content/sitemap-request'
+import { SITEMAP_FILE_HEADER, SITEMAP_ORIGIN_HEADER, requestOrigin } from './content/sitemap-request'
 import { scriptHashesFor } from './site/csp-hashes'
 import { xRobotsTagForPath } from './site/robots'
 import { mergeTypeformCsp } from './conversion/csp'
@@ -302,7 +302,7 @@ function payloadPublic(req: NextRequest): NextResponse {
     // header the proxy sets itself (a client-supplied value is overwritten).
     const headers = new Headers(req.headers)
     headers.set(SITEMAP_FILE_HEADER, pathname.slice(1))
-    headers.set(SITEMAP_ORIGIN_HEADER, req.nextUrl.origin)
+    headers.set(SITEMAP_ORIGIN_HEADER, requestOrigin(req.headers, req.nextUrl.origin))
     return withRobots(NextResponse.rewrite(target, { request: { headers } }), policyFloor(pathname))
   }
   if (pathname === '/robots.txt') return withRobots(robotsResponse(), policyFloor(pathname))
