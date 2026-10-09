@@ -72,11 +72,13 @@ export const productPrimaryMedia=(doc:SalmonDocument)=>{
 }
 export const productIndexRecords=()=>activeProductRoutes().map(route=>({route,doc:salmonDocument(route)}))
 
+// CHIP-LABEL-FIX-1: a button such as "Buy Now" that links to a category never replaces that category's real label (first real label wins)
+const GENERIC_CTA_LABEL=/^(?:buy|shop|order|view|learn|read|see|explore)(?:\s+(?:now|more|all|details))?$/i
 export const partsCategories=(doc:SalmonDocument):Array<{label:string;href:string}>=>{
   const categories=new Map<string,string>()
   walk(doc.children,node=>{
     if(node.tag!=='a'||!node.attrs.href)return
-    try{const url=new URL(node.attrs.href,doc.sourceUrl);const route=salmonRoutes().find(row=>row.targetPath===url.pathname&&row.routeId.startsWith('SALMON-pages-'));if(route&&url.pathname!=='/contact-us/'&&url.pathname!==doc.targetPath&&/fan|shaft|fill|frp|gear|motor|nozzle|hardware/i.test(url.pathname))categories.set(url.pathname,salmonNodeText(node).trim())}catch{/* Invalid source links are not categories. */}
+    try{const url=new URL(node.attrs.href,doc.sourceUrl);const route=salmonRoutes().find(row=>row.targetPath===url.pathname&&row.routeId.startsWith('SALMON-pages-'));if(route&&url.pathname!=='/contact-us/'&&url.pathname!==doc.targetPath&&/fan|shaft|fill|frp|gear|motor|nozzle|hardware/i.test(url.pathname)){const label=salmonNodeText(node).trim();if(categories.has(url.pathname)&&GENERIC_CTA_LABEL.test(label))return;categories.set(url.pathname,label)}}catch{/* Invalid source links are not categories. */}
   })
   return [...categories].map(([href,label])=>({href,label}))
 }
