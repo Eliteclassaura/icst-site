@@ -39,10 +39,11 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
   const salmonHero=cssBackground(doc.routeId,'8f448f5')
   // Design R4 (CT GO 2026-10-07; spec H2O_DESIGN_R4_SPEC_resources.md): /resources/ takes the shared R4 hub hero, link
   // cards and the two-column library. Same strings and document rows as before; brochures and tools are unchanged.
-  if(isResources)return <div className="luxury-site figma-wave4 salmon-family salmon-family--library dr4 dr4-resources" data-wave4-route={path} data-r4-route={path} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
+  if(isResources)return <div className="luxury-site figma-wave4 salmon-family salmon-family--library" data-wave4-route={path} data-r4-route={path} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc} canonicalOverride="https://h2ocooling.com/resources/"/>
     <LuxuryHeader page={pageFor(doc)} routePath={path}/>
-    <main id="main" className="wave4-library dr4-library-main">
+    {/* DD-FIX-1 F1: the R4 content container wraps the page content only; the header and footer keep the site's full-width container */}
+    <div className="dr4 dr4-resources"><main id="main" className="wave4-library dr4-library-main">
       <section className="dr4-hero dr4-hero--hub dr4-hero--resources" aria-labelledby="wave4-title">
         <R4Img slot="resources.hero" eager className="dr4-hero-img" sizes="(min-width: 1300px) 1260px, calc(100vw - 32px)"/>
         <div className="dr4-hero-body">
@@ -68,7 +69,7 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
         <ol className="wave4-document-list dr4-library-list">{primaryItems.map((item,index)=><li key={`${item.title}-${index}`} className="dr4-library-item"><span className="dr4-library-num" aria-hidden="true">{String(index+1).padStart(2,'0')}</span>{renderRow(item,index)}</li>)}</ol>
       </section>
       <R2Discovery kind="pages"/>
-    </main>
+    </main></div>
     <LuxuryFooter page={pageFor(doc)} routePath={path}/>
   </div>
   return <div className="luxury-site figma-wave4 salmon-family salmon-family--library" data-wave4-route={path} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>

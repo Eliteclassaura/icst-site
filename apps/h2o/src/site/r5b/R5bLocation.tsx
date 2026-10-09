@@ -118,10 +118,11 @@ export function R5bLocationPage({doc}:{doc:SalmonDocument}){
   }
   const heroLead=hero?hero.h2.filter(h=>salmonNodeText(h.node).trim()):[]
 
-  return <div className="luxury-site figma-wave4 dr4 r5b-location" data-r4-route={doc.targetPath} data-live-english={doc.routeId} data-salmon-document={doc.routeId} data-source-rest-sha256={doc.sourceIdentity.sha256}>
+  return <div className="luxury-site figma-wave4 r5b-location" data-r4-route={doc.targetPath} data-live-english={doc.routeId} data-salmon-document={doc.routeId} data-source-rest-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc} breadcrumb={[HOME_CRUMB]}/>
     <LuxuryHeader page={page} routePath={doc.targetPath}/>
-    <main id="main" className="wave4-detail r5b-location-main">
+    {/* DD-FIX-1 F1: the R4 content container wraps the page content only, so the header and footer keep the full-width site container */}
+    <div className="dr4"><main id="main" className="wave4-detail r5b-location-main">
       {heroSlot?<section className="dr4-hero dr4-hero--photo" aria-labelledby="r4-hero-title">
         <R4Img media={r5bMedia(heroSlot)} slot={heroSlot} eager className="dr4-hero-img" sizes="(min-width: 1300px) 1260px, calc(100vw - 32px)"/>
         <div className="dr4-hero-body">
@@ -134,7 +135,7 @@ export function R5bLocationPage({doc}:{doc:SalmonDocument}){
       {rest.map(render)}
       <div className="r5b-back"><a href="/resources/">← Back to resources</a></div>
       <R4LauncherReveal/>
-    </main>
+    </main></div>
     <LuxuryFooter page={page} routePath={doc.targetPath}/>
   </div>
 }

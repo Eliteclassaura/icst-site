@@ -288,6 +288,11 @@ body > .skiptranslate,
   color: var(--lang-blue);
 }
 
+/* DD-FIX-1 F2: the notice links keep their 44px tap height and hang below the paragraph; the list that follows starts about 8px clear of them (the links overhang the paragraph by 11px) */
+.global-chrome .lang-disclosure {
+  margin-block-end: 20px;
+}
+
 .global-chrome .translate-note {
   align-items: center;
   background: var(--lang-hover);

@@ -57,14 +57,19 @@ export async function generateMetadata({params,searchParams}:Params):Promise<Met
   const search=await searchParams
   return pagedHubMetadata(base,partsHubPage(typeof search?.q==='string'?search.q:'',search?.page))
 }
+/**
+ * DD-FIX-1 F3: a route that ends in the 404 page names the 404's own title in its page metadata. Without it the page's metadata had no
+ * title, the layout's default filled in, and after hydration the tab flipped from "Page Not Found - ICS" to "Industrial Cooling Solutions".
+ */
+const NOT_FOUND_METADATA:Metadata={title:{absolute:'Page Not Found - ICS'},robots:{index:false,follow:false}}
 async function baseMetadata({params}:Pick<Params,'params'>):Promise<Metadata>{
   // R2.4 R2: an empty archive's page N is a 404
-  if(isEmptyArchivePage(requestPathOf((await params).slug)))return {robots:{index:false,follow:false}}
+  if(isEmptyArchivePage(requestPathOf((await params).slug)))return NOT_FOUND_METADATA
   if(isPayloadContent()){
     await connection()
     const {canonicalFor,resolvePublicPath,robotsFor}=await bridge()
     const resolved=await resolvePublicPath(requestPathOf((await params).slug))
-    if(!resolved)return {robots:{index:false,follow:false}}
+    if(!resolved)return NOT_FOUND_METADATA
     const {record,preview}=resolved
     const robots=robotsFor(record,preview)
     // Locale Part B: the hreflang alternates the production sitemap lists for this page (reciprocal; none outside a served cluster).
@@ -74,7 +79,7 @@ async function baseMetadata({params}:Pick<Params,'params'>):Promise<Metadata>{
     if(record.family==='editorial'){const seo=(resolved.doc?.seo??{}) as {title?:string;description?:string};return {title:{absolute:(seo.title||record.title)+' | ICS'},description:seo.description||undefined,alternates:alternatesOf(record),robots}}
     if(record.family==='english-service'){const service=englishServiceForPath(record.path);return {title:{absolute:record.seo?.title||((service?.title??record.title)+' | ICS')},description:record.seo?.description||service?.lead,alternates:alternatesOf(record),robots}}
     const source=record.family==='alias'?salmonRoutes().find(route=>route.routeId===record.source?.aliasOf)??null:releaseRouteFor(resolved.dispatchPath.split('/').filter(Boolean).map(decodeURIComponent))
-    if(!source)return {robots:{index:false,follow:false}}
+    if(!source)return NOT_FOUND_METADATA
     const doc=salmonDocument(source)
     if(record.family==='alias'&&(record.seo?.title||record.seo?.description))return {title:{absolute:record.seo?.title||doc.seo.title},description:record.seo?.description||publicDescription(doc),alternates:alternatesOf(record),robots}
     // R2.4: the served title and description (pagination included); the head's og/twitter tags mirror the same values.
@@ -90,7 +95,7 @@ async function baseMetadata({params}:Pick<Params,'params'>):Promise<Metadata>{
     return {title:{absolute:doc.seo.title},description:publicDescription(doc),alternates:{canonical:'https://h2ocooling.com/resources/'},robots:{index:false,follow:false}}
   }
   const row=releaseRouteFor(slug)
-  if(!row)return {robots:{index:false,follow:false}}
+  if(!row)return NOT_FOUND_METADATA
   const doc=salmonDocument(row)
   return {title:{absolute:servedTitle(doc)},description:servedDescription(doc),alternates:{canonical:doc.seo.canonical[0]},robots:{index:false,follow:false}}
 }
