@@ -242,7 +242,10 @@ export function applyContentSlots(doc: Doc, slots: ContentSlot[] | null | undefi
       else delete n.attrs['data-rfq-intent']
       if (s.intent === 'quote' && s.productRouteId) n.attrs['data-rfq-product'] = s.productRouteId
       else delete n.attrs['data-rfq-product']
-      replaceLabel(n, s.label ?? '')
+      // CATEGORY-CARDS-1 (DD-B1, CT 2026-10-09): rewrite the visible text only when the LABEL changed. A product card's link wraps the
+      // card's image and title; saving a record (the batch does) stores the product's own path in `href`, which makes the slot count as
+      // edited, and an unconditional rewrite flattened the link to its label, dropping the image and the heading from the card.
+      if (norm(textOf(n)) !== norm(s.label ?? '')) replaceLabel(n, s.label ?? '')
     } else if (s.kind === 'image') {
       if (s.imageUrl) {
         const { srcset: _s, 'data-src': _d, 'data-srcset': _ds, sizes: _z, ...rest } = n.attrs
