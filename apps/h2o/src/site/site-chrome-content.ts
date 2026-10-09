@@ -5,9 +5,10 @@ import {salmonNavigation} from './navigation-data'
  * Site chrome CONTENT (R1B): navigation labels/links and footer copy/links.
  *
  * Main Factory keeps the chrome's layout, type, geometry and styling in code (`SiteNavigation`, `LuxuryShell`).
- * The words and destinations are content: in Payload content mode they come from the published `site-chrome`
- * global (materialised into the release as `site-chrome.json`); in repository mode, and whenever the global
- * has never been saved, they are exactly the accepted defaults below, so the static release is unchanged.
+ * SITE-CHROME-DURABLE-1 (CT 2026-10-09): the header navigation tree and the footer link columns are code-owned, always the
+ * accepted defaults below (a stored global can no longer pin a stale copy). In Payload content mode only the footer's own words
+ * (heading, description, office labels, copyright, privacy link) come from the published `site-chrome` global (materialised into
+ * the release as `site-chrome.json`); in repository mode, and whenever the global has never been saved, everything is the defaults.
  *
  * Fact safeguards: office phone numbers, addresses and social profiles are NOT chrome content. They stay on
  * the owner contact authority (`contact.ts`, `ClientReview`) and are rendered by code.

@@ -15,6 +15,7 @@ import { withheldNodesIn, PUBLIC_EXCLUSIONS } from '../public-exclusions'
 import { emailShapedCount } from '../public-author'
 import { nodesToLexical, type ContentSlot } from '../content-slots'
 import { siteChromeSeed } from '../site-chrome'
+import { DEFAULT_SITE_CHROME } from '../../site/site-chrome-content'
 
 /**
  * R1B publication-safety and editor-workflow gates against the isolated synthetic PostgreSQL (loopback,
@@ -357,7 +358,7 @@ describe('EDITOR_BODY_MEDIA_GLOBALS (typed controls, not raw JSON)', () => {
     const img = (r.slots as ContentSlot[]).find((s) => s.kind === 'image')!
     expect((await editSlots(FANS, editor, (all) => all.map((s) => (s.key === img.key ? { ...s, image: String(unknown.id) } : s)), true)).status).toBe(400)
   })
-  it('navigation/footer content is editable in the site-chrome global, validated, versioned and released', async () => {
+  it('footer words are editable in the site-chrome global, validated, versioned and released; the menu and footer link columns stay code-owned', async () => {
     const p = await payload()
     const bad = await rest.post('globals/site-chrome?draft=false', editor.token, { footer: { heading: 'x', columns: [{ title: 'c', links: [{ label: 'bad', href: 'javascript:alert(1)' }] }] }, _status: 'published' })
     expect(bad.status).toBe(400)
@@ -368,6 +369,9 @@ describe('EDITOR_BODY_MEDIA_GLOBALS (typed controls, not raw JSON)', () => {
     await runPublishingSync(p, await seqNow())
     const sc = JSON.parse(readFileSync(path.join(contentDirOf(currentRelease()!), 'site-chrome.json'), 'utf8')) as Doc
     expect((sc.footer as Doc).heading).toBe('Synthetic footer heading')
+    // SITE-CHROME-DURABLE-1: the structure in the release is the code defaults, whatever the stored global holds
+    expect(sc.navigation).toEqual(JSON.parse(JSON.stringify(DEFAULT_SITE_CHROME.navigation)))
+    expect((sc.footer as Doc).columns).toEqual(JSON.parse(JSON.stringify(DEFAULT_SITE_CHROME.footer.columns)))
   })
 })
 

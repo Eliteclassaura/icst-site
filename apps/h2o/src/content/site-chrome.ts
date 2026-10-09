@@ -79,7 +79,7 @@ async function validateLinks(payload: Payload, data: Record<string, unknown>, re
 export const SiteChromeGlobal: GlobalConfig = {
   slug: 'site-chrome',
   label: 'Navigation & footer',
-  admin: { group: 'Website', description: 'Header navigation and footer text and links. Layout and styling are fixed by the site design; office phone numbers and social profiles come from the owner contact record.' },
+  admin: { group: 'Website', description: 'Footer words (heading, description, copyright, privacy link). The header menu and the footer link columns are fixed by the site design; office phone numbers and social profiles come from the owner contact record.' },
   versions: { drafts: true, max: 25 },
   access: {
     read: ({ req }: { req: PayloadRequest }) => isEditorialReader(req),
@@ -108,6 +108,7 @@ export const SiteChromeGlobal: GlobalConfig = {
       name: 'navigation',
       type: 'array',
       label: 'Header navigation groups',
+      admin: { readOnly: true, description: 'Fixed by the site design (code-owned): the header menu is not edited here.' },
       fields: [
         { name: 'label', type: 'text', required: true },
         { name: 'href', type: 'text', admin: { description: 'Optional group landing page (internal path).' } },
@@ -122,7 +123,7 @@ export const SiteChromeGlobal: GlobalConfig = {
         { name: 'heading', type: 'text', required: true },
         { name: 'contactLabel', type: 'text', required: true },
         { name: 'description', type: 'textarea', required: true },
-        { name: 'columns', type: 'array', fields: [{ name: 'title', type: 'text', required: true }, { name: 'ariaLabel', type: 'text', required: true }, link('links', 'Links')] },
+        { name: 'columns', type: 'array', admin: { readOnly: true, description: 'Fixed by the site design (code-owned): the footer link columns are not edited here.' }, fields: [{ name: 'title', type: 'text', required: true }, { name: 'ariaLabel', type: 'text', required: true }, link('links', 'Links')] },
         { name: 'officesTitle', type: 'text', required: true },
         { name: 'officesContactLabel', type: 'text', required: true },
         { name: 'copyright', type: 'text', required: true },
@@ -137,8 +138,27 @@ export const SiteChromeGlobal: GlobalConfig = {
 export const siteChromeSeed = (): Record<string, unknown> => structuredClone(DEFAULT_SITE_CHROME) as unknown as Record<string, unknown>
 
 type Row = Record<string, unknown>
-const strip = (links: unknown): Array<{ label: string; href: string }> =>
-  ((links as Row[] | undefined) ?? []).map((l) => ({ label: String(l.label), href: String(l.href) }))
+/**
+ * SITE-CHROME-DURABLE-1 (CT 2026-10-09): the STRUCTURE of the chrome is code-owned. The header navigation tree and the footer's link
+ * columns always come from the code defaults (DEFAULT_SITE_CHROME), never from the stored global. The import seeded the global once
+ * from the defaults of that day; every later change to the defaults (FANS-MENU-1, FOOTER-FIX-1, PROJECTS-MENU-1 ...) then lost to the
+ * stale stored copy, on a fresh database too. The global keeps what editors legitimately own: the footer's own words (heading,
+ * contact label, description, office labels, copyright, privacy label and link).
+ */
+const COPY_FIELDS = ['heading', 'contactLabel', 'description', 'officesTitle', 'officesContactLabel', 'copyright', 'privacyLabel', 'privacyHref'] as const
+
+/** The renderer's chrome for a stored global row: code-owned structure plus the editable footer words; defaults when never saved or draft. */
+export function chromeFromGlobal(g: unknown): SiteChrome {
+  const row = (g ?? null) as Row | null
+  const nav = (row?.navigation as Row[] | undefined) ?? []
+  const footer = (row?.footer as Row | undefined) ?? null
+  if (!nav.length || !footer?.heading || row?._status === 'draft') return DEFAULT_SITE_CHROME
+  const copy = Object.fromEntries(COPY_FIELDS.flatMap((k) => (typeof footer[k] === 'string' && (footer[k] as string).trim() ? [[k, footer[k] as string]] : [])))
+  return {
+    navigation: DEFAULT_SITE_CHROME.navigation,
+    footer: { ...DEFAULT_SITE_CHROME.footer, ...copy, columns: DEFAULT_SITE_CHROME.footer.columns },
+  }
+}
 
 /** Published chrome content read inside the build transaction, in the renderer's shape; defaults when empty. */
 export async function publishedSiteChrome(payload: Payload, tx: TxReq): Promise<SiteChrome> {
@@ -148,21 +168,5 @@ export async function publishedSiteChrome(payload: Payload, tx: TxReq): Promise<
   } catch {
     g = null
   }
-  const nav = (g?.navigation as Row[] | undefined) ?? []
-  const footer = (g?.footer as Row | undefined) ?? null
-  if (!nav.length || !footer?.heading || (g as { _status?: string } | null)?._status === 'draft') return DEFAULT_SITE_CHROME
-  return {
-    navigation: nav.map((n) => ({
-      label: String(n.label),
-      ...(n.href ? { href: String(n.href) } : {}),
-      ...(Array.isArray(n.items) && n.items.length ? { items: strip(n.items) } : {}),
-      ...(Array.isArray(n.sections) && n.sections.length ? { sections: (n.sections as Row[]).map((sct) => ({ label: String(sct.label), items: strip(sct.items) })) } : {}),
-    })),
-    footer: {
-      heading: String(footer.heading), contactLabel: String(footer.contactLabel), description: String(footer.description),
-      columns: ((footer.columns as Row[] | undefined) ?? []).map((c) => ({ title: String(c.title), ariaLabel: String(c.ariaLabel), links: strip(c.links) })),
-      officesTitle: String(footer.officesTitle), officesContactLabel: String(footer.officesContactLabel), copyright: String(footer.copyright),
-      privacyLabel: String(footer.privacyLabel), privacyHref: String(footer.privacyHref),
-    },
-  }
+  return chromeFromGlobal(g)
 }
