@@ -4,6 +4,10 @@
  *   import  <outDir> [authorityRoot]   rerunnable authority → Payload import; writes import-ledger.tsv /
  *                      redirect-ledger.tsv. authorityRoot (default: cwd) is an accepted source checkout's
  *                      apps/h2o (content/ + release/authority.mjs), e.g. mounted read-only into the image.
+ *   listing-merge <outDir> [authorityRoot] [--apply]
+ *                      LISTING-MERGE-1: applies ONLY the catalog-listing delta (added product cards, result counts) to the held listing
+ *                      records named in content/release/listing-merge.json, keeping every edited page element; DRY-RUN unless --apply;
+ *                      refuses a route whose changed elements were also edited (reported, exit 3); idempotent; syncs the release after apply.
  *   sync               build + promote the published snapshot and search index now (same code as the runner)
  *   rollback           point the snapshot `current` back at the previous (last-good) generation
  *   catalog-seed <outDir> [--apply]
@@ -20,6 +24,7 @@ import config from '@payload-config'
 import { getPayload } from 'payload'
 import { importAuthority } from './authority-import'
 import { seedCatalog } from './catalog-seed'
+import { mergeListings } from './listing-merge'
 import { siteChromeSeed } from '../site-chrome'
 import { runPublishingSync } from '../jobs'
 import { recordPublicationEvent } from '../events'
@@ -94,11 +99,33 @@ async function main() {
     writeFileSync(path.join(out, 'catalog-without-category.tsv'), tsv([['PATH'], ...report.withoutCategory.map((p) => [p])]))
     writeFileSync(path.join(out, 'catalog-seed-summary.json'), JSON.stringify({ mode: apply ? 'APPLY' : 'DRY_RUN', ...report.summary }, null, 2))
     out1(JSON.stringify({ mode: apply ? 'APPLY' : 'DRY_RUN', ...report.summary }))
+  } else if (cmd === 'listing-merge') {
+    const out = path.resolve(arg ?? 'listing-merge-report')
+    mkdirSync(out, { recursive: true })
+    const apply = process.argv.includes('--apply')
+    const root = path.resolve(rootArg && !rootArg.startsWith('--') ? rootArg : process.cwd())
+    const reports = await mergeListings(payload, root, { apply, log: (m) => out1(m) })
+    writeFileSync(
+      path.join(out, 'listing-merge-ledger.tsv'),
+      tsv([
+        ['PATH', 'ROUTE_ID', 'ACTION', 'CARDS_ADDED', 'COUNT_CHANGES', 'ELEMENTS_SOURCE_CHANGED', 'ELEMENTS_NEW', 'EDITED_ELEMENTS_KEPT', 'REFUSALS', 'UNTOUCHED'],
+        ...reports.map((r) => [r.path, r.routeId, r.action, r.cardsAdded.join(' | '), r.countChanges.map((c) => `${c.before} -> ${c.after}`).join(' | '), r.slotsSourceChanged, r.slotsNew, r.slotsCarriedEdited, r.refusals.join(' | '), r.untouched.join(' | ')]),
+      ]),
+    )
+    const summary = { mode: apply ? 'APPLY' : 'DRY_RUN', routes: reports.length, merge: reports.filter((r) => r.action === 'MERGE').length, unchanged: reports.filter((r) => r.action === 'UNCHANGED').length, refused: reports.filter((r) => r.action === 'REFUSE').length }
+    writeFileSync(path.join(out, 'listing-merge-summary.json'), JSON.stringify(summary, null, 2))
+    for (const r of reports) out1(`${r.action.padEnd(9)} ${r.path}  cards+${r.cardsAdded.length}  counts ${r.countChanges.map((c) => `${c.before} -> ${c.after}`).join(' ; ') || '-'}${r.refusals.length ? `  REFUSED: ${r.refusals.join(' | ')}` : ''}`)
+    if (apply && summary.merge) {
+      await recordPublicationEvent(payload, null, 'import', null)
+      out1(JSON.stringify(await runPublishingSync(payload, null)))
+    }
+    out1(JSON.stringify(summary))
+    if (summary.refused) process.exitCode = 3
   } else if (cmd === 'release-status') {
     const cur = currentRelease()
     out1(JSON.stringify({ release: cur?.id ?? null, valid: validateRelease(cur).ok, retained: listReleases().map((m) => m.id) }))
   } else {
-    console.error('usage: import <outDir> [authorityRoot] | sync | rollback | release-status | catalog-seed <outDir> [--apply]')
+    console.error('usage: import <outDir> [authorityRoot] | sync | rollback | release-status | catalog-seed <outDir> [--apply] | listing-merge <outDir> [authorityRoot] [--apply]')
     process.exitCode = 2
   }
   process.exit()
