@@ -155,5 +155,5 @@ export function resumeIfOptedIn(pageLanguage:string,env:Env=here()):void{
   if(EXCLUDED_PATH.test(win.location.pathname))return
   const chosen=readGoogtrans(doc)
   if(!chosen||chosen.to===pageLanguage)return
-  translateInPlace({to:chosen.to,from:chosen.from,fallbackHref:translateUrl(win.location.pathname,chosen.to,chosen.from),env})
+  translateInPlace({to:chosen.to,from:chosen.from,fallbackHref:translateUrl(win.location.pathname,chosen.to,chosen.from,win.location.origin),env})
 }

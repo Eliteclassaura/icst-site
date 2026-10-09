@@ -9,7 +9,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {renderToStaticMarkup} from 'react-dom/server'
 import {createElement} from 'react'
-import {DISCLOSURE,LanguageMenu,TranslateNote} from '../lang/LanguageMenu'
+import {LanguageMenu,TranslateNote} from '../lang/LanguageMenu'
 import {TranslateModeProvider} from '../lang/TranslateMode'
 import {languageMenu} from '../lang/lang-model'
 import {googleWidgetEnabled,translateModeFor} from '../lang/translate-switch'
@@ -45,15 +45,12 @@ describe('the launch safety switch',()=>{
     const dir=(name:string)=>off.split(';').map(s=>s.trim()).find(s=>s.startsWith(name+' '))!
     expect(dir('style-src')).toBe("style-src 'self' 'unsafe-inline'");expect(dir('img-src')).toBe("img-src 'self' data:");expect(dir('connect-src')).toBe("connect-src 'self'")
   })
-  it('the menu tells the truth for each mode',()=>{
+  it('the menu is the same in every mode: no disclosure paragraph (LANG-HOST-1); the mode only changes what a click does',()=>{
     const menu=languageMenu('/about-ics/',{})
     const html=(mode:'full'|'no-google'|'links')=>renderToStaticMarkup(<TranslateModeProvider mode={mode}><LanguageMenu data={menu} variant="desktop"/></TranslateModeProvider>)
-    expect(html('full')).toContain('Otherwise Google Translate is used, which sends the page text to Google.')
-    expect(html('no-google')).toContain('Otherwise Google Translate opens in a new tab.')
-    expect(html('no-google')).not.toContain('sends the page text to Google')
-    expect(html('links')).toContain('Google Translate opens in a new tab.')
-    expect(html('links')).not.toContain('runs in your browser')
-    expect(DISCLOSURE.full).not.toBe(DISCLOSURE['no-google'])
+    expect(html('full')).toBe(html('no-google'))
+    expect(html('full')).toBe(html('links'))
+    expect(html('full')).not.toContain('sends the page text to Google')
   })
 })
 

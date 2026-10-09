@@ -5,8 +5,7 @@ import {resumeIfOptedIn,subscribeTranslated} from './translate-widget'
 import {translateStatus} from './translate-device'
 import {restorePage,translatePage} from './translate-page'
 import {useTranslateMode} from './TranslateMode'
-import type {TranslateMode} from './translate-switch'
-import {menuReducer,readDismissed,suggestionFor,writeDismissed,type LanguageMenuData,type Suggestion} from './lang-model'
+import {menuReducer,readDismissed,suggestionFor,translateHref,translateOriginFor,writeDismissed,type LanguageMenuData,type Suggestion} from './lang-model'
 
 /**
  * LANG-1: the header's language button and menu (a disclosure: aria-expanded, Escape closes and returns focus, a click or focus
@@ -36,12 +35,14 @@ export function TranslateNote({pageLanguage}:{pageLanguage:string}){
   </div>
 }
 
-/** What the menu says before a language is chosen: true for the path this request will actually take. */
-export const DISCLOSURE:Record<TranslateMode,string>={
-  full:'Translation runs in your browser where supported. Otherwise Google Translate is used, which sends the page text to Google.',
-  'no-google':'Translation runs in your browser where supported. Otherwise Google Translate opens in a new tab.',
-  links:'Google Translate opens in a new tab.',
-}
+/**
+ * LANG-HOST-1: the serving origin, when it is one of the allowlisted hosts (lang-model TRANSLATE_ORIGINS): the Google Translate links
+ * name the page on the host the visitor is on, so the private preview translates itself. The server renders the canonical origin; after
+ * hydration the client switches to its own (an unknown host keeps the canonical one).
+ */
+const subscribeNothing=()=>()=>{}
+const originOf=()=>translateOriginFor(typeof window==='undefined'?null:window.origin)
+const useServingOrigin=()=>useSyncExternalStore(subscribeNothing,originOf,()=>translateOriginFor(null))
 
 export function LanguageMenu({data,variant}:{data:LanguageMenuData;variant:'desktop'|'mobile'}){
   const [state,dispatch]=useReducer(menuReducer,{open:false,focusButton:false})
@@ -61,6 +62,7 @@ export function LanguageMenu({data,variant}:{data:LanguageMenuData;variant:'desk
     return()=>{document.removeEventListener('keydown',onKey,true);document.removeEventListener('pointerdown',onOutside);document.removeEventListener('focusin',onOutside)}
   },[state.open])
   const mode=useTranslateMode()
+  const origin=useServingOrigin()
   const status=useSyncExternalStore(subscribeTranslated,()=>translateStatus(),()=>null)
   const current=data.available.find(item=>item.current)
   // Design Director T3: while a page is translated the control names the language being shown (ES, Español), and says EN again after "Show original".
@@ -78,19 +80,17 @@ export function LanguageMenu({data,variant}:{data:LanguageMenuData;variant:'desk
         </li>)}
       </ul>
       <p className="lang-group-label" id={`${panelId}-t`}>Translate this page</p>
-      <p className="lang-note lang-disclosure">{DISCLOSURE[mode]} See our <a href="/cookie-notice/">Cookie Notice</a> and <a href="/privacy-policy/">Privacy Notice</a>.</p>
       <ul className="lang-list" aria-labelledby={`${panelId}-t`}>
-        {data.translate.map(item=><li key={item.code}>
-          <a href={item.href} target="_blank" rel="noopener noreferrer nofollow" lang={item.lang} dir={item.dir} onClick={event=>{dispatch('select');if(mode!=='links'&&plain(event)){event.preventDefault();void translatePage({to:item.tl,from:data.current==='en'?'en':data.current,fallbackHref:item.href,mode})}}}>{item.native}<span className="lang-ext" aria-hidden="true">↗</span><span className="lang-sr"> (machine translation; falls back to Google Translate in a new tab if your browser cannot translate in place)</span></a>
-        </li>)}
+        {data.translate.map(item=>{const href=translateHref(item,origin);return <li key={item.code}>
+          <a href={href} target="_blank" rel="noopener noreferrer nofollow" lang={item.lang} dir={item.dir} onClick={event=>{dispatch('select');if(mode!=='links'&&plain(event)){event.preventDefault();void translatePage({to:item.tl,from:data.current==='en'?'en':data.current,fallbackHref:href,mode})}}}>{item.native}<span className="lang-ext" aria-hidden="true">↗</span><span className="lang-sr"> (opens Google Translate in a new tab)</span></a>
+        </li>})}
       </ul>
-      <p className="lang-note">Machine translation. ICS does not review it.</p>
+      <p className="lang-note">Machine translation.</p>
     </div>
   </div>
 }
 
 /** The first-visit suggestion: a small dismissible bar, never a redirect. Shown only when the browser prefers another language. */
-const subscribeNothing=()=>()=>{}
 const browserStorage=():Storage|undefined=>{try{return window.localStorage}catch{return undefined}}
 export function LanguageBar({data}:{data:LanguageMenuData}){
   // Read on the client only (the server snapshot is empty): nothing is rendered on the server, so there is no hydration mismatch.
@@ -99,6 +99,7 @@ export function LanguageBar({data}:{data:LanguageMenuData}){
     const preferred=navigator.languages?.length?navigator.languages:[navigator.language].filter(Boolean)
     return JSON.stringify(suggestionFor(data,preferred)??'')
   },()=>'')
+  const origin=useServingOrigin()
   const [dismissed,setDismissed]=useState(false)
   const suggestion:Suggestion=raw&&raw!=='""'&&!dismissed?JSON.parse(raw) as Suggestion:null
   const dismiss=()=>{writeDismissed(browserStorage());setDismissed(true)}
@@ -106,7 +107,7 @@ export function LanguageBar({data}:{data:LanguageMenuData}){
   const external=suggestion.kind==='translate'
   return <div className="lang-bar" role="region" aria-label="Language suggestion" data-lang-suggestion={suggestion.code}>
     <p>{external?<>This page can be translated into <span lang={suggestion.lang} dir={suggestion.dir}>{suggestion.native}</span> (machine translation by Google).</>:<>This page is available in <span lang={suggestion.lang}>{suggestion.native}</span>.</>}</p>
-    <a href={suggestion.href} lang={suggestion.lang} {...(external?{target:'_blank',rel:'noopener noreferrer nofollow'}:{hrefLang:suggestion.lang})} onClick={dismiss}>{external?'Translate':'View'} →</a>
+    <a href={external?translateHref(data.translate.find(item=>item.code===suggestion.code)??{path:'/',tl:suggestion.code,sl:'en'},origin):suggestion.href} lang={suggestion.lang} {...(external?{target:'_blank',rel:'noopener noreferrer nofollow'}:{hrefLang:suggestion.lang})} onClick={dismiss}>{external?'Translate':'View'} →</a>
     <button type="button" onClick={dismiss} aria-label="Dismiss language suggestion">×</button>
   </div>
 }

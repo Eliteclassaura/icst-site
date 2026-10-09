@@ -9,7 +9,7 @@ import path from 'node:path'
 import {renderToStaticMarkup} from 'react-dom/server'
 import Page from '../../app/(site)/[[...slug]]/page'
 import {repositoryAlternatesFor} from '../../content/sitemap-response'
-import {AVAILABLE,CANONICAL_ORIGIN,TRANSLATE,canonicalUrl,languageMenu,languageOfPath,menuReducer,readDismissed,sitePath,suggestionFor,translateUrl,writeDismissed,LANG_STORAGE_KEY} from '../lang/lang-model'
+import {AVAILABLE,CANONICAL_ORIGIN,TRANSLATE,canonicalUrl,languageMenu,languageOfPath,menuReducer,readDismissed,sitePath,suggestionFor,translateHref,translateUrl,writeDismissed,LANG_STORAGE_KEY} from '../lang/lang-model'
 import {languageMenuFor} from '../lang/lang-data'
 
 const APP=process.cwd()
@@ -73,9 +73,9 @@ describe('Google Translate links',()=>{
     expect(canonicalUrl('x/y/')).toBe('https://h2ocooling.com/x/y/')
     expect(decodeURIComponent(translateUrl('/a%20b/','es'))).toContain('u=https://h2ocooling.com/a%20b/')
   })
-  it('offers exactly the five machine-translation languages, Arabic marked rtl',()=>{
+  it('offers the owner\'s nine machine-translation languages in order (LANG-HOST-1), Arabic marked rtl',()=>{
     const menu=languageMenu(GUIDE,alternates)
-    expect(TRANSLATE.map(i=>i.tl)).toEqual(['ms','zh-CN','ko','es','ar'])
+    expect(TRANSLATE.map(i=>i.tl)).toEqual(['ms','zh-CN','ko','es','ar','th','ja','vi','id'])
     expect(menu.translate.find(i=>i.code==='ar')?.dir).toBe('rtl')
     expect(menu.translate.every(i=>i.href.startsWith('https://translate.google.com/translate?'))).toBe(true)
   })
@@ -160,7 +160,7 @@ describe('the selector in the page chrome',()=>{
       expect([...available.matchAll(/<li>/g)].length,target).toBe(1)
       expect(available,target).toContain('aria-current="page"')
       expect(html,target).toContain('Translate this page</p>')
-      expect(html,target).toContain('Machine translation. ICS does not review it.')
+      expect(html,target).toContain('<p class="lang-note">Machine translation.</p>')
     }
   })
   it('LANG-1.2: a page that does have locale versions still lists them, and never a disabled entry',async()=>{
@@ -168,7 +168,7 @@ describe('the selector in the page chrome',()=>{
     expect(html).toMatch(/<a href="\/th\/[^"]+" lang="th" hrefLang="th">ไทย<\/a>/)
     expect(html).not.toContain('Not available for this page')
     expect(html).not.toContain('lang-disabled')
-    expect(html).toContain('Machine translation. ICS does not review it.')
+    expect(html).toContain('<p class="lang-note">Machine translation.</p>')
   })
   it('does not change URLs, titles or hreflang: the stylesheet is the only other addition',()=>{
     const layout=readFileSync(path.join(APP,'src/app/(site)/layout.tsx'),'utf8')
@@ -181,10 +181,37 @@ describe('the selector in the page chrome',()=>{
     const html=await render('/guide-about-cooling-tower/')
     expect(html).toContain('(current language)')
     expect(html.match(/class="lang-check"/g)?.length).toBe(2)
-    expect(html.match(/class="lang-ext"/g)?.length).toBe(10)
+    expect(html.match(/class="lang-ext"/g)?.length).toBe(10) // LANG-HOST-1: this page has native th, ja, id and vi twins, so five machine-translation links per menu (desktop + mobile)
     expect(html).toMatch(/class="lang-chevron"/)
     const css=readFileSync(path.join(APP,'src/app/(site)/design-lang.css'),'utf8')
     expect(css).toContain('max-block-size: calc(100dvh - 100px)')
     expect(css).toContain('label.sr-only')
+  })
+})
+
+describe('LANG-HOST-1: translate links name the serving host (allowlisted), the owner\'s nine languages, native twins not duplicated',()=>{
+  const u=(url:string)=>new URL(url).searchParams.get('u')
+  it('the preview host, the public host and www name themselves in u=; any other host (a spoofed Host header included) falls back to the canonical origin',()=>{
+    expect(u(translateUrl('/guide/?a=1','es','en','https://staging.h2ocooling.org'))).toBe('https://staging.h2ocooling.org/guide/?a=1')
+    expect(u(translateUrl('/guide/','es','en','https://h2ocooling.com'))).toBe('https://h2ocooling.com/guide/')
+    expect(u(translateUrl('/guide/','es','en','https://www.h2ocooling.com'))).toBe('https://www.h2ocooling.com/guide/')
+    for(const bad of ['https://evil.example','http://staging.h2ocooling.org','https://staging.h2ocooling.org.evil.example','https://staging.h2ocooling.org:8443','https://STAGING.h2ocooling.org','','null',undefined,null])
+      expect(u(translateUrl('/guide/','es','en',bad as string|undefined)),String(bad)).toBe('https://h2ocooling.com/guide/')
+  })
+  it('a menu item rebuilds its link for the serving origin from its own path, language and source language',()=>{
+    const item=languageMenu('/guide-about-cooling-tower/',{}).translate.find(i=>i.code==='ko')!
+    expect(item.href).toContain('u=https%3A%2F%2Fh2ocooling.com%2Fguide-about-cooling-tower%2F')
+    expect(u(translateHref(item,'https://staging.h2ocooling.org'))).toBe('https://staging.h2ocooling.org/guide-about-cooling-tower/')
+    expect(translateHref(item,'https://evil.example')).toBe(item.href)
+  })
+  it('an English page offers all nine; a page with a native th/ja/vi/id twin shows that native link under Available and no machine item for the same language',()=>{
+    const en=languageMenu('/about-ics/',{})
+    expect(en.translate.map(i=>i.native)).toEqual(['Bahasa Melayu','中文 (简体)','한국어','Español','العربية','ไทย','日本語','Tiếng Việt','Bahasa Indonesia'])
+    expect(en.translate.map(i=>i.lang)).toEqual(['ms','zh-CN','ko','es','ar','th','ja','vi','id'])
+    const twin=languageMenu('/about-ics/',{th:'https://h2ocooling.com/th/about/',ja:'https://h2ocooling.com/ja/about/'})
+    expect(twin.available.filter(a=>a.href).map(a=>a.code)).toEqual(['en','th','ja'])
+    expect(twin.translate.map(i=>i.code)).toEqual(['ms','zh','ko','es','ar','vi','id'])
+    const onThai=languageMenu('/th/about/',{})
+    expect(onThai.translate.map(i=>i.code)).not.toContain('th')
   })
 })

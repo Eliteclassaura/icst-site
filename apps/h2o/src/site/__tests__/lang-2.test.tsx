@@ -118,13 +118,14 @@ describe('the language menu',()=>{
   it('carries the translate target on each machine-translation item',()=>{
     expect(menu.translate.map(i=>(i as {tl:string}).tl)).toEqual(TRANSLATE.map(i=>i.tl))
   })
-  it('discloses the Google transfer before any selection, links both notices, and keeps a neutral note',()=>{
+  it('LANG-HOST-1 (owner): no disclosure paragraph in the menu (the Cookie and Privacy Notices carry it), the short note, and a short screen-reader text on each link',()=>{
     const html=renderToStaticMarkup(createElement(LanguageMenu,{data:menu,variant:'desktop'}))
-    expect(html).toContain('Translation runs in your browser where supported. Otherwise Google Translate is used, which sends the page text to Google.')
-    expect(html).toContain('href="/cookie-notice/"')
-    expect(html).toContain('href="/privacy-policy/"')
-    expect(html).toContain('Machine translation. ICS does not review it.')
-    expect(html).not.toContain('opens in a new tab')
+    expect(html).not.toContain('Translation runs in your browser')
+    expect(html).not.toContain('lang-disclosure')
+    expect(html).not.toContain('falls back to Google Translate')
+    expect(html).not.toContain('ICS does not review it')
+    expect(html).toContain('<p class="lang-note">Machine translation.</p>')
+    expect(html.match(/ \(opens Google Translate in a new tab\)/g)?.length).toBe(menu.translate.length)
   })
 })
 

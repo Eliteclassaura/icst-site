@@ -9,7 +9,7 @@
 export const CANONICAL_ORIGIN='https://h2ocooling.com'
 
 export type AvailableCode='en'|'th'|'ja'|'id'|'vi'
-export type TranslateCode='ms'|'zh'|'ko'|'es'|'ar'
+export type TranslateCode='ms'|'zh'|'ko'|'es'|'ar'|'th'|'ja'|'vi'|'id'
 
 type Lang={native:string;lang:string;dir?:'rtl'}
 export const AVAILABLE:ReadonlyArray<Lang&{code:AvailableCode}>=[
@@ -25,10 +25,14 @@ export const TRANSLATE:ReadonlyArray<Lang&{code:TranslateCode;tl:string}>=[
   {code:'ko',tl:'ko',native:'한국어',lang:'ko'},
   {code:'es',tl:'es',native:'Español',lang:'es'},
   {code:'ar',tl:'ar',native:'العربية',lang:'ar',dir:'rtl'},
+  {code:'th',tl:'th',native:'ไทย',lang:'th'},
+  {code:'ja',tl:'ja',native:'日本語',lang:'ja'},
+  {code:'vi',tl:'vi',native:'Tiếng Việt',lang:'vi'},
+  {code:'id',tl:'id',native:'Bahasa Indonesia',lang:'id'},
 ]
 
 export type AvailableItem={code:AvailableCode;native:string;lang:string;href:string|null;current:boolean}
-export type TranslateItem={code:TranslateCode;native:string;lang:string;dir?:'rtl';href:string;/** the Google language code (googtrans) */tl:string}
+export type TranslateItem={code:TranslateCode;native:string;lang:string;dir?:'rtl';href:string;/** the Google language code (googtrans) */tl:string;/** the page's canonical path + query and its source language, so the client can name the serving host in `u=` (translateHref) */path:string;sl:string}
 export type LanguageMenuData={current:AvailableCode;available:AvailableItem[];translate:TranslateItem[]}
 
 const LOCALE_PREFIX=/^\/(th|ja|id|vi)\//
@@ -40,10 +44,17 @@ export function languageOfPath(pathname:string):AvailableCode{
   return (match?.[1] as AvailableCode|undefined)??'en'
 }
 
-/** An absolute or site-relative URL to its normalised, percent-encoded path on the canonical host. */
-export function canonicalUrl(pathname:string):string{
+/**
+ * LANG-HOST-1: the hosts whose own origin may be named in a Google Translate link (exact match only): the public site, its www host and
+ * the private preview. Anything else, a spoofed or unknown Host included, falls back to the canonical origin; a Host header is never echoed.
+ */
+export const TRANSLATE_ORIGINS:ReadonlySet<string>=new Set(['https://h2ocooling.com','https://www.h2ocooling.com','https://staging.h2ocooling.org'])
+export const translateOriginFor=(origin?:string|null):string=>origin&&TRANSLATE_ORIGINS.has(origin)?origin:CANONICAL_ORIGIN
+
+/** An absolute or site-relative URL to its normalised, percent-encoded path on the canonical host (or an allowlisted serving origin). */
+export function canonicalUrl(pathname:string,origin:string=CANONICAL_ORIGIN):string{
   const url=new URL(pathname.startsWith('http')?pathname:pathname.startsWith('/')?pathname:'/'+pathname,CANONICAL_ORIGIN)
-  return CANONICAL_ORIGIN+url.pathname+url.search
+  return translateOriginFor(origin)+url.pathname+url.search
 }
 
 /** A same-site path (percent-encoded) for a cluster member URL; null if the URL is not on the canonical host. */
@@ -55,10 +66,15 @@ export function sitePath(url:string):string|null{
   }catch{return null}
 }
 
-/** The outbound Google Translate link for a page: always the canonical h2ocooling.com URL, whatever host renders it. */
-export function translateUrl(pathname:string,tl:string,sl='en'):string{
-  return `https://translate.google.com/translate?sl=${encodeURIComponent(sl)}&tl=${encodeURIComponent(tl)}&u=${encodeURIComponent(canonicalUrl(pathname))}`
+/**
+ * The outbound Google Translate link for a page. `origin` is the host serving the request: when it is one of TRANSLATE_ORIGINS the page
+ * URL names that host (so the private preview translates itself, not the old site behind the public name); otherwise the canonical origin.
+ */
+export function translateUrl(pathname:string,tl:string,sl='en',origin?:string|null):string{
+  return `https://translate.google.com/translate?sl=${encodeURIComponent(sl)}&tl=${encodeURIComponent(tl)}&u=${encodeURIComponent(canonicalUrl(pathname,translateOriginFor(origin)))}`
 }
+/** A menu item's link for the serving origin (the client knows it; the server renders the canonical one). */
+export const translateHref=(item:Pick<TranslateItem,'path'|'tl'|'sl'>,origin?:string|null):string=>translateUrl(item.path,item.tl,item.sl,origin)
 
 export function languageMenu(pathname:string,alternates?:Readonly<Record<string,string>>):LanguageMenuData{
   const current=languageOfPath(pathname)
@@ -71,7 +87,8 @@ export function languageMenu(pathname:string,alternates?:Readonly<Record<string,
       const href=isCurrent?(sitePath(canonicalUrl(pathname))):(member?sitePath(member):null)
       return {code:item.code,native:item.native,lang:item.lang,href:href??null,current:isCurrent}
     }),
-    translate:TRANSLATE.map(item=>({code:item.code,native:item.native,lang:item.lang,...(item.dir?{dir:item.dir}:{}),href:translateUrl(pathname,item.tl,sl),tl:item.tl})),
+    // LANG-HOST-1: a language this page already has a native version of (the Available group) is not offered as a machine translation too
+    translate:TRANSLATE.filter(item=>!AVAILABLE.some(a=>a.code===item.code&&(a.code===current||alternates?.[a.code]&&sitePath(alternates[a.code]!)))).map(item=>({code:item.code,native:item.native,lang:item.lang,...(item.dir?{dir:item.dir}:{}),href:translateUrl(pathname,item.tl,sl),tl:item.tl,path:canonicalUrl(pathname).slice(CANONICAL_ORIGIN.length),sl})),
   }
 }
 
