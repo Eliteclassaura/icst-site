@@ -445,7 +445,7 @@ export function CloseDialog({ rfqId, updatedAt, buttonClassName }: { rfqId: stri
 }
 
 export function ReopenButton({ rfqId, updatedAt, primary }: { rfqId: string; updatedAt: string; primary?: boolean }) {
-  return <ActionForm inline action={A.reopenAction} hidden={{ rfqId, expectedUpdatedAt: updatedAt }} submitLabel="Reopen (admin)" submitClassName={primary ? 'c-btn is-primary' : 'c-btn'} />
+  return <ActionForm inline action={A.reopenAction} hidden={{ rfqId, expectedUpdatedAt: updatedAt }} submitLabel="Reopen" submitClassName={primary ? 'c-btn is-primary' : 'c-btn'} />
 }
 
 export function NoteDialog({ rfqId, buttonClassName }: { rfqId: string; buttonClassName?: string }) {
@@ -818,7 +818,7 @@ export function TaskActions({ task, isAdmin, people }: { task: TaskLike; isAdmin
   const finished = task.status === 'DONE' || task.status === 'CANCELLED'
   if (finished)
     return isAdmin ? (
-      <ActionForm inline action={A.reopenTaskAction} hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }} submitLabel="Reopen (admin)" submitClassName="c-btn is-small" announce={task.title} />
+      <ActionForm inline action={A.reopenTaskAction} hidden={{ taskId: task.id, expectedUpdatedAt: task.updatedAt }} submitLabel="Reopen" submitClassName="c-btn is-small" announce={task.title} />
     ) : null
   const system = task.source === 'SYSTEM_RULE'
   return (

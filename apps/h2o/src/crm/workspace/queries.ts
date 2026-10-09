@@ -8,6 +8,7 @@ import { asUser, displayNameOf, type CrmSession } from './session'
 import { endOfBusinessDay, isAgedUnassigned, nextWeekStart, parseDate, startOfBusinessDay } from './time'
 import { isOffice, officeCalendar, type Office } from '../offices'
 import { replyDue, type ReplyDue } from './replyDue'
+import { repliedRfqIds } from './replyEvidence'
 import { officeSettings } from '../officeSettings'
 import { isUuid } from './validate'
 import { countryName, isCountryCode } from '../countries'
@@ -195,6 +196,9 @@ export async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now:
     const prev = firstReply.get(r)
     if (!prev || t.status === 'OPEN' || t.status === 'IN_PROGRESS') firstReply.set(r, t)
   }
+  // OPP-2: a finished first-response task only reads "Replied" when a human reply is actually on record.
+  const doneIds = [...firstReply].filter(([, t]) => t.status === 'DONE').map(([r]) => r)
+  const replied = await repliedRfqIds(s, doneIds)
   // Do-not-contact is honoured by the linked contact's identity and, for an RFQ left unlinked (ambiguous
   // identity), by the submitted address itself — an unlinked inquiry never hides an active suppression.
   const keyOf = (d: Doc): string | undefined =>
@@ -236,7 +240,7 @@ export async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now:
       reply: (() => {
         const fr = firstReply.get(String(d.id))
         const st = fr ? (fr.status === 'IN_PROGRESS' ? 'OPEN' : String(fr.status)) : null
-        return replyDue(fr && st ? { status: st, dueAt: parseDate(fr.due_at) } : null, now, officeCalendar(d.office, offices))
+        return replyDue(fr && st ? { status: st, dueAt: parseDate(fr.due_at) } : null, now, officeCalendar(d.office, offices), st === 'DONE' ? replied.has(String(d.id)) : undefined)
       })(),
       flags: {
         urgent: isCustomerUrgent(submitted.other_answers),

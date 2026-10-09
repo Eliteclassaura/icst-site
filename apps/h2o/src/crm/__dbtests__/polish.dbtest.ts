@@ -65,7 +65,11 @@ describe('reply due on inquiry rows', () => {
     const late = await submit('NATIVE_FORM', new Date(now.getTime() - 50 * H), parts('late', 'MX'))
     await setDue(late.task.id, new Date(now.getTime() - 3 * H))
     const done = await submit('NATIVE_FORM', new Date(now.getTime() - 2 * H), parts('done', 'DE'))
-    expect((await m.completeTask(A, { taskId: done.task.id })).ok).toBe(true)
+    // OPP-2: "Replied" needs a reply on record. "Record my reply" (L06) completes the task and leaves that evidence.
+    expect((await m.recordReply(A, { rfqId: String(done.rfq.id), summary: 'Answered from my mailbox (synthetic)' })).ok).toBe(true)
+    // A task that was only ticked off is not "Replied".
+    const ticked = await submit('NATIVE_FORM', new Date(now.getTime() - 2 * H), parts('ticked', 'FR'))
+    expect((await m.completeTask(A, { taskId: ticked.task.id })).ok).toBe(true)
 
     const rows = (await loadInbox(A, parseInboxParams({}), now)).rows
     const row = (id: unknown) => rows.find((r) => r.id === String(id))!
@@ -73,6 +77,7 @@ describe('reply due on inquiry rows', () => {
     expect(['ok', 'soon']).toContain(row(fresh.rfq.id).reply.tone)
     expect(row(late.rfq.id).reply).toMatchObject({ state: 'OPEN', tone: 'overdue' })
     expect(row(done.rfq.id).reply).toMatchObject({ state: 'DONE', tone: 'done' })
+    expect(row(ticked.rfq.id).reply).toMatchObject({ state: 'DONE', tone: 'none', replyRecorded: false })
     expect(row(fresh.rfq.id).nextAction?.kind).toBe('RFQ_FIRST_RESPONSE')
     expect(row(fresh.rfq.id).sourceSystem).toBe('NATIVE_CHAT')
 

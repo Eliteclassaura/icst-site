@@ -143,9 +143,10 @@ export const defaultScope = (isAdmin: boolean): Scope => (isAdmin ? 'team' : 'mi
 export const scopeFrom = (cookie: string | undefined, isAdmin: boolean): Scope =>
   cookie === 'mine' || cookie === 'team' ? cookie : defaultScope(isAdmin)
 
-/** Where a scope change returns to: My Work or Follow-ups, with Follow-ups' `when` kept if valid. */
+/** Where a scope change returns to: My Work, Next actions or Follow-ups, with Follow-ups' `when` kept if valid. */
 export function scopeReturnPath(raw: unknown): string {
   if (typeof raw !== 'string') return '/crm/'
+  if (raw === '/crm/next-actions/' || raw.startsWith('/crm/next-actions/?')) return '/crm/next-actions/'
   if (raw.startsWith('/crm/follow-ups/')) {
     const when = spFrom(raw.split('?')[1] ?? '').when
     return ['due', 'overdue', 'open', 'done'].includes(String(when)) ? `/crm/follow-ups/?when=${String(when)}` : '/crm/follow-ups/'

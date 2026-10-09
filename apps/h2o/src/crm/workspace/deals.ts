@@ -356,7 +356,7 @@ function dealWhere(s: CrmSession, f: DealFilter, stageFilter?: string): Where {
   return and.length ? { and } : {}
 }
 
-async function hydrate(s: CrmSession, docs: Doc[], now: Date): Promise<DealRow[]> {
+export async function hydrateDeals(s: CrmSession, docs: Doc[], now: Date): Promise<DealRow[]> {
   const people = nameMap(await crmUsers(s))
   const accIds = [...new Set(docs.map((o) => relId(o.account)).filter(Boolean))] as string[]
   const accs = new Map<string, string>()
@@ -405,7 +405,7 @@ export async function loadDeals(s: CrmSession, f: DealFilter, page: number, now:
     depth: 0,
     ...asUser(s),
   })
-  return { total: res.totalDocs, pages: res.totalPages, page: res.page ?? 1, rows: await hydrate(s, res.docs as unknown as Doc[], now) }
+  return { total: res.totalDocs, pages: res.totalPages, page: res.page ?? 1, rows: await hydrateDeals(s, res.docs as unknown as Doc[], now) }
 }
 
 export const BOARD_COLUMN_SIZE = 10
@@ -423,7 +423,7 @@ export async function loadBoard(s: CrmSession, f: DealFilter, now: Date = new Da
         depth: 0,
         ...asUser(s),
       })
-      return { stage: st, count: res.totalDocs, rows: await hydrate(s, res.docs as unknown as Doc[], now) }
+      return { stage: st, count: res.totalDocs, rows: await hydrateDeals(s, res.docs as unknown as Doc[], now) }
     }),
   )
 }
@@ -447,7 +447,7 @@ export async function loadDeal(s: CrmSession, dealId: string, now: Date = new Da
   } catch {
     return null
   }
-  const [row] = await hydrate(s, [deal], now)
+  const [row] = await hydrateDeals(s, [deal], now)
   const people = await crmUsers(s)
   const originId = relId(deal.origin_rfq)
   let origin: DealDetail['origin'] = null

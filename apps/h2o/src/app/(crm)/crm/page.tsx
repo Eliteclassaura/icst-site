@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { IDENTITY_REASON_LABEL, ACTIVITY_LABEL, label } from '../../../crm/workspace/labels'
 import { SCOPE_COOKIE, scopeFrom } from '../../../crm/workspace/prefs'
+import { loadNextActions } from '../../../crm/workspace/nextActions'
 import { loadDashboard, loadMyWork, type DashTile, type Loaded, type Scope, type WeekBucket } from '../../../crm/workspace/queries'
 import { compactTime, relativeAge } from '../../../crm/workspace/time'
 import { RfqStatus } from '../../../crm/workspace/ui/Status'
@@ -10,6 +11,7 @@ import { EmptyState } from '../../../crm/workspace/ui/States'
 import { IconCheckCircle, IconInbox, IconTasks } from '../../../crm/workspace/ui/Icons'
 import { AssignMe } from './_components/Dialogs'
 import { ScopeSwitch } from './_components/ScopeSwitch'
+import { NextActionList } from './_components/NextActionList'
 import { TaskTable } from './_components/TaskTable'
 import { requireCrmSession } from './session'
 
@@ -62,9 +64,17 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
   // W1-8: the remembered Mine/Team choice (shared with Follow-ups); an explicit ?scope= still wins for that view.
   const scope: Scope = sp.scope === 'team' || sp.scope === 'mine' ? sp.scope : scopeFrom((await cookies()).get(SCOPE_COOKIE)?.value, s.isAdmin)
   const now = new Date()
-  const [w, dash] = await Promise.all([loadMyWork(s, scope, now), loadDashboard(s, scope, now)])
+  const [w, dash, next] = await Promise.all([
+    loadMyWork(s, scope, now),
+    loadDashboard(s, scope, now),
+    // OPP-2: the unified next-action queue (follow-ups and open deals), overdue first; the full list has its own page.
+    loadNextActions(s, { who: scope, page: 1 }, now).then(
+      (data): Loaded<typeof data> => ({ status: 'ok', data }),
+      (): Loaded<never> => ({ status: 'error' }),
+    ),
+  ])
   const failed =
-    [w.unassigned, w.assigned, w.followUps, w.waiting, w.recent, w.reviews, dash.week, dash.openFollowUps].filter((m) => m.status === 'error').length +
+    [w.unassigned, w.assigned, w.followUps, w.waiting, w.recent, w.reviews, dash.week, dash.openFollowUps, next].filter((m) => m.status === 'error').length +
     dash.tiles.filter((t) => t.count === null).length
   const counts = {
     unassigned: countOf(w.unassigned),
@@ -132,19 +142,27 @@ export default async function MyWorkPage({ searchParams }: { searchParams: Promi
             }
           </Module>
           <Module
-            title={scope === 'mine' ? 'My open follow-ups' : 'Open follow-ups'}
+            title="Next actions"
             tag={scopeTag}
-            loaded={dash.openFollowUps}
-            more={`/crm/follow-ups/?who=${scope}&when=open`}
-            badge={dash.openFollowUps.status === 'ok' && dash.openFollowUps.data.overdue > 0 ? `${dash.openFollowUps.data.overdue} overdue` : undefined}
+            loaded={next}
+            more="/crm/next-actions/"
+            count={next.status === 'ok' ? next.data.total : undefined}
+            badge={next.status === 'ok' && next.data.overdue > 0 ? `${next.data.overdue} overdue` : undefined}
           >
             {(d) =>
               d.rows.length === 0 ? (
-                <EmptyState icon={<IconTasks />} title="No open follow-ups">
-                  {scope === 'mine' ? 'Follow-ups assigned to you appear here, soonest first.' : 'Open follow-ups across the team appear here, soonest first.'}
+                <EmptyState icon={<IconTasks />} title="No next actions">
+                  {scope === 'mine' ? 'Your open follow-ups and the next action of each of your open deals appear here, overdue first.' : 'Open follow-ups and the next action of every open deal appear here, overdue first.'}
                 </EmptyState>
               ) : (
-                <TaskTable rows={d.rows} now={now} zone={s.timeZone} isAdmin={s.isAdmin} people={w.people} caption={scope === 'mine' ? 'My open follow-ups' : 'Open follow-ups'} showOwner={scope === 'team'} />
+                <>
+                  <NextActionList rows={d.rows.slice(0, 8)} now={now} zone={s.timeZone} isAdmin={s.isAdmin} people={d.people} caption={scope === 'mine' ? 'My next actions' : 'Next actions'} showOwner={scope === 'team'} />
+                  {d.total > 8 ? (
+                    <p className="c-hint">
+                      Showing 8 of {d.total}. <a href="/crm/next-actions/">See all {d.total}</a>
+                    </p>
+                  ) : null}
+                </>
               )
             }
           </Module>

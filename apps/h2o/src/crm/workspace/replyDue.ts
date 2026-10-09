@@ -21,7 +21,14 @@ export const REPLY_SOON_MS = 4 * 3600_000
 
 export type ReplyState = 'OPEN' | 'DONE' | 'NONE'
 export type ReplyTone = 'ok' | 'soon' | 'overdue' | 'done' | 'none'
-export type ReplyDue = { dueAt: string | null; state: ReplyState; tone: ReplyTone; officeMsLeft: number | null }
+export type ReplyDue = {
+  dueAt: string | null
+  state: ReplyState
+  tone: ReplyTone
+  officeMsLeft: number | null
+  /** OPP-2: whether a human reply is on record (a sent email or a logged call, meeting or email). null = not checked. */
+  replyRecorded?: boolean | null
+}
 
 /** Office-hours milliseconds between `from` and `to` on `cal` (0 when `to` is not after `from`). */
 export function officeMsBetween(from: Date, to: Date, cal: BusinessCalendar, open = OFFICE_OPEN_HOUR, close = OFFICE_CLOSE_HOUR): number {
@@ -39,9 +46,18 @@ export function officeMsBetween(from: Date, to: Date, cal: BusinessCalendar, ope
   return total
 }
 
-export function replyDue(task: { status: string; dueAt: Date | null } | null, now: Date, cal: BusinessCalendar): ReplyDue {
+/**
+ * `replyRecorded` is the evidence that a person really answered the customer. A finished first-response task alone
+ * only says someone ticked it off, so without evidence (`false`) it reads "Task done, no reply recorded", never
+ * "Replied". Callers that did not check pass nothing and keep the old wording.
+ */
+export function replyDue(task: { status: string; dueAt: Date | null } | null, now: Date, cal: BusinessCalendar, replyRecorded?: boolean): ReplyDue {
   if (!task || task.status === 'CANCELLED') return { dueAt: null, state: 'NONE', tone: 'none', officeMsLeft: null }
-  if (task.status === 'DONE') return { dueAt: task.dueAt?.toISOString() ?? null, state: 'DONE', tone: 'done', officeMsLeft: null }
+  if (task.status === 'DONE') {
+    const dueAt = task.dueAt?.toISOString() ?? null
+    if (replyRecorded === false) return { dueAt, state: 'DONE', tone: 'none', officeMsLeft: null, replyRecorded: false }
+    return { dueAt, state: 'DONE', tone: 'done', officeMsLeft: null, ...(replyRecorded === true ? { replyRecorded: true } : {}) }
+  }
   if (!task.dueAt) return { dueAt: null, state: 'OPEN', tone: 'ok', officeMsLeft: null }
   if (task.dueAt.getTime() < now.getTime()) return { dueAt: task.dueAt.toISOString(), state: 'OPEN', tone: 'overdue', officeMsLeft: 0 }
   const left = officeMsBetween(now, task.dueAt, cal)
@@ -62,7 +78,7 @@ export function replyDueLabel(r: ReplyDue, now: Date): string {
     case 'done':
       return 'Replied'
     case 'none':
-      return 'No reply due'
+      return r.state === 'DONE' ? 'Task done, no reply recorded' : 'No reply due'
     case 'overdue':
       {
         const late = now.getTime() - new Date(r.dueAt as string).getTime()
