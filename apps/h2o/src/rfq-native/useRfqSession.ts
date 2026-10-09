@@ -101,7 +101,11 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
     if (started.current) return
     started.current = true
     void (async () => {
-      const reg = await loader(locale)
+      let reg = await loader(locale)
+      // CHAT-FLOW-1.2: the registry is cacheable (max-age 300, stale-while-revalidate 86400), so a browser can still hold the one
+      // from before CHAT-FLOW-1: no chat questions, no `chatflow.*` strings. The chat on it would show the form's wording and
+      // an empty OK. Ask once for a fresh copy, past the HTTP cache.
+      if (reg?.enabled && surface === 'chat' && !(reg.chatQuestions?.length && reg.strings['chatflow.ok'])) reg = (await loader(locale, true)) ?? reg
       if (!reg || !reg.enabled) {
         // a switched-off registry still carries its strings: the panel says so and points to the offices
         if (reg) setRegistry(reg)
