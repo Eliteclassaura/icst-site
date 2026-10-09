@@ -5723,6 +5723,30 @@
    "derivativeBytes": 77764,
    "encoder": "imagemagick webp q76 method6, same pixel dimensions",
    "psnr": 45.1
+  },
+  {
+   "src": "/media/salmon/781c27fb7fdec796bad75bd787c07f2e620183be2574116cbd3f5d78a35c5863.jpg",
+   "origSha256": "781c27fb7fdec796bad75bd787c07f2e620183be2574116cbd3f5d78a35c5863",
+   "origBytes": 24993,
+   "width": 654,
+   "height": 654,
+   "derivative": "/media/derivatives/d162e2e627bf9ce58f46cd68f622e6dfc687e77aaade2c9a0acc267a2d1678af.webp",
+   "derivativeSha256": "d162e2e627bf9ce58f46cd68f622e6dfc687e77aaade2c9a0acc267a2d1678af",
+   "derivativeBytes": 6846,
+   "encoder": "imagemagick webp q78 method6, same pixel dimensions",
+   "psnr": 45.9
+  },
+  {
+   "src": "/media/salmon/af5a17719bfe9b29ab827d1f36506b2af543ae7193e1961ed59fcbc3d163d509.jpg",
+   "origSha256": "af5a17719bfe9b29ab827d1f36506b2af543ae7193e1961ed59fcbc3d163d509",
+   "origBytes": 64664,
+   "width": 853,
+   "height": 945,
+   "derivative": "/media/derivatives/2986ecb0a2ce5738f18d65a2d8c74b9201d9c6865d4148c330aacb7a5f686bf8.webp",
+   "derivativeSha256": "2986ecb0a2ce5738f18d65a2d8c74b9201d9c6865d4148c330aacb7a5f686bf8",
+   "derivativeBytes": 15078,
+   "encoder": "imagemagick webp q78 method6, same pixel dimensions",
+   "psnr": 39.6
   }
  ]
 }

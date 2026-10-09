@@ -1919,6 +1919,187 @@
                                 "\n\t\t"
                               ]
                             },
+                            "\n\t\t",
+                            {
+                              "tag": "div",
+                              "attrs": {
+                                "data-elementor-type": "loop-item",
+                                "data-elementor-id": "2657",
+                                "class": "elementor elementor-2657 e-loop-item e-loop-item-4900 post-4900 product type-product status-publish has-post-thumbnail product_cat-fans product_tag-hudson product_tag-tuf-lite-iv first instock shipping-taxable purchasable product-type-simple",
+                                "data-elementor-post-type": "elementor_library",
+                                "data-custom-edit-handle": "1"
+                              },
+                              "children": [
+                                "\n\t\t\t",
+                                {
+                                  "tag": "div",
+                                  "attrs": {
+                                    "class": "elementor-element elementor-element-9bc0e28 e-con e-atomic-element e-flexbox-base e-1b33a34 ",
+                                    "data-id": "9bc0e28",
+                                    "data-element_type": "e-flexbox",
+                                    "data-e-type": "e-flexbox",
+                                    "data-interaction-id": "9bc0e28"
+                                  },
+                                  "children": [
+                                    "\n    \t\t",
+                                    {
+                                      "tag": "div",
+                                      "attrs": {
+                                        "class": "elementor-element elementor-element-8477f11 elementor-widget elementor-widget-heading",
+                                        "data-id": "8477f11",
+                                        "data-element_type": "widget",
+                                        "data-e-type": "widget",
+                                        "data-widget_type": "heading.default"
+                                      },
+                                      "children": [
+                                        "\n\t\t\t\t\t",
+                                        {
+                                          "tag": "h2",
+                                          "attrs": {
+                                            "class": "elementor-heading-title elementor-size-default"
+                                          },
+                                          "children": [
+                                            "TUF-LITE IV – Fan Assemblies"
+                                          ]
+                                        },
+                                        "\t\t\t\t"
+                                      ]
+                                    },
+                                    "\n\t\t\t\t",
+                                    {
+                                      "tag": "div",
+                                      "attrs": {
+                                        "class": "elementor-element elementor-element-e0e3d82 elementor-widget elementor-widget-image",
+                                        "data-id": "e0e3d82",
+                                        "data-element_type": "widget",
+                                        "data-e-type": "widget",
+                                        "data-widget_type": "image.default"
+                                      },
+                                      "children": [
+                                        "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+                                        {
+                                          "tag": "img",
+                                          "attrs": {
+                                            "decoding": "async",
+                                            "width": "654",
+                                            "height": "654",
+                                            "src": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iv-fan-blades.jpg",
+                                            "class": "attachment-large size-large wp-image-4900",
+                                            "alt": "Hudson TUF-LITE IV fan blades and seal disc"
+                                          },
+                                          "children": []
+                                        },
+                                        "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                      ]
+                                    },
+                                    "\n\t\t\t\t",
+                                    {
+                                      "tag": "div",
+                                      "attrs": {
+                                        "class": "elementor-element elementor-element-9486447 elementor-align-center elementor-widget elementor-widget-button",
+                                        "data-id": "9486447",
+                                        "data-element_type": "widget",
+                                        "data-e-type": "widget",
+                                        "data-widget_type": "button.default"
+                                      },
+                                      "children": [
+                                        "\n\t\t\t\t\t\t\t\t\t\t",
+                                        {
+                                          "tag": "a",
+                                          "attrs": {
+                                            "class": "elementor-button elementor-button-link elementor-size-sm",
+                                            "href": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iv-fan-assemblies/"
+                                          },
+                                          "children": [
+                                            "\n\t\t\t\t\t\t",
+                                            {
+                                              "tag": "span",
+                                              "attrs": {
+                                                "class": "elementor-button-content-wrapper"
+                                              },
+                                              "children": [
+                                                "\n\t\t\t\t\t\t",
+                                                {
+                                                  "tag": "span",
+                                                  "attrs": {
+                                                    "class": "elementor-button-icon"
+                                                  },
+                                                  "children": [
+                                                    "\n\t\t\t\t",
+                                                    {
+                                                      "tag": "svg",
+                                                      "attrs": {
+                                                        "xmlns": "http://www.w3.org/2000/svg",
+                                                        "width": "15",
+                                                        "height": "15",
+                                                        "viewBox": "0 0 15 15",
+                                                        "fill": "none"
+                                                      },
+                                                      "children": [
+                                                        {
+                                                          "tag": "path",
+                                                          "attrs": {
+                                                            "fill-rule": "evenodd",
+                                                            "clip-rule": "evenodd",
+                                                            "d": "M0.71875 3.95337H13.6568L12.938 13.6569H1.43753L0.71875 3.95337Z",
+                                                            "fill": "white",
+                                                            "stroke": "white",
+                                                            "stroke-width": "1.43756",
+                                                            "stroke-linejoin": "round"
+                                                          },
+                                                          "children": []
+                                                        },
+                                                        {
+                                                          "tag": "path",
+                                                          "attrs": {
+                                                            "d": "M4.3125 5.39083V0.71875H10.0628V5.39083",
+                                                            "stroke": "white",
+                                                            "stroke-width": "1.43756",
+                                                            "stroke-linecap": "round",
+                                                            "stroke-linejoin": "round"
+                                                          },
+                                                          "children": []
+                                                        },
+                                                        {
+                                                          "tag": "path",
+                                                          "attrs": {
+                                                            "d": "M4.3125 10.7815H10.0628",
+                                                            "stroke": "#0B4B8C",
+                                                            "stroke-width": "1.43756",
+                                                            "stroke-linecap": "round"
+                                                          },
+                                                          "children": []
+                                                        }
+                                                      ]
+                                                    },
+                                                    "\t\t\t"
+                                                  ]
+                                                },
+                                                "\n\t\t\t\t\t\t\t\t\t",
+                                                {
+                                                  "tag": "span",
+                                                  "attrs": {
+                                                    "class": "elementor-button-text"
+                                                  },
+                                                  "children": [
+                                                    "Buy Now"
+                                                  ]
+                                                },
+                                                "\n\t\t\t\t\t"
+                                              ]
+                                            },
+                                            "\n\t\t\t\t\t"
+                                          ]
+                                        },
+                                        "\n\t\t\t\t\t\t\t\t"
+                                      ]
+                                    },
+                                    "\n\t\t\n"
+                                  ]
+                                },
+                                "\n\t\t"
+                              ]
+                            },
                             "\n\t\t\t\t"
                           ]
                         },
@@ -7695,6 +7876,16 @@
       "alt": "",
       "caption": null,
       "attachmentClass": "attachment-large size-large wp-image-4853"
+    },
+    {
+      "order": 15,
+      "section": "TUF-LITE IV – Fan Assemblies",
+      "kind": "img",
+      "src": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iv-fan-blades.jpg",
+      "srcset": "",
+      "alt": "Hudson TUF-LITE IV fan blades and seal disc",
+      "caption": null,
+      "attachmentClass": "attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
     }
   ],
   "links": [
@@ -7799,6 +7990,12 @@
       "section": "TUF-LITE II – 7000 Series Fan Assemblies",
       "href": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-ii-7000-series-fan-assemblies/",
       "text": "Buy Now"
+    },
+    {
+      "order": 18,
+      "section": "TUF-LITE IV – Fan Assemblies",
+      "href": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iv-fan-assemblies/",
+      "text": ""
     }
   ],
   "downloads": [

@@ -15901,5 +15901,27 @@
     "height": 272,
     "format": "png",
     "authority": "EXACT_PATH_SALMON_BACKUP_CHROME_SUPPLEMENT"
+  },
+  {
+    "url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iv-fan-blades.jpg",
+    "state": "SOURCE_BINARY_HELD",
+    "sha256": "781c27fb7fdec796bad75bd787c07f2e620183be2574116cbd3f5d78a35c5863",
+    "bytes": 24993,
+    "file": "media/781c27fb7fdec796bad75bd787c07f2e620183be2574116cbd3f5d78a35c5863.jpg",
+    "width": 654,
+    "height": 654,
+    "format": "jpeg",
+    "authority": "CATALOG_FANS_1: extracted from the Hudson TUF-LITE IV brochure (Tuf-Lite_IV.pdf), embedded image at native size, composited on white; manufacturer imagery, as the other Hudson records"
+  },
+  {
+    "url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iv-exploded-view.jpg",
+    "state": "SOURCE_BINARY_HELD",
+    "sha256": "af5a17719bfe9b29ab827d1f36506b2af543ae7193e1961ed59fcbc3d163d509",
+    "bytes": 64664,
+    "file": "media/af5a17719bfe9b29ab827d1f36506b2af543ae7193e1961ed59fcbc3d163d509.jpg",
+    "width": 853,
+    "height": 945,
+    "format": "jpeg",
+    "authority": "CATALOG_FANS_1: extracted from the Hudson TUF-LITE IV brochure (Tuf-Lite_IV.pdf), embedded image at native size, composited on white; manufacturer imagery, as the other Hudson records"
   }
 ]

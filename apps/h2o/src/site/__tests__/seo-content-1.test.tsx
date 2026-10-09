@@ -188,9 +188,9 @@ describe('sitemap and listings (Payload mode: withdrawn pages leave every listin
   })
   it('the product set is 181: the home part catalogue, the parts hub and the product pages list neither placeholder',()=>{
     process.env.H2O_CONTENT_SOURCE='payload'
-    expect(activeProductRoutes()).toHaveLength(180)
+    expect(activeProductRoutes()).toHaveLength(181) // CATALOG-FANS-1: + the TUF-LITE IV family record
     const data=homePartCatalogData()
-    expect(data.records).toHaveLength(180)
+    expect(data.records).toHaveLength(181)
     for(const p of MOTORS){
       expect(data.records.some(r=>r.route===p),p).toBe(false)
       expect(renderToStaticMarkup(<HomePartsCatalog data={data}/>)).not.toContain(p)
@@ -273,7 +273,7 @@ describe('internal links: no public page links to a held page once the batch is 
 
 describe('HVAC wording leaves the product pages (OGCS section 2; acceptance: case-insensitive "HVAC" = 0 on every product page)',()=>{
   const publicProducts=ledger.routes.filter(r=>r.routeId in Object.fromEntries([...products.values()].map(v=>[v,1])))
-  it('covers every public product page (180)',()=>{expect(publicProducts).toHaveLength(180)})
+  it('covers every public product page (181)',()=>{expect(publicProducts).toHaveLength(181)})
   it('the check is live: before the batch the imported product pages carry HVAC wording; after it, none of the 180 does (page and structured data)',()=>{
     let before=0
     const after:string[]=[]
@@ -489,8 +489,8 @@ describe('round 2 (CT 2026-10-08): staging QA tranche A/B, OEM/stock rows, HVAC 
   },300000)
   it('the full product sweep: 183 product routes = 180 public (no HVAC) + 3 held placeholders (REDIRECT, not served)',()=>{
     const all=ledger.routes.filter(r=>/^SALMON-product-[0-9]+$/.test(r.routeId))
-    expect(all).toHaveLength(183)
-    expect(all.filter(r=>r.state==='PUBLIC')).toHaveLength(180)
+    expect(all).toHaveLength(184)
+    expect(all.filter(r=>r.state==='PUBLIC')).toHaveLength(181)
     expect(all.filter(r=>r.state==='REDIRECT').map(r=>r.path).sort()).toEqual([...MOTORS].sort())
     // every other "*-example" route: reported, none held without a ruling
     const examples=ledger.routes.filter(r=>/-example\/?$/.test(r.path)).map(r=>`${r.path} ${r.state}`).sort()

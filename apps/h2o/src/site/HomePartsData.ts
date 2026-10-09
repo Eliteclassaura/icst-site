@@ -97,6 +97,6 @@ export function homePartCatalogData():HomePartCatalogData{
     return {route:route.targetPath,sourceId:id,title:doc.seo.h1[0]||doc.title,categories:[...(membership.get(id)??[])],featured:!!chosen,image}
   })
   if(isPayloadContent()){if(new Set(records.map(record=>record.route)).size!==records.length)throw new Error('Homepage parts catalog routes are not unique')}
-  else if(records.length!==183||new Set(records.map(record=>record.route)).size!==183)throw new Error('Homepage parts catalog is not the 183-product public cohort')
+  else if(records.length!==184||new Set(records.map(record=>record.route)).size!==184)throw new Error('Homepage parts catalog is not the 184-product public cohort') // CATALOG-FANS-1: 183 + the TUF-LITE IV family record
   return {records,categories}
 }

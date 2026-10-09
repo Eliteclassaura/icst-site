@@ -9934,5 +9934,21 @@
     "sha256": "cb15d92a6615f137cf3d5d4aca1df85f0e6508cf4e31fa48e914c9294fe70d35",
     "width": 1600,
     "height": 900
+  },
+  {
+    "attachmentId": 5000,
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iv-fan-blades.jpg",
+    "publicPath": "/media/salmon/781c27fb7fdec796bad75bd787c07f2e620183be2574116cbd3f5d78a35c5863.jpg",
+    "sha256": "781c27fb7fdec796bad75bd787c07f2e620183be2574116cbd3f5d78a35c5863",
+    "width": 654,
+    "height": 654
+  },
+  {
+    "attachmentId": 5001,
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iv-exploded-view.jpg",
+    "publicPath": "/media/salmon/af5a17719bfe9b29ab827d1f36506b2af543ae7193e1961ed59fcbc3d163d509.jpg",
+    "sha256": "af5a17719bfe9b29ab827d1f36506b2af543ae7193e1961ed59fcbc3d163d509",
+    "width": 853,
+    "height": 945
   }
 ]

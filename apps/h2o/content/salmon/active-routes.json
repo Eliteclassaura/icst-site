@@ -3707,7 +3707,7 @@
     "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/fans/",
     "targetPath": "/fans/",
     "file": "documents/SALMON-pages-2712.json",
-    "sha256": "add9b75a429f9dd2d538e6b7e3eb508335667406370e94edf5076ae929b1cee8"
+    "sha256": "78dcca86a967e10a97ad003449b40825e7769e438263190119e3504f0479179d"
   },
   {
     "routeId": "SALMON-pages-2406",
@@ -4729,7 +4729,7 @@
     "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product-category/fans/",
     "targetPath": "/product-category/fans/",
     "file": "documents/SALMON-product_cat-202.json",
-    "sha256": "e5dfe0199801240b57e640d7899295429e504cd804d3c407077f671f4ba78929"
+    "sha256": "75dc947596b5162b5afe03dfa1353e89fdf9d1167cf6efb49d8a4bf4c365f825"
   },
   {
     "routeId": "SALMON-product_cat-335",
@@ -4743,7 +4743,7 @@
     "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product-category/fans/page/2/",
     "targetPath": "/product-category/fans/page/2/",
     "file": "documents/SALMON-7bbf402cf226829e.json",
-    "sha256": "ca5799da33b461e5aaeddacd88b9d4c19773ea76f135d9950ba5868051ac8c19"
+    "sha256": "7f68dbe166e1c80a186f59120c6f45e628945a19d766575d3b0cdf23fa2f898c"
   },
   {
     "routeId": "SALMON-product_cat-81",
@@ -5716,7 +5716,7 @@
     "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product-tag/hudson/",
     "targetPath": "/product-tag/hudson/",
     "file": "documents/SALMON-product_tag-205.json",
-    "sha256": "6721265269c873df5f1240e2db927104390bdfbb236873016e66c7cebb467aac"
+    "sha256": "ebaa4a1682ce3e00a175518f48b5f137410f4a2e059cf20590bcc52d7ef931b3"
   },
   {
     "routeId": "SALMON-product_tag-195",
@@ -7572,6 +7572,13 @@
     "targetPath": "/product/vibration-switch-example/",
     "file": "documents/SALMON-product-4753.json",
     "sha256": "c6e3ce7e820a5b5052499bf864c21c59e892b3bdbec6139b2fb07f1a711a6084"
+  },
+  {
+    "routeId": "SALMON-product-4900",
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iv-fan-assemblies/",
+    "targetPath": "/product/tuf-lite-iv-fan-assemblies/",
+    "file": "documents/SALMON-product-4900.json",
+    "sha256": "263012f302a2338b1ddc7e2c467e07310b585280edcbe3b2f0a7bbaee59f4f20"
   },
   {
     "routeId": "SALMON-posts-3455",

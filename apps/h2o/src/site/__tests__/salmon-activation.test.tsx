@@ -9,14 +9,14 @@ import {generateMetadata} from '../../app/(site)/[[...slug]]/page'
 
 describe('Salmon activation authority and safety',()=>{
   it('hash-verifies every effective source document and retains complete source trees',()=>{
-    const rows=salmonRoutes();expect(rows).toHaveLength(1205)
+    const rows=salmonRoutes();expect(rows).toHaveLength(1206)
     for(const r of rows){const doc=salmonDocument(r);expect(doc.text.length).toBeGreaterThan(0);expect(doc.children.length).toBeGreaterThan(0)}
   })
-  it('activates all 583 articles and 183 products without duplicate effective URLs',()=>{
+  it('activates all 583 articles and 184 products without duplicate effective URLs',()=>{
     const docs=salmonRoutes().map(salmonDocument)
     expect(docs.filter(d=>d.type==='posts')).toHaveLength(583)
-    expect(docs.filter(d=>d.type==='product')).toHaveLength(183)
-    expect(new Set(docs.map(d=>d.sourceUrl)).size).toBe(1205)
+    expect(docs.filter(d=>d.type==='product')).toHaveLength(184)
+    expect(new Set(docs.map(d=>d.sourceUrl)).size).toBe(1206)
   })
   it('uses only verified alias destinations and has no redirect cycles',()=>{
     const active=new Set(salmonRoutes().map(r=>r.targetPath)),redirects=salmonRedirects()

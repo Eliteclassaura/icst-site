@@ -11,7 +11,7 @@ import { ownBrandTerms, productSlugOf, seedCatalog } from '../import/catalog-see
  * CRM go-live Pass 0 — catalog seed (Control Tower 2026-10-02), against the isolated synthetic PostgreSQL.
  * The accepted authority's product and product-category routes are imported (the same importer staging used),
  * then the seed indexes them into the catalog. SEO-CONTENT-1 (CT 2026-10-07): the two placeholder products are REDIRECT rows in the authority (imported as
- * drafts), so the seed sees the 180 published products of the accepted ledger. Counts are computed from the ledger (published product routes) and the
+ * drafts), so the seed sees the 181 published products of the accepted ledger (180 + the TUF-LITE IV family record, CATALOG-FANS-1). Counts are computed from the ledger (published product routes) and the
  * seed's own ownBrandTerms; this suite needs the isolated PostgreSQL (run in SEO-CONTENT-1.1 on a fresh migrated synthetic DB). Synthetic CRM payloads only; no real customer data.
  */
 type Doc = Record<string, unknown>
@@ -139,7 +139,7 @@ describe('CS1 seed counts, dry run and idempotent rerun', () => {
 
 describe('CS1b held and withdrawn placeholders are never seeded', () => {
   it('the three example placeholders are held in the authority and absent from the catalog', async () => {
-    expect(nProducts).toBe(180)
+    expect(nProducts).toBe(181) // CATALOG-FANS-1: 180 + the Hudson TUF-LITE IV family record
     expect(heldProductRoutes.length).toBeGreaterThanOrEqual(3)
     const slugs = ((await p.find({ collection: 'products', limit: 500, ...sys })).docs as unknown as Doc[]).map((x) => String(x.slug))
     for (const held of ['vibration-switch-example', 'abb-motor-example', 'teco-westinghouse-motor-example']) expect(slugs).not.toContain(held)

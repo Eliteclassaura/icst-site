@@ -1,6 +1,6 @@
 {
  "authority": "CATALOG-FANS-1 (CT/owner 2026-10-08): derived from the public fan products by ops/catalog/build-fan-menu.mjs; do not edit by hand",
- "fans": 20,
+ "fans": 21,
  "items": [
   {
    "label": "Hudson fans",
@@ -13,6 +13,10 @@
   {
    "label": "TUF-LITE III",
    "href": "/product-tag/tuf-lite-iii/"
+  },
+  {
+   "label": "TUF-LITE IV",
+   "href": "/product/tuf-lite-iv-fan-assemblies/"
   },
   {
    "label": "Howden fans",
