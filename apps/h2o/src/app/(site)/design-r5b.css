@@ -200,3 +200,59 @@
   font-size: 17px;
   line-height: 1.65;
 }
+
+/* COUNTRY-PAGES-1.1: a long hero title (more than 55 characters) takes a smaller size, so it never runs five lines at 78 px */
+@media (width >= 768px) {
+  .dr4 .dr4-hero-title--long {
+    font-size: clamp(44px, 4.4vw, 64px);
+    max-inline-size: 20ch;
+  }
+}
+
+@media (width < 768px) {
+  .dr4 .dr4-hero-title--long {
+    font-size: clamp(36px, 11vw, 44px);
+  }
+}
+
+/* A card left alone on the last row of a two-column grid takes the row (no blank half) */
+.dr4 .r5b-location-main .dr4-cards--2 > .dr4-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+/* Photo beside its cards: one card per row in the half column */
+.dr4 .r5b-split-cards .dr4-cards {
+  grid-template-columns: 1fr;
+}
+
+/* The featured project: its label in the small-label style, and room before the closing line */
+.dr4 .r5b-featured .r5b-kicker {
+  margin-block-start: 8px;
+}
+
+.dr4 .r5b-featured .dr4-cards + .dr4-prose {
+  margin-block-start: 32px;
+}
+
+/* The office band */
+.dr4 .r5b-office-card {
+  display: grid;
+  gap: 12px;
+  max-inline-size: 640px;
+}
+
+.dr4 .r5b-office-address {
+  display: grid;
+  font-style: normal;
+  line-height: 1.7;
+}
+
+.dr4 .r5b-office-phone {
+  align-items: center;
+  color: var(--dr4-blue);
+  display: inline-flex;
+  font-size: 1.25rem;
+  font-weight: 700;
+  min-block-size: 44px;
+  text-decoration: none;
+}

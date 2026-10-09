@@ -165,3 +165,5 @@
  .english-service-process article{min-height:145px}
  .english-service-request{padding:28px 22px}.english-service-closing>div{padding:38px 25px}
 }
+.global-chrome .site-mobile-group:has(details) .site-mobile-group-links:has(>a[href="/all-projects/"])>a:first-child:not([href="/all-projects/"]){font-weight:500}
+.global-chrome .site-mobile-group:has(details) .site-mobile-group-links>a[href="/all-projects/"]{font-weight:700}

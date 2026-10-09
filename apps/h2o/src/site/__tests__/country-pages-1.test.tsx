@@ -71,3 +71,46 @@ describe('COUNTRY-PAGES-1',()=>{
     expect(html.indexOf('Featured Project')).toBe(html.lastIndexOf('Featured Project')) // once
   })
 })
+
+describe('COUNTRY-PAGES-1.1',()=>{
+  it('F4: the Thailand, United States and Japan pages carry an office band with the contact authority\'s own address and number (tel link unchanged), none elsewhere',async()=>{
+    const th=await render('/cooling-tower-thailand/')
+    expect(th).toContain('Our Thailand office')
+    for(const line of ['159 Serm-Mit Tower, 9th Floor','Sukhumvit 21, Asoke Road','North Klongtoey, Wattana','Bangkok 10110'])expect(th,line).toContain(line)
+    expect(th).toContain('<a class="r5b-office-phone" href="tel:+6626617723">+662-661-7723</a>')
+    const us=await render('/cooling-tower-construction-repair-in-united-states/')
+    expect(us).toContain('Our U.S. office')
+    for(const line of ['1457 Ammons Street, Suite 206','Lakewood, CO 80214'])expect(us,line).toContain(line)
+    expect(us).toContain('href="tel:+13034622000">+1-303-462-2000</a>')
+    const jp=await render('/cooling-tower-japan/')
+    expect(jp).toContain('Call our Japan team')
+    expect(jp).toContain('href="tel:+819042046742">+81-90-4204-6742</a>')
+    for(const p of ['/cooling-tower-malaysia/','/cooling-tower-construction-repair-in-singapore/'])expect(await render(p),p).not.toContain('r5b-office')
+  },300000)
+  it('empty columns: no split row is left with a blank text column, and a lone last card takes the full row',async()=>{
+    for(const p of COUNTRY){
+      const html=await render(p)
+      expect(html,p).not.toMatch(/<div class="dr4-split-text">\s*<\/div>/)
+    }
+    expect(css('design-r5b.css')).toMatch(/\.dr4 \.r5b-location-main \.dr4-cards--2 > \.dr4-card:last-child:nth-child\(odd\) \{\s*grid-column: 1 \/ -1;/)
+    expect(css('design-r5b.css')).toMatch(/\.dr4 \.r5b-split-cards \.dr4-cards \{\s*grid-template-columns: 1fr;/)
+  },300000)
+  it('hero H1: a title longer than 55 characters takes the smaller size from 768 px; short titles keep the full size',async()=>{
+    for(const p of ['/cooling-tower-malaysia/','/cooling-tower-thailand/','/cooling-tower-japan/'])expect(await render(p),p).toContain('class="dr4-hero-title dr4-hero-title--long"')
+    for(const p of ['/cooling-tower-construction-repair-in-singapore/','/cooling-tower-construction-repair-in-united-states/'])expect(await render(p),p).toContain('class="dr4-hero-title"')
+    expect(css('design-r5b.css')).toMatch(/@media \(width >= 768px\) \{\s*\.dr4 \.dr4-hero-title--long \{\s*font-size: clamp\(44px, 4\.4vw, 64px\);/)
+    expect(css('design-r5b.css')).toMatch(/@media \(width < 768px\) \{\s*\.dr4 \.dr4-hero-title--long \{\s*font-size: clamp\(36px, 11vw, 44px\);/)
+  },300000)
+  it('Petronas block: the label line uses the small-label style and the closing paragraph keeps 32 px below the cards',()=>{
+    const groups=JSON.parse(readFileSync(path.join(APP,'ops/seo-pass/data/restored-sections.json'),'utf8'))['/cooling-tower-malaysia/'].groups
+    const doc=applyRestoredSections(salmonDocument(salmonRoutes().find(r=>r.targetPath==='/cooling-tower-malaysia/')!) as never,groups) as never
+    const html=renderToStaticMarkup(<R5bLocationPage doc={doc}/>)
+    expect(html).toMatch(/<p class="r5b-kicker">(?:<strong[^>]*>)?Key Highlights of the Project:/)
+    expect(css('design-r5b.css')).toMatch(/\.dr4 \.r5b-featured \.dr4-cards \+ \.dr4-prose \{\s*margin-block-start: 32px;/)
+  })
+  it('mobile Projects list: "All Projects" is the bold landing row and the countries are regular',()=>{
+    const sheet=css('english-completion.css')
+    expect(sheet).toContain('.site-mobile-group-links>a[href="/all-projects/"]{font-weight:700}')
+    expect(sheet).toContain('a:first-child:not([href="/all-projects/"]){font-weight:500}')
+  })
+})
