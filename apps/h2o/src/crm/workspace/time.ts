@@ -71,6 +71,19 @@ function zoneOffsetMs(d: Date, zone: string): number {
   return asUtc - Math.floor(d.getTime() / 1000) * 1000
 }
 
+/**
+ * IMPORT-TYPEFORM-1: the UTC instant of a wall-clock time in `zone` (e.g. a sheet's "Submitted At", recorded in the
+ * sheet's zone). Two passes settle the offset across a DST boundary; a non-existent local time (the spring-forward
+ * hour) lands one hour later, an ambiguous one (fall-back) on the first occurrence. Null for an impossible date.
+ */
+export function wallClockToUtc(y: number, mo: number, d: number, h: number, mi: number, s: number, zone: string): Date | null {
+  const guess = new Date(Date.UTC(y, mo - 1, d, h, mi, s))
+  if (Number.isNaN(guess.getTime()) || guess.getUTCMonth() !== mo - 1 || guess.getUTCDate() !== d || h > 23 || mi > 59 || s > 59) return null
+  let t = guess.getTime() - zoneOffsetMs(guess, zone)
+  t = guess.getTime() - zoneOffsetMs(new Date(t), zone)
+  return new Date(t)
+}
+
 /** The UTC instant of local midnight (in `zone`) on the calendar day containing `d`. */
 export function startOfBusinessDay(d: Date, zone: string = BUSINESS_TIME_ZONE): Date {
   const p = partsInZone(d, zone)

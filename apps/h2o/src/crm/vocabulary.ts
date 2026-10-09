@@ -33,6 +33,10 @@ export const ACCOUNT_STATE = ['ACTIVE', 'DORMANT', 'ARCHIVED', 'MERGED'] as cons
 /** E0.1 `contact.schema.json`. */
 export const CONTACT_FIT_STATE = ['MEGA_INDUSTRIAL_FIT', 'LIKELY_FIT', 'UNKNOWN', 'NON_CORE'] as const
 export const RECORD_STATE = ['ACTIVE', 'ARCHIVED', 'MERGED'] as const
+/** IMPORT-TYPEFORM-1: past quote requests imported read-only (owner, CT 2026-10-08). */
+export const HISTORICAL_INQUIRY_SOURCE = ['TYPEFORM_LEGACY'] as const
+/** History, not work: closed with an unknown outcome; never in an RFQ queue. */
+export const HISTORICAL_INQUIRY_STATE = ['HISTORICAL_CLOSED_UNKNOWN'] as const
 
 /**
  * CRM-1 operational taxonomy (no authority enumerates it). A *function*, never a job title and never an

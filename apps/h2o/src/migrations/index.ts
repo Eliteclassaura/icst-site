@@ -30,6 +30,7 @@ import * as migration_20261008_205350_mfa_admin_1 from './20261008_205350_mfa_ad
 import * as migration_20261008_213813_sheet_sync_1 from './20261008_213813_sheet_sync_1';
 import * as migration_20261008_220000_deals_date_fix_1_canceled_label from './20261008_220000_deals_date_fix_1_canceled_label';
 import * as migration_20261008_230113_overview_fix_1_resend_accepted from './20261008_230113_overview_fix_1_resend_accepted';
+import * as migration_20261009_090000_import_typeform_1_historical_inquiries from './20261009_090000_import_typeform_1_historical_inquiries';
 
 export const migrations = [
   {
@@ -190,6 +191,11 @@ export const migrations = [
   {
     up: migration_20261008_230113_overview_fix_1_resend_accepted.up,
     down: migration_20261008_230113_overview_fix_1_resend_accepted.down,
-    name: '20261008_230113_overview_fix_1_resend_accepted'
+    name: '20261008_230113_overview_fix_1_resend_accepted',
+  },
+  {
+    up: migration_20261009_090000_import_typeform_1_historical_inquiries.up,
+    down: migration_20261009_090000_import_typeform_1_historical_inquiries.down,
+    name: '20261009_090000_import_typeform_1_historical_inquiries'
   },
 ];

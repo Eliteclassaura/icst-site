@@ -166,6 +166,39 @@ export default async function ContactPage({ params, searchParams }: { params: Pr
           )}
         </section>
 
+        {c.pastRequests.length > 0 ? (
+          // IMPORT-TYPEFORM-1: quote requests received before the CRM (read-only history; not in any queue)
+          <section className="c-panel" aria-labelledby="ct-past">
+            <div className="c-panel-head">
+              <h2 id="ct-past">Past quote requests · {c.pastRequests.length}</h2>
+            </div>
+            <ul className="c-list">
+              {c.pastRequests.map((q) => (
+                <li key={q.id}>
+                  <div className="grow">
+                    <p>
+                      <strong>{[q.interest, q.part].filter(Boolean).join(' · ') || 'Quote request'}</strong>
+                      {q.urgent === 'YES' ? ' · urgent' : ''}
+                      {q.country ? ` · ${q.country}` : ''}
+                    </p>
+                    <p className="c-muted">Received {absoluteTime(new Date(q.submittedAt), s.timeZone)} (website form, before the CRM)</p>
+                    {q.details ? <p className="c-past-text">{q.details}</p> : null}
+                    {q.notes ? <p className="c-past-text">{q.notes}</p> : null}
+                    {q.uploadUrl ? (
+                      <p>
+                        <a href={q.uploadUrl} target="_blank" rel="noopener noreferrer">
+                          File the customer uploaded
+                        </a>{' '}
+                        <span className="c-muted">(Typeform; may need a sign-in or have expired)</span>
+                      </p>
+                    ) : null}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         <section className="c-panel" aria-labelledby="ct-activity">
           <div className="c-panel-head">
             <h2 id="ct-activity">Activity</h2>

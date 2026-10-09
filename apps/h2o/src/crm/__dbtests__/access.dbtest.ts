@@ -40,13 +40,14 @@ beforeAll(async () => {
 })
 
 describe('T1 registration', () => {
-  it('registers exactly the 29 CRM collections, all crm- prefixed', async () => {
+  it('registers exactly the 30 CRM collections, all crm- prefixed', async () => {
     const p = await payload()
     const registered = Object.keys(p.collections).filter((s) => s.startsWith('crm-'))
     expect(registered.sort()).toEqual([...CRM_SLUGS].sort())
     // 19 through CRM email M3, + Wave 1 Patch B: crm-import-batches and crm-saved-views, + native intake: crm-intake-rate,
-    // + Patch C: crm-sending-profiles, crm-email-templates, crm-mail-cursor; + ERS slice 1: sequences, versions, enrollments; + OPP-1: crm-deal-stages.
-    expect(CRM_SLUGS).toHaveLength(29)
+    // + Patch C: crm-sending-profiles, crm-email-templates, crm-mail-cursor; + ERS slice 1: sequences, versions, enrollments; + OPP-1: crm-deal-stages;
+    // + IMPORT-TYPEFORM-1: crm-historical-inquiries.
+    expect(CRM_SLUGS).toHaveLength(30)
   })
   it('does not register the agency-core CRM layer', async () => {
     const p = await payload()

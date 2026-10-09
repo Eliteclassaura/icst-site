@@ -7,6 +7,7 @@ import { CrmContacts } from './collections/contacts'
 import { CrmEmailMessages, CrmReplyTokens } from './collections/email-messages'
 import { CrmEmailEvents, CrmEmailOutbox } from './collections/email-outbox'
 import { CrmEmailReview } from './collections/email-review'
+import { CrmHistoricalInquiries } from './collections/historical-inquiries'
 import { CrmIdentityReviews } from './collections/identity-reviews'
 import { CrmImportBatches } from './collections/import-batches'
 import { CrmIntakeEvents } from './collections/intake-events'
@@ -63,6 +64,8 @@ export const crmCollections: CollectionConfig[] = [
   CrmEmailReview,
   // Wave 1 W1-3: applied CSV import batches (counts and ids only).
   CrmImportBatches,
+  // IMPORT-TYPEFORM-1: past quote requests (read-only history; no RFQ hooks, never in a queue).
+  CrmHistoricalInquiries,
   // Wave 1 W1-6: saved list views (validated filter keys only).
   CrmSavedViews,
   // Native intake (owner decision 2026-10-05): rate-limit counts, hashed buckets only.

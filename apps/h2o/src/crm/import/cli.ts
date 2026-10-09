@@ -10,12 +10,18 @@
  *   undo  --sha256 <hex> --as-admin <email> --note <why>
  *         archives every batch of this file (archive-only, audited).
  *
+ * IMPORT-TYPEFORM-1 — the Typeform leads sheet (contacts + one past quote request per response; post-launch):
+ *   tf-dry   --file <path> --sha256 <hex> --as-admin <email>
+ *   tf-apply --file <path> --sha256 <hex> --as-admin <email> --approval <token> --note <who/why, no personal data>
+ *   tf-undo  --file <path> --sha256 <hex> --as-admin <email> --note <why>
+ *
  * Output is counts, batch ids, the file hash and codes only. Exit code 0 = done, 1 = refused (with a code).
  */
 import { readFileSync } from 'node:fs'
 import config from '@payload-config'
 import { getPayload } from 'payload'
 import { OperatorError, apply, dryRun, undo } from './operator'
+import { applyTypeform, planTypeform, typeformDryOutput, undoTypeform } from './typeform'
 
 const out = (m: unknown) => process.stdout.write(`${JSON.stringify(m)}\n`)
 const arg = (args: string[], name: string): string => {
@@ -38,6 +44,13 @@ async function main() {
   } else if (cmd === 'undo') {
     const r = await undo(payload, arg(args, 'sha256'), arg(args, 'as-admin'), arg(args, 'note'))
     out({ mode: 'undo', ...r })
+  } else if (cmd === 'tf-dry') {
+    out({ ok: true, mode: 'tf-dry', ...typeformDryOutput(await planTypeform(payload, readFileSync(arg(args, 'file')), arg(args, 'sha256'), arg(args, 'as-admin'))) })
+  } else if (cmd === 'tf-apply') {
+    const r = await applyTypeform(payload, readFileSync(arg(args, 'file')), arg(args, 'sha256'), arg(args, 'as-admin'), arg(args, 'approval'), process.env, arg(args, 'note'))
+    out({ ok: true, mode: 'tf-apply', ...r })
+  } else if (cmd === 'tf-undo') {
+    out({ mode: 'tf-undo', ...(await undoTypeform(payload, readFileSync(arg(args, 'file')), arg(args, 'sha256'), arg(args, 'as-admin'), arg(args, 'note'))) })
   } else throw new OperatorError('UNKNOWN_COMMAND')
   process.exit(0)
 }

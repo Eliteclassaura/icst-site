@@ -283,6 +283,7 @@ export type ContactProfile = {
   activity: ActivityRow[]
   notes: Array<{ id: string; body: string; authorName: string | null; createdAt: string }>
   openReviews: number
+  pastRequests: PastRequest[]
   people: Person[]
 }
 
@@ -347,6 +348,31 @@ export async function loadContact(s: CrmSession, contactId: string, now: Date = 
       createdAt: String(n.createdAt ?? ''),
     })),
     openReviews: reviews.totalDocs,
+    pastRequests: await pastRequests(s, contactId),
     people,
   }
+}
+
+/** IMPORT-TYPEFORM-1: the contact's past quote requests (imported history, newest first; archived ones hidden). */
+export type PastRequest = { id: string; submittedAt: string; interest: string | null; part: string | null; details: string | null; urgent: string; country: string | null; notes: string | null; uploadUrl: string | null }
+async function pastRequests(s: CrmSession, contactId: string): Promise<PastRequest[]> {
+  const res = await s.payload.find({
+    collection: 'crm-historical-inquiries' as never,
+    where: { and: [{ contact: { equals: contactId } }, { record_state: { equals: 'ACTIVE' } }] } as never,
+    sort: '-submitted_at',
+    depth: 0,
+    limit: 50,
+    ...asUser(s),
+  })
+  return (res.docs as unknown as Doc[]).map((d) => ({
+    id: String(d.id),
+    submittedAt: String(d.submitted_at ?? ''),
+    interest: (d.interest as string | null) ?? null,
+    part: (d.part as string | null) ?? null,
+    details: (d.details as string | null) ?? null,
+    urgent: String(d.urgent ?? 'UNKNOWN'),
+    country: (d.destination_country as string | null) ?? null,
+    notes: (d.notes as string | null) ?? null,
+    uploadUrl: (d.upload_url as string | null) ?? null,
+  }))
 }

@@ -3360,3 +3360,10 @@ details.c-tech > summary {
     border-color: currentcolor;
   }
 }
+
+/* IMPORT-TYPEFORM-1: the free text of a past quote request keeps its line breaks */
+.c-past-text {
+  margin-block: 4px 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

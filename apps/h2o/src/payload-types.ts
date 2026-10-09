@@ -103,6 +103,7 @@ export interface Config {
     'crm-reply-tokens': CrmReplyToken;
     'crm-email-review': CrmEmailReview;
     'crm-import-batches': CrmImportBatch;
+    'crm-historical-inquiries': CrmHistoricalInquiry;
     'crm-saved-views': CrmSavedView;
     'crm-intake-rate': CrmIntakeRate;
     'crm-sending-profiles': CrmSendingProfile;
@@ -190,6 +191,7 @@ export interface Config {
     'crm-reply-tokens': CrmReplyTokensSelect<false> | CrmReplyTokensSelect<true>;
     'crm-email-review': CrmEmailReviewSelect<false> | CrmEmailReviewSelect<true>;
     'crm-import-batches': CrmImportBatchesSelect<false> | CrmImportBatchesSelect<true>;
+    'crm-historical-inquiries': CrmHistoricalInquiriesSelect<false> | CrmHistoricalInquiriesSelect<true>;
     'crm-saved-views': CrmSavedViewsSelect<false> | CrmSavedViewsSelect<true>;
     'crm-intake-rate': CrmIntakeRateSelect<false> | CrmIntakeRateSelect<true>;
     'crm-sending-profiles': CrmSendingProfilesSelect<false> | CrmSendingProfilesSelect<true>;
@@ -4026,6 +4028,57 @@ export interface CrmImportBatch {
   createdAt: string;
 }
 /**
+ * Quote requests received before the CRM (imported, read-only). Not in any queue; no tasks, alerts or emails.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-historical-inquiries".
+ */
+export interface CrmHistoricalInquiry {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  contact: string | CrmContact;
+  account?: (string | null) | CrmAccount;
+  source: 'TYPEFORM_LEGACY';
+  state: 'HISTORICAL_CLOSED_UNKNOWN';
+  record_state: 'ACTIVE' | 'ARCHIVED' | 'MERGED';
+  typeform_token: string;
+  /**
+   * Hash of the imported answers: a re-import with different content is reported, never overwritten.
+   */
+  content_sha256: string;
+  submitted_at: string;
+  submitted_zone: string;
+  interest?: string | null;
+  part?: string | null;
+  details?: string | null;
+  urgent?: ('YES' | 'NO' | 'UNKNOWN') | null;
+  destination_country?: string | null;
+  notes?: string | null;
+  /**
+   * Link to the file the customer uploaded (Typeform). Not fetched; it may need a Typeform sign-in or have expired.
+   */
+  upload_url?: string | null;
+  /**
+   * Fields cut to their limit on import (names only).
+   */
+  cut_fields?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  file_sha256: string;
+  import_batch?: (string | null) | CrmImportBatch;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "crm-intake-rate".
  */
@@ -4374,6 +4427,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'crm-import-batches';
         value: string | CrmImportBatch;
+      } | null)
+    | ({
+        relationTo: 'crm-historical-inquiries';
+        value: string | CrmHistoricalInquiry;
       } | null)
     | ({
         relationTo: 'crm-saved-views';
@@ -6075,6 +6132,34 @@ export interface CrmImportBatchesSelect<T extends boolean = true> {
   undone_at?: T;
   undo_counts?: T;
   undo_note?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-historical-inquiries_select".
+ */
+export interface CrmHistoricalInquiriesSelect<T extends boolean = true> {
+  canonical_id?: T;
+  contact?: T;
+  account?: T;
+  source?: T;
+  state?: T;
+  record_state?: T;
+  typeform_token?: T;
+  content_sha256?: T;
+  submitted_at?: T;
+  submitted_zone?: T;
+  interest?: T;
+  part?: T;
+  details?: T;
+  urgent?: T;
+  destination_country?: T;
+  notes?: T;
+  upload_url?: T;
+  cut_fields?: T;
+  file_sha256?: T;
+  import_batch?: T;
   updatedAt?: T;
   createdAt?: T;
 }
