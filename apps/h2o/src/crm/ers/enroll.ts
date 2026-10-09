@@ -7,6 +7,9 @@ import { segmentWhere } from '../workspace/views'
 import { MISSING_INFORMATION_ITEMS, type MissingInformationItem } from '../vocabulary'
 import { CLOSED_RFQ, cohortHash, exitEnrollment, exitReasonFor, renderStep, type Step } from './engine'
 import { ersSettings } from './settings'
+import { createEnrollment } from './create'
+import { identityBase, rfqIdentity, purposeNeedsRfq, type Identity } from './identity'
+import { transition } from './transition'
 
 /**
  * Revenue Engine slice 1 — enrollment (LEAN CUT 3): from one RFQ or contact (a person, any CRM user), or from a saved
@@ -19,7 +22,6 @@ import { ersSettings } from './settings'
  * Candidates are read AS THE USER (access applies); the preview sends and writes nothing.
  */
 type Doc = Record<string, unknown>
-const sys = { overrideAccess: true as const, depth: 0, context: { crmServer: {} } }
 const fail = (code: string, message: string): Outcome => ({ ok: false, code, message })
 export const MAX_COHORT = 500
 
@@ -76,6 +78,26 @@ async function candidates(s: CrmSession, src: Source): Promise<{ pairs: Array<{ 
   return fail('NO_SOURCE', 'Choose an inquiry, a contact or a saved view.')
 }
 
+/**
+ * Who and what an enrollment is about (ENGINE-SCOPE-1b). An inquiry response is about the inquiry. A quote follow-up is
+ * about the deal the inquiry became, and its event is that deal's last stage change, so a NEW quote on the same deal is a
+ * new cycle once the first has ended, while a replay is not. Other purposes are not started from an inquiry.
+ */
+async function scopeFor(s: CrmSession, seq: Doc, contactId: string, rfq: Doc): Promise<{ identity: Identity; eventRef: string } | { reason: string }> {
+  const purpose = String(seq.purpose ?? 'RFQ_RESPONSE')
+  if (purpose === 'RFQ_RESPONSE') return { identity: rfqIdentity(String(seq.id), contactId, String(rfq.id)), eventRef: String(rfq.id) }
+  if (purpose === 'QUOTE_FOLLOWUP') {
+    const oppId = relId(rfq.opportunity)
+    if (!oppId) return { reason: 'NO_DEAL' }
+    const opp = (await s.payload.findByID({ collection: 'crm-opportunities', id: String(oppId), depth: 0, overrideAccess: true }).catch(() => null)) as Doc | null
+    return {
+      identity: { sequenceId: String(seq.id), contactId, purpose: 'QUOTE_FOLLOWUP', scopeKind: 'DEAL', scopeRef: String(oppId) },
+      eventRef: `deal:${String(oppId)}:${String(opp?.last_stage_change ?? 'v1')}`,
+    }
+  }
+  return { reason: 'NOT_FROM_INQUIRY' }
+}
+
 const validItems = (items: unknown): MissingInformationItem[] =>
   [...new Set((Array.isArray(items) ? items : []).filter((k): k is MissingInformationItem => typeof k === 'string' && k in MISSING_INFORMATION_ITEMS))]
 
@@ -85,6 +107,7 @@ export async function previewEnrollment(s: CrmSession, input: { sequenceId?: str
   if (seq.run_state !== 'ACTIVE' || !seq.published_version) return fail('SEQUENCE_NOT_RUNNING', 'That sequence is not running.')
   const versionId = String(relId(seq.published_version))
   const version = (await s.payload.findByID({ collection: 'crm-sequence-versions', id: versionId, depth: 0, overrideAccess: true })) as unknown as Doc
+  if (!purposeNeedsRfq(String(seq.purpose ?? 'RFQ_RESPONSE'))) return fail('PURPOSE_NOT_MANUAL', 'This program is not started from an inquiry. It is enrolled from a list, which is not available yet.')
   const items = validItems(input.missingItems)
   if (seq.needs_missing_items && !input.source.rfqId) return fail('ONE_RFQ_ONLY', 'This sequence asks for specific missing items, so it is started from one inquiry at a time.')
   if (seq.needs_missing_items && items.length === 0) return fail('MISSING_ITEMS_REQUIRED', 'Tick the items that are missing.')
@@ -100,8 +123,13 @@ export async function previewEnrollment(s: CrmSession, input: { sequenceId?: str
     else if (!emailKey(contact.email)) reasons.push('NO_VALID_ADDRESS')
     if (!p.rfq || !ACCEPTABLE_RFQ(p.rfq)) reasons.push('NO_OPEN_RFQ')
     if (contact && p.rfq && reasons.length === 0) {
-      const dup = await s.payload.find({ collection: 'crm-enrollments', where: { coalesce_key: { equals: `${String(seq.id)}:${String(contact.id)}` } }, limit: 1, depth: 0, overrideAccess: true })
-      if (dup.docs.length) reasons.push('ALREADY_ENROLLED')
+      const scope = await scopeFor(s, seq, String(contact.id), p.rfq)
+      if ('reason' in scope) reasons.push(scope.reason)
+      else {
+        // A replay (same event) or a live enrollment of this identity is "already enrolled"; a new event after the earlier one ended is a new cycle.
+        const earlier = (await s.payload.find({ collection: 'crm-enrollments', where: { identity_base: { equals: identityBase(scope.identity) } } as never, limit: 50, depth: 0, overrideAccess: true })).docs as unknown as Doc[]
+        if (earlier.some((e) => e.scope_event_ref === scope.eventRef || ['ACTIVE', 'AWAITING_SEND', 'PAUSED', 'DEAD_LETTER'].includes(String(e.status)))) reasons.push('ALREADY_ENROLLED')
+      }
       const exit = await exitReasonFor(s.payload, { contactId: String(contact.id), rfqId: String(p.rfq.id), since: now })
       if (exit) reasons.push(exit)
     }
@@ -137,12 +165,17 @@ export async function enrollFromPreview(
   for (const r of p.rows.filter((x) => x.decision === 'ENROLL')) {
     const rfq = (await s.payload.findByID({ collection: 'crm-rfqs', id: r.rfqId!, depth: 0, overrideAccess: true })) as unknown as Doc
     try {
-      const enr = (await s.payload.create({
-        collection: 'crm-enrollments',
+      const seqDoc = (await s.payload.findByID({ collection: 'crm-sequences', id: p.sequenceId, depth: 0, overrideAccess: true })) as unknown as Doc
+      const scope = await scopeFor(s, seqDoc, String(r.contactId), rfq)
+      if ('reason' in scope) continue
+      const made = await createEnrollment(s.payload, {
+        identity: scope.identity,
+        eventRef: scope.eventRef,
+        user: s.user,
         data: {
-          coalesce_key: `${p.sequenceId}:${r.contactId}`,
           sequence: p.sequenceId,
           version: p.versionId,
+          content_version: p.versionHash,
           contact: r.contactId,
           rfq: r.rfqId,
           account: relId(rfq.account),
@@ -156,9 +189,11 @@ export async function enrollFromPreview(
           next_action_at: now.toISOString(),
           enrolled_at: now.toISOString(),
           missing_items: items,
-        } as never,
-        ...sys,
-      })) as unknown as Doc
+        },
+      })
+      // A replay or a live enrollment of this identity (another worker got there first) creates nothing.
+      if (!made.ok) continue
+      const enr = made.doc
       enrolled++
       const { recordActivity } = await import('../activity')
       await recordActivity({ payload: s.payload } as never, {
@@ -182,7 +217,7 @@ export async function stopEnrollment(s: CrmSession, enrollmentId: string | undef
   const enr = enrollmentId ? ((await s.payload.findByID({ collection: 'crm-enrollments', id: enrollmentId, depth: 0, ...asUser(s) }).catch(() => null)) as Doc | null) : null
   if (!enr) return fail('NOT_FOUND', 'That enrollment doesn’t exist or you don’t have access.')
   if (!['ACTIVE', 'AWAITING_SEND', 'PAUSED'].includes(String(enr.status))) return fail('NOT_LIVE', 'That enrollment has already ended.')
-  await exitEnrollment(s.payload, enr, 'MANUAL_STOP', now)
+  if (!(await exitEnrollment(s.payload, enr, 'MANUAL_STOP', now, s.user))) return fail('NOT_LIVE', 'That enrollment has already ended.')
   return { ok: true, message: 'Enrollment stopped.' }
 }
 
@@ -191,6 +226,7 @@ export async function resumeEnrollment(s: CrmSession, enrollmentId: string | und
   if (!s.isAdmin) return fail('FORBIDDEN', 'Only an admin resumes a held enrollment.')
   const enr = enrollmentId ? ((await s.payload.findByID({ collection: 'crm-enrollments', id: enrollmentId, depth: 0, overrideAccess: true }).catch(() => null)) as Doc | null) : null
   if (!enr || enr.status !== 'PAUSED') return fail('NOT_PAUSED', 'Only a held enrollment can be resumed.')
-  await s.payload.update({ collection: 'crm-enrollments', id: String(enr.id), data: { status: 'ACTIVE', pause_reason: null, next_action_at: now.toISOString() } as never, ...sys })
+  const r = await transition(s.payload, String(enr.id), { from: ['PAUSED'], to: 'ACTIVE', data: { status: 'ACTIVE', pause_reason: null, next_action_at: now.toISOString() }, user: s.user })
+  if (!r.ok) return fail('NOT_PAUSED', 'Only a held enrollment can be resumed.')
   return { ok: true, message: 'Enrollment resumed. The held step runs again with the current data.' }
 }

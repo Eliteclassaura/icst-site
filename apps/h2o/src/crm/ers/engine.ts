@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { createLocalReq, type Payload } from 'payload'
+import type { Payload } from 'payload'
 import { lintCopy, type LintResult } from '../../email/copy-lint'
 import { readEmailConfig, kindAllowed } from '../../email/config'
 import { recipientRef } from '../../email/gate'
@@ -19,6 +19,9 @@ import { endOfBusinessDay } from '../workspace/time'
 import { ENROLLMENT_LIVE, MISSING_INFORMATION_ITEMS, type EnrollmentExitReason, type MissingInformationItem } from '../vocabulary'
 import { afterBusinessDays } from './calendar'
 import { ersSettings, type ErsSettings } from './settings'
+import { runRules } from '../seq/rules'
+import { advisoryLock, LIVE, transition, withRfqLock, type EnrollmentStatus } from './transition'
+import { REPLY_HOLD_RECHECK_MS, checkVerdict, manualConfigured, releasedFirstEmails, unprocessedInbound } from './reply-mode'
 import { unsubscribeUrl } from './unsubscribe'
 
 /**
@@ -56,17 +59,24 @@ export function floorExit(reasons: string[]): EnrollmentExitReason | null {
   return 'SUPPRESSED'
 }
 
-/** Should this enrollment (or a candidate, with `since` = now) stop? `null` = no exit applies. */
-export async function exitReasonFor(payload: Payload, input: { contactId: string; rfqId: string; since: Date }): Promise<EnrollmentExitReason | null> {
+/**
+ * Should this enrollment (or a candidate, with `since` = now) stop? `null` = no exit applies. `rfqId` is null for a
+ * relationship, cohort or publication enrollment: the inquiry-specific goals (closed, qualified, owner responded, replies
+ * on the inquiry thread) are skipped, and the contact-level ones (suppression floor, a newer inquiry, mail from this
+ * address in the review queue) still apply.
+ */
+export async function exitReasonFor(payload: Payload, input: { contactId: string; rfqId: string | null; since: Date }): Promise<EnrollmentExitReason | null> {
   const contact = await byId(payload, 'crm-contacts', input.contactId)
   if (!contact || contact.record_state !== 'ACTIVE' || typeof contact.email_match_key !== 'string') return 'SUPPRESSED'
   const active = activeFromLedger(await ledgerFor({ payload } as never, contact.email_match_key))
   const floor = floorExit(active.map((r) => r.reason))
   if (floor) return floor
-  const rfq = await byId(payload, 'crm-rfqs', input.rfqId)
-  if (!rfq || CLOSED_RFQ.includes(String(rfq.status))) return 'RFQ_CLOSED'
-  if (rfq.status === 'QUALIFIED' || rfq.qualification_state === 'COMPLETE' || (typeof rfq.motion === 'string' && rfq.motion)) return 'RFQ_QUALIFIED'
-  if (rfq.follow_up_state === 'HUMAN_RESPONDED') return 'OWNER_RESPONDED'
+  if (input.rfqId) {
+    const rfq = await byId(payload, 'crm-rfqs', input.rfqId)
+    if (!rfq || CLOSED_RFQ.includes(String(rfq.status))) return 'RFQ_CLOSED'
+    if (rfq.status === 'QUALIFIED' || rfq.qualification_state === 'COMPLETE' || (typeof rfq.motion === 'string' && rfq.motion)) return 'RFQ_QUALIFIED'
+    if (rfq.follow_up_state === 'HUMAN_RESPONDED') return 'OWNER_RESPONDED'
+  }
   const since = iso(input.since)
   const rfqs = await find(payload, 'crm-rfqs', { contact: { equals: input.contactId } }, { limit: 200 })
   const ids = rfqs.map((r) => String(r.id))
@@ -124,39 +134,63 @@ async function activity(payload: Payload, enr: Doc, summary: string, detail: Doc
   })
 }
 
-const updateEnrollment = (payload: Payload, id: unknown, data: Doc) => payload.update({ collection: 'crm-enrollments', id: String(id), data: data as never, ...sys })
+/** The step the enrollment was on when this pass read it. A write that finds it moved (someone else ran or changed it) loses the race. */
+const sameStep = (enr: Doc) => (locked: Doc) => Number(locked.current_step ?? 0) === Number(enr.current_step ?? 0)
 
-export async function exitEnrollment(payload: Payload, enr: Doc, reason: EnrollmentExitReason, now: Date): Promise<void> {
-  await updateEnrollment(payload, enr.id, { status: 'EXITED', exit_reason: reason, exited_at: iso(now), next_action_at: null })
+/**
+ * `user` is the person who stopped it (so the audit row names them); the engine's own exits pass none. Returns false when
+ * the enrollment was no longer live under the lock (already stopped, exited or finished): nothing is written then.
+ */
+export async function exitEnrollment(payload: Payload, enr: Doc, reason: EnrollmentExitReason, now: Date, user?: unknown): Promise<boolean> {
+  const r = await transition(payload, enr.id, {
+    from: LIVE,
+    to: 'EXITED',
+    data: { status: 'EXITED', exit_reason: reason, exited_at: iso(now), next_action_at: null },
+    user,
+    work:
+      reason === 'REPLIED'
+        ? async ({ req }) => {
+            await ensureSystemTask(req, {
+              kind: 'SEQUENCE_REVIEW',
+              title: 'Reply received on a sequence — read it and decide the next step',
+              priority: 'HIGH',
+              idempotency_key: `seq:${String(enr.id)}:replied`,
+              source_rule: 'ERS:EXIT_REPLIED',
+              assignee: relId(enr.owner),
+              rfq: relId(enr.rfq),
+              contact: relId(enr.contact),
+              account: relId(enr.account),
+            })
+          }
+        : undefined,
+  })
+  if (!r.ok) return false
   await activity(payload, enr, `Sequence stopped: ${reason.toLowerCase().replace(/_/g, ' ')}`, { enrollment: String(enr.id), exit: reason }, `seq:${String(enr.id)}:exit`)
-  if (reason === 'REPLIED')
-    await ensureSystemTask({ payload }, {
-      kind: 'SEQUENCE_REVIEW',
-      title: 'Reply received on a sequence — read it and decide the next step',
-      priority: 'HIGH',
-      idempotency_key: `seq:${String(enr.id)}:replied`,
-      source_rule: 'ERS:EXIT_REPLIED',
-      assignee: relId(enr.owner),
-      rfq: relId(enr.rfq),
-      contact: relId(enr.contact),
-      account: relId(enr.account),
-    })
+  return true
 }
 
 async function hold(payload: Payload, enr: Doc, reason: 'LINT_HOLD' | 'RENDER_HOLD', code: string, now: Date): Promise<StepResult> {
-  await updateEnrollment(payload, enr.id, { status: 'PAUSED', pause_reason: reason, hold_code: code.slice(0, 80), next_action_at: null })
-  await ensureSystemTask({ payload }, {
-    kind: 'SEQUENCE_REVIEW',
-    title: reason === 'LINT_HOLD' ? 'A sequence email was held by the copy-risk check — review it' : 'A sequence email could not be completed — fix the missing value',
-    priority: 'NORMAL',
-    idempotency_key: `seq:${String(enr.id)}:hold:${String(enr.current_step)}:${code}`.slice(0, 200),
-    source_rule: `ERS:${reason}`,
-    assignee: relId(enr.owner),
-    rfq: relId(enr.rfq),
-    contact: relId(enr.contact),
-    account: relId(enr.account),
-    due_at: iso(now),
+  const r = await transition(payload, enr.id, {
+    from: ['ACTIVE'],
+    to: 'PAUSED',
+    guard: sameStep(enr),
+    data: { status: 'PAUSED', pause_reason: reason, hold_code: code.slice(0, 80), next_action_at: null },
+    work: async ({ req }) => {
+      await ensureSystemTask(req, {
+        kind: 'SEQUENCE_REVIEW',
+        title: reason === 'LINT_HOLD' ? 'A sequence email was held by the copy-risk check — review it' : 'A sequence email could not be completed — fix the missing value',
+        priority: 'NORMAL',
+        idempotency_key: `seq:${String(enr.id)}:hold:${String(enr.current_step)}:${code}`.slice(0, 200),
+        source_rule: `ERS:${reason}`,
+        assignee: relId(enr.owner),
+        rfq: relId(enr.rfq),
+        contact: relId(enr.contact),
+        account: relId(enr.account),
+        due_at: iso(now),
+      })
+    },
   })
+  if (!r.ok) return 'SKIPPED'
   await activity(payload, enr, `Sequence step held (${code})`, { enrollment: String(enr.id), hold: reason, code }, `seq:${String(enr.id)}:hold:${String(enr.current_step)}`)
   return 'HELD'
 }
@@ -183,7 +217,9 @@ export async function renderStep(
   return { ok: true, subject: r.subject, text, html: textToHtml(text), lint, footerUrl: footer.url }
 }
 
-async function queueEmail(payload: Payload, s: ErsSettings, ctx: { enr: Doc; sequence: Doc; step: Step; rfq: Doc; contact: Doc }, now: Date): Promise<StepResult> {
+class BatchFull extends Error {}
+
+async function queueEmail(payload: Payload, s: ErsSettings, ctx: { enr: Doc; sequence: Doc; step: Step; rfq: Doc; contact: Doc }, now: Date, batch?: { limit: number; firstKey: string }): Promise<StepResult> {
   const { enr, step, rfq, contact } = ctx
   const idem = `seq:${String(enr.id)}:${step.step_key}`
   const existing = (await find(payload, 'crm-email-outbox', { idempotency_key: { equals: idem } }, { limit: 1 }))[0]
@@ -191,8 +227,8 @@ async function queueEmail(payload: Payload, s: ErsSettings, ctx: { enr: Doc; seq
   const rendered = await renderStep(payload, s, ctx)
   if (!rendered.ok) {
     if (rendered.kind === 'DEAD') {
-      await updateEnrollment(payload, enr.id, { status: 'DEAD_LETTER', hold_code: rendered.code, next_action_at: null })
-      return 'DEAD'
+      const r = await transition(payload, enr.id, { from: ['ACTIVE'], to: 'DEAD_LETTER', guard: sameStep(enr), data: { status: 'DEAD_LETTER', hold_code: rendered.code, next_action_at: null } })
+      return r.ok ? 'DEAD' : 'SKIPPED'
     }
     return hold(payload, enr, rendered.kind, rendered.code, now)
   }
@@ -201,141 +237,225 @@ async function queueEmail(payload: Payload, s: ErsSettings, ctx: { enr: Doc; seq
   const cfg = readEmailConfig()
   // SEND-FIX-1a (R2-02): sequence email is not in the allowed kinds at launch — held for review, nothing queued
   if (!kindAllowed('SEQUENCE_EMAIL', cfg)) return hold(payload, enr, 'RENDER_HOLD', 'KIND_NOT_ALLOWED', now)
-  const token = await ensureReplyToken(await createLocalReq({}, payload), String(rfq.id), now)
-  const row = {
-    kind: 'SEQUENCE_EMAIL',
-    status: 'PENDING',
-    rfq: String(rfq.id),
-    enrollment: String(enr.id),
-    step_key: step.step_key,
-    recipient_ref: recipientRef(to.canonical),
-    to_address: to.canonical,
-    recipient_domain: to.domain,
-    subject: rendered.subject,
-    body_text: rendered.text,
-    body_html: rendered.html,
-    lint: rendered.lint,
-    approval_decision: 'AUTO_AUTHORIZED',
-    reply_to: cfg.fromAddress ? replyToAddress(cfg.fromAddress, token, cfg.replyTag) : null,
-    list_unsubscribe: rendered.footerUrl,
-    attempts: 0,
-    next_attempt_at: null,
-    last_error_code: null,
+  const msg = rendered
+  const addr = to
+  let rowId = ''
+  // N1: the reply token first, in its own transaction in the staff order (RFQ, then token); idempotent and reusable, so
+  // doing it before the lock costs nothing if the transition then loses a race.
+  const token = await withRfqLock(payload, String(rfq.id), (req) => ensureReplyToken(req, String(rfq.id), now))
+  // R1: the outbox row and the ACTIVE → AWAITING_SEND change are ONE transaction under the row lock.
+  // If a person paused or stopped meanwhile, the status read under the lock is not ACTIVE and none of it happens.
+  let r: Awaited<ReturnType<typeof transition>>
+  try {
+    r = await transitionToSend()
+  } catch (err) {
+    if (err instanceof BatchFull) return deferStep(payload, enr, 'BATCH_FULL', now)
+    throw err
   }
-  let rowId: string
-  if (existing) {
-    // The same logical message again (a held or suppressed step being resumed): the row and its Message-ID are reused.
-    // SEND-FIX-1a: a row that was handed to the mail server (SUBMITTING) or may have been delivered (UNCERTAIN) is never
-    // reset to PENDING — that would send it again.
-    if (!['PENDING', 'RETRY', 'SENDING', 'SUBMITTING', 'UNCERTAIN'].includes(String(existing.status))) await payload.update({ collection: 'crm-email-outbox', id: String(existing.id), data: row as never, ...sys })
-    rowId = String(existing.id)
-  } else {
-    const created = (await payload.create({ collection: 'crm-email-outbox', data: { ...row, idempotency_key: idem, message_id: messageIdFor(cfg) } as never, ...sys })) as unknown as Doc
-    rowId = String(created.id)
+  return r.ok ? 'QUEUED' : 'SKIPPED'
+
+  function transitionToSend() {
+    return transition(payload, enr.id, {
+    from: ['ACTIVE'],
+    to: 'AWAITING_SEND',
+    guard: sameStep(enr),
+    data: () => ({ status: 'AWAITING_SEND', awaiting_outbox: rowId, next_action_at: null, hold_code: null, pause_reason: null }),
+    work: async ({ req }) => {
+      // Manual reply mode: the first-email batch is bounded. The count and the insert share one lock, so two workers
+      // cannot both take the last place.
+      if (batch) {
+        await advisoryLock(payload, req, `ers-batch:${String(ctx.sequence.id)}`)
+        if ((await releasedFirstEmails(payload, String(ctx.sequence.id), batch.firstKey)) >= batch.limit) throw new BatchFull()
+      }
+      const row = {
+        kind: 'SEQUENCE_EMAIL',
+        status: 'PENDING',
+        rfq: String(rfq.id),
+        enrollment: String(enr.id),
+        step_key: step.step_key,
+        recipient_ref: recipientRef(addr.canonical),
+        to_address: addr.canonical,
+        recipient_domain: addr.domain,
+        subject: msg.subject,
+        body_text: msg.text,
+        body_html: msg.html,
+        lint: msg.lint,
+        approval_decision: 'AUTO_AUTHORIZED',
+        reply_to: cfg.fromAddress ? replyToAddress(cfg.fromAddress, token, cfg.replyTag) : null,
+        list_unsubscribe: msg.footerUrl,
+        attempts: 0,
+        next_attempt_at: null,
+        last_error_code: null,
+      }
+      if (existing) {
+        // The same logical message again (a held or suppressed step being resumed): the row and its Message-ID are reused.
+        // SEND-FIX-1a: a row that was handed to the mail server (SUBMITTING) or may have been delivered (UNCERTAIN) is never
+        // reset to PENDING — that would send it again.
+        if (!['PENDING', 'RETRY', 'SENDING', 'SUBMITTING', 'UNCERTAIN'].includes(String(existing.status))) await payload.update({ collection: 'crm-email-outbox', id: String(existing.id), data: row as never, ...sys, req })
+        rowId = String(existing.id)
+      } else {
+        const created = (await payload.create({ collection: 'crm-email-outbox', data: { ...row, idempotency_key: idem, message_id: messageIdFor(cfg) } as never, ...sys, req })) as unknown as Doc
+        rowId = String(created.id)
+      }
+    },
+    })
   }
-  await updateEnrollment(payload, enr.id, { status: 'AWAITING_SEND', awaiting_outbox: rowId, next_action_at: null, hold_code: null, pause_reason: null })
-  return 'QUEUED'
 }
 
-async function advance(payload: Payload, enr: Doc, now: Date, nextAt: Date = now): Promise<StepResult> {
-  await updateEnrollment(payload, enr.id, { status: 'ACTIVE', current_step: Number(enr.current_step ?? 0) + 1, last_step_at: iso(now), next_action_at: iso(nextAt), awaiting_outbox: null })
-  return 'WAITED'
+/** Keep the enrollment running but not yet due: a hold that releases itself when the reason clears (manual reply mode). */
+async function deferStep(payload: Payload, enr: Doc, code: string, now: Date): Promise<StepResult> {
+  const r = await transition(payload, enr.id, {
+    from: ['ACTIVE'],
+    to: 'ACTIVE',
+    guard: sameStep(enr),
+    data: { hold_code: code, next_action_at: iso(new Date(now.getTime() + REPLY_HOLD_RECHECK_MS)) },
+  })
+  return r.ok ? 'HELD' : 'SKIPPED'
 }
 
-export async function runEnrollment(payload: Payload, s: ErsSettings, enr: Doc, now: Date): Promise<StepResult> {
+/** Move to the next step. `from` is the status the caller expects: ACTIVE after a wait or task, AWAITING_SEND after a send. */
+async function advance(payload: Payload, enr: Doc, now: Date, nextAt: Date = now, from: readonly EnrollmentStatus[] = ['ACTIVE']): Promise<StepResult> {
+  const r = await transition(payload, enr.id, {
+    from,
+    to: 'ACTIVE',
+    guard: sameStep(enr),
+    data: (locked) => ({ status: 'ACTIVE', current_step: Number(locked.current_step ?? 0) + 1, last_step_at: iso(now), next_action_at: iso(nextAt), awaiting_outbox: null }),
+  })
+  return r.ok ? 'WAITED' : 'SKIPPED'
+}
+
+export async function runEnrollment(payload: Payload, s: ErsSettings, enr: Doc, now: Date, ctx: { inboundOk?: boolean } = {}): Promise<StepResult> {
   const sequence = await byId(payload, 'crm-sequences', relId(enr.sequence))
   if (!sequence || sequence.run_state !== 'ACTIVE') return 'SKIPPED'
+  // Reply detection is not live: only a program in manual reply mode (an owner, coverage, a batch size) may run at all.
+  const unmonitored = ctx.inboundOk === false
+  if (unmonitored && !manualConfigured(sequence)) return 'SKIPPED'
   const version = await byId(payload, 'crm-sequence-versions', relId(enr.version))
   if (!version || version.state === 'DRAFT') {
-    await updateEnrollment(payload, enr.id, { status: 'DEAD_LETTER', hold_code: 'VERSION_INVALID', next_action_at: null })
-    return 'DEAD'
+    const r = await transition(payload, enr.id, { from: ['ACTIVE'], to: 'DEAD_LETTER', guard: sameStep(enr), data: { status: 'DEAD_LETTER', hold_code: 'VERSION_INVALID', next_action_at: null } })
+    return r.ok ? 'DEAD' : 'SKIPPED'
   }
-  const exit = await exitReasonFor(payload, { contactId: String(relId(enr.contact)), rfqId: String(relId(enr.rfq)), since: new Date(String(enr.enrolled_at)) })
-  if (exit) {
-    await exitEnrollment(payload, enr, exit, now)
-    return 'EXITED'
-  }
+  const exit = await exitReasonFor(payload, { contactId: String(relId(enr.contact)), rfqId: relId(enr.rfq) ? String(relId(enr.rfq)) : null, since: new Date(String(enr.enrolled_at)) })
+  if (exit) return (await exitEnrollment(payload, enr, exit, now)) ? 'EXITED' : 'SKIPPED'
   const steps = (version.steps ?? []) as Step[]
   const i = Number(enr.current_step ?? 0)
   const step = steps[i]
   if (!step) {
-    await updateEnrollment(payload, enr.id, { status: 'COMPLETED', next_action_at: null })
+    const r = await transition(payload, enr.id, { from: ['ACTIVE'], to: 'COMPLETED', guard: sameStep(enr), data: { status: 'COMPLETED', next_action_at: null } })
+    if (!r.ok) return 'SKIPPED'
     await activity(payload, enr, 'Sequence completed', { enrollment: String(enr.id) }, `seq:${String(enr.id)}:completed`)
     return 'COMPLETED'
   }
-  const rfq = (await byId(payload, 'crm-rfqs', relId(enr.rfq)))!
-  const cal = officeCalendar(rfq.office === 'TH' ? 'TH' : 'US', await officeSettings(payload))
+  // An enrollment without an inquiry uses the US office calendar (the default office) for its waits.
+  const rfq = relId(enr.rfq) ? await byId(payload, 'crm-rfqs', relId(enr.rfq)) : null
+  const cal = officeCalendar(rfq?.office === 'TH' ? 'TH' : 'US', await officeSettings(payload))
   if (step.type === 'WAIT') return advance(payload, enr, now, afterBusinessDays(now, Number(step.business_days ?? 0), cal, s.windowStartHour))
   if (step.type === 'TASK') {
     const due = afterBusinessDays(now, Number(step.task_due_days ?? 0), cal, s.windowStartHour)
-    await ensureSystemTask({ payload }, {
-      kind: 'SEQUENCE_STEP',
-      title: String(step.task_title ?? 'Sequence task').slice(0, 200),
-      priority: 'NORMAL',
-      idempotency_key: `seq:${String(enr.id)}:${step.step_key}`,
-      source_rule: `ERS:${String(sequence.key)}:${step.step_key}`,
-      assignee: relId(enr.owner),
-      rfq: relId(enr.rfq),
-      contact: relId(enr.contact),
-      account: relId(enr.account),
-      due_at: iso(endOfBusinessDay(due, cal.zone)),
+    // The task and the move to the next step commit together, under the lock.
+    const r = await transition(payload, enr.id, {
+      from: ['ACTIVE'],
+      to: 'ACTIVE',
+      guard: sameStep(enr),
+      data: (locked) => ({ status: 'ACTIVE', current_step: Number(locked.current_step ?? 0) + 1, last_step_at: iso(now), next_action_at: iso(now), awaiting_outbox: null }),
+      work: async ({ req }) => {
+        await ensureSystemTask(req, {
+          kind: 'SEQUENCE_STEP',
+          title: String(step.task_title ?? 'Sequence task').slice(0, 200),
+          priority: 'NORMAL',
+          idempotency_key: `seq:${String(enr.id)}:${step.step_key}`,
+          source_rule: `ERS:${String(sequence.key)}:${step.step_key}`,
+          assignee: relId(enr.owner),
+          rfq: relId(enr.rfq),
+          contact: relId(enr.contact),
+          account: relId(enr.account),
+          due_at: iso(endOfBusinessDay(due, cal.zone)),
+        })
+      },
     })
+    if (!r.ok) return 'SKIPPED'
     await activity(payload, enr, `Sequence task created: ${String(step.task_title ?? '')}`, { enrollment: String(enr.id), step: step.step_key }, `seq:${String(enr.id)}:${step.step_key}`)
-    await advance(payload, enr, now)
     return 'TASKED'
   }
+  // Replies come back on an inquiry thread (reply token). Until an enrollment-anchored reply address is agreed, an email step
+  // for an enrollment with no inquiry is held, never sent.
+  if (!rfq) return hold(payload, enr, 'RENDER_HOLD', 'NO_REPLY_ANCHOR', now)
+  // Manual reply mode: the first email goes out in a bounded batch; every later email waits for the owner's reply check.
+  let batch: { limit: number; firstKey: string } | undefined
+  if (unmonitored) {
+    const firstEmail = steps.find((x) => x.type === 'EMAIL')!
+    if (step.step_key === firstEmail.step_key) batch = { limit: Number(sequence.initial_batch), firstKey: firstEmail.step_key }
+    else {
+      const verdict = checkVerdict(sequence, now, await unprocessedInbound(payload))
+      if (!verdict.ok) return deferStep(payload, enr, 'REPLY_REVIEW', now)
+    }
+  }
   const contact = (await byId(payload, 'crm-contacts', relId(enr.contact)))!
-  return queueEmail(payload, s, { enr, sequence, step, rfq, contact }, now)
+  return queueEmail(payload, s, { enr, sequence, step, rfq, contact }, now, batch)
 }
 
-export type TickResult = { ran: boolean; reason?: string; processed: number; results: Partial<Record<StepResult, number>> }
+export type TickResult = { ran: boolean; reason?: string; processed: number; results: Partial<Record<StepResult, number>>; rules?: { created: number; skipped: number } }
 
 /** One engine pass. The caller (runner) checks inbound freshness; `deps.inboundOk` lets tests state it. */
 export async function tick(payload: Payload, opts: { now?: Date; inboundOk: boolean; limit?: number }): Promise<TickResult> {
   const now = opts.now ?? new Date()
   const s = await ersSettings(payload, now.getTime())
   if (!s.enabled) return { ran: false, reason: 'ERS_OFF', processed: 0, results: {} }
-  // CT ruling 3: without live reply detection no step runs (a reply might already be waiting).
-  if (!opts.inboundOk) return { ran: false, reason: 'INBOUND_STALE', processed: 0, results: {} }
+  // CT ruling 3: without live reply detection no step runs (a reply might already be waiting), EXCEPT a program in manual
+  // reply mode, which releases a bounded first batch and holds every follow-up until its owner records a reply check.
+  if (!opts.inboundOk) {
+    const manual = await payload.count({ collection: 'crm-sequences', where: { and: [{ run_state: { equals: 'ACTIVE' } }, { reply_mode: { equals: 'MANUAL' } }] } as never, overrideAccess: true })
+    if (!manual.totalDocs) return { ran: false, reason: 'INBOUND_STALE', processed: 0, results: {} }
+  }
   const due = await find(payload, 'crm-enrollments', { and: [{ status: { equals: 'ACTIVE' } }, { next_action_at: { less_than_equal: iso(now) } }] }, { limit: opts.limit ?? 25, sort: 'next_action_at' })
   const results: TickResult['results'] = {}
   for (const enr of due) {
     try {
-      const r = await runEnrollment(payload, s, enr, now)
+      const r = await runEnrollment(payload, s, enr, now, { inboundOk: opts.inboundOk })
       results[r] = (results[r] ?? 0) + 1
     } catch (err) {
       payload.logger.error({ code: 'ERS_STEP_FAILED', enrollment: String(enr.id), errName: (err as Error)?.name })
     }
   }
-  return { ran: true, processed: due.length, results }
+  // Trigger rules (admin-enabled, only possible with every gate met) enroll on match; inert unless the engine is on and healthy.
+  const rules = s.health.state === 'ACTIVE' ? await runRules(payload, { engineOn: true, now }) : null
+  return { ran: true, processed: due.length, results, ...(rules && (rules.created || rules.skipped) ? { rules: { created: rules.created, skipped: rules.skipped } } : {}) }
 }
 
-/** The outbox worker reports a sequence row's terminal outcome. */
+/** The outbox worker reports a sequence row's terminal outcome. Every status change goes through the row lock. */
 export async function onSequenceRowTerminal(payload: Payload, row: Doc, status: string, code: string | null, now: Date): Promise<void> {
   const enr = await byId(payload, 'crm-enrollments', relId(row.enrollment))
   if (!enr || !ENROLLMENT_LIVE.includes(enr.status as never)) return
   if (status === 'SENT') {
     await activity(payload, enr, `Sequence email sent (${String(row.step_key)})`, { enrollment: String(enr.id), step: row.step_key, outbox: String(row.id) }, `seq:${String(enr.id)}:${String(row.step_key)}:sent`)
-    await advance(payload, enr, now)
+    // Only an enrollment still waiting on this send moves on. A paused or stopped one stays paused or stopped.
+    await advance(payload, enr, now, now, ['AWAITING_SEND'])
     return
   }
-  if (code === 'HARD_BOUNCE') return exitEnrollment(payload, enr, 'BOUNCED', now)
-  if (status === 'SUPPRESSED_BY_SUPPRESSION' && code?.startsWith('EXIT_')) return exitEnrollment(payload, enr, code.slice(5) as EnrollmentExitReason, now)
+  if (code === 'HARD_BOUNCE') {
+    await exitEnrollment(payload, enr, 'BOUNCED', now)
+    return
+  }
+  if (status === 'SUPPRESSED_BY_SUPPRESSION' && code?.startsWith('EXIT_')) {
+    await exitEnrollment(payload, enr, code.slice(5) as EnrollmentExitReason, now)
+    return
+  }
   if (status === 'SUPPRESSED_BY_MODE') {
     // Allowlist mode and an address that is not on the list: held, so it can resume if the address is allowed later.
-    await updateEnrollment(payload, enr.id, { status: 'PAUSED', pause_reason: 'MANUAL', hold_code: code ?? 'MODE', next_action_at: null })
+    await transition(payload, enr.id, { from: ['AWAITING_SEND'], to: 'PAUSED', data: { status: 'PAUSED', pause_reason: 'MANUAL', hold_code: code ?? 'MODE', next_action_at: null } })
     return
   }
-  await updateEnrollment(payload, enr.id, { status: 'DEAD_LETTER', hold_code: code ?? status, next_action_at: null })
+  await transition(payload, enr.id, { from: ['AWAITING_SEND'], to: 'DEAD_LETTER', data: { status: 'DEAD_LETTER', hold_code: code ?? status, next_action_at: null } })
 }
 
-/** Stop every live enrollment for an address (the suppression ledger's hook calls this when a row is recorded). */
+/** Stop every live enrollment for an address (the suppression ledger's hook calls this when a row is recorded). One lock per transaction, in id order. */
 export async function exitForAddress(payload: Payload, emailMatchKey: string, reason: EnrollmentExitReason, now: Date): Promise<number> {
   const contacts = await find(payload, 'crm-contacts', { email_match_key: { equals: emailMatchKey } }, { limit: 50 })
   if (!contacts.length) return 0
-  const live = await find(payload, 'crm-enrollments', { and: [{ contact: { in: contacts.map((c) => String(c.id)) } }, { status: { in: [...ENROLLMENT_LIVE] } }] }, { limit: 200 })
-  for (const enr of live) await exitEnrollment(payload, enr, reason, now)
-  return live.length
+  const live = (await find(payload, 'crm-enrollments', { and: [{ contact: { in: contacts.map((c) => String(c.id)) } }, { status: { in: [...ENROLLMENT_LIVE] } }] }, { limit: 200 })).sort((a, b) => String(a.id).localeCompare(String(b.id)))
+  let n = 0
+  for (const enr of live) if (await exitEnrollment(payload, enr, reason, now)) n++
+  return n
 }
 
 /** E0.1 dry-run / cohort identity: a stable hash of what would be enrolled into which version. */

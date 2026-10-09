@@ -1,0 +1,1185 @@
+{
+  "contract_id": "ICS_E2_24_MONTH_TOPIC_BANK_V1",
+  "version": "1.0.0",
+  "topic_count": 24,
+  "topics": [
+    {
+      "topic_id": "E2_M01_INSPECTION_DOCUMENTATION",
+      "month_slot": 1,
+      "content_pillar": "INSPECTION_MAINTENANCE_RELIABILITY",
+      "title": "What a useful cooling-tower inspection package should document",
+      "technical_purpose": "Separate observations, operating context, evidence, and open questions before an inspection/service discussion.",
+      "business_purpose": "Help maintenance and engineering contacts prepare cleaner inspection inputs.",
+      "primary_audience": "MAINTENANCE_RELIABILITY",
+      "secondary_audiences": [
+        "ENGINEERING_TECHNICAL"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M02_REPAIR_SCOPE_EVIDENCE",
+      "month_slot": 2,
+      "content_pillar": "REPAIR_CONDITION_ASSESSMENT",
+      "title": "Separating symptoms, observed condition, and repair scope",
+      "technical_purpose": "Show how to distinguish reported symptoms from verified condition and proposed repair scope.",
+      "business_purpose": "Reduce assumption-driven repair conversations and improve technical triage.",
+      "primary_audience": "MAINTENANCE_RELIABILITY",
+      "secondary_audiences": [
+        "PLANT_OPERATIONS"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M03_UPGRADE_BASELINE_DATA",
+      "month_slot": 3,
+      "content_pillar": "UPGRADE_MODERNIZATION",
+      "title": "What an upgrade discussion needs before performance claims",
+      "technical_purpose": "Identify baseline data and constraints that should be verified before discussing upgrade outcomes.",
+      "business_purpose": "Encourage evidence-based upgrade conversations without promising results.",
+      "primary_audience": "ENGINEERING_TECHNICAL",
+      "secondary_audiences": [
+        "MAINTENANCE_RELIABILITY"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M04_REPAIR_REBUILD_REPLACE_PACKET",
+      "month_slot": 4,
+      "content_pillar": "REBUILD_REPLACEMENT_PLANNING",
+      "title": "Building an evidence packet for repair, rebuild, or replacement decisions",
+      "technical_purpose": "Organize condition, scope, operating, and project evidence without imposing a replacement conclusion.",
+      "business_purpose": "Support lifecycle decision conversations while preserving uncertainty.",
+      "primary_audience": "EXECUTIVE_ECONOMIC_SPONSOR",
+      "secondary_audiences": [
+        "PROJECT_MANAGEMENT",
+        "MAINTENANCE_RELIABILITY"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M05_NEW_TOWER_EARLY_INPUTS",
+      "month_slot": 5,
+      "content_pillar": "NEW_TOWER_PROJECT_PLANNING",
+      "title": "Early inputs that improve new-tower project scoping",
+      "technical_purpose": "List categories of project inputs worth clarifying before deeper technical scoping.",
+      "business_purpose": "Help project teams prepare for a focused new-tower discussion.",
+      "primary_audience": "ENGINEERING_TECHNICAL",
+      "secondary_audiences": [
+        "PROJECT_MANAGEMENT"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M06_SPEC_INPUTS",
+      "month_slot": 6,
+      "content_pillar": "ENGINEERING_SPECIFICATION_PREPARATION",
+      "title": "Cooling-tower specification inputs worth confirming early",
+      "technical_purpose": "Frame the specification inputs that should be evidence-backed rather than assumed.",
+      "business_purpose": "Help engineering teams reduce ambiguity before an RFQ or scope review.",
+      "primary_audience": "ENGINEERING_TECHNICAL",
+      "secondary_audiences": [
+        "EPC_CONSULTANT_THIRD_PARTY_ENGINEER"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M07_OPERATING_CONSTRAINTS",
+      "month_slot": 7,
+      "content_pillar": "PLANT_OPERATIONAL_CONSIDERATIONS",
+      "title": "Capturing operating constraints before service or project planning",
+      "technical_purpose": "Prompt for verified operating constraints, access, process context, and plant requirements without assuming them.",
+      "business_purpose": "Improve the usefulness of service/project discussions for plant stakeholders.",
+      "primary_audience": "PLANT_OPERATIONS",
+      "secondary_audiences": [
+        "PROJECT_MANAGEMENT"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M08_RFQ_READINESS",
+      "month_slot": 8,
+      "content_pillar": "PROCUREMENT_RFQ_READINESS",
+      "title": "What makes a cooling-tower RFQ easier to evaluate",
+      "technical_purpose": "Explain the categories of technical and commercial information that make an RFQ more complete.",
+      "business_purpose": "Help procurement and engineering teams prepare cleaner quote requests.",
+      "primary_audience": "PROCUREMENT_SOURCING",
+      "secondary_audiences": [
+        "ENGINEERING_TECHNICAL"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M09_PART_IDENTIFIERS",
+      "month_slot": 9,
+      "content_pillar": "PARTS_TECHNICAL_FIT_DOCUMENTATION",
+      "title": "The identifiers that help verify cooling-tower part fit",
+      "technical_purpose": "Explain the evidence needed to confirm part identity or compatibility instead of guessing fit.",
+      "business_purpose": "Route parts conversations toward technical confirmation and RFQ rather than e-commerce assumptions.",
+      "primary_audience": "MAINTENANCE_RELIABILITY",
+      "secondary_audiences": [
+        "PROCUREMENT_SOURCING"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": true,
+      "compatibility_claim_policy": "REQUIRE_VERIFIED_COMPATIBILITY_EVIDENCE"
+    },
+    {
+      "topic_id": "E2_M10_LIFECYCLE_FACT_BASE",
+      "month_slot": 10,
+      "content_pillar": "LIFECYCLE_DECISION_SUPPORT",
+      "title": "Building a fact base for cooling-tower lifecycle decisions",
+      "technical_purpose": "Separate verified condition, operating history, project intent, and unknowns in lifecycle planning.",
+      "business_purpose": "Support better evidence discipline around repair, upgrade, rebuild, or replacement questions.",
+      "primary_audience": "EXECUTIVE_ECONOMIC_SPONSOR",
+      "secondary_audiences": [
+        "MAINTENANCE_RELIABILITY"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M11_FIELD_WORK_READINESS",
+      "month_slot": 11,
+      "content_pillar": "EXECUTION_OUTAGE_PLANNING_GENERAL",
+      "title": "Questions to surface before field work is scheduled",
+      "technical_purpose": "Identify general readiness questions around access, coordination, safety interfaces, and constraints without inventing a shutdown date.",
+      "business_purpose": "Help owners prepare for a field-work planning conversation.",
+      "primary_audience": "PLANT_OPERATIONS",
+      "secondary_audiences": [
+        "PROJECT_MANAGEMENT"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M12_PROJECT_EVIDENCE_PACKET",
+      "month_slot": 12,
+      "content_pillar": "PROJECT_EVIDENCE_INFORMATION_READINESS",
+      "title": "What belongs in a cooling-tower project evidence packet",
+      "technical_purpose": "Organize source documents, verified facts, assumptions, unknowns, and decision questions.",
+      "business_purpose": "Improve project information readiness without manufacturing project status.",
+      "primary_audience": "ENGINEERING_TECHNICAL",
+      "secondary_audiences": [
+        "PROJECT_MANAGEMENT",
+        "EPC_CONSULTANT_THIRD_PARTY_ENGINEER"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M13_MAINTENANCE_DECISION_RECORD",
+      "month_slot": 13,
+      "content_pillar": "INSPECTION_MAINTENANCE_RELIABILITY",
+      "title": "Turning recurring findings into a maintenance decision record",
+      "technical_purpose": "Show how repeated observations can be tracked without automatically labeling service overdue.",
+      "business_purpose": "Encourage auditable maintenance planning and useful follow-up.",
+      "primary_audience": "MAINTENANCE_RELIABILITY",
+      "secondary_audiences": [],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M14_REPAIR_TRIAGE_INPUTS",
+      "month_slot": 14,
+      "content_pillar": "REPAIR_CONDITION_ASSESSMENT",
+      "title": "Information that helps triage a repair question without guessing urgency",
+      "technical_purpose": "Describe what evidence helps route a repair issue while avoiding unsupported urgency claims.",
+      "business_purpose": "Improve technical handoff for repair questions.",
+      "primary_audience": "MAINTENANCE_RELIABILITY",
+      "secondary_audiences": [
+        "PLANT_OPERATIONS"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M15_UPGRADE_COMPARISON",
+      "month_slot": 15,
+      "content_pillar": "UPGRADE_MODERNIZATION",
+      "title": "Preparing an upgrade comparison without promising performance",
+      "technical_purpose": "Frame how to compare scope, constraints, evidence, and unknowns before technical outcome claims.",
+      "business_purpose": "Support disciplined modernization evaluation.",
+      "primary_audience": "ENGINEERING_TECHNICAL",
+      "secondary_audiences": [
+        "PROJECT_MANAGEMENT"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M16_REBUILD_SCOPE_REVIEW",
+      "month_slot": 16,
+      "content_pillar": "REBUILD_REPLACEMENT_PLANNING",
+      "title": "What to document before a major rebuild scope review",
+      "technical_purpose": "List evidence categories for a rebuild discussion without asserting rebuild necessity.",
+      "business_purpose": "Prepare stakeholders for a capital-scope review grounded in actual evidence.",
+      "primary_audience": "PROJECT_MANAGEMENT",
+      "secondary_audiences": [
+        "MAINTENANCE_RELIABILITY"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M17_NEW_TOWER_INTERFACES",
+      "month_slot": 17,
+      "content_pillar": "NEW_TOWER_PROJECT_PLANNING",
+      "title": "Site and interface questions to resolve before a new-tower RFQ",
+      "technical_purpose": "Prompt for project/site interfaces that should be confirmed before detailed RFQ work.",
+      "business_purpose": "Help owners and EPC teams identify missing project inputs.",
+      "primary_audience": "PROJECT_MANAGEMENT",
+      "secondary_audiences": [
+        "ENGINEERING_TECHNICAL",
+        "EPC_CONSULTANT_THIRD_PARTY_ENGINEER"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M18_SPEC_AMBIGUITY",
+      "month_slot": 18,
+      "content_pillar": "ENGINEERING_SPECIFICATION_PREPARATION",
+      "title": "Avoiding ambiguity in thermal and mechanical requirements",
+      "technical_purpose": "Encourage explicit source/assumption labeling for requirement fields without inventing values.",
+      "business_purpose": "Improve specification clarity and technical review quality.",
+      "primary_audience": "ENGINEERING_TECHNICAL",
+      "secondary_audiences": [
+        "EPC_CONSULTANT_THIRD_PARTY_ENGINEER"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M19_GENERAL_OUTAGE_PLANNING",
+      "month_slot": 19,
+      "content_pillar": "PLANT_OPERATIONAL_CONSIDERATIONS",
+      "title": "General outage and execution questions without assuming dates",
+      "technical_purpose": "Provide globally safe planning questions and a gated seasonal/outage variant only when context is verified.",
+      "business_purpose": "Support coordination without inventing plant schedules.",
+      "primary_audience": "PLANT_OPERATIONS",
+      "secondary_audiences": [
+        "PROJECT_MANAGEMENT"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": true,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M20_QUOTE_INPUTS",
+      "month_slot": 20,
+      "content_pillar": "PROCUREMENT_RFQ_READINESS",
+      "title": "Documentation that reduces quote back-and-forth",
+      "technical_purpose": "Identify information categories that help technical/commercial review without implying a quote or price.",
+      "business_purpose": "Help procurement prepare cleaner requests.",
+      "primary_audience": "PROCUREMENT_SOURCING",
+      "secondary_audiences": [
+        "PROJECT_MANAGEMENT",
+        "EPC_CONSULTANT_THIRD_PARTY_ENGINEER"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M21_PARTS_EVIDENCE",
+      "month_slot": 21,
+      "content_pillar": "PARTS_TECHNICAL_FIT_DOCUMENTATION",
+      "title": "When drawings, photos, and model evidence matter for parts confirmation",
+      "technical_purpose": "Explain evidence collection for parts identification while withholding fit claims until compatibility is verified.",
+      "business_purpose": "Improve parts technical-fit conversations and reduce unsupported compatibility assumptions.",
+      "primary_audience": "MAINTENANCE_RELIABILITY",
+      "secondary_audiences": [
+        "ENGINEERING_TECHNICAL"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": true,
+      "compatibility_claim_policy": "REQUIRE_VERIFIED_COMPATIBILITY_EVIDENCE"
+    },
+    {
+      "topic_id": "E2_M22_CONDITION_VS_INTENT",
+      "month_slot": 22,
+      "content_pillar": "LIFECYCLE_DECISION_SUPPORT",
+      "title": "Keeping condition history separate from replacement intent",
+      "technical_purpose": "Explain why condition/service history should not be silently converted into capital-project intent.",
+      "business_purpose": "Maintain clean routing between E1.2 service and E1.4 capital-project workflows.",
+      "primary_audience": "EXECUTIVE_ECONOMIC_SPONSOR",
+      "secondary_audiences": [
+        "MAINTENANCE_RELIABILITY"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M23_EXECUTION_INTERFACES",
+      "month_slot": 23,
+      "content_pillar": "EXECUTION_OUTAGE_PLANNING_GENERAL",
+      "title": "Project interface information that helps execution planning",
+      "technical_purpose": "Organize general interface questions for owner, site, engineering, and field coordination without assuming dates.",
+      "business_purpose": "Support pre-execution readiness conversations.",
+      "primary_audience": "PROJECT_MANAGEMENT",
+      "secondary_audiences": [
+        "PLANT_OPERATIONS"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    },
+    {
+      "topic_id": "E2_M24_FACTS_ASSUMPTIONS_UNKNOWNS",
+      "month_slot": 24,
+      "content_pillar": "PROJECT_EVIDENCE_INFORMATION_READINESS",
+      "title": "Keeping verified facts, assumptions, and unknowns separate",
+      "technical_purpose": "Provide a simple evidence discipline for technical/project records and outreach.",
+      "business_purpose": "Reduce accidental claim inflation and improve future routing.",
+      "primary_audience": "ENGINEERING_TECHNICAL",
+      "secondary_audiences": [
+        "PROJECT_MANAGEMENT"
+      ],
+      "required_evidence_classes": [
+        "GENERAL_EDUCATIONAL"
+      ],
+      "allowed_claim_classes": [
+        "GENERAL_EDUCATIONAL_PROCESS",
+        "QUESTION_FRAMING",
+        "ICS_CAPABILITY_ONLY_IF_ICS_VERIFIED"
+      ],
+      "prohibited_claim_classes": [
+        "GUARANTEED_CAPACITY",
+        "GUARANTEED_APPROACH_TEMPERATURE",
+        "GUARANTEED_EFFICIENCY",
+        "UNVERIFIED_WATER_SAVINGS",
+        "UNVERIFIED_ENERGY_SAVINGS",
+        "UNVERIFIED_COST_SAVINGS",
+        "UNVERIFIED_ROI",
+        "UNVERIFIED_PAYBACK",
+        "UNVERIFIED_LIFE_EXTENSION",
+        "UNVERIFIED_DOWNTIME_REDUCTION",
+        "UNVERIFIED_COMPLIANCE",
+        "UNVERIFIED_THERMAL_IMPROVEMENT",
+        "PUBLIC_ICS_SELLING_PRICE",
+        "UNVERIFIED_PART_COMPATIBILITY"
+      ],
+      "safe_personalization": [
+        "VERIFIED_FIRST_NAME",
+        "CURRENT_VERIFIED_ACCOUNT_NAME_IF_AVAILABLE",
+        "VERIFIED_ROLE_CLASS_IF_VARIANT_SELECTED"
+      ],
+      "primary_question_or_cta": "REPLY_WITH_TECHNICAL_CONTEXT_OR_REQUEST_REVIEW; ONE_PRIMARY_QUESTION_MAX",
+      "collision_behavior": "SKIP_OR_DEFER_E2_WHEN_HIGHER_PRIORITY_WORKFLOW_ACTIVE; NO_CATCH_UP_BLAST",
+      "jurisdiction_requirements": "RESOLVED_FOR_BROADCAST_PURPOSE",
+      "approval_mode": "REQUIRED",
+      "reuse_or_refresh_policy": "REVIEW_EVIDENCE_CLASS_AND_TOPIC_BRIEF_BEFORE_REUSE; HOLD_IF_STALE",
+      "geography_sensitive": false,
+      "part_fit_topic": false,
+      "compatibility_claim_policy": "NOT_APPLICABLE"
+    }
+  ]
+}

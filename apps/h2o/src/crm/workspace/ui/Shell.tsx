@@ -10,7 +10,7 @@ import { loadViews } from '../savedViews'
 import { ADMIN_EMBLEM } from '../../../brand/admin-brand'
 import type { CrmSession } from '../session'
 
-export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'accounts' | 'contacts' | 'search' | 'email' | 'settings' | 'none'
+export type NavKey = 'work' | 'inbox' | 'followups' | 'pipeline' | 'accounts' | 'contacts' | 'search' | 'email' | 'revenue' | 'settings' | 'none'
 
 /**
  * "SYNTHETIC DATA" is an evidence/testing badge only (Control Tower amendment D). It renders only when
@@ -31,6 +31,8 @@ const NAV: Array<{ key: NavKey; href: string; label: string; phone?: string; ico
   { key: 'accounts', href: '/crm/accounts/', label: 'Accounts', icon: <IconAccounts />, desktop: true },
   { key: 'contacts', href: '/crm/contacts/', label: 'Contacts', icon: <IconContacts />, desktop: true },
   { key: 'pipeline', href: '/crm/deals/', label: 'Deals', icon: <IconPipeline />, desktop: true },
+  // EMAIL-LIB-1: the Email Revenue area (admin + sales).
+  { key: 'revenue', href: '/crm/email-revenue/', label: 'Email Revenue', icon: <IconInbox />, desktop: true },
   // CRM email M3: inbound email that was not linked automatically (admins only).
   { key: 'email', href: '/crm/email-review/', label: 'Email review', icon: <IconInbox />, desktop: true, adminOnly: true },
   // Patch C: sending profiles and email templates (admins only).
@@ -41,6 +43,7 @@ const MORE: Array<{ key: NavKey; href: string; label: string; adminOnly?: boolea
   { key: 'pipeline', href: '/crm/deals/', label: 'Deals' },
   { key: 'accounts', href: '/crm/accounts/', label: 'Accounts' },
   { key: 'contacts', href: '/crm/contacts/', label: 'Contacts' },
+  { key: 'revenue', href: '/crm/email-revenue/', label: 'Email Revenue' },
   { key: 'email', href: '/crm/email-review/', label: 'Email review', adminOnly: true },
   { key: 'settings', href: '/crm/settings/', label: 'Settings', adminOnly: true },
   { key: 'none', href: '/crm/new/', label: 'New inquiry' },

@@ -7,6 +7,7 @@ import { IconDoNotContact, IconReview } from '../../../../../crm/workspace/ui/Ic
 import { RfqTable } from '../../../../../crm/workspace/ui/RfqTable'
 import { Shell } from '../../../../../crm/workspace/ui/Shell'
 import { ClearSuppressionDialog, DoNotContactDialog, FollowUpDialog } from '../../_components/Dialogs'
+import { SequencePanel } from '../../email-revenue/_components/SequencePanel'
 import { ContactAccountDialog, EditContactDialog } from '../../_components/RecordDialogs'
 import { RememberRecent } from '../../_components/SearchPanel'
 import { TaskTable } from '../../_components/TaskTable'
@@ -255,6 +256,7 @@ export default async function ContactPage({ params, searchParams }: { params: Pr
             )}
           </div>
         </section>
+        <SequencePanel s={s} contactId={id} />
       </div>
     </Shell>
   )

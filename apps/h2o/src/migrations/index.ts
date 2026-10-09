@@ -31,6 +31,10 @@ import * as migration_20261008_213813_sheet_sync_1 from './20261008_213813_sheet
 import * as migration_20261008_220000_deals_date_fix_1_canceled_label from './20261008_220000_deals_date_fix_1_canceled_label';
 import * as migration_20261008_230113_overview_fix_1_resend_accepted from './20261008_230113_overview_fix_1_resend_accepted';
 import * as migration_20261009_090000_import_typeform_1_historical_inquiries from './20261009_090000_import_typeform_1_historical_inquiries';
+import * as migration_20261009_100000_ers_lib_1_email_library from './20261009_100000_ers_lib_1_email_library';
+import * as migration_20261009_100100_ers_seq_build_1 from './20261009_100100_ers_seq_build_1';
+import * as migration_20261009_100200_ers_engine_scope_1b from './20261009_100200_ers_engine_scope_1b';
+import * as migration_20261009_100300_ers_engine_scope_1c from './20261009_100300_ers_engine_scope_1c';
 
 export const migrations = [
   {
@@ -196,6 +200,26 @@ export const migrations = [
   {
     up: migration_20261009_090000_import_typeform_1_historical_inquiries.up,
     down: migration_20261009_090000_import_typeform_1_historical_inquiries.down,
-    name: '20261009_090000_import_typeform_1_historical_inquiries'
+    name: '20261009_090000_import_typeform_1_historical_inquiries',
+  },
+  {
+    up: migration_20261009_100000_ers_lib_1_email_library.up,
+    down: migration_20261009_100000_ers_lib_1_email_library.down,
+    name: '20261009_100000_ers_lib_1_email_library',
+  },
+  {
+    up: migration_20261009_100100_ers_seq_build_1.up,
+    down: migration_20261009_100100_ers_seq_build_1.down,
+    name: '20261009_100100_ers_seq_build_1',
+  },
+  {
+    up: migration_20261009_100200_ers_engine_scope_1b.up,
+    down: migration_20261009_100200_ers_engine_scope_1b.down,
+    name: '20261009_100200_ers_engine_scope_1b',
+  },
+  {
+    up: migration_20261009_100300_ers_engine_scope_1c.up,
+    down: migration_20261009_100300_ers_engine_scope_1c.down,
+    name: '20261009_100300_ers_engine_scope_1c',
   },
 ];

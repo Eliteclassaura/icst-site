@@ -57,6 +57,9 @@ export const AUDITED_TRANSITIONS: Record<string, readonly string[]> = {
   'crm-suppressions': ['action', 'reason', 'scope'],
   'crm-intake-events': ['processing_state'],
   'crm-identity-reviews': ['state', 'reason'],
+  'crm-email-library': ['status', 'approval_mode', 'approval_changed_by', 'sendable', 'version', 'lint_badge'],
+  'crm-sequence-triggers': ['key', 'enabled', 'sequence', 'changed_by'],
+  'crm-ers-simulations': ['sequence', 'snapshot_hash', 'approved_by'],
   'crm-email-outbox': ['status', 'kind', 'attempts', 'last_error_code'],
   'crm-email-events': ['event', 'kind', 'code'],
   'crm-import-batches': ['status', 'entity', 'row_count'],
@@ -70,7 +73,7 @@ export const AUDITED_TRANSITIONS: Record<string, readonly string[]> = {
   // Patch C: never a host, user name, sender or password — only these states.
   'crm-sending-profiles': ['active', 'use', 'preset', 'password_set', 'last_check_state', 'last_check_code'],
   'crm-email-templates': ['approved', 'approved_by', 'purpose', 'version'],
-  'crm-sequences': ['run_state', 'published_version', 'approval_mode'],
+  'crm-sequences': ['run_state', 'published_version', 'approval_mode', 'readiness', 'ready_by', 'reply_mode', 'reply_owner', 'initial_batch', 'reply_last_check_by'],
   'crm-sequence-versions': ['state', 'definition_hash'],
   'crm-enrollments': ['status', 'current_step', 'exit_reason', 'pause_reason', 'hold_code'],
   'crm-ers-settings': [],

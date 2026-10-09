@@ -4,6 +4,7 @@ import { composerTemplates } from '../../../../../crm/settings/templates'
 import { uuidv7 } from '../../../../../crm/ids'
 import { MANUAL_NOTICE_TEXT } from '../../../../../crm/workspace/manualInquiry'
 import { loadRfq } from '../../../../../crm/workspace/queries'
+import { SequencePanel } from '../../email-revenue/_components/SequencePanel'
 import { Shell } from '../../../../../crm/workspace/ui/Shell'
 import { Shortcuts } from '../../../../../crm/workspace/ui/Shortcuts'
 import { RFQ_TABS, RfqDetailView, type RfqTab } from '../../_components/RfqDetail'
@@ -65,6 +66,7 @@ export default async function RfqPage({
             This inquiry doesn’t exist or you don’t have access. <a href="/crm/rfqs/">Back to the inbox</a>
           </p>
         )}
+        {d ? <SequencePanel s={s} rfqId={id} /> : null}
       </div>
     </Shell>
   )

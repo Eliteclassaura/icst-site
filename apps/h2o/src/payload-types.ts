@@ -113,6 +113,9 @@ export interface Config {
     'crm-sequence-versions': CrmSequenceVersion;
     'crm-enrollments': CrmEnrollment;
     'crm-deal-stages': CrmDealStage;
+    'crm-email-library': CrmEmailLibrary;
+    'crm-sequence-triggers': CrmSequenceTrigger;
+    'crm-ers-simulations': CrmErsSimulation;
     'public-routes': PublicRoute;
     'public-redirects': PublicRedirect;
     'payload-kv': PayloadKv;
@@ -201,6 +204,9 @@ export interface Config {
     'crm-sequence-versions': CrmSequenceVersionsSelect<false> | CrmSequenceVersionsSelect<true>;
     'crm-enrollments': CrmEnrollmentsSelect<false> | CrmEnrollmentsSelect<true>;
     'crm-deal-stages': CrmDealStagesSelect<false> | CrmDealStagesSelect<true>;
+    'crm-email-library': CrmEmailLibrarySelect<false> | CrmEmailLibrarySelect<true>;
+    'crm-sequence-triggers': CrmSequenceTriggersSelect<false> | CrmSequenceTriggersSelect<true>;
+    'crm-ers-simulations': CrmErsSimulationsSelect<false> | CrmErsSimulationsSelect<true>;
     'public-routes': PublicRoutesSelect<false> | PublicRoutesSelect<true>;
     'public-redirects': PublicRedirectsSelect<false> | PublicRedirectsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -3615,10 +3621,29 @@ export interface CrmEnrollment {
    */
   canonical_id: string;
   coalesce_key: string;
+  /**
+   * sequence:contact:purpose:scope kind:scope ref (everything but the cycle).
+   */
+  identity_base?: string | null;
+  purpose: 'RFQ_RESPONSE' | 'QUOTE_FOLLOWUP' | 'RELATIONSHIP' | 'COHORT' | 'PUBLICATION';
+  scope_kind?: ('RFQ' | 'DEAL' | 'ACCOUNT' | 'LIST' | 'PUBLICATION_SLOT') | null;
+  scope_ref?: string | null;
+  /**
+   * The event this enrollment answers; a replay has the same one, a new cycle a different one.
+   */
+  scope_event_ref?: string | null;
+  cycle: number;
+  /**
+   * The sequence version hash it started on.
+   */
+  content_version?: string | null;
   sequence: string | CrmSequence;
   version: string | CrmSequenceVersion;
   contact: string | CrmContact;
-  rfq: string | CrmRfq;
+  /**
+   * Required for an inquiry response and a quote follow-up; optional for relationship, cohort and publication programs.
+   */
+  rfq?: (string | null) | CrmRfq;
   account?: (string | null) | CrmAccount;
   /**
    * The RFQ owner when enrolled, else the person who enrolled.
@@ -3628,7 +3653,7 @@ export interface CrmEnrollment {
    * Who enrolled this contact.
    */
   enrolled_by?: (string | null) | User;
-  enrolled_via: 'MANUAL' | 'SAVED_VIEW';
+  enrolled_via: 'MANUAL' | 'SAVED_VIEW' | 'RULE' | 'PUBLICATION';
   saved_view?: (string | null) | CrmSavedView;
   /**
    * The dry run this enrollment was approved from.
@@ -3656,6 +3681,7 @@ export interface CrmEnrollment {
         | 'COMPLAINT'
         | 'SUPPRESSED'
         | 'MANUAL_STOP'
+        | 'MISSED'
       )
     | null;
   exited_at?: string | null;
@@ -3715,6 +3741,57 @@ export interface CrmSequence {
     warmup?: ('INHERIT' | 'ON' | 'OFF') | null;
   };
   paused_reason?: string | null;
+  /**
+   * What enrollments in this sequence are for (the inquiry rule and the scope follow from it).
+   */
+  purpose: 'RFQ_RESPONSE' | 'QUOTE_FOLLOWUP' | 'RELATIONSHIP' | 'COHORT' | 'PUBLICATION';
+  /**
+   * Ready = built and checked, waiting for the safety gates. It starts nothing.
+   */
+  readiness: 'NOT_READY' | 'READY';
+  ready_at?: string | null;
+  /**
+   * How replies and stop requests are handled. Manual = a named owner checks the reply mailbox; follow-ups are held until they do.
+   */
+  reply_mode: 'NOT_SET' | 'MONITORED' | 'MANUAL';
+  /**
+   * The person who checks replies and handles stop requests (manual mode).
+   */
+  reply_owner?: (string | null) | User;
+  /**
+   * When the reply owner covers the mailbox (manual mode).
+   */
+  reply_coverage?: {
+    days?: ('MON_FRI' | 'EVERY_DAY') | null;
+    start_hour?: number | null;
+    end_hour?: number | null;
+    zone?: string | null;
+  };
+  /**
+   * Manual mode releases only this many first emails.
+   */
+  initial_batch?: number | null;
+  reply_last_check_at?: string | null;
+  /**
+   * Who recorded the last reply check.
+   */
+  reply_last_check_by?: (string | null) | User;
+  /**
+   * Who marked it Ready.
+   */
+  ready_by?: (string | null) | User;
+  /**
+   * Which Library emails this sequence was built from (keys and source hashes).
+   */
+  library_source?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4152,6 +4229,261 @@ export interface CrmDealStage {
   createdAt: string;
 }
 /**
+ * Every written Email Revenue email. Browse it in the CRM: Email Revenue → Library.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-library".
+ */
+export interface CrmEmailLibrary {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  /**
+   * program|sequence|step — stable identity of the row.
+   */
+  key: string;
+  program: 'E1.1' | 'E1.2' | 'E1.3' | 'E1.4' | 'E2' | 'T-series' | 'CUSTOM';
+  sequence_code: string;
+  sequence_label: string;
+  step: number;
+  step_code: string;
+  type: 'EMAIL' | 'TASK';
+  /**
+   * The contract timing text, as written.
+   */
+  timing?: string | null;
+  subject_variants?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  copy_variants?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  role_variants?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Names used in the copy.
+   */
+  merge_fields?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Names the template engine cannot fill yet (a gap, never invented).
+   */
+  missing_merge_fields?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  placeholders?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  evidence_fields?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  stop_conditions?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  pause_conditions?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  reply_handling?: string | null;
+  task_creation?: string | null;
+  status: 'IMPORTED_EXACT' | 'SKELETON' | 'LINKED' | 'EDITED';
+  /**
+   * False for E2 skeletons: they cannot be sent or activated.
+   */
+  sendable?: boolean | null;
+  version: number;
+  /**
+   * The imported original this edited copy replaces.
+   */
+  supersedes?: (string | null) | CrmEmailLibrary;
+  /**
+   * The contract’s mode.
+   */
+  approval_recommended: 'REQUIRED' | 'RULE_BASED' | 'AUTO';
+  /**
+   * Effective default for sequences built from this email (owner ruling 2026-10-08: AUTO).
+   */
+  approval_mode: 'REQUIRED' | 'RULE_BASED' | 'AUTO';
+  /**
+   * Why an admin last changed the approval mode.
+   */
+  approval_reason?: string | null;
+  approval_changed_at?: string | null;
+  /**
+   * Who last changed the approval mode.
+   */
+  approval_changed_by?: (string | null) | User;
+  source_ref?: string | null;
+  source_line?: number | null;
+  /**
+   * sha256 of the exact source block.
+   */
+  source_hash?: string | null;
+  source_file_sha256?: string | null;
+  /**
+   * T-series: the existing template this row points at. Its text is never copied or changed.
+   */
+  linked_template?: (string | null) | CrmEmailTemplate;
+  /**
+   * Copy-check result per variant (rule set, findings, rules not evaluated).
+   */
+  lint?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  lint_badge: 'PASS' | 'NOTES' | 'REVIEW' | 'BLOCKED' | 'NOT_RUN';
+  lint_rule_set?: string | null;
+  lint_run_at?: string | null;
+  /**
+   * Owner flags shown on the row (scope, phone/address, sign-off note).
+   */
+  flags?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Rules that start a sequence automatically. Manage them in the CRM: Email Revenue → Advanced → Rules.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-sequence-triggers".
+ */
+export interface CrmSequenceTrigger {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  key: 'RFQ_RECEIVED' | 'RFQ_NEEDS_INFO' | 'DEAL_QUOTE_SENT' | 'NO_ACTIVITY';
+  enabled?: boolean | null;
+  sequence?: (string | null) | CrmSequence;
+  /**
+   * No activity for this many days (the idle rule only).
+   */
+  idle_days?: number | null;
+  /**
+   * Skip contacts already in another sequence.
+   */
+  skip_in_sequence?: boolean | null;
+  /**
+   * Skip contacts with an open deal.
+   */
+  skip_open_deal?: boolean | null;
+  /**
+   * Skip contacts emailed in the last n days.
+   */
+  skip_recent_days?: number | null;
+  last_matched_at?: string | null;
+  changed_at?: string | null;
+  /**
+   * Who last changed this rule.
+   */
+  changed_by?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * An admin’s review of one simulation. Run simulations in the CRM: Email Revenue → Advanced → Simulation.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-ers-simulations".
+ */
+export interface CrmErsSimulation {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  sequence: string | CrmSequence;
+  version_hash: string;
+  snapshot_hash: string;
+  counts?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  approved_at: string;
+  /**
+   * The admin who reviewed this simulation.
+   */
+  approved_by: string | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-redirects".
  */
@@ -4467,6 +4799,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'crm-deal-stages';
         value: string | CrmDealStage;
+      } | null)
+    | ({
+        relationTo: 'crm-email-library';
+        value: string | CrmEmailLibrary;
+      } | null)
+    | ({
+        relationTo: 'crm-sequence-triggers';
+        value: string | CrmSequenceTrigger;
+      } | null)
+    | ({
+        relationTo: 'crm-ers-simulations';
+        value: string | CrmErsSimulation;
       } | null)
     | ({
         relationTo: 'public-routes';
@@ -6263,6 +6607,24 @@ export interface CrmSequencesSelect<T extends boolean = true> {
         warmup?: T;
       };
   paused_reason?: T;
+  purpose?: T;
+  readiness?: T;
+  ready_at?: T;
+  reply_mode?: T;
+  reply_owner?: T;
+  reply_coverage?:
+    | T
+    | {
+        days?: T;
+        start_hour?: T;
+        end_hour?: T;
+        zone?: T;
+      };
+  initial_batch?: T;
+  reply_last_check_at?: T;
+  reply_last_check_by?: T;
+  ready_by?: T;
+  library_source?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -6302,6 +6664,13 @@ export interface CrmSequenceVersionsSelect<T extends boolean = true> {
 export interface CrmEnrollmentsSelect<T extends boolean = true> {
   canonical_id?: T;
   coalesce_key?: T;
+  identity_base?: T;
+  purpose?: T;
+  scope_kind?: T;
+  scope_ref?: T;
+  scope_event_ref?: T;
+  cycle?: T;
+  content_version?: T;
   sequence?: T;
   version?: T;
   contact?: T;
@@ -6336,6 +6705,87 @@ export interface CrmDealStagesSelect<T extends boolean = true> {
   label?: T;
   sort_order?: T;
   enabled?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-email-library_select".
+ */
+export interface CrmEmailLibrarySelect<T extends boolean = true> {
+  canonical_id?: T;
+  key?: T;
+  program?: T;
+  sequence_code?: T;
+  sequence_label?: T;
+  step?: T;
+  step_code?: T;
+  type?: T;
+  timing?: T;
+  subject_variants?: T;
+  copy_variants?: T;
+  role_variants?: T;
+  merge_fields?: T;
+  missing_merge_fields?: T;
+  placeholders?: T;
+  evidence_fields?: T;
+  stop_conditions?: T;
+  pause_conditions?: T;
+  reply_handling?: T;
+  task_creation?: T;
+  status?: T;
+  sendable?: T;
+  version?: T;
+  supersedes?: T;
+  approval_recommended?: T;
+  approval_mode?: T;
+  approval_reason?: T;
+  approval_changed_at?: T;
+  approval_changed_by?: T;
+  source_ref?: T;
+  source_line?: T;
+  source_hash?: T;
+  source_file_sha256?: T;
+  linked_template?: T;
+  lint?: T;
+  lint_badge?: T;
+  lint_rule_set?: T;
+  lint_run_at?: T;
+  flags?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-sequence-triggers_select".
+ */
+export interface CrmSequenceTriggersSelect<T extends boolean = true> {
+  canonical_id?: T;
+  key?: T;
+  enabled?: T;
+  sequence?: T;
+  idle_days?: T;
+  skip_in_sequence?: T;
+  skip_open_deal?: T;
+  skip_recent_days?: T;
+  last_matched_at?: T;
+  changed_at?: T;
+  changed_by?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-ers-simulations_select".
+ */
+export interface CrmErsSimulationsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  sequence?: T;
+  version_hash?: T;
+  snapshot_hash?: T;
+  counts?: T;
+  approved_at?: T;
+  approved_by?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -6660,13 +7110,16 @@ export interface PublicationState {
   createdAt?: string | null;
 }
 /**
- * Header navigation and footer text and links. Layout and styling are fixed by the site design; office phone numbers and social profiles come from the owner contact record.
+ * Footer words (heading, description, copyright, privacy link). The header menu and the footer link columns are fixed by the site design; office phone numbers and social profiles come from the owner contact record.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-chrome".
  */
 export interface SiteChrome {
   id: string;
+  /**
+   * Fixed by the site design (code-owned): the header menu is not edited here.
+   */
   navigation?:
     | {
         label: string;
@@ -6707,6 +7160,9 @@ export interface SiteChrome {
     heading: string;
     contactLabel: string;
     description: string;
+    /**
+     * Fixed by the site design (code-owned): the footer link columns are not edited here.
+     */
     columns?:
       | {
           title: string;

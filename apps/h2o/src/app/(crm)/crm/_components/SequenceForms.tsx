@@ -13,7 +13,13 @@ export function EngineSwitch({ on }: { on: boolean }) {
       hidden={{ on: on ? '0' : '1' }}
       submitLabel={on ? 'Turn the Revenue Engine off' : 'Turn the Revenue Engine on'}
       submitClassName={on ? 'c-btn' : 'c-btn is-primary'}
-    />
+    >
+      {on ? null : (
+        <Field name="code" label="Verification code">
+          {(a) => <input className="c-input" {...a} inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="\d{6}" />}
+        </Field>
+      )}
+    </ActionForm>
   )
 }
 
@@ -28,7 +34,11 @@ export function SequenceActions({ sequenceId, runState, draftVersionId, canActiv
       {runState === 'ACTIVE' ? (
         <ActionForm inline action={A.pauseAction} hidden={{ sequenceId }} submitLabel="Pause" submitClassName="c-btn" />
       ) : canActivate ? (
-        <ActionForm inline action={A.activateAction} hidden={{ sequenceId }} submitLabel={runState === 'PAUSED' ? 'Resume' : 'Start the sequence'} submitClassName="c-btn is-primary" />
+        <ActionForm inline action={A.activateAction} hidden={{ sequenceId }} submitLabel={runState === 'PAUSED' ? 'Resume' : 'Start the sequence'} submitClassName="c-btn is-primary">
+          <Field name="code" label="Verification code">
+            {(a) => <input className="c-input" {...a} inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="\d{6}" />}
+          </Field>
+        </ActionForm>
       ) : null}
       {draftVersionId ? null : <ActionForm inline action={A.duplicateAction} hidden={{ sequenceId }} submitLabel="Duplicate to edit" submitClassName="c-btn is-ghost" />}
     </div>

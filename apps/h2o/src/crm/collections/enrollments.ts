@@ -1,30 +1,54 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 import { crmUser, noOne } from '../access'
 import { crmCollection } from '../collection'
+import { ENROLLMENT_PURPOSE, SCOPE_KIND, purposeNeedsRfq } from '../ers/identity'
+import { CrmInvariantError } from '../guards'
 import { userRelation } from '../fields'
 import { ENROLLED_VIA, ENROLLMENT_EXIT_REASON, ENROLLMENT_PAUSE_REASON, ENROLLMENT_STATUS, MISSING_INFORMATION_ITEMS, options } from '../vocabulary'
 
 /**
- * Revenue Engine slice 1 — enrollments (E0.1 `sequence_runtime.schema.json`, reduced). One contact in one sequence:
- * `coalesce_key` = sequence + contact is unique, so a contact is enrolled in a sequence once, ever (LEAN CUT "enroll
- * once"; no re-entry). Every enrollment is anchored to an RFQ from that contact: that RFQ is the relationship basis in
- * every country (CT ruling 1), the RFQ reference in the copy, and the thread replies come back on.
+ * Revenue Engine — enrollments (E0.1 `sequence_runtime.schema.json`, reduced). One contact in one sequence for one purpose
+ * and scope (ENGINE-SCOPE-1b): `coalesce_key` = sequence : contact : purpose : scope kind : scope ref : cycle, unique. A
+ * replay dedupes (same event); a genuinely new event of the same scope, after the earlier enrollment ended, is the next
+ * cycle (see ers/identity.ts and ers/create.ts). An inquiry anchors a response and a quote follow-up (CT ruling 1: the
+ * RFQ is the relationship basis and the reply thread); relationship, cohort and publication enrollments need none.
  *
- * The engine (crm/ers/engine.ts) moves `current_step` and `next_action_at`; exits are terminal. Written only by trusted
- * server code; the API is read-only. Audited (status / exit / pause transitions).
+ * The engine (crm/ers/engine.ts) moves `current_step` and `next_action_at` through ers/transition.ts; exits are terminal.
+ * Written only by trusted server code; the API is read-only. Audited (status / exit / pause transitions).
  */
+const needsRfq: CollectionBeforeChangeHook = ({ data, operation, originalDoc }) => {
+  const merged = { ...(operation === 'update' ? (originalDoc ?? {}) : {}), ...(data as Record<string, unknown>) } as Record<string, unknown>
+  if (purposeNeedsRfq(String(merged.purpose ?? 'RFQ_RESPONSE')) && !merged.rfq)
+    throw new CrmInvariantError('ENROLLMENT_RFQ_REQUIRED', 'An inquiry response or a quote follow-up needs an inquiry.')
+  return data
+}
+
 export const CrmEnrollments: CollectionConfig = crmCollection(
   {
     slug: 'crm-enrollments',
     labels: { singular: 'Sequence enrollment', plural: 'Sequence enrollments' },
     access: { read: crmUser, create: noOne, update: noOne, delete: noOne },
+    hooks: { beforeChange: [needsRfq] },
     admin: { useAsTitle: 'coalesce_key', description: 'Who is in which sequence, and where.', defaultColumns: ['sequence', 'contact', 'status', 'current_step', 'next_action_at'] },
     fields: [
-      { name: 'coalesce_key', type: 'text', required: true, unique: true, index: true, maxLength: 120 },
+      { name: 'coalesce_key', type: 'text', required: true, unique: true, index: true, maxLength: 400 },
+      {
+        name: 'identity_base',
+        type: 'text',
+        index: true,
+        maxLength: 380,
+        admin: { readOnly: true, description: 'sequence:contact:purpose:scope kind:scope ref (everything but the cycle).' },
+      },
+      { name: 'purpose', type: 'select', required: true, defaultValue: 'RFQ_RESPONSE', index: true, options: options(ENROLLMENT_PURPOSE) },
+      { name: 'scope_kind', type: 'select', options: options(SCOPE_KIND) },
+      { name: 'scope_ref', type: 'text', maxLength: 200 },
+      { name: 'scope_event_ref', type: 'text', maxLength: 200, admin: { description: 'The event this enrollment answers; a replay has the same one, a new cycle a different one.' } },
+      { name: 'cycle', type: 'number', required: true, defaultValue: 1 },
+      { name: 'content_version', type: 'text', maxLength: 64, admin: { description: 'The sequence version hash it started on.' } },
       { name: 'sequence', type: 'relationship', relationTo: 'crm-sequences', required: true, index: true },
       { name: 'version', type: 'relationship', relationTo: 'crm-sequence-versions', required: true, index: true },
       { name: 'contact', type: 'relationship', relationTo: 'crm-contacts', required: true, index: true },
-      { name: 'rfq', type: 'relationship', relationTo: 'crm-rfqs', required: true, index: true },
+      { name: 'rfq', type: 'relationship', relationTo: 'crm-rfqs', index: true, admin: { description: 'Required for an inquiry response and a quote follow-up; optional for relationship, cohort and publication programs.' } },
       { name: 'account', type: 'relationship', relationTo: 'crm-accounts', index: true },
       userRelation('owner', 'The RFQ owner when enrolled, else the person who enrolled.'),
       userRelation('enrolled_by', 'Who enrolled this contact.'),

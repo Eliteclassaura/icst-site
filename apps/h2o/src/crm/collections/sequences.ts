@@ -1,6 +1,7 @@
 import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 import { crmUser, noOne } from '../access'
 import { crmCollection } from '../collection'
+import { ENROLLMENT_PURPOSE } from '../ers/identity'
 import { userRelation } from '../fields'
 import { CrmInvariantError } from '../guards'
 import { options, SEQUENCE_RUN_STATE, SEQUENCE_STEP_TYPE, SEQUENCE_VERSION_STATE } from '../vocabulary'
@@ -27,11 +28,31 @@ const toggle = (name: string, label: string) => ({
   ],
 })
 
+/**
+ * ENGINE-SCOPE-1c ("AUTO applies to new programs only"): a program that already has live work (running, held or failed
+ * enrollments) never changes its approval mode silently. The only door is `changeSequenceApprovalMode` (admin + step-up +
+ * a written reason, audited), which sets the context flag this hook looks for. A program with no live work may be set directly.
+ */
+const noSilentModeSwitch: CollectionBeforeChangeHook = async ({ data, operation, originalDoc, req }) => {
+  if (operation !== 'update' || !originalDoc || data.approval_mode === undefined || data.approval_mode === originalDoc.approval_mode) return data
+  if ((req.context as { approvalChangeAllowed?: boolean } | undefined)?.approvalChangeAllowed) return data
+  const live = await req.payload.count({
+    collection: 'crm-enrollments',
+    where: { and: [{ sequence: { equals: String(originalDoc.id) } }, { status: { in: ['ACTIVE', 'AWAITING_SEND', 'PAUSED', 'DEAD_LETTER'] } }] } as never,
+    overrideAccess: true,
+    req,
+  })
+  if (live.totalDocs > 0)
+    throw new CrmInvariantError('SEQUENCE_MODE_LIVE', 'This program has live work, so its approval mode does not change silently. An admin changes it with a reason.')
+  return data
+}
+
 export const CrmSequences: CollectionConfig = crmCollection(
   {
     slug: 'crm-sequences',
     labels: { singular: 'Sequence', plural: 'Sequences' },
     access: { read: crmUser, create: noOne, update: noOne, delete: noOne },
+    hooks: { beforeChange: [noSilentModeSwitch] },
     admin: { useAsTitle: 'name', description: 'Revenue Engine sequences. Manage them in the CRM: Settings → Sequences.', defaultColumns: ['name', 'key', 'run_state', 'language'] },
     fields: [
       { name: 'key', type: 'text', required: true, unique: true, index: true, maxLength: 64 },
@@ -54,6 +75,62 @@ export const CrmSequences: CollectionConfig = crmCollection(
         ],
       },
       { name: 'paused_reason', type: 'text', maxLength: 120 },
+      {
+        name: 'purpose',
+        type: 'select',
+        required: true,
+        defaultValue: 'RFQ_RESPONSE',
+        index: true,
+        options: options(ENROLLMENT_PURPOSE),
+        admin: { description: 'What enrollments in this sequence are for (the inquiry rule and the scope follow from it).' },
+      },
+      {
+        name: 'readiness',
+        type: 'select',
+        required: true,
+        defaultValue: 'NOT_READY',
+        index: true,
+        options: [
+          { label: 'Not ready', value: 'NOT_READY' },
+          { label: 'Ready', value: 'READY' },
+        ],
+        admin: { description: 'Ready = built and checked, waiting for the safety gates. It starts nothing.' },
+      },
+      { name: 'ready_at', type: 'date' },
+      {
+        name: 'reply_mode',
+        type: 'select',
+        required: true,
+        defaultValue: 'NOT_SET',
+        index: true,
+        options: [
+          { label: 'Not set', value: 'NOT_SET' },
+          { label: 'Monitored', value: 'MONITORED' },
+          { label: 'Manual', value: 'MANUAL' },
+        ],
+        admin: { description: 'How replies and stop requests are handled. Manual = a named owner checks the reply mailbox; follow-ups are held until they do.' },
+      },
+      userRelation('reply_owner', 'The person who checks replies and handles stop requests (manual mode).'),
+      {
+        name: 'reply_coverage',
+        type: 'group',
+        admin: { description: 'When the reply owner covers the mailbox (manual mode).' },
+        fields: [
+          { name: 'days', type: 'select', defaultValue: 'MON_FRI', options: [{ label: 'Monday to Friday', value: 'MON_FRI' }, { label: 'Every day', value: 'EVERY_DAY' }] },
+          { name: 'start_hour', type: 'number', min: 0, max: 23 },
+          { name: 'end_hour', type: 'number', min: 1, max: 24 },
+          { name: 'zone', type: 'text', maxLength: 64 },
+        ],
+      },
+      { name: 'initial_batch', type: 'number', min: 1, max: 500, admin: { description: 'Manual mode releases only this many first emails.' } },
+      { name: 'reply_last_check_at', type: 'date' },
+      userRelation('reply_last_check_by', 'Who recorded the last reply check.'),
+      userRelation('ready_by', 'Who marked it Ready.'),
+      {
+        name: 'library_source',
+        type: 'json',
+        admin: { description: 'Which Library emails this sequence was built from (keys and source hashes).' },
+      },
     ],
   },
   { deleteAlternative: 'Retire the sequence instead.' },

@@ -1,11 +1,14 @@
 'use server'
 
 import { refresh } from 'next/cache'
+import { headers } from 'next/headers'
+import { pendingSession } from '../../../../auth/mfa/guard'
+import { setEngineSwitch } from '../../../../crm/ers/switch'
+import { activateGated } from '../../../../crm/seq/activate'
 import { redirect } from 'next/navigation'
 import * as admin from '../../../../crm/ers/admin'
 import * as enroll from '../../../../crm/ers/enroll'
 import { resumeHealth } from '../../../../crm/ers/feedback'
-import { invalidateErsSettings } from '../../../../crm/ers/settings'
 import type { Outcome } from '../../../../crm/workspace/mutations'
 import type { CrmSession } from '../../../../crm/workspace/session'
 import type { ActionState } from '../../../../crm/workspace/ui/actionState'
@@ -31,8 +34,14 @@ async function run(fn: (s: CrmSession) => Promise<Outcome>): Promise<ActionState
 export async function publishAction(_: ActionState, fd: FormData) {
   return run((s) => admin.publishVersion(s, f(fd, 'versionId')))
 }
+/** SEQ-BUILD-1: starting a sequence goes through the safety gates and the step-up; there is no other way to start one. */
 export async function activateAction(_: ActionState, fd: FormData) {
-  return run((s) => admin.activateSequence(s, f(fd, 'sequenceId')))
+  const s = await actionSession()
+  if (!s) return DENIED
+  const pending = await pendingSession(s.payload, await headers())
+  const out = await activateGated(s, pending?.sid ?? null, { sequenceId: f(fd, 'sequenceId'), code: f(fd, 'code') })
+  if (out.ok) refresh()
+  return { ...out, nonce: Date.now() } as ActionState
 }
 export async function pauseAction(_: ActionState, fd: FormData) {
   return run((s) => admin.pauseSequence(s, f(fd, 'sequenceId')))
@@ -44,15 +53,14 @@ export async function saveStepsAction(_: ActionState, fd: FormData) {
   return run((s) => admin.saveDraftSteps(s, f(fd, 'versionId'), f(fd, 'steps')))
 }
 
-/** The global switch (audited by the settings global). Turning it on does not bypass any other gate. */
+/** The global switch (audited by the settings global). Turning it on needs step-up; turning it on does not bypass any other gate. */
 export async function engineSwitchAction(_: ActionState, fd: FormData) {
-  return run(async (s) => {
-    if (!s.isAdmin) return { ok: false, code: 'FORBIDDEN', message: 'Only an admin switches the Revenue Engine.' }
-    const on = f(fd, 'on') === '1'
-    await s.payload.updateGlobal({ slug: 'crm-ers-settings' as never, data: { enabled: on } as never, depth: 0, overrideAccess: false, user: s.user as never })
-    invalidateErsSettings()
-    return { ok: true, message: on ? 'Revenue Engine on. Sequences run when reply detection is live and their own state allows.' : 'Revenue Engine off. Nothing runs and nothing is sent.' }
-  })
+  const s = await actionSession()
+  if (!s) return DENIED
+  const pending = await pendingSession(s.payload, await headers())
+  const out = await setEngineSwitch(s, pending?.sid ?? null, { on: f(fd, 'on') === '1', code: f(fd, 'code') })
+  if (out.ok) refresh()
+  return { ...out, nonce: Date.now() } as ActionState
 }
 export async function resumeHealthAction(_: ActionState) {
   return run((s) => resumeHealth(s))

@@ -23,8 +23,15 @@ import { DEFAULT_SALES_ADDRESS } from '../../email/config'
 type Row = Record<string, unknown>
 const HEARTBEAT = 'inbound_last_ok_at'
 
-const validate: GlobalBeforeChangeHook = ({ data }) => {
+const validate: GlobalBeforeChangeHook = ({ data, originalDoc, req, context }) => {
   const d = data as Row
+  // ENGINE-SCOPE-1a.1 (Auditor B1): turning the engine ON needs step-up, and step-up lives in `setEngineSwitch`, which
+  // sets this context flag after it passes. A signed-in person changing the checkbox any other way (the REST route, the
+  // admin form) is refused. Turning it OFF is never gated. A server script with no signed-in user stays allowed: it
+  // needs shell access to run, which is a stronger credential than a session.
+  const flag = (context as { crmServer?: { engineOnStepUp?: boolean } } | undefined)?.crmServer?.engineOnStepUp === true
+  if (d.enabled === true && (originalDoc as Row | undefined)?.enabled !== true && req?.user && !flag)
+    throw new CrmInvariantError('ERS_ENGINE_ON_VIA_SWITCH_ONLY', 'The Revenue Engine is turned on from Settings → Sequences with a verification code, not from here.')
   const int = (k: string, min: number, max: number) => {
     if (d[k] === undefined || d[k] === null) return
     const n = Number(d[k])

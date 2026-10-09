@@ -117,11 +117,11 @@ export async function publishVersion(s: CrmSession, versionId: string | undefine
     st.template_hash = templateHash(textOf(tpl))
   }
   const hash = definitionHash(seq, steps)
-  await s.payload.update({ collection: 'crm-sequence-versions', id: String(v.id), data: { steps, definition_hash: hash, rule_set_sha: LINTER_SHA256, state: 'PUBLISHED', published_at: now.toISOString(), published_by: s.user.id } as never, ...sys })
+  await s.payload.update({ collection: 'crm-sequence-versions', id: String(v.id), data: { steps, definition_hash: hash, rule_set_sha: LINTER_SHA256, state: 'PUBLISHED', published_at: now.toISOString(), published_by: s.user.id } as never, ...sys, user: s.user as never })
   // The previous published version is retired; its enrollments carry on with it (E0.1 §7).
   const prev = seq.published_version && typeof seq.published_version === 'object' ? (seq.published_version as Doc).id : seq.published_version
-  if (prev && String(prev) !== String(v.id)) await s.payload.update({ collection: 'crm-sequence-versions', id: String(prev), data: { state: 'RETIRED', retired_at: now.toISOString() } as never, ...sys })
-  await s.payload.update({ collection: 'crm-sequences', id: String(seq.id), data: { published_version: String(v.id) } as never, ...sys })
+  if (prev && String(prev) !== String(v.id)) await s.payload.update({ collection: 'crm-sequence-versions', id: String(prev), data: { state: 'RETIRED', retired_at: now.toISOString() } as never, ...sys, user: s.user as never })
+  await s.payload.update({ collection: 'crm-sequences', id: String(seq.id), data: { published_version: String(v.id) } as never, ...sys, user: s.user as never })
   return { ok: true, message: `Version ${String(v.version_number)} published. New enrollments use it.` }
 }
 
@@ -137,7 +137,7 @@ export async function activateSequence(s: CrmSession, sequenceId: string | undef
   if (!seq.published_version) return fail('NOT_PUBLISHED', 'Publish a version first.')
   if (!(await inboundLive(s)))
     return fail('INBOUND_NOT_LIVE', 'Reply detection is not running (inbound email is off, or its last check is more than 15 minutes old). A sequence cannot run without it.')
-  await s.payload.update({ collection: 'crm-sequences', id: String(seq.id), data: { run_state: 'ACTIVE', paused_reason: null } as never, ...sys })
+  await s.payload.update({ collection: 'crm-sequences', id: String(seq.id), data: { run_state: 'ACTIVE', paused_reason: null } as never, ...sys, user: s.user as never })
   return { ok: true, message: 'Sequence is running.' }
 }
 
@@ -146,7 +146,7 @@ export async function pauseSequence(s: CrmSession, sequenceId: string | undefine
   const seq = await load(s.payload, 'crm-sequences', sequenceId)
   if (!seq) return fail('NOT_FOUND', 'That sequence no longer exists.')
   if (seq.run_state !== 'ACTIVE') return fail('NOT_RUNNING', 'The sequence is not running.')
-  await s.payload.update({ collection: 'crm-sequences', id: String(seq.id), data: { run_state: 'PAUSED', paused_reason: 'ADMIN' } as never, ...sys })
+  await s.payload.update({ collection: 'crm-sequences', id: String(seq.id), data: { run_state: 'PAUSED', paused_reason: 'ADMIN' } as never, ...sys, user: s.user as never })
   return { ok: true, message: 'Sequence paused. No step runs and queued emails wait.' }
 }
 
@@ -158,7 +158,7 @@ export async function duplicateVersion(s: CrmSession, sequenceId: string | undef
   const versions = (await s.payload.find({ collection: 'crm-sequence-versions', where: { sequence: { equals: String(seq.id) } } as never, sort: '-version_number', limit: 50, depth: 0, overrideAccess: true })).docs as unknown as Doc[]
   if (versions.some((v) => v.state === 'DRAFT')) return fail('DRAFT_EXISTS', 'There is already a draft. Edit or publish it.')
   const latest = versions[0]
-  const created = (await s.payload.create({ collection: 'crm-sequence-versions', data: { sequence: String(seq.id), version_number: Number(latest?.version_number ?? 0) + 1, state: 'DRAFT', steps: latest ? stepsOf(latest).map((st) => ({ ...st, template_hash: null })) : [] } as never, ...sys })) as unknown as Doc
+  const created = (await s.payload.create({ collection: 'crm-sequence-versions', data: { sequence: String(seq.id), version_number: Number(latest?.version_number ?? 0) + 1, state: 'DRAFT', steps: latest ? stepsOf(latest).map((st) => ({ ...st, template_hash: null })) : [] } as never, ...sys, user: s.user as never })) as unknown as Doc
   return { ok: true, message: 'Draft created. Edit its steps, then publish.', id: String(created.id) }
 }
 
@@ -211,6 +211,6 @@ export async function saveDraftSteps(s: CrmSession, versionId: string | undefine
     const { templateCode: _drop, ...rest } = st
     steps.push({ ...rest, template, template_hash: null })
   }
-  await s.payload.update({ collection: 'crm-sequence-versions', id: String(v.id), data: { steps } as never, ...sys })
+  await s.payload.update({ collection: 'crm-sequence-versions', id: String(v.id), data: { steps } as never, ...sys, user: s.user as never })
   return { ok: true, message: 'Draft saved.' }
 }

@@ -14,6 +14,9 @@ import { CrmIntakeEvents } from './collections/intake-events'
 import { CrmIntakeRate } from './collections/intake-rate'
 import { CrmSendingProfiles } from './collections/sending-profiles'
 import { CrmEmailTemplates } from './collections/email-templates'
+import { CrmEmailLibrary } from './collections/email-library'
+import { CrmSequenceTriggers } from './collections/sequence-triggers'
+import { CrmSimulations } from './collections/simulations'
 import { CrmMailCursor } from './collections/mail-cursor'
 import { CrmEnrollments } from './collections/enrollments'
 import { CrmSequences, CrmSequenceVersions } from './collections/sequences'
@@ -82,6 +85,10 @@ export const crmCollections: CollectionConfig[] = [
   CrmEnrollments,
   // OPP-1: deal stage order and wording (seeded defaults).
   CrmDealStages,
+  // EMAIL-LIB-1: the Email Library (exact imported copy; never a sending surface).
+  CrmEmailLibrary,
+  CrmSequenceTriggers,
+  CrmSimulations,
 ]
 
 export const CRM_SLUGS = crmCollections.map((c) => c.slug)

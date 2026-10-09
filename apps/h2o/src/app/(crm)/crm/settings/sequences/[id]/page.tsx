@@ -14,7 +14,7 @@ import { requireCrmSession } from '../../../session'
 export const metadata: Metadata = { title: 'Sequence' }
 type Doc = Record<string, unknown>
 
-/** Revenue Engine slice 1: one sequence — versions (published ones are frozen), steps, state, enrolment from a view. */
+/** Revenue Engine slice 1: one sequence — versions (published ones are frozen), steps, state, enrollment from a view. */
 export default async function SequencePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const s = await requireCrmSession(`/crm/settings/sequences/${encodeURIComponent(id)}/`)
@@ -133,7 +133,7 @@ export default async function SequencePage({ params }: { params: Promise<{ id: s
                   </select>
                 </label>
                 <button className="c-btn" type="submit">
-                  Preview enrolment
+                  Preview enrollment
                 </button>
               </form>
             )}

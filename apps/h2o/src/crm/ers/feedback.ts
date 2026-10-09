@@ -17,8 +17,8 @@ import { ersSettings, invalidateErsSettings, type ErsSettings } from './settings
 type Doc = Record<string, unknown>
 const sys = { overrideAccess: true as const, depth: 0, context: { crmServer: {} } }
 
-export async function setHealth(payload: Payload, state: 'ACTIVE' | 'PAUSED', reason: string | null, now: Date): Promise<void> {
-  await payload.updateGlobal({ slug: 'crm-ers-settings' as never, data: { health: { state, reason, changed_at: now.toISOString() } } as never, ...sys })
+export async function setHealth(payload: Payload, state: 'ACTIVE' | 'PAUSED', reason: string | null, now: Date, user?: unknown): Promise<void> {
+  await payload.updateGlobal({ slug: 'crm-ers-settings' as never, data: { health: { state, reason, changed_at: now.toISOString() } } as never, ...sys, ...(user ? { user: user as never } : {}) })
   invalidateErsSettings()
 }
 
@@ -52,7 +52,7 @@ export async function checkHealth(payload: Payload, now: Date): Promise<BounceHe
 
 export async function resumeHealth(s: CrmSession, now = new Date()): Promise<Outcome> {
   if (!s.isAdmin) return { ok: false, code: 'FORBIDDEN', message: 'Only an admin resumes sequence sending.' }
-  await setHealth(s.payload, 'ACTIVE', null, now)
+  await setHealth(s.payload, 'ACTIVE', null, now, s.user)
   return { ok: true, message: 'Sequence sending resumed.' }
 }
 

@@ -3367,3 +3367,372 @@ details.c-tech > summary {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+
+/* EMAIL-LIB-1: Email Revenue area (engine strip, tabs, Library). Tokens only; no new colours. */
+.er-strip {
+  align-items: center;
+  flex-wrap: wrap;
+  margin-inline: 0;
+}
+
+.er-strip .c-status {
+  max-inline-size: 100%;
+  white-space: normal;
+}
+
+.er-strip.is-error .c-status {
+  background: transparent;
+  color: var(--c-error-text);
+}
+
+.er-strip-detail {
+  color: var(--c-text-2);
+}
+
+.er-tabs {
+  margin-block: 8px;
+  padding-inline: 0;
+}
+
+.er-head {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.er-library {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.er-main {
+  min-inline-size: 0;
+}
+
+.er-rail ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.er-rail a {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  padding-block: 8px;
+  padding-inline: 10px;
+  border-radius: 4px;
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+.er-rail a[aria-current='page'] {
+  background: var(--c-b50);
+  font-weight: 600;
+}
+
+.er-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: end;
+}
+
+.er-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.er-search {
+  flex: 1 1 200px;
+}
+
+.er-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  align-items: center;
+  margin-block: 8px;
+}
+
+.er-snippet {
+  display: block;
+  color: var(--c-text-2);
+  font-size: 12px;
+}
+
+.er-snippet mark,
+.er-findings mark {
+  background: transparent;
+  color: var(--c-text);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.er-approval {
+  cursor: default;
+}
+
+.er-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: baseline; /* S1: chips share one baseline */
+}
+
+.er-pick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  align-items: center;
+}
+
+.er-pick a[aria-current='true'] {
+  background: var(--c-b50);
+  font-weight: 600;
+}
+
+/* The email preview frame stays light in dark mode, like a real mail client (spec §a). */
+.er-paper {
+  padding: 16px;
+  border: 1px solid var(--c-n300);
+  border-radius: 4px;
+  /*
+   * --er-preview-bg / --er-preview-ink are a pair. They do not follow the theme: a customer reads this email on light
+   * paper in their own mail client, so the frame stays light in dark mode. Ink on paper is above 4.5:1.
+   */
+  --er-preview-bg: rgb(255 255 255);
+  --er-preview-ink: rgb(12 19 23);
+
+  background: var(--er-preview-bg);
+  color: var(--er-preview-ink);
+}
+
+.er-body {
+  margin: 12px 0 0;
+  font: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.er-findings {
+  margin-block: 8px;
+}
+
+.er-findings ul {
+  margin: 8px 0;
+  padding-inline-start: 20px;
+}
+
+@media (width <= 767px) {
+  .er-library {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .er-rail ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .er-table thead {
+    display: none;
+  }
+
+  .er-table tr {
+    display: block;
+    padding-block: 10px;
+    border-block-end: 1px solid var(--c-n300);
+  }
+
+  .er-table td {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    padding-block: 4px;
+    padding-inline: 0;
+    border: 0;
+    text-align: end;
+  }
+
+  .er-table td:first-child {
+    display: block;
+    text-align: start;
+  }
+
+  .er-table td:first-child::before {
+    content: none;
+  }
+
+  .er-table td::before {
+    content: attr(data-label);
+    color: var(--c-text-2);
+    font-size: 12px;
+    text-align: start;
+  }
+}
+
+/* ERS-HUB-1: Overview, funnel, steps. Tokens only. */
+.er-start,
+.er-funnel,
+.er-steps {
+  margin: 0;
+  padding-inline-start: 20px;
+}
+
+.er-start li,
+.er-steps li {
+  margin-block: 6px;
+}
+
+.er-funnel {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+.er-funnel li {
+  align-items: baseline;
+  border-block-end: 1px solid var(--c-border);
+  display: grid;
+  gap: 2px 16px;
+  grid-template-columns: 200px minmax(0, 1fr);
+  padding-block: 10px;
+}
+
+.er-funnel-label {
+  color: var(--c-text-2);
+}
+
+.er-funnel-n {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.er-funnel .c-hint {
+  grid-column: 2;
+}
+
+.er-money {
+  display: inline-block;
+  margin-inline-end: 12px;
+}
+
+@media (max-width: 767px) {
+  .er-funnel li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .er-funnel .c-hint {
+    grid-column: 1;
+  }
+}
+
+/* EMAIL-LIB-1 visual fixes: step-up and forms appear only after the button is pressed. */
+.er-reveal > summary {
+  cursor: pointer;
+  display: inline-block;
+  list-style: none;
+}
+
+.er-reveal > summary::-webkit-details-marker {
+  display: none;
+}
+
+.er-reveal[open] > summary {
+  margin-block-end: 12px;
+}
+
+/* SEQ-BUILD-1: catalogue, gates, rules, simulation. Tokens only. */
+.er-catalogue,
+.er-rules {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.er-cat-row,
+.er-rule {
+  border-block-end: 1px solid var(--c-border);
+  padding-block: 14px;
+}
+
+.er-cat-row h3,
+.er-rule h3 {
+  font-size: 16px;
+  margin: 0 0 4px;
+}
+
+.er-cat-row p,
+.er-rule p {
+  margin: 4px 0;
+}
+
+.er-gates h3 {
+  font-size: 14px;
+  margin: 14px 0 2px;
+}
+
+.er-gate-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.er-gate-rows li {
+  margin-block: 4px;
+}
+
+.er-gate-status {
+  display: inline-block;
+  font-weight: 600;
+  min-inline-size: 96px;
+}
+
+.er-more {
+  display: inline;
+}
+
+.er-sim-count {
+  display: inline-block;
+  font-weight: 600;
+  margin-inline-end: 12px;
+}
+
+@media (max-width: 767px) {
+  .er-gate-status {
+    display: block;
+  }
+}
+
+.er-more-list > summary {
+  cursor: pointer;
+}
+
+.er-inline-h {
+  display: inline;
+  font-size: 16px;
+}
+
+.er-cat-row .er-row-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+/* ENGINE-SCOPE-1c: the reply-handling block on a sequence. Tokens only. */
+.er-reply {
+  border-block: 1px solid var(--c-border);
+  margin-block: 12px;
+  padding-block: 8px;
+}
+
+.er-reply p {
+  margin-block: 4px;
+}

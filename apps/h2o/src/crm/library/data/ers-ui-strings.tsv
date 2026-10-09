@@ -1,0 +1,170 @@
+key	text	context
+ers.strip.off	Engine off. Nothing will be sent.	"§1.1 engine status strip (role=""status"", top of every Email Revenue screen). State OFF (launch state). Dot + text, never colour alone."
+ers.strip.off.detail	Sending stays blocked until the safety checks pass.	"§1.1 engine status strip (role=""status"", top of every Email Revenue screen). Second sentence after ers.strip.off; the strip reads as one line on desktop."
+ers.strip.off.compact	Engine off	"§1.1 engine status strip (role=""status"", top of every Email Revenue screen). Compact one-line sticky version at 390."
+ers.strip.on	Engine on. Sending within limits.	"§1.1 engine status strip (role=""status"", top of every Email Revenue screen). State ON."
+ers.strip.on.senders	{n} sender active|{n} senders active	"§1.1 engine status strip (role=""status"", top of every Email Revenue screen). Appended to ers.strip.on. Singular|plural."
+ers.strip.paused	Engine paused for safety. {reason} · since {since}	"§1.1 engine status strip (role=""status"", top of every Email Revenue screen). State PAUSED by safety (error text + icon). {reason} is one of the hold or kill-switch reasons; link to the cause."
+ers.strip.paused.compact	Engine paused	"§1.1 engine status strip (role=""status"", top of every Email Revenue screen). Compact sticky version."
+ers.strip.gates_link	See safety checks	"§1.1 engine status strip (role=""status"", top of every Email Revenue screen). The link opens the gate checklist sheet (spec ""[See gates]"")."
+ers.strip.settings_note	Turn the engine on or off in Settings, Sending.	"§1.1 engine status strip (role=""status"", top of every Email Revenue screen). Help text in the gate sheet. Nothing on the strip itself is a toggle."
+ers.hold.ENGINE_OFF	The engine is off, so this will not send.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code ENGINE_OFF.
+ers.hold.ENGINE_OFF.release	It sends after the engine is switched on and the safety checks pass.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under ENGINE_OFF (tooltip or sheet)."
+ers.hold.APPROVAL_PENDING	Waiting for approval for {n} days.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code APPROVAL_PENDING.
+ers.hold.APPROVAL_PENDING.release	It sends after a person approves it.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under APPROVAL_PENDING (tooltip or sheet)."
+ers.hold.CONTACT_LOCK	Active conversation. The contact owner decides when to resume.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code CONTACT_LOCK.
+ers.hold.CONTACT_LOCK.release	The contact owner or an admin can resume it.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under CONTACT_LOCK (tooltip or sheet)."
+ers.hold.ACCOUNT_LOCK	Another contact at {company} is in a conversation.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code ACCOUNT_LOCK.
+ers.hold.ACCOUNT_LOCK.release	It resumes when that conversation ends.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under ACCOUNT_LOCK (tooltip or sheet)."
+ers.hold.OPP_ACTIVE	Open deal at {stage}. General follow-ups are paused.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code OPP_ACTIVE.
+ers.hold.OPP_ACTIVE.release	It resumes if the deal closes or moves on.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under OPP_ACTIVE (tooltip or sheet)."
+ers.hold.FREQUENCY_CAP	Emailed recently. Next send allowed {date}.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code FREQUENCY_CAP.
+ers.hold.FREQUENCY_CAP.release	It sends on its own after that date.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under FREQUENCY_CAP (tooltip or sheet)."
+ers.hold.IDENTITY_HEALTH	Sender {name} is {state}. Waiting for it to recover.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code IDENTITY_HEALTH.
+ers.hold.IDENTITY_HEALTH.release	It sends when the sender is healthy again.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under IDENTITY_HEALTH (tooltip or sheet)."
+ers.hold.IDENTITY_LIMIT	Daily sending limit reached. Resumes {when}.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code IDENTITY_LIMIT.
+ers.hold.IDENTITY_LIMIT.release	It sends when the limit resets.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under IDENTITY_LIMIT (tooltip or sheet)."
+ers.hold.SUPPRESSED	Suppressed ({reason}). This contact will not be emailed.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code SUPPRESSED.
+ers.hold.SUPPRESSED.release	This cannot be resumed.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under SUPPRESSED (tooltip or sheet)."
+ers.hold.LINT_BLOCK	The copy check blocked this email. Edit the template to continue.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code LINT_BLOCK.
+ers.hold.LINT_BLOCK.release	It sends after the template passes the copy check.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under LINT_BLOCK (tooltip or sheet)."
+ers.hold.DEAD_LETTER	Failed after {n} attempts. Needs a decision.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code DEAD_LETTER.
+ers.hold.DEAD_LETTER.release	A person chooses to retry or stop it.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under DEAD_LETTER (tooltip or sheet)."
+ers.hold.KILL_SWITCH	Stopped by the {scope} switch ({actor}, {time}).	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code KILL_SWITCH.
+ers.hold.KILL_SWITCH.release	It resumes after the switch is released.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under KILL_SWITCH (tooltip or sheet)."
+ers.hold.UNCONFIRMED	The mail server’s answer is unclear. Check before sending again.	§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. Internal code UNCONFIRMED.
+ers.hold.UNCONFIRMED.release	Check the sent record first. Resend only if it did not go out.	"§3.2 Enrolled tab, Hold reason column (and §6 contact panel). The sentence says what is holding it; the second key says what releases it. ""What releases it"" line under UNCONFIRMED (tooltip or sheet)."
+ers.hold.resume_blocked	Resume is not available: a complaint, opt-out, do-not-contact or legal block applies.	§3.2 disabled Resume button, reason shown as text.
+ers.hold.scope_note	Only the contact owner or an admin can enroll or resume.	Q6 ruling: out-of-scope rows show this as text, never a hidden control.
+ers.gate.status.met	Met	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.status.unmet	Not met	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.status.confirm	At confirm	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.engine_switch.name	Engine switch	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Gate name.
+ers.gate.engine_switch.met	The engine is on.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.engine_switch.unmet	The engine is off. Switch it on in Settings, Sending.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.safety_suite.name	Sending safety tests	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Gate name.
+ers.gate.safety_suite.met	The sending safety tests passed.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.safety_suite.unmet	The sending safety tests have not passed yet.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.feedback.name	Bounce, complaint and opt-out handling	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Gate name.
+ers.gate.feedback.met	Bounces, complaints and opt-outs are being processed.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.feedback.unmet	Bounce, complaint and opt-out handling is not live yet.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.sender_health.name	Sender health	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Gate name.
+ers.gate.sender_health.met	{name} is active.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.sender_health.unmet	{name} is {state}. Choose a healthy sender.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.allowlist.name	Launch allowlist	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Gate name.
+ers.gate.allowlist.met	Only {n} approved addresses can receive email.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.allowlist.unmet	No allowlist is set. Set one before sending.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.simulation.name	Simulation reviewed	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Gate name.
+ers.gate.simulation.met	Simulation {hash} was reviewed on {time}.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.simulation.unmet	No reviewed simulation for this version. Run one and approve it.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.copy_check.name	Copy check	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Gate name.
+ers.gate.copy_check.met	No blocking flags.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.copy_check.unmet	{n} blocking flags. Fix them in the Library.	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone.
+ers.gate.stepup.name	Admin verification	§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Gate name.
+ers.gate.stepup.status	You will be asked for a verification code when you confirm.	"§4.4 activation dialog gate checklist. Each row = name + status sentence. Status text is Met / Not met / At confirm, never colour alone. Shown with status ""At confirm""."
+ers.gate.simulation.stale	This simulation is out of date. Run it again.	§4.3/§4.4 stale simulation (sequence, templates, rules or audience changed).
+ers.gate.dialog.title	Activate {sequence} (v{version})	§4.4 dialog title.
+ers.gate.dialog.intro	Starting this sequence lets the engine send emails to enrolled contacts.	§4.4 dialog first line.
+ers.gate.dialog.heading	Safety checks	"§4.4 list heading (spec wording ""Safety gates"")."
+ers.gate.dialog.unmet_lead	This sequence can’t be activated yet.	"§4.4 lead sentence when any hard gate is unmet. No ""Activate anyway"" exists."
+ers.gate.dialog.unmet_count	{n} safety checks are not met. You can keep it Ready. It will only start after they pass.	§4.4 body when gates are unmet; plural/singular by count.
+ers.gate.dialog.ready_action	Mark as Ready	§4.4 primary when gates are unmet (does not start anything).
+ers.gate.dialog.activate_action	Activate	§4.4 primary when all gates are met (then step-up code).
+ers.gate.dialog.approval_mode	Once the safety checks pass, emails in AUTO steps send automatically on schedule. Steps switched to REQUIRED wait for approval in My Work.	§4.4 approval-mode line. UPDATED 2026-10-08 per owner ruling (sequences default to AUTO).
+ers.gate.dialog.approval_mode.all_required	Every step needs review, so activating will not send anything by itself. Each email waits for approval in My Work.	§4.4 variant: use only when every step in the sequence is REQUIRED.
+ers.gate.dialog.approval_mode.all_auto	Once the safety checks pass, every email in this sequence sends automatically on schedule. Nothing waits for approval unless the copy check holds it for review.	§4.4 variant: use only when every step is AUTO.
+ers.gate.dialog.changed	A safety check changed while this was open.	§4.4 re-check at confirm.
+ers.gate.activated	{sequence} activated · {time} · {actor}	§4.4 inline confirmation and toast after activate.
+ers.gate.pause_confirm	Pause {sequence}? Contacts stay enrolled. Nothing more is sent until it is resumed.	§4.4 pause confirm. Never gated.
+ers.gate.ready_banner	Draft created from {name}. Copy is imported exactly. Edit the template in the Library, not here.	§4.1 banner after Create from this.
+ers.empty.attention	Nothing needs attention.	Empty states. Single quiet line, no illustration (spec §2). §2 Needs attention block.
+ers.empty.sequences	No sequences yet. Start from a prebuilt sequence.	Empty states. Single quiet line, no illustration (spec §2). §2 Sequences table. Primary action: Browse prebuilt sequences.
+ers.empty.sequences.action	Browse prebuilt sequences	Empty states. Single quiet line, no illustration (spec §2). §2 button label.
+ers.empty.contact_panel	Not in any sequence.	Empty states. Single quiet line, no illustration (spec §2). §6 contact panel. Action: Enroll.
+ers.empty.enrolled	No contacts are enrolled yet.	Empty states. Single quiet line, no illustration (spec §2). §3.2 Enrolled tab.
+ers.empty.held	Nothing is held.	Empty states. Single quiet line, no illustration (spec §2). §3.2 Enrolled tab filtered by a hold reason.
+ers.empty.approvals	No emails are waiting for approval.	§7 My Work approvals queue empty state. UPDATED 2026-10-08.
+ers.approvals.description	This queue shows emails in REQUIRED steps and emails the copy check has held for review. Emails in AUTO steps send on schedule and do not appear here.	§7 My Work approvals queue: description under the heading. NEW 2026-10-08.
+ers.empty.library	No templates yet. An admin can import the library.	Empty states. Single quiet line, no illustration (spec §2). §5 Library list.
+ers.empty.triggers	No trigger rules yet.	Empty states. Single quiet line, no illustration (spec §2). §4.2 Triggers page.
+ers.empty.simulate	No simulation yet. Run one to see what would happen. Nothing is sent.	Empty states. Single quiet line, no illustration (spec §2). §4.3 Simulate before the first run.
+ers.empty.excluded	No one was excluded.	Empty states. Single quiet line, no illustration (spec §2). §4.3 Excluded tab.
+ers.empty.history	No history yet.	Empty states. Single quiet line, no illustration (spec §2). §3.2 History tab.
+ers.sim.banner	Simulation. Nothing was sent. {hash} · {time}	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Banner on every result.
+ers.sim.hard_rule	Simulation never sends. It can’t change counters or enrollments.	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Always shown; the page has no Send button.
+ers.sim.setup_note	No emails are sent. No counters change.	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Under [Run simulation].
+ers.sim.summary	{candidates} candidates, {excluded} excluded, {enter} would enter.	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Summary strip.
+ers.sim.label.SEND	Would send	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Chip label.
+ers.sim.tip.SEND	This email is ready and would go out at its scheduled time.	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Tooltip.
+ers.sim.label.REVIEW	Needs review	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Chip label.
+ers.sim.tip.REVIEW	A person approves this email first. Nothing goes out until they do.	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Tooltip.
+ers.sim.label.HOLD	Would be held	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Chip label.
+ers.sim.tip.HOLD	Something is in the way, such as a limit or an open conversation. It would wait and send later if it clears.	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Tooltip.
+ers.sim.label.BLOCK	Would not send	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Chip label.
+ers.sim.tip.BLOCK	A firm rule applies, such as a suppression or a copy-check block. It would not send until that is fixed.	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Tooltip.
+ers.sim.approve	Approve this simulation	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Button.
+ers.sim.approve_note	Approving records that an admin reviewed this exact simulation. It does not send anything.	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Help text under the button.
+ers.sim.run	Run simulation	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Button.
+ers.sim.timeline_row	{day}: {send} would send, {review} need review	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Timeline row.
+ers.sim.capacity	Within the daily limit of {limit}.	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Timeline capacity line.
+ers.sim.excluded_reason.suppressed	Suppressed ({reason})	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Excluded tab reason.
+ers.sim.excluded_reason.conversation	Active conversation	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Excluded tab reason.
+ers.sim.excluded_reason.deal	Open deal	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Excluded tab reason.
+ers.sim.excluded_reason.cap	Emailed too recently (frequency cap)	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Excluded tab reason.
+ers.sim.excluded_reason.address	No sendable address	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Excluded tab reason.
+ers.sim.excluded_reason.jurisdiction	Not eligible in this region	§4.3 Simulate result. Predicted actions mirror the engine decisions SEND, REVIEW, HOLD, BLOCK (E0.1 §19.7). Excluded tab reason.
+ers.skeleton.chip	Skeleton · not sendable	§4.1 / Q3 ruling: status chip on the E2 monthly program row.
+ers.skeleton.disabled_reason	This is a skeleton. The copy is not written yet, so it can’t be simulated, sent or activated.	"Q3: reason beside the disabled Simulate and Activate buttons on the E2 sequence detail. (CT’s literal wording: ""Skeleton: copy not written yet. It can’t be sent or activated."")"
+ers.skeleton.row_action	Preview steps	Q3: replaces Create from this on the E2 row.
+ers.persona.note	Signed “Rhonda” (persona). Sent from ICS Sales Team.	Info note beside the sender in template preview, simulation preview and the approval view. Internal CRM users only. It tells the reviewer who the email is signed by and which sender it goes from.
+ers.catalogue.approval.auto	Automatic sending · no per-email approval	"§4.1 catalogue ""Approval"" column label for AUTO sequences. UPDATED 2026-10-08 (reviewer round 4); replaces ""AUTO · contract recommends REQUIRED""."
+ers.catalogue.approval.required	REQUIRED	"§4.1 catalogue ""Approval"" column label when a sequence is set to REQUIRED."
+ers.approval.auto.label	Automatic sending · no per-email approval	NEW 2026-10-08 (reviewer round 4). Approval label on a sequence or step in AUTO mode.
+ers.approval.required.label	Approval required · each email waits for review	NEW 2026-10-08 (reviewer round 4). Approval label on a REQUIRED step.
+ers.approval.contract_note.details	The contract recommends REQUIRED approval for this program.	NEW 2026-10-08 (reviewer round 4). DETAILS-ONLY line inside the sequence details panel. Not a chip, badge or per-step note anywhere visible.
+ers.campaign.manual_reply.banner	Manual reply handling · {owner}	NEW 2026-10-08 (reviewer round 4). Campaign banner when replies are handled by hand.
+ers.campaign.manual_reply.stops	Stop requests are handled by the campaign owner.	NEW 2026-10-08 (reviewer round 4). Sentence under the manual-reply banner.
+ers.hold.REPLY_REVIEW	Waiting for the owner to review replies.	NEW 2026-10-08 (reviewer round 4). Follow-up hold reason in manual reply mode (Enrolled tab, contact panel).
+ers.hold.REPLY_REVIEW.release	The campaign owner reviews the reply, then releases or stops the follow-up.	NEW 2026-10-08 (reviewer round 4). What releases REPLY_REVIEW.
+ers.action.release_followup	Release follow-up	NEW 2026-10-08 (reviewer round 4). Action button on a REPLY_REVIEW hold.
+ers.action.release_followup.confirm	Release the next follow-up for {contact}? It will send on its normal schedule.	NEW 2026-10-08 (reviewer round 4). Confirm text for the release action.
+ers.state.content.label	Content readiness	NEW 2026-10-08 (reviewer round 4). Heading of the content state.
+ers.state.content.draft	Draft	NEW 2026-10-08 (reviewer round 4). Content state label.
+ers.state.content.draft.tip	The copy is still being written.	NEW 2026-10-08 (reviewer round 4). Tooltip.
+ers.state.content.needs_evidence	Needs evidence	NEW 2026-10-08 (reviewer round 4). Content state label.
+ers.state.content.needs_evidence.tip	Claims or facts in this copy need supporting evidence before it can be used.	NEW 2026-10-08 (reviewer round 4). Tooltip.
+ers.state.content.prepared	Prepared	NEW 2026-10-08 (reviewer round 4). Content state label.
+ers.state.content.prepared.tip	The copy is ready to be reviewed for a campaign.	NEW 2026-10-08 (reviewer round 4). Tooltip.
+ers.state.review.label	Campaign review	NEW 2026-10-08 (reviewer round 4). Heading of the review state.
+ers.state.review.reviewed	Reviewed · bound to this audience and content	NEW 2026-10-08 (reviewer round 4). Review state label.
+ers.state.review.not_reviewed	Not reviewed	NEW 2026-10-08 (reviewer round 4). Review state label.
+ers.state.review.stale	Review out of date · the audience or content changed. Review again.	NEW 2026-10-08 (reviewer round 4). Review state label after a change.
+ers.state.ops.label	Operational readiness	NEW 2026-10-08 (reviewer round 4). Heading of the operational state.
+ers.state.ops.ready	Ready to send	NEW 2026-10-08 (reviewer round 4). Operational state label.
+ers.state.ops.not_ready	Not ready · {n} checks open	NEW 2026-10-08 (reviewer round 4). Operational state label.
+ers.state.ops.detail	Sender health, limits, allowlist and safety checks. Shown separately from the copy and the review.	NEW 2026-10-08 (reviewer round 4). Help text under Operational readiness.
+ers.bucket.waiting	Waiting	NEW 2026-10-08 (reviewer round 4). Work bucket label.
+ers.bucket.waiting.tip	Scheduled for a later time.	NEW 2026-10-08 (reviewer round 4). Work bucket tooltip.
+ers.bucket.held	Held	NEW 2026-10-08 (reviewer round 4). Work bucket label.
+ers.bucket.held.tip	Stopped by a rule or a person. See the reason.	NEW 2026-10-08 (reviewer round 4). Work bucket tooltip.
+ers.bucket.sending	Sending	NEW 2026-10-08 (reviewer round 4). Work bucket label.
+ers.bucket.sending.tip	Being handed to the mail server now.	NEW 2026-10-08 (reviewer round 4). Work bucket tooltip.
+ers.bucket.submitted	Submitted	NEW 2026-10-08 (reviewer round 4). Work bucket label.
+ers.bucket.submitted.tip	Handed to the mail server. Delivery is not confirmed here.	NEW 2026-10-08 (reviewer round 4). Work bucket tooltip.
+ers.bucket.failed	Failed	NEW 2026-10-08 (reviewer round 4). Work bucket label.
+ers.bucket.failed.tip	The mail server rejected it, or it failed after retries.	NEW 2026-10-08 (reviewer round 4). Work bucket tooltip.
+ers.bucket.uncertain	Uncertain	NEW 2026-10-08 (reviewer round 4). Work bucket label.
+ers.bucket.uncertain.tip	The mail server’s answer is unclear. Check before sending again.	NEW 2026-10-08 (reviewer round 4). Work bucket tooltip.
+ers.metric.replies	Replies	NEW 2026-10-08 (reviewer round 4). Outcome metric.
+ers.metric.bounces	Bounces	NEW 2026-10-08 (reviewer round 4). Outcome metric.
+ers.metric.stops	Stops	NEW 2026-10-08 (reviewer round 4). Outcome metric.
+ers.metric.overlap_note	These counts can overlap. One contact can reply and also ask to stop.	NEW 2026-10-08 (reviewer round 4). Note under the outcome metrics.
+ers.action.schedule_blast	Schedule blast	NEW 2026-10-08 (reviewer round 4). Final action button for a one-off blast.
+ers.action.schedule_blast.confirm	Schedule {n} emails to start on {when}? Nothing sends until the safety checks pass.	NEW 2026-10-08 (reviewer round 4). Confirm text.
+ers.pause.title	Pause this campaign?	NEW 2026-10-08 (reviewer round 4). Dialog title.
+ers.pause.body	{pending} emails not yet submitted stay pending and will not send until you resume. {submitted} emails already submitted to the mail server cannot be recalled.	NEW 2026-10-08 (reviewer round 4). Pause dialog body: pending vs already submitted.
+ers.pause.action	Pause campaign	NEW 2026-10-08 (reviewer round 4). Button.
+ers.cancel.title	Cancel this campaign?	NEW 2026-10-08 (reviewer round 4). Dialog title.
+ers.cancel.body	{pending} emails not yet submitted will be canceled. {submitted} emails already submitted to the mail server cannot be recalled.	NEW 2026-10-08 (reviewer round 4). Cancel dialog body: pending vs already submitted. No undo is offered.
+ers.cancel.action	Cancel campaign	NEW 2026-10-08 (reviewer round 4). Button.
+ers.pause.keep	Keep running	NEW 2026-10-08 (reviewer round 4). Dismiss button on both dialogs.

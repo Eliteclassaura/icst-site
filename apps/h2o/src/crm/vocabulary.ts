@@ -561,10 +561,12 @@ export const ENROLLMENT_EXIT_REASON = [
   'COMPLAINT',
   'SUPPRESSED',
   'MANUAL_STOP',
+  // ENGINE-SCOPE-1b: a monthly publication slot whose window had passed; recorded, never sent late.
+  'MISSED',
 ] as const
 export type EnrollmentExitReason = (typeof ENROLLMENT_EXIT_REASON)[number]
 export const ENROLLMENT_PAUSE_REASON = ['SEQUENCE_PAUSED', 'LINT_HOLD', 'RENDER_HOLD', 'MANUAL'] as const
-export const ENROLLED_VIA = ['MANUAL', 'SAVED_VIEW'] as const
+export const ENROLLED_VIA = ['MANUAL', 'SAVED_VIEW', 'RULE', 'PUBLICATION'] as const
 /** The sending identity's health (E0.1 §17, reduced): WARMING and ACTIVE send; PAUSED does not (admin resume). */
 export const ERS_HEALTH_STATE = ['ACTIVE', 'PAUSED'] as const
 /**
