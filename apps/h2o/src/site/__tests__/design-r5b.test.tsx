@@ -6,12 +6,14 @@ import {afterEach,beforeEach,describe,expect,it} from 'vitest'
 import {createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml,physicalSrc} from './physical-html'
 import Page from '../../app/(site)/[[...slug]]/page'
 import {r4Builders} from '../r4/R4Pages'
 import {r5bBuilders} from '../r5b/R5bPages'
 import {r5bMedia} from '../r5b/r5b-media'
 import {salmonMedia} from '../salmon'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const APP=process.cwd()
 const render=async(p:string)=>renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean)}),searchParams:Promise.resolve({})}))
@@ -68,7 +70,7 @@ describe('R5b media ledger',()=>{
     for(const slot of ['ct.hero','ct.droplet','ct.draft','ct.cutaway','ct.band','dr.hero','dr.after','loc.usa','loc.sg','loc.th']){
       const m=r5bMedia(slot)
       for(const v of m.variants){
-        const sha=createHash('sha256').update(readFileSync(path.join(APP,'public',v.src))).digest('hex')
+        const sha=createHash('sha256').update(readFileSync(path.join(APP,'public',physicalSrc(v.src)))).digest('hex')
         expect(sha,slot+' '+v.src).toBe(v.sha256)
         if(slot!=='ct.cutaway')expect(v.w,slot).toBeLessThanOrEqual(m.source.width)
       }

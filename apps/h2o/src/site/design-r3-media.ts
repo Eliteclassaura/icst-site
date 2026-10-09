@@ -1,5 +1,6 @@
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
+import {withImageUrls} from '../content/image-slugs'
 
 /**
  * Design R3 (CT approval 2026-10-06): the About and Contact photos, one verified ICS original per slot
@@ -11,7 +12,7 @@ import path from 'node:path'
 export type DesignR3Media={src:string;sha256:string;width:number;height:number;alt:string;caption?:string;identity:string;original:{path:string;sha256:string;width:number;height:number};srcset?:Array<{src:string;width:number}>;thumb?:{src:string;width:number;height:number}}
 type DesignR3Ledger={slots:Record<string,{figma:{fileKey:string;node:string;figmaSha256:string[];reason:string};media:DesignR3Media;disposition:string}>;clientLogos:{status:string;logos?:Record<string,{src:string;sha256:string;width:number;height:number}>}}
 let cache:DesignR3Ledger|undefined
-export const designR3Ledger=():DesignR3Ledger=>cache??=JSON.parse(readFileSync(path.join(process.cwd(),'content/design/design-r3-media.json'),'utf8')) as DesignR3Ledger
+export const designR3Ledger=():DesignR3Ledger=>cache??=withImageUrls(JSON.parse(readFileSync(path.join(process.cwd(),'content/design/design-r3-media.json'),'utf8')) as DesignR3Ledger)
 export const designR3Media=(slot:string):DesignR3Media=>{
   const entry=designR3Ledger().slots[slot]
   if(!entry)throw new Error(`Design R3 media slot missing: ${slot}`)

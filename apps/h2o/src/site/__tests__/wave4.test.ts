@@ -4,6 +4,7 @@ import path from 'node:path'
 import {describe,expect,it} from 'vitest'
 import {salmonDocument,salmonNodeText,salmonRoutes} from '../salmon'
 import {articleCardImage,articleHeadingNodes,descendants,matchedWave4Article,matchedWave4Articles,matchedWave4Documents,wave4LibraryItems} from '../wave4'
+import {physicalSrc} from './physical-html'
 
 const doc=(id:string)=>salmonDocument(salmonRoutes().find(route=>route.routeId===id)!)
 
@@ -28,7 +29,7 @@ describe('Wave 4 frozen identity and media gates',()=>{
     expect(images.every(Boolean)).toBe(true)
     expect(new Set(images.map(image=>image?.sha256)).size).toBe(172)
     for(const image of images){
-      const bytes=readFileSync(path.join(process.cwd(),'public',image!.src))
+      const bytes=readFileSync(path.join(process.cwd(),'public',physicalSrc(image!.src)))
       expect(createHash('sha256').update(bytes).digest('hex')).toBe(image!.sha256)
     }
   })

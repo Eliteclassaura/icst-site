@@ -7,7 +7,8 @@ import {afterEach,beforeEach,describe,expect,it} from 'vitest'
 import {createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import Page from '../../app/(site)/[[...slug]]/page'
 import {salmonDocument,salmonNodeText,salmonRoutes,type SalmonNode} from '../salmon'
 import {r4Builders,r4PlacesRestored} from '../r4/R4Pages'
@@ -15,6 +16,7 @@ import {portfolioView} from '../r4/R4Portfolio'
 import {salmonFamilyFor,salmonFamilyModel} from '../salmon-family-adapter'
 import {R4Tabs} from '../r4/R4Tabs'
 import {r4Copy,r4Media} from '../design-r4-media'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const APP=process.cwd()
 const render=async(p:string)=>renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean).map(decodeURIComponent)}),searchParams:Promise.resolve({})}))

@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
@@ -9,6 +10,7 @@ import {SalmonCanonical} from '../SalmonCanonical'
 import {ProjectAuthorityIndex} from '../ProjectAuthorityIndex'
 import {LuxuryCanonical} from '../LuxuryCanonical'
 import {commercialNavigation} from '../LuxuryShell'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const documentFor=(id:string)=>salmonDocument(salmonRoutes().find(row=>row.routeId===id)!)
 describe('final polish authority and semantic safety',()=>{

@@ -8,10 +8,12 @@ import {afterEach,describe,expect,it} from 'vitest'
 import {createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import Page from '../../app/(site)/[[...slug]]/page'
 import {testimonials} from '../testimonials'
 import {ClientTestimonials,clientReviewTestimonials,figmaFeaturedTestimonials,figmaTestimonialMedia} from '../ClientReview'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const PROTECTED='owner-protected content: the home testimonials are the owner\'s and must not be changed without the owner\'s written approval'
 const fx=JSON.parse(readFileSync(path.join(__dirname,'fixtures/owner-protected-testimonials.json'),'utf8')) as {records:typeof testimonials;featuredOrder:string[];carouselOrder:string[];portraits:Record<string,{src:string;width:number;height:number;sha256:string;lines:string[]}>;delivered:Record<string,string>}

@@ -11,6 +11,7 @@
  * substitutions, public-route link adaptation and commerce exceptions apply unchanged. Keys are
  * the same `body.<i>.<j>…` paths the generic renderer uses.
  */
+import {withImageUrls} from '../content/image-slugs'
 import {createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
@@ -78,7 +79,7 @@ let backgrounds:Record<string,{cssSha256:string;elements:Record<string,CssBackgr
 /** Salmon Elementor CSS backgrounds, derived by `release/salmon-parity/derive-css-media.mjs`. */
 export function cssBackground(routeId:string,element:string|undefined):SourceImage|undefined{
   if(!element)return undefined
-  backgrounds??=(JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon/parity-css-backgrounds.json'),'utf8')) as {routes:typeof backgrounds}).routes
+  backgrounds??=withImageUrls(JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon/parity-css-backgrounds.json'),'utf8')) as {routes:typeof backgrounds}).routes
   const row=backgrounds?.[routeId]?.elements[element]
   if(!row||row.state!=='SOURCE_BINARY_HELD'||!row.src)return undefined
   return {src:row.src,alt:'',width:row.width,height:row.height,sha256:row.sha256,sourceUrl:row.sourcePath,...(row.fit?{fit:row.fit}:{}),...(row.position?{position:row.position}:{})}
@@ -131,7 +132,7 @@ export function embeddedIcon(svg:SourceRef):{src:string;sha256:string}|undefined
   const href=image&&(image.node.attrs.href??image.node.attrs['xlink:href'])
   const data=href?.match(/^data:image\/(?:png|jpeg);base64,([A-Za-z0-9+/=]+)$/)?.[1]
   if(!data)return undefined
-  embedded??=(JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon/parity-embedded-icons.json'),'utf8')) as {icons:typeof embedded}).icons
+  embedded??=withImageUrls(JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon/parity-embedded-icons.json'),'utf8')) as {icons:typeof embedded}).icons
   const sha256=createHash('sha256').update(Buffer.from(data,'base64')).digest('hex')
   const row=embedded?.[sha256]
   return row?{src:row.src,sha256}:undefined

@@ -5,11 +5,16 @@
 import {afterEach,beforeEach,describe,expect,it} from 'vitest'
 import {existsSync} from 'node:fs'
 import path from 'node:path'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import Page,{generateStaticParams} from '../../app/(site)/[[...slug]]/page'
-import {HEAD_THIRD_PARTY_HOSTS,headOrigins,publicHeadUrl,publicMediaUrl,publicMeta,publicSchema,servedOrigin} from '../public-urls'
+import {HEAD_THIRD_PARTY_HOSTS,headOrigins,publicHeadUrl,publicMediaUrl as servedMediaUrl,publicMeta as servedMeta,publicSchema,servedOrigin} from '../public-urls'
 import {projectMediaRegistry} from '../project-media'
 import {ogDefault} from '../standard-head'
+/** phase B: the served URLs are descriptive; these assertions pin the physical file behind them. */
+const publicMediaUrl=(url:string)=>{const r=servedMediaUrl(url);return r&&{...r,url:physicalHtml(r.url)}}
+const publicMeta=(...args:Parameters<typeof servedMeta>)=>servedMeta(...args).map(m=>({...m,value:physicalHtml(m.value)}))
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const APP=process.cwd()
 const env={...process.env}

@@ -1,5 +1,6 @@
 import {describe,expect,it} from 'vitest'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {LuxuryFooter,LuxuryHeader} from '../LuxuryShell'
@@ -8,6 +9,7 @@ import {Wave4ArticleDetail,Wave4ArticleIndex} from '../Wave4Presentation'
 import {articleDirectoryDocuments,articleDisplayTitle,articleTocLinks} from '../wave4'
 import {articleMetadataTitle} from '../article-metadata'
 import {releaseRoutes,salmonDocument} from '../salmon'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const doc=(routeId:string)=>salmonDocument(releaseRoutes().find(route=>route.routeId===routeId)!)
 

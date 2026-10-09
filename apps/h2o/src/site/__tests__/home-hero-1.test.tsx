@@ -6,6 +6,7 @@ import {describe,expect,it} from 'vitest'
 import {createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
+import {imageUrlPath} from '../../content/image-slugs'
 
 const APP=process.cwd()
 const ledger=JSON.parse(readFileSync(path.join(APP,'content/design/home-hero-1.json'),'utf8')) as {original:{width:number;height:number;sha256:string};delivered:{src:string;sha256:string;width:number;height:number;derivative:string};alt:string;slot:{previous:{src:string;sha256:string}}}
@@ -23,7 +24,7 @@ describe('HOME-HERO-1',()=>{
   it('the home hero right-hand panel (Elementor container b1edced, a CSS background) uses the new cooling-tower derivative, not the steel construction site',()=>{
     const css=readFileSync(path.join(APP,'src/app/(site)/salmon-parity.css'),'utf8')
     const rule=css.match(/elementor-element-b1edced:not\(\.elementor-motion-effects-element-type-background\)[^{]*\{([^}]*)\}/)![1]!
-    expect(rule).toContain(`background-image:url("${ledger.delivered.derivative}")`)
+    expect(rule).toContain(`background-image:url("${imageUrlPath(ledger.delivered.derivative)}")`)
     expect(rule).toContain('background-size:cover')
     expect(css).not.toContain(ledger.slot.previous.sha256)
   })

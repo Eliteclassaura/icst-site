@@ -12,6 +12,7 @@ import {salmonDocument,salmonNodeText,salmonRoutes,type SalmonNode} from '../sal
 import {Wave4ArticleDetail} from '../Wave4Presentation'
 import {articleHeadingNodes,isRecentPostsRegion} from '../wave4'
 import {projectMediaRegistry} from '../project-media'
+import {physicalSrc} from './physical-html'
 
 const APP=process.cwd()
 const render=async(p:string)=>renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean).map(decodeURIComponent)}),searchParams:Promise.resolve({})}))
@@ -26,12 +27,12 @@ describe('A1 project photos: each project its own verified photo, never another 
     expect(entries).toHaveLength(22)
     expect(new Set(entries.map(([,e])=>e.media.sha256)).size).toBe(entries.length)
     for(const [p,e] of entries){
-      const bytes=readFileSync(path.join(APP,'public',e.media.src))
+      const bytes=readFileSync(path.join(APP,'public',physicalSrc(e.media.src)))
       expect(createHash('sha256').update(bytes).digest('hex'),p).toBe(e.media.sha256)
       const original=(e as unknown as {original:{width:number}}).original
       expect(e.media.width,p).toBeLessThanOrEqual(original.width)
       const card=(e as unknown as {card?:{src:string;sha256:string;width:number}}).card
-      if(card)expect(createHash('sha256').update(readFileSync(path.join(APP,'public',card.src))).digest('hex'),p+' card').toBe(card.sha256)
+      if(card)expect(createHash('sha256').update(readFileSync(path.join(APP,'public',physicalSrc(card.src)))).digest('hex'),p+' card').toBe(card.sha256)
     }
   })
   it('no two project cards on /all-projects/ share an image, and each card shows its own project’s photo',async()=>{

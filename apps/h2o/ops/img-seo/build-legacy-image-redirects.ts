@@ -15,6 +15,7 @@ import {existsSync,readFileSync,readdirSync,statSync,writeFileSync} from 'node:f
 import path from 'node:path'
 import {heldMediaForUrl,salmonMediaPath,withheldSource} from '../../src/site/salmon'
 import {legacyImageKey} from '../../src/content/legacy-image-redirects'
+import {imageUrlPath,physicalImagePath} from '../../src/content/image-slugs'
 
 const APP=process.cwd()
 const read=<T>(file:string):T=>JSON.parse(readFileSync(path.join(APP,'content/salmon',file),'utf8')) as T
@@ -98,8 +99,9 @@ for(const [key,src] of designHits){
 for(const k of best.keys())unresolved.delete(k)
 const extensionless:string[]=[]
 for(const [k,v] of [...best.entries()])if(!/\.[a-z0-9]+$/i.test(v.target)){extensionless.push(`${k} -> ${v.target}`);best.delete(k)}
-const entries=Object.fromEntries([...best.entries()].sort(([a],[b])=>a<b?-1:1).map(([k,v])=>[k,v.target]))
-for(const t of Object.values(entries))if(!existsSync(path.join(APP,'public',t)))throw new Error(`target missing on disk: ${t}`)
+// IMG-SEO-1 phase B: a legacy URL answers ONE 301, straight to the descriptive URL where the image has one
+const entries=Object.fromEntries([...best.entries()].sort(([a],[b])=>a<b?-1:1).map(([k,v])=>[k,imageUrlPath(v.target)]))
+for(const t of Object.values(entries))if(!existsSync(path.join(APP,'public',physicalImagePath(t)??t)))throw new Error(`target missing on disk: ${t}`)
 writeFileSync(path.join(APP,'content/release/legacy-image-redirects.json'),JSON.stringify({version:1,policy:'301 from a legacy /wp-content/uploads URL (any size variant) to the file served today. Built by ops/img-seo/build-legacy-image-redirects.ts from the media manifests; unknown paths stay 404.',count:Object.keys(entries).length,entries},null,0)+'\n')
 const report={extensionlessTargetsLeftOut:extensionless,candidates:candidates.length,mapped:Object.keys(entries).length,unresolved:[...unresolved].sort().map(k=>`${k}  <- ${[...unresolvedFrom.get(k)!].join(',')}`),withheld:[...withheld].sort(),servedInPlace:[...inPlaceHits].sort()}
 writeFileSync(path.join(APP,'ops/img-seo/legacy-image-redirects.report.json'),JSON.stringify(report,null,1)+'\n')

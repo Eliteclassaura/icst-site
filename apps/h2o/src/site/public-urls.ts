@@ -13,6 +13,7 @@
  */
 import { PUBLIC_ORIGIN, indexingPolicy } from '../content/config'
 import { publicFileExists } from '../content/public-files'
+import { imageUrlPath } from '../content/image-slugs'
 import { heldMediaForUrl, salmonMediaPath, socialImageOverride } from './salmon'
 
 export const LEGACY_HOSTS: ReadonlySet<string> = new Set(['salmon-rhinoceros-754457.hostingersite.com', 'h2ocooling.com', 'www.h2ocooling.com'])
@@ -65,11 +66,11 @@ function servedImage(value: string): HeadImage | null {
   if (!u) return null
   const ruled = socialImageOverride(value)
   if (ruled?.action === 'withhold') return null
-  if (ruled?.action === 'crop') return { url: servedOrigin() + ruled.path, width: ruled.width, height: ruled.height, type: typeOf(ruled.path), sha256: ruled.path.match(/[0-9a-f]{64}/)?.[0] }
+  if (ruled?.action === 'crop') return { url: servedOrigin() + imageUrlPath(ruled.path), width: ruled.width, height: ruled.height, type: typeOf(ruled.path), sha256: ruled.path.match(/[0-9a-f]{64}/)?.[0] }
   const held = heldMediaForUrl(value)
   const served = held && salmonMediaPath(held)
-  if (served) return { url: servedOrigin() + served, width: held.width, height: held.height, type: typeOf(served), sha256: held.sha256 }
-  if (LEGACY_HOSTS.has(u.hostname.toLowerCase()) && publicFileExists(u.pathname)) return { url: servedOrigin() + u.pathname, type: typeOf(u.pathname) }
+  if (served) return { url: servedOrigin() + imageUrlPath(served), width: held.width, height: held.height, type: typeOf(served), sha256: held.sha256 }
+  if (LEGACY_HOSTS.has(u.hostname.toLowerCase()) && publicFileExists(u.pathname)) return { url: servedOrigin() + imageUrlPath(u.pathname), type: typeOf(u.pathname) }
   return null
 }
 

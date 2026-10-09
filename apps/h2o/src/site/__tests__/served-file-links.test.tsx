@@ -4,9 +4,11 @@
  * same bytes. Links without a held file are unchanged (alias), and foreign hosts or query strings are never treated as ours.
  */
 import { describe, expect, it } from 'vitest'
-import { renderToStaticMarkup } from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import { renderSalmonNode, servedFilePath } from '../SalmonCanonical'
 import { salmonDocument, salmonRoutes, type SalmonNode } from '../salmon'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 // any imported page: the link resolves against its source host
 const doc = salmonDocument(salmonRoutes()[0]!)

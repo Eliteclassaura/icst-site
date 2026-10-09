@@ -7,11 +7,13 @@
 import {afterEach,beforeEach,describe,expect,it} from 'vitest'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import Page from '../../app/(site)/[[...slug]]/page'
 import {portfolioView} from '../r4/R4Portfolio'
 import {salmonDocument,salmonRoutes} from '../salmon'
 import {salmonFamilyFor,salmonFamilyModel} from '../salmon-family-adapter'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const env={...process.env}
 beforeEach(()=>{process.env.H2O_PUBLIC_EXPORT='1'})

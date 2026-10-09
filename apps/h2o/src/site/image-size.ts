@@ -4,6 +4,7 @@
  */
 import { closeSync, openSync, readSync } from 'node:fs'
 import path from 'node:path'
+import { physicalImagePath } from '../content/image-slugs'
 
 const cache = new Map<string, { width: number; height: number } | null>()
 
@@ -33,7 +34,7 @@ export function heldImageSize(publicPath: string, root = path.join(process.cwd()
   if (!cache.has(publicPath)) {
     let size: { width: number; height: number } | null = null
     try {
-      const file = path.join(root, decodeURIComponent(publicPath))
+      const file = path.join(root, physicalImagePath(publicPath) ?? decodeURIComponent(publicPath))
       if (file.startsWith(root + path.sep)) {
         const fd = openSync(file, 'r')
         try {

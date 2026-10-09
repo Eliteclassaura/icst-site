@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
@@ -10,6 +11,7 @@ import {AuthorityEditorial} from '../AuthorityEditorial'
 import {ProjectAuthorityIndex} from '../ProjectAuthorityIndex'
 import {ProjectDetail} from '../ProjectDetail'
 import {LuxuryCanonical} from '../LuxuryCanonical'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const documentFor=(id:string)=>salmonDocument(salmonRoutes().find(route=>route.routeId===id)!)
 

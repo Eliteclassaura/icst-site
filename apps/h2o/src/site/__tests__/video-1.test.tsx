@@ -6,11 +6,13 @@ import {afterEach,beforeEach,describe,expect,it} from 'vitest'
 import {createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import Page from '../../app/(site)/[[...slug]]/page'
 import {salmonRoutes} from '../salmon'
 import {ABOUT_ROUTE_ID} from '../AboutComposition'
 import {heldImageSize} from '../image-size'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const APP=process.cwd()
 const env={...process.env}

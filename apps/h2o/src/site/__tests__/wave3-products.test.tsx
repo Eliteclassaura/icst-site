@@ -1,5 +1,6 @@
 import {describe,expect,it} from 'vitest'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml,physicalSrc} from './physical-html'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
@@ -9,6 +10,7 @@ import {activeProductRoutes,productPanels,productPrimaryMedia,productSummary} fr
 import {salmonDocument,salmonNodeText,salmonRoutes} from '../salmon'
 import {productMountGate} from '../gate'
 import {provenanceRef} from '../media-delivery'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const env={H2O_TYPEFORM_FORM_ID:'F22cAgx3',H2O_TYPEFORM_ORIGIN:'https://form.typeform.com'}
 const withForm=<T,>(run:()=>T):T=>{
@@ -34,7 +36,7 @@ describe('Wave 3 accepted product archetype',()=>{
       const primary=productPrimaryMedia(doc)
       expect(primary,route.targetPath).not.toBeNull()
       if(!primary)continue
-      const file=path.join(process.cwd(),'public',primary.src.slice(1))
+      const file=path.join(process.cwd(),'public',physicalSrc(primary.src).slice(1))
       expect(createHash('sha256').update(readFileSync(file)).digest('hex'),route.targetPath).toBe(primary.media.sha256)
       expect(primary.media.width).toBeGreaterThan(0)
       expect(primary.media.height).toBeGreaterThan(0)

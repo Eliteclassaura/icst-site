@@ -1,4 +1,5 @@
 import {createHash} from 'node:crypto'
+import {physicalImagePath} from '../content/image-slugs'
 import {existsSync,readFileSync} from 'node:fs'
 import path from 'node:path'
 import {releaseRoutes,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
@@ -87,7 +88,7 @@ export function articleCardImage(doc:SalmonDocument):{src:string;alt:string;widt
   for(const image of doc.images){
     const media=salmonMedia(image.src,doc.sourceUrl)
     const src=media&&salmonMediaPath(media)
-    if(src&&media?.sha256&&media.width&&media.height&&existsSync(path.join(process.cwd(),'public',src)))
+    if(src&&media?.sha256&&media.width&&media.height&&existsSync(path.join(process.cwd(),'public',physicalImagePath(src)??src)))
       return {src,alt:image.alt||doc.title,width:media.width,height:media.height,sha256:media.sha256}
   }
   return undefined

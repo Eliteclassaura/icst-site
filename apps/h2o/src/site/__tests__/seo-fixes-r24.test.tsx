@@ -7,7 +7,8 @@ import {afterEach,beforeEach,describe,expect,it} from 'vitest'
 import {createHash} from 'node:crypto'
 import {existsSync,readFileSync} from 'node:fs'
 import path from 'node:path'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml,physicalSrc} from './physical-html'
 import Page from '../../app/(site)/[[...slug]]/page'
 import SearchPage,{generateMetadata as searchGenerateMetadata} from '../../app/(site)/search/page'
 const searchMetadata=searchGenerateMetadata()
@@ -19,6 +20,7 @@ import {standardSocialMeta,ogDefault} from '../standard-head'
 import {sizeFromHeader} from '../image-size'
 import {NON_DESCRIPTIVE} from '../link-context'
 import {EMPTY_ARCHIVE_PAGES,EMPTY_ARCHIVE_PATHS} from '../../content/empty-archives'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const APP=process.cwd()
 const env={...process.env}
@@ -56,13 +58,13 @@ describe('standard head (items a, b, d, f)',()=>{
   },120_000)
   it('a page without a held image takes the site default og:image (1200×630, the verified crop, its bytes as named)',async()=>{
     const d=ogDefault()
-    const file=path.join(APP,'public',d.file)
+    const file=path.join(APP,'public',physicalSrc(d.file))
     const bytes=readFileSync(file)
     expect([d.width,d.height]).toEqual([1200,630])
     expect(sizeFromHeader(bytes)).toEqual({width:1200,height:630})
-    expect(createHash('sha256').update(bytes).digest('hex')).toBe(path.basename(d.file,'.jpg'))
+    expect(createHash('sha256').update(bytes).digest('hex')).toBe(path.basename(physicalSrc(d.file),'.jpg'))
     const html=await render('/category/blog/')
-    expect(metaValues(html,'og:image')[0]).toMatch(new RegExp(`${d.file.replace(/[./]/g,'\\$&')}$`))
+    expect(metaValues(html,'og:image')[0]).toMatch(new RegExp(`${physicalSrc(d.file).replace(/[./]/g,'\\$&')}$`))
     expect(metaValues(html,'og:image:width')).toEqual(['1200'])
   },120_000)
   it('stale imported social values are replaced, not duplicated; a page’s own image stays',()=>{

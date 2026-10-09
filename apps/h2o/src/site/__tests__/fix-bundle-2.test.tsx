@@ -7,7 +7,8 @@ import {afterEach,describe,expect,it} from 'vitest'
 import {createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import {salmonDocument,salmonRoutes} from '../salmon'
 import {LuxuryCanonical} from '../LuxuryCanonical'
 import {LuxuryHeader} from '../LuxuryShell'
@@ -17,6 +18,7 @@ import {R5ProductDetail,specTable} from '../r5/R5Product'
 import {productPanels} from '../Wave3Products'
 import {PartCard,PartsIndex,partsHubPage} from '../Wave3Presentation'
 import {generateMetadata} from '../../app/(site)/[[...slug]]/page'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const APP=process.cwd()
 const css=readFileSync(path.join(APP,'src/app/(site)/design-r5.css'),'utf8')

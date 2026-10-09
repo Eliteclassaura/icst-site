@@ -13,6 +13,7 @@ import Page from '../../app/(site)/[[...slug]]/page'
 import {designR3Ledger} from '../design-r3-media'
 import {pageCopy} from '../page-copy'
 import {aboutCopy} from '../AboutComposition'
+import {physicalSrc} from './physical-html'
 
 const APP=process.cwd()
 const render=async(p:string)=>renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean).map(decodeURIComponent)}),searchParams:Promise.resolve({})}))
@@ -59,7 +60,7 @@ describe('Photos: verified ICS originals only (A1, D1–D4)',()=>{
   it('every slot hash-verifies, is never wider than its original, and records its Figma node and the rejected Figma image',()=>{
     for(const [slot,{media,figma}] of slots){
       const files=[media,...((media as unknown as {srcset?:Array<{src:string;sha256:string;width:number}>}).srcset??[])]
-      for(const f of files)expect(createHash('sha256').update(readFileSync(path.join(APP,'public',f.src))).digest('hex'),`${slot} ${f.src}`).toBe(f.sha256)
+      for(const f of files)expect(createHash('sha256').update(readFileSync(path.join(APP,'public',physicalSrc(f.src)))).digest('hex'),`${slot} ${f.src}`).toBe(f.sha256)
       for(const f of files)expect(f.width,slot).toBeLessThanOrEqual(media.original.width)
       expect(figma.node,slot).toMatch(/^\d+:\d+$/)
       expect(figma.figmaSha256.length,slot).toBeGreaterThan(0)

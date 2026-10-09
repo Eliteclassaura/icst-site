@@ -7,6 +7,7 @@ import {SalmonSeo} from './SalmonCanonical'
 import {linkLabel,namelessLink} from './link-context'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {pageForSegments} from './cohort'
+import {withImageUrls} from '../content/image-slugs'
 import {ownerText,provenanceHref,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
 import {salmonFamilyFor,salmonFamilyModel} from './salmon-family-adapter'
 import {portfolioView} from './r4/R4Portfolio'
@@ -99,7 +100,7 @@ const HOME_SHOWN_ON_MOBILE:ReadonlySet<string>=new Set(['81bef94'])
 type Credential={replacesSha256:string;src:string;sha256:string;width:number;height:number;alt:string}
 let credentials:Map<string,Credential>|undefined
 const credentialFor=(sha:string|undefined)=>{
-  credentials??=new Map((JSON.parse(readFileSync(path.join(process.cwd(),'content/design/home-credentials.json'),'utf8')) as {logos:Credential[]}).logos.map(l=>[l.replacesSha256,l]))
+  credentials??=new Map(withImageUrls(JSON.parse(readFileSync(path.join(process.cwd(),'content/design/home-credentials.json'),'utf8')) as {logos:Credential[]}).logos.map(l=>[l.replacesSha256,l]))
   return sha?credentials.get(sha):undefined
 }
 

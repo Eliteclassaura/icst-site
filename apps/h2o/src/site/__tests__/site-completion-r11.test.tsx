@@ -1,11 +1,13 @@
 import {describe,it,expect} from 'vitest'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import {LuxuryFooter,LuxuryHeader} from '../LuxuryShell'
 import {LuxuryCanonical} from '../LuxuryCanonical'
 import {serviceCompositions} from '../ServiceComposition'
 import {reconcileCommercialScope} from '../SalmonCanonical'
 import {salmonDocument,salmonRoutes} from '../salmon'
 import {contactOffices} from '../contact'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const documentFor=(id:string)=>salmonDocument(salmonRoutes().find(route=>route.routeId===id)!)
 

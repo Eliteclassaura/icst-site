@@ -38,6 +38,7 @@ import { privateRobotsBody } from './content/robots-allow'
 import { NextResponse, type NextRequest } from 'next/server'
 import { redirectLocation } from './redirect-location'
 import { legacyImageTarget } from './content/legacy-image-redirects'
+import { descriptiveImagePath, physicalImagePath } from './content/image-slugs'
 import { SITEMAP_FILE_HEADER } from './content/sitemap-request'
 import { scriptHashesFor } from './site/csp-hashes'
 import { xRobotsTagForPath } from './site/robots'
@@ -382,6 +383,16 @@ export function proxy(req: NextRequest): NextResponse {
   const legacyImage = legacyImageTarget(req.nextUrl.pathname)
   if (legacyImage) {
     const res = NextResponse.redirect(redirectLocation(legacyImage, req), 301)
+    res.headers.set('Cache-Control', 'public, max-age=86400')
+    return res
+  }
+  // IMG-SEO-1 phase B (CT 2026-10-08): a descriptive image URL is rewritten to the physical file (nothing is renamed on disk); the old
+  // hash URL of an image that has a descriptive one answers one 301 to it. Both content modes.
+  const imageFile = physicalImagePath(req.nextUrl.pathname)
+  if (imageFile) return NextResponse.rewrite(new URL(imageFile, req.url))
+  const imageUrl = descriptiveImagePath(req.nextUrl.pathname)
+  if (imageUrl) {
+    const res = NextResponse.redirect(redirectLocation(imageUrl, req), 301)
     res.headers.set('Cache-Control', 'public, max-age=86400')
     return res
   }

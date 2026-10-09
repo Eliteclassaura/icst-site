@@ -6,6 +6,7 @@
  * (content/design/design-r3-media.json, ./design-r3-media). The route's decided title, meta description, canonical and
  * schema come from its record through SalmonSeo, unchanged. Headings: one H1, a H2 per section, a H3 per office card.
  */
+import {imageUrlPath} from '../content/image-slugs'
 import {deliverySrc} from './media-delivery'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
@@ -117,7 +118,7 @@ export function AboutComposition({doc}:{doc:SalmonDocument}){
       {/* VIDEO-1 (CT 2026-10-08): the owner's installation highlights clip, self-hosted (no third-party player, CSP media-src falls back to 'self'). */}
       <section className="dr3-section dr3-video" aria-labelledby="dr3-video-title">
         <figure className="dr3-video-figure">
-          <video controls muted playsInline preload="none" width={640} height={480} poster="/media/video/ics-installation-highlights-poster.webp" aria-label="Installation highlights video" title="Installation highlights video" aria-describedby="dr3-video-title dr3-video-desc">
+          <video controls muted playsInline preload="none" width={640} height={480} poster={imageUrlPath('/media/video/ics-installation-highlights-poster.webp')} aria-label="Installation highlights video" title="Installation highlights video" aria-describedby="dr3-video-title dr3-video-desc">
             <source src="/media/video/ics-installation-highlights.mp4" type="video/mp4"/>
             <a href="/media/video/ics-installation-highlights.mp4">Installation highlights (MP4 video, 0.5 MB)</a>
           </video>

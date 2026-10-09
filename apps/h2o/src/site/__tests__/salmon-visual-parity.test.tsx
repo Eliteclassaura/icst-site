@@ -7,7 +7,8 @@
  * project detail, Dry Soda's own composition, country photo panels and the Salmon footer.
  */
 import {afterEach,beforeEach,describe,expect,it} from 'vitest'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {SalmonFamilyPage,salmonFamilyFor,salmonFamilyRouteIds} from '../SalmonFamilies'
@@ -24,6 +25,7 @@ import {cssBackground} from '../salmon-source'
 import {contactOffices} from '../contact'
 import {salmonDocument,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from '../salmon'
 import {projectMediaRegistry} from '../project-media'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 
 const doc=(id:string):SalmonDocument=>salmonDocument(salmonRoutes().find(route=>route.routeId===id)!)

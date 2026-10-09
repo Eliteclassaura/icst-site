@@ -7,6 +7,7 @@ import {existsSync,readFileSync,readdirSync,statSync} from 'node:fs'
 import {createHash} from 'node:crypto'
 import path from 'node:path'
 import {legacyImageKey,legacyImageTarget} from '../../content/legacy-image-redirects'
+import {physicalImagePath} from '../../content/image-slugs'
 
 const APP=process.cwd()
 const read=<T>(file:string):T=>JSON.parse(readFileSync(path.join(APP,'content/salmon',file),'utf8')) as T
@@ -38,7 +39,7 @@ describe('the map',()=>{
     for(const [key,target] of Object.entries(map)){
       expect(target,key).toMatch(/^\/media\/[^/]+(?:\/[^/]+)*\.[a-z0-9]+$/)
       expect(target,key).not.toContain('/wp-content/')
-      expect(existsSync(path.join(APP,'public',target)),`${key} -> ${target}`).toBe(true)
+      expect(existsSync(path.join(APP,'public',physicalImagePath(target)??target)),`${key} -> ${target}`).toBe(true)
       expect(inPlace.has(key),`${key} is served in place`).toBe(false)
     }
   })
@@ -81,7 +82,7 @@ describe('LEGACY-IMG-REDIRECTS-1.1: the uploads recovered from the owner\'s loca
     for(const r of recovered){
       const p=pathOf(r.url)
       expect(legacyImageTarget(p),r.url).toBeDefined()
-      expect(existsSync(path.join(APP,'public',legacyImageTarget(p)!)),r.url).toBe(true)
+      expect(existsSync(path.join(APP,'public',physicalImagePath(legacyImageTarget(p)!)??legacyImageTarget(p)!)),r.url).toBe(true)
       expect(legacyImageTarget(p.replace(/(\.[a-z0-9]+)$/i,'-1024x768$1')),r.url).toBe(legacyImageTarget(p))
     }
   })
@@ -105,8 +106,8 @@ describe('the key and the lookup',()=>{
     expect(legacyImageTarget(`https://h2ocooling.com/wp-content/uploads/${stem}-150x150${ext}?x=1`.replace('https://h2ocooling.com',''))).toBe(target)
   })
   it('maps the two images CT named: the PTT cracker project photo and the PTT purchase-order tile, at the sizes the old site used',()=>{
-    expect(legacyImageTarget('/wp-content/uploads/2024/06/PTT-Cracker-1024x768.jpg')).toBe('/media/projects/f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc.jpg')
-    expect(legacyImageTarget('/wp-content/uploads/2024/06/PTT-Cracker-scaled.jpg')).toBe('/media/projects/f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc.jpg')
+    expect(physicalImagePath(legacyImageTarget('/wp-content/uploads/2024/06/PTT-Cracker-1024x768.jpg')!)).toBe('/media/projects/f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc.jpg')
+    expect(physicalImagePath(legacyImageTarget('/wp-content/uploads/2024/06/PTT-Cracker-scaled.jpg')!)).toBe('/media/projects/f71c20c68113f3dd4d6cfec8b409b0148d200872692d62d800a89730c74f74bc.jpg')
     expect(legacyImageTarget('/wp-content/uploads/2025/02/ICS-PTT-PO-July-16.jpeg')).toBe('/media/client-review/d88ec30b8ddc425c-ICS-PTT-PO-July-16.jpeg')
   })
   it('an unknown upload path and a non-upload path are untouched',()=>{

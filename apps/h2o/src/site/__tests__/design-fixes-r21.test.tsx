@@ -7,7 +7,8 @@ import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest'
 import {createHash} from 'node:crypto'
 import {existsSync,readFileSync} from 'node:fs'
 import path from 'node:path'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import Page from '../../app/(site)/[[...slug]]/page'
 import {applyTextOverrides,textOverrides,withTextOverrides} from '../../content/text-overrides'
 import {extractSlots,type ContentSlot} from '../../content/content-slots'
@@ -17,6 +18,7 @@ import {heroActionFor} from '../hero-actions'
 import {pageCopy} from '../page-copy'
 import {salmonRoutes,liveRoutes,salmonDocument} from '../salmon'
 import {AuthorityEditorial} from '../AuthorityEditorial'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 const APP=process.cwd()
 const render=async(p:string)=>renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean).map(decodeURIComponent)}),searchParams:Promise.resolve({})}))

@@ -6,10 +6,13 @@ import {describe,expect,it} from 'vitest'
 import {createHash} from 'node:crypto'
 import {existsSync,readFileSync} from 'node:fs'
 import path from 'node:path'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup as renderMarkup} from 'react-dom/server'
+import {physicalHtml} from './physical-html'
 import {deliverySrc} from '../media-delivery'
 import {SalmonFamilyPage,salmonFamilyFor} from '../SalmonFamilies'
 import {salmonDocument,salmonRoutes} from '../salmon'
+import {physicalSrc} from './physical-html'
+const renderToStaticMarkup=(...args:Parameters<typeof renderMarkup>)=>physicalHtml(renderMarkup(...args))
 
 type Item={src:string;origSha256:string;origBytes:number;width:number;height:number;derivative:string;derivativeSha256:string;derivativeBytes:number;psnr:number}
 const manifest=JSON.parse(readFileSync(path.join(process.cwd(),'content/media-derivatives.json'),'utf8')) as {items:Item[]}
@@ -38,7 +41,7 @@ describe('media delivery derivatives',()=>{
   })
   it('maps known originals and passes everything else through unchanged',()=>{
     const first=manifest.items[0]!
-    expect(deliverySrc(first.src)).toBe(first.derivative)
+    expect(physicalSrc(deliverySrc(first.src))).toBe(first.derivative)
     expect(deliverySrc('/media/salmon/not-a-derivative.png')).toBe('/media/salmon/not-a-derivative.png')
     expect(deliverySrc(undefined)).toBeUndefined()
   })

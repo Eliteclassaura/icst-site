@@ -13,6 +13,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { PUBLIC_ORIGIN } from '../content/config'
+import { withImageUrls } from '../content/image-slugs'
 import { servedOrigin } from './public-urls'
 import { ORGANIZATION_ID, organizationNode, websiteNode } from './schema-graph'
 
@@ -23,7 +24,7 @@ export type HeadFacts = { title: string; description: string; url: string; type?
 type OgDefault = { file: string; width: number; height: number; type: string; alt: string }
 let ogDefaultCache: OgDefault | undefined
 export const ogDefault = (): OgDefault =>
-  (ogDefaultCache ??= JSON.parse(readFileSync(path.join(process.cwd(), 'content/design/og-default.json'), 'utf8')).image as OgDefault)
+  (ogDefaultCache ??= withImageUrls(JSON.parse(readFileSync(path.join(process.cwd(), 'content/design/og-default.json'), 'utf8')).image as OgDefault))
 
 export const SITE_NAME = 'ICS'
 export { ORGANIZATION_ID, WEBSITE_ID } from './schema-graph'

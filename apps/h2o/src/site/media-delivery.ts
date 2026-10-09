@@ -7,6 +7,7 @@
  */
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
+import {imageUrlPath,physicalImagePath} from '../content/image-slugs'
 
 type Derivative={src:string;derivative:string}
 let derivatives:Map<string,string>|undefined
@@ -15,7 +16,9 @@ export function deliverySrc(src:string|undefined):string|undefined
 export function deliverySrc(src:string|undefined):string|undefined{
   if(!src)return src
   derivatives??=new Map((JSON.parse(readFileSync(path.join(process.cwd(),'content/media-derivatives.json'),'utf8')) as {items:Derivative[]}).items.map(item=>[item.src,item.derivative]))
-  return derivatives.get(src)??src
+  // IMG-SEO-1 phase B: the delivered URL is the descriptive one (the physical file name stays the provenance identity)
+  const physical=physicalImagePath(src)??src
+  return imageUrlPath(derivatives.get(physical)??physical)
 }
 
 /**

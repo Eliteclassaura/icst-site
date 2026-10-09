@@ -3,6 +3,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {contactOffices} from './contact'
 import {provenanceRef} from './media-delivery'
+import {imageUrlPath} from '../content/image-slugs'
 import {publicReleaseDocument} from './release-document'
 import {decodeEntities,repairDocumentText,repairMojibake} from './text-repair'
 import {withTextOverrides} from '../content/text-overrides'
@@ -201,7 +202,8 @@ export const heldMediaForUrl=(url:string):SalmonMedia|undefined=>{
   const best=[...rows].sort((a,b)=>(b.width??0)-(a.width??0))[0]
   return mediaOverride(best)
 }
-export const salmonMediaPath=(media:SalmonMedia):string|undefined=>media.file?`/media/salmon/${path.basename(media.file)}`:undefined
+/** The public URL of a held image: its descriptive path (IMG-SEO-1 phase B); the physical file under public/media keeps its hash name. */
+export const salmonMediaPath=(media:SalmonMedia):string|undefined=>media.file?imageUrlPath(`/media/salmon/${path.basename(media.file)}`):undefined
 const thailand=contactOffices.find(office=>office.officeKey==='thailand')!
 /** The retired Thailand number in any written form ("+66-2-260-6598", "66 2 260 6598", "(02) 260-6598", "2606598"). */
 export const RETIRED_THAILAND_PHONE=/(?:\+?66[\s.-]*)?(?:\(?0?2\)?[\s.-]*)?260[\s.-]*6598/g
