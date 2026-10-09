@@ -8,6 +8,8 @@ export type ActionState = {
   nonce?: number
   /** W1-1: "New contact" refused because the address already belongs to this contact (an id, never the address). */
   existingId?: string
+  /** A success that needs a person's attention (PEOPLE-FIX-1: the change was made but the notice email failed). */
+  warn?: boolean
   /** The record a successful action created (Patch C: a new sending profile opens on its own page). */
   id?: string
 }

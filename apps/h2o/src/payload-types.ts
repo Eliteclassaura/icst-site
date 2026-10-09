@@ -3510,6 +3510,10 @@ export interface CrmEmailOutbox {
   lease_until?: string | null;
   last_error_code?: string | null;
   sent_at?: string | null;
+  /**
+   * Unconfirmed internal alert whose one automatic resend the mail server accepted: handled.
+   */
+  resend_accepted_at?: string | null;
   enrollment?: (string | null) | CrmEnrollment;
   step_key?: string | null;
   recipient_domain?: string | null;
@@ -5946,6 +5950,7 @@ export interface CrmEmailOutboxSelect<T extends boolean = true> {
   lease_until?: T;
   last_error_code?: T;
   sent_at?: T;
+  resend_accepted_at?: T;
   enrollment?: T;
   step_key?: T;
   recipient_domain?: T;

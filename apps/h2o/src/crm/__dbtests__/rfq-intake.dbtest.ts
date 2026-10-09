@@ -3,6 +3,8 @@ import type { Payload } from 'payload'
 import { relId } from '../guards'
 import { RFQ_NUMBER_PATTERN } from '../ids'
 import { ingestTypeformDelivery } from '../intake/typeform/ingest'
+import { officeSettings } from '../officeSettings'
+import { officeCalendar } from '../offices'
 import { firstResponseDueAt } from '../workspace/time'
 import { typeformWebhookHandler } from '../intake/typeform/endpoint'
 import { intakeConfig, signed, typeformDelivery, SYNTHETIC_SECRET } from '../fixtures/synthetic'
@@ -95,7 +97,8 @@ describe('T10–T12 RFQ creation, rfq_number stability, items', () => {
       .docs as unknown as Doc[]
     expect(tasks.map((t) => t.kind)).toEqual(['RFQ_FIRST_RESPONSE'])
     // D-1 (owner decision 2026-10-02): due at the end of the next Denver business day after receipt.
-    expect(tasks[0]!.due_at).toBe(firstResponseDueAt(new Date(String(rfq!.received_at))).toISOString())
+    // TEST-CLOCK-FIX-1: the handling office's calendar (its holidays), as the product computes it
+    expect(tasks[0]!.due_at).toBe(firstResponseDueAt(new Date(String(rfq!.received_at)), officeCalendar(rfq!.office, await officeSettings(await payload()))).toISOString())
     const acts = (await p.find({ collection: 'crm-activities', where: { rfq: { equals: rfq!.id } }, ...srv }))
       .docs as unknown as Doc[]
     expect(acts.map((a) => a.event_name)).toEqual(

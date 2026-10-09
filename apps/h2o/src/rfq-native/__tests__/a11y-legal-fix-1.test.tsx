@@ -36,6 +36,8 @@ const type = async (el: HTMLInputElement | HTMLTextAreaElement, value: string) =
 const key = async (target: Element, k: string) => { await act(async () => { target.dispatchEvent(new KeyboardEvent('keydown', { key: k, bubbles: true })) }); await flush() }
 const panel = () => host.querySelector('[role="dialog"]') as HTMLElement | null
 const s = (k: string) => reg.strings[k]!
+/** CHAT-COPY-1: the chat's own wording */
+const sc = (k: string) => reg.strings[`chat.${k}`] ?? reg.strings[k]!
 
 beforeEach(() => {
   sessionStorage.clear()
@@ -80,7 +82,7 @@ describe('corner panel', () => {
     const box = panel()!.querySelector('input[type="text"]') as HTMLInputElement
     await type(box, '')
     await key(box, 'Enter')
-    expect(panel()!.querySelector('[role="alert"]')?.textContent).toBe(s('err.required'))
+    expect(panel()!.querySelector('[role="alert"]')?.textContent).toBe(sc('err.required'))
     await type(box, 'Fan blades'); await key(box, 'Enter')
     for (let i = 0; i < 3; i++) await click(button(s('chip.skip'))) // model, quantity, phone
     const search = panel()!.querySelector('input[type="search"]') as HTMLInputElement
@@ -88,7 +90,7 @@ describe('corner panel', () => {
     await click(button('Thailand'))
     await click(button(s('chip.skip'))) // notes (the message), last
     expect(document.activeElement?.tagName).toBe('H3')
-    expect(document.activeElement?.textContent).toBe(s('review.heading'))
+    expect(document.activeElement?.textContent).toBe(sc('review.heading'))
   })
 })
 

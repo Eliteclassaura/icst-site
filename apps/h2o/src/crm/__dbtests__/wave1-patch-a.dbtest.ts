@@ -279,9 +279,12 @@ describe('W1-9 due dates, snooze and the D-1 rule', () => {
     const rfqId = await manual(S)
     const task = (await (await payload()).find({ collection: 'crm-tasks', where: { and: [{ rfq: { equals: rfqId } }, { kind: { equals: 'RFQ_FIRST_RESPONSE' } }] }, ...sys })).docs[0] as unknown as Doc
     expect(task.source).toBe('SYSTEM_RULE')
-    const due = quickDueDates(new Date()).next_week
+    // TEST-CLOCK-FIX-1: a date that is never the rule's own due date (two weeks after it). "Next week" could equal it
+    // (Thursday evening, with no holiday in the calendar), and an unchanged date needs no reason.
+    const due = new Date(new Date(String(task.due_at)).getTime() + 14 * 86_400_000).toISOString().slice(0, 10)
     expect(await m.changeDueDate(S, { taskId: String(task.id), due })).toMatchObject({ ok: false, code: 'VALIDATION', fields: { reason: expect.any(String) } })
-    expect(await m.snoozeTask(S, { taskId: String(task.id), preset: 'next_week' })).toMatchObject({ ok: false, fields: { reason: expect.any(String) } })
+    // "today" is never the D-1 date (always a later business day)
+    expect(await m.snoozeTask(S, { taskId: String(task.id), preset: 'today' })).toMatchObject({ ok: false, fields: { reason: expect.any(String) } })
     const ok = await m.changeDueDate(S, { taskId: String(task.id), due, reason: 'Customer on plant shutdown until Monday (synthetic)' })
     expect(ok).toMatchObject({ ok: true, message: 'Due date changed.' })
     const after = await get('crm-tasks', String(task.id))

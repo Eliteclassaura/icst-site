@@ -1,4 +1,4 @@
-import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { uuidv7 } from '../ids'
 import { invalidateOfficeSettings } from '../officeSettings'
 import { createManualInquiry } from '../workspace/manualInquiry'
@@ -31,9 +31,19 @@ async function settings(data: Doc) {
   invalidateOfficeSettings()
 }
 
+// TEST-CLOCK-FIX-1: these tests clear the office holidays and routing overrides; the seeded ones are put back after
+// the file, so later files compute due dates with the real (seeded) calendar, as production does.
+let seeded: { holidays: unknown[]; routing_overrides: unknown[] } = { holidays: [], routing_overrides: [] }
+const withoutIds = (rows: unknown) => (Array.isArray(rows) ? rows.map(({ id: _id, ...r }: Record<string, unknown>) => r) : [])
+afterAll(async () => {
+  await settings({ holidays: seeded.holidays, routing_overrides: seeded.routing_overrides })
+})
+
 beforeAll(async () => {
   ;[admin, sales] = await Promise.all([user('platform-admin'), user('sales')])
   const p = await payload()
+  const g = (await p.findGlobal({ slug: 'crm-office-settings' as never, overrideAccess: true, depth: 0 })) as unknown as Record<string, unknown>
+  seeded = { holidays: withoutIds(g.holidays), routing_overrides: withoutIds(g.routing_overrides) }
   A = crmSessionFor(p, admin.user)!
   S = crmSessionFor(p, sales.user)!
 })

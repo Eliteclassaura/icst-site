@@ -6,7 +6,7 @@ import { ActionForm, Field } from '../../../../crm/workspace/ui/ActionForm'
 import { CURRENCY_CODES } from '../../../../crm/currencies'
 import { IconCheck } from '../../../../crm/workspace/ui/Icons'
 import { Overflow } from '../../../../crm/workspace/ui/Overflow'
-import { businessDate, quickDueDates, type QuickDue } from '../../../../crm/workspace/time'
+import { businessDate, quickDueDates, type BusinessCalendar, type QuickDue } from '../../../../crm/workspace/time'
 import { useCrmCalendar } from './CalendarContext'
 import * as A from '../actions'
 
@@ -30,14 +30,20 @@ const MENU = 'c-menu-item'
 
 const QUICK: Array<[QuickDue, string]> = [
   ['today', 'Today'],
-  ['tomorrow', 'Tomorrow'],
+  ['tomorrow', 'Next business day'],
   ['next_week', 'Next week'],
 ]
 
+/** A deal's office calendar as the page passes it to a dialog (plain data: the office zone and that office's holidays). */
+export type DealCalendar = { zone: string; holidays: string[] }
+const asCalendar = (c: DealCalendar): BusinessCalendar => ({ zone: c.zone, holidays: new Set(c.holidays) })
+
 /** W1-9 quick due dates: fill the form's date field with a business-zone day (computed when clicked). */
-function QuickDates({ field = 'due' }: { field?: string }) {
-  // The viewer's business calendar (Patch L1), not the browser's zone or UTC.
-  const cal = useCrmCalendar()
+function QuickDates({ field = 'due', calendar }: { field?: string; calendar?: BusinessCalendar }) {
+  // Ordinary follow-ups use the viewer's business calendar (Patch L1), not the browser's zone or UTC. A deal's dates pass the
+  // deal's own office calendar instead, so these buttons agree with the zone the form says its dates are in.
+  const viewer = useCrmCalendar()
+  const cal = calendar ?? viewer
   return (
     <span className="c-chips" role="group" aria-label="Quick dates">
       {QUICK.map(([k, l]) => (
@@ -144,6 +150,7 @@ function DealFields({
   nextDue,
   showNext = true,
   zoneNote,
+  cal,
 }: {
   people: Person[]
   owner: string
@@ -155,6 +162,8 @@ function DealFields({
   nextDue?: string
   showNext?: boolean
   zoneNote?: string
+  /** The deal's office calendar: the quick dates below are read in it. */
+  cal: BusinessCalendar
 }) {
   return (
     <>
@@ -202,7 +211,7 @@ function DealFields({
             <Field name="nextDue" label="Due" required hint={zoneNote}>
               {(a) => <input className="c-input" type="date" {...a} defaultValue={nextDue ?? ''} />}
             </Field>
-            <QuickDates field="nextDue" />
+            <QuickDates field="nextDue" calendar={cal} />
           </div>
         </>
       ) : null}
@@ -222,6 +231,7 @@ export function QualifyDialog({
   defaultStage,
   defaultNextStep,
   zoneNote,
+  calendar,
 }: {
   rfqId: string
   updatedAt: string
@@ -235,8 +245,10 @@ export function QualifyDialog({
   defaultNextStep: string
   /** Which business zone the due date is read in (the inquiry's office). */
   zoneNote?: string
+  /** The inquiry's office calendar: the due date default and the quick dates use it, not the viewer's. */
+  calendar: DealCalendar
 }) {
-  const cal = useCrmCalendar()
+  const cal = asCalendar(calendar)
   if (!accountLinked)
     return (
       <span className="c-actions">
@@ -258,11 +270,11 @@ export function QualifyDialog({
       buttonClassName="c-btn is-primary"
       description="Qualifying creates one deal for this inquiry. You can change every value afterwards. Nothing is sent to the customer."
     >
-      <Field name="motion" label="Commercial motion" required>
+      <Field name="motion" label="Work type" required>
         {(a) => (
           <select className="c-select" {...a} defaultValue={motion ?? ''}>
             <option value="" disabled>
-              Choose a motion
+              Choose a work type
             </option>
             {MOTIONS.map(([v, l]) => (
               <option key={v} value={v}>
@@ -283,7 +295,7 @@ export function QualifyDialog({
           </select>
         )}
       </Field>
-      <DealFields people={people} owner={ownerId ?? meId} nextStep={defaultNextStep} nextDue={quickDueDates(new Date(), cal).tomorrow} zoneNote={zoneNote} />
+      <DealFields people={people} owner={ownerId ?? meId} nextStep={defaultNextStep} nextDue={quickDueDates(new Date(), cal).tomorrow} zoneNote={zoneNote} cal={cal} />
     </ActionDialog>
   )
 }
@@ -302,6 +314,7 @@ export function EditDealDialog({
   open,
   zoneNote,
   buttonClassName,
+  calendar,
 }: {
   dealId: string
   updatedAt: string
@@ -316,8 +329,10 @@ export function EditDealDialog({
   open: boolean
   zoneNote?: string
   buttonClassName?: string
+  /** The deal's office calendar. */
+  calendar: DealCalendar
 }) {
-  const cal = useCrmCalendar()
+  const cal = asCalendar(calendar)
   return (
     <ActionDialog
       label="Edit deal"
@@ -328,7 +343,7 @@ export function EditDealDialog({
       buttonClassName={buttonClassName ?? 'c-btn'}
       description={open ? 'An open deal always keeps a next action with a due date.' : 'This deal is closed, so it has no next action.'}
     >
-      <DealFields people={people} owner={owner} amount={amount} currency={currency} amountIsZero={amountIsZero} expectedClose={expectedClose} nextStep={open ? nextStep : undefined} nextDue={open ? nextDue || quickDueDates(new Date(), cal).tomorrow : undefined} showNext={open} zoneNote={zoneNote} />
+      <DealFields people={people} owner={owner} amount={amount} currency={currency} amountIsZero={amountIsZero} expectedClose={expectedClose} nextStep={open ? nextStep : undefined} nextDue={open ? nextDue || quickDueDates(new Date(), cal).tomorrow : undefined} showNext={open} zoneNote={zoneNote} cal={cal} />
     </ActionDialog>
   )
 }
@@ -340,6 +355,8 @@ export function MoveStageDialog({
   current,
   currentIsClosed,
   buttonClassName,
+  calendar,
+  zoneNote,
 }: {
   dealId: string
   updatedAt: string
@@ -347,9 +364,13 @@ export function MoveStageDialog({
   current: string
   currentIsClosed: boolean
   buttonClassName?: string
+  /** The deal's office calendar: a reopened deal's due date and quick dates are read in it. */
+  calendar: DealCalendar
+  zoneNote?: string
 }) {
-  const cal = useCrmCalendar()
-  const [target, setTarget] = useState(stages.find((x) => x.key !== current)?.key ?? current)
+  const cal = asCalendar(calendar)
+  // L08: no pre-selected move. A backward move is a deliberate choice, so the dialog starts on "Choose a stage".
+  const [target, setTarget] = useState('')
   const needsNext = currentIsClosed && !(stages.find((x) => x.key === target)?.terminal ?? false)
   return (
     <ActionDialog
@@ -364,6 +385,9 @@ export function MoveStageDialog({
       <Field name="stage" label="New stage" required>
         {(a) => (
           <select className="c-select" {...a} value={target} onChange={(e) => setTarget(e.target.value)}>
+            <option value="" disabled>
+              Choose a stage
+            </option>
             {stages
               .filter((x) => x.key !== current)
               .map((st) => (
@@ -383,10 +407,10 @@ export function MoveStageDialog({
             {(a) => <input className="c-input" maxLength={160} {...a} />}
           </Field>
           <div className="c-form-grid">
-            <Field name="nextDue" label="Due" required>
+            <Field name="nextDue" label="Due" required hint={zoneNote}>
               {(a) => <input className="c-input" type="date" {...a} defaultValue={quickDueDates(new Date(), cal).tomorrow} />}
             </Field>
-            <QuickDates field="nextDue" />
+            <QuickDates field="nextDue" calendar={cal} />
           </div>
         </>
       ) : null}
@@ -455,7 +479,7 @@ export function LogDialog({ rfqId, doNotContact, buttonClassName }: { rfqId: str
           <select className="c-select" {...a} defaultValue="CALL">
             <option value="CALL">Call</option>
             <option value="MEETING">Meeting</option>
-            <option value="EMAIL_REFERENCE">Email reference</option>
+            <option value="EMAIL_REFERENCE">Email sent or received outside the CRM</option>
           </select>
         )}
       </Field>

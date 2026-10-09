@@ -6,7 +6,7 @@
 import { useId, useMemo, useState, type ReactNode } from 'react'
 import { searchCountries } from './countries'
 import { reviewGroups, type Answers } from './flow'
-import { t, type Question, type Registry } from './model'
+import { t, tc, type Question, type Registry } from './model'
 import styles from './NativeRfq.module.css'
 
 /** The page that lists the ICS offices and their telephones ("call an ICS office"). */
@@ -14,9 +14,9 @@ export const OFFICES_HREF = '/contact-us/#offices'
 
 /** `live` (LEGAL-FIX-1 L08, WCAG 4.1.3): announce the error as it appears — the chat, where focus stays in the answer field.
  * The inline form moves focus to the first field in error instead, whose description carries the message. */
-export function ErrorText({ reg, id, error, live = false }: { reg: Registry; id: string; error?: { key: string; values?: Record<string, string> }; live?: boolean }) {
+export function ErrorText({ reg, id, error, live = false, chat = false }: { reg: Registry; id: string; error?: { key: string; values?: Record<string, string> }; live?: boolean; chat?: boolean }) {
   if (!error) return null
-  return <p className={styles.error} id={id} role={live ? 'alert' : undefined}>{t(reg, error.key, error.values)}</p>
+  return <p className={styles.error} id={id} role={live ? 'alert' : undefined}>{(chat ? tc : t)(reg, error.key, error.values)}</p>
 }
 
 /** Quick replies: one button per chip (and "Skip" for an optional question). */
@@ -110,22 +110,24 @@ export function ReviewList({ reg, answers, onEdit }: { reg: Registry; answers: A
 }
 
 /** A send failure: its message, with `{{offices_link}}` as the link to the office telephones (CT Round 5 ruling 1). */
-export function FailureNote({ reg, failure }: { reg: Registry; failure: { key: string; values?: Record<string, string> } | null }) {
+export function FailureNote({ reg, failure, chat = false }: { reg: Registry; failure: { key: string; values?: Record<string, string> } | null; chat?: boolean }) {
   if (!failure) return null
-  return <p className={styles.failure} role="alert"><Linked reg={{ ...reg, strings: { ...reg.strings, [failure.key]: t(reg, failure.key, { ...failure.values, offices_link: '{{offices_link}}' }) } }} textKey={failure.key} placeholder="offices_link" href={OFFICES_HREF} linkTextKey="offices.link_text"/></p>
+  return <p className={styles.failure} role="alert"><Linked reg={{ ...reg, strings: { ...reg.strings, [failure.key]: (chat ? tc : t)(reg, failure.key, { ...failure.values, offices_link: '{{offices_link}}' }) } }} textKey={failure.key} placeholder="offices_link" href={OFFICES_HREF} linkTextKey="offices.link_text"/></p>
 }
 
 /** The confirmation: the RFQ number when there is one (contract amendment (a): the no-number line otherwise), then the
  * response promise (owner-confirmed, CT 2026-10-05) and the attachments line. RFQ-FIX-1 (audit R15): the server serves the
  * body and attachments lines that match its configuration (promise on/off, customer acknowledgement on/off); a line that
  * needs the RFQ number is left out when there is none. */
-export function Confirmation({ reg, rfqNumber, children }: { reg: Registry; rfqNumber: string | null; children?: ReactNode }) {
+export function Confirmation({ reg, rfqNumber, children, chat = false }: { reg: Registry; rfqNumber: string | null; children?: ReactNode; chat?: boolean }) {
   const attachments = reg.strings['confirm.attachments'] ?? ''
+  // CHAT-COPY-1: the chat's warmer wording, except the attachments line when the server serves the "email us at {{sales_email}}" variant (customer acknowledgement off): there "reply to our email" would be untrue
+  const say = (key: string, v: Record<string, string> = {}) => (chat && !(key === 'confirm.attachments' && attachments.includes('{{sales_email}}')) ? tc : t)(reg, key, v)
   return <div className={styles.confirm}>
-    <h3 className={styles.confirmHeading}>{t(reg, 'confirm.heading')}</h3>
-    <p>{rfqNumber ? noTranslateNumber(t(reg, 'confirm.body', { rfq_number: rfqNumber }), rfqNumber) : t(reg, 'confirm.body_no_number')}</p>
+    <h3 className={styles.confirmHeading}>{say('confirm.heading')}</h3>
+    <p>{rfqNumber ? noTranslateNumber(say('confirm.body', { rfq_number: rfqNumber }), rfqNumber) : t(reg, 'confirm.body_no_number')}</p>
     {reg.strings['confirm.response_time'] ? <p>{t(reg, 'confirm.response_time')}</p> : null}
-    {attachments && (rfqNumber || !attachments.includes('{{rfq_number}}')) ? <p>{t(reg, 'confirm.attachments', { rfq_number: rfqNumber ?? '' })}</p> : null}
+    {attachments && (rfqNumber || !attachments.includes('{{rfq_number}}')) ? <p>{say('confirm.attachments', { rfq_number: rfqNumber ?? '' })}</p> : null}
     {children}
   </div>
 }

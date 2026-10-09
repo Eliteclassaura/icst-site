@@ -4,6 +4,7 @@ import { createManualInquiry } from '../workspace/manualInquiry'
 import * as m from '../workspace/mutations'
 import { BOARD_COLUMN_SIZE, DEALS_PAGE_SIZE, dealValue, editDeal, ensureDealStages, loadBoard, loadDeal, loadDeals, moveDealStage } from '../workspace/deals'
 import { down as seedDown, up as seedUp } from '../../migrations/20261008_200500_opp_1_1_seed_deal_stages'
+import { up as canceledUp } from '../../migrations/20261008_220000_deals_date_fix_1_canceled_label'
 import { sql } from '@payloadcms/db-postgres'
 import { crmSessionFor, type CrmSession } from '../workspace/session'
 import { auditFor, payload, resetCrm, rest, user, userWith, type TestUser } from './harness'
@@ -248,6 +249,9 @@ describe('OPP-1.1 audit notes', () => {
     await seedUp(args)
     await seedUp(args)
     const rows = async () => (await p.find({ collection: 'crm-deal-stages', limit: 50, sort: 'sort_order', ...sys })).docs as unknown as Doc[]
+    // DATE-FIX-1: the seed is frozen at its original wording; the later relabel migration brings "Cancelled" to "Canceled", so the two together match the app.
+    expect((await rows()).find((r) => r.key === 'CANCELLED')!.label).toBe('Cancelled')
+    await canceledUp(args)
     const seeded = await rows()
     expect(seeded.map((r) => r.key)).toEqual(['NEW', 'QUALIFYING', 'QUALIFIED', 'PROPOSAL', 'NEGOTIATION', 'DELAYED', 'WON', 'LOST', 'CANCELLED'])
     expect(seeded.every((r) => r.enabled === true && typeof r.canonical_id === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-7/.test(String(r.canonical_id)))).toBe(true)
@@ -262,11 +266,10 @@ describe('OPP-1.1 audit notes', () => {
     await seedUp(args)
     expect((await rows())[5]!.label).toBe('On hold')
     expect(await rows()).toHaveLength(9)
-    // Down removes rows still exactly as seeded and leaves the edited one.
+    // Down removes rows still exactly as seeded and leaves the edited one (and the relabeled "Canceled" row, which no longer reads as seeded; the relabel migration's own down restores it first in a real rollback).
     await seedDown(args)
     const left = await rows()
-    expect(left).toHaveLength(1)
-    expect(left[0]!.label).toBe('On hold')
+    expect(left.map((r) => r.label).sort()).toEqual(['Canceled', 'On hold'])
     await ensureDealStages(p)
     expect(await rows()).toHaveLength(9)
   })

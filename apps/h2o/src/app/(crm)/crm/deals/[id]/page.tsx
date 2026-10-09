@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ACTIVITY_LABEL, MOTION_LABEL, label } from '../../../../../crm/workspace/labels'
 import { OFFICE_LABEL } from '../../../../../crm/offices'
 import { dealQuery, parseDealParams } from '../../../../../crm/workspace/dealParams'
-import { loadDeal, selectableStages } from '../../../../../crm/workspace/deals'
+import { dealCalendar, loadDeal, selectableStages } from '../../../../../crm/workspace/deals'
 import { absoluteTime, shortCalendarDate } from '../../../../../crm/workspace/time'
 import { DueLabel } from '../../../../../crm/workspace/ui/Due'
 import { Shell } from '../../../../../crm/workspace/ui/Shell'
@@ -42,6 +42,9 @@ export default async function DealPage({ params, searchParams }: { params: Promi
   const closed = ['WON', 'LOST', 'CANCELLED'].includes(row.stage)
   const change = (deal.last_stage_change ?? {}) as Doc
   const stages = selectableStages(d.stages, row.stage)
+  // The deal's own office calendar (zone and holidays) for every date default and quick control on this page.
+  const cal = await dealCalendar(s, row.office)
+  const calendar = { zone: cal.zone, holidays: [...cal.holidays] }
   return (
     <Shell active="pipeline" title={row.name} crumb={<a href={backHref}>Deals</a>} userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <div className="c-stack">
@@ -79,6 +82,7 @@ export default async function DealPage({ params, searchParams }: { params: Promi
                 nextDue={row.nextDueDate ?? ''}
                 open={!closed}
                 zoneNote={`Dates are in ${row.zoneLabel}, the deal’s office.`}
+                calendar={calendar}
                 buttonClassName="c-btn is-primary"
               />
               <MoveStageDialog
@@ -87,6 +91,8 @@ export default async function DealPage({ params, searchParams }: { params: Promi
                 stages={stages.map((x) => ({ key: x.key, label: x.label, terminal: x.terminal }))}
                 current={row.stage}
                 currentIsClosed={closed}
+                zoneNote={`Dates are in ${row.zoneLabel}, the deal’s office.`}
+                calendar={calendar}
                 buttonClassName="c-btn"
               />
             </div>
@@ -108,7 +114,7 @@ export default async function DealPage({ params, searchParams }: { params: Promi
               <dd>{d.origin ? <a href={`/crm/rfqs/${d.origin.id}/`}>{d.origin.number || 'Open the inquiry'}</a> : <span className="c-unknown">None</span>}</dd>
               <dt>Owner</dt>
               <dd>{row.ownerName ?? <span className="c-warn-text">No owner</span>}</dd>
-              <dt>Motion</dt>
+              <dt>Work type</dt>
               <dd>{label(MOTION_LABEL, deal.motion)}</dd>
               <dt>Value</dt>
               <dd>{row.value ?? <span className="c-unknown">Not entered</span>}</dd>

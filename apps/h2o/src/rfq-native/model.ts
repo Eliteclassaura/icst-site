@@ -37,3 +37,7 @@ export type Registry = {
 /** A registry string, placeholders filled. A missing key renders nothing (the server merges the EN fallback). */
 export const t = (reg: Registry, key: string | undefined, values: Record<string, string> = {}): string =>
   key ? (reg.strings[key] ?? '').replace(/\{\{(\w+)\}\}/g, (_, k: string) => values[k] ?? '') : ''
+
+/** CHAT-COPY-1: the chat's own wording for a key when the registry has `chat.<key>`, else the shared text (the inline form never uses this). */
+export const tc = (reg: Registry, key: string | undefined, values: Record<string, string> = {}): string =>
+  t(reg, key && reg.strings[`chat.${key}`] !== undefined ? `chat.${key}` : key, values)

@@ -36,6 +36,8 @@ const type = async (el: HTMLInputElement | HTMLTextAreaElement, value: string) =
 const key = async (target: Element, k: string, shiftKey = false) => { await act(async () => { target.dispatchEvent(new KeyboardEvent('keydown', { key: k, shiftKey, bubbles: true })) }); await flush() }
 const panel = () => host.querySelector('[role="dialog"]') as HTMLElement | null
 const log = () => host.querySelector('[role="log"]')!.textContent ?? ''
+/** CHAT-COPY-1: the chat's own wording (chat.<key>), else the shared text */
+const sc = (k: string, v: Record<string, string> = {}) => (reg.strings[`chat.${k}`] ?? reg.strings[k]!).replace(/\{\{(\w+)\}\}/g, (_, n: string) => v[n] ?? '')
 const s = (k: string, v: Record<string, string> = {}) => reg.strings[k]!.replace(/\{\{(\w+)\}\}/g, (_, n: string) => v[n] ?? '')
 
 beforeEach(() => {
@@ -54,59 +56,59 @@ describe('corner panel (NATIVE_CHAT)', () => {
     const fetcher = api(() => json(200, { ok: true, rfqNumber: 'RFQ-20261005-7K3M9QX2', replay: false }))
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     const launcher = host.querySelector('[data-rfq-launcher]') as HTMLButtonElement
-    expect(launcher.getAttribute('aria-label')).toBe(s('launcher.aria'))
-    expect(launcher.textContent).toBe(s('launcher.label'))
+    expect(launcher.getAttribute('aria-label')).toBe(sc('launcher.aria'))
+    expect(launcher.textContent).toBe(sc('launcher.label'))
     await click(launcher)
     expect(panel()?.getAttribute('aria-modal')).toBe('true')
-    expect(panel()?.querySelector('h2')?.textContent).toBe(s('panel.title'))
+    expect(panel()?.querySelector('h2')?.textContent).toBe(sc('panel.title'))
     expect(host.querySelector('[role="log"]')?.getAttribute('aria-live')).toBe('polite')
-    expect(log()).toContain(s('greeting'))
+    expect(log()).toContain(sc('greeting'))
     // RFQ-FIX-1.1 (owner order): email first, then first and last name, then company
-    expect(log()).toContain(s('contact.email.q'))
-    expect(log()).not.toContain(s('contact.intro'))
+    expect(log()).toContain(sc('contact.email.q'))
+    expect(log()).not.toContain(sc('contact.intro'))
     const email = panel()!.querySelector('input[type="email"]') as HTMLInputElement
     expect(document.activeElement).toBe(email)
     expect(email.autocomplete).toBe('email')
     await type(email, 'not-an-email'); await key(email, 'Enter')
-    expect(panel()!.textContent).toContain(s('err.email'))
+    expect(panel()!.textContent).toContain(sc('err.email'))
     await type(email, 'a@gmail.com'); await key(email, 'Enter')
     for (const [v, ac] of [['A', 'given-name'], ['Person', 'family-name'], ['Plant Co', 'organization']] as const) {
       const i = panel()!.querySelector('input[type="text"]') as HTMLInputElement
       expect(i.autocomplete).toBe(ac)
       await type(i, v); await key(i, 'Enter')
     }
-    expect(log()).toContain(s('purpose.q'))
-    await click(button(s('purpose.chip.parts')))
-    expect(log()).toContain(s('parts.part.q'))
+    expect(log()).toContain(sc('purpose.q'))
+    await click(button(sc('purpose.chip.parts')))
+    expect(log()).toContain(sc('parts.part.q'))
     const box = panel()!.querySelector('input[type="text"]') as HTMLInputElement
     expect(document.activeElement).toBe(box)
     await type(box, '')
     await key(box, 'Enter')
-    expect(panel()!.textContent).toContain(s('err.required')) // required: not accepted empty
+    expect(panel()!.textContent).toContain(sc('err.required')) // required: not accepted empty
     await type(box, 'Fan blades')
     await key(box, 'Enter')
-    await click(button(s('chip.skip'))) // model
-    await click(button(s('chip.skip'))) // quantity
+    await click(button(sc('chip.skip'))) // model
+    await click(button(sc('chip.skip'))) // quantity
     // phone: optional and skippable (CT Round 5 ruling 2): a Skip chip
-    await click(button(s('chip.skip')))
+    await click(button(sc('chip.skip')))
     const search = panel()!.querySelector('input[type="search"]') as HTMLInputElement
     await type(search, 'thai')
     await click(button('Thailand'))
-    await click(button(s('chip.skip'))) // notes (the message), last
+    await click(button(sc('chip.skip'))) // notes (the message), last
     // review: every answer read back, each with its Edit control; nothing has been posted yet
-    expect(panel()!.textContent).toContain(s('review.heading'))
+    expect(panel()!.textContent).toContain(sc('review.heading'))
     expect(panel()!.textContent).toContain('Fan blades')
     expect(panel()!.textContent).toContain('Thailand')
-    expect(host.querySelectorAll(`button[aria-label^="${s('review.edit')}:"]`).length).toBe(7)
+    expect(host.querySelectorAll(`button[aria-label^="${sc('review.edit')}:"]`).length).toBe(7)
     expect(fetcher.mock.calls.map((c) => c[0])).toEqual(['/api/rfq/token/'])
-    await click(button(s('review.send')))
+    await click(button(sc('review.send')))
     const body = JSON.parse((fetcher.mock.calls.find((c) => c[0] === '/api/rfq/submit/') as unknown as [string, RequestInit])[1].body as string)
     expect(body).toMatchObject({ source: 'NATIVE_CHAT', registryVersion: reg.registryVersion, locale: 'en', answers: { purpose: 'parts', parts_part: 'Fan blades', first_name: 'A', last_name: 'Person', company: 'Plant Co', email: 'a@gmail.com', country: 'TH' }, context: { page_path: '/', context_type: 'page', cta_placement: 'launcher' }, antiAbuse: { formToken: 'tok', hp: '' } })
     expect(Object.keys(body.answers)).not.toContain('parts_model')
-    expect(panel()!.textContent).toContain(s('confirm.body', { rfq_number: 'RFQ-20261005-7K3M9QX2' }))
-    expect(panel()!.textContent).toContain(s('confirm.attachments'))
+    expect(panel()!.textContent).toContain(sc('confirm.body', { rfq_number: 'RFQ-20261005-7K3M9QX2' }))
+    expect(panel()!.textContent).toContain(sc('confirm.attachments'))
     // the response promise sits directly under the RFQ number line
-    expect([...panel()!.querySelectorAll('p')].map((p) => p.textContent).join('|')).toContain(`${s('confirm.body', { rfq_number: 'RFQ-20261005-7K3M9QX2' })}|${s('confirm.response_time')}|${s('confirm.attachments')}`)
+    expect([...panel()!.querySelectorAll('p')].map((p) => p.textContent).join('|')).toContain(`${sc('confirm.body', { rfq_number: 'RFQ-20261005-7K3M9QX2' })}|${sc('confirm.response_time')}|${sc('confirm.attachments')}`)
     expect(sessionStorage.getItem(DRAFT_KEY)).toBeNull()
   })
 
@@ -117,7 +119,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
     link.focus()
     await click(link)
     expect(panel()).not.toBeNull()
-    expect(log()).toContain(s('context.note', { context_label: 'Site Assembly' }))
+    expect(log()).toContain(sc('context.note', { context_label: 'Site Assembly' }))
     await key(panel()!, 'Escape')
     expect(panel()).toBeNull()
     expect(document.activeElement).toBe(link)
@@ -140,15 +142,15 @@ describe('corner panel (NATIVE_CHAT)', () => {
     const email = panel()!.querySelector('input[type="email"]') as HTMLInputElement
     await type(email, 'a@b.co'); await key(email, 'Enter')
     expect(JSON.parse(sessionStorage.getItem(DRAFT_KEY)!)).toMatchObject({ answers: { email: 'a@b.co' }, source: 'NATIVE_CHAT' })
-    await click(button(s('panel.close.aria')))
+    await click(button(sc('panel.close.aria')))
     expect(panel()).toBeNull()
     await act(async () => root.unmount())
     root = createRoot(host)
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
-    expect(log()).toContain(s('resume.prompt'))
-    await click(button(s('resume.continue')))
-    expect(log()).toContain(s('contact.first_name.q'))
+    expect(log()).toContain(sc('resume.prompt'))
+    await click(button(sc('resume.continue')))
+    expect(log()).toContain(sc('contact.first_name.q'))
   })
 
   it('a send in flight cannot be sent twice; a failure keeps the draft and says so; the honeypot is hidden from people', async () => {
@@ -157,23 +159,23 @@ describe('corner panel (NATIVE_CHAT)', () => {
     sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-1', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'Basin repair', notes: '', first_name: 'A', last_name: '', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
-    await click(button(s('resume.continue')))
+    await click(button(sc('resume.continue')))
     // RFQ-FIX-1 (audit R5): a name no autofill profile knows, with the password managers' "ignore" markers
     expect(panel()!.querySelector('input[name="company_website"]')).toBeNull()
     const hp = panel()!.querySelector('input[name="h2o_hp_x"]') as HTMLInputElement
     expect(hp.tabIndex).toBe(-1)
     expect([hp.autocomplete, hp.getAttribute('data-1p-ignore'), hp.getAttribute('data-lpignore')]).toEqual(['off', '', 'true'])
     expect(hp.closest('[aria-hidden="true"]')).not.toBeNull()
-    const send = button(s('review.send'))
+    const send = button(sc('review.send'))
     await act(async () => { send.click() })
-    expect(button(s('review.sending')).disabled).toBe(true)
-    await act(async () => { button(s('review.sending')).click() })
+    expect(button(sc('review.sending')).disabled).toBe(true)
+    await act(async () => { button(sc('review.sending')).click() })
     expect(fetcher.mock.calls.filter((c) => c[0] === '/api/rfq/submit/')).toHaveLength(1)
     await act(async () => { release(json(500, { ok: false, code: 'SERVER' })) })
     await flush()
-    expect(panel()!.querySelector('[role="alert"]')?.textContent).toBe(s('err.server', { offices_link: s('offices.link_text') }))
+    expect(panel()!.querySelector('[role="alert"]')?.textContent).toBe(sc('err.server', { offices_link: sc('offices.link_text') }))
     expect(panel()!.querySelector('[role="alert"] a')?.getAttribute('href')).toBe('/contact-us/#offices')
-    expect(panel()!.querySelector('[role="alert"] a')?.textContent).toBe(s('offices.link_text'))
+    expect(panel()!.querySelector('[role="alert"] a')?.textContent).toBe(sc('offices.link_text'))
     expect(JSON.parse(sessionStorage.getItem(DRAFT_KEY)!).submissionId).toBe('sub-1')
   })
 
@@ -181,7 +183,7 @@ describe('corner panel (NATIVE_CHAT)', () => {
   const openToReview = async (fetcher: unknown) => {
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
-    await click(button(s('resume.continue')))
+    await click(button(sc('resume.continue')))
   }
 
   it('R5.2: a 429 disables Send with the Retry-After countdown, then allows the retry; the draft is kept', async () => {
@@ -189,18 +191,18 @@ describe('corner panel (NATIVE_CHAT)', () => {
     const fetcher = api(() => (n++ === 0 ? new Response(JSON.stringify({ ok: false, code: 'RATE_LIMITED', retryAfterSeconds: 1 }), { status: 429, headers: { 'retry-after': '1' } }) : json(200, { ok: true, rfqNumber: 'RFQ-5', replay: false })))
     reviewDraft('sub-429')
     await openToReview(fetcher)
-    await click(button(s('review.send')))
-    const waiting = [...host.querySelectorAll('button')].find((b) => b.textContent?.startsWith(s('review.send')))!
+    await click(button(sc('review.send')))
+    const waiting = [...host.querySelectorAll('button')].find((b) => b.textContent?.startsWith(sc('review.send')))!
     expect(waiting.disabled).toBe(true)
-    expect(waiting.textContent).toBe(`${s('review.send')} (0:01)`)
-    expect(panel()!.querySelector('[role="alert"]')?.textContent).toBe(s('err.rate_limited', { offices_link: s('offices.link_text') }))
+    expect(waiting.textContent).toBe(`${sc('review.send')} (0:01)`)
+    expect(panel()!.querySelector('[role="alert"]')?.textContent).toBe(sc('err.rate_limited', { offices_link: sc('offices.link_text') }))
     await act(async () => { waiting.click() })
     expect(fetcher.mock.calls.filter((c) => c[0] === '/api/rfq/submit/')).toHaveLength(1)
     await act(async () => { await new Promise((r) => setTimeout(r, 1300)) })
     await flush()
-    expect(button(s('review.send')).disabled).toBe(false)
-    await click(button(s('review.send')))
-    expect(panel()!.textContent).toContain(s('confirm.body', { rfq_number: 'RFQ-5' }))
+    expect(button(sc('review.send')).disabled).toBe(false)
+    await click(button(sc('review.send')))
+    expect(panel()!.textContent).toContain(sc('confirm.body', { rfq_number: 'RFQ-5' }))
     const bodies = fetcher.mock.calls.filter((c) => c[0] === '/api/rfq/submit/').map((c) => JSON.parse((c as unknown as [string, RequestInit])[1].body as string).submissionId)
     expect(bodies).toEqual(['sub-429', 'sub-429']) // the retry is the same submission
   })
@@ -208,50 +210,50 @@ describe('corner panel (NATIVE_CHAT)', () => {
   it('R5.2: a 200 replay shows the same confirmation with the returned RFQ number', async () => {
     reviewDraft('sub-replay')
     await openToReview(api(() => json(200, { ok: true, rfqNumber: 'RFQ-ORIGINAL', replay: true })))
-    await click(button(s('review.send')))
-    expect(panel()!.textContent).toContain(s('confirm.body', { rfq_number: 'RFQ-ORIGINAL' }))
-    expect(panel()!.textContent).toContain(s('confirm.response_time'))
+    await click(button(sc('review.send')))
+    expect(panel()!.textContent).toContain(sc('confirm.body', { rfq_number: 'RFQ-ORIGINAL' }))
+    expect(panel()!.textContent).toContain(sc('confirm.response_time'))
     expect(sessionStorage.getItem(DRAFT_KEY)).toBeNull()
   })
 
   it('R5.2: a 422 too-long error names the limit ({max} from the registry); a 413 lands on the longest answer', async () => {
     reviewDraft('sub-422')
     await openToReview(api(() => json(422, { ok: false, code: 'VALIDATION', fields: { other_need: 'err.too_long' } })))
-    await click(button(s('review.send')))
+    await click(button(sc('review.send')))
     // the chat goes back to the failing question, its error filled with the field's own limit
-    expect(log()).toContain(s('other.q'))
-    expect(panel()!.textContent).toContain(s('err.too_long', { max: '2000' }))
+    expect(log()).toContain(sc('other.q'))
+    expect(panel()!.textContent).toContain(sc('err.too_long', { max: '2000' }))
     await act(async () => root.unmount())
     root = createRoot(host)
     sessionStorage.clear()
     reviewDraft('sub-413', { notes: 'x'.repeat(1900) })
     await openToReview(api(() => json(413, { ok: false, code: 'TOO_LARGE' })))
-    await click(button(s('review.send')))
-    expect(log()).toContain(s('notes.q'))
-    expect(panel()!.textContent).toContain(s('err.too_long', { max: '2000' }))
+    await click(button(sc('review.send')))
+    expect(log()).toContain(sc('notes.q'))
+    expect(panel()!.textContent).toContain(sc('err.too_long', { max: '2000' }))
   })
 
   it('a null RFQ number shows the no-number confirmation (contract amendment (a))', async () => {
     sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-2', registryVersion: reg.registryVersion, step: 'review', answers: { purpose: 'other', other_need: 'X', notes: '', first_name: 'A', last_name: '', company: 'B', email: 'a@b.co', phone: '', country: 'US' }, source: 'NATIVE_CHAT' }))
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(200, { ok: true, rfqNumber: null, replay: false })) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
-    await click(button(s('resume.continue')))
-    await click(button(s('review.send')))
-    expect(panel()!.textContent).toContain(s('confirm.body_no_number'))
-    expect(panel()!.textContent).toContain(s('confirm.response_time'))
+    await click(button(sc('resume.continue')))
+    await click(button(sc('review.send')))
+    expect(panel()!.textContent).toContain(sc('confirm.body_no_number'))
+    expect(panel()!.textContent).toContain(sc('confirm.response_time'))
   })
 
   it('a registry that is off shows the unavailable line with the offices link (R5.1); unreachable shows no question', async () => {
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => ({ ...reg, enabled: false })} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
-    expect(log()).not.toContain(s('purpose.q'))
-    expect(log()).toBe(s('panel.unavailable', { offices_link: s('offices.link_text') }))
+    expect(log()).not.toContain(sc('purpose.q'))
+    expect(log()).toBe(sc('panel.unavailable', { offices_link: sc('offices.link_text') }))
     expect(panel()!.querySelector('[role="log"] a')?.getAttribute('href')).toBe('/contact-us/#offices')
     await act(async () => root.unmount())
     root = createRoot(host)
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => null} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
-    expect(log()).not.toContain(s('purpose.q'))
+    expect(log()).not.toContain(sc('purpose.q'))
     expect(panel()!.querySelector('[role="log"] a')?.getAttribute('href')).toBe('/contact-us/#offices')
   })
 

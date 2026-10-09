@@ -8,7 +8,7 @@ import { OPPORTUNITY_STAGE, TERMINAL_STAGES, options } from '../vocabulary'
 const terminalStaysEnabled: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
   const d = merged(data, originalDoc) as Record<string, unknown>
   if ((TERMINAL_STAGES as readonly string[]).includes(String(d.key)) && d.enabled === false)
-    throw new CrmInvariantError('TERMINAL_STAGE_MUST_STAY_ENABLED', 'Won, Lost and Cancelled cannot be switched off. A deal must always be able to close.')
+    throw new CrmInvariantError('TERMINAL_STAGE_MUST_STAY_ENABLED', 'Won, Lost and Canceled cannot be switched off. A deal must always be able to close.')
   return data
 }
 

@@ -13,7 +13,7 @@ export function FeedbackHost() {
   return (
     <div className="c-feedback">
       {f ? (
-        <div key={f.id} className={`c-banner${f.ok ? '' : ' is-error'}`} role={f.ok ? 'status' : 'alert'}>
+        <div key={f.id} className={`c-banner${f.warn ? ' is-warning' : f.ok ? '' : ' is-error'}`} role={f.ok && !f.warn ? 'status' : 'alert'}>
           <span className="c-feedback-text">
             {f.message}
             {f.subject ? <span className="c-hint"> {f.subject}</span> : null}

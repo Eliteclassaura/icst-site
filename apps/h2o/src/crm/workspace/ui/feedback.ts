@@ -4,7 +4,7 @@
  * the host in the page shell keeps it on screen until it is dismissed or replaced by the next one. Errors stay in
  * their form as well.
  */
-export type Feedback = { id: number; ok: boolean; message: string; subject?: string }
+export type Feedback = { id: number; ok: boolean; message: string; subject?: string; /** a success with something a person must do (shown as a warning, announced assertively) */ warn?: boolean }
 
 let current: Feedback | null = null
 let seq = 0
@@ -22,10 +22,10 @@ function set(next: Feedback | null) {
   for (const fn of listeners) fn()
 }
 
-export function publishFeedback(ok: boolean, message: string, subject?: string): void {
+export function publishFeedback(ok: boolean, message: string, subject?: string, warn?: boolean): void {
   const text = message.trim()
   if (!text) return
-  set({ id: ++seq, ok, message: text.slice(0, 300), subject: subject?.slice(0, 120) })
+  set({ id: ++seq, ok, message: text.slice(0, 300), subject: subject?.slice(0, 120), ...(warn ? { warn: true } : {}) })
 }
 
 export const dismissFeedback = (): void => set(null)

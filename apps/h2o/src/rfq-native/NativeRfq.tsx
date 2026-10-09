@@ -14,7 +14,7 @@ import { captureFirstTouch } from './attribution'
 import { EmailTypoHint } from './EmailTypoHint'
 import { ChipGroup, Confirmation, CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, PrivacyNote, ReviewList, SendButton, UnavailableNote } from './fields'
 import { autocompleteFor, displayValue, nextQuestion, questionsFor, validate } from './flow'
-import { t, type Question, type Registry } from './model'
+import { t, tc, type Question, type Registry } from './model'
 import { cleanContext, type RfqContext, type SendTiming } from './submission'
 import { fetchRegistry, useRfqSession, type RegistryLoader } from './useRfqSession'
 import styles from './NativeRfq.module.css'
@@ -43,15 +43,15 @@ function Answer({ reg, q, error, onAnswer }: { reg: Registry; q: Question; error
   const [value, setValue] = useState('')
   const labelId = useId(), errorId = useId(), hintId = useId()
   const described = [error ? errorId : '', q.hintKey ? hintId : ''].filter(Boolean).join(' ') || undefined
-  const label = <span id={labelId} className={styles.srOnly}>{t(reg, q.labelKey)}</span>
-  if (q.type === 'chips') return <div className={styles.answer}>{label}<ChipGroup reg={reg} q={q} onPick={onAnswer} labelledBy={labelId}/><ErrorText reg={reg} id={errorId} error={error} live/></div>
-  if (q.type === 'country') return <div className={styles.answer}>{label}<CountryPicker reg={reg} onPick={onAnswer} labelId={labelId} describedBy={described}/><ErrorText reg={reg} id={errorId} error={error} live/></div>
+  const label = <span id={labelId} className={styles.srOnly}>{tc(reg, q.labelKey)}</span>
+  if (q.type === 'chips') return <div className={styles.answer}>{label}<ChipGroup reg={reg} q={q} onPick={onAnswer} labelledBy={labelId}/><ErrorText reg={reg} id={errorId} error={error} live chat/></div>
+  if (q.type === 'country') return <div className={styles.answer}>{label}<CountryPicker reg={reg} onPick={onAnswer} labelId={labelId} describedBy={described}/><ErrorText reg={reg} id={errorId} error={error} live chat/></div>
   const submit = () => onAnswer(value)
   const common = { id: `rfq-chat-${q.id}`, className: styles.input, value, 'aria-labelledby': labelId, 'aria-describedby': described, 'aria-invalid': error ? true : undefined, placeholder: t(reg, q.placeholderKey) || t(reg, 'input.ph'), maxLength: q.validation.maxLength + 1 }
   const onKey = (e: ReactKeyboardEvent) => { if (e.key === 'Enter' && !(q.type === 'textarea' && e.shiftKey)) { e.preventDefault(); submit() } }
   return <div className={styles.answer}>
     {label}
-    {q.hintKey ? <p className={styles.hint} id={hintId}>{t(reg, q.hintKey)}</p> : null}
+    {q.hintKey ? <p className={styles.hint} id={hintId}>{tc(reg, q.hintKey)}</p> : null}
     <div className={styles.composer}>
       {q.type === 'textarea'
         ? <textarea {...common} rows={2} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>
@@ -60,7 +60,7 @@ function Answer({ reg, q, error, onAnswer }: { reg: Registry; q: Question; error
     </div>
     {q.type === 'email' ? <EmailTypoHint reg={reg} value={value} onUse={setValue}/> : null}
     {q.skippable ? <div className={styles.chips}><button type="button" className={`${styles.chip} ${styles.skip}`} onClick={() => onAnswer('')}>{t(reg, 'chip.skip')}</button></div> : null}
-    <ErrorText reg={reg} id={errorId} error={error} live/>
+    <ErrorText reg={reg} id={errorId} error={error} live chat/>
   </div>
 }
 
@@ -199,17 +199,17 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
         <div ref={logRef} className={`${styles.log} notranslate`} translate="no" role="log" aria-live="polite" aria-relevant="additions" hidden={done}>
           {s.phase === 'loading' ? <p className={styles.bot} aria-busy="true"><span className={styles.dots} aria-hidden="true">…</span></p> : null}
           {s.phase === 'unavailable' ? (reg ? <UnavailableNote reg={reg}/> : <p className={styles.bot}><a href={OFFICES_HREF}>{launcher.label}</a></p>) : !reg ? null : <>
-            <p className={styles.bot}>{t(reg, 'greeting')}</p>
+            <p className={styles.bot}>{tc(reg, 'greeting')}</p>
             {contextLabel ? <p className={styles.bot}>{t(reg, 'context.note', { context_label: contextLabel })}</p> : null}
-            {s.phase === 'resume' ? <p className={styles.bot}>{t(reg, 'resume.prompt')}</p> : null}
+            {s.phase === 'resume' ? <p className={styles.bot}>{tc(reg, 'resume.prompt')}</p> : null}
             {s.phase !== 'resume' ? asked.map((q) => <div key={q.id}>
-              {q.id === firstContact ? <p className={styles.bot}>{t(reg, 'contact.intro')}</p> : null}
-              <p className={styles.bot}>{t(reg, q.labelKey)}</p>
+              {q.id === firstContact ? <p className={styles.bot}>{tc(reg, 'contact.intro')}</p> : null}
+              <p className={styles.bot}>{tc(reg, q.labelKey)}</p>
               <p className={`${styles.me} notranslate`} translate="no">{s.answers[q.id] ? displayValue(reg, q, s.answers[q.id]) : t(reg, 'chip.skip')}</p>
             </div>) : null}
             {current ? <>
-              {current.id === firstContact ? <p className={styles.bot}>{t(reg, 'contact.intro')}</p> : null}
-              <p className={styles.bot}>{t(reg, current.labelKey)}</p>
+              {current.id === firstContact ? <p className={styles.bot}>{tc(reg, 'contact.intro')}</p> : null}
+              <p className={styles.bot}>{tc(reg, current.labelKey)}</p>
             </> : null}
           </>}
         </div>
@@ -226,14 +226,14 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
             s.answer(current.id, v)
           }}/> : null}
           {s.phase === 'review' || s.phase === 'sending' ? <>
-            <h3 ref={reviewHeadingRef} className={styles.confirmHeading} tabIndex={-1}>{t(reg, 'review.heading')}</h3>
+            <h3 ref={reviewHeadingRef} className={styles.confirmHeading} tabIndex={-1}>{tc(reg, 'review.heading')}</h3>
             <ReviewList reg={reg} answers={s.answers} onEdit={s.edit}/>
-            <FailureNote reg={reg} failure={s.failure}/>
+            <FailureNote reg={reg} failure={s.failure} chat/>
             {/* FORM-NOTICE-1: the collection notice sits directly above "Send request" */}
             <PrivacyNote reg={reg}/>
             <SendButton reg={reg} phase={s.phase} retryIn={s.retryIn} onSend={() => void s.send(hp)}/>
           </> : null}
-          {s.phase === 'sent' ? <Confirmation reg={reg} rfqNumber={s.rfqNumber}><button type="button" className={styles.primary} onClick={close}>{t(reg, 'confirm.close')}</button></Confirmation> : null}
+          {s.phase === 'sent' ? <Confirmation reg={reg} rfqNumber={s.rfqNumber} chat><button type="button" className={styles.primary} onClick={close}>{t(reg, 'confirm.close')}</button></Confirmation> : null}
           {current?.step === 'contact' ? <PrivacyNote reg={reg}/> : null}
           <Honeypot reg={reg} value={hp} onChange={setHp}/>
         </div> : null}

@@ -42,3 +42,13 @@ const bridgeTmp = mkdtempSync(join(tmpdir(), 'h2o-bridge-dbtest-'))
 process.env.CONTENT_SNAPSHOT_DIR ||= join(bridgeTmp, 'snapshot')
 process.env.SEARCH_INDEX_DIR ||= join(bridgeTmp, 'search')
 process.env.MEDIA_DIR ||= join(bridgeTmp, 'media')
+
+// TEST-CLOCK-FIX-1: `H2O_TEST_NOW=<ISO instant>` starts the whole run at that instant; Date then ticks on in real time.
+// Only Date is faked (timers, sockets and the database are untouched). Used to prove the suite at any hour of the week;
+// unset, nothing changes. A test that installs its own fake timers replaces this for its duration.
+import { vi } from 'vitest'
+if (process.env.H2O_TEST_NOW) {
+  const start = Date.parse(process.env.H2O_TEST_NOW)
+  if (Number.isNaN(start)) throw new Error('[crm-db-tests] H2O_TEST_NOW is not a date.')
+  vi.useFakeTimers({ toFake: ['Date'], now: start, shouldAdvanceTime: true })
+}

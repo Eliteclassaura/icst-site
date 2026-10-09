@@ -1,4 +1,4 @@
-import { dealZone, DEFAULT_NEXT_STEP, ensureDealStages, startStage, zoneLabel } from '../../../../crm/workspace/deals'
+import { dealCalendar, dealZone, DEFAULT_NEXT_STEP, ensureDealStages, startStage, zoneLabel } from '../../../../crm/workspace/deals'
 import { asUser, type CrmSession } from '../../../../crm/workspace/session'
 import { StageStatus } from '../../../../crm/workspace/ui/Status'
 import { QualifyDialog } from './Dialogs'
@@ -16,6 +16,7 @@ export async function QualifySlot({
   people: Array<{ id: string; name: string }>
 }) {
   const stages = await ensureDealStages(s.payload)
+  const cal = await dealCalendar(s, rfq.office)
   const open = stages.filter((x) => x.enabled && !x.terminal)
   const assignee = rfq.assignee ? String(typeof rfq.assignee === 'object' ? (rfq.assignee as Doc).id : rfq.assignee) : null
   return (
@@ -31,6 +32,7 @@ export async function QualifySlot({
       defaultStage={startStage(stages) ?? open[0]?.key ?? 'QUALIFIED'}
       defaultNextStep={DEFAULT_NEXT_STEP}
       zoneNote={`Read as a date in ${zoneLabel(dealZone(rfq.office, s.timeZone))} (the inquiry’s office).`}
+      calendar={{ zone: cal.zone, holidays: [...cal.holidays] }}
     />
   )
 }

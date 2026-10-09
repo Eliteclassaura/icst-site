@@ -45,7 +45,7 @@ function chipsFor(p: InboxParams, people: Array<{ id: string; name: string }>, s
   if (p.received) out.push({ key: 'received', label: RECEIVED_LABEL[p.received] ?? 'Received', href: without({ received: null }) })
   if (p.reply) out.push({ key: 'reply', label: REPLY_LABEL[p.reply] ?? 'Reply due', href: without({ reply: null }) })
   if (p.motions.length)
-    out.push({ key: 'motion', label: `Motion: ${p.motions.map((m) => MOTION_LABEL[m] ?? 'Unknown').join(', ')}`, href: inboxHref(p, { page: null }, { search, motions: null }) })
+    out.push({ key: 'motion', label: `Work type: ${p.motions.map((m) => MOTION_LABEL[m] ?? 'Unknown').join(', ')}`, href: inboxHref(p, { page: null }, { search, motions: null }) })
   if (p.countries.length)
     out.push({ key: 'country', label: `Country: ${p.countries.map((c) => (c === 'UNKNOWN' ? 'Unknown' : (countryName(c) ?? c))).join(', ')}`, href: inboxHref(p, { page: null }, { search, countries: null }) })
   if (p.source) out.push({ key: 'source', label: `Source: ${SOURCE_LABEL[p.source] ?? 'Unknown'}`, href: without({ source: null }) })
@@ -171,7 +171,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
                 </select>
               </label>
               <fieldset className="c-fieldset c-check-group">
-                <legend>Motion (staff classification)</legend>
+                <legend>Work type (staff classification)</legend>
                 {Object.entries(MOTION_LABEL).map(([v, l]) => (
                   <label key={v} className="c-actions">
                     <input type="checkbox" name="motion" value={v} defaultChecked={p.motions.includes(v)} />

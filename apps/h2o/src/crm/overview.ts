@@ -1,6 +1,7 @@
-import type { PayloadRequest, Where } from 'payload'
+import { sql } from '@payloadcms/db-postgres'
+import type { Payload, PayloadRequest, Where } from 'payload'
 import { ADMINS, CRM_USERS, hasRole } from '@factory/agency-core/cms/kernel'
-import { amountDisplay, pipelineByCurrency, type Economics } from './economics'
+import { amountDisplay, type Economics, type pipelineByCurrency } from './economics'
 import { OPPORTUNITY_STAGE, TERMINAL_STAGES } from './vocabulary'
 
 /**
@@ -39,13 +40,46 @@ export type Overview = {
   /** RFQ-FIX-1 (quote-form audit R5, R6): admins only (null for others) — requests stranded part-way, and requests held
    * as spam (hidden field filled) in the last 24 hours. */
   intake: { stranded: number; spam24h: number; failedPermanent: number } | null
-  /** SEND-FIX-1a.1 (owner decision): admins only — emails whose delivery is unconfirmed and that a person must look at. */
-  emailUncertain: number | null
+  /** SEND-FIX-1a.1 (owner decision), OVERVIEW-FIX-1 (review L03): admins only. `needsAttention` and the list the card opens
+   * use one predicate (email/attention.ts); `handledByResend` are internal alerts whose one resend the server accepted. */
+  emailUncertain: { needsAttention: number; handledByResend: number } | null
   /** SHEET-SYNC-1: admins only, and only while the Google Sheet feature is configured — website RFQs not yet in the sheet. */
   sheet: { failed: number; pending: number } | null
+  /** OVERVIEW-FIX-1 (review L02): over EVERY open opportunity (not the bounded list), summed exactly in SQL. */
   pipeline: ReturnType<typeof pipelineByCurrency>
   recentActivity: Array<{ id: string; type: string; summary: string; occurredAt: string }>
   truncated: boolean
+}
+
+type Exec = { execute: (q: unknown) => Promise<{ rows?: Array<Record<string, unknown>> }> }
+
+/**
+ * OVERVIEW-FIX-1 (CRM review L02): the open pipeline over the FULL open set, per native currency, in one SQL query;
+ * only the detail lists stay bounded. A value counts when its status is KNOWN with an amount and a currency (as
+ * `pipelineByCurrency`); everything else is counted as unknown, never summed as 0. Sums are exact (numeric).
+ * Scope: crm-opportunities is readable by every CRM user with no row or field restriction (crmCollectionAccess.read =
+ * crmUser; a test pins it), and the overview is only built for CRM users, so this is the viewer's authorized set.
+ */
+export async function openPipeline(p: Payload): Promise<ReturnType<typeof pipelineByCurrency>> {
+  const terminal = sql.join(TERMINAL_STAGES.map((s) => sql`${s}`), sql`, `)
+  const res = await (p.db as unknown as { drizzle: Exec }).drizzle.execute(
+    sql`WITH o AS (
+          SELECT COALESCE("amount_status"::text = 'KNOWN' AND "amount" IS NOT NULL AND COALESCE("currency", '') <> '', false) AS known, "currency", "amount"
+          FROM "crm_opportunities" WHERE "stage"::text NOT IN (${terminal}))
+        SELECT CASE WHEN known THEN "currency" END AS currency, count(*)::int AS n,
+               (sum("amount") FILTER (WHERE known))::text AS total, (count(*) FILTER (WHERE known AND "amount" = 0))::int AS zeros
+        FROM o GROUP BY 1`,
+  )
+  const out: ReturnType<typeof pipelineByCurrency> = { byCurrency: {}, unknownValueCount: 0, explicitZeroCount: 0 }
+  for (const r of res.rows ?? []) {
+    if (r.currency == null) {
+      out.unknownValueCount += Number(r.n)
+      continue
+    }
+    out.byCurrency[String(r.currency)] = { total: Number(r.total), count: Number(r.n) }
+    out.explicitZeroCount += Number(r.zeros)
+  }
+  return out
 }
 
 export const dataLabelFromEnv = (env: NodeJS.ProcessEnv = process.env): Overview['dataLabel'] =>
@@ -145,7 +179,9 @@ export async function loadOverview(req: PayloadRequest, now: Date = new Date()):
       p.count({ collection: 'crm-intake-events', where: failedPermanentWhere, ...asUser }),
     ])
     intake = { stranded: stranded.totalDocs, spam24h: spam.totalDocs, failedPermanent: gaveUp.totalDocs }
-    emailUncertain = await (await import('../email/outbox-worker')).uncertainNeedingAttention(p)
+    const ow = await import('../email/outbox-worker')
+    const [needsAttention, handledByResend] = await Promise.all([ow.uncertainNeedingAttention(p), ow.uncertainHandledByResend(p)])
+    emailUncertain = { needsAttention, handledByResend }
   }
 
   let sheet: Overview['sheet'] = null
@@ -218,7 +254,7 @@ export async function loadOverview(req: PayloadRequest, now: Date = new Date()):
     intake,
     emailUncertain,
     sheet,
-    pipeline: pipelineByCurrency(opps),
+    pipeline: await openPipeline(p),
     recentActivity: recent.docs.map((a) => ({
       id: String(a.id),
       type: String((a as { type?: unknown }).type),

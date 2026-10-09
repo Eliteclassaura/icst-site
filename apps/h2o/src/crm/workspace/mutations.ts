@@ -22,7 +22,7 @@ import { emailKey, normalizeWebDomain } from '../normalize'
 
 type Doc = Record<string, unknown>
 export type Outcome =
-  | { ok: true; message: string; id?: string }
+  | { ok: true; message: string; id?: string; warn?: boolean }
   | { ok: false; code: string; message: string; fields?: FieldErrors; conflict?: Conflict }
 export type Conflict = { byName: string | null; at: string | null; what: string | null }
 
@@ -203,10 +203,8 @@ export async function qualifyRfq(
     amountIsZero?: unknown
   },
 ): Promise<Outcome> {
-  const cal = await viewerCalendar(s)
-  const nextDueDate = quickDueDates(new Date(), cal).tomorrow
   try {
-    return await qualifyWithDeal(s, input, { nextDueDate })
+    return await qualifyWithDeal(s, input)
   } catch (err) {
     return fromError(err)
   }
@@ -472,12 +470,12 @@ export async function completeTask(s: CrmSession, input: { taskId: unknown }): P
   const target = await fresh(s, 'crm-tasks', input.taskId, undefined)
   if ('error' in target) return target.error!
   if (target.doc.status === 'DONE') return { ok: true, message: ALREADY_DONE }
-  if (target.doc.status === 'CANCELLED') return fail('INVALID_TRANSITION', 'This follow-up was cancelled.')
+  if (target.doc.status === 'CANCELLED') return fail('INVALID_TRANSITION', 'This follow-up was canceled.')
   try {
     return await withRowLock(s, 'crm-tasks', target.id, async (req) => {
       const now = (await s.payload.findByID({ collection: 'crm-tasks', id: target.id, depth: 0, req, ...asUser(s) })) as unknown as Doc
       if (now.status === 'DONE') return { ok: true, message: ALREADY_DONE } as Outcome
-      if (now.status === 'CANCELLED') return fail('INVALID_TRANSITION', 'This follow-up was cancelled.')
+      if (now.status === 'CANCELLED') return fail('INVALID_TRANSITION', 'This follow-up was canceled.')
       await s.payload.update({ collection: 'crm-tasks', id: target.id, data: { status: 'DONE' } as never, depth: 0, req, ...asUser(s) })
       return { ok: true, message: 'Follow-up done.' } as Outcome
     })

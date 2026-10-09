@@ -41,8 +41,9 @@ const CONTROL = /[\u0000-\u001f\u007f]/
 
 const AUDIT: Record<AdminMfaAction, MfaAuditAction> = { reset: 'mfa-admin-reset', 'turn-off': 'mfa-admin-turned-off', 'turn-on': 'mfa-admin-turned-on' }
 
+/** The EFFECTIVE state: the same role-aware rule the session guard uses (isExempt), never the raw flag, so a stale flag on an admin shows as what it is. */
 const stateOf = (u: Doc): { mfa: 'on' | 'off' | 'not-set-up'; exempt: boolean } =>
-  u.mfa_exempt === true ? { mfa: 'off', exempt: true } : u.mfa_enabled === true ? { mfa: 'on', exempt: false } : { mfa: 'not-set-up', exempt: false }
+  isExempt(u) ? { mfa: 'off', exempt: true } : u.mfa_enabled === true ? { mfa: 'on', exempt: false } : { mfa: 'not-set-up', exempt: false }
 
 /** The notice body: plain, no addresses, no codes, no phone number. */
 export function noticeText(action: AdminMfaAction, now: Date): { subject: string; text: string } {
@@ -114,8 +115,8 @@ export async function adminMfaAction(
     if (isAdminUser(target) || !mayBeExempt(target)) return fail('ADMIN_NOT_EXEMPTABLE', 'Two-step sign-in can’t be turned off for an admin.')
     if (isExempt(target)) return fail('ALREADY_OFF', 'Two-step sign-in is already off for this person.')
   } else if (action === 'turn-on') {
-    if (target.mfa_exempt !== true) return fail('NOT_OFF', 'Two-step sign-in is not turned off for this person.')
-  } else if (target.mfa_exempt === true) {
+    if (!isExempt(target)) return fail('NOT_OFF', 'Two-step sign-in is not turned off for this person.')
+  } else if (isExempt(target)) {
     return fail('USE_TURN_ON', 'Two-step sign-in is turned off for this person. Turn it back on instead.')
   }
   // The reason row and the audit entry come FIRST: if either cannot be written, NOTHING changes (Auditor N-1).
@@ -148,8 +149,10 @@ export async function adminMfaAction(
       sent = false
     }
   await writeSecurityAudit(s.payload, { action: 'mfa-admin-notice', userId, actorId: s.userId, detail: { for: action, sent } })
-  const done = action === 'reset' ? 'Two-step sign-in was reset. They set it up again at their next sign-in.' : action === 'turn-off' ? 'Two-step sign-in is turned off for this person.' : 'Two-step sign-in is turned back on. They set it up at their next sign-in.'
-  return { ok: true, message: `${done}${sent ? '' : ' (We could not email them; tell them yourself.)'}` }
+  // PEOPLE-FIX-1 (L04): the result names the person (it stays on screen after the dialog closes) and a failed notice is a warning.
+  const who = typeof target.name === 'string' && target.name.trim() ? target.name.trim().slice(0, 80) : 'this person'
+  const done = action === 'reset' ? `Two-step sign-in reset for ${who}. They set it up again at their next sign-in.` : action === 'turn-off' ? `Two-step sign-in turned off for ${who}.` : `Two-step sign-in turned back on for ${who}. They set it up at their next sign-in.`
+  return sent ? { ok: true, message: done } : { ok: true, message: `${done} We could not email them. Tell them directly.`, warn: true }
 }
 
 export type PersonRow = { id: string; name: string; email: string; roles: string[]; mfa: 'on' | 'off' | 'not-set-up'; exempt: boolean; admin: boolean; canTurnOff: boolean; isSelf: boolean }

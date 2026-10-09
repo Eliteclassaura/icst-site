@@ -1,6 +1,8 @@
 import type { AdminViewServerProps } from 'payload'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import { redirect } from 'next/navigation'
+import { HANDLED_BY_RESEND, NEEDS_ATTENTION, whereQuery } from '../../email/attention'
+import { currencyTotal } from '../economics'
 import { loadOverview, OPEN_RFQ_STATUSES, STALLED_AFTER_DAYS } from '../overview'
 import styles from './CrmOverview.module.css'
 
@@ -93,9 +95,16 @@ export async function CrmOverview({ initPageResult, params, searchParams }: Admi
             <span className={styles.n}>{data.intake.spam24h}</span> held as spam (24 h)
           </a>
         ) : null}
-        {data.emailUncertain !== null && data.emailUncertain !== undefined ? (
-          <a className={styles.card} href={list(admin, 'crm-email-outbox', { 'where[status][equals]': 'UNCERTAIN' })}>
-            <span className={styles.n}>{data.emailUncertain}</span> emails unconfirmed (check before sending again)
+        {data.emailUncertain ? (
+          // OVERVIEW-FIX-1 (review L03): the number and the list it opens use one predicate (email/attention.ts)
+          <a className={styles.card} href={`${admin}/collections/crm-email-outbox?${whereQuery(NEEDS_ATTENTION)}`}>
+            <span className={styles.n}>{data.emailUncertain.needsAttention}</span> emails unconfirmed (check before sending again)
+          </a>
+        ) : null}
+        {data.emailUncertain && data.emailUncertain.handledByResend > 0 ? (
+          <a className={styles.card} href={`${admin}/collections/crm-email-outbox?${whereQuery(HANDLED_BY_RESEND)}`}>
+            <span className={styles.n}>{data.emailUncertain.handledByResend}</span> internal alerts unconfirmed, then resent and accepted by the
+            mail server (handled; no action)
           </a>
         ) : null}
         {data.sheet && (data.sheet.failed > 0 || data.sheet.pending > 0) ? (
@@ -137,13 +146,12 @@ export async function CrmOverview({ initPageResult, params, searchParams }: Admi
       </section>
 
       <section aria-label="Open pipeline">
-        <h2>Open pipeline (native currency, not revenue)</h2>
+        <h2>Open pipeline (all open opportunities, native currency, not revenue)</h2>
         {currencies.length === 0 ? <p>No open opportunity has a known value.</p> : null}
         <ul className={styles.flat}>
           {currencies.map(([cur, v]) => (
             <li key={cur}>
-              {cur} {new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(v.total)} across{' '}
-              {v.count}
+              {currencyTotal(cur, v.total)} across {v.count}
             </li>
           ))}
         </ul>
@@ -191,7 +199,10 @@ export async function CrmOverview({ initPageResult, params, searchParams }: Admi
         </ul>
       </section>
       {data.truncated ? (
-        <p>Lists show the first 100 open opportunities; use the Opportunities list for the rest.</p>
+        <p>
+          The lists above show the first 100 open opportunities; use the Opportunities list for the rest. The pipeline totals
+          cover every open opportunity.
+        </p>
       ) : null}
     </>,
   )

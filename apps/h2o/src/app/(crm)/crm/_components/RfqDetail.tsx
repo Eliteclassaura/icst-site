@@ -338,7 +338,7 @@ export function RfqDetailView({
             <dl className="c-dl">
               <dt>State</dt>
               <dd>{label(QUALIFICATION_LABEL, rfq.qualification_state)}</dd>
-              <dt>Motion {rfq.motion ? <Origin who="STAFF" /> : null}</dt>
+              <dt>Work type {rfq.motion ? <Origin who="STAFF" /> : null}</dt>
               <dd>
                 <Value v={rfq.motion ? MOTION_LABEL[String(rfq.motion)] : null} missing="Not classified" />
               </dd>

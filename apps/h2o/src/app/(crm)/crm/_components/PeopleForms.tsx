@@ -48,7 +48,7 @@ function ActionButton({ id, name, action }: { id: string; name: string; action: 
         </div>
         <div className="c-dialog-body">
           <p>{c.body}</p>
-          <ActionForm action={A.peopleMfaAction} hidden={{ userId: id, action }} submitLabel={c.submit} onSuccess={() => dialog.current?.close()}>
+          <ActionForm action={A.peopleMfaAction} hidden={{ userId: id, action }} submitLabel={c.submit} onSuccess={() => dialog.current?.close()} announce="">
             <Field name="reason" label="Why are you doing this?" hint="Kept with the record. Not shown to them." required>
               {(a) => <textarea className="c-input" {...a} rows={3} maxLength={300} />}
             </Field>

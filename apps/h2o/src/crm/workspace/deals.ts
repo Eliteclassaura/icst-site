@@ -3,12 +3,13 @@ import { isUniqueViolation } from '../activity'
 import { ensureDealStages, type StageConfig } from '../dealStages'
 import { crmUsers, nameMap } from './queries'
 import { MOTION_LABEL } from './labels'
-import { asUser, type CrmSession } from './session'
+import { asUser, viewerCalendar, type CrmSession } from './session'
 import { withRowLock } from './serialize'
-import { businessDate, endOfLocalDate } from './time'
+import { businessDate, endOfLocalDate, quickDueDates, type BusinessCalendar } from './time'
 import { isoDate, line, oneOf, relationshipId, type FieldErrors } from './validate'
 import { CURRENCY_DIGITS, isCurrency } from '../currencies'
-import { OFFICES, OFFICE_TIME_ZONE, type Office } from '../offices'
+import { OFFICES, OFFICE_TIME_ZONE, officeCalendar, type Office } from '../offices'
+import { officeSettings } from '../officeSettings'
 
 /**
  * OPP-1 deals. A deal is a `crm-opportunities` record made from a qualified inquiry. Qualifying creates it once
@@ -28,6 +29,16 @@ const fail = (code: string, message: string, fields?: FieldErrors): DealOutcome 
 
 /** What a deal's calendar dates mean: the deal's office zone (US = Denver, TH = Bangkok); a deal with no office uses the viewer's. */
 export const dealZone = (office: unknown, fallback: string): string => (OFFICES.includes(office as Office) ? OFFICE_TIME_ZONE[office as Office] : fallback)
+/**
+ * The business calendar a deal's dates are read in (DATE-FIX-1): the deal's (or inquiry's) office zone with that office's
+ * holidays. A record with no office falls back to the viewer's calendar, the same zone `dealZone` uses for it. Every deal
+ * date default and quick control, on the page and on the server, comes from here and never from the viewer's own calendar.
+ */
+export async function dealCalendar(s: CrmSession, office: unknown): Promise<BusinessCalendar> {
+  if (!OFFICES.includes(office as Office)) return viewerCalendar(s)
+  return officeCalendar(office, await officeSettings(s.payload))
+}
+
 const ZONE_LABEL: Record<string, string> = { 'America/Denver': 'Denver time', 'Asia/Bangkok': 'Bangkok time' }
 export const zoneLabel = (zone: string): string => ZONE_LABEL[zone] ?? zone.replace(/_/g, ' ')
 
@@ -108,7 +119,7 @@ export const DEFAULT_NEXT_STEP = 'Contact the customer about this inquiry'
  * Qualify an inquiry and create its one deal, in one transaction. Idempotent: qualifying again (a second click, a
  * second tab, a retry) returns the existing deal and creates nothing. The inquiry must be in review with an account.
  */
-export async function qualifyWithDeal(s: CrmSession, input: QualifyInput, defaults: { nextDueDate: string }): Promise<DealOutcome> {
+export async function qualifyWithDeal(s: CrmSession, input: QualifyInput, defaults: { now?: Date } = {}): Promise<DealOutcome> {
   const motion = oneOf(input.motion, MOTIONS)
   const rid = relationshipId(input.rfqId)
   if (!rid.ok || !rid.id) return fail('INVALID_ID', 'That record reference is not valid.')
@@ -151,7 +162,8 @@ export async function qualifyWithDeal(s: CrmSession, input: QualifyInput, defaul
       if (!accountId) return fail('RFQ_QUALIFIED_WITHOUT_ACCOUNT', 'Link an account before qualifying.')
       const account = D(await s.payload.findByID({ collection: 'crm-accounts', id: accountId, ...opts }))
       const ownerId = ownerRaw?.ok && ownerRaw.id ? ownerRaw.id : (relId(rfq.assignee) ?? s.userId)
-      const due = dueOf(dueDate ?? defaults.nextDueDate, dealZone(rfq.office, s.timeZone))
+      // No date given: the next business day of the inquiry's own office, not of the person qualifying it.
+      const due = dueOf(dueDate ?? quickDueDates(defaults.now ?? new Date(), await dealCalendar(s, rfq.office)).tomorrow, dealZone(rfq.office, s.timeZone))
       if (!due) return fail('VALIDATION', 'Some values need attention.', { nextDue: 'Choose a valid date.' })
       const deal = await s.payload.create({
         collection: 'crm-opportunities',

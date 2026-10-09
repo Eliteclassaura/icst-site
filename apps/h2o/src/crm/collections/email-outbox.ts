@@ -26,7 +26,7 @@ export const CrmEmailOutbox: CollectionConfig = crmCollection(
       useAsTitle: 'kind',
       description:
         'Queued and sent notifications. Written by the system; retried with backoff; failures end in DEAD. No hand edits.',
-      defaultColumns: ['createdAt', 'kind', 'status', 'rfq', 'attempts', 'last_error_code', 'sent_at'],
+      defaultColumns: ['createdAt', 'kind', 'status', 'rfq', 'attempts', 'last_error_code', 'sent_at', 'resend_accepted_at'],
     },
     defaultSort: '-createdAt',
     hooks: {
@@ -95,6 +95,14 @@ export const CrmEmailOutbox: CollectionConfig = crmCollection(
       { name: 'lease_until', type: 'date', admin: { readOnly: true } },
       { name: 'last_error_code', type: 'text', admin: { readOnly: true } },
       { name: 'sent_at', type: 'date', index: true, admin: { readOnly: true } },
+      // OVERVIEW-FIX-1 (review L03): set on an UNCERTAIN internal alert when its one automatic resend was accepted by the
+      // mail server. The original keeps its UNCERTAIN status (history); this marks it handled (email/attention.ts).
+      {
+        name: 'resend_accepted_at',
+        type: 'date',
+        index: true,
+        admin: { readOnly: true, description: 'Unconfirmed internal alert whose one automatic resend the mail server accepted: handled.' },
+      },
       // Revenue Engine slice 1: a sequence email's enrollment and step; the recipient's domain (per-domain cap); the
       // copy-risk lint of the final render and the AUTO approval decision (E0.1 approval record); a later DSN bounce.
       { name: 'enrollment', type: 'relationship', relationTo: 'crm-enrollments', index: true, admin: { readOnly: true } },

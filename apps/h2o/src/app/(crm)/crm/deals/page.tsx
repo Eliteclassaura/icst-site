@@ -88,7 +88,7 @@ export default async function DealsPage({ searchParams }: { searchParams: Promis
         </label>
         <label className="c-deal-check">
           <input className="c-check" type="checkbox" name="closed" value="1" defaultChecked={p.filter.closed} />
-          <span>Include won, lost and cancelled</span>
+          <span>Include won, lost and canceled</span>
         </label>
         <div className="c-actions">
           <button type="submit" className="c-btn is-primary">

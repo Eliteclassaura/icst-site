@@ -100,7 +100,7 @@ export function ActionForm({
       : async (prev: ActionState, fd: FormData) => {
           const out = await action(prev, fd)
           // A stale-write conflict is shown once, in its own panel; the page banner would repeat it.
-          if (out.message && out.code !== 'STALE') publishFeedback(Boolean(out.ok), out.message, announce || undefined)
+          if (out.message && out.code !== 'STALE') publishFeedback(Boolean(out.ok), out.message, announce || undefined, Boolean(out.ok && out.warn))
           return out
         },
     INITIAL_ACTION_STATE,

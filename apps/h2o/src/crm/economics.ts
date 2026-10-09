@@ -89,6 +89,18 @@ export function amountDisplay(e: Economics): string {
 }
 
 /**
+ * OVERVIEW-FIX-1 (review L02): a total in its currency's own precision (USD 1,234.50; JPY 200,000). The code is shown,
+ * never a symbol (no confusion between dollar currencies). A code Intl does not know falls back to 2 decimals.
+ */
+export function currencyTotal(currency: string, total: number): string {
+  try {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency, currencyDisplay: 'code' }).format(total).replace(/\u00a0/g, ' ')
+  } catch {
+    return `${currency} ${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(total)}`
+  }
+}
+
+/**
  * Pipeline totals, per native currency. Unknown values are **counted, not summed as zero**, and no FX
  * conversion is performed (E3: FX source and base currency are owner inputs). There is no cross-currency
  * total here by design.

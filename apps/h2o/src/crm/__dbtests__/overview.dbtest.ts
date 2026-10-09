@@ -1,5 +1,8 @@
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Payload } from 'payload'
+import { sql } from '@payloadcms/db-postgres'
+import { crmCollectionAccess, crmUser } from '../access'
+import { currencyTotal } from '../economics'
 import { loadOverview } from '../overview'
 import { as, payload, resetCrm, user, type TestUser } from './harness'
 
@@ -55,6 +58,34 @@ describe('CRM Overview', () => {
     const amounts = o.opportunitiesWithoutNextTask.map((x) => x.amount)
     expect(amounts).toEqual(expect.arrayContaining(['Value not entered', 'Value withheld / not available']))
     expect(amounts.some((a) => /\$0|^0$/.test(a))).toBe(false)
+  })
+  it('OVERVIEW-FIX-1 (review L02): the pipeline covers every open deal, not the first 100; lists stay bounded', async () => {
+    // 101 open deals at USD 1.25 (101 × 1.25 = 126.25 exactly), one JPY, one unknown, and one closed deal left out
+    for (let i = 0; i < 101; i++) await opp({ name: `Synthetic ${i}`, amount_status: 'KNOWN', amount: 1.25, currency: 'USD' })
+    await opp({ amount_status: 'KNOWN', amount: 200000, currency: 'JPY' })
+    await opp({})
+    const closed = await opp({ amount_status: 'KNOWN', amount: 999, currency: 'USD' })
+    await (p.db as unknown as { drizzle: { execute: (q: unknown) => Promise<unknown> } }).drizzle.execute(
+      sql`UPDATE "crm_opportunities" SET "stage" = 'LOST' WHERE "id" = ${closed.id}`,
+    )
+    const o = (await loadOverview(reqFor(sales)))!
+    expect(o.openOpportunities).toBe(103)
+    expect(o.pipeline.byCurrency).toEqual({ USD: { total: 126.25, count: 101 }, JPY: { total: 200000, count: 1 } })
+    expect(o.pipeline.unknownValueCount).toBe(1)
+    expect(o.opportunitiesWithoutNextTask.length).toBeLessThanOrEqual(100) // detail lists stay bounded
+    expect(o.truncated).toBe(true)
+    // the currency's own precision, the code (never a symbol)
+    expect(currencyTotal('USD', o.pipeline.byCurrency.USD!.total)).toBe('USD 126.25')
+    expect(currencyTotal('JPY', 200000)).toBe('JPY 200,000')
+  })
+  it('OVERVIEW-FIX-1: the SQL pipeline is the viewer\'s authorized set only because deals are readable by every CRM user', () => {
+    // If deal reading ever becomes row- or field-scoped, openPipeline() must apply that scope: this test then fails.
+    expect(crmCollectionAccess.read).toBe(crmUser)
+    const deals = p.config.collections.find((c) => c.slug === 'crm-opportunities')!
+    expect(deals.access.read).toBe(crmUser)
+    const money = deals.flattenedFields.filter((f) => ['amount', 'amount_status', 'currency', 'stage', 'source_record_explicit_zero'].includes(f.name))
+    expect(money).toHaveLength(5)
+    for (const f of money) expect((f as { access?: { read?: unknown } }).access?.read, f.name).toBeUndefined()
   })
   it('opportunities with an open task are not listed as "no next task"', async () => {
     const withTask = await opp({ name: 'Has task' })

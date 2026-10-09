@@ -28,6 +28,8 @@ import * as migration_20261008_200500_opp_1_1_seed_deal_stages from './20261008_
 import * as migration_20261008_201000_csv_fix_1_name_link_review from './20261008_201000_csv_fix_1_name_link_review';
 import * as migration_20261008_205350_mfa_admin_1 from './20261008_205350_mfa_admin_1';
 import * as migration_20261008_213813_sheet_sync_1 from './20261008_213813_sheet_sync_1';
+import * as migration_20261008_220000_deals_date_fix_1_canceled_label from './20261008_220000_deals_date_fix_1_canceled_label';
+import * as migration_20261008_230113_overview_fix_1_resend_accepted from './20261008_230113_overview_fix_1_resend_accepted';
 
 export const migrations = [
   {
@@ -178,6 +180,16 @@ export const migrations = [
   {
     up: migration_20261008_213813_sheet_sync_1.up,
     down: migration_20261008_213813_sheet_sync_1.down,
-    name: '20261008_213813_sheet_sync_1'
+    name: '20261008_213813_sheet_sync_1',
+  },
+  {
+    up: migration_20261008_220000_deals_date_fix_1_canceled_label.up,
+    down: migration_20261008_220000_deals_date_fix_1_canceled_label.down,
+    name: '20261008_220000_deals_date_fix_1_canceled_label',
+  },
+  {
+    up: migration_20261008_230113_overview_fix_1_resend_accepted.up,
+    down: migration_20261008_230113_overview_fix_1_resend_accepted.down,
+    name: '20261008_230113_overview_fix_1_resend_accepted'
   },
 ];

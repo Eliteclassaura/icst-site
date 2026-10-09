@@ -56,6 +56,47 @@ export const FIELD_ORDER_STRINGS: Record<string, string> = {
 }
 
 /**
+ * CHAT-COPY-1 (owner request via CT, 2026-10-08): the corner chat asks in a friendly, conversational voice. OGCS rows, verbatim
+ * (outputs/H2O_OGCS_CHAT_COPY_1_ROWS_2026-10-08, seal d8087e97, CHAT_COPY_1_ROWS.tsv sha 76e20511). Chat-only keys: the chat
+ * looks up `chat.<key>` and falls back to `<key>`, so the inline /contact-us/ form labels are unchanged. Strings only.
+ */
+export const CHAT_COPY_1_STRINGS: Record<string, string> = {
+  "chat.greeting": "Hi, and thanks for stopping by. A few quick questions and we'll prepare your quote.",
+  "chat.resume.prompt": "Welcome back. Would you like to pick up where you left off?",
+  "chat.contact.email.q": "What's your email address?",
+  "chat.contact.email.hint": "A work email helps us send your request to the right team.",
+  "chat.contact.first_name.q": "And your first name?",
+  "chat.contact.last_name.q": "And your last name? You can skip this.",
+  "chat.contact.company.q": "Which company are you with?",
+  "chat.purpose.q": "What can we help you with?",
+  "chat.parts.part.q": "Which part are you looking for?",
+  "chat.parts.model.q": "Do you have a model, serial, or part number? You can skip this.",
+  "chat.parts.qty.q": "How many do you need? You can skip this.",
+  "chat.towers.cells.q": "How many cells does the tower have? You can skip this.",
+  "chat.towers.site.q": "Where is the site? City or region is enough, and you can skip this.",
+  "chat.service.issue.q": "Briefly, what's happening with the tower?",
+  "chat.service.timing.q": "When would you like the work done? You can skip this.",
+  "chat.service.issue.q_upgrade": "What would you like to improve? You can skip this.",
+  "chat.other.q": "Tell us briefly what you need.",
+  "chat.contact.phone.q": "What's the best phone number to reach you? This is optional.",
+  "chat.contact.phone.hint": "Please include your country code.",
+  "chat.contact.country.q": "Which country are you in?",
+  "chat.notes.q": "Anything else we should know? You can skip this.",
+  "chat.contact.intro": "Thanks. Where should we send your quote?",
+  "chat.review.heading": "Please check your request",
+  "chat.confirm.heading": "Thank you, your request is in",
+  "chat.confirm.body": "Your RFQ number is {{rfq_number}}. A member of our team will review your request and be in touch.",
+  "chat.confirm.attachments": "If you have photos or drawings, you can send them by replying to our email.",
+  "chat.err.required": "Please answer this one so we can continue.",
+  "chat.err.email": "That email address doesn't look quite right. Please try again, for example name@company.com.",
+  "chat.err.email_domain": "We couldn't find that email domain. Could you check the spelling?",
+  "chat.err.email_disposable": "Please use a permanent email address. We can't reply to temporary inboxes.",
+  "chat.err.too_long": "That's a bit long. Please keep it under {{max}} characters.",
+  "chat.err.rate_limited": "We're getting a lot of requests from this connection. Please wait a few minutes and try again, or call one of {{offices_link}}.",
+  "chat.err.offline": "It looks like you're offline. Your answers are saved here. Reconnect and select Send request again.",
+}
+
+/**
  * FORM-NOTICE-1 (CT 2026-10-08): the approved quote-request collection notice (OGCS legal final, FORM_NOTICE.md, sha256
  * b34433fb…), kept byte for byte at content/rfq/form-notice-source.md. Its short notice becomes `privacy.note` (the link
  * text "Privacy Notice" becomes `privacy.link_text`); its expanded notice becomes the "How we use your details" list.
@@ -104,7 +145,7 @@ const question = ({ maxLength, pattern, ...q }: Q): Question => ({
 
 /** The contract §1.1 seeded structure, with strings from the copy table. */
 export function registryFromCopy(tsv: string, formNotice?: string): Registry {
-  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS, ...RFQ_FIX_1_STRINGS, ...FIELD_ORDER_STRINGS, ...(formNotice ? formNoticeStrings(formNotice) : {}) }
+  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS, ...RFQ_FIX_1_STRINGS, ...FIELD_ORDER_STRINGS, ...CHAT_COPY_1_STRINGS, ...(formNotice ? formNoticeStrings(formNotice) : {}) }
   const purposes: Purpose[] = [
     { value: 'new_tower', labelKey: 'purpose.chip.new_tower', branch: 'towers' },
     { value: 'repair', labelKey: 'purpose.chip.repair', branch: 'service' },

@@ -1,8 +1,11 @@
+import { createRequire } from 'node:module'
+import { pathToFileURL } from 'node:url'
 import { sql } from '@payloadcms/db-postgres'
-import type { Payload } from 'payload'
+import type { Payload, Where } from 'payload'
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { DEFAULT_SALES_ADDRESS, readEmailConfig } from '../../email/config'
-import { LEASE_MS, claimBatch, drainOutbox, processRow, uncertainNeedingAttention } from '../../email/outbox-worker'
+import { HANDLED_BY_RESEND, NEEDS_ATTENTION, whereQuery } from '../../email/attention'
+import { LEASE_MS, claimBatch, drainOutbox, processRow, uncertainHandledByResend, uncertainNeedingAttention } from '../../email/outbox-worker'
 import type { MailMessage, MailTransport } from '../../email/transport'
 import { fixtureRegistry } from '../../rfq-native/registry'
 import { submitReply } from '../intake/native/handlers'
@@ -48,6 +51,12 @@ const db = () => (p.db as unknown as { drizzle: { execute: (q: unknown) => Promi
 const rows = async (kind?: string) => (await p.find({ collection: 'crm-email-outbox', where: kind ? { kind: { equals: kind } } : {}, sort: 'createdAt', ...sys })).docs as unknown as Doc[]
 const events = async (outbox: string) => ((await p.find({ collection: 'crm-email-events', where: { outbox: { equals: outbox } }, sort: 'occurred_at', limit: 50, ...sys })).docs as unknown as Doc[]).map((e) => e.event)
 const later = (min: number) => new Date(Date.now() + min * 60_000)
+/** OVERVIEW-FIX-1 (review L03): the outbox list the overview card opens — its URL query parsed the way the admin list
+ * parses it (qs-esm, Payload's own dependency), then run. The count and this list must agree. */
+const listed = async (w: Where) => {
+  const qs = (await import(pathToFileURL(createRequire(createRequire(import.meta.url).resolve('payload')).resolve('qs-esm')).href)) as { parse: (q: string) => { where: Where } }
+  return (await p.find({ collection: 'crm-email-outbox', where: qs.parse(whereQuery(w)).where, limit: 50, ...sys })).docs as unknown as Doc[]
+}
 
 /** A fake mail server: records every hand-over; `fail` decides per call (return an error to throw it). */
 function server(fail: (n: number, m: MailMessage) => unknown = () => null) {
@@ -316,6 +325,14 @@ describe('R2-03: accepted mail is never handed over twice; ambiguity is held', (
     expect(timeline.map((a) => (a as unknown as Doc).summary)).toEqual(['Sales alert delivery unconfirmed — sent once more automatically'])
     // resolved: the resend was sent, so nothing needs a person
     expect(await uncertainNeedingAttention(p)).toBe(0)
+    // OVERVIEW-FIX-1 (review L03): the original is marked handled, keeps its UNCERTAIN status and history; the list the
+    // card opens is empty, and the handled list shows the original
+    const [orig2] = await rows('RFQ_SALES_ALERT')
+    expect(orig2).toMatchObject({ status: 'UNCERTAIN', resend_accepted_at: expect.any(String) })
+    expect(await listed(NEEDS_ATTENTION)).toEqual([])
+    expect(await uncertainHandledByResend(p)).toBe(1)
+    expect((await listed(HANDLED_BY_RESEND)).map((r) => r.id)).toEqual([id])
+    expect(await events(id)).toEqual(['QUEUED', 'SUBMITTED', 'UNCERTAIN'])
   })
   it('a timeout after DATA (no reply) is UNCERTAIN at once; a refusal before DATA or with an SMTP reply is retried', async () => {
     process.env.H2O_EMAIL_CUSTOMER_ACK = 'off'
@@ -330,6 +347,9 @@ describe('R2-03: accepted mail is never handed over twice; ambiguity is held', (
     expect(s.sent).toHaveLength(2)
     expect((await rows('RFQ_SALES_ALERT')).map((r) => r.status)).toEqual(['UNCERTAIN', 'UNCERTAIN'])
     expect(await uncertainNeedingAttention(p)).toBe(2)
+    // OVERVIEW-FIX-1: a resend that is itself unconfirmed marks nothing handled; the card's list holds both
+    expect(await listed(NEEDS_ATTENTION)).toHaveLength(2)
+    expect(await uncertainHandledByResend(p)).toBe(0)
     // the same message refused with a reply (421 at end of DATA) or before DATA: known not accepted → RETRY
     await resetCrm()
     await ensureTemplates(p)
@@ -557,6 +577,9 @@ describe('SEND-FIX-1a.1 (owner decision): unconfirmed internal alerts are sent o
     expect(s.sent.filter((m) => m.to.includes(CUSTOMER))).toHaveLength(1)
     expect((await rows('RFQ_CUSTOMER_ACK')).map((r) => [r.status, String(r.idempotency_key).includes('#resend')])).toEqual([['UNCERTAIN', false]])
     expect(await uncertainNeedingAttention(p)).toBe(1)
+    // OVERVIEW-FIX-1: customer mail stays unresolved, and the card's list is exactly that row
+    expect((await listed(NEEDS_ATTENTION)).map((r) => r.kind)).toEqual(['RFQ_CUSTOMER_ACK'])
+    expect(await uncertainHandledByResend(p)).toBe(0)
     const timeline = (await p.find({ collection: 'crm-activities', where: { summary: { like: 'delivery unconfirmed' } }, ...sys })).docs.map((a) => String((a as unknown as Doc).summary))
     expect(timeline.some((t) => t.endsWith('not automatically retried'))).toBe(true)
   })

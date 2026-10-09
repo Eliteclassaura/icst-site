@@ -317,3 +317,35 @@ describe('MFA-ADMIN-1.1: audit first, one transaction, narrow reads, password on
     expect(Number((await exec(sql`SELECT count(*)::int AS n FROM mfa_trusted_devices WHERE user_id = ${t.id} AND revoked_at IS NULL`)).rows[0]!.n)).toBe(0)
   })
 })
+
+describe('PEOPLE-FIX-1: effective state and the named result', () => {
+  it('L05: a stale exempt flag on an admin shows the EFFECTIVE state (two-step on / not set up), never "Turned off"', async () => {
+    const enrolled = await person(['client-admin'])
+    const fresh2 = await person(['sales', 'client-admin'], { enrol: false })
+    await exec(sql`UPDATE users SET mfa_exempt = true WHERE id IN (${enrolled.id}, ${fresh2.id})`)
+    const rows = await listPeople(session(admin))
+    const a = rows.find((r) => r.id === enrolled.id)!
+    const b = rows.find((r) => r.id === fresh2.id)!
+    expect(a).toMatchObject({ admin: true, mfa: 'on', exempt: false, canTurnOff: false })
+    expect(b).toMatchObject({ admin: true, mfa: 'not-set-up', exempt: false, canTurnOff: false })
+    expect(rows.filter((r) => r.admin).some((r) => r.mfa === 'off' || r.exempt)).toBe(false)
+    // the actions agree with the display: turn-on is not offered (NOT_OFF), a reset works and clears the stale flag
+    expect(await act(admin, { userId: enrolled.id, action: 'turn-on' })).toMatchObject({ ok: false, code: 'NOT_OFF' })
+    expect(await act(admin, { userId: enrolled.id, action: 'reset' })).toMatchObject({ ok: true })
+    expect((await fresh(enrolled.id)).mfa_exempt).toBe(false)
+  })
+  it('L04: the result names the person; a failed notice is a warning with the instruction', async () => {
+    const t = await person(['sales'])
+    const name = String((await fresh(t.id)).name)
+    const ok = await act(admin, { userId: t.id, action: 'reset' })
+    expect(ok).toMatchObject({ ok: true })
+    expect((ok as { message: string; warn?: boolean }).message).toContain(`reset for ${name}`)
+    expect((ok as { warn?: boolean }).warn).toBeUndefined()
+    const t2 = await person(['sales'])
+    const name2 = String((await fresh(t2.id)).name)
+    const bad = await adminMfaAction(session(admin), SID, { userId: t2.id, action: 'turn-off', reason: REASON }, { notify: async () => { throw new Error('SMTP_DOWN') } })
+    expect(bad).toMatchObject({ ok: true, warn: true })
+    expect((bad as { message: string }).message).toContain(`turned off for ${name2}`)
+    expect((bad as { message: string }).message).toContain('We could not email them. Tell them directly.')
+  })
+})

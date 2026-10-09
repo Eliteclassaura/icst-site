@@ -8,6 +8,8 @@ import { MAX_BODY_BYTES } from '../intake/typeform/endpoint'
 import { SYNTHETIC_FIELD_MAP, SYNTHETIC_FORM_ID, SYNTHETIC_SECRET, signed, typeformDelivery } from '../fixtures/synthetic'
 import { loadFollowUps, loadMyWork, loadRfq } from '../workspace/queries'
 import { createManualInquiry } from '../workspace/manualInquiry'
+import { officeSettings } from '../officeSettings'
+import { officeCalendar } from '../offices'
 import { endOfBusinessDay, firstResponseDueAt } from '../workspace/time'
 import { uuidv7 } from '../ids'
 import { crmSessionFor, type CrmSession } from '../workspace/session'
@@ -350,7 +352,9 @@ describe('G4 UI-1 M1 / M4 read models', () => {
     await deliver(typeformDelivery())
     const [rfq] = await rfqs()
     const task = (await p.find({ collection: 'crm-tasks', where: { kind: { equals: 'RFQ_FIRST_RESPONSE' } }, ...srv })).docs[0] as unknown as Doc
-    expect(task.due_at).toBe(firstResponseDueAt(new Date(String(rfq!.received_at))).toISOString())
+    // TEST-CLOCK-FIX-1: the expectation uses the handling office's calendar (its holidays), exactly as the product does;
+    // with the holiday-free default it failed whenever a seeded holiday fell in the window.
+    expect(task.due_at).toBe(firstResponseDueAt(new Date(String(rfq!.received_at)), officeCalendar(rfq!.office, await officeSettings(p))).toISOString())
     // Reassignment moves the task; the due date stays the rule's.
     await p.update({ collection: 'crm-rfqs', id: String(rfq!.id), data: { assignee: sales.id } as never, overrideAccess: false, user: sales.user })
     const after = (await p.findByID({ collection: 'crm-tasks', id: String(task.id), ...srv })) as unknown as Doc
@@ -359,7 +363,7 @@ describe('G4 UI-1 M1 / M4 read models', () => {
     expect(manual.ok).toBe(true)
     const mt = (await p.find({ collection: 'crm-tasks', where: { and: [{ kind: { equals: 'RFQ_FIRST_RESPONSE' } }, { id: { not_equals: task.id } }] }, ...srv })).docs[0] as unknown as Doc
     const mrfq = (await p.findByID({ collection: 'crm-rfqs', id: String(mt.rfq), ...srv })) as unknown as Doc
-    expect(mt.due_at).toBe(firstResponseDueAt(new Date(String(mrfq.received_at))).toISOString())
+    expect(mt.due_at).toBe(firstResponseDueAt(new Date(String(mrfq.received_at)), officeCalendar(mrfq.office, await officeSettings(p))).toISOString())
   })
   it('D-1 drives Due today and Overdue: not due before its day, due on its day, overdue after it', async () => {
     await deliver(typeformDelivery())

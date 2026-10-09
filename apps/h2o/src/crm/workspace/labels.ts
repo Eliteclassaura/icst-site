@@ -60,7 +60,7 @@ export const ACTIVITY_LABEL: Record<string, string> = {
   NOTE_ADDED: 'Note',
   CALL: 'Call',
   MEETING: 'Meeting',
-  EMAIL_REFERENCE: 'Email reference',
+  EMAIL_REFERENCE: 'Email sent or received outside the CRM',
   REPLY_REFERENCE: 'Customer replied',
   DOCUMENT_REFERENCE: 'Document reference',
   PROJECT_INTERACTION: 'Project interaction',
@@ -102,7 +102,7 @@ export const TASK_STATUS_LABEL: Record<string, string> = {
   OPEN: 'Open',
   IN_PROGRESS: 'In progress',
   DONE: 'Done',
-  CANCELLED: 'Cancelled',
+  CANCELLED: 'Canceled',
 }
 
 export const STAGE_LABEL: Record<string, { label: string; tone: Tone }> = {
@@ -114,7 +114,7 @@ export const STAGE_LABEL: Record<string, { label: string; tone: Tone }> = {
   DELAYED: { label: 'Delayed', tone: 'warning' },
   WON: { label: 'Won', tone: 'success' },
   LOST: { label: 'Lost', tone: 'terminal' },
-  CANCELLED: { label: 'Cancelled', tone: 'terminal' },
+  CANCELLED: { label: 'Canceled', tone: 'terminal' },
 }
 
 export const IDENTITY_REASON_LABEL: Record<string, string> = {

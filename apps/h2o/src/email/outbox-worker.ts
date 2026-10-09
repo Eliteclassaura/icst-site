@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { sql } from '@payloadcms/db-postgres'
 import { createLocalReq, type Payload } from 'payload'
+import { HANDLED_BY_RESEND, NEEDS_ATTENTION } from './attention'
 import { messageIdFor, recordEmailActivity, recordEmailEvent } from '../crm/notify'
 import { emailKey } from '../crm/normalize'
 import { countryName } from '../crm/countries'
@@ -81,7 +82,7 @@ export async function claimBatch(payload: Payload, now: Date, limit = 10, owner:
  */
 export const RESEND_ONCE_KINDS: readonly string[] = ['RFQ_SALES_ALERT', 'INTAKE_FAILED_ALERT']
 export const RESEND_SUFFIX = '#resend'
-type ResendSource = Pick<Row, 'idempotency_key' | 'kind' | 'to_address' | 'recipient_ref' | 'message_id' | 'subject' | 'body_text'> & { rfq: string | null }
+type ResendSource = Pick<Row, 'id' | 'idempotency_key' | 'kind' | 'to_address' | 'recipient_ref' | 'message_id' | 'subject' | 'body_text'> & { rfq: string | null }
 export async function resendOnce(payload: Payload, row: ResendSource, now: Date): Promise<boolean> {
   if (!RESEND_ONCE_KINDS.includes(row.kind) || row.idempotency_key.includes(RESEND_SUFFIX) || !row.to_address) return false
   try {
@@ -107,20 +108,19 @@ export async function resendOnce(payload: Payload, row: ResendSource, now: Date)
     })
     return true
   } catch {
-    // a second attempt to resend the same row hits the unique key: it was already resent once
-    console.error(`[h2o] email outbox: the one resend of an unconfirmed internal alert was not queued (already queued, or the database refused)`)
+    // a second attempt to resend the same row hits the unique key: it was already resent once. Code, kind and row id only.
+    console.error(`[h2o] email outbox: RESEND_NOT_QUEUED kind=${row.kind} row=${row.id} (already queued, or the database refused)`)
     return false
   }
 }
 
 /** Unconfirmed emails a person must look at: every UNCERTAIN row, except an internal alert whose one resend was sent. */
 export async function uncertainNeedingAttention(payload: Payload): Promise<number> {
-  const res = await db(payload).execute(
-    sql`SELECT count(*)::int AS n FROM "crm_email_outbox" o
-        WHERE o."status" = 'UNCERTAIN'
-          AND NOT EXISTS (SELECT 1 FROM "crm_email_outbox" r WHERE r."idempotency_key" = o."idempotency_key" || ${RESEND_SUFFIX} AND r."status" = 'SENT')`,
-  )
-  return Number((res.rows ?? [])[0]?.n ?? 0)
+  return (await payload.count({ collection: 'crm-email-outbox', where: NEEDS_ATTENTION, overrideAccess: true })).totalDocs
+}
+/** OVERVIEW-FIX-1: unconfirmed internal alerts whose one resend the mail server accepted (handled; history kept). */
+export async function uncertainHandledByResend(payload: Payload): Promise<number> {
+  return (await payload.count({ collection: 'crm-email-outbox', where: HANDLED_BY_RESEND, overrideAccess: true })).totalDocs
 }
 
 /**
@@ -136,7 +136,7 @@ export async function holdInterrupted(payload: Payload, now: Date): Promise<numb
   )
   for (const r of res.rows ?? []) {
     const rfq = r.rfq_id == null ? null : String(r.rfq_id)
-    await resendOnce(payload, { idempotency_key: String(r.idempotency_key), kind: r.kind as EmailKind, rfq, to_address: (r.to_address as string | null) ?? null, recipient_ref: String(r.recipient_ref), message_id: (r.message_id as string | null) ?? null, subject: (r.subject as string | null) ?? null, body_text: (r.body_text as string | null) ?? null }, now)
+    await resendOnce(payload, { id: String(r.id), idempotency_key: String(r.idempotency_key), kind: r.kind as EmailKind, rfq, to_address: (r.to_address as string | null) ?? null, recipient_ref: String(r.recipient_ref), message_id: (r.message_id as string | null) ?? null, subject: (r.subject as string | null) ?? null, body_text: (r.body_text as string | null) ?? null }, now)
     await recordEmailEvent({ payload }, { event: 'UNCERTAIN', kind: String(r.kind), code: 'SUBMISSION_INTERRUPTED', outbox: String(r.id), rfq, recipient_ref: String(r.recipient_ref), attempt: Number(r.attempts) })
     if (rfq) await recordEmailActivity({ payload }, { id: rfq, ...(await rfqLinks(payload, rfq)) }, String(r.id), r.kind as EmailKind, 'UNCERTAIN', 'SUBMISSION_INTERRUPTED')
   }
@@ -608,6 +608,14 @@ export async function processRow(
         overrideAccess: true,
       })
       .catch(() => console.error(`[h2o] email outbox: row ${id} could not queue the retry for refused recipients`))
+  // OVERVIEW-FIX-1 (review L03): an accepted resend marks its unconfirmed original handled (status kept as history)
+  if (row.idempotency_key.endsWith(RESEND_SUFFIX))
+    await db(payload)
+      .execute(
+        sql`UPDATE "crm_email_outbox" SET "resend_accepted_at" = ${now.toISOString()}
+            WHERE "idempotency_key" = ${row.idempotency_key.slice(0, -RESEND_SUFFIX.length)} AND "status" = 'UNCERTAIN' AND "resend_accepted_at" IS NULL`,
+      )
+      .catch(() => console.error(`[h2o] email outbox: row ${id} resend accepted; original not marked handled`))
   // The rest is history (event, timeline, conversation status): a failure here never changes what was sent.
   try {
     for (const r of refused) await recordEmailEvent({ payload }, { ...base, event: 'ATTEMPT_FAILED', code: 'RCPT_REJECTED', recipient_ref: recipientRef(r.address) })
