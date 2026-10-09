@@ -94,6 +94,15 @@ const SITE_REF = /\/#website$/
 const PERSON = /^Person$/
 const SELF_HOSTS = /^https?:\/\/(?:www\.)?h2ocooling\.com\/?$/i
 
+/**
+ * The manufacturer a catalog product title leads with ("Amarillo A Series Single Reduction Gearbox", "Brentwood XF150MAx Cellular Drift
+ * Eliminator", "TUF-LITE III ..."). Listed names only, matched at the start of the title; a generic title ("FRP Angles", "Splash Fill",
+ * "Counterflow Nozzles") has no brand. This is the name the page already shows, not a statement of authorization or exclusivity.
+ */
+export const PRODUCT_BRANDS = ['Amarillo', 'TUF-LITE', 'Addax', 'Brentwood', 'Sumitomo', 'C.E. Shepherd', 'Rexnord', 'Dyna-Fab', 'Amertech', 'TECO', 'Robertshaw', 'Baldor', 'ABB', 'Howden', 'Hudson', 'Moore', 'ICS'] as const
+export const productBrand = (title: string): string | undefined =>
+  PRODUCT_BRANDS.find((b) => title === b || title.startsWith(`${b} `) || title.startsWith(`${b}-`) || title.startsWith(`${b}/`))
+
 /** One JSON-LD block (a graph or a single node) normalized for the page; null when nothing is left. */
 export function normalizeGraph(block: unknown, ctx: GraphContext): Node | null {
   if (!block || typeof block !== 'object') return null
@@ -153,6 +162,10 @@ export function normalizeGraph(block: unknown, ctx: GraphContext): Node | null {
       }
       if (typesOf(o).includes('Product')) {
         out.name = ctx.name
+        // HEAD-POLISH-1: the product's own page, and the manufacturer its title leads with (no offers, price or sku: the catalog holds none)
+        out.url = `${PUBLIC_ORIGIN}${ctx.path}`
+        const brand = productBrand(ctx.name)
+        if (brand && !out.brand) out.brand = { '@type': 'Brand', name: brand === 'ICS' ? BRAND_NAME : brand }
         if (typeof out.description === 'string') out.description = (out.description as string).replace(/^(?:Buy|Order|Shop)\s+(?:the\s+)?/i, 'Request a quote for the ')
       }
       return out

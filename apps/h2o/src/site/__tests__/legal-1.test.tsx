@@ -73,7 +73,7 @@ describe('the pages',()=>{
     for(const page of LEGAL_PAGES){
       const meta=await generateMetadata({params:Promise.resolve({slug:page.path.split('/').filter(Boolean)}),searchParams:Promise.resolve({})})
       expect(meta.alternates?.canonical,page.path).toBe(`https://h2ocooling.com${page.path}`)
-      expect(meta.robots,page.path).toEqual({index:true,follow:true})
+      expect(meta.robots,page.path).toBe('index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')
       expect(JSON.stringify(meta.title),page.path).toContain(page.title)
     }
     expect(legalPageForPath('/terms-of-use/')?.file).toBe('terms-of-use.md')

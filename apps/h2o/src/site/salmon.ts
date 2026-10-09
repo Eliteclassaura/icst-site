@@ -218,4 +218,14 @@ export const ownerHref=(href:string):string=>/^tel:/i.test(href)&&new RegExp(RET
 export const provenanceHref=(original:string|undefined):string|undefined=>original&&!/^\s*(?:tel|mailto|sms|callto):/i.test(original)?provenanceRef(original):undefined
 export const salmonNodeText=(node:SalmonNode):string=>typeof node==='string'?node:node.children.map(salmonNodeText).join('')
 export const commerceException=(node:Exclude<SalmonNode,string>):boolean=>/(?:^|\s)(?:price|woocommerce-Price-amount|add_to_cart_button|single_add_to_cart_button|checkout-button|cart_totals)(?:\s|$)/.test(node.attrs.class??'')
+/**
+ * HEAD-POLISH-1 (CT 2026-10-09): head tags the WordPress/Elementor/WooCommerce/Yoast import left behind. The generator tag and the
+ * Windows tile image name the retired stack; the WooCommerce price/availability pair is meaningless on a quote-only product.
+ * On a taxonomy archive the article:*, og:updated_time and "Written by" tags describe a post that is not there, so the archive
+ * falls back to the standard website type. Real posts, pages and products keep everything else.
+ */
+const ARCHIVE_TYPES=new Set(['categories','tags','product_cat','product_tag'])
+export const staleHeadMeta=(meta:{name:string;value:string},doc:SalmonDocument):boolean=>
+  /^(?:generator|msapplication-TileImage|product:price:currency|product:availability)$/i.test(meta.name)||
+  (ARCHIVE_TYPES.has(doc.type)&&(meta.name==='og:type'||meta.name==='og:updated_time'||/^article:/.test(meta.name)||/^twitter:(?:label|data)\d*$/.test(meta.name)))
 export const commerceMetaException=(meta:{name:string;value:string},doc:SalmonDocument):boolean=>doc.type==='product'&&(/price|availability/i.test(meta.name)||/[$€£]\s*\d/.test(meta.value)||(meta.name==='twitter:label1'&&meta.value==='Price')||(meta.name==='twitter:label2'&&meta.value==='Availability')||(meta.name==='twitter:data2'&&/in stock|out of stock/i.test(meta.value)))

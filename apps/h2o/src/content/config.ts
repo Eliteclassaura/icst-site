@@ -114,6 +114,16 @@ export function publicRobots(
 }
 
 /**
+ * HEAD-POLISH-1: the robots meta an indexable page carries in production. Index and follow stay as decided by `publicRobots`; a page
+ * that is both indexed and followed states the full snippet/preview allowance (Google's defaults, made explicit) as one string, so the
+ * tag reads exactly `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1`. A noindex or private page keeps
+ * its plain pair and never gains a max-* directive.
+ */
+export const INDEXABLE_ROBOTS = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+export const richRobots = (robots: { index: boolean; follow: boolean }): string | { index: boolean; follow: boolean } =>
+  robots.index && robots.follow ? INDEXABLE_ROBOTS : robots
+
+/**
  * Retired WordPress system URLs answered 410 Gone (Master SEO Pass R1, OGCS decisions; Control Tower brief 2026-10-04).
  * Matched on the path, so `/wp/wp-admin/edit.php?post_type=product` is covered by `/wp/wp-admin/edit.php`.
  * Sitemap parity (CT ruling 2026-10-05): three WordPress junk/draft pages and the Yoast Local SEO KML file, all listed in the

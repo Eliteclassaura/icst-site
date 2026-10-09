@@ -12,7 +12,7 @@ import {articleMetadataTitle} from './article-metadata'
 import {R2Discovery} from './R2Discovery'
 import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
 import {ProjectDetail} from './ProjectDetail'
-import {commerceException,commerceMetaException,ownerHref,ownerText,provenanceHref,releaseRouteFor,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,withheldSource,type SalmonDocument,type SalmonNode} from './salmon'
+import {commerceException,commerceMetaException,staleHeadMeta,ownerHref,ownerText,provenanceHref,releaseRouteFor,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,withheldSource,type SalmonDocument,type SalmonNode} from './salmon'
 import {normalizeWave3ProductDescription,publicSourceString,reconcileCommercialScope} from './public-text'
 import {deliverySrc,provenanceRef} from './media-delivery'
 import {PUBLIC_AUTHOR} from './public-author-identity'
@@ -267,7 +267,7 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
   const pagePath=canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath
   return <>
     {/* R2.4: the standard social set (./standard-head) mirrors the served title and description on every page. */}
-    <MetaTags meta={standardSocialMeta(withProjectOwnImage(publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)),pagePath),{title:pagedTitle(servedTitle(doc),pageNumber),description:pagedDescription(servedDescription(doc)??'',pageNumber),url:canonicalOverride??(doc.seo.canonical[0]&&publicHeadUrl(doc.seo.canonical[0]))??`${PUBLIC_ORIGIN}${doc.targetPath}`,type:doc.type==='posts'?'article':'website',})}/>
+    <MetaTags meta={standardSocialMeta(withProjectOwnImage(publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)&&!staleHeadMeta(m,doc)),pagePath),{title:pagedTitle(servedTitle(doc),pageNumber),description:pagedDescription(servedDescription(doc)??'',pageNumber),url:canonicalOverride??(doc.seo.canonical[0]&&publicHeadUrl(doc.seo.canonical[0]))??`${PUBLIC_ORIGIN}${doc.targetPath}`,type:doc.type==='posts'?'article':'website',})}/>
     {doc.seo.schema.map((raw,i)=>{
       if(isBreadcrumbList(JSON.parse(raw)))return null
       // Quote-only estate: no prices, and no ratings or reviews (Control Tower ruling 2026-10-02).

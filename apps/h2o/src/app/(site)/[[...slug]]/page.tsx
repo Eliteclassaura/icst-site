@@ -20,6 +20,7 @@ import {EnglishServicePage,englishServiceForPath,englishServicePages} from '../.
 import {connection} from 'next/server'
 import {isEmptyArchivePage} from '../../../content/empty-archives'
 import {isPayloadContent} from '../../../content/runtime-read'
+import {richRobots} from '../../../content/config'
 import {LEGAL_PAGES,legalPageForPath} from '../../../site/legal-routes'
 import {LegalPage,legalMetadata} from '../../../site/LegalPage'
 import {EditorialPage,type EditorialDoc} from '../../../content/EditorialPage'
@@ -73,7 +74,7 @@ async function baseMetadata({params}:Pick<Params,'params'>):Promise<Metadata>{
     const resolved=await resolvePublicPath(requestPathOf((await params).slug))
     if(!resolved)return NOT_FOUND_METADATA
     const {record,preview}=resolved
-    const robots=robotsFor(record,preview)
+    const robots=richRobots(robotsFor(record,preview))
     // Locale Part B: the hreflang alternates the production sitemap lists for this page (reciprocal; none outside a served cluster).
     const languages=preview?undefined:(await import('../../../content/sitemap-response')).hreflangAlternatesFor(record.path)
     const alternatesOf=(r:typeof record)=>languages?{canonical:canonicalFor(r),languages}:{canonical:canonicalFor(r)}

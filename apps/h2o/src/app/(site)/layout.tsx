@@ -10,7 +10,7 @@
  * a constant — the day a route becomes ready the default stops being asserted here and each page's
  * own metadata decides, which is the behaviour the positive-path test proves.
  */
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import { headers } from 'next/headers'
 import { isPayloadContent } from '../../content/runtime-read'
@@ -52,6 +52,9 @@ import './design-articles.css'
 
 export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }
+
+/** HEAD-POLISH-1: the browser UI colour is the ICS blue of the favicon tile and the web manifest (theme_color). */
+export const viewport: Viewport = { themeColor: '#1B60A8' }
 
 export const metadata: Metadata = {
   // Design R3.2 (owner-approved favicon B, CT 2026-10-06): the ICS drop mark on an ICS-blue tile.

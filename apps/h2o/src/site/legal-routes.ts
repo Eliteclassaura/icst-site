@@ -7,32 +7,37 @@
  * published ledger wherever it decides indexing and the sitemap (proxy, sitemap response), so nothing about them depends on a
  * database record. Pure data: no React, no I/O.
  */
-export type LegalPage = { path: string; file: string; title: string; description: string }
+/** `modified`: the date of the text (its effective date; the accessibility statement has none, so its publication date) — WebPage dateModified. */
+export type LegalPage = { path: string; file: string; title: string; description: string; modified: string }
 
 export const LEGAL_PAGES: readonly LegalPage[] = [
   {
     path: '/privacy-policy/',
     file: 'privacy-policy.md',
-    title: 'Privacy Notice | ICS',
+    title: 'Privacy Policy | ICS Industrial Cooling Solutions',
     description: 'How Industrial Cooling Solutions (ICS) handles personal information when you visit h2ocooling.com or ask us for a quote.',
+    modified: '2026-10-09',
   },
   {
     path: '/terms-of-use/',
     file: 'terms-of-use.md',
-    title: 'Terms of Use | ICS',
+    title: 'Terms of Use | ICS Industrial Cooling Solutions',
     description: 'The terms for using h2ocooling.com and for sending Industrial Cooling Solutions (ICS) a quote request.',
+    modified: '2026-10-09',
   },
   {
     path: '/cookie-notice/',
     file: 'cookie-notice.md',
-    title: 'Cookie Notice | ICS',
+    title: 'Cookie Notice | ICS Industrial Cooling Solutions',
     description: 'The cookies and browser storage h2ocooling.com uses, and what each one does.',
+    modified: '2026-10-09',
   },
   {
     path: '/accessibility/',
     file: 'accessibility.md',
-    title: 'Accessibility Statement | ICS',
+    title: 'Accessibility Statement | ICS Industrial Cooling Solutions',
     description: 'Our accessibility target for h2ocooling.com and how to get help if part of the site is hard to use.',
+    modified: '2026-10-09',
   },
 ] as const
 
