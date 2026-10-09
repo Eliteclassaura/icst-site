@@ -54,9 +54,20 @@ export async function claimStep(payload: Payload, id: string | number, step: num
  */
 export async function claimStepUp(payload: Payload, id: string | number, sid: string, now: Date): Promise<boolean> {
   const r = await db(payload).execute(
-    sql`UPDATE users SET mfa_stepup = jsonb_build_object('sid', ${sid}::text, 'at', ${now.toISOString()}::text), mfa_failures = 0, mfa_locked_until = NULL WHERE id = ${String(id)} AND ${notLocked(now)} RETURNING id`,
+    sql`UPDATE users SET mfa_stepup = CASE WHEN mfa_stepup ->> 'sid' = ${sid}::text THEN mfa_stepup || jsonb_build_object('at', ${now.toISOString()}::text) ELSE jsonb_build_object('sid', ${sid}::text, 'at', ${now.toISOString()}::text) END, mfa_failures = 0, mfa_locked_until = NULL WHERE id = ${String(id)} AND ${notLocked(now)} RETURNING id`,
   )
   return r.rows.length === 1
+}
+
+/**
+ * STEP-UP-1.1 (Auditor C1): the authenticator-code step-up for the one gate that keeps it (an admin resetting or turning off
+ * someone's two-step sign-in). It lives beside the password step-up in the same record (`appAt`, same session id), so neither
+ * overwrites the other, and a code is only ever recorded for the session that entered it.
+ */
+export async function markAppStepUp(payload: Payload, id: string | number, sid: string, now: Date): Promise<void> {
+  await db(payload).execute(
+    sql`UPDATE users SET mfa_stepup = CASE WHEN mfa_stepup ->> 'sid' = ${sid}::text THEN mfa_stepup || jsonb_build_object('appAt', ${now.toISOString()}::text) ELSE jsonb_build_object('sid', ${sid}::text, 'appAt', ${now.toISOString()}::text) END WHERE id = ${String(id)}`,
+  )
 }
 
 /** STEP-UP-1: end the user's step-up (sign-out). */

@@ -1,5 +1,5 @@
 import type { Payload } from 'payload'
-import { confirmStepUp, loadMfaUser, stepUpSecondsLeft } from '../auth/mfa/service'
+import { confirmStepUp, confirmStepUpApp, loadMfaUser, stepUpAppSecondsLeft, stepUpSecondsLeft } from '../auth/mfa/service'
 import { readEmailConfig, recipientKey } from './config'
 import { failureCode, gateRecipient, recipientRef } from './gate'
 import { checkProfileShape, invalidateProfiles, openProfile, passwordContext, PRESET_DEFAULTS, MAIL_PRESETS, SENDING_USES, type MailPreset } from './profiles'
@@ -51,6 +51,29 @@ export async function stepUp(s: CrmSession, sid: string | null, password: string
   }
   if (stepUpSecondsLeft(u, sid, now) > 0) return null
   return fail('STEP_UP_REQUIRED', 'Confirm with your password first (valid for 30 minutes).')
+}
+
+/**
+ * STEP-UP-1.1 (Auditor C1): the authenticator step-up, for the one gate that keeps it (an admin resetting or turning off someone's
+ * two-step sign-in): a fresh app code given now, or one confirmed in this session within the last 5 minutes. A password step-up does not count.
+ */
+export async function stepUpApp(s: CrmSession, sid: string | null, code: string | undefined, now = new Date()): Promise<Outcome | null> {
+  if (!sid) return fail('STEP_UP_REQUIRED', 'Your sign-in has expired. Sign in again.')
+  const u = await loadMfaUser(s.payload, s.user.id)
+  if (!u) return fail('STEP_UP_REQUIRED', 'Your sign-in has expired. Sign in again.')
+  if (code && code.trim()) {
+    const out = await confirmStepUpApp(s.payload, u, sid, code.trim(), now)
+    return out.ok ? null : fail(`STEP_UP_${out.code}`, out.message)
+  }
+  if (stepUpAppSecondsLeft(u, sid, now) > 0) return null
+  return fail('STEP_UP_REQUIRED', 'Confirm with a code from your authenticator app first (valid for 5 minutes).')
+}
+
+export async function confirmSettingsStepUpApp(s: CrmSession, sid: string | null, code: string | undefined): Promise<Outcome> {
+  if (!s.isAdmin) return NOT_ADMIN
+  if (!code?.trim()) return fail('STEP_UP_CODE_REQUIRED', 'Enter the 6-digit code from your authenticator app.')
+  const denied = await stepUpApp(s, sid, code)
+  return denied ?? { ok: true, message: 'Confirmed for 5 minutes.' }
 }
 
 /** Confirm a step-up on its own (the "Confirm" form at the top of the settings page). */

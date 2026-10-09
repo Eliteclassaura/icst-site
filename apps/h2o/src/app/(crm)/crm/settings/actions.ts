@@ -33,6 +33,9 @@ async function run(fn: (s: CrmSession, sid: string | null) => Promise<Outcome>):
   return { ...out, nonce: Date.now() } as ActionState
 }
 
+export async function stepUpAppAction(_: ActionState, fd: FormData) {
+  return run((s, sid) => sending.confirmSettingsStepUpApp(s, sid, f(fd, 'code')))
+}
 export async function stepUpAction(_: ActionState, fd: FormData) {
   return run((s, sid) => sending.confirmSettingsStepUp(s, sid, f(fd, 'password')))
 }

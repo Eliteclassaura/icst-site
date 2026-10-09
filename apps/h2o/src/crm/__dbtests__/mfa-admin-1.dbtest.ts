@@ -5,9 +5,10 @@ import { adminMfaAction, listPeople, noticeText } from '../../auth/mfa/admin-act
 import { rememberDevice } from '../../auth/mfa/devices'
 import { pendingSession } from '../../auth/mfa/guard'
 import { beginEnrolment, enrolWithSecret, isSessionVerified, loadMfaUser, verifySecondFactorByEmail } from '../../auth/mfa/service'
-import { generateSecret } from '../../auth/mfa/totp'
+import { confirmStepUp, confirmStepUpApp } from '../../auth/mfa/service'
+import { generateSecret, totpCode } from '../../auth/mfa/totp'
 import { crmSessionFor, type CrmSession } from '../workspace/session'
-import { PASSWORD, payload, user, type TestUser } from './harness'
+import { HARNESS_TOTP_SECRET, PASSWORD, payload, user, type TestUser } from './harness'
 
 /**
  * MFA-ADMIN-1 against the isolated synthetic database: an admin can reset anyone's two-step sign-in and turn it off (and
@@ -22,7 +23,7 @@ let admin: TestUser, clientAdmin: TestUser, sales: TestUser
 let seq = 0
 
 const session = (u: TestUser): CrmSession => crmSessionFor(p, u.user)!
-const grantStepUp = (u: TestUser, at = new Date()) => p.update({ collection: 'users', id: u.id, data: { mfa_stepup: { sid: SID, at: at.toISOString() } } as never, ...sys })
+const grantStepUp = (u: TestUser, at = new Date()) => p.update({ collection: 'users', id: u.id, data: { mfa_stepup: { sid: SID, appAt: at.toISOString() } } as never, ...sys })
 const exec = async (q: unknown) => (p.db as unknown as { drizzle: { execute: (q: unknown) => Promise<{ rows: Doc[] }> } }).drizzle.execute(q)
 const notices = () => {
   const sent: Array<{ to: string; subject: string; text: string }> = []
@@ -69,11 +70,28 @@ describe('MFA-ADMIN-1: who may do it', () => {
     const n = notices()
     expect(await act(admin, { userId: t.id, action: 'reset' }, n)).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
     expect(await act(admin, { userId: t.id, action: 'turn-off' }, n)).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
-    // a step-up older than 30 minutes does not count either
-    await grantStepUp(admin, new Date(Date.now() - 31 * 60_000))
+    // a step-up older than 5 minutes does not count either (this gate keeps the authenticator window)
+    await grantStepUp(admin, new Date(Date.now() - 6 * 60_000))
     expect(await act(admin, { userId: t.id, action: 'reset' }, n)).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
     expect((await fresh(t.id)).mfa_enabled).toBe(true)
     expect(n.sent).toHaveLength(0)
+  })
+  it('STEP-UP-1.1 (Auditor C1): a PASSWORD step-up does not open this gate; a fresh authenticator code does', async () => {
+    const t = await person(['sales'])
+    await p.update({ collection: 'users', id: admin.id, data: { mfa_stepup: null, mfa_failures: 0, mfa_locked_until: null } as never, ...sys })
+    const n = notices()
+    const t0 = new Date(Date.now() + 3 * 3600_000) // a time step nobody used yet
+    expect(await confirmStepUp(p, await fresh(admin.id), SID, PASSWORD, t0)).toMatchObject({ ok: true })
+    expect(await act(admin, { userId: t.id, action: 'reset' }, n, t0)).toMatchObject({ ok: false, code: 'STEP_UP_REQUIRED' })
+    expect((await fresh(t.id)).mfa_enabled).toBe(true)
+    expect(n.sent).toHaveLength(0)
+    expect(await confirmStepUpApp(p, await fresh(admin.id), SID, totpCode(HARNESS_TOTP_SECRET, t0), t0)).toMatchObject({ ok: true })
+    // The app code and the password step-up live side by side in one session: the password one is still there.
+    const rec = (await fresh(admin.id)).mfa_stepup as { at?: string; appAt?: string }
+    expect(typeof rec.at).toBe('string')
+    expect(typeof rec.appAt).toBe('string')
+    expect(await act(admin, { userId: t.id, action: 'reset' }, n, t0)).toMatchObject({ ok: true })
+    expect((await fresh(t.id)).mfa_enabled).not.toBe(true)
   })
   it('a reason is required (and is not the audit): short, empty and control characters are refused', async () => {
     const t = await person(['sales'])

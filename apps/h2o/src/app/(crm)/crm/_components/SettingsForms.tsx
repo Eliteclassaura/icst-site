@@ -32,6 +32,29 @@ export function StepUpForm({ secondsLeft }: { secondsLeft: number }) {
   )
 }
 
+/** STEP-UP-1.1 (Auditor C1): the one place that still asks for the authenticator app: resetting or turning off someone's two-step sign-in. */
+export function AppStepUpForm({ secondsLeft }: { secondsLeft: number }) {
+  return (
+    <section className="c-panel is-settings" aria-labelledby="stepup-app-h">
+      <div className="c-panel-head">
+        <h2 id="stepup-app-h">Confirm it’s you</h2>
+      </div>
+      <div className="c-panel-body is-padded">
+        <p className="c-hint">
+          {secondsLeft > 0
+            ? `Confirmed. Changes are allowed for about ${Math.max(1, Math.round(secondsLeft / 60))} more minute${secondsLeft > 90 ? 's' : ''}.`
+            : 'Resetting or turning off two-step sign-in needs a fresh code from your authenticator app. It lasts 5 minutes.'}
+        </p>
+        <ActionForm action={A.stepUpAppAction} submitLabel="Confirm" submitClassName="c-btn">
+          <Field name="code" label="Code from your authenticator app">
+            {(a) => <input className="c-input" {...a} inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="\d{6}" />}
+          </Field>
+        </ActionForm>
+      </div>
+    </section>
+  )
+}
+
 export type ProfileValues = {
   id?: string
   name?: string

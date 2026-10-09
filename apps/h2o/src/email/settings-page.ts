@@ -1,6 +1,6 @@
 import { headers } from 'next/headers'
 import { pendingSession } from '../auth/mfa/guard'
-import { loadMfaUser, stepUpSecondsLeft } from '../auth/mfa/service'
+import { loadMfaUser, stepUpAppSecondsLeft, stepUpSecondsLeft } from '../auth/mfa/service'
 import { readEmailConfig } from './config'
 import { PRESET_DEFAULTS, MAIL_PRESETS } from './profiles'
 import { settingsKeyConfigured } from './settings-key'
@@ -21,6 +21,13 @@ export async function stepUpLeft(s: CrmSession): Promise<number> {
   const pending = await pendingSession(s.payload, await headers())
   const u = await loadMfaUser(s.payload, s.user.id)
   return u && pending ? stepUpSecondsLeft(u, pending.sid) : 0
+}
+
+/** STEP-UP-1.1: seconds left on the authenticator step-up (the people page; everything else uses the password one). */
+export async function stepUpAppLeft(s: CrmSession): Promise<number> {
+  const pending = await pendingSession(s.payload, await headers())
+  const u = await loadMfaUser(s.payload, s.user.id)
+  return u && pending ? stepUpAppSecondsLeft(u, pending.sid) : 0
 }
 
 export function emailStatus() {

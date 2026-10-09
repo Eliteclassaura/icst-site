@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import { listPeople } from '../../../../../auth/mfa/admin-actions'
-import { stepUpLeft } from '../../../../../email/settings-page'
+import { stepUpAppLeft } from '../../../../../email/settings-page'
 import { Shell } from '../../../../../crm/workspace/ui/Shell'
 import { ToneChip } from '../../../../../crm/workspace/ui/Status'
 import { PersonActions } from '../../_components/PeopleForms'
-import { StepUpForm } from '../../_components/SettingsForms'
+import { AppStepUpForm } from '../../_components/SettingsForms'
 import { requireCrmSession } from '../../session'
 
 export const metadata: Metadata = { title: 'People and sign-in' }
@@ -22,13 +22,13 @@ export default async function PeoplePage() {
         </p>
       </Shell>
     )
-  const [people, left] = await Promise.all([listPeople(s), stepUpLeft(s)])
+  const [people, left] = await Promise.all([listPeople(s), stepUpAppLeft(s)])
   return (
     <Shell active="settings" title="People and sign-in" userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <p className="c-crumbs">
         <a href="/crm/settings/">Settings</a> / People and sign-in
       </p>
-      <StepUpForm secondsLeft={left} />
+      <AppStepUpForm secondsLeft={left} />
       <section className="c-panel is-settings" aria-labelledby="people-h">
         <div className="c-panel-head">
           <h2 id="people-h">Two-step sign-in</h2>

@@ -1,11 +1,12 @@
 import type { Payload } from 'payload'
-import { addVerifiedSession, claimRecoveryCode, claimStep, claimStepUp, countFailure } from './atomic'
+import { addVerifiedSession, claimRecoveryCode, claimStep, claimStepUp, countFailure, markAppStepUp } from './atomic'
 import { writeSecurityAudit } from './audit'
 import { revokeAllDevices } from './devices'
 import { MFA_CLEARED } from './fields'
 import { isExempt } from './eligibility'
 import { decryptSecret, encryptSecret, hashRecoveryCode } from './keys'
 import { verifyEmailCode } from './email-code'
+import { notifyStepUpLock, type LockNoticeDeps } from './lock-notice'
 import { verifyAccountPassword } from './password'
 import { attemptsLeft, lockMessage, wrongCodeMessage } from './ux'
 import { generateRecoveryCodes, generateSecret, normaliseRecoveryCode, otpauthUri, stepAt, verifyTotp } from './totp'
@@ -194,7 +195,7 @@ export function stepUpSecondsLeft(u: Doc, sid: string | null | undefined, now = 
   return left > 0 && left <= STEP_UP_MS ? Math.ceil(left / 1000) : 0
 }
 
-export async function confirmStepUp(payload: Payload, u: MfaUser, sid: string, password: string, now = new Date()): Promise<MfaOutcome> {
+export async function confirmStepUp(payload: Payload, u: MfaUser, sid: string, password: string, now = new Date(), deps: LockNoticeDeps = {}): Promise<MfaOutcome> {
   const wait = locked(u, now)
   if (wait) return { ok: false, code: 'LOCKED', message: lockMessage(wait), retryAfterSeconds: wait }
   if (typeof password !== 'string' || password.length === 0) return { ok: false, code: 'FORMAT', message: 'Enter your password.' }
@@ -204,7 +205,11 @@ export async function confirmStepUp(payload: Payload, u: MfaUser, sid: string, p
   if (!match) {
     const { failures, locked: lock } = await countFailure(payload, u.id, MAX_FAILURES, new Date(now.getTime() + LOCK_MS))
     await writeSecurityAudit(payload, { action: lock ? 'mfa-locked' : 'mfa-failed', userId: String(u.id), actorId: String(u.id), detail: { reason: 'STEPUP_PASSWORD', failures } })
-    if (lock) return { ok: false, code: 'LOCKED', message: lockMessage(LOCK_MS / 1000), retryAfterSeconds: LOCK_MS / 1000 }
+    if (lock) {
+      // STEP-UP-1.1 (Auditor C3): five wrong passwords on a step-up is what a stolen session looks like; the admins are told.
+      await notifyStepUpLock(payload, u.id, now, deps)
+      return { ok: false, code: 'LOCKED', message: lockMessage(LOCK_MS / 1000), retryAfterSeconds: LOCK_MS / 1000 }
+    }
     const left = attemptsLeft(failures, MAX_FAILURES)
     return { ok: false, code: 'MISMATCH', message: `That password is not right.${left <= 3 ? ` ${left} ${left === 1 ? 'try' : 'tries'} left before a ${LOCK_MS / 60_000}-minute pause.` : ''}`, attemptsLeft: left }
   }
@@ -215,6 +220,37 @@ export async function confirmStepUp(payload: Payload, u: MfaUser, sid: string, p
     return { ok: false, code: 'LOCKED', message: lockMessage(wait ?? LOCK_MS / 1000), retryAfterSeconds: wait ?? LOCK_MS / 1000 }
   }
   await writeSecurityAudit(payload, { action: 'mfa-stepup', userId: String(u.id), actorId: String(u.id), detail: { by: 'password' } })
+  return { ok: true }
+}
+
+/**
+ * STEP-UP-1.1 (Auditor C1): one gate keeps the AUTHENTICATOR step-up: an admin resetting or turning off someone's two-step
+ * sign-in. A stolen session plus a stolen password must not be able to remove a peer's second factor. A fresh app code
+ * (never a password, an email code, a recovery code or a remembered device), 5 minutes, this session; the same lock-out and
+ * replay rules as sign-in. It does not open any password gate, and a password step-up does not open this one.
+ */
+export const STEP_UP_APP_MS = 5 * 60 * 1000
+
+export function stepUpAppSecondsLeft(u: Doc, sid: string | null | undefined, now = new Date()): number {
+  const s = u.mfa_stepup as { sid?: unknown; appAt?: unknown } | null | undefined
+  if (!sid || !s || s.sid !== sid || typeof s.appAt !== 'string') return 0
+  const left = new Date(s.appAt).getTime() + STEP_UP_APP_MS - now.getTime()
+  return left > 0 && left <= STEP_UP_APP_MS ? Math.ceil(left / 1000) : 0
+}
+
+export async function confirmStepUpApp(payload: Payload, u: MfaUser, sid: string, code: string, now = new Date()): Promise<MfaOutcome> {
+  if (u.mfa_enabled !== true) return { ok: false, code: 'NOT_ENROLLED', message: 'Two-factor is not set up yet.' }
+  const wait = locked(u, now)
+  if (wait) return { ok: false, code: 'LOCKED', message: lockMessage(wait), retryAfterSeconds: wait }
+  if (!/^\d{6}$/.test(code.replace(/\s/g, ''))) return { ok: false, code: 'FORMAT', message: 'Enter the 6-digit code from your authenticator app.' }
+  const secret = decryptSecret(u.mfa_secret)
+  if (!secret) return { ok: false, code: 'NOT_ENROLLED', message: 'Two-factor needs to be set up again. Ask an admin to reset it.' }
+  const lastStep = typeof u.mfa_last_step === 'number' ? u.mfa_last_step : null
+  const check = verifyTotp(secret, code, now, lastStep)
+  if (!check.ok) return failure(payload, u, now, check.reason)
+  if (!(await claimStep(payload, u.id, check.step, now))) return lostClaim(payload, u, now)
+  await markAppStepUp(payload, u.id, sid, now)
+  await writeSecurityAudit(payload, { action: 'mfa-stepup', userId: String(u.id), actorId: String(u.id), detail: { by: 'authenticator' } })
   return { ok: true }
 }
 

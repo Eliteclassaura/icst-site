@@ -96,6 +96,8 @@ const exemptionAndEpoch: CollectionBeforeChangeHook = ({ context, data, operatio
     context.mfaExemptCleared = true
   }
   const pw = d.password
+  // STEP-UP-1.1 (Auditor C2): a password change ends every step-up window for this user (the record holds both kinds).
+  if (typeof pw === 'string' && pw) d.mfa_stepup = null
   if (rolesChanged || (typeof pw === 'string' && pw) || d.mfa_reset === true) d.security_epoch = (typeof o.security_epoch === 'number' ? o.security_epoch : 0) + 1
   return data
 }
@@ -129,6 +131,7 @@ const revokeAfterPasswordReset: CollectionAfterOperationHook = async ({ operatio
   if (operation !== 'resetPassword') return result
   const id = (result as { user?: { id?: string | number } } | null)?.user?.id
   if (id !== undefined) {
+    await clearStepUp(req.payload, id).catch(() => undefined) // STEP-UP-1.1 (Auditor C2)
     const n = await revokeAllDevices(req.payload, id)
     if (n > 0) await writeSecurityAudit(req.payload, { action: 'mfa-devices-revoked', userId: String(id), actorId: null, detail: { why: 'password', count: n } })
   }

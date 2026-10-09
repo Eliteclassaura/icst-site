@@ -1,6 +1,6 @@
 import { sql } from '@payloadcms/db-postgres'
 import type { Payload } from 'payload'
-import { stepUp } from '../../email/sending-settings'
+import { stepUpApp } from '../../email/sending-settings'
 import type { Outcome } from '../../crm/workspace/mutations'
 import type { CrmSession } from '../../crm/workspace/session'
 import { writeSecurityAudit, type MfaAuditAction } from './audit'
@@ -90,7 +90,8 @@ export async function adminMfaAction(
 ): Promise<Outcome> {
   const now = deps.now ?? new Date()
   if (!s.isAdmin) return fail('FORBIDDEN', 'Two-step sign-in settings are for admins.')
-  const denied = await stepUp(s, sid, undefined, now)
+  // STEP-UP-1.1 (Auditor C1): this gate keeps a FRESH AUTHENTICATOR CODE; a password step-up does not open it.
+  const denied = await stepUpApp(s, sid, undefined, now)
   if (denied) return denied
   const action = input.action
   if (action !== 'reset' && action !== 'turn-off' && action !== 'turn-on') return fail('BAD_ACTION', 'Choose what to do.')
