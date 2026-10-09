@@ -242,13 +242,21 @@ describe('BR5 typed content contract', () => {
     const { text: _t, ...rest } = doc
     void _t
     const stored = (rec as Doc).document as Doc
-    for (const k of new Set([...Object.keys(stored), ...Object.keys(rest)])) expect(JSON.stringify((rest as Doc)[k]), k).toBe(JSON.stringify(stored[k]))
+    // HOME-LOADMORE-1.1: composing applies the read-time dead-widget transform (the Elementor "Load More" widget whose script is gone). It is the
+    // ONLY deliberate difference from the stored document: every key but `children` is the stored value, and `children` is the stored tree after
+    // that same transform (a record without such a widget is untouched, so for it this is byte-for-byte).
+    const { withoutDeadLoadMore, deadWidgetCount } = await import('../dead-widgets')
+    const accepted = withoutDeadLoadMore(stored)
+    for (const k of new Set([...Object.keys(stored), ...Object.keys(rest)])) expect(JSON.stringify((rest as Doc)[k]), k).toBe(JSON.stringify(accepted[k]))
+    for (const k of Object.keys(stored)) if (k !== 'children') expect(JSON.stringify((rest as Doc)[k]), `${k} is the stored value`).toBe(JSON.stringify(stored[k]))
+    expect(deadWidgetCount(rest)).toBe(0)
+    expect(deadWidgetCount(stored) > 0, 'the stored record carries a dead widget (the transform is what differs)').toBe(JSON.stringify(rest.children) !== JSON.stringify(stored.children))
     const edited = composePublicDocument({ ...(rec as object), title: 'New heading', seo: { title: 'New title', description: 'New desc' } } as never) as Doc
     expect(edited.title).toBe('New heading')
     expect(((edited.seo as Doc).h1 as string[])[0]).toBe('New heading')
     expect((edited.seo as Doc).title).toBe('New title')
     expect(((edited.seo as Doc).meta as Array<{ name: string; value: string }>).find((m) => m.name === 'description')!.value).toBe('New desc')
-    expect(edited.children).toEqual(((rec as Doc).document as Doc).children)
+    expect(edited.children).toEqual(accepted.children)
   })
 })
 

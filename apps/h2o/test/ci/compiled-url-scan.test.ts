@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process'
-import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs'
+import { mkdtempSync, mkdirSync, readFileSync, readdirSync, writeFileSync, rmSync } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { afterAll, describe, expect, it } from 'vitest'
@@ -101,10 +101,34 @@ describe('DEPLOY-PIPE-1.6: scan-allow.json (count-pinned, repo-owned)', () => {
     return f
   }
 
-  it('the real scan-allow.json is exactly CT\'s entry', () => {
+  /**
+   * 1.2d-FIX-1 (CI run 37997940273: forbidden 4, overMax): the literal is compiled from exactly these sources. The pin is their sum, so a new
+   * occurrence (a fifth source, or one more compiled copy of an existing one) fails the scan again instead of widening the rule silently.
+   */
+  const KNOWN_SOURCES = [
+    { file: 'src/site/lang/lang-model.ts', purpose: 'LANG-HOST-1 translate-origin allowlist', compiledFiles: 3 },
+    { file: 'src/content/sitemap-response.ts', purpose: 'SITEMAP-PREVIEW-1 staging sitemap host allowlist', compiledFiles: 1 },
+  ]
+  it('the real scan-allow.json is exactly CT\'s entry, and its max is the number of known compiled sources (4)', () => {
     const real = path.resolve(process.cwd(), 'ops/ci/scan-allow.json')
-    expect(JSON.parse(readFileSync(real, 'utf8'))).toEqual([{ literal: LIT, max: 3, reason: 'LANG-HOST-1 translate-origin allowlist (apps/h2o/src/site/lang/lang-model.ts); remove with the staging hostname at GO+3-7d', removeBy: '2026-10-20' }])
+    const reason = 'LANG-HOST-1 translate-origin allowlist (3 compiled files) + SITEMAP-PREVIEW-1 staging sitemap host allowlist (1); remove both with the staging hostname at GO+3-7d'
+    expect(JSON.parse(readFileSync(real, 'utf8'))).toEqual([{ literal: LIT, max: 4, reason, removeBy: '2026-10-20' }])
+    expect(KNOWN_SOURCES.reduce((sum, s) => sum + s.compiledFiles, 0)).toBe(4)
+    expect(JSON.parse(readFileSync(real, 'utf8'))[0].max).toBe(KNOWN_SOURCES.reduce((sum, s) => sum + s.compiledFiles, 0))
     expect(loadAllow(real, { forbid: opts.forbid })).toHaveLength(1)
+  })
+
+  it('the literal is written in exactly the known source modules (a new one needs a reviewed entry here and in scan-allow.json)', () => {
+    const found: string[] = []
+    const walk = (dir: string) => {
+      for (const e of readdirSync(dir, { withFileTypes: true })) {
+        const p = path.join(dir, e.name)
+        if (e.isDirectory()) { if (e.name !== '__tests__' && e.name !== '__dbtests__') walk(p) }
+        else if (/\.(?:ts|tsx|mjs|js)$/.test(e.name) && !/\.test\./.test(e.name) && readFileSync(p, 'utf8').includes(LIT)) found.push(path.relative(process.cwd(), p).split(path.sep).join('/'))
+      }
+    }
+    walk(path.resolve(process.cwd(), 'src'))
+    expect(found.sort()).toEqual(KNOWN_SOURCES.map((s) => s.file).sort())
   })
 
   it('the 3 real hits pass: allowed by rule, reported with file and count, and the evidence keeps both numbers', () => {
@@ -208,7 +232,7 @@ describe('DEPLOY-PIPE-1.6: scan-allow.json (count-pinned, repo-owned)', () => {
     }
   })
 
-  it('the command line: the 3 real hits exit 0 with the evidence JSON (both numbers, rule, files); a 4th exits 1; the default file is the repo\'s', () => {
+  it('the command line: the real hits exit 0 with the evidence JSON (both numbers, rule, files); one over the pinned 4 exits 1; the default file is the repo\'s', () => {
     const run = (d: string, extra: string[] = []) => {
       const out = path.join(tmp, `ev-${n++}.json`)
       const r = spawnSync('node', [scan, d, '--origin', 'https://h2ocooling.com', '--out', out, ...extra], { encoding: 'utf8' })
@@ -218,11 +242,18 @@ describe('DEPLOY-PIPE-1.6: scan-allow.json (count-pinned, repo-owned)', () => {
     expect(ok.r.status).toBe(0)
     expect(JSON.parse(ok.r.stdout)).toMatchObject({ pass: true, forbidden: 0, forbiddenRaw: 3, allowedByRule: 3, originSeen: true })
     expect(ok.ev).toMatchObject({ pass: true, forbiddenRaw: 3, forbiddenFinal: 0, forbidden: [], allowFile: 'scan-allow.json' })
-    expect(ok.ev.allowedByRule).toEqual([expect.objectContaining({ literal: LIT, max: 3, count: 3, removeBy: '2026-10-20', reason: expect.stringContaining('LANG-HOST-1') })])
+    expect(ok.ev.allowedByRule).toEqual([expect.objectContaining({ literal: LIT, max: 4, count: 3, removeBy: '2026-10-20', reason: expect.stringContaining('LANG-HOST-1') })])
     expect(ok.ev.allowedByRule[0].files).toHaveLength(3)
-    const four = run(dirOf({ ...three, 'static/chunks/extra.js': `z="${LIT}"` }))
-    expect(four.r.status).toBe(1)
-    expect(four.ev).toMatchObject({ pass: false, forbiddenRaw: 4, forbiddenFinal: 4, allowedByRule: [] })
+    // 1.2d-FIX-1: the build's real fourth hit, the SITEMAP-PREVIEW-1 staging sitemap allowlist (server/chunks/_1douqwm._.js), passes under the pin of 4
+    const four = run(dirOf({ ...three, 'server/chunks/_1douqwm._.js': `new Set(["${LIT}"])` }))
+    expect(four.r.status).toBe(0)
+    expect(four.ev).toMatchObject({ pass: true, forbiddenRaw: 4, forbiddenFinal: 0, forbidden: [] })
+    expect(four.ev.allowedByRule).toEqual([expect.objectContaining({ literal: LIT, max: 4, count: 4 })])
+    expect(four.ev.allowedByRule[0].files).toHaveLength(4)
+    // a fifth fails closed: over the pin, EVERY hit of the literal is forbidden again
+    const five = run(dirOf({ ...three, 'server/chunks/_1douqwm._.js': `new Set(["${LIT}"])`, 'static/chunks/extra.js': `z="${LIT}"` }))
+    expect(five.r.status).toBe(1)
+    expect(five.ev).toMatchObject({ pass: false, forbiddenRaw: 5, forbiddenFinal: 5, allowedByRule: [] })
     // a different allow file by flag (tests only); an empty one is the old behaviour
     const emptied = run(dirOf(three), ['--allow', writeAllow('[]')])
     expect(emptied.r.status).toBe(1)

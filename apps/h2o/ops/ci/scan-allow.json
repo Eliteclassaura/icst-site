@@ -1,8 +1,8 @@
 [
   {
     "literal": "https://staging.h2ocooling.org",
-    "max": 3,
-    "reason": "LANG-HOST-1 translate-origin allowlist (apps/h2o/src/site/lang/lang-model.ts); remove with the staging hostname at GO+3-7d",
+    "max": 4,
+    "reason": "LANG-HOST-1 translate-origin allowlist (3 compiled files) + SITEMAP-PREVIEW-1 staging sitemap host allowlist (1); remove both with the staging hostname at GO+3-7d",
     "removeBy": "2026-10-20"
   }
 ]
