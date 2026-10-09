@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
+import { withoutDeadLoadMore } from './dead-widgets'
 
 /**
  * Text-override registry (Control Tower 2026-10-05, R2.1; content/design/text-overrides.json).
@@ -159,5 +160,6 @@ export function applyTextOverrides<T extends Doc>(doc: T): { doc: T; problems: s
 export function withTextOverrides<T extends Doc>(doc: T): T {
   const { doc: out, problems } = applyTextOverrides(doc)
   for (const p of problems) console.warn(`[text-override] ${p}`)
-  return out
+  // HOME-LOADMORE-1: leftover "Load More" widgets with no script behind them (./dead-widgets), in every document read
+  return withoutDeadLoadMore(out)
 }

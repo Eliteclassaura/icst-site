@@ -3,6 +3,7 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { composePublicDocument } from '../compose'
 import { emailShapedCount, NEUTRAL_AUTHOR_LABEL, projectPublicAuthor } from '../public-author'
+import { withoutDeadLoadMore } from '../dead-widgets'
 
 /** ADR-028 with a SYNTHETIC marker only (the real author value is never written into tests or evidence). */
 const MARK = 'synthetic.author.marker@example.test'
@@ -25,6 +26,6 @@ describe('public author projection (ADR-028)', () => {
     d.seo.schema = [JSON.stringify({ '@graph': [{ '@type': 'ImageObject', caption: MARK }, { '@type': 'BlogPosting', author: { name: MARK } }] })]
     const composed = composePublicDocument({ routeId: 'SALMON-posts-3968', path: '/ai-cooling-tower-optimization/', family: 'salmon', title: 'T', document: d })
     expect(emailShapedCount(composed.seo)).toBe(0)
-    expect(JSON.stringify(composed.children)).toBe(JSON.stringify(d.children))
+    expect(JSON.stringify(composed.children)).toBe(JSON.stringify(withoutDeadLoadMore({ children: d.children }).children)) // only the dead Load More widgets (HOME-LOADMORE-1) are blanked
   })
 })
