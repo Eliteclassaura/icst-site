@@ -1,4 +1,5 @@
-import {createElement,type ReactNode} from 'react'
+import {createElement,Fragment,type ReactNode} from 'react'
+import {restoredSlotNodes} from '../RestoredSlot'
 import {salmonMedia,salmonNodeText,type SalmonDocument,type SalmonNode} from '../salmon'
 import {pageForSegments} from '../cohort'
 import {LuxuryFooter,LuxuryHeader} from '../LuxuryShell'
@@ -17,12 +18,12 @@ import {r5bMedia} from './r5b-media'
  * placeholders). The page's own images stay at or below their rendered size; the hero is a verified LIVE original.
  */
 type Tag='h1'|'h2'|'h3'|'p'|'li'|'a'|'img'
-type Item={kind:Tag;key:string;node:Exclude<SalmonNode,string>}
+type Item={kind:Tag;key:string;node:Exclude<SalmonNode,string>;/** an H2 promoted to a card title (its paragraph is the next paragraph, wherever it sits) */promoted?:boolean}
 type Card={h:Item;p?:Item}
 type Section={h2:Item[];intro:Item[];cards:Card[];outro:Item[];imgs:Item[];links:Item[]}
 
 /** The hero slot per location route (by public path: a route-id literal would make the route structural). */
-export const r5bLocationHeroes:Record<string,string>={'/cooling-tower-construction-repair-in-united-states/':'loc.usa','/cooling-tower-construction-repair-in-singapore/':'loc.sg','/thailand-cooling-tower/':'loc.th'}
+export const r5bLocationHeroes:Record<string,string>={'/cooling-tower-construction-repair-in-united-states/':'loc.usa','/cooling-tower-construction-repair-in-singapore/':'loc.sg','/thailand-cooling-tower/':'loc.th','/cooling-tower-thailand/':'loc.th','/cooling-tower-japan/':'loc.jp','/cooling-tower-malaysia/':'loc.my'}
 
 const OWN=new Set(['h1','h2','h3','p','li'])
 function collect(node:SalmonNode,key:string,out:Item[]){
@@ -36,16 +37,30 @@ function collect(node:SalmonNode,key:string,out:Item[]){
 }
 const parentKey=(key:string)=>key.slice(0,key.lastIndexOf('.'))
 
-function parse(items:Item[]):Section{
+/**
+ * COUNTRY-PAGES-1 (M3): Elementor pages whose cards carry H2 titles (three or more H2 + paragraph pairs under one container, not
+ * the section's own heading) get card titles: the same words as H3, at the card-title size, so a narrow card never breaks a word.
+ */
+function promoteCardTitles(items:Item[]):Item[]{
+  const prefix=(key:string)=>key.split('.').slice(0,3).join('.')
+  const groups=new Map<string,number[]>()
+  items.forEach((item,i)=>{if(item.kind==='h2'&&items[i+1]?.kind==='p')groups.set(prefix(item.key),[...(groups.get(prefix(item.key))??[]),i])})
+  const promote=new Set([...groups.values()].filter(g=>g.length>=3).flat())
+  return items.map((item,i)=>promote.has(i)?{...item,kind:'h3' as Tag,promoted:true,node:{...item.node,tag:'h3'}}:item)
+}
+
+function parse(rawItems:Item[]):Section{
+  const items=promoteCardTitles(rawItems)
   const s:Section={h2:[],intro:[],cards:[],outro:[],imgs:[],links:[]}
   for(const item of items){
     if(item.kind==='img')s.imgs.push(item)
     else if(item.kind==='a')s.links.push(item)
+    else if(item.kind==='h1')continue // the page's one H1 is the hero title (doc.seo.h1), not a second heading in the body
     else if(item.kind==='h2')s.h2.push(item)
     else if(item.kind==='h3')s.cards.push({h:item})
     else{
       const last=s.cards.at(-1)
-      if(last&&!last.p&&parentKey(last.h.key)===parentKey(item.key))last.p=item
+      if(last&&!last.p&&(last.h.promoted||parentKey(last.h.key)===parentKey(item.key)))last.p=item
       else if(s.cards.length)s.outro.push(item)
       else s.intro.push(item)
     }
@@ -60,9 +75,14 @@ export function R5bLocationPage({doc}:{doc:SalmonDocument}){
   const quote=(key:string,label:string,variant:'white'|'blue')=><span className={`dr4-btn dr4-btn--${variant}`} key={key}>{heroQuoteAction(doc,key,label)}</span>
   const photo=(item:Item,className='dr4-photo dr4-photo--4x3')=><span className={`r5b-photo ${className}`}>{renderSalmonNode(item.node,item.key,doc,true)}</span>
 
-  const body=doc.children[1]
   const top:Section[]=[]
-  if(body&&typeof body!=='string')body.children.forEach((c,i)=>{const items:Item[]=[];collect(c,'body.1.'+i,items);if(items.length)top.push(parse(items))})
+  if(doc.routeId.startsWith('LIVE-')){
+    const body=doc.children[1]
+    if(body&&typeof body!=='string')body.children.forEach((c,i)=>{const items:Item[]=[];collect(c,'body.1.'+i,items);if(items.length)top.push(parse(items))})
+  }else{
+    // COUNTRY-PAGES-1 (F1): an imported Elementor page: each top-level container is a section; restored sections are placed by the template
+    doc.children.forEach((c,i)=>{if(typeof c==='string'||c.attrs?.['data-restored-slot'])return;const items:Item[]=[];collect(c,'body.'+i,items);if(items.length)top.push(parse(items))})
+  }
   // A section that is only a heading takes the next section's content (Elementor splits a heading from its cards); a section that
   // is only an image hands the image to the next section (it sits beside that section's heading, never alone in a row).
   // The identity of an image is its held bytes (SHA-256 of the media identity), else its file name without the size suffix.
@@ -93,10 +113,15 @@ export function R5bLocationPage({doc}:{doc:SalmonDocument}){
   const prose=(items:Item[])=>items.length?<div className="dr4-prose">{items.map(p=><Text key={p.key} item={p}/>)}</div>:null
   const actions=(s:Section,variant:'white'|'blue')=>s.links.length?<div className="dr4-actions">{s.links.map(l=>quote(l.key,salmonNodeText(l.node).replace(/\s+/g,' ').trim(),variant))}</div>:null
 
+  // COUNTRY-PAGES-1 (M5): a section restored at the end of the page (Malaysia: the Petronas RAPID featured project) is a normal section of the
+  // template, placed before the closing call to action; its heading, paragraphs and highlight cards take the template's own styles.
+  const featured=(()=>{const items:Item[]=[];restoredSlotNodes(doc,'body-end').forEach((n,i)=>collect(n,`restored.body-end.${i}`,items));return items.length?parse(items):null})()
+  const featuredSection=featured?<section key="featured" className="dr4-section r5b-featured">{heading(featured)}{prose(featured.intro)}{featured.cards.length?cardGrid(featured,featured.cards.length===3?3:2):null}{prose(featured.outro)}</section>:null
+
   function render(s:Section,index:number):ReactNode{
     const headText=s.h2.map(h=>salmonNodeText(h.node)).join(' ')
     const closing=index===rest.length-1&&!s.cards.length&&!s.imgs.length&&s.links.length>0
-    if(closing)return <section key={index} className="dr4-section r5b-closing"><div className="dr4-navy r5b-closing-panel">{s.h2.map(h=><Text key={h.key} item={h} className="dr4-h2 dr4-h2--on-navy"/>)}{s.intro.length?<div className="dr4-prose dr4-prose--on-navy">{s.intro.map(p=><Text key={p.key} item={p}/>)}</div>:null}{actions(s,'white')}</div></section>
+    if(closing)return <Fragment key={index}>{featuredSection}<section className="dr4-section r5b-closing"><div className="dr4-navy r5b-closing-panel">{s.h2.map(h=><Text key={h.key} item={h} className="dr4-h2 dr4-h2--on-navy"/>)}{s.intro.length?<div className="dr4-prose dr4-prose--on-navy">{s.intro.map(p=><Text key={p.key} item={p}/>)}</div>:null}{actions(s,'white')}</div></section></Fragment>
     const img=s.imgs[0]
     const process=/process|how we|how ics/i.test(headText)&&s.cards.length>=3
     const reasons=/why|trust|stand out/i.test(headText)&&s.cards.length>=2
@@ -133,7 +158,7 @@ export function R5bLocationPage({doc}:{doc:SalmonDocument}){
         </div>
       </section>:null}
       {rest.map(render)}
-      <div className="r5b-back"><a href="/resources/">← Back to resources</a></div>
+      {featuredSection&&!(rest.length&&rest.at(-1)!.links.length&&!rest.at(-1)!.cards.length&&!rest.at(-1)!.imgs.length)?featuredSection:null}
       <R4LauncherReveal/>
     </main></div>
     <LuxuryFooter page={page} routePath={doc.targetPath}/>

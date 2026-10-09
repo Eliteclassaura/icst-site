@@ -160,3 +160,17 @@
 .dr4 .r5b-band {
   margin-block-start: var(--dr4-rhythm);
 }
+
+/*
+ * COUNTRY-PAGES-1 (M6): the location template's content width is the R4 container's (1260 at 1440, 16 px gutters on a phone). The
+ * article <main> rule (figma-wave4.css, public-chrome-article.css) insets it by another 36-40 px a side; it does not apply here.
+ */
+.figma-wave4 .dr4 main.r5b-location-main {
+  inline-size: 100%;
+}
+
+/* A promoted card title never breaks a word (M3) */
+.dr4 .dr4-card-title {
+  hyphens: manual;
+  overflow-wrap: normal;
+}
