@@ -743,19 +743,23 @@ button):hover {
   color: var(--sp-muted);
   font-size: 14px;
 }
+.salmon-family--archive .sp-section-inner {
+  max-inline-size: calc(1260px + 2 * clamp(16px, 3vw, 40px));
+}
 .salmon-family .sp-archive-body {
   padding-block: clamp(12px, 2vw, 24px) clamp(28px, 3.6vw, 48px);
 }
 .salmon-family .sp-archive-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(14px, 1.6vw, 24px);
+  gap: 24px;
 }
 .salmon-family .sp-archive-grid .sp-product {
-  padding: 20px 14px;
+  padding: 20px 16px;
 }
 .salmon-family .sp-archive-grid .sp-product-title {
-  font-size: clamp(17px, 1.3vw, 19px);
+  font-size: 22px;
+  line-height: 1.15;
 }
 .salmon-family .sp-archive-grid .sp-product-media {
   inline-size: 100%;

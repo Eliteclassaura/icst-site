@@ -9,7 +9,7 @@ export function R5Gallery({images,name}:{images:GalleryImage[];name:string}){
   const [current,setCurrent]=useState(0)
   const image=images[current]??images[0]
   if(!image)return null
-  return <div className="r5-gallery">
+  return <div className={image.width<400?"r5-gallery r5-gallery--small":"r5-gallery"}>
     <div className="r5-gallery-frame">
       <img src={image.src} width={image.width} height={image.height} alt={images.length>1?`${image.alt||name} – view ${current+1}`:image.alt||name} style={{inlineSize:`min(100%, ${image.width}px)`}} loading="eager" fetchPriority="high" data-source-sha256={image.sha256} data-source-url={image.sourceUrl}/>
     </div>

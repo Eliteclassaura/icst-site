@@ -288,7 +288,7 @@
   font-family: var(--dr4-display);
   font-size: clamp(32px, 3.6vw, 60px);
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.1;
   margin: 0;
   text-transform: uppercase;
 }
@@ -617,6 +617,11 @@
   padding: clamp(16px, 3vw, 40px);
 }
 
+.r5 .r5-gallery--small .r5-gallery-frame {
+  aspect-ratio: auto;
+  min-block-size: 280px;
+}
+
 .r5 .r5-gallery-frame img {
   block-size: auto;
   max-block-size: 100%;
@@ -673,17 +678,18 @@
   font-family: var(--dr4-display);
   font-size: clamp(36px, 4vw, 56px);
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.06;
   margin: 0;
   overflow-wrap: anywhere;
   text-transform: uppercase;
+  text-wrap: balance;
 }
 
 .r5 .r5-product-title--long {
   font-family: var(--dr4-display);
   font-size: clamp(30px, 3vw, 42px);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 1.08;
   text-transform: uppercase;
 }
 
@@ -775,8 +781,9 @@
 .r5 .r5-product-section h2 {
   color: var(--dr4-ink);
   font-family: var(--dr4-display);
-  font-size: clamp(28px, 2.6vw, 40px);
+  font-size: clamp(30px, 2.8vw, 40px);
   font-weight: 400;
+  line-height: 1.12;
   text-transform: uppercase;
 }
 
@@ -790,7 +797,8 @@
 
 .r5 .r5-panel--features li {
   color: var(--dr4-ink);
-  line-height: 1.5;
+  font-size: 17px;
+  line-height: 1.6;
   padding-inline-start: 28px;
   position: relative;
 }
@@ -817,21 +825,23 @@
   border-collapse: collapse;
   font-size: 15px;
   inline-size: 100%;
+  line-height: 1.5;
 }
 
 .r5 .r5-spec-table th,
 .r5 .r5-spec-table td {
-  border-block-end: 1px solid var(--dr4-line);
+  border: 1px solid var(--dr4-line);
   padding-block: 12px;
-  padding-inline: 0 16px;
+  padding-inline: 16px;
   text-align: start;
   vertical-align: top;
 }
 
 .r5 .r5-spec-table th {
-  color: var(--dr4-muted);
+  background-color: var(--dr4-soft);
+  color: var(--dr4-ink);
   font-weight: 600;
-  inline-size: 38%;
+  inline-size: 34%;
 }
 
 .r5 .r5-spec-table td {
@@ -859,6 +869,17 @@
 
 .r5 .r5-related {
   padding-block-start: var(--dr4-rhythm);
+}
+
+.r5 .dr4-h2 {
+  font-size: clamp(32px, 3vw, 43.2px);
+  line-height: 1.1;
+}
+
+@media (width < 768px) {
+  .r5 .dr4-h2 {
+    line-height: 1.15;
+  }
 }
 
 .r5 .r5-minibar {
@@ -1396,10 +1417,10 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
 .legal-doc {
   color: var(--dr4-ink, var(--df-ink-navy));
   font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
-  font-size: 17px;
-  line-height: 1.65;
+  font-size: 18px;
+  line-height: 1.7;
   margin-inline: auto;
-  max-inline-size: 72ch;
+  max-inline-size: 720px;
 }
 
 .legal-doc h1 {
@@ -1410,28 +1431,47 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
   margin-block: 0 24px;
 }
 
-.legal-doc h2 {
-  font-size: clamp(22px, 3vw, 28px);
+.luxury-site .legal-doc h2 {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
   line-height: 1.25;
-  margin-block: 40px 12px;
+  margin-block: 48px 16px;
 }
 
-.legal-doc h3 {
-  font-size: 19px;
-  margin-block: 28px 8px;
+.luxury-site .legal-doc h3 {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-block: 32px 12px;
 }
 
-.legal-doc p,
-.legal-doc ul {
-  margin-block: 0 16px;
+.legal-doc :is(p, ul, ol) {
+  margin-block: 0 20px;
 }
 
-.legal-doc ul {
-  padding-inline-start: 1.25em;
+.legal-doc :is(ul, ol) {
+  padding-inline-start: 24px;
 }
 
 .legal-doc li {
-  margin-block: 0 6px;
+  margin-block: 0 8px;
+}
+
+.legal-doc li :is(ul, ol) {
+  margin-block: 8px 0;
+  padding-inline-start: 20px;
+}
+
+/* LG-6: the "Effective date" line under the title is a quiet meta line with a hairline, like the article byline row */
+.legal-doc h1 + p {
+  color: color-mix(in srgb, var(--dr4-ink, var(--df-ink-navy)) 78%, transparent);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-block: 0 32px;
+  padding-block-end: 24px;
+  border-block-end: 1px solid var(--dr4-line);
 }
 
 .legal-doc a {
@@ -1459,20 +1499,40 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
 
 .legal-table table {
   border-collapse: collapse;
+  font-size: 15px;
   inline-size: 100%;
-  min-inline-size: 480px;
+  line-height: 1.5;
+  min-inline-size: 520px;
 }
 
 .legal-table :is(th, td) {
-  border-block-end: 1px solid var(--sp-line, var(--df-signal-soft));
-  padding-block: 10px;
-  padding-inline: 12px;
+  border: 1px solid var(--dr4-line);
+  padding-block: 12px;
+  padding-inline: 16px;
   text-align: start;
   vertical-align: top;
 }
 
 .legal-table th {
+  background-color: var(--dr4-soft, color-mix(in srgb, currentcolor 6%, transparent));
   font-weight: 600;
+}
+
+@media (width < 768px) {
+  .legal-doc {
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  .luxury-site .legal-doc h2 {
+    font-size: 24px;
+    line-height: 1.3;
+    margin-block: 40px 16px;
+  }
+
+  .luxury-site .legal-doc h3 {
+    font-size: 18px;
+  }
 }
 
 /* the footer's legal row carries four links: they wrap and keep a 44 px tap target (as the Locations row) */
