@@ -32,6 +32,14 @@ export const IconInbox = (p: P) => (
     <path d="M4 13h5l1 2h4l1-2h5" />
   </Svg>
 )
+/* CRM-NAV-ICON-1: a rising chart, for Email Revenue (the sidebar item no longer shares the inbox icon). */
+export const IconTrend = (p: P) => (
+  <Svg {...p}>
+    <path d="M4 20h16" />
+    <path d="M5 16l4.5-4.5 3 3L19 7" />
+    <path d="M14.5 7H19v4.5" />
+  </Svg>
+)
 export const IconTasks = (p: P) => (
   <Svg {...p}>
     <path d="M5 5h14v14H5z" />

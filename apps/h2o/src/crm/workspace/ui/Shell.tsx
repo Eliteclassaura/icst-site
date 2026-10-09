@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { cookies } from 'next/headers'
 import { DENSITY_COOKIE, densityFrom } from '../prefs'
-import { IconAccounts, IconContacts, IconInbox, IconMore, IconPipeline, IconSearch, IconSettings, IconTasks, IconWork } from './Icons'
+import { IconAccounts, IconContacts, IconInbox, IconMore, IconPipeline, IconSearch, IconSettings, IconTasks, IconTrend, IconWork } from './Icons'
 import { PaletteTrigger } from './PaletteTrigger'
 import { FeedbackHost } from './FeedbackHost'
 import { SignOutClear } from './SignOutClear'
@@ -32,7 +32,7 @@ const NAV: Array<{ key: NavKey; href: string; label: string; phone?: string; ico
   { key: 'contacts', href: '/crm/contacts/', label: 'Contacts', icon: <IconContacts />, desktop: true },
   { key: 'pipeline', href: '/crm/deals/', label: 'Deals', icon: <IconPipeline />, desktop: true },
   // EMAIL-LIB-1: the Email Revenue area (admin + sales).
-  { key: 'revenue', href: '/crm/email-revenue/', label: 'Email Revenue', icon: <IconInbox />, desktop: true },
+  { key: 'revenue', href: '/crm/email-revenue/', label: 'Email Revenue', icon: <IconTrend />, desktop: true },
   // CRM email M3: inbound email that was not linked automatically (admins only).
   { key: 'email', href: '/crm/email-review/', label: 'Email review', icon: <IconInbox />, desktop: true, adminOnly: true },
   // Patch C: sending profiles and email templates (admins only).
