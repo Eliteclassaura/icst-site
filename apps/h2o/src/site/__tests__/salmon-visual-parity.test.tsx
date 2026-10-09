@@ -182,7 +182,8 @@ describe('Global Salmon footer',()=>{
     for(const forbidden of ['+66-2-260-6598','66-2-260-6598','c0060d855e27dfa01cb59100bba1dd217e2e6796d995aaa0e4ef4fa73d9b006c','Cooling Technology Institute','type="email"','Enter your email','English','Email Sequence'])expect(html.replace(/<div class="sp-footer-cti"><img [^>]*><\/div>/,''),forbidden).not.toContain(forbidden) // CTI: membership badge only (owner decision 2026-10-02)
     expect(html).toContain('typeform.com/to/F22cAgx3')
     expect(html).toContain('href="/contact-us/"')
-    for(const href of ['/about-ics-industrial-cooling-solutions/','/all-projects/','/cooling-tower/','/cooling-tower-replacement/','/thermal-upgrade/','/cooling-tower-maintenance-repair-upgrade/','/disaster-recovery/','/dry-soda-blasting/','/air-coolers/','/cooling-tower-parts-online/','/cooling-tower-fan-stacks/','/fans/','/fill-media/','/drive-shafts-assembles/','/gear-box/','/motors/','/nozzles/','/frp-members/','/tower-hardware/','/tech-articles/','/cooling-tower-brochures/','/cooling-tower-resources/tools/','/resources/','/search/','/privacy-policy/'])expect(html,href).toContain(`href="${href}"`)
+    for(const href of ['/about-ics-industrial-cooling-solutions/','/all-projects/','/cooling-tower/','/cooling-tower-replacement/','/thermal-upgrade/','/cooling-tower-maintenance-repair-upgrade/','/disaster-recovery/','/dry-soda-blasting/','/air-coolers/','/cooling-tower-parts-online/','/cooling-tower-fan-stacks/','/fans/','/fill-media/','/drive-shafts-assembles/','/gear-box/','/motors/','/nozzles/','/frp-members/','/tower-hardware/','/tech-articles/','/cooling-tower-brochures/','/cooling-tower-resources/tools/','/resources/','/privacy-policy/'])expect(html,href).toContain(`href="${href}"`)
+    expect(html).not.toContain('href="/search/"') // FOOTER-FIX-1 (owner request 2026-10-08): the footer no longer links to Search
   })
 })
 
