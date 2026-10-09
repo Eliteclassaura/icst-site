@@ -9945,6 +9945,30 @@
   },
   {
     "attachmentId": 5001,
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iv-ultra-hi-temp-fan.jpg",
+    "publicPath": "/media/salmon/e10b7fa5bbdf3e87ad2740b4d1afbf6ecc7d55c9307494f7a884eb83e32d8643.jpg",
+    "sha256": "e10b7fa5bbdf3e87ad2740b4d1afbf6ecc7d55c9307494f7a884eb83e32d8643",
+    "width": 653,
+    "height": 653
+  },
+  {
+    "attachmentId": 5002,
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iii-ultra-hi-temp-fan.jpg",
+    "publicPath": "/media/salmon/5c4c9e66b7da737691373c759d42fd40f78cbc5093c76b29b323504412fbfb61.jpg",
+    "sha256": "5c4c9e66b7da737691373c759d42fd40f78cbc5093c76b29b323504412fbfb61",
+    "width": 1028,
+    "height": 751
+  },
+  {
+    "attachmentId": 5003,
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iii-3000kc-hub-diagram.jpg",
+    "publicPath": "/media/salmon/f542f8425a450237c157cdd71d7b9edc792fb147bbea0000823c4e78d82f3854.jpg",
+    "sha256": "f542f8425a450237c157cdd71d7b9edc792fb147bbea0000823c4e78d82f3854",
+    "width": 500,
+    "height": 422
+  },
+  {
+    "attachmentId": 5004,
     "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iv-exploded-view.jpg",
     "publicPath": "/media/salmon/af5a17719bfe9b29ab827d1f36506b2af543ae7193e1961ed59fcbc3d163d509.jpg",
     "sha256": "af5a17719bfe9b29ab827d1f36506b2af543ae7193e1961ed59fcbc3d163d509",

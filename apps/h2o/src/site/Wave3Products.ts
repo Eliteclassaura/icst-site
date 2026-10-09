@@ -14,8 +14,8 @@ export const activeProductRoutes=():SalmonRoute[]=>{
     return rows
   }
   const rows=activeCache??salmonRoutes().filter(route=>/^SALMON-product-[0-9]+$/.test(route.routeId)&&/^\/product\/[^/]+\/$/.test(route.targetPath))
-  // CATALOG-FANS-1: 183 imported product routes + the Hudson TUF-LITE IV family record (OGCS Phase 1)
-  const COHORT=184
+  // CATALOG-FANS-1/2: 183 imported product routes + 11 Hudson records (TUF-LITE IV: the family and its seven series; TUF-LITE III: 4000KWUHT, 3000KUHT, 3000KC)
+  const COHORT=194
   if(rows.length!==COHORT||new Set(rows.map(row=>row.targetPath)).size!==COHORT||new Set(rows.map(row=>row.routeId)).size!==COHORT)throw new Error('Wave 3 active product cohort changed')
   activeCache=rows
   return activeCache

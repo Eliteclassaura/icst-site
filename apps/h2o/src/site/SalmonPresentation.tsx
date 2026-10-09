@@ -1,3 +1,4 @@
+import {isPdfHref} from './link-attrs'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {createElement,Fragment,type ReactNode} from 'react'
@@ -191,7 +192,7 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument,inLoop:false|s
   // CLIENT-FIX-1 (A): the home "Explore Our Services" button went to /contact-us/ in the source; it opens the services overview (the header's Services hub).
   props.href=home&&salmonNodeText(node).replace(/\s+/g,' ').trim()==='Explore Our Services'?HOME_SERVICES_HUB:href
   props['data-source-href']=provenanceHref(node.attrs.href)
-  if(node.attrs.target==='_blank'){props.target='_blank';props.rel='noopener noreferrer'}
+  if(node.attrs.target==='_blank'||isPdfHref(href)||isPdfHref(node.attrs.href)){props.target='_blank';props.rel='noopener noreferrer'}
   // R2.4 (item l): a "Learn more"-style link is named by its card's heading (./link-context); its visible text is unchanged.
   const label=nameless?.kind==='label'?nameless.label:linkLabel(doc,key)
   if(label)props['aria-label']=label

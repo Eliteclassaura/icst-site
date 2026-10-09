@@ -1,3 +1,4 @@
+import {pdfLinkProps} from './link-attrs'
 import {createElement,type CSSProperties,type ReactNode} from 'react'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
@@ -38,7 +39,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  doc.children.forEach((n,i)=>index(n,'body.'+i,[]))
  function hrefFor(key:string):string|undefined{for(const k of [key,...(ancestors.get(key)??[]).toReversed()]){const n=nodes.get(k);if(n&&typeof n!=='string'&&n.tag==='a'&&n.attrs.href)return n.attrs.href}return undefined}
  function href(h:string){const m=salmonMedia(h,doc.sourceUrl);if(m?.file)return salmonMediaPath(m);try{const u=new URL(h,doc.sourceUrl);if(['salmon-rhinoceros-754457.hostingersite.com','h2ocooling.com','www.h2ocooling.com'].includes(u.hostname)&&!u.pathname.startsWith('/wp-content/'))return u.pathname+u.search+u.hash}catch{/* Invalid historical href remains inert. */}return safe(ownerHref(h))}
- function leaf(text:string,key:string,start=0,end?:number):ReactNode{const rfqLabel=rfqControlLabelAt(doc,key,nodes,ancestors);if(rfqLabel!==null&&text.replace(/\s+/g,' ').trim()===rfqLabel){const control=rfqControlElement(doc,key+'.'+start,rfqLabel);if(control!==undefined)return control}const original=hrefFor(key);const label=ownerText(text.trim()==='Buy Now'?'Request a Quote':text);return <span key={key+'.'+start} data-canonical-text={key} data-canonical-start={start} data-canonical-end={end??text.length} data-presentation-exception={text.trim()==='Buy Now'?'RFQ_ONLY':undefined}>{original?<a data-source-href={provenanceHref(original)} href={text.trim()==='Buy Now'?'/contact-us/':href(original)}>{label}</a>:label}</span>}
+ function leaf(text:string,key:string,start=0,end?:number):ReactNode{const rfqLabel=rfqControlLabelAt(doc,key,nodes,ancestors);if(rfqLabel!==null&&text.replace(/\s+/g,' ').trim()===rfqLabel){const control=rfqControlElement(doc,key+'.'+start,rfqLabel);if(control!==undefined)return control}const original=hrefFor(key);const label=ownerText(text.trim()==='Buy Now'?'Request a Quote':text);return <span key={key+'.'+start} data-canonical-text={key} data-canonical-start={start} data-canonical-end={end??text.length} data-presentation-exception={text.trim()==='Buy Now'?'RFQ_ONLY':undefined}>{original?<a data-source-href={provenanceHref(original)} href={text.trim()==='Buy Now'?'/contact-us/':href(original)} {...pdfLinkProps(href(original))}>{label}</a>:label}</span>}
  function content(n:SalmonNode,key:string):ReactNode{
   if(typeof n==='string')return leaf(n,key)
   if(['script','style','iframe','svg','template','input','textarea'].includes(n.tag))return null

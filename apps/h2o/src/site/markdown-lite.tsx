@@ -1,3 +1,4 @@
+import {pdfLinkProps} from './link-attrs'
 import {Fragment,type ReactNode} from 'react'
 
 /**
@@ -20,7 +21,7 @@ export function inline(text: string, key: string): ReactNode[] {
     if (from > last) out.push(text.slice(last, from))
     if (m[1] !== undefined) out.push(<strong key={`${key}.${n++}`}>{inline(m[1], `${key}.${n}`)}</strong>)
     else if (m[2] !== undefined) out.push(<code key={`${key}.${n++}`}>{breakAfterDots(m[2], `${key}.${n}`)}</code>)
-    else out.push(<a key={`${key}.${n++}`} href={m[4]!}>{m[3]}</a>)
+    else out.push(<a key={`${key}.${n++}`} href={m[4]!} {...pdfLinkProps(m[4])}>{m[3]}</a>)
     last = from + m[0].length
   }
   if (last < text.length) out.push(text.slice(last))

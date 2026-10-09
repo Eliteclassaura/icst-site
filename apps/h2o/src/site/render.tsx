@@ -1,3 +1,4 @@
+import {pdfLinkProps} from './link-attrs'
 /**
  * H2O Phase 2D — the shared renderers.
  *
@@ -23,7 +24,7 @@ export const renderInline = (nodes: InlineNode[]): ReactNode =>
     if (node.kind === 'emphasis') return <em key={key}>{node.text}</em>
     if (node.kind === 'link')
       return (
-        <a href={node.href} key={key}>
+        <a href={node.href} key={key} {...pdfLinkProps(node.href)}>
           {node.text}
         </a>
       )

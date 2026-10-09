@@ -145,7 +145,7 @@ describe('the route set is the authorized Salmon estate, Resources canonical and
     const params = generateStaticParams()
     const services=englishServicePages()
     expect(services).toHaveLength(6)
-    expect(params.length).toBe(1213+legalPaths.length)
+    expect(params.length).toBe(1223+legalPaths.length)
     expect(params.map((entry) => `/${entry.slug.join('/')}/`.replace('//', '/')).sort()).toEqual(
       [...salmonRoutes().map((page) => decodeURIComponent(page.targetPath)), '/resources/',...services.map(service=>service.path),...legalPaths]
         .sort(),

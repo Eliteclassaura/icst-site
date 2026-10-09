@@ -188,9 +188,9 @@ describe('sitemap and listings (Payload mode: withdrawn pages leave every listin
   })
   it('the product set is 181: the home part catalogue, the parts hub and the product pages list neither placeholder',()=>{
     process.env.H2O_CONTENT_SOURCE='payload'
-    expect(activeProductRoutes()).toHaveLength(181) // CATALOG-FANS-1: + the TUF-LITE IV family record
+    expect(activeProductRoutes()).toHaveLength(191) // CATALOG-FANS-1/2: + 11 Hudson fan records
     const data=homePartCatalogData()
-    expect(data.records).toHaveLength(181)
+    expect(data.records).toHaveLength(191)
     for(const p of MOTORS){
       expect(data.records.some(r=>r.route===p),p).toBe(false)
       expect(renderToStaticMarkup(<HomePartsCatalog data={data}/>)).not.toContain(p)
@@ -273,7 +273,7 @@ describe('internal links: no public page links to a held page once the batch is 
 
 describe('HVAC wording leaves the product pages (OGCS section 2; acceptance: case-insensitive "HVAC" = 0 on every product page)',()=>{
   const publicProducts=ledger.routes.filter(r=>r.routeId in Object.fromEntries([...products.values()].map(v=>[v,1])))
-  it('covers every public product page (181)',()=>{expect(publicProducts).toHaveLength(181)})
+  it('covers every public product page (191)',()=>{expect(publicProducts).toHaveLength(191)})
   it('the check is live: before the batch the imported product pages carry HVAC wording; after it, none of the 180 does (page and structured data)',()=>{
     let before=0
     const after:string[]=[]
@@ -454,7 +454,7 @@ describe('apply expectations for this delta',()=>{
   it('staging delta on the state Round 16 (R4 + phase 2 copy) leaves: rehearsed on the writable mock, apply 0 failures, rerun 0',()=>{
     expect(exp.expect.routes).toEqual({publish:1,withdraw:14,index:0,canonical:0})
     expect(exp.expect.redirects).toEqual({create:14,update:6,unchanged:401,retire:1,normalise:0})
-    expect(exp.expect.seoFields).toMatchObject({update:68,unchanged:423,pendingOgcs:0}) // SEO-CONTENT-2.2: + 56 (quick-win titles, air-coolers meta); 8 SEO-CONTENT-1 + 1 R5b (/cooling-tower/ meta) + 2 round 2 (seminar, checklist metas)
+    expect(exp.expect.seoFields).toMatchObject({update:69,unchanged:422,pendingOgcs:0}) // CONTENT-FIX-3: + 1 (UP2-02 category meta); SEO-CONTENT-2.2: + 56 (quick-win titles, air-coolers meta); 8 SEO-CONTENT-1 + 1 R5b (/cooling-tower/ meta) + 2 round 2 (seminar, checklist metas)
     expect(exp.expect.h1).toEqual({update:28}) // + the PETRONAS record title (SEO-CONTENT-2); 23 SEO-CONTENT-1 + 2 R5b (USA, Singapore); + 2 DIR-LABELS-1 (dry soda, Thailand)
     expect([exp.rows,exp.redirects,exp.seoFields]).toEqual([1143,421,491])
     expect(tsv('seo-fields.tsv')).toHaveLength(491)
@@ -489,8 +489,8 @@ describe('round 2 (CT 2026-10-08): staging QA tranche A/B, OEM/stock rows, HVAC 
   },300000)
   it('the full product sweep: 183 product routes = 180 public (no HVAC) + 3 held placeholders (REDIRECT, not served)',()=>{
     const all=ledger.routes.filter(r=>/^SALMON-product-[0-9]+$/.test(r.routeId))
-    expect(all).toHaveLength(184)
-    expect(all.filter(r=>r.state==='PUBLIC')).toHaveLength(181)
+    expect(all).toHaveLength(194)
+    expect(all.filter(r=>r.state==='PUBLIC')).toHaveLength(191)
     expect(all.filter(r=>r.state==='REDIRECT').map(r=>r.path).sort()).toEqual([...MOTORS].sort())
     // every other "*-example" route: reported, none held without a ruling
     const examples=ledger.routes.filter(r=>/-example\/?$/.test(r.path)).map(r=>`${r.path} ${r.state}`).sort()

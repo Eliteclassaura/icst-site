@@ -22,11 +22,11 @@ const withForm=<T,>(run:()=>T):T=>{
 }
 
 describe('Wave 3 accepted product archetype',()=>{
-  it('freezes exactly 184 unique active Salmon products',()=>{
+  it('freezes exactly 194 unique active Salmon products',()=>{
     const rows=activeProductRoutes()
-    expect(rows).toHaveLength(184)
-    expect(new Set(rows.map(row=>row.targetPath)).size).toBe(184)
-    expect(new Set(rows.map(row=>row.routeId)).size).toBe(184)
+    expect(rows).toHaveLength(194)
+    expect(new Set(rows.map(row=>row.targetPath)).size).toBe(194)
+    expect(new Set(rows.map(row=>row.routeId)).size).toBe(194)
   })
   it('recovers all primary media by exact URL identity and verifies unchanged local bytes',()=>{
     for(const route of activeProductRoutes()){
@@ -67,8 +67,8 @@ describe('Wave 3 accepted product archetype',()=>{
     const first=renderToStaticMarkup(<PartsIndex doc={doc}/>)
     const matching=renderToStaticMarkup(<PartsIndex doc={doc} query="Splash Fill"/>)
     const empty=renderToStaticMarkup(<PartsIndex doc={doc} query="nothing-matches-987654321"/>)
-    expect(first).toContain('184 products')
-    expect(first).toContain('Page 1 of 16')
+    expect(first).toContain('194 products')
+    expect(first).toContain('Page 1 of 17')
     expect(first).not.toContain('Buy Now')
     expect(matching).toContain('Splash Fill')
     expect(empty).toContain('No matching parts')

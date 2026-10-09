@@ -85,7 +85,7 @@ describe('English completion release boundary',()=>{
   })
   it('keeps the 181-product release cohort (SEO-CONTENT-1 holds the two placeholder products) and gives every new service an indexable canonical route',()=>{
     const ledger=JSON.parse(readFileSync(path.join(process.cwd(),'content/release/route-ledger.json'),'utf8')) as {routes:Array<{path:string;routeClass:string;indexable:boolean;sitemap:boolean;canonical:string}>}
-    expect(ledger.routes.filter(route=>route.routeClass==='product'&&route.indexable)).toHaveLength(181)
+    expect(ledger.routes.filter(route=>route.routeClass==='product'&&route.indexable)).toHaveLength(191)
     for(const service of englishServicePages())expect(ledger.routes.find(route=>route.path===service.path)).toMatchObject({routeClass:'service',indexable:true,sitemap:true,canonical:'https://h2ocooling.com'+service.path})
   })
 })

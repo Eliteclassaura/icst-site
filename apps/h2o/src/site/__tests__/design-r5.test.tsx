@@ -81,8 +81,8 @@ describe('R5a parts hub',()=>{
   it('keeps the static catalog hooks (183 cards, search, count, pagination, empty state) and one H1',()=>{
     process.env.H2O_PUBLIC_EXPORT='1'
     const html=renderToStaticMarkup(<PartsIndex doc={byPath(HUB)}/>)
-    expect((html.match(/data-static-product="/g)??[]).length).toBe(184)
-    for(const hook of ['class="wave3-catalog"','id="wave3-query"','class="wave3-pagination"','data-static-parts-empty','184 products'])expect(html,hook).toContain(hook)
+    expect((html.match(/data-static-product="/g)??[]).length).toBe(194)
+    for(const hook of ['class="wave3-catalog"','id="wave3-query"','class="wave3-pagination"','data-static-parts-empty','194 products'])expect(html,hook).toContain(hook)
     expect((mainOf(html).match(/<h1\b/g)??[]).length).toBe(1)
   },120000)
   it('renders the hub\'s own source renders at or below their caps (hero 460 per DD R5A.1 P1, intro 420, why 520, copy 420)',()=>{

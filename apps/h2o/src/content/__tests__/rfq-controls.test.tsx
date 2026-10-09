@@ -69,10 +69,10 @@ describe('quote-intent migration by source identity (ledger)', () => {
   // products themselves), and six cards on public pages link a held placeholder: they resolve to no PUBLIC product (D1_UNRESOLVED:
   // left unchanged, no product context; no listing renders those cards in Payload mode).
   it('D1: 978 historical product-card positions resolve to a PUBLIC product (six more point at the two held placeholders); 106 sit on the nine listing pages (the other two cards there are the held placeholders)', () => {
-    expect(rule('D1')).toHaveLength(979) // CATALOG-FANS-1: + 5 card positions of the TUF-LITE IV record on the fan listings
+    expect(rule('D1')).toHaveLength(1029) // CATALOG-FANS-1/2: + 5 card positions per Hudson fan record (11 records) on the fan listings
     expect(rule('D1_UNRESOLVED')).toHaveLength(6)
     const listing = new Set(['/cooling-tower-fan-stacks/', '/drive-shafts-assembles/', '/fans/', '/fill-media/', '/frp-members/', '/gear-box/', '/motors/', '/nozzles/', '/tower-hardware/'])
-    expect(rule('D1').filter((d) => listing.has(d.path))).toHaveLength(107)
+    expect(rule('D1').filter((d) => listing.has(d.path))).toHaveLength(117)
     expect(rule('D1_UNRESOLVED').filter((d) => listing.has(d.path))).toHaveLength(2)
     for (const d of rule('D1')) expect([...publicProducts.values()]).toContain(d.product)
   })

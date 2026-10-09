@@ -21,9 +21,9 @@ const PATH='/product/tuf-lite-iv-fan-assemblies/'
 const row=ledger.routes.find(r=>r.path===PATH)!
 
 describe('CATALOG-FANS-1: Hudson TUF-LITE IV',()=>{
-  it('is a public, indexable catalog product; the product set is 181 (slug = path slug, the RFQ product_slug)',()=>{
+  it('is a public, indexable catalog product; the product set is 191 with CATALOG-FANS-2 (slug = path slug, the RFQ product_slug)',()=>{
     expect([row.routeId,row.state,row.export,row.indexable,row.sitemap]).toEqual(['SALMON-product-4900','PUBLIC',true,true,true])
-    expect(ledger.routes.filter(r=>/^SALMON-product-\d+$/.test(r.routeId)&&r.state==='PUBLIC'&&r.export)).toHaveLength(181)
+    expect(ledger.routes.filter(r=>/^SALMON-product-\d+$/.test(r.routeId)&&r.state==='PUBLIC'&&r.export)).toHaveLength(191) // 180 + 11 Hudson fan records (the family here; the ten series and variants in CATALOG-FANS-2)
   })
   it('renders its own H1, SEO title and meta, the manufacturer specs and literature, a quote action; no HVAC, price, stock or performance claims',async()=>{
     const html=await render(PATH)
@@ -40,14 +40,14 @@ describe('CATALOG-FANS-1: Hudson TUF-LITE IV',()=>{
     expect(html).toMatch(/<img[^>]*width="654" height="654"[^>]*alt="Hudson TUF-LITE IV fan blades and seal disc[^"]*"/)
     expect(html).toMatch(/<img[^>]*width="853" height="945"/)
   })
-  it('is listed on /fans/, on the Fans category (count 23) and on the Hudson tag listing next to TUF-LITE II/III, and is in the Parts > Fans menu',async()=>{
+  it('is listed on /fans/, on the Fans category (count 33 with CATALOG-FANS-2) and on the Hudson tag listing next to TUF-LITE II/III, and is in the Parts > Fans menu',async()=>{
     expect(hrefsOf(await render('/fans/')).has(PATH)).toBe(true)
     const cat1=await render('/product-category/fans/'),cat2=await render('/product-category/fans/page/2/')
-    expect(cat1).toContain('Showing 1–16 of 23 results');expect(cat2).toContain('Showing 17–23 of 23 results')
+    expect(cat1).toContain('Showing 1–16 of 33 results');expect(cat2).toContain('Showing 17–33 of 33 results')
     expect(hrefsOf(cat2).has(PATH)).toBe(true)
     const hudson=await render('/product-tag/hudson/')
     expect(hrefsOf(hudson).has(PATH)).toBe(true);expect(hrefsOf(hudson).has('/product/tuf-lite-iii-3000k-series-hub-fan-assemblies/')).toBe(true)
-    expect(hudson).toContain('Showing all 17 results')
+    expect(hudson).toContain('Showing all 27 results')
     expect(FAN_MENU_LINKS.map(l=>l[1])).toContain(PATH)
     expect(salmonNavigation.find(g=>g.label==='Parts')!.items.map(i=>i[1])).toContain(PATH)
     expect(FAN_MENU_LINKS.find(l=>l[1]===PATH)![0]).toBe('TUF-LITE IV')

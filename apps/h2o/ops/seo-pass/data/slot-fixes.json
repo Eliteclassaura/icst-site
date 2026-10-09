@@ -41282,6 +41282,437 @@
       "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"Industrial HVAC cooling systems\": delete the bullet)."
      }
     ]
+   },
+   {
+    "key": "body.3.1.1.5.1.5",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Fan Diameter Range:\",1],[\"t\",\" 26 ft to 36 ft (7.93 m to 10.98 m)\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Fan Diameter Range:",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": " 26 ft to 38 ft (7.93 m to 11.58 m)",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Fan Diameter Range:\",1],[\"t\",\" 26 ft to 38 ft (7.93 m to 11.58 m)\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "26 ft to 36 ft (7.93 m to 10.98 m)",
+      "to": "26 ft to 38 ft (7.93 m to 11.58 m)",
+      "action": "word-corrected",
+      "reason": "OGCS CATALOG-FANS-1 Wave 2 Howden updates (WAVE2_HOWDEN_UPDATES.tsv 633d1af6), CT 2026-10-08, row HWD-01: Howden D Series diameters run from 26 ft to 38 ft; title, H1 and meta unchanged (ranking)."
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.9.3.1.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"a\",\"https://h2ocooling.com/diameters/26-ft/\"],[\"t\",\"26 ft\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/diameters/28-ft/\"],[\"t\",\"28 ft\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/diameters/30-ft/\"],[\"t\",\"30 ft\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/diameters/32-ft/\"],[\"t\",\"32 ft\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/diameters/34-ft/\"],[\"t\",\"34 ft\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/diameters/36-ft/\"],[\"t\",\"36 ft\",0],[\"/a\"],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/diameters/26-ft/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "26 ft",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": ", ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/diameters/28-ft/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "28 ft",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": ", ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/diameters/30-ft/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "30 ft",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": ", ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/diameters/32-ft/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "32 ft",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": ", ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/diameters/34-ft/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "34 ft",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": ", ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/diameters/36-ft/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "36 ft, 38 ft",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"a\",\"https://h2ocooling.com/diameters/26-ft/\"],[\"t\",\"26 ft\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/diameters/28-ft/\"],[\"t\",\"28 ft\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/diameters/30-ft/\"],[\"t\",\"30 ft\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/diameters/32-ft/\"],[\"t\",\"32 ft\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/diameters/34-ft/\"],[\"t\",\"34 ft\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/diameters/36-ft/\"],[\"t\",\"36 ft, 38 ft\",0],[\"/a\"],[\"p\"]]",
+    "changes": [
+     {
+      "from": "36 ft",
+      "to": "36 ft, 38 ft",
+      "action": "word-corrected",
+      "reason": "OGCS CATALOG-FANS-1 Wave 2 Howden updates (WAVE2_HOWDEN_UPDATES.tsv 633d1af6), CT 2026-10-08, row HWD-02: adds the stated upper end of the diameter list."
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.9.3.1.5.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"a\",\"https://h2ocooling.com/number-of-blades/5/\"],[\"t\",\"5\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/number-of-blades/6/\"],[\"t\",\"6\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/number-of-blades/7/\"],[\"t\",\"7\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/number-of-blades/8/\"],[\"t\",\"8\",0],[\"/a\"],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/number-of-blades/5/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "5",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": ", ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/number-of-blades/6/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "6",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": ", ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/number-of-blades/7/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "7",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": ", ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/number-of-blades/8/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "8, 9, 10, 11",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"a\",\"https://h2ocooling.com/number-of-blades/5/\"],[\"t\",\"5\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/number-of-blades/6/\"],[\"t\",\"6\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/number-of-blades/7/\"],[\"t\",\"7\",0],[\"/a\"],[\"t\",\", \",0],[\"a\",\"https://h2ocooling.com/number-of-blades/8/\"],[\"t\",\"8, 9, 10, 11\",0],[\"/a\"],[\"p\"]]",
+    "changes": [
+     {
+      "from": "8",
+      "to": "8, 9, 10, 11",
+      "action": "word-corrected",
+      "reason": "OGCS CATALOG-FANS-1 Wave 2 Howden updates (WAVE2_HOWDEN_UPDATES.tsv 633d1af6), CT 2026-10-08, row HWD-03: blade counts 5 to 11, as the page's specifications already state."
+     }
+    ]
    }
   ]
  },
@@ -42522,6 +42953,98 @@
       "to": null,
       "action": "claim-removed",
       "reason": "OGCS SEO Deep R1 rulings (resealed fe4feb16; CT SEO-CONTENT-1 2026-10-07): Industrial-only rule (OGCS section 2 HVAC products): the whole bullet is HVAC wording; the list keeps its other industrial bullets (applications bullet \"HVAC cooling applications\": delete the bullet)."
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.5.3.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Size Range: 28″-34′ (0.73M-10.36M)\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Size Range: 28″-36′ (0.71M-10.97M)",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Size Range: 28″-36′ (0.71M-10.97M)\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "28″-34′ (0.73M-10.36M)",
+      "to": "28″-36′ (0.71M-10.97M)",
+      "action": "word-corrected",
+      "reason": "OGCS CATALOG-FANS-1 Wave 2 Howden updates (WAVE2_HOWDEN_UPDATES.tsv 633d1af6), CT 2026-10-08, row HWS-01: Howden SX Series: 28 in (710 mm) to 36 ft (10973 mm); title, H1 and meta unchanged (ranking)."
+     }
+    ]
+   },
+   {
+    "key": "body.1.1.1.3.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Designed for industrial cooling systems, these fans ensure powerful airflow performance and dependable operational reliability consistently. The PRO SX Series 28″-34′ (0.73M-10.36M) Fans are engineered to maximize cooling efficiency in demanding industrial environments. Manufactured using durable corrosion-resistant materials, these fans provide optimized airflow performance, stable operation, and long-lasting durability for industrial cooling applications.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Designed for industrial cooling systems, these fans ensure powerful airflow performance and dependable operational reliability consistently. The PRO SX Series 28″-36′ (0.71M-10.97M) Fans are engineered to maximize cooling efficiency in demanding industrial environments. Manufactured using durable corrosion-resistant materials, these fans provide optimized airflow performance, stable operation, and long-lasting durability for industrial cooling applications.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Designed for industrial cooling systems, these fans ensure powerful airflow performance and dependable operational reliability consistently. The PRO SX Series 28″-36′ (0.71M-10.97M) Fans are engineered to maximize cooling efficiency in demanding industrial environments. Manufactured using durable corrosion-resistant materials, these fans provide optimized airflow performance, stable operation, and long-lasting durability for industrial cooling applications.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "28″-34′ (0.73M-10.36M)",
+      "to": "28″-36′ (0.71M-10.97M)",
+      "action": "word-corrected",
+      "reason": "OGCS CATALOG-FANS-1 Wave 2 Howden updates (WAVE2_HOWDEN_UPDATES.tsv 633d1af6), CT 2026-10-08, row HWS-02: same change in the page's lead sentence."
      }
     ]
    }
@@ -72854,899 +73377,6 @@
    }
   ]
  },
- "/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/": {
-  "routeId": "LIVE-LOCALE-th-14460",
-  "slots": [
-   {
-    "key": "body.5.3.0.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B9%83%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3\"],[\"t\",\"ระบบ HVAC ในหอคอยทำความเย็นคืออะไร\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B9%83%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "ระบบ HVAC ในหอคอยทำความเย็นคืออะไร",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B9%83%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3\"],[\"t\",\"ระบบ HVAC ในหอคอยทำความเย็นคืออะไร\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B9%83%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B9%83%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%9A%E0%B8%97%E0%B8%9A%E0%B8%B2%E0%B8%97%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%AD%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B9%83%E0%B8%99%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC\"",
-    "after": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9A%E0%B8%97%E0%B8%9A%E0%B8%B2%E0%B8%97%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%AD%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B9%83%E0%B8%99%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-    "afterCanon": "\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9A%E0%B8%97%E0%B8%9A%E0%B8%B2%E0%B8%97%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%AD%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B9%83%E0%B8%99%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%9A%E0%B8%97%E0%B8%9A%E0%B8%B2%E0%B8%97%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%AD%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B9%83%E0%B8%99%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9A%E0%B8%97%E0%B8%9A%E0%B8%B2%E0%B8%97%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%AD%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B9%83%E0%B8%99%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99\"],[\"t\",\"การระบายความร้อน\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "การระบายความร้อน",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99\"],[\"t\",\"การระบายความร้อน\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B9%81%E0%B8%A5%E0%B8%B0_AHU\"],[\"t\",\"การบูรณาการกับเครื่องทำความเย็นและ AHU\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B9%81%E0%B8%A5%E0%B8%B0_AHU",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "การบูรณาการกับเครื่องทำความเย็นและ AHU",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B9%81%E0%B8%A5%E0%B8%B0_AHU\"],[\"t\",\"การบูรณาการกับเครื่องทำความเย็นและ AHU\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B9%81%E0%B8%A5%E0%B8%B0_AHU",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B9%81%E0%B8%A5%E0%B8%B0_AHU",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AD%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%B0%E0%B8%AA%E0%B8%A1%E0%B8%82%E0%B8%AD%E0%B8%87_HVAC_%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%93%E0%B8%B4%E0%B8%8A%E0%B8%A2%E0%B9%8C\"],[\"t\",\"รักษาอุณหภูมิที่เหมาะสมของ HVAC เชิงพาณิชย์\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AD%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%B0%E0%B8%AA%E0%B8%A1%E0%B8%82%E0%B8%AD%E0%B8%87_HVAC_%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%93%E0%B8%B4%E0%B8%8A%E0%B8%A2%E0%B9%8C",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "รักษาอุณหภูมิที่เหมาะสมของ HVAC เชิงพาณิชย์",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AD%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%B0%E0%B8%AA%E0%B8%A1%E0%B8%82%E0%B8%AD%E0%B8%87_HVAC_%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%93%E0%B8%B4%E0%B8%8A%E0%B8%A2%E0%B9%8C\"],[\"t\",\"รักษาอุณหภูมิที่เหมาะสมของ HVAC เชิงพาณิชย์\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AD%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%B0%E0%B8%AA%E0%B8%A1%E0%B8%82%E0%B8%AD%E0%B8%87_HVAC_%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%93%E0%B8%B4%E0%B8%8A%E0%B8%A2%E0%B9%8C",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AD%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%B0%E0%B8%AA%E0%B8%A1%E0%B8%82%E0%B8%AD%E0%B8%87_HVAC_%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%93%E0%B8%B4%E0%B8%8A%E0%B8%A2%E0%B9%8C",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.3",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B9%80%E0%B8%9E%E0%B8%B4%E0%B9%88%E0%B8%A1%E0%B8%AD%E0%B8%B2%E0%B8%A2%E0%B8%B8%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%AD%E0%B8%9A_HVAC\"],[\"t\",\"เพิ่มอายุการใช้งานของส่วนประกอบ HVAC\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B9%80%E0%B8%9E%E0%B8%B4%E0%B9%88%E0%B8%A1%E0%B8%AD%E0%B8%B2%E0%B8%A2%E0%B8%B8%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%AD%E0%B8%9A_HVAC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "เพิ่มอายุการใช้งานของส่วนประกอบ HVAC",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B9%80%E0%B8%9E%E0%B8%B4%E0%B9%88%E0%B8%A1%E0%B8%AD%E0%B8%B2%E0%B8%A2%E0%B8%B8%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%AD%E0%B8%9A_HVAC\"],[\"t\",\"เพิ่มอายุการใช้งานของส่วนประกอบ HVAC\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B9%80%E0%B8%9E%E0%B8%B4%E0%B9%88%E0%B8%A1%E0%B8%AD%E0%B8%B2%E0%B8%A2%E0%B8%B8%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%AD%E0%B8%9A_HVAC",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B9%80%E0%B8%9E%E0%B8%B4%E0%B9%88%E0%B8%A1%E0%B8%AD%E0%B8%B2%E0%B8%A2%E0%B8%B8%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%AD%E0%B8%9A_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.2.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B9%80%E0%B8%AB%E0%B8%95%E0%B8%B8%E0%B9%83%E0%B8%94%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B8%88%E0%B8%B6%E0%B8%87%E0%B8%88%E0%B8%B3%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%93%E0%B8%B4%E0%B8%8A%E0%B8%A2%E0%B9%8C\"",
-    "after": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B9%80%E0%B8%AB%E0%B8%95%E0%B8%B8%E0%B9%83%E0%B8%94%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B8%88%E0%B8%B6%E0%B8%87%E0%B8%88%E0%B8%B3%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%93%E0%B8%B4%E0%B8%8A%E0%B8%A2%E0%B9%8C",
-    "afterCanon": "\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B9%80%E0%B8%AB%E0%B8%95%E0%B8%B8%E0%B9%83%E0%B8%94%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B8%88%E0%B8%B6%E0%B8%87%E0%B8%88%E0%B8%B3%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%93%E0%B8%B4%E0%B8%8A%E0%B8%A2%E0%B9%8C\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B9%80%E0%B8%AB%E0%B8%95%E0%B8%B8%E0%B9%83%E0%B8%94%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B8%88%E0%B8%B6%E0%B8%87%E0%B8%88%E0%B8%B3%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%93%E0%B8%B4%E0%B8%8A%E0%B8%A2%E0%B9%8C",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B9%80%E0%B8%AB%E0%B8%95%E0%B8%B8%E0%B9%83%E0%B8%94%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B8%88%E0%B8%B6%E0%B8%87%E0%B8%88%E0%B8%B3%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%93%E0%B8%B4%E0%B8%8A%E0%B8%A2%E0%B9%8C",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.2.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%97%E0%B8%98%E0%B8%B4%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%9E%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B8%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B9%8C\"],[\"t\",\"ประสิทธิภาพการใช้พลังงานและการอนุรักษ์\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%97%E0%B8%98%E0%B8%B4%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%9E%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B8%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B9%8C",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "ประสิทธิภาพการใช้พลังงานและการอนุรักษ์",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%97%E0%B8%98%E0%B8%B4%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%9E%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B8%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B9%8C\"],[\"t\",\"ประสิทธิภาพการใช้พลังงานและการอนุรักษ์\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%97%E0%B8%98%E0%B8%B4%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%9E%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B8%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B9%8C",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%97%E0%B8%98%E0%B8%B4%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%9E%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B8%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B9%8C",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.2.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%AD%E0%B8%B2%E0%B8%8A%E0%B8%99%E0%B8%B0%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%94%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC\"],[\"t\",\"การเอาชนะความเครียดของระบบ HVAC\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%AD%E0%B8%B2%E0%B8%8A%E0%B8%99%E0%B8%B0%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%94%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "การเอาชนะความเครียดของระบบ HVAC",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%AD%E0%B8%B2%E0%B8%8A%E0%B8%99%E0%B8%B0%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%94%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC\"],[\"t\",\"การเอาชนะความเครียดของระบบ HVAC\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%AD%E0%B8%B2%E0%B8%8A%E0%B8%99%E0%B8%B0%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%94%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%AD%E0%B8%B2%E0%B8%8A%E0%B8%99%E0%B8%B0%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%94%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.2.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%94%E0%B8%B5%E0%B8%82%E0%B8%B6%E0%B9%89%E0%B8%99\"],[\"t\",\"คุณภาพอากาศดีขึ้น\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%94%E0%B8%B5%E0%B8%82%E0%B8%B6%E0%B9%89%E0%B8%99",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "คุณภาพอากาศดีขึ้น",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%94%E0%B8%B5%E0%B8%82%E0%B8%B6%E0%B9%89%E0%B8%99\"],[\"t\",\"คุณภาพอากาศดีขึ้น\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%94%E0%B8%B5%E0%B8%82%E0%B8%B6%E0%B9%89%E0%B8%99",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%94%E0%B8%B5%E0%B8%82%E0%B8%B6%E0%B9%89%E0%B8%99",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%9A%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99_%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B9%83%E0%B8%94%E0%B8%94%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC\"",
-    "after": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%9A%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99_%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B9%83%E0%B8%94%E0%B8%94%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-    "afterCanon": "\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%9A%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99_%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B9%83%E0%B8%94%E0%B8%94%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%9A%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99_%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B9%83%E0%B8%94%E0%B8%94%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%9A%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99_%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B9%83%E0%B8%94%E0%B8%94%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99\"],[\"t\",\"หอคอยหล่อเย็น\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "หอคอยหล่อเย็น",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99\"],[\"t\",\"หอคอยหล่อเย็น\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99\"],[\"t\",\"เครื่องทำความเย็น\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "เครื่องทำความเย็น",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99\"],[\"t\",\"เครื่องทำความเย็น\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B9%80%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3\"],[\"t\",\"ตัวเลือกที่ดีที่สุดคืออะไร\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B9%80%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "ตัวเลือกที่ดีที่สุดคืออะไร",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B9%80%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3\"],[\"t\",\"ตัวเลือกที่ดีที่สุดคืออะไร\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B9%80%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B9%80%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.3",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%88%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B8%82%E0%B8%93%E0%B8%B0%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC\"],[\"t\",\"ปัจจัยที่ต้องพิจารณาขณะติดตั้งระบบ HVAC\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%88%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B8%82%E0%B8%93%E0%B8%B0%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "ปัจจัยที่ต้องพิจารณาขณะติดตั้งระบบ HVAC",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%88%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B8%82%E0%B8%93%E0%B8%B0%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC\"],[\"t\",\"ปัจจัยที่ต้องพิจารณาขณะติดตั้งระบบ HVAC\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%88%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B8%82%E0%B8%93%E0%B8%B0%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%88%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B8%B2%E0%B8%82%E0%B8%93%E0%B8%B0%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2_6_%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%B6%E0%B8%87%E0%B8%96%E0%B8%B6%E0%B8%87%E0%B8%82%E0%B8%93%E0%B8%B0%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B8%A1%E0%B8%B5%E0%B8%94%E0%B8%B1%E0%B8%87%E0%B8%99%E0%B8%B5%E0%B9%89\"],[\"t\",\"ปัจจัย 6 ประการที่ควรคำนึงถึงขณะติดตั้งระบบ HVAC มีดังนี้:\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2_6_%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%B6%E0%B8%87%E0%B8%96%E0%B8%B6%E0%B8%87%E0%B8%82%E0%B8%93%E0%B8%B0%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B8%A1%E0%B8%B5%E0%B8%94%E0%B8%B1%E0%B8%87%E0%B8%99%E0%B8%B5%E0%B9%89",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "ปัจจัย 6 ประการที่ควรคำนึงถึงขณะติดตั้งระบบ HVAC มีดังนี้:",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2_6_%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%B6%E0%B8%87%E0%B8%96%E0%B8%B6%E0%B8%87%E0%B8%82%E0%B8%93%E0%B8%B0%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B8%A1%E0%B8%B5%E0%B8%94%E0%B8%B1%E0%B8%87%E0%B8%99%E0%B8%B5%E0%B9%89\"],[\"t\",\"ปัจจัย 6 ประการที่ควรคำนึงถึงขณะติดตั้งระบบ HVAC มีดังนี้:\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2_6_%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%B6%E0%B8%87%E0%B8%96%E0%B8%B6%E0%B8%87%E0%B8%82%E0%B8%93%E0%B8%B0%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B8%A1%E0%B8%B5%E0%B8%94%E0%B8%B1%E0%B8%87%E0%B8%99%E0%B8%B5%E0%B9%89",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B1%E0%B8%A2_6_%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%B6%E0%B8%87%E0%B8%96%E0%B8%B6%E0%B8%87%E0%B8%82%E0%B8%93%E0%B8%B0%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A_HVAC_%E0%B8%A1%E0%B8%B5%E0%B8%94%E0%B8%B1%E0%B8%87%E0%B8%99%E0%B8%B5%E0%B9%89",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.5",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%AA%E0%B8%A3%E0%B8%B8%E0%B8%9B\"],[\"t\",\"ข้อสรุป\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%AA%E0%B8%A3%E0%B8%B8%E0%B8%9B",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "ข้อสรุป",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%AA%E0%B8%A3%E0%B8%B8%E0%B8%9B\"],[\"t\",\"ข้อสรุป\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/#%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%AA%E0%B8%A3%E0%B8%B8%E0%B8%9B",
-      "to": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/#%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%AA%E0%B8%A3%E0%B8%B8%E0%B8%9B",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/"
-     }
-    ]
-   }
-  ]
- },
  "/th/%e0%b8%ab%e0%b8%ad%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84%e0%b8%a3/": {
   "routeId": "LIVE-LOCALE-th-14606",
   "slots": [
@@ -73793,959 +73423,6 @@
       "to": " ไม่ว่าคุณจะต้องการซ่อมแซม อัพเกรด หรือสร้างทาวเวอร์ของคุณใหม่ เราก็ปรับแต่งโซลูชันเพื่อฟื้นฟูทาวเวอร์ของคุณให้อยู่ในสภาพที่เหมาะสมที่สุดและประสิทธิภาพการทำงาน การออกแบบเชิงนวัตกรรมของเราจะเพิ่มประสิทธิภาพของทาวเวอร์ เพิ่มผลกำไร และช่วยเสริมความปลอดภัยและยืดอายุการใช้งาน ติดต่อเราวันนี้เพื่อขอใบเสนอราคา!",
       "action": "word-corrected",
       "reason": "OGCS claims sweep R1 CS081 (GATE; CT accepted 2026-10-05): Safety and lifespan guarantee. Back-translation of the new clause: \"and help improve safety and extend service life\"."
-     }
-    ]
-   }
-  ]
- },
- "/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/": {
-  "routeId": "LIVE-LOCALE-vi-14464",
-  "slots": [
-   {
-    "key": "body.5.3.0.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#He_thong_HVAC_trong_thap_giai_nhiet_la_gi\"],[\"t\",\"Hệ thống HVAC trong tháp giải nhiệt là gì?\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#He_thong_HVAC_trong_thap_giai_nhiet_la_gi",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Hệ thống HVAC trong tháp giải nhiệt là gì?",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#He_thong_HVAC_trong_thap_giai_nhiet_la_gi\"],[\"t\",\"Hệ thống HVAC trong tháp giải nhiệt là gì?\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#He_thong_HVAC_trong_thap_giai_nhiet_la_gi",
-      "to": "/vi/thap-giai-nhiet-la-gi/#He_thong_HVAC_trong_thap_giai_nhiet_la_gi",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Vai_tro_cua_thap_giai_nhiet_trong_he_thong_HVAC\"",
-    "after": "/vi/thap-giai-nhiet-la-gi/#Vai_tro_cua_thap_giai_nhiet_trong_he_thong_HVAC",
-    "afterCanon": "\"/vi/thap-giai-nhiet-la-gi/#Vai_tro_cua_thap_giai_nhiet_trong_he_thong_HVAC\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Vai_tro_cua_thap_giai_nhiet_trong_he_thong_HVAC",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Vai_tro_cua_thap_giai_nhiet_trong_he_thong_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Tan_nhiet\"],[\"t\",\"Tản nhiệt\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Tan_nhiet",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Tản nhiệt",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Tan_nhiet\"],[\"t\",\"Tản nhiệt\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Tan_nhiet",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Tan_nhiet",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Tich_hop_voi_May_lam_lanh_va_AHU\"],[\"t\",\"Tích hợp với Máy làm lạnh và AHU\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Tich_hop_voi_May_lam_lanh_va_AHU",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Tích hợp với Máy làm lạnh và AHU",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Tich_hop_voi_May_lam_lanh_va_AHU\"],[\"t\",\"Tích hợp với Máy làm lạnh và AHU\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Tich_hop_voi_May_lam_lanh_va_AHU",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Tich_hop_voi_May_lam_lanh_va_AHU",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Duy_tri_nhiet_do_toi_uu_cua_HVAC_thuong_mai\"],[\"t\",\"Duy trì nhiệt độ tối ưu của HVAC thương mại\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Duy_tri_nhiet_do_toi_uu_cua_HVAC_thuong_mai",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Duy trì nhiệt độ tối ưu của HVAC thương mại",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Duy_tri_nhiet_do_toi_uu_cua_HVAC_thuong_mai\"],[\"t\",\"Duy trì nhiệt độ tối ưu của HVAC thương mại\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Duy_tri_nhiet_do_toi_uu_cua_HVAC_thuong_mai",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Duy_tri_nhiet_do_toi_uu_cua_HVAC_thuong_mai",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.3",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Nang_cao_tuoi_tho_cua_cac_thanh_phan_HVAC\"],[\"t\",\"Nâng cao tuổi thọ của các thành phần HVAC\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Nang_cao_tuoi_tho_cua_cac_thanh_phan_HVAC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Nâng cao tuổi thọ của các thành phần HVAC",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Nang_cao_tuoi_tho_cua_cac_thanh_phan_HVAC\"],[\"t\",\"Nâng cao tuổi thọ của các thành phần HVAC\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Nang_cao_tuoi_tho_cua_cac_thanh_phan_HVAC",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Nang_cao_tuoi_tho_cua_cac_thanh_phan_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Cac_loai_thap_giai_nhiet_co_loi_nhat_cho_he_thong_HVAC\"],[\"t\",\"Các loại tháp giải nhiệt có lợi nhất cho hệ thống HVAC\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Cac_loai_thap_giai_nhiet_co_loi_nhat_cho_he_thong_HVAC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Các loại tháp giải nhiệt có lợi nhất cho hệ thống HVAC",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Cac_loai_thap_giai_nhiet_co_loi_nhat_cho_he_thong_HVAC\"],[\"t\",\"Các loại tháp giải nhiệt có lợi nhất cho hệ thống HVAC\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Cac_loai_thap_giai_nhiet_co_loi_nhat_cho_he_thong_HVAC",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Cac_loai_thap_giai_nhiet_co_loi_nhat_cho_he_thong_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Tai_sao_can_co_thap_giai_nhiet_cho_he_thong_HVAC_thuong_mai\"",
-    "after": "/vi/thap-giai-nhiet-la-gi/#Tai_sao_can_co_thap_giai_nhiet_cho_he_thong_HVAC_thuong_mai",
-    "afterCanon": "\"/vi/thap-giai-nhiet-la-gi/#Tai_sao_can_co_thap_giai_nhiet_cho_he_thong_HVAC_thuong_mai\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Tai_sao_can_co_thap_giai_nhiet_cho_he_thong_HVAC_thuong_mai",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Tai_sao_can_co_thap_giai_nhiet_cho_he_thong_HVAC_thuong_mai",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Hieu_qua_va_tiet_kiem_nang_luong\"],[\"t\",\"Hiệu quả và tiết kiệm năng lượng\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Hieu_qua_va_tiet_kiem_nang_luong",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Hiệu quả và tiết kiệm năng lượng",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Hieu_qua_va_tiet_kiem_nang_luong\"],[\"t\",\"Hiệu quả và tiết kiệm năng lượng\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Hieu_qua_va_tiet_kiem_nang_luong",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Hieu_qua_va_tiet_kiem_nang_luong",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#De_khac_phuc_tinh_trang_cang_thang_cho_he_thong_HVAC\"],[\"t\",\"Để khắc phục tình trạng căng thẳng cho hệ thống HVAC\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#De_khac_phuc_tinh_trang_cang_thang_cho_he_thong_HVAC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Để khắc phục tình trạng căng thẳng cho hệ thống HVAC",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#De_khac_phuc_tinh_trang_cang_thang_cho_he_thong_HVAC\"],[\"t\",\"Để khắc phục tình trạng căng thẳng cho hệ thống HVAC\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#De_khac_phuc_tinh_trang_cang_thang_cho_he_thong_HVAC",
-      "to": "/vi/thap-giai-nhiet-la-gi/#De_khac_phuc_tinh_trang_cang_thang_cho_he_thong_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Giam_tac_dong_den_moi_truong\"],[\"t\",\"Giảm tác động đến môi trường\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Giam_tac_dong_den_moi_truong",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Giảm tác động đến môi trường",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Giam_tac_dong_den_moi_truong\"],[\"t\",\"Giảm tác động đến môi trường\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Giam_tac_dong_den_moi_truong",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Giam_tac_dong_den_moi_truong",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.3",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Cai_thien_chat_luong_khong_khi\"],[\"t\",\"Cải thiện chất lượng không khí\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Cai_thien_chat_luong_khong_khi",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Cải thiện chất lượng không khí",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Cai_thien_chat_luong_khong_khi\"],[\"t\",\"Cải thiện chất lượng không khí\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Cai_thien_chat_luong_khong_khi",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Cai_thien_chat_luong_khong_khi",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Thap_giai_nhiet_so_voi_may_lam_lanh_Loai_nao_tot_nhat_cho_HVAC\"",
-    "after": "/vi/thap-giai-nhiet-la-gi/#Thap_giai_nhiet_so_voi_may_lam_lanh_Loai_nao_tot_nhat_cho_HVAC",
-    "afterCanon": "\"/vi/thap-giai-nhiet-la-gi/#Thap_giai_nhiet_so_voi_may_lam_lanh_Loai_nao_tot_nhat_cho_HVAC\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Thap_giai_nhiet_so_voi_may_lam_lanh_Loai_nao_tot_nhat_cho_HVAC",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Thap_giai_nhiet_so_voi_may_lam_lanh_Loai_nao_tot_nhat_cho_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Thap_giai_nhiet\"],[\"t\",\"Tháp giải nhiệt\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Thap_giai_nhiet",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Tháp giải nhiệt",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Thap_giai_nhiet\"],[\"t\",\"Tháp giải nhiệt\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Thap_giai_nhiet",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Thap_giai_nhiet",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#May_lam_lanh\"],[\"t\",\"Máy làm lạnh\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#May_lam_lanh",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Máy làm lạnh",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#May_lam_lanh\"],[\"t\",\"Máy làm lạnh\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#May_lam_lanh",
-      "to": "/vi/thap-giai-nhiet-la-gi/#May_lam_lanh",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Lua_chon_tot_nhat\"],[\"t\",\"Lựa chọn tốt nhất?\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Lua_chon_tot_nhat",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Lựa chọn tốt nhất?",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Lua_chon_tot_nhat\"],[\"t\",\"Lựa chọn tốt nhất?\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Lua_chon_tot_nhat",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Lua_chon_tot_nhat",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.5",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Cac_yeu_to_can_can_nhac_khi_lap_dat_HVAC\"],[\"t\",\"Các yếu tố cần cân nhắc khi lắp đặt HVAC\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Cac_yeu_to_can_can_nhac_khi_lap_dat_HVAC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Các yếu tố cần cân nhắc khi lắp đặt HVAC",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Cac_yeu_to_can_can_nhac_khi_lap_dat_HVAC\"],[\"t\",\"Các yếu tố cần cân nhắc khi lắp đặt HVAC\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Cac_yeu_to_can_can_nhac_khi_lap_dat_HVAC",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Cac_yeu_to_can_can_nhac_khi_lap_dat_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.6",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Ket_luan\"],[\"t\",\"Kết luận\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/vi/thap-giai-nhiet-la-gi/#Ket_luan",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Kết luận",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/vi/thap-giai-nhiet-la-gi/#Ket_luan\"],[\"t\",\"Kết luận\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#Ket_luan",
-      "to": "/vi/thap-giai-nhiet-la-gi/#Ket_luan",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /vi/thap-giai-nhiet-la-gi/"
      }
     ]
    }
@@ -74889,959 +73566,6 @@
       "to": "các quy trình công nghiệp để duy trì nhiệt độ quy trình",
       "action": "word-corrected",
       "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-321: Minimal sentence-level rewrite, same industrial wording as the accepted English ruling for the same sentence. [NATIVE REVIEW RECOMMENDED.]"
-     }
-    ]
-   }
-  ]
- },
- "/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/": {
-  "routeId": "LIVE-LOCALE-id-14466",
-  "slots": [
-   {
-    "key": "body.5.3.0.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Apa_Sistem_HVAC_di_Menara_Pendingin\"],[\"t\",\"Apa Sistem HVAC di Menara Pendingin?\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Apa_Sistem_HVAC_di_Menara_Pendingin",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Apa Sistem HVAC di Menara Pendingin?",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Apa_Sistem_HVAC_di_Menara_Pendingin\"],[\"t\",\"Apa Sistem HVAC di Menara Pendingin?\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Apa_Sistem_HVAC_di_Menara_Pendingin",
-      "to": "/id/apa-itu-menara-pendinginan/#Apa_Sistem_HVAC_di_Menara_Pendingin",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Peran_Menara_Pendingin_dalam_Sistem_HVAC\"",
-    "after": "/id/apa-itu-menara-pendinginan/#Peran_Menara_Pendingin_dalam_Sistem_HVAC",
-    "afterCanon": "\"/id/apa-itu-menara-pendinginan/#Peran_Menara_Pendingin_dalam_Sistem_HVAC\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Peran_Menara_Pendingin_dalam_Sistem_HVAC",
-      "to": "/id/apa-itu-menara-pendinginan/#Peran_Menara_Pendingin_dalam_Sistem_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Pembuangan_Panas\"],[\"t\",\"Pembuangan Panas\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Pembuangan_Panas",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Pembuangan Panas",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Pembuangan_Panas\"],[\"t\",\"Pembuangan Panas\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Pembuangan_Panas",
-      "to": "/id/apa-itu-menara-pendinginan/#Pembuangan_Panas",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Integrasi_dengan_Pendingin_dan_AHU\"],[\"t\",\"Integrasi dengan Pendingin dan AHU\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Integrasi_dengan_Pendingin_dan_AHU",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Integrasi dengan Pendingin dan AHU",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Integrasi_dengan_Pendingin_dan_AHU\"],[\"t\",\"Integrasi dengan Pendingin dan AHU\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Integrasi_dengan_Pendingin_dan_AHU",
-      "to": "/id/apa-itu-menara-pendinginan/#Integrasi_dengan_Pendingin_dan_AHU",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Pertahankan_Suhu_Optimal_HVAC_Komersial\"],[\"t\",\"Pertahankan Suhu Optimal HVAC Komersial\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Pertahankan_Suhu_Optimal_HVAC_Komersial",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Pertahankan Suhu Optimal HVAC Komersial",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Pertahankan_Suhu_Optimal_HVAC_Komersial\"],[\"t\",\"Pertahankan Suhu Optimal HVAC Komersial\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Pertahankan_Suhu_Optimal_HVAC_Komersial",
-      "to": "/id/apa-itu-menara-pendinginan/#Pertahankan_Suhu_Optimal_HVAC_Komersial",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.3",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Meningkatkan_Masa_Pakai_Komponen_HVAC\"],[\"t\",\"Meningkatkan Masa Pakai Komponen HVAC\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Meningkatkan_Masa_Pakai_Komponen_HVAC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Meningkatkan Masa Pakai Komponen HVAC",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Meningkatkan_Masa_Pakai_Komponen_HVAC\"],[\"t\",\"Meningkatkan Masa Pakai Komponen HVAC\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Meningkatkan_Masa_Pakai_Komponen_HVAC",
-      "to": "/id/apa-itu-menara-pendinginan/#Meningkatkan_Masa_Pakai_Komponen_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Jenis_Menara_Pendingin_yang_Paling_Bermanfaat_untuk_Sistem_HVAC\"],[\"t\",\"Jenis Menara Pendingin yang Paling Bermanfaat untuk Sistem HVAC\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Jenis_Menara_Pendingin_yang_Paling_Bermanfaat_untuk_Sistem_HVAC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Jenis Menara Pendingin yang Paling Bermanfaat untuk Sistem HVAC",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Jenis_Menara_Pendingin_yang_Paling_Bermanfaat_untuk_Sistem_HVAC\"],[\"t\",\"Jenis Menara Pendingin yang Paling Bermanfaat untuk Sistem HVAC\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Jenis_Menara_Pendingin_yang_Paling_Bermanfaat_untuk_Sistem_HVAC",
-      "to": "/id/apa-itu-menara-pendinginan/#Jenis_Menara_Pendingin_yang_Paling_Bermanfaat_untuk_Sistem_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Mengapa_Menara_Pendingin_Diperlukan_untuk_Sistem_HVAC_Komersial\"",
-    "after": "/id/apa-itu-menara-pendinginan/#Mengapa_Menara_Pendingin_Diperlukan_untuk_Sistem_HVAC_Komersial",
-    "afterCanon": "\"/id/apa-itu-menara-pendinginan/#Mengapa_Menara_Pendingin_Diperlukan_untuk_Sistem_HVAC_Komersial\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Mengapa_Menara_Pendingin_Diperlukan_untuk_Sistem_HVAC_Komersial",
-      "to": "/id/apa-itu-menara-pendinginan/#Mengapa_Menara_Pendingin_Diperlukan_untuk_Sistem_HVAC_Komersial",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Efisiensi_dan_Konservasi_Energi\"],[\"t\",\"Efisiensi dan Konservasi Energi\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Efisiensi_dan_Konservasi_Energi",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Efisiensi dan Konservasi Energi",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Efisiensi_dan_Konservasi_Energi\"],[\"t\",\"Efisiensi dan Konservasi Energi\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Efisiensi_dan_Konservasi_Energi",
-      "to": "/id/apa-itu-menara-pendinginan/#Efisiensi_dan_Konservasi_Energi",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Untuk_Mengatasi_Tekanan_pada_Sistem_HVAC\"],[\"t\",\"Untuk Mengatasi Tekanan pada Sistem HVAC\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Untuk_Mengatasi_Tekanan_pada_Sistem_HVAC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Untuk Mengatasi Tekanan pada Sistem HVAC",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Untuk_Mengatasi_Tekanan_pada_Sistem_HVAC\"],[\"t\",\"Untuk Mengatasi Tekanan pada Sistem HVAC\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Untuk_Mengatasi_Tekanan_pada_Sistem_HVAC",
-      "to": "/id/apa-itu-menara-pendinginan/#Untuk_Mengatasi_Tekanan_pada_Sistem_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Dampak_Lingkungan_yang_Berkurang\"],[\"t\",\"Dampak Lingkungan yang Berkurang\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Dampak_Lingkungan_yang_Berkurang",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Dampak Lingkungan yang Berkurang",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Dampak_Lingkungan_yang_Berkurang\"],[\"t\",\"Dampak Lingkungan yang Berkurang\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Dampak_Lingkungan_yang_Berkurang",
-      "to": "/id/apa-itu-menara-pendinginan/#Dampak_Lingkungan_yang_Berkurang",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.3",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Kualitas_Udara_yang_Lebih_Baik\"],[\"t\",\"Kualitas Udara yang Lebih Baik\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Kualitas_Udara_yang_Lebih_Baik",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Kualitas Udara yang Lebih Baik",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Kualitas_Udara_yang_Lebih_Baik\"],[\"t\",\"Kualitas Udara yang Lebih Baik\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Kualitas_Udara_yang_Lebih_Baik",
-      "to": "/id/apa-itu-menara-pendinginan/#Kualitas_Udara_yang_Lebih_Baik",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Menara_Pendingin_vs_Pendingin_Mana_yang_Terbaik_untuk_HVAC\"",
-    "after": "/id/apa-itu-menara-pendinginan/#Menara_Pendingin_vs_Pendingin_Mana_yang_Terbaik_untuk_HVAC",
-    "afterCanon": "\"/id/apa-itu-menara-pendinginan/#Menara_Pendingin_vs_Pendingin_Mana_yang_Terbaik_untuk_HVAC\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Menara_Pendingin_vs_Pendingin_Mana_yang_Terbaik_untuk_HVAC",
-      "to": "/id/apa-itu-menara-pendinginan/#Menara_Pendingin_vs_Pendingin_Mana_yang_Terbaik_untuk_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Menara_Pendingin\"],[\"t\",\"Menara Pendingin\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Menara_Pendingin",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Menara Pendingin",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Menara_Pendingin\"],[\"t\",\"Menara Pendingin\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Menara_Pendingin",
-      "to": "/id/apa-itu-menara-pendinginan/#Menara_Pendingin",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Pendingin\"],[\"t\",\"Pendingin\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Pendingin",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Pendingin",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Pendingin\"],[\"t\",\"Pendingin\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Pendingin",
-      "to": "/id/apa-itu-menara-pendinginan/#Pendingin",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Pilihan_terbaik\"],[\"t\",\"Pilihan terbaik?\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Pilihan_terbaik",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Pilihan terbaik?",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Pilihan_terbaik\"],[\"t\",\"Pilihan terbaik?\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Pilihan_terbaik",
-      "to": "/id/apa-itu-menara-pendinginan/#Pilihan_terbaik",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.5",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Faktor_yang_Perlu_Dipertimbangkan_Saat_Memasang_HVAC\"],[\"t\",\"Faktor yang Perlu Dipertimbangkan Saat Memasang HVAC\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Faktor_yang_Perlu_Dipertimbangkan_Saat_Memasang_HVAC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Faktor yang Perlu Dipertimbangkan Saat Memasang HVAC",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Faktor_yang_Perlu_Dipertimbangkan_Saat_Memasang_HVAC\"],[\"t\",\"Faktor yang Perlu Dipertimbangkan Saat Memasang HVAC\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Faktor_yang_Perlu_Dipertimbangkan_Saat_Memasang_HVAC",
-      "to": "/id/apa-itu-menara-pendinginan/#Faktor_yang_Perlu_Dipertimbangkan_Saat_Memasang_HVAC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.6",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Kesimpulan\"],[\"t\",\"Kesimpulan\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/id/apa-itu-menara-pendinginan/#Kesimpulan",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "Kesimpulan",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/id/apa-itu-menara-pendinginan/#Kesimpulan\"],[\"t\",\"Kesimpulan\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/#Kesimpulan",
-      "to": "/id/apa-itu-menara-pendinginan/#Kesimpulan",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /id/apa-itu-menara-pendinginan/"
      }
     ]
    }
@@ -76241,959 +73965,6 @@
       "to": null,
       "action": "claim-removed",
       "reason": "OGCS HVAC tranche C (seal 79a013d2), CT 2026-10-08, row TC-263: Residential/commercial HVAC paragraph; the English equivalent was deleted (tranche B)."
-     }
-    ]
-   }
-  ]
- },
- "/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/": {
-  "routeId": "LIVE-LOCALE-ja-14462",
-  "slots": [
-   {
-    "key": "body.5.3.0.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE_HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%A8%E3%81%AF\"],[\"t\",\"冷却塔の HVAC システムとは\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE_HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%A8%E3%81%AF",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "冷却塔の HVAC システムとは",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE_HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%A8%E3%81%AF\"],[\"t\",\"冷却塔の HVAC システムとは\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE_HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%A8%E3%81%AF",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE_HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%A8%E3%81%AF",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE%E5%BD%B9%E5%89%B2\"",
-    "after": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE%E5%BD%B9%E5%89%B2",
-    "afterCanon": "\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE%E5%BD%B9%E5%89%B2\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE%E5%BD%B9%E5%89%B2",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE%E5%BD%B9%E5%89%B2",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E7%86%B1%E6%94%BE%E6%95%A3\"],[\"t\",\"熱放散\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%86%B1%E6%94%BE%E6%95%A3",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "熱放散",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%86%B1%E6%94%BE%E6%95%A3\"],[\"t\",\"熱放散\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E7%86%B1%E6%94%BE%E6%95%A3",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%86%B1%E6%94%BE%E6%95%A3",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E3%83%81%E3%83%A9%E3%83%BC%E3%81%A8_AHU_%E3%81%A8%E3%81%AE%E7%B5%B1%E5%90%88\"],[\"t\",\"チラーと AHU との統合\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%83%81%E3%83%A9%E3%83%BC%E3%81%A8_AHU_%E3%81%A8%E3%81%AE%E7%B5%B1%E5%90%88",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "チラーと AHU との統合",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%83%81%E3%83%A9%E3%83%BC%E3%81%A8_AHU_%E3%81%A8%E3%81%AE%E7%B5%B1%E5%90%88\"],[\"t\",\"チラーと AHU との統合\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E3%83%81%E3%83%A9%E3%83%BC%E3%81%A8_AHU_%E3%81%A8%E3%81%AE%E7%B5%B1%E5%90%88",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%83%81%E3%83%A9%E3%83%BC%E3%81%A8_AHU_%E3%81%A8%E3%81%AE%E7%B5%B1%E5%90%88",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E5%95%86%E7%94%A8_HVAC_%E3%81%AE%E6%9C%80%E9%81%A9%E3%81%AA%E6%B8%A9%E5%BA%A6%E3%82%92%E7%B6%AD%E6%8C%81\"],[\"t\",\"商用 HVAC の最適な温度を維持\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%95%86%E7%94%A8_HVAC_%E3%81%AE%E6%9C%80%E9%81%A9%E3%81%AA%E6%B8%A9%E5%BA%A6%E3%82%92%E7%B6%AD%E6%8C%81",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "商用 HVAC の最適な温度を維持",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%95%86%E7%94%A8_HVAC_%E3%81%AE%E6%9C%80%E9%81%A9%E3%81%AA%E6%B8%A9%E5%BA%A6%E3%82%92%E7%B6%AD%E6%8C%81\"],[\"t\",\"商用 HVAC の最適な温度を維持\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E5%95%86%E7%94%A8_HVAC_%E3%81%AE%E6%9C%80%E9%81%A9%E3%81%AA%E6%B8%A9%E5%BA%A6%E3%82%92%E7%B6%AD%E6%8C%81",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%95%86%E7%94%A8_HVAC_%E3%81%AE%E6%9C%80%E9%81%A9%E3%81%AA%E6%B8%A9%E5%BA%A6%E3%82%92%E7%B6%AD%E6%8C%81",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.1.1.3",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#HVAC_%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E5%AF%BF%E5%91%BD%E3%82%92%E5%BB%B6%E3%81%B0%E3%81%99\"],[\"t\",\"HVAC コンポーネントの寿命を延ばす\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E5%AF%BF%E5%91%BD%E3%82%92%E5%BB%B6%E3%81%B0%E3%81%99",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "HVAC コンポーネントの寿命を延ばす",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E5%AF%BF%E5%91%BD%E3%82%92%E5%BB%B6%E3%81%B0%E3%81%99\"],[\"t\",\"HVAC コンポーネントの寿命を延ばす\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#HVAC_%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E5%AF%BF%E5%91%BD%E3%82%92%E5%BB%B6%E3%81%B0%E3%81%99",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E5%AF%BF%E5%91%BD%E3%82%92%E5%BB%B6%E3%81%B0%E3%81%99",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E6%9C%80%E9%81%A9%E3%81%AA%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE%E7%A8%AE%E9%A1%9E\"],[\"t\",\"HVAC システムに最適な冷却塔の種類\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E6%9C%80%E9%81%A9%E3%81%AA%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE%E7%A8%AE%E9%A1%9E",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "HVAC システムに最適な冷却塔の種類",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E6%9C%80%E9%81%A9%E3%81%AA%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE%E7%A8%AE%E9%A1%9E\"],[\"t\",\"HVAC システムに最適な冷却塔の種類\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E6%9C%80%E9%81%A9%E3%81%AA%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE%E7%A8%AE%E9%A1%9E",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E6%9C%80%E9%81%A9%E3%81%AA%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AE%E7%A8%AE%E9%A1%9E",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E3%81%AA%E3%81%9C%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AF%E5%95%86%E7%94%A8_HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E5%BF%85%E8%A6%81%E3%81%AA%E3%81%AE%E3%81%A7%E3%81%97%E3%82%87%E3%81%86%E3%81%8B\"",
-    "after": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%81%AA%E3%81%9C%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AF%E5%95%86%E7%94%A8_HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E5%BF%85%E8%A6%81%E3%81%AA%E3%81%AE%E3%81%A7%E3%81%97%E3%82%87%E3%81%86%E3%81%8B",
-    "afterCanon": "\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%81%AA%E3%81%9C%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AF%E5%95%86%E7%94%A8_HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E5%BF%85%E8%A6%81%E3%81%AA%E3%81%AE%E3%81%A7%E3%81%97%E3%82%87%E3%81%86%E3%81%8B\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E3%81%AA%E3%81%9C%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AF%E5%95%86%E7%94%A8_HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E5%BF%85%E8%A6%81%E3%81%AA%E3%81%AE%E3%81%A7%E3%81%97%E3%82%87%E3%81%86%E3%81%8B",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%81%AA%E3%81%9C%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%AF%E5%95%86%E7%94%A8_HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AB%E5%BF%85%E8%A6%81%E3%81%AA%E3%81%AE%E3%81%A7%E3%81%97%E3%82%87%E3%81%86%E3%81%8B",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E3%82%A8%E3%83%8D%E3%83%AB%E3%82%AE%E3%83%BC%E5%8A%B9%E7%8E%87%E3%81%A8%E7%AF%80%E7%B4%84\"],[\"t\",\"エネルギー効率と節約\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%82%A8%E3%83%8D%E3%83%AB%E3%82%AE%E3%83%BC%E5%8A%B9%E7%8E%87%E3%81%A8%E7%AF%80%E7%B4%84",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "エネルギー効率と節約",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%82%A8%E3%83%8D%E3%83%AB%E3%82%AE%E3%83%BC%E5%8A%B9%E7%8E%87%E3%81%A8%E7%AF%80%E7%B4%84\"],[\"t\",\"エネルギー効率と節約\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E3%82%A8%E3%83%8D%E3%83%AB%E3%82%AE%E3%83%BC%E5%8A%B9%E7%8E%87%E3%81%A8%E7%AF%80%E7%B4%84",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%82%A8%E3%83%8D%E3%83%AB%E3%82%AE%E3%83%BC%E5%8A%B9%E7%8E%87%E3%81%A8%E7%AF%80%E7%B4%84",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%B8%E3%81%AE%E3%82%B9%E3%83%88%E3%83%AC%E3%82%B9%E3%82%92%E5%85%8B%E6%9C%8D%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF\"],[\"t\",\"HVAC システムへのストレスを克服するには\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%B8%E3%81%AE%E3%82%B9%E3%83%88%E3%83%AC%E3%82%B9%E3%82%92%E5%85%8B%E6%9C%8D%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "HVAC システムへのストレスを克服するには",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%B8%E3%81%AE%E3%82%B9%E3%83%88%E3%83%AC%E3%82%B9%E3%82%92%E5%85%8B%E6%9C%8D%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF\"],[\"t\",\"HVAC システムへのストレスを克服するには\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%B8%E3%81%AE%E3%82%B9%E3%83%88%E3%83%AC%E3%82%B9%E3%82%92%E5%85%8B%E6%9C%8D%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%B8%E3%81%AE%E3%82%B9%E3%83%88%E3%83%AC%E3%82%B9%E3%82%92%E5%85%8B%E6%9C%8D%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E7%92%B0%E5%A2%83%E3%81%B8%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%81%AE%E8%BB%BD%E6%B8%9B\"],[\"t\",\"環境への影響の軽減\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%92%B0%E5%A2%83%E3%81%B8%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%81%AE%E8%BB%BD%E6%B8%9B",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "環境への影響の軽減",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%92%B0%E5%A2%83%E3%81%B8%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%81%AE%E8%BB%BD%E6%B8%9B\"],[\"t\",\"環境への影響の軽減\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E7%92%B0%E5%A2%83%E3%81%B8%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%81%AE%E8%BB%BD%E6%B8%9B",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%92%B0%E5%A2%83%E3%81%B8%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%81%AE%E8%BB%BD%E6%B8%9B",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.3.1.3",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E7%A9%BA%E6%B0%97%E3%81%AE%E8%B3%AA%E3%81%AE%E5%90%91%E4%B8%8A\"],[\"t\",\"空気の質の向上\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%A9%BA%E6%B0%97%E3%81%AE%E8%B3%AA%E3%81%AE%E5%90%91%E4%B8%8A",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "空気の質の向上",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%A9%BA%E6%B0%97%E3%81%AE%E8%B3%AA%E3%81%AE%E5%90%91%E4%B8%8A\"],[\"t\",\"空気の質の向上\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E7%A9%BA%E6%B0%97%E3%81%AE%E8%B3%AA%E3%81%AE%E5%90%91%E4%B8%8A",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%A9%BA%E6%B0%97%E3%81%AE%E8%B3%AA%E3%81%AE%E5%90%91%E4%B8%8A",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.0",
-    "kind": "action",
-    "field": "href",
-    "before": "\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%A8%E3%83%81%E3%83%A9%E3%83%BC%EF%BC%9AHVAC_%E3%81%AB%E6%9C%80%E9%81%A9%E3%81%AA%E3%81%AE%E3%81%AF%E3%81%A9%E3%81%A1%E3%82%89%E3%81%A7%E3%81%99%E3%81%8B\"",
-    "after": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%A8%E3%83%81%E3%83%A9%E3%83%BC%EF%BC%9AHVAC_%E3%81%AB%E6%9C%80%E9%81%A9%E3%81%AA%E3%81%AE%E3%81%AF%E3%81%A9%E3%81%A1%E3%82%89%E3%81%A7%E3%81%99%E3%81%8B",
-    "afterCanon": "\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%A8%E3%83%81%E3%83%A9%E3%83%BC%EF%BC%9AHVAC_%E3%81%AB%E6%9C%80%E9%81%A9%E3%81%AA%E3%81%AE%E3%81%AF%E3%81%A9%E3%81%A1%E3%82%89%E3%81%A7%E3%81%99%E3%81%8B\"",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%A8%E3%83%81%E3%83%A9%E3%83%BC%EF%BC%9AHVAC_%E3%81%AB%E6%9C%80%E9%81%A9%E3%81%AA%E3%81%AE%E3%81%AF%E3%81%A9%E3%81%A1%E3%82%89%E3%81%A7%E3%81%99%E3%81%8B",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%86%B7%E5%8D%B4%E5%A1%94%E3%81%A8%E3%83%81%E3%83%A9%E3%83%BC%EF%BC%9AHVAC_%E3%81%AB%E6%9C%80%E9%81%A9%E3%81%AA%E3%81%AE%E3%81%AF%E3%81%A9%E3%81%A1%E3%82%89%E3%81%A7%E3%81%99%E3%81%8B",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.1.0",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E5%86%B7%E5%8D%B4%E5%A1%94\"],[\"t\",\"冷却塔\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%86%B7%E5%8D%B4%E5%A1%94",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "冷却塔",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%86%B7%E5%8D%B4%E5%A1%94\"],[\"t\",\"冷却塔\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E5%86%B7%E5%8D%B4%E5%A1%94",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E5%86%B7%E5%8D%B4%E5%A1%94",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.1.1",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E3%83%81%E3%83%A9%E3%83%BC\"],[\"t\",\"チラー\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%83%81%E3%83%A9%E3%83%BC",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "チラー",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%83%81%E3%83%A9%E3%83%BC\"],[\"t\",\"チラー\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E3%83%81%E3%83%A9%E3%83%BC",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E3%83%81%E3%83%A9%E3%83%BC",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.4.1.2",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E6%9C%80%E9%81%A9%E3%81%AA%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF\"],[\"t\",\"最適なオプションは?\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E6%9C%80%E9%81%A9%E3%81%AA%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "最適なオプションは?",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E6%9C%80%E9%81%A9%E3%81%AA%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF\"],[\"t\",\"最適なオプションは?\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E6%9C%80%E9%81%A9%E3%81%AA%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E6%9C%80%E9%81%A9%E3%81%AA%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.5",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#HVAC_%E3%82%92%E8%A8%AD%E7%BD%AE%E3%81%99%E3%82%8B%E9%9A%9B%E3%81%AB%E8%80%83%E6%85%AE%E3%81%99%E3%81%B9%E3%81%8D%E4%B8%8A%E4%BD%8D_6_%E3%81%A4%E3%81%AE%E8%A6%81%E7%B4%A0%E3%81%AF%E6%AC%A1%E3%81%AE%E3%81%A8%E3%81%8A%E3%82%8A%E3%81%A7%E3%81%99%E3%80%82\"],[\"t\",\"HVAC を設置する際に考慮すべき上位 6 つの要素は次のとおりです。\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%92%E8%A8%AD%E7%BD%AE%E3%81%99%E3%82%8B%E9%9A%9B%E3%81%AB%E8%80%83%E6%85%AE%E3%81%99%E3%81%B9%E3%81%8D%E4%B8%8A%E4%BD%8D_6_%E3%81%A4%E3%81%AE%E8%A6%81%E7%B4%A0%E3%81%AF%E6%AC%A1%E3%81%AE%E3%81%A8%E3%81%8A%E3%82%8A%E3%81%A7%E3%81%99%E3%80%82",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "HVAC を設置する際に考慮すべき上位 6 つの要素は次のとおりです。",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%92%E8%A8%AD%E7%BD%AE%E3%81%99%E3%82%8B%E9%9A%9B%E3%81%AB%E8%80%83%E6%85%AE%E3%81%99%E3%81%B9%E3%81%8D%E4%B8%8A%E4%BD%8D_6_%E3%81%A4%E3%81%AE%E8%A6%81%E7%B4%A0%E3%81%AF%E6%AC%A1%E3%81%AE%E3%81%A8%E3%81%8A%E3%82%8A%E3%81%A7%E3%81%99%E3%80%82\"],[\"t\",\"HVAC を設置する際に考慮すべき上位 6 つの要素は次のとおりです。\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#HVAC_%E3%82%92%E8%A8%AD%E7%BD%AE%E3%81%99%E3%82%8B%E9%9A%9B%E3%81%AB%E8%80%83%E6%85%AE%E3%81%99%E3%81%B9%E3%81%8D%E4%B8%8A%E4%BD%8D_6_%E3%81%A4%E3%81%AE%E8%A6%81%E7%B4%A0%E3%81%AF%E6%AC%A1%E3%81%AE%E3%81%A8%E3%81%8A%E3%82%8A%E3%81%A7%E3%81%99%E3%80%82",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#HVAC_%E3%82%92%E8%A8%AD%E7%BD%AE%E3%81%99%E3%82%8B%E9%9A%9B%E3%81%AB%E8%80%83%E6%85%AE%E3%81%99%E3%81%B9%E3%81%8D%E4%B8%8A%E4%BD%8D_6_%E3%81%A4%E3%81%AE%E8%A6%81%E7%B4%A0%E3%81%AF%E6%AC%A1%E3%81%AE%E3%81%A8%E3%81%8A%E3%82%8A%E3%81%A7%E3%81%99%E3%80%82",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
-     }
-    ]
-   },
-   {
-    "key": "body.5.3.0.6",
-    "kind": "text",
-    "field": "text",
-    "before": "[[\"a\",\"https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E7%B5%90%E8%AB%96\"],[\"t\",\"結論\",0],[\"/a\"],[\"p\"]]",
-    "after": {
-     "root": {
-      "type": "root",
-      "children": [
-       {
-        "type": "paragraph",
-        "children": [
-         {
-          "type": "link",
-          "fields": {
-           "url": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%B5%90%E8%AB%96",
-           "newTab": false,
-           "linkType": "custom"
-          },
-          "children": [
-           {
-            "type": "text",
-            "text": "結論",
-            "format": 0,
-            "detail": 0,
-            "mode": "normal",
-            "style": "",
-            "version": 1
-           }
-          ],
-          "format": "",
-          "indent": 0,
-          "version": 3,
-          "direction": "ltr"
-         }
-        ],
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "direction": "ltr",
-        "textFormat": 0,
-        "textStyle": ""
-       }
-      ],
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr"
-     }
-    },
-    "afterCanon": "[[\"a\",\"/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%B5%90%E8%AB%96\"],[\"t\",\"結論\",0],[\"/a\"],[\"p\"]]",
-    "changes": [
-     {
-      "from": "https://h2ocooling.com/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/#%E7%B5%90%E8%AB%96",
-      "to": "/ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/#%E7%B5%90%E8%AB%96",
-      "action": "redirect-destination",
-      "reason": "internal link to a 301 source → its final URL /ja/%e5%86%b7%e5%8d%b4%e5%a1%94%e3%81%a8%e3%81%af%e4%bd%95%e3%81%a7%e3%81%99%e3%81%8b/"
      }
     ]
    }

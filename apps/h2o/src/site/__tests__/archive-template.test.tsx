@@ -57,7 +57,7 @@ describe('archive template',()=>{
     const model=archiveModel(doc)
     expect(model.name).toBe('Fans')
     expect(model.breadcrumb).toEqual([{label:'Home',href:'/'},{label:'Fans'}])
-    expect(model.resultCount).toBe('Showing 1–16 of 23 results') // CATALOG-FANS-1: 22 + the TUF-LITE IV family record
+    expect(model.resultCount).toBe('Showing 1–16 of 33 results') // CATALOG-FANS-1/2: 22 + 11 Hudson fan records
     expect(model.products).toHaveLength(16)
     expect(model.pages).toEqual([{label:'1',current:true},{label:'2',href:'/product-category/fans/page/2/'},{label:'Next',href:'/product-category/fans/page/2/',rel:'next'}])
     const blog=archiveModel(salmonDocument(salmonRoutes().find(route=>route.targetPath==='/category/blog/page/2/')!))

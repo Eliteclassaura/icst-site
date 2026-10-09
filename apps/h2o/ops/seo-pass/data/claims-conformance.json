@@ -6570,6 +6570,24 @@
    "path": "/build-new-cooling-tower/",
    "text": "Choose materials like FRP, concrete, or stainless steel based on service conditions",
    "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "HWD-01",
+   "path": "/product/howden-pro-d-series-26-36-7-93m-10-98m-fans/",
+   "text": "26 ft to 36 ft (7.93 m to 10.98 m)",
+   "source": "OGCS CATALOG-FANS-1 Wave 2 (633d1af6)"
+  },
+  {
+   "row": "HWS-01",
+   "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
+   "text": "Size Range: 28″-34′ (0.73M-10.36M)",
+   "source": "OGCS CATALOG-FANS-1 Wave 2 (633d1af6)"
+  },
+  {
+   "row": "HWS-02",
+   "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
+   "text": "The PRO SX Series 28″-34′ (0.73M-10.36M) Fans",
+   "source": "OGCS CATALOG-FANS-1 Wave 2 (633d1af6)"
   }
  ],
  "present": [
@@ -8966,6 +8984,30 @@
    "path": "/build-new-cooling-tower/",
    "text": "Choose materials like FRP, concrete, or wood based on service conditions",
    "source": "OGCS CLIENT-FIX-1 (TSV e2bd34fa)"
+  },
+  {
+   "row": "HWD-01",
+   "path": "/product/howden-pro-d-series-26-36-7-93m-10-98m-fans/",
+   "text": "26 ft to 38 ft (7.93 m to 11.58 m)",
+   "source": "OGCS CATALOG-FANS-1 Wave 2 (633d1af6)"
+  },
+  {
+   "row": "HWD-02",
+   "path": "/product/howden-pro-d-series-26-36-7-93m-10-98m-fans/",
+   "text": "34 ft, 36 ft, 38 ft",
+   "source": "OGCS CATALOG-FANS-1 Wave 2 (633d1af6)"
+  },
+  {
+   "row": "HWS-01",
+   "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
+   "text": "Size Range: 28″-36′ (0.71M-10.97M)",
+   "source": "OGCS CATALOG-FANS-1 Wave 2 (633d1af6)"
+  },
+  {
+   "row": "HWS-02",
+   "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
+   "text": "The PRO SX Series 28″-36′ (0.71M-10.97M) Fans",
+   "source": "OGCS CATALOG-FANS-1 Wave 2 (633d1af6)"
   }
  ]
 }

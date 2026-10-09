@@ -5737,6 +5737,42 @@
    "psnr": 45.9
   },
   {
+   "src": "/media/salmon/e10b7fa5bbdf3e87ad2740b4d1afbf6ecc7d55c9307494f7a884eb83e32d8643.jpg",
+   "origSha256": "e10b7fa5bbdf3e87ad2740b4d1afbf6ecc7d55c9307494f7a884eb83e32d8643",
+   "origBytes": 36386,
+   "width": 653,
+   "height": 653,
+   "derivative": "/media/derivatives/0af051d1664227218094b7cb8683c5e6c23c0306bb4e73cf7c1b0b9e710f2825.webp",
+   "derivativeSha256": "0af051d1664227218094b7cb8683c5e6c23c0306bb4e73cf7c1b0b9e710f2825",
+   "derivativeBytes": 8830,
+   "encoder": "imagemagick webp q78 method6, same pixel dimensions",
+   "psnr": 40.6
+  },
+  {
+   "src": "/media/salmon/5c4c9e66b7da737691373c759d42fd40f78cbc5093c76b29b323504412fbfb61.jpg",
+   "origSha256": "5c4c9e66b7da737691373c759d42fd40f78cbc5093c76b29b323504412fbfb61",
+   "origBytes": 226706,
+   "width": 1028,
+   "height": 751,
+   "derivative": "/media/derivatives/8ddc41fc1324323a846921743999b32ae1593e23a6f8a8a839104a38d83cf8ef.webp",
+   "derivativeSha256": "8ddc41fc1324323a846921743999b32ae1593e23a6f8a8a839104a38d83cf8ef",
+   "derivativeBytes": 57544,
+   "encoder": "imagemagick webp q78 method6, same pixel dimensions",
+   "psnr": 37.0
+  },
+  {
+   "src": "/media/salmon/f542f8425a450237c157cdd71d7b9edc792fb147bbea0000823c4e78d82f3854.jpg",
+   "origSha256": "f542f8425a450237c157cdd71d7b9edc792fb147bbea0000823c4e78d82f3854",
+   "origBytes": 65895,
+   "width": 500,
+   "height": 422,
+   "derivative": "/media/derivatives/175df5a6732bc5b51b84669bece23bda9f9c8f404f43712caf62233bc24a226d.webp",
+   "derivativeSha256": "175df5a6732bc5b51b84669bece23bda9f9c8f404f43712caf62233bc24a226d",
+   "derivativeBytes": 18262,
+   "encoder": "imagemagick webp q78 method6, same pixel dimensions",
+   "psnr": 39.1
+  },
+  {
    "src": "/media/salmon/af5a17719bfe9b29ab827d1f36506b2af543ae7193e1961ed59fcbc3d163d509.jpg",
    "origSha256": "af5a17719bfe9b29ab827d1f36506b2af543ae7193e1961ed59fcbc3d163d509",
    "origBytes": 64664,

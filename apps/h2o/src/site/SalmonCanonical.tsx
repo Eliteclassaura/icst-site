@@ -1,3 +1,4 @@
+import {isPdfHref,PDF_LINK_PROPS} from './link-attrs'
 import {createElement,Fragment,type ReactNode} from 'react'
 import {LuxuryHeader,LuxuryFooter} from './LuxuryShell'
 import {pageForSegments} from './cohort'
@@ -121,6 +122,7 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
     const commerce=/[?&]add-to-cart=|\/(?:checkout|cart)\/?(?:[?#]|$)/i.test(original)
     props.href=commerce?undefined:hrefSafe(ownerHref(local??original))
     props['data-source-href']=provenanceHref(original)
+    if(isPdfHref(local??original))Object.assign(props,PDF_LINK_PROPS)
     // LEGAL-FIX-1 (L07): a link with no accessible name is unwrapped, made decorative beside its named twin, or named by its card
     const nameless=namelessLink(doc,key,node)
     if(nameless?.kind==='unwrap')return createElement(Fragment,{key},...children)

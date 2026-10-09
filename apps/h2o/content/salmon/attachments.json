@@ -122293,6 +122293,249 @@
   },
   {
     "attachment_id": 5001,
+    "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iv-ultra-hi-temp-fan.jpg",
+    "source_filename": "tuf-lite-iv-ultra-hi-temp-fan.jpg",
+    "parent_post": 4900,
+    "alt": "Hudson TUF-LITE IV Ultra Hi Temp fan with burnt-orange blades and a seal disc",
+    "caption": "",
+    "title": "tuf-lite-iv-ultra-hi-temp-fan",
+    "description": "",
+    "source_details": {
+      "width": 500,
+      "height": 500,
+      "file": "2026/07/3.jpg",
+      "filesize": 166712,
+      "sizes": {
+        "medium": {
+          "file": "3-300x300.jpg",
+          "width": 300,
+          "height": 300,
+          "filesize": 21065,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-300x300.jpg"
+        },
+        "thumbnail": {
+          "file": "3-150x150.jpg",
+          "width": 150,
+          "height": 150,
+          "filesize": 10507,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-150x150.jpg"
+        },
+        "woocommerce_thumbnail": {
+          "file": "3-300x300.jpg",
+          "width": 300,
+          "height": 300,
+          "filesize": 21065,
+          "uncropped": false,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-300x300.jpg"
+        },
+        "woocommerce_gallery_thumbnail": {
+          "file": "3-100x100.jpg",
+          "width": 100,
+          "height": 100,
+          "filesize": 7532,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-100x100.jpg"
+        },
+        "full": {
+          "file": "3.jpg",
+          "width": 500,
+          "height": 500,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3.jpg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "1",
+        "keywords": [],
+        "alt": ""
+      }
+    },
+    "rest_evidence": "raw/933987086a13189d3159b6c6d7a1e40fd814dc1b621db1b8892b7ce71c7a0c7e.body",
+    "state": "LOCAL_SALMON_ORIGINAL_RECOVERED",
+    "file": "media/d241ce466a2ebe8a47f0e8f7cea654a71702346645f0a62c425eeb0c4d89cc02.jpg",
+    "sha256": "d241ce466a2ebe8a47f0e8f7cea654a71702346645f0a62c425eeb0c4d89cc02",
+    "bytes": 166712,
+    "width": 500,
+    "height": 500,
+    "format": "jpeg"
+  },
+  {
+    "attachment_id": 5002,
+    "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iii-ultra-hi-temp-fan.jpg",
+    "source_filename": "tuf-lite-iii-ultra-hi-temp-fan.jpg",
+    "parent_post": 4900,
+    "alt": "Hudson TUF-LITE III Ultra-High Temp fan with burnt-orange blades and a white seal disc inside a fan stack",
+    "caption": "",
+    "title": "tuf-lite-iii-ultra-hi-temp-fan",
+    "description": "",
+    "source_details": {
+      "width": 500,
+      "height": 500,
+      "file": "2026/07/3.jpg",
+      "filesize": 166712,
+      "sizes": {
+        "medium": {
+          "file": "3-300x300.jpg",
+          "width": 300,
+          "height": 300,
+          "filesize": 21065,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-300x300.jpg"
+        },
+        "thumbnail": {
+          "file": "3-150x150.jpg",
+          "width": 150,
+          "height": 150,
+          "filesize": 10507,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-150x150.jpg"
+        },
+        "woocommerce_thumbnail": {
+          "file": "3-300x300.jpg",
+          "width": 300,
+          "height": 300,
+          "filesize": 21065,
+          "uncropped": false,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-300x300.jpg"
+        },
+        "woocommerce_gallery_thumbnail": {
+          "file": "3-100x100.jpg",
+          "width": 100,
+          "height": 100,
+          "filesize": 7532,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-100x100.jpg"
+        },
+        "full": {
+          "file": "3.jpg",
+          "width": 500,
+          "height": 500,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3.jpg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "1",
+        "keywords": [],
+        "alt": ""
+      }
+    },
+    "rest_evidence": "raw/933987086a13189d3159b6c6d7a1e40fd814dc1b621db1b8892b7ce71c7a0c7e.body",
+    "state": "LOCAL_SALMON_ORIGINAL_RECOVERED",
+    "file": "media/d241ce466a2ebe8a47f0e8f7cea654a71702346645f0a62c425eeb0c4d89cc02.jpg",
+    "sha256": "d241ce466a2ebe8a47f0e8f7cea654a71702346645f0a62c425eeb0c4d89cc02",
+    "bytes": 166712,
+    "width": 500,
+    "height": 500,
+    "format": "jpeg"
+  },
+  {
+    "attachment_id": 5003,
+    "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iii-3000kc-hub-diagram.jpg",
+    "source_filename": "tuf-lite-iii-3000kc-hub-diagram.jpg",
+    "parent_post": 4900,
+    "alt": "Hudson TUF-LITE III hub fan assembly diagram with the blade clamp, plate, fastener and bushing material options",
+    "caption": "",
+    "title": "tuf-lite-iii-3000kc-hub-diagram",
+    "description": "",
+    "source_details": {
+      "width": 500,
+      "height": 500,
+      "file": "2026/07/3.jpg",
+      "filesize": 166712,
+      "sizes": {
+        "medium": {
+          "file": "3-300x300.jpg",
+          "width": 300,
+          "height": 300,
+          "filesize": 21065,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-300x300.jpg"
+        },
+        "thumbnail": {
+          "file": "3-150x150.jpg",
+          "width": 150,
+          "height": 150,
+          "filesize": 10507,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-150x150.jpg"
+        },
+        "woocommerce_thumbnail": {
+          "file": "3-300x300.jpg",
+          "width": 300,
+          "height": 300,
+          "filesize": 21065,
+          "uncropped": false,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-300x300.jpg"
+        },
+        "woocommerce_gallery_thumbnail": {
+          "file": "3-100x100.jpg",
+          "width": 100,
+          "height": 100,
+          "filesize": 7532,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3-100x100.jpg"
+        },
+        "full": {
+          "file": "3.jpg",
+          "width": 500,
+          "height": 500,
+          "mime_type": "image/jpeg",
+          "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/3.jpg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "1",
+        "keywords": [],
+        "alt": ""
+      }
+    },
+    "rest_evidence": "raw/933987086a13189d3159b6c6d7a1e40fd814dc1b621db1b8892b7ce71c7a0c7e.body",
+    "state": "LOCAL_SALMON_ORIGINAL_RECOVERED",
+    "file": "media/d241ce466a2ebe8a47f0e8f7cea654a71702346645f0a62c425eeb0c4d89cc02.jpg",
+    "sha256": "d241ce466a2ebe8a47f0e8f7cea654a71702346645f0a62c425eeb0c4d89cc02",
+    "bytes": 166712,
+    "width": 500,
+    "height": 500,
+    "format": "jpeg"
+  },
+  {
+    "attachment_id": 5004,
     "source_url": "https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/10/tuf-lite-iv-exploded-view.jpg",
     "source_filename": "tuf-lite-iv-exploded-view.jpg",
     "parent_post": 4900,

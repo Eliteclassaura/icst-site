@@ -6,9 +6,9 @@ import {activeProductRoutes} from '../Wave3Products'
 
 describe('homepage spare-parts filter authority',()=>{
   const data=homePartCatalogData()
-  it('keeps exactly the 184 public product routes and eight source-featured cards',()=>{
+  it('keeps exactly the 194 public product routes and eight source-featured cards',()=>{
     const publicRoutes=new Set(activeProductRoutes().map(route=>route.targetPath))
-    expect(data.records).toHaveLength(184)
+    expect(data.records).toHaveLength(194)
     expect(data.records.filter(record=>record.featured)).toHaveLength(8)
     expect(new Set(data.records.map(record=>record.route))).toEqual(publicRoutes)
   })

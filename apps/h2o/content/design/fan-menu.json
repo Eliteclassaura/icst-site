@@ -1,6 +1,6 @@
 {
  "authority": "CATALOG-FANS-1 (CT/owner 2026-10-08): derived from the public fan products by ops/catalog/build-fan-menu.mjs; do not edit by hand",
- "fans": 21,
+ "fans": 31,
  "items": [
   {
    "label": "Hudson fans",

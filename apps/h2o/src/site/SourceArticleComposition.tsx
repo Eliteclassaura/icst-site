@@ -1,3 +1,4 @@
+import {pdfLinkProps} from './link-attrs'
 import { createElement, type ReactNode } from 'react'
 import type { CohortPage } from './cohort'
 import { sourceArticleFor, sourceSections, sourceText, type SourceNode } from './source-articles'
@@ -29,7 +30,7 @@ export const renderSourceNode = (node: SourceNode, key: string): ReactNode => {
     if (!/^\/media\/r41-articles\/[A-Za-z0-9.-]+$/.test(src)) throw new Error('Unverified source image')
     return <img alt={String(node.attrs.alt ?? '')} height={Number(node.attrs.height)} key={key} loading="lazy" src={src} style={{maxWidth:Number(node.attrs.width)}} width={Number(node.attrs.width)} />
   }
-  if (node.tag === 'a') props.href = safeHref(String(node.attrs.href ?? ''))
+  if (node.tag === 'a') { props.href = safeHref(String(node.attrs.href ?? '')); Object.assign(props, pdfLinkProps(props.href as string)) }
   if (node.tag === 'ol' && node.attrs.start) props.start = Number(node.attrs.start)
   for (const [source,target] of [['colspan','colSpan'],['rowspan','rowSpan']]) {
     if (node.attrs[source!]) props[target!] = Number(node.attrs[source!])

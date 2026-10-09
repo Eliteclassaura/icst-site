@@ -1,0 +1,117 @@
+{
+ "authority": "OGCS LOCALE-HVAC-REWRITE-1 (seal 6e23108f, post-launch, CT 2026-10-08): the four HVAC locale articles are rewritten as neutral industrial 'What Is a Cooling Tower?' articles. Same URLs, no redirect. The documents (content/salmon/documents/SALMON-LIVE-LOCALE-*) carry the new body; this ledger records the decided head fields and section headings the tests pin.",
+ "pages": [
+  {
+   "language": "th",
+   "routeId": "LIVE-LOCALE-th-14460",
+   "route": "/th/%e0%b8%ab%e0%b8%ad%e0%b8%84%e0%b8%ad%e0%b8%a2%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99-hvac-%e0%b8%84%e0%b8%b7%e0%b8%ad%e0%b8%ad%e0%b8%b0%e0%b9%84/",
+   "h1AndTitle": "หอคอยทำความเย็นคืออะไร: บทบาทของหอคอยทำความเย็นในระบบทำความเย็นอุตสาหกรรม",
+   "meta": "ทำความเข้าใจว่าหอคอยทำความเย็นคืออะไร ทำงานอย่างไร และมีบทบาทอย่างไรในการระบายความร้อนของกระบวนการอุตสาหกรรม อ่านคู่มือฉบับสมบูรณ์",
+   "blocks": 62,
+   "h2": [
+    "หอคอยทำความเย็นทำงานอย่างไร",
+    "ส่วนประกอบหลักของหอคอยทำความเย็น",
+    "บทบาทของหอคอยทำความเย็นในกระบวนการอุตสาหกรรม",
+    "ประเภทของหอคอยทำความเย็น",
+    "ทำไมโรงงานอุตสาหกรรมจึงใช้หอคอยทำความเย็น",
+    "หอคอยทำความเย็นกับเครื่องทำน้ำเย็น (Chiller)",
+    "ปัจจัยที่ควรพิจารณาเมื่อวางแผนหอคอยทำความเย็น",
+    "สรุป"
+   ],
+   "toc": [
+    "หอคอยทำความเย็นทำงานอย่างไร",
+    "ส่วนประกอบหลักของหอคอยทำความเย็น",
+    "บทบาทของหอคอยทำความเย็นในกระบวนการอุตสาหกรรม",
+    "ประเภทของหอคอยทำความเย็น",
+    "ทำไมโรงงานอุตสาหกรรมจึงใช้หอคอยทำความเย็น",
+    "หอคอยทำความเย็นกับเครื่องทำน้ำเย็น (Chiller)",
+    "ปัจจัยที่ควรพิจารณาเมื่อวางแผนหอคอยทำความเย็น",
+    "สรุป"
+   ]
+  },
+  {
+   "language": "id",
+   "routeId": "LIVE-LOCALE-id-14466",
+   "route": "/id/apa-itu-menara-pendingin-hvac-peran-menara-pendingin-dalam-sistem-hvac/",
+   "h1AndTitle": "Apa Itu Menara Pendingin? Peran Menara Pendingin dalam Sistem Pendinginan Industri",
+   "meta": "Pelajari apa itu menara pendingin, cara kerjanya, dan perannya dalam pendinginan proses industri. Baca panduan lengkapnya.",
+   "blocks": 62,
+   "h2": [
+    "Bagaimana Cara Kerja Menara Pendingin?",
+    "Komponen Utama Menara Pendingin",
+    "Peran Menara Pendingin dalam Proses Industri",
+    "Jenis-Jenis Menara Pendingin",
+    "Mengapa Pabrik Industri Menggunakan Menara Pendingin",
+    "Menara Pendingin vs. Chiller",
+    "Faktor yang Perlu Dipertimbangkan Saat Merencanakan Menara Pendingin",
+    "Kesimpulan"
+   ],
+   "toc": [
+    "Bagaimana Cara Kerja Menara Pendingin?",
+    "Komponen Utama Menara Pendingin",
+    "Peran Menara Pendingin dalam Proses Industri",
+    "Jenis-Jenis Menara Pendingin",
+    "Mengapa Pabrik Industri Menggunakan Menara Pendingin",
+    "Menara Pendingin vs. Chiller",
+    "Faktor yang Perlu Dipertimbangkan Saat Merencanakan Menara Pendingin",
+    "Kesimpulan"
+   ]
+  },
+  {
+   "language": "vi",
+   "routeId": "LIVE-LOCALE-vi-14464",
+   "route": "/vi/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/",
+   "h1AndTitle": "Tháp giải nhiệt là gì? Vai trò của tháp giải nhiệt trong hệ thống làm mát công nghiệp",
+   "meta": "Tìm hiểu tháp giải nhiệt là gì, nguyên lý hoạt động và vai trò của tháp giải nhiệt trong làm mát quy trình công nghiệp. Đọc hướng dẫn đầy đủ.",
+   "blocks": 62,
+   "h2": [
+    "Tháp giải nhiệt hoạt động như thế nào?",
+    "Các bộ phận chính của tháp giải nhiệt",
+    "Vai trò của tháp giải nhiệt trong các quy trình công nghiệp",
+    "Các loại tháp giải nhiệt",
+    "Vì sao các nhà máy công nghiệp sử dụng tháp giải nhiệt",
+    "Tháp giải nhiệt so với máy làm lạnh (chiller)",
+    "Những yếu tố cần cân nhắc khi lập kế hoạch cho tháp giải nhiệt",
+    "Kết luận"
+   ],
+   "toc": [
+    "Tháp giải nhiệt hoạt động như thế nào?",
+    "Các bộ phận chính của tháp giải nhiệt",
+    "Vai trò của tháp giải nhiệt trong các quy trình công nghiệp",
+    "Các loại tháp giải nhiệt",
+    "Vì sao các nhà máy công nghiệp sử dụng tháp giải nhiệt",
+    "Tháp giải nhiệt so với máy làm lạnh (chiller)",
+    "Những yếu tố cần cân nhắc khi lập kế hoạch cho tháp giải nhiệt",
+    "Kết luận"
+   ]
+  },
+  {
+   "language": "ja",
+   "routeId": "LIVE-LOCALE-ja-14462",
+   "route": "/ja/thap-giai-nhiet-hvac-la-gi-vai-tro-cua-thap-giai-nhiet-trong-he-thong-hvac/",
+   "h1AndTitle": "冷却塔とは: 産業用冷却システムにおける冷却塔の役割",
+   "meta": "冷却塔とは何か、その仕組みと、産業プロセス冷却における役割を解説します。詳しいガイドをご覧ください。",
+   "blocks": 62,
+   "h2": [
+    "冷却塔の仕組み",
+    "冷却塔の主な構成部品",
+    "産業プロセスにおける冷却塔の役割",
+    "冷却塔の種類",
+    "産業プラントが冷却塔を使う理由",
+    "冷却塔とチラーの違い",
+    "冷却塔を計画する際に考慮すべき点",
+    "まとめ"
+   ],
+   "toc": [
+    "冷却塔の仕組み",
+    "冷却塔の主な構成部品",
+    "産業プロセスにおける冷却塔の役割",
+    "冷却塔の種類",
+    "産業プラントが冷却塔を使う理由",
+    "冷却塔とチラーの違い",
+    "冷却塔を計画する際に考慮すべき点",
+    "まとめ"
+   ]
+  }
+ ]
+}

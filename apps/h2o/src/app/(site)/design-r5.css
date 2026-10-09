@@ -680,11 +680,11 @@
 }
 
 .r5 .r5-product-title--long {
-  font-family: var(--dr4-text);
-  font-size: clamp(26px, 2.4vw, 34px);
-  font-weight: 700;
-  line-height: 1.15;
-  text-transform: none;
+  font-family: var(--dr4-display);
+  font-size: clamp(30px, 3vw, 42px);
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
 }
 
 .r5 .r5-product-lead {

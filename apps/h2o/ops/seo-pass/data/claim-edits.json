@@ -9230,6 +9230,51 @@
    "slot": "body.3.1.1.7.185",
    "row": "CF1-08",
    "reason": "OGCS CLIENT-FIX-1 rows (TSV e2bd34fa, seal 0fe971db), CT 2026-10-08, row CF1-08: client ruling 1 (the only structure-material mention on the page)."
+  },
+  {
+   "path": "/product/howden-pro-d-series-26-36-7-93m-10-98m-fans/",
+   "op": "replace",
+   "find": "26 ft to 36 ft (7.93 m to 10.98 m)",
+   "replace": "26 ft to 38 ft (7.93 m to 11.58 m)",
+   "slot": "body.3.1.1.5.1.5",
+   "row": "HWD-01",
+   "reason": "OGCS CATALOG-FANS-1 Wave 2 Howden updates (WAVE2_HOWDEN_UPDATES.tsv 633d1af6), CT 2026-10-08, row HWD-01: Howden D Series diameters run from 26 ft to 38 ft; title, H1 and meta unchanged (ranking)."
+  },
+  {
+   "path": "/product/howden-pro-d-series-26-36-7-93m-10-98m-fans/",
+   "op": "replace",
+   "find": "36 ft",
+   "replace": "36 ft, 38 ft",
+   "slot": "body.3.1.1.9.3.1.3.3",
+   "row": "HWD-02",
+   "reason": "OGCS CATALOG-FANS-1 Wave 2 Howden updates (WAVE2_HOWDEN_UPDATES.tsv 633d1af6), CT 2026-10-08, row HWD-02: adds the stated upper end of the diameter list."
+  },
+  {
+   "path": "/product/howden-pro-d-series-26-36-7-93m-10-98m-fans/",
+   "op": "replace",
+   "find": "8",
+   "replace": "8, 9, 10, 11",
+   "slot": "body.3.1.1.9.3.1.5.3",
+   "row": "HWD-03",
+   "reason": "OGCS CATALOG-FANS-1 Wave 2 Howden updates (WAVE2_HOWDEN_UPDATES.tsv 633d1af6), CT 2026-10-08, row HWD-03: blade counts 5 to 11, as the page's specifications already state."
+  },
+  {
+   "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
+   "op": "replace",
+   "find": "28″-34′ (0.73M-10.36M)",
+   "replace": "28″-36′ (0.71M-10.97M)",
+   "slot": "body.3.1.1.5.3.3",
+   "row": "HWS-01",
+   "reason": "OGCS CATALOG-FANS-1 Wave 2 Howden updates (WAVE2_HOWDEN_UPDATES.tsv 633d1af6), CT 2026-10-08, row HWS-01: Howden SX Series: 28 in (710 mm) to 36 ft (10973 mm); title, H1 and meta unchanged (ranking)."
+  },
+  {
+   "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
+   "op": "replace",
+   "find": "28″-34′ (0.73M-10.36M)",
+   "replace": "28″-36′ (0.71M-10.97M)",
+   "slot": "body.1.1.1.3.1.1",
+   "row": "HWS-02",
+   "reason": "OGCS CATALOG-FANS-1 Wave 2 Howden updates (WAVE2_HOWDEN_UPDATES.tsv 633d1af6), CT 2026-10-08, row HWS-02: same change in the page's lead sentence."
   }
  ]
 }

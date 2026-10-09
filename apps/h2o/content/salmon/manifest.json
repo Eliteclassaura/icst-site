@@ -3749,7 +3749,7 @@
     "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/fans/",
     "targetPath": "/fans/",
     "file": "documents/SALMON-pages-2712.json",
-    "sha256": "78dcca86a967e10a97ad003449b40825e7769e438263190119e3504f0479179d"
+    "sha256": "3b8478a90808c9f21b4c3fc12896787f5d2412046a041304c2708973a0d13f8f"
   },
   {
     "routeId": "SALMON-pages-2406",
@@ -4799,7 +4799,7 @@
     "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product-category/fans/",
     "targetPath": "/product-category/fans/",
     "file": "documents/SALMON-product_cat-202.json",
-    "sha256": "75dc947596b5162b5afe03dfa1353e89fdf9d1167cf6efb49d8a4bf4c365f825"
+    "sha256": "dcdea30b64b31a029c1e5840d306cbebffadc3d920f648f565df4f54fca0297c"
   },
   {
     "routeId": "SALMON-product_cat-335",
@@ -4820,7 +4820,7 @@
     "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product-category/fans/page/2/",
     "targetPath": "/product-category/fans/page/2/",
     "file": "documents/SALMON-7bbf402cf226829e.json",
-    "sha256": "7f68dbe166e1c80a186f59120c6f45e628945a19d766575d3b0cdf23fa2f898c"
+    "sha256": "9b47ebcfeb04666bc451ae559b053a672b8ecfe347f54a574c6cff0004214934"
   },
   {
     "routeId": "SALMON-product_cat-81",
@@ -5870,7 +5870,7 @@
     "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product-tag/hudson/",
     "targetPath": "/product-tag/hudson/",
     "file": "documents/SALMON-product_tag-205.json",
-    "sha256": "ebaa4a1682ce3e00a175518f48b5f137410f4a2e059cf20590bcc52d7ef931b3"
+    "sha256": "673d2693f16c21704329d666549e754c35e240e0f8dc02525e319d648d4e42d2"
   },
   {
     "routeId": "SALMON-product_tag-195",
@@ -7740,6 +7740,76 @@
     "targetPath": "/product/tuf-lite-iv-fan-assemblies/",
     "file": "documents/SALMON-product-4900.json",
     "sha256": "263012f302a2338b1ddc7e2c467e07310b585280edcbe3b2f0a7bbaee59f4f20"
+  },
+  {
+    "routeId": "SALMON-product-4901",
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iv-4000m-series-hub-fan-assemblies/",
+    "targetPath": "/product/tuf-lite-iv-4000m-series-hub-fan-assemblies/",
+    "file": "documents/SALMON-product-4901.json",
+    "sha256": "2e486d3ff8dddd78f25e0ac742809bea8582d669c219ed49d96dd1604b2efcbc"
+  },
+  {
+    "routeId": "SALMON-product-4902",
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iv-4000muht-ultra-hi-temp-series-hub-fan-assemblies/",
+    "targetPath": "/product/tuf-lite-iv-4000muht-ultra-hi-temp-series-hub-fan-assemblies/",
+    "file": "documents/SALMON-product-4902.json",
+    "sha256": "02aa7d4b9d1fba2ae9d06fdd67b322bab092f0fed0792e231068b7ce812a4454"
+  },
+  {
+    "routeId": "SALMON-product-4903",
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iv-5000m-series-hub-fan-assemblies-18-24-ft/",
+    "targetPath": "/product/tuf-lite-iv-5000m-series-hub-fan-assemblies-18-24-ft/",
+    "file": "documents/SALMON-product-4903.json",
+    "sha256": "fdb43e0c37d60808abd23cc53b61ea90dc3906bbc06704e467072430d09d502e"
+  },
+  {
+    "routeId": "SALMON-product-4904",
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iv-5000m-series-hub-fan-assemblies-26-30-ft/",
+    "targetPath": "/product/tuf-lite-iv-5000m-series-hub-fan-assemblies-26-30-ft/",
+    "file": "documents/SALMON-product-4904.json",
+    "sha256": "91f17f9e1ca30e7b6d0d45d9d743e7e936a12d37c0d417e25d474605ceab4265"
+  },
+  {
+    "routeId": "SALMON-product-4905",
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iv-5000mm-series-hub-fan-assemblies-32-33-ft/",
+    "targetPath": "/product/tuf-lite-iv-5000mm-series-hub-fan-assemblies-32-33-ft/",
+    "file": "documents/SALMON-product-4905.json",
+    "sha256": "6a2e50247f4d7384bc9ee3c97181ef82193b380675aed9a92dacfc5d3ddb7faa"
+  },
+  {
+    "routeId": "SALMON-product-4906",
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iv-6000mm-series-hub-fan-assemblies-34-ft/",
+    "targetPath": "/product/tuf-lite-iv-6000mm-series-hub-fan-assemblies-34-ft/",
+    "file": "documents/SALMON-product-4906.json",
+    "sha256": "d27554dca423af1e6278855d5c5a19edcfc5028ebd65abd3db2df3c226a2ed2a"
+  },
+  {
+    "routeId": "SALMON-product-4907",
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iv-6000mm-series-hub-fan-assemblies-36-ft/",
+    "targetPath": "/product/tuf-lite-iv-6000mm-series-hub-fan-assemblies-36-ft/",
+    "file": "documents/SALMON-product-4907.json",
+    "sha256": "e06cd79231a491a299bc5cfb3841721dd7de88bf9f652cf33f1aff9c271fb82b"
+  },
+  {
+    "routeId": "SALMON-product-4908",
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iii-4000kwuht-ultra-hi-temp-series-hub-fan-assemblies/",
+    "targetPath": "/product/tuf-lite-iii-4000kwuht-ultra-hi-temp-series-hub-fan-assemblies/",
+    "file": "documents/SALMON-product-4908.json",
+    "sha256": "b205a6abf8ca0e8a6ff6f2f8baaa58374803947837ea2018bd05a477c550bd0e"
+  },
+  {
+    "routeId": "SALMON-product-4909",
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iii-3000kuht-ultra-hi-temp-series-hub-fan-assemblies/",
+    "targetPath": "/product/tuf-lite-iii-3000kuht-ultra-hi-temp-series-hub-fan-assemblies/",
+    "file": "documents/SALMON-product-4909.json",
+    "sha256": "0da41b1b3f0c51cee9c724876ed914dc46813e51e16d8c8941021f4c7a294b51"
+  },
+  {
+    "routeId": "SALMON-product-4910",
+    "sourceUrl": "https://salmon-rhinoceros-754457.hostingersite.com/product/tuf-lite-iii-3000kc-series-hub-fan-assemblies/",
+    "targetPath": "/product/tuf-lite-iii-3000kc-series-hub-fan-assemblies/",
+    "file": "documents/SALMON-product-4910.json",
+    "sha256": "048a01844c0512304a586799a98998c67a7b14c15b593abd547b5b436eb380b8"
   },
   {
     "routeId": "SALMON-df8737b5c750ba1f",

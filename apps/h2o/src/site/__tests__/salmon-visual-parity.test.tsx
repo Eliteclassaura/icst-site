@@ -78,12 +78,12 @@ describe('Parts landing architecture',()=>{
     const expected:Record<string,string>={'/drive-shafts-assembles/':'e32edc6a709644','/nozzles/':'a0f225bea07978','/motors/':'6121ee4805ca19'}
     for(const [target,prefix] of Object.entries(expected))expect(page(byPath(target)),target).toContain(`/media/salmon/${prefix}`)
   })
-  it('gives the 184-product index the Salmon hero without dropping its catalog',()=>{
+  it('gives the 194-product index the Salmon hero without dropping its catalog',()=>{
     const html=renderToStaticMarkup(<PartsIndex doc={byPath('/cooling-tower-parts-online/')}/>)
     expect(html).toContain('data-salmon-family="parts-index"')
     // Design R5a (CT GO 2026-10-07): the hub hero is the R5 centred hero (source photo, H1, quote, source render).
     expect(html).toMatch(/r5-hero r5-hero--hub[\s\S]*?r5-hero-photo[\s\S]*?r5-hero-render/)
-    expect(html).toContain('184 products')
+    expect(html).toContain('194 products')
     expect(count(html,/<h1\b/g)).toBe(1)
   })
 })
