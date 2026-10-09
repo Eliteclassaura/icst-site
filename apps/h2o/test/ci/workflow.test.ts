@@ -146,4 +146,29 @@ describe('DEPLOY-PIPE-1 workflow safety (static)', () => {
     expect(job('schema')).toContain('git diff --exit-code -- apps/h2o/src/payload-types.ts')
     expect(readdirSync(path.join(root, '.github/workflows'))).toContain('h2o-release.yml')
   })
+  it('DEPLOY-PIPE-1.4: the image job frees disk first, guards the budget, keeps a small working set and uses no new third-party action', () => {
+    const i = job('image')
+    const steps = i.slice(i.indexOf('    steps:'))
+    // the free-space step is the very first step, before checkout
+    expect(steps.indexOf('Free runner disk')).toBeGreaterThan(-1)
+    expect(steps.indexOf('Free runner disk')).toBeLessThan(steps.indexOf('actions/checkout@'))
+    for (const p of ['/usr/share/dotnet', '/usr/local/lib/android', '/opt/ghc', '/opt/hostedtoolcache/CodeQL', 'docker system prune -af']) expect(steps).toContain(p)
+    expect(steps.match(/df -h \//g)!.length).toBeGreaterThanOrEqual(2)
+    // fail early with a clear message when < 12 GB is free, before the build
+    expect(steps.indexOf('Disk budget guard')).toBeGreaterThan(steps.indexOf('h2o-media'))
+    expect(steps.indexOf('Disk budget guard')).toBeLessThan(steps.indexOf('docker/build-push-action@'))
+    expect(steps).toContain('12582912')
+    expect(steps).toContain('NOT ENOUGH DISK')
+    // small working set: no node_modules install, no local --load copy, builder pruned after the push, previous image removed after the media fill
+    expect(steps).not.toMatch(/npm (ci|install)|pnpm install|h2o-setup/)
+    expect(steps).not.toMatch(/load:\s*true|--load/)
+    expect(steps).toContain('docker buildx prune -af')
+    expect(steps.indexOf('docker buildx prune -af')).toBeGreaterThan(steps.indexOf('docker/build-push-action@'))
+    expect(steps.indexOf('docker buildx prune -af')).toBeLessThan(steps.indexOf('check-image-identity.sh'))
+    expect(actions[1]).toContain('docker rmi -f "$IMAGE@$PREV"')
+    expect(actions[1]).toContain('rm -rf .prev-media')
+    // no third-party action was added: only the already-pinned set
+    const uses = [...new Set([...wf.matchAll(/uses:\s*([^\s@]+)@/g)].map((m) => m[1]))].filter((u) => !u!.startsWith('./')).sort()
+    expect(uses).toEqual(['actions/checkout', 'actions/setup-node', 'actions/upload-artifact', 'docker/build-push-action', 'docker/login-action', 'docker/setup-buildx-action'].sort())
+  })
 })

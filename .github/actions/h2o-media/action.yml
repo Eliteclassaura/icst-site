@@ -44,6 +44,8 @@ runs:
           docker cp "$cid:/app/apps/h2o/public" .prev-media/public >/dev/null
           docker cp "$cid:/app/MEDIA_IDENTITY.sha256" .prev-media/MEDIA_IDENTITY.sha256 >/dev/null
           docker rm -f "$cid" >/dev/null
+          # DEPLOY-PIPE-1.4: the previous image is no longer needed once its media is extracted; free its layers now
+          docker rmi -f "$IMAGE@$PREV" >/dev/null || true
           prev_args="--prev-dir .prev-media/public --prev-identity .prev-media/MEDIA_IDENTITY.sha256"
         fi
         node apps/h2o/ops/ci/media.mjs plan $prev_args
