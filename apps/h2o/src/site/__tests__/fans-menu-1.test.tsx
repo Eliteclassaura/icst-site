@@ -10,7 +10,6 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import Page from '../../app/(site)/[[...slug]]/page'
 import {salmonNavigation} from '../navigation-data'
 import {FAN_MENU_LINKS,MOORE_FANS_LINKS} from '../moore-fans'
-// @ts-expect-error the menu builder is a plain ESM script shared with the CLI
 import {buildFanMenu} from '../../../ops/catalog/build-fan-menu.mjs'
 
 const APP=process.cwd()
