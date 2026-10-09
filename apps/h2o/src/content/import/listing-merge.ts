@@ -9,20 +9,26 @@ import { migrateQuoteIntent } from '../rfq-intent'
 import { extractSlots, type ContentSlot } from '../content-slots'
 
 /**
- * LISTING-MERGE-1 (CT 2026-10-09): a targeted, idempotent production step for held LISTING records.
+ * LISTING-MERGE-1.1 (CT 2026-10-09): a targeted, idempotent, BASE-AWARE production step for held LISTING records.
  *
- * The authority import never overwrites a stored record whose source hash changed (HELD_CONFLICT), because editors and the
- * fresh-database SEO batch may have edited its page elements. A catalog addition (CATALOG-FANS-1/-2) changes four listing
- * documents (a product card per new product and the result counts). This step applies ONLY that delta:
- *   - the stored page structure (`document`) becomes the new imported document (the structure is import-only and frozen);
- *   - every page element (slot) keeps its stored value, edited or not, except an element whose SOURCE changed (a result count);
- *   - a route is REFUSED, and reported for a manual ruling, when an element whose source changed was also edited since import,
- *     when any other structural change is found (only appended cards, appended image/link records and result-count text may
- *     differ), or when the disposition differs.
- * No SEO title/meta/H1, restored section or page element outside the delta is touched. A second run changes nothing.
+ * The authority import never overwrites a stored record whose source hash changed (HELD_CONFLICT), because editors and the SEO batch may have
+ * edited its page elements. A catalog addition (CATALOG-FANS-1/-2) changes four listing documents (product cards, result counts), and the stored
+ * documents can ALSO differ from the current authority for other legitimate reasons (a later bundle, a newer projection of the same source).
+ * This step is a three-way merge per page element:
+ *   base   = the stored `document` (the structure as last imported; it is frozen, no editor path changes it) and its page-element list as imported;
+ *   ours   = the stored page elements (`slots`), which carry every edit by staff or by the SEO batch;
+ *   theirs = the new authority document (built exactly as the import builds it).
+ * Per element (matched between base and theirs by kind, tag, Elementor id and content hash, then by position inside the gaps between matches):
+ *   - source unchanged                      -> keep ours (edited or not);
+ *   - source changed, not edited in the DB  -> take theirs;
+ *   - source changed AND edited in the DB   -> REFUSE that element only: it keeps its stored value and is reported;
+ *   - new in theirs                         -> take theirs (an added card, a new count line);
+ *   - removed in theirs and unedited        -> dropped; removed and edited -> the whole route is REFUSED (a stored edit would be lost).
+ * The structure (`document`) becomes the new imported document, as the import would have made it. Nothing else on the record is touched: no SEO
+ * title/meta/H1/canonical, no restored sections, no other field. A route whose disposition differs from the authority row is REFUSED. A second run
+ * changes nothing (the stored source hash equals the authority's).
  */
 type Doc = Record<string, unknown>
-type Node = string | { tag: string; attrs?: Record<string, string>; children?: Node[] }
 
 export type StoredListing = {
   id: string | number
@@ -33,145 +39,113 @@ export type StoredListing = {
   source: { sourceSha256?: string | null } & Doc
   disposition?: Doc | null
 }
+export type ElementNote = { key: string; title: string; reason?: string }
 export type MergeReport = {
   path: string
   routeId: string
-  action: 'UNCHANGED' | 'MERGE' | 'REFUSE'
+  action: 'UNCHANGED' | 'MERGE' | 'MERGE_PARTIAL' | 'REFUSE'
+  /** Route-level reasons (the route is not applied). */
   refusals: string[]
-  cardsAdded: string[]
+  /** Elements that changed in the source AND were edited in the database: kept as stored, reported. */
+  refusedElements: ElementNote[]
+  /** Elements new in the authority (an added card, a new count line). */
+  newElements: ElementNote[]
+  /** Elements whose source changed and that were not edited: the authority's value was taken. */
+  takenElements: ElementNote[]
+  /** Elements dropped because the authority removed them (never edited). */
+  droppedElements: ElementNote[]
   countChanges: Array<{ before: string; after: string }>
-  slotsCarriedEdited: number
-  slotsNew: number
-  slotsSourceChanged: number
-  untouched: string[]
+  /** Elements whose source did not change (their stored value, edited or not, is kept), of which edited ones. */
+  keptElements: number
+  keptEditedElements: number
+  /** Top-level document fields that differ between the stored structure and the new one (information; they take the new value). */
+  documentFieldsChanged: string[]
 }
 export type MergePlan = { report: MergeReport; document?: Doc; slots?: ContentSlot[]; sourceSha256?: string }
 
 const COUNT = /Showing (?:all )?(?:\d+–)?\d+(?: of \d+)? results?/
-const isEl = (n: Node | undefined): n is Exclude<Node, string> => typeof n === 'object' && n !== null
-const textOf = (n: Node): string => (typeof n === 'string' ? n : (n.children ?? []).map(textOf).join(''))
 const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
 const slotValues = (s: ContentSlot) => JSON.stringify([s.text ?? null, s.label ?? null, s.href ?? null, s.productRouteId ?? null, s.intent ?? null, s.image ?? null, s.imageUrl ?? null, s.imageWidth ?? null, s.imageHeight ?? null, s.alt ?? null, s.copy ?? null, s.heading ?? null])
+const sig = (s: ContentSlot) => `${s.kind}|${s.tag}|${s.elementId ?? ''}|${s.sourceHash}`
+const loose = (s: ContentSlot) => `${s.kind}|${s.tag}|${s.elementId ?? ''}`
+const note = (s: ContentSlot, reason?: string): ElementNote => ({ key: s.key, title: String(s.title ?? s.label ?? s.heading ?? '').slice(0, 90), ...(reason ? { reason } : {}) })
+const emptyReport = (stored: Pick<StoredListing, 'path' | 'routeId'>): MergeReport => ({ path: stored.path, routeId: stored.routeId, action: 'UNCHANGED', refusals: [], refusedElements: [], newElements: [], takenElements: [], droppedElements: [], countChanges: [], keptElements: 0, keptEditedElements: 0, documentFieldsChanged: [] })
 
-type Trial = { cards: string[]; counts: Array<{ before: string; after: string }>; problems: string[]; map: Map<string, string> }
-const newTrial = (): Trial => ({ cards: [], counts: [], problems: [], map: new Map() })
-const absorb = (to: Trial, from: Trial) => {
-  to.cards.push(...from.cards)
-  to.counts.push(...from.counts)
-  for (const [k, v] of from.map) to.map.set(k, v)
-}
-const brief = (n: Node) => textOf(n).replace(/\s+/g, ' ').trim().slice(0, 90)
-
-/** Walks `after` against `before`: every old child must reappear in order (its element key is mapped to the new key); extra new children are the added cards; changed strings must be result counts. */
-function align(before: Node[], after: Node[], out: Trial, atOld: string, atNew: string): boolean {
-  let j = 0
-  for (let i = 0; i < before.length; i++) {
-    const b = before[i]!
-    let matched = false
-    while (j < after.length) {
-      const a = after[j]!
-      const trial = newTrial()
-      if (compat(b, a, trial, `${atOld}.${i}`, `${atNew}.${j}`)) {
-        absorb(out, trial)
-        j++
-        matched = true
-        break
-      }
-      if (isEl(a)) out.cards.push(brief(a))
-      else if (a.trim() !== '') out.problems.push(`${atOld}: new text between existing nodes`)
-      j++
-    }
-    if (!matched) {
-      out.problems.push(`${atOld}.${i}: an existing node is missing or changed`)
-      return false
-    }
+/** Order-preserving matches of two signature lists (longest common subsequence). */
+function lcsPairs(a: string[], b: string[]): Array<[number, number]> {
+  const n = a.length, m = b.length
+  const dp = Array.from({ length: n + 1 }, () => new Uint32Array(m + 1))
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) dp[i]![j] = a[i] === b[j] ? dp[i + 1]![j + 1]! + 1 : Math.max(dp[i + 1]![j]!, dp[i]![j + 1]!)
+  const out: Array<[number, number]> = []
+  let i = 0, j = 0
+  while (i < n && j < m) {
+    if (a[i] === b[j]) { out.push([i, j]); i++; j++ } else if (dp[i + 1]![j]! >= dp[i]![j + 1]!) i++
+    else j++
   }
-  for (; j < after.length; j++) {
-    const a = after[j]!
-    if (isEl(a)) out.cards.push(brief(a))
-    else if (a.trim() !== '') out.problems.push(`${atOld}: new trailing text`)
-  }
-  return true
-}
-function compat(b: Node, a: Node, out: Trial, atOld: string, atNew: string): boolean {
-  if (typeof b === 'string' || typeof a === 'string') {
-    if (typeof b !== 'string' || typeof a !== 'string') return false
-    if (b === a) return true
-    if (COUNT.test(b) && COUNT.test(a) && b.replace(COUNT, '#') === a.replace(COUNT, '#')) {
-      out.counts.push({ before: b.match(COUNT)![0], after: a.match(COUNT)![0] })
-      return true
-    }
-    return false
-  }
-  if (b.tag !== a.tag || !same(b.attrs ?? {}, a.attrs ?? {})) return false
-  if (!align(b.children ?? [], a.children ?? [], out, atOld, atNew)) return false
-  out.map.set(atOld, atNew)
-  return true
-}
-
-const appendOnly = (before: unknown, after: unknown) => {
-  const b = Array.isArray(before) ? before : [],
-    a = Array.isArray(after) ? after : []
-  let j = 0
-  for (const item of b) {
-    while (j < a.length && !same(a[j], item)) j++
-    if (j >= a.length) return false
-    j++
-  }
-  return true
+  return out
 }
 
 export function planListingMerge(stored: StoredListing, newDocument: Doc, newSourceSha: string, productIds: Map<string, string>): MergePlan {
-  const report: MergeReport = { path: stored.path, routeId: stored.routeId, action: 'UNCHANGED', refusals: [], cardsAdded: [], countChanges: [], slotsCarriedEdited: 0, slotsNew: 0, slotsSourceChanged: 0, untouched: [] }
+  const report = emptyReport(stored)
   if ((stored.source.sourceSha256 ?? null) === newSourceSha) return { report }
-  const oldDoc = (stored.document ?? null) as Doc | null
-  if (!oldDoc || !Array.isArray(stored.slots)) return { report: { ...report, action: 'REFUSE', refusals: ['stored record has no document or no page elements'] } }
-  // 1. only the listing delta may differ in the structure
-  for (const k of new Set([...Object.keys(oldDoc), ...Object.keys(newDocument)])) {
-    if (k === 'children' || k === 'images' || k === 'links' || k === 'text') continue
-    if (!same(oldDoc[k], newDocument[k])) report.refusals.push(`document field "${k}" differs (only cards, image/link records and result counts may change)`)
+  const baseDoc = (stored.document ?? null) as Doc | null
+  if (!baseDoc || !Array.isArray(stored.slots)) return { report: { ...report, action: 'REFUSE', refusals: ['stored record has no document or no page elements'] } }
+  report.documentFieldsChanged = [...new Set([...Object.keys(baseDoc), ...Object.keys(newDocument)])].filter((k) => k !== 'text' && !same(baseDoc[k], newDocument[k])).sort()
+  const ours = stored.slots
+  const baseFresh = new Map(extractSlots(baseDoc, { productIds }).map((s) => [s.key, s]))
+  const theirs = extractSlots(newDocument, { productIds })
+  // an element is "edited" when its stored value differs from the value the stored structure gives it (unknown = treated as edited: never overwritten)
+  const edited = (s: ContentSlot) => { const b = baseFresh.get(s.key); return !b || slotValues(s) !== slotValues(b) }
+  const exact = lcsPairs(ours.map(sig), theirs.map(sig))
+  const matchedOurs = new Map<number, number>(exact)
+  const matchedTheirs = new Set(exact.map(([, j]) => j))
+  // inside each gap between exact matches, pair the remaining elements of the same kind/tag/Elementor id in order (changed in the source)
+  const pairs = new Map<number, number>()
+  const anchors: Array<[number, number]> = [[-1, -1], ...exact, [ours.length, theirs.length]]
+  for (let a = 0; a < anchors.length - 1; a++) {
+    let j = anchors[a]![1] + 1
+    const jEnd = anchors[a + 1]![1]
+    for (let i = anchors[a]![0] + 1; i < anchors[a + 1]![0]; i++) {
+      let k = j
+      while (k < jEnd && loose(theirs[k]!) !== loose(ours[i]!)) k++
+      if (k < jEnd) { pairs.set(i, k); matchedTheirs.add(k); j = k + 1 }
+    }
   }
-  for (const k of ['images', 'links'])
-    if (!appendOnly(oldDoc[k], newDocument[k])) report.refusals.push(`document.${k}: an existing record changed or was removed`)
-  const trial = newTrial()
-  const ok = align((oldDoc.children ?? []) as Node[], (newDocument.children ?? []) as Node[], trial, 'body', 'body')
-  report.refusals.push(...trial.problems)
-  if (!ok) report.refusals.push('the page structure changed beyond appended cards and result counts')
-  report.cardsAdded = trial.cards
-  report.countChanges = trial.counts
-  // 2. page elements: stored values survive; a changed-source element that was also edited is a conflict
-  const oldFresh = extractSlots(oldDoc, { productIds })
-  const newFresh = extractSlots(newDocument, { productIds })
-  const oldFreshByKey = new Map(oldFresh.map((s) => [s.key, s]))
-  const storedByKey = new Map(stored.slots.map((s) => [s.key, s]))
-  const oldKeyOfNew = new Map([...trial.map].map(([o, n]) => [n, o]))
-  for (const s of stored.slots) if (ok && !trial.map.has(s.key)) report.refusals.push(`element ${s.key} no longer exists in the new document`)
   const merged: ContentSlot[] = []
-  for (const f of newFresh) {
-    const ko = oldKeyOfNew.get(f.key)
-    const s = ko ? storedByKey.get(ko) : undefined
-    const o = ko ? oldFreshByKey.get(ko) : undefined
-    if (!s || !o) {
-      merged.push(f)
-      report.slotsNew++
-      continue
-    }
-    const edited = slotValues(s) !== slotValues(o)
-    const sourceChanged = slotValues(o) !== slotValues(f) || o.sourceHash !== f.sourceHash
-    if (sourceChanged) {
-      report.slotsSourceChanged++
-      if (edited) {
-        report.refusals.push(`element ${ko} ("${String(f.title ?? '').slice(0, 60)}"): its source changed AND it was edited since import (stored value differs from the import value)`)
-        merged.push({ ...s, key: f.key })
-      } else merged.push(f)
+  const theirsToOurs = new Map<number, number>([...matchedOurs].map(([i, j]) => [j, i]))
+  const pairedTheirsToOurs = new Map<number, number>([...pairs].map(([i, j]) => [j, i]))
+  ours.forEach((s, i) => {
+    if (matchedOurs.has(i) || pairs.has(i)) return
+    if (edited(s)) report.refusals.push(`element ${s.key} ("${note(s).title}") was removed from the source but was edited in the database (the edit would be lost)`)
+    else report.droppedElements.push(note(s))
+  })
+  theirs.forEach((t, j) => {
+    const exactI = theirsToOurs.get(j)
+    const pairI = pairedTheirsToOurs.get(j)
+    if (exactI !== undefined) {
+      const s = ours[exactI]!
+      report.keptElements++
+      if (edited(s)) report.keptEditedElements++
+      merged.push({ ...s, key: t.key })
+    } else if (pairI !== undefined) {
+      const s = ours[pairI]!
+      if (!edited(s)) {
+        report.takenElements.push(note(t))
+        merged.push(t)
+      } else if (slotValues(s) === slotValues(t)) merged.push({ ...s, key: t.key }) // the edit already equals the new source value
+      else {
+        report.refusedElements.push(note(t, `its source changed AND it was edited in the database (stored value kept; key ${s.key})`))
+        merged.push({ ...s, key: t.key })
+      }
+      const was = baseFresh.get(s.key), now = JSON.stringify(t.text ?? '')
+      if (was && COUNT.test(now) && COUNT.test(JSON.stringify(was.text ?? ''))) report.countChanges.push({ before: JSON.stringify(was.text ?? '').match(COUNT)![0], after: now.match(COUNT)![0] })
     } else {
-      if (edited) report.slotsCarriedEdited++
-      merged.push({ ...s, key: f.key })
+      report.newElements.push(note(t))
+      merged.push(t)
     }
-  }
-  report.untouched = ['SEO title/meta/H1 and canonical', 'restored sections', `${stored.slots.length - report.slotsSourceChanged} page elements keep their stored value (${report.slotsCarriedEdited} of them edited)`]
+  })
   if (report.refusals.length) return { report: { ...report, action: 'REFUSE' } }
-  return { report: { ...report, action: 'MERGE' }, document: newDocument, slots: merged, sourceSha256: newSourceSha }
+  return { report: { ...report, action: report.refusedElements.length ? 'MERGE_PARTIAL' : 'MERGE' }, document: newDocument, slots: merged, sourceSha256: newSourceSha }
 }
 
 /** The stored-document projection the reviewed import applies (same steps as authority-import.ts and ops/seo-pass/scan-slots.ts). */
@@ -197,18 +171,18 @@ export async function mergeListings(payload: Payload, root: string, opts: { appl
   for (const p of wanted) {
     const row = authority.routes.find((r) => r.path === p)
     if (!row || !row.sourceFile || !row.sourceSha256) {
-      reports.push({ path: p, routeId: '', action: 'REFUSE', refusals: ['no authority row with a source document'], cardsAdded: [], countChanges: [], slotsCarriedEdited: 0, slotsNew: 0, slotsSourceChanged: 0, untouched: [] })
+      reports.push({ ...emptyReport({ path: p, routeId: '' }), action: 'REFUSE', refusals: ['no authority row with a source document'] })
       continue
     }
     const sha = createHash('sha256').update(readFileSync(path.join(root, 'content/salmon', row.sourceFile))).digest('hex')
     if (sha !== row.sourceSha256) {
-      reports.push({ path: p, routeId: row.routeId, action: 'REFUSE', refusals: ['source file hash does not match the authority'], cardsAdded: [], countChanges: [], slotsCarriedEdited: 0, slotsNew: 0, slotsSourceChanged: 0, untouched: [] })
+      reports.push({ ...emptyReport({ path: p, routeId: row.routeId }), action: 'REFUSE', refusals: ['source file hash does not match the authority'] })
       continue
     }
     const found = await payload.find({ collection: 'public-routes' as never, where: { routeId: { equals: row.routeId } } as never, limit: 1, depth: 0, overrideAccess: true, draft: false })
     const rec = found.docs[0] as unknown as (StoredListing & { _status?: string }) | undefined
     if (!rec) {
-      reports.push({ path: p, routeId: row.routeId, action: 'REFUSE', refusals: ['no stored record (the import creates it; nothing to merge)'], cardsAdded: [], countChanges: [], slotsCarriedEdited: 0, slotsNew: 0, slotsSourceChanged: 0, untouched: [] })
+      reports.push({ ...emptyReport({ path: p, routeId: row.routeId }), action: 'REFUSE', refusals: ['no stored record (the import creates it; nothing to merge)'] })
       continue
     }
     const disp = (rec.disposition ?? {}) as Doc
@@ -216,7 +190,7 @@ export async function mergeListings(payload: Payload, root: string, opts: { appl
     if (plan.report.action !== 'UNCHANGED' && (disp.state !== row.state || Boolean(disp.export) !== row.export || Boolean(disp.indexable) !== row.indexable))
       plan.report = { ...plan.report, action: 'REFUSE', refusals: [...plan.report.refusals, 'the stored disposition differs from the authority row'] }
     reports.push(plan.report)
-    if (opts.apply && plan.report.action === 'MERGE' && plan.document && plan.slots) {
+    if (opts.apply && (plan.report.action === 'MERGE' || plan.report.action === 'MERGE_PARTIAL') && plan.document && plan.slots) {
       await payload.update({
         collection: 'public-routes' as never,
         id: rec.id,

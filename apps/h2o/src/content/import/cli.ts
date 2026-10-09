@@ -5,9 +5,10 @@
  *                      redirect-ledger.tsv. authorityRoot (default: cwd) is an accepted source checkout's
  *                      apps/h2o (content/ + release/authority.mjs), e.g. mounted read-only into the image.
  *   listing-merge <outDir> [authorityRoot] [--apply]
- *                      LISTING-MERGE-1: applies ONLY the catalog-listing delta (added product cards, result counts) to the held listing
- *                      records named in content/release/listing-merge.json, keeping every edited page element; DRY-RUN unless --apply;
- *                      refuses a route whose changed elements were also edited (reported, exit 3); idempotent; syncs the release after apply.
+ *                      LISTING-MERGE-1.1: base-aware three-way merge of the held listing records named in content/release/listing-merge.json
+ *                      (stored structure = base, stored page elements = ours with every edit, new authority = theirs): takes the authority's
+ *                      changes, keeps every edited element, refuses only an element changed in BOTH (reported, exit 3, the rest still merges),
+ *                      never touches SEO fields; DRY-RUN unless --apply; idempotent; syncs the release after apply.
  *   sync               build + promote the published snapshot and search index now (same code as the runner)
  *   rollback           point the snapshot `current` back at the previous (last-good) generation
  *   catalog-seed <outDir> [--apply]
@@ -105,22 +106,25 @@ async function main() {
     const apply = process.argv.includes('--apply')
     const root = path.resolve(rootArg && !rootArg.startsWith('--') ? rootArg : process.cwd())
     const reports = await mergeListings(payload, root, { apply, log: (m) => out1(m) })
+    const el = (xs: Array<{ key: string; title: string; reason?: string }>) => xs.map((x) => `${x.key} "${x.title}"${x.reason ? ` (${x.reason})` : ''}`).join(' | ')
     writeFileSync(
       path.join(out, 'listing-merge-ledger.tsv'),
       tsv([
-        ['PATH', 'ROUTE_ID', 'ACTION', 'CARDS_ADDED', 'COUNT_CHANGES', 'ELEMENTS_SOURCE_CHANGED', 'ELEMENTS_NEW', 'EDITED_ELEMENTS_KEPT', 'REFUSALS', 'UNTOUCHED'],
-        ...reports.map((r) => [r.path, r.routeId, r.action, r.cardsAdded.join(' | '), r.countChanges.map((c) => `${c.before} -> ${c.after}`).join(' | '), r.slotsSourceChanged, r.slotsNew, r.slotsCarriedEdited, r.refusals.join(' | '), r.untouched.join(' | ')]),
+        ['PATH', 'ROUTE_ID', 'ACTION', 'NEW_ELEMENTS', 'COUNT_CHANGES', 'TAKEN_FROM_AUTHORITY', 'KEPT', 'KEPT_EDITED', 'REFUSED_ELEMENTS', 'DROPPED', 'DOCUMENT_FIELDS_CHANGED', 'ROUTE_REFUSALS'],
+        ...reports.map((r) => [r.path, r.routeId, r.action, el(r.newElements), r.countChanges.map((c) => `${c.before} -> ${c.after}`).join(' | '), el(r.takenElements), r.keptElements, r.keptEditedElements, el(r.refusedElements), el(r.droppedElements), r.documentFieldsChanged.join(','), r.refusals.join(' | ')]),
       ]),
     )
-    const summary = { mode: apply ? 'APPLY' : 'DRY_RUN', routes: reports.length, merge: reports.filter((r) => r.action === 'MERGE').length, unchanged: reports.filter((r) => r.action === 'UNCHANGED').length, refused: reports.filter((r) => r.action === 'REFUSE').length }
+    const count = (a: string) => reports.filter((r) => r.action === a).length
+    const summary = { mode: apply ? 'APPLY' : 'DRY_RUN', routes: reports.length, merge: count('MERGE'), mergePartial: count('MERGE_PARTIAL'), unchanged: count('UNCHANGED'), refused: count('REFUSE') }
     writeFileSync(path.join(out, 'listing-merge-summary.json'), JSON.stringify(summary, null, 2))
-    for (const r of reports) out1(`${r.action.padEnd(9)} ${r.path}  cards+${r.cardsAdded.length}  counts ${r.countChanges.map((c) => `${c.before} -> ${c.after}`).join(' ; ') || '-'}${r.refusals.length ? `  REFUSED: ${r.refusals.join(' | ')}` : ''}`)
-    if (apply && summary.merge) {
+    for (const r of reports)
+      out1(`${r.action.padEnd(13)} ${r.path}  new+${r.newElements.length} taken ${r.takenElements.length} kept ${r.keptElements} (${r.keptEditedElements} edited) dropped ${r.droppedElements.length} counts ${r.countChanges.map((c) => `${c.before} -> ${c.after}`).join(' ; ') || '-'}${r.refusedElements.length ? `  REFUSED ELEMENTS: ${el(r.refusedElements)}` : ''}${r.refusals.length ? `  REFUSED: ${r.refusals.join(' | ')}` : ''}`)
+    if (apply && summary.merge + summary.mergePartial) {
       await recordPublicationEvent(payload, null, 'import', null)
       out1(JSON.stringify(await runPublishingSync(payload, null)))
     }
     out1(JSON.stringify(summary))
-    if (summary.refused) process.exitCode = 3
+    if (summary.refused + summary.mergePartial) process.exitCode = 3
   } else if (cmd === 'release-status') {
     const cur = currentRelease()
     out1(JSON.stringify({ release: cur?.id ?? null, valid: validateRelease(cur).ok, retained: listReleases().map((m) => m.id) }))
