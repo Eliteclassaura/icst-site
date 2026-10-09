@@ -100,6 +100,13 @@ for(const k of best.keys())unresolved.delete(k)
 const extensionless:string[]=[]
 for(const [k,v] of [...best.entries()])if(!/\.[a-z0-9]+$/i.test(v.target)){extensionless.push(`${k} -> ${v.target}`);best.delete(k)}
 // IMG-SEO-1 phase B: a legacy URL answers ONE 301, straight to the descriptive URL where the image has one
+// IMG-SEO-1.1: explicit equivalences (ops/img-seo/legacy-image-aliases.json) for live uploads whose base is in no manifest; never over an existing row
+const aliases=(JSON.parse(readFileSync(path.join(APP,'ops/img-seo/legacy-image-aliases.json'),'utf8')) as {aliases:Array<{key:string;target:string}>}).aliases
+for(const a of aliases){
+  if(best.has(a.key))throw new Error(`alias ${a.key} already has a mapped target`)
+  if(!existsSync(path.join(APP,'public',a.target)))throw new Error(`alias target missing on disk: ${a.target}`)
+  best.set(a.key,{target:a.target} as never)
+}
 const entries=Object.fromEntries([...best.entries()].sort(([a],[b])=>a<b?-1:1).map(([k,v])=>[k,imageUrlPath(v.target)]))
 for(const t of Object.values(entries))if(!existsSync(path.join(APP,'public',physicalImagePath(t)??t)))throw new Error(`target missing on disk: ${t}`)
 writeFileSync(path.join(APP,'content/release/legacy-image-redirects.json'),JSON.stringify({version:1,policy:'301 from a legacy /wp-content/uploads URL (any size variant) to the file served today. Built by ops/img-seo/build-legacy-image-redirects.ts from the media manifests; unknown paths stay 404.',count:Object.keys(entries).length,entries},null,0)+'\n')

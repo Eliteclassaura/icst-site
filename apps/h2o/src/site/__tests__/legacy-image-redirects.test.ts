@@ -7,7 +7,7 @@ import {existsSync,readFileSync,readdirSync,statSync} from 'node:fs'
 import {createHash} from 'node:crypto'
 import path from 'node:path'
 import {legacyImageKey,legacyImageTarget} from '../../content/legacy-image-redirects'
-import {physicalImagePath} from '../../content/image-slugs'
+import {imageUrlPath,physicalImagePath} from '../../content/image-slugs'
 
 const APP=process.cwd()
 const read=<T>(file:string):T=>JSON.parse(readFileSync(path.join(APP,'content/salmon',file),'utf8')) as T
@@ -139,5 +139,46 @@ describe('the proxy',()=>{
     const res=await ask('/wp-content/uploads/2019/01/never-existed.jpg',false)
     expect(res.status).not.toBe(301)
     expect(res.headers.get('location')).toBeNull()
+  })
+})
+
+describe('IMG-SEO-1.1: the two live-only size variants the pre-GO crawl found, and the general size-variant rule',()=>{
+  it('a size variant of a held upload (and of the explicit equivalences) answers the one descriptive target; an exact upload too; an unknown name stays unmapped',()=>{
+    // the two crawl CRITICALs
+    expect(legacyImageTarget('/wp-content/uploads/2021/11/Amarillo-Drive-Shaft-CF73-425X-1-768x768.jpg')).toBe('/media/amarillo-drive-shaft-cf73-425x-ad2c662f.jpg')
+    expect(legacyImageTarget('/wp-content/uploads/2026/09/H2cooling-logo-footer-logo-500x148.png')).toBe('/media/ics-industrial-cooling-image-a8f4b38d.png')
+    // the base names and any other size land on the same targets
+    expect(legacyImageTarget('/wp-content/uploads/2021/11/Amarillo-Drive-Shaft-CF73-425X-1.jpg')).toBe('/media/amarillo-drive-shaft-cf73-425x-ad2c662f.jpg')
+    expect(legacyImageTarget('/wp-content/uploads/2026/09/H2cooling-logo-footer-logo-300x89.png')).toBe('/media/ics-industrial-cooling-image-a8f4b38d.png')
+    // an exact upload in the ledger, and its size variant, go to the same file
+    const exact=legacyImageTarget('/wp-content/uploads/2024/06/PTT-Cracker.jpg')
+    expect(exact).toMatch(/^\/media\//)
+    expect(legacyImageTarget('/wp-content/uploads/2024/06/PTT-Cracker-1024x768.jpg')).toBe(exact)
+    // a genuinely unknown name, and an unknown size variant of an unknown base, are not mapped (404 as before; never the home page)
+    expect(legacyImageTarget('/wp-content/uploads/2021/11/no-such-photo-ever-768x768.jpg')).toBeUndefined()
+    expect(legacyImageTarget('/wp-content/uploads/2026/09/H2cooling-logo-other-500x148.png')).toBeUndefined()
+  })
+  it('the explicit equivalences are data: each target is a served file, never a legacy URL, and the two rows are the crawl\'s',()=>{
+    const aliases=(JSON.parse(readFileSync(path.join(APP,'ops/img-seo/legacy-image-aliases.json'),'utf8')) as {aliases:Array<{key:string;target:string;reason:string}>}).aliases
+    expect(aliases.map(a=>a.key)).toEqual(['2021/11/amarillo-drive-shaft-cf73-425x-1.jpg','2026/09/h2cooling-logo-footer-logo.png'])
+    for(const a of aliases){
+      expect(existsSync(path.join(APP,'public',a.target)),a.key).toBe(true)
+      expect(a.reason.length,a.key).toBeGreaterThan(40)
+      expect(map[a.key],a.key).toBe(imageUrlPath(a.target))
+    }
+  })
+  it('the proxy answers ONE 301 to the descriptive target for the two URLs, in both content modes, and 404s nothing to the home page',async()=>{
+    for(const payload of [false,true]){
+      vi.resetModules()
+      if(payload)process.env.H2O_CONTENT_SOURCE='payload';else delete process.env.H2O_CONTENT_SOURCE
+      const {proxy}=await import('../../proxy');const {NextRequest}=await import('next/server')
+      for(const [from,to] of [['/wp-content/uploads/2021/11/Amarillo-Drive-Shaft-CF73-425X-1-768x768.jpg','/media/amarillo-drive-shaft-cf73-425x-ad2c662f.jpg'],['/wp-content/uploads/2026/09/H2cooling-logo-footer-logo-500x148.png','/media/ics-industrial-cooling-image-a8f4b38d.png']]){
+        const res=proxy(new NextRequest(`https://h2ocooling.com${from}`))
+        expect(res.status,from).toBe(301)
+        expect(res.headers.get('location'),from).toBe(`https://h2ocooling.com${to}`)
+      }
+      const unknown=proxy(new NextRequest('https://h2ocooling.com/wp-content/uploads/2021/11/no-such-photo-ever-768x768.jpg'))
+      expect(unknown.headers.get('location')).toBeNull()
+    }
   })
 })
