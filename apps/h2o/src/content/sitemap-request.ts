@@ -15,3 +15,9 @@ export function requestedSitemapFile(request: Request): string | null {
   const name = request.headers.get(SITEMAP_FILE_HEADER) ?? new URL(request.url).searchParams.get('file') ?? 'sitemap_index.xml'
   return SITEMAP_FILE.test(`/${name}`) ? name : null
 }
+
+/**
+ * SITEMAP-PREVIEW-1: the request's own origin, named by the proxy (it sets this header itself on sitemap addresses and removes it from every
+ * other payload-mode request, like the file header). Only the private review host is honoured (sitemap-response SITEMAP_PREVIEW_ORIGINS).
+ */
+export const SITEMAP_ORIGIN_HEADER = 'x-h2o-sitemap-origin'

@@ -39,7 +39,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { redirectLocation } from './redirect-location'
 import { legacyImageTarget } from './content/legacy-image-redirects'
 import { descriptiveImagePath, physicalImagePath } from './content/image-slugs'
-import { SITEMAP_FILE_HEADER } from './content/sitemap-request'
+import { SITEMAP_FILE_HEADER, SITEMAP_ORIGIN_HEADER } from './content/sitemap-request'
 import { scriptHashesFor } from './site/csp-hashes'
 import { xRobotsTagForPath } from './site/robots'
 import { mergeTypeformCsp } from './conversion/csp'
@@ -148,9 +148,10 @@ export const crmPolicy = (nonce: string): string =>
 
 /** R3.3: only the proxy sets the sitemap-file header; a client-supplied one never reaches a handler. */
 const passThrough = (req: NextRequest): NextResponse => {
-  if (!req.headers.has(SITEMAP_FILE_HEADER)) return NextResponse.next()
+  if (!req.headers.has(SITEMAP_FILE_HEADER) && !req.headers.has(SITEMAP_ORIGIN_HEADER)) return NextResponse.next()
   const headers = new Headers(req.headers)
   headers.delete(SITEMAP_FILE_HEADER)
+  headers.delete(SITEMAP_ORIGIN_HEADER)
   return NextResponse.next({ request: { headers } })
 }
 
@@ -163,6 +164,7 @@ function crmResponse(req: NextRequest): NextResponse {
   // The workspace gate's return path; always overwritten here, so a client cannot supply its own.
   requestHeaders.set('x-crm-path', req.nextUrl.pathname)
   requestHeaders.delete(SITEMAP_FILE_HEADER)
+  requestHeaders.delete(SITEMAP_ORIGIN_HEADER)
   const res = securityHeaders(NextResponse.next({ request: { headers: requestHeaders } }), csp, 'noindex, nofollow')
   res.headers.set('Cache-Control', 'private, no-store')
   return res
@@ -300,6 +302,7 @@ function payloadPublic(req: NextRequest): NextResponse {
     // header the proxy sets itself (a client-supplied value is overwritten).
     const headers = new Headers(req.headers)
     headers.set(SITEMAP_FILE_HEADER, pathname.slice(1))
+    headers.set(SITEMAP_ORIGIN_HEADER, req.nextUrl.origin)
     return withRobots(NextResponse.rewrite(target, { request: { headers } }), policyFloor(pathname))
   }
   if (pathname === '/robots.txt') return withRobots(robotsResponse(), policyFloor(pathname))
@@ -339,6 +342,7 @@ function payloadPublic(req: NextRequest): NextResponse {
     return securityHeaders(NextResponse.redirect(target, 307), csp, robots)
   }
   requestHeaders.delete(SITEMAP_FILE_HEADER)
+  requestHeaders.delete(SITEMAP_ORIGIN_HEADER)
   const res = securityHeaders(NextResponse.next({ request: { headers: requestHeaders } }), csp, robots)
   if (preview || staff) res.headers.set('Cache-Control', 'private, no-store')
   return res

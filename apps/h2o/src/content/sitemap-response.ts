@@ -14,7 +14,17 @@ import { isIndexName, pathKey, sitemapChildren, sitemapChildXml, sitemapEntries,
  * The private indexing policy (staging, previews) publishes an empty index and no children.
  */
 type Ledger = { routes: SitemapLedgerRow[]; redirects: Array<{ source: string }> }
-export type SitemapOptions = { revoked?: ReadonlySet<string>; lastmod?: ReadonlyMap<string, string>; production?: boolean }
+export type SitemapOptions = { revoked?: ReadonlySet<string>; lastmod?: ReadonlyMap<string, string>; production?: boolean; previewOrigin?: string }
+
+/**
+ * SITEMAP-PREVIEW-1 (owner, 2026-10-09): on the private review host the sitemap lists the REAL URL set (what production would publish),
+ * with the URLs on the host that serves it (a sitemap must list URLs of its own host), so SEO tools can crawl the private site. Only these
+ * origins; any other host, an empty host, the production policy and H2O_SITEMAP_PREVIEW=off keep the private policy's empty index.
+ */
+export const SITEMAP_PREVIEW_ORIGINS: ReadonlySet<string> = new Set(['https://staging.h2ocooling.org'])
+export const sitemapPreviewOrigin = (candidate: string | null | undefined, env: NodeJS.ProcessEnv = process.env): string | undefined =>
+  env.H2O_INDEXING_POLICY !== 'production' && env.H2O_SITEMAP_PREVIEW !== 'off' && candidate && SITEMAP_PREVIEW_ORIGINS.has(candidate) ? candidate : undefined
+const onOrigin = (url: string, origin: string): string => (url.startsWith(PUBLIC_ORIGIN) ? origin + url.slice(PUBLIC_ORIGIN.length) : url)
 
 /** OGCS Part A hreflang clusters and locale languages (content/locale/sitemap-locale.json, built by ops/sitemap). */
 let locale: LocaleData | undefined
@@ -44,8 +54,10 @@ export function sitemapEntriesFor(opts: SitemapOptions = {}): SitemapEntry[] | n
   const ledger = publishedLedger()
   if (!ledger) return null
   const production = opts.production ?? process.env.H2O_INDEXING_POLICY === 'production'
-  if (!production) return []
-  return sitemapEntries({
+  // the private policy lists nothing, except for a private review host (SITEMAP-PREVIEW-1), and never when the production policy is active
+  const previewOrigin = !production ? opts.previewOrigin : undefined
+  if (!production && !previewOrigin) return []
+  const entries = sitemapEntries({
     rows: ledger.routes,
     origin: PUBLIC_ORIGIN,
     revoked: opts.revoked,
@@ -56,6 +68,8 @@ export function sitemapEntriesFor(opts: SitemapOptions = {}): SitemapEntry[] | n
     lastmod: opts.lastmod,
     locale: localeData(),
   })
+  if (!previewOrigin) return entries
+  return entries.map((e) => ({ ...e, loc: onOrigin(e.loc, previewOrigin), alternates: e.alternates?.map((a) => ({ ...a, url: onOrigin(a.url, previewOrigin) })) }))
 }
 
 const XML = { 'Content-Type': 'application/xml; charset=utf-8' }
@@ -64,7 +78,7 @@ export function sitemapResponse(name: string, opts: SitemapOptions = {}, headers
   const entries = sitemapEntriesFor(opts)
   if (!entries) return new NextResponse('Sitemap unavailable', { status: 503, headers: { 'Cache-Control': 'no-store' } })
   const children = sitemapChildren(entries)
-  if (isIndexName(name)) return new NextResponse(sitemapIndexXml(children, PUBLIC_ORIGIN), { headers: { ...XML, ...headers } })
+  if (isIndexName(name)) return new NextResponse(sitemapIndexXml(children, !(opts.production ?? process.env.H2O_INDEXING_POLICY === 'production') && opts.previewOrigin ? opts.previewOrigin : PUBLIC_ORIGIN), { headers: { ...XML, ...headers } })
   const list = children.get(name)
   if (!list) return new NextResponse('Not found', { status: 404, headers: { 'Cache-Control': 'no-cache' } })
   return new NextResponse(sitemapChildXml(list), { headers: { ...XML, ...headers } })
