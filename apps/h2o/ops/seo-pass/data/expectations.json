@@ -1,10 +1,10 @@
 {
   "rows": 1143,
-  "redirects": 426,
-  "seoFields": 491,
+  "redirects": 429,
+  "seoFields": 489,
   "expect": {
     "redirects": {
-      "create": 19,
+      "create": 22,
       "update": 6,
       "unchanged": 401,
       "retire": 1,
@@ -12,13 +12,13 @@
     },
     "routes": {
       "publish": 1,
-      "withdraw": 14,
+      "withdraw": 17,
       "index": 0,
       "canonical": 0
     },
     "seoFields": {
-      "update": 69,
-      "unchanged": 422,
+      "update": 72,
+      "unchanged": 417,
       "pendingOgcs": 0
     },
     "files": 22,
@@ -27,7 +27,7 @@
       "update": 4
     },
     "h1": {
-      "update": 28
+      "update": 27
     },
     "slotFixes": {
       "routes": 57

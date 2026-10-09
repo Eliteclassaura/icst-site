@@ -1531,3 +1531,37 @@ button):hover {
     block-size: 133.69%;
   }
 }
+
+/* PROJECT-IMAGES-1 R2: the photo gallery of a project page, photos at their delivered size (never enlarged) with their captions */
+.salmon-family .project-gallery ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-block: 40px;
+  margin-inline: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.salmon-family .project-gallery figure {
+  margin: 0;
+}
+
+.salmon-family .project-gallery img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: 12px;
+}
+
+.salmon-family .project-gallery figcaption {
+  margin-block-start: 10px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .salmon-family .project-gallery ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

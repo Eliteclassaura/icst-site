@@ -28,7 +28,7 @@ describe('PROJECTS-MENU-1',()=>{
     expect(PROJECTS_MENU_LINKS.map(l=>l[0])).toEqual(['United States','Japan','Singapore','Thailand','Malaysia','All Projects'])
     expect(PROJECTS_MENU_LINKS.map(l=>l[1])).toEqual([
       '/cooling-tower-construction-repair-in-united-states/','/cooling-tower-japan/','/cooling-tower-construction-repair-in-singapore/',
-      '/thailand-cooling-tower/','/cooling-tower-malaysia/','/all-projects/',
+      '/cooling-tower-thailand/','/cooling-tower-malaysia/','/all-projects/',
     ])
     const states=new Map(ledger.routes.map(r=>[r.path,r]))
     for(const [label,href] of PROJECTS_MENU_LINKS){const row=states.get(href);expect(row?.state,`${label} ${href}`).toBe('PUBLIC');expect(row?.export,`${label} ${href}`).toBe(true)}

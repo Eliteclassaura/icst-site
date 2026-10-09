@@ -151,7 +151,7 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /blog/cooling-tower-cost-in-2024/	301	/cooling-tower-cost-in-2025/					
 /cooling-tower-wood-material/	200		html	Cooling Tower Wood Material: Types, Durability, and Modern Shifts	Is wood still viable for cooling towers? We explore cooling tower wood material options, including Redwood and Douglas Fir, and compare them to modern FRP.		
 /product/fiberglass-fanstack/	200		html	Fiberglass Fanstack | Cooling Tower Fan Stack	Request a quote for the Fiberglass Fanstack, engineered from corrosion resistant material for long service life in cooling towers.		
-/thailand-cooling-tower/	200		html	Thailand Water Cooling Tower - Cooling Tower Systems	Our Thailand office is our regional hub for Asia, we can provide support for a vast range of areas. Need to improve your water cooling tower systems? Call us!		
+/thailand-cooling-tower/	301	/cooling-tower-thailand/					
 /increasing-cooling-tower-capacity/	200		html	Increasing Cooling Tower Capacity Without Tower Replacement	Discover expert strategies for increasing cooling tower capacity, including cleaning, upgrades, and optimization techniques to boost performance recovery.		
 /product/addax-drive-shaft-composite-coupling-lra485-338/	200		html	Addax Drive Shaft Composite Coupling LRA485.338 - ICS	Request a quote for the Addax Drive Shaft Composite Coupling LRA485.338 from ICS.		
 /cooling-tower-fan-stack-design/	200		html	Cooling Tower Fan Stack Design Guide: Height & Airflow Tips	Master cooling tower fan stack design with expert guidance on stack height calculation, plume control, and draft performance.		
@@ -926,7 +926,7 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /hybrid-cooling-tower-repair/	200		html	Hybrid Cooling Tower: Dry Wet Cooling Guide for Facilities	Learn how a Hybrid Cooling Tower combines dry wet cooling for water savings, plume control, adiabatic cooling comparison, and better industrial design.		
 /legionella-control-in-industrial-cooling-towers/	200		html	Advanced Legionella Control in Industrial Cooling Towers by 2025	Explore how Legionella Control in Industrial Cooling Towers helps reduce risk, improve efficiency and protect your facility from costly outbreaks.		
 /reducing-carbon-footprint/	200		html	Sustainable Cooling: Reducing Carbon Footprint in Cooling Towers	From energy savings to eco-friendly materials, explore cooling tower solutions for reducing carbon footprint effectively.		
-/rt-portfolios/ptt-gsp3-fan-upgrade/	200		html	PTT GSP3 Fan Upgrade - Industrial Cooling Solutions	PTT GSP3 selected ICS Thailand (ICST) to upgrade and install new Moore brand aluminum fans at PTT’s Gas Separation Plant #3.		
+/rt-portfolios/ptt-gsp3-fan-upgrade/	301	/all-projects/ptt-csp3/					
 /wp-content/uploads/2021/11/Addax-Driveshaft.jpg	200		file				
 /wp-content/uploads/2024/04/ICS-Catalog.pdf	200		file				
 /wp-content/uploads/2024/06/Fan-Inquiry-Form.pdf	200		file				
@@ -1112,7 +1112,7 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /ja/draft-page/	410						
 /th/draft-page/	410						
 /vi/draft-page/	410						
-/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/	200		html	PTT GSP6 96-Fan ACHE Performance Upgrade - ICS	In 2018, ICS & ICS Thailand (ICST) were selected by PTT Gas to upgrade their Air Cooled Heat Exchangers (ACHE) against a minimum 15% airflow-increase target.		
+/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/	301	/all-projects/pttcsp/					
 /cooling-tower-operator-training/	200		html	Cooling Tower Operator Training: Key Competencies - ICS	Discover the core competencies of cooling tower operator training. Learn expert water treatment, system maintenance, and efficiency skills for your plant.		
 /ics-announces-comprehensive-cooling-technology-seminar-thailand/	200		html	ICS Announces Cooling Technology Seminar in Thailand	ICS hosted a one-day seminar in Thailand on cooling tower and air cooler design, operation and technology, with expert-led sessions and panel discussions.		
 /ics-joins-pt-torishima-guna-support-indonesian-market/	200		html	ICS Signs Agency Agreement with PT Torishima Guna in Indonesia	Industrial Cooling Solutions Inc (ICS) has signed an agency agreement with PT Torishima Guna in Indonesia to support Indonesian customers in all markets. ICS		

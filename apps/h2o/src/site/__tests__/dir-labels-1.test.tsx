@@ -20,20 +20,19 @@ describe('DIR-LABELS-1',()=>{
   it('the two live pages get Title Case record titles (via=title: directory label and H1), at the source',()=>{
     const rows=tsv('h1-fields.tsv')
     const dry=rows.find(r=>r.path==='/dry-soda-blast-cleaning-services-2/')!
-    const th=rows.find(r=>r.path==='/thailand-cooling-tower/')!
     expect([dry.via,dry.action,dry.h1,dry.h1_now]).toEqual(['title','UPDATE','Dry Soda Blast Cleaning Services','DRY SODA BLAST CLEANING SERVICES'])
-    expect([th.via,th.action,th.h1,th.h1_now]).toEqual(['title','UPDATE','Thailand Cooling Tower','THAILAND COOLING TOWER'])
+    expect(rows.some(r=>r.path==='/thailand-cooling-tower/'),'withdrawn by the OGCS country-page ruling (301 to /cooling-tower-thailand/): no H1 row').toBe(false)
   })
   it('no <title> (seo-fields) row is added or changed for either page',()=>{
     const seo=tsv('seo-fields.tsv')
-    expect(seo.find(r=>r.path==='/thailand-cooling-tower/')!.title).toBe('Thailand Water Cooling Tower - Cooling Tower Systems')
+    expect(seo.some(r=>r.path==='/thailand-cooling-tower/'),'withdrawn (301): no <title> row').toBe(false)
     expect(seo.find(r=>r.path==='/dry-soda-blast-cleaning-services-2/')!.title).toBe('Dry soda blast cleaning services')
-    expect(seo.filter(r=>r.path==='/thailand-cooling-tower/'||r.path==='/dry-soda-blast-cleaning-services-2/')).toHaveLength(2)
+    expect(seo.filter(r=>r.path==='/dry-soda-blast-cleaning-services-2/')).toHaveLength(1)
   })
   it('the directory no longer lists the Brochures and Tools pages (nor Thank you or the Dyna-Fab 10′ page); other entries stay',()=>{
     const html=renderToStaticMarkup(<R2Discovery kind="pages"/>)
     for(const gone of ['/resources/cooling-tower-brochures/','/resources/tools/','/thank-you/','/dyna-fab-10-height-fan-stack/'])expect(html,gone).not.toContain(`href="${gone}"`)
-    expect(html).toContain('/thailand-cooling-tower/')
+    expect(html,'the Thailand page is a 301 now (OGCS country-page ruling): not a directory entry').not.toContain('/thailand-cooling-tower/')
     expect(html).toContain('/dry-soda-blast-cleaning-services-2/')
   })
   it('/resources/ keeps both pathway cards (Brochures and Tools) at the top',async()=>{

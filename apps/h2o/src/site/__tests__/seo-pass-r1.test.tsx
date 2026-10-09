@@ -50,7 +50,7 @@ describe('release authority and route ledger',()=>{
   })
   it('the 18 consolidated pages (and R2.4’s /new-cooling-tower-page/) become REDIRECT rows pointing at a PUBLIC route; the two designed pages are kept (CT ruling 2026-10-04)',()=>{
     // R2.5: + the five redirect sources that were still PUBLIC (/contact/ and the shop remnants) and the two author aliases
-    expect(Object.keys(overrides.redirectSources)).toHaveLength(40) // SEO-CONTENT-2.1: + the four locale twins; SEO-CONTENT-2: + /product-category/uncategorized/; SEO-CONTENT-1: + the two placeholder products and five HVAC/commercial articles (HOLD + 301); round 2: + the hospital article and the vibration-switch placeholder
+    expect(Object.keys(overrides.redirectSources)).toHaveLength(43) // PROJECT-IMAGES-1 R2: + the two PTT portfolio pages; COUNTRY-PAGES: + /thailand-cooling-tower/; SEO-CONTENT-2.1: + the four locale twins; SEO-CONTENT-2: + /product-category/uncategorized/; SEO-CONTENT-1: + the two placeholder products and five HVAC/commercial articles (HOLD + 301); round 2: + the hospital article and the vibration-switch placeholder
     expect(overrides.redirectSources['/new-cooling-tower-page/']).toBe('/new-cooling-towers/')
     // Reversed for the designed pages: the live duplicates are withdrawn into them.
     expect(overrides.redirectSources['/cooling-tower-thermal-upgrade/']).toBe('/thermal-upgrade/')
@@ -148,7 +148,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: the published Thai Salmon page (its own title, the live meta).
     // R2.2: + the D3 portfolio row (CT-ruled meta and title). R2.4: + 12 rows of the OGCS R2.4 titles/metas (13 pages; the
     // /industrial-cooling-towers/ row existed). R2.4 R2: + the 15 archive metas (OGCS R2.4A).
-    expect(seo).toHaveLength(491) // R2.5: + the /cooling-tower-construction/ title row (OGCS R2.5); SEO-CONTENT-1: - the five held pages' rows (their decided titles are dropped)
+    expect(seo).toHaveLength(489) // PROJECT-IMAGES-1 R2: - the two PTT portfolio rows (301s now); COUNTRY-PAGES: the Thailand row moves to /cooling-tower-thailand/; R2.5: + the /cooling-tower-construction/ title row (OGCS R2.5); SEO-CONTENT-1: - the five held pages' rows (their decided titles are dropped)
     const titles=seo.map(row=>row.title!)
     expect(new Set(titles).size).toBe(titles.length)
     // a meta-only row keeps the page's current title (two noindex tag archives keep their term-list titles)
@@ -174,7 +174,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: 98 R1 locale→English redirects retire (the locale page is preserved), 4 locale redirects are new.
     // R2.4: + /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
     // R2.5: + the two author aliases (the batch owns them; fresh production DB) and the eleven live-chain middle addresses.
-    expect(redirects).toHaveLength(426) // REDIRECTS-ADD-1: + five catch-all redirects; SEO-CONTENT-2.1: + four locale-twin HOLD 301s; // Design R3: + /about-us/; SEO-CONTENT-1: + seven HOLD 301s, - the algae hold 301 (released)
+    expect(redirects).toHaveLength(429) // PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: + three portfolio/country 301s; REDIRECTS-ADD-1: + five catch-all redirects; SEO-CONTENT-2.1: + four locale-twin HOLD 301s; // Design R3: + /about-us/; SEO-CONTENT-1: + seven HOLD 301s, - the algae hold 301 (released)
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -202,7 +202,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     expect(conformance).toHaveLength(1143) // SEO-CONTENT-2: + the /product-category/uncategorized/ 301 row // Design R3: + /about-us/; SEO-CONTENT-1: + two 301 rows (the five held pages with a 200 row become 301 rows; algae 301 → 200)
     expect(conformance.filter(row=>row.kind==='locale')).toHaveLength(162) // SEO-CONTENT-2.1: the four twins are 301 rows now;
     const count=(kind:string)=>conformance.filter(row=>row.expect===kind).length
-    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([712,421,10,0]) // R2.2: + the D3 portfolio (200); Design R3: + /about-us/ (301); SEO-CONTENT-1: 200 −5 +1 (algae), 301 +6
+    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([709,424,10,0]) // PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: three 200 rows are 301 rows; R2.2: + the D3 portfolio (200); Design R3: + /about-us/ (301); SEO-CONTENT-1: 200 −5 +1 (algae), 301 +6
     for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
     // CLAIMS-R2 (CT 2026-10-06) is ONE delta on the state Design R3 (Round 11) leaves on staging: one hygiene route (the Home's ten
@@ -211,21 +211,21 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // SEO-CONTENT-1 (CT 2026-10-07) is ONE delta on the state Design R4 + phase 2 (Round 16) leaves: publish 1 (algae), withdraw 7 (two
     // placeholder products, five HVAC/commercial articles), redirects create 7 / update 2 / retire 1, 8 SEO fields (seven product
     // titles, BacMan), 23 H1 rows, restored 1 (the approach table cell), slot fixes on 10 written routes and 109 hygiene routes.
-    expect(expectations.expect.routes).toEqual({publish:1,withdraw:14,index:0,canonical:0})
-    expect(expectations.expect.redirects).toEqual({create:19,update:6,unchanged:401,retire:1,normalise:0}) // round 2: + the hospital article and vibration-switch 301s
-    expect(expectations.expect.seoFields).toMatchObject({update:69,pendingOgcs:0}) // CONTENT-FIX-3: + 1 (UP2-02 category meta); SEO-CONTENT-2.2: + 56; round 2: + the seminar and maintenance-checklist metas
+    expect(expectations.expect.routes).toEqual({publish:1,withdraw:17,index:0,canonical:0}) // + the two PTT portfolio pages and /thailand-cooling-tower/
+    expect(expectations.expect.redirects).toEqual({create:22,update:6,unchanged:401,retire:1,normalise:0}) // round 2: + the hospital article and vibration-switch 301s
+    expect(expectations.expect.seoFields).toMatchObject({update:72,pendingOgcs:0}) // CONTENT-FIX-3: + 1 (UP2-02 category meta); SEO-CONTENT-2.2: + 56; round 2: + the seminar and maintenance-checklist metas
     expect((expectations.expect as Record<string,unknown>).slotFixes).toEqual({routes:57}) // SEO-CONTENT-2.2: +31; SEO-CONTENT-2.1: +4 (the held locale twins); piece C: +3 routes; // round 2 (rehearsed on the writable mock)
     // Design R4 (CT 2026-10-07) is ONE delta on the state CLAIMS-R2 leaves: two hygiene routes (parts hub R4C-01…06, Dry Soda R4C-07),
     // and /air-coolers/ (R4C-08…10 page text with R4C-11, its restored-section heading): restored 1, slot fixes 1.
     expect((expectations.expect as Record<string,unknown>).hygiene).toEqual({routes:272}) // SEO-CONTENT-2.2: +25; SEO-CONTENT-2.1: +6; piece C: +66
-    expect(expectations.expect.h1).toEqual({update:28}) // SEO-CONTENT-1 23 (22 project H1s + /fans/) + R5b 2 (USA, Singapore)
+    expect(expectations.expect.h1).toEqual({update:27}) // COUNTRY-PAGES: - the old Thailand H1 row; SEO-CONTENT-1 23 (22 project H1s + /fans/) + R5b 2 (USA, Singapore)
     expect((expectations.expect as Record<string,unknown>).restored).toEqual({update:4}) // SEO-CONTENT-2 piece B: + /chiller-and-cooling-tower/ (two paragraphs). SEO-CONTENT-1: the /cooling-tower-approach/ table cell (R4C-11's /air-coolers/ heading is in place by then)
     expect(existsSync(path.join(APP,'ops/seo-pass/data/expectations.case-b.json'))).toBe(false)
     // The two translated posts that pointed at the English final page of a then-pending locale page now point at it (one hop).
     const repoint=tsv('locale-b-repoint.tsv')
     expect(repoint.map(row=>row.source)).toEqual(['/วิธีป้องกันแบคทีเรีย-legionella/','/逆流-vs-クロスフロー/'])
     for(const row of repoint)expect(decode(redirects.find(r=>decode(r.source!)===decode(row.source!))!.destination!),row.source).toBe(row.destination_after_locale_b)
-    expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(40)
+    expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(43) // + the two PTT portfolio pages and /thailand-cooling-tower/ (301s)
     expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT').map(row=>[row.path,row.redirect])).toEqual(Object.entries(overrides.redirectSources))
   })
   it('restored files are byte-identical to the verified backup copies in the ledger',()=>{

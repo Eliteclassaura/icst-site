@@ -7235,7 +7235,7 @@
          {
           "type": "link",
           "fields": {
-           "url": "https://h2ocooling.com/thailand-cooling-tower/",
+           "url": "https://h2ocooling.com/cooling-tower-thailand/",
            "newTab": false,
            "linkType": "custom"
           },
@@ -7279,7 +7279,7 @@
       "direction": "ltr"
      }
     },
-    "afterCanon": "[[\"t\",\"Strong lifecycle planning helps teams manage cost from commissioning to replacement. A practical overhaul schedule reduces emergency repair risk. Clear replacement planning helps facilities avoid last-minute capital decisions. ICS can support inspections, maintenance, upgrades, parts, and replacement planning across \",0],[\"a\",\"https://h2ocooling.com/thailand-cooling-tower/\"],[\"t\",\"Thailand\",0],[\"/a\"],[\"t\",\" and Asia.\",0],[\"p\"]]",
+    "afterCanon": "[[\"t\",\"Strong lifecycle planning helps teams manage cost from commissioning to replacement. A practical overhaul schedule reduces emergency repair risk. Clear replacement planning helps facilities avoid last-minute capital decisions. ICS can support inspections, maintenance, upgrades, parts, and replacement planning across \",0],[\"a\",\"https://h2ocooling.com/cooling-tower-thailand/\"],[\"t\",\"Thailand\",0],[\"/a\"],[\"t\",\" and Asia.\",0],[\"p\"]]",
     "changes": [
      {
       "from": "H2ocooling.com",
@@ -7287,6 +7287,9 @@
       "action": "word-corrected",
       "reason": "OGCS team audit copy (TSV c219e0e4, seal 05adce63), CT 2026-10-08, row TA-014: Legacy brand \"H2O Cooling / H2OCooling\" used as the company name. The company is ICS (Industrial Cooling Solutions). \"visit h2ocooling.com\" is kept as a web address (only its capitalization is normalised). Alt text drops the \" - h2ocooling\""
      }
+    ],
+    "accept": [
+     "[[\"t\",\"Strong lifecycle planning helps teams manage cost from commissioning to replacement. A practical overhaul schedule reduces emergency repair risk. Clear replacement planning helps facilities avoid last-minute capital decisions. ICS can support inspections, maintenance, upgrades, parts, and replacement planning across \",0],[\"a\",\"https://h2ocooling.com/thailand-cooling-tower/\"],[\"t\",\"Thailand\",0],[\"/a\"],[\"t\",\" and Asia.\",0],[\"p\"]]"
     ]
    },
    {

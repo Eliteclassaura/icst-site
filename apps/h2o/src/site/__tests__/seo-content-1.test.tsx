@@ -136,7 +136,7 @@ describe('route states: HOLD with a 301, one release (data and release authority
       expect(overrides.redirectSources[p],p).toBe(target)
     }
     // 27 REDIRECT rows before this batch (26 consolidations and the /resources/ alias source) + the seven held pages
-    expect(ledger.routes.filter(r=>r.state==='REDIRECT')).toHaveLength(41) // SEO-CONTENT-2.1: + the four locale twins (TC-001..004)
+    expect(ledger.routes.filter(r=>r.state==='REDIRECT')).toHaveLength(44) // PROJECT-IMAGES-1 R2: + the two PTT portfolio pages; COUNTRY-PAGES: + /thailand-cooling-tower/; SEO-CONTENT-2.1: + the four locale twins (TC-001..004)
   })
   it('the batch withdraws each with its 301, in the order of the release authority, and every redirect is one hop to a served page',()=>{
     const dispositions=tsv('route-dispositions.tsv').filter(r=>HELD.includes(r.path))
@@ -452,22 +452,22 @@ describe('apply expectations for this delta',()=>{
   const exp=json<{rows:number;redirects:number;seoFields:number;expect:Record<string,Record<string,number>>;problems:string[]}>('ops/seo-pass/data/expectations.json')
   const fresh=json<{rows:number;redirects:number;seoFields:number;expect:Record<string,Record<string,number>>}>('ops/seo-pass/data/expectations.fresh-db.json')
   it('staging delta on the state Round 16 (R4 + phase 2 copy) leaves: rehearsed on the writable mock, apply 0 failures, rerun 0',()=>{
-    expect(exp.expect.routes).toEqual({publish:1,withdraw:14,index:0,canonical:0})
-    expect(exp.expect.redirects).toEqual({create:19,update:6,unchanged:401,retire:1,normalise:0})
-    expect(exp.expect.seoFields).toMatchObject({update:69,unchanged:422,pendingOgcs:0}) // CONTENT-FIX-3: + 1 (UP2-02 category meta); SEO-CONTENT-2.2: + 56 (quick-win titles, air-coolers meta); 8 SEO-CONTENT-1 + 1 R5b (/cooling-tower/ meta) + 2 round 2 (seminar, checklist metas)
-    expect(exp.expect.h1).toEqual({update:28}) // + the PETRONAS record title (SEO-CONTENT-2); 23 SEO-CONTENT-1 + 2 R5b (USA, Singapore); + 2 DIR-LABELS-1 (dry soda, Thailand)
-    expect([exp.rows,exp.redirects,exp.seoFields]).toEqual([1143,426,491])
-    expect(tsv('seo-fields.tsv')).toHaveLength(491)
-    expect(tsv('redirects.tsv')).toHaveLength(426)
+    expect(exp.expect.routes).toEqual({publish:1,withdraw:17,index:0,canonical:0}) // + the two PTT portfolio pages and /thailand-cooling-tower/ (withdrawn to 301)
+    expect(exp.expect.redirects).toEqual({create:22,update:6,unchanged:401,retire:1,normalise:0}) // + REDIRECTS-ADD-1 five, the two PTT portfolio pages, /thailand-cooling-tower/
+    expect(exp.expect.seoFields).toMatchObject({update:72,unchanged:417,pendingOgcs:0}) // COUNTRY-PAGES: + US title/meta, Singapore meta, Thailand meta (new row), - the two PTT rows and the old Thailand row; CONTENT-FIX-3: + 1 (UP2-02 category meta); SEO-CONTENT-2.2: + 56 (quick-win titles, air-coolers meta); 8 SEO-CONTENT-1 + 1 R5b (/cooling-tower/ meta) + 2 round 2 (seminar, checklist metas)
+    expect(exp.expect.h1).toEqual({update:27}) // COUNTRY-PAGES: - the old Thailand page's H1 row (a 301 now); + the PETRONAS record title (SEO-CONTENT-2); 23 SEO-CONTENT-1 + 2 R5b (USA, Singapore); + 2 DIR-LABELS-1 (dry soda, Thailand)
+    expect([exp.rows,exp.redirects,exp.seoFields]).toEqual([1143,429,489])
+    expect(tsv('seo-fields.tsv')).toHaveLength(489)
+    expect(tsv('redirects.tsv')).toHaveLength(429)
     expect(tsv('conformance.tsv')).toHaveLength(1143)
-    expect(tsv('h1-fields.tsv').filter(r=>r.action==='UPDATE')).toHaveLength(28)
+    expect(tsv('h1-fields.tsv').filter(r=>r.action==='UPDATE')).toHaveLength(27)
   })
   it('fresh production database: one apply, counts as rehearsed',()=>{
     expect(fresh.expect.routes).toEqual({publish:0,withdraw:0,index:0,canonical:0})
-    expect(fresh.expect.redirects).toEqual({create:403,update:0,unchanged:23,retire:0,normalise:0}) // REDIRECTS-ADD-1: the five new ledger redirects arrive with the authority import
-    expect(fresh.expect.seoFields).toEqual({update:491})
-    expect(fresh.expect.h1).toEqual({update:37}) // + R5b's 2, + the PETRONAS record title, + 2 DIR-LABELS-1
-    expect([fresh.rows,fresh.redirects,fresh.seoFields]).toEqual([1143,426,491])
+    expect(fresh.expect.redirects).toEqual({create:406,update:0,unchanged:23,retire:0,normalise:0}) // PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: + the three withdrawn pages' 301s; REDIRECTS-ADD-1: the five new ledger redirects arrive with the authority import
+    expect(fresh.expect.seoFields).toEqual({update:489}) // - the two PTT portfolio rows (301s now)
+    expect(fresh.expect.h1).toEqual({update:36}) // COUNTRY-PAGES: - the old Thailand H1 row; + R5b's 2, + the PETRONAS record title, + 2 DIR-LABELS-1
+    expect([fresh.rows,fresh.redirects,fresh.seoFields]).toEqual([1143,429,489])
   })
 })
 

@@ -473,5 +473,49 @@
   "replaces": "aa6edfe6c9fb42e5b87a59345a747d735c3eb6f1c5a6e2fee50713d9e7f294d9",
   "project": "/all-projects/mak-ban-6/",
   "reason": "CT ruling 2026-10-05 (Design Fixes R1.1): the /all-projects/ hero showed an AI-enhanced copy of the Palinpinon project photo; replaced by a verified own original at least 1440 px wide (Mak Ban 6: original 2984x2511, delivery 1600x1346)."
+ },
+ "projectGalleries": {
+  "/all-projects/pttcsp/": {
+   "reason": "PROJECT-IMAGES-1 R2 (CT 2026-10-09; OGCS keeps /all-projects/pttcsp/ and 301s /rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/ to it): the keeper carries the historical page's photo gallery with its captions. The first gallery photo is the featured photo with a baked camera date stamp; the keeper's hero already shows DD's clean crop of it (registry media, 1360x1020), so that photo is not repeated (design-r4: no photo repeats within a page). Withheld: the page's 'Inspection time' photo (a worker's uniform carries a third-party company name and logo; PROJ-IMG-1 rule: no third-party name or logo). The remaining photos carry baked camera date stamps (19/01/2018, 26/01/2018, 12/11/2018) and are shown as published on the historical page pending a ruling.",
+   "fromPage": "LIVE-portfolio-2174 (/rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/)",
+   "photos": [
+    {
+     "src": "/media/derivatives/974f24e0a15b1e50f3f58b2c33c7112a69bc526b8aa5b550d8fc12e283e5a11a.webp",
+     "width": 2560,
+     "height": 1920,
+     "alt": "",
+     "caption": "Sunrise over the plant & ICS ICST are ready",
+     "sha256": "ae3b617709494c15be6f539f148f72fa3e41d9c147cc910dfc67a39dd70e694b",
+     "sourceUrl": "https://h2ocooling.com/wp-content/uploads/2021/10/P1190097-scaled.jpg"
+    },
+    {
+     "src": "/media/derivatives/70f391b18d1860d6dbf21e088264c65f95933058d7103f9f1c06ed70daccab89.webp",
+     "width": 2560,
+     "height": 1920,
+     "alt": "",
+     "caption": "A view from the top",
+     "sha256": "bd047111f15f5b192bae259e0d0d52e6201d59138e3c62d74f46482871342d98",
+     "sourceUrl": "https://h2ocooling.com/wp-content/uploads/2021/10/P1190099-scaled.jpg"
+    },
+    {
+     "src": "/media/derivatives/82f3502365902145403b69ab34b2444a23b84d71291c1c57a4cf66b7a29bbae8.webp",
+     "width": 2560,
+     "height": 1920,
+     "alt": "",
+     "caption": "Standing by with materials at the ready",
+     "sha256": "d1bab127be307ae61a7abc7984007b85bf8dff65cb532fc8ed0ba414dba60603",
+     "sourceUrl": "https://h2ocooling.com/wp-content/uploads/2021/10/P1260237-scaled.jpg"
+    },
+    {
+     "src": "/media/derivatives/853aed5936ab45d6a16111fa6d0d2c445e4b369780673c8d79800878f23fa60a.webp",
+     "width": 2560,
+     "height": 1920,
+     "alt": "",
+     "caption": "Final installation steps",
+     "sha256": "84602c332e86c3c4c0ca9a625646093b611f594970334babe05a9339cad1d419",
+     "sourceUrl": "https://h2ocooling.com/wp-content/uploads/2021/10/PB121040-scaled.jpg"
+    }
+   ]
+  }
  }
 }

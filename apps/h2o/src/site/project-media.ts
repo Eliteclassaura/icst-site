@@ -16,7 +16,9 @@ type Registry={projects:Record<string,{media:MediaRef&{sha256:string;width:numbe
   /** Projects with no verified own photo whose held photos are unsafe as project evidence: shown without a photo. */
   withheld?:Record<string,{reason:string;withheldSha256:string[]}>;
   /** The listing hero: a held image (`replaces`, by SHA-256) shown instead as a project's own verified photo. */
-  portfolioHero?:{replaces:string;project:string;reason:string}}
+  portfolioHero?:{replaces:string;project:string;reason:string}
+  /** PROJECT-IMAGES-1 R2: a project page that also shows the photo gallery (with captions) of a historical page that now redirects to it. */
+  projectGalleries?:Record<string,{reason:string;fromPage?:string;photos:Array<{src:string;width:number;height:number;alt:string;caption:string;sha256:string;sourceUrl?:string}>}>}
 let cache:Registry|undefined
 export const projectMediaRegistry=():Registry=>cache??=JSON.parse(readFileSync(path.join(process.cwd(),'content/projects/project-media.json'),'utf8')) as Registry
 
@@ -124,3 +126,5 @@ export function applyProjectMedia(model:SalmonFamilyPageModel,recordYear:(projec
   }
   return model
 }
+
+export const projectGalleryConfig=(pagePath:string)=>projectMediaRegistry().projectGalleries?.[pagePath]
