@@ -19,6 +19,17 @@ import path from 'node:path'
 // redirect table is compiled in and the public X-Robots-Tag is decided per request by the indexing policy.
 // Repository mode (tests, static release, plain dev) keeps the accepted behaviour exactly.
 const payloadRuntime = process.env.H2O_CONTENT_SOURCE === 'payload'
+// MEDIA-CACHE-1 (CT 2026-10-09): /media/* otherwise answers Next's `public, max-age=0` and Cloudflare turns that into a 4 h browser TTL.
+// Only a URL that changes when its bytes change may be immutable: a file named by its own sha256 (`/media/<dir>/<64 hex>.<ext>`, the
+// physical hash files) and a descriptive image URL whose last 8 hex are the file's sha256 prefix (`/media/<slug>-<hash8>.<ext>`, IMG-SEO-1
+// phase B; image-slugs.test.tsx pins that rule). Every other /media file (named design/Figma/video/testimonial assets that can be
+// replaced under the same name) revalidates daily and may be served stale for a week. Later rules override earlier ones for the same key.
+const IMAGE_EXT = 'png|jpe?g|webp|gif|avif'
+const mediaCache = [
+  { source: '/media/:path*', headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }] },
+  { source: `/media/:dir/:file([0-9a-f]{64}\\.(?:${IMAGE_EXT}))`, headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
+  { source: `/media/:file([^/]+-[0-9a-f]{8}\\.(?:${IMAGE_EXT}))`, headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
+]
 const nextConfig: NextConfig = {
   output: 'standalone',
   // Monorepo: trace workspace packages (@factory/agency-core) from the repository root.
@@ -37,9 +48,9 @@ const nextConfig: NextConfig = {
     // R2.5 (CT 2026-10-05, launch indexing contract): in payload runtime the X-Robots-Tag decision is the proxy's, at RUNTIME,
     // from H2O_INDEXING_POLICY (src/proxy.ts) — one image serves staging (private) and production. A header compiled here at
     // build time would follow the build environment, not the running one, and override the proxy on every page.
-    if (payloadRuntime) return [adminFraming]
-    // Repository mode (tests, the static release path, plain dev): unchanged.
-    return [{source:'/:path*',headers:[{key:'X-Robots-Tag',value:'noindex, nofollow'}]}]
+    if (payloadRuntime) return [...mediaCache, adminFraming]
+    // Repository mode (tests, the static release path, plain dev): unchanged, plus the media cache rules.
+    return [...mediaCache, {source:'/:path*',headers:[{key:'X-Robots-Tag',value:'noindex, nofollow'}]}]
   },
   async redirects() {
     if (payloadRuntime) return []
