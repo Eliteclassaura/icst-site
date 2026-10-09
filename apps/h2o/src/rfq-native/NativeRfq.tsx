@@ -1,19 +1,24 @@
 'use client'
 /**
  * Native RFQ: the corner launcher and chat panel (brief §Scope 1; contract §5). A launcher button bottom-right on every public
- * page opens a small panel (a full-height sheet on phones) that asks one question per bubble — chips where the registry has
- * them, a text box otherwise — then a review and an explicit "Send request". Any RFQ control on the page opens the same
- * panel with its page context (the `h2o:rfq-open` event, ./NativeRfqTrigger).
+ * page opens a small panel (a full-height sheet on phones). Any RFQ control on the page opens the same panel with its page
+ * context (the `h2o:rfq-open` event, ./NativeRfqTrigger).
  *
- * Accessibility: a modal dialog labelled by its title; focus moves into it on open, Tab stays inside, Escape closes it and
- * focus returns to the control that opened it; the transcript is a polite live log, so each new question is announced once;
- * targets are 44px; motion is off under prefers-reduced-motion (CSS). No third-party script: everything is this bundle.
+ * CHAT-FLOW-1 (owner, CT 2026-10-09): the panel asks like the old Typeform — one numbered question per step, with a progress
+ * bar, OK (Enter), Back and Skip. Only the email is required. It opens straight on the email question; the just-in-time
+ * privacy line sits under that field. The last OK submits (no review screen); a field the server refuses brings the visitor
+ * back to that question.
+ *
+ * Accessibility: a modal dialog labelled by its title; focus moves into it on open and onto each new question's answer, Tab
+ * stays inside, Escape closes it and focus returns to the control that opened it; each answer is labelled by its question and
+ * its "Question n of total" position; errors are announced (role="alert"); targets are 44px; motion is off under
+ * prefers-reduced-motion (CSS). No third-party script: everything is this bundle.
  */
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { captureFirstTouch } from './attribution'
 import { EmailTypoHint } from './EmailTypoHint'
-import { ChipGroup, Confirmation, CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, PrivacyNote, ReviewList, SendButton, UnavailableNote } from './fields'
-import { autocompleteFor, displayValue, nextQuestion, questionsFor, validate } from './flow'
+import { CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, UnavailableNote } from './fields'
+import { autocompleteFor, questionText, questionsFor, validate, type Answers } from './flow'
 import { t, tc, type Question, type Registry } from './model'
 import { cleanContext, type RfqContext, type SendTiming } from './submission'
 import { fetchRegistry, useRfqSession, type RegistryLoader } from './useRfqSession'
@@ -38,29 +43,54 @@ export const pageLabel = (): string => {
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
-/** One question's answer box (chat): chips, the country picker, or a text box with a send button. */
-function Answer({ reg, q, error, onAnswer }: { reg: Registry; q: Question; error?: { key: string; values?: Record<string, string> }; onAnswer: (v: string) => void }) {
-  const [value, setValue] = useState('')
-  const labelId = useId(), errorId = useId(), hintId = useId()
-  const described = [error ? errorId : '', q.hintKey ? hintId : ''].filter(Boolean).join(' ') || undefined
-  const label = <span id={labelId} className={styles.srOnly}>{tc(reg, q.labelKey)}</span>
-  if (q.type === 'chips') return <div className={styles.answer}>{label}<ChipGroup reg={reg} q={q} onPick={onAnswer} labelledBy={labelId}/><ErrorText reg={reg} id={errorId} error={error} live chat/></div>
-  if (q.type === 'country') return <div className={styles.answer}>{label}<CountryPicker reg={reg} onPick={onAnswer} labelId={labelId} describedBy={described}/><ErrorText reg={reg} id={errorId} error={error} live chat/></div>
+/** CHAT-FLOW-1: the just-in-time notice under the email field; its "Privacy Notice" link opens the policy in a new tab. */
+function EmailNotice({ reg, id }: { reg: Registry; id: string }) {
+  const [before, after = ''] = (reg.strings['chatflow.email.notice'] ?? '').split('{{privacy_policy_link}}')
+  return <p className={styles.stepNotice} id={id}>{before}<a href="/privacy-policy/" target="_blank" rel="noopener noreferrer">{t(reg, 'privacy.link_text')}</a>{after}</p>
+}
+
+/** One question as a step: its number, the question, the answer control, OK / Enter, Back and Skip. */
+function Step({ reg, q, n, total, answers, initial, error, last, onAnswer, onBack }: {
+  reg: Registry; q: Question; n: number; total: number; answers: Answers; initial: string; last: boolean
+  error?: { key: string; values?: Record<string, string> }; onAnswer: (v: string) => void; onBack?: () => void
+}) {
+  const [value, setValue] = useState(initial)
+  const headingId = useId(), posId = useId(), errorId = useId(), hintId = useId(), noticeId = useId()
+  const described = [error ? errorId : '', q.hintKey ? hintId : '', q.type === 'email' ? noticeId : ''].filter(Boolean).join(' ') || undefined
+  const labelledBy = `${posId} ${headingId}`
   const submit = () => onAnswer(value)
-  const common = { id: `rfq-chat-${q.id}`, className: styles.input, value, 'aria-labelledby': labelId, 'aria-describedby': described, 'aria-invalid': error ? true : undefined, placeholder: t(reg, q.placeholderKey) || t(reg, 'input.ph'), maxLength: q.validation.maxLength + 1 }
-  const onKey = (e: ReactKeyboardEvent) => { if (e.key === 'Enter' && !(q.type === 'textarea' && e.shiftKey)) { e.preventDefault(); submit() } }
-  return <div className={styles.answer}>
-    {label}
-    {q.hintKey ? <p className={styles.hint} id={hintId}>{tc(reg, q.hintKey)}</p> : null}
-    <div className={styles.composer}>
-      {q.type === 'textarea'
-        ? <textarea {...common} rows={2} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>
-        : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} inputMode={q.type === 'number_or_text' ? 'text' : undefined} autoComplete={autocompleteFor(q)} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>}
-      <button type="button" className={styles.send} onClick={submit} aria-label={t(reg, 'input.send.aria')}><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 20.5 21 12 3 3.5v6.6L15 12 3 13.9z"/></svg></button>
-    </div>
+  const onKey = (e: ReactKeyboardEvent) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit() } }
+  const okLabel = t(reg, last ? 'chatflow.submit' : 'chatflow.ok')
+  const common = { id: `rfq-chat-${q.id}`, className: styles.stepInput, value, 'aria-labelledby': labelledBy, 'aria-describedby': described, 'aria-invalid': error ? true : undefined, 'aria-required': q.required || undefined, placeholder: t(reg, q.placeholderKey) || t(reg, 'input.ph'), maxLength: q.validation.maxLength + 1 }
+  return <div className={styles.step} role="group" aria-labelledby={labelledBy} data-rfq-step={q.id}>
+    <p className={styles.srOnly} id={posId}>{t(reg, 'chatflow.progress', { n: String(n), total: String(total) })}</p>
+    <h3 className={styles.stepQ} id={headingId}>
+      <span className={styles.stepNumber} aria-hidden="true">{n}<svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M12 4 10.6 5.4 16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8z"/></svg></span>
+      <span>{questionText(reg, q, answers)}{q.required ? <span className={styles.stepRequired} aria-hidden="true">*</span> : null}</span>
+    </h3>
+    {q.hintKey ? <p className={styles.hint} id={hintId}>{t(reg, q.hintKey)}</p> : null}
+    {q.type === 'chips'
+      ? <div className={styles.stepChoices} role="group" aria-labelledby={labelledBy}>
+          {(q.chips ?? []).map((c) => <button key={c.value} type="button" className={styles.choice} aria-pressed={value === c.value} onClick={() => { setValue(c.value); onAnswer(c.value) }}>{t(reg, c.labelKey)}</button>)}
+        </div>
+      : q.type === 'country'
+        ? <CountryPicker reg={reg} value={value} onPick={(code) => { setValue(code); onAnswer(code) }} labelId={headingId} describedBy={described}/>
+        : q.type === 'textarea'
+          ? <textarea {...common} rows={3} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>
+          : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} autoComplete={autocompleteFor(q)} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>}
     {q.type === 'email' ? <EmailTypoHint reg={reg} value={value} onUse={setValue}/> : null}
-    {q.skippable ? <div className={styles.chips}><button type="button" className={`${styles.chip} ${styles.skip}`} onClick={() => onAnswer('')}>{t(reg, 'chip.skip')}</button></div> : null}
     <ErrorText reg={reg} id={errorId} error={error} live chat/>
+    {q.type === 'email' ? <EmailNotice reg={reg} id={noticeId}/> : null}
+    <div className={styles.stepActions}>
+      {q.type === 'chips' || q.type === 'country' ? null : <>
+        <button type="button" className={styles.ok} onClick={submit}>{okLabel}</button>
+        <span className={styles.enterHint} aria-hidden="true">{t(reg, 'chatflow.enter')}</span>
+      </>}
+    </div>
+    <div className={styles.stepNav}>
+      {onBack ? <button type="button" className={styles.navButton} onClick={onBack}>{t(reg, 'chatflow.back')}</button> : <span/>}
+      {q.required ? null : <button type="button" className={styles.navButton} onClick={() => onAnswer('')}>{t(reg, 'chatflow.skip')}</button>}
+    </div>
   </div>
 }
 
@@ -70,11 +100,19 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
   const [hp, setHp] = useState('')
   const [contextLabel, setContextLabel] = useState('')
   const [chatError, setChatError] = useState<{ id: string; key: string; values?: Record<string, string> } | null>(null)
+  // CHAT-FLOW-1: the step on screen, an index into the chat's questions. `null` = the first step not yet answered or skipped:
+  // where a new or resumed request starts, and where a field the server refused (the session reopens it) is asked again.
+  const [cursorAt, setCursorAt] = useState<number | null>(null)
+  // CHAT-FLOW-1 (Auditor condition 2): after a NOTICE_CHANGED refusal the chat goes back to the email step, where the current
+  // privacy line is shown (adjusted while rendering, not in an effect)
+  const [noticeSeen, setNoticeSeen] = useState(s.noticeRev)
+  if (noticeSeen !== s.noticeRev) {
+    setNoticeSeen(s.noticeRev)
+    setCursorAt(0)
+  }
   const dialogRef = useRef<HTMLDivElement | null>(null)
-  const logRef = useRef<HTMLDivElement | null>(null)
   const launcherRef = useRef<HTMLButtonElement | null>(null)
   const returnTo = useRef<HTMLElement | null>(null)
-  const reviewHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const titleId = useId()
 
   const { setContext, start } = s
@@ -88,7 +126,7 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
   }, [setContext, start])
 
   // First-touch attribution (CT R5.1): the launcher renders on every public page, so the session's first page load records
-  // its landing tags here; nothing is sent until "Send request".
+  // its landing tags here; nothing is sent until the request is submitted.
   useEffect(() => { captureFirstTouch(window) }, [])
 
   // RFQ-FIX-1 (audit R16, R4 F1 rule): while the page's own quote form (#request-a-quote) is on screen the launcher steps
@@ -116,21 +154,24 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
   const { phase, reset } = s
   const close = useCallback(() => {
     setOpen(false)
-    if (phase === 'sent') reset()
+    if (phase === 'sent') { reset(); setCursorAt(null) }
   }, [phase, reset])
 
-  // Focus: into the panel on open and onto each new question; back to the opener on close (after the panel is gone).
-  const current = s.registry && s.phase === 'asking' ? nextQuestion(s.registry, s.answers) : undefined
+  const reg = s.registry
+  const flow = reg ? questionsFor(reg, s.answers, 'chat') : []
+  const firstOpen = flow.findIndex((q) => !(q.id in s.answers))
+  const cursor = cursorAt ?? (firstOpen < 0 ? flow.length : firstOpen)
+  const atEnd = cursor >= flow.length && flow.length > 0
+  const current = reg && s.phase === 'asking' && !atEnd ? flow[cursor] : undefined
+
+  // Focus: into the panel on open and onto each new step's answer; back to the opener on close (after the panel is gone).
   useEffect(() => {
     if (!open) return
     const node = dialogRef.current
-    // LEGAL-FIX-1 (L08): the review step is announced by moving focus to its heading
-    if (s.phase === 'review') { reviewHeadingRef.current?.focus(); return }
-    // the answer area first (each selector alternative scoped to it), else anything in the panel
     const scoped = FOCUSABLE.split(', ').map((sel) => `[data-rfq-focus] ${sel}`).join(', ')
     const target = node?.querySelector<HTMLElement>(scoped) ?? node?.querySelector<HTMLElement>(FOCUSABLE)
     target?.focus()
-  }, [open, s.phase, current?.id])
+  }, [open, s.phase, cursor, current?.id])
   useEffect(() => {
     if (open) return
     const target = returnTo.current
@@ -171,20 +212,32 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
     return () => node.removeEventListener('keydown', onKey)
   }, [open, close])
 
-  // after the last question, straight to the review
-  const readyForReview = s.phase === 'asking' && Boolean(s.registry) && !current
-  const review = s.review
-  useEffect(() => { if (readyForReview) review() }, [readyForReview, review])
+  const onAnswer = (q: Question, v: string, isLast: boolean) => {
+    if (!reg) return
+    // each answer is checked as it is given (the server checks everything again)
+    const err = validate(reg, q, v, 'chat')
+    if (err) { setChatError({ id: q.id, ...err }); return }
+    setChatError(null)
+    if (q.id === 'email' && s.errors.email?.key === 'err.notice_changed') {
+      // the visitor has seen the current line: every other answer stands, so go straight back to Submit
+      s.answer(q.id, v)
+      setCursorAt(null)
+      return
+    }
+    if (isLast) {
+      // the last OK submits: the session records the answer, checks everything and sends with it; a field the server
+      // refuses is reopened, and `null` brings the visitor back to it
+      setCursorAt(null)
+      s.finish(hp, q.id, v)
+      return
+    }
+    s.answer(q.id, v)
+    setCursorAt(cursor + 1)
+  }
 
-  // the newest message stays in view
-  const answeredCount = Object.keys(s.answers).length
-  useEffect(() => { const l = logRef.current; if (l) l.scrollTop = l.scrollHeight }, [open, answeredCount, s.phase, chatError])
-
-  const reg = s.registry
-  const done = s.phase === 'review' || s.phase === 'sending' || s.phase === 'sent'
-  const asked = reg ? questionsFor(reg, s.answers).filter((q) => q.id in s.answers) : []
-  // RFQ-FIX-1.1: the flow now opens with the contact questions, so the "now, where should we send it" bridge has no place
-  const firstContact = reg && questionsFor(reg, s.answers)[0]?.step !== 'contact' ? reg.questions.find((q) => q.step === 'contact')?.id : undefined
+  const progress = flow.length ? Math.round((Math.min(cursor, flow.length) / flow.length) * 100) : 0
+  const sending = s.phase === 'sending'
+  const first = (s.answers.first_name ?? '').trim()
 
   return <>
     <button ref={launcherRef} type="button" className={styles.launcher} aria-label={launcher.aria} title={launcher.tooltip} aria-haspopup="dialog" aria-expanded={open} data-rfq-launcher="" onClick={() => openWith({ trigger: launcherRef.current })} hidden={open || formInView}>
@@ -196,48 +249,58 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
           <div><h2 id={titleId} className={styles.title}>{reg ? t(reg, 'panel.title') : launcher.label}</h2>{reg ? <p className={styles.subtitle}>{t(reg, 'panel.subtitle')}</p> : null}</div>
           <button type="button" className={styles.close} onClick={close} aria-label={reg ? t(reg, 'panel.close.aria') : launcher.aria}><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3z"/></svg></button>
         </header>
-        <div ref={logRef} className={`${styles.log} notranslate`} translate="no" role="log" aria-live="polite" aria-relevant="additions" hidden={done}>
-          {s.phase === 'loading' ? <p className={styles.bot} aria-busy="true"><span className={styles.dots} aria-hidden="true">…</span></p> : null}
-          {s.phase === 'unavailable' ? (reg ? <UnavailableNote reg={reg}/> : <p className={styles.bot}><a href={OFFICES_HREF}>{launcher.label}</a></p>) : !reg ? null : <>
-            <p className={styles.bot}>{tc(reg, 'greeting')}</p>
-            {contextLabel ? <p className={styles.bot}>{t(reg, 'context.note', { context_label: contextLabel })}</p> : null}
-            {s.phase === 'resume' ? <p className={styles.bot}>{tc(reg, 'resume.prompt')}</p> : null}
-            {s.phase !== 'resume' ? asked.map((q) => <div key={q.id}>
-              {q.id === firstContact ? <p className={styles.bot}>{tc(reg, 'contact.intro')}</p> : null}
-              <p className={styles.bot}>{tc(reg, q.labelKey)}</p>
-              <p className={`${styles.me} notranslate`} translate="no">{s.answers[q.id] ? displayValue(reg, q, s.answers[q.id]) : t(reg, 'chip.skip')}</p>
-            </div>) : null}
-            {current ? <>
-              {current.id === firstContact ? <p className={styles.bot}>{tc(reg, 'contact.intro')}</p> : null}
-              <p className={styles.bot}>{tc(reg, current.labelKey)}</p>
-            </> : null}
-          </>}
-        </div>
-        {reg && s.phase !== 'unavailable' ? <div className={styles.footer} data-rfq-focus="">
-          {s.phase === 'resume' ? <div className={styles.chips}>
-            <button type="button" className={styles.chip} onClick={() => s.resume(true)}>{t(reg, 'resume.continue')}</button>
-            <button type="button" className={styles.chip} onClick={() => s.resume(false)}>{t(reg, 'resume.restart')}</button>
+        {reg && s.phase !== 'unavailable' && s.phase !== 'sent' ? <div className={styles.progress} aria-hidden="true"><span style={{ inlineSize: `${progress}%` }}/></div> : null}
+        <div className={styles.stage} data-rfq-focus="">
+          {s.phase === 'loading' ? <p className={styles.stepNotice} aria-busy="true"><span className={styles.dots} aria-hidden="true">…</span></p> : null}
+          {s.phase === 'unavailable' ? (reg ? <UnavailableNote reg={reg}/> : <p><a href={OFFICES_HREF}>{launcher.label}</a></p>) : null}
+          {reg && s.phase === 'resume' ? <div className={styles.step}>
+            <h3 className={styles.stepQ}>{tc(reg, 'resume.prompt')}</h3>
+            <div className={styles.stepChoices}>
+              <button type="button" className={styles.choice} onClick={() => s.resume(true)}>{t(reg, 'resume.continue')}</button>
+              <button type="button" className={styles.choice} onClick={() => { s.resume(false); setCursorAt(null) }}>{t(reg, 'resume.restart')}</button>
+            </div>
           </div> : null}
-          {s.phase === 'asking' && current ? <Answer key={current.id} reg={reg} q={current} error={chatError?.id === current.id ? chatError : s.errors[current.id]} onAnswer={(v) => {
-            // the chat checks each answer as it is given (the server checks everything again)
-            const err = validate(reg, current, v, 'chat')
-            if (err) { setChatError({ id: current.id, ...err }); return }
-            setChatError(null)
-            s.answer(current.id, v)
-          }}/> : null}
-          {s.phase === 'review' || s.phase === 'sending' ? <>
-            <h3 ref={reviewHeadingRef} className={styles.confirmHeading} tabIndex={-1}>{tc(reg, 'review.heading')}</h3>
-            <ReviewList reg={reg} answers={s.answers} onEdit={s.edit}/>
-            <FailureNote reg={reg} failure={s.failure} chat/>
-            {/* FORM-NOTICE-1: the collection notice sits directly above "Send request" */}
-            <PrivacyNote reg={reg}/>
-            <SendButton reg={reg} phase={s.phase} retryIn={s.retryIn} onSend={() => void s.send(hp)}/>
-          </> : null}
-          {s.phase === 'sent' ? <Confirmation reg={reg} rfqNumber={s.rfqNumber} chat><button type="button" className={styles.primary} onClick={close}>{t(reg, 'confirm.close')}</button></Confirmation> : null}
-          {current?.step === 'contact' ? <PrivacyNote reg={reg}/> : null}
-          <Honeypot reg={reg} value={hp} onChange={setHp}/>
-        </div> : null}
+          {/* CT R5.1: the page the visitor came from, shown once above the first question; never asked, never sent as text */}
+          {reg && current && cursor === 0 && contextLabel ? <p className={styles.stepNotice} data-rfq-context="">{t(reg, 'context.note', { context_label: contextLabel })}</p> : null}
+          {reg && current ? <Step key={`${current.id}:${cursor}`} reg={reg} q={current} n={cursor + 1} total={flow.length} answers={s.answers} initial={s.answers[current.id] ?? ''} last={cursor === flow.length - 1}
+            error={chatError?.id === current.id ? chatError : s.errors[current.id]}
+            onAnswer={(v) => onAnswer(current, v, cursor === flow.length - 1)}
+            onBack={cursor > 0 ? () => { setChatError(null); setCursorAt(cursor - 1) } : undefined}/> : null}
+          {reg && atEnd && s.phase !== 'sent' && s.phase !== 'resume' ? <div className={styles.step}>
+            {s.failure ? <>
+              <FailureNote reg={reg} failure={s.failure} chat/>
+              <div className={styles.stepActions}><button type="button" className={styles.ok} disabled={s.retryIn > 0} onClick={() => void s.send(hp)}>{t(reg, 'chatflow.retry')}{s.retryIn > 0 ? ` (${Math.floor(s.retryIn / 60)}:${String(s.retryIn % 60).padStart(2, '0')})` : ''}</button></div>
+              <div className={styles.stepNav}><button type="button" className={styles.navButton} onClick={() => setCursorAt(flow.length - 1)}>{t(reg, 'chatflow.back')}</button><span/></div>
+            </> : sending ? <p className={styles.stepNotice} role="status" aria-busy="true">{t(reg, 'chatflow.submitting')}</p> : <>
+              {/* every step answered but not sent yet (e.g. a resumed draft): Submit checks everything again, then sends */}
+              <div className={styles.stepActions}><button type="button" className={styles.ok} onClick={() => { if (s.review()) void s.send(hp) }}>{t(reg, 'chatflow.submit')}</button></div>
+              <div className={styles.stepNav}><button type="button" className={styles.navButton} onClick={() => setCursorAt(flow.length - 1)}>{t(reg, 'chatflow.back')}</button><span/></div>
+            </>}
+          </div> : null}
+          {reg && s.phase === 'sent' ? <ChatDone reg={reg} first={first} rfqNumber={s.rfqNumber} onClose={close}/> : null}
+          {reg ? <Honeypot reg={reg} value={hp} onChange={setHp}/> : null}
+        </div>
       </div>
     </div> : null}
   </>
+}
+
+/** CHAT-FLOW-1: the end screen — "Thank you {first}!", the response promise when the server serves it, the RFQ number, and
+ * how to send files (owner 2026-10-09: no upload step; "reply to our email with any drawings or PDFs"). With the customer
+ * acknowledgement off there is no email to reply to, so the served "email us at … with your RFQ number" line is kept. The
+ * served line is compared with the ack-on text: the server has already filled in the sales address, so it never still holds
+ * the `{{sales_email}}` placeholder. */
+function ChatDone({ reg, first, rfqNumber, onClose }: { reg: Registry; first: string; rfqNumber: string | null; onClose: () => void }) {
+  const attachments = reg.strings['confirm.attachments'] ?? ''
+  const ackOn = attachments !== '' && attachments === reg.strings['confirm.attachments.ack_on']
+  const heading = first ? t(reg, 'chatflow.done.heading', { first }) : t(reg, 'chatflow.done.heading_anon')
+  const numberParts = (reg.strings['chatflow.done.number'] ?? '').split('{{rfq_number}}')
+  return <div className={styles.step} role="status">
+    <h3 className={styles.stepQ}>{heading}</h3>
+    {reg.strings['confirm.response_time'] ? <p>{t(reg, 'confirm.response_time')}</p> : null}
+    {rfqNumber ? <p>{numberParts[0]}<span translate="no" className={`${styles.rfqNumber} notranslate`}>{rfqNumber}</span>{numberParts[1] ?? ''}</p> : null}
+    {ackOn ? <p className={styles.stepNotice}>{t(reg, 'chatflow.done.attachments')}</p>
+      : attachments && (rfqNumber || !attachments.includes('{{rfq_number}}')) ? <p className={styles.stepNotice}>{t(reg, 'confirm.attachments', { rfq_number: rfqNumber ?? '' })}</p> : null}
+    <div className={styles.stepActions}><button type="button" className={styles.ok} onClick={onClose}>{t(reg, 'confirm.close')}</button></div>
+  </div>
 }

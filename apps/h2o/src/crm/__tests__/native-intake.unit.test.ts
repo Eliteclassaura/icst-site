@@ -82,3 +82,49 @@ describe('envelope, validation, mapping', () => {
     expect(toDelivery(reg, legacy, T).delivery.mapped).toMatchObject({ first_name: 'Ngozi', last_name: 'Okafor-Phạm', full_name: 'Ngozi Okafor-Phạm' })
   })
 })
+
+describe('CHAT-FLOW-1: the corner chat is read against its own questions (synthetic)', () => {
+  const reg = fixtureRegistry()
+  const chat = (answers: Record<string, string>, extra: Partial<NativeRequest> = {}) => base(answers, { registryVersion: reg.registryVersion, ...extra })
+  it('owner 2026-10-09: email, names and the service are required (the part too, for parts); a request with only those is valid and maps with empty optional fields', () => {
+    const req = chat({ email: 'casey.lim.synthetic@gmail.com', first_name: 'Casey', last_name: 'Lim', purpose: 'repair' })
+    expect(validateAnswers(reg, req)).toEqual({})
+    const { delivery } = toDelivery(reg, req, T)
+    expect(delivery.mapped).toMatchObject({ email: 'casey.lim.synthetic@gmail.com', first_name: 'Casey', last_name: 'Lim', company: null, country_code: null, phone: null, requested_scope: reg.strings['purpose.chip.repair'] })
+    // an email-only request (allowed by the first draft of CHAT-FLOW-1) is refused now, naming the chat's missing fields
+    expect(validateAnswers(reg, chat({ email: 'casey.lim.synthetic@gmail.com' }))).toMatchObject({ first_name: 'err.required', last_name: 'err.required', purpose: 'err.required' })
+    expect(validateAnswers(reg, chat({ email: 'a@example.test', first_name: 'A', last_name: 'B', purpose: 'parts' }))).toEqual({ parts_part: 'err.required' })
+    expect(validateAnswers(reg, chat({ first_name: 'Ana', last_name: 'B', purpose: 'repair' }))).toEqual({ email: 'err.required' })
+  })
+  it('a parts request: the message lists each detail under the question as the visitor read it; interest and other fields as the CRM knows them', () => {
+    const req = chat({ email: 'buyer@northwind.example.test', first_name: 'Avery', last_name: 'Quinn', company: 'Northwind Thermal (synthetic)', purpose: 'parts', parts_part: 'fans', details: 'Model 3000, 12 ft', urgent: 'yes', phone: '+1 303 555 0100', country: 'US', notes: 'Please call first' })
+    expect(validateAnswers(reg, req)).toEqual({})
+    const { delivery } = toDelivery(reg, req, T)
+    const m = delivery.mapped
+    expect(m).toMatchObject({ first_name: 'Avery', last_name: 'Quinn', company: 'Northwind Thermal (synthetic)', country_code: 'US', requested_scope: reg.strings['purpose.chip.parts'] })
+    expect(m.other).toMatchObject({ interest: reg.strings['purpose.chip.parts'], native_purpose: 'parts', parts_part: 'Fans', details: 'Model 3000, 12 ft', urgent: 'Yes', notes: 'Please call first' })
+    expect(m.message).toContain('What part are you looking for?\nFans')
+    expect(m.message).toContain('Please provide any information you have on Fans, below, so we can quote accurately\nModel 3000, 12 ft')
+    expect(m.message).toContain('Is this an urgent part request?\nYes')
+    expect(m.message).toContain("Anything else you'd like us to know?\nPlease call first")
+  })
+  it('a chip outside the chat\'s choices, a parts-only answer on another purpose, or a stray key is refused', () => {
+    expect(validateAnswers(reg, chat({ email: 'a@example.test', purpose: 'inspection' }))).toMatchObject({ purpose: expect.any(String) })
+    expect(validateAnswers(reg, chat({ email: 'a@example.test', purpose: 'repair', urgent: 'yes' }))).toMatchObject({ urgent: 'err.server' })
+    expect(validateAnswers(reg, chat({ email: 'a@example.test', mystery: 'x' }))).toMatchObject({ mystery: 'err.server' })
+  })
+  it('a chat page loaded before the deploy (the old chat\'s answers) is still accepted and mapped as before', () => {
+    const old = chat({ purpose: 'parts', parts_part: 'Fan blades', parts_model: 'M-3000', first_name: 'Ana', company: 'B (synthetic)', email: 'a@example.test', country: 'TH' })
+    expect(validateAnswers(reg, old)).toEqual({})
+    const { delivery } = toDelivery(reg, old, T)
+    expect(delivery.mapped.other).toMatchObject({ parts_part: 'Fan blades', parts_model: 'M-3000' })
+    expect(delivery.mapped.message).toContain(`${reg.strings['parts.part.q']}\nFan blades`)
+  })
+  it('noticeVersion is kept in its exact shape and dropped otherwise (never refused)', () => {
+    const ok = parseEnvelope({ ...chat({ email: 'a@example.test' }), noticeVersion: 'notice-0a1b2c3d' })!
+    expect(ok.noticeVersion).toBe('notice-0a1b2c3d')
+    const bad = parseEnvelope({ ...chat({ email: 'a@example.test' }), noticeVersion: 'whatever <script>' })!
+    expect(bad).not.toBeNull()
+    expect(bad.noticeVersion).toBeUndefined()
+  })
+})

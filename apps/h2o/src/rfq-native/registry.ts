@@ -97,6 +97,70 @@ export const CHAT_COPY_1_STRINGS: Record<string, string> = {
 }
 
 /**
+ * CHAT-FLOW-1 (Security Auditor condition 4, owner-confirmed 2026-10-09): the one privacy line under the chat's email field.
+ * The single place to change its wording; `{{privacy_policy_link}}` becomes the "Privacy Notice" link (/privacy-policy/, new
+ * tab). It is part of noticeVersionOf, so a change here refuses clients still showing the old line (handlers.ts NOTICE_CHANGED).
+ */
+export const CHAT_NOTICE_LINE = 'We use this to respond to and follow up on your request. {{privacy_policy_link}}'
+
+/**
+ * CHAT-FLOW-1 (owner direction with the Typeform screenshots, via CT 2026-10-09): the corner chat asks the Typeform's
+ * questions, one per step, numbered. CT's wording, verbatim. `_anon` keys are the same sentence when the name or the subject
+ * was skipped. The just-in-time notice sits under the email field (CT routes it to the Auditor and Legal).
+ */
+export const CHAT_FLOW_1_STRINGS: Record<string, string> = {
+  'chatflow.email.q': 'What is your email address?',
+  'chatflow.email.notice': CHAT_NOTICE_LINE,
+  'chatflow.first_name.q': 'Can I get your first name?',
+  'chatflow.last_name.q': 'And your last name?',
+  'chatflow.company.q': 'Great {{first}}. What company are you with?',
+  'chatflow.company.q_anon': 'Great. What company are you with?',
+  'chatflow.purpose.q': 'Awesome, {{first}}. What can we help with?',
+  'chatflow.purpose.q_anon': 'Awesome. What can we help with?',
+  'chatflow.purpose.chip.parts': 'Cooling Tower Parts',
+  'chatflow.purpose.chip.new_tower': 'New Cooling Tower',
+  'chatflow.purpose.chip.rebuild': 'Replacement',
+  'chatflow.purpose.chip.repair': 'Repair & Maintenance',
+  'chatflow.purpose.chip.upgrade': 'Thermal Upgrade',
+  'chatflow.purpose.chip.other': 'Other',
+  'chatflow.parts_part.q': 'What part are you looking for?',
+  'chatflow.parts_part.chip.fans': 'Fans',
+  'chatflow.parts_part.chip.fill_media': 'Fill Media',
+  'chatflow.parts_part.chip.drift_eliminators': 'Drift Eliminators',
+  'chatflow.parts_part.chip.nozzles': 'Nozzles',
+  'chatflow.parts_part.chip.gear_boxes': 'Gear Boxes',
+  'chatflow.parts_part.chip.motors': 'Motors',
+  'chatflow.parts_part.chip.drive_shafts': 'Drive Shafts',
+  'chatflow.parts_part.chip.fan_stacks': 'Fan Stacks',
+  'chatflow.parts_part.chip.frp_members': 'FRP Members',
+  'chatflow.parts_part.chip.hardware': 'Hardware',
+  'chatflow.parts_part.chip.other': 'Other',
+  'chatflow.details.q': 'Please provide any information you have on {{subject}}, below, so we can quote accurately',
+  'chatflow.details.q_anon': 'Please provide any information you have, below, so we can quote accurately',
+  'chatflow.urgent.q': 'Is this an urgent part request?',
+  'chatflow.urgent.chip.yes': 'Yes',
+  'chatflow.urgent.chip.no': 'No',
+  'chatflow.phone.q': 'Please let us know your phone number',
+  'chatflow.country.q': 'Can you please let us know the country of destination?',
+  'chatflow.notes.q': "Anything else you'd like us to know?",
+  'chatflow.ok': 'OK',
+  'chatflow.enter': 'press Enter ↵',
+  'chatflow.back': 'Back',
+  'chatflow.skip': 'Skip',
+  'chatflow.submit': 'Submit',
+  'chatflow.required': 'Required',
+  'chatflow.progress': 'Question {{n}} of {{total}}',
+  'chatflow.done.heading': 'Thank you {{first}}!',
+  'chatflow.done.heading_anon': 'Thank you!',
+  'chatflow.done.number': 'Your RFQ number is {{rfq_number}}.',
+  'chatflow.submitting': 'Sending your request…',
+  'chatflow.retry': 'Try again',
+  // owner 2026-10-09: no upload step; files come by email after the request
+  'chatflow.done.attachments': 'You can reply to our email with any drawings or PDFs.',
+  'err.notice_changed': 'We have updated our privacy notice. Please read it below, then continue.',
+}
+
+/**
  * FORM-NOTICE-1 (CT 2026-10-08): the approved quote-request collection notice (OGCS legal final, FORM_NOTICE.md, sha256
  * b34433fb…), kept byte for byte at content/rfq/form-notice-source.md. Its short notice becomes `privacy.note` (the link
  * text "Privacy Notice" becomes `privacy.link_text`); its expanded notice becomes the "How we use your details" list.
@@ -143,9 +207,41 @@ const question = ({ maxLength, pattern, ...q }: Q): Question => ({
   errorKeys: { ...(q.required ? { required: 'err.required' } : {}), ...(pattern === 'email' ? { invalid: 'err.email' } : pattern === 'tel' ? { invalid: 'err.phone' } : {}), tooLong: 'err.too_long' },
 })
 
+/**
+ * CHAT-FLOW-1: which privacy wording a visitor was shown — a short hash of the notice strings the surfaces display (the form's
+ * short and expanded notice, the chat's just-in-time line). The client sends it with the submission and the intake event keeps
+ * it, so each RFQ says which notice it saw. The registry version stays the question structure only (FORM-NOTICE-1.1).
+ */
+export const NOTICE_KEYS = ['privacy.note', 'privacy.link_text', 'privacy.details.link', 'privacy.details.items', 'chatflow.email.notice'] as const
+export const noticeVersionOf = (strings: Record<string, string>): string =>
+  `notice-${createHash('sha256').update(JSON.stringify(NOTICE_KEYS.map((k) => [k, strings[k] ?? '']))).digest('hex').slice(0, 8)}`
+
+const PARTS_CHIPS = ['fans', 'fill_media', 'drift_eliminators', 'nozzles', 'gear_boxes', 'motors', 'drive_shafts', 'fan_stacks', 'frp_members', 'hardware', 'other']
+/**
+ * CHAT-FLOW-1: the chat's questions (flow.ts CHAT_ORDER). Owner 2026-10-09: email, first and last name, the service and (for
+ * parts) the part are required; company, details, urgent, phone, country and notes can be skipped.
+ */
+function chatQuestions(): Question[] {
+  const opt = { required: false, skippable: true }
+  const req = { required: true }
+  return [
+    question({ id: 'email', step: 'contact', branches: ['all'], type: 'email', required: true, labelKey: 'chatflow.email.q', placeholderKey: 'contact.email.ph', pattern: 'email', maxLength: 254 }),
+    question({ id: 'first_name', step: 'contact', branches: ['all'], type: 'text', ...req, labelKey: 'chatflow.first_name.q', maxLength: 80 }),
+    question({ id: 'last_name', step: 'contact', branches: ['all'], type: 'text', ...req, labelKey: 'chatflow.last_name.q', maxLength: 80 }),
+    question({ id: 'company', step: 'contact', branches: ['all'], type: 'text', ...opt, labelKey: 'chatflow.company.q', maxLength: 160 }),
+    question({ id: 'purpose', step: 'purpose', branches: ['all'], type: 'chips', ...req, labelKey: 'chatflow.purpose.q', chips: ['parts', 'new_tower', 'rebuild', 'repair', 'upgrade', 'other'].map((v) => ({ value: v, labelKey: `chatflow.purpose.chip.${v}` })), maxLength: 16 }),
+    question({ id: 'parts_part', step: 'details', branches: ['parts'], type: 'chips', ...req, labelKey: 'chatflow.parts_part.q', chips: PARTS_CHIPS.map((v) => ({ value: v, labelKey: `chatflow.parts_part.chip.${v}` })), maxLength: 24 }),
+    question({ id: 'details', step: 'details', branches: ['all'], type: 'textarea', ...opt, labelKey: 'chatflow.details.q', maxLength: 2000 }),
+    question({ id: 'urgent', step: 'details', branches: ['parts'], type: 'chips', ...opt, labelKey: 'chatflow.urgent.q', chips: ['yes', 'no'].map((v) => ({ value: v, labelKey: `chatflow.urgent.chip.${v}` })), maxLength: 4 }),
+    question({ id: 'phone', step: 'contact', branches: ['all'], type: 'tel', ...opt, labelKey: 'chatflow.phone.q', hintKey: 'contact.phone.hint', pattern: 'tel', maxLength: 40 }),
+    question({ id: 'country', step: 'contact', branches: ['all'], type: 'country', ...opt, labelKey: 'chatflow.country.q', placeholderKey: 'contact.country.search_ph', pattern: 'iso2', maxLength: 2 }),
+    question({ id: 'notes', step: 'details', branches: ['all'], type: 'textarea', ...opt, labelKey: 'chatflow.notes.q', maxLength: 2000 }),
+  ]
+}
+
 /** The contract §1.1 seeded structure, with strings from the copy table. */
 export function registryFromCopy(tsv: string, formNotice?: string): Registry {
-  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS, ...RFQ_FIX_1_STRINGS, ...FIELD_ORDER_STRINGS, ...CHAT_COPY_1_STRINGS, ...(formNotice ? formNoticeStrings(formNotice) : {}) }
+  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS, ...RFQ_FIX_1_STRINGS, ...FIELD_ORDER_STRINGS, ...CHAT_COPY_1_STRINGS, ...CHAT_FLOW_1_STRINGS, ...(formNotice ? formNoticeStrings(formNotice) : {}) }
   const purposes: Purpose[] = [
     { value: 'new_tower', labelKey: 'purpose.chip.new_tower', branch: 'towers' },
     { value: 'repair', labelKey: 'purpose.chip.repair', branch: 'service' },
@@ -175,9 +271,10 @@ export function registryFromCopy(tsv: string, formNotice?: string): Registry {
     question({ id: 'phone', step: 'contact', branches: ['all'], type: 'tel', required: false, labelKey: 'contact.phone.q', hintKey: 'contact.phone.hint', pattern: 'tel', skippable: true, maxLength: 40 }), // skippable: CT Round 5 ruling 2
     question({ id: 'country', step: 'contact', branches: ['all'], type: 'country', required: true, labelKey: 'contact.country.q', placeholderKey: 'contact.country.search_ph', pattern: 'iso2', maxLength: 2 }),
   ]
-  const structure = { purposes, questions, countries: [...COUNTRY_CODES] }
+  const structure = { purposes, questions, chatQuestions: chatQuestions(), countries: [...COUNTRY_CODES] }
   return {
     registryVersion: `rfq-r1-${createHash('sha256').update(JSON.stringify(structure)).digest('hex').slice(0, 8)}`,
+    noticeVersion: noticeVersionOf(strings),
     locale: 'en',
     fallbackLocale: 'en',
     enabled: true,

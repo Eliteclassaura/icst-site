@@ -60,25 +60,23 @@ describe('the approved rows', () => {
 })
 
 describe('the chat speaks; the inline form does not change', () => {
-  it('chat: the first question is the friendly email prompt, the greeting is warmer, the skippable last-name prompt says so', async () => {
+  it('CHAT-FLOW-1 replaces the chat\'s question wording with the Typeform\'s (CT 2026-10-09): straight onto the email question, no greeting', async () => {
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => reg} timing={NO_WAIT} fetcher={api() as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
-    const log = () => host.querySelector('[role="log"]')!.textContent ?? ''
-    expect(log()).toContain(reg.strings['chat.greeting'])
-    expect(log()).toContain("What's your email address?")
-    const input = host.querySelector('[role="dialog"] input:not([type="hidden"]):not([tabindex="-1"])') as HTMLInputElement
+    const dialog = host.querySelector('[role="dialog"]')!
+    expect(dialog.textContent).not.toContain(reg.strings['chat.greeting'])
+    expect(dialog.querySelector('[data-rfq-step] h3')!.textContent).toContain(reg.strings['chatflow.email.q'])
+    expect(dialog.textContent).not.toContain(reg.strings['chat.contact.email.q'])
+    const input = dialog.querySelector('[data-rfq-step] input') as HTMLInputElement
     await type(input, 'ana@gmail.com')
-    await click(host.querySelector(`button[aria-label="${reg.strings['input.send.aria']}"]`))
-    expect(log()).toContain('And your first name?')
-    await type(host.querySelector('[role="dialog"] input:not([type="hidden"]):not([tabindex="-1"])') as HTMLInputElement, 'Ana')
-    await click(host.querySelector(`button[aria-label="${reg.strings['input.send.aria']}"]`))
-    expect(log()).toContain('And your last name? You can skip this.')
+    await click([...dialog.querySelectorAll('button')].find((b) => b.textContent === reg.strings['chatflow.ok'])!)
+    expect(dialog.querySelector('[data-rfq-step] h3')!.textContent).toContain(reg.strings['chatflow.first_name.q'])
   })
-  it('chat: a bad email shows the warmer error; translate="no" and the roots are untouched', async () => {
+  it('chat: a bad email still shows the CHAT-COPY-1 warmer error; translate="no" and the roots are untouched', async () => {
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => reg} timing={NO_WAIT} fetcher={api() as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
-    await type(host.querySelector('[role="dialog"] input:not([type="hidden"]):not([tabindex="-1"])') as HTMLInputElement, 'nope')
-    await click(host.querySelector(`button[aria-label="${reg.strings['input.send.aria']}"]`))
+    await type(host.querySelector('[role="dialog"] [data-rfq-step] input') as HTMLInputElement, 'nope')
+    await click([...host.querySelectorAll('button')].find((b) => b.textContent === reg.strings['chatflow.ok'])!)
     expect(host.querySelector('[role="alert"]')!.textContent).toBe(reg.strings['chat.err.email'])
     expect(host.querySelector('[role="dialog"]')!.getAttribute('translate')).toBe('no')
   })
@@ -97,6 +95,32 @@ describe('the chat speaks; the inline form does not change', () => {
     await act(async () => root.render(<Confirmation reg={off} rfqNumber="RFQ-1" chat/>))
     expect(host.textContent).not.toContain('replying to our email')
     expect(host.textContent).toContain('You can email photos or drawings to')
+  })
+  it('CHAT-FLOW-1 thank-you: the owner\'s "reply with any drawings or PDFs" line with the acknowledgement on, the "email us at" line with it off (also once the server has filled in the address)', async () => {
+    const draft = (id: string) => sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: id, registryVersion: reg.registryVersion, step: 'review', answers: { email: 'a@b.co', first_name: 'Ana', last_name: 'Ruiz', company: '', purpose: 'repair', details: '', phone: '', country: '', notes: '' }, source: 'NATIVE_CHAT' }))
+    const run = async (r: typeof reg) => {
+      await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => r} timing={NO_WAIT} fetcher={api() as never}/>))
+      await click(host.querySelector('[data-rfq-launcher]'))
+      await click([...host.querySelectorAll('button')].find((b) => b.textContent === r.strings['resume.continue'])!)
+      await click([...host.querySelectorAll('button')].find((b) => b.textContent === r.strings['chatflow.submit'])!)
+      return host.querySelector('[role="dialog"]')!.textContent ?? ''
+    }
+    draft('sub-on')
+    expect(await run(reg)).toContain(reg.strings['chatflow.done.attachments'])
+    await act(async () => root.unmount()); root = createRoot(host); sessionStorage.clear()
+    const off = { ...reg, strings: { ...reg.strings, 'confirm.attachments': 'You can email photos or drawings to {{sales_email}}. Please include your RFQ number, {{rfq_number}}.' } }
+    draft('sub-off')
+    const text = await run(off)
+    expect(text).not.toContain('replying to our email')
+    expect(text).not.toContain(reg.strings['chatflow.done.attachments'])
+    expect(text).toContain('You can email photos or drawings to')
+    // as served: the address is already filled in (no {{sales_email}} left), and the line is still the "email us at" one
+    await act(async () => root.unmount()); root = createRoot(host); sessionStorage.clear()
+    const served = { ...reg, strings: { ...reg.strings, 'confirm.attachments': 'You can email photos or drawings to sales@example.test. Please include your RFQ number, {{rfq_number}}.' } }
+    draft('sub-served')
+    const servedText = await run(served)
+    expect(servedText).toContain('You can email photos or drawings to sales@example.test. Please include your RFQ number, RFQ-')
+    expect(servedText).not.toContain(reg.strings['chatflow.done.attachments'])
   })
   void DRAFT_KEY
 })

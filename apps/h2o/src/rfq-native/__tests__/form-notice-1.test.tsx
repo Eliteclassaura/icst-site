@@ -11,7 +11,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { FORM_NOTICE_SHA256, fixtureRegistry, setRegistrySourceForTests } from '../registry'
+import { CHAT_NOTICE_LINE, FORM_NOTICE_SHA256, fixtureRegistry, noticeVersionOf, setRegistrySourceForTests } from '../registry'
 import { NativeRfq } from '../NativeRfq'
 import { NativeRfqForm } from '../NativeRfqForm'
 import { DRAFT_KEY } from '../draft'
@@ -85,14 +85,31 @@ describe('rendered', () => {
     // FORM-NOTICE-1.1: the button sits in the action bar, which is what follows the notice
     expect(send.parentElement!.previousElementSibling).toBe(checkNotice(host))
   })
-  it('chat: the notice is directly above "Send request" on the review step', async () => {
-    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...reviewDraft, source: 'NATIVE_CHAT' }))
+  it('chat (CHAT-FLOW-1): no notice block; one line under the email field, its "Privacy Notice" link opening the policy in a new tab', async () => {
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => reg} timing={NO_WAIT} fetcher={api() as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
-    await click(button(reg.strings['resume.continue']!))
-    const send = button(reg.strings['review.send']!)
-    expect(send).toBeTruthy()
-    expect(send.parentElement!.previousElementSibling).toBe(checkNotice(host.querySelector('[role="dialog"]')!))
+    const dialog = host.querySelector('[role="dialog"]')!
+    expect(dialog.querySelector('details')).toBeNull()
+    const email = dialog.querySelector('[data-rfq-step="email"] input') as HTMLInputElement
+    const line = dialog.querySelector(`#${CSS.escape(email.getAttribute('aria-describedby')!.split(' ').at(-1)!)}`)!
+    expect(line.textContent).toBe('We use this to respond to and follow up on your request. Privacy Notice')
+    // Security Auditor condition 3: the chat (and so this line) stays inside the translate="no" roots
+    expect(line.closest('[translate="no"]')).not.toBeNull()
+    expect([line.querySelector('a')!.getAttribute('href'), line.querySelector('a')!.getAttribute('target'), line.querySelector('a')!.getAttribute('rel')]).toEqual(['/privacy-policy/', '_blank', 'noopener noreferrer'])
+  })
+  it('Security Auditor conditions 2 and 4: the chat line is pinned (approved wording, owner-confirmed 2026-10-09); a change to it is a deliberate update of this pin', () => {
+    // pin = sha256 of CHAT_NOTICE_LINE: change both together, only after Legal/CT approve the new wording
+    expect(CHAT_NOTICE_LINE).toBe('We use this to respond to and follow up on your request. {{privacy_policy_link}}')
+    expect(createHash('sha256').update(CHAT_NOTICE_LINE).digest('hex')).toBe('b7534fe7f1dbc41815cba8f60ecef1b441b46d483c66e0e4edddba107ba85012')
+    expect(reg.strings['chatflow.email.notice']).toBe(CHAT_NOTICE_LINE)
+    expect(CHAT_NOTICE_LINE).not.toMatch(/only (use|to reply)/)
+  })
+  it('CHAT-FLOW-1: noticeVersion records the wording shown (any notice string changes it); registryVersion stays the question structure', () => {
+    const v = (strings: Record<string, string>) => noticeVersionOf(strings)
+    expect(reg.noticeVersion).toBe(v(reg.strings))
+    expect(reg.noticeVersion).toMatch(/^notice-[0-9a-f]{8}$/)
+    for (const k of ['privacy.note', 'privacy.details.items', 'chatflow.email.notice']) expect(v({ ...reg.strings, [k]: `${reg.strings[k]} changed` }), k).not.toBe(reg.noticeVersion)
+    expect(v({ ...reg.strings, 'chatflow.ok': 'Next' })).toBe(reg.noticeVersion)
   })
 })
 

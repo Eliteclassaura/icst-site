@@ -49,28 +49,23 @@ describe('translate="no" (LANG-2 B1)', () => {
     for (const dt of host.querySelectorAll('dt')) expect(dt.closest('[translate="no"]')).not.toBeNull() // inherited
     expect(noTranslate(host.querySelector('section'))).toBe(true)
   })
-  it('chat: panel root, overlay, transcript, review values and labels (inherited) are not translatable', async () => {
-    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...reviewDraft, source: 'NATIVE_CHAT' }))
+  it('chat (CHAT-FLOW-1): panel root and overlay are not translatable; the step inherits it; the launcher label may be translated', async () => {
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => reg} timing={NO_WAIT} fetcher={api() as never}/>))
+    await click(host.querySelector('[data-rfq-launcher]'))
+    expect(noTranslate(host.querySelector('[role="dialog"]'))).toBe(true)
+    expect(noTranslate(host.querySelector('[role="dialog"]')!.parentElement)).toBe(true)
+    expect(host.querySelector('[data-rfq-step] h3')!.closest('[translate="no"]')).not.toBeNull()
+    expect(host.querySelector('[data-rfq-step] input')!.closest('[translate="no"]')).not.toBeNull()
+    expect(host.querySelector('[data-rfq-launcher]')!.closest('[translate="no"]')).toBeNull()
+  })
+  it('chat (CHAT-FLOW-1): the RFQ number on the thank-you is marked not to be translated', async () => {
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ submissionId: 'sub-l2', registryVersion: reg.registryVersion, step: 'review', answers: { email: 'a@b.co', first_name: 'Ana', last_name: 'Ruiz', company: '', purpose: 'repair', details: '', phone: '', country: '', notes: '' }, source: 'NATIVE_CHAT' }))
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => reg} timing={NO_WAIT} fetcher={api() as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
     await click(button(reg.strings['resume.continue']!))
-    expect(noTranslate(host.querySelector('[role="dialog"]'))).toBe(true)
-    expect(noTranslate(host.querySelector('[role="dialog"]')!.parentElement)).toBe(true)
-    expect(noTranslate(host.querySelector('[role="log"]'))).toBe(true)
-    for (const dd of host.querySelectorAll('dd')) expect(noTranslate(dd.querySelector('span'))).toBe(true)
-    for (const dt of host.querySelectorAll('dt')) expect(dt.closest('[translate="no"]')).not.toBeNull()
-    expect(host.querySelector('h3')!.closest('[translate="no"]')).not.toBeNull()
-    expect(host.querySelector('[data-rfq-launcher]')!.closest('[translate="no"]')).toBeNull() // the launcher label may be translated
-  })
-  it('chat: each echoed answer in the transcript is marked', async () => {
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={async () => reg} timing={NO_WAIT} fetcher={api() as never}/>))
-    await click(host.querySelector('[data-rfq-launcher]'))
-    const input = host.querySelector('[role="dialog"] input:not([type="hidden"]):not([tabindex="-1"])') as HTMLInputElement
-    await act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(input), 'value')!.set!.call(input, 'ana@gmail.com'); input.dispatchEvent(new Event('input', { bubbles: true })) })
-    await click(host.querySelector(`button[aria-label="${reg.strings['input.send.aria']}"]`))
-    const me = [...host.querySelectorAll('[role="log"] p')].filter((p) => p.textContent === 'ana@gmail.com')
-    expect(me.length).toBe(1)
-    expect(noTranslate(me[0]!)).toBe(true)
+    await click(button(reg.strings['chatflow.submit']!))
+    const num = [...host.querySelectorAll('[role="dialog"] span')].find((el) => /^RFQ-/.test(el.textContent ?? ''))!
+    expect(noTranslate(num)).toBe(true)
   })
   it('inline form: every root (form, review, confirmation) is not translatable', async () => {
     await act(async () => root.render(<NativeRfqForm loader={async () => reg} timing={NO_WAIT} fetcher={api() as never}/>))

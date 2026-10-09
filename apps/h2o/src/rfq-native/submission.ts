@@ -19,6 +19,8 @@ export type SubmitRequest = {
   submissionId: string
   source: RfqSource
   registryVersion: string
+  /** CHAT-FLOW-1: which privacy wording was shown (the registry's noticeVersion). */
+  noticeVersion?: string
   locale: string
   answers: Record<string, string>
   context: RfqContext
@@ -30,6 +32,8 @@ export type SubmitOutcome =
   | { kind: 'sent'; rfqNumber: string | null; replay?: boolean }
   | { kind: 'invalid'; fields: Record<string, string> }
   | { kind: 'too_large' }
+  /** CHAT-FLOW-1: the privacy wording changed since this page loaded its registry (409 NOTICE_CHANGED). */
+  | { kind: 'notice_changed' }
   | { kind: 'error'; key: 'err.rate_limited' | 'err.offline' | 'err.server'; disabled?: boolean; retryAfterSeconds?: number }
 
 /** Context keys and the server's length limits (contract §4: the safe-context limits). */
@@ -106,7 +110,7 @@ export async function submitRfq(
     return t
   }
   let tok = await fresh(token)
-  let body: SubmitRequest = { submissionId: request.submissionId, source: request.source, registryVersion: request.registryVersion, locale: request.locale, answers: request.answers, context: request.context, attribution: request.attribution, antiAbuse: { formToken: tok?.formToken ?? '', hp: request.hp } }
+  let body: SubmitRequest = { submissionId: request.submissionId, source: request.source, registryVersion: request.registryVersion, ...(request.noticeVersion ? { noticeVersion: request.noticeVersion } : {}), locale: request.locale, answers: request.answers, context: request.context, attribution: request.attribution, antiAbuse: { formToken: tok?.formToken ?? '', hp: request.hp } }
   let retriedToken = false, retriedConflict = false
   for (;;) {
     let res: Response
@@ -129,6 +133,7 @@ export async function submitRfq(
       body = { ...body, antiAbuse: { ...body.antiAbuse, formToken: tok?.formToken ?? '' } }
       continue
     }
+    if (res.status === 409 && data.code === 'NOTICE_CHANGED') return { outcome: { kind: 'notice_changed' }, token: tok }
     if (res.status === 409 && data.code === 'SUBMISSION_CONFLICT' && !retriedConflict) {
       retriedConflict = true
       const id = newSubmissionId()

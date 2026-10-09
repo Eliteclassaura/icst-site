@@ -119,6 +119,14 @@ export async function submitReply(payload: Payload, req: Request, now: Date = ne
   }
 
   const reg = fixtureRegistry()
+  // CHAT-FLOW-1 (Security Auditor condition 2): the notice a request records must be the one the visitor was shown. A client
+  // that says it showed other privacy wording (a page from before a wording change) is refused; it reloads the registry and
+  // shows the current line before it sends again. A request without a notice version (a page from before CHAT-FLOW-1) is
+  // accepted as before.
+  if (r.noticeVersion && reg.noticeVersion && r.noticeVersion !== reg.noticeVersion) {
+    log('NOTICE_CHANGED', 409)
+    return reply(409, { ok: false, code: 'NOTICE_CHANGED' })
+  }
   const fields = validateAnswers(reg, r)
   if (Object.keys(fields).length > 0) {
     log('VALIDATION', 422)
@@ -208,7 +216,7 @@ export function cappedPayload(p: ReturnType<typeof storedPayload>, max = SPAM_PA
     const c = { ...p, answers: short(n), truncated: true }
     if (size(c) <= max) return c
   }
-  const bare = { source: p.source, registryVersion: p.registryVersion, locale: p.locale, answers: short(60), truncated: true }
+  const bare = { source: p.source, registryVersion: p.registryVersion, ...(p.noticeVersion ? { noticeVersion: p.noticeVersion } : {}), locale: p.locale, answers: short(60), truncated: true }
   if (size(bare) <= max) return bare
   return { source: p.source, answerKeys: Object.keys(p.answers).slice(0, 40).map((k) => k.slice(0, 40)), truncated: true }
 }

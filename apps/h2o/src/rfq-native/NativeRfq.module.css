@@ -584,6 +584,186 @@ textarea.input {
   outline-offset: 2px;
 }
 
+/*
+ * CHAT-FLOW-1 (owner, CT 2026-10-09): one numbered question per step, like the old Typeform. A thin progress bar under the
+ * header, the question large, an underlined answer field, OK with an "Enter" hint, and Back / Skip below. Colours come from the
+ * site tokens only.
+ */
+.progress {
+  flex: none;
+  block-size: 4px;
+  background: var(--df-step, rgb(242 246 250));
+}
+
+.progress > span {
+  display: block;
+  block-size: 100%;
+  background: var(--df-blue, rgb(11 75 140));
+  transition: inline-size 0.25s ease-out;
+}
+
+.stage {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding-block: 24px 18px;
+  padding-inline: 22px;
+  overflow-y: auto;
+  background: var(--df-white, rgb(255 255 255));
+}
+
+.step {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.stepQ {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin: 0;
+  font: 600 20px/1.35 "DM Sans", "IBM Plex Sans", sans-serif;
+  color: var(--rfq-ink);
+  overflow-wrap: anywhere;
+}
+
+.stepNumber {
+  display: inline-flex;
+  flex: none;
+  gap: 2px;
+  align-items: center;
+  font-size: 15px;
+  color: var(--df-blue, rgb(11 75 140));
+}
+
+.stepRequired {
+  margin-inline-start: 2px;
+  color: var(--df-blue, rgb(11 75 140));
+}
+
+.stepInput {
+  inline-size: 100%;
+  min-block-size: 48px;
+  padding-block: 8px;
+  padding-inline: 2px;
+  border: 0;
+  border-block-end: 2px solid var(--df-muted, rgb(110 110 110));
+  border-radius: 0;
+  font: 400 20px/1.4 "DM Sans", "IBM Plex Sans", sans-serif;
+  color: var(--df-blue, rgb(11 75 140));
+  background: transparent;
+}
+
+.stepInput:focus {
+  border-block-end-color: var(--df-blue, rgb(11 75 140));
+}
+
+.stepInput[aria-invalid="true"] {
+  border-block-end-color: var(--rfq-danger);
+}
+
+textarea.stepInput {
+  resize: vertical;
+}
+
+.stepChoices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.choice {
+  min-block-size: 44px;
+  padding-block: 10px;
+  padding-inline: 14px;
+  border: 1.5px solid var(--df-blue, rgb(11 75 140));
+  border-radius: 8px;
+  font: inherit;
+  text-align: start;
+  color: var(--df-blue, rgb(11 75 140));
+  cursor: pointer;
+  background: var(--df-step, rgb(242 246 250));
+}
+
+.choice:hover,
+.choice[aria-pressed="true"] {
+  color: var(--df-white, rgb(255 255 255));
+  background: var(--df-blue, rgb(11 75 140));
+}
+
+.stepNotice {
+  margin: 0;
+  font-size: 14px;
+  color: var(--df-muted, rgb(110 110 110));
+}
+
+.stepNotice a {
+  color: var(--df-blue, rgb(11 75 140));
+  text-decoration: underline;
+}
+
+.stepActions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.ok {
+  min-inline-size: 88px;
+  min-block-size: 44px;
+  padding-block: 10px;
+  padding-inline: 20px;
+  border: 0;
+  border-radius: 8px;
+  font: 600 16px/1.2 "DM Sans", "IBM Plex Sans", sans-serif;
+  color: var(--df-white, rgb(255 255 255));
+  cursor: pointer;
+  background: var(--df-blue, rgb(11 75 140));
+}
+
+.ok:hover {
+  background: var(--df-blue-hover, rgb(33 102 171));
+}
+
+.ok:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.enterHint {
+  font-size: 13px;
+  color: var(--df-muted, rgb(110 110 110));
+}
+
+.stepNav {
+  display: flex;
+  justify-content: space-between;
+  margin-block-start: auto;
+  padding-block-start: 8px;
+}
+
+.navButton {
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  padding-inline: 4px;
+  border: 0;
+  font: 600 15px/1.2 "DM Sans", "IBM Plex Sans", sans-serif;
+  color: var(--df-blue, rgb(11 75 140));
+  cursor: pointer;
+  background: transparent;
+}
+
+.navButton:hover {
+  text-decoration: underline;
+}
+
+/* CHAT-FLOW-1: the RFQ number never breaks at its hyphens */
+.rfqNumber {
+  white-space: nowrap;
+}
+
 /* Phones: the panel is a full-height sheet; the launcher keeps clear of the page edges. */
 @media (width <= 600px) {
   .overlay {
@@ -595,11 +775,17 @@ textarea.input {
     block-size: 100dvh;
     border-radius: 0;
   }
+
+  .stepQ,
+  .stepInput {
+    font-size: 18px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .launcher,
-  .panel {
+  .panel,
+  .progress > span {
     transition: none;
     animation: none;
   }

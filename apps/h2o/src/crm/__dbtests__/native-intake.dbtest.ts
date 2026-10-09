@@ -183,3 +183,49 @@ describe('submit: refusals', () => {
     }
   })
 })
+
+describe('CHAT-FLOW-1: the corner chat\'s own questions, end to end (synthetic)', () => {
+  const reg = fixtureRegistry()
+  it('a parts request: one RFQ typed PARTS, the details under each question in the message and the alert input, other answers as the CRM knows them, the notice version kept', async () => {
+    const b = body({ email: `avery.${Date.now()}@northwind.example.test`, first_name: 'Avery', last_name: 'Quinn', company: 'Northwind Thermal (synthetic)', purpose: 'parts', parts_part: 'fans', details: 'Model 3000, 12 ft', urgent: 'yes', country: 'US', notes: 'Please call first' }, { noticeVersion: reg.noticeVersion })
+    const r = await send(b)
+    expect(r.status).toBe(200)
+    const rfq = await rfqFor((r.body as Doc).rfqNumber as string)
+    expect(rfq).toMatchObject({ source_system: 'NATIVE_CHAT', inquiry_type: 'PARTS', country_code: 'US', office: 'US' })
+    const submitted = rfq.submitted as Doc
+    expect(submitted.message).toContain('What part are you looking for?\nFans')
+    expect(submitted.message).toContain('Please provide any information you have on Fans, below, so we can quote accurately\nModel 3000, 12 ft')
+    expect(submitted.message).toContain('Is this an urgent part request?\nYes')
+    expect(submitted.other_answers).toMatchObject({ interest: 'Parts', native_purpose: 'parts', parts_part: 'Fans', urgent: 'Yes', notes: 'Please call first' })
+    const p = await payload()
+    const event = (await p.find({ collection: 'crm-intake-events', where: { source_event_id: { equals: `native:${b.submissionId}` } }, ...sys })).docs[0] as unknown as Doc
+    expect((event.raw_payload as Doc).noticeVersion).toBe(reg.noticeVersion)
+    const alerts = await p.count({ collection: 'crm-email-outbox', where: { and: [{ rfq: { equals: rfq.id } }, { kind: { equals: 'RFQ_SALES_ALERT' } }] }, overrideAccess: true })
+    expect(alerts.totalDocs + (await p.count({ collection: 'crm-email-events', where: { kind: { equals: 'RFQ_SALES_ALERT' } }, overrideAccess: true })).totalDocs).toBeGreaterThan(0)
+  })
+  it('the required answers only (email, names, service): accepted and becomes an RFQ (default routing), with no company or country', async () => {
+    const email = `only.${Date.now()}@example.test`
+    const r = await send(body({ email, first_name: 'Casey', last_name: 'Lim', purpose: 'repair' }))
+    expect(r.status).toBe(200)
+    const rfq = await rfqFor((r.body as Doc).rfqNumber as string)
+    expect(rfq).toMatchObject({ source_system: 'NATIVE_CHAT', office: 'US' })
+    expect((rfq.submitted as Doc).email).toBe(email)
+    const contact = (await (await payload()).find({ collection: 'crm-contacts', where: { email_match_key: { equals: email } }, ...sys })).docs[0] as unknown as Doc
+    expect(contact).toBeDefined()
+    expect(contact.company ?? null).toBeNull()
+  })
+  it('Security Auditor condition 2: a request recording another notice version is refused (409 NOTICE_CHANGED); nothing is created', async () => {
+    const before = [await count('crm-rfqs'), await count('crm-intake-events')]
+    const r = await send({ ...body({ email: `stale.${Date.now()}@example.test`, first_name: 'Casey', last_name: 'Lim', purpose: 'repair' }), noticeVersion: 'notice-00000000' })
+    expect(r.status).toBe(409)
+    expect(r.body).toMatchObject({ ok: false, code: 'NOTICE_CHANGED' })
+    expect([await count('crm-rfqs'), await count('crm-intake-events')]).toEqual(before)
+  })
+  it('a chat request missing the email is refused with the field error; nothing is created', async () => {
+    const before = await count('crm-rfqs')
+    const r = await send(body({ first_name: 'Ana' }))
+    expect(r.status).toBe(422)
+    expect(r.body).toMatchObject({ code: 'VALIDATION', fields: { email: 'err.required' } })
+    expect(await count('crm-rfqs')).toBe(before)
+  })
+})

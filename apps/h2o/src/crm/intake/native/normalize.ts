@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { displayValue, normalizePhone, questionsFor, stripControls, validate } from '../../../rfq-native/flow'
+import { displayValue, normalizePhone, questionText, questionsFor, stripControls, validate, type Surface } from '../../../rfq-native/flow'
 import type { Registry } from '../../../rfq-native/model'
 import { splitName } from '../../import/csv'
 import { validateAttribution, type AttributionKey } from '../attribution'
@@ -18,6 +18,8 @@ export type NativeRequest = {
   submissionId: string
   source: NativeSource
   registryVersion: string
+  /** CHAT-FLOW-1: which privacy wording the visitor was shown (`notice-` + 8 hex), when the client sent it. */
+  noticeVersion?: string
   locale: string
   answers: Record<string, string>
   context: Record<string, unknown>
@@ -25,6 +27,7 @@ export type NativeRequest = {
   antiAbuse: { formToken: unknown; hp: unknown }
 }
 
+const NOTICE_VERSION = /^notice-[0-9a-f]{8}$/
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 const isObj = (v: unknown): v is Record<string, unknown> => Boolean(v) && typeof v === 'object' && !Array.isArray(v)
 
@@ -42,7 +45,7 @@ function legacyName(a: Record<string, string>): Record<string, string> {
 /** Shape check of the envelope. Anything else is a malformed request (422 VALIDATION with no field). */
 export function parseEnvelope(body: unknown): NativeRequest | null {
   if (!isObj(body)) return null
-  const { submissionId, source, registryVersion, locale, answers, context, attribution, antiAbuse } = body
+  const { submissionId, source, registryVersion, noticeVersion, locale, answers, context, attribution, antiAbuse } = body
   if (typeof submissionId !== 'string' || !UUID.test(submissionId)) return null
   if (source !== 'NATIVE_FORM' && source !== 'NATIVE_CHAT') return null
   if (!isObj(answers) || Object.keys(answers).length > 40) return null
@@ -52,6 +55,8 @@ export function parseEnvelope(body: unknown): NativeRequest | null {
     submissionId: submissionId.toLowerCase(),
     source,
     registryVersion: typeof registryVersion === 'string' ? registryVersion.slice(0, 40) : '',
+    // CHAT-FLOW-1: kept only in its exact shape; anything else is dropped, never refused
+    ...(typeof noticeVersion === 'string' && NOTICE_VERSION.test(noticeVersion) ? { noticeVersion } : {}),
     locale: typeof locale === 'string' ? locale.slice(0, 8) : 'en',
     // RFQ-FIX-1 (audit R9): control characters (NUL included) and bidi overrides are removed before anything else reads them
     answers: legacyName(Object.fromEntries(Object.entries(answers as Record<string, string>).map(([k, v]) => [k, stripControls(v)]))),
@@ -62,19 +67,40 @@ export function parseEnvelope(body: unknown): NativeRequest | null {
 }
 
 /** Field errors (question id → error key) for the request's answers; empty when valid. */
-export function validateAnswers(reg: Registry, req: NativeRequest): Record<string, string> {
-  const answers = Object.fromEntries(Object.entries(req.answers).map(([k, v]) => [k, v.trim()]))
-  const flow = questionsFor(reg, answers)
-  const surface = req.source === 'NATIVE_FORM' ? 'form' : 'chat'
+const errorsFor = (reg: Registry, answers: Record<string, string>, flowSurface: Surface, wording: Surface): Record<string, string> => {
+  const flow = questionsFor(reg, answers, flowSurface)
   const errors: Record<string, string> = {}
   for (const q of flow) {
-    const e = validate(reg, q, answers[q.id], surface)
+    const e = validate(reg, q, answers[q.id], wording)
     if (e) errors[q.id] = e.key
   }
   // A key outside the visitor's flow (another branch, or not a question at all) is not accepted silently.
   const allowed = new Set(flow.map((q) => q.id))
   for (const k of Object.keys(answers)) if (!allowed.has(k) && answers[k]) errors[k.slice(0, 40)] = 'err.server'
   return errors
+}
+const trimmed = (req: NativeRequest) => Object.fromEntries(Object.entries(req.answers).map(([k, v]) => [k, v.trim()]))
+
+/**
+ * CHAT-FLOW-1: which questions a submission is read against. The inline form: the form's. The corner chat: its own — but a
+ * chat page loaded before the CHAT-FLOW-1 deploy still sends the old chat's answers (the form's questions), so a chat
+ * submission that is invalid for the chat flow and fully valid for the form's is read as that older chat. Like RFQ-FIX-1.1's
+ * `name`, this keeps a visitor with an old page from being refused during the deploy.
+ */
+export function flowSurfaceOf(reg: Registry, req: NativeRequest): Surface {
+  if (req.source === 'NATIVE_FORM') return 'form'
+  const answers = trimmed(req)
+  if (!Object.keys(errorsFor(reg, answers, 'chat', 'chat')).length) return 'chat'
+  if (!Object.keys(errorsFor(reg, answers, 'form', 'chat')).length) return 'form'
+  // invalid either way: report against the questions the visitor actually saw — an answer only the old chat asks (model,
+  // quantity, the tower and service details…) means an old page
+  const chatIds = new Set((reg.chatQuestions ?? []).map((q) => q.id))
+  return Object.keys(answers).some((k) => answers[k] && !chatIds.has(k) && reg.questions.some((q) => q.id === k)) ? 'form' : 'chat'
+}
+
+export function validateAnswers(reg: Registry, req: NativeRequest): Record<string, string> {
+  const answers = trimmed(req)
+  return errorsFor(reg, answers, flowSurfaceOf(reg, req), req.source === 'NATIVE_FORM' ? 'form' : 'chat')
 }
 
 const CONTEXT_TYPES = new Set(['product', 'service', 'category', 'page', 'search'])
@@ -91,13 +117,17 @@ export function contentHash(req: NativeRequest): string {
 /** The valid request → the canonical delivery. Call only after `validateAnswers` returned no errors. */
 export function toDelivery(reg: Registry, req: NativeRequest, receivedAt: Date, flags: Record<string, string> = {}): { delivery: ParsedDelivery; attributionRejected: string[] } {
   const a = Object.fromEntries(Object.entries(req.answers).map(([k, v]) => [k, v.trim()]))
-  const flow = questionsFor(reg, a)
+  const surface = flowSurfaceOf(reg, req)
+  const flow = questionsFor(reg, a, surface)
   const purpose = reg.purposes.find((p) => p.value === a.purpose)
+  // CHAT-FLOW-1: each detail is listed under the question as the visitor read it ({{first}} / {{subject}} filled)
+  const label = (q: (typeof flow)[number]) => (surface === 'chat' ? questionText(reg, q, a) : reg.strings[q.labelKey]) || q.id
   // English labels: the CRM is read in English, whatever the visitor's locale.
   const purposeLabel = purpose ? (reg.strings[purpose.labelKey] ?? purpose.value) : ''
   const name = { first: a.first_name || null, last: a.last_name || null }
   const details = flow.filter((q) => q.step === 'details' && a[q.id])
-  const message = [`${reg.strings['purpose.q'] ?? 'Request'} ${purposeLabel}`, ...details.map((q) => `${reg.strings[q.labelKey] ?? q.id}\n${displayValue(reg, q, a[q.id])}`)].join('\n\n')
+  // the chat may skip the purpose: then the message starts with the details (no empty "What do you need help with?" line)
+  const message = [...(purposeLabel || surface === 'form' ? [`${reg.strings['purpose.q'] ?? 'Request'} ${purposeLabel}`] : []), ...details.map((q) => `${label(q)}\n${displayValue(reg, q, a[q.id])}`)].join('\n\n')
 
   // Context: the accepted context keys; the contract's context_type / context_id are kept as answers (non-personal).
   const { context_type: contextType, context_id: contextId, ...rest } = req.context
@@ -144,4 +174,4 @@ export function toDelivery(reg: Registry, req: NativeRequest, receivedAt: Date, 
 }
 
 /** What is kept as the intake event's raw payload (admin-only, like Typeform's): the request without its anti-abuse fields. */
-export const storedPayload = (req: NativeRequest) => ({ source: req.source, registryVersion: req.registryVersion, locale: req.locale, answers: req.answers, context: req.context, attribution: req.attribution })
+export const storedPayload = (req: NativeRequest) => ({ source: req.source, registryVersion: req.registryVersion, ...(req.noticeVersion ? { noticeVersion: req.noticeVersion } : {}), locale: req.locale, answers: req.answers, context: req.context, attribution: req.attribution })

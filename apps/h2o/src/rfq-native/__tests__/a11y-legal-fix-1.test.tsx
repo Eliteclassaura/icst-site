@@ -71,26 +71,31 @@ describe('corner panel', () => {
     expect(document.activeElement).toBe(trigger)
     outside.remove()
   })
-  it('a chat answer error is announced (role="alert"); the review step takes focus on its heading', async () => {
-    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(500, {})) as never}/>))
+  it('a chat answer error is announced (role="alert"); each new step\'s answer takes focus, labelled by its position and question; the thank-you is a status (CHAT-FLOW-1)', async () => {
+    await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={api(() => json(200, { ok: true, rfqNumber: 'RFQ-9', replay: false })) as never}/>))
     await click(host.querySelector('[data-rfq-launcher]'))
-    // RFQ-FIX-1.1: email, first name, last name and company come first
     const emailBox = panel()!.querySelector('input[type="email"]') as HTMLInputElement
+    expect(document.activeElement).toBe(emailBox)
+    // the field is labelled by "Question 1 of 9" and the question itself
+    const label = emailBox.getAttribute('aria-labelledby')!.split(' ').map((id) => panel()!.querySelector(`#${CSS.escape(id)}`)!.textContent).join(' ')
+    expect(label).toContain('Question 1 of 9')
+    expect(label).toContain(s('chatflow.email.q'))
+    await type(emailBox, 'nope'); await key(emailBox, 'Enter')
+    expect(panel()!.querySelector('[role="alert"]')?.textContent).toBe(sc('err.email'))
+    expect(emailBox.getAttribute('aria-invalid')).toBe('true')
     await type(emailBox, 'a@b.co'); await key(emailBox, 'Enter')
-    for (const v of ['A', 'B', 'Plant Co']) { const i = panel()!.querySelector('input[type="text"]') as HTMLInputElement; await type(i, v); await key(i, 'Enter') }
-    await click(button(s('purpose.chip.parts')))
-    const box = panel()!.querySelector('input[type="text"]') as HTMLInputElement
-    await type(box, '')
-    await key(box, 'Enter')
-    expect(panel()!.querySelector('[role="alert"]')?.textContent).toBe(sc('err.required'))
-    await type(box, 'Fan blades'); await key(box, 'Enter')
-    for (let i = 0; i < 3; i++) await click(button(s('chip.skip'))) // model, quantity, phone
-    const search = panel()!.querySelector('input[type="search"]') as HTMLInputElement
-    await type(search, 'thai')
-    await click(button('Thailand'))
-    await click(button(s('chip.skip'))) // notes (the message), last
-    expect(document.activeElement?.tagName).toBe('H3')
-    expect(document.activeElement?.textContent).toBe(sc('review.heading'))
+    const first = panel()!.querySelector('input[type="text"]') as HTMLInputElement
+    expect(document.activeElement).toBe(first)
+    // the required answers (names, service), then every optional step skipped: the last one submits and the thank-you is announced
+    await type(first, 'Ana'); await key(first, 'Enter')
+    const last = panel()!.querySelector('input[type="text"]') as HTMLInputElement
+    expect(document.activeElement).toBe(last)
+    await type(last, 'Ruiz'); await key(last, 'Enter')
+    const skip = () => [...panel()!.querySelectorAll('button')].find((b) => b.textContent === s('chatflow.skip'))!
+    await click(skip()) // company
+    await click([...panel()!.querySelectorAll('button')].find((b) => b.textContent === s('chatflow.purpose.chip.repair'))!)
+    for (let i = 0; i < 4; i++) await click(skip()) // details, phone, country, notes (the last submits)
+    expect(panel()!.querySelector('[role="status"] h3')?.textContent).toBe(s('chatflow.done.heading').replace('{{first}}', 'Ana'))
   })
 })
 

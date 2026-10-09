@@ -23,12 +23,17 @@ export type Question = {
 }
 export type Registry = {
   registryVersion: string
+  /** CHAT-FLOW-1: a short hash of the privacy wording the surfaces show (registry.ts noticeVersionOf); sent with each request. */
+  noticeVersion?: string
   locale: 'en' | 'ja' | 'th'
   fallbackLocale: 'en'
   enabled: boolean
   steps: ['purpose', 'details', 'contact', 'review', 'confirm']
   purposes: Purpose[]
   questions: Question[]
+  /** CHAT-FLOW-1 (owner, CT 2026-10-09): the corner chat's own questions, asked one per step in `CHAT_ORDER` (flow.ts).
+   * The inline form never uses them; the server validates a NATIVE_CHAT submission against them. */
+  chatQuestions?: Question[]
   countries: string[]
   limits: { maxBodyBytes: number; minSecondsToSubmit: number }
   strings: Record<string, string>

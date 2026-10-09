@@ -8,7 +8,7 @@ import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
 import { fixtureRegistry, CT_STRING_AMENDMENTS } from '../registry'
-import { answer, complete, migrate, nextQuestion, questionsFor, reopen, reviewGroups, submittedAnswers, validate, validateAll, type Answers } from '../flow'
+import { answer, complete, migrate, nextQuestion, prune, questionText, questionsFor, reopen, reviewGroups, submittedAnswers, validate, validateAll, type Answers } from '../flow'
 import { cleanContext, formToken, submitRfq } from '../submission'
 import { ATTR_KEY, captureFirstTouch, readAttribution, sessionAttribution } from '../attribution'
 import { DRAFT_KEY, clearDraft, loadDraft, saveDraft } from '../draft'
@@ -196,5 +196,38 @@ describe('attribution and draft', () => {
     const blocked = { getItem: () => { throw new Error('blocked') }, setItem: () => { throw new Error('blocked') }, removeItem: () => { throw new Error('blocked') } }
     expect(() => saveDraft(blocked, d)).not.toThrow()
     expect(loadDraft(blocked)).toBeNull()
+  })
+})
+
+describe('CHAT-FLOW-1: the corner chat\'s own flow', () => {
+  const reg = fixtureRegistry()
+  const ids = (a: Record<string, string>) => questionsFor(reg, a, 'chat').map((q) => q.id)
+  it('the Typeform order; the part and the urgency only for a parts request; the inline form\'s flow is unchanged', () => {
+    expect(ids({})).toEqual(['email', 'first_name', 'last_name', 'company', 'purpose', 'details', 'phone', 'country', 'notes'])
+    expect(ids({ purpose: 'parts' })).toEqual(['email', 'first_name', 'last_name', 'company', 'purpose', 'parts_part', 'details', 'urgent', 'phone', 'country', 'notes'])
+    expect(questionsFor(reg, {}).map((q) => q.id)).toEqual(['email', 'first_name', 'last_name', 'company', 'purpose', 'phone', 'country'])
+    // changing away from parts drops its answers
+    expect(prune(reg, { purpose: 'repair', parts_part: 'fans', urgent: 'yes' }, 'chat')).toEqual({ purpose: 'repair' })
+  })
+  it('owner 2026-10-09: email, first and last name, the service and (for parts) the part are required; the rest is optional', () => {
+    expect(reg.chatQuestions!.filter((q) => q.required).map((q) => q.id)).toEqual(['email', 'first_name', 'last_name', 'purpose', 'parts_part'])
+    expect(reg.chatQuestions!.filter((q) => q.skippable).map((q) => q.id)).toEqual(['company', 'details', 'urgent', 'phone', 'country', 'notes'])
+    expect(validateAll(reg, { email: 'a@example.test', first_name: 'A', last_name: 'B', company: '', purpose: 'repair', details: '', phone: '', country: '', notes: '' }, 'chat')).toEqual({})
+    expect(validateAll(reg, { email: '' }, 'chat')).toMatchObject({ email: { key: 'err.required' } })
+    expect(Object.keys(validateAll(reg, { email: 'a@example.test', first_name: '', last_name: '', purpose: '' }, 'chat')).sort()).toEqual(['first_name', 'last_name', 'purpose'])
+    expect(validateAll(reg, { email: 'a@example.test', first_name: 'A', last_name: 'B', purpose: 'parts', parts_part: '' }, 'chat')).toMatchObject({ parts_part: { key: 'err.required' } })
+  })
+  it('questionText fills the first name and the subject, and falls back to the _anon wording when they were skipped', () => {
+    const q = (id: string) => reg.chatQuestions!.find((x) => x.id === id)!
+    expect(questionText(reg, q('company'), { first_name: 'Avery' })).toBe('Great Avery. What company are you with?')
+    expect(questionText(reg, q('company'), { first_name: '' })).toBe('Great. What company are you with?')
+    expect(questionText(reg, q('details'), { purpose: 'parts', parts_part: 'drift_eliminators' })).toBe('Please provide any information you have on Drift Eliminators, below, so we can quote accurately')
+    expect(questionText(reg, q('details'), { purpose: 'repair' })).toBe('Please provide any information you have on Repair & Maintenance, below, so we can quote accurately')
+    expect(questionText(reg, q('details'), {})).toBe('Please provide any information you have, below, so we can quote accurately')
+  })
+  it('the chat offers CT\'s six services, mapped onto the existing purpose values (CRM interest unchanged)', () => {
+    const purpose = reg.chatQuestions!.find((q) => q.id === 'purpose')!
+    expect(purpose.chips!.map((c) => [c.value, reg.strings[c.labelKey]])).toEqual([['parts', 'Cooling Tower Parts'], ['new_tower', 'New Cooling Tower'], ['rebuild', 'Replacement'], ['repair', 'Repair & Maintenance'], ['upgrade', 'Thermal Upgrade'], ['other', 'Other']])
+    for (const c of purpose.chips!) expect(reg.purposes.some((p) => p.value === c.value), c.value).toBe(true)
   })
 })

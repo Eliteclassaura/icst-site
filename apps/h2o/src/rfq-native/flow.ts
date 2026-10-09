@@ -10,6 +10,21 @@ import { countryName } from './countries'
 import type { Question, Registry } from './model'
 
 export type Answers = Record<string, string>
+/** CHAT-FLOW-1: which flow — the corner chat's own questions, or the inline form's (the default everywhere). */
+export type Surface = 'chat' | 'form'
+
+/**
+ * CHAT-FLOW-1 (owner, CT 2026-10-09): the corner chat asks like the old Typeform, one question per step, in this order.
+ * Required (owner 2026-10-09): email, first and last name, the service and, for parts, the part (registry.ts chatQuestions).
+ * `parts_part` and `urgent` are asked for a parts request only. Ids the CRM already reads keep
+ * their names (`purpose`, `parts_part`, `urgent`, `notes`), so the RFQ record, the alert and the sheet fill as before.
+ */
+export const CHAT_ORDER = ['email', 'first_name', 'last_name', 'company', 'purpose', 'parts_part', 'details', 'urgent', 'phone', 'country', 'notes'] as const
+const PARTS_ONLY = new Set(['parts_part', 'urgent'])
+function chatFlow(reg: Registry, answers: Answers): Question[] {
+  const parts = answers.purpose === 'parts'
+  return CHAT_ORDER.filter((id) => parts || !PARTS_ONLY.has(id)).map((id) => reg.chatQuestions!.find((q) => q.id === id)).filter((q): q is Question => Boolean(q))
+}
 
 /** RFQ-FIX-1.1 (owner order, CT 2026-10-08): who is asking comes first — email, first name, last name, company. */
 export const LEAD_CONTACT = ['email', 'first_name', 'last_name', 'company'] as const
@@ -19,7 +34,8 @@ export const LEAD_CONTACT = ['email', 'first_name', 'last_name', 'company'] as c
  * purpose (interest) with its branch's details and extra questions; then phone and country; then the message (notes).
  * Every surface — the chat, the inline form, the review — follows this one order.
  */
-export function questionsFor(reg: Registry, answers: Answers): Question[] {
+export function questionsFor(reg: Registry, answers: Answers, surface: Surface = 'form'): Question[] {
+  if (surface === 'chat' && reg.chatQuestions?.length) return chatFlow(reg, answers)
   const byStep = (step: Question['step']) => reg.questions.filter((q) => q.step === step)
   const purpose = reg.purposes.find((p) => p.value === answers.purpose)
   const purposeQ = byStep('purpose')
@@ -39,16 +55,16 @@ export const autocompleteFor = (q: Question): string =>
   ({ email: 'email', first_name: 'given-name', last_name: 'family-name', company: 'organization', phone: 'tel', country: 'country-name' } as Record<string, string>)[q.id] ?? 'off'
 
 /** The next question not yet answered or skipped; undefined when the visitor can review. */
-export const nextQuestion = (reg: Registry, answers: Answers): Question | undefined => questionsFor(reg, answers).find((q) => !(q.id in answers))
+export const nextQuestion = (reg: Registry, answers: Answers, surface: Surface = 'form'): Question | undefined => questionsFor(reg, answers, surface).find((q) => !(q.id in answers))
 
 /** Keep only the answers the current flow asks for. */
-export function prune(reg: Registry, answers: Answers): Answers {
-  const ids = new Set(questionsFor(reg, answers).map((q) => q.id))
+export function prune(reg: Registry, answers: Answers, surface: Surface = 'form'): Answers {
+  const ids = new Set(questionsFor(reg, answers, surface).map((q) => q.id))
   return Object.fromEntries(Object.entries(answers).filter(([k]) => ids.has(k)))
 }
 
 /** Record an answer (trimmed; '' = skipped). */
-export const answer = (reg: Registry, answers: Answers, id: string, value: string): Answers => prune(reg, { ...answers, [id]: value.trim() })
+export const answer = (reg: Registry, answers: Answers, id: string, value: string, surface: Surface = 'form'): Answers => prune(reg, { ...answers, [id]: value.trim() }, surface)
 
 /** Ask a question again (the review "Edit" link, or a server validation error). */
 export function reopen(answers: Answers, id: string): Answers {
@@ -61,12 +77,13 @@ export function reopen(answers: Answers, id: string): Answers {
  * A draft from another registry version (contract §2): keep the answers whose question still exists (and, for chips,
  * whose value still exists), then continue at the first unanswered question.
  */
-export function migrate(reg: Registry, answers: Answers): Answers {
+export function migrate(reg: Registry, answers: Answers, surface: Surface = 'form'): Answers {
+  const pool = surface === 'chat' && reg.chatQuestions?.length ? reg.chatQuestions : reg.questions
   const kept = Object.fromEntries(Object.entries(answers).filter(([id, v]) => {
-    const q = reg.questions.find((x) => x.id === id)
+    const q = pool.find((x) => x.id === id)
     return q && (q.type !== 'chips' || v === '' || q.chips?.some((c) => c.value === v))
   }))
-  return prune(reg, kept)
+  return prune(reg, kept, surface)
 }
 
 const EMAIL = /^[^\s@<>()[\]\\,;:"]+@[^\s@<>()[\]\\,;:"]+\.[a-z]{2,}$/i
@@ -107,7 +124,7 @@ export function validate(reg: Registry, q: Question, value: string | undefined, 
 /** Every error in the flow (the inline form checks everything at once; the chat checks as it goes). */
 export function validateAll(reg: Registry, answers: Answers, surface: 'chat' | 'form'): Record<string, { key: string; values?: Record<string, string> }> {
   const out: Record<string, { key: string; values?: Record<string, string> }> = {}
-  for (const q of questionsFor(reg, answers)) {
+  for (const q of questionsFor(reg, answers, surface)) {
     const e = validate(reg, q, answers[q.id], surface)
     if (e) out[q.id] = e
   }
@@ -130,10 +147,27 @@ export function reviewGroups(reg: Registry, answers: Answers): ReviewGroup[] {
 }
 
 /** The submitted answers (contract §4): the flow's questions only, skipped ones omitted. */
-export const submittedAnswers = (reg: Registry, answers: Answers): Record<string, string> =>
-  Object.fromEntries(questionsFor(reg, answers).filter((q) => answers[q.id]).map((q) => [q.id, sentValue(q, answers[q.id]!)]))
+export const submittedAnswers = (reg: Registry, answers: Answers, surface: Surface = 'form'): Record<string, string> =>
+  Object.fromEntries(questionsFor(reg, answers, surface).filter((q) => answers[q.id]).map((q) => [q.id, sentValue(q, answers[q.id]!)]))
 /** RFQ-FIX-1: what travels for one answer — controls removed, a phone in its normalised form (R3, R9). */
 export const sentValue = (q: Question, v: string): string => (q.validation.pattern === 'tel' ? normalizePhone(stripControls(v)) : stripControls(v).trim())
 
 /** Ready to send: every question asked, none invalid. */
-export const complete = (reg: Registry, answers: Answers): boolean => !nextQuestion(reg, answers) && Object.keys(validateAll(reg, answers, 'chat')).length === 0
+export const complete = (reg: Registry, answers: Answers, surface: Surface = 'form'): boolean => !nextQuestion(reg, answers, surface) && Object.keys(validateAll(reg, answers, surface)).length === 0
+
+/**
+ * CHAT-FLOW-1: a chat question as the visitor reads it (and as the alert lists it): `{{first}}` is the first name and
+ * `{{subject}}` the part (parts) or the chosen service. Without that answer the `<labelKey>_anon` wording is used, so a
+ * skipped name never leaves "Great . What company…".
+ */
+export function questionText(reg: Registry, q: Question, answers: Answers): string {
+  const raw = reg.strings[q.labelKey] ?? ''
+  const parts = answers.purpose === 'parts'
+  const subjectQ = parts ? reg.chatQuestions?.find((x) => x.id === 'parts_part') : reg.chatQuestions?.find((x) => x.id === 'purpose')
+  const subjectValue = parts ? answers.parts_part : answers.purpose
+  const subject = subjectQ && subjectValue ? displayValue(reg, subjectQ, subjectValue) : ''
+  const values: Record<string, string> = { first: (answers.first_name ?? '').trim(), subject }
+  const missing = [...raw.matchAll(/\{\{(\w+)\}\}/g)].some((m) => !values[m[1]!])
+  const key = missing && reg.strings[`${q.labelKey}_anon`] !== undefined ? `${q.labelKey}_anon` : q.labelKey
+  return (reg.strings[key] ?? '').replace(/\{\{(\w+)\}\}/g, (_, k: string) => values[k] ?? '')
+}
