@@ -14,7 +14,8 @@ vi.mock('../revocation',()=>({computeRevocations:vi.fn(async()=>({routeIds:new S
 vi.mock('react',async(orig)=>({...((await orig()) as Record<string,unknown>),cache:<F extends (...a:never[])=>unknown>(fn:F)=>{const m=new Map<string,unknown>();return ((...a:never[])=>{const k=JSON.stringify(a);if(!m.has(k))m.set(k,fn(...a));return m.get(k)}) as F}}))
 
 const record={routeId:'SALMON-pages-1891',path:'/contact-us/',family:'salmon',routeClass:'pages',title:'Contact',seo:{},_status:'published',disposition:{state:'PUBLIC',export:true},document:{routeId:'SALMON-pages-1891',children:[],seo:{}},source:{},slots:[],restoredSections:[]}
-beforeEach(()=>{find.mockReset();getPayload.mockClear();find.mockResolvedValue({docs:[record]});process.env.H2O_CONTENT_SOURCE='payload'})
+beforeEach(()=>{process.env.H2O_PAGE_CACHE='off' // SPEED-2's page cache has its own tests; this one pins the request-level read
+  find.mockReset();getPayload.mockClear();find.mockResolvedValue({docs:[record]});process.env.H2O_CONTENT_SOURCE='payload'})
 
 describe('SPEED-1: one read per request',()=>{
   it('two resolutions of the same path in one request read the database once; another path reads again',async()=>{
