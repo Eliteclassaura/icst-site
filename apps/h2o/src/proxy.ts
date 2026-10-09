@@ -37,6 +37,7 @@ import { verificationFileFor } from './content/verification-files'
 import { privateRobotsBody } from './content/robots-allow'
 import { NextResponse, type NextRequest } from 'next/server'
 import { redirectLocation } from './redirect-location'
+import { legacyImageTarget } from './content/legacy-image-redirects'
 import { SITEMAP_FILE_HEADER } from './content/sitemap-request'
 import { scriptHashesFor } from './site/csp-hashes'
 import { xRobotsTagForPath } from './site/robots'
@@ -370,6 +371,14 @@ export function mfaRoute(req: NextRequest): NextResponse | null {
 export function proxy(req: NextRequest): NextResponse {
   const mfa = mfaRoute(req)
   if (mfa) return mfa
+  // LEGACY-IMG-REDIRECTS (IMG-SEO-1 phase A, CT 2026-10-08): an old WordPress upload URL answers 301 to the file served today, in both
+  // content modes. Data-driven (content/release/legacy-image-redirects.json); an unknown upload path is not touched and stays a 404.
+  const legacyImage = legacyImageTarget(req.nextUrl.pathname)
+  if (legacyImage) {
+    const res = NextResponse.redirect(redirectLocation(legacyImage, req), 301)
+    res.headers.set('Cache-Control', 'public, max-age=86400')
+    return res
+  }
   if (isPayloadContent()) return payloadPublic(req)
   if (EXCLUDED.test(req.nextUrl.pathname)) return NextResponse.next()
   if (CRM_PATH.test(req.nextUrl.pathname)) return crmResponse(req)
