@@ -1369,9 +1369,15 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
   color: var(--sp-blue);
   display: inline-flex;
   min-block-size: 44px;
-  min-inline-size: 44px;
   padding-inline: 4px;
   text-decoration: none;
+}
+
+/* phone: the links wrap under the heading; the first link's text sits on the grid edge (its 4px tap-target padding hangs outside) */
+@media (max-width: 600px) {
+  .global-chrome .sp-footer-locations ul {
+    margin-inline-start: -4px;
+  }
 }
 
 .global-chrome .sp-footer-locations a:is(:hover, :focus-visible) {

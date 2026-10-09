@@ -1337,16 +1337,32 @@ button):hover {
 .global-chrome .sp-footer-legal {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: baseline;
+  justify-content: flex-start;
   gap: 4px 10px;
   padding-block-start: 20px;
   color: var(--sp-muted);
   font-size: 12px;
-  text-align: center;
+  text-align: start;
 }
 .global-chrome .sp-footer-legal a {
   color: var(--sp-blue);
   text-decoration: none;
+}
+/* FOOTER-ALIGN-1: the copyright sits on the grid's left edge, the four legal links on the same row and baseline, at its right edge. */
+.global-chrome .sp-footer-legal > a:first-of-type {
+  margin-inline-start: auto;
+}
+
+@media (max-width: 899.98px) {
+  .global-chrome .sp-footer-legal > span {
+    flex: 0 0 100%;
+  }
+
+  /* stacked: the first link's text sits on the grid edge (its 4px tap-target padding hangs outside) */
+  .global-chrome .sp-footer-legal > a:first-of-type {
+    margin-inline-start: -4px;
+  }
 }
 
 @media (max-width: 1099.98px) {
