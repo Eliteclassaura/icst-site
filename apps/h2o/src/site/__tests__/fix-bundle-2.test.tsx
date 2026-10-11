@@ -89,12 +89,17 @@ describe('404',()=>{
 })
 
 describe('Launcher placement site-wide',()=>{
-  it('every page header mounts the placement; below 768 the launcher is the icon circle and holds while the first screen or the quote form is in view',()=>{
+  // LAUNCHER-PLACEMENT-1 (owner product decision, 2026-10-11, via CT): the launcher is a chat icon that stays visible and tappable
+  // on a phone. The earlier holds (the first screen, scrolling down until a scroll up or the page end) are removed; the only hold
+  // left is the inline quote form on screen, so the icon never covers a field. This test pins that change.
+  it('every page header mounts the placement; below 768 the launcher is the icon circle and is held only while the quote form is in view',()=>{
     expect(readFileSync(path.join(APP,'src/site/LuxuryShell.tsx'),'utf8')).toContain('<LauncherPlacement/>')
     renderToStaticMarkup(<LuxuryHeader/>)
     const src=readFileSync(path.join(APP,'src/site/LauncherPlacement.tsx'),'utf8')
     expect(src).toContain("document.getElementById('request-a-quote')")
-    expect(src).toContain('y<window.innerHeight*0.6')
+    expect(src).toMatch(/const hold=phone\.matches&&formInView/)
+    expect(src).not.toContain('innerHeight*0.6')
+    expect(src).not.toContain("addEventListener('scroll'")
     expect(css).toMatch(/@media \(width < 768px\) \{\s*body \[data-rfq-launcher\] \{[^}]*block-size: 48px;/)
     expect(css).toMatch(/:root\[data-launcher-hold\] \[data-rfq-launcher\] \{[^}]*visibility: hidden;/)
   })
@@ -185,11 +190,13 @@ describe('SEO R17 prep (Codex offline check): parts hub page value and social he
 })
 
 describe('QA R17B',()=>{
-  it('S2: on a phone the launcher is held while scrolling down and returns on scroll-up and at the page end, which the footer keeps clear',()=>{
+  // LAUNCHER-PLACEMENT-1 (owner product decision, 2026-10-11, via CT): this S2 hold (scroll-down, until a scroll up or the page end)
+  // is REMOVED. The launcher is a chat icon that stays visible and tappable on a phone; the footer's clear space is kept.
+  it('S2 (superseded by LAUNCHER-PLACEMENT-1): the phone launcher is not held while scrolling; the footer keeps its clear space',()=>{
     const src=readFileSync(path.join(APP,'src/site/LauncherPlacement.tsx'),'utf8')
-    expect(src).toContain('(down&&!atEnd())')
-    expect(src).toContain('if(y>lastY+6)down=true')
-    expect(src).toContain('else if(y<lastY-6)down=false')
+    expect(src).not.toContain('(down&&!atEnd())')
+    expect(src).not.toContain('down=true')
+    expect(src).not.toContain('lastY')
     expect(css).toMatch(/body:not\(:has\(\.dr3-sticky\)\) \.sp-footer \{\s*padding-block-end: calc\(80px \+ env\(safe-area-inset-bottom\)\);/)
   })
   it('M3: product gallery, hero and series renders are named when the source has no alt; thumbnails stay decorative (their button is labelled)',async()=>{

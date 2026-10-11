@@ -1235,8 +1235,10 @@ main :is(p, li, td, dd, blockquote, figcaption) a:not([class], nav a, [role='but
 
 /*
  * Site-wide launcher placement (CT 2026-10-07; QA S3, Codex (d)): below 768 px the corner launcher is the R4 48 px icon
- * circle on every page (its accessible name is unchanged) and is held back while the first screen or the inline quote form
- * is in view (LauncherPlacement.tsx). Pages with the R3 action bar keep their lift above it (design-r3.css).
+ * circle on every page (its accessible name is unchanged). It is held back only while the inline quote form (#request-a-quote)
+ * is in view (LauncherPlacement.tsx; LAUNCHER-PLACEMENT-1, 2026-10-11: the first-screen and scroll-direction holds were removed,
+ * an owner product decision, so the icon stays visible and tappable while reading). Pages with the R3 action bar keep their lift
+ * above it (design-r3.css).
  */
 @media (width < 768px) {
   body [data-rfq-launcher] {
