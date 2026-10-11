@@ -4,7 +4,7 @@ import { stepUpLeft } from '../../../../../../email/settings-page'
 import {
   libraryRow,
   renderSample,
-  SAMPLE_RECIPIENTS,
+  sampleRecipients,
   unknownFields,
   variantsOf,
 } from '../../../../../../crm/library/service'
@@ -36,7 +36,8 @@ export default async function LibraryRowPage({
   const skeleton = row.status === 'SKELETON'
   const variants = isEmail ? variantsOf(row, template) : []
   const vi = Math.min(Math.max(Number(sp.v ?? 0) || 0, 0), Math.max(variants.length - 1, 0))
-  const who = SAMPLE_RECIPIENTS.find((x) => x.id === sp.as) ?? SAMPLE_RECIPIENTS[0]!
+  const samples = await sampleRecipients(s.payload)
+  const who = samples.find((x) => x.id === sp.as) ?? samples[0]!
   const shown = variants[vi]
   const merged = shown ? renderSample(shown.subject, shown.body, who.values) : null
   const left = s.isAdmin ? await stepUpLeft(s) : 0
@@ -173,7 +174,7 @@ export default async function LibraryRowPage({
             <div className="c-panel-body is-padded">
               <p className="er-pick">
                 <span id="er-as">Preview as</span>{' '}
-                {SAMPLE_RECIPIENTS.map((x) => (
+                {samples.map((x) => (
                   <a
                     key={x.id}
                     className="c-chip"
@@ -201,10 +202,15 @@ export default async function LibraryRowPage({
               ) : null}
               <p className="c-hint">
                 Sample data (not a real contact). Merge fields with no value show as “Missing”.
+                Choices show their first option in this preview.
               </p>
               {merged.missing.length ? (
                 <p className="c-banner is-warning" role="status">
                   This email would be held: missing {merged.missing.join(', ')}.
+                </p>
+              ) : !skeleton ? (
+                <p className="c-banner" role="status">
+                  Pass: no missing sample merge fields.
                 </p>
               ) : null}
               <div className="er-paper" role="group" aria-label="Email preview">

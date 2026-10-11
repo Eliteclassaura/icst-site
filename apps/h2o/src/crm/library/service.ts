@@ -165,19 +165,40 @@ export function variantsOf(row: Doc, template: Doc | null): ShownVariant[] {
   return out
 }
 
-/** Synthetic sample recipients for the preview (never a real contact). One has missing fields on purpose. */
-export const SAMPLE_RECIPIENTS: Array<{ id: string; label: string; values: Record<string, string> }> = [
+export type SampleRecipient = { id: string; label: string; values: Record<string, string> }
+
+/** Synthetic sample recipients for the preview (never a real contact). The settings supply A/B's signature below. */
+export const SAMPLE_RECIPIENTS: SampleRecipient[] = [
   {
     id: 'a',
     label: 'Sample A (complete)',
     values: {
       first_name: 'Alex',
+      customer_first_name: 'Alex',
+      greeting: 'Hi Alex,',
+      rfq_number: 'RFQ-SAMPLE-0001',
       rfq_reference: 'RFQ-SAMPLE-0001',
       quote_reference: 'Q-SAMPLE-0001',
       opportunity_reference: 'OPP-SAMPLE-0001',
       verified_account_name: 'Northwind Plant (sample)',
       verified_account_or_site_label: 'Northwind Plant (sample)',
       verified_site_name: 'Northwind East (sample)',
+      verified_asset_label: 'Northwind tower A (sample)',
+      verified_open_technical_item: 'the design-flow confirmation (sample)',
+      verified_question: 'the requested water-temperature range (sample)',
+      approved_upgrade_objective: 'reduce fan energy use (sample)',
+      verified_scope_label: 'fan replacement for tower A (sample)',
+      verified_next_review_date: 'October 20, 2026 (sample)',
+      verified_open_revision_item: 'the revised fan specification (sample)',
+      verified_service_window_phrase: 'the planned October outage (sample)',
+      approved_condition_or_request_summary: 'The example fan assembly needs a condition review (sample).',
+      approved_missing_part_identification_request: 'Please share a photo of the example name plate (sample).',
+      verified_part_request_label: 'the example fan assembly (sample)',
+      company: 'Northwind Plant (sample)',
+      sales_rep_name: 'Example Sales Team (sample)',
+      sales_rep_title: 'Example Sales Role (sample)',
+      response_sentence: 'The example team will review this request (sample).',
+      unsubscribe_url: 'https://example.invalid/unsubscribe/sample-a',
       missing_information_list: 'the design flow and the tower tag',
       safe_salutation: 'Hello',
     },
@@ -187,12 +208,31 @@ export const SAMPLE_RECIPIENTS: Array<{ id: string; label: string; values: Recor
     label: 'Sample B (complete)',
     values: {
       first_name: 'Jordan',
+      customer_first_name: 'Jordan',
+      greeting: 'Hi Jordan,',
+      rfq_number: 'RFQ-SAMPLE-0002',
       rfq_reference: 'RFQ-SAMPLE-0002',
       quote_reference: 'Q-SAMPLE-0002',
       opportunity_reference: 'OPP-SAMPLE-0002',
       verified_account_name: 'Harbor Process Co (sample)',
       verified_account_or_site_label: 'Harbor Process Co (sample)',
       verified_site_name: 'Harbor North (sample)',
+      verified_asset_label: 'Harbor tower B (sample)',
+      verified_open_technical_item: 'the water-source confirmation (sample)',
+      verified_question: 'the requested operating schedule (sample)',
+      approved_upgrade_objective: 'improve tower access for maintenance (sample)',
+      verified_scope_label: 'fill replacement for tower B (sample)',
+      verified_next_review_date: 'November 3, 2026 (sample)',
+      verified_open_revision_item: 'the revised fill specification (sample)',
+      verified_service_window_phrase: 'the planned November outage (sample)',
+      approved_condition_or_request_summary: 'The example fill pack needs a condition review (sample).',
+      approved_missing_part_identification_request: 'Please share the example tower tag and part photo (sample).',
+      verified_part_request_label: 'the example fill pack (sample)',
+      company: 'Harbor Process Co (sample)',
+      sales_rep_name: 'Example Sales Team (sample)',
+      sales_rep_title: 'Example Sales Role (sample)',
+      response_sentence: 'The example team will review this request (sample).',
+      unsubscribe_url: 'https://example.invalid/unsubscribe/sample-b',
       missing_information_list: 'the water source',
       safe_salutation: 'Hello',
     },
@@ -200,12 +240,30 @@ export const SAMPLE_RECIPIENTS: Array<{ id: string; label: string; values: Recor
   { id: 'c', label: 'Sample C (missing fields)', values: { first_name: 'Sam' } },
 ]
 
+/** Read only the engine settings. Match the engine's team/email signature; C stays deliberately incomplete. */
+export async function sampleRecipients(payload: Payload): Promise<SampleRecipient[]> {
+  const settings = await ersSettings(payload)
+  const signature = [settings.signature.signer, settings.signature.email].filter(Boolean).join('\n')
+  return SAMPLE_RECIPIENTS.map((sample) => ({
+    ...sample,
+    values: sample.id === 'c' ? { ...sample.values } : {
+      ...sample.values,
+      sequence_signature: signature,
+      email_signature: signature,
+    },
+  }))
+}
+
 export type Rendered = { subject: string; body: string; missing: string[] }
-/** Fill {{fields}} with sample values. A field with no value stays visible as «Missing: name» and is reported. */
+/** Fill sample fields; preview-only choices use their first option. Real sends still require an explicit choice. */
 export function renderSample(subject: string, body: string, values: Record<string, string>): Rendered {
   const missing = new Set<string>()
   const fill = (t: string) =>
     t.replace(/\{\{\s*([^{}]*?)\s*\}\}/g, (_m, n: string) => {
+      if (n.startsWith('choice:')) {
+        const options = n.slice(7).split('|').map((option) => option.trim()).filter(Boolean)
+        if (options.length >= 2) return options[0]!
+      }
       const v = values[n]
       if (v) return v
       missing.add(n)
