@@ -1,3 +1,4 @@
+import { notifyProfileChange } from './profile-notice'
 import type { Payload } from 'payload'
 import { confirmStepUp, confirmStepUpApp, loadMfaUser, stepUpAppSecondsLeft, stepUpSecondsLeft } from '../auth/mfa/service'
 import { readEmailConfig, recipientKey } from './config'
@@ -36,6 +37,8 @@ export type SendingDeps = {
   send?: (s: SmtpSettings, m: MailMessage) => Promise<void>
   resolve?: (host: string) => Promise<Array<{ address: string }>>
   now?: Date
+  /** Test seam for the admin notice mail (default: the Payload mail adapter). */
+  notify?: (to: string, subject: string, text: string) => Promise<void>
 }
 
 const NOT_ADMIN = fail('FORBIDDEN', 'Sending profiles are for admins.')
@@ -157,6 +160,7 @@ export async function saveProfile(s: CrmSession, sid: string | null, input: Prof
   // Sealed with the record id as context, so the value only opens for this profile.
   if (password) await s.payload.update({ collection: SLUG, id, data: { password_sealed: seal(password, passwordContext(id)), password_set: true, ...checkReset } as never, ...by(s) })
   invalidateProfiles()
+  await notifyProfileChange(s, existing ? 'saved' : 'created', data.name as string, deps.now, { notify: deps.notify })
   return { ok: true, message: existing ? 'Profile saved.' : 'Profile added. Check the connection, then turn it on.', id }
 }
 
@@ -173,12 +177,16 @@ export async function setProfileActive(s: CrmSession, sid: string | null, id: st
   const doc = await load(s, id)
   if (!doc) return fail('NOT_FOUND', 'That profile no longer exists.')
   if (on && doc.last_check_state !== 'OK') return fail('PROFILE_NOT_CHECKED', 'Check the connection first. A profile is turned on only after a successful check.')
+  // C-S1: the notice for TURNING ON goes out BEFORE the switch, so it travels through the profile that is trusted today (never
+  // through the profile being turned on, which could be an attacker's server that would swallow its own notice).
+  if (on) await notifyProfileChange(s, 'activated', String(doc.name ?? ''), deps.now, { notify: deps.notify })
   if (on) {
     const others = await s.payload.find({ collection: SLUG, where: { and: [{ use: { equals: doc.use } }, { active: { equals: true } }, { id: { not_equals: doc.id } }] } as never, limit: 10, ...sys })
     for (const o of others.docs as unknown as Doc[]) await s.payload.update({ collection: SLUG, id: String(o.id), data: { active: false } as never, ...by(s) })
   }
   await s.payload.update({ collection: SLUG, id: String(doc.id), data: { active: on } as never, ...by(s) })
   invalidateProfiles()
+  if (!on) await notifyProfileChange(s, 'deactivated', String(doc.name ?? ''), deps.now, { notify: deps.notify })
   return { ok: true, message: on ? 'Profile turned on. New email is sent through it.' : 'Profile turned off. Email uses the server’s default settings, if any.' }
 }
 
@@ -191,6 +199,7 @@ export async function deleteProfile(s: CrmSession, sid: string | null, id: strin
   if (doc.active === true) return fail('PROFILE_ACTIVE', 'Turn the profile off before deleting it.')
   await s.payload.delete({ collection: SLUG, id: String(doc.id), ...by(s) })
   invalidateProfiles()
+  await notifyProfileChange(s, 'deleted', String(doc.name ?? ''), deps.now, { notify: deps.notify })
   return { ok: true, message: 'Profile deleted.' }
 }
 

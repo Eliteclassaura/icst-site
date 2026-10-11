@@ -24,18 +24,26 @@ async function adminAddresses(payload: Payload): Promise<string[]> {
   }
 }
 
-export async function notifyStepUpLock(payload: Payload, userId: string | number, now: Date, deps: LockNoticeDeps = {}): Promise<void> {
+/** Email every admin one short notice and audit the counts only (never an address). Best effort; a failed send changes nothing. */
+export async function notifyAdmins(
+  payload: Payload,
+  e: { kind: string; subject: string; text: string; userId: string | number; actorId: string | null },
+  deps: LockNoticeDeps = {},
+): Promise<void> {
   try {
     const recipients = await adminAddresses(payload)
     const send = deps.notify ?? ((to: string, subject: string, text: string) => payload.sendEmail({ to, subject, text }).then(() => undefined))
     let sent = 0
     let timer: ReturnType<typeof setTimeout> | undefined
-    const text = lockNoticeText(now.toISOString().slice(0, 10))
-    const jobs = recipients.map((to) => send(to, LOCK_NOTICE_SUBJECT, text).then(() => void sent++, () => undefined))
+    const jobs = recipients.map((to) => send(to, e.subject, e.text).then(() => void sent++, () => undefined))
     await Promise.race([Promise.all(jobs), new Promise<void>((r) => (timer = setTimeout(r, deps.deadlineMs ?? DEADLINE_MS)))])
     clearTimeout(timer)
-    await writeSecurityAudit(payload, { action: 'mfa-admin-notice', userId: String(userId), actorId: null, detail: { for: 'stepup-lock', recipients: recipients.length, sent, failed: recipients.length - sent } })
+    await writeSecurityAudit(payload, { action: 'mfa-admin-notice', userId: String(e.userId), actorId: e.actorId, detail: { for: e.kind, recipients: recipients.length, sent, failed: recipients.length - sent } })
   } catch {
-    payload.logger.error({ code: 'STEPUP_LOCK_NOTICE_FAILED' })
+    payload.logger.error({ code: 'ADMIN_NOTICE_FAILED', kind: e.kind })
   }
+}
+
+export async function notifyStepUpLock(payload: Payload, userId: string | number, now: Date, deps: LockNoticeDeps = {}): Promise<void> {
+  await notifyAdmins(payload, { kind: 'stepup-lock', subject: LOCK_NOTICE_SUBJECT, text: lockNoticeText(now.toISOString().slice(0, 10)), userId, actorId: null }, deps)
 }
