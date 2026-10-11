@@ -1364,7 +1364,7 @@ button):hover {
  */
 @media (min-width: 768px) {
   .global-chrome .sp-footer {
-    padding-block-end: calc(80px + env(safe-area-inset-bottom));
+    padding-block-end: calc(88px + env(safe-area-inset-bottom));
   }
 }
 
