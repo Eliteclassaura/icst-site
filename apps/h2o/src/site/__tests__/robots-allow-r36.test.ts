@@ -7,6 +7,7 @@ import { mkdirSync, mkdtempSync, renameSync, symlinkSync, writeFileSync } from '
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { parseRobotsAllowAgents, privateRobotsBody } from '../../content/robots-allow'
+import { productionRobotsBody } from '../../content/robots-production'
 
 const O = 'https://h2ocooling.com'
 const env = { ...process.env }
@@ -72,9 +73,12 @@ describe('robots.txt from the proxy (payload runtime)', () => {
     process.env.H2O_ROBOTS_ALLOW_AGENTS = ''
     expect(await robots()).toBe(TODAY_PRIVATE)
   })
-  it('production ignores the variable: the accepted production robots, unchanged', async () => {
+  it('production ignores the variable: the production robots (AEO-1: the accepted * group first, then the named AI crawlers), no audit crawler added', async () => {
     process.env.H2O_INDEXING_POLICY = 'production'
     process.env.H2O_ROBOTS_ALLOW_AGENTS = 'SiteAuditBot,SemrushBot-SA'
-    expect(await robots()).toBe(TODAY_PRODUCTION)
+    const body = await robots()
+    expect(body).toBe(productionRobotsBody())
+    expect(body.startsWith(TODAY_PRODUCTION.replace(/Sitemap:.*\n$/, ''))).toBe(true)
+    expect(body).not.toMatch(/SiteAuditBot|SemrushBot/)
   })
 })

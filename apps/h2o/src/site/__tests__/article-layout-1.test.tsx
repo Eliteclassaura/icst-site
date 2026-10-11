@@ -110,7 +110,7 @@ describe('the article page',()=>{
     expect(html).toContain('class="wave4-article-deck"')
     expect(html).toMatch(/By <a href="[^"]+">Tim Bozic<\/a>/)
     expect(html).toMatch(/Published <time dateTime="2026-07-03">July 3, 2026<\/time>/)
-    expect(html).toMatch(/Updated <time dateTime="2026-07-14">July 14, 2026<\/time>/)
+    expect(html).toMatch(/Last updated <time dateTime="2026-07-14">July 14, 2026<\/time>/)
     expect(html).toMatch(/11 min read/)
     expect(html).toContain('application/ld+json')
   })

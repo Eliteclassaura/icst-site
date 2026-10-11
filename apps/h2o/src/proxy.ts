@@ -35,6 +35,7 @@ import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { verificationFileFor } from './content/verification-files'
 import { privateRobotsBody } from './content/robots-allow'
+import { productionRobotsBody } from './content/robots-production'
 import { NextResponse, type NextRequest } from 'next/server'
 import { redirectLocation } from './redirect-location'
 import { legacyImageTarget } from './content/legacy-image-redirects'
@@ -268,7 +269,7 @@ function verificationResponse(pathname: string): NextResponse | null {
 export function robotsResponse(): NextResponse {
   const production = process.env.H2O_INDEXING_POLICY === 'production'
   const body = production
-    ? 'User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /api/\nDisallow: /crm/\nDisallow: /private/\nSitemap: https://h2ocooling.com/sitemap_index.xml\n'
+    ? productionRobotsBody() // AEO-1: the accepted rules plus the named AI crawlers (./content/robots-production)
     : privateRobotsBody() // R3.6: named audit crawlers (H2O_ROBOTS_ALLOW_AGENTS) first; everyone else disallowed
   return new NextResponse(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache' } })
 }
@@ -306,6 +307,8 @@ function payloadPublic(req: NextRequest): NextResponse {
     return withRobots(NextResponse.rewrite(target, { request: { headers } }), policyFloor(pathname))
   }
   if (pathname === '/robots.txt') return withRobots(robotsResponse(), policyFloor(pathname))
+  // AEO-1: /llms.txt, built from the release data by the route (the production policy adds no X-Robots-Tag; a private policy still does)
+  if (pathname === '/llms.txt') return withRobots(NextResponse.rewrite(new URL('/api/llms/', req.url)), policyFloor(pathname))
   if (EXCLUDED.test(pathname)) return withRobots(passThrough(req), policyFloor(pathname))
   if (CRM_PATH.test(pathname)) return crmResponse(req)
   if (GONE_PATHS.has(pathKeyOf(pathname)))

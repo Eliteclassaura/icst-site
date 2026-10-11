@@ -12,6 +12,7 @@ import {R4Img} from '../r4/R4System'
 import {R4LauncherReveal} from '../r4/R4LauncherReveal'
 import {r5bMedia} from './r5b-media'
 import {PageFaq} from '../PageFaq'
+import {faqPageJsonLd,pageFaqJsonLd} from '../page-faq'
 
 /**
  * Design R5b location template (CT 2026-10-07; DD spec H2O_DESIGN_R5_SPEC_location-template.md). One template for the
@@ -158,6 +159,8 @@ export function R5bLocationPage({doc}:{doc:SalmonDocument}){
     if(faq.length>=2)return <Fragment key={index}>{featuredSection}{officeBand}<section className="dr4-section r5b-closing r5b-faq-band" aria-labelledby="r5b-faq-title"><div className="dr4-navy r5b-closing-panel">
       {s.h2.map(h=><Text key={h.key} item={h} className="dr4-h2 dr4-h2--on-navy"/>)}
       <div className="page-faq-list">{faq.map(pair=><details key={pair.q}><summary>{pair.q}</summary>{pair.a.map(a=><p key={a}>{a}</p>)}</details>)}</div>
+      {/* AEO-1: the FAQPage structured data is generated from these same pairs (a page with a registry FAQ already carries its own, ./page-faq) */}
+      {pageFaqJsonLd(doc.targetPath)?null:<script type="application/ld+json" data-location-faq="" dangerouslySetInnerHTML={{__html:JSON.stringify(faqPageJsonLd(faq.map(pair=>({q:pair.q,a:pair.a.join(' ')})))).replaceAll('<','\\u003c')}}/>}
       <div className="dr4-actions">{quote('faq-quote','Request a Quote','white')}</div>
     </div></section></Fragment>
     const closing=index===rest.length-1&&!s.cards.length&&!s.imgs.length&&s.links.length>0
