@@ -143,7 +143,7 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
     expect(seo.get('/cooling-tower-efficiency-calculation/')).toBe('Cooling Tower Efficiency Calculation: Formula & Steps')
     expect(seo.get('/cooling-tower-blowdown-calculation/')).toBe('Cooling Tower Blowdown Calculation: Formula & Guide')
     expect(seo.get('/product-category/gearboxes/')).toBe('Amarillo Gearbox Replacement | Cooling Tower Gearbox Parts')
-    expect(seo.get('/product/tuf-lite-iii-5000k-series-hub-fan-assemblies/')).toBe('TUF-LITE III 5000K Series Hub Fan Assemblies') // SEO-CONTENT-2.2: OGCS quick-wins title (the fan suffix trimmed)
+    expect(seo.get('/product/tuf-lite-iii-5000k-series-hub-fan-assemblies/')).toBe('TUF-LITE III - 5000K Series Hub Fan Assemblies | Cooling Tower Fans') // SEO-CONTENT-2.2 trimmed the fan suffix; the OGCS staging-audit copy rows (CP-08, 2026-10-11) restore it (GSC ranking terms)
     expect(data('h1-fields.tsv').map(r=>[r.path,r.via,r.h1]).slice(0,3)).toEqual([['/cooling-tower/','slot','New Cooling Tower Engineering & Construction'],['/product-category/gearboxes/','slot','Amarillo Cooling Tower Gearboxes'],['/product-category/drive-shafts-assemblies/','slot','Cooling Tower Couplings & Drive Shafts']])
     // Restored live bodies bring their live H1 (the record title article templates render); Round 5 adds the CT-ruled heading
     // of /cooling-tower-repair-service/ (claims-seo field h1).

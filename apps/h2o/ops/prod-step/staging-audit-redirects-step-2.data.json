@@ -1,8 +1,150 @@
 {
- "note": "STAGING-AUDIT-REDIRECTS-1 (owner decisions 2026-10-11 'all based on what ranks', OGCS rule 2 for the nested repair URLs): the redirects of the staging audit for a database that already holds staff edits (apply-seo-pass is never re-run after GO). Same engine as cf3-prod-step-1.mjs: public-redirects records are created when the source has no record (same destination = UNCHANGED; another destination or inactive = REFUSED); the duplicate Singapore page becomes a REDIRECT draft only when it is still published as PUBLIC (a pending editor draft = REFUSED). Nothing else is written.",
+ "note": "STAGING-AUDIT-FIXES (CT/owner 2026-10-11; OGCS rule 2 and COPY_TRIAGE_ROWS CP-06..CP-19) for a database that already holds staff edits (apply-seo-pass is never re-run after GO). Same engine as cf3-prod-step-1.mjs. (a) redirects: public-redirects records created when the source has no record (same destination = UNCHANGED; another destination or inactive = REFUSED); the duplicate Singapore page becomes a REDIRECT draft only while still published as PUBLIC. (b) meta: an SEO title/description is written only when the stored value is exactly the seeded one (null = never written by the batch); an edited value or a pending editor draft is REFUSED. (c) slotEdits: the Brentwood CF150MAX H1 page element, written only when it holds exactly its imported value. Nothing else is written.",
  "authority": "STAGING-AUDIT-REDIRECTS-1 (CT 2026-10-11)",
- "meta": [],
- "slotEdits": [],
+ "meta": [
+  {
+   "path": "/product/brentwood-cf150max-cellular-drift-eliminator/",
+   "field": "title",
+   "expectedOld": "Brentwood CF150MAx Cellular Drift Eliminator",
+   "new": "Brentwood CF150MAX Cellular Drift Eliminators for Cooling Towers",
+   "row": "CP-06"
+  },
+  {
+   "path": "/product/tuf-lite-ii-5000h-series-hub-fan-assemblies/",
+   "field": "title",
+   "expectedOld": "TUF-LITE II 5000H Series Hub Fan Assemblies",
+   "new": "TUF-LITE II - 5000H Series Hub Fan Assemblies | Cooling Tower Fans",
+   "row": "CP-07"
+  },
+  {
+   "path": "/product/tuf-lite-iii-5000k-series-hub-fan-assemblies/",
+   "field": "title",
+   "expectedOld": "TUF-LITE III 5000K Series Hub Fan Assemblies",
+   "new": "TUF-LITE III - 5000K Series Hub Fan Assemblies | Cooling Tower Fans",
+   "row": "CP-08"
+  },
+  {
+   "path": "/product/tuf-lite-iii-3000k-series-hub-fan-assemblies/",
+   "field": "title",
+   "expectedOld": "TUF-LITE III 3000K Series Hub Fan Assemblies",
+   "new": "TUF-LITE III - 3000K Series Hub Fan Assemblies | Cooling Tower Fans",
+   "row": "CP-09"
+  },
+  {
+   "path": "/product/tuf-lite-ii-4000h-series-hub-fan-assemblies/",
+   "field": "title",
+   "expectedOld": "TUF-LITE II 4000H Series Hub Fan Assemblies",
+   "new": "TUF-LITE II - 4000H Series Hub Fan Assemblies | Cooling Tower Fans",
+   "row": "CP-10"
+  },
+  {
+   "path": "/product/tuf-lite-ii-8000h-series-hub-fan-assemblies/",
+   "field": "title",
+   "expectedOld": "TUF-LITE II 8000H Series Hub Fan Assemblies",
+   "new": "TUF-LITE II - 8000H Series Hub Fan Assemblies | Cooling Tower Fans",
+   "row": "CP-11"
+  },
+  {
+   "path": "/product/tuf-lite-iii-6000k-series-hub-fan-assemblies/",
+   "field": "title",
+   "expectedOld": "TUF-LITE III 6000K Series Hub Fan Assemblies",
+   "new": "TUF-LITE III - 6000K Series Hub Fan Assemblies | Cooling Tower Fans",
+   "row": "CP-12"
+  },
+  {
+   "path": "/product/tuf-lite-iii-6000mk-series-hub-fan-assemblies/",
+   "field": "title",
+   "expectedOld": "TUF-LITE III 6000MK Series Hub Fan Assemblies",
+   "new": "TUF-LITE III - 6000MK Series Hub Fan Assemblies | Cooling Tower Fans",
+   "row": "CP-13"
+  },
+  {
+   "path": "/product/tuf-lite-iii-4000kw-very-low-noise-series-hub-fan-assemblies/",
+   "field": "title",
+   "expectedOld": "TUF-LITE III 4000KW Very Low Noise Series",
+   "new": "TUF-LITE III - 4000KW Very Low Noise Series | Cooling Tower Fans",
+   "row": "CP-07x (OGCS: same suffix on the other TUF-LITE II/III pages)"
+  },
+  {
+   "path": "/product/tuf-lite-ii-6000h-series-hub-fan-assemblies/",
+   "field": "title",
+   "expectedOld": "TUF-LITE II 6000H Series Hub Fan Assemblies",
+   "new": "TUF-LITE II - 6000H Series Hub Fan Assemblies | Cooling Tower Fans",
+   "row": "CP-07x (OGCS: same suffix on the other TUF-LITE II/III pages)"
+  },
+  {
+   "path": "/product/tuf-lite-ii-7000h-series-hub-fan-assemblies/",
+   "field": "title",
+   "expectedOld": "TUF-LITE II 7000H Series Hub Fan Assemblies",
+   "new": "TUF-LITE II - 7000H Series Hub Fan Assemblies | Cooling Tower Fans",
+   "row": "CP-07x (OGCS: same suffix on the other TUF-LITE II/III pages)"
+  },
+  {
+   "path": "/product/tuf-lite-ii-6000mh-series-hub-fan-assemblies/",
+   "field": "title",
+   "expectedOld": "TUF-LITE II 6000MH Series Hub Fan Assemblies",
+   "new": "TUF-LITE II - 6000MH Series Hub Fan Assemblies | Cooling Tower Fans",
+   "row": "CP-07x (OGCS: same suffix on the other TUF-LITE II/III pages)"
+  },
+  {
+   "path": "/hybrid-cooling-systems/",
+   "field": "description",
+   "expectedOld": "Hybrid cooling systems blend wet and dry technologies to save water, reduce energy use, and boost cooling efficiency for industrial and commercial operations.",
+   "new": "Hybrid cooling systems blend wet and dry technologies to save water, reduce energy use, and boost cooling efficiency for industrial operations.",
+   "row": "CP-14"
+  },
+  {
+   "path": "/cooling-tower-project-budget/",
+   "field": "description",
+   "expectedOld": "A robust Cooling Tower Project Budget is the foundation of a successful industrial or commercial capital project. Yet, a staggering number of these projects",
+   "new": "A cooling tower project budget is the foundation of a successful industrial capital project. Learn 12 ways to stop budget overruns.",
+   "row": "CP-15"
+  },
+  {
+   "path": "/category/cooling-tower-cost/",
+   "field": "description",
+   "expectedOld": "ICS articles on cooling tower cost: replacement budgeting, ROI and hidden expenses, plus risk management strategies for commercial cooling towers.",
+   "new": "ICS articles on cooling tower cost: replacement budgeting, ROI and hidden expenses, plus risk management strategies for industrial cooling towers.",
+   "row": "CP-16"
+  },
+  {
+   "path": "/category/cooling-tower-fans/",
+   "field": "description",
+   "expectedOld": "Articles from ICS on cooling tower fans, integral parts of industrial, commercial, and institutional cooling systems that facilitate heat transfer.",
+   "new": "Articles from ICS on cooling tower fans, integral parts of industrial cooling systems that facilitate heat transfer.",
+   "row": "CP-17"
+  },
+  {
+   "path": "/cooling-tower-parts-online/",
+   "field": "description",
+   "expectedOld": "Explore cooling tower parts online, including motors, gearboxes, drift eliminators, nozzles, and OEM cooling tower components worldwide.",
+   "new": "Explore cooling tower parts online and components including motors, gearboxes, drift eliminators, nozzles and fill media. Request a quote from ICS.",
+   "row": "CP-18"
+  },
+  {
+   "path": "/cooling-tower-certified-parts/",
+   "field": "description",
+   "expectedOld": null,
+   "new": "Learn why certified cooling tower parts matter for efficiency and safety, how to spot counterfeit parts and how to source them with confidence.",
+   "row": "CP-19"
+  }
+ ],
+ "slotEdits": [
+  {
+   "path": "/product/brentwood-cf150max-cellular-drift-eliminator/",
+   "fixes": [
+    {
+     "key": "body.1.1.1.1.1",
+     "field": "heading",
+     "row": "CP-06",
+     "before": "\"Brentwood CF150MAx Cellular Drift Eliminator\"",
+     "after": "Brentwood CF150MAX Cellular Drift Eliminator",
+     "afterCanon": "\"Brentwood CF150MAX Cellular Drift Eliminator\"",
+     "accept": []
+    }
+   ]
+  }
+ ],
  "redirects": [
   {
    "source": "/cooling-tower-singapore/",

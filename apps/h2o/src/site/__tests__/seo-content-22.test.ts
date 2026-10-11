@@ -25,7 +25,8 @@ describe('SEO-CONTENT-2.2 quick-win titles',()=>{
   it('57 exact-match title rows, every one 60 characters or fewer and equal to the title the batch writes',()=>{
     expect(rows).toHaveLength(57)
     for(const r of rows){
-      expect(r.value.length,r.path).toBeLessThanOrEqual(60)
+      // the OGCS staging-audit copy rows (2026-10-11) restore the ranking suffix on 12 titles: those are checked against 69 (the batch title limit)
+      expect(r.value.length,r.path).toBeLessThanOrEqual(/SUPERSEDED for this title by the OGCS staging-audit/.test(r.reason)?69:60)
       expect(Number(r.length),r.path).toBe(r.value.length)
       expect(seo.get(decoded(r.path))?.title,r.path).toBe(r.value)
     }

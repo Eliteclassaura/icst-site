@@ -457,7 +457,7 @@ describe('apply expectations for this delta',()=>{
     expect(exp.expect.seoFields).toMatchObject({update:72,unchanged:417,pendingOgcs:0}) // COUNTRY-PAGES: + US title/meta, Singapore meta, Thailand meta (new row), - the two PTT rows and the old Thailand row; CONTENT-FIX-3: + 1 (UP2-02 category meta); SEO-CONTENT-2.2: + 56 (quick-win titles, air-coolers meta); 8 SEO-CONTENT-1 + 1 R5b (/cooling-tower/ meta) + 2 round 2 (seminar, checklist metas)
     expect(exp.expect.h1).toEqual({update:27}) // COUNTRY-PAGES: - the old Thailand page's H1 row (a 301 now); + the PETRONAS record title (SEO-CONTENT-2); 23 SEO-CONTENT-1 + 2 R5b (USA, Singapore); + 2 DIR-LABELS-1 (dry soda, Thailand)
     expect([exp.rows,exp.redirects,exp.seoFields]).toEqual([1143,429,489])
-    expect(tsv('seo-fields.tsv')).toHaveLength(489)
+    expect(tsv('seo-fields.tsv')).toHaveLength(490) // STAGING-AUDIT CP-19: + one meta row
     expect(tsv('redirects.tsv')).toHaveLength(444) // STAGING-AUDIT-REDIRECTS-1: + fifteen
     expect(tsv('conformance.tsv')).toHaveLength(1143)
     expect(tsv('h1-fields.tsv').filter(r=>r.action==='UPDATE')).toHaveLength(27)

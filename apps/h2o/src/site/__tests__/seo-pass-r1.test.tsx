@@ -148,7 +148,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: the published Thai Salmon page (its own title, the live meta).
     // R2.2: + the D3 portfolio row (CT-ruled meta and title). R2.4: + 12 rows of the OGCS R2.4 titles/metas (13 pages; the
     // /industrial-cooling-towers/ row existed). R2.4 R2: + the 15 archive metas (OGCS R2.4A).
-    expect(seo).toHaveLength(489) // PROJECT-IMAGES-1 R2: - the two PTT portfolio rows (301s now); COUNTRY-PAGES: the Thailand row moves to /cooling-tower-thailand/; R2.5: + the /cooling-tower-construction/ title row (OGCS R2.5); SEO-CONTENT-1: - the five held pages' rows (their decided titles are dropped)
+    expect(seo).toHaveLength(490) // STAGING-AUDIT CP-19: + /cooling-tower-certified-parts/ (meta row, OEM/warranty wording removed); PROJECT-IMAGES-1 R2: - the two PTT portfolio rows (301s now); COUNTRY-PAGES: the Thailand row moves to /cooling-tower-thailand/; R2.5: + the /cooling-tower-construction/ title row (OGCS R2.5); SEO-CONTENT-1: - the five held pages' rows (their decided titles are dropped)
     const titles=seo.map(row=>row.title!)
     expect(new Set(titles).size).toBe(titles.length)
     // a meta-only row keeps the page's current title (two noindex tag archives keep their term-list titles)
@@ -161,12 +161,12 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     expect(seo.filter(row=>row.meta_origin==='OGCS_SUPPLEMENT')).toHaveLength(35) // SEO-CONTENT-1: one of the five held pages carried a supplement meta
     // The wrong-model meta is corrected to the product's own model (CT parity audit risk 6).
     const fan=seo.find(row=>row.path==='/product/tuf-lite-ii-5000h-series-hub-fan-assemblies/')!
-    expect(fan.title).toBe('TUF-LITE II 5000H Series Hub Fan Assemblies') // SEO-CONTENT-2.2: OGCS quick-wins title
+    expect(fan.title).toBe('TUF-LITE II - 5000H Series Hub Fan Assemblies | Cooling Tower Fans') // SEO-CONTENT-2.2 trimmed the suffix; OGCS staging-audit CP-07 (2026-10-11) restores it
     expect(fan.meta).toContain('5000H');expect(fan.meta).not.toContain('6000H')
     expect(new Set(written.map(row=>row.meta)).size).toBe(written.length)
     for(const row of written){expect(row.meta!.length,row.path).toBeGreaterThanOrEqual(70);expect(row.meta!.length,row.path).toBeLessThanOrEqual(160);expect(row.meta,row.path).not.toMatch(FORBIDDEN)}
     expect(seo.find(row=>row.path==='/category/blog/')?.meta).toBe('Cooling tower articles from ICS on replacement planning, free cooling, water management plans, noise limits, retrofits and lifecycle asset management.')
-    expect(seo.find(row=>row.path==='/category/cooling-tower-cost/')?.meta).toBe('ICS articles on cooling tower cost: replacement budgeting, ROI and hidden expenses, plus risk management strategies for commercial cooling towers.')
+    expect(seo.find(row=>row.path==='/category/cooling-tower-cost/')?.meta).toBe('ICS articles on cooling tower cost: replacement budgeting, ROI and hidden expenses, plus risk management strategies for industrial cooling towers.') // OGCS staging-audit CP-16 (industrial-only)
     expect(EMPTY_ARCHIVE_PATHS).toContain('/category/cooling-tower-cost/')
   })
   it('redirects: unique sources, single hop to a 200 target, no loops or self-redirects; author aliases owned by the batch',()=>{

@@ -37878,6 +37878,22 @@
   "routeId": "SALMON-product-4414",
   "slots": [
    {
+    "key": "body.1.1.1.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Brentwood CF150MAx Cellular Drift Eliminator\"",
+    "after": "Brentwood CF150MAX Cellular Drift Eliminator",
+    "afterCanon": "\"Brentwood CF150MAX Cellular Drift Eliminator\"",
+    "changes": [
+     {
+      "from": "Brentwood CF150MAx Cellular Drift Eliminator",
+      "to": "Brentwood CF150MAX Cellular Drift Eliminator",
+      "action": "word-corrected",
+      "reason": "OGCS staging audit CP-06 (2026-10-11): product name casing, CF150MAX (the name the page title, meta and the manufacturer use)"
+     }
+    ]
+   },
+   {
     "key": "body.3.1.1.3.1.1.1.7",
     "kind": "text",
     "field": "text",
