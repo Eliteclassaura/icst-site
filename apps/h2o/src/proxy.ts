@@ -382,9 +382,33 @@ export function mfaRoute(req: NextRequest): NextResponse | null {
   return res
 }
 
+/**
+ * PRIVATE-STAGING-BLOCK-1 (CT 2026-10-11): `public/media/private-staging/` holds the Design R3 AI concept plates, authorised for the private
+ * review only (`NOT_PRODUCTION_APPROVED`). The files stay in the image (the media identity counts and hashes them), so under the production
+ * indexing policy the proxy answers 404 for that directory; the private/staging policy still serves them. The path is compared after
+ * percent-decoding (up to three times), case-folding and collapsing repeated or backward slashes, so an encoded or doubled spelling cannot
+ * reach the static file. Nothing in the production render references the directory (private-staging-ai.tsx is unused and staging-only).
+ */
+const PRIVATE_STAGING_MEDIA = /^\/media\/+private-staging(?:\/|$)/
+export function isPrivateStagingMedia(pathname: string): boolean {
+  let p = pathname
+  for (let i = 0; i < 3; i++) {
+    try {
+      const d = decodeURIComponent(p)
+      if (d === p) break
+      p = d
+    } catch {
+      break
+    }
+  }
+  return PRIVATE_STAGING_MEDIA.test(p.toLowerCase().replaceAll('\\', '/'))
+}
+
 export function proxy(req: NextRequest): NextResponse {
   const mfa = mfaRoute(req)
   if (mfa) return mfa
+  if (productionIndexing() && isPrivateStagingMedia(req.nextUrl.pathname))
+    return new NextResponse('Not found', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } })
   // LEGACY-IMG-REDIRECTS (IMG-SEO-1 phase A, CT 2026-10-08): an old WordPress upload URL answers 301 to the file served today, in both
   // content modes. Data-driven (content/release/legacy-image-redirects.json); an unknown upload path is not touched and stays a 404.
   const legacyImage = legacyImageTarget(req.nextUrl.pathname)
