@@ -239,7 +239,7 @@ export function LiveEnglishDetail({doc}:{doc:SalmonDocument}){
     <SalmonSeo doc={doc} breadcrumb={parent?[HOME_CRUMB,parent]:[HOME_CRUMB]}/><LuxuryHeader page={pageFor(doc)} routePath={doc.targetPath}/>
     <main id="main" className="wave4-detail">
       <nav aria-label="Breadcrumb" className="wave4-breadcrumb"><a href="/">Home</a>{parent?<><span aria-hidden="true">/</span><a href={parent.path}>{parent.name}</a></>:null}</nav>
-      <article className="wave4-detail-body"><h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{byline?<p className="wave4-byline"><span>By <AuthorName name={byline.author}/></span><span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null}{doc.children.map((node,index)=>isRecentPostsRegion(node)?null:renderSalmonNode(node,`body.${index}`,doc,true))}</article>
+      <article className="wave4-detail-body"><h1>{articleDisplayTitle(doc.seo.h1[0]||doc.title)}</h1>{byline?<p className="wave4-byline"><span>By <AuthorName name={byline.author}/></span><span aria-hidden="true">{' · '}</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null}{doc.children.map((node,index)=>isRecentPostsRegion(node)?null:renderSalmonNode(node,`body.${index}`,doc,true))}</article>
       <div className="wave4-detail-return"><a href={parent?.path??'/'}>← Back to {isProject?'projects':isPost?'technical articles':isLocation?'home':'resources'}</a></div>
     </main>
     <LuxuryFooter page={pageFor(doc)} routePath={doc.targetPath}/>

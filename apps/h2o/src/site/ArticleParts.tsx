@@ -63,10 +63,10 @@ export function ArticleContents({headings}:{headings:ArticleHeading[]}){
 export function ArticleMeta({authorNode,published,publishedIso,updated,minutes}:{authorNode:ReactNode;published:string;publishedIso:string;updated?:{text:string;iso:string};minutes?:number}){
   return <p className="wave4-byline wave4-article-meta">
     <span>{articleCopyParts('meta.by','author')[0]}{authorNode}</span>
-    <span aria-hidden="true">·</span>
+    <span aria-hidden="true">{' · '}</span>
     <span>{articleCopyParts('meta.published','date')[0]}<time dateTime={publishedIso}>{published}</time></span>
-    {updated?<><span aria-hidden="true">·</span><span>{articleCopyParts('meta.updated','date')[0]}<time dateTime={updated.iso}>{updated.text}</time></span></>:null}
-    {minutes?<><span aria-hidden="true">·</span><span>{articleCopy('meta.read',{n:minutes})}</span></>:null}
+    {updated?<><span aria-hidden="true">{' · '}</span><span>{articleCopyParts('meta.updated','date')[0]}<time dateTime={updated.iso}>{updated.text}</time></span></>:null}
+    {minutes?<><span aria-hidden="true">{' · '}</span><span>{articleCopy('meta.read',{n:minutes})}</span></>:null}
   </p>
 }
 

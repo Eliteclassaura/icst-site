@@ -101,7 +101,7 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   if(doc.type==='posts'&&/(?:^|\s)elementor-widget-post-info(?:\s|$)/.test(node.attrs.class??'')){
     if(suppressSourceByline)return null
     const byline=articleByline(doc)
-    return byline?<p key={key} className="wave4-byline"><span>By {byline.author===PUBLIC_AUTHOR.name?<a href={PUBLIC_AUTHOR.path}>{byline.author}</a>:byline.author}</span><span aria-hidden="true">|</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null
+    return byline?<p key={key} className="wave4-byline"><span>By {byline.author===PUBLIC_AUTHOR.name?<a href={PUBLIC_AUTHOR.path}>{byline.author}</a>:byline.author}</span><span aria-hidden="true">{' · '}</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null
   }
   const priceLabel=priceSpecLabel(node,doc)
   if(priceLabel===null)return null
