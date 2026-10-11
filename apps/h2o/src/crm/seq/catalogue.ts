@@ -43,6 +43,10 @@ export type CatalogueRow = {
 
 const latest = (rows: LibraryRow[]) => rows.filter((r) => r.status !== 'LINKED')
 
+/** Actual sequenceMergeValues capabilities. Declaring a template field does not supply a CRM resolver. */
+export const SEQUENCE_RESOLVED_FIELDS = ['first_name', 'rfq_reference', 'missing_information_list', 'sequence_signature'] as const
+const sequenceFields = new Set<string>(SEQUENCE_RESOLVED_FIELDS)
+
 export async function catalogue(s: CrmSession): Promise<CatalogueRow[]> {
   const rows = latest(await listLibrary(s, {}))
   const groups = new Map<string, LibraryRow[]>()
@@ -67,7 +71,7 @@ export function rowFor(code: string, rs: LibraryRow[]): CatalogueRow {
   if (skeleton) blockers.push('This is a skeleton. The copy is not written yet, so it cannot be built or activated.')
   const missing = [
     ...new Set(
-      rs.flatMap((r) => ((r.merge_fields ?? []) as string[]).filter((f) => !(f in MERGE_FIELDS))),
+      rs.flatMap((r) => ((r.merge_fields ?? []) as string[]).filter((f) => !(f in MERGE_FIELDS) || !sequenceFields.has(f))),
     ),
   ].sort()
   if (missing.length) blockers.push(`The CRM cannot fill ${missing.map((m) => m.replace(/_/g, ' ')).join(', ')} yet.`)

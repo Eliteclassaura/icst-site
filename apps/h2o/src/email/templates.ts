@@ -19,7 +19,20 @@ export const TEMPLATE_PURPOSES = ['TRANSACTIONAL', 'MARKETING', 'SEQUENCE'] as c
 export type TemplatePurpose = (typeof TEMPLATE_PURPOSES)[number]
 
 const PLAIN_NAME_FIELD = /^\p{L}[\p{L}\p{M} '’.-]{0,39}$/u
-type FieldDef = { label: string; required: boolean; fallback?: string; hint: string; pattern?: RegExp; multiline?: true }
+export type PersonalizationLevel = 'LEVEL_1_SAFE' | 'LEVEL_2_CONTEXTUAL' | 'LEVEL_3_DEEP'
+type FieldDef = {
+  label: string
+  required: boolean
+  fallback?: string
+  hint: string
+  pattern?: RegExp
+  multiline?: true
+  /** Content/evidence classification; this registry does not resolve facts or grant approval. */
+  personalizationLevel?: PersonalizationLevel
+}
+// E1 contextual facts/approved phrases remain plain text. The renderer cleans/bounds them as before;
+// the registry only declares names, and an absent value still fails closed. Resolvers/storage are later work.
+const E1_TEXT_VALUE = /\S/u
 export const MERGE_FIELDS: Record<string, FieldDef> = {
   rfq_number: { label: 'RFQ number', required: true, hint: 'The inquiry’s reference, e.g. RFQ-20261005-ABCD1234.' },
   // Only a plausible name is echoed (letters, spaces, apostrophes, periods, hyphens); anything else greets neutrally.
@@ -51,6 +64,75 @@ export const MERGE_FIELDS: Record<string, FieldDef> = {
     label: 'Missing items',
     required: true,
     hint: 'ICS_MISSING_INFORMATION: the items a person picked from the fixed list when enrolling, joined in a sentence.',
+  },
+  // WP2 / 1.2e: all 17 previously undefined E1 names, without adding CRM resolvers or changing accepted copy.
+  quote_reference: {
+    label: 'Quote reference', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_2_CONTEXTUAL',
+    hint: 'The current quote/proposal reference on the enrolled deal or its quote record. No quote: hold; never invent a reference.',
+  },
+  opportunity_reference: {
+    label: 'Opportunity reference', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_2_CONTEXTUAL',
+    hint: 'The enrolled deal/opportunity reference. Missing reference: hold.',
+  },
+  verified_account_name: {
+    label: 'Verified account name', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_2_CONTEXTUAL',
+    hint: 'The account linked to the enrolled contact/deal. Free-text company guesses are not verification. Missing linked account: hold.',
+  },
+  verified_account_or_site_label: {
+    label: 'Verified account or site label', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_2_CONTEXTUAL',
+    hint: 'The linked account name or verified site label for this enrollment. Missing linkage or label: hold.',
+  },
+  safe_salutation: {
+    label: 'Safe salutation', required: false, fallback: 'Hello', pattern: PLAIN_NAME_FIELD, personalizationLevel: 'LEVEL_1_SAFE',
+    hint: 'A plain first-name salutation; otherwise the neutral fallback “Hello”. The original E1 wording stays unchanged; CRM resolution is separate work.',
+  },
+  verified_asset_label: {
+    label: 'Verified asset label', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'A staff-verified tower/cell/unit label for the enrolled asset, with source, verifier and date. Missing evidence: hold.',
+  },
+  verified_scope_label: {
+    label: 'Verified scope label', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'A staff-verified one-line RFQ/quote scope for this enrollment, with source, verifier and date. Missing evidence: hold.',
+  },
+  verified_open_technical_item: {
+    label: 'Verified open technical item', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'A staff-verified unanswered technical item in this RFQ/project, with evidence. Missing item or evidence: hold.',
+  },
+  verified_question: {
+    label: 'Verified customer question', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'The customer question staff confirmed for this RFQ/quote/project, with source evidence. Missing evidence: hold.',
+  },
+  verified_next_review_date: {
+    label: 'Verified next review date', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'The staff-confirmed next review date on the enrolled deal, formatted by the CRM. Do not infer a review date; missing evidence: hold.',
+  },
+  verified_open_revision_item: {
+    label: 'Verified open revision item', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'A staff-verified open revision item for the current quote/scope, with source evidence. Missing evidence: hold.',
+  },
+  verified_site_name: {
+    label: 'Verified site name', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'The verified site linked to this account/enrollment, or a staff-confirmed site fact with evidence. Missing verification: hold.',
+  },
+  verified_service_window_phrase: {
+    label: 'Verified service window', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'A staff-verified outage/service-window phrase with source evidence. Never infer due/overdue service; missing evidence: hold.',
+  },
+  verified_part_request_label: {
+    label: 'Verified part request label', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'The part request staff confirmed for this enrollment, with source evidence. Do not infer part fit or need; missing evidence: hold.',
+  },
+  approved_upgrade_objective: {
+    label: 'Approved upgrade objective', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'A short upgrade objective explicitly approved by staff for this asset/project. Level 3 approval is required; no approved phrase: hold.',
+  },
+  approved_condition_or_request_summary: {
+    label: 'Approved condition or request summary', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'A staff-written and approved condition/request summary for this asset. Level 3 approval is required; no approved phrase: hold.',
+  },
+  approved_missing_part_identification_request: {
+    label: 'Approved part identification request', required: true, pattern: E1_TEXT_VALUE, personalizationLevel: 'LEVEL_3_DEEP',
+    hint: 'A staff-approved part-identification request from the approved list or reviewed text. Level 3 approval is required; no approved phrase: hold.',
   },
   company: { label: 'Company', required: true, hint: 'The linked account’s name, else the company as the customer gave it.' },
   sales_rep_name: { label: 'Your name', required: true, hint: 'The signed-in person’s name.' },
