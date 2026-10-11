@@ -241,7 +241,7 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
 
   return <>
     <button ref={launcherRef} type="button" className={styles.launcher} aria-label={launcher.aria} title={launcher.tooltip} aria-haspopup="dialog" aria-expanded={open} data-rfq-launcher="" onClick={() => openWith({ trigger: launcherRef.current })} hidden={open || formInView}>
-      <svg aria-hidden="true" className={styles.launcherIcon} viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span>{launcher.label}</span>
+      <svg aria-hidden="true" className={styles.launcherIcon} viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span className={styles.srOnly}>{launcher.label}</span><span className={styles.launcherTip} aria-hidden="true">{launcher.tooltip}</span>
     </button>
     {open ? <div className={`${styles.overlay} notranslate`} translate="no">
       <div ref={dialogRef} className={`${styles.panel} notranslate`} translate="no" role="dialog" aria-modal="true" aria-labelledby={titleId} data-rfq-panel="" data-phase={s.phase}>

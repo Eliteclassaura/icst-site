@@ -28,30 +28,40 @@
   outline-offset: 2px;
 }
 
+/* CHAT-FLOW-1.3 (owner, 2026-10-09): an icon-only launcher, a 56 px brand-blue circle bottom-right. The accessible name
+   stays "Request a quote" (aria-label, and the visually hidden label); the tooltip shows on keyboard focus, and the native
+   title shows on hover. Hidden while the panel is open. */
 .launcher {
   position: fixed;
   inset-block-end: max(20px, env(safe-area-inset-bottom));
   inset-inline-end: max(20px, env(safe-area-inset-right));
   z-index: 900;
   display: inline-flex;
-  gap: 10px;
   align-items: center;
-  min-block-size: 48px;
-  padding-block: 12px;
-  padding-inline: 18px 22px;
+  justify-content: center;
+  inline-size: 56px;
+  block-size: 56px;
+  padding: 0;
   border: 0;
-  border-radius: 999px;
-  font: 600 16px/1.2 "DM Sans", "IBM Plex Sans", sans-serif;
+  border-radius: 50%;
   color: var(--df-white, rgb(255 255 255));
   cursor: pointer;
   background: var(--df-blue, rgb(11 75 140));
-  box-shadow: 0 6px 22px rgb(7 24 48 / 28%);
-  transition: background 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 4px 16px rgb(7 24 48 / 24%);
+  transition: background 0.15s ease;
 }
+
+.launcher[hidden] {
+  display: none;
+}
+
 
 .launcher:hover {
   background: var(--df-blue-hover, rgb(33 102 171));
-  transform: translateY(-1px);
+}
+
+.launcher:active {
+  transform: scale(0.96);
 }
 
 .launcher:focus-visible,
@@ -59,6 +69,24 @@
 .form :focus-visible {
   outline: 3px solid var(--df-step-number, rgb(11 85 165));
   outline-offset: 2px;
+}
+
+.launcherTip {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-end: calc(100% + 10px);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font: 500 13px/1.3 "DM Sans", "IBM Plex Sans", sans-serif;
+  white-space: nowrap;
+  color: var(--df-white, rgb(255 255 255));
+  background: var(--df-ink, rgb(16 22 35));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.launcher:focus-visible .launcherTip {
+  opacity: 1;
 }
 
 .launcherIcon {
@@ -84,8 +112,9 @@
 .panel {
   display: flex;
   flex-direction: column;
-  inline-size: min(400px, calc(100vw - 40px));
-  block-size: min(620px, calc(100dvh - 40px));
+  inline-size: min(380px, calc(100vw - 32px));
+  block-size: auto;
+  max-block-size: min(560px, calc(100dvh - 40px));
   overflow: hidden;
   border-radius: 18px;
   font: 400 16px/1.5 "DM Sans", "IBM Plex Sans", sans-serif;
@@ -107,20 +136,21 @@
   gap: 12px;
   align-items: flex-start;
   justify-content: space-between;
-  padding-block: 18px 14px;
-  padding-inline: 20px 12px;
+  padding-block: 12px;
+  padding-inline: 16px;
   color: var(--df-white, rgb(255 255 255));
   background: var(--df-blue, rgb(11 75 140));
 }
 
 .title {
   margin: 0;
-  font: 700 18px/1.25 Archivo, "DM Sans", sans-serif;
+  font: 600 16px/1.25 "DM Sans", "IBM Plex Sans", sans-serif;
 }
 
 .subtitle {
   margin: 2px 0 0;
-  font-size: 14px;
+  font-size: 13px;
+  line-height: 1.4;
   opacity: 0.85;
 }
 
@@ -606,8 +636,8 @@ textarea.input {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  padding-block: 24px max(18px, env(safe-area-inset-bottom));
-  padding-inline: 22px;
+  padding-block: 24px max(16px, env(safe-area-inset-bottom));
+  padding-inline: 16px;
   overflow-y: auto;
   background: var(--df-white, rgb(255 255 255));
 }
@@ -624,7 +654,7 @@ textarea.input {
   gap: 10px;
   align-items: baseline;
   margin: 0;
-  font: 600 24px/1.3 "DM Sans", "IBM Plex Sans", sans-serif;
+  font: 600 22px/1.25 "DM Sans", "IBM Plex Sans", sans-serif;
   color: var(--rfq-ink);
   overflow-wrap: break-word;
 }
@@ -652,14 +682,13 @@ textarea.input {
 .stepInput {
   inline-size: 100%;
   min-block-size: 48px;
-  padding-block: 8px;
-  padding-inline: 2px;
-  border: 0;
-  border-block-end: 2px solid var(--df-muted, rgb(110 110 110));
-  border-radius: 0;
-  font: 400 24px/1.35 "DM Sans", "IBM Plex Sans", sans-serif;
+  padding-block: 12px;
+  padding-inline: 14px;
+  border: 1.5px solid rgb(16 22 35 / 24%);
+  border-radius: 10px;
+  font: 400 18px/1.4 "DM Sans", "IBM Plex Sans", sans-serif;
   color: var(--df-blue, rgb(11 75 140));
-  background: transparent;
+  background: var(--df-white, rgb(255 255 255));
 }
 
 /* CHAT-FLOW-1.1: Typeform-style light-blue hint text (brand blue at 60% on white, about 3.2:1) */
@@ -681,7 +710,10 @@ textarea.input {
   border-block-end-color: var(--rfq-danger);
 }
 
+/* CHAT-FLOW-1.3: a long answer gets a box of at least 96 px, growing to 40% of the screen height. */
 textarea.stepInput {
+  min-block-size: 96px;
+  max-block-size: 40dvh;
   resize: vertical;
 }
 
@@ -719,6 +751,7 @@ textarea.stepInput {
 .stepNotice {
   margin: 0;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--df-muted, rgb(110 110 110));
 }
 
@@ -734,18 +767,19 @@ textarea.stepInput {
 .stepActions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   align-items: stretch;
 }
 
 /* CHAT-FLOW-1.1: Typeform-style OK, the full width of the panel */
 .ok {
   inline-size: 100%;
-  min-block-size: 48px;
-  padding-block: 10px;
+  block-size: 52px;
+  min-block-size: 52px;
+  padding-block: 0;
   padding-inline: 20px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 10px;
   font: 600 16px/1.2 "DM Sans", "IBM Plex Sans", sans-serif;
   color: var(--df-white, rgb(255 255 255));
   cursor: pointer;
@@ -762,6 +796,7 @@ textarea.stepInput {
 }
 
 .enterHint {
+  margin-block-start: 8px;
   font-size: 13px;
   text-align: center;
   color: var(--df-muted, rgb(110 110 110));
@@ -806,8 +841,7 @@ textarea.stepInput {
     border-radius: 0;
   }
 
-  .stepQ,
-  .stepInput {
+  .stepQ {
     font-size: 22px;
   }
 }
