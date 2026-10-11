@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { withoutDeadLoadMore } from './dead-widgets'
+import { withoutPlaceholderCards } from './placeholder-cards'
 
 /**
  * Text-override registry (Control Tower 2026-10-05, R2.1; content/design/text-overrides.json).
@@ -161,5 +162,6 @@ export function withTextOverrides<T extends Doc>(doc: T): T {
   const { doc: out, problems } = applyTextOverrides(doc)
   for (const p of problems) console.warn(`[text-override] ${p}`)
   // HOME-LOADMORE-1: leftover "Load More" widgets with no script behind them (./dead-widgets), in every document read
-  return withoutDeadLoadMore(out)
+  // PLACEHOLDER-CARDS-1: the retired demo products' loop cards (./placeholder-cards)
+  return withoutPlaceholderCards(withoutDeadLoadMore(out))
 }
