@@ -35,6 +35,24 @@ export function withCrmProfile(collection: CollectionConfig): CollectionConfig {
         admin: { position: 'sidebar', description: 'Shown under your name in emails sent from the CRM templates.' },
       },
       {
+        // SIGNATURES-1: this person's own email signature, and whether to use the organisation's standard instead. Written only
+        // through Settings → Signatures (sanitised and audited), never straight through the API.
+        name: 'signature_text',
+        label: 'My signature',
+        type: 'textarea',
+        maxLength: 600,
+        access: { create: () => false, update: () => false },
+        admin: { position: 'sidebar', readOnly: true, description: 'Change it in the CRM: Settings → Signatures.' },
+      },
+      {
+        name: 'signature_use_standard',
+        label: 'Use the standard signature',
+        type: 'checkbox',
+        defaultValue: true,
+        access: { create: () => false, update: () => false },
+        admin: { position: 'sidebar', readOnly: true, description: 'On = the organisation’s standard signature. Change it in the CRM: Settings → Signatures.' },
+      },
+      {
         // DARK-1: the Sales Workspace colour theme; "system" follows the device. The person sets their own.
         name: 'crm_theme',
         label: 'CRM theme',

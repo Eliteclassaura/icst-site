@@ -9,6 +9,7 @@ import {
   variantsOf,
 } from '../../../../../../crm/library/service'
 import { t } from '../../../../../../crm/library/ui-strings'
+import { signatureMergeValues } from '../../../../../../crm/settings/signatures'
 import { requireCrmSession } from '../../../session'
 import { ApprovalChip, LintBadge, StatusLabel } from '../../_components/Chips'
 import { EmailRevenueFrame } from '../../_components/EmailRevenueFrame'
@@ -36,9 +37,11 @@ export default async function LibraryRowPage({
   const skeleton = row.status === 'SKELETON'
   const variants = isEmail ? variantsOf(row, template) : []
   const vi = Math.min(Math.max(Number(sp.v ?? 0) || 0, 0), Math.max(variants.length - 1, 0))
-  const samples = await sampleRecipients(s.payload)
+  const samples = await sampleRecipients(s.payload, s.userId)
   const who = samples.find((x) => x.id === sp.as) ?? samples[0]!
   const shown = variants[vi]
+  // SIGNATURES-1: the samples carry the real signature resolution; `sig` only names the one used.
+  const sig = await signatureMergeValues(s.payload, s.userId)
   const merged = shown ? renderSample(shown.subject, shown.body, who.values) : null
   const left = s.isAdmin ? await stepUpLeft(s) : 0
   const base = `/crm/email-revenue/library/${encodeURIComponent(id)}/`
@@ -213,6 +216,9 @@ export default async function LibraryRowPage({
                   Pass: no missing sample merge fields.
                 </p>
               ) : null}
+              <p className="c-hint">
+                Signature used: {sig.used.label} for replies; sequences use the standard signature. <a href="/crm/settings/signatures/">Change it</a>.
+              </p>
               <div className="er-paper" role="group" aria-label="Email preview">
                 <p>
                   <strong>From:</strong> ICS Sales Team

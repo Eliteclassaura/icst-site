@@ -329,7 +329,7 @@ describe('templates T1–T6', () => {
     let c = await composerTemplates(A, rfq, { code: 'T5', choices: ['site visit'] })
     expect(c.options.map((o) => [o.code, o.choices])).toContainEqual(['T5', [['call', 'site visit']]])
     expect(c.picked?.result).toMatchObject({ ok: true, subject: `Scheduling a site visit for RFQ ${String(rfq.rfq_number)}` })
-    expect((c.picked?.result as { body: string }).body).toContain('Best regards,\nICS Sales Team\nsales@example.test')
+    expect((c.picked?.result as { body: string }).body).toContain('Best regards,\nICS Sales Team\nIndustrial Cooling Solutions')
     // A phone set in the office settings is still never put in an email.
     await p.updateGlobal({ slug: 'crm-office-settings' as never, data: { phones: { US: '+1 555 0100', TH: null } } as never, ...srv })
     invalidateOfficeSettings()

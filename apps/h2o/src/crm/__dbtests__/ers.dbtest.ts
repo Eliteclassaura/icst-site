@@ -218,9 +218,9 @@ describe('the qualification sequence end to end', () => {
     expect((row!.lint as Doc).decision).toBe('PASS')
     const body = String(row!.body_text)
     expect(body).toMatch(/^Hi Avery, I am reviewing RFQ-/)
-    // Owner rule 2026-10-06: the team signature only. The office phones and a postal address ARE set in this fixture
+    // SIGNATURES-1: the standard signature (seeded by the migration) replaces the settings lines. The office phones and a postal address ARE set in this fixture
     // (and the stored address toggle is on), and still neither appears.
-    expect(body).toContain('ICS Sales Team\nsales@example.test')
+    expect(body).toContain('ICS Sales Team\nIndustrial Cooling Solutions')
     expect(body).not.toMatch(/555 0100|Synthetic Way|Example City/)
     expect(body).not.toMatch(/Rhonda/)
     expect(body).toContain('unsubscribe here: http')
@@ -519,7 +519,7 @@ describe('holds and health', () => {
     expect((await tick(p, { inboundOk: true })).results).toEqual({ QUEUED: 1 })
     expect((await enrollments())[0]).toMatchObject({ status: 'AWAITING_SEND' })
     const body = String((await seqRows())[0]!.body_text)
-    expect(body).toContain('ICS Sales Team\nsales@example.test')
+    expect(body).toContain('ICS Sales Team\nIndustrial Cooling Solutions')
     expect(body).toContain('unsubscribe here: http')
     expect(body.trim().split('\n').pop()).toMatch(/^If you’d rather not receive these follow-ups, unsubscribe here: http/) // nothing after it
   })

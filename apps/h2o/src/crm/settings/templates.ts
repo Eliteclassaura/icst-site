@@ -3,7 +3,7 @@ import { lintCopy } from '../../email/copy-lint'
 import { scopeRefusal } from '../../email/scope-guard'
 import { readEmailConfig } from '../../email/config'
 import { choicesOf, fieldsOf, greetingFor, lintTemplate, renderTemplate, responseSentence, SEED_TEMPLATES, SUPERSEDED_SEED_HASHES, templateHash, type MergeValues, type RenderResult, type TemplateText } from '../../email/templates'
-import { ersSettings } from '../ers/settings'
+import { resolveSignature } from './signatures'
 import type { Outcome } from '../workspace/mutations'
 import { displayNameOf, type CrmSession } from '../workspace/session'
 
@@ -129,7 +129,6 @@ export async function mergeValuesFor(payload: Payload, rfq: Doc, sender: CrmSess
   let account: Doc | null = null
   const accountId = rfq.account && typeof rfq.account === 'object' ? (rfq.account as Doc).id : rfq.account
   if (accountId) account = (await payload.findByID({ collection: 'crm-accounts', id: String(accountId), depth: 0, overrideAccess: true }).catch(() => null)) as Doc | null
-  const ers = await ersSettings(payload)
   const name = displayNameOf(sender)
   return {
     rfq_number: String(rfq.rfq_number ?? ''),
@@ -139,8 +138,8 @@ export async function mergeValuesFor(payload: Payload, rfq: Doc, sender: CrmSess
     // The fallback "CRM user …" label is not a real name: treat it as missing.
     sales_rep_name: typeof sender.name === 'string' && sender.name.trim() ? name : '',
     sales_rep_title: typeof sender.crm_title === 'string' ? sender.crm_title : '',
-    // Owner rule 2026-10-06: the team signature only ("ICS Sales Team" + the sales address); no phone, no address.
-    email_signature: [ers.signature.signer, ers.signature.email].filter(Boolean).join('\n'),
+    // SIGNATURES-1: the sender's own signature when they chose one, else the organisation's standard (no phone, no address by default).
+    email_signature: (await resolveSignature(payload, sender.id)).text,
     response_sentence: responseSentence(readEmailConfig().responsePromise),
   }
 }

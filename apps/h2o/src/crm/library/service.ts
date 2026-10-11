@@ -3,6 +3,7 @@ import { readEmailConfig } from '../../email/config'
 import { stepUp } from '../../email/sending-settings'
 import { MERGE_FIELDS } from '../../email/templates'
 import { ersSettings } from '../ers/settings'
+import { signatureMergeValues } from '../settings/signatures'
 import type { Outcome } from '../workspace/mutations'
 import type { CrmSession } from '../workspace/session'
 import {
@@ -240,16 +241,18 @@ export const SAMPLE_RECIPIENTS: SampleRecipient[] = [
   { id: 'c', label: 'Sample C (missing fields)', values: { first_name: 'Sam' } },
 ]
 
-/** Read only the engine settings. Match the engine's team/email signature; C stays deliberately incomplete. */
-export async function sampleRecipients(payload: Payload): Promise<SampleRecipient[]> {
-  const settings = await ersSettings(payload)
-  const signature = [settings.signature.signer, settings.signature.email].filter(Boolean).join('\n')
+/**
+ * SIGNATURES-1: A and B carry the REAL signature resolution (the standard signature for a sequence; the viewer's own or the
+ * standard for a reply), the same as a real send. Read only, no contact, no write. C stays deliberately incomplete.
+ */
+export async function sampleRecipients(payload: Payload, viewerId?: string | number | null): Promise<SampleRecipient[]> {
+  const sig = await signatureMergeValues(payload, viewerId)
   return SAMPLE_RECIPIENTS.map((sample) => ({
     ...sample,
     values: sample.id === 'c' ? { ...sample.values } : {
       ...sample.values,
-      sequence_signature: signature,
-      email_signature: signature,
+      sequence_signature: sig.sequence_signature,
+      email_signature: sig.email_signature,
     },
   }))
 }

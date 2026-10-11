@@ -49,6 +49,9 @@ export default async function SettingsPage() {
               </li>
             ) : null}
             <li>
+              <a href="/crm/settings/signatures/">Signatures</a>: the standard email signature, and everyone’s own.
+            </li>
+            <li>
               <a href="/crm/settings/templates/">Email templates</a>: the acknowledgement and the reply templates T1–T6.
             </li>
           </ul>

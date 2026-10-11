@@ -56,7 +56,7 @@ export type RfqTab = (typeof RFQ_TABS)[number]
 const TAB_LABEL: Record<RfqTab, string> = { summary: 'Summary', answers: 'Answers', items: 'Items', email: 'Email', activity: 'Activity', technical: 'Technical' }
 const MESSAGE_STATUS_LABEL: Record<string, string> = { QUEUED: 'Sending', SENT: 'Sent', FAILED: 'Failed', NOT_SENT: 'Not sent', RECEIVED: 'Received' }
 /** CRM email M2: what the page knows about writing a reply here (full page only; the inbox pane links to it). */
-export type ReplyPanel = { readiness: ReplyReadiness; token: string; templates?: ComposerTemplates }
+export type ReplyPanel = { readiness: ReplyReadiness; token: string; templates?: ComposerTemplates; signature?: string }
 const TERMINAL = ['REJECTED_NON_CORE', 'DUPLICATE_OF_EXISTING', 'CLOSED']
 
 const Value = ({ v, missing = 'Not supplied' }: { v: unknown; missing?: string }) =>
@@ -518,6 +518,7 @@ export function RfqDetailView({
                 token={reply.token}
                 defaultSubject={reply.templates?.picked?.result.ok ? reply.templates.picked.result.subject : `Your request ${String(rfq.rfq_number)}`}
                 defaultBody={reply.templates?.picked?.result.ok ? reply.templates.picked.result.body : ''}
+                signature={reply.signature ?? ''}
               />
             </>
           ) : (

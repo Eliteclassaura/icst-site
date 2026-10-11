@@ -162,6 +162,8 @@ export async function Shell({
         <div className="c-side-foot">
           <strong>{userName}</strong>
           {isAdmin ? 'Admin' : 'Sales'} · <a href="/admin/logout/">Sign out</a>
+          {' · '}
+          <a href="/crm/settings/signatures/">My signature</a>
           {isAdmin ? null : (
             <>
               {' · '}

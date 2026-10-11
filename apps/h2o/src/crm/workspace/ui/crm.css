@@ -3914,3 +3914,23 @@ details + details.er-reveal {
   margin-block-start: 12px;
 }
 
+/* ── SIGNATURES-1: the signature editor preview (tokens only) ── */
+.c-sig-preview {
+  margin: 0 0 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  background: var(--c-n50);
+  color: var(--c-text);
+  font: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.c-sig-cell {
+  max-inline-size: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

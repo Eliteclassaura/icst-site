@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { replyReadiness } from '../../../../../crm/reply'
+import { resolveSignature } from '../../../../../crm/settings/signatures'
 import { composerTemplates } from '../../../../../crm/settings/templates'
 import { uuidv7 } from '../../../../../crm/ids'
 import { MANUAL_NOTICE_TEXT } from '../../../../../crm/workspace/manualInquiry'
@@ -35,6 +36,7 @@ export default async function RfqPage({
       ? {
           readiness: await replyReadiness(s, d.rfq),
           token: uuidv7(),
+          signature: (await resolveSignature(s.payload, s.userId)).text,
           templates: await composerTemplates(s, d.rfq, { code: one(sp.tpl), choices: [one(sp.c0) ?? '', one(sp.c1) ?? '', one(sp.c2) ?? ''] }),
         }
       : undefined

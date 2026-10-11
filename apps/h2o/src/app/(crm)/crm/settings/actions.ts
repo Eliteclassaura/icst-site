@@ -8,6 +8,7 @@ import { retryFailed } from '../../../../sheets/sync'
 import { pendingSession } from '../../../../auth/mfa/guard'
 import * as routing from '../../../../email/routing'
 import * as sending from '../../../../email/sending-settings'
+import * as signatures from '../../../../crm/settings/signatures'
 import * as templates from '../../../../crm/settings/templates'
 import type { Outcome } from '../../../../crm/workspace/mutations'
 import type { CrmSession } from '../../../../crm/workspace/session'
@@ -33,6 +34,13 @@ async function run(fn: (s: CrmSession, sid: string | null) => Promise<Outcome>):
   return { ...out, nonce: Date.now() } as ActionState
 }
 
+/** SIGNATURES-1: no step-up (a signature starts and sends nothing); the service checks who may edit what. */
+export async function saveStandardSignatureAction(_: ActionState, fd: FormData) {
+  return run((s) => signatures.saveStandard(s, { text: f(fd, 'text') }))
+}
+export async function saveUserSignatureAction(_: ActionState, fd: FormData) {
+  return run((s) => signatures.saveUserSignature(s, { userId: f(fd, 'userId'), text: f(fd, 'text'), useStandard: f(fd, 'useStandard') }))
+}
 export async function stepUpAppAction(_: ActionState, fd: FormData) {
   return run((s, sid) => sending.confirmSettingsStepUpApp(s, sid, f(fd, 'code')))
 }

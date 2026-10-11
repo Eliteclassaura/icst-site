@@ -225,6 +225,7 @@ export interface Config {
     'crm-office-settings': CrmOfficeSetting;
     'crm-ers-settings': CrmErsSetting;
     'crm-email-routing': CrmEmailRouting;
+    'crm-signatures': CrmSignature;
   };
   globalsSelect: {
     'publication-state': PublicationStateSelect<false> | PublicationStateSelect<true>;
@@ -232,6 +233,7 @@ export interface Config {
     'crm-office-settings': CrmOfficeSettingsSelect<false> | CrmOfficeSettingsSelect<true>;
     'crm-ers-settings': CrmErsSettingsSelect<false> | CrmErsSettingsSelect<true>;
     'crm-email-routing': CrmEmailRoutingSelect<false> | CrmEmailRoutingSelect<true>;
+    'crm-signatures': CrmSignaturesSelect<false> | CrmSignaturesSelect<true>;
   };
   locale: 'en';
   widgets: {
@@ -285,6 +287,14 @@ export interface User {
    * Shown under your name in emails sent from the CRM templates.
    */
   crm_title?: string | null;
+  /**
+   * Change it in the CRM: Settings → Signatures.
+   */
+  signature_text?: string | null;
+  /**
+   * On = the organisation’s standard signature. Change it in the CRM: Settings → Signatures.
+   */
+  signature_use_standard?: boolean | null;
   /**
    * Light or dark colours in the Sales Workspace. System follows your device.
    */
@@ -4872,6 +4882,8 @@ export interface UsersSelect<T extends boolean = true> {
   invitedBy?: T;
   crm_office?: T;
   crm_title?: T;
+  signature_text?: T;
+  signature_use_standard?: T;
   crm_theme?: T;
   time_zone?: T;
   mfa_enabled?: T;
@@ -7351,6 +7363,18 @@ export interface CrmEmailRouting {
   createdAt?: string | null;
 }
 /**
+ * The standard email signature. Change it in the CRM: Settings → Signatures.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-signatures".
+ */
+export interface CrmSignature {
+  id: string;
+  standard_text?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "publication-state_select".
  */
@@ -7519,6 +7543,16 @@ export interface CrmEmailRoutingSelect<T extends boolean = true> {
   alerts_th?: T;
   alerts_cc?: T;
   sales_address?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-signatures_select".
+ */
+export interface CrmSignaturesSelect<T extends boolean = true> {
+  standard_text?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

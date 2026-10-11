@@ -30,6 +30,7 @@ import { CrmSites } from './collections/sites'
 import { CrmSuppressions } from './collections/suppressions'
 import { CrmTasks } from './collections/tasks'
 import { CrmEmailRouting } from './globals/email-routing'
+import { CrmSignatures } from './globals/signatures'
 import { CrmOfficeSettings } from './globals/office-settings'
 import { CrmErsSettings } from './globals/ers-settings'
 import { typeformIntakeEndpoint } from './intake/typeform/endpoint'
@@ -100,4 +101,4 @@ export const CRM_SLUGS = crmCollections.map((c) => c.slug)
 export const crmEndpoints: Endpoint[] = [typeformIntakeEndpoint]
 
 /** Patch L1: owner-edited office routing overrides and holidays. */
-export const crmGlobals: GlobalConfig[] = [CrmOfficeSettings, CrmErsSettings, CrmEmailRouting]
+export const crmGlobals: GlobalConfig[] = [CrmOfficeSettings, CrmErsSettings, CrmEmailRouting, CrmSignatures]

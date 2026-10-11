@@ -81,11 +81,12 @@ describe('WP1: complete synthetic Library preview fixtures', () => {
     }
   })
 
-  it('reads the signature from engine settings exactly like a real sequence merge, without a contact or write', async () => {
+  it('reads the signature through the real SIGNATURES-1 resolution exactly like a real sequence merge, without a contact or write', async () => {
     const fake = readOnlyPayload()
     const samples = await sampleRecipients(fake.payload)
     const engineValues = await sequenceMergeValues(fake.payload, settings, {}, {}, {})
-    expect(fake.findGlobal).toHaveBeenCalledExactlyOnceWith({ slug: 'crm-ers-settings', depth: 0, overrideAccess: true })
+    // SIGNATURES-1: the standard signature is read first; this stub has none, so it falls back to the engine team lines.
+    expect(fake.findGlobal).toHaveBeenCalledWith({ slug: 'crm-signatures', depth: 0, overrideAccess: true })
     expect(fake.findByID).not.toHaveBeenCalled()
     for (const sample of samples.filter((sample) => sample.id !== 'c')) {
       expect(sample.values.sequence_signature).toBe(engineValues.sequence_signature)
@@ -94,6 +95,20 @@ describe('WP1: complete synthetic Library preview fixtures', () => {
     }
     expect(samples.find((sample) => sample.id === 'c')!.values).toEqual({ first_name: 'Sam' })
     expect(SAMPLE_RECIPIENTS[0]!.values).not.toHaveProperty('sequence_signature')
+  })
+
+  it('SIGNATURES-1: a stored standard signature is what A and B (and a sequence merge) carry', async () => {
+    const findGlobal = vi.fn(async ({ slug }: { slug: string }) => (slug === 'crm-signatures' ? { standard_text: 'Standard Team\nStandard line' } : { enabled: false, signature: SIGNATURE }))
+    const findByID = vi.fn(async () => ({ id: 'u1', signature_use_standard: false, signature_text: 'Own Name\nOwn Title' }))
+    const payload = { findGlobal, findByID } as unknown as Payload
+    const seq = await sampleRecipients(payload)
+    expect(seq[0]!.values.sequence_signature).toBe('Standard Team\nStandard line')
+    expect(seq[0]!.values.email_signature).toBe('Standard Team\nStandard line')
+    const viewer = await sampleRecipients(payload, 'u1')
+    expect(viewer[0]!.values.email_signature).toBe('Own Name\nOwn Title')
+    expect(viewer[0]!.values.sequence_signature).toBe('Standard Team\nStandard line')
+    expect(viewer.find((x) => x.id === 'c')!.values).toEqual({ first_name: 'Sam' })
+    expect((await sequenceMergeValues(payload, settings, {}, {}, {})).sequence_signature).toBe('Standard Team\nStandard line')
   })
 
   it('uses the same engine defaults when settings cannot be read, without turning the engine on', async () => {

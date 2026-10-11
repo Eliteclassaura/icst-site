@@ -19,6 +19,7 @@ import { endOfBusinessDay } from '../workspace/time'
 import { ENROLLMENT_LIVE, MISSING_INFORMATION_ITEMS, type EnrollmentExitReason, type MissingInformationItem } from '../vocabulary'
 import { afterBusinessDays } from './calendar'
 import { ersSettings, type ErsSettings } from './settings'
+import { loadStandard } from '../settings/signatures'
 import { runRules } from '../seq/rules'
 import { advisoryLock, LIVE, transition, withRfqLock, type EnrollmentStatus } from './transition'
 import { REPLY_HOLD_RECHECK_MS, checkVerdict, manualConfigured, releasedFirstEmails, unprocessedInbound } from './reply-mode'
@@ -105,7 +106,8 @@ export async function sequenceMergeValues(payload: Payload, s: ErsSettings, enr:
     first_name: String(contact.first_name ?? submitted.first_name ?? ''),
     rfq_reference: String(rfq.rfq_number ?? ''),
     missing_information_list: joinItems(missing),
-    sequence_signature: [s.signature.signer, s.signature.email].filter(Boolean).join('\n'),
+    // SIGNATURES-1: a sequence has no sending person, so it carries the organisation's standard signature.
+    sequence_signature: await loadStandard(payload),
   }
 }
 
