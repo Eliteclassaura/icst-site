@@ -3,7 +3,7 @@
 import { t } from '../../../../../crm/library/ui-strings'
 import { ActionForm, Field } from '../../../../../crm/workspace/ui/ActionForm'
 import { stepUpAction } from '../../settings/actions'
-import { approvalModeAction, importLibraryAction } from '../actions'
+import { approvalModeAction, importLibraryAction, sendLibraryTestAction } from '../actions'
 
 /** STEP-UP-1: confirm with your password; the admin changes that need it then work for 30 minutes in this session. */
 export function StepUpPanel({ secondsLeft }: { secondsLeft: number }) {
@@ -60,5 +60,14 @@ export function ImportForm({ disabledReason }: { disabledReason?: string }) {
       submitLabel="Import library"
       submitClassName="c-btn is-primary"
     />
+  )
+}
+
+/** LIB-TEST-SEND-1: send this preview to the signed-in admin's own address. The server repeats every check. */
+export function TestSendForm({ id, variant, sample }: { id: string; variant: number; sample: string }) {
+  return (
+    <ActionForm action={sendLibraryTestAction} hidden={{ id, v: String(variant), sample }} submitLabel="Send a test to me" submitClassName="c-btn">
+      <p className="c-hint">Sends this preview, with the sample data shown, to your own address only. The subject starts with [TEST]. Nothing goes to a customer.</p>
+    </ActionForm>
   )
 }

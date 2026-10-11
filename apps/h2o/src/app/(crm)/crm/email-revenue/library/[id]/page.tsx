@@ -13,7 +13,7 @@ import { signatureMergeValues } from '../../../../../../crm/settings/signatures'
 import { requireCrmSession } from '../../../session'
 import { ApprovalChip, LintBadge, StatusLabel } from '../../_components/Chips'
 import { EmailRevenueFrame } from '../../_components/EmailRevenueFrame'
-import { ApprovalModeForm, StepUpPanel } from '../../_components/LibraryForms'
+import { ApprovalModeForm, StepUpPanel, TestSendForm } from '../../_components/LibraryForms'
 
 export const metadata: Metadata = { title: 'Library email' }
 
@@ -228,6 +228,13 @@ export default async function LibraryRowPage({
                 </p>
                 <pre className="er-body">{merged.body}</pre>
               </div>
+              {s.isAdmin && who.id !== 'c' && !merged.missing.length && !skeleton ? (
+                <details className="er-reveal">
+                  <summary className="c-btn">Send a test to me</summary>
+                  <StepUpPanel secondsLeft={left} />
+                  <TestSendForm id={String(row.id)} variant={vi} sample={who.id} />
+                </details>
+              ) : null}
               {shown.lint.findings.some((f) => f.rule_id === 'ICS_OWNER_SIGNOFF_001') ? (
                 <p className="c-hint">{t('ers.persona.note')}</p>
               ) : null}

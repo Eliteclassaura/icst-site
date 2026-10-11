@@ -12,6 +12,7 @@ import { recordReplyCheck, setReplyMode } from '../../../../crm/seq/reply'
 import { approveSimulation } from '../../../../crm/seq/review'
 import { saveTriggerConfig, setTriggerEnabled } from '../../../../crm/seq/triggers'
 import { changeApprovalMode, runImport } from '../../../../crm/library/service'
+import { sendLibraryTest } from '../../../../email/library-test-send'
 import type { Outcome } from '../../../../crm/workspace/mutations'
 import type { CrmSession } from '../../../../crm/workspace/session'
 import type { ActionState } from '../../../../crm/workspace/ui/actionState'
@@ -40,6 +41,10 @@ export async function approvalModeAction(_: ActionState, fd: FormData) {
   return run((s, sid) =>
     changeApprovalMode(s, sid, { id: f(fd, 'id'), mode: f(fd, 'mode'), reason: f(fd, 'reason') }),
   )
+}
+
+export async function sendLibraryTestAction(_: ActionState, fd: FormData) {
+  return run((s, sid) => sendLibraryTest(s, sid, { id: f(fd, 'id'), variant: f(fd, 'v'), sample: f(fd, 'sample') }))
 }
 
 export async function importLibraryAction(_: ActionState, __: FormData) {

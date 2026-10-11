@@ -205,6 +205,9 @@ export async function deleteProfile(s: CrmSession, sid: string | null, id: strin
   return { ok: true, message: 'Profile deleted.' }
 }
 
+/** The shared rate limit for "send me a test" actions (profile test and Library test): 3 per 10 minutes per admin. */
+export const testRateLimit = (s: CrmSession, now: Date): Promise<Outcome | null> => limited(s, TEST_RULE, now)
+
 async function limited(s: CrmSession, rule: typeof CHECK_RULE | typeof TEST_RULE, now: Date): Promise<Outcome | null> {
   const bucket = bucketFor(rule.bucket, s.userId)
   const wait = await retryAfter(s.payload, bucket, [rule], now)
