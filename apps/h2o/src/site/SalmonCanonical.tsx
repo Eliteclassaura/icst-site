@@ -7,7 +7,7 @@ import {Testimonials} from './HomeTestimonials'
 import {AuthorityEditorial} from './AuthorityEditorial'
 import {mathNodes,shortcodeNodes} from './math-text'
 import {articleImageAlt,isDroppedArticleImage} from './article-images'
-import {articleByline,articleDisplayTitle,articleHeadingNodes,publicAlt} from './wave4'
+import {articleByline,articleDisplayTitle,articleHeadingNodes,descendants,publicAlt} from './wave4'
 import {articleMetadataTitle} from './article-metadata'
 import {R2Discovery} from './R2Discovery'
 import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
@@ -86,6 +86,9 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   // Accepted exclusion stub (../content/public-exclusions): renders nothing, keeps sibling keys.
   if(typeof node!=='string'&&(node as {attrs?:Record<string,string>}).attrs?.['data-public-exclusion'])return null
   if(suppressedDuplicate(doc,node as never))return null
+  // ARTICLE-TOC-1 (staging audit B6): the source's Elementor "Table of Contents" widget is filled in by a script that no longer exists, so it
+  // is a heading over nothing. An empty one (no link at all) renders nothing here, as the article template already does (wave4 articleHeadingNodes).
+  if(typeof node!=='string'&&/(?:^|\s)elementor-widget-table-of-contents(?:\s|$)/.test(node.attrs.class??'')&&descendants(node,'a').length===0)return null
   const quote=renderQuoteAction(doc,node as never,key,(original,k)=>renderSalmonNode(original as SalmonNode,k,doc,suppressSourceByline))
   if(quote!==undefined)return quote
   if(typeof node==='string')return doc.type==='product'&&/[$€£]\s*\d/.test(node)?<span data-salmon-exception="NO_PUBLIC_PRICE" data-source-node={key} key={key}/>:/^(?:Buy|Order|Purchase) Now$/i.test(node.trim())?<span data-salmon-exception="RFQ_ONLY" data-source-node={key} key={key}>Request a Quote</span>:bodyText(doc,node,key)
