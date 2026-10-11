@@ -1360,6 +1360,10 @@
     background: var(--r3-white);
     box-shadow: 0 -8px 24px var(--r3-shadow);
   }
+  /* B8: the bar steps aside while the Request a Quote section is on screen (StickyBarVisibility sets data-hidden). */
+  .dr3-sticky[data-hidden='true'] {
+    display: none;
+  }
   .dr3-sticky .dr3-sticky-call {
     display: grid;
     flex: none;
@@ -1409,6 +1413,11 @@
     clip-path: inset(50%);
     white-space: nowrap;
   }
+}
+
+/* B8: an in-page jump to a contact section lands below the fixed header and the bar. */
+.dr3-contact .dr3-section[id] {
+  scroll-margin-block-start: 96px;
 }
 
 @media (prefers-reduced-motion: reduce) {
