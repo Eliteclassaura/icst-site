@@ -143,9 +143,9 @@ describe('HEAD-POLISH-1 (4): production robots',()=>{
   })
   it('no X-Robots-Tag is compiled into a payload build (the proxy sends none for an indexable page under production: indexing-policy-r25.test.ts)',()=>{
     const cfg=readFileSync(path.join(APP,'next.config.ts'),'utf8')
-    // the payload runtime returns before the repository-mode header is reached
-    expect(cfg.indexOf('if (payloadRuntime) return [adminFraming]')).toBeGreaterThan(0)
-    expect(cfg.indexOf('if (payloadRuntime) return [adminFraming]')).toBeLessThan(cfg.indexOf("key:'X-Robots-Tag'"))
+    // the payload runtime returns before the repository-mode header is reached (MEDIA-CACHE-1 puts its media rules first)
+    expect(cfg.indexOf('if (payloadRuntime) return [...mediaCache, adminFraming]')).toBeGreaterThan(0)
+    expect(cfg.indexOf('if (payloadRuntime) return [...mediaCache, adminFraming]')).toBeLessThan(cfg.indexOf("key:'X-Robots-Tag'"))
     expect(cfg.match(/key:'X-Robots-Tag'/g)?.length).toBe(1)
   })
 })
