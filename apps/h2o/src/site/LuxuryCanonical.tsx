@@ -50,7 +50,23 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
   return <span className="lux-source-contents" key={key}>{children}</span>
  }
  function source(key:string):ReactNode {const n=nodes.get(key);return n===undefined?null:content(n,key)}
+ // PLACEHOLDER-CARDS-1 blanks the retired demo-product cards to a public-exclusion stub, so the keys under them no longer exist. A layout subtree that
+ // points at a gone key (missing, or the stub itself) and at nothing else but button labels ("Buy Now", the model shares one label per card row) is that
+ // card's frame, with its picture: it draws nothing, like the stub, and no lookup below can miss.
+ const goneKey=(k:string)=>{const v=nodes.get(k);return v===undefined||(typeof v!=='string'&&Boolean(v.attrs['data-public-exclusion']))}
+ const buttonLabel=/^(Contact|Request|Talk to|Explore Our Services|View Product|Download Specifications|See all projects|Learn more|Load More|Buy Now)/i
+ const liveContent=(k:string)=>{const v=nodes.get(k);return v!==undefined&&!goneKey(k)&&!buttonLabel.test(salmonNodeText(v).trim())}
+ const refCounts=new WeakMap<LayoutNode,{gone:number;live:number}>()
+ function countRefs(n:LayoutNode):{gone:number;live:number}{
+  const known=refCounts.get(n);if(known)return known
+  const own=[...(n.ref?[n.ref]:[]),...(n.refs??[]),...(n.slice?[n.slice.ref]:[])]
+  const total={gone:own.filter(goneKey).length,live:own.filter(liveContent).length}
+  for(const c of n.children??[]){const k=countRefs(c);total.gone+=k.gone;total.live+=k.live}
+  refCounts.set(n,total);return total
+ }
+ const vanished=(n:LayoutNode)=>{const k=countRefs(n);return k.gone>0&&k.live===0}
  function design(n:LayoutNode,key:string,root=false):ReactNode{
+  if(!root&&vanished(n))return null
   if(doc.targetPath==='/'&&n.id===clientReviewAuthority.testimonialOverride.layoutNode)return <ClientTestimonials key={key}/>
   if(homeParts&&n.id===56)return <HomePartsCatalog key={key} data={homeParts}/>
   if(homeParts&&n.id===67)return null
@@ -86,7 +102,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
    // and gets repaired by the browser before hydration (React #418).
    const semantic=doc.routeId==='SALMON-pages-1230'&&n.id===114?'div':sourceNode&&typeof sourceNode!=='string'&&/^h[1-6]$/.test(sourceNode.tag)?sourceNode.tag:n.tag
    const children=n.ref&&sourceNode&&typeof sourceNode!=='string'?sourceNode.children.map((c,i)=>content(c,n.ref+'.'+i)):refs.flatMap((ref,i)=>doc.targetPath==='/'&&n.id===55&&i?[<span key="home-parts-boundary"> </span>,source(ref)]:[source(ref)])
-   const text=refs.map(k=>salmonNodeText(nodes.get(k)!)).join(' ')
+   const text=refs.map(k=>{const v=nodes.get(k);return v===undefined?'':salmonNodeText(v)}).join(' ')
    if(doc.routeId==='SALMON-pages-1446'&&[29,33,37,41,45,49].includes(n.id??-1)){
     const destination=englishServicePages()[[29,33,37,41,45,49].indexOf(n.id!)]?.path
     if(!destination)throw new Error('Maintenance card destination missing')
@@ -104,7 +120,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
   return createElement(n.tag==='section'?'section':'div',props,...(inside?[<ServiceImage key={key+'.media'} media={inside} layer="inside"/>]:[]),...(n.children??[]).map((c,i)=>design(c,key+'.'+i)),...(after?[<div key={key+'.after'} className="wave2-media-group">{after.map((asset,i)=><ServiceImage key={asset.node+'.'+i} media={asset} layer="after"/>)}</div>]:[]))
  }
  function remainder(n:LayoutNode,key:string,inParagraph=false):ReactNode{if(n.ref)return source(n.ref);if(n.slice){const value=nodes.get(n.slice.ref);return typeof value==='string'?leaf(value.slice(n.slice.start,n.slice.end),n.slice.ref,n.slice.start,n.slice.end):null}const tag=['h1','h2','h3','h4','h5','h6','p','ul','ol','li','strong','em','table','tbody','tr','td','th'].includes(n.tag)?n.tag:inParagraph?'span':'div';return createElement(tag,{key,className:'lux-remainder-node'},...(n.children??[]).map((c,i)=>remainder(c,key+'.'+i,inParagraph||tag==='p')))}
- function productRemainder(n:LayoutNode):ReactNode{const refs:LayoutNode[]=[];function collect(v:LayoutNode){if(v.ref||v.slice)refs.push(v);v.children?.forEach(collect)}collect(n);const groups:LayoutNode[][]=[];for(const item of refs){const text=item.ref?salmonNodeText(nodes.get(item.ref)!):'';if(text.trim()==='Buy Now'&&groups.length)groups.at(-1)!.push(item);else groups.push([item])}return <div className="lux-complete-product-index">{groups.map((items,i)=><div key={i}>{items.map((item,j)=>remainder(item,'product-remainder.'+i+'.'+j))}</div>)}</div>}
+ function productRemainder(n:LayoutNode):ReactNode{const refs:LayoutNode[]=[];function collect(v:LayoutNode){if(v.ref||v.slice)refs.push(v);v.children?.forEach(collect)}collect(n);const groups:LayoutNode[][]=[];for(const item of refs){const held=item.ref?nodes.get(item.ref):undefined,text=held===undefined?'':salmonNodeText(held);if(text.trim()==='Buy Now'&&groups.length)groups.at(-1)!.push(item);else groups.push([item])}return <div className="lux-complete-product-index">{groups.map((items,i)=><div key={i}>{items.map((item,j)=>remainder(item,'product-remainder.'+i+'.'+j))}</div>)}</div>}
  const placement=new Map<number,typeof model.remaining>()
  for(const r of model.remaining){let best=0,score=0;model.tree.forEach((t,i)=>{let count=0;function walk(n:LayoutNode){count+=(n.ref?.startsWith(r.sourceSection+'.')?1:0)+(n.refs??[]).filter(k=>k.startsWith(r.sourceSection+'.')).length;n.children?.forEach(walk)}walk(t);if(count>score){best=i;score=count}});placement.set(best,[...(placement.get(best)??[]),r])}
  // Design R4 (CT GO 2026-10-07): the page's own source text, by key, for the shared R4 system (src/site/r4).
