@@ -70,7 +70,24 @@ export const productPrimaryMedia=(doc:SalmonDocument)=>{
   const src=media&&salmonMediaPath(media)
   return image&&media&&src&&media.sha256&&media.width&&media.height?{image,media,src}:null
 }
-export const productIndexRecords=()=>activeProductRoutes().map(route=>({route,doc:salmonDocument(route)}))
+/**
+ * HOME-RENDER-1: the parts hub reads every product (about 490 KB of source each) up to three times per request (page count, filter, cards)
+ * to show twelve cards and a count. What the hub reads from a product is its identity, name, first image and short description, so in
+ * payload mode the records are built once per ledger object from a slim copy of each product (the short-description element, the first
+ * image, the identity; never the body) and handed out as copies. Repository mode keeps the full documents, as before.
+ */
+const slimProduct=(doc:SalmonDocument):SalmonDocument=>{
+  let summary:SalmonNode|undefined
+  walk(doc.children,node=>{if(!summary&&node.attrs.class?.split(/\s+/).includes('woocommerce-product-details__short-description'))summary=node})
+  return {...doc,children:summary?[summary]:[],text:'',chrome:[],images:doc.images.slice(0,1),seo:{...doc.seo,schema:[],meta:[]}}
+}
+let indexNow:{ledger:object;routes:object;records:Array<{route:SalmonRoute;doc:SalmonDocument}>}|undefined
+export const productIndexRecords=()=>{
+  if(!isPayloadContent())return activeProductRoutes().map(route=>({route,doc:salmonDocument(route)}))
+  const ledger=releaseLedger() as object,routes=salmonRoutes()
+  if(!indexNow||indexNow.ledger!==ledger||indexNow.routes!==routes)indexNow={ledger,routes,records:activeProductRoutes().map(route=>({route,doc:slimProduct(salmonDocument(route))}))}
+  return structuredClone(indexNow.records)
+}
 
 // CHIP-LABEL-FIX-1: a button such as "Buy Now" that links to a category never replaces that category's real label (first real label wins)
 const GENERIC_CTA_LABEL=/^(?:buy|shop|order|view|learn|read|see|explore)(?:\s+(?:now|more|all|details))?$/i

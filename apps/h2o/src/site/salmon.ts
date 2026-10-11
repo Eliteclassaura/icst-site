@@ -64,6 +64,28 @@ export const salmonDocument=(route:SalmonRoute):SalmonDocument=>{
   // R2.1 text-override registry (content/text-overrides): idempotent, so a published (already corrected) document is unchanged.
   return publicReleaseDocument(repairDocumentText(withTextOverrides(doc),documentHeldAlt(doc)))
 }
+/**
+ * HOME-RENDER-1: the identity of a snapshot document without its body. A product card on a listing page or the home (about 70 of them
+ * per request) only needs the card's identity from the product: its route, source URL, path, title and source hash. Reading, hashing,
+ * parsing and adapting a whole product document (about 490 KB) for that was the next-largest cost of a home read. In payload mode the
+ * card is built once per ledger object and handed out as a copy; the bodies are never kept. Repository mode returns the full document, as before.
+ */
+export const CARD_MAX_DOCS=600
+let cardsNow:{ledger:object;cards:Map<string,SalmonDocument>}|undefined
+export const salmonDocumentCardStats=()=>({cards:cardsNow?.cards.size??0})
+export const salmonDocumentCard=(route:SalmonRoute):SalmonDocument=>{
+  if(!isPayloadContent()||!route.sha256||requestDocuments().has(route.routeId))return salmonDocument(route)
+  const ledger=releaseLedger() as object
+  if(!cardsNow||cardsNow.ledger!==ledger)cardsNow={ledger,cards:new Map()}
+  const key=route.routeId+'|'+route.sha256
+  let card=cardsNow.cards.get(key)
+  if(!card){
+    const doc=salmonDocument(route)
+    card={...doc,children:[],text:'',chrome:[],images:[],seo:{...doc.seo,schema:[],meta:[]}}
+    if(cardsNow.cards.size<CARD_MAX_DOCS)cardsNow.cards.set(key,card)
+  }
+  return structuredClone(card)
+}
 /** Held alt text for an image (CT SEO parity follow-up R1, Part 2 item 3), most authoritative first:
  *  1. the alt h2ocooling.com serves today (content/salmon/live-image-alt.json, from the CT parity audit's live fetches);
  *  2. the Salmon WordPress media-library alt, else its caption (attachments.json).

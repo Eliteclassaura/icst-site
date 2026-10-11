@@ -5,7 +5,7 @@ import { categoryAndFamilyGate, mountGate, publicMountGate, RFQ_FALLBACK_PATH } 
 import { implementedMounts } from '../site/mounts'
 import { RfqMount } from '../site/RfqMount'
 import { pageForSegments } from '../site/cohort'
-import { salmonDocument, salmonRoutes, type SalmonDocument } from '../site/salmon'
+import { salmonDocumentCard, salmonRoutes, type SalmonDocument } from '../site/salmon'
 import { matchedWave4Article } from '../site/wave4'
 
 /**
@@ -40,7 +40,7 @@ function productDocument(routeId: string): SalmonDocument | null {
   const route = salmonRoutes().find((r) => r.routeId === routeId)
   if (!route) return null
   try {
-    return salmonDocument(route)
+    return salmonDocumentCard(route)
   } catch {
     return null
   }

@@ -3,6 +3,7 @@ import path from 'node:path'
 import type {SalmonDocument,SalmonNode} from './salmon'
 import {isPayloadContent,snapshotJson} from '../content/runtime-read'
 import {projectPublicAuthorIdentity} from './public-author-identity'
+import {routeTable} from '../content/ledger-index'
 
 type ReleaseRow={path:string;routeId:string;state:string;canonical:string;indexable:boolean;redirect:string|null}
 type ReleaseAuthority={origin:string;routes:ReleaseRow[];redirects:Array<{source:string;destination:string}>}
@@ -18,11 +19,38 @@ export function aliasReleaseDocument(doc:SalmonDocument,aliasPath:string,canonic
   const schema=previous?doc.seo.schema.map(raw=>raw.replaceAll(JSON.stringify(previous).slice(1,-1),JSON.stringify(canonical).slice(1,-1))):doc.seo.schema
   return {...doc,targetPath:aliasPath,seo:{...doc.seo,canonical:[canonical],meta:doc.seo.meta.map(meta=>meta.name==='og:url'?{...meta,value:canonical}:meta),schema}}
 }
+/**
+ * HOME-RENDER-1: the ledger as lookup tables (route rows: ../content/ledger-index; redirects and PUBLIC paths here), built once per
+ * ledger object (a generation, in payload mode). `adaptNode` below resolved every link with two linear scans (decodeURIComponent on
+ * both sides of every comparison) over all routes and redirects, which made the home's several hundred links the largest cost of a
+ * page read (about 85% of a home render's CPU). First match wins, exactly as `find` did. A ledger holding a path that does not
+ * decode (none does) has no table: the original scans run, byte for byte.
+ */
+const MAYBE_OLD_HOST=/hostingersite|%/i
+type Redirect={source:string;destination:string}
+type LedgerIndex={route:Map<string,ReleaseRow>;redirect:Map<string,Redirect>;publicPaths:Set<string>}|null
+let indexed:{routes:ReleaseRow[];redirects:Redirect[];index:LedgerIndex}|undefined
+function ledgerIndex(routes:ReleaseRow[],redirects:Redirect[]):LedgerIndex{
+  if(indexed&&indexed.routes===routes&&indexed.redirects===redirects)return indexed.index
+  let index:LedgerIndex=null
+  try{
+    const route=routeTable(routes)
+    if(route){
+      const redirect=new Map<string,Redirect>(),publicPaths=new Set<string>()
+      for(const row of routes)if(row.state==='PUBLIC')publicPaths.add(row.path)
+      for(const row of redirects){const key=decodeURIComponent(row.source);if(!redirect.has(key))redirect.set(key,row)}
+      index={route,redirect,publicPaths}
+    }
+  }catch{index=null}
+  indexed={routes,redirects,index}
+  return index
+}
 /** Build-only adaptation. The hash-verified source JSON is never rewritten. */
 export function publicReleaseDocument(doc:SalmonDocument):SalmonDocument{
   if(process.env.H2O_PUBLIC_EXPORT!=='1'&&!isPayloadContent())return doc
   const {origin,routes,redirects}=authority()
-  const row=routes.find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(doc.targetPath))??routes.find(candidate=>candidate.routeId===doc.routeId&&candidate.state==='PUBLIC')
+  const table=ledgerIndex(routes,redirects)
+  const row=(table?table.route.get(decodeURIComponent(doc.targetPath)):routes.find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(doc.targetPath)))??routes.find(candidate=>candidate.routeId===doc.routeId&&candidate.state==='PUBLIC')
   // Payload runtime: a page published a moment ago is resolved from Payload before the runner has promoted it
   // into the ledger; its own canonical is authoritative for that request.
   if(!row&&isPayloadContent())return publicReleaseDocumentWith({path:doc.targetPath,routeId:doc.routeId,state:'PUBLIC',canonical:origin+doc.targetPath,indexable:false,redirect:null},doc,origin,routes,redirects)
@@ -36,10 +64,13 @@ function publicReleaseDocumentWith(row:ReleaseRow,doc:SalmonDocument,origin:stri
     if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([key,item])=>[key,normalizeSchema(item)]))
     if(typeof value==='string'){
       if(doc.seo.canonical[0]&&value.startsWith(doc.seo.canonical[0]))return canonical+value.slice(doc.seo.canonical[0].length)
-      try{const url=new URL(value);if(url.origin==='https://salmon-rhinoceros-754457.hostingersite.com'&&!url.pathname.startsWith('/wp-content/'))return origin+url.pathname+url.search+url.hash}catch{/* Not a schema URL. */}
+      // HOME-RENDER-1: `new URL` throws for every ordinary text string; only a string that can name the old host (or hides it in a
+      // percent escape) is worth parsing
+      if(MAYBE_OLD_HOST.test(value))try{const url=new URL(value);if(url.origin==='https://salmon-rhinoceros-754457.hostingersite.com'&&!url.pathname.startsWith('/wp-content/'))return origin+url.pathname+url.search+url.hash}catch{/* Not a schema URL. */}
     }
     return value
   }
+  const table=ledgerIndex(routes,redirects)
   const adaptNode=(node:SalmonNode):SalmonNode=>{
     if(typeof node==='string')return node
     const attrs={...node.attrs}
@@ -47,11 +78,11 @@ function publicReleaseDocumentWith(row:ReleaseRow,doc:SalmonDocument,origin:stri
       try{
         const url=new URL(attrs.href,doc.sourceUrl)
         if(['h2ocooling.com','www.h2ocooling.com','salmon-rhinoceros-754457.hostingersite.com'].includes(url.hostname)&&!url.pathname.startsWith('/wp-content/')){
-          const target=routes.find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(url.pathname))
-          const redirect=redirects.find(candidate=>decodeURIComponent(candidate.source)===decodeURIComponent(url.pathname))
+          const target=table?table.route.get(decodeURIComponent(url.pathname)):routes.find(candidate=>decodeURIComponent(candidate.path)===decodeURIComponent(url.pathname))
+          const redirect=table?table.redirect.get(decodeURIComponent(url.pathname)):redirects.find(candidate=>decodeURIComponent(candidate.source)===decodeURIComponent(url.pathname))
           // R2.5 (CT ruling on the SEO pre-flight, 2026-10-05): an active redirect wins over a route row, so a link never
           // points at an address that answers 301.
-          if(redirect&&routes.some(candidate=>candidate.path===redirect.destination&&candidate.state==='PUBLIC'))attrs.href=redirect.destination+url.search+url.hash
+          if(redirect&&(table?table.publicPaths.has(redirect.destination):routes.some(candidate=>candidate.path===redirect.destination&&candidate.state==='PUBLIC')))attrs.href=redirect.destination+url.search+url.hash
           else if(target?.state==='PUBLIC')attrs.href=target.path+url.search+url.hash
           else if(target?.redirect)attrs.href=target.redirect+url.search+url.hash
           else delete attrs.href

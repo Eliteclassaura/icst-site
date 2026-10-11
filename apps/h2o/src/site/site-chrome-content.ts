@@ -1,3 +1,4 @@
+import {routeTable} from '../content/ledger-index'
 import {isPayloadContent,releaseLedger,snapshotJson} from '../content/runtime-read'
 import {salmonNavigation} from './navigation-data'
 
@@ -59,7 +60,8 @@ export function linkRenderable(href:string):boolean{
   try{
     const ledger=releaseLedger() as {routes:Array<{path:string;state:string}>}
     const target=decodeURIComponent(href.split(/[?#]/)[0]!)
-    const row=ledger.routes.find(r=>decodeURIComponent(r.path)===target)
+    const table=routeTable(ledger.routes)
+    const row=table?table.get(target):ledger.routes.find(r=>decodeURIComponent(r.path)===target)
     return !row||row.state==='PUBLIC'
   }catch{return true}
 }

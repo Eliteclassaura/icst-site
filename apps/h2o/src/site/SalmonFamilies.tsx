@@ -18,7 +18,7 @@ import {ProjectGallery} from './ProjectGallery'
 import {PageFaq} from './PageFaq'
 import {R2Discovery} from './R2Discovery'
 import {activeProductRoutes} from './Wave3Products'
-import {salmonDocument,type SalmonDocument} from './salmon'
+import {salmonDocument,salmonDocumentCard,type SalmonDocument} from './salmon'
 import {SectionView,type RenderContext} from './SalmonComposer'
 import {salmonFamilyFor,salmonFamilyModel,salmonFamilyRouteIds,type FamilyConfig} from './salmon-family-adapter'
 import type {ProductCardInput,SalmonFamilyPageModel} from './salmon-family-model'
@@ -30,7 +30,7 @@ export {salmonFamilyFor,salmonFamilyRouteIds}
 /** Verified product context only: the card's product reference must be one of the 183 products. */
 export function productRfqAction(product:ProductCardInput,routePath?:string):ReactNode{
   const route=product.productRouteId?activeProductRoutes().find(candidate=>candidate.routeId===product.productRouteId&&candidate.targetPath===product.productPath):undefined
-  if(route&&routePath&&isPayloadContent())return <RfqMount mountId="category_and_family" routePath={routePath} cardProduct={salmonDocument(route)} cardHref={route.targetPath}/>
+  if(route&&routePath&&isPayloadContent())return <RfqMount mountId="category_and_family" routePath={routePath} cardProduct={salmonDocumentCard(route)} cardHref={route.targetPath}/>
   return route?<RfqMount mountId="rfq_page" product={salmonDocument(route)} named/>:undefined
 }
 

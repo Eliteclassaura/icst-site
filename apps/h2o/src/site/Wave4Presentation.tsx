@@ -13,6 +13,7 @@ import {R4Img,Eyebrow} from './r4/R4System'
 import {R4LauncherReveal} from './r4/R4LauncherReveal'
 import {r4Copy} from './design-r4-media'
 import {ArticleCard,ArticleContents,ArticleCta,ArticleMeta,ArticlePager,RelatedArticles,articleCardData,type ArticleCardData} from './ArticleParts'
+import {isPayloadContent,releaseLedger} from '../content/runtime-read'
 import {ArticleTopicChips} from './ArticleTopicChips'
 import {ArticleTocSpy} from './ArticleTocSpy'
 import {
@@ -120,16 +121,34 @@ function articleDescription(doc:SalmonDocument){
 // Byline: the site author links to his canonical archive (owner decision 2026-10-02); any other name stays text.
 const AuthorName=({name}:{name:string})=>name===PUBLIC_AUTHOR.name?<a href={PUBLIC_AUTHOR.path}>{name}</a>:<>{name}</>
 
-// The English directory as card data, once per process (every article page needs its related cards).
-let directoryCards:Array<ArticleCardData&{indexable:boolean;routeId:string}>|undefined
-const englishCards=()=>directoryCards??=articleDirectoryDocuments().filter(entry=>isEnglishIndexRoute(entry.doc.targetPath)).map(({doc,indexable})=>({...articleCardData(doc,articleDescription(doc)),indexable,routeId:doc.routeId}))
-/** `view` is for the held URL scheme only (H2O_ARTICLE_INDEX_URLS=on): a topic and a page of the grid. Off: every card, one page. */
-export function Wave4ArticleIndex({doc,view}:{doc:SalmonDocument;view?:{topic?:string;page?:number}}){
-  const directory=articleDirectoryDocuments()
+// The English directory as card data, once per process (every article page needs its related cards). HOME-RENDER-1: in payload mode the
+// directory (about 400 article documents, read, hashed, parsed and adapted) is built once per ledger object, not once per process and
+// not per request, so a publish replaces it; the featured article of the index (chosen over the same directory) is kept with it.
+type DirectoryCard=ArticleCardData&{indexable:boolean;routeId:string}
+type DirectoryEntry={doc:SalmonDocument;indexable:boolean}
+let directoryCards:DirectoryCard[]|undefined
+let directoryNow:{ledger:object;cards:DirectoryCard[];featured:DirectoryEntry|undefined}|undefined
+const cardsOf=(directory:DirectoryEntry[]):DirectoryCard[]=>directory.filter(entry=>isEnglishIndexRoute(entry.doc.targetPath)).map(({doc,indexable})=>({...articleCardData(doc,articleDescription(doc)),indexable,routeId:doc.routeId}))
+const featuredOf=(directory:DirectoryEntry[]):DirectoryEntry|undefined=>{
   // The featured article is the newest indexable English one that has a usable image (the dark placeholder panel is only a fallback).
   const usable=(article:SalmonDocument)=>{const image=articleCardImage(article);return Boolean(image&&!/(?:slide|presentation|text overlaid|title card)/i.test(image.alt))}
   const eligible=directory.filter(entry=>entry.indexable&&isEnglishIndexRoute(entry.doc.targetPath))
-  const featuredEntry=eligible.find(entry=>usable(entry.doc))??eligible[0]
+  return eligible.find(entry=>usable(entry.doc))??eligible[0]
+}
+const directoryState=()=>{
+  if(!isPayloadContent())return undefined
+  const ledger=releaseLedger() as object
+  if(!directoryNow||directoryNow.ledger!==ledger){
+    const directory=articleDirectoryDocuments()
+    directoryNow={ledger,cards:cardsOf(directory),featured:featuredOf(directory)}
+  }
+  return directoryNow
+}
+const englishCards=()=>directoryState()?.cards??(directoryCards??=cardsOf(articleDirectoryDocuments()))
+/** `view` is for the held URL scheme only (H2O_ARTICLE_INDEX_URLS=on): a topic and a page of the grid. Off: every card, one page. */
+export function Wave4ArticleIndex({doc,view}:{doc:SalmonDocument;view?:{topic?:string;page?:number}}){
+  const state=directoryState()
+  const featuredEntry=state?state.featured:featuredOf(articleDirectoryDocuments())
   if(!featuredEntry)throw new Error('Technical Articles directory has no indexable featured article')
   const featured=featuredEntry
   const cards=englishCards()

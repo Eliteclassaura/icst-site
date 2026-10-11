@@ -2,7 +2,7 @@ import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {activeProductRoutes,productPrimaryMedia} from './Wave3Products'
 import {salmonDocument,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
-import {isPayloadContent} from '../content/runtime-read'
+import {isPayloadContent,requestDocuments} from '../content/runtime-read'
 import {releaseLedger} from '../content/runtime-read'
 import {deliverySrc} from './media-delivery'
 
@@ -54,7 +54,25 @@ const featuredFromModel=():Map<string,{src:string;alt:string}>=>{
   return featured
 }
 
+/**
+ * HOME-RENDER-1: the catalog is a function of the published generation (the ledger and the source documents of the products and
+ * their category pages), so in payload mode it is built once per ledger object, not on every home request (a build reads, hashes,
+ * parses and adapts about 200 documents). The key is the ledger and route-list objects (a new generation or a revocation change
+ * is a new object) and the featured cohort the home's own document names; a request that carries a draft of any other route
+ * bypasses it. Callers get a copy.
+ */
+let memo:{ledger:unknown;routes:unknown;key:string;value:HomePartCatalogData}|undefined
+const HOME_ROUTE_ID='SALMON-pages-48'
 export function homePartCatalogData():HomePartCatalogData{
+  if(!isPayloadContent())return buildHomePartCatalogData()
+  if([...requestDocuments().keys()].some(id=>id!==HOME_ROUTE_ID))return buildHomePartCatalogData()
+  const ledger=releaseLedger(),routes=salmonRoutes(),key=JSON.stringify([...featuredFromModel()])
+  if(memo&&memo.ledger===ledger&&memo.routes===routes&&memo.key===key)return structuredClone(memo.value)
+  const value=buildHomePartCatalogData()
+  memo={ledger,routes,key,value:structuredClone(value)}
+  return value
+}
+function buildHomePartCatalogData():HomePartCatalogData{
   const publicRoutes=activeProductRoutes()
   const byPath=new Map(publicRoutes.map(route=>[route.targetPath,route]))
   const byId=new Map(publicRoutes.map(route=>[route.routeId,route]))
