@@ -6218,17 +6218,17 @@
       "sourceFile": "documents/SALMON-pages-1797.json",
       "sourceSha256": "b74ea09c831d054e68989c27667b06126f657cfdf87dcc814cb2254acbc48e00",
       "routeClass": "pages",
-      "state": "PUBLIC",
-      "export": true,
-      "indexable": true,
-      "sitemap": true,
-      "searchable": true,
+      "state": "REDIRECT",
+      "export": false,
+      "indexable": false,
+      "sitemap": false,
+      "searchable": false,
       "canonical": "https://h2ocooling.com/cooling-tower-brochures/",
       "previousCanonical": "https://salmon-rhinoceros-754457.hostingersite.com/cooling-tower-brochures/",
       "sourceRobots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/resources/cooling-tower-brochures/"
     },
     {
       "path": "/cooling-tower-buying-guide/",
@@ -8378,17 +8378,17 @@
       "sourceFile": "documents/SALMON-pages-1870.json",
       "sourceSha256": "bec595294ff22d3a170dae0688a8a78c69c3410202b5b66d6b60cb41161b3c9d",
       "routeClass": "pages",
-      "state": "PUBLIC",
-      "export": true,
-      "indexable": true,
-      "sitemap": true,
-      "searchable": true,
+      "state": "REDIRECT",
+      "export": false,
+      "indexable": false,
+      "sitemap": false,
+      "searchable": false,
       "canonical": "https://h2ocooling.com/cooling-tower-resources/tools/",
       "previousCanonical": "https://salmon-rhinoceros-754457.hostingersite.com/cooling-tower-resources/tools/",
       "sourceRobots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/resources/tools/"
     },
     {
       "path": "/cooling-tower-retrofit-guide-upgrading-old-towers/",
@@ -8828,17 +8828,17 @@
       "sourceFile": "documents/SALMON-pages-2042.json",
       "sourceSha256": "4dd5a04c03a754cc28bcceff508a30cc42b663709080a1258d24680d50dce018",
       "routeClass": "pages",
-      "state": "PUBLIC",
-      "export": true,
-      "indexable": true,
-      "sitemap": true,
-      "searchable": true,
+      "state": "REDIRECT",
+      "export": false,
+      "indexable": false,
+      "sitemap": false,
+      "searchable": false,
       "canonical": "https://h2ocooling.com/cooling-tower-usa/",
       "previousCanonical": "https://salmon-rhinoceros-754457.hostingersite.com/cooling-tower-usa/",
       "sourceRobots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/cooling-tower-construction-repair-in-united-states/"
     },
     {
       "path": "/cooling-tower-vibrations/",
@@ -9440,17 +9440,17 @@
       "sourceFile": "documents/SALMON-pages-1722.json",
       "sourceSha256": "51808e2bbf9093acf19a29140d18e802a62acd0f872e8c2c3b948ec80e0e1c0d",
       "routeClass": "pages",
-      "state": "PUBLIC",
-      "export": true,
-      "indexable": true,
-      "sitemap": true,
-      "searchable": true,
+      "state": "REDIRECT",
+      "export": false,
+      "indexable": false,
+      "sitemap": false,
+      "searchable": false,
       "canonical": "https://h2ocooling.com/dry-soda-blasting/",
       "previousCanonical": "https://salmon-rhinoceros-754457.hostingersite.com/dry-soda-blasting/",
       "sourceRobots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/dry-soda-blast-cleaning-services-2/"
     },
     {
       "path": "/energy-efficient-cooling-tower/",
@@ -22292,17 +22292,17 @@
       "sourceFile": "documents/SALMON-LIVE-posts-17446.json",
       "sourceSha256": "a8d613619e0f2b091e7a9fd5231225d58fcc84cba10d073bcb0198f00e0e6853",
       "routeClass": "posts",
-      "state": "PUBLIC",
-      "export": true,
-      "indexable": true,
-      "sitemap": true,
-      "searchable": true,
+      "state": "REDIRECT",
+      "export": false,
+      "indexable": false,
+      "sitemap": false,
+      "searchable": false,
       "canonical": "https://h2ocooling.com/cooling-tower-parts-2/",
       "previousCanonical": "https://h2ocooling.com/cooling-tower-parts-2/",
       "sourceRobots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/cooling-tower-parts-online/"
     },
     {
       "path": "/cooling-tower-parts-3/",
@@ -26510,7 +26510,7 @@
       "sourceRobots": "index, follow",
       "matchedArticle": false,
       "sourceFile": "content/english-completion/service-pages.json",
-      "sourceSha256": "43b600204ea96edf96f0f06fd9aae1575fc95d3c531814e2f8dda957687d4dc1",
+      "sourceSha256": "9b82ffcfda0059fb88a7abe817014720b892f9e6c3b590782c09b4216887e497",
       "redirect": null
     },
     {
@@ -26527,7 +26527,7 @@
       "sourceRobots": "index, follow",
       "matchedArticle": false,
       "sourceFile": "content/english-completion/service-pages.json",
-      "sourceSha256": "43b600204ea96edf96f0f06fd9aae1575fc95d3c531814e2f8dda957687d4dc1",
+      "sourceSha256": "9b82ffcfda0059fb88a7abe817014720b892f9e6c3b590782c09b4216887e497",
       "redirect": null
     },
     {
@@ -26544,7 +26544,7 @@
       "sourceRobots": "index, follow",
       "matchedArticle": false,
       "sourceFile": "content/english-completion/service-pages.json",
-      "sourceSha256": "43b600204ea96edf96f0f06fd9aae1575fc95d3c531814e2f8dda957687d4dc1",
+      "sourceSha256": "9b82ffcfda0059fb88a7abe817014720b892f9e6c3b590782c09b4216887e497",
       "redirect": null
     },
     {
@@ -26561,7 +26561,7 @@
       "sourceRobots": "index, follow",
       "matchedArticle": false,
       "sourceFile": "content/english-completion/service-pages.json",
-      "sourceSha256": "43b600204ea96edf96f0f06fd9aae1575fc95d3c531814e2f8dda957687d4dc1",
+      "sourceSha256": "9b82ffcfda0059fb88a7abe817014720b892f9e6c3b590782c09b4216887e497",
       "redirect": null
     },
     {
@@ -26578,7 +26578,7 @@
       "sourceRobots": "index, follow",
       "matchedArticle": false,
       "sourceFile": "content/english-completion/service-pages.json",
-      "sourceSha256": "43b600204ea96edf96f0f06fd9aae1575fc95d3c531814e2f8dda957687d4dc1",
+      "sourceSha256": "9b82ffcfda0059fb88a7abe817014720b892f9e6c3b590782c09b4216887e497",
       "redirect": null
     },
     {
@@ -26595,7 +26595,7 @@
       "sourceRobots": "index, follow",
       "matchedArticle": false,
       "sourceFile": "content/english-completion/service-pages.json",
-      "sourceSha256": "43b600204ea96edf96f0f06fd9aae1575fc95d3c531814e2f8dda957687d4dc1",
+      "sourceSha256": "9b82ffcfda0059fb88a7abe817014720b892f9e6c3b590782c09b4216887e497",
       "redirect": null
     }
   ],

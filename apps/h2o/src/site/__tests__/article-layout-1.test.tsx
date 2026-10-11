@@ -179,7 +179,7 @@ describe('the Tech Articles index',()=>{
   it('keeps one H1 and the index header (search, resource links)',()=>{
     const html=renderToStaticMarkup(<Wave4ArticleIndex doc={page}/>)
     expect(html.match(/<h1[ >]/g)).toHaveLength(1)
-    expect(html).toContain('role="search"');expect(html).toContain('href="/cooling-tower-brochures/"')
+    expect(html).toContain('role="search"');expect(html).toContain('href="/resources/cooling-tower-brochures/"') // REDIRECTS-2: the ranking Brochures URL
   })
   it('switch ON: chips are topic URLs and the grid is the first numbered page with a pager',()=>{
     process.env.H2O_ARTICLE_INDEX_URLS='on'
@@ -204,7 +204,7 @@ describe('every article in the directory gets the reading layout, with exactly o
       expect(html.match(/<h1[ >]/g),article.targetPath).toHaveLength(1)
       expect(html,article.targetPath).toContain('wave4-related-articles')
     }
-    expect(wave4+live).toBe(234);expect(live).toBeGreaterThan(0);expect(layout).toBe(234)
+    expect(wave4+live).toBe(233);expect(live).toBeGreaterThan(0);expect(layout).toBe(233) // REDIRECTS-2: - /cooling-tower-parts-2/ (301 to the Parts page)
   },300000)
 })
 

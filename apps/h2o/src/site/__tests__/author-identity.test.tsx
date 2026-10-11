@@ -77,7 +77,7 @@ describe('public author identity',()=>{
     }
     // 65 hosted pages carried the dummy author in JSON-LD; 5 of them (the dummy archive, four shop pages) become redirects.
     // R2.5: /contact/ (a 301 source that was still PUBLIC) is withdrawn to its redirect too.
-    expect(affected).toHaveLength(58) // STAGING-AUDIT-REDIRECTS-1: /cooling-tower-singapore/ is a 301 now, not a served page
+    expect(affected).toHaveLength(54) // STAGING-AUDIT-REDIRECTS-1: /cooling-tower-singapore/ is a 301 now, not a served page
     for(const p of affected){
       const html=renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean).map(decodeURIComponent)}),searchParams:Promise.resolve({})}))
       expect(html,p).not.toContain('faizasyed')
@@ -127,7 +127,7 @@ describe('public author identity',()=>{
     // Locale Part B: the 166 preserved live locale articles and the published Thai Salmon page (+167).
     // R2.4: /new-cooling-tower-page/ is withdrawn to /new-cooling-towers/ (−1).
     // SEO-CONTENT-1: five articles are held (−5 article pages with the byline) and the algae article is released (+1).
-    expect(Object.fromEntries(authors)).toEqual({'Tim Bozic':405}) // PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: the two historical portfolio pages and the older Thailand page are 301s now
+    expect(Object.fromEntries(authors)).toEqual({'Tim Bozic':404}) // REDIRECTS-2: - /cooling-tower-parts-2/ (301); PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: the two historical portfolio pages and the older Thailand page are 301s now
   },60000)
   it('links the Tim Bozic byline to the canonical author archive',()=>{
     const article=salmonDocument(releaseRoutes().find(route=>route.targetPath==='/3-cell-counterflow-cooling-towers/')!)

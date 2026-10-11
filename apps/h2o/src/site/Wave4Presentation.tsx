@@ -63,16 +63,16 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
       </section>
       <R4LauncherReveal/>
       <nav className="dr4-pathways" aria-label="Explore technical resources">
-        <a href="/cooling-tower-brochures/" className="dr4-pathway"><span aria-hidden="true">01 / Documents</span><strong>Brochures</strong><small>Browse the ICS brochure library.</small><em aria-hidden="true">↗</em></a>
-        <a href="/cooling-tower-resources/tools/" className="dr4-pathway"><span aria-hidden="true">02 / Engineering</span><strong>Tools</strong><small>Find engineering tools and technical charts.</small><em aria-hidden="true">↗</em></a>
-        <a href="/tech-articles/" className="dr4-pathway dr4-pathway--navy"><span aria-hidden="true">03 / Reading</span><strong>Technical Articles</strong><small>Browse source-reconciled industrial cooling articles.</small><em aria-hidden="true">↗</em></a>
+        <a href="/resources/cooling-tower-brochures/" className="dr4-pathway"><span aria-hidden="true">01 / Documents</span><strong>Brochures</strong><small>Browse the ICS brochure library.</small><em aria-hidden="true">↗</em></a>
+        <a href="/resources/tools/" className="dr4-pathway"><span aria-hidden="true">02 / Engineering</span><strong>Tools</strong><small>Find engineering tools and technical charts.</small><em aria-hidden="true">↗</em></a>
+        <a href="/tech-articles/" className="dr4-pathway dr4-pathway--navy"><span aria-hidden="true">03 / Reading</span><strong>Technical Articles</strong><small>Browse ICS technical articles on cooling tower design, operation and maintenance.</small><em aria-hidden="true">↗</em></a>
       </nav>
       <section className="dr4-library" aria-labelledby="wave4-library-heading">
         <div className="dr4-library-aside">
           <p className="dr4-library-count">RESOURCE LIBRARY / {items.length} documents</p>
           <h2 id="wave4-library-heading" className="dr4-h2">{heading}</h2>
           {intro?<p className="dr4-prose">{intro}</p>:null}
-          <div className="wave4-library-crosslinks dr4-library-chips"><a href="/resources/" aria-current="page">Resources</a><a href="/cooling-tower-brochures/">Brochures</a><a href="/cooling-tower-resources/tools/">Tools</a><a href="/tech-articles/">Technical Articles</a></div>
+          <div className="wave4-library-crosslinks dr4-library-chips"><a href="/resources/" aria-current="page">Resources</a><a href="/resources/cooling-tower-brochures/">Brochures</a><a href="/resources/tools/">Tools</a><a href="/tech-articles/">Technical Articles</a></div>
         </div>
         <ol className="wave4-document-list dr4-library-list">{primaryItems.map((item,index)=><li key={`${item.title}-${index}`} className="dr4-library-item"><span className="dr4-library-num" aria-hidden="true">{String(index+1).padStart(2,'0')}</span>{renderRow(item,index)}</li>)}</ol>
       </section>
@@ -91,15 +91,15 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
       </section>
       <section className="wave4-library-content" aria-labelledby="wave4-library-heading">
         {isResources?<nav className="wave4-resource-pathways" aria-label="Explore technical resources">
-          <a href="/cooling-tower-brochures/"><span>01 / Documents</span><strong>Brochures</strong><small>Browse the ICS brochure library.</small><em aria-hidden="true">↗</em></a>
-          <a href="/cooling-tower-resources/tools/"><span>02 / Engineering</span><strong>Tools</strong><small>Find engineering tools and technical charts.</small><em aria-hidden="true">↗</em></a>
-          <a href="/tech-articles/"><span>03 / Reading</span><strong>Technical Articles</strong><small>Browse source-reconciled industrial cooling articles.</small><em aria-hidden="true">↗</em></a>
+          <a href="/resources/cooling-tower-brochures/"><span>01 / Documents</span><strong>Brochures</strong><small>Browse the ICS brochure library.</small><em aria-hidden="true">↗</em></a>
+          <a href="/resources/tools/"><span>02 / Engineering</span><strong>Tools</strong><small>Find engineering tools and technical charts.</small><em aria-hidden="true">↗</em></a>
+          <a href="/tech-articles/"><span>03 / Reading</span><strong>Technical Articles</strong><small>Browse ICS technical articles on cooling tower design, operation and maintenance.</small><em aria-hidden="true">↗</em></a>
         </nav>:null}
         <div className="wave4-library-intro"><h2 id="wave4-library-heading">{heading}</h2>{intro?<p>{intro}</p>:null}</div>
         {isResources?<p className="wave4-resource-count">RESOURCE LIBRARY / {items.length} documents</p>:null}
         <div className="wave4-document-list">{primaryItems.map(renderRow)}</div>
         {technicalItems.length?<section className="wave4-tool-panel" aria-labelledby="wave4-tool-panel-heading"><h2 id="wave4-tool-panel-heading">Industrial Cooling Tower Tools &amp; Technical Charts</h2><p>{paragraphs[3]}</p><div className="wave4-document-list">{technicalItems.map((item,index)=>renderRow(item,index))}</div></section>:null}
-        <div className="wave4-library-crosslinks"><a href="/resources/">Resources</a><a href="/cooling-tower-brochures/">Brochures</a><a href="/cooling-tower-resources/tools/">Tools</a><a href="/tech-articles/">Technical Articles</a></div>
+        <div className="wave4-library-crosslinks"><a href="/resources/">Resources</a><a href="/resources/cooling-tower-brochures/">Brochures</a><a href="/resources/tools/">Tools</a><a href="/tech-articles/">Technical Articles</a></div>
         {isResources?<R2Discovery kind="pages"/>:null}
       </section>
     </main>
@@ -165,7 +165,7 @@ export function Wave4ArticleIndex({doc,view}:{doc:SalmonDocument;view?:{topic?:s
   return <div className="luxury-site figma-wave4 salmon-family salmon-family--articles" data-wave4-route="/tech-articles/" data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc} breadcrumb={[HOME_CRUMB,{name:'Resources',path:'/resources/'}]} crumbName="Tech Articles"/><LuxuryHeader page={pageFor(doc)} routePath={doc.targetPath}/>
     <main id="main" className="wave4-article-index">
-      <header className={`wave4-index-header${band?' sp-articles-band':''}`} style={band?{backgroundImage:`linear-gradient(var(--sp-veil), var(--sp-veil)), url("${deliverySrc(band.src)}")`}:undefined} data-source-background-sha256={band?.sha256}><nav aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/resources/">Resources</a></nav><h1>Tech Articles</h1><p>{firstText(doc,'p')}</p><form action="/search/" role="search"><label htmlFor="wave4-article-query">Search technical articles</label><div><input id="wave4-article-query" type="search" name="q" placeholder="Search articles and technical resources" required maxLength={200}/><button type="submit">Search</button></div></form><div className="wave4-index-resource-links"><a href="/cooling-tower-brochures/">Brochures</a><a href="/cooling-tower-resources/tools/">Tools</a><a href="/resources/">Resources Library</a></div></header>
+      <header className={`wave4-index-header${band?' sp-articles-band':''}`} style={band?{backgroundImage:`linear-gradient(var(--sp-veil), var(--sp-veil)), url("${deliverySrc(band.src)}")`}:undefined} data-source-background-sha256={band?.sha256}><nav aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/resources/">Resources</a></nav><h1>Tech Articles</h1><p>{firstText(doc,'p')}</p><form action="/search/" role="search"><label htmlFor="wave4-article-query">Search technical articles</label><div><input id="wave4-article-query" type="search" name="q" placeholder="Search articles and technical resources" required maxLength={200}/><button type="submit">Search</button></div></form><div className="wave4-index-resource-links"><a href="/resources/cooling-tower-brochures/">Brochures</a><a href="/resources/tools/">Tools</a><a href="/resources/">Resources Library</a></div></header>
       <section className="wave4-index-content" aria-labelledby="wave4-latest"><h2 id="wave4-latest">Technical reading</h2>
         <article className="wave4-featured-article" data-article-route={featured.doc.targetPath}>
           {featuredImage?<img className="wave4-featured-media" src={deliverySrc(featuredImage.src)} alt="" width={featuredImage.width} height={featuredImage.height} loading="eager" decoding="async" fetchPriority="high" data-source-sha256={featuredImage.sha256}/>:<div className="wave4-featured-text" aria-hidden="true">ICS / TECHNICAL READING</div>}

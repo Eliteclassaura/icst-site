@@ -1,5 +1,5 @@
 {
- "note": "STAGING-AUDIT-FIXES (CT/owner 2026-10-11; OGCS rule 2 and COPY_TRIAGE_ROWS CP-06..CP-19) for a database that already holds staff edits (apply-seo-pass is never re-run after GO). Same engine as cf3-prod-step-1.mjs. (a) redirects: public-redirects records created when the source has no record (same destination = UNCHANGED; another destination or inactive = REFUSED); the duplicate Singapore page becomes a REDIRECT draft only while still published as PUBLIC. (b) meta: an SEO title/description is written only when the stored value is exactly the seeded one (null = never written by the batch); an edited value or a pending editor draft is REFUSED. (c) slotEdits: the Brentwood CF150MAX H1 page element, written only when it holds exactly its imported value. Nothing else is written.",
+ "note": "STAGING-AUDIT-FIXES (CT/owner 2026-10-11; OGCS rule 2 and COPY_TRIAGE_ROWS CP-06..CP-19) for a database that already holds staff edits (apply-seo-pass is never re-run after GO). Same engine as cf3-prod-step-1.mjs. (a) redirects: public-redirects records created when the source has no record (same destination = UNCHANGED; another destination or inactive = REFUSED); the duplicate Singapore page becomes a REDIRECT draft only while still published as PUBLIC. (b) meta: an SEO title/description is written only when the stored value is exactly the seeded one (null = never written by the batch); an edited value or a pending editor draft is REFUSED. (c) slotEdits: the Brentwood CF150MAX H1 page element, written only when it holds exactly its imported value. Nothing else is written. REDIRECTS-2 (2026-10-11) adds five more duplicate pages that rank nowhere (/cooling-tower-resources/tools/, /cooling-tower-brochures/, /dry-soda-blasting/, /cooling-tower-parts-2/, /cooling-tower-usa/): each is withdrawn to a REDIRECT draft and gets its 301.",
  "authority": "STAGING-AUDIT-REDIRECTS-1 (CT 2026-10-11)",
  "meta": [
   {
@@ -205,12 +205,52 @@
   {
    "source": "/blog/category/cooling-tower-fans/page/8/",
    "destination": "/category/cooling-tower-fans/"
+  },
+  {
+   "source": "/cooling-tower-resources/tools/",
+   "destination": "/resources/tools/"
+  },
+  {
+   "source": "/cooling-tower-brochures/",
+   "destination": "/resources/cooling-tower-brochures/"
+  },
+  {
+   "source": "/dry-soda-blasting/",
+   "destination": "/dry-soda-blast-cleaning-services-2/"
+  },
+  {
+   "source": "/cooling-tower-parts-2/",
+   "destination": "/cooling-tower-parts-online/"
+  },
+  {
+   "source": "/cooling-tower-usa/",
+   "destination": "/cooling-tower-construction-repair-in-united-states/"
   }
  ],
  "withdraw": [
   {
    "path": "/cooling-tower-singapore/",
    "redirect": "/cooling-tower-construction-repair-in-singapore/"
+  },
+  {
+   "path": "/cooling-tower-resources/tools/",
+   "redirect": "/resources/tools/"
+  },
+  {
+   "path": "/cooling-tower-brochures/",
+   "redirect": "/resources/cooling-tower-brochures/"
+  },
+  {
+   "path": "/dry-soda-blasting/",
+   "redirect": "/dry-soda-blast-cleaning-services-2/"
+  },
+  {
+   "path": "/cooling-tower-parts-2/",
+   "redirect": "/cooling-tower-parts-online/"
+  },
+  {
+   "path": "/cooling-tower-usa/",
+   "redirect": "/cooling-tower-construction-repair-in-united-states/"
   }
  ]
 }

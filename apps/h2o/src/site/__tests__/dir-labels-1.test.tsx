@@ -37,7 +37,7 @@ describe('DIR-LABELS-1',()=>{
   })
   it('/resources/ keeps both pathway cards (Brochures and Tools) at the top',async()=>{
     const html=renderToStaticMarkup(await Page({params:Promise.resolve({slug:['resources']}),searchParams:Promise.resolve({})}))
-    expect(html).toContain('href="/cooling-tower-brochures/" class="dr4-pathway"')
-    expect(html).toContain('href="/cooling-tower-resources/tools/" class="dr4-pathway"')
+    expect(html).toContain('href="/resources/cooling-tower-brochures/" class="dr4-pathway"') // REDIRECTS-2: the ranking URLs
+    expect(html).toContain('href="/resources/tools/" class="dr4-pathway"')
   },120_000)
 })

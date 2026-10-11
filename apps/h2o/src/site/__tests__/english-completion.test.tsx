@@ -58,7 +58,7 @@ describe('English completion release boundary',()=>{
     const html=renderToStaticMarkup(<Wave4Library doc={documentFor('SALMON-pages-1761')}/>)
     expect(html).toContain('class="dr4-hero dr4-hero--hub dr4-hero--resources"') // Design R4 (CT GO 2026-10-07): the shared R4 hub hero (DD P1 sizing)
     expect(html).toContain('RESOURCE LIBRARY / 13 documents')
-    for(const href of ['/cooling-tower-brochures/','/cooling-tower-resources/tools/','/tech-articles/'])expect(html).toContain(`href="${href}"`)
+    for(const href of ['/resources/cooling-tower-brochures/','/resources/tools/','/tech-articles/'])expect(html).toContain(`href="${href}"`)
     expect((html.match(/class="wave4-document(?: wave4-document-flat)?"/g)??[])).toHaveLength(13)
   })
   it('uses Contact variant A (OGCS copy R1: no eyebrow) without adding a native form or stale phone',()=>{

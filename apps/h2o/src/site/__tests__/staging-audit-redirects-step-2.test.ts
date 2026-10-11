@@ -18,6 +18,7 @@ type MetaRow = { path: string; field: 'title' | 'description'; expectedOld: stri
 const fake = (opts: { redirects?: Rec[]; draft?: boolean; withdrawn?: boolean; editedTitle?: string; editedH1?: boolean } = {}) => {
   const route: Rec = { id: 'id:sg', pathKey: SG, _status: opts.withdrawn ? 'draft' : 'published', updatedAt: 't1', seo: {}, slots: [], disposition: { state: opts.withdrawn ? 'REDIRECT' : 'PUBLIC', export: !opts.withdrawn, indexable: true, sitemap: true, searchable: true, redirect: null } }
   const routes = new Map<string, Rec>([[SG, route]])
+  for (const w of DATA2.withdraw as Array<{ path: string }>) if (w.path !== SG) routes.set(w.path, { id: `id:${w.path}`, pathKey: w.path, _status: 'published', updatedAt: 't1', seo: {}, slots: [], disposition: { state: 'PUBLIC', export: true, indexable: true, sitemap: true, searchable: true, redirect: null } })
   for (const p of new Set((DATA2.meta as MetaRow[]).map((m) => m.path))) {
     const seo: Rec = { canonical: 'https://h2ocooling.com/x/' }
     for (const m of (DATA2.meta as MetaRow[]).filter((x) => x.path === p)) if (m.expectedOld !== null) seo[m.field] = m.expectedOld
@@ -40,12 +41,13 @@ const fake = (opts: { redirects?: Rec[]; draft?: boolean; withdrawn?: boolean; e
 }
 
 describe('STAGING-AUDIT-REDIRECTS-1 prod step', () => {
-  it('the data is exactly the release data: fifteen redirects, 18 SEO fields and one page element (batch rows) and one withdrawal (disposition)', () => {
+  it('the data is exactly the release data: twenty redirects, 18 SEO fields and one page element (batch rows) and six withdrawals (disposition)', () => {
     const tsv = (f: string) => readFileSync(path.join(APP, 'ops/seo-pass/data', f), 'utf8').split('\n').map((l) => l.split('\t'))
-    expect(DATA2.redirects).toHaveLength(15)
+    expect(DATA2.redirects).toHaveLength(20)
     for (const r of DATA2.redirects as Array<{ source: string; destination: string }>) expect(tsv('redirects.tsv').find((c) => c[0] === r.source)?.slice(1, 4), r.source).toEqual([r.destination, '301', 'CREATE'])
-    expect(DATA2.withdraw).toEqual([{ path: SG, redirect: '/cooling-tower-construction-repair-in-singapore/' }])
-    expect(tsv('route-dispositions.tsv').find((c) => c[0] === SG)?.slice(2, 4)).toEqual(['WITHDRAW_TO_REDIRECT', '/cooling-tower-construction-repair-in-singapore/'])
+    expect(DATA2.withdraw).toHaveLength(6)
+    expect((DATA2.withdraw as Array<{ path: string }>)[0]).toEqual({ path: SG, redirect: '/cooling-tower-construction-repair-in-singapore/' })
+    for (const w of DATA2.withdraw as Array<{ path: string; redirect: string }>) expect(tsv('route-dispositions.tsv').find((c) => c[0] === w.path)?.slice(2, 4), w.path).toEqual(['WITHDRAW_TO_REDIRECT', w.redirect])
     const ledger = JSON.parse(readFileSync(path.join(APP, 'content/release/route-ledger.json'), 'utf8')) as { routes: Array<{ path: string; state: string; redirect?: string | null }>; redirects: Array<{ source: string; destination: string }> }
     for (const r of DATA2.redirects as Array<{ source: string; destination: string }>) {
       // the withdrawn page is a REDIRECT route row (like /thailand-cooling-tower/); the others are ledger redirects
@@ -55,18 +57,18 @@ describe('STAGING-AUDIT-REDIRECTS-1 prod step', () => {
       expect(r.destination).not.toBe('/')
     }
   })
-  it('dry run writes nothing (35 changes: 18 SEO fields + 1 page element + 15 redirects + 1 withdrawal); apply writes once; the rerun is 35 x UNCHANGED', async () => {
+  it('dry run writes nothing (45 changes: 18 SEO fields + 1 page element + 20 redirects + 6 withdrawals); apply writes once; the rerun is 45 x UNCHANGED', async () => {
     const f = fake()
     const plan = await planStep(f.api, DATA2)
-    expect(plan.counts).toMatchObject({ meta: 18, slotEdits: 1, redirects: 15, withdraw: 1, unchanged: 0, refused: 0 })
+    expect(plan.counts).toMatchObject({ meta: 18, slotEdits: 1, redirects: 20, withdraw: 6, unchanged: 0, refused: 0 })
     expect(f.redirects).toHaveLength(0)
     const res = await applyStep(f.api, plan, DATA2)
     expect(res.problems).toEqual([])
-    expect(f.redirects).toHaveLength(15)
+    expect(f.redirects).toHaveLength(20)
     expect(f.redirects.every((r) => r.status === '301' && r.active === true && /STAGING-AUDIT-REDIRECTS-1/.test(r.authority))).toBe(true)
     expect(f.route.disposition).toMatchObject({ state: 'REDIRECT', export: false, indexable: false, sitemap: false, redirect: '/cooling-tower-construction-repair-in-singapore/' })
     const again = await planStep(f.api, DATA2)
-    expect(again.counts).toMatchObject({ meta: 0, slotEdits: 0, redirects: 0, withdraw: 0, unchanged: 35, refused: 0 })
+    expect(again.counts).toMatchObject({ meta: 0, slotEdits: 0, redirects: 0, withdraw: 0, unchanged: 45, refused: 0 })
     // what was written: each title/description is exactly the new text, the Brentwood H1 is CF150MAX, other SEO fields are untouched
     for (const m of DATA2.meta as MetaRow[]) expect((f.routes.get(m.path)!.seo as Rec)[m.field], `${m.path} ${m.field}`).toBe(m.new)
     expect(f.routes.get(BR)!.slots.find((x: Rec) => x.key === 'body.1.1.1.1.1')!.heading).toBe('Brentwood CF150MAX Cellular Drift Eliminator')

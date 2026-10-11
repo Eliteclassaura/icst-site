@@ -84,7 +84,8 @@ describe('R4 pages render the page’s own source text in the shared system',()=
     const html=await render('/resources/')
     expect(html).toContain('dr4-hero dr4-hero--hub')
     expect((html.match(/class="wave4-document(?: wave4-document-flat)?"/g)??[])).toHaveLength(13)
-    for(const href of ['/cooling-tower-brochures/','/cooling-tower-resources/tools/','/tech-articles/'])expect(html).toContain(`href="${href}"`)
+    for(const href of ['/resources/cooling-tower-brochures/','/resources/tools/','/tech-articles/']) // REDIRECTS-2: the ranking URLs
+    expect(html).toContain(`href="${href}"`)
   })
   it('numerals are decorative CSS text, not headings or raster images',async()=>{
     for(const route of Object.values(PAGES)){

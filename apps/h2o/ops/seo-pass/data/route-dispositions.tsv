@@ -58,3 +58,8 @@ path	routeId	action	redirect	canonical
 /rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/	LIVE-portfolio-2174	WITHDRAW_TO_REDIRECT	/all-projects/pttcsp/	
 /thailand-cooling-tower/	LIVE-pages-2300	WITHDRAW_TO_REDIRECT	/cooling-tower-thailand/	
 /cooling-tower-singapore/	SALMON-pages-2081	WITHDRAW_TO_REDIRECT	/cooling-tower-construction-repair-in-singapore/	
+/cooling-tower-resources/tools/	SALMON-pages-1870	WITHDRAW_TO_REDIRECT	/resources/tools/	
+/cooling-tower-brochures/	SALMON-pages-1797	WITHDRAW_TO_REDIRECT	/resources/cooling-tower-brochures/	
+/dry-soda-blasting/	SALMON-pages-1722	WITHDRAW_TO_REDIRECT	/dry-soda-blast-cleaning-services-2/	
+/cooling-tower-parts-2/	LIVE-posts-17446	WITHDRAW_TO_REDIRECT	/cooling-tower-parts-online/	
+/cooling-tower-usa/	SALMON-pages-2042	WITHDRAW_TO_REDIRECT	/cooling-tower-construction-repair-in-united-states/	

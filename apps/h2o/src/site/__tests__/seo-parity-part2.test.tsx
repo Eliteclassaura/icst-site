@@ -120,6 +120,12 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
       'CREATE /blog/category/cooling-tower-fans/page/5/ /category/cooling-tower-fans/',
       'CREATE /blog/category/cooling-tower-fans/page/7/ /category/cooling-tower-fans/',
       'CREATE /blog/category/cooling-tower-fans/page/8/ /category/cooling-tower-fans/',
+      // REDIRECTS-2 (owner decisions 2026-10-11, what ranks): the zero-click duplicates
+      'CREATE /cooling-tower-resources/tools/ /resources/tools/',
+      'CREATE /cooling-tower-brochures/ /resources/cooling-tower-brochures/',
+      'CREATE /dry-soda-blasting/ /dry-soda-blast-cleaning-services-2/',
+      'CREATE /cooling-tower-parts-2/ /cooling-tower-parts-online/',
+      'CREATE /cooling-tower-usa/ /cooling-tower-construction-repair-in-united-states/',
     ])
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)

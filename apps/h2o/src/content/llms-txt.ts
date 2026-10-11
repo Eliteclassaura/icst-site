@@ -21,7 +21,7 @@ export const LLMS_SECTIONS: readonly LlmsSection[] = [
   { heading: 'Projects, articles and resources', paths: ['/all-projects/', '/tech-articles/', '/resources/'] },
   {
     heading: 'Locations',
-    paths: ['/cooling-tower-usa/', '/cooling-tower-thailand/', '/cooling-tower-japan/', '/cooling-tower-malaysia/', '/cooling-tower-singapore/'],
+    paths: ['/cooling-tower-construction-repair-in-united-states/', '/cooling-tower-thailand/', '/cooling-tower-japan/', '/cooling-tower-malaysia/', '/cooling-tower-singapore/'],
   },
 ]
 export const LLMS_PATHS: readonly string[] = LLMS_SECTIONS.flatMap((s) => s.paths)

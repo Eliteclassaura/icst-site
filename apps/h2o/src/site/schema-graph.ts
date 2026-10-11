@@ -67,7 +67,7 @@ export const SERVICE_ROUTES: ReadonlySet<string> = new Set([
   '/cooling-tower-maintenance-repair-upgrade/',
   '/thermal-upgrade/',
   '/cooling-tower-replacement/',
-  '/dry-soda-blasting/',
+  '/dry-soda-blast-cleaning-services-2/',
   '/disaster-recovery/',
   '/air-coolers/',
 ])
