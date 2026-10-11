@@ -15,7 +15,7 @@
       { "text": "The make, model, cell arrangement and duty of the tower", "media": "contact.send.tower" },
       { "text": "Any documentation you hold for it — drawings, data sheets, previous inspection reports", "media": "contact.send.documents" }
     ],
-    "officesChip": "03 Offices",
+    "officesChip": "02 Offices",
     "officesHeading": "Offices",
     "officesNote": null,
     "officeTitles": { "usa": "USA", "japan": "Japan", "thailand": "Thailand" },

@@ -15,10 +15,10 @@ const css=(f:string)=>readFileSync(path.join(APP,'src/app/(site)',f),'utf8')
 const phone=(source:string)=>source.split('\n@media ').find(b=>b.startsWith('(width < 768px)')&&b.includes('dr4-hero--portfolio'))??''
 
 describe('B8 Contact',()=>{
-  it('the offices label counts the three offices (USA, Japan, Thailand)',async()=>{
+  it('the offices label stays "02 Offices" (OGCS CP-21, CT ruling 2026-10-11: 02 is the section number, 01 Request a quote, 02 Offices) and the section lists three offices (USA, Japan, Thailand)',async()=>{
     const html=await render('/contact-us/')
-    expect(html).toContain('03 Offices')
-    expect(html).not.toContain('02 Offices')
+    expect(html).toContain('02 Offices')
+    expect(html).not.toContain('03 Offices')
     expect((/<ul class="dr3-contact-offices">([\s\S]*?)<\/ul>/.exec(html)?.[1]??'').match(/<li\b/g)?.length).toBe(3)
   })
   it('the sticky bar carries the visibility observer for the Request a Quote section; the section ids clear the bar when jumped to',async()=>{

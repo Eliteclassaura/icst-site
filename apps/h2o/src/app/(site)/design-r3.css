@@ -1395,7 +1395,7 @@
     padding-block-end: calc(148px + env(safe-area-inset-bottom));
   }
   /* With the bar, the corner launcher becomes a 48 px icon circle 12 px above it (its accessible name is unchanged). */
-  body:has(.dr3-sticky) [data-rfq-launcher] {
+  body:has(.dr3-sticky:not([data-hidden='true'])) [data-rfq-launcher] {
     inset-block-end: calc(88px + env(safe-area-inset-bottom));
     inset-inline-end: 16px;
     justify-content: center;
@@ -1405,7 +1405,7 @@
     min-block-size: 0;
     padding: 0;
   }
-  body:has(.dr3-sticky) [data-rfq-launcher] > span {
+  body:has(.dr3-sticky:not([data-hidden='true'])) [data-rfq-launcher] > span {
     position: absolute;
     inline-size: 1px;
     block-size: 1px;
