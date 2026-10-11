@@ -5,10 +5,11 @@
 import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest'
 import {renderToStaticMarkup} from 'react-dom/server'
 import Page from '../../app/(site)/[[...slug]]/page'
+import type * as PlaceholderCards from '../../content/placeholder-cards'
 
 let identity=false
 vi.mock('../../content/placeholder-cards',async()=>{
-  const real=await vi.importActual<typeof import('../../content/placeholder-cards')>('../../content/placeholder-cards')
+  const real=await vi.importActual<typeof PlaceholderCards>('../../content/placeholder-cards')
   return {...real,withoutPlaceholderCards:<T,>(doc:T):T=>identity?doc:real.withoutPlaceholderCards(doc as never) as T}
 })
 const env={...process.env}
