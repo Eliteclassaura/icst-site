@@ -5,6 +5,7 @@ import { gunzipSync } from 'node:zlib'
 import { searchIndexRoot } from './config'
 import { fault, currentRelease, retainedSearchDir, searchDirOf } from './release'
 import { publicBodyText } from './projection-text'
+import { cleanSearchText } from './search-clean'
 
 /**
  * Publishing-driven public search (Pagefind Node API, custom records) — R1B candidate builder.
@@ -44,9 +45,10 @@ export async function buildSearchCandidate(snapshotDir: string, root = searchInd
       const file = path.join(snapshotDir, 'documents', `${source}.json`)
       if (!existsSync(file)) continue
       const doc = JSON.parse(readFileSync(file, 'utf8')) as Doc
-      const seoTitle = String((doc.seo as Doc | undefined)?.title ?? '')
-      const title = String(doc.title || seoTitle || '')
-      const content = publicBodyText(row.family === 'alias' ? 'salmon' : row.family, doc)
+      // SEARCH-CLEAN-1: every indexed string is cleaned (no builder shortcodes, decoded entities), so titles and snippets read well.
+      const seoTitle = cleanSearchText(String((doc.seo as Doc | undefined)?.title ?? ''))
+      const title = cleanSearchText(String(doc.title || seoTitle || ''))
+      const content = cleanSearchText(publicBodyText(row.family === 'alias' ? 'salmon' : row.family, doc))
       if (!content.trim()) continue
       const r = await index.addCustomRecord({ url: row.path, content: `${title}\n${seoTitle}\n${content}`, language: 'en', meta: { title } })
       if (r.errors?.length) throw new Error(`pagefind addCustomRecord ${row.path}: ${JSON.stringify(r.errors)}`)
