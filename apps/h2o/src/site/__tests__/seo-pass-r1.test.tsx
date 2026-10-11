@@ -50,7 +50,7 @@ describe('release authority and route ledger',()=>{
   })
   it('the 18 consolidated pages (and R2.4’s /new-cooling-tower-page/) become REDIRECT rows pointing at a PUBLIC route; the two designed pages are kept (CT ruling 2026-10-04)',()=>{
     // R2.5: + the five redirect sources that were still PUBLIC (/contact/ and the shop remnants) and the two author aliases
-    expect(Object.keys(overrides.redirectSources)).toHaveLength(43) // PROJECT-IMAGES-1 R2: + the two PTT portfolio pages; COUNTRY-PAGES: + /thailand-cooling-tower/; SEO-CONTENT-2.1: + the four locale twins; SEO-CONTENT-2: + /product-category/uncategorized/; SEO-CONTENT-1: + the two placeholder products and five HVAC/commercial articles (HOLD + 301); round 2: + the hospital article and the vibration-switch placeholder
+    expect(Object.keys(overrides.redirectSources)).toHaveLength(44) // STAGING-AUDIT-REDIRECTS-1: + /cooling-tower-singapore/ (301 to the ranking Singapore page); PROJECT-IMAGES-1 R2: + the two PTT portfolio pages; COUNTRY-PAGES: + /thailand-cooling-tower/; SEO-CONTENT-2.1: + the four locale twins; SEO-CONTENT-2: + /product-category/uncategorized/; SEO-CONTENT-1: + the two placeholder products and five HVAC/commercial articles (HOLD + 301); round 2: + the hospital article and the vibration-switch placeholder
     expect(overrides.redirectSources['/new-cooling-tower-page/']).toBe('/new-cooling-towers/')
     // Reversed for the designed pages: the live duplicates are withdrawn into them.
     expect(overrides.redirectSources['/cooling-tower-thermal-upgrade/']).toBe('/thermal-upgrade/')
@@ -174,7 +174,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: 98 R1 locale→English redirects retire (the locale page is preserved), 4 locale redirects are new.
     // R2.4: + /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
     // R2.5: + the two author aliases (the batch owns them; fresh production DB) and the eleven live-chain middle addresses.
-    expect(redirects).toHaveLength(429) // PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: + three portfolio/country 301s; REDIRECTS-ADD-1: + five catch-all redirects; SEO-CONTENT-2.1: + four locale-twin HOLD 301s; // Design R3: + /about-us/; SEO-CONTENT-1: + seven HOLD 301s, - the algae hold 301 (released)
+    expect(redirects).toHaveLength(444) // STAGING-AUDIT-REDIRECTS-1: + fifteen 301s (/cooling-tower-singapore/, /blog/, /tools/, six nested repair URLs, six /blog/category/cooling-tower-fans/page/N/); PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: + three portfolio/country 301s; REDIRECTS-ADD-1: + five catch-all redirects; SEO-CONTENT-2.1: + four locale-twin HOLD 301s; // Design R3: + /about-us/; SEO-CONTENT-1: + seven HOLD 301s, - the algae hold 301 (released)
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -225,7 +225,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     const repoint=tsv('locale-b-repoint.tsv')
     expect(repoint.map(row=>row.source)).toEqual(['/วิธีป้องกันแบคทีเรีย-legionella/','/逆流-vs-クロスフロー/'])
     for(const row of repoint)expect(decode(redirects.find(r=>decode(r.source!)===decode(row.source!))!.destination!),row.source).toBe(row.destination_after_locale_b)
-    expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(43) // + the two PTT portfolio pages and /thailand-cooling-tower/ (301s)
+    expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT')).toHaveLength(44) // STAGING-AUDIT-REDIRECTS-1: + /cooling-tower-singapore/; + the two PTT portfolio pages and /thailand-cooling-tower/ (301s)
     expect(dispositions.filter(row=>row.action==='WITHDRAW_TO_REDIRECT').map(row=>[row.path,row.redirect])).toEqual(Object.entries(overrides.redirectSources))
   })
   it('restored files are byte-identical to the verified backup copies in the ledger',()=>{

@@ -103,9 +103,9 @@ describe('quote-intent migration by source identity (ledger)', () => {
   // Master SEO Pass R1: the three held articles published at cutover carry the same "Get A Quote" widget (13 → 16); the
   // daily log published by the CT sitemap-parity ruling (Part 3) carries it too (17), and so does the preserved Thai page published
   // by Locale Part B (18).
-  it('contract rule: the 19 R1A-reconciled explicit quote buttons, and not the ten Main-owned Parts hero actions', () => {
+  it('contract rule: the 18 R1A-reconciled explicit quote buttons, and not the ten Main-owned Parts hero actions', () => {
     expect(rule('CONTRACT_QUOTE_LABEL').map((d) => `${d.routeId}|${d.elementId}|${d.label}`).sort()).toEqual([
-      'SALMON-pages-1230|708f65e3|Request a New Cooling Tower Quote', 'SALMON-pages-1722|3224225|Request a Quote', 'SALMON-pages-2081|064577b|Request a Quote',
+      'SALMON-pages-1230|708f65e3|Request a New Cooling Tower Quote', 'SALMON-pages-1722|3224225|Request a Quote',
       'SALMON-pages-2106|064577b|Request a Quote', 'SALMON-pages-2106|3e00d94|Request a Quote', 'SALMON-pages-2177|3e00d94|Request a Quote',
       'SALMON-pages-2228|064577b|Request a Project Quote', 'SALMON-pages-2228|3e00d94|Request a Project Quote', 'SALMON-pages-2406|d65b755|Request a Quote',
       'SALMON-pages-4140|6f1c713|Request a Free Price Quote', 'SALMON-pages-4140|7b5fa8c|Request Your Free Quote', 'SALMON-pages-48|1e67569|Request a Quote',
@@ -113,7 +113,7 @@ describe('quote-intent migration by source identity (ledger)', () => {
       'SALMON-posts-3092|ee68c85|Get A Quote',
       'SALMON-posts-4065|ee68c85|Get A Quote',
       'SALMON-posts-4077|ee68c85|Get A Quote',
-      'SALMON-posts-3772|ee68c85|Get A Quote', // SEO-CONTENT-1: the released algae article carries the same widget (18 → 19)
+      'SALMON-posts-3772|ee68c85|Get A Quote', // SEO-CONTENT-1: the released algae article carries the same widget (18 → 19); STAGING-AUDIT-REDIRECTS-1: - SALMON-pages-2081 (/cooling-tower-singapore/ is a 301 now) (19 → 18)
     ].sort())
     expect(rule('MAIN_OWNED_PARTS_HERO').map((d) => d.path).sort()).toEqual([...MAIN_OWNED_PARTS_HERO_PATHS].sort())
     for (const d of rule('MAIN_OWNED_PARTS_HERO')) expect(at(docs.get(d.routeId)!.children, d.key).attrs['data-rfq-intent']).toBeUndefined()

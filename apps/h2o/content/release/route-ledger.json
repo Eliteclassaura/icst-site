@@ -8486,17 +8486,17 @@
       "sourceFile": "documents/SALMON-pages-2081.json",
       "sourceSha256": "3b4813d1e5b9f94c0b81ecc26237c256e96d3fa5198d12ba6458569e308891ff",
       "routeClass": "pages",
-      "state": "PUBLIC",
-      "export": true,
-      "indexable": true,
-      "sitemap": true,
-      "searchable": true,
+      "state": "REDIRECT",
+      "export": false,
+      "indexable": false,
+      "sitemap": false,
+      "searchable": false,
       "canonical": "https://h2ocooling.com/cooling-tower-singapore/",
       "previousCanonical": "https://salmon-rhinoceros-754457.hostingersite.com/cooling-tower-singapore/",
       "sourceRobots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
       "matchedArticle": false,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/cooling-tower-construction-repair-in-singapore/"
     },
     {
       "path": "/cooling-tower-site-inspection/",
@@ -27101,6 +27101,90 @@
     {
       "source": "/index.php",
       "destination": "/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/blog/",
+      "destination": "/tech-articles/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/tools/",
+      "destination": "/resources/tools/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/cooling-tower-maintenance-repair-upgrade/crossflow-cooling-tower-repair-maintenance/",
+      "destination": "/crossflow-cooling-tower-repair-maintenance/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/cooling-tower-maintenance-repair-upgrade/counterflow-cooling-tower-repair-maintenance/",
+      "destination": "/counterflow-cooling-tower-repair-maintenance/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/cooling-tower-maintenance-repair-upgrade/wet-hybrid-dry-cooling-tower-repair/",
+      "destination": "/wet-hybrid-dry-cooling-tower-repair/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/cooling-tower-maintenance-repair-upgrade/low-drift-cooling-tower-solutions/",
+      "destination": "/low-drift-cooling-tower-solutions/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/cooling-tower-maintenance-repair-upgrade/emergency-cooling-tower-repair/",
+      "destination": "/emergency-cooling-tower-repair/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/cooling-tower-maintenance-repair-upgrade/cooling-tower-rebuilds-new-towers/",
+      "destination": "/cooling-tower-rebuilds-new-towers/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/blog/category/cooling-tower-fans/page/2/",
+      "destination": "/category/cooling-tower-fans/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/blog/category/cooling-tower-fans/page/3/",
+      "destination": "/category/cooling-tower-fans/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/blog/category/cooling-tower-fans/page/4/",
+      "destination": "/category/cooling-tower-fans/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/blog/category/cooling-tower-fans/page/5/",
+      "destination": "/category/cooling-tower-fans/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/blog/category/cooling-tower-fans/page/7/",
+      "destination": "/category/cooling-tower-fans/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/blog/category/cooling-tower-fans/page/8/",
+      "destination": "/category/cooling-tower-fans/",
       "status": 301,
       "targetState": "PUBLIC"
     },

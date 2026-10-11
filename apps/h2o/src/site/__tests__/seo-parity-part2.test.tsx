@@ -103,6 +103,23 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
       'CREATE /rt-portfolios/ptt-gsp3-fan-upgrade/ /all-projects/ptt-csp3/',
       'CREATE /rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/ /all-projects/pttcsp/',
       'CREATE /thailand-cooling-tower/ /cooling-tower-thailand/',
+      // STAGING-AUDIT-REDIRECTS-1 (owner decisions 2026-10-11, OGCS rule 2): Singapore duplicate, /blog/, /tools/, six nested repair URLs
+      'CREATE /cooling-tower-singapore/ /cooling-tower-construction-repair-in-singapore/',
+      'CREATE /blog/ /tech-articles/',
+      'CREATE /tools/ /resources/tools/',
+      'CREATE /cooling-tower-maintenance-repair-upgrade/crossflow-cooling-tower-repair-maintenance/ /crossflow-cooling-tower-repair-maintenance/',
+      'CREATE /cooling-tower-maintenance-repair-upgrade/counterflow-cooling-tower-repair-maintenance/ /counterflow-cooling-tower-repair-maintenance/',
+      'CREATE /cooling-tower-maintenance-repair-upgrade/wet-hybrid-dry-cooling-tower-repair/ /wet-hybrid-dry-cooling-tower-repair/',
+      'CREATE /cooling-tower-maintenance-repair-upgrade/low-drift-cooling-tower-solutions/ /low-drift-cooling-tower-solutions/',
+      'CREATE /cooling-tower-maintenance-repair-upgrade/emergency-cooling-tower-repair/ /emergency-cooling-tower-repair/',
+      'CREATE /cooling-tower-maintenance-repair-upgrade/cooling-tower-rebuilds-new-towers/ /cooling-tower-rebuilds-new-towers/',
+      // OGCS Part 2: zero-click paginated /blog/ category archives
+      'CREATE /blog/category/cooling-tower-fans/page/2/ /category/cooling-tower-fans/',
+      'CREATE /blog/category/cooling-tower-fans/page/3/ /category/cooling-tower-fans/',
+      'CREATE /blog/category/cooling-tower-fans/page/4/ /category/cooling-tower-fans/',
+      'CREATE /blog/category/cooling-tower-fans/page/5/ /category/cooling-tower-fans/',
+      'CREATE /blog/category/cooling-tower-fans/page/7/ /category/cooling-tower-fans/',
+      'CREATE /blog/category/cooling-tower-fans/page/8/ /category/cooling-tower-fans/',
     ])
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)

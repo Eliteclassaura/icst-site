@@ -1,0 +1,74 @@
+{
+ "note": "STAGING-AUDIT-REDIRECTS-1 (owner decisions 2026-10-11 'all based on what ranks', OGCS rule 2 for the nested repair URLs): the redirects of the staging audit for a database that already holds staff edits (apply-seo-pass is never re-run after GO). Same engine as cf3-prod-step-1.mjs: public-redirects records are created when the source has no record (same destination = UNCHANGED; another destination or inactive = REFUSED); the duplicate Singapore page becomes a REDIRECT draft only when it is still published as PUBLIC (a pending editor draft = REFUSED). Nothing else is written.",
+ "authority": "STAGING-AUDIT-REDIRECTS-1 (CT 2026-10-11)",
+ "meta": [],
+ "slotEdits": [],
+ "redirects": [
+  {
+   "source": "/cooling-tower-singapore/",
+   "destination": "/cooling-tower-construction-repair-in-singapore/"
+  },
+  {
+   "source": "/blog/",
+   "destination": "/tech-articles/"
+  },
+  {
+   "source": "/tools/",
+   "destination": "/resources/tools/"
+  },
+  {
+   "source": "/cooling-tower-maintenance-repair-upgrade/crossflow-cooling-tower-repair-maintenance/",
+   "destination": "/crossflow-cooling-tower-repair-maintenance/"
+  },
+  {
+   "source": "/cooling-tower-maintenance-repair-upgrade/counterflow-cooling-tower-repair-maintenance/",
+   "destination": "/counterflow-cooling-tower-repair-maintenance/"
+  },
+  {
+   "source": "/cooling-tower-maintenance-repair-upgrade/wet-hybrid-dry-cooling-tower-repair/",
+   "destination": "/wet-hybrid-dry-cooling-tower-repair/"
+  },
+  {
+   "source": "/cooling-tower-maintenance-repair-upgrade/low-drift-cooling-tower-solutions/",
+   "destination": "/low-drift-cooling-tower-solutions/"
+  },
+  {
+   "source": "/cooling-tower-maintenance-repair-upgrade/emergency-cooling-tower-repair/",
+   "destination": "/emergency-cooling-tower-repair/"
+  },
+  {
+   "source": "/cooling-tower-maintenance-repair-upgrade/cooling-tower-rebuilds-new-towers/",
+   "destination": "/cooling-tower-rebuilds-new-towers/"
+  },
+  {
+   "source": "/blog/category/cooling-tower-fans/page/2/",
+   "destination": "/category/cooling-tower-fans/"
+  },
+  {
+   "source": "/blog/category/cooling-tower-fans/page/3/",
+   "destination": "/category/cooling-tower-fans/"
+  },
+  {
+   "source": "/blog/category/cooling-tower-fans/page/4/",
+   "destination": "/category/cooling-tower-fans/"
+  },
+  {
+   "source": "/blog/category/cooling-tower-fans/page/5/",
+   "destination": "/category/cooling-tower-fans/"
+  },
+  {
+   "source": "/blog/category/cooling-tower-fans/page/7/",
+   "destination": "/category/cooling-tower-fans/"
+  },
+  {
+   "source": "/blog/category/cooling-tower-fans/page/8/",
+   "destination": "/category/cooling-tower-fans/"
+  }
+ ],
+ "withdraw": [
+  {
+   "path": "/cooling-tower-singapore/",
+   "redirect": "/cooling-tower-construction-repair-in-singapore/"
+  }
+ ]
+}

@@ -57,3 +57,4 @@ path	routeId	action	redirect	canonical
 /rt-portfolios/ptt-gsp3-fan-upgrade/	LIVE-portfolio-2168	WITHDRAW_TO_REDIRECT	/all-projects/ptt-csp3/	
 /rt-portfolios/ptt-gsp6-96-fan-ache-performance-upgrade/	LIVE-portfolio-2174	WITHDRAW_TO_REDIRECT	/all-projects/pttcsp/	
 /thailand-cooling-tower/	LIVE-pages-2300	WITHDRAW_TO_REDIRECT	/cooling-tower-thailand/	
+/cooling-tower-singapore/	SALMON-pages-2081	WITHDRAW_TO_REDIRECT	/cooling-tower-construction-repair-in-singapore/	

@@ -62,7 +62,7 @@ describe('Salmon presentation never nests interactive elements',()=>{
   })
   it('covers the audited family estate',()=>{
     // 50 family models; one family route is not a published Payload path, so 49 render here.
-    expect(familyPaths().length).toBeGreaterThanOrEqual(49)
+    expect(familyPaths().length).toBeGreaterThanOrEqual(48) // STAGING-AUDIT-REDIRECTS-1: /cooling-tower-singapore/ is a 301 now
     expect(familyPaths()).toContain('/all-projects/')
   },60000)
   it('/all-projects/ renders zero nested links',()=>{

@@ -34,5 +34,19 @@
   {"source":"/services/","destination":"/cooling-tower-maintenance-repair-upgrade/"},
   {"source":"/cooling-towers/","destination":"/cooling-tower/"},
   {"source":"/fan-stacks/","destination":"/cooling-tower-fan-stacks/"},
-  {"source":"/index.php","destination":"/"}
+  {"source":"/index.php","destination":"/"},
+  {"source":"/blog/","destination":"/tech-articles/"},
+  {"source":"/tools/","destination":"/resources/tools/"},
+  {"source":"/cooling-tower-maintenance-repair-upgrade/crossflow-cooling-tower-repair-maintenance/","destination":"/crossflow-cooling-tower-repair-maintenance/"},
+  {"source":"/cooling-tower-maintenance-repair-upgrade/counterflow-cooling-tower-repair-maintenance/","destination":"/counterflow-cooling-tower-repair-maintenance/"},
+  {"source":"/cooling-tower-maintenance-repair-upgrade/wet-hybrid-dry-cooling-tower-repair/","destination":"/wet-hybrid-dry-cooling-tower-repair/"},
+  {"source":"/cooling-tower-maintenance-repair-upgrade/low-drift-cooling-tower-solutions/","destination":"/low-drift-cooling-tower-solutions/"},
+  {"source":"/cooling-tower-maintenance-repair-upgrade/emergency-cooling-tower-repair/","destination":"/emergency-cooling-tower-repair/"},
+  {"source":"/cooling-tower-maintenance-repair-upgrade/cooling-tower-rebuilds-new-towers/","destination":"/cooling-tower-rebuilds-new-towers/"},
+  {"source":"/blog/category/cooling-tower-fans/page/2/","destination":"/category/cooling-tower-fans/"},
+  {"source":"/blog/category/cooling-tower-fans/page/3/","destination":"/category/cooling-tower-fans/"},
+  {"source":"/blog/category/cooling-tower-fans/page/4/","destination":"/category/cooling-tower-fans/"},
+  {"source":"/blog/category/cooling-tower-fans/page/5/","destination":"/category/cooling-tower-fans/"},
+  {"source":"/blog/category/cooling-tower-fans/page/7/","destination":"/category/cooling-tower-fans/"},
+  {"source":"/blog/category/cooling-tower-fans/page/8/","destination":"/category/cooling-tower-fans/"}
 ]

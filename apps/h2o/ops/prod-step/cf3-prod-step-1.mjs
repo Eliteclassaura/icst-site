@@ -128,7 +128,7 @@ export async function applyStep(api,plan,data=DATA){
   const problems=[]
   const ok=r=>r.status===200||r.status===201
   for(const x of plan.redirects.filter(r=>r.action==='CREATE')){
-    const r=await api('public-redirects?depth=0',{method:'POST',body:JSON.stringify({source:x.source,destination:x.destination,status:'301',active:true,authority:'CF3-PROD-STEP-1 R2 (CT 2026-10-09)'})})
+    const r=await api('public-redirects?depth=0',{method:'POST',body:JSON.stringify({source:x.source,destination:x.destination,status:'301',active:true,authority:data.authority??'CF3-PROD-STEP-1 R2 (CT 2026-10-09)'})})
     if(!ok(r)){problems.push(`CREATE ${x.source} failed (${r.status})`);return {written,problems}}
     written.push(`301 ${x.source}`)
   }
@@ -156,7 +156,8 @@ export async function applyStep(api,plan,data=DATA){
   return {written,problems}
 }
 
-async function main(){
+/** Runs the step against a live site (env: H2O_STEP_*). `data` defaults to this step's data; the follow-up steps pass their own file. */
+export async function main(data=DATA){
   const env=process.env,args=process.argv
   const fail=(m,c=2)=>{process.stderr.write(`${m}\n`);process.exit(c)}
   const apply=args.includes('--apply')
@@ -169,10 +170,10 @@ async function main(){
   if(login.status!==200||!login.body?.token)fail(`admin login failed (${login.status})`)
   token=String(login.body.token)
   try{const {completeMfa}=await import('../mfa/sign-in.mjs');await completeMfa(BASE,token,env.H2O_STEP_ADMIN_TOTP_SECRET,{envName:'H2O_STEP_ADMIN_TOTP_SECRET'})}catch(e){fail(String(e.message))}
-  const plan=await planStep(api)
+  const plan=await planStep(api,data)
   process.stdout.write(plan.lines.join('\n')+'\n')
   const c=plan.counts,total=c.meta+c.slotEdits+c.redirects+c.withdraw
-  if(apply&&!c.refused){const res=await applyStep(api,plan);process.stdout.write(`applied: ${res.written.join(', ')||'nothing'}\n`);if(res.problems.length){process.stderr.write(res.problems.join('\n')+'\n');process.exit(4)}}
+  if(apply&&!c.refused){const res=await applyStep(api,plan,data);process.stdout.write(`applied: ${res.written.join(', ')||'nothing'}\n`);if(res.problems.length){process.stderr.write(res.problems.join('\n')+'\n');process.exit(4)}}
   else if(apply)process.stdout.write('not applying: a target was refused; fix or rule on it first\n')
   process.stdout.write(`${total} changes (${c.meta} meta, ${c.slotEdits} text edits, ${c.redirects} redirects, ${c.withdraw} route withdrawals), ${c.unchanged} unchanged, ${c.refused} refused (${apply?'APPLY':'DRY-RUN'})\n`)
   if(c.refused)process.exit(3)

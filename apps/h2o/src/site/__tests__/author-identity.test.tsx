@@ -77,7 +77,7 @@ describe('public author identity',()=>{
     }
     // 65 hosted pages carried the dummy author in JSON-LD; 5 of them (the dummy archive, four shop pages) become redirects.
     // R2.5: /contact/ (a 301 source that was still PUBLIC) is withdrawn to its redirect too.
-    expect(affected).toHaveLength(59)
+    expect(affected).toHaveLength(58) // STAGING-AUDIT-REDIRECTS-1: /cooling-tower-singapore/ is a 301 now, not a served page
     for(const p of affected){
       const html=renderToStaticMarkup(await Page({params:Promise.resolve({slug:p.split('/').filter(Boolean).map(decodeURIComponent)}),searchParams:Promise.resolve({})}))
       expect(html,p).not.toContain('faizasyed')
