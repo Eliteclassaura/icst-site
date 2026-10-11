@@ -9,6 +9,22 @@ import type { RouteRecord } from './compose'
  * entries, bytes and age; per process, never shared between instances. Only public (non-draft, no signed-in preview) reads are ever stored.
  * Kill switch: H2O_PAGE_CACHE=off (read at request time, no rebuild).
  */
+/** SPEED-2.1 (Security Auditor, 2026-10-09): a cached page is never older than this, whatever the version check says. */
+export const PAGE_CACHE_TTL_MS = 60 * 1000
+
+/**
+ * SPEED-2.1: the cache key. The page is keyed by the host it was asked on and the language the proxy resolved for the request as well as
+ * by its path, so one host's or language's page is never served for another's. Host and language are normalised to a plain token (anything
+ * else becomes `?`), so a hostile header can name only itself.
+ */
+export const pageCacheKey = (host: string | null | undefined, lang: string | null | undefined, path: string): string => {
+  const token = (v: string | null | undefined, max: number, fallback: string) => {
+    const t = (v ?? '').split(',')[0]!.trim().toLowerCase()
+    return t && t.length <= max && /^[a-z0-9.:-]+$/.test(t) ? t : t ? '?' : fallback
+  }
+  return `${token(host, 100, '-')}|${token(lang, 12, 'en')}|${path}`
+}
+
 export const pageCacheEnabled = (env: NodeJS.ProcessEnv = process.env): boolean => env.H2O_PAGE_CACHE !== 'off'
 
 export type CachedPage = {
@@ -25,7 +41,7 @@ export class PageCache {
     readonly maxEntries = 64,
     readonly maxBytes = 96 * 1024 * 1024,
     readonly maxEntryBytes = 24 * 1024 * 1024,
-    readonly ttlMs = 10 * 60 * 1000,
+    readonly ttlMs = PAGE_CACHE_TTL_MS,
   ) {}
   get size(): number {
     return this.map.size

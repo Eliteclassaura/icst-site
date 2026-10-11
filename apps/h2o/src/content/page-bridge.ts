@@ -8,7 +8,7 @@ import { markPublishedEditorial, requestDocuments, requestServices, setRequestRe
 import { computeRevocations } from './revocation'
 import { cache } from 'react'
 import { timed } from './server-timing'
-import { pageCache, pageCacheEnabled } from './page-cache'
+import { pageCache, pageCacheEnabled, pageCacheKey } from './page-cache'
 import { currentRelease } from './release'
 
 /**
@@ -88,7 +88,7 @@ function finish(record: RouteRecord, doc: Record<string, unknown>, user: unknown
  * SPEED-2: a public (non-preview) request whose page is unchanged since it was composed reuses the composed document. One cheap read
  * (updatedAt, status) per request decides; a changed or unpublished record is a miss and takes the normal read. Any error is a miss.
  */
-async function cachedPage(payload: Awaited<ReturnType<typeof getPayload>>, key: string): Promise<Resolved | undefined> {
+async function cachedPage(payload: Awaited<ReturnType<typeof getPayload>>, key: string, cacheKey: string): Promise<Resolved | undefined> {
   try {
     const res = await timed('version', () => payload.find({
       collection: 'public-routes' as never,
@@ -102,7 +102,7 @@ async function cachedPage(payload: Awaited<ReturnType<typeof getPayload>>, key: 
     const head = res.docs[0] as unknown as RouteRecord | undefined
     if (!head || !isPublic(head)) return undefined
     const stamp = stampOf(head)
-    const entry = stamp ? pageCache.get(key, stamp, currentRelease()?.id ?? 'none') : undefined
+    const entry = stamp ? pageCache.get(cacheKey, stamp, currentRelease()?.id ?? 'none') : undefined
     return entry ? finish(structuredClone(entry.record), structuredClone(entry.doc), null) : undefined
   } catch {
     return undefined
@@ -116,9 +116,13 @@ async function resolvePublicPathUncached(requestPath: string): Promise<Resolved 
   setRequestRevocations(await timed('revocations', () => computeRevocations(payload)))
   const key = pathKey(requestPath)
   const user = await previewUser()
-  const useCache = !user && pageCacheEnabled()
+  // SPEED-2.1: never read from or filled by a signed-in request (a session cookie, preview or not), keyed by host and language
+  const reqHeaders = await headers()
+  const signedIn = /(?:^|;\s*)payload-token=/.test(reqHeaders.get('cookie') ?? '')
+  const cacheKey = pageCacheKey(reqHeaders.get('x-forwarded-host') ?? reqHeaders.get('host'), reqHeaders.get('x-h2o-lang'), key)
+  const useCache = !user && !signedIn && pageCacheEnabled()
   if (useCache) {
-    const hit = await cachedPage(payload, key)
+    const hit = await cachedPage(payload, key, cacheKey)
     if (hit) return hit
   }
   const res = await timed('db', () => payload.find({
@@ -140,7 +144,7 @@ async function resolvePublicPathUncached(requestPath: string): Promise<Resolved 
       const { document: _d, slots: _s, restoredSections: _r, sections: _x, ...light } = record as RouteRecord & Record<string, unknown>
       void _d; void _s; void _r; void _x
       const bytes = 3 * JSON.stringify(doc).length
-      pageCache.set(key, stampOf(record), currentRelease()?.id ?? 'none', { record: light as unknown as RouteRecord, doc: structuredClone(doc) }, bytes)
+      pageCache.set(cacheKey, stampOf(record), currentRelease()?.id ?? 'none', { record: light as unknown as RouteRecord, doc: structuredClone(doc) }, bytes)
     } catch {
       /* fail open: the page is served from this read */
     }
