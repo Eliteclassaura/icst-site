@@ -25,7 +25,10 @@ const nobody: Access = () => false
 
 const shape: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
   const merged = { ...(originalDoc ?? {}), ...data } as Record<string, unknown>
-  const problem = checkProfileShape(merged)
+  // C-S1-2: the host allowlist applies when the host changes or the profile is turned on; it must never block turning a
+  // profile OFF or recording a check on a profile whose host is no longer listed.
+  const hostRule = data?.active === true || (data?.host !== undefined && data.host !== (originalDoc as Record<string, unknown> | undefined)?.host)
+  const problem = checkProfileShape(merged, process.env, { hostRule })
   if (problem) throw new CrmInvariantError(problem.code, problem.message)
   return data
 }

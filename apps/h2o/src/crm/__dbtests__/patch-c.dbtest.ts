@@ -56,6 +56,8 @@ const ENV: Record<string, string | undefined> = {
   H2O_SMTP_TLS_SERVERNAME: undefined,
   H2O_SETTINGS_KEY: KEY,
   H2O_EMAIL_SENDER_DOMAINS: 'example.test,h2ocooling.org',
+  // C-S1-2: a custom sending host must be listed by the operator.
+  H2O_SMTP_CUSTOM_HOSTS: '*.example.test',
 }
 const saved: Record<string, string | undefined> = {}
 const setEnv = (env: Record<string, string | undefined>) => {

@@ -23,7 +23,7 @@ const ENV_ALERT = 'env.alerts.synthetic@example.test'
 const SID = 'sid-alerts-1'
 let p: Payload
 let admin: TestUser, clientAdmin: TestUser, sales: TestUser
-const KEYS = ['H2O_EMAIL_MODE', 'H2O_EMAIL_ALLOWLIST', 'H2O_EMAIL_FROM', 'H2O_SALES_ALERT_TO', 'H2O_RFQ_SALES_EMAIL', 'H2O_EMAIL_CUSTOMER_ACK', 'H2O_SMTP_HOST', 'H2O_SMTP_USER', 'H2O_SMTP_PASS', 'H2O_SMTP_PORT', 'H2O_SMTP_TLS_SERVERNAME', 'H2O_SETTINGS_KEY', 'H2O_EMAIL_SENDER_DOMAINS', 'H2O_SALES_ADDRESS_DOMAINS']
+const KEYS = ['H2O_EMAIL_MODE', 'H2O_EMAIL_ALLOWLIST', 'H2O_EMAIL_FROM', 'H2O_SALES_ALERT_TO', 'H2O_RFQ_SALES_EMAIL', 'H2O_EMAIL_CUSTOMER_ACK', 'H2O_SMTP_HOST', 'H2O_SMTP_USER', 'H2O_SMTP_PASS', 'H2O_SMTP_PORT', 'H2O_SMTP_TLS_SERVERNAME', 'H2O_SETTINGS_KEY', 'H2O_EMAIL_SENDER_DOMAINS', 'H2O_SALES_ADDRESS_DOMAINS', 'H2O_SMTP_CUSTOM_HOSTS']
 let saved: Record<string, string | undefined> = {}
 const setEnv = (env: Record<string, string | undefined>) => {
   for (const [k, v] of Object.entries(env)) if (v === undefined) delete process.env[k]
@@ -355,7 +355,7 @@ describe('R2-06: a changed SMTP password turns the profile off until it is check
   const deps = { verify: async () => undefined, resolve: async () => [{ address: '93.184.216.34' }] }
   const base = { name: 'Synthetic profile', preset: 'CUSTOM', use: 'TRANSACTIONAL', host: 'smtp.example.test', port: '587', tls_servername: 'smtp.example.test', username: 'box@example.test', from_address: 'sales@example.test', from_name: 'ICS Sales Team' }
   async function activeProfile() {
-    setEnv({ H2O_SETTINGS_KEY: 'synthetic-settings-key-0000000000000000000000', H2O_EMAIL_SENDER_DOMAINS: 'example.test' })
+    setEnv({ H2O_SETTINGS_KEY: 'synthetic-settings-key-0000000000000000000000', H2O_EMAIL_SENDER_DOMAINS: 'example.test', H2O_SMTP_CUSTOM_HOSTS: 'smtp.example.test' })
     const s = session(admin)
     const saved = await saveProfile(s, SID, { ...base, password: 'first-password' }, deps)
     const id = (saved as { id?: string }).id!

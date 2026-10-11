@@ -112,7 +112,9 @@ describe('DEP-1: hidden fields stay on the server (Payload 3.90)', () => {
   it('the sealed SMTP password is never readable through REST, even by an admin', async () => {
     const p = await payload()
     const before = process.env.H2O_EMAIL_SENDER_DOMAINS
+    const beforeHosts = process.env.H2O_SMTP_CUSTOM_HOSTS
     process.env.H2O_EMAIL_SENDER_DOMAINS = 'example.test' // reserved test domain only (CRM test fixture rule)
+    process.env.H2O_SMTP_CUSTOM_HOSTS = 'smtp.example.test' // C-S1-2: a custom host must be listed by the operator
     try {
       const prof = (await p.create({
         collection: 'crm-sending-profiles' as never,
@@ -151,6 +153,8 @@ describe('DEP-1: hidden fields stay on the server (Payload 3.90)', () => {
     } finally {
       if (before === undefined) delete process.env.H2O_EMAIL_SENDER_DOMAINS
       else process.env.H2O_EMAIL_SENDER_DOMAINS = before
+      if (beforeHosts === undefined) delete process.env.H2O_SMTP_CUSTOM_HOSTS
+      else process.env.H2O_SMTP_CUSTOM_HOSTS = beforeHosts
     }
   })
   it('GraphQL is not mounted: nothing answers a users query', async () => {

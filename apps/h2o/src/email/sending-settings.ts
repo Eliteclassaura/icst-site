@@ -3,7 +3,7 @@ import type { Payload } from 'payload'
 import { confirmStepUp, confirmStepUpApp, loadMfaUser, stepUpAppSecondsLeft, stepUpSecondsLeft } from '../auth/mfa/service'
 import { readEmailConfig, recipientKey } from './config'
 import { failureCode, gateRecipient, recipientRef } from './gate'
-import { checkProfileShape, invalidateProfiles, openProfile, passwordContext, PRESET_DEFAULTS, MAIL_PRESETS, SENDING_USES, type MailPreset } from './profiles'
+import { checkProfileShape, HOST_NOT_ALLOWED_MESSAGE, hostAllowed, invalidateProfiles, openProfile, passwordContext, PRESET_DEFAULTS, MAIL_PRESETS, SENDING_USES, type MailPreset } from './profiles'
 import { seal, settingsKeyConfigured } from './settings-key'
 import { verifySmtp, sendWith, type MailMessage } from './transport'
 import type { SmtpSettings } from './config'
@@ -176,6 +176,8 @@ export async function setProfileActive(s: CrmSession, sid: string | null, id: st
   if (denied) return denied
   const doc = await load(s, id)
   if (!doc) return fail('NOT_FOUND', 'That profile no longer exists.')
+  // C-S1-2: the host must be allowed NOW (the list can change after the last check).
+  if (on && !hostAllowed(String(doc.host ?? ''))) return fail('PROFILE_HOST_NOT_ALLOWED', HOST_NOT_ALLOWED_MESSAGE)
   if (on && doc.last_check_state !== 'OK') return fail('PROFILE_NOT_CHECKED', 'Check the connection first. A profile is turned on only after a successful check.')
   // C-S1: the notice for TURNING ON goes out BEFORE the switch, so it travels through the profile that is trusted today (never
   // through the profile being turned on, which could be an attacker's server that would swallow its own notice).
@@ -215,6 +217,7 @@ const CHECK_MESSAGE: Record<string, string> = {
   SETTINGS_KEY_MISSING: 'The server has no settings key, so the stored password can’t be used. Ask the operator to set one.',
   PROFILE_PASSWORD_UNREADABLE: 'The stored password can’t be opened (the settings key changed). Enter the password again.',
   HOST_NOT_ALLOWED: 'That host isn’t allowed.',
+  PROFILE_HOST_NOT_ALLOWED: HOST_NOT_ALLOWED_MESSAGE,
   HOST_NOT_FOUND: 'That host name doesn’t resolve.',
   HOST_PRIVATE_ADDRESS: 'That host points to a private address. An internal mail server must be on the server’s list of internal mail hosts (the operator sets it).',
   // nodemailer error codes (email/gate.ts failureCode)

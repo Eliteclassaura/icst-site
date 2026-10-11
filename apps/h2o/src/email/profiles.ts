@@ -1,6 +1,6 @@
 import type { Payload } from 'payload'
 import { DEFAULT_SENDER_NAME, recipientKey, type EmailConfig, type SmtpSettings } from './config'
-import { guardHost, normaliseHost, type Resolver } from './net-guard'
+import { guardHost, internalHosts, normaliseHost, type Resolver } from './net-guard'
 import { SettingsKeyError, settingsKeyConfigured, unseal } from './settings-key'
 
 /**
@@ -44,19 +44,42 @@ export const senderDomains = (env: Record<string, string | undefined> = process.
     .map((d) => d.trim().toLowerCase())
     .filter(Boolean)
 
+/**
+ * CRM-C-S1-2 (Security Auditor C-S1, CT ruling: default deny): a sending profile may point only at the Google Workspace
+ * host (the launch preset), at a host the operator already lists as internal (H2O_SMTP_INTERNAL_HOSTS), or at a host the
+ * operator allows for other providers (H2O_SMTP_CUSTOM_HOSTS: exact names or `*.suffix`, comma-separated). Anything else is
+ * refused on save, on check, on turn-on and on every send, so a session holding the step-up cannot route mail to a
+ * server of its choosing. The rule is on the HOST, not the preset label (a label is just a form choice).
+ */
+export const customHostPatterns = (env: Record<string, string | undefined> = process.env): string[] =>
+  (env.H2O_SMTP_CUSTOM_HOSTS ?? '')
+    .split(',')
+    .map((h) => h.trim().toLowerCase())
+    .filter(Boolean)
+
+export function hostAllowed(host: string, env: Record<string, string | undefined> = process.env): boolean {
+  const h = host.trim().toLowerCase().replace(/\.$/, '')
+  if (!h) return false
+  if (h === PRESET_DEFAULTS.GMAIL.host || internalHosts(env).has(h)) return true
+  return customHostPatterns(env).some((pat) => (pat.startsWith('*.') ? h.endsWith(pat.slice(1)) && h.length > pat.length - 1 : h === pat))
+}
+
+export const HOST_NOT_ALLOWED_MESSAGE = 'This mail server isn’t on the allowed list. Ask the server operator to allow this host.'
+
 const HEADER_SAFE = /^[^\r\n"<>\\]*$/
 const TLS_NAME = /^(?=.{1,253}$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$/
 
 export type ShapeProblem = { code: string; message: string }
 
 /** Pure: is this profile well-formed? (The host's addresses are checked separately, when connecting.) */
-export function checkProfileShape(p: Record<string, unknown>, env: Record<string, string | undefined> = process.env): ShapeProblem | null {
+export function checkProfileShape(p: Record<string, unknown>, env: Record<string, string | undefined> = process.env, opts: { hostRule?: boolean } = {}): ShapeProblem | null {
   const s = (k: string) => (typeof p[k] === 'string' ? (p[k] as string).trim() : '')
   if (!s('name')) return { code: 'PROFILE_NAME_REQUIRED', message: 'Name the profile.' }
   if (!(MAIL_PRESETS as readonly string[]).includes(s('preset'))) return { code: 'PROFILE_PRESET_INVALID', message: 'Choose a provider.' }
   if (!(SENDING_USES as readonly string[]).includes(s('use'))) return { code: 'PROFILE_USE_INVALID', message: 'Choose what the profile sends.' }
   if (!normaliseHost(p.host, env))
     return { code: 'PROFILE_HOST_INVALID', message: 'Enter the mail server’s host name (an internal name must be on the server’s list of internal mail hosts).' }
+  if (opts.hostRule !== false && !hostAllowed(String(normaliseHost(p.host, env)), env)) return { code: 'PROFILE_HOST_NOT_ALLOWED', message: HOST_NOT_ALLOWED_MESSAGE }
   if (![587, 465].includes(Number(p.port))) return { code: 'PROFILE_PORT_INVALID', message: 'Use port 587 (STARTTLS) or 465 (TLS). Other ports are not allowed.' }
   if (!TLS_NAME.test(s('tls_servername').toLowerCase())) return { code: 'PROFILE_TLS_NAME_INVALID', message: 'Enter the certificate name the server presents (e.g. smtp.gmail.com).' }
   const user = s('username')

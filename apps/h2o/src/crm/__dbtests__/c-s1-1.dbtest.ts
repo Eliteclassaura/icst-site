@@ -11,7 +11,7 @@ import { payload, resetCrm, user, type TestUser } from './harness'
 type Doc = Record<string, unknown>
 const srv = { overrideAccess: true as const, depth: 0 }
 const SID = 'sid-c-s1-1'
-const KEYS = ['H2O_SETTINGS_KEY', 'H2O_EMAIL_SENDER_DOMAINS'] as const
+const KEYS = ['H2O_SETTINGS_KEY', 'H2O_EMAIL_SENDER_DOMAINS', 'H2O_SMTP_CUSTOM_HOSTS'] as const
 const saved: Record<string, string | undefined> = {}
 let p: Payload
 let admin: TestUser
@@ -37,6 +37,7 @@ beforeAll(async () => {
   for (const k of KEYS) saved[k] = process.env[k]
   process.env.H2O_SETTINGS_KEY = 'synthetic-settings-key-0000000000000000000000'
   process.env.H2O_EMAIL_SENDER_DOMAINS = 'example.test'
+  process.env.H2O_SMTP_CUSTOM_HOSTS = '*.example.test'
   admin = await user('platform-admin')
   sales = await user('sales')
   A = crmSessionFor(p, admin.user)!
