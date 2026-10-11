@@ -120,7 +120,7 @@ export function ProfileForm({ values, presets }: { values: ProfileValues; preset
       >
         {(a) => <input className="c-input" {...a} type="password" autoComplete="new-password" maxLength={256} />}
       </Field>
-      <Field name="from_address" label="Send as (address)" required hint="An address at h2ocooling.org or h2ocooling.com that this mailbox may send as.">
+      <Field name="from_address" label="Send as (address)" required hint="An address at h2ocooling.com or h2ocooling.org. If it is not the mailbox above, Google may rewrite the From unless the mailbox has this address as a Send-as alias.">
         {(a) => <input className="c-input" {...a} type="email" defaultValue={values.from_address ?? ''} maxLength={254} autoComplete="off" />}
       </Field>
       <Field name="from_name" label="Send as (name)" hint="The name customers see, e.g. ICS Sales Team.">
@@ -163,13 +163,11 @@ export function ProfileActions({ id, active }: { id: string; active: boolean }) 
     <div className="c-actions">
       <ActionForm inline action={A.checkProfileAction} hidden={{ id }} submitLabel="Check connection" submitClassName="c-btn" />
       <ActionForm inline action={A.testProfileAction} hidden={{ id }} submitLabel="Send a test to me" submitClassName="c-btn" />
-      <ActionForm
-        inline
-        action={A.activateProfileAction}
-        hidden={{ id, on: active ? '0' : '1' }}
-        submitLabel={active ? 'Turn off' : 'Turn on'}
-        submitClassName={active ? 'c-btn' : 'c-btn is-primary'}
-      />
+      {active ? (
+        <ActionForm inline action={A.activateProfileAction} hidden={{ id, on: '0' }} submitLabel="Turn off" submitClassName="c-btn" />
+      ) : (
+        <ActionForm inline action={A.makeActiveProfileAction} hidden={{ id }} submitLabel="Make active" submitClassName="c-btn is-primary" />
+      )}
       {active ? null : <ActionForm inline action={A.deleteProfileAction} hidden={{ id }} submitLabel="Delete" submitClassName="c-btn is-ghost" />}
     </div>
   )
@@ -238,4 +236,9 @@ export function RoutingForm({
 
 export function TestAlertForm() {
   return <ActionForm inline action={A.testAlertAction} submitLabel="Send test alert" submitClassName="c-btn" />
+}
+
+/** SENDER-UX-1: one click from the Profiles table: check the connection, then turn the profile on. */
+export function MakeActiveButton({ id }: { id: string }) {
+  return <ActionForm inline action={A.makeActiveProfileAction} hidden={{ id }} submitLabel="Make active" submitClassName="c-btn" />
 }

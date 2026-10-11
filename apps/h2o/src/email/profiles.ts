@@ -64,6 +64,19 @@ export function hostAllowed(host: string, env: Record<string, string | undefined
   return customHostPatterns(env).some((pat) => (pat.startsWith('*.') ? h.endsWith(pat.slice(1)) && h.length > pat.length - 1 : h === pat))
 }
 
+/**
+ * SENDER-UX-1: the sender address and the mailbox that signs in are different. The CRM accepts that, but the provider may
+ * rewrite the From to the mailbox (Google does, unless the address is a Send-as alias), and nothing reports it. Advice only.
+ */
+export function fromMismatchWarning(preset: string, username: unknown, fromAddress: unknown): string | null {
+  const login = typeof username === 'string' ? username.trim().toLowerCase() : ''
+  const from = typeof fromAddress === 'string' ? fromAddress.trim().toLowerCase() : ''
+  if (!login || !from || login === from) return null
+  return preset === 'GMAIL'
+    ? 'The sender address is not the mailbox that signs in. Google may rewrite the From to the mailbox unless the login account owns this address or has it as a Send-as alias.'
+    : 'The sender address is not the mailbox that signs in. The mail service may replace the From unless the mailbox is allowed to send as this address.'
+}
+
 export const HOST_NOT_ALLOWED_MESSAGE = 'This mail server isn’t on the allowed list. Ask the server operator to allow this host.'
 
 const HEADER_SAFE = /^[^\r\n"<>\\]*$/

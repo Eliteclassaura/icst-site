@@ -73,6 +73,10 @@ export async function activateProfileAction(_: ActionState, fd: FormData) {
   return run((s, sid) => sending.setProfileActive(s, sid, f(fd, 'id'), f(fd, 'on') === '1'))
 }
 
+export async function makeActiveProfileAction(_: ActionState, fd: FormData) {
+  return run((s, sid) => sending.makeProfileActive(s, sid, f(fd, 'id')))
+}
+
 export async function checkProfileAction(_: ActionState, fd: FormData) {
   return run((s, sid) => sending.checkProfile(s, sid, f(fd, 'id')))
 }

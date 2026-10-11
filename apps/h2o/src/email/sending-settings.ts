@@ -3,7 +3,7 @@ import type { Payload } from 'payload'
 import { confirmStepUp, confirmStepUpApp, loadMfaUser, stepUpAppSecondsLeft, stepUpSecondsLeft } from '../auth/mfa/service'
 import { readEmailConfig, recipientKey } from './config'
 import { failureCode, gateRecipient, recipientRef } from './gate'
-import { checkProfileShape, HOST_NOT_ALLOWED_MESSAGE, hostAllowed, invalidateProfiles, openProfile, passwordContext, PRESET_DEFAULTS, MAIL_PRESETS, SENDING_USES, type MailPreset } from './profiles'
+import { checkProfileShape, fromMismatchWarning, HOST_NOT_ALLOWED_MESSAGE, hostAllowed, invalidateProfiles, openProfile, passwordContext, PRESET_DEFAULTS, MAIL_PRESETS, SENDING_USES, type MailPreset } from './profiles'
 import { seal, settingsKeyConfigured } from './settings-key'
 import { verifySmtp, sendWith, type MailMessage } from './transport'
 import type { SmtpSettings } from './config'
@@ -161,7 +161,8 @@ export async function saveProfile(s: CrmSession, sid: string | null, input: Prof
   if (password) await s.payload.update({ collection: SLUG, id, data: { password_sealed: seal(password, passwordContext(id)), password_set: true, ...checkReset } as never, ...by(s) })
   invalidateProfiles()
   await notifyProfileChange(s, existing ? 'saved' : 'created', data.name as string, deps.now, { notify: deps.notify })
-  return { ok: true, message: existing ? 'Profile saved.' : 'Profile added. Check the connection, then turn it on.', id }
+  const warn = fromMismatchWarning(preset, data.username, data.from_address)
+  return { ok: true, message: `${existing ? 'Profile saved.' : 'Profile added. Check the connection, then turn it on.'}${warn ? ` ${warn}` : ''}`, id }
 }
 
 async function load(s: CrmSession, id: string | undefined): Promise<Doc | null> {
@@ -190,6 +191,16 @@ export async function setProfileActive(s: CrmSession, sid: string | null, id: st
   invalidateProfiles()
   if (!on) await notifyProfileChange(s, 'deactivated', String(doc.name ?? ''), deps.now, { notify: deps.notify })
   return { ok: true, message: on ? 'Profile turned on. New email is sent through it.' : 'Profile turned off. Email uses the server’s default settings, if any.' }
+}
+
+/** SENDER-UX-1: one click. Check the connection (the real result is returned if it fails), then turn the profile on. */
+export async function makeProfileActive(s: CrmSession, sid: string | null, id: string | undefined, deps: SendingDeps = {}): Promise<Outcome> {
+  if (!s.isAdmin) return NOT_ADMIN
+  const checked = await checkProfile(s, sid, id, deps)
+  if (!checked.ok) return checked
+  const on = await setProfileActive(s, sid, id, true, deps)
+  if (!on.ok) return on
+  return { ok: true, message: 'Checked and turned on. New email is sent through this profile.' }
 }
 
 export async function deleteProfile(s: CrmSession, sid: string | null, id: string | undefined, deps: SendingDeps = {}): Promise<Outcome> {
@@ -299,10 +310,11 @@ export async function testSendProfile(s: CrmSession, sid: string | null, id: str
   } catch (err) {
     const { code } = failureCode(err)
     await recordEmailEvent({ payload: s.payload } as never, { event: 'DIRECT_FAILED', kind: 'PROFILE_TEST', code, recipient_ref: ref })
-    return fail(code, checkMessage(code))
+    return fail(code, `${checkMessage(code)} The test did not send (code ${code}).`)
   }
   await recordEmailEvent({ payload: s.payload } as never, { event: 'DIRECT_SENT', kind: 'PROFILE_TEST', recipient_ref: ref })
-  return { ok: true, message: 'Test message sent to your address.' }
+  const warn = fromMismatchWarning(String(doc.preset ?? ''), doc.username, doc.from_address)
+  return { ok: true, message: `Test message sent to your address. Open it and check that it shows ${opened.fromAddress} as the sender.${warn ? ` ${warn}` : ''}` }
 }
 
 /** For the settings page: profiles without any secret. */
