@@ -3,6 +3,7 @@ import { crmAdmin, crmAdminField, noOne } from '../access'
 import { crmCollection } from '../collection'
 import { kindAllowed } from '../../email/config'
 import { appendOnly, CrmInvariantError } from '../guards'
+import { refuseWhenImporting } from '../import/scope'
 import { EMAIL_EVENT, EMAIL_KIND, EMAIL_OUTBOX_STATUS, options } from '../vocabulary'
 
 /**
@@ -31,6 +32,11 @@ export const CrmEmailOutbox: CollectionConfig = crmCollection(
     defaultSort: '-createdAt',
     hooks: {
       beforeChange: [
+        // IMPORT-GUARD-1: nothing queues email from inside a contact import run (any email mode); a request in another call chain is unaffected.
+        ({ data, operation }) => {
+          refuseWhenImporting(operation, (code, message) => new CrmInvariantError(code, message, 409))
+          return data
+        },
         // SEND-FIX-1a (review R2-02): the queue-time backstop. Whatever path queues it, a message of a kind outside the
         // allowed set (launch: RFQ alert + T1) is never written as sendable. Suppressed records stay allowed.
         ({ data, operation }) => {

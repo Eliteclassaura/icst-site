@@ -7,7 +7,8 @@ import { wallClockToUtc } from '../workspace/time'
 import { cpLength, cpSlice } from '../workspace/validate'
 import { parseCsv, type Mapping } from './csv'
 import { applyImport, nameHasLink, planImport, undoRun, type Summary } from './engine'
-import { OperatorError, operatorSession, reachCounts, sendingOff, verifiedText } from './operator'
+import { OperatorError, notOffCode, operatorSession, reachTiedToFile, sendingOff, verifiedText } from './operator'
+import { runAsImport } from './scope'
 
 /**
  * IMPORT-TYPEFORM-1 (owner, CT 2026-10-08): the Typeform leads sheet — real quote requests received before the CRM —
@@ -222,10 +223,15 @@ const same = (a: string, b: string | null) => !!b && a.length === b.length && ti
 export async function applyTypeform(payload: Payload, bytes: Buffer, expectedSha: string, adminEmail: string, approval: string, env: NodeJS.ProcessEnv = process.env, note: string | null = null) {
   const s = await operatorSession(payload, adminEmail)
   const off = await sendingOff(payload, env)
-  if (!off.ok) throw new OperatorError(`SENDING_NOT_OFF${off.mode !== 'off' ? '_EMAIL' : ''}${off.engine ? '_ENGINE' : ''}${off.inbound ? '_INBOUND' : ''}`)
+  if (!off.ok) throw new OperatorError(notOffCode(off))
   const plan = await planTypeform(payload, bytes, expectedSha, adminEmail)
   if (!same(approval, plan.approval)) throw new OperatorError('STALE_DRY_RUN')
-  const before = await reachCounts(payload)
+  // IMPORT-GUARD-1: same rule as the legacy import: the run proves nothing TIED TO THIS FILE (its contact batches, by the batches' file hash) was queued or enrolled
+  const before = await reachTiedToFile(payload, plan.contactPlan.sha256)
+  return runAsImport(() => applyTypeformPlan(payload, s, plan, note, before))
+}
+
+async function applyTypeformPlan(payload: Payload, s: Awaited<ReturnType<typeof operatorSession>>, plan: TypeformPlan, note: string | null, before: { enrollments: number; outbox: number }) {
   // PROD-IMPORT-1 N1 parity: the contact batches and their audit say the run came from the operator CLI, with its note
   const contacts = await applyImport(s, plan.contactsText, plan.contactMapping, TYPEFORM_CONTACT_OPTIONS, plan.contactPlan.approval, undefined, { via: 'operator-cli', note })
   if (!contacts.ok) throw new OperatorError(contacts.code)
@@ -281,7 +287,7 @@ export async function applyTypeform(payload: Payload, bytes: Buffer, expectedSha
       else result.failed.push({ row: q.row, code: 'TF_INQUIRY_WRITE_FAILED' })
     }
   }
-  const after = await reachCounts(payload)
+  const after = await reachTiedToFile(payload, plan.contactPlan.sha256)
   if (after.enrollments !== before.enrollments || after.outbox !== before.outbox) throw new OperatorError('IMPORT_QUEUED_OR_ENROLLED')
   return { sha256: plan.fileSha, contacts: { batchIds: contacts.batchIds, summary: contacts.summary, failed: contacts.failed }, inquiries: result, before, after }
 }

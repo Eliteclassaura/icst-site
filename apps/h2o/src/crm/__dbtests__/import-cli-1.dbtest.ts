@@ -62,7 +62,7 @@ describe('refusals (codes only)', () => {
     const noPhone = Buffer.from('email,first_name,last_name,mobile_phone,company_name\na@example.test,A,B,,C\n')
     expect(await refused(dryRun(p, noPhone, sha256Hex(noPhone), adminEmail))).toBe('COLUMN_MISSING_PRIMARY_PHONE')
     const dry = await dryRun(p, f, sha, adminEmail)
-    expect(await refused(apply(p, f, sha, adminEmail, dry.approval!, { H2O_EMAIL_MODE: 'allowlist', H2O_EMAIL_ALLOWLIST: 'x@example.test', H2O_EMAIL_FROM: 'x@example.test' } as unknown as NodeJS.ProcessEnv))).toMatch(/^SENDING_NOT_OFF/)
+    expect(await refused(apply(p, f, sha, adminEmail, dry.approval!, { H2O_EMAIL_MODE: 'off', H2O_EMAIL_INBOUND: 'on' } as unknown as NodeJS.ProcessEnv))).toMatch(/^SENDING_NOT_OFF_INBOUND/) // IMPORT-GUARD-1: email mode no longer matters; inbound / engine / triggers do (import-guard-1.dbtest.ts)
     expect(await refused(apply(p, f, sha, adminEmail, 'f'.repeat(64), off))).toBe('STALE_DRY_RUN')
     expect(await count('crm-contacts')).toBe(0)
   })
@@ -101,16 +101,17 @@ describe('dry → apply → rerun → undo', () => {
   })
 })
 
-describe('reach counts are the real ones', () => {
-  it('existing outbox rows are counted before and after, and the import adds none', async () => {
+describe('reach counts are tied to the file, not to the table', () => {
+  it('an existing outbox row (an earlier alert) is not the import\'s: the counts tied to this file are 0 before and after', async () => {
     const p = await payload()
     await p.create({ collection: 'crm-email-outbox', data: { idempotency_key: 'reach:prior', kind: 'RFQ_SALES_ALERT', status: 'SENT', recipient_ref: 'x' } as never, overrideAccess: true, context: { crmServer: {} } })
     const f = file()
     const sha = sha256Hex(f)
     const dry = await dryRun(p, f, sha, adminEmail)
     const r = await apply(p, f, sha, adminEmail, dry.approval!, off)
-    expect(r.before).toEqual({ enrollments: 0, outbox: 1 })
+    expect(r.before).toEqual({ enrollments: 0, outbox: 0 }) // IMPORT-GUARD-1: scoped to the file's batches (was: whole-table counts)
     expect(r.after).toEqual(r.before)
+    expect(await count('crm-email-outbox')).toBe(1)
   })
 })
 

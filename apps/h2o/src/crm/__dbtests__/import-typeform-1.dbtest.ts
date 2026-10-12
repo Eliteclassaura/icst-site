@@ -194,7 +194,7 @@ describe('dry → apply → rerun → undo', () => {
     const sha = sha256Hex(f)
     const plan = await planTypeform(p, f, sha, adminEmail)
     const code = async (x: Promise<unknown>) => x.then(() => 'NOT_REFUSED', (e) => (e instanceof OperatorError ? e.code : 'UNEXPECTED'))
-    expect(await code(applyTypeform(p, f, sha, adminEmail, plan.approval!, { H2O_EMAIL_MODE: 'allowlist', H2O_EMAIL_ALLOWLIST: 'x@example.test', H2O_EMAIL_FROM: 'x@example.test' } as unknown as NodeJS.ProcessEnv))).toMatch(/^SENDING_NOT_OFF/)
+    expect(await code(applyTypeform(p, f, sha, adminEmail, plan.approval!, { H2O_EMAIL_MODE: 'off', H2O_EMAIL_INBOUND: 'on' } as unknown as NodeJS.ProcessEnv))).toMatch(/^SENDING_NOT_OFF_INBOUND/) // IMPORT-GUARD-1: email mode no longer matters; inbound / engine / triggers do (import-guard-1.dbtest.ts)
     expect(await code(applyTypeform(p, f, sha, adminEmail, 'f'.repeat(64), off))).toBe('STALE_DRY_RUN')
     expect(await code(planTypeform(p, f, '0'.repeat(64), adminEmail))).toBe('SHA_MISMATCH')
     const noToken = Buffer.from(`${H.slice(0, 13).map(q).join(',')}\n`)

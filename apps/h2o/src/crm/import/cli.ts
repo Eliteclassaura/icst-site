@@ -5,8 +5,9 @@
  *   dry   --file <path> --sha256 <hex> --as-admin <email>
  *         verify the file, plan it, print the counts and the approval token. Writes nothing.
  *   apply --file <path> --sha256 <hex> --as-admin <email> --approval <token> --note <who/why, no personal data>
- *         refuses unless email sending, the Revenue Engine and inbound mail are OFF; applies the approved plan; proves
- *         0 new enrollments and 0 new outgoing email; prints the batch ids and counts.
+ *         refuses unless the Revenue Engine, inbound mail and every trigger rule are OFF (email sending may be ON: the import
+ *         cannot queue email or enroll anyone); applies the approved plan; proves 0 enrollments and 0 outgoing email tied to
+ *         this file; prints the batch ids and counts.
  *   undo  --sha256 <hex> --as-admin <email> --note <why>
  *         archives every batch of this file (archive-only, audited).
  *

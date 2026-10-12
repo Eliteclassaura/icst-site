@@ -3,6 +3,7 @@ import { crmUser, noOne } from '../access'
 import { crmCollection } from '../collection'
 import { ENROLLMENT_PURPOSE, SCOPE_KIND, purposeNeedsRfq } from '../ers/identity'
 import { CrmInvariantError } from '../guards'
+import { refuseWhenImporting } from '../import/scope'
 import { userRelation } from '../fields'
 import { ENROLLED_VIA, ENROLLMENT_EXIT_REASON, ENROLLMENT_PAUSE_REASON, ENROLLMENT_STATUS, MISSING_INFORMATION_ITEMS, options } from '../vocabulary'
 
@@ -16,6 +17,11 @@ import { ENROLLED_VIA, ENROLLMENT_EXIT_REASON, ENROLLMENT_PAUSE_REASON, ENROLLME
  * The engine (crm/ers/engine.ts) moves `current_step` and `next_action_at` through ers/transition.ts; exits are terminal.
  * Written only by trusted server code; the API is read-only. Audited (status / exit / pause transitions).
  */
+// IMPORT-GUARD-1: nobody is enrolled from inside a contact import run (see ../import/scope).
+const notFromImport: CollectionBeforeChangeHook = ({ data, operation }) => {
+  refuseWhenImporting(operation, (code, message) => new CrmInvariantError(code, message, 409))
+  return data
+}
 const needsRfq: CollectionBeforeChangeHook = ({ data, operation, originalDoc }) => {
   const merged = { ...(operation === 'update' ? (originalDoc ?? {}) : {}), ...(data as Record<string, unknown>) } as Record<string, unknown>
   if (purposeNeedsRfq(String(merged.purpose ?? 'RFQ_RESPONSE')) && !merged.rfq)
@@ -28,7 +34,7 @@ export const CrmEnrollments: CollectionConfig = crmCollection(
     slug: 'crm-enrollments',
     labels: { singular: 'Sequence enrollment', plural: 'Sequence enrollments' },
     access: { read: crmUser, create: noOne, update: noOne, delete: noOne },
-    hooks: { beforeChange: [needsRfq] },
+    hooks: { beforeChange: [notFromImport, needsRfq] },
     admin: { useAsTitle: 'coalesce_key', description: 'Who is in which sequence, and where.', defaultColumns: ['sequence', 'contact', 'status', 'current_step', 'next_action_at'] },
     fields: [
       { name: 'coalesce_key', type: 'text', required: true, unique: true, index: true, maxLength: 400 },

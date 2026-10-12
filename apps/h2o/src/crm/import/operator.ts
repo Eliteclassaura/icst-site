@@ -5,6 +5,7 @@ import { ersSettings } from '../ers/settings'
 import { crmSessionFor, type CrmSession } from '../workspace/session'
 import { parseCsv, type Mapping } from './csv'
 import { applyImport, cutByField, planImport, undoRun, type Summary } from './engine'
+import { runAsImport } from './scope'
 
 /**
  * IMPORT-CLI-1: the operator path for a contact import with no browser (Commander, Phase P: the site is private and
@@ -12,8 +13,9 @@ import { applyImport, cutByField, planImport, undoRun, type Summary } from './en
  * anything about a row.
  *
  *   dry   verify the file's SHA-256, plan it as the named admin, print the counts and the approval token; writes nothing
- *   apply verify again, refuse unless email sending, the Revenue Engine and inbound mail are all OFF, apply with the
- *         token (the engine re-plans and refuses on any difference), then prove nothing was queued or enrolled
+ *   apply verify again, refuse unless the Revenue Engine, inbound mail and every trigger rule are OFF (email sending may be ON),
+ *         apply with the token (the engine re-plans and refuses on any difference) inside an import run that cannot queue or
+ *         enroll, then prove nothing tied to this file was queued or enrolled
  *   undo  archive every batch of this file (the import page's undo; archive-only)
  *
  * Output is counts, batch ids, the file hash and codes only: never a name, an address, a phone or a row value.
@@ -72,19 +74,33 @@ export async function operatorSession(payload: Payload, email: string): Promise<
   return s
 }
 
-/** Email sending, the Revenue Engine and inbound mail must all be OFF before an apply. */
-export async function sendingOff(payload: Payload, env: NodeJS.ProcessEnv = process.env): Promise<{ ok: boolean; mode: string; engine: boolean; inbound: boolean }> {
+/**
+ * IMPORT-GUARD-1 (GO contract, Security Auditor item 8): before an apply the Revenue Engine, inbound mail and EVERY sequence trigger rule must
+ * be OFF. Email sending itself may be ON (the site is live and real RFQs arrive): the import path cannot send, because inside an import run
+ * the outgoing-email queue and enrollments refuse every create (./scope), and the run proves it again against the rows tied to this file.
+ */
+export async function sendingOff(payload: Payload, env: NodeJS.ProcessEnv = process.env): Promise<{ ok: boolean; mode: string; engine: boolean; inbound: boolean; triggers: number }> {
   const mode = readEmailConfig(env).mode
   const engine = (await ersSettings(payload)).enabled
-  const inbound = readInboundConfig(env).enabled
-  return { ok: mode === 'off' && !engine && !inbound, mode, engine, inbound }
+  // any value but "off" counts as ON, even a misconfigured one: the guard never reasons about whether the mailbox settings would validate
+  const inbound = readInboundConfig(env).enabled || String(env.H2O_EMAIL_INBOUND ?? 'off').trim().toLowerCase() !== 'off'
+  const triggers = (await payload.count({ collection: 'crm-sequence-triggers' as never, where: { enabled: { equals: true } } as never, overrideAccess: true })).totalDocs
+  return { ok: !engine && !inbound && triggers === 0, mode, engine, inbound, triggers }
 }
+export const notOffCode = (off: { engine: boolean; inbound: boolean; triggers: number }): string => `SENDING_NOT_OFF${off.engine ? '_ENGINE' : ''}${off.inbound ? '_INBOUND' : ''}${off.triggers ? '_TRIGGERS' : ''}`
 
-/** What could make an import reach anyone: sequence enrollments and outgoing email rows. */
-export async function reachCounts(payload: Payload): Promise<{ enrollments: number; outbox: number }> {
+/**
+ * What an import could have made reach a person: enrollments and outgoing-email rows TIED TO THIS FILE, never table totals and never a time window.
+ * Tied = the contact (or the enrollment's contact) was created by a batch of this file (`provenance.import_batch_id`) and the row has no RFQ
+ * behind it. A real RFQ arriving while the import runs queues its alert and acknowledgement with `rfq` set; those rows are not the import's.
+ */
+export async function reachTiedToFile(payload: Payload, fileSha: string): Promise<{ enrollments: number; outbox: number }> {
+  const found = await payload.find({ collection: 'crm-import-batches', where: { file_sha256: { equals: fileSha } }, limit: 1000, depth: 0, overrideAccess: true, select: { canonical_id: true } as never })
+  const keys = (found.docs as unknown as Array<{ canonical_id?: string }>).map((b) => String(b.canonical_id ?? '')).filter(Boolean)
+  if (!keys.length) return { enrollments: 0, outbox: 0 }
   const [e, o] = await Promise.all([
-    payload.count({ collection: 'crm-enrollments' as never, overrideAccess: true }),
-    payload.count({ collection: 'crm-email-outbox', overrideAccess: true }),
+    payload.count({ collection: 'crm-enrollments' as never, where: { and: [{ 'contact.provenance.import_batch_id': { in: keys } }, { rfq: { exists: false } }] } as never, overrideAccess: true }),
+    payload.count({ collection: 'crm-email-outbox', where: { and: [{ 'enrollment.contact.provenance.import_batch_id': { in: keys } }, { rfq: { exists: false } }] } as never, overrideAccess: true }),
   ])
   return { enrollments: e.totalDocs, outbox: o.totalDocs }
 }
@@ -103,14 +119,15 @@ export async function apply(payload: Payload, bytes: Buffer, expectedSha: string
   const text = verifiedText(bytes, expectedSha)
   const s = await operatorSession(payload, adminEmail)
   const off = await sendingOff(payload, env)
-  if (!off.ok) throw new OperatorError(`SENDING_NOT_OFF${off.mode !== 'off' ? '_EMAIL' : ''}${off.engine ? '_ENGINE' : ''}${off.inbound ? '_INBOUND' : ''}`)
-  const before = await reachCounts(payload)
-  // PROD-IMPORT-1 N1: every batch and its audit say it ran from the operator CLI, with the operator's note
-  const r = await applyImport(s, text, legacyMapping(text), LEGACY_OPTIONS, approval, undefined, { via: 'operator-cli', note })
+  if (!off.ok) throw new OperatorError(notOffCode(off))
+  const before = await reachTiedToFile(payload, expectedSha)
+  // PROD-IMPORT-1 N1: every batch and its audit say it ran from the operator CLI, with the operator's note.
+  // IMPORT-GUARD-1: inside runAsImport the outgoing-email queue and enrollments refuse every create.
+  const r = await runAsImport(() => applyImport(s, text, legacyMapping(text), LEGACY_OPTIONS, approval, undefined, { via: 'operator-cli', note }))
   if (!r.ok) throw new OperatorError(r.code)
   if (r.stopped) throw new OperatorError(`STOPPED_${r.stopped.code}_AT_ROW_${r.stopped.fromRow}`)
-  const after = await reachCounts(payload)
-  // the import never reaches anyone: not one enrollment, not one queued email
+  const after = await reachTiedToFile(payload, expectedSha)
+  // the import never reaches anyone: not one enrollment, not one queued email tied to this file
   if (after.enrollments !== before.enrollments || after.outbox !== before.outbox) throw new OperatorError('IMPORT_QUEUED_OR_ENROLLED')
   return { sha256: expectedSha, batchIds: r.batchIds, summary: r.summary, failed: r.failed, before, after }
 }
