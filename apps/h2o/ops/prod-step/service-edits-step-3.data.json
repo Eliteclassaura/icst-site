@@ -1,0 +1,24 @@
+{
+ "authority": "SERVICE-EDITS-STEP-3 (1.2f-FIX-A, CT 2026-10-11)",
+ "serviceEdits": [
+  {
+   "path": "/wet-hybrid-dry-cooling-tower-repair/",
+   "row": "CP-01",
+   "title": {
+    "expectedOld": "Wet, Hybrid, and Dry Cooling Tower",
+    "new": "Wet, Hybrid, and Dry Cooling Tower Repair and Maintenance"
+   }
+  },
+  {
+   "path": "/emergency-cooling-tower-repair/",
+   "row": "CP-03",
+   "copy": [
+    {
+     "key": "service:lead",
+     "expectedOld": "When a cooling tower failure threatens operation, give ICS the fault, site constraints and available evidence so the repair can be scoped quickly.",
+     "new": "When a cooling tower failure threatens operation, give ICS the fault, site constraints and available evidence so the repair can be scoped."
+    }
+   ]
+  }
+ ]
+}

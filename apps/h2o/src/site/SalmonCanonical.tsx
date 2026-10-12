@@ -9,6 +9,7 @@ import {mathNodes,shortcodeNodes} from './math-text'
 import {articleImageAlt,isDroppedArticleImage} from './article-images'
 import {articleByline,articleDisplayTitle,articleHeadingNodes,descendants,publicAlt} from './wave4'
 import {articleMetadataTitle} from './article-metadata'
+import {articleCopyParts,articleModified,longDate} from './article-layout'
 import {R2Discovery} from './R2Discovery'
 import {ProjectAuthorityIndex} from './ProjectAuthorityIndex'
 import {ProjectDetail} from './ProjectDetail'
@@ -101,7 +102,9 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
   if(doc.type==='posts'&&/(?:^|\s)elementor-widget-post-info(?:\s|$)/.test(node.attrs.class??'')){
     if(suppressSourceByline)return null
     const byline=articleByline(doc)
-    return byline?<p key={key} className="wave4-byline"><span>By {byline.author===PUBLIC_AUTHOR.name?<a href={PUBLIC_AUTHOR.path}>{byline.author}</a>:byline.author}</span><span aria-hidden="true">{' · '}</span><time dateTime={byline.dateTime}>{byline.date}</time></p>:null
+    // AEO-1 (3): every post shows "Last updated <date>" (its BlogPosting dateModified), here too: these posts are outside the Wave 4 article layout.
+    const modified=articleModified(doc)
+    return byline?<p key={key} className="wave4-byline"><span>By {byline.author===PUBLIC_AUTHOR.name?<a href={PUBLIC_AUTHOR.path}>{byline.author}</a>:byline.author}</span><span aria-hidden="true">{' · '}</span><time dateTime={byline.dateTime}>{byline.date}</time>{modified?<><span aria-hidden="true">{' · '}</span><span>{articleCopyParts('meta.updated','date')[0]}<time dateTime={modified}>{longDate(modified)}</time></span></>:null}</p>:null
   }
   const priceLabel=priceSpecLabel(node,doc)
   if(priceLabel===null)return null

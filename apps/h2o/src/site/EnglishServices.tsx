@@ -26,9 +26,18 @@ export type EnglishService = {
 }
 
 const contentFile=path.join(process.cwd(),'content/english-completion/service-pages.json')
+/**
+ * The code-owned section headings of a service (the request and FAQ headings are not editable page elements, so a database record imported before
+ * they existed never carries them). Payload mode takes them from the repository file shipped with the build; a heading the record itself holds wins.
+ */
+let codeHeadings:Map<string,{requestHeading?:string;faqHeading?:string}>|undefined
+const headingsOf=(id:string)=>{
+  codeHeadings??=new Map((JSON.parse(readFileSync(contentFile,'utf8')) as EnglishService[]).map(page=>[page.id,{...(page.requestHeading?{requestHeading:page.requestHeading}:{}),...(page.faqHeading?{faqHeading:page.faqHeading}:{})}]))
+  return codeHeadings.get(id)??{}
+}
 export function englishServicePages():EnglishService[]{
   // Content bridge seam: payload content mode reads the published snapshot; a previewed service is injected.
-  const pages=isPayloadContent()?snapshotJson<EnglishService[]>('english-services.json').map(page=>(requestServices().get(page.id) as EnglishService|undefined)??page):JSON.parse(readFileSync(contentFile,'utf8')) as EnglishService[]
+  const pages=isPayloadContent()?snapshotJson<EnglishService[]>('english-services.json').map(page=>({...headingsOf(page.id),...((requestServices().get(page.id) as EnglishService|undefined)??page)})):JSON.parse(readFileSync(contentFile,'utf8')) as EnglishService[]
   if(pages.length!==6||new Set(pages.map(page=>page.path)).size!==6)throw new Error('Six distinct English service destinations required')
   return pages
 }
