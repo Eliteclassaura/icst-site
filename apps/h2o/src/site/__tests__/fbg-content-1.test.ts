@@ -2,7 +2,11 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
-import { heldImageAlt } from '../salmon'
+import { heldImageAlt, releaseRoutes, salmonDocument } from '../salmon'
+import { renderToStaticMarkup } from 'react-dom/server'
+import { createElement } from 'react'
+import { SalmonCanonical } from '../SalmonCanonical'
+import { LiveEnglishDetail } from '../Wave4Presentation'
 import { DATA2 } from '../../../ops/prod-step/staging-audit-redirects-step-2.mjs'
 
 const APP = process.cwd()
@@ -60,5 +64,21 @@ describe('FBG-CONTENT-1', () => {
     const th = edits.find((e) => e.path === '/cooling-tower-thermography/')!.fixes.find((f) => f.key === 'body.3.1.1.7.145')!
     expect(th.afterCanon).toContain('Frequently Asked Questions')
     expect(th.afterCanon).not.toContain('Aseked')
+  })
+  it('F11: the flat fan-stack page title is exact, the "replacment" typo is gone from every served head, title, JSON-LD and image alt', () => {
+    const tsv = readFileSync(path.join(APP, 'ops/seo-pass/data/seo-fields.tsv'), 'utf8').split('\n').map((l) => l.split('\t'))
+    expect(tsv.find((c) => c[0] === '/dyna-fab-10-height-fan-stack/')![3]).toBe('Cooling Tower Fan Stack Replacement | Fiberglass Fan Stacks')
+    expect(tsv.find((c) => c[0] === '/product/dyna-fab-10-height-fan-stack/')![3]).toBe("Dyna-Fab 10' Height Fan Stack | Cooling Tower Fan Stacks") // the /product/ twin keeps its own title (both rank)
+    expect((DATA2.meta as Array<{ path: string; field: string; new: string; expectedOld: unknown }>).find((m) => m.path === '/dyna-fab-10-height-fan-stack/')).toMatchObject({ field: 'title', expectedOld: [null, 'Cooling tower fan stack replacment'] })
+    for (const [file, body] of [['seo-fields.tsv', tsv.map((c) => c.slice(0, 5).join('\t')).join('\n')]]) expect(body, file).not.toMatch(/replacment/i)
+    // the served pages: the flat LIVE page (head, JSON-LD) and the product that carries the typo in its image alt
+    const flat = salmonDocument(releaseRoutes().find((r) => r.targetPath === '/dyna-fab-10-height-fan-stack/')!)
+    // (its <title> and og/twitter tags come from the SEO field the step writes; in repository mode the head still shows the imported title, so only the JSON-LD graph, which is generated, is read here)
+    const flatHtml = renderToStaticMarkup(createElement(LiveEnglishDetail, { doc: flat }))
+    const jsonLd = [...flatHtml.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((m) => m[1]).join('\n')
+    expect(jsonLd.length).toBeGreaterThan(100)
+    expect(jsonLd).not.toMatch(/replacment/i)
+    const product = salmonDocument(releaseRoutes().find((r) => r.targetPath === '/product/ics-14-height-fan-stack/')!)
+    expect(renderToStaticMarkup(createElement(SalmonCanonical, { doc: product }))).not.toMatch(/replacment/i)
   })
 })

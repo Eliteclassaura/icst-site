@@ -15,14 +15,14 @@ const ledger0 = JSON.parse(readFileSync(path.join(APP, 'content/release/route-le
 const productIds = new Map(ledger0.routes.filter((r) => /^SALMON-product-[0-9]+$/.test(r.routeId) && r.state === 'PUBLIC' && r.export).map((r) => [r.path, r.routeId] as [string, string]))
 const realSlots = (p: string) => extractSlots(storedDocument(ledger0.routes.find((r) => r.path === p) as never), { productIds }) as Rec[]
 const slotFixes = JSON.parse(readFileSync(path.join(APP, 'ops/seo-pass/data/slot-fixes.json'), 'utf8')) as Record<string, { slots: Array<{ key: string; after: unknown; afterCanon: string }> }>
-type MetaRow = { path: string; field: 'title' | 'description'; expectedOld: string | null; new: string }
+type MetaRow = { path: string; field: 'title' | 'description'; expectedOld: string | null | Array<string | null>; new: string }
 const fake = (opts: { redirects?: Rec[]; draft?: boolean; withdrawn?: boolean; editedTitle?: string; editedH1?: boolean } = {}) => {
   const route: Rec = { id: 'id:sg', pathKey: SG, _status: opts.withdrawn ? 'draft' : 'published', updatedAt: 't1', seo: {}, slots: [], disposition: { state: opts.withdrawn ? 'REDIRECT' : 'PUBLIC', export: !opts.withdrawn, indexable: true, sitemap: true, searchable: true, redirect: null } }
   const routes = new Map<string, Rec>([[SG, route]])
   for (const w of DATA2.withdraw as Array<{ path: string }>) if (w.path !== SG) routes.set(w.path, { id: `id:${w.path}`, pathKey: w.path, _status: 'published', updatedAt: 't1', seo: {}, slots: [], disposition: { state: 'PUBLIC', export: true, indexable: true, sitemap: true, searchable: true, redirect: null } })
   for (const p of new Set((DATA2.meta as MetaRow[]).map((m) => m.path))) {
     const seo: Rec = { canonical: 'https://h2ocooling.com/x/' }
-    for (const m of (DATA2.meta as MetaRow[]).filter((x) => x.path === p)) if (m.expectedOld !== null) seo[m.field] = m.expectedOld
+    for (const m of (DATA2.meta as MetaRow[]).filter((x) => x.path === p)) { const old = Array.isArray(m.expectedOld) ? m.expectedOld.find((x) => x !== null) : m.expectedOld; if (old !== null && old !== undefined) seo[m.field] = old } // expectedOld may list several accepted values (F11)
     if (opts.editedTitle === p) seo.title = 'Edited by staff'
     routes.set(p, { id: `id:${p}`, pathKey: p, _status: 'published', updatedAt: 't1', seo, slots: [], disposition: {} })
   }
@@ -69,10 +69,10 @@ describe('STAGING-AUDIT-REDIRECTS-1 prod step', () => {
       expect(r.destination).not.toBe('/')
     }
   })
-  it('dry run writes nothing (78 changes: 19 SEO fields + 26 page elements (FBG-CONTENT-1) + 25 redirects + 7 withdrawals + 1 retired redirect); apply writes once; the rerun is 78 x UNCHANGED', async () => {
+  it('dry run writes nothing (79 changes: 20 SEO fields + 26 page elements (FBG-CONTENT-1) + 25 redirects + 7 withdrawals + 1 retired redirect); apply writes once; the rerun is 79 x UNCHANGED', async () => {
     const f = fake()
     const plan = await planStep(f.api, DATA2)
-    expect(plan.counts).toMatchObject({ meta: 19, slotEdits: 26, redirects: 25, retire: 1, withdraw: 7, unchanged: 0, refused: 0 })
+    expect(plan.counts).toMatchObject({ meta: 20, slotEdits: 26, redirects: 25, retire: 1, withdraw: 7, unchanged: 0, refused: 0 })
     expect(f.redirects).toHaveLength(1) // only the old record
     const res = await applyStep(f.api, plan, DATA2)
     expect(res.problems).toEqual([])
@@ -81,7 +81,7 @@ describe('STAGING-AUDIT-REDIRECTS-1 prod step', () => {
     expect(f.redirects.filter((r) => r.id !== 'old-hybrid').every((r) => r.status === '301' && r.active === true && /STAGING-AUDIT-REDIRECTS-1/.test(r.authority))).toBe(true)
     expect(f.route.disposition).toMatchObject({ state: 'REDIRECT', export: false, indexable: false, sitemap: false, redirect: '/cooling-tower-construction-repair-in-singapore/' })
     const again = await planStep(f.api, DATA2)
-    expect(again.counts).toMatchObject({ meta: 0, slotEdits: 0, redirects: 0, retire: 0, withdraw: 0, unchanged: 78, refused: 0 })
+    expect(again.counts).toMatchObject({ meta: 0, slotEdits: 0, redirects: 0, retire: 0, withdraw: 0, unchanged: 79, refused: 0 })
     // what was written: each title/description is exactly the new text, the Brentwood H1 is CF150MAX, other SEO fields are untouched
     for (const m of DATA2.meta as MetaRow[]) expect((f.routes.get(m.path)!.seo as Rec)[m.field], `${m.path} ${m.field}`).toBe(m.new)
     expect(f.routes.get(BR)!.slots.find((x: Rec) => x.key === 'body.1.1.1.1.1')!.heading).toBe('Brentwood CF150MAX Cellular Drift Eliminator')

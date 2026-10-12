@@ -134,6 +134,16 @@
    "expectedOld": null,
    "new": "Learn how cooling tower thermal storage works with ice storage, chilled water tanks, off-peak cooling, and demand management. Full design guide by ICS.",
    "row": "FBG-13b"
+  },
+  {
+   "path": "/dyna-fab-10-height-fan-stack/",
+   "field": "title",
+   "expectedOld": [
+    null,
+    "Cooling tower fan stack replacment"
+   ],
+   "new": "Cooling Tower Fan Stack Replacement | Fiberglass Fan Stacks",
+   "row": "F11"
   }
  ],
  "slotEdits": [

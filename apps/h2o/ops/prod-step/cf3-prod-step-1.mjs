@@ -64,7 +64,7 @@ export async function planStep(api,data=DATA){
     const seo=pub.seo??{}
     const current=seo[m.field]??null // expectedOld null: a field the batch never wrote (the page shows its imported value)
     if(current===m.new)plan.meta.push({...m,id:pub.id,action:'UNCHANGED',current})
-    else if(current===(m.expectedOld??null)){const next=workingSeo.get(m.path)??{...seo};next[m.field]=m.new;workingSeo.set(m.path,next);plan.meta.push({...m,id:pub.id,action:'UPDATE',current,seo:next})}
+    else if((Array.isArray(m.expectedOld)?m.expectedOld:[m.expectedOld??null]).includes(current)){const next=workingSeo.get(m.path)??{...seo};next[m.field]=m.new;workingSeo.set(m.path,next);plan.meta.push({...m,id:pub.id,action:'UPDATE',current,seo:next})}
     else plan.meta.push({...m,id:pub.id,action:'REFUSE',current,reason:'the stored value is neither the seeded value nor the new one (edited since seed)'})
   }
   for(const page of data.slotEdits??[]){

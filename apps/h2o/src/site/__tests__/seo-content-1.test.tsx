@@ -427,7 +427,7 @@ describe('project H1s, /fans/, BacMan, PETRONAS and the seven product titles',()
       if(/\bfill\b/i.test(name)&&!/eliminator/i.test(name))expect(suffix,row.path).not.toMatch(/Drift Eliminator/)
       if(/drift eliminator/i.test(name))expect(suffix,row.path).not.toMatch(/Fill Media|Fill Media Replacement/)
     }
-    expect(tsv('sc1-seo-set.tsv')).toHaveLength(71) // FBG-CONTENT-1.1: + 1 (thermal-storage meta, brand ICS); SEO-CONTENT-2.3: + TA-059; SEO-CONTENT-2.2: + 57 quick-win titles, + the air-coolers meta; round 2: + the seminar and maintenance-checklist metas
+    expect(tsv('sc1-seo-set.tsv')).toHaveLength(72) // OGCS F11: + 1 (the flat fan-stack title); FBG-CONTENT-1.1: + 1 (thermal-storage meta, brand ICS); SEO-CONTENT-2.3: + TA-059; SEO-CONTENT-2.2: + 57 quick-win titles, + the air-coolers meta; round 2: + the seminar and maintenance-checklist metas
     // the structured data carries the corrected title too (text-override registry TO-009…015 for the JSON-LD copies)
     const was:Record<string,string>={
       '/product/brentwood-kelly-bar-splash-fill/':'Brentwood Kelly Bar Splash Fill | Drift Eliminato',

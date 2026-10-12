@@ -166,6 +166,8 @@ export function renderSalmonNode(node:SalmonNode,key:string,doc:SalmonDocument,s
 }
 /** The public meta description: owner business-scope corrections, and the quote-only wording on products. One description
  * tag per page: Next metadata renders it (see the catch-all page); SalmonSeo renders the social descriptions only. */
+// OGCS F11 (2026-10-11): the held image alt of the retired fan-stack product carries a typo ("replacment"); social image alt text is corrected as the head is built.
+const headSpelling=(m:{name:string;value:string})=>m.name==='og:image:alt'?{...m,value:m.value.replace(/\breplacment\b/g,'replacement')}:m
 export function publicMetaText(doc:SalmonDocument,value:string):string{
   const scoped=reconcileCommercialScope(doc,value)
   if(doc.type==='product')return normalizeWave3ProductDescription(scoped)
@@ -270,7 +272,7 @@ export function SalmonSeo({doc,canonicalOverride,breadcrumb=[HOME_CRUMB],crumbNa
   const pagePath=canonicalOverride?new URL(canonicalOverride).pathname:doc.targetPath
   return <>
     {/* R2.4: the standard social set (./standard-head) mirrors the served title and description on every page. */}
-    <MetaTags meta={standardSocialMeta(withProjectOwnImage(publicMeta(doc.seo.meta,images).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)&&!staleHeadMeta(m,doc)),pagePath),{title:pagedTitle(servedTitle(doc),pageNumber),description:pagedDescription(servedDescription(doc)??'',pageNumber),url:canonicalOverride??(doc.seo.canonical[0]&&publicHeadUrl(doc.seo.canonical[0]))??`${PUBLIC_ORIGIN}${doc.targetPath}`,type:doc.type==='posts'?'article':'website',})}/>
+    <MetaTags meta={standardSocialMeta(withProjectOwnImage(publicMeta(doc.seo.meta,images).map(headSpelling).filter(m=>!['robots','googlebot','viewport','description'].includes(m.name)&&!commerceMetaException(m,doc)&&!staleHeadMeta(m,doc)),pagePath),{title:pagedTitle(servedTitle(doc),pageNumber),description:pagedDescription(servedDescription(doc)??'',pageNumber),url:canonicalOverride??(doc.seo.canonical[0]&&publicHeadUrl(doc.seo.canonical[0]))??`${PUBLIC_ORIGIN}${doc.targetPath}`,type:doc.type==='posts'?'article':'website',})}/>
     {doc.seo.schema.map((raw,i)=>{
       if(isBreadcrumbList(JSON.parse(raw)))return null
       // Quote-only estate: no prices, and no ratings or reviews (Control Tower ruling 2026-10-02).
