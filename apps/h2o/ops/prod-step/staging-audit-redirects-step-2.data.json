@@ -143,6 +143,1222 @@
      "accept": []
     }
    ]
+  },
+  {
+   "path": "/closed-loop-vs-open-loop/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.57",
+     "field": "text",
+     "row": "FBG OGCS FBG-02 (typo on",
+     "before": "[[\"t\",\"Why are more facilities choosing closed-loop systems despite higher initial costs? he extra investment is often worth it due to the operational advantages.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Why are more facilities choosing closed-loop systems despite higher initial costs? The extra investment is often worth it due to the operational advantages.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Why are more facilities choosing closed-loop systems despite higher initial costs? The extra investment is often worth it due to the operational advantages.\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/resources/tools/",
+   "fixes": [
+    {
+     "key": "body.0.1.3.1.1.1.1.1.19",
+     "field": "text",
+     "row": "FBG OGCS FBG-05: ASHRAE ",
+     "before": "[[\"t\",\"[vc_row][vc_column][vc_column_text]Handy engineering tools, downloadable charts, online psychrometric chart and information graphs from ICS to help you handle on-the-job cooling tower requirements.[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_tta_accordion][vc_tta_section title=”Ashrae Psychrometric Chart” tab_id=”1637170979817-7009a65b-96ed”][vc_column_text]The online Psychrometric chart is used to calculate heat load or cooling load, this downloadable psychrometric chart graphs thermodynamic parameters of moist air at a constant pressure.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "[vc_row][vc_column][vc_column_text]Handy engineering tools, downloadable charts, online psychrometric chart and information graphs from ICS to help you handle on-the-job cooling tower requirements.[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_tta_accordion][vc_tta_section title=”ASHRAE Psychrometric Chart” tab_id=”1637170979817-7009a65b-96ed”][vc_column_text]The online Psychrometric chart is used to calculate heat load or cooling load, this downloadable psychrometric chart graphs thermodynamic parameters of moist air at a constant pressure.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"[vc_row][vc_column][vc_column_text]Handy engineering tools, downloadable charts, online psychrometric chart and information graphs from ICS to help you handle on-the-job cooling tower requirements.[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column][vc_tta_accordion][vc_tta_section title=”ASHRAE Psychrometric Chart” tab_id=”1637170979817-7009a65b-96ed”][vc_column_text]The online Psychrometric chart is used to calculate heat load or cooling load, this downloadable psychrometric chart graphs thermodynamic parameters of moist air at a constant pressure.\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/disaster-recovery/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.1.3.1.3.1",
+     "field": "text",
+     "row": "FBG OGCS FBG-07: the orp",
+     "before": "[[\"t\",\"rebuilt from the ground up, upgraded with stronger components, and the power plant restored and ready to produce power at full capacity.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "The cooling towers were rebuilt from the ground up and upgraded with stronger components, and the power plant was restored and ready to produce power at full capacity.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"The cooling towers were rebuilt from the ground up and upgraded with stronger components, and the power plant was restored and ready to produce power at full capacity.\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.3.1.1.1",
+     "field": "heading",
+     "row": "FBG OGCS FBG-07: the hea",
+     "before": "\"Assessment/tents\"",
+     "after": "Damage assessment",
+     "afterCanon": "\"Damage assessment\"",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/fans/moore-fans/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.1.1",
+     "field": "text",
+     "row": "FBG OGCS FBG-08: US spel; OGCS FBG-08: no \"gen",
+     "before": "[[\"t\",\"Maximise the performance of your industrial cooling system with Cooling Tower Moore Fans, engineered to deliver superior airflow, exceptional energy efficiency, and long-term reliability.\",0],[\"br\"],[\"t\",\"At ICS, we supply genuine Moore Cooling Tower Fans and provide expert guidance to help you select the right solution for your cooling requirements.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Maximize the performance of your industrial cooling system with Cooling Tower Moore Fans, engineered to deliver superior airflow, exceptional energy efficiency, and long-term reliability.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "linebreak",
+           "version": 1
+          },
+          {
+           "type": "text",
+           "text": "At ICS, we supply Moore Cooling Tower Fans and provide expert guidance to help you select the right solution for your cooling requirements.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Maximize the performance of your industrial cooling system with Cooling Tower Moore Fans, engineered to deliver superior airflow, exceptional energy efficiency, and long-term reliability.\",0],[\"br\"],[\"t\",\"At ICS, we supply Moore Cooling Tower Fans and provide expert guidance to help you select the right solution for your cooling requirements.\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.9.1.1.5.3.1.1.3.1",
+     "field": "heading",
+     "row": "FBG OGCS FBG-08: no spee",
+     "before": "\"Fast lead times\"",
+     "after": "Lead times",
+     "afterCanon": "\"Lead times\"",
+     "accept": []
+    },
+    {
+     "key": "body.9.1.1.5.3.1.1.3.3",
+     "field": "text",
+     "row": "FBG OGCS FBG-08: no spee",
+     "before": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tBecause critical components are manufactured in-house, replacement fans and parts can often ship in days rather than weeks.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "\n\t\t\t\t\t\tSend us the fan model or part details and we will confirm the supply schedule with your quote.\t\t\t\t\t",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"\\n\\t\\t\\t\\t\\t\\tSend us the fan model or part details and we will confirm the supply schedule with your quote.\\t\\t\\t\\t\\t\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/dry-soda-blast-cleaning-services-2/",
+   "fixes": [
+    {
+     "key": "body.1.3.1.1.1.1.1.3.1.5.1.1",
+     "field": "text",
+     "row": "FBG OGCS FBG-09: an unsu",
+     "before": "[[\"t\",\"Need even more performance? Ask ICS about fan upgrades which can increase your ACC & ACHE performance by up to 40%.\",1],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Need even more performance? Ask ICS about fan upgrades that can improve your ACC & ACHE performance.",
+           "format": 1,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Need even more performance? Ask ICS about fan upgrades that can improve your ACC & ACHE performance.\",1],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/cooling-tower-basin-coating/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.105",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"Ready to end costly repairs and safeguard your cooling tower assets for the long term? Evaluate your cooling tower basin with a trusted expert in cooling tower basin coating and structural solutions with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\". Get a comprehensive assessment and discover how you can achieve maximum lifespan, reduce leaks, and boost efficiency with the right strategy.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Ready to end costly repairs and safeguard your cooling tower assets for the long term? Evaluate your cooling tower basin with a trusted expert in cooling tower basin coating and structural solutions with ",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": "ICS",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ". Get a comprehensive assessment and discover how you can achieve maximum lifespan, reduce leaks, and boost efficiency with the right strategy.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Ready to end costly repairs and safeguard your cooling tower assets for the long term? Evaluate your cooling tower basin with a trusted expert in cooling tower basin coating and structural solutions with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"ICS\",0],[\"/a\"],[\"t\",\". Get a comprehensive assessment and discover how you can achieve maximum lifespan, reduce leaks, and boost efficiency with the right strategy.\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/cooling-tower-cold-weather-operation/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.119",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"Take action today: Review your current systems, implement these proven strategies, and ensure your cooling towers are fully prepared for the next cold season with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\". Your readiness now can save you from expensive failures and keep your operations running smoothly all winter long.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Take action today: Review your current systems, implement these proven strategies, and ensure your cooling towers are fully prepared for the next cold season with ",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": "ICS",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ". Your readiness now can save you from expensive failures and keep your operations running smoothly all winter long.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Take action today: Review your current systems, implement these proven strategies, and ensure your cooling towers are fully prepared for the next cold season with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"ICS\",0],[\"/a\"],[\"t\",\". Your readiness now can save you from expensive failures and keep your operations running smoothly all winter long.\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/cooling-tower-components/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.111",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"Ready to future-proof your cooling tower? Contact our team today for a customized consultation or to learn more about next-generation component solutions that will keep your facility running at peak performance for years to come with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Ready to future-proof your cooling tower? Contact our team today for a customized consultation or to learn more about next-generation component solutions that will keep your facility running at peak performance for years to come with ",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": "ICS",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ".",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Ready to future-proof your cooling tower? Contact our team today for a customized consultation or to learn more about next-generation component solutions that will keep your facility running at peak performance for years to come with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"ICS\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/cooling-tower-emergency-shutdown/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.81",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"By prioritizing LOTO, leveraging data for an accurate RCA, and executing a verified restart checklist, you protect your people, your assets, and your bottom line. You turn chaos into control and safeguard your system’s integrity for the long term. Do not wait for the alarm to sound. Train your team today with\",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\" H2O cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "By prioritizing LOTO, leveraging data for an accurate RCA, and executing a verified restart checklist, you protect your people, your assets, and your bottom line. You turn chaos into control and safeguard your system’s integrity for the long term. Do not wait for the alarm to sound. Train your team today with",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": " ICS",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ".",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"By prioritizing LOTO, leveraging data for an accurate RCA, and executing a verified restart checklist, you protect your people, your assets, and your bottom line. You turn chaos into control and safeguard your system’s integrity for the long term. Do not wait for the alarm to sound. Train your team today with\",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\" ICS\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.83",
+     "field": "heading",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "\"Frequnetly Asked Questions\"",
+     "after": "Frequently Asked Questions",
+     "afterCanon": "\"Frequently Asked Questions\"",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/cooling-tower-foundation-requirements/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.59",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"Contact us today for an expert Cooling Tower Foundation Requirement Audit before construction begins with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Contact us today for an expert Cooling Tower Foundation Requirement Audit before construction begins with ",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": "ICS",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ".",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Contact us today for an expert Cooling Tower Foundation Requirement Audit before construction begins with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"ICS\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/cooling-tower-lifespan-factors-failures-fixes/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.17.0",
+     "field": "alt",
+     "row": "FBG OGCS FBG-13: the fil",
+     "before": "\"Factors That Impact The Lifespan-environmental factors  - h2ocooling.com \"",
+     "after": "Factors That Impact The Lifespan-environmental factors",
+     "afterCanon": "\"Factors That Impact The Lifespan-environmental factors\"",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.41.0",
+     "field": "alt",
+     "row": "FBG OGCS FBG-13: the fil",
+     "before": "\"Extend the Life of Your Cooling Tower-new unit - h2ocooling\"",
+     "after": "Extend the Life of Your Cooling Tower-new unit",
+     "afterCanon": "\"Extend the Life of Your Cooling Tower-new unit\"",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/cooling-tower-project-budget/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.101",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"Stop letting hidden costs turn your capital projects into financial liabilities. Contact us for a TCO-Focused Project Budget Audit to ensure your next cooling tower purchase is an asset, not a liability, at \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Stop letting hidden costs turn your capital projects into financial liabilities. Contact us for a TCO-Focused Project Budget Audit to ensure your next cooling tower purchase is an asset, not a liability, at ",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": "ICS",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ".",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Stop letting hidden costs turn your capital projects into financial liabilities. Contact us for a TCO-Focused Project Budget Audit to ensure your next cooling tower purchase is an asset, not a liability, at \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"ICS\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/cooling-tower-silica-scaling/",
+   "fixes": [
+    {
+     "key": "body.153",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"For expert cooling tower maintenance, repair, and cleaning services, contact the professionals at H2O Cooling.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "For expert cooling tower maintenance, repair, and cleaning services, contact the professionals at ICS.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"For expert cooling tower maintenance, repair, and cleaning services, contact the professionals at ICS.\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/cooling-tower-structure-repair/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.115",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"Ready to secure the future of your cooling tower? Schedule a professional inspection and personalized consultation today to take the first step toward reliable, long-lasting structural repair and peace of mind for your facility with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Ready to secure the future of your cooling tower? Schedule a professional inspection and personalized consultation today to take the first step toward reliable, long-lasting structural repair and peace of mind for your facility with ",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": "ICS",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ".",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Ready to secure the future of your cooling tower? Schedule a professional inspection and personalized consultation today to take the first step toward reliable, long-lasting structural repair and peace of mind for your facility with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"ICS\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/cooling-tower-thermography/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.143",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"Let Cooling Tower Thermography analysis help you figure out hidden risks and make your maintenance invisible, effective, and thermally transparent with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Let Cooling Tower Thermography analysis help you figure out hidden risks and make your maintenance invisible, effective, and thermally transparent with ",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": "ICS",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ".",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Let Cooling Tower Thermography analysis help you figure out hidden risks and make your maintenance invisible, effective, and thermally transparent with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"ICS\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/energy-efficient-cooling-tower/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.127",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"Ready to take the next step? Contact our experts today to maximize your energy efficient cooling tower’s potential and achieve outstanding energy savings for your facility at \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Ready to take the next step? Contact our experts today to maximize your energy efficient cooling tower’s potential and achieve outstanding energy savings for your facility at ",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": "ICS",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ".",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Ready to take the next step? Contact our experts today to maximize your energy efficient cooling tower’s potential and achieve outstanding energy savings for your facility at \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"ICS\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/industrial-cooling-tower-automation/",
+   "fixes": [
+    {
+     "key": "body.111",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"Contact us today to discover the full range of benefits Industrial Cooling Tower Automation provides for your facility, along with expert support and innovation at \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Contact us today to discover the full range of benefits Industrial Cooling Tower Automation provides for your facility, along with expert support and innovation at ",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": "ICS",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ".",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Contact us today to discover the full range of benefits Industrial Cooling Tower Automation provides for your facility, along with expert support and innovation at \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"ICS\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/phased-cooling-tower-replacement/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.133",
+     "field": "text",
+     "row": "FBG OGCS FBG-13: the bra",
+     "before": "[[\"t\",\"Ready to future-proof your operations? Contact our team today for more information or to schedule a personalized consultation at \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Ready to future-proof your operations? Contact our team today for more information or to schedule a personalized consultation at ",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": "ICS",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ".",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Ready to future-proof your operations? Contact our team today for more information or to schedule a personalized consultation at \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"ICS\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/water-treatment-for-cooling-towers/",
+   "fixes": [
+    {
+     "key": "body.1.1.1.1.1",
+     "field": "alt",
+     "row": "FBG OGCS FBG-13: the fil",
+     "before": "\"Alt text: Industrial cooling towers with text \\\"A comprehensive guide to water treatment for cooling towers\\\" and website www.h2ocooling.com\"",
+     "after": "Alt text: Industrial cooling towers with text \"A comprehensive guide to water treatment for cooling towers\"",
+     "afterCanon": "\"Alt text: Industrial cooling towers with text \\\"A comprehensive guide to water treatment for cooling towers\\\"\"",
+     "accept": []
+    }
+   ]
   }
  ],
  "redirects": [
