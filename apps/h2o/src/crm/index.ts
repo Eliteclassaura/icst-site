@@ -21,6 +21,7 @@ import { CrmMailCursor } from './collections/mail-cursor'
 import { CrmEnrollments } from './collections/enrollments'
 import { CrmSequences, CrmSequenceVersions } from './collections/sequences'
 import { CrmNotes } from './collections/notes'
+import { CrmAttachments } from './collections/attachments'
 import { CrmDealStages } from './collections/deal-stages'
 import { CrmOpportunities } from './collections/opportunities'
 import { CrmRfqItems } from './collections/rfq-items'
@@ -54,6 +55,7 @@ export const crmCollections: CollectionConfig[] = [
   CrmRfqItems,
   CrmActivities,
   CrmNotes,
+  CrmAttachments,
   CrmTasks,
   CrmSuppressions,
   CrmIntakeEvents,

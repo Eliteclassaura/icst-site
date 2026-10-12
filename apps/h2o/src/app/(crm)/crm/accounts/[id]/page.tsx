@@ -12,6 +12,7 @@ import { RememberRecent } from '../../_components/SearchPanel'
 import { TaskTable } from '../../_components/TaskTable'
 import { BackToList } from '../../_components/ListContext'
 import { requireCrmSession } from '../../session'
+import { AttachmentsPanel } from '../../_components/AttachmentsPanel'
 
 export const metadata: Metadata = { title: 'Account' }
 
@@ -223,6 +224,7 @@ export default async function AccountPage({ params, searchParams }: { params: Pr
             </ul>
           )}
         </section>
+        <AttachmentsPanel s={s} kind="ACCOUNT" recordId={id} />
       </div>
     </Shell>
   )

@@ -215,11 +215,25 @@ describe('static: authorization cannot be bypassed by direct URL or action POST'
     // Wave 1 W1-3/W1-4: a 5 MB upload and a streamed download need route handlers (server actions cannot carry them).
     const routes = appFiles.filter((f) => /route\.(ts|tsx)$/.test(f)).map(rel).sort()
     // Patch L2 adds the two-factor exit: it sets only the routing cookie, and only for a session that passed two-factor.
-    expect(routes).toEqual(['app/(crm)/crm/export/route.ts', 'app/(crm)/crm/import/run/route.ts', 'app/(crm)/crm/mfa/done/route.ts'])
+    // CRM-ATTACH-1 (owner-approved, 2026-10-09): the attachment upload and download routes, for every CRM user; the
+    // record-visibility rule and the audit are in the attachments service (see attachments.dbtest.ts).
+    expect(routes).toEqual([
+      'app/(crm)/crm/attachments/[id]/route.ts',
+      'app/(crm)/crm/attachments/upload/route.ts',
+      'app/(crm)/crm/export/route.ts',
+      'app/(crm)/crm/import/run/route.ts',
+      'app/(crm)/crm/mfa/done/route.ts',
+    ])
     const done = read(path.join(SRC, 'app/(crm)/crm/mfa/done/route.ts'))
     expect(done).toMatch(/await pendingSession\(payload, request\.headers\)/)
     expect(done.indexOf('if (!pending.verified)')).toBeLessThan(done.indexOf("headers.set('set-cookie'"))
-    for (const r of routes.filter((x) => !x.includes('/mfa/'))) {
+    for (const r of routes.filter((x) => x.includes('/attachments/'))) {
+      const t = read(path.join(SRC, r))
+      expect(t, r).toMatch(/sessionFromRequest\(request\)/)
+      expect(t, r).toMatch(/sameOriginOnly\(request/)
+      expect(t, r).not.toMatch(/isAdmin/)
+    }
+    for (const r of routes.filter((x) => !x.includes('/mfa/') && !x.includes('/attachments/'))) {
       const t = read(path.join(SRC, r))
       expect(t, r).toMatch(/payload\.auth\(\{ headers: request\.headers \}\)/)
       expect(t, r).toMatch(/!s\.isAdmin/)
@@ -251,7 +265,8 @@ describe('static: UI-1 scope', () => {
   it('no network client, mail transport or AI call in workspace or CRM routes (the import wizard posts to its own endpoint)', () => {
     for (const f of [...appFiles, ...wsFiles].filter((x) => !x.endsWith('.css'))) {
       const t = read(f)
-      expect(t, rel(f)).not.toMatch(/nodemailer|sendEmail|smtp|anthropic|openai|XMLHttpRequest/i)
+      expect(t, rel(f)).not.toMatch(/nodemailer|sendEmail|smtp|anthropic|openai/i)
+      if (!/AttachmentUploader\.tsx$/.test(f)) expect(t, rel(f)).not.toMatch(/XMLHttpRequest/)
       if (/ImportWizard\.tsx$/.test(f)) {
         // Exactly one same-origin call, to the import route.
         expect(t.match(/\bfetch\(/g)).toHaveLength(1)
@@ -263,13 +278,18 @@ describe('static: UI-1 scope', () => {
         expect(t.match(/\bfetch\(/g)).toHaveLength(1)
         expect(t).toMatch(/const href = `\/crm\/export\/\?/)
         expect(t).toMatch(/fetch\(href, \{ credentials: 'same-origin' \}\)/)
+      } else if (/AttachmentUploader\.tsx$/.test(f)) {
+        // CRM-ATTACH-1: the upload uses XMLHttpRequest, once, for progress; it posts to the attachments route only.
+        expect(t.match(/new XMLHttpRequest\(\)/g)).toHaveLength(1)
+        expect(t).toMatch(/xhr\.open\('POST', '\/crm\/attachments\/upload\/'\)/)
+        expect(t, rel(f)).not.toMatch(/\bfetch\(/)
       } else expect(t, rel(f)).not.toMatch(/\bfetch\(/)
     }
   })
-  it('file upload only in the admin import wizard; no attachment upload or conversion flow', () => {
+  it('file input only in the admin import wizard and the attachment uploader (CRM-ATTACH-1); no conversion flow', () => {
     for (const f of ui) {
       expect(read(f), rel(f)).not.toMatch(/Convert to/i)
-      if (!/ImportWizard\.tsx$/.test(f)) expect(read(f), rel(f)).not.toMatch(/type="file"/i)
+      if (!/ImportWizard\.tsx$|AttachmentUploader\.tsx$/.test(f)) expect(read(f), rel(f)).not.toMatch(/type="file"/i)
     }
   })
   it('no email address other than reserved example domains', () => {

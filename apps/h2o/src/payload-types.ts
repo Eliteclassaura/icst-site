@@ -93,6 +93,7 @@ export interface Config {
     'crm-rfq-items': CrmRfqItem;
     'crm-activities': CrmActivity;
     'crm-notes': CrmNote;
+    'crm-attachments': CrmAttachment;
     'crm-tasks': CrmTask;
     'crm-suppressions': CrmSuppression;
     'crm-intake-events': CrmIntakeEvent;
@@ -184,6 +185,7 @@ export interface Config {
     'crm-rfq-items': CrmRfqItemsSelect<false> | CrmRfqItemsSelect<true>;
     'crm-activities': CrmActivitiesSelect<false> | CrmActivitiesSelect<true>;
     'crm-notes': CrmNotesSelect<false> | CrmNotesSelect<true>;
+    'crm-attachments': CrmAttachmentsSelect<false> | CrmAttachmentsSelect<true>;
     'crm-tasks': CrmTasksSelect<false> | CrmTasksSelect<true>;
     'crm-suppressions': CrmSuppressionsSelect<false> | CrmSuppressionsSelect<true>;
     'crm-intake-events': CrmIntakeEventsSelect<false> | CrmIntakeEventsSelect<true>;
@@ -3443,6 +3445,36 @@ export interface CrmNote {
   createdAt: string;
 }
 /**
+ * Files attached to a contact, account, deal or inquiry. The bytes are in private storage; open a file from its record.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-attachments".
+ */
+export interface CrmAttachment {
+  id: string;
+  /**
+   * Canonical UUIDv7 (Revenue Engine identity). Server-generated; never editable.
+   */
+  canonical_id: string;
+  record_kind: 'CONTACT' | 'ACCOUNT' | 'OPPORTUNITY' | 'RFQ';
+  contact?: (string | null) | CrmContact;
+  account?: (string | null) | CrmAccount;
+  opportunity?: (string | null) | CrmOpportunity;
+  rfq?: (string | null) | CrmRfq;
+  original_name: string;
+  extension: string;
+  mime: string;
+  size_bytes: number;
+  sha256: string;
+  storage_key: string;
+  note?: string | null;
+  uploaded_by?: (string | null) | User;
+  deleted_at?: string | null;
+  deleted_by?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Append-only do-not-email ledger, keyed on the address. Survives sequence, mailbox and domain changes. Clearing is a new privileged row, never an edit or a delete.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4729,6 +4761,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'crm-notes';
         value: string | CrmNote;
+      } | null)
+    | ({
+        relationTo: 'crm-attachments';
+        value: string | CrmAttachment;
       } | null)
     | ({
         relationTo: 'crm-tasks';
@@ -6230,6 +6266,30 @@ export interface CrmNotesSelect<T extends boolean = true> {
   asset?: T;
   opportunity?: T;
   rfq?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crm-attachments_select".
+ */
+export interface CrmAttachmentsSelect<T extends boolean = true> {
+  canonical_id?: T;
+  record_kind?: T;
+  contact?: T;
+  account?: T;
+  opportunity?: T;
+  rfq?: T;
+  original_name?: T;
+  extension?: T;
+  mime?: T;
+  size_bytes?: T;
+  sha256?: T;
+  storage_key?: T;
+  note?: T;
+  uploaded_by?: T;
+  deleted_at?: T;
+  deleted_by?: T;
   updatedAt?: T;
   createdAt?: T;
 }

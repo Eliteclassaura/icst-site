@@ -36,6 +36,7 @@ import * as migration_20261009_100100_ers_seq_build_1 from './20261009_100100_er
 import * as migration_20261009_100200_ers_engine_scope_1b from './20261009_100200_ers_engine_scope_1b';
 import * as migration_20261009_100300_ers_engine_scope_1c from './20261009_100300_ers_engine_scope_1c';
 import * as migration_20261009_220808_signatures_1 from './20261009_220808_signatures_1';
+import * as migration_20261011_120000_attach_1_2 from './20261011_120000_attach_1_2';
 
 export const migrations = [
   {
@@ -227,5 +228,10 @@ export const migrations = [
     up: migration_20261009_220808_signatures_1.up,
     down: migration_20261009_220808_signatures_1.down,
     name: '20261009_220808_signatures_1'
+  },
+  {
+    up: migration_20261011_120000_attach_1_2.up,
+    down: migration_20261011_120000_attach_1_2.down,
+    name: '20261011_120000_attach_1_2',
   },
 ];

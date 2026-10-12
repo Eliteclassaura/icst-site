@@ -3934,3 +3934,59 @@ details + details.er-reveal {
   white-space: nowrap;
 }
 
+/* CRM-ATTACH-1: the Files section. Tokens only; the file input is focusable but visually hidden, and the drop zone shows focus. */
+.att-drop {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  padding: 16px;
+  border: 1px dashed var(--c-rule);
+  border-radius: 8px;
+}
+.att-drop.is-over {
+  border-color: var(--c-accent);
+}
+.att-drop:focus-within {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+}
+.att-input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
+.att-rows,
+.att-list {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.att-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: center;
+}
+.att-name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.att-progress {
+  inline-size: 120px;
+}
+.att-item {
+  display: block;
+  padding-block: 8px;
+  border-block-end: 1px solid var(--c-rule);
+  overflow-wrap: anywhere;
+}
+.att-item > a {
+  display: block;
+  font-weight: 600;
+  text-decoration: underline;
+}

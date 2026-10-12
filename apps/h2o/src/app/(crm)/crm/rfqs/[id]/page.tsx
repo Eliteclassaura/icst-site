@@ -11,6 +11,7 @@ import { Shortcuts } from '../../../../../crm/workspace/ui/Shortcuts'
 import { RFQ_TABS, RfqDetailView, type RfqTab } from '../../_components/RfqDetail'
 import { BackToList } from '../../_components/ListContext'
 import { requireCrmSession } from '../../session'
+import { AttachmentsPanel } from '../../_components/AttachmentsPanel'
 
 export const metadata: Metadata = { title: 'Inquiry' }
 
@@ -69,6 +70,7 @@ export default async function RfqPage({
           </p>
         )}
         {d ? <SequencePanel s={s} rfqId={id} /> : null}
+        <AttachmentsPanel s={s} kind="RFQ" recordId={id} />
       </div>
     </Shell>
   )

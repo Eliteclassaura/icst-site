@@ -13,6 +13,7 @@ import { RememberRecent } from '../../_components/SearchPanel'
 import { TaskTable } from '../../_components/TaskTable'
 import { BackToList } from '../../_components/ListContext'
 import { requireCrmSession } from '../../session'
+import { AttachmentsPanel } from '../../_components/AttachmentsPanel'
 
 export const metadata: Metadata = { title: 'Contact' }
 
@@ -257,6 +258,7 @@ export default async function ContactPage({ params, searchParams }: { params: Pr
           </div>
         </section>
         <SequencePanel s={s} contactId={id} />
+        <AttachmentsPanel s={s} kind="CONTACT" recordId={id} />
       </div>
     </Shell>
   )

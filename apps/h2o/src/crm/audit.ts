@@ -19,8 +19,8 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, PayloadReque
  * the business write — the same posture as the shared hook — but CRM-1 tests assert the entry exists.
  */
 
-// Wave 1 W1-4 adds 'export' (who exported what, never the values).
-export type CrmAuditAction = 'create' | 'update' | 'delete' | 'export'
+// Wave 1 W1-4 adds 'export' (who exported what, never the values). CRM-ATTACH-1 adds 'download' (who opened which file; never its contents).
+export type CrmAuditAction = 'create' | 'update' | 'delete' | 'export' | 'download'
 
 /** Non-PII fields whose before/after values may be recorded, per collection. Ids and enums only. */
 export const AUDITED_TRANSITIONS: Record<string, readonly string[]> = {

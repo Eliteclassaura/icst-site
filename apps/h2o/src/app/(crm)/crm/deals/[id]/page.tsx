@@ -9,6 +9,7 @@ import { Shell } from '../../../../../crm/workspace/ui/Shell'
 import { StageStatus } from '../../../../../crm/workspace/ui/Status'
 import { EditDealDialog, MoveStageDialog } from '../../_components/Dialogs'
 import { requireCrmSession } from '../../session'
+import { AttachmentsPanel } from '../../_components/AttachmentsPanel'
 
 export const metadata: Metadata = { title: 'Deal' }
 
@@ -159,6 +160,7 @@ export default async function DealPage({ params, searchParams }: { params: Promi
             {d.activityTotal > d.activity.length ? <p className="c-hint">Showing the latest {d.activity.length} of {d.activityTotal}.</p> : null}
           </div>
         </section>
+        <AttachmentsPanel s={s} kind="OPPORTUNITY" recordId={id} />
       </div>
     </Shell>
   )
