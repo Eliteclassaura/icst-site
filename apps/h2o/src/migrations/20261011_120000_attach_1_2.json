@@ -211,6 +211,19 @@
           "primaryKey": false,
           "notNull": false
         },
+        "signature_text": {
+          "name": "signature_text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "signature_use_standard": {
+          "name": "signature_use_standard",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
         "crm_theme": {
           "name": "crm_theme",
           "type": "enum_users_crm_theme",
@@ -38991,6 +39004,44 @@
         },
         "sales_address": {
           "name": "sales_address",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.crm_signatures": {
+      "name": "crm_signatures",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "standard_text": {
+          "name": "standard_text",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
