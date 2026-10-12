@@ -427,7 +427,7 @@ describe('project H1s, /fans/, BacMan, PETRONAS and the seven product titles',()
       if(/\bfill\b/i.test(name)&&!/eliminator/i.test(name))expect(suffix,row.path).not.toMatch(/Drift Eliminator/)
       if(/drift eliminator/i.test(name))expect(suffix,row.path).not.toMatch(/Fill Media|Fill Media Replacement/)
     }
-    expect(tsv('sc1-seo-set.tsv')).toHaveLength(70) // SEO-CONTENT-2.3: + TA-059; SEO-CONTENT-2.2: + 57 quick-win titles, + the air-coolers meta; round 2: + the seminar and maintenance-checklist metas
+    expect(tsv('sc1-seo-set.tsv')).toHaveLength(71) // FBG-CONTENT-1.1: + 1 (thermal-storage meta, brand ICS); SEO-CONTENT-2.3: + TA-059; SEO-CONTENT-2.2: + 57 quick-win titles, + the air-coolers meta; round 2: + the seminar and maintenance-checklist metas
     // the structured data carries the corrected title too (text-override registry TO-009…015 for the JSON-LD copies)
     const was:Record<string,string>={
       '/product/brentwood-kelly-bar-splash-fill/':'Brentwood Kelly Bar Splash Fill | Drift Eliminato',
@@ -457,7 +457,7 @@ describe('apply expectations for this delta',()=>{
     expect(exp.expect.seoFields).toMatchObject({update:72,unchanged:417,pendingOgcs:0}) // COUNTRY-PAGES: + US title/meta, Singapore meta, Thailand meta (new row), - the two PTT rows and the old Thailand row; CONTENT-FIX-3: + 1 (UP2-02 category meta); SEO-CONTENT-2.2: + 56 (quick-win titles, air-coolers meta); 8 SEO-CONTENT-1 + 1 R5b (/cooling-tower/ meta) + 2 round 2 (seminar, checklist metas)
     expect(exp.expect.h1).toEqual({update:27}) // COUNTRY-PAGES: - the old Thailand page's H1 row (a 301 now); + the PETRONAS record title (SEO-CONTENT-2); 23 SEO-CONTENT-1 + 2 R5b (USA, Singapore); + 2 DIR-LABELS-1 (dry soda, Thailand)
     expect([exp.rows,exp.redirects,exp.seoFields]).toEqual([1143,429,489])
-    expect(tsv('seo-fields.tsv')).toHaveLength(490) // STAGING-AUDIT CP-19: + one meta row
+    expect(tsv('seo-fields.tsv')).toHaveLength(491) // FBG-CONTENT-1.1: + the thermal-storage meta row; STAGING-AUDIT CP-19: + one meta row
     expect(tsv('redirects.tsv')).toHaveLength(453) // HYBRID-RESTORE-1: + four nested + the old slug, - the old /hybrid-cooling-tower/ row; STAGING-AUDIT-REDIRECTS-1: + fifteen; REDIRECTS-2: + five
     expect(tsv('conformance.tsv')).toHaveLength(1143)
     expect(tsv('h1-fields.tsv').filter(r=>r.action==='UPDATE')).toHaveLength(27)

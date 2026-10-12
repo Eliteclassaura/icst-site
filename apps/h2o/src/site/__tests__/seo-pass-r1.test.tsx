@@ -148,7 +148,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: the published Thai Salmon page (its own title, the live meta).
     // R2.2: + the D3 portfolio row (CT-ruled meta and title). R2.4: + 12 rows of the OGCS R2.4 titles/metas (13 pages; the
     // /industrial-cooling-towers/ row existed). R2.4 R2: + the 15 archive metas (OGCS R2.4A).
-    expect(seo).toHaveLength(490) // STAGING-AUDIT CP-19: + /cooling-tower-certified-parts/ (meta row, OEM/warranty wording removed); PROJECT-IMAGES-1 R2: - the two PTT portfolio rows (301s now); COUNTRY-PAGES: the Thailand row moves to /cooling-tower-thailand/; R2.5: + the /cooling-tower-construction/ title row (OGCS R2.5); SEO-CONTENT-1: - the five held pages' rows (their decided titles are dropped)
+    expect(seo).toHaveLength(491) // FBG-CONTENT-1.1: + /cooling-tower-thermal-storage/ (meta row, brand ICS); STAGING-AUDIT CP-19: + /cooling-tower-certified-parts/ (meta row, OEM/warranty wording removed); PROJECT-IMAGES-1 R2: - the two PTT portfolio rows (301s now); COUNTRY-PAGES: the Thailand row moves to /cooling-tower-thailand/; R2.5: + the /cooling-tower-construction/ title row (OGCS R2.5); SEO-CONTENT-1: - the five held pages' rows (their decided titles are dropped)
     const titles=seo.map(row=>row.title!)
     expect(new Set(titles).size).toBe(titles.length)
     // a meta-only row keeps the page's current title (two noindex tag archives keep their term-list titles)

@@ -101,7 +101,7 @@ let heldAltIndex:{byKey:Map<string,string>;bySha:Map<string,string>}|undefined
 const heldAlt=()=>{
   if(heldAltIndex)return heldAltIndex
   const byKey=new Map<string,string>()
-  const clean=(value:string)=>repairMojibake(decodeEntities(value.replace(/<[^>]*>/g,' '))).replace(/\s+/g,' ').trim()
+  const clean=(value:string)=>repairMojibake(decodeEntities(value.replace(/<[^>]*>/g,' '))).replace(/\s+/g,' ').trim().replace(/\s*[-|]\s*h2ocooling(?:\.com)?$/i,'') // OGCS FBG-13: the file-style site tag (" - h2ocooling") is not alt text
   for(const [key,alt] of Object.entries(read<{alt:Record<string,string>}>('live-image-alt.json').alt))if(clean(alt))byKey.set(key,clean(alt))
   for(const item of read<Array<{source_url:string;alt?:string;caption?:string}>>('attachments.json')){
     const text=clean(item.alt||item.caption||''),key=uploadKey(item.source_url)

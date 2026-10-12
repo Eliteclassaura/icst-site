@@ -2,6 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
+import { heldImageAlt } from '../salmon'
 import { DATA2 } from '../../../ops/prod-step/staging-audit-redirects-step-2.mjs'
 
 const APP = process.cwd()
@@ -42,5 +43,22 @@ describe('FBG-CONTENT-1', () => {
         if (f.field === 'alt') expect(after).not.toMatch(/-\s*h2ocooling\s*$/i)
       }
     }
+  })
+  it('FBG-13 follow-up: no held image alt keeps the " - h2ocooling" tag; the category card alt is the OGCS wording', () => {
+    expect(heldImageAlt('https://h2ocooling.com/wp-content/uploads/2018/02/crossflow-vs-counterflow-cooling-tower-1.jpg')).toBe('Crossflow vs counterflow cooling tower comparison')
+    expect(heldImageAlt('https://h2ocooling.com/wp-content/uploads/2018/02/types-of-cooling-towers.jpg')).toBe('Types of Cooling Towers')
+    // the Salmon media-library fallback is cleaned the same way
+    expect(heldImageAlt('https://salmon-rhinoceros-754457.hostingersite.com/wp-content/uploads/2026/07/Aluminum-vs-FRP-Fan-Blades-h2ocooling.com_.jpg')).toBe('Aluminum vs FRP Fan Blades')
+    const live = JSON.parse(readFileSync(path.join(APP, 'content/salmon/live-image-alt.json'), 'utf8')) as { alt: Record<string, string> }
+    for (const [k, v] of Object.entries(live.alt)) expect(v, k).not.toMatch(/[-|]\s*h2ocooling(\.com)?\s*$/i)
+  })
+  it('FBG-13 follow-up: the thermal-storage description (Tech Articles card text) and the guide title read ICS; the thermography FAQ heading is spelled and plural', () => {
+    const tsv = readFileSync(path.join(APP, 'ops/seo-pass/data/seo-fields.tsv'), 'utf8').split('\n').map((l) => l.split('\t'))
+    expect(tsv.find((c) => c[0] === '/cooling-tower-thermal-storage/')![4]).toBe('Learn how cooling tower thermal storage works with ice storage, chilled water tanks, off-peak cooling, and demand management. Full design guide by ICS.')
+    expect(tsv.find((c) => c[0] === '/guide-about-cooling-tower/')![3]).toBe('What is a Cooling Tower? - ICS')
+    expect((DATA2.meta as Array<{ path: string; field: string; new: string }>).find((m) => m.path === '/cooling-tower-thermal-storage/')).toMatchObject({ field: 'description', new: expect.stringMatching(/by ICS\.$/) })
+    const th = edits.find((e) => e.path === '/cooling-tower-thermography/')!.fixes.find((f) => f.key === 'body.3.1.1.7.145')!
+    expect(th.afterCanon).toContain('Frequently Asked Questions')
+    expect(th.afterCanon).not.toContain('Aseked')
   })
 })

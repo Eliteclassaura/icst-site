@@ -69,10 +69,10 @@ describe('STAGING-AUDIT-REDIRECTS-1 prod step', () => {
       expect(r.destination).not.toBe('/')
     }
   })
-  it('dry run writes nothing (76 changes: 18 SEO fields + 25 page elements (FBG-CONTENT-1) + 25 redirects + 7 withdrawals + 1 retired redirect); apply writes once; the rerun is 76 x UNCHANGED', async () => {
+  it('dry run writes nothing (78 changes: 19 SEO fields + 26 page elements (FBG-CONTENT-1) + 25 redirects + 7 withdrawals + 1 retired redirect); apply writes once; the rerun is 78 x UNCHANGED', async () => {
     const f = fake()
     const plan = await planStep(f.api, DATA2)
-    expect(plan.counts).toMatchObject({ meta: 18, slotEdits: 25, redirects: 25, retire: 1, withdraw: 7, unchanged: 0, refused: 0 })
+    expect(plan.counts).toMatchObject({ meta: 19, slotEdits: 26, redirects: 25, retire: 1, withdraw: 7, unchanged: 0, refused: 0 })
     expect(f.redirects).toHaveLength(1) // only the old record
     const res = await applyStep(f.api, plan, DATA2)
     expect(res.problems).toEqual([])
@@ -81,7 +81,7 @@ describe('STAGING-AUDIT-REDIRECTS-1 prod step', () => {
     expect(f.redirects.filter((r) => r.id !== 'old-hybrid').every((r) => r.status === '301' && r.active === true && /STAGING-AUDIT-REDIRECTS-1/.test(r.authority))).toBe(true)
     expect(f.route.disposition).toMatchObject({ state: 'REDIRECT', export: false, indexable: false, sitemap: false, redirect: '/cooling-tower-construction-repair-in-singapore/' })
     const again = await planStep(f.api, DATA2)
-    expect(again.counts).toMatchObject({ meta: 0, slotEdits: 0, redirects: 0, retire: 0, withdraw: 0, unchanged: 76, refused: 0 })
+    expect(again.counts).toMatchObject({ meta: 0, slotEdits: 0, redirects: 0, retire: 0, withdraw: 0, unchanged: 78, refused: 0 })
     // what was written: each title/description is exactly the new text, the Brentwood H1 is CF150MAX, other SEO fields are untouched
     for (const m of DATA2.meta as MetaRow[]) expect((f.routes.get(m.path)!.seo as Rec)[m.field], `${m.path} ${m.field}`).toBe(m.new)
     expect(f.routes.get(BR)!.slots.find((x: Rec) => x.key === 'body.1.1.1.1.1')!.heading).toBe('Brentwood CF150MAX Cellular Drift Eliminator')

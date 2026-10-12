@@ -22,6 +22,9 @@ const ledger = JSON.parse(readFileSync(path.join(APP, 'content/release/route-led
 const products = new Map(ledger.routes.filter((r) => /^SALMON-product-[0-9]+$/.test(r.routeId) && r.state === 'PUBLIC' && r.export).map((r) => [r.path, r.routeId] as [string, string]))
 const rowOf = (p: string) => { const r = ledger.routes.find((x) => x.path === p && x.sourceFile); if (!r) throw new Error(`no source route for ${p}`); return r }
 const write = process.argv.includes('--write')
+/** `--only=/a/,/b/`: a follow-up run over just these pages (the rest were written by an earlier bundle; the expect counts are for a first run). */
+const only = process.argv.find((a) => a.startsWith('--only='))?.slice(7).split(',')
+const wanted = (p: string): boolean => !only || only.includes(p)
 const [occFile] = process.argv.slice(2).filter((a) => !a.startsWith('--'))
 
 /** A text function with the rule's reason. */
@@ -38,6 +41,7 @@ const brandFix = (s: string): string =>
 const altFix = (s: string): string => s.replace(/\s*-\s*h2ocooling(?:\.com)?\s*$/i, '').replace(/\s+and website www\.h2ocooling\.com\s*$/i, '')
 
 const EXPLICIT: Array<{ path: string; row: string; edits: Edit[] }> = [
+  { path: '/cooling-tower-thermography/', row: 'FBG-13b', edits: [{ id: 'FBG-13b', reason: 'OGCS FBG-13 follow-up: "Frequently Aseked Question" is "Frequently Asked Questions"', fn: (s) => (s.trim() === 'Frequently Aseked Question' ? 'Frequently Asked Questions' : s), expect: 1 }] },
   { path: '/closed-loop-vs-open-loop/', row: 'FBG-02', edits: [{ id: 'FBG-02', reason: 'OGCS FBG-02 (typo on a 1,194-click article): "he extra investment" is "The extra investment"', fn: (s) => s.replace('? he extra investment', '? The extra investment'), expect: 1 }] },
   { path: '/resources/tools/', row: 'FBG-05', edits: [{ id: 'FBG-05', reason: 'OGCS FBG-05: ASHRAE is an acronym', fn: (s) => s.replace(/\bAshrae Psychrometric Chart\b/g, 'ASHRAE Psychrometric Chart'), expect: 1 }] },
   {
@@ -131,8 +135,9 @@ function apply(p: string, edits: Edit[], altEdit?: (s: string) => string, row = 
   if (entry.fixes.some((f) => changed(p, f))) fixes.set(p, entry)
   void row
 }
-for (const x of EXPLICIT) apply(x.path, x.edits)
+for (const x of EXPLICIT) if (wanted(x.path)) apply(x.path, x.edits)
 for (const [p, o] of occurrences) {
+  if (!wanted(p)) continue
   const before = fixes.get(p)?.fixes.filter((f) => changed(p, f)).length ?? 0
   apply(p, [{ id: 'FBG-13', reason: 'OGCS FBG-13: the brand reads ICS (H2OCooling / H2O Cooling are not the company name); URLs and email domains are untouched', fn: brandFix }], altFix)
   const made = (fixes.get(p)?.fixes.filter((f) => changed(p, f)).length ?? 0) - before
@@ -165,9 +170,13 @@ if (write) {
   const dPath = path.join(APP, 'ops/prod-step/staging-audit-redirects-step-2.data.json')
   const data = JSON.parse(readFileSync(dPath, 'utf8')) as { slotEdits: Array<{ path: string; fixes: unknown[] }> }
   for (const [p, e] of fixes) {
-    const keep = data.slotEdits.filter((s) => s.path !== p)
-    keep.push({ path: p, fixes: e.fixes.filter((f) => changed(p, f)).map((f) => ({ key: f.key, field: f.field, row: `FBG ${f.changes.map((c) => c.reason.slice(0, 20)).join('; ')}`.slice(0, 60), before: PRE.get(`${p}\t${f.key}`)?.afterCanon ?? f.before, after: f.after, afterCanon: f.afterCanon, accept: [] })) })
-    data.slotEdits = keep
+    // a follow-up run merges into the page's existing step fixes: a key already in the step keeps its step `before`
+    const page = data.slotEdits.find((s) => s.path === p) ?? (data.slotEdits[data.slotEdits.push({ path: p, fixes: [] }) - 1] as { path: string; fixes: Array<Record<string, unknown>> })
+    for (const f of e.fixes.filter((x) => changed(p, x))) {
+      const row = { key: f.key, field: f.field, row: `FBG ${f.changes.map((c) => c.reason.slice(0, 20)).join('; ')}`.slice(0, 60), before: PRE.get(`${p}\t${f.key}`)?.afterCanon ?? f.before, after: f.after, afterCanon: f.afterCanon, accept: [] as unknown[] }
+      const at = (page.fixes as Array<Record<string, unknown>>).findIndex((x) => x.key === f.key)
+      if (at >= 0) { const old = (page.fixes as Array<Record<string, unknown>>)[at]!; (page.fixes as Array<Record<string, unknown>>)[at] = { ...row, before: old.before, accept: old.accept } } else (page.fixes as Array<Record<string, unknown>>).push(row)
+    }
   }
   writeFileSync(dPath, JSON.stringify(data, null, 1) + '\n')
   process.stdout.write('written\n')

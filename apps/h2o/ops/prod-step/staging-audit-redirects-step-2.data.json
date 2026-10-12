@@ -127,6 +127,13 @@
    "expectedOld": null,
    "new": "Learn why certified cooling tower parts matter for efficiency and safety, how to spot counterfeit parts and how to source them with confidence.",
    "row": "CP-19"
+  },
+  {
+   "path": "/cooling-tower-thermal-storage/",
+   "field": "description",
+   "expectedOld": null,
+   "new": "Learn how cooling tower thermal storage works with ice storage, chilled water tanks, off-peak cooling, and demand management. Full design guide by ICS.",
+   "row": "FBG-13b"
   }
  ],
  "slotEdits": [
@@ -1114,6 +1121,15 @@
       }
      },
      "afterCanon": "[[\"t\",\"Let Cooling Tower Thermography analysis help you figure out hidden risks and make your maintenance invisible, effective, and thermally transparent with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"ICS\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.145",
+     "field": "heading",
+     "row": "FBG OGCS FBG-13 follow-u",
+     "before": "\"Frequently Aseked Question\"",
+     "after": "Frequently Asked Questions",
+     "afterCanon": "\"Frequently Asked Questions\"",
      "accept": []
     }
    ]

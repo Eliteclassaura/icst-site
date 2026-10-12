@@ -26210,6 +26210,22 @@
       "reason": "OGCS FBG-13: the brand reads ICS (H2OCooling / H2O Cooling are not the company name); URLs and email domains are untouched"
      }
     ]
+   },
+   {
+    "key": "body.3.1.1.7.145",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Frequently Aseked Question\"",
+    "after": "Frequently Asked Questions",
+    "afterCanon": "\"Frequently Asked Questions\"",
+    "changes": [
+     {
+      "from": "Frequently Aseked Question",
+      "to": "Frequently Asked Questions",
+      "action": "claim-reworded",
+      "reason": "OGCS FBG-13 follow-up: \"Frequently Aseked Question\" is \"Frequently Asked Questions\""
+     }
+    ]
    }
   ]
  },
