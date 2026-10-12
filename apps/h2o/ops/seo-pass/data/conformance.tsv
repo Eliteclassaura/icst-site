@@ -46,13 +46,11 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /cooling-tower-ph-control/	200		html	Cooling Tower pH Control: Complete Management Guide - ICS	Master cooling tower pH control to prevent scaling and corrosion. Learn the optimal pH range, acid dosing methods, and automated system management techniques.		
 /cooling-tower-parts-online/	200		html	Cooling Tower Parts Online | Replacement Components	Explore cooling tower parts online, including motors, gearboxes, drift eliminators, nozzles, and OEM cooling tower components worldwide.		
 /blog/best-for-cooling-tower/	301	/best-for-cooling-tower/					
-/cooling-tower-spray-nozzles/	301	/nozzles/					
 /product/tuf-lite-ii-3000-series-fan-assemblies/	200		html	TUF-LITE II 3000 Series Fan Assemblies | Cooling Tower Fans	Need a replacement fan? Request a quote for the TUF LITE II 3000 Series Fan Assemblies, designed for consistent airflow and long service life.		
 /cooling-tower-lifespan-factors-failures-fixes/	200		html	Cooling Tower Lifespan: Factors, Failures & Fixes - ICS	Cooling tower lifespan explained: Discover how long towers last, what causes early failure, and proven ways to extend their service life efficiently.		
 /cooling-tower-inspection-checklist/	200		html	Cooling Tower Inspection Checklist: Maintenance Guide - ICS	Use this cooling tower inspection checklist to prevent corrosion, contamination, and mechanical failure. Includes schedules and expert maintenance guidance.		
 /cooling-tower-fill-media-replacement/	200		html	Cooling Tower Fill Media Replacement: 2026 ROI Guide - ICS	Discover why cooling tower fill media replacement is critical for 2026. Maximize heat transfer, reduce energy consumption, and ensure compliance.		
 /cooling-tower-performance-testing/	200		html	5 Steps to Flawless Cooling Tower Performance Testing - ICS	Learn the 5 professional steps for accurate Cooling Tower Performance Testing to validate your investment, comply with standards, and activate your warranty.		
-/crossflow-vs-counterflow-cooling-tower-2/	301	/counterflow-vs-crossflow/					
 /blog/material-for-a-cooling-tower/	301	/material-for-a-cooling-tower/					
 /cooling-tower-drainage-system/	200		html	Cooling Tower Drainage System: Slope & Discharge Design Guide	Learn proper cooling tower drainage system design, including basin slopes, overflow planning, and discharge piping for reliable performance.		
 /product/amarillo-right-angle-gear-drives-double-reduction-1712/	200		html	Amarillo Right Angle Gear Drives – Double Reduction 1712	Need a replacement gearbox? Request a quote for the Amarillo Right Angle Gear Drives Double Reduction 1712.		
@@ -62,7 +60,6 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /product/amarillo-right-angle-gear-drives-single-reduction-155/	200		html	Amarillo Right Angle Gear Drives – Single Reduction 155	Request a quote for the Amarillo Right Angle Gear Drives Single Reduction 155.		
 /cooling-tower-scale-buildup/	200		html	Cooling Tower Scale Buildup: Prevention & Removal Guide	Is cooling tower scale buildup destroying your efficiency? Learn expert prevention methods and effective descaling procedures to save energy and costs.		
 /product/addax-drive-shaft-composite-coupling/	200		html	Addax Drive Shaft Composite Coupling | Composite Coupling	Request a quote for the Addax Drive Shaft Composite Coupling composite coupling, engineered for low vibration, high torque cooling tower fan drives.		
-/frp-cooling-tower-advantages/	301	/frp-cooling-towers/					
 /cooling-tower-low-water-flow/	200		html	Cooling Tower Low Water Flow: Diagnosis & Troubleshooting Guide	Learn how to diagnose cooling tower low water flow problems, including clogged strainers, nozzle blockage, pump diagnosis, and flow rate testing.		
 /frp-cooling-tower-fans/	200		html	FRP Cooling Tower Fans: The Ultimate Performance Guide - ICS	Discover why FRP cooling tower fans are the top choice for industrial systems. Learn about their efficiency, durability, and cost benefits in this guide.		
 /product/addax-drive-shaft-composite-coupling-lrr850-625/	200		html	Addax Drive Shaft Composite Coupling LRR850.625 - ICS	Get the Addax Drive Shaft Composite Coupling LRR850.625 online, a factory balanced assembly built to transmit gearbox torque to the fan reliably.		
@@ -87,7 +84,6 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /product/pro-d-series-30-36-9-14m-10-98m-fans/	200		html	PRO D-Series 30'-36' (9.14M-10.98M) Fans | Cooling Tower Fans	Request a quote for the PRO D Series 30' 36' (9.14M 10.98M) Fans, a low noise cooling tower fan engineered for dependable, long term airflow performance.		
 /product/tuf-lite-ii-3000h-series-hudson-fans/	301	/product/tuf-lite-ii-3000h-series-hub-fan-assemblies/					
 /product/addax-drive-shaft-composite-coupling-lra850-625/	200		html	Addax Drive Shaft Composite Coupling LRA850.625	Request a quote for the Addax Drive Shaft Composite Coupling LRA850.625.		
-/cooling-tower-fan-balancing/	301	/cooling-tower-fan/					
 /cooling-tower-fan-not-working/	200		html	Cooling Tower Fan Not working? 2026 Repair Guide - ICS	A cooling tower fan not working triggers major system failures. Learn emergency diagnostic steps to fix fan motor issues and restore optimal performance.		
 /blog/cooling-tower-drift-eliminator/	301	/cooling-tower-drift-eliminator/					
 /blog/aluminum-versus-frp-fan-blades/	301	/aluminum-vs-frp-fan-blades/					
@@ -1142,3 +1138,7 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /cooling-tower-free-cooling-mode-cut-chiller-costs-now/	301	/energy-efficient-cooling-tower/					
 /commercial-building-cooling-tower/	301	/cooling-tower/					
 /product-category/uncategorized/	301	/cooling-tower-parts-online/					
+/cooling-tower-spray-nozzles/	200		html	Cooling Tower Spray Nozzles: A Selection Guide - ICS	Learn how to select the right cooling tower spray nozzles. This guide covers nozzle types, spray patterns, and maintenance to improve cooling efficiency.		
+/crossflow-vs-counterflow-cooling-tower-2/	200		html	Crossflow vs Counterflow Cooling Towers: Key Differences - ICS	Discover the key differences between crossflow and counterflow cooling towers. Learn how they compare on efficiency, maintenance and fit for industrial plants.		
+/frp-cooling-tower-advantages/	200		html	FRP Cooling Tower Advantages: Durable, Corrosion Resistant - ICS	Discover FRP cooling tower advantages over conventional cooling towers: corrosion-resistant, lightweight design and low maintenance for industrial use.		
+/cooling-tower-fan-balancing/	200		html	Cooling Tower Fan Balancing: Boost Efficiency & End Downtime - ICS	Learn 13 practical tips for cooling tower fan balancing: vibration limits, balance grades and inspection, to cut downtime and support fan efficiency.		

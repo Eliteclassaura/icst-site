@@ -13,13 +13,14 @@ const APP = process.cwd()
 type Fix = { key: string; field: string; before: string; after: unknown; afterCanon: string }
 const sf = JSON.parse(readFileSync(path.join(APP, 'ops/seo-pass/data/slot-fixes.json'), 'utf8')) as Record<string, { slots: Fix[] }>
 const edits = DATA2.slotEdits as Array<{ path: string; fixes: Array<{ key: string; field: string; before: string; after: unknown; afterCanon: string }> }>
-const fbg = edits.filter((e) => !e.path.startsWith('/product/'))
+const R200 = ['/cooling-tower-spray-nozzles/', '/crossflow-vs-counterflow-cooling-tower-2/', '/frp-cooling-tower-advantages/', '/cooling-tower-fan-balancing/'] // RESTORE-200 pages: OGCS exact wording (own test)
+const fbg = edits.filter((e) => !e.path.startsWith('/product/') && !R200.includes(e.path))
 const text = (v: unknown): string => JSON.stringify(v)
 const canonOf = (p: string, key: string) => sf[p]!.slots.find((s) => s.key === key)!.afterCanon
 
 describe('FBG-CONTENT-1', () => {
   it('carries 19 pages of FBG fixes next to the Brentwood H1, each one in the batch data and the step with the same result', () => {
-    expect(edits).toHaveLength(20)
+    expect(edits.filter((e) => !R200.includes(e.path))).toHaveLength(20) // RESTORE-200 adds four pages after FBG-CONTENT
     expect(fbg).toHaveLength(19)
     for (const e of fbg) for (const f of e.fixes) {
       expect(canonOf(e.path, f.key), `${e.path} ${f.key}`).toBe(f.afterCanon)

@@ -58,7 +58,7 @@ describe('CF3-PROD-STEP-1 R2', () => {
   it('dry run lists every item and writes nothing; expected counts 5 meta, 6 text edits (5 Howden + 1 link repoint), 8 redirects, 3 route withdrawals', async () => {
     const f = fake()
     const plan = await planStep(f.api)
-    expect(plan.counts).toEqual({ meta: 5, slotEdits: 6, redirects: 8, retire: 0, withdraw: 3, unchanged: 0, refused: 0 })
+    expect(plan.counts).toEqual({ meta: 5, slotEdits: 6, redirects: 8, retire: 0, withdraw: 3, release: 0, unchanged: 0, refused: 0 })
     const text = plan.lines.join('\n')
     expect(text).toContain(`old: ${DATA.meta[0].expectedOld}`)
     expect(text).toContain('TEXT HWD-01')
@@ -87,7 +87,7 @@ describe('CF3-PROD-STEP-1 R2', () => {
       expect(changed.map((s: Rec) => s.key).sort()).toEqual(page.fixes.map((x) => x.key).sort())
     }
     const again = await planStep(f.api)
-    expect(again.counts).toEqual({ meta: 0, slotEdits: 0, redirects: 0, retire: 0, withdraw: 0, unchanged: 22, refused: 0 })
+    expect(again.counts).toEqual({ meta: 0, slotEdits: 0, redirects: 0, retire: 0, withdraw: 0, release: 0, unchanged: 22, refused: 0 })
   })
   it('refuses an edited meta, an edited Howden element, a pending editor draft and a redirect with another destination', async () => {
     expect((await planStep(fake({ description: 'Edited by staff.' }).api)).meta[0].action).toBe('REFUSE')

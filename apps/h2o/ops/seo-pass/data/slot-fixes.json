@@ -24389,6 +24389,190 @@
       "reason": "alt shortened 1509 → 46 characters (held text)"
      }
     ]
+   },
+   {
+    "key": "body.3.1.1.7.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"In the complex world of evaporative heat transfer, one component holds more influence than any other: the cooling tower spray nozzle. This small but critical part dictates the efficiency of the entire system. A single, well-chosen nozzle, costing as little as $50, can optimize the performance of a $500,000 cooling system and potentially save up to 15% in annual utility costs.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "In the complex world of evaporative heat transfer, one component holds more influence than any other: the cooling tower spray nozzle. This small but critical part dictates the efficiency of the entire system. A single, well-chosen nozzle can change how evenly water spreads over the fill, and with it how well the tower cools.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"In the complex world of evaporative heat transfer, one component holds more influence than any other: the cooling tower spray nozzle. This small but critical part dictates the efficiency of the entire system. A single, well-chosen nozzle can change how evenly water spreads over the fill, and with it how well the tower cools.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "A single, well-chosen nozzle, costing as little as $50, can optimize the performance of a $500,000 cooling system and potentially save up to 15% in annual utility costs.",
+      "to": "A single, well-chosen nozzle can change how evenly water spreads over the fill, and with it how well the tower cools.",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.51.0.1.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Counterflow / HVAC Towers\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Counterflow towers",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Counterflow towers\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Counterflow / HVAC Towers",
+      "to": "Counterflow towers",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.51.0.1.5.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Irrigation, HVAC, process cooling\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Irrigation, process cooling",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Irrigation, process cooling\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Irrigation, HVAC, process cooling",
+      "to": "Irrigation, process cooling",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.53",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"As a leading manufacturer and supplier, we provide a broad range of products designed to meet your specific needs. If you need replacement nozzles or are designing a new system, we can help you order the right components today.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Need nozzles for an industrial cooling tower? Request a quote and tell us the tower make and model. If you need replacement nozzles or are designing a new system, we can help you order the right components today.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Need nozzles for an industrial cooling tower? Request a quote and tell us the tower make and model. If you need replacement nozzles or are designing a new system, we can help you order the right components today.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "As a leading manufacturer and supplier, we provide a broad range of products designed to meet your specific needs.",
+      "to": "Need nozzles for an industrial cooling tower? Request a quote and tell us the tower make and model.",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
    }
   ]
  },
@@ -80394,6 +80578,902 @@
       "to": "(element text)",
       "action": "claim-reworded",
       "reason": "OGCS FBG-13: the brand reads ICS (H2OCooling / H2O Cooling are not the company name); URLs and email domains are untouched"
+     }
+    ]
+   }
+  ]
+ },
+ "/crossflow-vs-counterflow-cooling-tower-2/": {
+  "routeId": "SALMON-posts-3475",
+  "slots": [
+   {
+    "key": "body.3.1.1.7.17",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"When it comes to best cooling towers, I’ve found that crossflow and counterflow designs are the go-to options for most industrial applications. Over the years, I’ve worked with both types, and the real difference comes down to how they handle airflow and water flow. Each has its strengths depending on the operational needs.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Crossflow and counterflow designs are the two most common options for industrial cooling towers. The real difference between the two comes down to how they handle airflow and water flow. Each has its strengths depending on the operational needs.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Crossflow and counterflow designs are the two most common options for industrial cooling towers. The real difference between the two comes down to how they handle airflow and water flow. Each has its strengths depending on the operational needs.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "When it comes to best cooling towers, I’ve found that crossflow and counterflow designs are the go-to options for most industrial applications.",
+      "to": "Crossflow and counterflow designs are the two most common options for industrial cooling towers.",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     },
+     {
+      "from": "Over the years, I’ve worked with both types, and the real difference comes down",
+      "to": "The real difference between the two comes down",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.1.1",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Crossflow vs Counterflow Cooling Tower\"",
+    "after": "Crossflow vs Counterflow Cooling Towers: Key Differences",
+    "afterCanon": "\"Crossflow vs Counterflow Cooling Towers: Key Differences\"",
+    "changes": [
+     {
+      "from": "Crossflow vs Counterflow Cooling Tower",
+      "to": "Crossflow vs Counterflow Cooling Towers: Key Differences",
+      "action": "claim-reworded",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): the snapshot body H1 is an older revision; the live page ranks with this H1 (exact H1 from the OGCS page spec)"
+     }
+    ]
+   }
+  ]
+ },
+ "/frp-cooling-tower-advantages/": {
+  "routeId": "SALMON-posts-3648",
+  "slots": [
+   {
+    "key": "body.3.1.1.7.23.9",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Maximizing Component Lifespan:\",1],[\"t\",\" With a design life of over 20 years, an FRP tower provides an extended service life that far surpasses wood or galvanized steel, ensuring a better return on investment.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Maximizing Component Lifespan:",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": " FRP is corrosion resistant, so an FRP tower can have a long service life compared with wood or galvanized steel, which supports a better return on investment.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Maximizing Component Lifespan:\",1],[\"t\",\" FRP is corrosion resistant, so an FRP tower can have a long service life compared with wood or galvanized steel, which supports a better return on investment.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "With a design life of over 20 years, an FRP tower provides an extended service life that far surpasses wood or galvanized steel, ensuring a better return on investment.",
+      "to": "FRP is corrosion resistant, so an FRP tower can have a long service life compared with wood or galvanized steel, which supports a better return on investment.",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.77",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"For these industries, choosing FRP guarantees uptime, reduces operational risk, and helps ensure compliance with safety regulations.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "For these industries, choosing FRP helps reduce downtime and operational risk and supports compliance with safety regulations.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"For these industries, choosing FRP helps reduce downtime and operational risk and supports compliance with safety regulations.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "choosing FRP guarantees uptime, reduces operational risk, and helps ensure compliance with safety regulations.",
+      "to": "choosing FRP helps reduce downtime and operational risk and supports compliance with safety regulations.",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.87",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"When all factors are considered, the data points to a clear winner. The following table synthesizes the key performance indicators for each material.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "When all factors are considered, FRP compares well on these factors. The following table synthesizes the key performance indicators for each material.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"When all factors are considered, FRP compares well on these factors. The following table synthesizes the key performance indicators for each material.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "the data points to a clear winner",
+      "to": "FRP compares well on these factors",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.95",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Fiberglass Reinforced Plastic is the only material designed from the ground up to conquer the challenges of a cooling tower environment. When you choose FRP cooling tower advantages, you secure immunity to corrosion, lightweight durability, minimal maintenance, and an unmatched total cost of ownership. Investing in an FRP cooling tower is an investment in superior performance, guaranteed reliability, and true long-term operational resilience with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Fiberglass Reinforced Plastic is the only material designed from the ground up to conquer the challenges of a cooling tower environment. When you choose FRP cooling tower advantages, you secure immunity to corrosion, lightweight durability, minimal maintenance, and an unmatched total cost of ownership. Investing in an FRP cooling tower is an investment in dependable performance and long-term operational resilience with ",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "link",
+          "fields": {
+           "url": "https://h2ocooling.com/",
+           "newTab": false,
+           "linkType": "custom"
+          },
+          "children": [
+           {
+            "type": "text",
+            "text": "H2O Cooling",
+            "format": 0,
+            "detail": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1
+           }
+          ],
+          "format": "",
+          "indent": 0,
+          "version": 3,
+          "direction": "ltr"
+         },
+         {
+          "type": "text",
+          "text": ".",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Fiberglass Reinforced Plastic is the only material designed from the ground up to conquer the challenges of a cooling tower environment. When you choose FRP cooling tower advantages, you secure immunity to corrosion, lightweight durability, minimal maintenance, and an unmatched total cost of ownership. Investing in an FRP cooling tower is an investment in dependable performance and long-term operational resilience with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "superior performance, guaranteed reliability, and true long-term",
+      "to": "dependable performance and long-term",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.89.0.0.1.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"None\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Low",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Low\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "None",
+      "to": "Low",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.89.0.0.2.0",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Expected Lifespan\",1],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\",1],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Expected Lifespan",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.89.0.0.2.1",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"20+ Years\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "20+ Years",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.89.0.0.2.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"5-15 Years\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "5-15 Years",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.89.0.0.2.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"5-10 Years\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "5-10 Years",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.89.0.0.2.4",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"3-10 Years\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "3-10 Years",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.89.0.0.2.5",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"20+ Years\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "20+ Years",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   }
+  ]
+ },
+ "/cooling-tower-fan-balancing/": {
+  "routeId": "SALMON-posts-3594",
+  "slots": [
+   {
+    "key": "body.3.1.1.7.17.11",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Optimise Fan Tip Clearance:\",1],[\"t\",\" The gap between the fan blade tips and the fan stack is critical. Excessive clearance can reduce airflow efficiency by 15-20%. Insufficient clearance can cause destructive air turbulence and vibration.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Optimise Fan Tip Clearance:",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": " The gap between the fan blade tips and the fan stack is critical. Excessive tip clearance can reduce airflow efficiency. Insufficient clearance can cause destructive air turbulence and vibration.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Optimise Fan Tip Clearance:\",1],[\"t\",\" The gap between the fan blade tips and the fan stack is critical. Excessive tip clearance can reduce airflow efficiency. Insufficient clearance can cause destructive air turbulence and vibration.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Excessive clearance can reduce airflow efficiency by 15-20%.",
+      "to": "Excessive tip clearance can reduce airflow efficiency.",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.81.0.0.1.2",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"15-30% Reduction in fan energy consumption (kWh).\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Lower fan energy consumption (kWh).",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Lower fan energy consumption (kWh).\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "15-30% Reduction in fan energy consumption (kWh).",
+      "to": "Lower fan energy consumption (kWh).",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.63.3",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Bearing Vibration Limits:\",1],[\"t\",\" The goal is to operate well below the “Alert” level defined by ISO 10816 standards for rotating machinery. These standards provide clear limits for acceptable vibration velocity (measured in mm/s or in/s).\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "Bearing Vibration Limits:",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         },
+         {
+          "type": "text",
+          "text": " The goal is to operate well below the “Alert” level defined by ISO 20816 vibration standards for rotating machinery (ISO 10816 is superseded). These standards provide clear limits for acceptable vibration velocity (measured in mm/s or in/s).",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"Bearing Vibration Limits:\",1],[\"t\",\" The goal is to operate well below the “Alert” level defined by ISO 20816 vibration standards for rotating machinery (ISO 10816 is superseded). These standards provide clear limits for acceptable vibration velocity (measured in mm/s or in/s).\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "ISO 10816 standards for rotating machinery",
+      "to": "ISO 20816 vibration standards for rotating machinery (ISO 10816 is superseded)",
+      "action": "word-corrected",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.9",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"The Authority Hook: 13 Expert Secrets of Cooling Tower Fan Balancing\"",
+    "after": "13 Practical Tips for Cooling Tower Fan Balancing",
+    "afterCanon": "\"13 Practical Tips for Cooling Tower Fan Balancing\"",
+    "changes": [
+     {
+      "from": "The Authority Hook: 13 Expert Secrets of Cooling Tower Fan Balancing",
+      "to": "13 Practical Tips for Cooling Tower Fan Balancing",
+      "action": "claim-reworded",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.15",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"13 Game-Changing Tips You Won’t Find in a Manual\"",
+    "after": "13 Practical Tips",
+    "afterCanon": "\"13 Practical Tips\"",
+    "changes": [
+     {
+      "from": "13 Game-Changing Tips You Won’t Find in a Manual",
+      "to": "13 Practical Tips",
+      "action": "claim-reworded",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.77",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"7 Quantified Benefits of Implementing Precision Balancing\"",
+    "after": "Benefits of Precision Balancing",
+    "afterCanon": "\"Benefits of Precision Balancing\"",
+    "changes": [
+     {
+      "from": "7 Quantified Benefits of Implementing Precision Balancing",
+      "to": "Benefits of Precision Balancing",
+      "action": "claim-reworded",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.89",
+    "kind": "heading",
+    "field": "heading",
+    "before": "\"Operational Strategies for Zero Vibration\"",
+    "after": "Operational Strategies to Limit Vibration",
+    "afterCanon": "\"Operational Strategies to Limit Vibration\"",
+    "changes": [
+     {
+      "from": "Operational Strategies for Zero Vibration",
+      "to": "Operational Strategies to Limit Vibration",
+      "action": "claim-reworded",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.31",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"In both cases, the fan’s purpose is to create sufficient airflow to evaporate a small portion of the circulating water. This evaporation carries away immense amounts of heat, allowing the system to achieve the design cold water temperature (CWT) needed for industrial processes or \",0],[\"a\",\"https://www.thisoldhouse.com/heating-cooling/what-is-hvac\"],[\"t\",\"HVAC \",0],[\"/a\"],[\"t\",\"chillers.\",0],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "In both cases, the fan’s purpose is to create sufficient airflow to evaporate a small portion of the circulating water. This evaporation carries away immense amounts of heat, allowing the system to achieve the design cold water temperature (CWT) needed for industrial processes or process chillers.",
+          "format": 0,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"In both cases, the fan’s purpose is to create sufficient airflow to evaporate a small portion of the circulating water. This evaporation carries away immense amounts of heat, allowing the system to achieve the design cold water temperature (CWT) needed for industrial processes or process chillers.\",0],[\"p\"]]",
+    "changes": [
+     {
+      "from": "In both cases, the fan’s purpose is to create sufficient airflow to evaporate a small portion of the circulating water. This evaporation carries away immense amounts of heat, allowing the system to achieve the design cold water temperature (CWT) needed for industrial processes or HVAC chillers.",
+      "to": "In both cases, the fan’s purpose is to create sufficient airflow to evaporate a small portion of the circulating water. This evaporation carries away immense amounts of heat, allowing the system to achieve the design cold water temperature (CWT) needed for industrial processes or process chillers.",
+      "action": "claim-reworded",
+      "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article (no HVAC wording): 'industrial processes or HVAC chillers' reads 'industrial processes or process chillers'; the sentence wrapped \"HVAC \" in an external HVAC explainer link, which goes with it"
      }
     ]
    }

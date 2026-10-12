@@ -144,6 +144,41 @@
    ],
    "new": "Cooling Tower Fan Stack Replacement | Fiberglass Fan Stacks",
    "row": "F11"
+  },
+  {
+   "path": "/crossflow-vs-counterflow-cooling-tower-2/",
+   "field": "title",
+   "expectedOld": null,
+   "new": "Crossflow vs Counterflow Cooling Towers: Key Differences - ICS",
+   "row": "R200"
+  },
+  {
+   "path": "/crossflow-vs-counterflow-cooling-tower-2/",
+   "field": "description",
+   "expectedOld": null,
+   "new": "Discover the key differences between crossflow and counterflow cooling towers. Learn how they compare on efficiency, maintenance and fit for industrial plants.",
+   "row": "R200"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "field": "title",
+   "expectedOld": null,
+   "new": "FRP Cooling Tower Advantages: Durable, Corrosion Resistant - ICS",
+   "row": "R200"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "field": "description",
+   "expectedOld": null,
+   "new": "Discover FRP cooling tower advantages over conventional cooling towers: corrosion-resistant, lightweight design and low maintenance for industrial use.",
+   "row": "R200"
+  },
+  {
+   "path": "/cooling-tower-fan-balancing/",
+   "field": "description",
+   "expectedOld": null,
+   "new": "Learn 13 practical tips for cooling tower fan balancing: vibration limits, balance grades and inspection, to cut downtime and support fan efficiency.",
+   "row": "R200"
   }
  ],
  "slotEdits": [
@@ -1385,6 +1420,919 @@
      "accept": []
     }
    ]
+  },
+  {
+   "path": "/cooling-tower-spray-nozzles/",
+   "fixes": [
+    {
+     "key": "body.1.1.1.1.1",
+     "field": "alt",
+     "row": "R200 alt-shortened",
+     "before": "\"Nozzle Type Primary Application Advantage Material Options Splash-Type (Target) Crossflow / Gravity Towers Lowest energy use (zero PSI required), simple design Polypropylene (PP), ABS Full Cone (NS Series) Counterflow / HVAC Towers Uniform distribution at low heights Nylon, PP Spiral / Helical High-fouling / Industrial Resistant to clogging, self-cleaning Stainless Steel, Ceramic Variable Orifice VFD-Equipped Towers Maintains spray pattern during load shifts Engineered Thermoplastics Hollow Cone Water treatment, spray ponds Even coverage with high-impact droplets Stainless Steel, Brass, PP Flat-Fan Irrigation, HVAC, process cooling Wide coverage, good for targeted areas Stainless Steel, Plastic, Brass Fog / Mist / Fine Spray Evaporative cooling, humidification Creates very fine droplets, maximizes surface contact Stainless Steel, PP Air-Assisted Dust suppression, industrial cooling High atomization, long throw distance Stainless Steel, Aluminum Spreader / Multi-Orifice Large crossflow towers, distribution pans Uniform distribution, flexible flow rates PP, ABS, Engineered Thermoplastics Adjustable / Rotary Industrial cooling towers, process Can tune coverage and droplet size Stainless Steel, Brass, PP Fan-Spray / Turbine Specialized counterflow towers Very uniform distribution over large area Stainless Steel, Thermoplastics Oscillating / Swing Process cooling, pond aeration Covers irregular areas, low energy Thermoplastics, Stainless Steel Cooling Tower Spray Nozzles: A Selection Guide\"",
+     "after": "Cooling Tower Spray Nozzles: A Selection Guide",
+     "afterCanon": "\"Cooling Tower Spray Nozzles: A Selection Guide\"",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.1",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"In the complex world of evaporative heat transfer, one component holds more influence than any other: the cooling tower spray nozzle. This small but critical part dictates the efficiency of the entire system. A single, well-chosen nozzle, costing as little as $50, can optimize the performance of a $500,000 cooling system and potentially save up to 15% in annual utility costs.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "In the complex world of evaporative heat transfer, one component holds more influence than any other: the cooling tower spray nozzle. This small but critical part dictates the efficiency of the entire system. A single, well-chosen nozzle can change how evenly water spreads over the fill, and with it how well the tower cools.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"In the complex world of evaporative heat transfer, one component holds more influence than any other: the cooling tower spray nozzle. This small but critical part dictates the efficiency of the entire system. A single, well-chosen nozzle can change how evenly water spreads over the fill, and with it how well the tower cools.\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.51.0.1.1.1",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"Counterflow / HVAC Towers\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Counterflow towers",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Counterflow towers\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.51.0.1.5.1",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"Irrigation, HVAC, process cooling\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Irrigation, process cooling",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Irrigation, process cooling\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.53",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"As a leading manufacturer and supplier, we provide a broad range of products designed to meet your specific needs. If you need replacement nozzles or are designing a new system, we can help you order the right components today.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Need nozzles for an industrial cooling tower? Request a quote and tell us the tower make and model. If you need replacement nozzles or are designing a new system, we can help you order the right components today.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Need nozzles for an industrial cooling tower? Request a quote and tell us the tower make and model. If you need replacement nozzles or are designing a new system, we can help you order the right components today.\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/crossflow-vs-counterflow-cooling-tower-2/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.17",
+     "field": "text",
+     "row": "R200 word-corrected; word-corrected",
+     "before": "[[\"t\",\"When it comes to best cooling towers, I’ve found that crossflow and counterflow designs are the go-to options for most industrial applications. Over the years, I’ve worked with both types, and the real difference comes down to how they handle airflow and water flow. Each has its strengths depending on the operational needs.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Crossflow and counterflow designs are the two most common options for industrial cooling towers. The real difference between the two comes down to how they handle airflow and water flow. Each has its strengths depending on the operational needs.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Crossflow and counterflow designs are the two most common options for industrial cooling towers. The real difference between the two comes down to how they handle airflow and water flow. Each has its strengths depending on the operational needs.\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.1.1",
+     "field": "heading",
+     "row": "R200 claim-reworded",
+     "before": "\"Crossflow vs Counterflow Cooling Tower\"",
+     "after": "Crossflow vs Counterflow Cooling Towers: Key Differences",
+     "afterCanon": "\"Crossflow vs Counterflow Cooling Towers: Key Differences\"",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.23.9",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"Maximizing Component Lifespan:\",1],[\"t\",\" With a design life of over 20 years, an FRP tower provides an extended service life that far surpasses wood or galvanized steel, ensuring a better return on investment.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Maximizing Component Lifespan:",
+           "format": 1,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "text",
+           "text": " FRP is corrosion resistant, so an FRP tower can have a long service life compared with wood or galvanized steel, which supports a better return on investment.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Maximizing Component Lifespan:\",1],[\"t\",\" FRP is corrosion resistant, so an FRP tower can have a long service life compared with wood or galvanized steel, which supports a better return on investment.\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.77",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"For these industries, choosing FRP guarantees uptime, reduces operational risk, and helps ensure compliance with safety regulations.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "For these industries, choosing FRP helps reduce downtime and operational risk and supports compliance with safety regulations.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"For these industries, choosing FRP helps reduce downtime and operational risk and supports compliance with safety regulations.\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.87",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"When all factors are considered, the data points to a clear winner. The following table synthesizes the key performance indicators for each material.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "When all factors are considered, FRP compares well on these factors. The following table synthesizes the key performance indicators for each material.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"When all factors are considered, FRP compares well on these factors. The following table synthesizes the key performance indicators for each material.\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.95",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"Fiberglass Reinforced Plastic is the only material designed from the ground up to conquer the challenges of a cooling tower environment. When you choose FRP cooling tower advantages, you secure immunity to corrosion, lightweight durability, minimal maintenance, and an unmatched total cost of ownership. Investing in an FRP cooling tower is an investment in superior performance, guaranteed reliability, and true long-term operational resilience with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Fiberglass Reinforced Plastic is the only material designed from the ground up to conquer the challenges of a cooling tower environment. When you choose FRP cooling tower advantages, you secure immunity to corrosion, lightweight durability, minimal maintenance, and an unmatched total cost of ownership. Investing in an FRP cooling tower is an investment in dependable performance and long-term operational resilience with ",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "link",
+           "fields": {
+            "url": "https://h2ocooling.com/",
+            "newTab": false,
+            "linkType": "custom"
+           },
+           "children": [
+            {
+             "type": "text",
+             "text": "H2O Cooling",
+             "format": 0,
+             "detail": 0,
+             "mode": "normal",
+             "style": "",
+             "version": 1
+            }
+           ],
+           "format": "",
+           "indent": 0,
+           "version": 3,
+           "direction": "ltr"
+          },
+          {
+           "type": "text",
+           "text": ".",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Fiberglass Reinforced Plastic is the only material designed from the ground up to conquer the challenges of a cooling tower environment. When you choose FRP cooling tower advantages, you secure immunity to corrosion, lightweight durability, minimal maintenance, and an unmatched total cost of ownership. Investing in an FRP cooling tower is an investment in dependable performance and long-term operational resilience with \",0],[\"a\",\"https://h2ocooling.com/\"],[\"t\",\"H2O Cooling\",0],[\"/a\"],[\"t\",\".\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.89.0.0.1.1",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"None\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Low",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Low\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.89.0.0.2.0",
+     "field": "text",
+     "row": "R200 claim-removed",
+     "before": "[[\"t\",\"Expected Lifespan\",1],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "",
+           "format": 1,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"\",1],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.89.0.0.2.1",
+     "field": "text",
+     "row": "R200 claim-removed",
+     "before": "[[\"t\",\"20+ Years\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.89.0.0.2.2",
+     "field": "text",
+     "row": "R200 claim-removed",
+     "before": "[[\"t\",\"5-15 Years\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.89.0.0.2.3",
+     "field": "text",
+     "row": "R200 claim-removed",
+     "before": "[[\"t\",\"5-10 Years\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.89.0.0.2.4",
+     "field": "text",
+     "row": "R200 claim-removed",
+     "before": "[[\"t\",\"3-10 Years\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.89.0.0.2.5",
+     "field": "text",
+     "row": "R200 claim-removed",
+     "before": "[[\"t\",\"20+ Years\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
+  },
+  {
+   "path": "/cooling-tower-fan-balancing/",
+   "fixes": [
+    {
+     "key": "body.3.1.1.7.17.11",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"Optimise Fan Tip Clearance:\",1],[\"t\",\" The gap between the fan blade tips and the fan stack is critical. Excessive clearance can reduce airflow efficiency by 15-20%. Insufficient clearance can cause destructive air turbulence and vibration.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Optimise Fan Tip Clearance:",
+           "format": 1,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "text",
+           "text": " The gap between the fan blade tips and the fan stack is critical. Excessive tip clearance can reduce airflow efficiency. Insufficient clearance can cause destructive air turbulence and vibration.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Optimise Fan Tip Clearance:\",1],[\"t\",\" The gap between the fan blade tips and the fan stack is critical. Excessive tip clearance can reduce airflow efficiency. Insufficient clearance can cause destructive air turbulence and vibration.\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.81.0.0.1.2",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"15-30% Reduction in fan energy consumption (kWh).\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Lower fan energy consumption (kWh).",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Lower fan energy consumption (kWh).\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.63.3",
+     "field": "text",
+     "row": "R200 word-corrected",
+     "before": "[[\"t\",\"Bearing Vibration Limits:\",1],[\"t\",\" The goal is to operate well below the “Alert” level defined by ISO 10816 standards for rotating machinery. These standards provide clear limits for acceptable vibration velocity (measured in mm/s or in/s).\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "Bearing Vibration Limits:",
+           "format": 1,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          },
+          {
+           "type": "text",
+           "text": " The goal is to operate well below the “Alert” level defined by ISO 20816 vibration standards for rotating machinery (ISO 10816 is superseded). These standards provide clear limits for acceptable vibration velocity (measured in mm/s or in/s).",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"Bearing Vibration Limits:\",1],[\"t\",\" The goal is to operate well below the “Alert” level defined by ISO 20816 vibration standards for rotating machinery (ISO 10816 is superseded). These standards provide clear limits for acceptable vibration velocity (measured in mm/s or in/s).\",0],[\"p\"]]",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.9",
+     "field": "heading",
+     "row": "R200 claim-reworded",
+     "before": "\"The Authority Hook: 13 Expert Secrets of Cooling Tower Fan Balancing\"",
+     "after": "13 Practical Tips for Cooling Tower Fan Balancing",
+     "afterCanon": "\"13 Practical Tips for Cooling Tower Fan Balancing\"",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.15",
+     "field": "heading",
+     "row": "R200 claim-reworded",
+     "before": "\"13 Game-Changing Tips You Won’t Find in a Manual\"",
+     "after": "13 Practical Tips",
+     "afterCanon": "\"13 Practical Tips\"",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.77",
+     "field": "heading",
+     "row": "R200 claim-reworded",
+     "before": "\"7 Quantified Benefits of Implementing Precision Balancing\"",
+     "after": "Benefits of Precision Balancing",
+     "afterCanon": "\"Benefits of Precision Balancing\"",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.89",
+     "field": "heading",
+     "row": "R200 claim-reworded",
+     "before": "\"Operational Strategies for Zero Vibration\"",
+     "after": "Operational Strategies to Limit Vibration",
+     "afterCanon": "\"Operational Strategies to Limit Vibration\"",
+     "accept": []
+    },
+    {
+     "key": "body.3.1.1.7.31",
+     "field": "text",
+     "row": "R200 claim-reworded",
+     "before": "[[\"t\",\"In both cases, the fan’s purpose is to create sufficient airflow to evaporate a small portion of the circulating water. This evaporation carries away immense amounts of heat, allowing the system to achieve the design cold water temperature (CWT) needed for industrial processes or \",0],[\"a\",\"https://www.thisoldhouse.com/heating-cooling/what-is-hvac\"],[\"t\",\"HVAC \",0],[\"/a\"],[\"t\",\"chillers.\",0],[\"p\"]]",
+     "after": {
+      "root": {
+       "type": "root",
+       "children": [
+        {
+         "type": "paragraph",
+         "children": [
+          {
+           "type": "text",
+           "text": "In both cases, the fan’s purpose is to create sufficient airflow to evaporate a small portion of the circulating water. This evaporation carries away immense amounts of heat, allowing the system to achieve the design cold water temperature (CWT) needed for industrial processes or process chillers.",
+           "format": 0,
+           "detail": 0,
+           "mode": "normal",
+           "style": "",
+           "version": 1
+          }
+         ],
+         "format": "",
+         "indent": 0,
+         "version": 1,
+         "direction": "ltr",
+         "textFormat": 0,
+         "textStyle": ""
+        }
+       ],
+       "format": "",
+       "indent": 0,
+       "version": 1,
+       "direction": "ltr"
+      }
+     },
+     "afterCanon": "[[\"t\",\"In both cases, the fan’s purpose is to create sufficient airflow to evaporate a small portion of the circulating water. This evaporation carries away immense amounts of heat, allowing the system to achieve the design cold water temperature (CWT) needed for industrial processes or process chillers.\",0],[\"p\"]]",
+     "accept": []
+    }
+   ]
   }
  ],
  "redirects": [
@@ -1523,6 +2471,44 @@
   {
    "source": "/hybrid-cooling-tower/",
    "destination": "/hybrid-cooling-tower-repair/"
+  },
+  {
+   "source": "/cooling-tower-spray-nozzles/",
+   "destination": "/nozzles/"
+  },
+  {
+   "source": "/crossflow-vs-counterflow-cooling-tower-2/",
+   "destination": "/counterflow-vs-crossflow/"
+  },
+  {
+   "source": "/frp-cooling-tower-advantages/",
+   "destination": "/frp-cooling-towers/"
+  },
+  {
+   "source": "/cooling-tower-fan-balancing/",
+   "destination": "/cooling-tower-fan/"
+  }
+ ],
+ "releases": [
+  {
+   "path": "/cooling-tower-spray-nozzles/",
+   "routeId": "SALMON-posts-3719",
+   "row": "R200"
+  },
+  {
+   "path": "/crossflow-vs-counterflow-cooling-tower-2/",
+   "routeId": "SALMON-posts-3475",
+   "row": "R200"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "routeId": "SALMON-posts-3648",
+   "row": "R200"
+  },
+  {
+   "path": "/cooling-tower-fan-balancing/",
+   "routeId": "SALMON-posts-3594",
+   "row": "R200"
   }
  ]
 }

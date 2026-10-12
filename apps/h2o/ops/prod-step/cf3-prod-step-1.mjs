@@ -32,7 +32,7 @@ const DISPOSITION_KEYS=['state','export','indexable','sitemap','searchable','red
 
 /** @typedef {{action:string,[k:string]:any}} StepItem */
 /** @typedef {(p:string,init?:{method?:string,body?:string})=>Promise<{status:number,body:any}>} StepApi */
-/** @typedef {{meta:StepItem[],slotEdits:StepItem[],redirects:StepItem[],withdraw:StepItem[],lines:string[],counts:{meta:number,slotEdits:number,redirects:number,retire:number,withdraw:number,unchanged:number,refused:number}}} StepPlan */
+/** @typedef {{meta:StepItem[],slotEdits:StepItem[],redirects:StepItem[],withdraw:StepItem[],releases:StepItem[],lines:string[],counts:{meta:number,slotEdits:number,redirects:number,retire:number,withdraw:number,release:number,unchanged:number,refused:number}}} StepPlan */
 
 /**
  * Reads a route: the published record and the latest (draft) record.
@@ -55,10 +55,24 @@ const pendingDraft=r=>Boolean(r.latest&&r.published&&r.latest._status==='draft'&
  */
 export async function planStep(api,data=DATA){
   /** @type {any} */
-  const plan={meta:[],slotEdits:[],redirects:[],withdraw:[],lines:[]}
+  const plan={meta:[],slotEdits:[],redirects:[],withdraw:[],releases:[],lines:[]}
   const workingSeo=new Map() // one seo group per route, so two fields of one route go out in ONE write
+  // "releases" (REDIRECTS-REVIEW-1, RESTORE-200): a route held out of the public site (REVIEW_HOLD, an unpublished draft) is published as a public page. Its
+  // page-element and SEO edits are written in the SAME request as the release, so the unedited text is never public. Planned first: the meta and page-element plans below treat a releasing draft as the record.
+  const releasing=new Map()
+  for(const rel of data.releases??[]){
+    const r=await route(api,rel.path),doc=r.latest??r.published
+    if(!doc){plan.releases.push({...rel,action:'REFUSE',reason:'route record not found'});continue}
+    const disp=doc.disposition??{}
+    if(disp.state==='PUBLIC'&&doc._status==='published'){plan.releases.push({...rel,id:doc.id,action:'UNCHANGED'});continue}
+    if(disp.state!=='REVIEW_HOLD'||doc._status==='published'){plan.releases.push({...rel,id:doc.id,action:'REFUSE',reason:`unexpected state ${disp.state}/${doc._status}`});continue}
+    const next=Object.fromEntries(DISPOSITION_KEYS.map(k=>[k,disp[k]??null]))
+    Object.assign(next,{state:'PUBLIC',export:true,indexable:true,sitemap:true,searchable:true,redirect:null})
+    releasing.set(rel.path,doc)
+    plan.releases.push({...rel,id:doc.id,action:'RELEASE',disposition:next})
+  }
   for(const m of data.meta??[]){
-    const r=await route(api,m.path),pub=r.published
+    const r=await route(api,m.path),pub=r.published??releasing.get(m.path)??null
     if(!pub){plan.meta.push({...m,action:'REFUSE',reason:'published route record not found'});continue}
     if(pendingDraft(r)){plan.meta.push({...m,id:pub.id,action:'REFUSE',reason:'unpublished editor draft pending'});continue}
     const seo=pub.seo??{}
@@ -83,7 +97,7 @@ export async function planStep(api,data=DATA){
       slot[f.field]=f.after;changed=true
       plan.slotEdits.push({...item,action:'UPDATE',before:now,after:f.afterCanon})
     }
-    if(changed){const mine=plan.slotEdits.filter(x=>x.path===page.path&&x.action==='UPDATE');for(const x of mine){x.id=doc.id;x.slots=slots;x.status=doc._status}}
+    if(changed){const mine=plan.slotEdits.filter(x=>x.path===page.path&&x.action==='UPDATE');for(const x of mine){x.id=doc.id;x.slots=slots;x.status=releasing.has(page.path)?'published':doc._status}}
   }
   const all=[];for(let page=1;;page++){const r=await api(`public-redirects?limit=500&page=${page}&depth=0`);if(r.status!==200)throw new Error(`read public-redirects failed (${r.status})`);all.push(...r.body.docs);if(!r.body.hasNextPage)break}
   const bySource=new Map(all.map(d=>[decode(String(d.source)),d]))
@@ -117,8 +131,9 @@ export async function planStep(api,data=DATA){
   for(const s of plan.slotEdits)plan.lines.push(fmt(s,`TEXT ${s.row||s.key} ${s.path} (${s.key})`,s.action==='UPDATE'?`\n          old: ${s.before}\n          new: ${s.after}`:''))
   for(const r of plan.redirects)plan.lines.push(fmt(r,r.retire?`301 ${r.source} -> ${r.destination} (set inactive: the source is a public page again)`:`301 ${r.source} -> ${r.destination}`))
   for(const w of plan.withdraw)plan.lines.push(fmt(w,`ROUTE ${w.path} -> REDIRECT ${w.redirect}`))
-  const items=[...plan.meta,...plan.slotEdits,...plan.redirects,...plan.withdraw]
-  plan.counts={meta:plan.meta.filter(x=>x.action==='UPDATE').length,slotEdits:plan.slotEdits.filter(x=>x.action==='UPDATE').length,redirects:plan.redirects.filter(x=>x.action==='CREATE').length,retire:plan.redirects.filter(x=>x.action==='RETIRE').length,withdraw:plan.withdraw.filter(x=>x.action==='WITHDRAW').length,unchanged:items.filter(x=>x.action==='UNCHANGED').length,refused:items.filter(x=>x.action==='REFUSE').length}
+  for(const x of plan.releases)plan.lines.push(fmt(x,`ROUTE ${x.path} -> PUBLIC (released from REVIEW_HOLD)`))
+  const items=[...plan.meta,...plan.slotEdits,...plan.redirects,...plan.withdraw,...plan.releases]
+  plan.counts={meta:plan.meta.filter(x=>x.action==='UPDATE').length,slotEdits:plan.slotEdits.filter(x=>x.action==='UPDATE').length,redirects:plan.redirects.filter(x=>x.action==='CREATE').length,retire:plan.redirects.filter(x=>x.action==='RETIRE').length,withdraw:plan.withdraw.filter(x=>x.action==='WITHDRAW').length,release:plan.releases.filter(x=>x.action==='RELEASE').length,unchanged:items.filter(x=>x.action==='UNCHANGED').length,refused:items.filter(x=>x.action==='REFUSE').length}
   return plan
 }
 
@@ -147,13 +162,22 @@ export async function applyStep(api,plan,data=DATA){
   }
   const pages=new Map()
   for(const s of plan.slotEdits.filter(x=>x.action==='UPDATE'))pages.set(s.path,s)
+  const seoWrites=new Map()
+  for(const m of plan.meta.filter(x=>x.action==='UPDATE'))seoWrites.set(m.id,m)
+  // a release carries its page-element and SEO edits in the same PATCH (never public before the edits)
+  for(const x of plan.releases.filter(r=>r.action==='RELEASE')){
+    const body={disposition:x.disposition,_status:'published'}
+    const pg=pages.get(x.path);if(pg){body.slots=pg.slots;pages.delete(x.path)}
+    const mw=seoWrites.get(x.id);if(mw){body.seo=mw.seo;seoWrites.delete(x.id)}
+    const r=await api(`public-routes/${x.id}?depth=0`,{method:'PATCH',body:JSON.stringify(body)})
+    if(!ok(r)){problems.push(`RELEASE ${x.path} failed (${r.status})`);return {written,problems}}
+    written.push(`RELEASE ${x.path}`)
+  }
   for(const [p,s] of pages){
     const r=await api(`public-routes/${s.id}?depth=0`,{method:'PATCH',body:JSON.stringify({slots:s.slots,_status:s.status==='draft'?'draft':'published'})})
     if(!ok(r)){problems.push(`PATCH page elements ${p} failed (${r.status})`);return {written,problems}}
     written.push(`TEXT ${p}`)
   }
-  const seoWrites=new Map()
-  for(const m of plan.meta.filter(x=>x.action==='UPDATE'))seoWrites.set(m.id,m)
   for(const m of seoWrites.values()){
     const r=await api(`public-routes/${m.id}?depth=0`,{method:'PATCH',body:JSON.stringify({seo:m.seo,_status:'published'})})
     if(!ok(r)){problems.push(`PATCH ${m.path} failed (${r.status})`);return {written,problems}}
@@ -165,7 +189,7 @@ export async function applyStep(api,plan,data=DATA){
     written.push(`ROUTE ${w.path}`)
   }
   const after=await planStep(api,data)
-  for(const x of [...after.meta,...after.slotEdits,...after.redirects,...after.withdraw])if(['UPDATE','CREATE','WITHDRAW','RETIRE'].includes(x.action))problems.push(`read-back: ${x.path??x.source} still needs ${x.action}`)
+  for(const x of [...after.meta,...after.slotEdits,...after.redirects,...after.withdraw,...after.releases])if(['UPDATE','CREATE','WITHDRAW','RETIRE','RELEASE'].includes(x.action))problems.push(`read-back: ${x.path??x.source} still needs ${x.action}`)
   return {written,problems}
 }
 
@@ -185,10 +209,10 @@ export async function main(data=DATA){
   try{const {completeMfa}=await import('../mfa/sign-in.mjs');await completeMfa(BASE,token,env.H2O_STEP_ADMIN_TOTP_SECRET,{envName:'H2O_STEP_ADMIN_TOTP_SECRET'})}catch(e){fail(String(e.message))}
   const plan=await planStep(api,data)
   process.stdout.write(plan.lines.join('\n')+'\n')
-  const c=plan.counts,total=c.meta+c.slotEdits+c.redirects+c.withdraw+c.retire
+  const c=plan.counts,total=c.meta+c.slotEdits+c.redirects+c.withdraw+c.retire+c.release
   if(apply&&!c.refused){const res=await applyStep(api,plan,data);process.stdout.write(`applied: ${res.written.join(', ')||'nothing'}\n`);if(res.problems.length){process.stderr.write(res.problems.join('\n')+'\n');process.exit(4)}}
   else if(apply)process.stdout.write('not applying: a target was refused; fix or rule on it first\n')
-  process.stdout.write(`${total} changes (${c.meta} meta, ${c.slotEdits} text edits, ${c.redirects} redirects, ${c.withdraw} route withdrawals${c.retire?`, ${c.retire} redirects retired`:''}), ${c.unchanged} unchanged, ${c.refused} refused (${apply?'APPLY':'DRY-RUN'})\n`)
+  process.stdout.write(`${total} changes (${c.meta} meta, ${c.slotEdits} text edits, ${c.redirects} redirects, ${c.withdraw} route withdrawals${c.retire?`, ${c.retire} redirects retired`:''}${c.release?`, ${c.release} routes released`:''}), ${c.unchanged} unchanged, ${c.refused} refused (${apply?'APPLY':'DRY-RUN'})\n`)
   if(c.refused)process.exit(3)
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===path.resolve(new URL(import.meta.url).pathname))await main()

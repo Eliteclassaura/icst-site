@@ -38,9 +38,9 @@ describe('release authority and route ledger',()=>{
   it('publishes exactly the held articles that passed the content check, and the algae article (released, SEO-CONTENT-1); the three that failed stay held',()=>{
     // The three R1 articles, and the daily log (CT sitemap parity ruling 2026-10-05: a live 200 page, content check PASS).
     // Locale Part B: the one preserved Thai page that is a held Salmon record (content check PASS).
-    expect(overrides.publish).toEqual(['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/','/%e0%b9%82%e0%b8%8b%e0%b8%a5%e0%b8%b9%e0%b8%8a%e0%b8%b1%e0%b9%88%e0%b8%99%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%aa/','/cooling-tower-daily-log/','/cooling-tower-algae-prevention/']) // SEO-CONTENT-1: algae RELEASED (OGCS addendum B; its one failing sentence is replaced)
+    expect(overrides.publish).toEqual(['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/','/%e0%b9%82%e0%b8%8b%e0%b8%a5%e0%b8%b9%e0%b8%8a%e0%b8%b1%e0%b9%88%e0%b8%99%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%a2%e0%b9%87%e0%b8%99%e0%b8%aa/','/cooling-tower-daily-log/','/cooling-tower-algae-prevention/','/cooling-tower-spray-nozzles/','/crossflow-vs-counterflow-cooling-tower-2/','/frp-cooling-tower-advantages/','/cooling-tower-fan-balancing/']) // RESTORE-200 (OGCS/CT 2026-10-11): + four distinct live articles with their own clicks, served at their old URLs again; // SEO-CONTENT-1: algae RELEASED (OGCS addendum B; its one failing sentence is replaced)
     for(const p of overrides.publish)expect(auth.get(p),p).toMatchObject({state:'PUBLIC',export:true,indexable:true,sitemap:true})
-    for(const p of ['/cooling-tower-spray-nozzles/','/frp-cooling-tower-advantages/','/cooling-tower-fan-balancing/'])expect(auth.get(p),p).toMatchObject({state:'REVIEW_HOLD',export:false})
+    // RESTORE-200 (OGCS/CT 2026-10-11): the three held articles that passed no check at R1 (and the crossflow duplicate) were released after the OGCS claims check; they are in the publish list above
   })
   it('self canonicals make the four cross-canonical articles indexable; five ranking archives become indexable',()=>{
     expect(Object.keys(overrides.canonical)).toHaveLength(3) // HYBRID-RESTORE-1: - /hybrid-cooling-tower-repair/ (now a 301; its alias address carries the self canonical)
@@ -148,7 +148,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: the published Thai Salmon page (its own title, the live meta).
     // R2.2: + the D3 portfolio row (CT-ruled meta and title). R2.4: + 12 rows of the OGCS R2.4 titles/metas (13 pages; the
     // /industrial-cooling-towers/ row existed). R2.4 R2: + the 15 archive metas (OGCS R2.4A).
-    expect(seo).toHaveLength(491) // FBG-CONTENT-1.1: + /cooling-tower-thermal-storage/ (meta row, brand ICS); STAGING-AUDIT CP-19: + /cooling-tower-certified-parts/ (meta row, OEM/warranty wording removed); PROJECT-IMAGES-1 R2: - the two PTT portfolio rows (301s now); COUNTRY-PAGES: the Thailand row moves to /cooling-tower-thailand/; R2.5: + the /cooling-tower-construction/ title row (OGCS R2.5); SEO-CONTENT-1: - the five held pages' rows (their decided titles are dropped)
+    expect(seo).toHaveLength(495) // RESTORE-200: + four rows (title/meta of the restored articles); FBG-CONTENT-1.1: + /cooling-tower-thermal-storage/ (meta row, brand ICS); STAGING-AUDIT CP-19: + /cooling-tower-certified-parts/ (meta row, OEM/warranty wording removed); PROJECT-IMAGES-1 R2: - the two PTT portfolio rows (301s now); COUNTRY-PAGES: the Thailand row moves to /cooling-tower-thailand/; R2.5: + the /cooling-tower-construction/ title row (OGCS R2.5); SEO-CONTENT-1: - the five held pages' rows (their decided titles are dropped)
     const titles=seo.map(row=>row.title!)
     expect(new Set(titles).size).toBe(titles.length)
     // a meta-only row keeps the page's current title (two noindex tag archives keep their term-list titles)
@@ -174,7 +174,7 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // Locale Part B: 98 R1 locale→English redirects retire (the locale page is preserved), 4 locale redirects are new.
     // R2.4: + /new-cooling-tower-page/ → /new-cooling-towers/ (CT ruling 2026-10-05).
     // R2.5: + the two author aliases (the batch owns them; fresh production DB) and the eleven live-chain middle addresses.
-    expect(redirects).toHaveLength(453) // HYBRID-RESTORE-1: + four nested repair URLs + the restored article's old slug, - the old /hybrid-cooling-tower/ redirect (net + four); REDIRECTS-2: + five; STAGING-AUDIT-REDIRECTS-1: + fifteen 301s (/cooling-tower-singapore/, /blog/, /tools/, six nested repair URLs, six /blog/category/cooling-tower-fans/page/N/); PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: + three portfolio/country 301s; REDIRECTS-ADD-1: + five catch-all redirects; SEO-CONTENT-2.1: + four locale-twin HOLD 301s; // Design R3: + /about-us/; SEO-CONTENT-1: + seven HOLD 301s, - the algae hold 301 (released)
+    expect(redirects).toHaveLength(449) // RESTORE-200: - four batch 301 rows (the old URLs are public pages again); HYBRID-RESTORE-1: + four nested repair URLs + the restored article's old slug, - the old /hybrid-cooling-tower/ redirect (net + four); REDIRECTS-2: + five; STAGING-AUDIT-REDIRECTS-1: + fifteen 301s (/cooling-tower-singapore/, /blog/, /tools/, six nested repair URLs, six /blog/category/cooling-tower-fans/page/N/); PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: + three portfolio/country 301s; REDIRECTS-ADD-1: + five catch-all redirects; SEO-CONTENT-2.1: + four locale-twin HOLD 301s; // Design R3: + /about-us/; SEO-CONTENT-1: + seven HOLD 301s, - the algae hold 301 (released)
     const sources=new Set(redirects.map(row=>decode(row.source!)))
     expect(sources.size).toBe(redirects.length)
     const served=new Set([...conformance.filter(row=>row.expect==='200').map(row=>decode(row.url!)),...ledger.routes.filter(row=>row.state==='PUBLIC'&&row.export).map(row=>decode(row.path))])
@@ -199,10 +199,10 @@ describe('batch data (ops/seo-pass/data) meets the brief',()=>{
     // R2.4: + 10 pages of the OGCS R2.4 titles/metas (the two designed pages had rows) and the /new-cooling-tower-page/ 301;
     // R2.4 R2: + the 15 archives with an OGCS meta.
     // R2.5: + 13 redirect rows and the /cooling-tower-construction/ title row.
-    expect(conformance).toHaveLength(1143) // SEO-CONTENT-2: + the /product-category/uncategorized/ 301 row // Design R3: + /about-us/; SEO-CONTENT-1: + two 301 rows (the five held pages with a 200 row become 301 rows; algae 301 → 200)
+    expect(conformance).toHaveLength(1143) // RESTORE-200: four 301 rows become four 200 rows; SEO-CONTENT-2: + the /product-category/uncategorized/ 301 row // Design R3: + /about-us/; SEO-CONTENT-1: + two 301 rows (the five held pages with a 200 row become 301 rows; algae 301 → 200)
     expect(conformance.filter(row=>row.kind==='locale')).toHaveLength(162) // SEO-CONTENT-2.1: the four twins are 301 rows now;
     const count=(kind:string)=>conformance.filter(row=>row.expect===kind).length
-    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([709,424,10,0]) // PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: three 200 rows are 301 rows; R2.2: + the D3 portfolio (200); Design R3: + /about-us/ (301); SEO-CONTENT-1: 200 −5 +1 (algae), 301 +6
+    expect([count('200'),count('301'),count('410'),count('HELD_FOR_CT_RULING')]).toEqual([713,420,10,0]) // RESTORE-200: four 301 rows become 200 rows; PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: three 200 rows are 301 rows; R2.2: + the D3 portfolio (200); Design R3: + /about-us/ (301); SEO-CONTENT-1: 200 −5 +1 (algae), 301 +6
     for(const p of ['/thermal-upgrade/','/cooling-tower-japan/'])expect(conformance.find(row=>row.url===p),p).toMatchObject({expect:'200',kind:'html'})
     expect(expectations.problems).toEqual([])
     // CLAIMS-R2 (CT 2026-10-06) is ONE delta on the state Design R3 (Round 11) leaves on staging: one hygiene route (the Home's ten

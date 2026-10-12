@@ -21,7 +21,7 @@ describe('accepted public chrome and Technical Articles implementation',()=>{
     // Part 3: the daily log published by the CT sitemap-parity ruling joins it (239). Locale Part B: the preserved Thai Salmon
     // page (240); the live locale pages are not in the English directory.
     // SEO-CONTENT-1 (CT 2026-10-07): the five HVAC/commercial articles are held (HOLD + 301) and leave it; the algae article is released and joins it (236).
-    expect(directory).toHaveLength(234) // round 2: + the hospital article held; REDIRECTS-2: - /cooling-tower-parts-2/ (301)
+    expect(directory).toHaveLength(238) // RESTORE-200: + the four restored articles (SEO pass publish list); round 2: + the hospital article held; REDIRECTS-2: - /cooling-tower-parts-2/ (301)
     for(const target of ['/closed-loop-vs-open-loop/','/understanding-cooling-tower-parts/','/choosing-cooling-tower-fill-media/','/cooling-tower-daily-log/'])expect(directory.some(row=>row.doc.targetPath===target),target).toBe(true)
     expect(directory.some(row=>row.doc.targetPath==='/power-plant-cooling-tower/')).toBe(false)
     // The four articles that were noindex only for a cross canonical are self-canonical and indexable (Master SEO Pass R1).
@@ -62,7 +62,7 @@ describe('accepted public chrome and Technical Articles implementation',()=>{
     })
     // Part 3 adds the daily log ("Essential Records &amp; Daily Checklist").
     // SEO-CONTENT-1: one held article and the released algae article change the count (29).
-    expect(affected).toHaveLength(29)
+    expect(affected).toHaveLength(31) // RESTORE-200: + two restored titles with an &amp;
     for(const row of affected){const source=JSON.parse(readFileSync(path.join(process.cwd(),'content/salmon',row.sourceFile),'utf8')) as {title:string};expect(articleDisplayTitle(source.title)).not.toMatch(/&amp;|&#0*38;|&#x0*26;/i)}
     expect(renderSalmonNode('H2OCooling', 'test', doc('SALMON-posts-3221'))).toBe('H2OCooling')
   })

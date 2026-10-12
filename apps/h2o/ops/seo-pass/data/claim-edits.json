@@ -9284,6 +9284,228 @@
    "slot": "body.3.1.1.7.101",
    "row": "CF2-03",
    "reason": "OGCS CLIENT-FIX-2 (seal 953abe72), CT 2026-10-08, row CF2-03: stainless named as the structure material; neutralized to the basin and hardware, where it is accurate. Body sentence only; title and meta untouched."
+  },
+  {
+   "path": "/cooling-tower-spray-nozzles/",
+   "op": "replace",
+   "find": "A single, well-chosen nozzle, costing as little as $50, can optimize the performance of a $500,000 cooling system and potentially save up to 15% in annual utility costs.",
+   "replace": "A single, well-chosen nozzle can change how evenly water spreads over the fill, and with it how well the tower cools.",
+   "row": "R200-01",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/cooling-tower-spray-nozzles/",
+   "op": "replace",
+   "find": "Counterflow / HVAC Towers",
+   "replace": "Counterflow towers",
+   "row": "R200-02",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/cooling-tower-spray-nozzles/",
+   "op": "replace",
+   "find": "Irrigation, HVAC, process cooling",
+   "replace": "Irrigation, process cooling",
+   "row": "R200-03",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/cooling-tower-spray-nozzles/",
+   "op": "replace",
+   "find": "As a leading manufacturer and supplier, we provide a broad range of products designed to meet your specific needs.",
+   "replace": "Need nozzles for an industrial cooling tower? Request a quote and tell us the tower make and model.",
+   "row": "R200-04",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/crossflow-vs-counterflow-cooling-tower-2/",
+   "op": "replace",
+   "find": "When it comes to best cooling towers, I’ve found that crossflow and counterflow designs are the go-to options for most industrial applications.",
+   "replace": "Crossflow and counterflow designs are the two most common options for industrial cooling towers.",
+   "row": "R200-05",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/crossflow-vs-counterflow-cooling-tower-2/",
+   "op": "replace",
+   "find": "Over the years, I’ve worked with both types, and the real difference comes down",
+   "replace": "The real difference between the two comes down",
+   "row": "R200-06",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "op": "replace",
+   "find": "With a design life of over 20 years, an FRP tower provides an extended service life that far surpasses wood or galvanized steel, ensuring a better return on investment.",
+   "replace": "FRP is corrosion resistant, so an FRP tower can have a long service life compared with wood or galvanized steel, which supports a better return on investment.",
+   "row": "R200-07",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "op": "replace",
+   "find": "choosing FRP guarantees uptime, reduces operational risk, and helps ensure compliance with safety regulations.",
+   "replace": "choosing FRP helps reduce downtime and operational risk and supports compliance with safety regulations.",
+   "row": "R200-08",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "op": "replace",
+   "find": "the data points to a clear winner",
+   "replace": "FRP compares well on these factors",
+   "row": "R200-09",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "op": "replace",
+   "find": "superior performance, guaranteed reliability, and true long-term",
+   "replace": "dependable performance and long-term",
+   "row": "R200-10",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/cooling-tower-fan-balancing/",
+   "op": "replace",
+   "find": "Excessive clearance can reduce airflow efficiency by 15-20%.",
+   "replace": "Excessive tip clearance can reduce airflow efficiency.",
+   "row": "R200-12",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/cooling-tower-fan-balancing/",
+   "op": "replace",
+   "find": "15-30% Reduction in fan energy consumption (kWh).",
+   "replace": "Lower fan energy consumption (kWh).",
+   "row": "R200-13",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/cooling-tower-fan-balancing/",
+   "op": "replace",
+   "find": "ISO 10816 standards for rotating machinery",
+   "replace": "ISO 20816 vibration standards for rotating machinery (ISO 10816 is superseded)",
+   "row": "R200-14",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/cooling-tower-fan-balancing/",
+   "op": "replace",
+   "find": "The Authority Hook: 13 Expert Secrets of Cooling Tower Fan Balancing",
+   "replace": "13 Practical Tips for Cooling Tower Fan Balancing",
+   "element": "heading",
+   "row": "R200-15",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/cooling-tower-fan-balancing/",
+   "op": "replace",
+   "find": "13 Game-Changing Tips You Won’t Find in a Manual",
+   "replace": "13 Practical Tips",
+   "element": "heading",
+   "row": "R200-16",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/cooling-tower-fan-balancing/",
+   "op": "replace",
+   "find": "7 Quantified Benefits of Implementing Precision Balancing",
+   "replace": "Benefits of Precision Balancing",
+   "element": "heading",
+   "row": "R200-17",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/cooling-tower-fan-balancing/",
+   "op": "replace",
+   "find": "Operational Strategies for Zero Vibration",
+   "replace": "Operational Strategies to Limit Vibration",
+   "element": "heading",
+   "row": "R200-18",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "op": "replace",
+   "find": "None",
+   "replace": "Low",
+   "slot": "body.3.1.1.7.89.0.0.1.1",
+   "row": "R200-19",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "op": "remove",
+   "find": "Expected Lifespan",
+   "slot": "body.3.1.1.7.89.0.0.2.0",
+   "allowEmpty": true,
+   "row": "R200-20",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "op": "remove",
+   "find": "20+ Years",
+   "slot": "body.3.1.1.7.89.0.0.2.1",
+   "allowEmpty": true,
+   "row": "R200-21",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "op": "remove",
+   "find": "5-15 Years",
+   "slot": "body.3.1.1.7.89.0.0.2.2",
+   "allowEmpty": true,
+   "row": "R200-22",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "op": "remove",
+   "find": "5-10 Years",
+   "slot": "body.3.1.1.7.89.0.0.2.3",
+   "allowEmpty": true,
+   "row": "R200-23",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "op": "remove",
+   "find": "3-10 Years",
+   "slot": "body.3.1.1.7.89.0.0.2.4",
+   "allowEmpty": true,
+   "row": "R200-24",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/frp-cooling-tower-advantages/",
+   "op": "remove",
+   "find": "20+ Years",
+   "slot": "body.3.1.1.7.89.0.0.2.5",
+   "allowEmpty": true,
+   "row": "R200-25",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article"
+  },
+  {
+   "path": "/crossflow-vs-counterflow-cooling-tower-2/",
+   "op": "replace",
+   "find": "Crossflow vs Counterflow Cooling Tower",
+   "replace": "Crossflow vs Counterflow Cooling Towers: Key Differences",
+   "element": "heading",
+   "slot": "body.3.1.1.1.1",
+   "row": "R200-26",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): the snapshot body H1 is an older revision; the live page ranks with this H1 (exact H1 from the OGCS page spec)"
+  },
+  {
+   "path": "/cooling-tower-fan-balancing/",
+   "op": "set",
+   "find": "In both cases, the fan’s purpose is to create sufficient airflow to evaporate a small portion of the circulating water. This evaporation carries away immense amounts of heat, allowing the system to achieve the design cold water temperature (CWT) needed for industrial processes or HVAC chillers.",
+   "markdown": "In both cases, the fan’s purpose is to create sufficient airflow to evaporate a small portion of the circulating water. This evaporation carries away immense amounts of heat, allowing the system to achieve the design cold water temperature (CWT) needed for industrial processes or process chillers.",
+   "slot": "body.3.1.1.7.31",
+   "row": "R200-11",
+   "reason": "OGCS RESTORE-200 (CT 2026-10-11): industrial-scope claims check on the restored article (no HVAC wording): 'industrial processes or HVAC chillers' reads 'industrial processes or process chillers'; the sentence wrapped \"HVAC \" in an external HVAC explainer link, which goes with it"
   }
  ]
 }

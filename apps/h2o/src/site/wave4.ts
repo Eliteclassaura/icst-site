@@ -146,6 +146,9 @@ export const isRecentPostsRegion=(node:SalmonNode):boolean=>{
   return headings.length===1&&salmonNodeText(headings[0]!).trim()==='Recent Posts'&&descendants(node,'article').length>0
 }
 
+/** RESTORE-200 (OGCS/CT 2026-10-11): four live WordPress articles served again at their own URLs. They render without the old WP "Recent Posts" sidebar block (stale post titles, a "small commercial unit" cost line), like the article template. */
+export const RESTORED_ARTICLES:ReadonlySet<string>=new Set(['/cooling-tower-spray-nozzles/','/crossflow-vs-counterflow-cooling-tower-2/','/frp-cooling-tower-advantages/','/cooling-tower-fan-balancing/'])
+
 export function articleTocLinks(doc:SalmonDocument):Array<{href:string;label:string}>{
   const toc=doc.children.flatMap(node=>descendants(node,'div')).find(node=>/(?:^|\s)wp-block-rank-math-toc-block(?:\s|$)/.test(node.attrs.class??''))
   if(!toc)return []

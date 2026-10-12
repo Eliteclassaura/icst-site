@@ -195,7 +195,7 @@ describe('the Tech Articles index',()=>{
 })
 
 describe('every article in the directory gets the reading layout, with exactly one H1',()=>{
-  it('renders all 234 English directory articles through it (matched Wave 4 articles and live English posts); the Thai route is not in the English index and keeps its page',()=>{
+  it('renders all 238 English directory articles through it (matched Wave 4 articles and live English posts); the Thai route is not in the English index and keeps its page',()=>{
     let layout=0,wave4=0,live=0
     for(const {doc:article} of articleDirectoryDocuments().filter(e=>isEnglishIndexRoute(e.doc.targetPath))){
       const html=renderToStaticMarkup(matchedWave4Article(article)?<Wave4ArticleDetail doc={article}/>:<LiveEnglishDetail doc={article}/>)
@@ -204,7 +204,7 @@ describe('every article in the directory gets the reading layout, with exactly o
       expect(html.match(/<h1[ >]/g),article.targetPath).toHaveLength(1)
       expect(html,article.targetPath).toContain('wave4-related-articles')
     }
-    expect(wave4+live).toBe(233);expect(live).toBeGreaterThan(0);expect(layout).toBe(233) // REDIRECTS-2: - /cooling-tower-parts-2/ (301 to the Parts page)
+    expect(wave4+live).toBe(237);expect(live).toBeGreaterThan(0);expect(layout).toBe(237) // RESTORE-200: + four restored articles; REDIRECTS-2: - /cooling-tower-parts-2/ (301 to the Parts page)
   },300000)
 })
 

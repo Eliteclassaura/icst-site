@@ -110,6 +110,7 @@ describe('quote-intent migration by source identity (ledger)', () => {
       'SALMON-pages-4140|6f1c713|Request a Free Price Quote', 'SALMON-pages-4140|7b5fa8c|Request Your Free Quote', 'SALMON-pages-48|1e67569|Request a Quote',
       'SALMON-posts-3173|ee68c85|Get A Quote', 'SALMON-posts-3493|ee68c85|Get A Quote', 'SALMON-posts-3494|ee68c85|Get A Quote',
       'SALMON-posts-3092|ee68c85|Get A Quote',
+      'SALMON-posts-3475|ee68c85|Get A Quote', 'SALMON-posts-3594|ee68c85|Get A Quote', 'SALMON-posts-3648|ee68c85|Get A Quote', 'SALMON-posts-3719|ee68c85|Get A Quote', // RESTORE-200: the four restored articles carry the same widget
       'SALMON-posts-4065|ee68c85|Get A Quote',
       'SALMON-posts-4077|ee68c85|Get A Quote',
       'SALMON-posts-3772|ee68c85|Get A Quote', // SEO-CONTENT-1: the released algae article carries the same widget (18 → 19); STAGING-AUDIT-REDIRECTS-1: - SALMON-pages-2081 (/cooling-tower-singapore/ is a 301 now) (19 → 18); REDIRECTS-2: - SALMON-pages-1722 (/dry-soda-blasting/ is a 301 now) (18 → 17)

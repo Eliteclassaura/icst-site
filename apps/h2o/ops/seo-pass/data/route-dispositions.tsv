@@ -63,3 +63,7 @@ path	routeId	action	redirect	canonical
 /cooling-tower-parts-2/	LIVE-posts-17446	WITHDRAW_TO_REDIRECT	/cooling-tower-parts-online/	
 /cooling-tower-usa/	SALMON-pages-2042	WITHDRAW_TO_REDIRECT	/cooling-tower-construction-repair-in-united-states/	
 /hybrid-cooling-tower-repair/	SALMON-posts-4083	WITHDRAW_TO_REDIRECT	/hybrid-cooling-tower/	
+/cooling-tower-spray-nozzles/	SALMON-posts-3719	PUBLISH		
+/crossflow-vs-counterflow-cooling-tower-2/	SALMON-posts-3475	PUBLISH		
+/frp-cooling-tower-advantages/	SALMON-posts-3648	PUBLISH		
+/cooling-tower-fan-balancing/	SALMON-posts-3594	PUBLISH		

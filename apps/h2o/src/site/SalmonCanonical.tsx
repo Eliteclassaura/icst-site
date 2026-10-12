@@ -7,7 +7,7 @@ import {Testimonials} from './HomeTestimonials'
 import {AuthorityEditorial} from './AuthorityEditorial'
 import {mathNodes,shortcodeNodes} from './math-text'
 import {articleImageAlt,isDroppedArticleImage} from './article-images'
-import {articleByline,articleDisplayTitle,articleHeadingNodes,descendants,publicAlt} from './wave4'
+import {RESTORED_ARTICLES,articleByline,articleDisplayTitle,articleHeadingNodes,descendants,isRecentPostsRegion,publicAlt} from './wave4'
 import {articleMetadataTitle} from './article-metadata'
 import {articleCopyParts,articleModified,longDate} from './article-layout'
 import {R2Discovery} from './R2Discovery'
@@ -305,7 +305,7 @@ export function SalmonCanonical({doc}:{doc:SalmonDocument}){
   return <div className={`salmon-canonical${isContact?' figma-contact':''}`} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
     <SalmonSeo doc={doc}/>
     <div className="luxury-site"><LuxuryHeader page={page} routePath={doc.targetPath}/></div>
-    {isContact?<ContactComposition page={page} routePath={doc.targetPath} title={doc.children.map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}/>:isEditorial?<AuthorityEditorial doc={doc}/>:doc.routeId==='SALMON-pages-1353'?<ProjectAuthorityIndex doc={doc}/>:doc.targetPath.startsWith('/all-projects/')?<ProjectDetail doc={doc}/>:<main className="shell article" id="main" data-salmon-region="body">{(doc.routeId==='SALMON-pages-5792'?articleHeadingNodes(doc.children):doc.children).map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</main>}
+    {isContact?<ContactComposition page={page} routePath={doc.targetPath} title={doc.children.map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}/>:isEditorial?<AuthorityEditorial doc={doc}/>:doc.routeId==='SALMON-pages-1353'?<ProjectAuthorityIndex doc={doc}/>:doc.targetPath.startsWith('/all-projects/')?<ProjectDetail doc={doc}/>:<main className="shell article" id="main" data-salmon-region="body">{(doc.routeId==='SALMON-pages-5792'?articleHeadingNodes(doc.children):RESTORED_ARTICLES.has(doc.targetPath)?doc.children.map(node=>isRecentPostsRegion(node)?'':node):doc.children).map((n,i)=>renderSalmonNode(n,`body.${i}`,doc))}</main>}
     {doc.routeId==='SALMON-pages-1761'?<R2Discovery kind="pages"/>:null}
     {doc.targetPath==='/'?<section className="shell" data-owner-override="OWNER_TESTIMONIAL_AUTHORITY_OVERRIDE_2026_09_21"><Testimonials/></section>:null}
     <div className="luxury-site"><LuxuryFooter page={page} routePath={doc.targetPath}/></div>
