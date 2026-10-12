@@ -1,4 +1,5 @@
 import {salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode,type SalmonRoute} from './salmon'
+import {tidyAdditionalInfo} from './product-attributes'
 import {isPayloadContent,releaseLedger} from '../content/runtime-read'
 
 let activeCache:SalmonRoute[]|undefined
@@ -51,7 +52,7 @@ export const productPanels=(doc:SalmonDocument):ProductPanel[]=>{
   walk(doc.children,node=>{
     const kind=panelKinds[node.attrs.id]
     const text=salmonNodeText(node).trim().replace(/\s+/g,' ')
-    if(kind&&text&&!(kind==='additional'&&/^(?:Additional information\s*)?none$/i.test(text)))result.push({kind,nodes:node.children})
+    if(kind&&text&&!(kind==='additional'&&/^(?:Additional information\s*)?none$/i.test(text)))result.push({kind,nodes:kind==='additional'?tidyAdditionalInfo(node.children):node.children}) // FBG-11: attribute labels and sorted values
   })
   return result
 }
@@ -91,11 +92,13 @@ export const productIndexRecords=()=>{
 
 // CHIP-LABEL-FIX-1: a button such as "Buy Now" that links to a category never replaces that category's real label (first real label wins)
 const GENERIC_CTA_LABEL=/^(?:buy|shop|order|view|learn|read|see|explore)(?:\s+(?:now|more|all|details))?$/i
+/** FBG-06 (OGCS, CT 2026-10-11): the Parts hub's category chips read the source's raw labels ("Cooling Tower FAN STACKS", "DRIVE SHAFTS ASSEMBLES", "GEAR BOX"); these are their names. */
+export const PARTS_CATEGORY_LABELS:Readonly<Record<string,string>>=Object.freeze({'/cooling-tower-fan-stacks/':'Fan Stacks','/drive-shafts-assembles/':'Drive Shafts & Assemblies','/fill-media/':'Fill Media','/frp-members/':'FRP Members','/gear-box/':'Gearboxes','/nozzles/':'Nozzles','/tower-hardware/':'Tower Hardware'})
 export const partsCategories=(doc:SalmonDocument):Array<{label:string;href:string}>=>{
   const categories=new Map<string,string>()
   walk(doc.children,node=>{
     if(node.tag!=='a'||!node.attrs.href)return
-    try{const url=new URL(node.attrs.href,doc.sourceUrl);const route=salmonRoutes().find(row=>row.targetPath===url.pathname&&row.routeId.startsWith('SALMON-pages-'));if(route&&url.pathname!=='/contact-us/'&&url.pathname!==doc.targetPath&&/fan|shaft|fill|frp|gear|motor|nozzle|hardware/i.test(url.pathname)){const label=salmonNodeText(node).trim();if(categories.has(url.pathname)&&GENERIC_CTA_LABEL.test(label))return;categories.set(url.pathname,label)}}catch{/* Invalid source links are not categories. */}
+    try{const url=new URL(node.attrs.href,doc.sourceUrl);const route=salmonRoutes().find(row=>row.targetPath===url.pathname&&row.routeId.startsWith('SALMON-pages-'));if(route&&url.pathname!=='/contact-us/'&&url.pathname!==doc.targetPath&&/fan|shaft|fill|frp|gear|motor|nozzle|hardware/i.test(url.pathname)){const label=salmonNodeText(node).trim();if(categories.has(url.pathname)&&GENERIC_CTA_LABEL.test(label))return;categories.set(url.pathname,PARTS_CATEGORY_LABELS[url.pathname]??label)}}catch{/* Invalid source links are not categories. */}
   })
   return [...categories].map(([href,label])=>({href,label}))
 }

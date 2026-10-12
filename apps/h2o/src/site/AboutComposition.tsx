@@ -123,7 +123,7 @@ export function AboutComposition({doc}:{doc:SalmonDocument}){
             <a href="/media/video/ics-installation-highlights.mp4">Installation highlights (MP4 video, 0.5 MB)</a>
           </video>
           <figcaption id="dr3-video-title">Installation highlights</figcaption>
-          <p className="dr3-video-desc" id="dr3-video-desc">A cooling tower rebuilt cell by cell on site. 28 seconds, no narration.</p>
+          <p className="dr3-video-desc" id="dr3-video-desc">A cooling tower rebuilt cell by cell on site.</p>
         </figure>
       </section>
 

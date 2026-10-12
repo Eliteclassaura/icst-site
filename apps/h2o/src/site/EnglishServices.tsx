@@ -59,7 +59,7 @@ function TechnicalDiagram({kind,src}:{kind:EnglishService['diagramKind'];src:str
   return <figure className={`english-service-diagram english-service-diagram--${kind}`} aria-label={map.caption}>
     <ServicePhoto src={src} alt={map.caption}/>
     <figcaption><span>ICS / TECHNICAL REFERENCE</span><strong>{map.caption}</strong></figcaption>
-    <small>Illustrative operating/decision path. Confirm the arrangement on the installed tower.</small>
+    <small>Typical decision path. The scope for your tower is confirmed after inspection.</small>
   </figure>
 }
 
