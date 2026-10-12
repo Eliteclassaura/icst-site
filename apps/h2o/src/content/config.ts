@@ -127,9 +127,9 @@ export const richRobots = (robots: { index: boolean; follow: boolean }): string 
  * Retired WordPress system URLs answered 410 Gone (Master SEO Pass R1, OGCS decisions; Control Tower brief 2026-10-04).
  * Matched on the path, so `/wp/wp-admin/edit.php?post_type=product` is covered by `/wp/wp-admin/edit.php`.
  * Sitemap parity (CT ruling 2026-10-05): three WordPress junk/draft pages and the Yoast Local SEO KML file, all listed in the
- * live Yoast sitemap, are retired too, and the four locale home drafts (OGCS Locale Part A) (ops/seo-pass/data/gone.tsv lists the same set).
+ * live Yoast sitemap, are retired too (FBG/OGCS 2026-10-11: the junk WordPress draft /hello-world-2/, 0 clicks, is a 410 too; it stays a noindex row of the ledger), and the four locale home drafts (OGCS Locale Part A) (ops/seo-pass/data/gone.tsv lists the same set).
  */
-export const GONE_PATHS: ReadonlySet<string> = new Set(['/canvas/list/', '/wp/wp-admin/edit.php', '/evercompare/', '/gh/', '/draft-page/', '/locations.kml', '/id/draft-page/', '/ja/draft-page/', '/th/draft-page/', '/vi/draft-page/'])
+export const GONE_PATHS: ReadonlySet<string> = new Set(['/hello-world-2/', '/canvas/list/', '/wp/wp-admin/edit.php', '/evercompare/', '/gh/', '/draft-page/', '/locations.kml', '/id/draft-page/', '/ja/draft-page/', '/th/draft-page/', '/vi/draft-page/'])
 
 /** Canonical public origin used in canonical URLs and the sitemap (not the serving host). */
 export const PUBLIC_ORIGIN = 'https://h2ocooling.com'

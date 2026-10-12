@@ -127,7 +127,7 @@ describe('public author identity',()=>{
     // Locale Part B: the 166 preserved live locale articles and the published Thai Salmon page (+167).
     // R2.4: /new-cooling-tower-page/ is withdrawn to /new-cooling-towers/ (−1).
     // SEO-CONTENT-1: five articles are held (−5 article pages with the byline) and the algae article is released (+1).
-    expect(Object.fromEntries(authors)).toEqual({'Tim Bozic':404}) // REDIRECTS-2: - /cooling-tower-parts-2/ (301); PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: the two historical portfolio pages and the older Thailand page are 301s now
+    expect(Object.fromEntries(authors)).toEqual({'Tim Bozic':403}) // HYBRID-RESTORE-1: - /hybrid-cooling-tower-repair/ (301; the article is served at /hybrid-cooling-tower/, an alias address of the same route); REDIRECTS-2: - /cooling-tower-parts-2/ (301); PROJECT-IMAGES-1 R2 / COUNTRY-PAGES: the two historical portfolio pages and the older Thailand page are 301s now
   },60000)
   it('links the Tim Bozic byline to the canonical author archive',()=>{
     const article=salmonDocument(releaseRoutes().find(route=>route.targetPath==='/3-cell-counterflow-cooling-towers/')!)

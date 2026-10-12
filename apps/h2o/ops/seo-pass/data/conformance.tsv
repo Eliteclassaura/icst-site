@@ -243,7 +243,7 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /blog/cooling-solutions-for-chemical-process-plants-cooling-towers/	301	/cooling-solutions-for-chemical-process-plants-cooling-towers/					
 /cooling-tower-cold-weather-issues/	200		html	Cooling Tower Fans: Cold Weather Operating Conditions	Prevent costly downtime this winter. Learn expert strategies for solving cooling tower cold weather issues, from flow management to ice control.		
 /cooling-tower-project-budget/	200		html	Cooling Tower Project Budget: 12 Secrets to Stop Overruns	A robust Cooling Tower Project Budget is the foundation of a successful industrial or commercial capital project. Yet, a staggering number of these projects		
-/hybrid-cooling-tower/	301	/hybrid-cooling-tower-repair/					
+/hybrid-cooling-tower/	200		html	Hybrid Cooling Tower: Dry Wet Cooling Guide for Facilities	Learn how a Hybrid Cooling Tower combines dry wet cooling for water savings, plume control, adiabatic cooling comparison, and better industrial design.		
 /product/brentwood-xf80max-cellular-drift-eliminator/	200		html	Brentwood XF80MAX Cellular Drift Eliminator | Drift Eliminator	Request a quote for the Brentwood XF80MAx Cellular Drift Eliminator, a crossflow drift eliminator for factory-built crossflow towers.		
 /product/brentwood-xf150max-cellular-drift-eliminator/	200		html	Brentwood XF150MAX Cellular Drift Eliminator - ICS	Request a quote for the Brentwood XF150MAx Cellular Drift Eliminator, made for very low drift levels in crossflow towers and scrubbers.		
 /blog/look-cooling-tower-fan-efficiences/	301	/look-cooling-tower-fan-efficiences/					
@@ -923,7 +923,7 @@ url	expect	target	kind	title	meta	meta_pending	framework_slash_hop
 /cooling-tower-part/fill/splash-fill/	301	/product/splash-fill/					
 /cooling-tower-services/water-treatment/	301	/water-treatment-for-cooling-towers/					
 /evaporative-vs-dry-cooling/?ref=sweetlightning.eco	200		query-variant				
-/hybrid-cooling-tower-repair/	200		html	Hybrid Cooling Tower: Dry Wet Cooling Guide for Facilities	Learn how a Hybrid Cooling Tower combines dry wet cooling for water savings, plume control, adiabatic cooling comparison, and better industrial design.		
+/hybrid-cooling-tower-repair/	301	/hybrid-cooling-tower/					
 /legionella-control-in-industrial-cooling-towers/	200		html	Advanced Legionella Control in Industrial Cooling Towers by 2025	Explore how Legionella Control in Industrial Cooling Towers helps reduce risk, improve efficiency and protect your facility from costly outbreaks.		
 /reducing-carbon-footprint/	200		html	Sustainable Cooling: Reducing Carbon Footprint in Cooling Towers	From energy savings to eco-friendly materials, explore cooling tower solutions for reducing carbon footprint effectively.		
 /rt-portfolios/ptt-gsp3-fan-upgrade/	301	/all-projects/ptt-csp3/					

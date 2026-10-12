@@ -10412,17 +10412,17 @@
       "sourceFile": "documents/SALMON-posts-4083.json",
       "sourceSha256": "3197732b705471a80b7747db4e8b74ac75a90dbe39edf8ef6d1de6f0a9b3c625",
       "routeClass": "posts",
-      "state": "PUBLIC",
-      "export": true,
-      "indexable": true,
-      "sitemap": true,
-      "searchable": true,
-      "canonical": "https://h2ocooling.com/hybrid-cooling-tower-repair/",
+      "state": "REDIRECT",
+      "export": false,
+      "indexable": false,
+      "sitemap": false,
+      "searchable": false,
+      "canonical": "https://h2ocooling.com/hybrid-cooling-tower/",
       "previousCanonical": "https://salmon-rhinoceros-754457.hostingersite.com/hybrid-cooling-tower/",
       "sourceRobots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
       "matchedArticle": true,
       "releaseOverride": null,
-      "redirect": null
+      "redirect": "/hybrid-cooling-tower/"
     },
     {
       "path": "/hybrid-dry-cooling-industrial-water-conservation-guide/",
@@ -26597,6 +26597,24 @@
       "sourceFile": "content/english-completion/service-pages.json",
       "sourceSha256": "9b82ffcfda0059fb88a7abe817014720b892f9e6c3b590782c09b4216887e497",
       "redirect": null
+    },
+    {
+      "path": "/hybrid-cooling-tower/",
+      "routeId": "SALMON-posts-4083",
+      "sourceFile": "documents/SALMON-posts-4083.json",
+      "sourceSha256": "3197732b705471a80b7747db4e8b74ac75a90dbe39edf8ef6d1de6f0a9b3c625",
+      "routeClass": "posts",
+      "state": "PUBLIC",
+      "export": true,
+      "indexable": true,
+      "sitemap": true,
+      "searchable": true,
+      "canonical": "https://h2ocooling.com/hybrid-cooling-tower/",
+      "previousCanonical": "https://salmon-rhinoceros-754457.hostingersite.com/hybrid-cooling-tower/",
+      "sourceRobots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+      "matchedArticle": true,
+      "releaseOverride": null,
+      "redirect": null
     }
   ],
   "redirects": [
@@ -26633,12 +26651,6 @@
     {
       "source": "/cooling-tower-retrofit/",
       "destination": "/cooling-tower-retrofit-guide-upgrading-old-towers/",
-      "status": 301,
-      "targetState": "PUBLIC"
-    },
-    {
-      "source": "/hybrid-cooling-tower/",
-      "destination": "/hybrid-cooling-tower-repair/",
       "status": 301,
       "targetState": "PUBLIC"
     },
@@ -27148,6 +27160,30 @@
     },
     {
       "source": "/cooling-tower-maintenance-repair-upgrade/cooling-tower-rebuilds-new-towers/",
+      "destination": "/cooling-tower-rebuilds-new-towers/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/cooling-tower-maintenance-repair-upgrade/crossflow-cooling-tower-repair/",
+      "destination": "/crossflow-cooling-tower-repair-maintenance/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/cooling-tower-maintenance-repair-upgrade/counterflow-cooling-tower-repair/",
+      "destination": "/counterflow-cooling-tower-repair-maintenance/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/cooling-tower-maintenance-repair-upgrade/low-drift-solutions/",
+      "destination": "/low-drift-cooling-tower-solutions/",
+      "status": 301,
+      "targetState": "PUBLIC"
+    },
+    {
+      "source": "/cooling-tower-maintenance-repair-upgrade/cooling-tower-rebuild/",
       "destination": "/cooling-tower-rebuilds-new-towers/",
       "status": 301,
       "targetState": "PUBLIC"

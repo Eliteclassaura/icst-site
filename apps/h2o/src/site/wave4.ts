@@ -4,6 +4,7 @@ import {existsSync,readFileSync} from 'node:fs'
 import path from 'node:path'
 import {releaseRoutes,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
 import {isPayloadContent,releaseLedger} from '../content/runtime-read'
+import {aliasReleaseDocument} from './release-document'
 
 const ledgerPath=path.join(process.cwd(),'content/wave4/H2O_WAVE4_SALMON_ARTICLE_RECONCILIATION_R1.tsv')
 const ledgerSha256='3ee3016d5fc1b2d7e32ad2502bcdde50e9e1813c0eeae04035aa47ad47a4ad49'
@@ -37,7 +38,12 @@ export function matchedWave4Articles():MatchedArticle[]{
   matchedCache=matched
   return matched
 }
-export function matchedWave4Article(doc:SalmonDocument):MatchedArticle|undefined{return matchedWave4Articles().find(row=>row.routeId===doc.routeId&&row.path===doc.targetPath)}
+/** FBG-12 (OGCS, CT 2026-10-11): articles whose ranking address is a second public (alias) address of their source route: source path -> alias path (content/release/seo-pass-r1.json `aliases`). */
+export const articleAliases=():Record<string,string>=>(JSON.parse(readFileSync(path.join(process.cwd(),'content/release/seo-pass-r1.json'),'utf8')) as {aliases?:Record<string,string>}).aliases??{}
+export function matchedWave4Article(doc:SalmonDocument):MatchedArticle|undefined{
+  const aliases=articleAliases()
+  return matchedWave4Articles().find(row=>row.routeId===doc.routeId&&(row.path===doc.targetPath||aliases[row.path]===doc.targetPath))
+}
 export function matchedWave4Documents():SalmonDocument[]{
   const routeById=new Map(salmonRoutes().map(route=>[route.routeId,route]))
   // Payload runtime (R1B): a matched article an editor has withdrawn is simply absent from the published set.
@@ -49,7 +55,7 @@ export function matchedWave4Documents():SalmonDocument[]{
   }).reverse()
 }
 
-type ArticleReleaseRow={path:string;routeId:string;routeClass:string;state:string;export:boolean;indexable:boolean}
+type ArticleReleaseRow={path:string;routeId:string;routeClass:string;state:string;export:boolean;indexable:boolean;canonical:string}
 /** One reader-facing directory, preserving existing matched/live order and the authorized retrofit addition. */
 export function articleDirectoryDocuments():Array<{doc:SalmonDocument;indexable:boolean}>{
   const release=releaseLedger() as {routes:ArticleReleaseRow[]}
@@ -64,6 +70,11 @@ export function articleDirectoryDocuments():Array<{doc:SalmonDocument;indexable:
   for(const target of seoPublished){
     const route=releaseRoutes().find(candidate=>candidate.targetPath===target),row=byPath.get(target)
     if(route&&row?.state==='PUBLIC'&&row.export)current.push(salmonDocument(route))
+  }
+  // FBG-12: an article served at its restored ranking address (an alias row of the same source route) is listed at that address.
+  for(const [from,to] of Object.entries(articleAliases())){
+    const route=releaseRoutes().find(candidate=>candidate.targetPath===from),row=byPath.get(to)
+    if(route&&row?.state==='PUBLIC'&&row.export&&row.routeId===route.routeId)current.push(aliasReleaseDocument(salmonDocument(route),to,row.canonical))
   }
   if(new Set(current.map(doc=>doc.targetPath)).size!==current.length)throw new Error('Article directory has a duplicate route')
   // An article consolidated into another by an accepted redirect (Master SEO Pass R1) leaves the directory; any other

@@ -72,7 +72,7 @@ describe('slot hygiene: data fixed, validator strict', () => {
   })
   it('records every change; https only for verified targets; an unlinked link keeps its text', () => {
     const changes = Object.values(fixes).flatMap((f) => f.slots.flatMap((s) => s.changes.map((c) => ({ ...c, s }))))
-    expect(changes).toHaveLength(1558) // STAGING-AUDIT CP-06: + 1; POSTLAUNCH-WEB-1: + 1 (CF2-03); CATALOG-FANS-2: + 5; CLIENT-FIX-1: + 8; SEO-CONTENT-2.3: - 6 + 3; SEO-CONTENT-2.2: + 195 // SEO-CONTENT-2.1: + 89 // piece C: + 116 (HVAC tranche C) // CLAIMS-R2: + 10 Home rewordings; R4: + 7 (R4C-01…07); + 3 (R4C-08…10); R5b: + 58 run edits; SEO-CONTENT-1: + 134 claim edits, + 35 repointed links
+    expect(changes).toHaveLength(1561) // HYBRID-RESTORE-1: + 3 (the hybrid article's three fixes are also keyed to its restored address, an alias record of its own); STAGING-AUDIT CP-06: + 1; POSTLAUNCH-WEB-1: + 1 (CF2-03); CATALOG-FANS-2: + 5; CLIENT-FIX-1: + 8; SEO-CONTENT-2.3: - 6 + 3; SEO-CONTENT-2.2: + 195 // SEO-CONTENT-2.1: + 89 // piece C: + 116 (HVAC tranche C) // CLAIMS-R2: + 10 Home rewordings; R4: + 7 (R4C-01…07); + 3 (R4C-08…10); R5b: + 58 run edits; SEO-CONTENT-1: + 134 claim edits, + 35 repointed links
     for (const c of changes) {
       expect(c.reason.length, c.from).toBeGreaterThan(0)
       if (c.action === 'https') expect(c.to).toMatch(/^https:\/\//)

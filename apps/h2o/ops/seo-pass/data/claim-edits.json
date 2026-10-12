@@ -6094,7 +6094,7 @@
    "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-049: HVAC (owner rule: no HVAC wording). Removes HVAC/comfort/institutional targeting; keeps the field-erected sizing point."
   },
   {
-   "path": "/hybrid-cooling-tower-repair/",
+   "path": "/hybrid-cooling-tower/",
    "op": "remove",
    "find": "Large HVAC plants",
    "allowEmpty": true,
@@ -8594,7 +8594,7 @@
    "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-17: "
   },
   {
-   "path": "/hybrid-cooling-tower-repair/",
+   "path": "/hybrid-cooling-tower/",
    "op": "replace",
    "element": "alt",
    "find": "",
@@ -8604,7 +8604,7 @@
    "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-18: "
   },
   {
-   "path": "/hybrid-cooling-tower-repair/",
+   "path": "/hybrid-cooling-tower/",
    "op": "replace",
    "element": "alt",
    "find": "",

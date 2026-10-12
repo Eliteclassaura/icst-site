@@ -21,7 +21,6 @@ path	routeId	action	redirect	canonical
 /cooling-tower-thermal-upgrade/	LIVE-pages-2244	WITHDRAW_TO_REDIRECT	/thermal-upgrade/	
 /aluminum-versus-frp-fan-blades-2/	LIVE-posts-2350	WITHDRAW_TO_REDIRECT	/aluminum-vs-frp-fan-blades/	
 /contact/	SALMON-pages-9	WITHDRAW_TO_REDIRECT	/contact-us/	
-/hybrid-cooling-tower-repair/	SALMON-posts-4083	CANONICAL		https://h2ocooling.com/hybrid-cooling-tower-repair/
 /author/faizasyed-ai/	SALMON-7a930f374040c43c	WITHDRAW_TO_REDIRECT	/author/timbozic/	
 /author/tbozic/	SALMON-b2503fcd6ca86806	WITHDRAW_TO_REDIRECT	/author/timbozic/	
 /build-a-new-cooling-tower/	LIVE-posts-17463	WITHDRAW_TO_REDIRECT	/build-new-cooling-tower/	
@@ -63,3 +62,4 @@ path	routeId	action	redirect	canonical
 /dry-soda-blasting/	SALMON-pages-1722	WITHDRAW_TO_REDIRECT	/dry-soda-blast-cleaning-services-2/	
 /cooling-tower-parts-2/	LIVE-posts-17446	WITHDRAW_TO_REDIRECT	/cooling-tower-parts-online/	
 /cooling-tower-usa/	SALMON-pages-2042	WITHDRAW_TO_REDIRECT	/cooling-tower-construction-repair-in-united-states/	
+/hybrid-cooling-tower-repair/	SALMON-posts-4083	WITHDRAW_TO_REDIRECT	/hybrid-cooling-tower/	

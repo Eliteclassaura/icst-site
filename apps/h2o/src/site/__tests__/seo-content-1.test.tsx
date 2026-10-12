@@ -136,7 +136,7 @@ describe('route states: HOLD with a 301, one release (data and release authority
       expect(overrides.redirectSources[p],p).toBe(target)
     }
     // 27 REDIRECT rows before this batch (26 consolidations and the /resources/ alias source) + the seven held pages
-    expect(ledger.routes.filter(r=>r.state==='REDIRECT')).toHaveLength(50) // STAGING-AUDIT-REDIRECTS-1: + /cooling-tower-singapore/; REDIRECTS-2: + five; PROJECT-IMAGES-1 R2: + the two PTT portfolio pages; COUNTRY-PAGES: + /thailand-cooling-tower/; SEO-CONTENT-2.1: + the four locale twins (TC-001..004)
+    expect(ledger.routes.filter(r=>r.state==='REDIRECT')).toHaveLength(51) // HYBRID-RESTORE-1: + /hybrid-cooling-tower-repair/; STAGING-AUDIT-REDIRECTS-1: + /cooling-tower-singapore/; REDIRECTS-2: + five; PROJECT-IMAGES-1 R2: + the two PTT portfolio pages; COUNTRY-PAGES: + /thailand-cooling-tower/; SEO-CONTENT-2.1: + the four locale twins (TC-001..004)
   })
   it('the batch withdraws each with its 301, in the order of the release authority, and every redirect is one hop to a served page',()=>{
     const dispositions=tsv('route-dispositions.tsv').filter(r=>HELD.includes(r.path))
@@ -458,7 +458,7 @@ describe('apply expectations for this delta',()=>{
     expect(exp.expect.h1).toEqual({update:27}) // COUNTRY-PAGES: - the old Thailand page's H1 row (a 301 now); + the PETRONAS record title (SEO-CONTENT-2); 23 SEO-CONTENT-1 + 2 R5b (USA, Singapore); + 2 DIR-LABELS-1 (dry soda, Thailand)
     expect([exp.rows,exp.redirects,exp.seoFields]).toEqual([1143,429,489])
     expect(tsv('seo-fields.tsv')).toHaveLength(490) // STAGING-AUDIT CP-19: + one meta row
-    expect(tsv('redirects.tsv')).toHaveLength(449) // STAGING-AUDIT-REDIRECTS-1: + fifteen; REDIRECTS-2: + five
+    expect(tsv('redirects.tsv')).toHaveLength(453) // HYBRID-RESTORE-1: + four nested + the old slug, - the old /hybrid-cooling-tower/ row; STAGING-AUDIT-REDIRECTS-1: + fifteen; REDIRECTS-2: + five
     expect(tsv('conformance.tsv')).toHaveLength(1143)
     expect(tsv('h1-fields.tsv').filter(r=>r.action==='UPDATE')).toHaveLength(27)
   })

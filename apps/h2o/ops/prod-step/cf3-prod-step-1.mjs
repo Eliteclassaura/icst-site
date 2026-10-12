@@ -32,7 +32,7 @@ const DISPOSITION_KEYS=['state','export','indexable','sitemap','searchable','red
 
 /** @typedef {{action:string,[k:string]:any}} StepItem */
 /** @typedef {(p:string,init?:{method?:string,body?:string})=>Promise<{status:number,body:any}>} StepApi */
-/** @typedef {{meta:StepItem[],slotEdits:StepItem[],redirects:StepItem[],withdraw:StepItem[],lines:string[],counts:{meta:number,slotEdits:number,redirects:number,withdraw:number,unchanged:number,refused:number}}} StepPlan */
+/** @typedef {{meta:StepItem[],slotEdits:StepItem[],redirects:StepItem[],withdraw:StepItem[],lines:string[],counts:{meta:number,slotEdits:number,redirects:number,retire:number,withdraw:number,unchanged:number,refused:number}}} StepPlan */
 
 /**
  * Reads a route: the published record and the latest (draft) record.
@@ -93,6 +93,14 @@ export async function planStep(api,data=DATA){
     else if(decode(String(have.destination))===decode(r.destination)&&have.active!==false)plan.redirects.push({...r,id:have.id,action:'UNCHANGED'})
     else plan.redirects.push({...r,id:have.id,action:'REFUSE',reason:`a record exists with destination ${have.destination}${have.active===false?' (inactive)':''}`})
   }
+  // "retireRedirects" (HYBRID-RESTORE-1): a redirect record whose source is a public page again is set inactive (not deleted). No record or already
+  // inactive = UNCHANGED; the record with the listed destination = RETIRE; a record with another destination is not ours = REFUSED.
+  for(const r of data.retireRedirects??[]){
+    const have=bySource.get(decode(r.source))
+    if(!have||have.active===false)plan.redirects.push({...r,action:'UNCHANGED',retire:true})
+    else if(decode(String(have.destination))===decode(r.destination))plan.redirects.push({...r,id:have.id,action:'RETIRE',retire:true})
+    else plan.redirects.push({...r,id:have.id,action:'REFUSE',retire:true,reason:`a record exists with another destination ${have.destination}`})
+  }
   for(const w of data.withdraw??[]){
     const r=await route(api,w.path),pub=r.published
     if(!pub){plan.withdraw.push({...w,action:'REFUSE',reason:'route record not found'});continue}
@@ -107,10 +115,10 @@ export async function planStep(api,data=DATA){
   const fmt=(x,head,extra='')=>`${(x.action==='WITHDRAW'||x.action==='CREATE'||x.action==='UPDATE'?x.action:x.action).padEnd(9)} ${head}${extra}${x.reason?`  REFUSED: ${x.reason}`:''}`
   for(const m of plan.meta)plan.lines.push(fmt(m,`SEO ${m.field} ${m.path}`,m.action==='UPDATE'?`\n          old: ${m.current}\n          new: ${m.new}`:''))
   for(const s of plan.slotEdits)plan.lines.push(fmt(s,`TEXT ${s.row||s.key} ${s.path} (${s.key})`,s.action==='UPDATE'?`\n          old: ${s.before}\n          new: ${s.after}`:''))
-  for(const r of plan.redirects)plan.lines.push(fmt(r,`301 ${r.source} -> ${r.destination}`))
+  for(const r of plan.redirects)plan.lines.push(fmt(r,r.retire?`301 ${r.source} -> ${r.destination} (set inactive: the source is a public page again)`:`301 ${r.source} -> ${r.destination}`))
   for(const w of plan.withdraw)plan.lines.push(fmt(w,`ROUTE ${w.path} -> REDIRECT ${w.redirect}`))
   const items=[...plan.meta,...plan.slotEdits,...plan.redirects,...plan.withdraw]
-  plan.counts={meta:plan.meta.filter(x=>x.action==='UPDATE').length,slotEdits:plan.slotEdits.filter(x=>x.action==='UPDATE').length,redirects:plan.redirects.filter(x=>x.action==='CREATE').length,withdraw:plan.withdraw.filter(x=>x.action==='WITHDRAW').length,unchanged:items.filter(x=>x.action==='UNCHANGED').length,refused:items.filter(x=>x.action==='REFUSE').length}
+  plan.counts={meta:plan.meta.filter(x=>x.action==='UPDATE').length,slotEdits:plan.slotEdits.filter(x=>x.action==='UPDATE').length,redirects:plan.redirects.filter(x=>x.action==='CREATE').length,retire:plan.redirects.filter(x=>x.action==='RETIRE').length,withdraw:plan.withdraw.filter(x=>x.action==='WITHDRAW').length,unchanged:items.filter(x=>x.action==='UNCHANGED').length,refused:items.filter(x=>x.action==='REFUSE').length}
   return plan
 }
 
@@ -127,6 +135,11 @@ export async function applyStep(api,plan,data=DATA){
   /** @type {string[]} */
   const problems=[]
   const ok=r=>r.status===200||r.status===201
+  for(const x of plan.redirects.filter(r=>r.action==='RETIRE')){
+    const r=await api(`public-redirects/${x.id}?depth=0`,{method:'PATCH',body:JSON.stringify({active:false})})
+    if(!ok(r)){problems.push(`RETIRE ${x.source} failed (${r.status})`);return {written,problems}}
+    written.push(`RETIRE ${x.source}`)
+  }
   for(const x of plan.redirects.filter(r=>r.action==='CREATE')){
     const r=await api('public-redirects?depth=0',{method:'POST',body:JSON.stringify({source:x.source,destination:x.destination,status:'301',active:true,authority:data.authority??'CF3-PROD-STEP-1 R2 (CT 2026-10-09)'})})
     if(!ok(r)){problems.push(`CREATE ${x.source} failed (${r.status})`);return {written,problems}}
@@ -152,7 +165,7 @@ export async function applyStep(api,plan,data=DATA){
     written.push(`ROUTE ${w.path}`)
   }
   const after=await planStep(api,data)
-  for(const x of [...after.meta,...after.slotEdits,...after.redirects,...after.withdraw])if(['UPDATE','CREATE','WITHDRAW'].includes(x.action))problems.push(`read-back: ${x.path??x.source} still needs ${x.action}`)
+  for(const x of [...after.meta,...after.slotEdits,...after.redirects,...after.withdraw])if(['UPDATE','CREATE','WITHDRAW','RETIRE'].includes(x.action))problems.push(`read-back: ${x.path??x.source} still needs ${x.action}`)
   return {written,problems}
 }
 
@@ -172,10 +185,10 @@ export async function main(data=DATA){
   try{const {completeMfa}=await import('../mfa/sign-in.mjs');await completeMfa(BASE,token,env.H2O_STEP_ADMIN_TOTP_SECRET,{envName:'H2O_STEP_ADMIN_TOTP_SECRET'})}catch(e){fail(String(e.message))}
   const plan=await planStep(api,data)
   process.stdout.write(plan.lines.join('\n')+'\n')
-  const c=plan.counts,total=c.meta+c.slotEdits+c.redirects+c.withdraw
+  const c=plan.counts,total=c.meta+c.slotEdits+c.redirects+c.withdraw+c.retire
   if(apply&&!c.refused){const res=await applyStep(api,plan,data);process.stdout.write(`applied: ${res.written.join(', ')||'nothing'}\n`);if(res.problems.length){process.stderr.write(res.problems.join('\n')+'\n');process.exit(4)}}
   else if(apply)process.stdout.write('not applying: a target was refused; fix or rule on it first\n')
-  process.stdout.write(`${total} changes (${c.meta} meta, ${c.slotEdits} text edits, ${c.redirects} redirects, ${c.withdraw} route withdrawals), ${c.unchanged} unchanged, ${c.refused} refused (${apply?'APPLY':'DRY-RUN'})\n`)
+  process.stdout.write(`${total} changes (${c.meta} meta, ${c.slotEdits} text edits, ${c.redirects} redirects, ${c.withdraw} route withdrawals${c.retire?`, ${c.retire} redirects retired`:''}), ${c.unchanged} unchanged, ${c.refused} refused (${apply?'APPLY':'DRY-RUN'})\n`)
   if(c.refused)process.exit(3)
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===path.resolve(new URL(import.meta.url).pathname))await main()

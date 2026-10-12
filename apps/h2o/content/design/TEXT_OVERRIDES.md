@@ -91,6 +91,7 @@ Text that *is* editable was corrected in the page itself (content batch R2.2), s
 | TO-081 | /air-coolers/ | seo-h1 | "High-Performance Industrial Air Cooler Solutions for Demanding Facilities" | "High-Performance Industrial Air Cooler Solutions for Demanding Plants" | SC1-TA-085 (SEO-CONTENT-2) |
 | TO-082 | /guide-about-cooling-tower/ | schema | "What is a Cooling Tower? - H2O Cooling - ICS" | "What is a Cooling Tower? - ICS" | SC1-TA-059 (SEO-CONTENT-2) |
 | TO-083 | /cooling-tower-thailand/ | call link (href) | "tel:+66%202-661-7723" | "tel:+6626617723" | DD country-page review M2 (owner phone format) |
+| TO-084 | /hybrid-cooling-tower/ | body (remove) | "Large HVAC plants" | (removed) | HYBRID-RESTORE-1 (SC1-B-051 at read time: an alias record carries no page elements) |
 
 **Rules (Control Tower guardrails):**
 - An entry applies only when its exact text appears exactly the stated number of times.

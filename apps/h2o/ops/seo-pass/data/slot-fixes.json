@@ -30592,6 +30592,89 @@
    }
   ]
  },
+ "/hybrid-cooling-tower/": {
+  "routeId": "SALMON-posts-4083",
+  "slots": [
+   {
+    "key": "body.3.1.1.7.145.17",
+    "kind": "text",
+    "field": "text",
+    "before": "[[\"t\",\"Large HVAC plants\",1],[\"p\"]]",
+    "after": {
+     "root": {
+      "type": "root",
+      "children": [
+       {
+        "type": "paragraph",
+        "children": [
+         {
+          "type": "text",
+          "text": "",
+          "format": 1,
+          "detail": 0,
+          "mode": "normal",
+          "style": "",
+          "version": 1
+         }
+        ],
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "textFormat": 0,
+        "textStyle": ""
+       }
+      ],
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "direction": "ltr"
+     }
+    },
+    "afterCanon": "[[\"t\",\"\",1],[\"p\"]]",
+    "changes": [
+     {
+      "from": "Large HVAC plants",
+      "to": null,
+      "action": "claim-removed",
+      "reason": "OGCS staging QA tranche B (seal 977142f3), CT 2026-10-08, row QA-B-051: HVAC (owner rule: no HVAC wording). District cooling and industrial items remain."
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.55.0",
+    "kind": "image",
+    "field": "alt",
+    "before": "\"\"",
+    "after": "Slide titled Why Industrial Facilities Choose Hybrid Cooling Tower: lower water use, reduced visible plume, seasonal adaptability",
+    "afterCanon": "\"Slide titled Why Industrial Facilities Choose Hybrid Cooling Tower: lower water use, reduced visible plume, seasonal adaptability\"",
+    "changes": [
+     {
+      "from": "",
+      "to": "Slide titled Why Industrial Facilities Choose Hybrid Cooling Tower: lower water use, reduced visible plume, seasonal adaptability",
+      "action": "claim-reworded",
+      "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-18: "
+     }
+    ]
+   },
+   {
+    "key": "body.3.1.1.7.111.0",
+    "kind": "image",
+    "field": "alt",
+    "before": "\"\"",
+    "after": "Slide titled Hybrid Cooling Tower Design Considerations, with engineers reviewing drawings at a cooling tower site",
+    "afterCanon": "\"Slide titled Hybrid Cooling Tower Design Considerations, with engineers reviewing drawings at a cooling tower site\"",
+    "changes": [
+     {
+      "from": "",
+      "to": "Slide titled Hybrid Cooling Tower Design Considerations, with engineers reviewing drawings at a cooling tower site",
+      "action": "claim-reworded",
+      "reason": "OGCS quick-wins alt text (TSV e3babdc7, seal e3babdc7), CT 2026-10-08, row QA-19: "
+     }
+    ]
+   }
+  ]
+ },
  "/increasing-cooling-tower-capacity/": {
   "routeId": "SALMON-posts-3751",
   "slots": [

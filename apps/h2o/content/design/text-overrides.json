@@ -933,6 +933,17 @@
       "replace": "tel:+6626617723",
       "count": 1,
       "reason": "DD country-page review M2 (CT 2026-10-09): the Thailand call link must be tel:+6626617723 (owner phone format; never the +66 2- grouping), the visible text was already corrected by TO-009"
+    },
+    {
+      "id": "TO-084",
+      "row": "SC1-B-051",
+      "routeId": "SALMON-posts-4083",
+      "path": "/hybrid-cooling-tower/",
+      "scope": "body-remove",
+      "find": "Large HVAC plants",
+      "replace": "",
+      "count": 1,
+      "reason": "HYBRID-RESTORE-1 (FBG-12, OGCS/CT 2026-10-11): the article is served at /hybrid-cooling-tower/ as an ALIAS address of its source route, which renders the repository document (an alias record carries no page elements, so the batch's slot fix SC1-B-051 cannot apply); the same HVAC removal (OGCS QA tranche B, owner rule: no HVAC wording) therefore runs at read time. Idempotent: the original record already has the text removed."
     }
   ]
 }

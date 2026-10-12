@@ -11,8 +11,7 @@
   "canonical": {
     "/cooling-tower-fill-media-replacement/": "https://h2ocooling.com/cooling-tower-fill-media-replacement/",
     "/cooling-tower-maintenance-and-repair/": "https://h2ocooling.com/cooling-tower-maintenance-and-repair/",
-    "/cooling-tower-manufacturer-selection/": "https://h2ocooling.com/cooling-tower-manufacturer-selection/",
-    "/hybrid-cooling-tower-repair/": "https://h2ocooling.com/hybrid-cooling-tower-repair/"
+    "/cooling-tower-manufacturer-selection/": "https://h2ocooling.com/cooling-tower-manufacturer-selection/"
   },
   "index": [
     "/product-category/gearboxes/",
@@ -20,6 +19,12 @@
     "/product-category/motors/",
     "/product-category/drift-eliminators/",
     "/product-category/nozzles/"
+  ],
+  "aliases": {
+    "/hybrid-cooling-tower-repair/": "/hybrid-cooling-tower/"
+  },
+  "droppedRedirects": [
+    "/hybrid-cooling-tower/"
   ],
   "redirectSources": {
     "/axial-fans-cooling-tower/": "/axial-fans-guide/",
@@ -70,6 +75,7 @@
     "/cooling-tower-brochures/": "/resources/cooling-tower-brochures/",
     "/dry-soda-blasting/": "/dry-soda-blast-cleaning-services-2/",
     "/cooling-tower-parts-2/": "/cooling-tower-parts-online/",
-    "/cooling-tower-usa/": "/cooling-tower-construction-repair-in-united-states/"
+    "/cooling-tower-usa/": "/cooling-tower-construction-repair-in-united-states/",
+    "/hybrid-cooling-tower-repair/": "/hybrid-cooling-tower/"
   }
 }

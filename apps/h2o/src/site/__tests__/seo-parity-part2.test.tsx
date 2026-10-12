@@ -126,6 +126,12 @@ describe('OGCS Part 1 (R1.2) delta in the batch',()=>{
       'CREATE /dry-soda-blasting/ /dry-soda-blast-cleaning-services-2/',
       'CREATE /cooling-tower-parts-2/ /cooling-tower-parts-online/',
       'CREATE /cooling-tower-usa/ /cooling-tower-construction-repair-in-united-states/',
+      // HYBRID-RESTORE-1 (OGCS audit-workbook Part 3 + FBG-12): four more nested repair URLs and the old slug of the restored article
+      'CREATE /cooling-tower-maintenance-repair-upgrade/crossflow-cooling-tower-repair/ /crossflow-cooling-tower-repair-maintenance/',
+      'CREATE /cooling-tower-maintenance-repair-upgrade/counterflow-cooling-tower-repair/ /counterflow-cooling-tower-repair-maintenance/',
+      'CREATE /cooling-tower-maintenance-repair-upgrade/low-drift-solutions/ /low-drift-cooling-tower-solutions/',
+      'CREATE /cooling-tower-maintenance-repair-upgrade/cooling-tower-rebuild/ /cooling-tower-rebuilds-new-towers/',
+      'CREATE /hybrid-cooling-tower-repair/ /hybrid-cooling-tower/',
     ])
     const redirects=data('redirects.tsv')
     expect(redirects.some(r=>r.source==='/cooling-tower-vs-chiller/')).toBe(false)

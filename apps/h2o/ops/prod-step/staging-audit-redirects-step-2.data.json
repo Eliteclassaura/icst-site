@@ -1,5 +1,5 @@
 {
- "note": "STAGING-AUDIT-FIXES (CT/owner 2026-10-11; OGCS rule 2 and COPY_TRIAGE_ROWS CP-06..CP-19) for a database that already holds staff edits (apply-seo-pass is never re-run after GO). Same engine as cf3-prod-step-1.mjs. (a) redirects: public-redirects records created when the source has no record (same destination = UNCHANGED; another destination or inactive = REFUSED); the duplicate Singapore page becomes a REDIRECT draft only while still published as PUBLIC. (b) meta: an SEO title/description is written only when the stored value is exactly the seeded one (null = never written by the batch); an edited value or a pending editor draft is REFUSED. (c) slotEdits: the Brentwood CF150MAX H1 page element, written only when it holds exactly its imported value. Nothing else is written. REDIRECTS-2 (2026-10-11) adds five more duplicate pages that rank nowhere (/cooling-tower-resources/tools/, /cooling-tower-brochures/, /dry-soda-blasting/, /cooling-tower-parts-2/, /cooling-tower-usa/): each is withdrawn to a REDIRECT draft and gets its 301.",
+ "note": "STAGING-AUDIT-FIXES (CT/owner 2026-10-11; OGCS rule 2 and COPY_TRIAGE_ROWS CP-06..CP-19) for a database that already holds staff edits (apply-seo-pass is never re-run after GO). Same engine as cf3-prod-step-1.mjs. (a) redirects: public-redirects records created when the source has no record (same destination = UNCHANGED; another destination or inactive = REFUSED); the duplicate Singapore page becomes a REDIRECT draft only while still published as PUBLIC. (b) meta: an SEO title/description is written only when the stored value is exactly the seeded one (null = never written by the batch); an edited value or a pending editor draft is REFUSED. (c) slotEdits: the Brentwood CF150MAX H1 page element, written only when it holds exactly its imported value. Nothing else is written. REDIRECTS-2 (2026-10-11) adds five more duplicate pages that rank nowhere (/cooling-tower-resources/tools/, /cooling-tower-brochures/, /dry-soda-blasting/, /cooling-tower-parts-2/, /cooling-tower-usa/): each is withdrawn to a REDIRECT draft and gets its 301. HYBRID-RESTORE-1 (FBG-12, 2026-10-11): /hybrid-cooling-tower/ is a public page again (an alias address of the article route, imported with the authority); its old redirect record is set inactive (retireRedirects), /hybrid-cooling-tower-repair/ is withdrawn and redirected to it. Four more nested repair URLs get their 301.",
  "authority": "STAGING-AUDIT-REDIRECTS-1 (CT 2026-10-11)",
  "meta": [
   {
@@ -225,6 +225,26 @@
   {
    "source": "/cooling-tower-usa/",
    "destination": "/cooling-tower-construction-repair-in-united-states/"
+  },
+  {
+   "source": "/cooling-tower-maintenance-repair-upgrade/crossflow-cooling-tower-repair/",
+   "destination": "/crossflow-cooling-tower-repair-maintenance/"
+  },
+  {
+   "source": "/cooling-tower-maintenance-repair-upgrade/counterflow-cooling-tower-repair/",
+   "destination": "/counterflow-cooling-tower-repair-maintenance/"
+  },
+  {
+   "source": "/cooling-tower-maintenance-repair-upgrade/low-drift-solutions/",
+   "destination": "/low-drift-cooling-tower-solutions/"
+  },
+  {
+   "source": "/cooling-tower-maintenance-repair-upgrade/cooling-tower-rebuild/",
+   "destination": "/cooling-tower-rebuilds-new-towers/"
+  },
+  {
+   "source": "/hybrid-cooling-tower-repair/",
+   "destination": "/hybrid-cooling-tower/"
   }
  ],
  "withdraw": [
@@ -251,6 +271,16 @@
   {
    "path": "/cooling-tower-usa/",
    "redirect": "/cooling-tower-construction-repair-in-united-states/"
+  },
+  {
+   "path": "/hybrid-cooling-tower-repair/",
+   "redirect": "/hybrid-cooling-tower/"
+  }
+ ],
+ "retireRedirects": [
+  {
+   "source": "/hybrid-cooling-tower/",
+   "destination": "/hybrid-cooling-tower-repair/"
   }
  ]
 }

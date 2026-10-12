@@ -85,14 +85,26 @@ export function releaseAuthority(root){
   // Generated taxonomy listing shells duplicate their linked content; retain them for compatibility, not indexing.
   const duplicateNonindex=new Set(['/thank-you/','/testimonial-detail/','/hello-world-2/'])
   for(const route of routes)if(['categories','product_cat'].includes(route.routeClass)&&!seoPass.index.includes(route.path)||duplicateNonindex.has(route.path)){route.indexable=false;route.sitemap=false;route.searchable=false}
+  // FBG-12 (OGCS, CT 2026-10-11): an article's address is restored to the ranking URL. The ranking URL is a second public address (an alias
+  // row of the same source route, like /author/timbozic/); the old address becomes a REDIRECT row to it (redirectSources) and the alias row
+  // is added BEFORE that loop so it keeps the PUBLIC state. Self canonical, indexable, in the sitemap.
+  for(const [from,to] of Object.entries(seoPass.aliases??{})){
+    const route=routes.find(row=>row.path===from)
+    if(!route||route.state!=='PUBLIC')throw new Error(`SEO pass alias source not a public route: ${from}`)
+    // the alias address is its own canonical: indexable unless the source robots say noindex (the source row's canonical pointed at its old address)
+    const indexable=!/\bnoindex\b/i.test(route.sourceRobots)
+    routes.push({...route,path:to,canonical:origin+to,redirect:null,indexable,sitemap:indexable,searchable:indexable&&['pages','product','posts'].includes(route.routeClass)})
+  }
   for(const [source,destination] of Object.entries(seoPass.redirectSources)){
     const route=routes.find(row=>row.path===source)
     if(!route||route.state!=='PUBLIC')throw new Error(`SEO pass redirect source not a public route: ${source}`)
     Object.assign(route,{state:'REDIRECT',export:false,indexable:false,sitemap:false,searchable:false,redirect:destination})
   }
   const r2ExactRedirects=read('content/release/r2-exact-redirects.json')
+  const droppedRedirects=new Set((seoPass.droppedRedirects??[]).map(pathKey)) // a source that is a public page again (FBG-12)
   const redirectRows=[...read('content/salmon/redirects.json'),...read('content/luxury/reconciled-redirects.json'),...r2ExactRedirects,{source:'/cooling-tower-resources/',destination:'/resources/'},{source:'/about-ics/',destination:about.path}]
   const r2ExactSources=new Set(r2ExactRedirects.map(row=>pathKey(row.source)))
+  for(let i=redirectRows.length-1;i>=0;i--)if(droppedRedirects.has(pathKey(redirectRows[i].source)))redirectRows.splice(i,1)
   // R2.4 (CT 2026-10-05, SEO Checker item k): every ledger redirect is a permanent 301 (was 308 except the R2 exact rows).
   const redirects=[];const bySource=new Map()
   for(const row of redirectRows){

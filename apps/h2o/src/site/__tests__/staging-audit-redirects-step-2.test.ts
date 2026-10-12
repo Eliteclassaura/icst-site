@@ -28,11 +28,12 @@ const fake = (opts: { redirects?: Rec[]; draft?: boolean; withdrawn?: boolean; e
   const br = routes.get(BR)!
   br.slots = realSlots(BR)
   if (opts.editedH1) { const h = br.slots.find((x: Rec) => x.key === 'body.1.1.1.1.1'); if (h) h.heading = 'Brentwood by staff' }
-  const redirects: Rec[] = [...(opts.redirects ?? [])]
+  const redirects: Rec[] = [{ id: 'old-hybrid', source: '/hybrid-cooling-tower/', destination: '/hybrid-cooling-tower-repair/', active: true }, ...(opts.redirects ?? [])] // the review/prod database holds the old redirect record (authority import)
   const api = async (p: string, init: { method?: string; body?: string } = {}) => {
     const m = /^public-routes\?where\[pathKey\]\[equals\]=([^&]*)&/.exec(p)
     if (m) { const r = routes.get(decodeURIComponent(m[1]!)); return { status: 200, body: { docs: r ? [p.includes('draft=true') && opts.draft && decodeURIComponent(m[1]!) === SG ? { ...r, _status: 'draft', updatedAt: 't2' } : { ...r }] : [] } } }
     if (p.startsWith('public-routes/') && init.method === 'PATCH') { const r = [...routes.values()].find((x) => `public-routes/${x.id}?depth=0` === p)!; Object.assign(r, JSON.parse(init.body!)); return { status: 200, body: {} } }
+    if (p.startsWith('public-redirects/') && init.method === 'PATCH') { const r = redirects.find((x) => `public-redirects/${x.id}?depth=0` === p); if (!r) return { status: 404, body: null }; Object.assign(r, JSON.parse(init.body!)); return { status: 200, body: {} } }
     if (p.startsWith('public-redirects?') && !init.method) return { status: 200, body: { docs: redirects, hasNextPage: false } }
     if (p.startsWith('public-redirects?') && init.method === 'POST') { redirects.push({ id: `d${redirects.length}`, ...JSON.parse(init.body!) }); return { status: 201, body: {} } }
     return { status: 404, body: null }
@@ -41,11 +42,12 @@ const fake = (opts: { redirects?: Rec[]; draft?: boolean; withdrawn?: boolean; e
 }
 
 describe('STAGING-AUDIT-REDIRECTS-1 prod step', () => {
-  it('the data is exactly the release data: twenty redirects, 18 SEO fields and one page element (batch rows) and six withdrawals (disposition)', () => {
+  it('the data is exactly the release data: 25 redirects, 18 SEO fields and one page element (batch rows), seven withdrawals and one retired redirect (disposition)', () => {
     const tsv = (f: string) => readFileSync(path.join(APP, 'ops/seo-pass/data', f), 'utf8').split('\n').map((l) => l.split('\t'))
-    expect(DATA2.redirects).toHaveLength(20)
+    expect(DATA2.redirects).toHaveLength(25)
     for (const r of DATA2.redirects as Array<{ source: string; destination: string }>) expect(tsv('redirects.tsv').find((c) => c[0] === r.source)?.slice(1, 4), r.source).toEqual([r.destination, '301', 'CREATE'])
-    expect(DATA2.withdraw).toHaveLength(6)
+    expect(DATA2.withdraw).toHaveLength(7)
+    expect(DATA2.retireRedirects).toEqual([{ source: '/hybrid-cooling-tower/', destination: '/hybrid-cooling-tower-repair/' }])
     expect((DATA2.withdraw as Array<{ path: string }>)[0]).toEqual({ path: SG, redirect: '/cooling-tower-construction-repair-in-singapore/' })
     for (const w of DATA2.withdraw as Array<{ path: string; redirect: string }>) expect(tsv('route-dispositions.tsv').find((c) => c[0] === w.path)?.slice(2, 4), w.path).toEqual(['WITHDRAW_TO_REDIRECT', w.redirect])
     const ledger = JSON.parse(readFileSync(path.join(APP, 'content/release/route-ledger.json'), 'utf8')) as { routes: Array<{ path: string; state: string; redirect?: string | null }>; redirects: Array<{ source: string; destination: string }> }
@@ -57,18 +59,19 @@ describe('STAGING-AUDIT-REDIRECTS-1 prod step', () => {
       expect(r.destination).not.toBe('/')
     }
   })
-  it('dry run writes nothing (45 changes: 18 SEO fields + 1 page element + 20 redirects + 6 withdrawals); apply writes once; the rerun is 45 x UNCHANGED', async () => {
+  it('dry run writes nothing (52 changes: 18 SEO fields + 1 page element + 25 redirects + 7 withdrawals + 1 retired redirect); apply writes once; the rerun is 52 x UNCHANGED', async () => {
     const f = fake()
     const plan = await planStep(f.api, DATA2)
-    expect(plan.counts).toMatchObject({ meta: 18, slotEdits: 1, redirects: 20, withdraw: 6, unchanged: 0, refused: 0 })
-    expect(f.redirects).toHaveLength(0)
+    expect(plan.counts).toMatchObject({ meta: 18, slotEdits: 1, redirects: 25, retire: 1, withdraw: 7, unchanged: 0, refused: 0 })
+    expect(f.redirects).toHaveLength(1) // only the old record
     const res = await applyStep(f.api, plan, DATA2)
     expect(res.problems).toEqual([])
-    expect(f.redirects).toHaveLength(20)
-    expect(f.redirects.every((r) => r.status === '301' && r.active === true && /STAGING-AUDIT-REDIRECTS-1/.test(r.authority))).toBe(true)
+    expect(f.redirects).toHaveLength(26) // the old record + 25 created
+    expect(f.redirects.find((r) => r.id === 'old-hybrid')).toMatchObject({ active: false }) // retired, not deleted
+    expect(f.redirects.filter((r) => r.id !== 'old-hybrid').every((r) => r.status === '301' && r.active === true && /STAGING-AUDIT-REDIRECTS-1/.test(r.authority))).toBe(true)
     expect(f.route.disposition).toMatchObject({ state: 'REDIRECT', export: false, indexable: false, sitemap: false, redirect: '/cooling-tower-construction-repair-in-singapore/' })
     const again = await planStep(f.api, DATA2)
-    expect(again.counts).toMatchObject({ meta: 0, slotEdits: 0, redirects: 0, withdraw: 0, unchanged: 45, refused: 0 })
+    expect(again.counts).toMatchObject({ meta: 0, slotEdits: 0, redirects: 0, retire: 0, withdraw: 0, unchanged: 52, refused: 0 })
     // what was written: each title/description is exactly the new text, the Brentwood H1 is CF150MAX, other SEO fields are untouched
     for (const m of DATA2.meta as MetaRow[]) expect((f.routes.get(m.path)!.seo as Rec)[m.field], `${m.path} ${m.field}`).toBe(m.new)
     expect(f.routes.get(BR)!.slots.find((x: Rec) => x.key === 'body.1.1.1.1.1')!.heading).toBe('Brentwood CF150MAX Cellular Drift Eliminator')
@@ -97,6 +100,16 @@ describe('STAGING-AUDIT-REDIRECTS-1 prod step', () => {
     expect(titles.filter((m) => /tuf-lite/.test(m.path)).every((m) => / \| Cooling Tower Fans$/.test(m.new))).toBe(true)
     expect(titles.filter((m) => /tuf-lite/.test(m.path))).toHaveLength(11)
     for (const m of (DATA2.meta as MetaRow[]).filter((x) => x.field === 'description')) expect(m.new, m.path).not.toMatch(/commercial|OEM|worldwide|warranty/i)
+  })
+  it('the old /hybrid-cooling-tower/ redirect record is retired (inactive, not deleted); another destination or no record is not ours: refused / unchanged', async () => {
+    const f = fake()
+    const plan = await planStep(f.api, DATA2)
+    const retire = (plan.redirects as Array<{ source: string; action: string }>).find((r) => r.source === '/hybrid-cooling-tower/')
+    expect(retire?.action).toBe('RETIRE')
+    const other = fake(); other.redirects[0]!.destination = '/somewhere-else/'
+    expect(((await planStep(other.api, DATA2)).redirects as Array<{ source: string; action: string }>).find((r) => r.source === '/hybrid-cooling-tower/')?.action).toBe('REFUSE')
+    const none = fake(); none.redirects.length = 0
+    expect(((await planStep(none.api, DATA2)).redirects as Array<{ source: string; action: string }>).find((r) => r.source === '/hybrid-cooling-tower/')?.action).toBe('UNCHANGED')
   })
   it('an already-existing identical record and an already-withdrawn page are UNCHANGED', async () => {
     const plan = await planStep(fake({ withdrawn: true, redirects: [{ id: 'z', source: '/blog/', destination: '/tech-articles/', active: true }] }).api, DATA2)
