@@ -27,7 +27,8 @@ export function ArticleCard({card,as='li'}:{card:ArticleCardData;as?:'li'|'div'}
   const Tag=as
   return <Tag className="wave4-article-card-item" data-article-card="" data-article-route={card.path} data-topic={topic?.slug}>
     <a className="wave4-article-card" href={card.path}>
-      <span className="wave4-article-card-media">{card.image?<img src={deliverySrc(card.image.src)} alt="" width={card.image.width} height={card.image.height} loading="lazy" decoding="async" data-source-sha256={card.image.sha256}/>:null}</span>
+      {/* TECH-CARDS-NOIMG-1: a card without a held image draws no media box (the grid's first row is then the body). */}
+      {card.image?<span className="wave4-article-card-media"><img src={deliverySrc(card.image.src)} alt="" width={card.image.width} height={card.image.height} loading="lazy" decoding="async" data-source-sha256={card.image.sha256}/></span>:null}
       <span className="wave4-article-card-body">
         {topic?<span className="wave4-article-card-eyebrow">{topic.name}</span>:null}
         <strong className="wave4-article-card-title">{card.title}</strong>

@@ -102,6 +102,14 @@ export function articleCardImage(doc:SalmonDocument):{src:string;alt:string;widt
     if(src&&media?.sha256&&media.width&&media.height&&existsSync(path.join(process.cwd(),'public',physicalImagePath(src)??src)))
       return {src,alt:image.alt||doc.title,width:media.width,height:media.height,sha256:media.sha256}
   }
+  // TECH-CARDS-NOIMG-1: an article whose image list holds nothing held falls back to the first held image inside its own body.
+  for(const node of doc.children.flatMap(child=>descendants(child,'img'))){
+    const source=node.attrs['data-src']||node.attrs.src
+    const media=source?salmonMedia(source,doc.sourceUrl):undefined
+    const src=media&&salmonMediaPath(media)
+    if(src&&media?.sha256&&media.width&&media.height&&existsSync(path.join(process.cwd(),'public',physicalImagePath(src)??src)))
+      return {src,alt:node.attrs.alt||doc.title,width:media.width,height:media.height,sha256:media.sha256}
+  }
   return undefined
 }
 
