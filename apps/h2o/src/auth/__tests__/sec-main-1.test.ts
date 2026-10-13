@@ -140,7 +140,8 @@ describe('first-user endpoints are 404 once any user exists', () => {
     for (const m of ['GET', 'POST', 'DELETE', 'PATCH', 'PUT', 'OPTIONS']) expect(route).toContain(`export const ${m} = guarded(REST_${m}(config))`)
     expect(route).toMatch(/isFirstRegisterSlug\(slug\) && \(await anyUserExists\(/)
     const page = readFileSync(path.join(APP, 'src/app/(payload)/admin/[[...segments]]/page.tsx'), 'utf8')
-    expect(page).toMatch(/isCreateFirstUserSegments\(segments\) && \(await anyUserExists\(await getPayload\(\{ config \}\)\)\)\) notFound\(\)/)
+    expect(page).toMatch(/const payload = await getPayload\(\{ config \}\)/)
+    expect(page).toMatch(/isCreateFirstUserSegments\(segments\) && \(await anyUserExists\(payload\)\)\) notFound\(\)/)
   })
 })
 

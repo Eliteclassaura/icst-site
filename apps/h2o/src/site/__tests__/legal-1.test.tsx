@@ -105,7 +105,8 @@ describe('the release',()=>{
     const footer=renderToStaticMarkup(<LuxuryFooter/>)
     const legal=footer.slice(footer.indexOf('class="sp-footer-legal"'))
     for(const href of ['/privacy-policy/','/terms-of-use/','/cookie-notice/','/accessibility/'])expect(legal,href).toContain(`href="${href}"`)
-    expect(FOOTER_LEGAL_LINKS.map(l=>l.label)).toEqual(['Terms of Use','Cookie Notice','Accessibility'])
+    expect(FOOTER_LEGAL_LINKS.map(l=>l.label)).toEqual(['Terms of Use','Cookie Notice','Accessibility','Staff Login'])
+    expect(legal).toMatch(/<a href="\/admin\/login\/\?redirect=%2Fcrm%2F">Staff Login<\/a><\/div>/)
   })
 })
 
@@ -137,7 +138,7 @@ describe('the footer carries all four legal links (owner via CT 2026-10-08)',()=
     for(const [name,target] of TEMPLATES){
       const legal=row(await render(target))
       for(const href of LEGAL_HREFS)expect(legal,`${name} ${target} ${href}`).toContain(`href="${href}"`)
-      expect([...legal.matchAll(/href="([^"]+)"/g)].every(m=>m[1]!.endsWith('/')),`${name} trailing slashes`).toBe(true)
+      expect([...legal.matchAll(/href="([^"]+)"/g)].every(m=>new URL(m[1]!,'https://h2ocooling.com').pathname.endsWith('/')),`${name} trailing slashes`).toBe(true)
     }
   },600000)
   it('on the 404 page',()=>{

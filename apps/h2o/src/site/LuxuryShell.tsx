@@ -42,6 +42,7 @@ export const FOOTER_LEGAL_LINKS:ReadonlyArray<{label:string;href:string}>=[
   {label:'Terms of Use',href:'/terms-of-use/'},
   {label:'Cookie Notice',href:'/cookie-notice/'},
   {label:'Accessibility',href:'/accessibility/'},
+  {label:'Staff Login',href:'/admin/login/?redirect=%2Fcrm%2F'},
 ]
 export const FOOTER_LOCATIONS:ReadonlyArray<{label:string;href:string}>=[
   {label:'USA',href:'/cooling-tower-construction-repair-in-united-states/'},

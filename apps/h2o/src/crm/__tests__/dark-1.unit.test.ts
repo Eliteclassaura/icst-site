@@ -42,12 +42,12 @@ const dark = tokens(block("[data-theme='dark'] .crm-app"))
 const darkSystem = tokens(block(".crm-app:not([data-theme='light'] *)"))
 
 describe('DARK-1 theme value', () => {
-  it('system is the default; only the three known values pass', () => {
+  it('dark is the fallback; all three explicit choices pass unchanged', () => {
     expect(THEMES).toEqual(['system', 'light', 'dark'])
     expect(themeFrom('dark')).toBe('dark')
     expect(themeFrom('light')).toBe('light')
     expect(themeFrom('system')).toBe('system')
-    for (const junk of [undefined, null, '', 'DARK', 'dark ', 'blue', 1, {}]) expect(themeFrom(junk)).toBe('system')
+    for (const junk of [undefined, null, '', 'DARK', 'dark ', 'blue', 1, {}]) expect(themeFrom(junk)).toBe('dark')
   })
 })
 

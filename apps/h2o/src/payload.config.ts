@@ -20,6 +20,7 @@ import {
 import sharp from 'sharp'
 import { securityDefaults } from '@factory/agency-core/cms/kernel'
 import { foundationCollections } from '@factory/agency-core/cms/foundation'
+import { adminUiAccess } from './auth/admin-access'
 import { Manufacturers } from './collections/manufacturers'
 import { catalogCollections } from './collections/index'
 import { crmCollections, crmEndpoints, crmGlobals } from './crm/index'
@@ -135,7 +136,11 @@ const collections: CollectionConfig[] = [
     // while H2O_EMAIL_MODE=off, as at launch. See `src/auth/password-email.ts`.
     // Patch L1: each user's CRM office and display time zone.
     // Patch L2: two-factor state and the admin reset.
-    if (c.slug === 'users') return withMfa(withCrmProfile(withPasswordEmail(c)))
+    if (c.slug === 'users') {
+      const users = withMfa(withCrmProfile(withPasswordEmail(c)))
+      // Sales authenticate here for /crm/. A sales account without an admin role cannot use the Payload UI.
+      return { ...users, access: { ...users.access, admin: adminUiAccess } }
+    }
     if (c.slug === 'pages') return { ...c, admin: { ...c.admin, hidden: true }, access: { ...c.access, create: () => false, update: () => false } }
     if (c.slug !== 'media') return c
     if (!c.upload || typeof c.upload !== 'object') return c

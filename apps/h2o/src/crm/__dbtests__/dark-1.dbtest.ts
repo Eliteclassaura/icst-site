@@ -4,7 +4,7 @@ import { payload, rest, userWith, type TestUser } from './harness'
 
 /**
  * DARK-1 against the isolated synthetic database: `users.crm_theme` (migration 20261007_214405_dark_1_crm_theme).
- * Default "system"; only the three values are stored; a person sets their own and cannot set someone else's.
+ * New users default to "dark"; all three values remain valid; a person sets their own and cannot set someone else's.
  */
 type Doc = Record<string, unknown>
 const sys = { overrideAccess: true as const, depth: 0 }
@@ -17,17 +17,17 @@ beforeAll(async () => {
 })
 
 describe('DARK-1 users.crm_theme', () => {
-  it('a new user starts on "system" (the field default through Payload, and the column default in SQL)', async () => {
+  it('a new user starts on "dark" (the field default through Payload, and the column default in SQL)', async () => {
     const p = await payload()
     const created = (await p.create({
       collection: 'users',
       data: { email: `dark1.new.${Date.now()}@example.test`, password: 'synthetic-Password-1!', roles: ['sales'], name: 'Synthetic DARK-1' } as never,
       ...sys,
     })) as unknown as Doc
-    expect(created.crm_theme).toBe('system')
+    expect(created.crm_theme).toBe('dark')
     const drizzle = (p.db as unknown as { drizzle: { execute: (q: unknown) => Promise<{ rows: Doc[] }> } }).drizzle
     const raw = await drizzle.execute(sql`SELECT column_default FROM information_schema.columns WHERE table_name = 'users' AND column_name = 'crm_theme'`)
-    expect(String(raw.rows[0]!.column_default)).toMatch(/^'system'::/)
+    expect(String(raw.rows[0]!.column_default)).toMatch(/^'dark'::/)
   })
 
   it('a person sets their own theme; it is read back on their session (what the CRM layout uses)', async () => {
@@ -49,6 +49,6 @@ describe('DARK-1 users.crm_theme', () => {
     const r = await rest.patch(`users/${b.id}`, a.token, { crm_theme: 'dark' })
     expect(r.status).toBeGreaterThanOrEqual(400)
     const p = await payload()
-    expect(((await p.findByID({ collection: 'users', id: b.id, ...sys })) as unknown as Doc).crm_theme).toBe('system')
+    expect(((await p.findByID({ collection: 'users', id: b.id, ...sys })) as unknown as Doc).crm_theme).toBe('dark')
   })
 })

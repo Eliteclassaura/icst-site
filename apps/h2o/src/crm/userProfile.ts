@@ -53,11 +53,11 @@ export function withCrmProfile(collection: CollectionConfig): CollectionConfig {
         admin: { position: 'sidebar', readOnly: true, description: 'On = the organisation’s standard signature. Change it in the CRM: Settings → Signatures.' },
       },
       {
-        // DARK-1: the Sales Workspace colour theme; "system" follows the device. The person sets their own.
+        // CRM-DARK-DEFAULT-1: new users start dark. Existing explicit light, dark and system choices remain valid.
         name: 'crm_theme',
         label: 'CRM theme',
         type: 'select',
-        defaultValue: 'system',
+        defaultValue: 'dark',
         options: THEMES.map((t) => ({ label: THEME_LABEL[t], value: t })),
         access: { update: selfOrAdmin },
         admin: { position: 'sidebar', description: 'Light or dark colours in the Sales Workspace. System follows your device.' },
