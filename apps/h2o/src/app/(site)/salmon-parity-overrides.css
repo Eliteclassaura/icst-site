@@ -147,3 +147,36 @@
   background-position: center 60%;
 }
 }
+
+/* The owner-selected five-cell aerial photograph fills the home hero without cropping a fan cell. */
+.salmon-copy .elementor-48 .elementor-element.elementor-element-b1edced {
+  position: relative;
+  overflow: hidden;
+}
+.salmon-copy .elementor-48 .elementor-element.elementor-element-b1edced:not(.elementor-motion-effects-element-type-background) {
+  background-image: none;
+}
+.salmon-copy .elementor-48 .elementor-element.elementor-element-b1edced::before {
+  display: none;
+}
+.salmon-copy .elementor-48 .elementor-element.elementor-element-b1edced::after {
+  position: absolute;
+  inset: -20px;
+  z-index: 0;
+  background: url('/media/five-cell-industrial-cooling-tower-aerial-b6e03a66.webp') center / cover no-repeat;
+  content: '';
+  filter: blur(18px);
+  opacity: .55;
+}
+.salmon-copy .elementor-48 .elementor-element.elementor-element-b1edced > .selected-home-hero {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+}
+.salmon-copy .elementor-48 .elementor-element.elementor-element-b1edced > .selected-home-hero img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+}

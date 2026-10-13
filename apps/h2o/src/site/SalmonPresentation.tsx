@@ -7,7 +7,7 @@ import {SalmonSeo} from './SalmonCanonical'
 import {linkLabel,namelessLink} from './link-context'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {pageForSegments} from './cohort'
-import {withImageUrls} from '../content/image-slugs'
+import {imageUrlPath,withImageUrls} from '../content/image-slugs'
 import {ownerText,provenanceHref,salmonDocument,salmonMedia,salmonMediaPath,salmonNodeText,salmonRoutes,type SalmonDocument,type SalmonNode} from './salmon'
 import {salmonFamilyFor,salmonFamilyModel} from './salmon-family-adapter'
 import {portfolioView} from './r4/R4Portfolio'
@@ -103,6 +103,12 @@ const credentialFor=(sha:string|undefined)=>{
   credentials??=new Map(withImageUrls(JSON.parse(readFileSync(path.join(process.cwd(),'content/design/home-credentials.json'),'utf8')) as {logos:Credential[]}).logos.map(l=>[l.replacesSha256,l]))
   return sha?credentials.get(sha):undefined
 }
+type SelectedHomeHero={src:string;src2x:string;fallback:string;sourceSha256:string;sha256:string;width:number;height:number;alt:string}
+let selectedHomeHero:SelectedHomeHero|undefined
+const homeHeroImage=()=>{
+  selectedHomeHero??=(JSON.parse(readFileSync(path.join(process.cwd(),'content/design/home-hero-1.json'),'utf8')) as {replacement:SelectedHomeHero}).replacement
+  return selectedHomeHero
+}
 
 /** A loop card's own title (its first heading), the alt of the card's product photo (QA pre-pass M5; CT 2026-10-07). */
 const loopTitle=(node:SalmonNode):string|undefined=>{
@@ -162,6 +168,12 @@ function sourceNode(node:SalmonNode,key:string,doc:SalmonDocument,inLoop:false|s
  if(node.attrs['aria-label'])props['aria-label']=node.attrs['aria-label']
  if(node.attrs['data-id'])props['data-id']=node.attrs['data-id']
  for(const name of ['aria-selected','aria-controls','aria-labelledby','data-tab-index'])if(node.attrs[name])props[name]=node.attrs[name]
+ if(home&&node.attrs['data-id']==='b1edced'){
+  const image=homeHeroImage()
+  return createElement(tag,props,createElement('picture',{className:'selected-home-hero'},
+   createElement('source',{type:'image/webp',srcSet:`${imageUrlPath(image.src)} 880w, ${imageUrlPath(image.src2x)} 1760w`,sizes:'(max-width: 767px) 100vw, 44vw'}),
+   createElement('img',{src:imageUrlPath(image.fallback),alt:image.alt,width:image.width,height:image.height,loading:'eager',fetchPriority:'high',decoding:'async','data-source-sha256':image.sourceSha256})))
+ }
  const tabOrder=node.attrs.style?.match(/--n-tabs-(?:title|target)-order:\s*(\d+)/)?.[1]
  if(tabOrder)props.style={...(props.style as object||{}),'--n-tabs-title-order':tabOrder,'--n-tabs-target-order':tabOrder}
  if(tag==='img'&&node.attrs['data-payload-media']&&/^\/api\/media\/file\/[A-Za-z0-9._-]+$/.test(node.attrs.src??'')){

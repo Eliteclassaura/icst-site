@@ -38,5 +38,16 @@
   "derivativePsnr": 37.6
  },
  "identity": "General imagery (owner ruling 2026-10-08): no place or project name in the alt, any caption or this ledger; never captioned as a project.",
- "alt": "Aerial view of a cooling tower with three large round fan stacks beside a construction site"
+ "alt": "Aerial view of a cooling tower with three large round fan stacks beside a construction site",
+ "replacement": {
+  "authority": "Owner-selected non-generative aerial photo, 2026-10-12; no project or place attribution",
+  "sourceSha256": "acaa6328581c5033cdc0528d232918bfc21dee5691aa24c682f5a9637ca1b904",
+  "src": "/media/home-hero/ics-megatower-cooling-tower-aerial-880x648.webp",
+  "src2x": "/media/home-hero/ics-megatower-cooling-tower-aerial-1760x1296.webp",
+  "fallback": "/media/home-hero/ics-megatower-cooling-tower-aerial-1760x1296.jpg",
+  "sha256": "b6e03a66d5dcef286414e42a4c5da22bfda142ac9a70043987b4f0801c38255b",
+  "width": 880,
+  "height": 648,
+  "alt": "Aerial view of a five-cell industrial cooling tower at a plant construction site"
+ }
 }
