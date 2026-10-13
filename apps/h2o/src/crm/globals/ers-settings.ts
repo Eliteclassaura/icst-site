@@ -65,6 +65,9 @@ const auditAndInvalidate: GlobalAfterChangeHook = async ({ doc, previousDoc, req
       changedKeys: keys,
       detail: {
         enabled: (doc as Row).enabled === true,
+        ...(keys.includes('enabled')
+          ? { enabled_transition: { from: (previousDoc as Row).enabled === true, to: (doc as Row).enabled === true } }
+          : {}),
         health: ((doc as Row).health as Row | undefined)?.state ?? null,
         compliance: (doc as Row).compliance ?? null,
       },

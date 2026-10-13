@@ -18,6 +18,24 @@ const set = async (enabled: boolean) => {
   invalidateErsSettings()
 }
 const isOn = async () => (await ersSettings(p, Date.now() + 1)).enabled === true
+const latestAdminSettingsAudit = async () => {
+  const audit = await p.find({
+    collection: 'audit-log' as never,
+    where: {
+      and: [
+        { collection: { equals: 'crm-ers-settings' } },
+        { docId: { equals: 'global' } },
+        { action: { equals: 'update' } },
+        { actor: { equals: String(admin.id) } },
+      ],
+    } as never,
+    sort: '-createdAt',
+    limit: 1,
+    ...srv,
+  })
+  expect(audit.docs).toHaveLength(1)
+  return audit.docs[0] as unknown as Doc
+}
 
 beforeAll(async () => {
   p = await payload()
@@ -54,19 +72,26 @@ describe('the engine switch', () => {
     await grant()
     expect(await setEngineSwitch(A, SID, { on: true })).toMatchObject({ ok: true })
     expect(await isOn()).toBe(true)
-    const audit = (await p.find({ collection: 'audit-log' as never, where: { collection: { equals: 'crm-ers-settings' } } as never, ...srv, limit: 20 })).docs as unknown as Doc[]
-    const mine = audit.filter((a) => String(a.actor) === String(admin.id))
-    expect(mine.length).toBeGreaterThan(0)
-    const text = JSON.stringify(mine[mine.length - 1])
-    expect(text).toContain('enabled')
-    expect(text).toContain('true')
-    expect(text).toContain('false')
+    const audit = await latestAdminSettingsAudit()
+    const detail = audit.detail as Doc
+    expect(audit.actor).toBe(String(admin.id))
+    expect(audit.changedKeys).toContain('enabled')
+    expect(detail.crm).toBe(true)
+    expect(detail.enabled).toBe(true)
+    expect(detail.enabled_transition).toEqual({ from: false, to: true })
   })
 
   it('turning it OFF never needs step-up', async () => {
     await set(true)
     expect(await setEngineSwitch(A, null, { on: false })).toMatchObject({ ok: true })
     expect(await isOn()).toBe(false)
+    const audit = await latestAdminSettingsAudit()
+    const detail = audit.detail as Doc
+    expect(audit.actor).toBe(String(admin.id))
+    expect(audit.changedKeys).toContain('enabled')
+    expect(detail.crm).toBe(true)
+    expect(detail.enabled).toBe(false)
+    expect(detail.enabled_transition).toEqual({ from: true, to: false })
   })
 })
 
@@ -118,6 +143,13 @@ describe('the engine cannot be turned on any other way', () => {
     await p.updateGlobal({ slug: 'crm-ers-settings' as never, data: { daily_cap: 40 } as never, depth: 0, ...as(admin) })
     invalidateErsSettings()
     expect((await ersSettings(p, Date.now() + 1)).enabled).toBe(false)
+    const audit = await latestAdminSettingsAudit()
+    const detail = audit.detail as Doc
+    expect(audit.actor).toBe(String(admin.id))
+    expect(audit.changedKeys).toContain('daily_cap')
+    expect(detail.crm).toBe(true)
+    expect(detail.enabled).toBe(false)
+    expect(detail.enabled_transition).toBeUndefined()
   })
 
   it('the switch with step-up still works, and a server script with no signed-in user is allowed', async () => {
