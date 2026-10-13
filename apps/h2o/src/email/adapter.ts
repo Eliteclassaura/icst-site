@@ -4,6 +4,7 @@ import { readEmailConfig, type EmailConfig } from './config'
 import { resolveSending, withSending } from './profiles'
 import { failureCode, gateRecipient, recipientRef } from './gate'
 import { createTransport, formatFrom, type MailTransport } from './transport'
+import { textToHtml } from './messages'
 
 /**
  * Payload's email adapter for H2O (CRM email M1). Payload itself sends only auth mail (the password reset).
@@ -74,8 +75,9 @@ export function makeSendEmail(payload: Payload, cfg: EmailConfig, transport: Mai
         )
         continue
       }
-      const html = typeof message.html === 'string' ? message.html : undefined
-      const text = typeof message.text === 'string' ? message.text : html ? textFromHtml(html) : ''
+      const suppliedHtml = typeof message.html === 'string' ? message.html : undefined
+      const text = typeof message.text === 'string' ? message.text : suppliedHtml ? textFromHtml(suppliedHtml) : ''
+      const html = suppliedHtml ?? (text ? textToHtml(text) : undefined)
       try {
         await transport.send({
           from: formatFrom(cfg),

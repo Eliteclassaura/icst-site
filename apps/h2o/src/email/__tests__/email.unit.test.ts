@@ -295,6 +295,16 @@ describe('transactional suppression (customer acknowledgement)', () => {
 })
 
 describe('E1 messages', () => {
+  it('renders short paragraphs in a mobile-width body and allows long links to wrap without changing text', () => {
+    const text = `Hi Avery,\n\nOpen https://example.test/${'a'.repeat(180)}\n\nICS Sales Team\n`
+    const html = textToHtml(text)
+    expect(html).toContain('max-width:640px')
+    expect(html).toContain('overflow-wrap:anywhere')
+    expect(html).toContain('word-wrap:break-word')
+    expect(html.match(/<p style=/g)).toHaveLength(3)
+    expect(html).toContain(`https://example.test/${'a'.repeat(180)}`)
+    expect(text).toMatch(/ICS Sales Team\n$/)
+  })
   // Patch C: T1 is rendered from the approved template (seed = the OGCS copy), through the template engine.
   const T1 = SEED_TEMPLATES.find((t) => t.code === 'T1')!
   const t1 = (first: string | null, promise: string | null) => {

@@ -1,4 +1,5 @@
 import { notifyProfileChange } from './profile-notice'
+import { textToHtml } from './messages'
 import type { Payload } from 'payload'
 import { confirmStepUp, confirmStepUpApp, loadMfaUser, stepUpAppSecondsLeft, stepUpSecondsLeft } from '../auth/mfa/service'
 import { readEmailConfig, recipientKey } from './config'
@@ -299,12 +300,14 @@ export async function testSendProfile(s: CrmSession, sid: string | null, id: str
   const opened = await openProfile(doc, { resolve: deps.resolve })
   if (!opened.ok) return fail(opened.code, checkMessage(opened.code))
   const ref = recipientRef(to)
+  const text = `This is a test of the sending profile “${String(doc.name).replace(/[\r\n]/g, ' ')}”. If you can read it, the profile works.\n\nSent at your request from CRM → Settings → Sending profiles.\n`
   try {
     await (deps.send ?? sendWith)(opened.smtp, {
       from: `"${opened.fromName.replace(/["\\\r\n]/g, '')}" <${opened.fromAddress}>`,
       to,
       subject: 'Test message from the H2O CRM',
-      text: `This is a test of the sending profile “${String(doc.name).replace(/[\r\n]/g, ' ')}”. If you can read it, the profile works.\n\nSent at your request from CRM → Settings → Sending profiles.\n`,
+      text,
+      html: textToHtml(text),
       headers: { 'Auto-Submitted': 'auto-generated', 'X-Auto-Response-Suppress': 'All' },
     })
   } catch (err) {

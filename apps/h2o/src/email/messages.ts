@@ -30,9 +30,9 @@ export const oneLine = (s: unknown, max = 160): string =>
 export const textToHtml = (text: string): string => htmlFrom(text.trim().split(/\n{2,}/))
 
 const htmlFrom = (paragraphs: string[]): string =>
-  `<!doctype html><html><body style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#1a1a1a">${paragraphs
-    .map((p) => `<p>${escapeHtml(p).replace(/\n/g, '<br>')}</p>`)
-    .join('')}</body></html>`
+  `<!doctype html><html><body style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#1a1a1a"><div style="max-width:640px;margin:0 auto;padding:24px 20px;overflow-wrap:anywhere;word-wrap:break-word">${paragraphs
+    .map((p) => `<p style="margin:0 0 16px">${escapeHtml(p).replace(/\n/g, '<br>')}</p>`)
+    .join('')}</div></body></html>`
 
 export type SalesAlertInput = {
   rfqNumber: string

@@ -226,6 +226,9 @@ describe('sending profiles: step-up, sealed password, access', () => {
     expect(await sending.testSendProfile(A, sid, id, { now: t, resolve: PUBLIC, send })).toMatchObject({ ok: false, code: 'RATE_LIMITED' })
     expect(sent.map((m) => m.to)).toEqual([ADMIN_ADDR, ADMIN_ADDR, ADMIN_ADDR])
     expect(sent[0]!.from).toBe('"ICS Sales Team" <rfq@example.test>')
+    expect(sent[0]!.html).toContain('This is a test of the sending profile')
+    expect(sent[0]!.html).toContain('Sent at your request')
+    expect(sent[0]!.html).toContain('max-width:640px')
     const ev = (await p.find({ collection: 'crm-email-events', where: { kind: { equals: 'PROFILE_TEST' } }, ...srv })).docs as unknown as Doc[]
     expect(ev.map((e) => e.event)).toEqual(['DIRECT_SENT', 'DIRECT_SENT', 'DIRECT_SENT'])
     expect(JSON.stringify(ev)).not.toContain(ADMIN_ADDR)

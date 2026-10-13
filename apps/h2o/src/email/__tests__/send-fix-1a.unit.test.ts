@@ -101,6 +101,11 @@ describe('system mail is not an outbox kind: the launch allowlist never blocks i
     expect(await send({ to: 'owner.synthetic@example.test', subject: 'Reset your password', html: renderPasswordReset('https://admin.example.test/admin/reset/SYNTHETIC').html })).toEqual({ sent: 1, suppressed: 0 })
     expect(sent).toHaveLength(1)
     expect(events).toEqual([expect.objectContaining({ event: 'DIRECT_SENT', kind: 'PAYLOAD_AUTH' })])
+    expect(await send({ to: 'owner.synthetic@example.test', subject: 'Security notice', text: 'Notice <script>one</script>.\n\nICS Sales Team\n' })).toEqual({ sent: 1, suppressed: 0 })
+    expect(sent[1]!.text).toBe('Notice <script>one</script>.\n\nICS Sales Team\n')
+    expect(sent[1]!.html).toContain('<p style="margin:0 0 16px">Notice &lt;script&gt;one&lt;/script&gt;.</p>')
+    expect(sent[1]!.html).not.toContain('<script>')
+    expect(sent[1]!.html).toContain('<p style="margin:0 0 16px">ICS Sales Team</p>')
   })
 })
 

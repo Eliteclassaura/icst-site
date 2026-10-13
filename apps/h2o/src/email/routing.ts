@@ -8,6 +8,7 @@ import { resolveSending } from './profiles'
 import { sendWith, type MailMessage } from './transport'
 import { admit, ALERT_TEST_RULE, bucketFor } from '../crm/intake/native/limits'
 import { recordEmailEvent } from '../crm/notify'
+import { textToHtml } from './messages'
 import type { Outcome } from '../crm/workspace/mutations'
 import type { CrmSession } from '../crm/workspace/session'
 import type { SmtpSettings } from './config'
@@ -166,12 +167,14 @@ export async function sendTestAlert(s: CrmSession, sid: string | null, deps: Rou
   // ONE message with every recipient in To, like the real alert (owner ruling 2026-10-08).
   let sent = 0
   let failed = 0
+  const text = testAlertText(s.displayName)
   try {
     await (deps.send ?? sendWith)(sending.smtp, {
       from: `"${sending.fromName.replace(/["\\\r\n]/g, '')}" <${sending.fromAddress}>`,
       to: sendable.join(', '),
       subject: TEST_ALERT_SUBJECT,
-      text: testAlertText(s.displayName),
+      text,
+      html: textToHtml(text),
       headers: { 'Auto-Submitted': 'auto-generated', 'X-Auto-Response-Suppress': 'All' },
     })
     sent = sendable.length

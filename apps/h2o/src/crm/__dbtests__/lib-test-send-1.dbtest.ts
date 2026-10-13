@@ -1,5 +1,6 @@
 import type { Payload } from 'payload'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { htmlToText } from '../inbound'
 import { invalidateProfiles } from '../../email/profiles'
 import { importLibrary } from '../library/import'
 import { variantsOf } from '../library/service'
@@ -79,7 +80,9 @@ describe('LIB-TEST-SEND-1', () => {
     expect(m.text).toContain('sent only to you')
     expect(m.text).not.toMatch(/«Missing:|\{\{/)
     expect(m.headers).toMatchObject({ 'Auto-Submitted': 'auto-generated' })
-    expect(m.html).toContain('<p>')
+    expect(m.html?.match(/<p(?:\s[^>]*)?>/g)?.length).toBeGreaterThanOrEqual(2)
+    expect(htmlToText(m.html ?? '')).toContain('sent only to you')
+    expect(m.html).not.toMatch(/<script|<img/i)
   })
 
   it('every approved-or-imported E1 email with a complete sample can be sent; none is held for a missing field on Sample A', async () => {
