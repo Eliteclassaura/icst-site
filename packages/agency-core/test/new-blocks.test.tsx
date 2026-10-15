@@ -5,6 +5,7 @@ import { ProjectCarouselBlock } from '../src/blocks/projectCarousel/index'
 import * as fx from '../src/blocks/fixtures/index'
 import { HeaderBlock } from '../src/blocks/header/index'
 import { RenderBlocks } from '../src/blocks/render'
+import { FooterBlock } from '../src/blocks/footer/index'
 import { ProductGridBlock } from '../src/blocks/productGrid/index'
 import { ChipNavBlock } from '../src/blocks/chipNav/index'
 
@@ -194,5 +195,20 @@ describe('parts hub blocks through RenderBlocks', () => {
     expect(html).toContain('src="/x.webp" alt="Fan"')
     expect(html).toContain('href="/kept/"')
     expect(html).not.toContain('Dropped')
+  })
+})
+
+describe('footer contact slot (address and phone from the manifest)', () => {
+  it('renders the address lines and a tel: phone when the route supplies them', () => {
+    const html = renderToStaticMarkup(
+      <FooterBlock columns={[]} copyrightHolder="Legal Name" year={2026} contact={{ lines: ['159 Serm-Mit Tower', 'Bangkok'], phone: { display: '+662-661-7723', tel: 'tel:+6626617723' } }} />,
+    )
+    expect(html).toContain('159 Serm-Mit Tower')
+    expect(html).toContain('href="tel:+6626617723"')
+    expect(html).toContain('+662-661-7723')
+  })
+  it('renders no contact block without a contact prop (fail closed)', () => {
+    const html = renderToStaticMarkup(<FooterBlock columns={[]} copyrightHolder="Legal Name" year={2026} />)
+    expect(html).not.toContain('blk-footer__contact')
   })
 })

@@ -1,0 +1,103 @@
+{
+  "title": "Keramasan Power Project - ICST - Thailand",
+  "description": "See the Keramasan Power Project case study from ICST, covering the cooling tower equipment and scope of work delivered.",
+  "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Projects",
+          "href": "/projects/"
+        }
+      ],
+      "current": "Keramasan Power Project"
+    },
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Keramasan Power Project - ICST - Thailand"
+    },
+    {
+      "blockType": "dataTable",
+      "caption": "Project facts",
+      "rowHeader": "Fact",
+      "columns": [
+        {
+          "label": "Value"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Project",
+          "cells": [
+            {
+              "text": "Keramasan Power Project"
+            }
+          ]
+        },
+        {
+          "label": "Industry",
+          "cells": [
+            {
+              "text": "Thermal Power"
+            }
+          ]
+        },
+        {
+          "label": "Client",
+          "cells": [
+            {
+              "text": "TPSC Corp"
+            }
+          ]
+        },
+        {
+          "label": "Location",
+          "cells": [
+            {
+              "text": "Java, Indonesia"
+            }
+          ]
+        },
+        {
+          "label": "Tower type",
+          "cells": [
+            {
+              "text": "4-Cell, Concrete Counterflow"
+            }
+          ]
+        },
+        {
+          "label": "Year",
+          "cells": [
+            {
+              "text": "2012"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "cta",
+      "eyebrow": "Next step",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
+    }
+  ]
+}

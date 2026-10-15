@@ -1,0 +1,116 @@
+{
+  "title": "Cooling Tower Nozzles | Precision Engineering - ICST - Thailand",
+  "description": "High-performance cooling tower nozzles by ICST. Designed for efficient water distribution and durability in industrial systems.",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Miscellaneous Nozzles",
+      "lede": "Enhance your cooling tower’s efficiency with our precision-engineered nozzles. Designed for optimal water distribution and durability, our nozzles ensure consistent performance. Upgrade your system today!"
+    },
+    {
+      "blockType": "chipNav",
+      "label": "Parts categories",
+      "links": [
+        {
+          "label": "Fans",
+          "href": "/fans/"
+        },
+        {
+          "label": "Motors",
+          "href": "/motors/"
+        },
+        {
+          "label": "Nozzles",
+          "href": "/nozzles/"
+        },
+        {
+          "label": "Fill media",
+          "href": "/fill-media/"
+        },
+        {
+          "label": "FRP members",
+          "href": "/frp-members/"
+        },
+        {
+          "label": "Gear box",
+          "href": "/gear-box/"
+        },
+        {
+          "label": "Tower hardware",
+          "href": "/tower-hardware/"
+        },
+        {
+          "label": "Cooling tower fan stacks",
+          "href": "/cooling-tower-fan-stacks/"
+        },
+        {
+          "label": "Drive shaft assemblies",
+          "href": "/drive-shafts-assembles/"
+        }
+      ],
+      "currentPath": "/nozzles/"
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Counterflow|Nozzles",
+            "Counterflow"
+          ]
+        },
+        {
+          "heading": "C.E. Shepherd Square Pattern Nozzles",
+          "paragraphs": [
+            "Crossflow"
+          ]
+        },
+        {
+          "heading": "Amertech ATSprayer Yoke Style Nozzle",
+          "paragraphs": [
+            "CE Shepherd, Brentwood and others with non-clog retrofit nozzles for all major brands of counterflow and crossflow towers.",
+            "Have questions regarding Nozzles?",
+            "Contact For Pricing"
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "Nozzles",
+      "title": "Nozzles we supply",
+      "lede": "Synthetic copy: one line about the products in this category.",
+      "actionLabel": "Request a quote",
+      "items": [
+        {
+          "title": "Nozzles product one",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Nozzles product two",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Nozzles product three",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Nozzles product four",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to our parts team",
+      "text": "Synthetic supporting line for the phone call-to-action."
+    }
+  ]
+}

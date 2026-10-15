@@ -1,0 +1,152 @@
+{
+  "title": "Tech articles | Cooling tower library",
+  "description": "Industrial cooling tower articles from ICST.",
+  "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "current": "Tech articles"
+    },
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "eyebrow": "Library",
+      "title": "Tech articles",
+      "lede": "Articles on cooling tower design, operation and maintenance."
+    },
+    {
+      "blockType": "productGrid",
+      "title": "All articles",
+      "lede": "23 articles, most read first.",
+      "actionLabel": "Read article",
+      "items": [
+        {
+          "title": "Cooling Tower Water Loss: Causes, Formulas & Fixes",
+          "text": "Article from the ICST library.",
+          "href": "/cooling-tower-water-loss/"
+        },
+        {
+          "title": "Air Cooler Malfunctions: Common Problems, Causes, and Safe Fixes",
+          "text": "Article from the ICST library.",
+          "href": "/air-cooler-malfunctions/"
+        },
+        {
+          "title": "Cooling System CAD Drawings: The Complete Engineering Guide - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/cooling-system-cad-drawings/"
+        },
+        {
+          "title": "Environmental Impact of Cooling Towers: Risks and Solutions",
+          "text": "Article from the ICST library.",
+          "href": "/environmental-impact-of-cooling-towers/"
+        },
+        {
+          "title": "Free Cooling Tower Calculators: Track Approach, Range, and Energy Loss - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/free-cooling-tower-calculators/"
+        },
+        {
+          "title": "Cooling Tower Performance Testing CTI: ATC-105 Guide - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/cooling-tower-performance-testing-cti/"
+        },
+        {
+          "title": "Fan Blade Pitch Optimization Guide | ICST",
+          "text": "Article from the ICST library.",
+          "href": "/fan-blade-pitch-optimization/"
+        },
+        {
+          "title": "Cooling Tower Water Distribution System: Design Guide",
+          "text": "Article from the ICST library.",
+          "href": "/cooling-tower-water-distribution-system/"
+        },
+        {
+          "title": "Cooling Towers in Power Plants: Design & Maintenance Guide",
+          "text": "Article from the ICST library.",
+          "href": "/15080-2cooling-towers-in-power-plants/"
+        },
+        {
+          "title": "Industrial Fan Blade Vibration: Causes, Symptoms & Solutions - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/industrial-fan-blade-vibration/"
+        },
+        {
+          "title": "Understanding Cooling System Performance Metrics and KPIs - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/cooling-system-performance-metrics/"
+        },
+        {
+          "title": "Cooling Tower Repair: Step-by-Step Guide & Checklist",
+          "text": "Article from the ICST library.",
+          "href": "/step-by-step-cooling-tower-repair-and-maintenance-guide/"
+        },
+        {
+          "title": "Heat Exchangers: Types, Applications & Efficiency (2026)",
+          "text": "Article from the ICST library.",
+          "href": "/heat-exchangers/"
+        },
+        {
+          "title": "Oil Refinery Cooling System Design Guide | Expert Engineering - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/oil-refinery-cooling/"
+        },
+        {
+          "title": "Types of Industrial Fan Blades: Selection Guide",
+          "text": "Article from the ICST library.",
+          "href": "/industrial-fan-blades-3/"
+        },
+        {
+          "title": "Adiabatic Cooling System: Design, Benefits & ROI",
+          "text": "Article from the ICST library.",
+          "href": "/adiabatic-cooling-system/"
+        },
+        {
+          "title": "Cooling System Emergency Shutdown: Procedures & Safety Guide - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/cooling-system-emergency-shutdown/"
+        },
+        {
+          "title": "What Are Industrial Cooling Systems? Types and Applications - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/industrial-cooling-systems/"
+        },
+        {
+          "title": "Air Cooler Troubleshooting: How to Identify and Fix Common Air Cooler Malfunctions - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/air-cooler-troubleshooting/"
+        },
+        {
+          "title": "Thailand’s Industrial Cooling Policies 2026 Guide - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/thailands-industrial-cooling-policies/"
+        },
+        {
+          "title": "Fan Blade Vibration Analysis: Interpret Data & Prevent Failure - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/fan-blade-vibration/"
+        },
+        {
+          "title": "Cooling System Design Software: 2026 Guide to Efficiency - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/cooling-system-design-software-2/"
+        },
+        {
+          "title": "Common Cooling Tower Problems and How to Fix Them - ICST - Thailand",
+          "text": "Article from the ICST library.",
+          "href": "/common-cooling-tower-problems-and-how-to-fix-them/"
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
+    }
+  ]
+}

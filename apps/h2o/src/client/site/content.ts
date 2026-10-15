@@ -53,6 +53,7 @@ function readPage(file: string): ClientPageData {
   const d = readJson(file) as Partial<ClientPageData>
   if (typeof d.title !== 'string' || !Array.isArray(d.layout)) throw new Error(`${file}: a page needs a title and a layout list`)
   if (d.path !== undefined && !PATH_OK.test(d.path)) throw new Error(`${file}: path must look like /a/b/ (lower-case segments, leading and trailing slash)`)
+  if (d.canonical !== undefined && !/^\/[a-z0-9-]+(\/[a-z0-9-]+)*\/$/.test(d.canonical)) throw new Error(`${file}: canonical must be a same-site path ending in /`)
   return d as ClientPageData
 }
 

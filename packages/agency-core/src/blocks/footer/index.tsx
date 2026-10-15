@@ -7,11 +7,13 @@ export type FooterProps = {
   columns: Array<{ heading: string; links: LinkRef[] }>
   offices?: Array<{ city: string; region: string; hours: string }>
   copyrightHolder: string
+  /** The office contact (address lines and a tel: phone), read from the client manifest by the route; absent = not shown. */
+  contact?: { lines: string[]; phone?: { display: string; tel: string } }
   /** Fixed year for deterministic fixtures/tests; production omits it and the render year is used. */
   year?: number
 }
 
-export function FooterBlock({ columns, offices, copyrightHolder, year }: FooterProps) {
+export function FooterBlock({ columns, offices, copyrightHolder, contact, year }: FooterProps) {
   const y = year ?? new Date().getFullYear()
   return (
     <footer className="blk-footer">
@@ -45,6 +47,23 @@ export function FooterBlock({ columns, offices, copyrightHolder, year }: FooterP
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+        {contact && contact.lines.length > 0 && (
+          <div className="blk-footer__contact">
+            <p className="blk-footer__h">Contact</p>
+            <address className="blk-footer__address">
+              {contact.lines.map((l, i) => (
+                <span key={i} className="blk-footer__address-line">
+                  {l}
+                </span>
+              ))}
+            </address>
+            {contact.phone && (
+              <a className="blk-footer__phone" href={contact.phone.tel.startsWith('tel:') ? contact.phone.tel : `tel:${contact.phone.tel}`}>
+                {contact.phone.display}
+              </a>
+            )}
           </div>
         )}
         <div className="blk-footer__btm">

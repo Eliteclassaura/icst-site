@@ -1,0 +1,405 @@
+{
+  "title": "Air Cooler Malfunctions: Common Problems, Causes, and Safe Fixes",
+  "description": "Learn what causes common air cooler problems like weak cooling, dry pads, leaks, and odors, and which checks are safe before calling a technician.",
+  "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Air Cooler Malfunctions: Common Problems, Causes, and Safe Fixes"
+    },
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Air Cooler Malfunctions: Common Problems, Causes, and Safe Fixes"
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "When an industrial air cooler starts blowing warm air, leaking, or making noise, the cause is usually found in a few places: the cooling pads, the water supply, the water pump, or the fan. This guide explains common air cooler malfunctions, what usually causes them, and which checks can be done safely on site.",
+            "It also marks the point where air cooler problems need a professional technician, particularly faults involving the fan motor, electrical connections, or internal components.",
+            "An evaporative air cooler lowers air temperature through evaporative cooling. When it is used in factories, warehouses, and workshops, it is often called an industrial air cooler.",
+            "Instead of refrigerant and a compressor, it relies on water and airflow.",
+            "The water pump lifts water from the water tank to the top of the cooling pads. The water runs down through the pads and keeps them wet.",
+            "The fan draws warm air through the wet pads. As the water evaporates, it absorbs heat from the passing air, and the fan pushes the resulting cool air into the space.",
+            "To ensure optimal performance, two conditions matter most. The pads must be fully and evenly wet. The space also needs proper ventilation, so humid air can leave, and fresh air can enter.",
+            "Because evaporative cooling adds moisture to the air, cooling efficiency drops when the outside air is already humid. This is normal behavior rather than a fault, and it is worth knowing before you troubleshoot a unit in humid weather.",
+            "An air cooler cools the air in a space. It will not produce cold air the way air conditioners do, and it does not remove moisture from the air.",
+            "Air conditioners use refrigerant, a compressor, and coils.",
+            "A cooling tower is a different machine. It cools process or condenser water by releasing heat to the atmosphere, and it does not deliver cool air to people in a space. Cooling towers also have their own maintenance and cooling tower water treatment needs.",
+            "Knowing what each part does makes it easier to trace a symptom back to its source.",
+            "Most air cooler problems start on the water side. Hard water leaves mineral deposits on the pads, dust buildup blocks airflow, and stagnant water encourages algae growth.",
+            "Long running hours during summer heat speed all of this up. Without proper maintenance, small issues turn into reduced cooling efficiency, water leakage or a bad smell. Examples of improper maintenance include skipping pad cleaning or leaving water in the tank during shutdowns.",
+            "Electrical and mechanical faults also occur, such as a faulty motor or worn bearings. These need a qualified person to repair.",
+            "If the unit runs but delivers warm airflow, start with the pads and the water.",
+            "Likely causes:",
+            "Safe checks:",
+            "A unit running with dry pads still adds to energy consumption through the fan, but delivers very little cooling. That makes the pads the first thing to check.",
+            "Dry or partly dry pads usually point to a water flow problem rather than a pad problem.",
+            "Safe checks, with the unit unplugged:",
+            "The pump may hum while no water moves, or it may fail to start at all after cleaning. Either way, the problem may be inside the pump or in its wiring.",
+            "A user can confirm that the tank has water and the intake is clear. Testing or replacing a faulty water pump, and checking its electrical connections, should be left to a qualified technician.",
+            "Avoid running the pump without water, as this can damage it.",
+            "If the fan motor hums without turning, runs hot, or smells of burning, disconnect the unit and have a technician inspect it.",
+            "Water leakage wets the floor around the unit and can reach electrical parts, so treat it promptly.",
+            "If water has reached electrical parts, keep away and have a qualified person isolate the power supply.",
+            "Do not run a unit with a bent or damaged blade. Grinding or squealing usually points to worn bearings, which need a technician.",
+            "Foul odors usually come from the water rather than the air. Stagnant water left in the tank becomes a breeding ground for algae growth and bacteria. This produces a musty smell and lowers indoor air quality.",
+            "Steps:",
+            "If the space feels damp or sticky, the cooler is adding moisture faster than the space can remove it. This is a ventilation issue, not a unit fault.",
+            "Open an exit path for the air, such as doors, windows or exhaust fans, so humid air leaves and fresh air replaces it. During very humid weather, expect reduced cooling efficiency even from a unit that is functioning properly.",
+            "Air Cooler Troubleshooting Checklist",
+            "Symptom",
+            "Likely Cause",
+            "Safe First Check",
+            "Call a Technician If",
+            "Not cooling properly",
+            "Dirty or dry pads, low water",
+            "Refill, clean or refit pads",
+            "Pads stay dry after cleaning",
+            "Pads not wet",
+            "Blocked intake or distribution holes",
+            "Clean intake and holes",
+            "Water still does not flow",
+            "Pump not working",
+            "Blocked intake, pump fault",
+            "Check water level and intake",
+            "Pump hums or fails to start",
+            "Weak airflow",
+            "Dust, clogged pads, debris",
+            "Clean intake, remove debris",
+            "Motor hums, overheats or smells",
+            "Fan not running",
+            "No power, tripped breaker",
+            "Check power, reset breaker once",
+            "Breaker trips again",
+            "Water leakage",
+            "Drain, float valve, uneven ground",
+            "Clear drain, adjust valve, level unit",
+            "Tank is cracked",
+            "Strange noises",
+            "Loose screws, debris, worn bearings",
+            "Tighten panels, remove debris",
+            "Grinding or squealing motor",
+            "Bad smell",
+            "Stagnant water, algae, mold",
+            "Drain, clean, replace pads",
+            "Smell returns quickly",
+            "Simple checks are safe only when the unit is fully isolated.",
+            "Stop troubleshooting and contact the manufacturer’s authorized service provider or a qualified electrician if any of the following apply:",
+            "These faults involve electrical or rotating parts. Repairing them without training risks injury and further damage.",
+            "For a broader look at how these systems work and where they’re applied, see our guide to industrial air cooler technologies.",
+            "Regular maintenance will not prevent every fault. It does remove the most common causes before they affect cooling performance.",
+            "How often to do it depends on running hours, water hardness and dust levels, so follow the manufacturer’s schedule.",
+            "These regular maintenance tasks can be handled by site staff once the unit is isolated:",
+            "Small checks done on schedule help keep the cooler running smoothly.",
+            "Units that run long shifts need more frequent checks. For reliable cooling, clean the cooling pads more often and refresh the water. This helps maintain consistent performance when demand is highest.",
+            "Run the fan alone, with the pump off, until the pads are dry. Then drain and clean the tank, so stagnant water does not sit in the unit.",
+            "Have a qualified technician inspect the fan motor, bearings, pump, and electrical connections at the intervals the manufacturer recommends.",
+            "Regular cleaning of the pads and tank is a cost-effective task for the site team. Work on internal components should stay with trained personnel.",
+            "Most air cooler problems trace back to the pads, the water and the airflow. These can all be checked safely once the unit is isolated.",
+            "Electrical, motor, and bearing faults are different. When air cooler malfunctions involve those parts, the right next step is a qualified technician, not further troubleshooting.",
+            "ICST works with industrial cooling towers, which cool process and condenser water rather than room air. If your site’s cooling tower is losing performance, our team can help with cooling tower maintenance, parts and new towers. Contact ICST",
+            "The most common are weak cooling, dry pads, weak airflow, water leakage, unusual noise, and a bad smell. Most come from dirty pads, low or uneven water flow, a blocked pump intake, or stagnant water.",
+            "Check that the tank has water, the pads are evenly wet, and the space has proper ventilation. In humid weather, an evaporative cooler cools less even when it is working correctly.",
+            "It depends on running hours, water hardness, and dust levels. Follow the manufacturer’s schedule, and inspect the pads more often during peak use or when mineral deposits build up quickly.",
+            "Loose screws, debris on the fan, and a pump running with low water are common causes. Grinding or squealing from the motor usually means worn bearings, which need a technician."
+          ],
+          "bullets": [
+            {
+              "text": "What Is an Evaporative Air Cooler?"
+            },
+            {
+              "text": "How Air Coolers Operate"
+            },
+            {
+              "text": "How Air Coolers Differ From Cooling Towers and Air Conditioners"
+            },
+            {
+              "text": "Main Parts of an Industrial Air Cooler"
+            },
+            {
+              "text": "Why Air Cooler Problems Happen"
+            },
+            {
+              "text": "Common Air Cooler Problems and How to Fix Them"
+            },
+            {
+              "text": "Air Cooler Not Cooling Properly"
+            },
+            {
+              "text": "Cooling Pads Not Getting Wet"
+            },
+            {
+              "text": "Faulty Water Pump"
+            },
+            {
+              "text": "Weak Airflow or Fan Not Running"
+            },
+            {
+              "text": "Water Leakage From the Unit"
+            },
+            {
+              "text": "Strange Noises or Vibration"
+            },
+            {
+              "text": "Bad Smell and Foul Odors"
+            },
+            {
+              "text": "Too Much Humidity in the Space"
+            },
+            {
+              "text": "Safety Before You Start"
+            },
+            {
+              "text": "When Should You Call a Professional?"
+            },
+            {
+              "text": "Regular Maintenance for Efficient Cooling"
+            },
+            {
+              "text": "Routine Checks"
+            },
+            {
+              "text": "During Peak Summer Heat"
+            },
+            {
+              "text": "Before a Long Shutdown"
+            },
+            {
+              "text": "Periodic Technician Inspection"
+            },
+            {
+              "text": "Conclusion"
+            },
+            {
+              "text": "Frequently Asked Questions"
+            },
+            {
+              "text": "What are the most common air cooler problems?"
+            },
+            {
+              "text": "Why is my air cooler running but not cooling properly?"
+            },
+            {
+              "text": "How often should cooling pads be cleaned?"
+            },
+            {
+              "text": "Why is my air cooler making an unusual noise?"
+            },
+            {
+              "text": "Fan blades and fan motor: move air through the pads, delivering cool air into the space."
+            },
+            {
+              "text": "Cooling pads: the wet media where evaporation takes place."
+            },
+            {
+              "text": "Water pump: lifts water from the tank to the distribution system."
+            },
+            {
+              "text": "Water tank: holds the water supply for the pump."
+            },
+            {
+              "text": "Float valve: on units with an auto-fill feature connected to a water line, refills the tank and stops the water at a set level."
+            },
+            {
+              "text": "Water distribution pipe or tray: spreads water evenly across the top of the pads."
+            },
+            {
+              "text": "Control panel and electrical connections: supply power to the fan motor and the pump."
+            },
+            {
+              "text": "dirty cooling pads or clogged cooling pads covered in mineral deposits"
+            },
+            {
+              "text": "a low water level in the water tank"
+            },
+            {
+              "text": "improperly fixed cooling pads that leave gaps, so air bypasses the wet media"
+            },
+            {
+              "text": "excessive humidity in the space caused by poor ventilation"
+            },
+            {
+              "text": "Refill the tank with clean fresh water to the correct level."
+            },
+            {
+              "text": "Observe the pads from a safe distance without touching, with all guards in place."
+            },
+            {
+              "text": "Clean or replace dirty pads, and refit any pad that does not sit tightly in its frame."
+            },
+            {
+              "text": "Open doors or exhaust openings to maintain proper ventilation."
+            },
+            {
+              "text": "a pump intake or filter screen blocked by loose debris"
+            },
+            {
+              "text": "clogged holes in the distribution pipe"
+            },
+            {
+              "text": "a water level below the pump intake"
+            },
+            {
+              "text": "Clean the pump intake and filter screen."
+            },
+            {
+              "text": "Clear any blocked distribution holes."
+            },
+            {
+              "text": "Confirm the water level is above the pump intake."
+            },
+            {
+              "text": "No power at the outlet, or a tripped breaker"
+            },
+            {
+              "text": "airflow obstruction from dust accumulation on the intake, or from clogged pads causing poor airflow"
+            },
+            {
+              "text": "loose debris on the fan blades"
+            },
+            {
+              "text": "a faulty motor or control fault"
+            },
+            {
+              "text": "Confirm the unit is switched on and the settings are correct."
+            },
+            {
+              "text": "Ask your site electrician or maintenance team to check the breaker. Do not reset it repeatedly."
+            },
+            {
+              "text": "With the power disconnected, inspect the fan blades and remove any loose debris."
+            },
+            {
+              "text": "Clean the intake screens so dust particles do not obstruct airflow."
+            },
+            {
+              "text": "a blocked drain"
+            },
+            {
+              "text": "a float valve set too high"
+            },
+            {
+              "text": "a loose drain plug or hose"
+            },
+            {
+              "text": "a cracked tank"
+            },
+            {
+              "text": "a unit standing on uneven ground"
+            },
+            {
+              "text": "Clear the drain."
+            },
+            {
+              "text": "Tighten the plug and hose connections."
+            },
+            {
+              "text": "Adjust the float valve following the manufacturer’s manual."
+            },
+            {
+              "text": "Move the unit to level ground."
+            },
+            {
+              "text": "loose screws or panels"
+            },
+            {
+              "text": "debris on the fan blades"
+            },
+            {
+              "text": "a bent blade"
+            },
+            {
+              "text": "worn bearings in the fan motor"
+            },
+            {
+              "text": "a pump running with low water"
+            },
+            {
+              "text": "Tighten loose screws on accessible panels."
+            },
+            {
+              "text": "Remove any debris."
+            },
+            {
+              "text": "Check the water level."
+            },
+            {
+              "text": "Drain the tank completely."
+            },
+            {
+              "text": "Clean it with a product the manufacturer recommends, then rinse it thoroughly. Never mix cleaning chemicals."
+            },
+            {
+              "text": "Replace pads that show mold or heavy algae."
+            },
+            {
+              "text": "Refill with fresh water."
+            },
+            {
+              "text": "Switch off the unit and disconnect the power supply."
+            },
+            {
+              "text": "Close the water supply on units with an auto fill feature."
+            },
+            {
+              "text": "Wait for the fan blades to stop completely."
+            },
+            {
+              "text": "Never touch electrical connections with wet hands, or while the unit is wet."
+            },
+            {
+              "text": "Do not open the motor housing or control panel unless you are qualified."
+            },
+            {
+              "text": "The breaker trips repeatedly, or you notice a burning smell."
+            },
+            {
+              "text": "The fan motor hums but does not turn, or it overheats."
+            },
+            {
+              "text": "The pump fails to run after cleaning."
+            },
+            {
+              "text": "Wiring, plugs or the control panel are visibly damaged."
+            },
+            {
+              "text": "The motor grinds or squeals, or a fan blade is bent."
+            },
+            {
+              "text": "The tank is cracked or the frame is damaged."
+            },
+            {
+              "text": "Inspect the cooling pads regularly for mineral deposits, tears and dust buildup."
+            },
+            {
+              "text": "Clean the intake screens to support efficient operation."
+            },
+            {
+              "text": "Clean the water tank and refresh the water."
+            },
+            {
+              "text": "Confirm that water spreads evenly across the pads."
+            },
+            {
+              "text": "Test the float valve on auto fill units."
+            }
+          ]
+        }
+      ],
+      "meta": "By ICST Technical Team"
+    }
+  ]
+}

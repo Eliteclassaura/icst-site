@@ -14,14 +14,16 @@ export type HeaderProps = {
     monogramPath?: string
   }
   links: LinkRef[]
+  /** `accent` = a solid accent bar with white navigation on desktop too (the ICST Final header). Default is light. */
+  tone?: 'light' | 'accent'
   /** Path of the current page, for aria-current */
   currentPath?: string
   cta?: LinkRef
 }
 
-export function HeaderBlock({ brand, links, currentPath, cta }: HeaderProps) {
+export function HeaderBlock({ brand, links, currentPath, cta, tone = 'light' }: HeaderProps) {
   return (
-    <header className="blk-header">
+    <header className={tone === 'accent' ? 'blk-header blk-header--accent' : 'blk-header'}>
       <a
         className="blk-header__logo"
         href={brand.href}

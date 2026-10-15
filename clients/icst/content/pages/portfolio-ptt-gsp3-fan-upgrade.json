@@ -1,0 +1,103 @@
+{
+  "title": "PTT GSP3 Fan Upgrade - ICST - Thailand",
+  "description": "See how ICST upgraded cooling tower fans for the PTT GSP3 project, improving airflow and efficiency at the plant.",
+  "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Projects",
+          "href": "/projects/"
+        }
+      ],
+      "current": "PTT GSP3 Fan Upgrade"
+    },
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "PTT GSP3 Fan Upgrade - ICST - Thailand"
+    },
+    {
+      "blockType": "dataTable",
+      "caption": "Project facts",
+      "rowHeader": "Fact",
+      "columns": [
+        {
+          "label": "Value"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Project",
+          "cells": [
+            {
+              "text": "PTT GSP3"
+            }
+          ]
+        },
+        {
+          "label": "Industry",
+          "cells": [
+            {
+              "text": "Gas Separation"
+            }
+          ]
+        },
+        {
+          "label": "Client",
+          "cells": [
+            {
+              "text": "PTT GSP3"
+            }
+          ]
+        },
+        {
+          "label": "Location",
+          "cells": [
+            {
+              "text": "Thailand"
+            }
+          ]
+        },
+        {
+          "label": "Tower type",
+          "cells": [
+            {
+              "text": "Induced Draft ACHE"
+            }
+          ]
+        },
+        {
+          "label": "Year",
+          "cells": [
+            {
+              "text": "2018"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "cta",
+      "eyebrow": "Next step",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
+    }
+  ]
+}

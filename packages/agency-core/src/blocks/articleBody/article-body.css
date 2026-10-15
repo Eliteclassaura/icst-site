@@ -95,3 +95,11 @@
   font-size: var(--fs-cap);
   color: var(--color-text-muted);
 }
+
+/* ICST Final grid (desktop): the body sits 182 px in from the container edge (body x340 at 1440, DD's grid). */
+@media (min-width: 1024px) {
+  .blk-article {
+    margin-inline: 0;
+    margin-inline-start: 182px;
+  }
+}

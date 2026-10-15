@@ -102,6 +102,35 @@
   flex: none;
 }
 
+/* Accent tone: the solid accent bar with white navigation (the ICST Final header), on desktop too. */
+.blk-header--accent {
+  background: var(--color-accent);
+  color: #fff;
+  border-block-end: 0;
+  backdrop-filter: none;
+}
+
+.blk-header--accent .blk-header__name,
+.blk-header--accent .blk-header__accent,
+.blk-header--accent .blk-header__role {
+  color: #fff;
+}
+
+.blk-header--accent .blk-header__links a {
+  color: #fff;
+}
+
+.blk-header--accent .blk-header__links a:hover,
+.blk-header--accent .blk-header__links a[aria-current='page'] {
+  color: #fff;
+  border-block-end-color: #fff;
+}
+
+.blk-header--accent .blk-header__cta {
+  background: #fff;
+  color: var(--color-accent);
+}
+
 /* Menu: hidden on desktop, where the inline nav and CTA show. */
 .blk-header__menu {
   display: none;

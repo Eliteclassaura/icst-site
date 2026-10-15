@@ -1,0 +1,111 @@
+{
+  "title": "ICST in Asia | Projects Portfolio",
+  "description": "Explore ICST’s expertise in industrial cooling solutions across Asia. Discover our projects in Thailand, Malaysia, Vietnam, and more. Contact us for sustainable, efficient cooling systems tailored to your needs.",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "ALL PROJECTS",
+      "lede": "A closer look at some of our most impactful work."
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "Expertise in ICST Across Asia",
+          "paragraphs": [
+            "At ICST, we provide industrial cooling solutions in Asia, tailored to meet the diverse needs of industries across the region. Our projects span multiple countries, including Thailand, Malaysia, Vietnam, and beyond, showcasing our ability to deliver reliable and efficient cooling systems.",
+            "From manufacturing plants to data centers, we specialize in designing and implementing solutions that enhance operational efficiency and sustainability. Explore our portfolio to see how we’ve made a difference for businesses across Asia."
+          ]
+        },
+        {
+          "heading": "Proven Track Record in Complex Cooling Projects",
+          "paragraphs": [
+            "Our portfolio highlights a wide range of industrial cooling solutions in Asia, demonstrating our expertise in handling complex and large-scale projects. Whether it’s custom cooling system design, retrofitting, or energy-efficient upgrades, we focus on smooth execution.",
+            "Discover how ICST has successfully transformed cooling systems for industries across the region."
+          ]
+        },
+        {
+          "heading": "Your Partner for Sustainable Cooling Solutions",
+          "paragraphs": [
+            "Looking for reliable and sustainable industrial cooling solutions in Asia? ICST is your trusted partner. Our global experience and local expertise enable us to deliver customized cooling systems that optimize performance and reduce environmental impact. Explore our projects to see how we’ve helped businesses achieve their goals. Contact us today to discuss your requirements and let us create a tailored cooling solution for your facility."
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "productGrid",
+      "title": "Selected projects",
+      "lede": "Synthetic copy: one line per project.",
+      "actionLabel": "View project",
+      "items": [
+        {
+          "title": "Cawayan BacMan 3",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/cawayan-bacman-3/"
+        },
+        {
+          "title": "Cooling Tower Disaster Recovery",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/cooling-tower-disaster-recovery/"
+        },
+        {
+          "title": "Cooling Tower Replacement",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/cooling-tower-replacement/"
+        },
+        {
+          "title": "EDC N2N Relocation Project",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/edc-n2n-relocation-project/"
+        },
+        {
+          "title": "Keramasan Power Project",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/keramasan-power-project/"
+        },
+        {
+          "title": "Lanxess",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/lanxess/"
+        },
+        {
+          "title": "Mak Ban 6",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/mak-ban-6/"
+        },
+        {
+          "title": "Palinpinon 3",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/palinpinon-3/"
+        },
+        {
+          "title": "PTT Cracker Project",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/ptt-cracker-project/"
+        },
+        {
+          "title": "PTT GSP3 Fan Upgrade",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/ptt-gsp3-fan-upgrade/"
+        },
+        {
+          "title": "PTT LDPE II Project",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/ptt-ldpe-ii-project/"
+        },
+        {
+          "title": "Vinachem",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/vinachem/"
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
+    }
+  ]
+}

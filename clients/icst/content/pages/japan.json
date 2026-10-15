@@ -1,0 +1,133 @@
+{
+  "title": "Cooling Tower Repair in Japan | Expert Construction & Maintenance - ICST",
+  "description": "ICST provides specialized cooling tower repair in Japan. From construction to maintenance, trust our expertise for all your industrial cooling needs.",
+  "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "current": "Japan"
+    },
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Cooling Tower Japan: Constructions & Repair",
+      "lede": "ICST Japan delivers a full spectrum of sales, service, engineering, and project support solutions to clients in Japan, Korea, and China."
+    },
+    {
+      "blockType": "serviceBand",
+      "eyebrow": "Services",
+      "title": "Synthetic services",
+      "lede": "Synthetic copy: one line on the services offered here.",
+      "items": [
+        {
+          "title": "Synthetic service one",
+          "text": "Synthetic service summary.",
+          "href": "/cooling-tower-replacement/",
+          "label": "View service"
+        },
+        {
+          "title": "Synthetic service two",
+          "text": "Synthetic service summary.",
+          "href": "/cooling-tower-maintenance/",
+          "label": "View service"
+        },
+        {
+          "title": "Synthetic service three",
+          "text": "Synthetic service summary.",
+          "href": "/thermal-upgrade/",
+          "label": "View service"
+        }
+      ]
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "Cooling Towers in Japan",
+          "paragraphs": [
+            "ICST’ Japan office provides a full range of sales, services, engineering, and project support to Japan, Korea, and China.",
+            "Domestic project support offerings include assistance with the construction of new cooling towers in Japan, help completing repairs and upgrades, and procurement of spare parts for all models of cooling towers.",
+            "At ICST, we are committed to delivering high-performance cooling systems that outperform older models in both reliability and efficiency. Our advanced designs prioritize energy savings, significantly lowering operational costs while reducing environmental impact through sustainable engineering. Built for demanding industrial applications, our cooling towers serve chemical plants, power generation, and large-scale manufacturing. With deep expertise across multiple sectors, we ensure our solutions meet the strictest industry standards while maximizing long-term value and eco-friendly performance."
+          ]
+        },
+        {
+          "heading": "Design",
+          "paragraphs": [
+            "In this day and age, manufacturers should design cooling towers with high efficiency and environmental consciousness at the forefront of their process. Energy-saving features, such as advanced designs and technologies, not only reduce energy consumption but also enhance cooling capabilities while minimizing noise and maintenance requirements. Look for design specifications that are especially efficient and prioritize eco-friendliness."
+          ]
+        },
+        {
+          "heading": "Supply",
+          "paragraphs": [
+            "If you need a new cooling tower or a part for a repair, you likely can't wait a month for it to arrive. Choose a manufacturer that has a sufficient supply to meet your needs in a timely manner."
+          ]
+        },
+        {
+          "heading": "Installation",
+          "paragraphs": [
+            "Making the sale is one thing but following through is quite another. Try to choose a manufacturer who will install a new cooling tower themselves as opposed to simply delivering it."
+          ]
+        },
+        {
+          "heading": "Servicing",
+          "paragraphs": [
+            "Cooling tower construction and repair go hand in hand; even well-made towers will need to be serviced eventually. Select a manufacturer with relevant know-how so you have a partner in the industry you can call upon regularly."
+          ]
+        },
+        {
+          "heading": "Who Is ICST?",
+          "paragraphs": [
+            "Our products comply with the Japan Cooling Tower Institute standards, ensuring top-notch quality and performance. We also prioritize low noise features in our cooling towers, utilizing low-noise fan motors and specialized designs to create quieter and more comfortable environments."
+          ]
+        },
+        {
+          "heading": "Our Key Clients",
+          "paragraphs": [
+            "A manufacturer’s designs should be optimized for efficiency so that processes are as streamlined as possible and towers are truly effective at achieving their intended cooling function. Cooling towers play a crucial role in air conditioning applications, supporting the needs of advanced systems in facilities like the Japan National Stadium and Shibuya Stream. If you are constructing a new cooling tower, make sure that it is actually more efficient than the older system."
+          ]
+        },
+        {
+          "heading": "Our Goal",
+          "paragraphs": [
+            "At ICST, our goal is simply to be the first-choice cooling solutions company when quality and performance are paramount. Whether a customer needs to construct a new tower, complete repairs, and maintenance, or simply purchase parts to keep their current system in working order, we're here to help."
+          ]
+        },
+        {
+          "heading": "What Does the Process Look Like for Building A Cooling Tower in Japan?",
+          "paragraphs": [
+            "If you find that your company is in need of a cooling tower and you reach out to ICST’s Japan office for assistance, the process will unfold in this basic order"
+          ]
+        },
+        {
+          "heading": "When the design is ready, we will begin to ship material to the site",
+          "paragraphs": [
+            "You might be surprised by how straightforward it is to start your custom cooling tower project with ICST. Despite their industrial-grade performance, our systems are designed for seamless implementation—even in demanding high-capacity environments. Using advanced air-water flow technology, our towers maximize heat transfer efficiency while maintaining optimal energy use. Whether for new installations or upgrades, ICST makes high-efficiency cooling solutions accessible without compromising on durability or precision engineering.",
+            "Choose ICST for cooling technology that balances performance with responsible engineering."
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
+    },
+    {
+      "blockType": "cta",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
+    }
+  ]
+}

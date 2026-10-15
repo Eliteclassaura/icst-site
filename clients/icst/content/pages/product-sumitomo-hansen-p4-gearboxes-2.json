@@ -1,0 +1,139 @@
+{
+  "title": "Synthetic product detail",
+  "description": "Synthetic product detail template (RFQ-only, no prices) until the ICST content pack arrives.",
+  "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Parts",
+          "href": "/parts/"
+        },
+        {
+          "label": "Gear box",
+          "href": "/gear-box/"
+        }
+      ],
+      "current": "Synthetic product"
+    },
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "eyebrow": "Gear box",
+      "title": "Synthetic product name",
+      "lede": "Synthetic copy: one paragraph describing the product and when to request a quote.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
+    },
+    {
+      "blockType": "dataTable",
+      "caption": "Specifications (synthetic)",
+      "rowHeader": "Item",
+      "columns": [
+        {
+          "label": "Value"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Synthetic spec 1",
+          "cells": [
+            {
+              "text": "Synthetic value"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "dataTable",
+      "caption": "Specifications (synthetic)",
+      "rowHeader": "Item",
+      "columns": [
+        {
+          "label": "Value"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Synthetic spec 2",
+          "cells": [
+            {
+              "text": "Synthetic value"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "dataTable",
+      "caption": "Specifications (synthetic)",
+      "rowHeader": "Item",
+      "columns": [
+        {
+          "label": "Value"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Synthetic spec 3",
+          "cells": [
+            {
+              "text": "Synthetic value"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "cta",
+      "eyebrow": "Request a quote",
+      "title": "Synthetic quote call to action",
+      "text": "Synthetic supporting line. Quotations are issued on request; no prices are shown on this page.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "Related",
+      "title": "Related parts",
+      "lede": "Synthetic copy: one line.",
+      "actionLabel": "Request a quote",
+      "items": [
+        {
+          "title": "Related part one",
+          "text": "Synthetic summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Related part two",
+          "text": "Synthetic summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Related part three",
+          "text": "Synthetic summary.",
+          "href": "/parts/"
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to our parts team",
+      "text": "Synthetic supporting line."
+    }
+  ]
+}

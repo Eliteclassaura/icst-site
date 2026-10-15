@@ -7,25 +7,120 @@
       "role": "International Cooling Solutions (Thailand)",
       "href": "/"
     },
+    "tone": "accent",
     "links": [
       {
         "label": "Home",
         "href": "/"
+      },
+      {
+        "label": "New Towers",
+        "href": "/new-towers/"
+      },
+      {
+        "label": "Parts",
+        "href": "/parts/"
+      },
+      {
+        "label": "Projects",
+        "href": "/projects/"
+      },
+      {
+        "label": "Cooling Tower Resources",
+        "href": "/resources/"
+      },
+      {
+        "label": "Blogs",
+        "href": "/tech-articles/"
       }
     ],
     "cta": {
       "label": "Request a quote",
-      "href": "/"
+      "href": "/contact-us/"
     }
   },
   "footer": {
     "columns": [
       {
-        "heading": "ICST",
+        "heading": "Company",
         "links": [
           {
-            "label": "Home",
-            "href": "/"
+            "label": "About us",
+            "href": "/about-us/"
+          },
+          {
+            "label": "Projects",
+            "href": "/projects/"
+          },
+          {
+            "label": "Tech articles",
+            "href": "/tech-articles/"
+          },
+          {
+            "label": "Contact",
+            "href": "/contact-us/"
+          }
+        ]
+      },
+      {
+        "heading": "Parts",
+        "links": [
+          {
+            "label": "All parts",
+            "href": "/parts/"
+          },
+          {
+            "label": "Fans",
+            "href": "/fans/"
+          },
+          {
+            "label": "Motors",
+            "href": "/motors/"
+          },
+          {
+            "label": "Gear box",
+            "href": "/gear-box/"
+          },
+          {
+            "label": "Fill media",
+            "href": "/fill-media/"
+          },
+          {
+            "label": "Drive shaft assemblies",
+            "href": "/drive-shafts-assembles/"
+          }
+        ]
+      },
+      {
+        "heading": "Services",
+        "links": [
+          {
+            "label": "Cooling tower services",
+            "href": "/cooling-towers/"
+          },
+          {
+            "label": "New towers",
+            "href": "/new-towers/"
+          },
+          {
+            "label": "Replacement",
+            "href": "/cooling-tower-replacement/"
+          },
+          {
+            "label": "Maintenance",
+            "href": "/cooling-tower-maintenance/"
+          },
+          {
+            "label": "Thermal upgrade",
+            "href": "/thermal-upgrade/"
+          },
+          {
+            "label": "Disaster recovery",
+            "href": "/disaster-recovery/"
+          },
+          {
+            "label": "Dry soda blasting",
+            "href": "/dry-soda-blast-cleaning/"
           }
         ]
       },

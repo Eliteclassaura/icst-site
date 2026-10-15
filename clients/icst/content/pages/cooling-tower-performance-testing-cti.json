@@ -1,0 +1,152 @@
+{
+  "title": "Cooling Tower Performance Testing CTI: ATC-105 Guide - ICST - Thailand",
+  "description": "CTI ATC-105 cooling tower performance testing. Learn to verify thermal capability, apply curves, and ensure compliance for your cooling assets.",
+  "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Cooling Tower Performance Testing CTI: ATC-105 Guide - ICST - Thailand"
+    },
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Cooling Tower Performance Testing CTI: ATC-105 Guide - ICST - Thailand"
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "CTI ATC-105 cooling tower performance testing is the method for verifying a cooling tower’s thermal capability under real-world conditions. This rigorous field test measures critical parameters like entering and leaving water temperatures, wet-bulb temperature, water flow rate, and fan motor power.",
+            "It provides precise, legally defensible results, protecting investments in large-scale cooling systems.",
+            "This post explains the essential elements of cooling tower performance testing CTI standards, focusing specifically on the ATC-105 protocol. You will learn how to prepare for an acceptance test, measure core parameters, analyze performance curves, and secure contractual protection for your facility.",
+            "CTI STD-201 certifies standard product lines at the factory level. In contrast, CTI ATC-105 governs field acceptance testing for specific, custom-installed towers operating under real-world conditions.",
+            "The test does not merely deliver a simple pass or fail result. It calculates a specific percentage of the Predicted Thermal Capability. This metric tells you exactly how much cooling capacity your system actually delivers compared to the design specifications.",
+            "Conducting an ATC-105 test provides crucial contractual protection. Without this test, you risk paying full price for an underperforming asset.",
+            "A successful test relies on precise data collection. Evaluators must capture five essential measurements during the procedure:",
+            "Modern testing requires advanced instrumentation. The 2026 instrumentation updates emphasize a shift toward Elliptical Pitot Tubes. These devices minimize Reynolds number sensitivity, ensuring more accurate flow measurements. Furthermore, testers now use NIST-traceable digital psychrometers to capture the Entering Wet-Bulb Temperature with absolute certainty.",
+            "Executing a cooling tower performance testing CTI procedure requires strict adherence to a phased methodology.",
+            "New fill media requires proper conditioning before testing begins. You must complete a 1,000-hour run-in period. This stabilization phase ensures the “wettability” of the media, allowing water to form an even film rather than bead up and reducing heat transfer.",
+            "Sensor placement determines the accuracy of your results. Engineers must measure the entering air directly at the air inlets, rather than relying on general ambient weather data. This approach accounts for localized microclimates.",
+            "Evaluators conduct simultaneous logging of all five core parameters. During this phase, you must maintain minimal fluctuations in the heat load. A variance of more than five percent will invalidate the test results.",
+            "Engineers evaluate the thermal capability using specific methodologies. The calculation maps the collected field data against the established performance curve provided by the manufacturer.",
+            "Understanding the results requires a deep dive into the mathematics of thermal performance.",
+            "The Performance Curve Method, found in Schedule II of the standard, serves as the primary evaluation tool. This method maps your raw field data against the manufacturer curves. It mathematically accounts for deviations in actual weather conditions or water flow rates.",
+            "Advanced engineers often look at the Characteristic Curve outlined in Schedule I. This method calculates the precise intersection of the demand lines and the capability lines.",
+            "You must also understand the relationship between Approach and Range. The Range is the difference between the entering and leaving water temperatures. The Approach is the difference between the leaving water temperature and the wet-bulb temperature. A one-degree deviation in the Approach significantly impacts the overall performance rating far more than a one-degree shift in the Range.",
+            "A failed test does not always indicate a defective cooling tower. External factors frequently compromise the results. A thorough pre-test audit prevents these false fails.",
+            "They might adjust the fan pitch, optimize water distribution, or add additional fill media to correct the deficiency.",
+            "These licensed professionals deliver neutral, binding results that hold up in court.",
+            "Whether you are commissioning a massive new data center or auditing a critical industrial plant, our engineers provide the technical rigor required for absolute certainty.",
+            "CTI ATC-105 cooling tower performance testing is a field-based evaluation standard set by the Cooling Technology Institute. It verifies whether a cooling tower meets its thermal performance specifications under real-world conditions. This test ensures accurate thermal capability measurements, providing legal and contractual assurance for large-scale cooling systems.",
+            "Thermal capability measures how effectively a cooling tower meets its design specifications. It is critical for ensuring optimal cooling performance, energy efficiency, and compliance with contractual obligations.",
+            "Factory certification (CTI STD-201) tests standard cooling tower models under controlled conditions. CTI ATC-105, however, evaluates custom-installed towers in real-world environments. This ensures the cooling tower performs as expected under actual site-specific conditions, making it more reliable for field operations.",
+            "The five critical parameters are:",
+            "These measurements ensure precise thermal performance evaluation.",
+            "Their expertise ensures proper instrumentation, data collection, and analysis, delivering legally binding results."
+          ],
+          "bullets": [
+            {
+              "text": "The Gold Standard: Why ATC-105 is the Benchmark"
+            },
+            {
+              "text": "Core Parameters and Instrumentation Standards"
+            },
+            {
+              "text": "The ATC-105 Testing Process: Step-by-Step"
+            },
+            {
+              "text": "Preparation"
+            },
+            {
+              "text": "Instrumentation"
+            },
+            {
+              "text": "Data Collection"
+            },
+            {
+              "text": "Calculation"
+            },
+            {
+              "text": "Analyzing the Thermal Performance Curve"
+            },
+            {
+              "text": "Pre-Test Audit: Avoiding Common False Fails"
+            },
+            {
+              "text": "Interpreting the Result: Post-Test Protocols"
+            },
+            {
+              "text": "Secure Your Thermal Performance"
+            },
+            {
+              "text": "Frequently Asked Questions (FAQs)"
+            },
+            {
+              "text": "What is CTI ATC-105 cooling tower performance testing?"
+            },
+            {
+              "text": "Why is thermal capability important in cooling tower testing?"
+            },
+            {
+              "text": "How does CTI ATC-105 differ from factory certification?"
+            },
+            {
+              "text": "What are the key parameters measured in CTI ATC-105 testing?"
+            },
+            {
+              "text": "Entering Water Temperature (EWT): The heat load entering the tower."
+            },
+            {
+              "text": "Leaving Water Temperature (LWT): The cooled water exiting the basin."
+            },
+            {
+              "text": "Entering Wet-Bulb Temperature (WBT): The true measure of the ambient air cooling potential."
+            },
+            {
+              "text": "Circulating Water Flow Rate (GPM): The volume of water moving through the system."
+            },
+            {
+              "text": "Fan Motor Power (kW): The energy required to move air through the fill media."
+            },
+            {
+              "text": "Mechanical Soundness: Inspectors must verify correct fan pitch, clear nozzle blockages, and adjust belt tension before testing begins."
+            },
+            {
+              "text": "Air Recirculation: Site-specific wind patterns or adjacent structures often force warm exhaust air back into the intakes. This recirculation artificially inflates the entering wet-bulb temperature and ruins the test."
+            },
+            {
+              "text": "Hydraulic Balance: Multi-cell towers require perfectly equal water distribution. Poor hydraulic balance leads to “short-circuiting,” where water bypasses the fill media entirely."
+            },
+            {
+              "text": "Entering Water Temperature (EWT)"
+            },
+            {
+              "text": "Leaving Water Temperature (LWT)"
+            },
+            {
+              "text": "Entering Wet-Bulb Temperature (WBT)"
+            },
+            {
+              "text": "Circulating Water Flow Rate (GPM)"
+            },
+            {
+              "text": "Fan Motor Power (kW)"
+            }
+          ]
+        }
+      ],
+      "meta": "By ICST Technical Team"
+    }
+  ]
+}

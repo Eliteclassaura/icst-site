@@ -17,7 +17,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const here = requestPath((await params).path ?? [])
   const found = listPages(c.slug).find((p) => p.path === here)
   if (!found) return { title: 'Page not found', robots: { index: false, follow: false } }
-  const title = found.path === '/' ? found.page.title : `${found.page.title} | ${c.brandName('site')}`
+  // The page's own title is the final title (the pack carries the brand): no fork suffix is appended.
+  const title = found.page.title
   const url = canonicalUrl(c.origin, found.page.canonical ?? found.path)
   return {
     title,
@@ -40,7 +41,11 @@ export default async function ClientPreviewPage({ params }: Params) {
   // The `offices` block's context comes from the manifest (public offices only). Phones are read from `client().offices[].phones`
   // (E.164 `tel` and display form), never typed into a page file.
   const offices = c.offices.filter((o) => o.publicOnSite).map((o) => ({ city: o.address.city, region: o.address.region, hours: '' }))
-  const phone = c.offices.find((o) => o.publicOnSite && o.phones.length)?.phones[0]
+  // The phoneCta block's number: the first public office phone from the manifest (the block renders nothing without it).
+  const phone = c.offices.find((o) => o.publicOnSite && o.phones.length > 0)?.phones[0] ?? null
+  // The footer's office contact: the same public office's address lines and phone, from the manifest.
+  const publicOffice = c.offices.find((o) => o.publicOnSite && o.phones.length > 0)
+  const contact = publicOffice ? { lines: publicOffice.address.lines, phone: publicOffice.phones[0] ?? null } : undefined
   return (
     <>
       {/* Structured data: a data block, not executed, so the script CSP does not apply. `<` is escaped so page text can never close the tag. */}
@@ -49,7 +54,7 @@ export default async function ClientPreviewPage({ params }: Params) {
       <main id="main">
         <RenderBlocks layout={expandCookieBlocks(page.layout, loadInventory(c.slug))} ctx={{ currentPath, offices, phone }} />
       </main>
-      <FooterBlock {...chrome.footer} />
+      <FooterBlock {...chrome.footer} contact={contact} />
     </>
   )
 }

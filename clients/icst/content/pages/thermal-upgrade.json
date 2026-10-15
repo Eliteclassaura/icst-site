@@ -1,0 +1,124 @@
+{
+  "title": "Cooling Tower Thermal Upgrade Services in Thailand",
+  "description": "Cooling Tower Thermal Upgrade by ICST improves heat transfer, cooling tower efficiency, and reliability while reducing energy and maintenance costs.",
+  "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "current": "Thermal Upgrade"
+    },
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Cooling Tower Thermal Upgrade Solutions for Higher Tower Efficiency",
+      "lede": "ICST delivers cooling tower thermal upgrade solutions built to restore cooling tower performance, improve heat transfer, and support reducing energy consumption across industrial plants. Our upgrades help mechanical and wet cooling towers run at peak thermal performance with better reliability and lower maintenance cost."
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "Why Cooling Tower Performance Declines",
+          "paragraphs": [
+            "Cooling Tower Thermal Upgrade Services in Thailand",
+            "Cooling tower performance decreases when fill media, cooling tower fan blades, the water distribution system, or air flow become less effective. Changes in ambient wet bulb temperature, relative humidity, and water quality can also raise the cold water temperature, reducing heat transfer and making the cooling water system work harder.",
+            "ICST inspects your complete mechanical draft cooling tower, including splash fills, drift eliminators, fans, pumps, heat exchangers, and control systems."
+          ]
+        },
+        {
+          "heading": "How Thailand's Climate Affects Your Cooling Tower",
+          "paragraphs": [
+            "Thailand’s high relative humidity and elevated wet bulb temperature narrow the gap a cooling tower has to work with, so evaporation slows, and performance degradation shows up faster than in drier climates.",
+            "Common effects on Thai sites:",
+            "Schedule a Site Assessment"
+          ],
+          "bullets": [
+            {
+              "text": "Fluctuating dry bulb temperature during monsoon season"
+            },
+            {
+              "text": "Faster wear on fill media and cooling tower fan parts"
+            },
+            {
+              "text": "Higher electricity costs from fans and pumps running longer"
+            },
+            {
+              "text": "Rising maintenance costs to hit the same heat load targets"
+            }
+          ]
+        },
+        {
+          "heading": "What Our Thermal Upgrade Services Include",
+          "paragraphs": [
+            "ICST targets the components with the biggest impact on thermal performance, based on real operating data from your site rather than generic design curves.",
+            "Typical upgrade scope:"
+          ],
+          "bullets": [
+            {
+              "text": "Replace or refurbish fill media, splash fills, and drift eliminators"
+            },
+            {
+              "text": "Resize or replace the cooling tower fan to improve airflow"
+            },
+            {
+              "text": "Add variable frequency drives to cut fan power during low heat load periods"
+            },
+            {
+              "text": "Check the cold water temperature output for air conditioning and process loops"
+            }
+          ]
+        },
+        {
+          "heading": "Key Considerations Before a Cooling Tower Upgrade",
+          "paragraphs": [
+            "Not every site needs a new system. In many cases, targeted tower upgrades are a cost-effective solution that restores lost capacity for a fraction of the cost of full replacement, especially for facilities such as power plants and manufacturing sites where downtime is expensive.",
+            "Key considerations before you commit to a scope of work include:"
+          ],
+          "bullets": [
+            {
+              "text": "Current plant capacity versus the output you actually need"
+            },
+            {
+              "text": "How much equipment wear is driving up water loss and energy use"
+            },
+            {
+              "text": "The cost-effectiveness of an upgrade versus a full tower replacement"
+            },
+            {
+              "text": "Other site-specific factors, such as space, water source, and access for maintenance"
+            }
+          ]
+        },
+        {
+          "heading": "Talk to ICST About Your Cooling Tower Now",
+          "paragraphs": [
+            "Every cooling tower has the potential to perform better. Speak with the specialists at ICST to evaluate your current system, identify performance improvements, and receive tailored recommendations that increase efficiency, reduce operating costs, and deliver long-term value for your facility.",
+            "Request a Cooling Tower Assessment"
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "cta",
+      "eyebrow": "Next step",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
+    }
+  ]
+}

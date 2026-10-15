@@ -5,8 +5,14 @@
     {
       "blockType": "breadcrumb",
       "trail": [
-        { "label": "Home", "href": "/client-preview/" },
-        { "label": "Blog", "href": "/client-preview/" }
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Blog",
+          "href": "/"
+        }
       ],
       "current": "Article title"
     },
@@ -24,33 +30,66 @@
         {
           "heading": "Section one heading",
           "paragraphs": [
-            { "text": "Synthetic paragraph for the first section." },
-            { "text": "Second synthetic paragraph for the first section." }
+            {
+              "text": "Synthetic paragraph for the first section."
+            },
+            {
+              "text": "Second synthetic paragraph for the first section."
+            }
           ],
           "bullets": [
-            { "lead": "Point one:", "text": "Synthetic supporting detail." },
-            { "lead": "Point two:", "text": "Synthetic supporting detail." }
+            {
+              "lead": "Point one:",
+              "text": "Synthetic supporting detail."
+            },
+            {
+              "lead": "Point two:",
+              "text": "Synthetic supporting detail."
+            }
           ]
         },
         {
           "heading": "Section two heading",
-          "paragraphs": [{ "text": "Synthetic paragraph for the second section." }],
+          "paragraphs": [
+            {
+              "text": "Synthetic paragraph for the second section."
+            }
+          ],
           "numbered": [
-            { "title": "Factor one", "text": "Synthetic description of the first factor." },
-            { "title": "Factor two", "text": "Synthetic description of the second factor." }
+            {
+              "title": "Factor one",
+              "text": "Synthetic description of the first factor."
+            },
+            {
+              "title": "Factor two",
+              "text": "Synthetic description of the second factor."
+            }
           ]
         },
         {
           "heading": "How the client can help",
-          "paragraphs": [{ "text": "Synthetic paragraph describing how the client can support the reader." }],
+          "paragraphs": [
+            {
+              "text": "Synthetic paragraph describing how the client can support the reader."
+            }
+          ],
           "links": [
-            { "label": "Related topic one", "href": "/client-preview/" },
-            { "label": "Related topic two", "href": "/client-preview/" }
+            {
+              "label": "Related topic one",
+              "href": "/"
+            },
+            {
+              "label": "Related topic two",
+              "href": "/"
+            }
           ]
         }
       ],
       "sourceNote": "Synthetic source note.",
-      "readMore": { "label": "Read the full article", "href": "/client-preview/article/" }
+      "readMore": {
+        "label": "Read the full article",
+        "href": "/article/"
+      }
     },
     {
       "blockType": "cta",
@@ -58,7 +97,10 @@
       "title": "Synthetic call to action title",
       "text": "Synthetic supporting line.",
       "cta": {
-        "primary": { "label": "Request a quote", "href": "/client-preview/" }
+        "primary": {
+          "label": "Request a quote",
+          "href": "/"
+        }
       }
     },
     {
@@ -66,9 +108,24 @@
       "eyebrow": "Continue reading",
       "title": "More articles",
       "items": [
-        { "title": "Synthetic article one", "text": "Synthetic summary.", "href": "/client-preview/", "label": "Read article" },
-        { "title": "Synthetic article two", "text": "Synthetic summary.", "href": "/client-preview/", "label": "Read article" },
-        { "title": "Synthetic article three", "text": "Synthetic summary.", "href": "/client-preview/", "label": "Read article" }
+        {
+          "title": "Synthetic article one",
+          "text": "Synthetic summary.",
+          "href": "/",
+          "label": "Read article"
+        },
+        {
+          "title": "Synthetic article two",
+          "text": "Synthetic summary.",
+          "href": "/",
+          "label": "Read article"
+        },
+        {
+          "title": "Synthetic article three",
+          "text": "Synthetic summary.",
+          "href": "/",
+          "label": "Read article"
+        }
       ]
     }
   ]

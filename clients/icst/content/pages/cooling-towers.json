@@ -1,0 +1,46 @@
+{
+  "title": "Cooling tower services",
+  "description": "Synthetic copy: cooling tower services, until the ICST content pack arrives.",
+  "canonical": "/new-towers/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "eyebrow": "Services",
+      "title": "Cooling tower services",
+      "lede": "Synthetic copy: one paragraph introducing the cooling tower services.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
+    },
+    {
+      "blockType": "serviceBand",
+      "eyebrow": "Options",
+      "title": "Synthetic section title",
+      "lede": "Synthetic copy: one line about the options.",
+      "items": [
+        {
+          "title": "Synthetic service one",
+          "text": "Synthetic service summary.",
+          "href": "/parts/",
+          "label": "View service"
+        },
+        {
+          "title": "Synthetic service two",
+          "text": "Synthetic service summary.",
+          "href": "/parts/",
+          "label": "View service"
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
+    }
+  ]
+}
