@@ -1,13 +1,13 @@
 {
-  "title": "Home (placeholder)",
-  "description": "Placeholder ICST home page until the ICST-0 content pack arrives.",
+  "title": "Home",
+  "description": "ICST home composition (N1): synthetic copy until the ICST content pack arrives.",
   "layout": [
     {
       "blockType": "hero",
       "variant": "plain",
-      "eyebrow": "PLACEHOLDER",
-      "title": "ICST home page, awaiting the content pack",
-      "lede": "This is placeholder copy so the layout, tokens and blocks can be seen. The real wording, media and claims come from the ICST-0 content pack and the Figma frames; nothing here is a statement about the company.",
+      "eyebrow": "ICST",
+      "title": "Industrial cooling tower solutions",
+      "lede": "Synthetic copy: short introduction to the company, to be replaced by the approved ICST wording.",
       "cta": {
         "primary": {
           "label": "Request a quote",
@@ -16,9 +16,40 @@
       }
     },
     {
+      "blockType": "projectCarousel",
+      "eyebrow": "Engineered. Delivered. Proven.",
+      "title": "Selected projects",
+      "lede": "Synthetic copy: one line on how projects are delivered.",
+      "items": [
+        { "title": "Project one", "text": "Synthetic project summary.", "href": "/client-preview/" },
+        { "title": "Project two", "text": "Synthetic project summary.", "href": "/client-preview/" },
+        { "title": "Project three", "text": "Synthetic project summary.", "href": "/client-preview/" },
+        { "title": "Project four", "text": "Synthetic project summary." }
+      ]
+    },
+    {
+      "blockType": "serviceBand",
+      "eyebrow": "What we do",
+      "title": "End-to-end cooling tower services",
+      "lede": "Synthetic copy: one line describing the service range.",
+      "items": [
+        { "title": "Cooling towers", "text": "Synthetic service summary.", "href": "/client-preview/", "label": "View service" },
+        { "title": "Repair and upgrade", "text": "Synthetic service summary.", "href": "/client-preview/", "label": "View service" },
+        { "title": "Cooling tower components", "text": "Synthetic service summary." }
+      ]
+    },
+    {
+      "blockType": "takeawayList",
+      "label": "Why industrial operators choose us",
+      "items": [
+        { "lead": "Synthetic reason one.", "text": "Synthetic supporting sentence for reason one." },
+        { "lead": "Synthetic reason two.", "text": "Synthetic supporting sentence for reason two." }
+      ]
+    },
+    {
       "blockType": "cta",
-      "title": "Placeholder call to action",
-      "text": "Replace with ICST copy.",
+      "title": "Let's build efficient industrial cooling systems",
+      "text": "Synthetic supporting line for the closing call to action.",
       "cta": {
         "primary": {
           "label": "Request a quote",

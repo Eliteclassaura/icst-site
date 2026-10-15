@@ -14,6 +14,8 @@ import { RelatedLinksBlock, type RelatedLinksProps } from './relatedLinks/index'
 import { BreadcrumbBlock, type BreadcrumbProps } from './breadcrumb/index'
 import { SubNavBlock, type SubNavProps } from './subNav/index'
 import { OfficesBlock, type OfficesProps } from './offices/index'
+import { ServiceBandBlock, type ServiceBandProps } from './serviceBand/index'
+import { ProjectCarouselBlock, type ProjectCarouselProps } from './projectCarousel/index'
 
 /** The shape of one `pages.layout` row as Payload returns it (depth ≥ 1 so uploads are populated). */
 export type LayoutBlockData = { blockType: string; id?: string | null; blockName?: string | null } & Record<
@@ -183,6 +185,23 @@ function renderOne(
       case 'offices': {
         const p = b as unknown as Omit<OfficesProps, 'offices'>
         return <OfficesBlock key={key} {...p} offices={ctx.offices ?? []} />
+      }
+      case 'serviceBand':
+        return <ServiceBandBlock key={key} {...(b as unknown as ServiceBandProps)} />
+      case 'projectCarousel': {
+        const p = b as unknown as Omit<ProjectCarouselProps, 'items'> & { items: Array<Record<string, unknown>> }
+        return (
+          <ProjectCarouselBlock
+            key={key}
+            {...p}
+            items={(p.items ?? []).map((it) => ({
+              title: String(it.title ?? ''),
+              text: String(it.text ?? ''),
+              href: typeof it.href === 'string' && it.href ? it.href : undefined,
+              image: resolveImage(it.image),
+            }))}
+          />
+        )
       }
       default:
         onUnknown?.(b.blockType)

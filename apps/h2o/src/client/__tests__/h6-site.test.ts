@@ -23,7 +23,7 @@ describe('H6 client site content', () => {
 
   it('loads the ICST placeholder home, chrome and theme from the client folder', () => {
     const page = loadPage('icst', [], root)!
-    expect(page.layout.map((b) => b.blockType)).toEqual(['hero', 'cta'])
+    expect(page.layout.map((b) => b.blockType)).toEqual(['hero', 'projectCarousel', 'serviceBand', 'takeawayList', 'cta'])
     expect(loadPage('icst', ['no-such-page'], root)).toBeNull()
     expect(loadPage('icst', ['..'], root)).toBeNull()
     expect(loadChrome('icst', root).footer.copyrightHolder).toBe('International Cooling Solutions (Thailand) Co., Ltd.')

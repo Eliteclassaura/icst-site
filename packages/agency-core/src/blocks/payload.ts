@@ -377,6 +377,45 @@ export const OfficesBlockConfig: Block = {
   // Office rows come from the Offices collection via the render context — never duplicated here.
 }
 
+export const ServiceBandBlockConfig: Block = {
+  slug: 'serviceBand',
+  labels: { singular: 'Service band', plural: 'Service bands' },
+  fields: [
+    ...sectionHead,
+    {
+      name: 'items',
+      type: 'array',
+      minRows: 1,
+      maxRows: 4,
+      fields: [
+        { name: 'title', type: 'text', required: true },
+        { name: 'text', type: 'textarea', required: true },
+        { name: 'href', type: 'text', admin: { description: 'Internal path or full URL. Leave empty for no link.' } },
+        { name: 'label', type: 'text', admin: { description: 'Link text; defaults to "Learn more".' } },
+      ],
+    },
+  ],
+}
+
+export const ProjectCarouselBlockConfig: Block = {
+  slug: 'projectCarousel',
+  labels: { singular: 'Project carousel', plural: 'Project carousels' },
+  fields: [
+    ...sectionHead,
+    {
+      name: 'items',
+      type: 'array',
+      minRows: 1,
+      fields: [
+        { name: 'title', type: 'text', required: true },
+        { name: 'text', type: 'textarea', required: true },
+        { name: 'href', type: 'text' },
+        { name: 'image', type: 'upload', relationTo: 'media' },
+      ],
+    },
+  ],
+}
+
 /** Blocks editors can place in `pages.layout` (chrome blocks are rendered from globals, not placed). */
 export const layoutBlocks: Block[] = [
   HeroBlockConfig,
@@ -393,4 +432,6 @@ export const layoutBlocks: Block[] = [
   BreadcrumbBlockConfig,
   SubNavBlockConfig,
   OfficesBlockConfig,
+  ServiceBandBlockConfig,
+  ProjectCarouselBlockConfig,
 ]
