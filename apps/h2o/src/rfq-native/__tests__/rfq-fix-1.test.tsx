@@ -142,9 +142,9 @@ describe('R15: the confirmation lines the server serves (OGCS a4b21326)', () => 
     expect(on['confirm.response_time']).toBeUndefined()
     const off = (await servedRegistry(env({ H2O_EMAIL_CUSTOMER_ACK: 'off', H2O_EMAIL_RESPONSE_PROMISE: 'off' }))).strings
     expect(off['confirm.body']).toBe(RFQ_FIX_1_STRINGS['confirm.body.promise_off'])
-    expect(off['confirm.attachments']).toBe('You can email photos or drawings to sales@h2ocooling.com. Please include your RFQ number, {{rfq_number}}.')
+    expect(off['confirm.attachments']).toBe('You can email photos or drawings to sales@icsthailand.co.th. Please include your RFQ number, {{rfq_number}}.')
     expect((await servedRegistry(env({ H2O_RFQ_SALES_EMAIL: 'quotes@example.test' }))).strings['confirm.attachments']).toContain('quotes@example.test')
-    expect(await resolveSalesAddress(env({ H2O_RFQ_SALES_EMAIL: 'not an address<script>' }))).toBe('sales@h2ocooling.com')
+    expect(await resolveSalesAddress(env({ H2O_RFQ_SALES_EMAIL: 'not an address<script>' }))).toBe('sales@icsthailand.co.th')
   })
 })
 
@@ -288,6 +288,6 @@ describe('rendered', () => {
     await flush()
     await click(button(s('review.send')))
     expect(host.textContent).toContain(s('confirm.body_no_number'))
-    expect(host.textContent).not.toContain('sales@h2ocooling.com')
+    expect(host.textContent).not.toContain('sales@icsthailand.co.th')
   })
 })

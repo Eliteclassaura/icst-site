@@ -334,8 +334,22 @@ export function loadFormNotice(read: RegistrySource): string | undefined {
   return text
 }
 
-export const buildRegistry = (read: RegistrySource): Registry =>
-  registryFromCopy(read(copyTablePath()).toString('utf8'), loadFormNotice(read))
+/**
+ * Copy that still carries this marker has not been approved by the owner or counsel (the collection notice, the privacy note). A private
+ * deploy may show it for review; under the production policy the form refuses to build rather than publish unapproved wording.
+ */
+export const PENDING_MARKER = 'OWNER/COUNSEL YES NEEDED'
+export function assertApprovedForProduction(copy: string, notice: string | undefined, env: NodeJS.ProcessEnv = process.env): void {
+  if (env.H2O_INDEXING_POLICY !== 'production') return
+  if (copy.includes(PENDING_MARKER) || (notice ?? '').includes(PENDING_MARKER)) throw new Error('COPY_PENDING_APPROVAL: the quote-form notice or privacy note is not approved yet')
+}
+
+export const buildRegistry = (read: RegistrySource): Registry => {
+  const copy = read(copyTablePath()).toString('utf8')
+  const notice = loadFormNotice(read)
+  assertApprovedForProduction(copy, notice)
+  return registryFromCopy(copy, notice)
+}
 
 let cache: Registry | undefined
 let source: RegistrySource = diskSource
@@ -349,7 +363,9 @@ export function setRegistrySourceForTests(read?: RegistrySource): void {
 export const fixtureRegistry = (): Registry => {
   if (cache) return cache
   const notice = loadFormNotice(source)
-  const reg = registryFromCopy(source(copyTablePath()).toString('utf8'), notice)
+  const copy = source(copyTablePath()).toString('utf8')
+  assertApprovedForProduction(copy, notice)
+  const reg = registryFromCopy(copy, notice)
   if (notice !== undefined) cache = reg
   return reg
 }
