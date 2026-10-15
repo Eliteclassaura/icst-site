@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import type { LayoutBlockData } from '@factory/agency-core/blocks'
 import type { FooterProps } from '@factory/agency-core/blocks'
@@ -9,7 +9,19 @@ import type { HeaderProps } from '@factory/agency-core/blocks'
  * `clients/<slug>/content/` (never in code): `chrome.json` (header and footer props) and `pages/<name>.json` (a page: title,
  * description, and `layout`, the same block rows a Payload page returns). `CLIENTS_DIR` overrides the search for `clients/`.
  */
-export type ClientPageData = { title: string; description?: string; layout: LayoutBlockData[] }
+export type ClientPageData = {
+  title: string
+  description?: string
+  layout: LayoutBlockData[]
+  /** Public path when it is not `/<name>/` (nested pages), always with leading and trailing slash. */
+  path?: string
+  /** Kept out of the index, the sitemaps and llms.txt, whatever the indexing policy. */
+  noindex?: boolean
+  /** ISO date, for the sitemap. */
+  lastmod?: string
+  /** Breadcrumb trail after Home: names and paths. Derived from the path when absent. */
+  breadcrumb?: Array<{ name: string; path: string }>
+}
 export type ClientChrome = { header: HeaderProps; footer: FooterProps; fonts?: string[] }
 
 export function clientsRoot(env: NodeJS.ProcessEnv = process.env, cwd: string = process.cwd()): string {
@@ -33,14 +45,42 @@ export function pageName(segments: readonly string[]): string | null {
   return SAFE.test(name) ? name : null
 }
 
-export function loadPage(slug: string, segments: readonly string[], root: string = clientsRoot()): ClientPageData | null {
-  const name = pageName(segments)
-  if (!name) return null
-  const file = path.join(root, slug, 'content', 'pages', `${name}.json`)
-  if (!existsSync(file)) return null
+const PATH_OK = /^\/(?:[a-z0-9][a-z0-9-]*\/)*$/
+
+function readPage(file: string): ClientPageData {
   const d = readJson(file) as Partial<ClientPageData>
   if (typeof d.title !== 'string' || !Array.isArray(d.layout)) throw new Error(`${file}: a page needs a title and a layout list`)
+  if (d.path !== undefined && !PATH_OK.test(d.path)) throw new Error(`${file}: path must look like /a/b/ (lower-case segments, leading and trailing slash)`)
   return d as ClientPageData
+}
+
+export type ListedPage = { name: string; path: string; page: ClientPageData }
+
+/** Every page of the client with its public path (`home` is `/`, others `/<name>/` unless the page sets `path`). Sorted by path. */
+export function listPages(slug: string, root: string = clientsRoot()): ListedPage[] {
+  const dir = path.join(root, slug, 'content', 'pages')
+  if (!existsSync(dir)) return []
+  const out: ListedPage[] = []
+  for (const f of readdirSync(dir)) {
+    if (!f.endsWith('.json')) continue
+    const name = f.slice(0, -5)
+    if (!SAFE.test(name)) continue
+    const page = readPage(path.join(dir, f))
+    out.push({ name, path: page.path ?? (name === 'home' ? '/' : `/${name}/`), page })
+  }
+  const seen = new Set<string>()
+  for (const p of out) {
+    if (seen.has(p.path)) throw new Error(`two pages claim the path ${p.path}`)
+    seen.add(p.path)
+  }
+  return out.sort((a, b) => a.path.localeCompare(b.path))
+}
+
+export const requestPath = (segments: readonly string[]): string => (segments.length === 0 ? '/' : `/${segments.join('/')}/`)
+
+export function loadPage(slug: string, segments: readonly string[], root: string = clientsRoot()): ClientPageData | null {
+  if (segments.length > 0 && !segments.every((x) => SAFE.test(x))) return null
+  return listPages(slug, root).find((p) => p.path === requestPath(segments))?.page ?? null
 }
 
 export function loadChrome(slug: string, root: string = clientsRoot()): ClientChrome {
