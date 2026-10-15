@@ -7,12 +7,11 @@ import type { CrmSession } from '../workspace/session'
 
 /**
  * SIGNATURES-1 (owner 2026-10-09): email signatures. One organisation STANDARD signature (admin-editable, pre-seeded
- * "ICS Sales Team") and an optional signature per person with a "use the standard one" switch (on by default).
+ * with the client's team signature) and an optional signature per person with a "use the standard one" switch (on by default).
  *
  * Resolution for a manual reply: the sender's own signature when they have turned "use the standard" OFF and wrote one,
  * otherwise the standard. A sequence email has no sending person (the shared sending profile), so it always uses the
- * standard. If the standard were ever empty it falls back to the Revenue Engine settings' team lines, then to "ICS Sales
- * Team", so nothing is ever held for a missing signature.
+ * standard. If the standard were ever empty it falls back to the Revenue Engine settings' team lines, then to the sender name, so nothing is ever held for a missing signature.
  *
  * Plain text only (the send path is plain text; the HTML part is made from these words). A signature never carries a
  * phone number or street address by default; typing one gets a gentle advisory, not a block (the owner decides).

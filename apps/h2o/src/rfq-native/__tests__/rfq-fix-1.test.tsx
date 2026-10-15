@@ -6,6 +6,14 @@
 import { act } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import type * as ClientNS from '../../client'
+
+// KIT-0 H4: this file runs server code (handlers, email config) in happy-dom, where `window` exists, and `client()` refuses to run
+// when `window` exists (it must never be answered inside a browser bundle). The server pieces here are server code: resolve the client directly.
+vi.mock('../../client', async (orig) => {
+  const o = await orig<typeof ClientNS>()
+  return { ...o, client: () => o.resolveClient() }
+})
 import { NextRequest } from 'next/server'
 import { fixtureRegistry, RFQ_FIX_1_STRINGS } from '../registry'
 import { normalizePhone, questionsFor, stripControls, submittedAnswers, validate } from '../flow'

@@ -2,6 +2,7 @@ import type { Payload } from 'payload'
 import { DEFAULT_SENDER_NAME, recipientKey, type EmailConfig, type SmtpSettings } from './config'
 import { guardHost, internalHosts, normaliseHost, type Resolver } from './net-guard'
 import { SettingsKeyError, settingsKeyConfigured, unseal } from './settings-key'
+import { identity } from './client-identity'
 
 /**
  * Patch C: SMTP sending profiles — presets, validation, and resolving the profile a send uses.
@@ -37,9 +38,9 @@ export const PRESET_DEFAULTS: Record<MailPreset, { host: string; port: number; s
   CUSTOM: { host: '', port: 587, servername: '', hint: 'Other service: any SMTP submission service with STARTTLS (587) or TLS (465) and a password.' },
 }
 
-/** Sender domains a profile may send as (owner decision 2026-10-05: h2ocooling.org and h2ocooling.com). */
+/** Sender domains a profile may send as: the client's own domains (owner decision 2026-10-05 for the default client); the environment setting wins. */
 export const senderDomains = (env: Record<string, string | undefined> = process.env): string[] =>
-  (env.H2O_EMAIL_SENDER_DOMAINS ?? 'h2ocooling.org,h2ocooling.com')
+  (env.H2O_EMAIL_SENDER_DOMAINS ?? identity.senderDomains.join(','))
     .split(',')
     .map((d) => d.trim().toLowerCase())
     .filter(Boolean)

@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto'
+import { identity } from './client-identity'
 
 /**
  * Patch C: email templates — merge fields, choices, lint and rendering. Pure; no database.
@@ -57,7 +58,7 @@ export const MERGE_FIELDS: Record<string, FieldDef> = {
   sequence_signature: {
     label: 'Sequence signature',
     required: true,
-    hint: 'Revenue Engine settings: the signer (“ICS Sales Team”) and the sales address, one per line. Never a phone number or postal address (owner rule 2026-10-06).',
+    hint: `Revenue Engine settings: the signer (“${identity.signature.name}”) and the sales address, one per line. Never a phone number or postal address (owner rule 2026-10-06).`,
     multiline: true,
   },
   missing_information_list: {
@@ -142,7 +143,7 @@ export const MERGE_FIELDS: Record<string, FieldDef> = {
   email_signature: {
     label: 'Signature',
     required: true,
-    hint: 'The team signature: “ICS Sales Team” and the sales address, one per line (Revenue Engine settings).',
+    hint: `The team signature: “${identity.signature.name}” and the sales address, one per line (Revenue Engine settings).`,
     multiline: true,
   },
   response_sentence: {
@@ -282,10 +283,10 @@ export const greetingFor = (firstName: unknown): string => {
 export const responseSentence = (promise: string | null | undefined): string =>
   promise ? `A member of our team will review it and respond ${clean(promise)}.` : 'A member of our team will review it and contact you.'
 
-// Owner rule 2026-10-06: "ICS Sales Team" + the sales address only; no phone number, no postal address.
+// Owner rule 2026-10-06: the team name + the sales address only; no phone number, no postal address.
 const SIGNATURE = '{{email_signature}}'
 const E11_SIGNATURE = '{{sequence_signature}}'
-const FOOTER = 'You’re receiving this email because you sent a request through h2ocooling.com.'
+const FOOTER = `You’re receiving this email because you sent a request through ${identity.host}.`
 
 /**
  * T1–T6, English, from the CT-accepted OGCS prelaunch copy R1 §7 (sender and reply addresses are headers, not text).
@@ -318,14 +319,14 @@ export const SEED_TEMPLATES: Array<{ code: string; name: string; purpose: Templa
     subject: 'We received your request: RFQ {{rfq_number}}',
     body: `{{greeting}}
 
-Thank you for contacting Industrial Cooling Solutions. We've received your request and logged it as RFQ {{rfq_number}}.
+Thank you for contacting ${identity.displayName}. We've received your request and logged it as RFQ {{rfq_number}}.
 
 {{response_sentence}}
 
 If you have drawings, nameplate photos or earlier inspection reports, reply to this email and attach them. They help us scope your request accurately.
 
-The ICS team
-Industrial Cooling Solutions (ICS)`,
+The ${identity.shortName} team
+${identity.displayName} (${identity.shortName})`,
   },
   {
     code: 'T2',
@@ -355,7 +356,7 @@ ${FOOTER}`,
     name: 'Quote sent / proposal follow-up',
     purpose: 'TRANSACTIONAL',
     approved: true, // owner-approved 2026-10-06 (T-R1)
-    subject: 'Your ICS proposal: RFQ {{rfq_number}}',
+    subject: `Your ${identity.shortName} proposal: RFQ {{rfq_number}}`,
     body: `Hi {{customer_first_name}},
 
 Please find our proposal for RFQ {{rfq_number}} {{choice:attached|sent separately today}}.
@@ -411,7 +412,7 @@ ${FOOTER}`,
     subject: 'Update on RFQ {{rfq_number}}',
     body: `Hi {{customer_first_name}},
 
-Thank you for considering ICS for this request. After reviewing RFQ {{rfq_number}}, we don't believe we're the right fit for this particular scope, and we'd rather tell you now than slow your project down.
+Thank you for considering ${identity.shortName} for this request. After reviewing RFQ {{rfq_number}}, we don't believe we're the right fit for this particular scope, and we'd rather tell you now than slow your project down.
 
 We'd be glad to help with industrial cooling tower parts, maintenance and repairs, dry soda blasting or new towers in the future. Just reply to this email.
 
@@ -421,7 +422,7 @@ ${SIGNATURE}
 ${FOOTER}`,
   },
   // ── Revenue Engine slice 1: E1.1 R2 email steps (subject variant A, body A), verbatim from the accepted package
-  // (`sequence_steps.json`), except the signature: "- Rhonda" → {{sequence_signature}} ("ICS Sales Team" and the sales
+  // (`sequence_steps.json`), except the signature: the sign-off → {{sequence_signature}} (the team name and the sales
   // address, composed from the Revenue Engine settings; owner decisions 2026-10-05 and 2026-10-06: no phone number, no
   // postal address). Seeded approved: the E1.1 R2 copy is owner-accepted and the signature is the owner's.
   {

@@ -1,4 +1,5 @@
 import { domainToASCII } from 'node:url'
+import { identity } from './client-identity'
 
 /**
  * Mail configuration (CRM email M1, Control Tower brief 2026-10-04). Environment only; no default sends.
@@ -105,11 +106,11 @@ export function recipientKey(raw: unknown): string | null {
 }
 
 /**
- * The sender's display name when none is configured (owner decision 2026-10-06, T-R3: "ICS Sales Team"; it replaced
- * "Rhonda Miller" of 2026-10-05). A default only: the name in H2O_EMAIL_FROM ("Name <address>") or a sending profile's
+ * The sender's display name when none is configured: the client manifest's default sender (KIT-0 H4; owner decision
+ * 2026-10-06, T-R3, for the default client). A default only: the name in H2O_EMAIL_FROM ("Name <address>") or a sending profile's
  * "Send as (name)" replaces it. The Revenue Engine signature is separate (signer + email, settings data).
  */
-export const DEFAULT_SENDER_NAME = 'ICS Sales Team'
+export const DEFAULT_SENDER_NAME = identity.senderName
 
 export function parseFrom(raw: string | undefined): { name: string; address: string } | null {
   const v = (raw ?? '').trim()
@@ -307,12 +308,12 @@ export function readInboundConfig(env: Record<string, string | undefined> = proc
 }
 
 /**
- * The sales address (owner decision 2026-10-08: sales@h2ocooling.com everywhere). The ONE lookup for it: the quote
+ * The sales address (the manifest's default sender address; owner decision 2026-10-08 for the default client). The ONE lookup for it: the quote
  * confirmation's attachments line (RFQ-FIX-1, R15) and the T1 Reply-To use it. H2O_RFQ_SALES_EMAIL, else the default; an
  * invalid value falls back. This is the environment fallback; the live value (Settings → Email routing, ALERTS-1) is
  * email/routing-read.ts resolveSalesAddressLive, which falls back to this.
  */
-export const DEFAULT_SALES_ADDRESS = 'sales@h2ocooling.com'
+export const DEFAULT_SALES_ADDRESS = identity.salesAddress
 export const resolveSalesAddress = (env: NodeJS.ProcessEnv = process.env): string => {
   const v = (env.H2O_RFQ_SALES_EMAIL ?? '').trim()
   return v.length <= 254 && /^[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+$/.test(v) ? v : DEFAULT_SALES_ADDRESS

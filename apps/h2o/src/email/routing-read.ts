@@ -53,7 +53,7 @@ export async function resolveAlertRecipients(payload: Payload, office: unknown, 
   return { everyone, extras, all: dedupeAddresses([everyone, extras]), source: r.alerts_cc.length > 0 ? 'setting' : 'default' }
 }
 
-/** The public sales address: the setting, else H2O_RFQ_SALES_EMAIL, else sales@h2ocooling.com. */
+/** The public sales address: the setting, else H2O_RFQ_SALES_EMAIL, else the client's default sales address. */
 export async function resolveSalesAddressLive(payload: Payload, env: NodeJS.ProcessEnv = process.env): Promise<string> {
   const r = await readRouting(payload)
   return r.sales_address ?? resolveSalesAddressEnv(env)

@@ -1,5 +1,6 @@
 import type { CrmSession } from '../crm/workspace/session'
 import { notifyAdmins, type LockNoticeDeps } from '../auth/mfa/lock-notice'
+import { identity } from './client-identity'
 
 /**
  * CRM-C-S1-1 (Security Auditor C-S1): a session that holds the step-up could point outgoing mail at another server.
@@ -22,7 +23,7 @@ export const profileNoticeSubject = (kind: ProfileChange): string => `A CRM send
 export function profileNoticeText(kind: ProfileChange, profileName: string, by: string, date: string): string {
   const name = profileName.replace(/[\r\n]+/g, ' ').slice(0, 80) || 'A sending profile'
   const who = by.replace(/[\r\n]+/g, ' ').slice(0, 80) || 'an admin'
-  return `On ${date}, the sending profile “${name}” ${VERB[kind]}. Changed by ${who}.\n\nIf this was not expected, sign out everywhere, change the password, and review Settings → Sending profiles.\n\nICS Sales Team\n`
+  return `On ${date}, the sending profile “${name}” ${VERB[kind]}. Changed by ${who}.\n\nIf this was not expected, sign out everywhere, change the password, and review Settings → Sending profiles.\n\n${identity.emailFrom}\n`
 }
 
 export async function notifyProfileChange(s: CrmSession, kind: ProfileChange, profileName: string, now: Date = new Date(), deps: LockNoticeDeps = {}): Promise<void> {

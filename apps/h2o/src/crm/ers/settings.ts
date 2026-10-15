@@ -1,5 +1,6 @@
 import type { Payload } from 'payload'
 import { DEFAULT_SALES_ADDRESS } from '../../email/config'
+import { identity } from '../../email/client-identity'
 
 /**
  * Revenue Engine slice 1: the settings as the engine and the outbox admission use them (the `crm-ers-settings`
@@ -42,7 +43,7 @@ export const ERS_DEFAULTS: ErsSettings = {
   warmupStepBusinessDays: 5,
   warmupStartedOn: null,
   compliance: { business_hours: true, warmup: true },
-  signature: { signer: 'ICS Sales Team', email: DEFAULT_SALES_ADDRESS },
+  signature: { signer: identity.signature.name, email: DEFAULT_SALES_ADDRESS },
   health: { state: 'ACTIVE', reason: null, changedAt: null },
   bouncePauseRatio: 0.05,
   bounceWarnRatio: 0.02,

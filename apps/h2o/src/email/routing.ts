@@ -12,11 +12,12 @@ import { textToHtml } from './messages'
 import type { Outcome } from '../crm/workspace/mutations'
 import type { CrmSession } from '../crm/workspace/session'
 import type { SmtpSettings } from './config'
+import { identity } from './client-identity'
 
 /**
  * ALERTS-1: Settings → Email routing. Who gets new quote alerts (per office), an optional copy list, and the public
  * sales address. Stored in the `crm-email-routing` global; an empty value falls back to the environment
- * (H2O_SALES_ALERT_TO for alerts, H2O_RFQ_SALES_EMAIL, then sales@h2ocooling.com, for the sales address), so a fresh
+ * (H2O_SALES_ALERT_TO for alerts, H2O_RFQ_SALES_EMAIL, then the client's default sales address, for the sales address), so a fresh
  * database behaves exactly as before.
  *
  * Saving and the test alert are admin-only and need the step-up (a fresh app code, 5 minutes). A save is audited with
@@ -38,9 +39,9 @@ export type RoutingDeps = {
   noticeDeadlineMs?: number
 }
 
-/** Company domains the public sales address may use (env `H2O_SALES_ADDRESS_DOMAINS`; default h2ocooling.com, h2ocooling.org). The alert lists are NOT restricted (the owner's list includes a Gmail address). */
+/** Company domains the public sales address may use (env `H2O_SALES_ADDRESS_DOMAINS`; default the client's own domains). The alert lists are NOT restricted (the owner's list includes a Gmail address). */
 export const salesAddressDomains = (env: NodeJS.ProcessEnv = process.env): string[] =>
-  (env.H2O_SALES_ADDRESS_DOMAINS ?? 'h2ocooling.com,h2ocooling.org').split(',').map((d) => d.trim().toLowerCase()).filter(Boolean)
+  (env.H2O_SALES_ADDRESS_DOMAINS ?? identity.salesDomains.join(',')).split(',').map((d) => d.trim().toLowerCase()).filter(Boolean)
 
 async function audit(payload: Payload, actorId: string, detail: Doc): Promise<boolean> {
   try {

@@ -5,6 +5,7 @@ import { invalidateErsSettings } from '../ers/settings'
 import { CrmInvariantError } from '../guards'
 import { ERS_HEALTH_STATE, options } from '../vocabulary'
 import { DEFAULT_SALES_ADDRESS } from '../../email/config'
+import { identity } from '../../email/client-identity'
 
 /**
  * Revenue Engine slice 1 — the engine's settings (CT rulings 2026-10-05; owner decisions). Admin-edited data, audited.
@@ -15,7 +16,7 @@ import { DEFAULT_SALES_ADDRESS } from '../../email/config'
  *   - Compliance toggles (owner: optional, default ON): business hours, warm-up (no postal-address footer: owner rule 2026-10-06). The floor never relaxes:
  *     one-click unsubscribe (link and headers) is always on, recorded unsubscribes, hard bounces and complaints are never
  *     mailed, and the kill switch and caps always apply (CT ruling 1).
- *   - Signature (owner decision): "ICS Sales Team", the RFQ office's phone, the sales address — as data.
+ *   - Signature (owner decision): the team name, the RFQ office's phone, the sales address — as data.
  *   - Health: PAUSED by the auto-pause (>5% hard bounces over the last 100 sends, at least 20; or any complaint) or by
  *     an admin; resumed by an admin (audited). ≥2% is a warning only.
  *   - `inbound_last_ok_at`: the inbound poller's heartbeat; nothing sends when it is older than 15 minutes (ruling 3).
@@ -110,7 +111,7 @@ export const CrmErsSettings: GlobalConfig = {
       type: 'group',
       admin: { description: 'Every email is signed by the team: the signer and the sales address only (owner decisions 2026-10-05 and 2026-10-06; no phone number, no postal address). Used by sequence emails and the reply templates T2–T6.' },
       fields: [
-        { name: 'signer', type: 'text', defaultValue: 'ICS Sales Team', maxLength: 80 },
+        { name: 'signer', type: 'text', defaultValue: identity.signature.name, maxLength: 80 },
         // Owner rule 2026-10-06: no phone number in any email. Kept only as a stored column (no migration); not used.
         { name: 'include_office_phone', type: 'checkbox', defaultValue: true, admin: { hidden: true, description: 'Not used: no phone number appears in any email (owner rule 2026-10-06).' } },
         { name: 'email', type: 'text', defaultValue: DEFAULT_SALES_ADDRESS, maxLength: 120 },

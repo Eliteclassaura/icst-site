@@ -1,4 +1,5 @@
 import type { Payload } from 'payload'
+import { client } from '../../client'
 import { MERGE_FIELDS } from '../../email/templates'
 import seed from './data/library-seed.json'
 import { lintVariant, worstBadge, type LibLint } from './lint'
@@ -66,6 +67,8 @@ export type PlannedRow = { key: string; data: Row }
 
 /** The library rows the sources produce (pure; no database). */
 export function planRows(): PlannedRow[] {
+  // KIT-0 H4: a client without the Library module (library.enabled = false in its manifest) seeds none of these rows.
+  if (!client().moduleOn('library')) return []
   const out: PlannedRow[] = []
   for (const s of E1) {
     const roleSubjects = s.role_copy_variants.flatMap((r) => r.subject_variants)
