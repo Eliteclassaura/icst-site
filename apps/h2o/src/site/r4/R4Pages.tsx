@@ -5,6 +5,7 @@ import {r4Copy,r4Media,r4Reuse} from '../design-r4-media'
 import {englishServicePages} from '../EnglishServices'
 import {heroActionFor} from '../hero-actions'
 import {r5bBuilders} from '../r5b/R5bPages'
+import {drySodaRankingApi,DRY_SODA_RANKING_ROUTE_ID} from '../dry-soda-ranking-r4'
 
 /**
  * Design R4 page compositions (CT GO 2026-10-07; DD specs H2O_DESIGN_R4_SPEC_<page>.md). Each composition lays the page's
@@ -135,7 +136,10 @@ const thermal:Builder=(api,path)=>{
 }
 
 const drysoda:Builder=(api,path)=>{
-  const e=eyebrows(path)
+  if(path==='/dry-soda-blast-cleaning-services-2/')api=drySodaRankingApi(api)
+  // The ranking LIVE URL reuses the accepted /dry-soda-blasting/ composition and its exact decorative labels/actions.
+  const designPath=path==='/dry-soda-blast-cleaning-services-2/'?'/dry-soda-blasting/':path
+  const e=eyebrows(designPath)
   const stat=r4Copy().statBar
   const labels=r4Copy().comparisonLabels
   const steps=[1,3,5,7,9]
@@ -143,7 +147,7 @@ const drysoda:Builder=(api,path)=>{
   const ctaMedia=r4Media('repair.overview')
   const charts=['drysoda.chart1','drysoda.chart2']
   return <>
-    <R4Hero api={api} slot="drysoda.hero" eyebrow={e.hero} h1="body.1.1.1.1.1" lead="body.1.1.1.3.1.0" actions={heroActions(api,path,api.action('body.1.1.1.5.1.1.1','ghost'))}/>
+    <R4Hero api={api} slot="drysoda.hero" eyebrow={e.hero} h1="body.1.1.1.1.1" lead="body.1.1.1.3.1.0" actions={heroActions(api,designPath,api.action('body.1.1.1.5.1.1.1','ghost'))}/>
     <Section id="service-overview" className="dr4-section--problem">
       <Split reverse media={<R4Img slot="drysoda.ache" className="dr4-photo dr4-photo--card" sizes="(min-width: 1024px) 620px, calc(100vw - 32px)"/>}>
         <Eyebrow label={e.problem!}/>
@@ -169,7 +173,7 @@ const drysoda:Builder=(api,path)=>{
       <div className="dr4-aside-grid">
         <div className="dr4-aside">
           <Eyebrow label={e.process!}/>
-          <Src api={api} r="body.7.1.1.1.3.3.1.1.0" as="h2" className="dr4-h2"/>
+          {api.inner("body.7.1.1.1.3.3.1.1.0")===null?null:<Src api={api} r="body.7.1.1.1.3.3.1.1.0" as="h2" className="dr4-h2"/>}
           <R4Img slot="drysoda.process" className="dr4-photo dr4-photo--3x2" sizes="(min-width: 1024px) 544px, calc(100vw - 32px)"/>
           <div className="dr4-actions">{api.action('body.7.1.1.1.3.1.11.1.1.1','blue')}</div>
         </div>
@@ -327,6 +331,6 @@ const aircoolers:Builder=(api,path)=>{
   </>
 }
 
-export const r4Builders:Record<string,Builder>={'SALMON-pages-1446':repair,'SALMON-pages-1555':thermal,'SALMON-pages-1722':drysoda,'SALMON-pages-1572':replacement,'SALMON-pages-1668':aircoolers,...r5bBuilders}
+export const r4Builders:Record<string,Builder>={'SALMON-pages-1446':repair,'SALMON-pages-1555':thermal,'SALMON-pages-1722':drysoda,[DRY_SODA_RANKING_ROUTE_ID]:drysoda,'SALMON-pages-1572':replacement,'SALMON-pages-1668':aircoolers,...r5bBuilders}
 /** Compositions that place the page's restored body-end sections themselves (before the CTA band). */
 export const r4PlacesRestored=new Set(['SALMON-pages-1668'])

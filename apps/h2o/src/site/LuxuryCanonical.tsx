@@ -3,6 +3,7 @@ import {createElement,type CSSProperties,type ReactNode} from 'react'
 import {readFileSync} from 'node:fs'
 import path from 'node:path'
 import {SalmonSeo,renderSalmonNode} from './SalmonCanonical'
+import {HOME_CRUMB} from './breadcrumb-schema'
 import {ownerText,ownerHref,provenanceHref,salmonMedia,salmonMediaPath,salmonNodeText,type SalmonDocument,type SalmonNode} from './salmon'
 import {LuxuryHeader,LuxuryFooter,LuxurySearch} from './LuxuryShell'
 import {pageForSegments} from './cohort'
@@ -19,6 +20,7 @@ import {deliverySrc} from './media-delivery'
 import {RestoredSlot} from './RestoredSlot'
 import {r4Builders,r4PlacesRestored} from './r4/R4Pages'
 import {R4LauncherReveal} from './r4/R4LauncherReveal'
+import {DRY_SODA_RANKING_PATH,DRY_SODA_RANKING_ROUTE_ID} from './dry-soda-ranking-r4'
 import type {R4Api,R4ButtonVariant} from './r4/R4System'
 type LayoutNode={tag:string;style?:CSSProperties;id?:number;children?:LayoutNode[];ref?:string;refs?:string[];slice?:{ref:string;start:number;end:number};decor?:string;action?:string;src?:string;alt?:string;key?:string}
 type Model={route:string;sourceId:string;tree:LayoutNode[];remaining:Array<{sourceSection:string;tree:LayoutNode}>}
@@ -27,7 +29,8 @@ const safe=(href:string)=>/^(https?:|mailto:|tel:|\/|#)/i.test(href)?href:undefi
 export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  if(doc.targetPath==='/'||(doc.targetPath==='/cooling-tower/'&&!r4Builders[doc.routeId]))return <SalmonPresentation doc={doc}/>
  const page=pageForSegments(doc.targetPath.split('/').filter(Boolean))
- const model=JSON.parse(readFileSync(path.join(process.cwd(),'content/luxury',doc.routeId.split('-').at(-1)+'.json'),'utf8')) as Model
+ const layoutId=doc.routeId===DRY_SODA_RANKING_ROUTE_ID&&doc.targetPath===DRY_SODA_RANKING_PATH?'1722':doc.routeId.split('-').at(-1)
+ const model=JSON.parse(readFileSync(path.join(process.cwd(),'content/luxury',layoutId+'.json'),'utf8')) as Model
  const serviceComposition=serviceCompositions[doc.routeId]
  const homeParts=doc.targetPath==='/'?homePartCatalogData():null
  // Design Fixes R2 (#7): the hero's first signal action is the quote action, label from content/design/hero-actions.json.
@@ -126,8 +129,8 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
  // Design R4 (CT GO 2026-10-07): the page's own source text, by key, for the shared R4 system (src/site/r4).
  const r4=r4Builders[doc.routeId]
  const r4Api:R4Api={
-  inner:(ref)=>{const n=nodes.get(ref);if(n===undefined)throw new Error(`Design R4 source key missing: ${doc.routeId} ${ref}`);return typeof n==='string'?leaf(n,ref):n.children.map((c,i)=>content(c,ref+'.'+i))},
-  tag:(ref)=>{const n=nodes.get(ref);return n===undefined||typeof n==='string'?'':n.tag},
+  inner:(ref)=>{if(doc.routeId===DRY_SODA_RANKING_ROUTE_ID&&doc.targetPath===DRY_SODA_RANKING_PATH&&ref==='dry-soda-ranking-h1')return doc.seo.h1[0];const n=nodes.get(ref);if(n===undefined)throw new Error(`Design R4 source key missing: ${doc.routeId} ${ref}`);return typeof n==='string'?leaf(n,ref):n.children.map((c,i)=>content(c,ref+'.'+i))},
+  tag:(ref)=>{if(doc.routeId===DRY_SODA_RANKING_ROUTE_ID&&doc.targetPath===DRY_SODA_RANKING_PATH&&ref==='dry-soda-ranking-h1')return 'h1';const n=nodes.get(ref);return n===undefined||typeof n==='string'?'':n.tag},
   restored:(slot)=><RestoredSlot doc={doc} slot={slot} className="dr4-restored" key={'restored-'+slot}/>,
   quote:(key,label,variant:R4ButtonVariant,heroAction?:'quote')=><span className={`dr4-btn dr4-btn--${variant}`} key={key} data-hero-action={heroAction}>{heroQuoteAction(doc,key,label)}</span>,
   action:(ref,variant:R4ButtonVariant)=>{
@@ -147,7 +150,7 @@ export function LuxuryCanonical({doc}:{doc:SalmonDocument}){
   return doc.routeId==='SALMON-pages-1230'&&labels[i]?<TowerDisclosure label={labels[i]} key={i}>{body}</TowerDisclosure>:body
  }
  return <div className={'luxury-site luxury-'+doc.routeId.split('-').at(-1)+(home?' figma-home':'')} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
-  <SalmonSeo doc={doc}/>{home?<><link rel="preload" href="/fonts/figma-home/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><link rel="preload" href="/fonts/figma-home/dm-sans-latin-400-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/></>:null}<LuxuryHeader page={page} routePath={doc.targetPath}/>
+  <SalmonSeo doc={doc} breadcrumb={layoutId==='1722'&&doc.routeId===DRY_SODA_RANKING_ROUTE_ID?[HOME_CRUMB,{name:'Resources',path:'/resources/'}]:undefined}/>{home?<><link rel="preload" href="/fonts/figma-home/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><link rel="preload" href="/fonts/figma-home/dm-sans-latin-400-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/></>:null}<LuxuryHeader page={page} routePath={doc.targetPath}/>
   <main id="main" data-luxury-body className={home?'figma-home-main':undefined}>
    {r4?<div className="dr4" data-r4-route={doc.targetPath}>{r4(r4Api,doc.targetPath)}<R4LauncherReveal/></div>:home?<><div className="figma-home-hero-stage">{sectionAt(0)}<div className="figma-home-hero-side">{sectionAt(3)}{sectionAt(1)}</div></div>{[2,4,5,6,7,8].map(sectionAt)}</>:serviceComposition?<ServicePage routeId={doc.routeId} sections={model.tree.map((_,i)=>sectionAt(i))}/>:model.tree.map((_,i)=>sectionAt(i))}
    {r4PlacesRestored.has(doc.routeId)?null:<RestoredSlot doc={doc} slot="body-end" className="lux-section-wrap wave3-source-content"/>}

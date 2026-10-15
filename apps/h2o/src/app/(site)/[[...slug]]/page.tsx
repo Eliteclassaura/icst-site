@@ -9,6 +9,7 @@ import {ABOUT_ROUTE_ID,AboutComposition} from '../../../site/AboutComposition'
 import {ArchivePage,isArchiveDocument} from '../../../site/ArchivePresentation'
 import {LuxuryCanonical,luxuryIds} from '../../../site/LuxuryCanonical'
 import {r4Builders} from '../../../site/r4/R4Pages'
+import {drySodaRankingR4,DRY_SODA_RANKING_ROUTE_ID} from '../../../site/dry-soda-ranking-r4'
 import {R4PortfolioPage,R4_PORTFOLIO_ROUTE} from '../../../site/r4/R4Portfolio'
 import {PartsIndex,partsHubPage} from '../../../site/Wave3Presentation'
 import {R5ProductDetail} from '../../../site/r5/R5Product'
@@ -135,6 +136,9 @@ export default async function Page({params,searchParams}:Params){
   const row=aliasSource??releaseRouteFor(slug)
   if(!row)notFound()
   const doc=alias&&aliasSource?aliasReleaseDocument(salmonDocument(aliasSource),alias.path,alias.canonical):salmonDocument(row)
+  // Ranking LIVE URL, accepted 7-OCT Dry Soda Design R4 source. The source tree/media stay byte-identical;
+  // the LIVE record keeps the public title, H1, metadata and self-canonical.
+  if(doc.routeId===DRY_SODA_RANKING_ROUTE_ID&&!alias)return <LuxuryCanonical doc={drySodaRankingR4(doc)}/>
   // Design R3 (CT 2026-10-06): the owner's About design replaces the transitional Salmon about family on this route.
   if(doc.routeId===ABOUT_ROUTE_ID&&!alias)return <AboutComposition doc={doc}/>
   // Design R4 (CT GO 2026-10-07): the owner's 7-OCT designs replace the earlier presentation (incl. the Dry Soda Salmon family).
