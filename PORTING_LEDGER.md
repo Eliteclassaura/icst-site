@@ -1,6 +1,6 @@
 # ICST site: porting ledger
 
-Fork of the default site's app, 2026-10-15. **The default site is untouched; this tree exists so its data and modules physically cannot reach an ICST build.** Path `/Users/sb/icst-site`, branch `icst-main` (work on `icst-fork-work`). No remote.
+Fork of the default site's app, 2026-10-15. **The default site is untouched; this tree exists so its data and modules physically cannot reach an ICST build.** Path `/Users/sb/icst-site`. **Canonical branch: `icst-main` is the ONLY branch** (Main, Main-B, CRM Patch A all use it; `icst-fork-work` was merged into it and deleted). Take the head with `git -C /Users/sb/icst-site log -1 icst-main`. Never check out another branch in this tree with Git LFS smudge on (use `GIT_LFS_SKIP_SMUDGE=1`; the 1.3a history carries LFS pointers that cannot be fetched). No remote.
 
 ## Base and what was ported (in order)
 | # | Item | Source | State |
@@ -11,7 +11,7 @@ Fork of the default site's app, 2026-10-15. **The default site is untouched; thi
 | 3 | KIT0-H4 email identity | CRM Patch A | applied unchanged |
 | 4 | KIT0-H5FIX (Canceled spelling, synthetic client stored values) | Main, `2ddda4f` | copied (manifests, validator text), re-baked |
 | 5 | KIT0-H5 intake/vocabulary | CRM Patch A | applied unchanged |
-| 6 | ICST-HOME-N1 rev2 (mobile header, phone CTA, carousel arrows), Main-B | Main-B | NOT yet ported |
+| 6 | ICST-PORT-MAINB (home rev2, article N3, serviceBand media, parts hub), Main-B `d8abed3` | Main-B | applied unchanged (`f491bcb`); arrows, mobile menu and nonce CSP verified in a real browser |
 | 7 | 1.3b chain (CRM-C: country filters, create-link polish, archive/restore UI) | CRM-C | NOT yet ported (port after 1.3b freeze) |
 
 Rule: a default-site patch is ported by `git apply` of its sealed patch; anything touching a pruned file is dropped and recorded here.

@@ -1,7 +1,5 @@
 {
-  "fonts": [
-    "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Teko:wght@500;600&display=swap"
-  ],
+  "fonts": [],
   "header": {
     "brand": {
       "name": "ICST",
