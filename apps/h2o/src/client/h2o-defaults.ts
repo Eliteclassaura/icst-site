@@ -1,0 +1,283 @@
+import type { Manifest } from './manifest'
+
+/**
+ * KIT-0 H0: today's H2O, as the default when `CLIENT` is unset or `h2o`. It is the same data as `clients/h2o/manifest.json`
+ * (a test fails if they differ), kept in code so the H2O build needs no file read and cannot fail at boot. Existing code is not
+ * wired to it yet: H1-H5 move each hard-coded value over one patch at a time, and M12 proves zero visible difference.
+ */
+export const H2O_MANIFEST: Manifest = {
+  "schemaVersion": 1,
+  "client": {
+    "slug": "h2o",
+    "legalName": "Industrial Cooling Solutions Inc",
+    "displayName": "Industrial Cooling Solutions",
+    "shortName": "ICS",
+    "tenantKey": "ICS",
+    "status": "provisional",
+    "statusNote": "Reproduced from the 1.3a code; not yet proven by the M12 zero-diff render and email snapshot. Inferred: crm.modules sheets/typeform, email.mode, seo.rankingUrlContract, ops.imageName."
+  },
+  "brand": {
+    "names": {
+      "site": "Industrial Cooling Solutions",
+      "admin": "ICS admin",
+      "emailFrom": "ICS Sales Team",
+      "chatHeader": "Request a quote · Industrial Cooling Solutions",
+      "crmHeader": "Sales Workspace"
+    },
+    "logo": {
+      "light": "/brand/ics-logo-original.webp",
+      "dark": "/brand/ics-logo-white-transparent.png",
+      "emblem": "/brand/ics-emblem-favicon-source.png",
+      "favicon": "/brand/ics-emblem-favicon-source.png",
+      "og": "/brand/ics-logo-original.webp"
+    }
+  },
+  "domains": {
+    "canonical": "https://h2ocooling.com",
+    "aliases": [
+      "www.h2ocooling.com",
+      "h2ocooling.org",
+      "www.h2ocooling.org"
+    ],
+    "indexingPolicy": "production"
+  },
+  "locales": {
+    "default": "en",
+    "enabled": [
+      "en"
+    ]
+  },
+  "offices": [
+    {
+      "key": "US",
+      "label": "US (Denver)",
+      "country": "US",
+      "address": {
+        "lines": [
+          "1457 Ammons Street, Suite 206"
+        ],
+        "city": "Lakewood",
+        "region": "CO",
+        "postalCode": "80214"
+      },
+      "phones": [
+        {
+          "display": "+1-303-462-2000",
+          "tel": "tel:+13034622000"
+        }
+      ],
+      "timeZone": "America/Denver",
+      "publicOnSite": true
+    },
+    {
+      "key": "TH",
+      "label": "Thailand (Bangkok)",
+      "country": "TH",
+      "address": {
+        "lines": [
+          "159 Serm-Mit Tower, 9th Floor",
+          "Sukhumvit 21, Asoke Road",
+          "North Klongtoey, Wattana"
+        ],
+        "city": "Bangkok",
+        "region": "Bangkok",
+        "postalCode": "10110"
+      },
+      "phones": [
+        {
+          "display": "+662-661-7723",
+          "tel": "tel:+6626617723"
+        }
+      ],
+      "timeZone": "Asia/Bangkok",
+      "publicOnSite": true
+    }
+  ],
+  "routing": {
+    "unknownCountry": "US",
+    "rules": [
+      {
+        "countries": [
+          "TH",
+          "BN",
+          "KH",
+          "ID",
+          "LA",
+          "MY",
+          "MM",
+          "PH",
+          "SG",
+          "TL",
+          "VN",
+          "JP",
+          "CN",
+          "HK",
+          "MO",
+          "TW",
+          "KR",
+          "KP",
+          "MN",
+          "IN",
+          "PK",
+          "BD",
+          "LK",
+          "NP",
+          "BT",
+          "MV",
+          "AF",
+          "AU",
+          "NZ",
+          "PG",
+          "FJ",
+          "SB",
+          "VU",
+          "NC",
+          "PF",
+          "WS",
+          "TO",
+          "KI",
+          "FM",
+          "MH",
+          "PW",
+          "NR",
+          "TV",
+          "CK",
+          "NU",
+          "GU",
+          "MP",
+          "AS"
+        ],
+        "office": "TH"
+      }
+    ],
+    "responsePromise": "We reply within one business day."
+  },
+  "email": {
+    "provider": "workspace",
+    "mode": "live",
+    "senders": [
+      {
+        "id": "sales",
+        "displayName": "ICS Sales Team",
+        "address": "sales@h2ocooling.com"
+      }
+    ],
+    "replyDomain": "h2ocooling.com",
+    "signature": {
+      "name": "ICS Sales Team",
+      "lines": [
+        "Industrial Cooling Solutions"
+      ]
+    },
+    "persona": null,
+    "library": {
+      "enabled": true
+    },
+    "sequences": {
+      "enabled": true
+    },
+    "inbound": {
+      "enabled": false
+    }
+  },
+  "crm": {
+    "pipelineStages": [
+      {
+        "key": "NEW",
+        "label": "New"
+      },
+      {
+        "key": "QUALIFYING",
+        "label": "Qualifying"
+      },
+      {
+        "key": "QUALIFIED",
+        "label": "Qualified"
+      },
+      {
+        "key": "PROPOSAL",
+        "label": "Proposal"
+      },
+      {
+        "key": "NEGOTIATION",
+        "label": "Negotiation"
+      },
+      {
+        "key": "DELAYED",
+        "label": "Delayed"
+      },
+      {
+        "key": "WON",
+        "label": "Won"
+      },
+      {
+        "key": "LOST",
+        "label": "Lost"
+      },
+      {
+        "key": "CANCELLED",
+        "label": "Cancelled"
+      }
+    ],
+    "intakePurposes": [
+      {
+        "key": "PARTS",
+        "label": "Parts"
+      },
+      {
+        "key": "NEW_TOWER",
+        "label": "New tower"
+      },
+      {
+        "key": "REPAIR_SERVICE",
+        "label": "Repair / service"
+      },
+      {
+        "key": "OTHER",
+        "label": "Other"
+      }
+    ],
+    "rfqPrefix": "RFQ-",
+    "modules": {
+      "library": true,
+      "sequences": true,
+      "attachments": false,
+      "api": false,
+      "sheets": true,
+      "typeform": true
+    }
+  },
+  "site": {
+    "modules": [
+      "pages",
+      "articles",
+      "products",
+      "projects",
+      "resources",
+      "locales"
+    ],
+    "legal": {
+      "privacy": true,
+      "cookies": true,
+      "terms": true,
+      "accessibility": true
+    },
+    "sameAs": [],
+    "tracking": {
+      "analytics": false,
+      "ads": false
+    }
+  },
+  "seo": {
+    "rankingUrlContract": "apps/h2o/ops/seo-pass/data"
+  },
+  "ops": {
+    "imageName": "ghcr.io/h2o",
+    "backupTarget": "h2o-backups",
+    "scannerAllowlist": "apps/h2o/ops/ci/scan-allow.json",
+    "secretsRef": "coolify:h2o"
+  },
+  "review": {
+    "allowedOverlap": []
+  }
+}

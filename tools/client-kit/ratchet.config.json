@@ -2,14 +2,31 @@
   "sets": [
     {
       "name": "src",
-      "roots": ["apps/h2o/src", "packages/agency-core/src"],
-      "exclude": ["(^|/)__tests__/", "(^|/)__dbtests__/", "\\.test\\.", "(^|/)fixtures?/", "payload-types\\.ts$", "(^|/)migrations/"]
+      "roots": [
+        "apps/h2o/src",
+        "packages/agency-core/src"
+      ],
+      "exclude": [
+        "(^|/)__tests__/",
+        "(^|/)__dbtests__/",
+        "\\.test\\.",
+        "(^|/)fixtures?/",
+        "payload-types\\.ts$",
+        "(^|/)migrations/",
+        "(^|/)client/h2o-defaults\\.ts$"
+      ]
     },
     {
       "name": "tests",
-      "roots": ["apps/h2o/src", "packages/agency-core"],
+      "roots": [
+        "apps/h2o/src",
+        "packages/agency-core"
+      ],
       "include": "(^|/)__tests__/|(^|/)__dbtests__/|\\.test\\.|(^|/)fixtures?/|(^|/)test/",
-      "exclude": ["node_modules/"]
+      "exclude": [
+        "node_modules/",
+        "(^|/)client/__tests__/"
+      ]
     }
   ]
 }
