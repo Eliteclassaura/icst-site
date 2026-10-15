@@ -1,9 +1,0 @@
-{
-  "note": "LISTING-MERGE-1: held listing records that receive catalog additions. Add a path when a catalog addition changes a listing document.",
-  "routes": [
-    "/fans/",
-    "/product-category/fans/",
-    "/product-category/fans/page/2/",
-    "/product-tag/hudson/"
-  ]
-}

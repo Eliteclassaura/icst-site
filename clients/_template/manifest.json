@@ -136,8 +136,20 @@
         "label": "Qualifying"
       },
       {
+        "key": "QUALIFIED",
+        "label": "Qualified"
+      },
+      {
         "key": "PROPOSAL",
         "label": "Proposal"
+      },
+      {
+        "key": "NEGOTIATION",
+        "label": "Negotiation"
+      },
+      {
+        "key": "DELAYED",
+        "label": "Delayed"
       },
       {
         "key": "WON",
@@ -146,16 +158,24 @@
       {
         "key": "LOST",
         "label": "Lost"
+      },
+      {
+        "key": "CANCELLED",
+        "label": "Canceled"
       }
     ],
     "intakePurposes": [
       {
-        "key": "QUOTE",
-        "label": "Request a quote"
+        "key": "PARTS",
+        "label": "Parts"
       },
       {
-        "key": "SERVICE",
-        "label": "Service"
+        "key": "NEW_TOWER",
+        "label": "New tower"
+      },
+      {
+        "key": "REPAIR_SERVICE",
+        "label": "Repair / service"
       },
       {
         "key": "OTHER",

@@ -33,10 +33,6 @@ import { mfaEndpoints } from './auth/mfa/endpoint'
 import { h2oEmailAdapter } from './email/adapter'
 import { crmAdminComponents } from './crm/admin/config'
 import { adminTitleSuffix } from './brand/admin-brand'
-import { PublicRoutes } from './content/collections/public-routes'
-import { PublicRedirects } from './content/collections/public-redirects'
-import { jobsConfig, PublicationState } from './content/jobs'
-import { SiteChromeGlobal } from './content/site-chrome'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 // No default origin: a deployable manifest must state its public origin (see RUNTIME_VARIABLES.md).
@@ -151,9 +147,6 @@ const collections: CollectionConfig[] = [
   ...catalogCollections(mediaDir),
   // CRM-1 (H2O-local, private). Registered after the catalog because RFQ items relate to `products`.
   ...crmCollections,
-  // Runtime content bridge: the public website's pages and redirects, Payload-managed (drafts/versions).
-  PublicRoutes,
-  PublicRedirects,
   // SEC-MAIN-1.1: every upload collection takes its stored-file fields from the uploaded file only (src/media/upload-guard.ts).
 ].map(withUploadGuard)
 
@@ -190,10 +183,7 @@ export default buildConfig({
   onInit: async (payload) => {
     installMfaGuard(payload)
   },
-  globals: [PublicationState, SiteChromeGlobal, ...crmGlobals],
-  // One publishing/indexing queue and runner (see src/content/jobs.ts). Email has its own outbox, drained by
-  // the same runner role (src/email/outbox-worker.ts), not a Payload job queue.
-  jobs: jobsConfig,
+  globals: [...crmGlobals],
   // Always set: without an adapter Payload would log whole messages (reset links included). The adapter gates
   // every send by H2O_EMAIL_MODE and never logs a recipient, subject, body or token (src/email/adapter.ts).
   email: h2oEmailAdapter,

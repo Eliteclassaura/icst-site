@@ -101,7 +101,7 @@ export function validateManifest(raw: unknown): { ok: true; manifest: Manifest }
   const domains = c.obj(top.domains, '$.domains', ['canonical', 'aliases', 'indexingPolicy'])
   const hosts: string[] = []
   if (domains) {
-    const canon = c.str(domains.canonical, '$.domains.canonical', { pattern: ORIGIN, what: 'an https origin with no path, like https://example.test' })
+    const canon = c.str(domains.canonical, '$.domains.canonical', { pattern: ORIGIN, what: 'an https origin with no path, like https://host.tld' })
     if (canon && ORIGIN.test(canon)) hosts.push(canon.replace('https://', ''))
     for (const [i, a] of c.arr(domains.aliases, '$.domains.aliases', { max: 20 }).entries()) {
       const h = c.str(a, `$.domains.aliases[${i}]`, { pattern: HOST, what: 'a host name' })
@@ -139,7 +139,7 @@ export function validateManifest(raw: unknown): { ok: true; manifest: Manifest }
       const pp = c.obj(ph, `${p}.phones[${j}]`, ['display', 'tel'])
       if (pp) {
         c.str(pp.display, `${p}.phones[${j}].display`, { max: 40 })
-        c.str(pp.tel, `${p}.phones[${j}].tel`, { pattern: TEL, what: 'a tel: link in E.164 form, like tel:+15550100' })
+        c.str(pp.tel, `${p}.phones[${j}].tel`, { pattern: TEL, what: 'a tel: link in E.164 form, like tel:+<country code><number>' })
       }
     }
   }

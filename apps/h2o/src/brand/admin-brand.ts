@@ -1,5 +1,4 @@
 import { client } from '../client'
-import { indexingPolicy } from '../content/config'
 
 /**
  * BRAND-ADMIN-1 (owner request, CT 2026-10-07): the ICS brand on the admin login, the admin nav and the CRM sign-in pages,
@@ -12,6 +11,8 @@ import { indexingPolicy } from '../content/config'
  * KIT-0 H1: the names and logo paths come from the client manifest (`client()`); for H2O they equal the strings that used to be
  * written here. The pixel sizes are the supplied H2O assets' and stay fixed.
  */
+/** The one switch that separates production from everything else (kept under its existing env name). */
+const indexingPolicy = (env: NodeJS.ProcessEnv = process.env): 'private' | 'production' => (env.H2O_INDEXING_POLICY === 'production' ? 'production' : 'private')
 const BRAND = client().manifest
 export const ADMIN_BRAND_ALT = `${BRAND.client.shortName} ${BRAND.client.displayName}`
 export const ADMIN_LOGO = { light: BRAND.brand.logo.light, dark: BRAND.brand.logo.dark, width: 1000, height: 256 } as const

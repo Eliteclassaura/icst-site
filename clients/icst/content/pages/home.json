@@ -11,7 +11,7 @@
       "cta": {
         "primary": {
           "label": "Request a quote",
-          "href": "/client-preview/"
+          "href": "/"
         }
       }
     },
@@ -21,9 +21,9 @@
       "title": "Selected projects",
       "lede": "Synthetic copy: one line on how projects are delivered.",
       "items": [
-        { "title": "Project one", "text": "Synthetic project summary.", "href": "/client-preview/" },
-        { "title": "Project two", "text": "Synthetic project summary.", "href": "/client-preview/" },
-        { "title": "Project three", "text": "Synthetic project summary.", "href": "/client-preview/" },
+        { "title": "Project one", "text": "Synthetic project summary.", "href": "/" },
+        { "title": "Project two", "text": "Synthetic project summary.", "href": "/" },
+        { "title": "Project three", "text": "Synthetic project summary.", "href": "/" },
         { "title": "Project four", "text": "Synthetic project summary." }
       ]
     },
@@ -33,8 +33,8 @@
       "title": "End-to-end cooling tower services",
       "lede": "Synthetic copy: one line describing the service range.",
       "items": [
-        { "title": "Cooling towers", "text": "Synthetic service summary.", "href": "/client-preview/", "label": "View service" },
-        { "title": "Repair and upgrade", "text": "Synthetic service summary.", "href": "/client-preview/", "label": "View service" },
+        { "title": "Cooling towers", "text": "Synthetic service summary.", "href": "/", "label": "View service" },
+        { "title": "Repair and upgrade", "text": "Synthetic service summary.", "href": "/", "label": "View service" },
         { "title": "Cooling tower components", "text": "Synthetic service summary." }
       ]
     },
@@ -53,7 +53,7 @@
       "cta": {
         "primary": {
           "label": "Request a quote",
-          "href": "/client-preview/"
+          "href": "/"
         }
       }
     }

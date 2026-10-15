@@ -1,8 +1,0 @@
-candidate_route	route_id	state	action
-/about-ics-industrial-cooling-solutions/	RT-0004	OWNER_MAPPING_REQUIRED	OWNER_ROUTE_MAPPING_REQUIRED; no inferred Salmon substitute
-/cooling-tower-inspection-steps/	RT-0321	OWNER_MAPPING_REQUIRED	OWNER_ROUTE_MAPPING_REQUIRED; no inferred Salmon substitute
-/cooling-tower-performance-curve/	RT-0356	OWNER_MAPPING_REQUIRED	OWNER_ROUTE_MAPPING_REQUIRED; no inferred Salmon substitute
-/cooling-tower-thermal-upgrade/	RT-0398	OWNER_MAPPING_REQUIRED	OWNER_ROUTE_MAPPING_REQUIRED; no inferred Salmon substitute
-/frp-fan-blades-guide/	RT-0495	OWNER_MAPPING_REQUIRED	OWNER_ROUTE_MAPPING_REQUIRED; no inferred Salmon substitute
-/power-plant-cooling-towers/	RT-0732	OWNER_MAPPING_REQUIRED	OWNER_ROUTE_MAPPING_REQUIRED; no inferred Salmon substitute
-/resources/	RT-1208	OWNER_MAPPING_REQUIRED	OWNER_ROUTE_MAPPING_REQUIRED; no inferred Salmon substitute

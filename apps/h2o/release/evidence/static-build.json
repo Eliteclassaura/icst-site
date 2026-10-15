@@ -1,9 +1,0 @@
-{
-  "command": "pnpm --filter @factory/h2o build:public",
-  "exit": 0,
-  "output": "apps/h2o/.public-renderer/out",
-  "exportedRoutes": 890,
-  "files": 7754,
-  "payloadSecretRequired": false,
-  "databaseRequired": false
-}

@@ -1,7 +1,7 @@
-import { H2O_MANIFEST } from './h2o-defaults'
+import { BAKED_MANIFEST, BAKED_SLUG } from './baked'
 import { ManifestError, validateManifest, type Manifest, type Office, type Sender } from './manifest'
 
-export { H2O_MANIFEST, ManifestError }
+export { BAKED_MANIFEST, ManifestError }
 export type { Manifest, Office, Sender }
 
 /**
@@ -12,13 +12,13 @@ export type { Manifest, Office, Sender }
  *   client().manifest   the validated manifest
  *   client().<helpers>  the small typed accessors H1-H5 need
  *
- * Resolution: `CLIENT` env (default `h2o`). `h2o` returns `H2O_MANIFEST`, today's constants. Any other slug needs the manifest as
+ * Resolution (FORK): the baked client (`baked.ts`, generated from `clients/<slug>/manifest.json`) unless `CLIENT` names another slug, which needs the manifest as
  * JSON in `CLIENT_MANIFEST_JSON` (set by the build/seed tooling from `clients/<slug>/manifest.json`; see `./load`), validated here, and
  * fails CLOSED: a missing, invalid or mismatched manifest throws `ManifestError`; nothing falls back to H2O values.
  *
  * Never call `client()` in code that runs in the browser: a client bundle has no `CLIENT` and would answer with H2O. It throws there (see `isBrowserBundle`).
  */
-export const DEFAULT_CLIENT = 'h2o'
+export const DEFAULT_CLIENT = BAKED_SLUG
 const SLUG = /^[a-z][a-z0-9-]{1,38}[a-z0-9]$/
 
 export type ClientConfig = {
@@ -68,7 +68,7 @@ export function buildClient(manifest: Manifest): ClientConfig {
 export function resolveClient(env: NodeJS.ProcessEnv = process.env): ClientConfig {
   const slug = (env.CLIENT ?? '').trim() || DEFAULT_CLIENT
   if (!SLUG.test(slug)) throw new ManifestError('CLIENT', [{ path: '$', message: `"${slug}" is not a valid client slug` }])
-  if (slug === DEFAULT_CLIENT) return buildClient(H2O_MANIFEST)
+  if (slug === DEFAULT_CLIENT) return buildClient(BAKED_MANIFEST)
   const json = env.CLIENT_MANIFEST_JSON
   if (!json) throw new ManifestError(slug, [{ path: '$', message: `CLIENT=${slug} needs CLIENT_MANIFEST_JSON (the manifest of clients/${slug}); there is no fallback` }])
   let raw: unknown

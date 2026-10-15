@@ -7,17 +7,17 @@
       "name": "ICST",
       "accent": "",
       "role": "International Cooling Solutions (Thailand)",
-      "href": "/client-preview/"
+      "href": "/"
     },
     "links": [
       {
         "label": "Home",
-        "href": "/client-preview/"
+        "href": "/"
       }
     ],
     "cta": {
       "label": "Request a quote",
-      "href": "/client-preview/"
+      "href": "/"
     }
   },
   "footer": {
@@ -27,7 +27,7 @@
         "links": [
           {
             "label": "Home",
-            "href": "/client-preview/"
+            "href": "/"
           }
         ]
       }

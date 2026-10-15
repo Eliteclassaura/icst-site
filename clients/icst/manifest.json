@@ -132,7 +132,7 @@
       },
       {
         "key": "CANCELLED",
-        "label": "Cancelled"
+        "label": "Canceled"
       }
     ],
     "intakePurposes": [
