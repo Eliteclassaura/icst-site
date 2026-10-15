@@ -36,11 +36,11 @@ const locs = (s: string) => [...s.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m
 const CHILD_NAME = /^(?:[a-z_-]+-sitemap[0-9]*|sitemap-(?:ja|th|id|vi)[0-9]*)\.xml$/
 
 describe('SITEMAP-PREVIEW-1: the private review host', () => {
-  it('the allowlist is exactly the staging host; kill switch and production policy turn it off', async () => {
+  it('the retired staging host is absent from the preview allowlist under every policy', async () => {
     const { SITEMAP_PREVIEW_ORIGINS, sitemapPreviewOrigin } = await load()
-    expect([...SITEMAP_PREVIEW_ORIGINS]).toEqual([STAGING])
-    expect(sitemapPreviewOrigin(STAGING, {} as never)).toBe(STAGING)
-    expect(sitemapPreviewOrigin(STAGING, { H2O_INDEXING_POLICY: 'private' } as never)).toBe(STAGING)
+    expect([...SITEMAP_PREVIEW_ORIGINS]).toEqual([])
+    expect(sitemapPreviewOrigin(STAGING, {} as never)).toBeUndefined()
+    expect(sitemapPreviewOrigin(STAGING, { H2O_INDEXING_POLICY: 'private' } as never)).toBeUndefined()
     for (const bad of [O, 'https://www.h2ocooling.com', 'https://evil.example', 'http://staging.h2ocooling.org', 'https://staging.h2ocooling.org:8443', 'https://STAGING.h2ocooling.org', '', null, undefined])
       expect(sitemapPreviewOrigin(bad as string | null, {} as never), String(bad)).toBeUndefined()
     expect(sitemapPreviewOrigin(STAGING, { H2O_SITEMAP_PREVIEW: 'off' } as never)).toBeUndefined()
@@ -113,12 +113,12 @@ describe('SITEMAP-PREVIEW-1: the private review host', () => {
     expect(sitemapPreviewOrigin(STAGING)).toBeUndefined()
   }, 120000)
 
-  it('kill switch: H2O_SITEMAP_PREVIEW=off returns the empty index again (read per request)', async () => {
+  it('the retired staging host stays empty even if the preview switch is on', async () => {
     process.env.H2O_SITEMAP_PREVIEW = 'off'
     const { sitemapPreviewOrigin, sitemapResponse } = await load()
     expect(locs(await xml(await sitemapResponse('sitemap_index.xml', { previewOrigin: sitemapPreviewOrigin(STAGING) })))).toEqual([])
     delete process.env.H2O_SITEMAP_PREVIEW
-    expect(locs(await xml(await sitemapResponse('sitemap_index.xml', { previewOrigin: sitemapPreviewOrigin(STAGING) }))).length).toBeGreaterThan(4)
+    expect(locs(await xml(await sitemapResponse('sitemap_index.xml', { previewOrigin: sitemapPreviewOrigin(STAGING) })))).toEqual([])
   })
 })
 
@@ -158,12 +158,11 @@ describe('SITEMAP-PREVIEW-1.1: the origin comes from the edge headers, not the s
     const { sitemapResponse, sitemapPreviewOrigin } = await load()
     return xml(await sitemapResponse('sitemap_index.xml', { previewOrigin: sitemapPreviewOrigin(origin) }))
   }
-  it('internal nextUrl (0.0.0.0:3000) + forwarded staging host and https: the staging origin is named and the index is populated', async () => {
+  it('internal nextUrl may identify retired staging, but its sitemap stays empty', async () => {
     const origin = await headerFor({ host: '0.0.0.0:3000', 'x-forwarded-host': 'staging.h2ocooling.org', 'x-forwarded-proto': 'https' })
     expect(origin).toBe(STAGING)
     const body = await bodyFor(origin)
-    expect(locs(body).length).toBeGreaterThan(4)
-    expect(locs(body).every((u) => u.startsWith(STAGING + '/'))).toBe(true)
+    expect(locs(body)).toEqual([])
   })
   it('the Host header alone (no forwarded headers) also names the staging origin; a missing proto means https', async () => {
     expect(await headerFor({ host: 'staging.h2ocooling.org' })).toBe(STAGING)

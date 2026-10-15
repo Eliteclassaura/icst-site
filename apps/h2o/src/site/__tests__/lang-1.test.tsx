@@ -191,8 +191,8 @@ describe('the selector in the page chrome',()=>{
 
 describe('LANG-HOST-1: translate links name the serving host (allowlisted), the owner\'s nine languages, native twins not duplicated',()=>{
   const u=(url:string)=>new URL(url).searchParams.get('u')
-  it('the preview host, the public host and www name themselves in u=; any other host (a spoofed Host header included) falls back to the canonical origin',()=>{
-    expect(u(translateUrl('/guide/?a=1','es','en','https://staging.h2ocooling.org'))).toBe('https://staging.h2ocooling.org/guide/?a=1')
+  it('public and www name themselves in u=; retired staging and every other host fall back to canonical',()=>{
+    expect(u(translateUrl('/guide/?a=1','es','en','https://staging.h2ocooling.org'))).toBe('https://h2ocooling.com/guide/?a=1')
     expect(u(translateUrl('/guide/','es','en','https://h2ocooling.com'))).toBe('https://h2ocooling.com/guide/')
     expect(u(translateUrl('/guide/','es','en','https://www.h2ocooling.com'))).toBe('https://www.h2ocooling.com/guide/')
     for(const bad of ['https://evil.example','http://staging.h2ocooling.org','https://staging.h2ocooling.org.evil.example','https://staging.h2ocooling.org:8443','https://STAGING.h2ocooling.org','','null',undefined,null])
@@ -201,7 +201,7 @@ describe('LANG-HOST-1: translate links name the serving host (allowlisted), the 
   it('a menu item rebuilds its link for the serving origin from its own path, language and source language',()=>{
     const item=languageMenu('/guide-about-cooling-tower/',{}).translate.find(i=>i.code==='ko')!
     expect(item.href).toContain('u=https%3A%2F%2Fh2ocooling.com%2Fguide-about-cooling-tower%2F')
-    expect(u(translateHref(item,'https://staging.h2ocooling.org'))).toBe('https://staging.h2ocooling.org/guide-about-cooling-tower/')
+    expect(u(translateHref(item,'https://staging.h2ocooling.org'))).toBe('https://h2ocooling.com/guide-about-cooling-tower/')
     expect(translateHref(item,'https://evil.example')).toBe(item.href)
   })
   it('an English page offers all nine; a page with a native th/ja/vi/id twin shows that native link under Available and no machine item for the same language',()=>{

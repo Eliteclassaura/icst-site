@@ -17,11 +17,11 @@ type Ledger = { routes: SitemapLedgerRow[]; redirects: Array<{ source: string }>
 export type SitemapOptions = { revoked?: ReadonlySet<string>; lastmod?: ReadonlyMap<string, string>; production?: boolean; previewOrigin?: string }
 
 /**
- * SITEMAP-PREVIEW-1 (owner, 2026-10-09): on the private review host the sitemap lists the REAL URL set (what production would publish),
- * with the URLs on the host that serves it (a sitemap must list URLs of its own host), so SEO tools can crawl the private site. Only these
- * origins; any other host, an empty host, the production policy and H2O_SITEMAP_PREVIEW=off keep the private policy's empty index.
+ * SITEMAP-PREVIEW-1: the retired preview host has no allowlisted origin. Private sitemap requests
+ * therefore keep the empty index; production remains on the canonical public origin. The preview
+ * mechanism stays fail-closed if a future review host is explicitly approved.
  */
-export const SITEMAP_PREVIEW_ORIGINS: ReadonlySet<string> = new Set(['https://staging.h2ocooling.org'])
+export const SITEMAP_PREVIEW_ORIGINS: ReadonlySet<string> = new Set()
 export const sitemapPreviewOrigin = (candidate: string | null | undefined, env: NodeJS.ProcessEnv = process.env): string | undefined =>
   env.H2O_INDEXING_POLICY !== 'production' && env.H2O_SITEMAP_PREVIEW !== 'off' && candidate && SITEMAP_PREVIEW_ORIGINS.has(candidate) ? candidate : undefined
 const onOrigin = (url: string, origin: string): string => (url.startsWith(PUBLIC_ORIGIN) ? origin + url.slice(PUBLIC_ORIGIN.length) : url)

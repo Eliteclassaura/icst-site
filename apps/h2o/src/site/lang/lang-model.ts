@@ -45,10 +45,9 @@ export function languageOfPath(pathname:string):AvailableCode{
 }
 
 /**
- * LANG-HOST-1: the hosts whose own origin may be named in a Google Translate link (exact match only): the public site, its www host and
- * the private preview. Anything else, a spoofed or unknown Host included, falls back to the canonical origin; a Host header is never echoed.
+ * LANG-HOST-1: the hosts whose own origin may be named in a Google Translate link (exact match only): the public site and its www host. Anything else, a spoofed or unknown Host included, falls back to the canonical origin; a Host header is never echoed.
  */
-export const TRANSLATE_ORIGINS:ReadonlySet<string>=new Set(['https://h2ocooling.com','https://www.h2ocooling.com','https://staging.h2ocooling.org'])
+export const TRANSLATE_ORIGINS:ReadonlySet<string>=new Set(['https://h2ocooling.com','https://www.h2ocooling.com'])
 export const translateOriginFor=(origin?:string|null):string=>origin&&TRANSLATE_ORIGINS.has(origin)?origin:CANONICAL_ORIGIN
 
 /** An absolute or site-relative URL to its normalised, percent-encoded path on the canonical host (or an allowlisted serving origin). */
