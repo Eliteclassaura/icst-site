@@ -13,6 +13,7 @@ import { TaskTable } from '../../_components/TaskTable'
 import { BackToList } from '../../_components/ListContext'
 import { requireCrmSession } from '../../session'
 import { AttachmentsPanel } from '../../_components/AttachmentsPanel'
+import { AccountDomainLinks } from './AccountDomainLinks'
 
 export const metadata: Metadata = { title: 'Account' }
 
@@ -41,7 +42,6 @@ export default async function AccountPage({ params, searchParams }: { params: Pr
   const acc = a.account
   const accId = String(acc.id)
   const people = a.people
-  const domains = ((acc.domains ?? []) as Doc[]).filter((d) => d.domain_status !== 'RETIRED')
   return (
     <Shell active="accounts" title={String(acc.canonical_name)} crumb={<BackToList kind="accounts" label="Accounts" />} userName={s.displayName} session={s} isAdmin={s.isAdmin}>
       <RememberRecent kind="account" id={accId} />
@@ -81,9 +81,7 @@ export default async function AccountPage({ params, searchParams }: { params: Pr
               <dd>{(acc.legal_name as string) || <span className="c-unknown">Not recorded</span>}</dd>
               <dt>Domains</dt>
               <dd>
-                {domains.length
-                  ? domains.map((d) => `${String(d.domain)}${String(d.domain_status).startsWith('VERIFIED') ? ' (verified)' : ' (unverified)'}`).join(', ')
-                  : <span className="c-unknown">None recorded</span>}
+                <AccountDomainLinks domains={(acc.domains ?? []) as Doc[]} />
               </dd>
               <dt>Industry</dt>
               <dd>{(acc.industry as string) || <span className="c-unknown">Not recorded</span>}</dd>

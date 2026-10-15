@@ -1934,6 +1934,7 @@ details.c-tech > summary {
 .crm-app .c-hint a,
 .crm-app .c-alert a,
 .crm-app .c-crumbs a,
+.crm-app .c-dl dd a[target='_blank'],
 .crm-app .c-panel-body li > a {
   text-decoration: underline;
   text-decoration-thickness: 1px;
