@@ -98,6 +98,12 @@ export function RfqTable({
                       {r.company && !r.companyLinked ? ' · unlinked' : ''}
                     </span>
                   </a>
+                  {/* 1.3a-C4: what the customer asked for, one line, plain text (escaped by React). */}
+                  {r.preview ? (
+                    <span className="c-preview" title={r.preview}>
+                      {r.preview}
+                    </span>
+                  ) : null}
                 </td>
                 {compact ? null : (
                   <td className="hide-sm interest">

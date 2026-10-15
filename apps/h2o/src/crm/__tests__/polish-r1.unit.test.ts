@@ -37,7 +37,7 @@ describe('office hours between two instants', () => {
 })
 
 describe('reply due', () => {
-  it('is green with more than 4 office hours left, amber at 4 or fewer, red when overdue', () => {
+  it('is green with more than 8 office hours left, amber at 8 or fewer, red when overdue', () => {
     const received = at('2026-10-05T16:00:00Z') // Mon 10:00 MDT → due Tue end
     const due = firstResponseDueAt(received, US)
     const ok = replyDue(open(due), at('2026-10-05T17:00:00Z'), US) // Mon 11:00: 6 h Mon + 8 h Tue
@@ -47,9 +47,16 @@ describe('reply due', () => {
     const soon = replyDue(open(due), at('2026-10-06T19:30:00Z'), US) // Tue 13:30: 3 h 30 min left
     expect(soon.tone).toBe('soon')
     expect(replyDueLabel(soon, at('2026-10-06T19:30:00Z'))).toBe('3 h 30 min left')
-    const edge = replyDue(open(due), at('2026-10-06T19:00:00Z'), US) // Tue 13:00: exactly 4 h
+    // 1.3a-C4: the boundary is 8 office hours (one full office day): the last full day before the due instant is green, the due day amber
+    const aboveEdge = replyDue(open(due), at('2026-10-05T22:30:00Z'), US) // Mon 16:30: 30 min Mon + 8 h Tue = 8 h 30 min
+    expect(aboveEdge.officeMsLeft).toBe(8.5 * H)
+    expect(aboveEdge.tone).toBe('ok')
+    const edge = replyDue(open(due), at('2026-10-06T15:00:00Z'), US) // Tue 09:00: exactly 8 h
+    expect(REPLY_SOON_MS).toBe(8 * H)
     expect(edge.officeMsLeft).toBe(REPLY_SOON_MS)
     expect(edge.tone).toBe('soon')
+    const midday = replyDue(open(due), at('2026-10-06T19:00:00Z'), US) // Tue 13:00: 4 h
+    expect(midday.tone).toBe('soon')
     const late = replyDue(open(due), at('2026-10-07T08:00:00Z'), US) // Wed 02:00, 2 h after the due instant
     expect(late.tone).toBe('overdue')
     expect(replyDueLabel(late, at('2026-10-07T08:00:00Z'))).toBe('Overdue 2 h')

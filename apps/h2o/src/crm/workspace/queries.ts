@@ -2,6 +2,7 @@ import type { Where } from 'payload'
 import { CRM_USERS } from '@factory/agency-core/cms/kernel'
 import { activeFromLedger, type LedgerRow } from '../suppression'
 import { emailKey } from '../normalize'
+import { requestPreview } from './preview'
 import { OPPORTUNITY_STAGE, TERMINAL_STAGES } from '../vocabulary'
 import { interestOf, taskTitle, isCustomerUrgent, OPEN_RFQ_STATUSES, ACTIVE_RFQ_STATUSES } from './labels'
 import { asUser, displayNameOf, type CrmSession } from './session'
@@ -97,6 +98,8 @@ export type RfqRow = {
   accountId: string | null
   contactId: string | null
   opportunityId: string | null
+  /** 1.3a-C4: the first ~120 characters of the customer's request (plain text), or null when none was supplied. */
+  preview?: string | null
 }
 
 export async function suppressionsByKey(s: CrmSession, keys: string[]): Promise<Map<string, LedgerRow[]>> {
@@ -260,6 +263,7 @@ export async function hydrate(s: CrmSession, docs: Doc[], people: Person[], now:
       accountId: accId,
       contactId: id(d.contact),
       opportunityId: id(d.opportunity),
+      preview: requestPreview(submitted.message),
     }
   })
 }

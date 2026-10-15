@@ -4,7 +4,7 @@ import { INQUIRY_TYPE_LABEL, type InquiryType } from '../../inquiry-type'
 import { OFFICE_LABEL, type Office } from '../../offices'
 import { replyDueLabel, type ReplyDue } from '../replyDue'
 import { absoluteTime, BUSINESS_TIME_ZONE } from '../time'
-import { IconAlert, IconCheckCircle, IconClock, IconPart, IconTower, IconWrench } from './Icons'
+import { IconAlert, IconCheckCircle, IconClock, IconPart, IconProgress, IconTower, IconWrench } from './Icons'
 
 /**
  * Polish R1 list facets (CT brief must-have 1): the inquiry type badge, country (flag + ISO code), office queue and the
@@ -63,9 +63,14 @@ export function QueueTag({ office }: { office: Office | null }) {
   )
 }
 
-const REPLY_ICON = { ok: () => <IconClock />, soon: () => <IconClock />, overdue: () => <IconAlert />, done: () => <IconCheckCircle />, none: () => null }
+const REPLY_ICON = { ok: () => <IconClock />, soon: () => <IconProgress />, overdue: () => <IconAlert />, done: () => <IconCheckCircle />, none: () => null }
 
-/** The first-reply countdown chip. Green: more than 4 office hours left; amber: 4 or fewer; red: overdue. */
+/**
+ * The first-reply countdown chip. Green: more than 8 office hours left; amber: 8 or fewer (the due day); red: overdue. The state is
+ * also a word ("On time", "Due soon", "Overdue") for assistive technology, and each state has its own icon, so colour is never the only signal.
+ */
+const REPLY_STATE_WORD: Record<string, string> = { ok: 'On time', soon: 'Due soon', overdue: 'Overdue', done: 'Replied' }
+
 export function ReplyChip({ reply, now, zone = BUSINESS_TIME_ZONE }: { reply: ReplyDue; now: Date; zone?: string }) {
   const label = replyDueLabel(reply, now)
   if (reply.tone === 'none') return <span className="c-muted">{label}</span>
@@ -79,6 +84,7 @@ export function ReplyChip({ reply, now, zone = BUSINESS_TIME_ZONE }: { reply: Re
   return (
     <span className={`c-due is-${reply.tone}`} title={title}>
       {REPLY_ICON[reply.tone]()}
+      {reply.tone === 'ok' || reply.tone === 'soon' ? <span className="c-visually-hidden">{REPLY_STATE_WORD[reply.tone]}: </span> : null}
       <span>{label}</span>
     </span>
   )

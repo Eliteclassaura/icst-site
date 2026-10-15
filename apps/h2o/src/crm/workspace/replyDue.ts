@@ -7,8 +7,8 @@ import { isBusinessDay, startOfBusinessDay, type BusinessCalendar } from './time
  * counts **office hours** — 09:00–17:00 office time on the office's business days (holidays excluded) — so a Friday
  * evening inquiry does not turn amber over the weekend.
  *
- *   - OK       more than 4 office hours left
- *   - SOON     4 office hours or fewer left (including "due later today" after the office has closed)
+ *   - OK       more than 8 office hours left (green)
+ *   - SOON     8 office hours or fewer left (amber): the due day, including "due later today" after the office has closed
  *   - OVERDUE  past the due instant
  *   - DONE     the first-response task is done (a reply went out)
  *   - NONE     no first-response task (closed, qualified, legacy) — nothing is due
@@ -17,7 +17,8 @@ import { isBusinessDay, startOfBusinessDay, type BusinessCalendar } from './time
  */
 export const OFFICE_OPEN_HOUR = 9
 export const OFFICE_CLOSE_HOUR = 17
-export const REPLY_SOON_MS = 4 * 3600_000
+/** 1.3a-C4: green above this many office hours left, amber at or below it (was 4 h: the chip was green almost to the end of the due day). */
+export const REPLY_SOON_MS = 8 * 3600_000
 
 export type ReplyState = 'OPEN' | 'DONE' | 'NONE'
 export type ReplyTone = 'ok' | 'soon' | 'overdue' | 'done' | 'none'

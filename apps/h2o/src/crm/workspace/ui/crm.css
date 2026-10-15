@@ -2665,6 +2665,23 @@ details.c-tech > summary {
   text-wrap: pretty;
 }
 
+/* 1.3a-C4: the customer's request, one line under the company and contact (plain text, cut with an ellipsis; the full line is the title). */
+.c-rfq-table td.who .c-preview {
+  display: block;
+  overflow: hidden;
+  max-inline-size: 260px;
+  margin-block-start: 2px;
+  color: var(--c-text-2);
+  font-size: 12px;
+  line-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-rfq-table.is-compact td.who .c-preview {
+  max-inline-size: 180px;
+}
+
 /* The Compact toggle (density cookie) tightens every table. */
 .is-dense .c-table td {
   padding-block: 5px;
