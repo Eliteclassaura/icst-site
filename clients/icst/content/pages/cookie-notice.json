@@ -1,0 +1,16 @@
+{
+  "title": "Cookie Notice",
+  "description": "The cookies and browser storage this site uses, and what each one does.",
+  "path": "/cookie-notice/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Cookie Notice",
+      "as": "h1"
+    },
+    {
+      "blockType": "cookieInventory"
+    }
+  ]
+}

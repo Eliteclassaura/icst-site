@@ -28,6 +28,23 @@
             "href": "/"
           }
         ]
+      },
+      {
+        "heading": "Legal",
+        "links": [
+          {
+            "label": "Privacy policy",
+            "href": "/privacy-policy/"
+          },
+          {
+            "label": "Terms and conditions",
+            "href": "/terms-and-conditions/"
+          },
+          {
+            "label": "Cookie notice",
+            "href": "/cookie-notice/"
+          }
+        ]
       }
     ],
     "copyrightHolder": "International Cooling Solutions (Thailand) Co., Ltd."

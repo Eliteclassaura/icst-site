@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { FooterBlock, HeaderBlock, RenderBlocks } from '@factory/agency-core/blocks'
 import { client } from '../../../client'
 import { listPages, loadChrome, requestPath } from '../../../client/site/content'
+import { expandCookieBlocks, loadInventory } from '../../../client/site/cookies'
 import { canonicalUrl, indexingOn, robotsMeta, schemaGraph } from '../../../client/site/seo'
 
 /**
@@ -46,7 +47,7 @@ export default async function ClientPreviewPage({ params }: Params) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph(c.manifest, found, pages)).replace(/</g, '\\u003c') }} />
       <HeaderBlock {...chrome.header} currentPath={currentPath} />
       <main id="main">
-        <RenderBlocks layout={page.layout} ctx={{ currentPath, offices, phone }} />
+        <RenderBlocks layout={expandCookieBlocks(page.layout, loadInventory(c.slug))} ctx={{ currentPath, offices, phone }} />
       </main>
       <FooterBlock {...chrome.footer} />
     </>
