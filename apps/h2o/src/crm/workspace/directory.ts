@@ -15,6 +15,7 @@ import {
 } from './queries'
 import { asUser, type CrmSession } from './session'
 import { isUuid } from './validate'
+import { findClamped } from './page-clamp'
 
 /**
  * Wave 1 W1-1 read models: the Accounts and Contacts directories and the contact profile.
@@ -129,15 +130,17 @@ export function accountsWhere(s: CrmSession, p: AccountsParams, q: string | null
 export async function loadAccountsDirectory(s: CrmSession, p: AccountsParams, q: string | null) {
   const people = await crmUsers(s)
   const names = nameMap(people)
-  const res = await s.payload.find({
-    collection: 'crm-accounts',
-    where: accountsWhere(s, p, q),
-    sort: p.sort === 'recent' ? '-updatedAt' : 'canonical_name',
-    depth: 0,
-    limit: DIRECTORY_PAGE_SIZE,
-    page: p.page,
-    ...asUser(s),
-  })
+  const res = await findClamped(p.page, (page) =>
+    s.payload.find({
+      collection: 'crm-accounts',
+      where: accountsWhere(s, p, q),
+      sort: p.sort === 'recent' ? '-updatedAt' : 'canonical_name',
+      depth: 0,
+      limit: DIRECTORY_PAGE_SIZE,
+      page,
+      ...asUser(s),
+    }),
+  )
   const docs = res.docs as unknown as Doc[]
   const facts = await perRecordFacts(s, 'account', docs.map((d) => String(d.id)))
   const rows: AccountRow[] = docs.map((a) => {
@@ -228,15 +231,17 @@ export function contactsWhere(s: CrmSession, p: ContactsParams, q: string | null
 export async function loadContactsDirectory(s: CrmSession, p: ContactsParams, q: string | null) {
   const people = await crmUsers(s)
   const names = nameMap(people)
-  const res = await s.payload.find({
-    collection: 'crm-contacts',
-    where: contactsWhere(s, p, q),
-    sort: p.sort === 'recent' ? '-updatedAt' : 'display_name',
-    depth: 0,
-    limit: DIRECTORY_PAGE_SIZE,
-    page: p.page,
-    ...asUser(s),
-  })
+  const res = await findClamped(p.page, (page) =>
+    s.payload.find({
+      collection: 'crm-contacts',
+      where: contactsWhere(s, p, q),
+      sort: p.sort === 'recent' ? '-updatedAt' : 'display_name',
+      depth: 0,
+      limit: DIRECTORY_PAGE_SIZE,
+      page,
+      ...asUser(s),
+    }),
+  )
   const docs = res.docs as unknown as Doc[]
   const accIds = [...new Set(docs.map((c) => id(c.account)).filter(Boolean))] as string[]
   const [accounts, facts, dnc] = await Promise.all([

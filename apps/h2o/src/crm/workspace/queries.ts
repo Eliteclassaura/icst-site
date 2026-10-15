@@ -13,6 +13,7 @@ import { officeSettings } from '../officeSettings'
 import { isUuid } from './validate'
 import { countryName, isCountryCode } from '../countries'
 import { INQUIRY_TYPE_LABEL, type InquiryType } from '../inquiry-type'
+import { findClamped } from './page-clamp'
 
 /**
  * Sales Workspace read models. Every query runs as the signed-in user (`overrideAccess: false`), so the
@@ -488,24 +489,26 @@ export type Inbox = {
 export async function loadInbox(s: CrmSession, p: InboxParams, now: Date = new Date()): Promise<Inbox> {
   const people = await crmUsers(s)
   const where = await inboxWhere(s, p, now)
-  const res = await s.payload.find({
-    collection: 'crm-rfqs',
-    where,
-    sort:
-      p.sort === 'received_asc'
-        ? 'received_at'
-        : p.sort === 'status'
-          ? 'status'
-          : p.sort === 'country'
-            ? ['country_code', '-received_at']
-            : p.sort === 'type'
-              ? ['inquiry_type', '-received_at']
-              : '-received_at',
-    depth: 0,
-    limit: PAGE_SIZE,
-    page: p.page,
-    ...asUser(s),
-  })
+  const res = await findClamped(p.page, (page) =>
+    s.payload.find({
+      collection: 'crm-rfqs',
+      where,
+      sort:
+        p.sort === 'received_asc'
+          ? 'received_at'
+          : p.sort === 'status'
+            ? 'status'
+            : p.sort === 'country'
+              ? ['country_code', '-received_at']
+              : p.sort === 'type'
+                ? ['inquiry_type', '-received_at']
+                : '-received_at',
+      depth: 0,
+      limit: PAGE_SIZE,
+      page,
+      ...asUser(s),
+    }),
+  )
   const viewCounts: Partial<Record<InboxView, number>> = {}
   await Promise.all(
     INBOX_VIEWS.map(async (v) => {
