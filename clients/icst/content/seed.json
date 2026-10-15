@@ -1,0 +1,35 @@
+{
+  "pages": [
+    {
+      "slug": "home",
+      "title": "International Cooling Solutions (Thailand): sample home page",
+      "body": "This is obviously fake content used to prove the kit builds a site with no real client in it."
+    },
+    {
+      "slug": "services",
+      "title": "Sample services",
+      "body": "One sample service page."
+    }
+  ],
+  "articles": [
+    {
+      "slug": "sample-article",
+      "title": "A sample article",
+      "body": "Sample text."
+    }
+  ],
+  "products": [
+    {
+      "slug": "sample-product",
+      "title": "Sample product",
+      "body": "Sample text."
+    }
+  ],
+  "projects": [
+    {
+      "slug": "sample-project",
+      "title": "Sample project",
+      "body": "Sample text."
+    }
+  ]
+}

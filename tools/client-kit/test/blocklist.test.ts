@@ -58,5 +58,11 @@ test('hits report the line and the matched text; entries too short to be safe ar
 
 test('the committed blocklists load and name their own client folder', () => {
   const lists = loadBlocklists(clients)
-  assert.deepEqual(lists.map((l) => l.client).sort(), ['example-industrial', 'h2o'])
+  assert.deepEqual(lists.map((l) => l.client).sort(), ['example-industrial', 'h2o', 'icst'])
+})
+
+test('two entries that match the same span count as one hit (the ratchet does not double-count a shared string)', () => {
+  const a = list([{ value: 'Serm-Mit Tower', kind: 'text', group: 'office-th' }], 'one')
+  const b = list([{ value: 'serm-mit tower', kind: 'text', group: 'office-th' }], 'two')
+  assert.equal(scanText('Serm-Mit Tower', buildMatcher([a, b], 'output')).length, 1)
 })

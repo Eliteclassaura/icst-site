@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- *   node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tools/client-kit/bin/lint.ts ratchet <src|tests> <check|init|update>
+ *   node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tools/client-kit/bin/lint.ts ratchet <src|tests> <check|init|update|rebase>
  *   node ... lint.ts scan <dir> --client <slug> --scope <output|render|seed|source> [--exclude regex]
  *   node ... lint.ts rows <file.json> --client <slug> --scope seed
  */
@@ -38,7 +38,7 @@ function matcherFor(client: string, scope: Scope) {
 try {
   const [sub, third] = args
   if (sub === 'ratchet') {
-    const setName = third ?? die('usage: lint ratchet <src|tests> <check|init|update>')
+    const setName = third ?? die('usage: lint ratchet <src|tests> <check|init|update|rebase>')
     const action = args[2] ?? 'check'
     const config = JSON.parse(readFileSync(path.join(kit, 'ratchet.config.json'), 'utf8')) as { sets: RatchetSet[] }
     const set = config.sets.find((s) => s.name === setName) ?? die(`unknown set ${setName}`)
@@ -46,12 +46,20 @@ try {
     const matcher = buildMatcher(lists, 'source')
     const now = countHits(repo, set, matcher)
     const file = path.join(kit, `ratchet-baseline.${setName}.json`)
-    if (action === 'init') {
+    const clientsNow = lists.map((l) => l.client).sort().join(',')
+    if (action === 'rebase') {
+      // Adding a client to the blocklist set legitimately changes the counts. Rebase is only allowed when the set changed, so it cannot hide a regression.
+      const old = JSON.parse(readFileSync(file, 'utf8')) as Baseline
+      if (old.blocklistClients.join(',') === clientsNow) die('rebase is only for a changed blocklist set; the set is unchanged, so use check/update', 1)
+      writeFileSync(file, `${JSON.stringify(freshBaseline(setName, lists.map((l) => l.client), now), null, 1)}\n`)
+      out(`rebased on blocklist set [${clientsNow}]: ${Object.keys(now).length} files, ${Object.values(now).reduce((a, b) => a + b, 0)} hits`)
+    } else if (action === 'init') {
       if (existsSync(file)) die(`${file} exists; use update (it can only lower counts)`)
       writeFileSync(file, `${JSON.stringify(freshBaseline(setName, lists.map((l) => l.client), now), null, 1)}\n`)
       out(`baseline written: ${Object.keys(now).length} files, ${Object.values(now).reduce((a, b) => a + b, 0)} hits`)
     } else {
       const baseline = JSON.parse(readFileSync(file, 'utf8')) as Baseline
+      if (baseline.blocklistClients.join(',') !== clientsNow) die(`the blocklist set changed (baseline [${baseline.blocklistClients.join(',')}], now [${clientsNow}]); run: ratchet ${setName} rebase`, 1)
       const r = compare(baseline, now)
       if (action === 'update') {
         writeFileSync(file, `${JSON.stringify(lowered(baseline, now), null, 1)}\n`)

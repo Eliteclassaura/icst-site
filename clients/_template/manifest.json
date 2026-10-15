@@ -5,7 +5,9 @@
     "legalName": "__LEGAL__",
     "displayName": "__NAME__",
     "shortName": "__SHORT__",
-    "tenantKey": "__TENANT__"
+    "tenantKey": "__TENANT__",
+    "status": "provisional",
+    "statusNote": "New client: replace every synthetic value, then confirm."
   },
   "brand": {
     "names": {
@@ -183,7 +185,11 @@
       "terms": true,
       "accessibility": true
     },
-    "sameAs": []
+    "sameAs": [],
+    "tracking": {
+      "analytics": false,
+      "ads": false
+    }
   },
   "seo": {
     "rankingUrlContract": null

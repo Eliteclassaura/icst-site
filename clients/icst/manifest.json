@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "client": {
+    "slug": "icst",
+    "legalName": "International Cooling Solutions (Thailand) Co., Ltd.",
+    "displayName": "International Cooling Solutions (Thailand)",
+    "shortName": "ICST",
+    "tenantKey": "ICST",
+    "status": "provisional",
+    "statusNote": "PROVISIONAL. Values given by CT-1 on 2026-10-15 from the owner; the office address and phone are the Bangkok office also listed for H2O. Owner answer A6 (is ICST the Thailand company of the ICS group) is pending, so review.allowedOverlap is empty on purpose and the lint flags the shared Bangkok strings until it is recorded. Pipeline stages and intake purposes are the industrial defaults (same as H2O), not ICST-specific. Logos are placeholders until ICST's Figma tokens arrive."
+  },
+  "brand": {
+    "names": {
+      "site": "International Cooling Solutions (Thailand)",
+      "admin": "ICST admin",
+      "emailFrom": "ICST Sales Team",
+      "chatHeader": "Request a quote · International Cooling Solutions (Thailand)",
+      "crmHeader": "ICST Sales Workspace"
+    },
+    "logo": {
+      "light": "/brand/icst-light.svg",
+      "dark": "/brand/icst-dark.svg",
+      "emblem": "/brand/icst-emblem.svg",
+      "favicon": "/brand/icst-favicon.svg",
+      "og": "/brand/icst-og.png"
+    }
+  },
+  "domains": {
+    "canonical": "https://icsthailand.co.th",
+    "aliases": [
+      "www.icsthailand.co.th"
+    ],
+    "indexingPolicy": "staging"
+  },
+  "locales": {
+    "default": "en",
+    "enabled": [
+      "en"
+    ]
+  },
+  "offices": [
+    {
+      "key": "TH",
+      "label": "Thailand (Bangkok)",
+      "country": "TH",
+      "address": {
+        "lines": [
+          "159 Serm-Mit Tower, 9th Floor",
+          "Sukhumvit 21, Asoke Road",
+          "North Klongtoey, Wattana"
+        ],
+        "city": "Bangkok",
+        "region": "Bangkok",
+        "postalCode": "10110"
+      },
+      "phones": [
+        {
+          "display": "+662-661-7723",
+          "tel": "tel:+6626617723"
+        }
+      ],
+      "timeZone": "Asia/Bangkok",
+      "publicOnSite": true
+    }
+  ],
+  "routing": {
+    "unknownCountry": "TH",
+    "rules": [],
+    "responsePromise": "We reply within one business day."
+  },
+  "email": {
+    "provider": "workspace",
+    "mode": "off",
+    "senders": [
+      {
+        "id": "sales",
+        "displayName": "ICST Sales Team",
+        "address": "sales@icsthailand.co.th"
+      }
+    ],
+    "replyDomain": "icsthailand.co.th",
+    "signature": {
+      "name": "ICST Sales Team",
+      "lines": [
+        "International Cooling Solutions (Thailand) Co., Ltd."
+      ]
+    },
+    "persona": null,
+    "library": {
+      "enabled": false
+    },
+    "sequences": {
+      "enabled": false
+    },
+    "inbound": {
+      "enabled": false
+    }
+  },
+  "crm": {
+    "pipelineStages": [
+      {
+        "key": "NEW",
+        "label": "New"
+      },
+      {
+        "key": "QUALIFYING",
+        "label": "Qualifying"
+      },
+      {
+        "key": "QUALIFIED",
+        "label": "Qualified"
+      },
+      {
+        "key": "PROPOSAL",
+        "label": "Proposal"
+      },
+      {
+        "key": "NEGOTIATION",
+        "label": "Negotiation"
+      },
+      {
+        "key": "DELAYED",
+        "label": "Delayed"
+      },
+      {
+        "key": "WON",
+        "label": "Won"
+      },
+      {
+        "key": "LOST",
+        "label": "Lost"
+      },
+      {
+        "key": "CANCELLED",
+        "label": "Cancelled"
+      }
+    ],
+    "intakePurposes": [
+      {
+        "key": "PARTS",
+        "label": "Parts"
+      },
+      {
+        "key": "NEW_TOWER",
+        "label": "New tower"
+      },
+      {
+        "key": "REPAIR_SERVICE",
+        "label": "Repair / service"
+      },
+      {
+        "key": "OTHER",
+        "label": "Other"
+      }
+    ],
+    "rfqPrefix": "RFQ-",
+    "modules": {
+      "library": false,
+      "sequences": false,
+      "attachments": false,
+      "api": false,
+      "sheets": false,
+      "typeform": false
+    }
+  },
+  "site": {
+    "modules": [
+      "pages",
+      "articles",
+      "products",
+      "projects"
+    ],
+    "legal": {
+      "privacy": true,
+      "cookies": true,
+      "terms": true,
+      "accessibility": true
+    },
+    "sameAs": [],
+    "tracking": {
+      "analytics": false,
+      "ads": false
+    }
+  },
+  "seo": {
+    "rankingUrlContract": null
+  },
+  "ops": {
+    "imageName": "TO_BE_SET",
+    "backupTarget": "TO_BE_SET",
+    "scannerAllowlist": "clients/icst/scan-allow.json",
+    "secretsRef": "TO_BE_SET"
+  },
+  "review": {
+    "allowedOverlap": []
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "client": "icst",
+  "entries": [
+    {
+      "value": "International Cooling Solutions (Thailand)",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "icst-name"
+    },
+    {
+      "value": "International Cooling Solutions (Thailand) Co., Ltd.",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "icst-name"
+    },
+    {
+      "value": "icsthailand.co.th",
+      "kind": "domain",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "icst-domain"
+    },
+    {
+      "value": "ICST Sales Team",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "icst-name"
+    },
+    {
+      "value": "+662 661 7723",
+      "kind": "phone",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "office-th"
+    },
+    {
+      "value": "Serm-Mit Tower",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "office-th"
+    }
+  ]
+}

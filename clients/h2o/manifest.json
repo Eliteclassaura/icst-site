@@ -5,7 +5,9 @@
     "legalName": "Industrial Cooling Solutions Inc",
     "displayName": "Industrial Cooling Solutions",
     "shortName": "ICS",
-    "tenantKey": "ICS"
+    "tenantKey": "ICS",
+    "status": "provisional",
+    "statusNote": "Reproduced from the 1.3a code; not yet proven by the M12 zero-diff render and email snapshot. Inferred: crm.modules sheets/typeform, email.mode, seo.rankingUrlContract, ops.imageName."
   },
   "brand": {
     "names": {
@@ -253,7 +255,11 @@
       "terms": true,
       "accessibility": true
     },
-    "sameAs": []
+    "sameAs": [],
+    "tracking": {
+      "analytics": false,
+      "ads": false
+    }
   },
   "seo": {
     "rankingUrlContract": "apps/h2o/ops/seo-pass/data"

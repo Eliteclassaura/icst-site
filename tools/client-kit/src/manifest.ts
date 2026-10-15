@@ -23,7 +23,7 @@ export type Office = {
 export type Sender = { id: string; displayName: string; address: string }
 export type Manifest = {
   schemaVersion: typeof MANIFEST_SCHEMA_VERSION
-  client: { slug: string; legalName: string; displayName: string; shortName: string; tenantKey: string }
+  client: { slug: string; legalName: string; displayName: string; shortName: string; tenantKey: string; status: 'provisional' | 'confirmed'; statusNote: string | null }
   brand: {
     names: { site: string; admin: string; emailFrom: string; chatHeader: string; crmHeader: string }
     logo: { light: string; dark: string; emblem: string; favicon: string; og: string }
@@ -49,7 +49,7 @@ export type Manifest = {
     rfqPrefix: string
     modules: { library: boolean; sequences: boolean; attachments: boolean; api: boolean; sheets: boolean; typeform: boolean }
   }
-  site: { modules: string[]; legal: { privacy: boolean; cookies: boolean; terms: boolean; accessibility: boolean }; sameAs: string[] }
+  site: { modules: string[]; legal: { privacy: boolean; cookies: boolean; terms: boolean; accessibility: boolean }; sameAs: string[]; tracking: { analytics: boolean; ads: boolean } }
   seo: { rankingUrlContract: string | null }
   ops: { imageName: string; backupTarget: string; scannerAllowlist: string; secretsRef: string }
   /** Strings that also belong to another client's blocklist but are legitimately this client's too (decided by the owner, per pair). */
@@ -80,10 +80,13 @@ export function validateManifest(raw: unknown): { ok: true; manifest: Manifest }
   if (!top) return { ok: false, issues: c.issues }
   if (top.schemaVersion !== MANIFEST_SCHEMA_VERSION) c.fail('$.schemaVersion', `must be ${MANIFEST_SCHEMA_VERSION}`)
 
-  const client = c.obj(top.client, '$.client', ['slug', 'legalName', 'displayName', 'shortName', 'tenantKey'])
+  const client = c.obj(top.client, '$.client', ['slug', 'legalName', 'displayName', 'shortName', 'tenantKey', 'status', 'statusNote'])
   if (client) {
     c.str(client.slug, '$.client.slug', { pattern: SLUG, what: 'a lower-case slug of 3 to 40 characters' })
     for (const k of ['legalName', 'displayName', 'shortName']) c.str(client[k], `$.client.${k}`, { max: 120 })
+    c.oneOf(client.status, '$.client.status', ['provisional', 'confirmed'])
+    if (client.statusNote !== null) c.str(client.statusNote, '$.client.statusNote', { max: 1000 })
+    if (client.status === 'provisional' && client.statusNote === null) c.fail('$.client.statusNote', 'a provisional client must say what is still unconfirmed')
     c.str(client.tenantKey, '$.client.tenantKey', { max: 32, pattern: /^[A-Z][A-Z0-9_]{1,31}$/, what: 'upper case letters, digits or _' })
   }
 
@@ -204,11 +207,13 @@ export function validateManifest(raw: unknown): { ok: true; manifest: Manifest }
     if (mods && em?.sequences && typeof em.sequences === 'object' && mods.sequences !== em.sequences.enabled) c.fail('$.crm.modules.sequences', 'must match email.sequences.enabled')
   }
 
-  const site = c.obj(top.site, '$.site', ['modules', 'legal', 'sameAs'])
+  const site = c.obj(top.site, '$.site', ['modules', 'legal', 'sameAs', 'tracking'])
   if (site) {
     c.arr(site.modules, '$.site.modules', { min: 1, max: 30 }).forEach((x, i) => c.str(x, `$.site.modules[${i}]`, { pattern: /^[a-z][a-z-]{1,30}$/, what: 'a module name' }))
     const l = c.obj(site.legal, '$.site.legal', ['privacy', 'cookies', 'terms', 'accessibility'])
     if (l) for (const k of Object.keys(l)) c.bool(l[k], `$.site.legal.${k}`)
+    const tr = c.obj(site.tracking, '$.site.tracking', ['analytics', 'ads'])
+    if (tr) for (const k of Object.keys(tr)) c.bool(tr[k], `$.site.tracking.${k}`)
     c.arr(site.sameAs, '$.site.sameAs', { max: 20 }).forEach((x, i) => c.str(x, `$.site.sameAs[${i}]`, { pattern: /^https:\/\//, what: 'an https URL' }))
   }
 

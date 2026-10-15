@@ -5,7 +5,9 @@
     "legalName": "Example Industrial Holdings Ltd",
     "displayName": "Example Industrial",
     "shortName": "Example",
-    "tenantKey": "EXAMPLE"
+    "tenantKey": "EXAMPLE",
+    "status": "confirmed",
+    "statusNote": null
   },
   "brand": {
     "names": {
@@ -183,7 +185,11 @@
       "terms": true,
       "accessibility": true
     },
-    "sameAs": []
+    "sameAs": [],
+    "tracking": {
+      "analytics": false,
+      "ads": false
+    }
   },
   "seo": {
     "rankingUrlContract": null

@@ -3,9 +3,10 @@
  "set": "tests",
  "blocklistClients": [
   "example-industrial",
-  "h2o"
+  "h2o",
+  "icst"
  ],
- "total": 1744,
+ "total": 1745,
  "files": {
   "apps/h2o/src/auth/__tests__/admin-access.unit.test.ts": 1,
   "apps/h2o/src/auth/__tests__/sec-main-1.test.ts": 5,
@@ -200,7 +201,7 @@
   "apps/h2o/src/site/__tests__/salmon-activation.test.tsx": 1,
   "apps/h2o/src/site/__tests__/salmon-visual-parity.test.tsx": 7,
   "apps/h2o/src/site/__tests__/seo-batch-hygiene.test.ts": 1,
-  "apps/h2o/src/site/__tests__/seo-content-1.test.tsx": 17,
+  "apps/h2o/src/site/__tests__/seo-content-1.test.tsx": 18,
   "apps/h2o/src/site/__tests__/seo-content-22.test.ts": 6,
   "apps/h2o/src/site/__tests__/seo-fix-1.test.tsx": 31,
   "apps/h2o/src/site/__tests__/seo-fix-2.test.tsx": 1,

@@ -85,6 +85,8 @@ export function buildMatcher(lists: Blocklist[], scope: Scope, allowed: readonly
 
 export function scanText(text: string, m: Matcher): Hit[] {
   const hits: Hit[] = []
+  // two entries (e.g. the same Bangkok office on two clients' lists) matching the same span are one hit
+  const seen = new Set<string>()
   let lineStarts: number[] | null = null
   const lineOf = (index: number) => {
     if (!lineStarts) {
@@ -104,6 +106,9 @@ export function scanText(text: string, m: Matcher): Hit[] {
     e.re.lastIndex = 0
     for (const match of text.matchAll(e.re)) {
       const index = match.index ?? 0
+      const key = `${index}:${match[0].length}`
+      if (seen.has(key)) continue
+      seen.add(key)
       hits.push({ value: e.value, kind: e.kind, client: e.client, group: e.group, index, line: lineOf(index), text: match[0].slice(0, 80) })
     }
   }

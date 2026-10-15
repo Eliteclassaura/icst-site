@@ -3,7 +3,8 @@
  "set": "src",
  "blocklistClients": [
   "example-industrial",
-  "h2o"
+  "h2o",
+  "icst"
  ],
  "total": 1230,
  "files": {

@@ -77,3 +77,16 @@ test('the committed baselines are in step with the tree (no file worse than its 
     assert.equal(Object.values(baseline.files as Record<string, number>).reduce((a, b) => a + b, 0), baseline.total)
   }
 })
+
+test('ICST (provisional): its own Bangkok office and "ICS group" wording are flagged until the owner records the overlap', async () => {
+  const { readFileSync: read } = await import('node:fs')
+  const m = loadManifest(path.join(clients, 'icst'))
+  assert.equal(m.client.status, 'provisional')
+  assert.deepEqual(m.review.allowedOverlap, [])
+  const text = read(path.join(clients, 'icst/manifest.json'), 'utf8')
+  const groups = (allowed: string[]) =>
+    new Set(scanRows(text, buildMatcher(loadBlocklists(clients).filter((l) => l.client !== 'icst'), 'output', allowed)).flatMap((r) => r.hits.map((h) => h.group)))
+  assert.deepEqual([...groups([])].sort(), ['ics-brand', 'office-th'])
+  assert.equal(groups(['office-th', 'ics-brand']).size, 0, 'recording the owner answer in allowedOverlap clears it, per pair')
+  assert.equal(scanRows(text, buildMatcher(loadBlocklists(clients).filter((l) => l.client !== 'icst'), 'output', ['office-th', 'ics-brand'])).length, 0)
+})

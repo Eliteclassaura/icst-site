@@ -72,3 +72,13 @@ test('duplicate office keys, bad tel links and bad time zones are refused', () =
 test('loadManifest throws with every issue and never returns a partial manifest', () => {
   assert.throws(() => loadManifest(path.join(clients, 'does-not-exist')), /Invalid manifest/)
 })
+
+test('a provisional client must say what is unconfirmed; tracking is explicit and cannot be left out', () => {
+  const m = raw('example-industrial')
+  m.client.status = 'provisional'
+  m.client.statusNote = null
+  delete m.site.tracking
+  const out = issues(m)
+  assert.ok(out.some((x) => x.startsWith('$.client.statusNote')))
+  assert.ok(out.some((x) => x.startsWith('$.site.tracking')))
+})
