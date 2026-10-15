@@ -33,6 +33,8 @@ const die = (m: string, code = 2): never => {
 function matcherFor(client: string, scope: Scope) {
   const manifest = loadManifest(path.join(clients, client))
   const others = loadBlocklists(clients).filter((l) => l.client !== client)
+  // Fail closed: scanning against no blocklist would pass everything.
+  if (others.length === 0) die('no other client blocklist found under clients/: refusing to scan against an empty list', 1)
   return buildMatcher(others, scope, manifest.review.allowedOverlap)
 }
 

@@ -9,6 +9,8 @@ import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { COUNTRY_CODES } from './countries'
 import type { Purpose, Question, Registry } from './model'
+import { client } from '../client'
+import { clientsRoot } from '../client/site/content'
 
 /**
  * CT amendments to the OGCS seed: contract §1.1 (2026-10-05), and the Round 5 rulings (CT, 2026-10-05) the CRM seed will
@@ -306,7 +308,10 @@ export function registryFromCopy(tsv: string, formNotice?: string): Registry {
  * Codes only: no content is logged.
  */
 export type RegistrySource = (relativePath: string) => Buffer
-const diskSource: RegistrySource = (rel) => readFileSync(path.join(process.cwd(), rel))
+// Fork: the form copy is the client's own, read from `clients/<slug>/` (CLIENTS_DIR in an image), never from a default-site content folder.
+/** The client's copy table: `clients/<slug>/content/rfq/<slug>-native-rfq-copy-r1.tsv`. */
+const copyTablePath = (): string => `content/rfq/${client().slug}-native-rfq-copy-r1.tsv`
+const diskSource: RegistrySource = (rel) => readFileSync(path.join(clientsRoot(), client().slug, rel))
 // Server-side only (the registry is built on the server). One JSON line on stderr: a code and a short reason, never content.
 const logNotice = (code: string, detail: string) => process.stderr.write(`${JSON.stringify({ level: 'error', code, detail })}\n`)
 
@@ -330,7 +335,7 @@ export function loadFormNotice(read: RegistrySource): string | undefined {
 }
 
 export const buildRegistry = (read: RegistrySource): Registry =>
-  registryFromCopy(read('content/rfq/ogcs-native-rfq-copy-r1.tsv').toString('utf8'), loadFormNotice(read))
+  registryFromCopy(read(copyTablePath()).toString('utf8'), loadFormNotice(read))
 
 let cache: Registry | undefined
 let source: RegistrySource = diskSource
@@ -344,7 +349,7 @@ export function setRegistrySourceForTests(read?: RegistrySource): void {
 export const fixtureRegistry = (): Registry => {
   if (cache) return cache
   const notice = loadFormNotice(source)
-  const reg = registryFromCopy(source('content/rfq/ogcs-native-rfq-copy-r1.tsv').toString('utf8'), notice)
+  const reg = registryFromCopy(source(copyTablePath()).toString('utf8'), notice)
   if (notice !== undefined) cache = reg
   return reg
 }
