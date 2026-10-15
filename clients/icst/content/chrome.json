@@ -1,0 +1,37 @@
+{
+  "fonts": [
+    "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Teko:wght@500;600&display=swap"
+  ],
+  "header": {
+    "brand": {
+      "name": "ICST",
+      "accent": "",
+      "role": "International Cooling Solutions (Thailand)",
+      "href": "/client-preview/"
+    },
+    "links": [
+      {
+        "label": "Home",
+        "href": "/client-preview/"
+      }
+    ],
+    "cta": {
+      "label": "Request a quote",
+      "href": "/client-preview/"
+    }
+  },
+  "footer": {
+    "columns": [
+      {
+        "heading": "ICST",
+        "links": [
+          {
+            "label": "Home",
+            "href": "/client-preview/"
+          }
+        ]
+      }
+    ],
+    "copyrightHolder": "International Cooling Solutions (Thailand) Co., Ltd."
+  }
+}

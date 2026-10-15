@@ -39,6 +39,8 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     '/**': ['../../node_modules/.pnpm/pagefind@*/node_modules/pagefind/**', '../../node_modules/.pnpm/@pagefind+linux-*/node_modules/@pagefind/**'],
   },
+  // KIT-0 H6: a non-H2O client (CLIENT=<slug>) renders agency-core blocks, which ship TypeScript and global CSS. H2O's build is unchanged.
+  ...(process.env.CLIENT && process.env.CLIENT !== 'h2o' ? { transpilePackages: ['@factory/agency-core'] } : {}),
   poweredByHeader: false,
   reactStrictMode: true,
   trailingSlash: true,

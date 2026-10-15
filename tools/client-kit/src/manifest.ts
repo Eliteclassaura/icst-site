@@ -54,6 +54,8 @@ export type Manifest = {
   review: { allowedOverlap: string[] }
 }
 
+/** Office ids the CRM can store today (`crm/offices.ts`); opaque slot ids, not city names. */
+export const STORED_OFFICE_SLOTS: readonly string[] = ['US', 'TH']
 const SLUG = /^[a-z][a-z0-9-]{1,38}[a-z0-9]$/
 const ORIGIN = /^https:\/\/[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/
 const HOST = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/
@@ -121,6 +123,8 @@ export function validateManifest(raw: unknown): { ok: true; manifest: Manifest }
     const off = c.obj(o, p, ['key', 'label', 'country', 'address', 'phones', 'timeZone', 'publicOnSite'])
     if (!off) continue
     const k = c.str(off.key, `${p}.key`, { pattern: KEY, what: 'a short key' })
+    // The CRM stores the office as an enum with two slots (no migration yet): a manifest may only use those slot ids.
+    if (k && !STORED_OFFICE_SLOTS.includes(k)) c.fail(`${p}.key`, `must be one of the stored office slots (${STORED_OFFICE_SLOTS.join(', ')}) until the generic office migration`)
     if (k) officeKeys.push(k)
     c.str(off.label, `${p}.label`, { max: 80 })
     c.str(off.country, `${p}.country`, { pattern: /^[A-Z]{2}$/, what: 'an ISO country code' })

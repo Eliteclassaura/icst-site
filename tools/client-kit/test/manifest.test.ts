@@ -83,3 +83,11 @@ test('a provisional client must say what is unconfirmed; tracking is explicit an
   assert.ok(out.some((x) => x.startsWith('$.client.statusNote')))
   assert.ok(out.some((x) => x.startsWith('$.site.tracking')))
 })
+
+test('office keys must be the stored CRM slots (US, TH) until the generic office migration', () => {
+  const m = raw('example-industrial')
+  m.offices[0].key = 'HQ'
+  m.routing.unknownCountry = 'HQ'
+  const out = issues(m)
+  assert.ok(out.some((x) => x.startsWith('$.offices[0].key') && x.includes('stored office slots')))
+})

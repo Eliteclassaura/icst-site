@@ -40,7 +40,7 @@
   },
   "offices": [
     {
-      "key": "HQ",
+      "key": "US",
       "label": "Example HQ (Testville)",
       "country": "US",
       "address": {
@@ -61,7 +61,7 @@
       "publicOnSite": true
     },
     {
-      "key": "BR",
+      "key": "TH",
       "label": "Example Branch (Sampleton)",
       "country": "GB",
       "address": {
@@ -83,7 +83,7 @@
     }
   ],
   "routing": {
-    "unknownCountry": "HQ",
+    "unknownCountry": "US",
     "rules": [
       {
         "countries": [
@@ -92,7 +92,7 @@
           "FR",
           "DE"
         ],
-        "office": "BR"
+        "office": "TH"
       }
     ],
     "responsePromise": "We reply within one business day."

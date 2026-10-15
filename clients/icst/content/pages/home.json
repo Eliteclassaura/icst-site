@@ -1,0 +1,30 @@
+{
+  "title": "Home (placeholder)",
+  "description": "Placeholder ICST home page until the ICST-0 content pack arrives.",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "eyebrow": "PLACEHOLDER",
+      "title": "ICST home page, awaiting the content pack",
+      "lede": "This is placeholder copy so the layout, tokens and blocks can be seen. The real wording, media and claims come from the ICST-0 content pack and the Figma frames; nothing here is a statement about the company.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/client-preview/"
+        }
+      }
+    },
+    {
+      "blockType": "cta",
+      "title": "Placeholder call to action",
+      "text": "Replace with ICST copy.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/client-preview/"
+        }
+      }
+    }
+  ]
+}
