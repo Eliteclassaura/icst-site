@@ -78,15 +78,16 @@ test('the committed baselines are in step with the tree (no file worse than its 
   }
 })
 
-test('ICST (provisional): its own Bangkok office and "ICS group" wording are flagged until the owner records the overlap', async () => {
+test('ICST (provisional): the shared Bangkok phone and address are allowed by value with evidence; the ICS-brand wording stays flagged until the owner answers A6', async () => {
   const { readFileSync: read } = await import('node:fs')
   const m = loadManifest(path.join(clients, 'icst'))
   assert.equal(m.client.status, 'provisional')
-  assert.deepEqual(m.review.allowedOverlap, [])
+  assert.deepEqual(m.review.allowedOverlap, ['+662 661 7723', 'Serm-Mit Tower'], 'value-level: only the shared Bangkok phone and address (CT-1 ruling)')
+  assert.ok(m.review.overlapNotes?.[0].includes('live sites') && m.review.overlapNotes[0].includes('A6'))
   const text = read(path.join(clients, 'icst/manifest.json'), 'utf8')
-  const groups = (allowed: string[]) =>
-    new Set(scanRows(text, buildMatcher(loadBlocklists(clients).filter((l) => l.client !== 'icst'), 'output', allowed)).flatMap((r) => r.hits.map((h) => h.group)))
-  assert.deepEqual([...groups([])].sort(), ['ics-brand', 'office-th'])
-  assert.equal(groups(['office-th', 'ics-brand']).size, 0, 'recording the owner answer in allowedOverlap clears it, per pair')
-  assert.equal(scanRows(text, buildMatcher(loadBlocklists(clients).filter((l) => l.client !== 'icst'), 'output', ['office-th', 'ics-brand'])).length, 0)
+  const others = loadBlocklists(clients).filter((l) => l.client !== 'icst')
+  const groups = (allowed: string[]) => new Set(scanRows(text, buildMatcher(others, 'output', allowed)).flatMap((r) => r.hits.map((h) => h.group)))
+  assert.deepEqual([...groups([])].sort(), ['ics-brand', 'office-th'], 'with nothing allowed both are flagged')
+  assert.deepEqual([...groups(m.review.allowedOverlap)], ['ics-brand'], 'with the recorded allowance only the ICS-brand wording is flagged')
+  assert.equal(groups([...m.review.allowedOverlap, 'ics-brand']).size, 0, 'recording the owner A6 answer clears it, per pair, no code change')
 })

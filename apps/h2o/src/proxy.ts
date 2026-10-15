@@ -37,6 +37,8 @@ import { verificationFileFor } from './content/verification-files'
 import { privateRobotsBody } from './content/robots-allow'
 import { productionRobotsBody } from './content/robots-production'
 import { NextResponse, type NextRequest } from 'next/server'
+import { client, DEFAULT_CLIENT } from './client'
+import { clientRewritePath } from './client/site/route'
 import { redirectLocation } from './redirect-location'
 import { legacyImageTarget } from './content/legacy-image-redirects'
 import { descriptiveImagePath, physicalImagePath } from './content/image-slugs'
@@ -407,6 +409,9 @@ export function isPrivateStagingMedia(pathname: string): boolean {
 export function proxy(req: NextRequest): NextResponse {
   const mfa = mfaRoute(req)
   if (mfa) return mfa
+  // KIT-0 H6b: a non-default client serves its own site from the (client) route group; the default client is untouched.
+  const clientPath = clientRewritePath(req.nextUrl.pathname, client().slug === DEFAULT_CLIENT)
+  if (clientPath) return NextResponse.rewrite(new URL(`${clientPath}${req.nextUrl.search}`, req.url))
   if (productionIndexing() && isPrivateStagingMedia(req.nextUrl.pathname))
     return new NextResponse('Not found', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } })
   // LEGACY-IMG-REDIRECTS (IMG-SEO-1 phase A, CT 2026-10-08): an old WordPress upload URL answers 301 to the file served today, in both

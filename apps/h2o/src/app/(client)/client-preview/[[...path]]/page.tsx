@@ -26,11 +26,14 @@ export default async function ClientPreviewPage({ params }: Params) {
   if (!page) notFound()
   const chrome = loadChrome(c.slug)
   const currentPath = segments.length ? `/${segments.join('/')}/` : '/'
+  // The `offices` block's context comes from the manifest (public offices only). Phones are read from `client().offices[].phones`
+  // (E.164 `tel` and display form), never typed into a page file.
+  const offices = c.offices.filter((o) => o.publicOnSite).map((o) => ({ city: o.address.city, region: o.address.region, hours: '' }))
   return (
     <>
       <HeaderBlock {...chrome.header} currentPath={currentPath} />
       <main id="main">
-        <RenderBlocks layout={page.layout} ctx={{ currentPath }} />
+        <RenderBlocks layout={page.layout} ctx={{ currentPath, offices }} />
       </main>
       <FooterBlock {...chrome.footer} />
     </>

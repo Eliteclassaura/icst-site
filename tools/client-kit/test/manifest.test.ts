@@ -91,3 +91,11 @@ test('office keys must be the stored CRM slots (US, TH) until the generic office
   const out = issues(m)
   assert.ok(out.some((x) => x.startsWith('$.offices[0].key') && x.includes('stored office slots')))
 })
+
+test('an allowed overlap must carry its reason and evidence', () => {
+  const m = raw('example-industrial')
+  m.review.allowedOverlap = ['Serm-Mit Tower']
+  assert.ok(issues(m).some((x) => x.startsWith('$.review.overlapNotes')))
+  m.review.overlapNotes = ['shared office, see both live sites']
+  assert.equal(validateManifest(m).ok, true)
+})

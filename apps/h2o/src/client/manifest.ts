@@ -52,7 +52,7 @@ export type Manifest = {
   seo: { rankingUrlContract: string | null }
   ops: { imageName: string; backupTarget: string; scannerAllowlist: string; secretsRef: string }
   /** Strings that also belong to another client's blocklist but are legitimately this client's too (decided by the owner, per pair). */
-  review: { allowedOverlap: string[] }
+  review: { allowedOverlap: string[]; overlapNotes?: string[] }
 }
 
 /** Office ids the CRM can store today (`crm/offices.ts`); opaque slot ids, not city names. */
@@ -226,8 +226,15 @@ export function validateManifest(raw: unknown): { ok: true; manifest: Manifest }
   const ops = c.obj(top.ops, '$.ops', ['imageName', 'backupTarget', 'scannerAllowlist', 'secretsRef'])
   if (ops) for (const k of Object.keys(ops)) c.str(ops[k], `$.ops.${k}`, { max: 200 })
 
-  const review = c.obj(top.review, '$.review', ['allowedOverlap'])
-  if (review) c.arr(review.allowedOverlap, '$.review.allowedOverlap', { max: 50 }).forEach((x, i) => c.str(x, `$.review.allowedOverlap[${i}]`, { max: 120 }))
+  const review = c.obj(top.review, '$.review', ['allowedOverlap', 'overlapNotes'], ['allowedOverlap'])
+  if (review) {
+    const allowed = c.arr(review.allowedOverlap, '$.review.allowedOverlap', { max: 50 })
+    allowed.forEach((x, i) => c.str(x, `$.review.allowedOverlap[${i}]`, { max: 120 }))
+    const notes = review.overlapNotes === undefined ? [] : c.arr(review.overlapNotes, '$.review.overlapNotes', { max: 20 })
+    notes.forEach((x, i) => c.str(x, `$.review.overlapNotes[${i}]`, { max: 400 }))
+    // an allowed overlap is a decision about another client's strings: it must say why and where the evidence is
+    if (allowed.length > 0 && notes.length === 0) c.fail('$.review.overlapNotes', 'is required when allowedOverlap is not empty: say why the strings are shared and cite the evidence')
+  }
 
   return c.issues.length ? { ok: false, issues: c.issues } : { ok: true, manifest: top as unknown as Manifest }
 }
