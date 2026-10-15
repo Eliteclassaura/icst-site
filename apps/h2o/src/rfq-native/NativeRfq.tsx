@@ -14,7 +14,7 @@
  * its "Question n of total" position; errors are announced (role="alert"); targets are 44px; motion is off under
  * prefers-reduced-motion (CSS). No third-party script: everything is this bundle.
  */
-import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
+import { useCallback, useEffect, useId, useRef, useState, type FocusEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { captureFirstTouch } from './attribution'
 import { EmailTypoHint } from './EmailTypoHint'
 import { CountryPicker, ErrorText, FailureNote, Honeypot, OFFICES_HREF, UnavailableNote } from './fields'
@@ -50,9 +50,11 @@ function EmailNotice({ reg, id }: { reg: Registry; id: string }) {
 }
 
 /** One question as a step: its number, the question, the answer control, OK / Enter, Back and Skip. */
-function Step({ reg, q, n, total, answers, initial, error, last, onAnswer, onBack }: {
+function Step({ reg, q, n, total, answers, initial, error, last, onAnswer, onBack, onLeave }: {
   reg: Registry; q: Question; n: number; total: number; answers: Answers; initial: string; last: boolean
   error?: { key: string; values?: Record<string, string> }; onAnswer: (v: string) => void; onBack?: () => void
+  /** 1.3a-F1: the visitor left the answer field (with the value in it): the email is checked now rather than at OK. */
+  onLeave?: (v: string) => void
 }) {
   const [value, setValue] = useState(initial)
   const headingId = useId(), posId = useId(), errorId = useId(), hintId = useId(), noticeId = useId()
@@ -61,6 +63,9 @@ function Step({ reg, q, n, total, answers, initial, error, last, onAnswer, onBac
   const submit = () => onAnswer(value)
   const onKey = (e: ReactKeyboardEvent) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit() } }
   const okLabel = t(reg, last ? 'chatflow.submit' : 'chatflow.ok')
+  // focus moving straight to a button (OK, Back) skips the early check: OK checks the answer itself, and an error line appearing
+  // would move the button out from under the click
+  const onBlur = (e: FocusEvent) => { if (!(e.relatedTarget instanceof HTMLButtonElement)) onLeave?.(value) }
   const common = { id: `rfq-chat-${q.id}`, className: styles.stepInput, value, 'aria-labelledby': labelledBy, 'aria-describedby': described, 'aria-invalid': error ? true : undefined, 'aria-required': q.required || undefined, placeholder: t(reg, q.placeholderKey) || t(reg, 'input.ph'), maxLength: q.validation.maxLength + 1 }
   return <div className={styles.step} role="group" aria-labelledby={labelledBy} data-rfq-step={q.id}>
     <p className={styles.srOnly} id={posId}>{t(reg, 'chatflow.progress', { n: String(n), total: String(total) })}</p>
@@ -77,7 +82,7 @@ function Step({ reg, q, n, total, answers, initial, error, last, onAnswer, onBac
         ? <CountryPicker reg={reg} value={value} onPick={(code) => { setValue(code); onAnswer(code) }} labelId={headingId} describedBy={described}/>
         : q.type === 'textarea'
           ? <textarea {...common} rows={3} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>
-          : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} autoComplete={autocompleteFor(q)} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey}/>}
+          : <input {...common} type={q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text'} autoComplete={autocompleteFor(q)} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey} onBlur={q.type === 'email' ? onBlur : undefined}/>}
     {q.type === 'email' ? <EmailTypoHint reg={reg} value={value} onUse={setValue}/> : null}
     <ErrorText reg={reg} id={errorId} error={error} live chat/>
     {q.type === 'email' ? <EmailNotice reg={reg} id={noticeId}/> : null}
@@ -265,6 +270,12 @@ export function NativeRfq({ launcher, locale = 'en', loader = fetchRegistry, fet
           {reg && current ? <Step key={`${current.id}:${cursor}`} reg={reg} q={current} n={cursor + 1} total={flow.length} answers={s.answers} initial={s.answers[current.id] ?? ''} last={cursor === flow.length - 1}
             error={chatError?.id === current.id ? chatError : s.errors[current.id]}
             onAnswer={(v) => onAnswer(current, v, cursor === flow.length - 1)}
+            onLeave={(v) => {
+              // 1.3a-F1: a non-blank email that does not pass is flagged as the visitor leaves the field; a good one clears the flag
+              if (current.type !== 'email' || !v.trim()) return
+              const err = validate(reg, current, v, 'chat')
+              setChatError((c) => (err ? { id: current.id, ...err } : c?.id === current.id ? null : c))
+            }}
             onBack={cursor > 0 ? () => { setChatError(null); setCursorAt(cursor - 1) } : undefined}/> : null}
           {reg && atEnd && s.phase !== 'sent' && s.phase !== 'resume' ? <div className={styles.step}>
             {s.failure ? <>

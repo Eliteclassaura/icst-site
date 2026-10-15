@@ -5,7 +5,7 @@
  * validates everything (errors beside each field, focus on the first), then the review and an explicit "Send request".
  * Source NATIVE_FORM (contract §4).
  */
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState, type FocusEvent } from 'react'
 import { searchCountries } from './countries'
 import { EmailTypoHint } from './EmailTypoHint'
 import { Confirmation, ErrorText, FailureNote, Honeypot, PrivacyNote, ReviewList, SendButton, UnavailableNote } from './fields'
@@ -15,12 +15,20 @@ import { cleanContext, type SendTiming } from './submission'
 import { fetchRegistry, useRfqSession, type RegistryLoader } from './useRfqSession'
 import styles from './NativeRfq.module.css'
 
-function Field({ reg, q, value, error, onChange }: { reg: Registry; q: Question; value: string; error?: { key: string; values?: Record<string, string> }; onChange: (v: string) => void }) {
+function Field({ reg, q, value, error, onChange, onLeave }: { reg: Registry; q: Question; value: string; error?: { key: string; values?: Record<string, string> }; onChange: (v: string) => void; onLeave: () => void }) {
   const id = `rfq-form-${q.id}`, errorId = useId(), hintId = useId(), legendId = useId()
   const described = [error ? errorId : '', q.hintKey ? hintId : ''].filter(Boolean).join(' ') || undefined
   const label = t(reg, q.labelKey)
+  // 1.3a-F1: every question says whether it is required ("*", visual only: the control itself is marked required) or optional
+  // ("(optional)", unless its own label already says so)
+  const mark = q.required
+    ? <span className={styles.requiredMark} aria-hidden="true"> {t(reg, 'form.required.mark')}</span>
+    : /\(optional\)/i.test(label) ? null : <span className={styles.optionalMark}> {t(reg, 'form.optional.suffix')}</span>
+  // 1.3a-F1: leaving the field checks it. Focus moving straight to a button (the submit) skips the check: the submit checks
+  // everything itself, and an error line appearing under the field would move the button out from under the click.
+  const onBlur = (e: FocusEvent) => { if (!(e.relatedTarget instanceof HTMLButtonElement)) onLeave() }
   if (q.type === 'chips') return <fieldset className={styles.fieldset} aria-describedby={described} data-rfq-field={q.id}>
-    <legend id={legendId} className={styles.label}>{label}</legend>
+    <legend id={legendId} className={styles.label}>{label}{mark}</legend>
     {/* RFQ-FIX-1 (audit R18): the choice group carries the invalid state (radio inputs cannot) */}
     <div className={styles.chips} role="radiogroup" aria-labelledby={legendId} aria-required={q.required || undefined} aria-invalid={error ? true : undefined}>
       {(q.chips ?? []).map((c) => <label key={c.value} className={styles.radioChip}><input type="radio" name={id} value={c.value} checked={value === c.value} onChange={() => onChange(c.value)}/><span>{t(reg, c.labelKey)}</span></label>)}
@@ -28,9 +36,9 @@ function Field({ reg, q, value, error, onChange }: { reg: Registry; q: Question;
     <ErrorText reg={reg} id={errorId} error={error}/>
   </fieldset>
   // RFQ-FIX-1 (audit R10): the browser stops input at the question's own limit (the server checks it again)
-  const common = { id, name: q.id, value, onChange: (e: { target: { value: string } }) => onChange(e.target.value), 'aria-describedby': described, 'aria-invalid': error ? true : undefined, required: q.required, className: styles.input, ...(q.type === 'country' ? {} : { maxLength: q.validation.maxLength }) }
+  const common = { id, name: q.id, value, onChange: (e: { target: { value: string } }) => onChange(e.target.value), 'aria-describedby': described, 'aria-invalid': error ? true : undefined, required: q.required, onBlur, className: styles.input, ...(q.type === 'country' ? {} : { maxLength: q.validation.maxLength }) }
   return <div className={styles.field} data-rfq-field={q.id}>
-    <label className={styles.label} htmlFor={id}>{label}</label>
+    <label className={styles.label} htmlFor={id}>{label}{mark}</label>
     {q.hintKey ? <p className={styles.hint} id={hintId}>{t(reg, q.hintKey)}</p> : null}
     {q.type === 'textarea' ? <><textarea {...common} rows={4} placeholder={t(reg, q.placeholderKey) || undefined}/><span className={styles.counter} aria-hidden="true">{value.length} / {q.validation.maxLength}</span></>
       : q.type === 'country' ? <select {...common} autoComplete="country"><option value="">{t(reg, 'contact.country.search_ph')}</option>{searchCountries(reg.countries, '', reg.locale).map((c) => <option key={c.code} value={c.code}>{c.name}</option>)}</select>
@@ -53,11 +61,24 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
   useEffect(() => { setContext(cleanContext({ page_path: pagePath, context_type: 'page', cta_placement: 'contact_form' })); start() }, [setContext, start, pagePath])
   // the questions in their visual order (changes only when the purpose changes the flow, not on every keystroke)
   const flowOrder = s.registry ? questionsFor(s.registry, s.answers).map((q) => q.id).join(',') : ''
-  // after "Check your request" with errors: focus the first field in error
+  // Focus goes to the first field in error ONLY after a check of the whole form: "Review and send" (submit) with errors, or a server
+  // refusal that sends the visitor back from the review screen to the questions. It must never follow an error that appears or
+  // disappears while the visitor is typing or leaving a field (1.3a-F1 rev2): the early email check on blur replaces the errors
+  // too, and moving focus then would snap it back to the email field every time the visitor tried to continue.
+  const focusFirstError = useRef(false)
+  const prevPhase = useRef(s.phase)
+  useEffect(() => {
+    if ((prevPhase.current === 'review' || prevPhase.current === 'sending') && s.phase === 'asking' && !editing.current) focusFirstError.current = true
+    prevPhase.current = s.phase
+  }, [s.phase])
   const errorIds = Object.keys(s.errors).join(',')
   useEffect(() => {
+    if (!focusFirstError.current) return
+    if (s.phase === 'review' || s.phase === 'sending' || s.phase === 'sent') { focusFirstError.current = false; return }
     // RFQ-FIX-1 (audit R18): also when a resumed draft is checked
-    if (!errorIds || (s.phase !== 'asking' && s.phase !== 'resume')) return
+    if (s.phase !== 'asking' && s.phase !== 'resume') return
+    focusFirstError.current = false
+    if (!errorIds) return
     // RFQ-FIX-1.1: the first error in the visual order (email and name first)
     const first = flowOrder.split(',').find((id) => id in s.errors)
     formRef.current?.querySelector<HTMLElement>(`[data-rfq-field="${first}"] input, [data-rfq-field="${first}"] textarea, [data-rfq-field="${first}"] select`)?.focus()
@@ -91,9 +112,10 @@ export function NativeRfqForm({ pagePath = '/contact-us/', locale = 'en', loader
   </section>
   const questions = questionsFor(reg, s.answers)
   // method="post" (QA pre-pass S5): even without the script nothing typed here could ever reach a URL
-  return <form ref={formRef} className={`${styles.form} notranslate`} translate="no" method="post" noValidate aria-labelledby={headingId} onSubmit={(e) => { e.preventDefault(); s.review() }}>
+  return <form ref={formRef} className={`${styles.form} notranslate`} translate="no" method="post" noValidate aria-labelledby={headingId} onSubmit={(e) => { e.preventDefault(); focusFirstError.current = true; s.review() }}>
     <h3 id={headingId} className={styles.formHeading}>{t(reg, 'panel.title')}</h3>
-    {questions.map((q) => <Field key={q.id} reg={reg} q={q} value={s.answers[q.id] ?? ''} error={s.errors[q.id]} onChange={(v) => s.setAll({ ...s.answers, [q.id]: v })}/>)}
+    <p className={styles.requiredNote}>{t(reg, 'form.required.note')}</p>
+    {questions.map((q) => <Field key={q.id} reg={reg} q={q} value={s.answers[q.id] ?? ''} error={s.errors[q.id]} onChange={(v) => s.setAll({ ...s.answers, [q.id]: v }, q.id)} onLeave={() => s.checkField(q.id)}/>)}
     <Honeypot reg={reg} value={hp} onChange={setHp}/>
     <FailureNote reg={reg} failure={s.failure}/>
     <PrivacyNote reg={reg}/>

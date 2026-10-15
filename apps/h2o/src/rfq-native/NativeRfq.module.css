@@ -591,6 +591,20 @@ textarea.input {
   font-weight: 600;
 }
 
+/* 1.3a-F1: the inline form's marks: a blue star on required questions (as in the chat), a muted "(optional)" on the rest */
+.requiredMark {
+  color: var(--df-blue, rgb(11 75 140));
+}
+
+.optionalMark {
+  font-weight: 400;
+  color: var(--df-muted, rgb(110 110 110));
+}
+
+.requiredNote {
+  font-size: 13px;
+}
+
 .radioChip {
   position: relative;
   display: inline-flex;

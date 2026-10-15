@@ -40,7 +40,7 @@ describe('registry fixture = contract §1.1 seeded structure, strings from the O
   it('carries the CT amendments: "Email" with its hint, the no-number confirmation, and the Round 5 seed keys (R5.1)', () => {
     expect(CT_STRING_AMENDMENTS).toEqual({
       'contact.email.q': 'Email', 'contact.email.hint': 'A work email helps us reach the right team', 'confirm.body_no_number': 'Request sent. Thank you. A member of our team will review your request and contact you.',
-      'privacy.link_text': 'Privacy Policy', 'form.continue': 'Continue', 'confirm.response_time': "We'll respond within one business day.",
+      'privacy.link_text': 'Privacy Policy', 'form.continue': 'Review and send' /* 1.3a-F1: was 'Continue' */, 'confirm.response_time': "We'll respond within one business day.",
       'panel.unavailable': 'Online requests are unavailable right now. Please contact one of {{offices_link}}.', 'offices.link_text': 'our offices',
       'err.rate_limited': 'Too many requests from this connection. Please wait a few minutes and try again, or call one of {{offices_link}}.',
       'err.server': "Something went wrong and your request wasn't sent. Please try again, or call one of {{offices_link}}.",

@@ -393,7 +393,8 @@ describe('inline form (NATIVE_FORM)', () => {
     await act(async () => root.render(<NativeRfqForm loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
     await flush()
     const form = host.querySelector('form')!
-    expect([...form.querySelectorAll('legend, label')].map((l) => l.textContent)).toContain(s('purpose.q'))
+    // 1.3a-F1: a required question's label carries the star after its text
+    expect([...form.querySelectorAll('legend, label')].some((l) => l.textContent?.startsWith(s('purpose.q')))).toBe(true)
     await click(button(s('review.heading')) ?? form.querySelector('button[type="submit"]'))
     expect(form.textContent).toContain(s('err.required.form'))
     // RFQ-FIX-1.1: the first field in error in the visual order is the email

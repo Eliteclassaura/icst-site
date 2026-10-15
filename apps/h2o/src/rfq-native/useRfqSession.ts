@@ -7,7 +7,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { sessionAttribution } from './attribution'
 import { clearDraft, loadDraft, saveDraft, type Draft } from './draft'
-import { answer as setAnswer, migrate, nextQuestion, prune, questionsFor, reopen, submittedAnswers, validateAll, type Answers, type Surface } from './flow'
+import { answer as setAnswer, migrate, nextQuestion, prune, questionsFor, reopen, submittedAnswers, validate, validateAll, type Answers, type Surface } from './flow'
 import type { Registry } from './model'
 import { formToken, newSubmissionId, submitRfq, type RfqContext, type RfqSource, type SendTiming, type SubmitOutcome } from './submission'
 
@@ -50,7 +50,11 @@ export type RfqSession = {
   setContext: (context: RfqContext) => void
   answer: (id: string, value: string) => void
   edit: (id: string) => void
-  setAll: (answers: Answers) => void
+  /** `changedId`: the field being edited; its error is cleared as it changes (1.3a-F1), and re-checked when the field is left. */
+  setAll: (answers: Answers, changedId?: string) => void
+  /** 1.3a-F1: check one field when the visitor leaves it. Only the email field is checked early, and only when it is not blank
+   * (a blank required field waits for the submit); a valid address clears an earlier error. */
+  checkField: (id: string) => void
   review: () => boolean
   send: (hp: string) => Promise<void>
   /** CHAT-FLOW-1: the chat's last step — record its answer, check everything, and send with it (no review screen). */
@@ -144,13 +148,34 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
   // RFQ-FIX-1 (audit R11): the inline form keeps what is typed (debounced) so a refresh before "Continue" loses nothing
   const persistTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   useEffect(() => () => { if (persistTimer.current) clearTimeout(persistTimer.current) }, [])
-  const setAll = useCallback((next: Answers) => {
+  const setAll = useCallback((next: Answers, changedId?: string) => {
     setAnswers(next)
     setFailure(null)
+    if (changedId) setErrors((e) => {
+      if (!(changedId in e)) return e
+      const { [changedId]: _drop, ...rest } = e
+      void _drop
+      return rest
+    })
     if (!registry) return
     if (persistTimer.current) clearTimeout(persistTimer.current)
     persistTimer.current = setTimeout(() => { persistTimer.current = null; persist(next, 'contact', registry) }, DRAFT_DEBOUNCE_MS)
   }, [registry, persist])
+
+  const checkField = useCallback((id: string) => {
+    if (!registry) return
+    const q = questionsFor(registry, answersNow, surface).find((x) => x.id === id)
+    const value = (answersNow[id] ?? '').trim()
+    if (!q || q.validation.pattern !== 'email' || !value) return
+    const err = validate(registry, q, value, surface)
+    setErrors((e) => {
+      if (err) return { ...e, [id]: err }
+      if (!(id in e)) return e
+      const { [id]: _drop, ...rest } = e
+      void _drop
+      return rest
+    })
+  }, [registry, answersNow, surface])
 
   const review = useCallback(() => {
     if (!registry) return false
@@ -283,6 +308,6 @@ export function useRfqSession(source: RfqSource, locale: string, loader: Registr
 
   return {
     registry, phase, answers, errors, failure, rfqNumber, noticeRev, retryIn, context,
-    start, setContext: setContextState, answer: answerFn, edit, setAll, review, send, finish, resume, reset,
+    start, setContext: setContextState, answer: answerFn, edit, setAll, checkField, review, send, finish, resume, reset,
   }
 }

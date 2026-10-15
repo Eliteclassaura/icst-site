@@ -20,7 +20,8 @@ export const CT_STRING_AMENDMENTS: Record<string, string> = {
   'contact.email.hint': 'A work email helps us reach the right team',
   'confirm.body_no_number': 'Request sent. Thank you. A member of our team will review your request and contact you.',
   'privacy.link_text': 'Privacy Policy',
-  'form.continue': 'Continue',
+  // 1.3a-F1: the inline form's first button opens the review screen (whose own button, `review.send`, sends), so it never says "Send request"
+  'form.continue': 'Review and send',
   'panel.unavailable': 'Online requests are unavailable right now. Please contact one of {{offices_link}}.',
   'offices.link_text': 'our offices',
   // owner-confirmed response promise (CT 2026-10-05): shown on the confirmation, under the RFQ number
@@ -104,6 +105,18 @@ export const CHAT_COPY_1_STRINGS: Record<string, string> = {
 export const CHAT_NOTICE_LINE = 'We use this to respond to and follow up on your request. {{privacy_policy_link}}'
 
 /**
+ * 1.3a-F1 (CT-1 2026-10-15): the inline form marks what it asks for. A required question carries `form.required.mark`, an
+ * optional one `form.optional.suffix` (unless its own label already says "(optional)"), and `form.required.note` explains the
+ * mark once above the first field. The legal-final collection notice is NOT touched (its sentence on required fields is a
+ * follow-up for the owner and legal), so these marks are what tells a visitor which fields they must fill.
+ */
+export const FORM_F1_STRINGS: Record<string, string> = {
+  'form.required.mark': '*',
+  'form.required.note': '* Required',
+  'form.optional.suffix': '(optional)',
+}
+
+/**
  * CHAT-FLOW-1 (owner direction with the Typeform screenshots, via CT 2026-10-09): the corner chat asks the Typeform's
  * questions, one per step, numbered. CT's wording, verbatim. `_anon` keys are the same sentence when the name or the subject
  * was skipped. The just-in-time notice sits under the email field (CT routes it to the Auditor and Legal).
@@ -147,7 +160,7 @@ export const CHAT_FLOW_1_STRINGS: Record<string, string> = {
   'chatflow.enter': 'press Enter ↵',
   'chatflow.back': 'Back',
   'chatflow.skip': 'Skip',
-  'chatflow.submit': 'Submit',
+  'chatflow.submit': 'Send request', // 1.3a-F1 (was "Submit")
   'chatflow.required': 'Required',
   'chatflow.progress': 'Question {{n}} of {{total}}',
   'chatflow.done.heading': 'Thank you {{first}}!',
@@ -241,7 +254,7 @@ function chatQuestions(): Question[] {
 
 /** The contract §1.1 seeded structure, with strings from the copy table. */
 export function registryFromCopy(tsv: string, formNotice?: string): Registry {
-  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS, ...RFQ_FIX_1_STRINGS, ...FIELD_ORDER_STRINGS, ...CHAT_COPY_1_STRINGS, ...CHAT_FLOW_1_STRINGS, ...(formNotice ? formNoticeStrings(formNotice) : {}) }
+  const strings = { ...parseCopyTable(tsv), ...CT_STRING_AMENDMENTS, ...RFQ_FIX_1_STRINGS, ...FIELD_ORDER_STRINGS, ...CHAT_COPY_1_STRINGS, ...CHAT_FLOW_1_STRINGS, ...FORM_F1_STRINGS, ...(formNotice ? formNoticeStrings(formNotice) : {}) }
   const purposes: Purpose[] = [
     { value: 'new_tower', labelKey: 'purpose.chip.new_tower', branch: 'towers' },
     { value: 'repair', labelKey: 'purpose.chip.repair', branch: 'service' },
