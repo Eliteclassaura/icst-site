@@ -1,3 +1,4 @@
+import { client, type ClientConfig } from '../../client'
 import type { Office } from '../offices'
 
 /**
@@ -13,7 +14,7 @@ import type { Office } from '../offices'
  */
 export type HolidaySeed = { office: Office; date: string; name: string; note?: string }
 
-export const HOLIDAY_SEED: readonly HolidaySeed[] = [
+const ALL_HOLIDAYS: readonly HolidaySeed[] = [
   // ---------------------------------------------------------------- US federal 2026
   { office: 'US', date: '2026-01-01', name: "New Year's Day" },
   { office: 'US', date: '2026-01-19', name: 'Martin Luther King Jr. Day' },
@@ -80,3 +81,10 @@ export const HOLIDAY_SEED: readonly HolidaySeed[] = [
   { office: 'TH', date: '2027-12-10', name: 'Constitution Day' },
   { office: 'TH', date: '2027-12-31', name: "New Year's Eve" },
 ]
+
+/**
+ * The seed for THIS client's offices only (KIT-0 H3): the default client has both tables; a client with one office (slot `TH`) seeds Thailand only.
+ * The Patch L migration seeds from this, so a fresh database gets the right set with no migration change; existing rows are untouched.
+ */
+export const holidaysFor = (c: Pick<ClientConfig, 'office'>): readonly HolidaySeed[] => ALL_HOLIDAYS.filter((h) => c.office(h.office) !== undefined)
+export const HOLIDAY_SEED: readonly HolidaySeed[] = holidaysFor(client())
