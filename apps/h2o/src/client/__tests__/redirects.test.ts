@@ -51,6 +51,25 @@ describe('ledger rules', () => {
   })
 })
 
+describe('named exceptions (CT-1 signed, exact pairs only)', () => {
+  it('the home alias and the six old sitemaps are allowed to their exact targets', () => {
+    expect(codes(['/home.html\t/\t301\talias'])).toEqual([])
+    expect(codes(['/post-sitemap1.xml\t/sitemap_index.xml\t301\tx', '/page-sitemap.xml\t/sitemap_index.xml\t301\tx'])).toEqual([])
+    expect(normalisePath('/home.html')).toBe('/home.html')
+    expect(normalisePath('/sitemap_index.xml')).toBe('/sitemap_index.xml')
+  })
+  it('nothing else gets the exemption: another source to home, another to the sitemap index, or the exempt source to another target', () => {
+    expect(codes(['/other.html\t/\t301\tx'])).toContain('TO_HOME')
+    expect(codes(['/random/\t/sitemap_index.xml\t301\tx'])).toContain('TARGET_MISSING')
+    expect(codes(['/home.html\t/parts/\t301\tx'])).not.toContain('TO_HOME')
+    expect(codes(['/home.html\t/hidden/\t301\tx'])).toContain('TARGET_NOINDEX')
+  })
+  it('the proxy-level lookup finds a file path without adding a slash', () => {
+    const idx = buildIndex(T(['/home.html\t/\t301\talias']), pages)
+    expect(redirectFor('/home.html', idx)).toEqual({ to: '/', status: 301 })
+  })
+})
+
 describe('slash-only rows', () => {
   it('a row that only adds the trailing slash is a no-op handled by the site itself, not a loop or an error', () => {
     const p = parseLedger(T(['/x\t/x/\t301\tlive 301', '/y/\t/parts/\t301\t']))

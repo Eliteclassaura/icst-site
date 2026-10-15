@@ -19,8 +19,28 @@ const PLATFORM = /^\/(api|admin|_next|crm|client-media)(\/|$)/
 export function normalisePath(p: string): string {
   const base = p.trim().split(/[?#]/)[0]
   const withSlash = base.startsWith('/') ? base : `/${base}`
+  // A file path (`/home.html`, `/sitemap_index.xml`) keeps its name: a slash would make it another URL.
+  if (/\.[A-Za-z0-9]{1,8}$/.test(withSlash)) return withSlash
   return withSlash.endsWith('/') ? withSlash : `${withSlash}/`
 }
+
+/**
+ * Named exceptions to the general rules, each signed by CT-1 (2026-10-15) and matched as an EXACT from/to pair so a note can never open a
+ * new hole. Anything else that breaks a rule is dropped. Changing this list needs CT-1's sign-off.
+ *   - 'home alias': /home.html -> /  (an alias of the home page, not a catch-all).
+ *   - 'sitemap index target': six old WordPress child sitemaps -> /sitemap_index.xml (a generated file, not a page; it answers
+ *     noindex on private deploys). Exempt from "target is a page" and "target is not noindex" only.
+ */
+export const NAMED_EXCEPTIONS: ReadonlyArray<{ name: string; from: string; to: string; waives: ReadonlyArray<string> }> = [
+  { name: 'home alias', from: '/home.html', to: '/', waives: ['TO_HOME'] },
+  ...['/category-sitemap.xml', '/dt_portfolio-sitemap.xml', '/page-sitemap.xml', '/post-sitemap1.xml', '/post-sitemap2.xml', '/product-sitemap.xml'].map((from) => ({
+    name: 'sitemap index target',
+    from,
+    to: '/sitemap_index.xml',
+    waives: ['TARGET_MISSING', 'TARGET_NOINDEX'],
+  })),
+]
+const waived = (r: LedgerRow, code: string): boolean => NAMED_EXCEPTIONS.some((e) => e.from === r.from && e.to === r.to && e.waives.includes(code))
 
 export function parseLedger(tsv: string): { rows: LedgerRow[]; issues: LedgerIssue[]; slashOnly: LedgerRow[] } {
   const rows: LedgerRow[] = []
@@ -56,7 +76,9 @@ export function parseLedger(tsv: string): { rows: LedgerRow[]; issues: LedgerIss
 
 export function ledgerIssues(rows: readonly LedgerRow[], pages: readonly ListedPage[]): LedgerIssue[] {
   const issues: LedgerIssue[] = []
-  const bad = (r: LedgerRow, code: string, message: string) => issues.push({ line: r.line, from: r.from, code, message })
+  const bad = (r: LedgerRow, code: string, message: string) => {
+    if (!waived(r, code)) issues.push({ line: r.line, from: r.from, code, message })
+  }
   const sources = new Set(rows.map((r) => r.from))
   const byPath = new Map(pages.map((p) => [p.path, p]))
   const seen = new Set<string>()

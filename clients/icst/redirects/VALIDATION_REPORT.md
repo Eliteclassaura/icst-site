@@ -1,6 +1,6 @@
 # ICST redirect ledger: validation report
 
-Ledger: `clients/icst/redirects/ledger.tsv` (107 rows: 98 x 301, 9 x 410)
+Ledger: `clients/icst/redirects/ledger.tsv` (113 rows: 104 x 301, 9 x 410)
 Contract: `ICST_URL_CONTRACT.tsv` (647 URLs from BL-1, 647 checked live at 1 req/s)
 
 **Result: 16 PASS, 0 FAIL**
@@ -8,8 +8,8 @@ Contract: `ICST_URL_CONTRACT.tsv` (647 URLs from BL-1, 647 checked live at 1 req
 | Check | Result | Detail |
 |---|---|---|
 | zero redirect chains | PASS | 0 chains  |
-| zero redirects to home | PASS | 0 |
-| zero redirects to noindex pages | PASS | 0  |
+| zero redirects to home except the named alias exception | PASS | 0 unexpected; named exception 'home alias': /home.html |
+| zero redirects to noindex pages except the named sitemap exception | PASS | 6 noindex-target rows; named exception 'sitemap index target' (X-Robots-Tag noindex): /category-sitemap.xml, /dt_portfolio-sitemap.xml, /page-sitemap.xml, /post-sitemap1.xml, /post-sitemap2.xml, /product-sitemap.xml |
 | every 301 target returns 200 | PASS | 0  |
 | ledger statuses are 301 or 410 only | PASS | 0 |
 | 410 rows carry no target | PASS | 0 |

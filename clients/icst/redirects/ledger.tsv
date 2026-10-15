@@ -1,5 +1,6 @@
 from	to	status	note
 /cart/	/parts/	301	CT-1 ruling: cart redirects to /parts/ (cart is noindex; not a target)
+/category-sitemap.xml	/sitemap_index.xml	301	CT-1 signed: old WP child sitemap 301 to the sitemap index (0 clicks). NAMED EXCEPTION 'sitemap index target': /sitemap_index.xml returns 200 with X-Robots-Tag noindex
 /category/blog/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
 /category/blog/page/10/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
 /category/blog/page/12/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
@@ -30,13 +31,17 @@ from	to	status	note
 /cooling-tower-water-loss-explained-causes-calculations-smart-solutions/	/cooling-tower-water-loss/	301	already 301 live; carried unchanged (inherited traffic)
 /cooling-tower-water-loss-explained-causes-smart-solutions/		410	no clicks, no successor; intentional 410
 /cooling-towers-in-power-plants/	/15080-2cooling-towers-in-power-plants/	301	already 301 live; carried unchanged (inherited traffic)
+/dt_portfolio-sitemap.xml	/sitemap_index.xml	301	CT-1 signed: old WP child sitemap 301 to the sitemap index (0 clicks). NAMED EXCEPTION 'sitemap index target': /sitemap_index.xml returns 200 with X-Robots-Tag noindex
 /evercompare/		410	CT-1 ruling: EverCompare retired
-/home.html	/parts/	301	legacy static home; redirect to home forbidden (CT rule); parts hub as provisional target
+/home.html	/	301	CT-1 signed: alias of the home page, not a catch-all. NAMED EXCEPTION 'home alias'
 /how-do-cooling-towers-work-with-chillers-guide-for-facility-managers		410	no clicks, no successor; intentional 410
 /iot-cooling-system-sensors-secrets/	/iot-cooling-system-sensors-2/	301	already 301 live; carried unchanged (inherited traffic)
 /natural-draft-cooling-tower-guide-choose-the-best-for-your-facility	/natural-draft-cooling-tower-guide-choose-the-best-for-your-facility/	301	already 301 live; carried unchanged (inherited traffic)
+/page-sitemap.xml	/sitemap_index.xml	301	CT-1 signed: old WP child sitemap 301 to the sitemap index (0 clicks). NAMED EXCEPTION 'sitemap index target': /sitemap_index.xml returns 200 with X-Robots-Tag noindex
 /portfolio-category/geo-thermal/	/projects/	301	proposal: project archive; /projects/ is the index
 /portfolio/	/projects/	301	CT-1 ruling: portfolio index 301 to /projects/; /portfolio/<slug>/ slugs stay
+/post-sitemap1.xml	/sitemap_index.xml	301	CT-1 signed: old WP child sitemap 301 to the sitemap index (0 clicks). NAMED EXCEPTION 'sitemap index target': /sitemap_index.xml returns 200 with X-Robots-Tag noindex
+/post-sitemap2.xml	/sitemap_index.xml	301	CT-1 signed: old WP child sitemap 301 to the sitemap index (0 clicks). NAMED EXCEPTION 'sitemap index target': /sitemap_index.xml returns 200 with X-Robots-Tag noindex
 /product-category/cooling-tower-fan-stacks/	/cooling-tower-fan-stacks/	301	proposal: live parts-category archive; ICST parts page replaces it (cooling-tower-fan-stacks)
 /product-category/cooling-tower-fan-stacks/page/2/	/cooling-tower-fan-stacks/	301	proposal: dead pagination of a parts category; send to the category page
 /product-category/cooling-tower-fan-stacks/page/3/	/cooling-tower-fan-stacks/	301	proposal: dead pagination of a parts category; send to the category page
@@ -98,6 +103,7 @@ from	to	status	note
 /product-category/nozzles/counterflow/	/nozzles/	301	proposal: live parts-category archive; ICST parts page replaces it (nozzles)
 /product-category/nozzles/counterflow/page/3/	/nozzles/	301	proposal: dead pagination of a parts category; send to the category page
 /product-category/nozzles/counterflownozzles/	/nozzles/	301	proposal: live parts-category archive; ICST parts page replaces it (nozzles)
+/product-sitemap.xml	/sitemap_index.xml	301	CT-1 signed: old WP child sitemap 301 to the sitemap index (0 clicks). NAMED EXCEPTION 'sitemap index target': /sitemap_index.xml returns 200 with X-Robots-Tag noindex
 /products.html	/parts/	301	proposal: legacy products page; parts hub
 /project-category/chemical/	/projects/	301	proposal: project archive; /projects/ is the index
 /project-category/counter-flow/	/project/counter-flow/	301	proposal: project taxonomy present in map under /project/
