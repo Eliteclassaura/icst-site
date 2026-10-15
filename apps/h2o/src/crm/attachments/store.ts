@@ -138,3 +138,15 @@ export function attachmentStoreFromEnv(env: Record<string, string | undefined>, 
   }
   throw new StorageError('STORAGE_NOT_CONFIGURED', 'H2O_ATTACH_STORE must be r2 or volume')
 }
+
+/**
+ * 1.3a-C3: whether an upload could succeed at all. With no store selected, or one whose settings are incomplete or invalid, the Files
+ * panel is not shown (it advertised "Up to 25 MB each" for a store that is off). The check builds the adapter and sends nothing.
+ */
+export function attachStoreConfigured(env: Record<string, string | undefined>): boolean {
+  try {
+    return attachmentStoreFromEnv(env) !== null
+  } catch {
+    return false
+  }
+}

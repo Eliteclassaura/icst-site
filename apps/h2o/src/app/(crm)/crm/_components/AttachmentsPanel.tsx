@@ -1,5 +1,6 @@
 import { ACCEPT_ATTRIBUTE, limitLabel } from '../../../../crm/attachments/accept'
 import { canSeeRecord, listAttachments, type AttachKind } from '../../../../crm/attachments/service'
+import { attachStoreConfigured } from '../../../../crm/attachments/store'
 import { compactTime } from '../../../../crm/workspace/time'
 import type { CrmSession } from '../../../../crm/workspace/session'
 import { ActionForm } from '../../../../crm/workspace/ui/ActionForm'
@@ -11,6 +12,8 @@ import { AttachmentUploader } from './AttachmentUploader'
  * download links (through the authenticated route) and a Remove action for the uploader or an admin.
  */
 export async function AttachmentsPanel({ s, kind, recordId, now = new Date() }: { s: CrmSession; kind: AttachKind; recordId: string; now?: Date }) {
+  // 1.3a-C3: no configured store, no panel. Nothing else changes when a store is configured.
+  if (!attachStoreConfigured(process.env)) return null
   if (!(await canSeeRecord(s, kind, recordId))) return null
   const files = await listAttachments(s, kind, recordId)
   return (
