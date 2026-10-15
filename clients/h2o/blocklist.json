@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "client": "h2o",
+  "entries": [
+    {
+      "value": "Industrial Cooling Solutions",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "h2o-name"
+    },
+    {
+      "value": "ICS Sales Team",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "h2o-name"
+    },
+    {
+      "value": "ICS",
+      "kind": "word",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "ics-brand"
+    },
+    {
+      "value": "Rhonda",
+      "kind": "word",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "h2o-persona"
+    },
+    {
+      "value": "h2ocooling.com",
+      "kind": "domain",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "h2o-domain"
+    },
+    {
+      "value": "h2ocooling.org",
+      "kind": "domain",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "h2o-domain"
+    },
+    {
+      "value": "+1 303 462 2000",
+      "kind": "phone",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "office-us"
+    },
+    {
+      "value": "1457 Ammons Street",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "office-us"
+    },
+    {
+      "value": "Lakewood, Colorado",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "office-us"
+    },
+    {
+      "value": "+81 90 4204 6742",
+      "kind": "phone",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "office-japan"
+    },
+    {
+      "value": "+662 661 7723",
+      "kind": "phone",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "office-th"
+    },
+    {
+      "value": "Serm-Mit Tower",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "office-th"
+    },
+    {
+      "value": "h2o-backups",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output"
+      ],
+      "group": "h2o-ops"
+    },
+    {
+      "value": "h2o-crm-files",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output"
+      ],
+      "group": "h2o-ops"
+    },
+    {
+      "value": "h2o-raw-archive",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output"
+      ],
+      "group": "h2o-ops"
+    },
+    {
+      "value": "h2o",
+      "kind": "word",
+      "scopes": [
+        "source"
+      ],
+      "group": "h2o-token"
+    }
+  ]
+}

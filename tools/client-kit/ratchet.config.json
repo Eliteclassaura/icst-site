@@ -1,0 +1,15 @@
+{
+  "sets": [
+    {
+      "name": "src",
+      "roots": ["apps/h2o/src", "packages/agency-core/src"],
+      "exclude": ["(^|/)__tests__/", "(^|/)__dbtests__/", "\\.test\\.", "(^|/)fixtures?/", "payload-types\\.ts$", "(^|/)migrations/"]
+    },
+    {
+      "name": "tests",
+      "roots": ["apps/h2o/src", "packages/agency-core"],
+      "include": "(^|/)__tests__/|(^|/)__dbtests__/|\\.test\\.|(^|/)fixtures?/|(^|/)test/",
+      "exclude": ["node_modules/"]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "client": "example-industrial",
+  "entries": [
+    {
+      "value": "Example Industrial",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "example-name"
+    },
+    {
+      "value": "example.test",
+      "kind": "domain",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "example-domain"
+    },
+    {
+      "value": "+1 555 0100",
+      "kind": "phone",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "example-phone"
+    },
+    {
+      "value": "1 Sample Street",
+      "kind": "text",
+      "scopes": [
+        "source",
+        "output",
+        "seed",
+        "render"
+      ],
+      "group": "example-address"
+    }
+  ]
+}
