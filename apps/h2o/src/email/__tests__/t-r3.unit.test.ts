@@ -7,7 +7,7 @@ import type { JmapEmail } from '../jmap'
 /**
  * T-R3 (CT, 2026-10-06): an optional fixed Reply-To tag (H2O_REPLY_TAG) so one mail filter catches every CRM reply
  * (CT verified Gmail `to:(<role>+<tag>)` matches `<role>+<tag>.<token>@…`), old untagged tokens keep linking, and the
- * default sender name is "ICS Sales Team". Synthetic addresses only.
+ * default sender name is "ICST Sales Team". Synthetic addresses only.
  */
 const TOKEN = 'abcdefghijklmnopqrstuvwxyz'.slice(0, 26).replace(/[01890]/g, 'a')
 const ctx = { roleLocal: 'rfq', domain: 'example.test' }
@@ -33,7 +33,7 @@ describe('T-R3: reply tag', () => {
     expect(tokensIn(mail(`rfq+h2ocrm.${TOKEN}x@example.test`), ctx)).toEqual([`h2ocrm.${TOKEN}x`])
   })
   it('H2O_REPLY_TAG: optional; [a-z0-9]{3,16}; invalid is a configuration error and mail is off', () => {
-    const base = { H2O_EMAIL_MODE: 'allowlist', H2O_EMAIL_ALLOWLIST: 'a@example.test', H2O_EMAIL_FROM: 'ICS Sales Team <rfq@example.test>' }
+    const base = { H2O_EMAIL_MODE: 'allowlist', H2O_EMAIL_ALLOWLIST: 'a@example.test', H2O_EMAIL_FROM: 'ICST Sales Team <rfq@example.test>' }
     expect(readEmailConfig(base).replyTag).toBeNull()
     expect(readEmailConfig({ ...base, H2O_REPLY_TAG: ' h2ocrm ' })).toMatchObject({ replyTag: 'h2ocrm', errors: [] })
     for (const bad of ['H2O', 'ab', 'h2o.crm', 'a'.repeat(17), 'h2o crm']) {
@@ -43,9 +43,9 @@ describe('T-R3: reply tag', () => {
       expect(REPLY_TAG_RE.test(bad), bad).toBe(false)
     }
   })
-  it('the default sender name is "ICS Sales Team" (owner, 2026-10-06); a configured name still wins', () => {
-    expect(DEFAULT_SENDER_NAME).toBe('ICS Sales Team')
-    expect(readEmailConfig({ H2O_EMAIL_FROM: 'rfq@example.test' }).fromName).toBe('ICS Sales Team')
+  it('the default sender name is "ICST Sales Team" (owner, 2026-10-06); a configured name still wins', () => {
+    expect(DEFAULT_SENDER_NAME).toBe('ICST Sales Team')
+    expect(readEmailConfig({ H2O_EMAIL_FROM: 'rfq@example.test' }).fromName).toBe('ICST Sales Team')
     expect(readEmailConfig({ H2O_EMAIL_FROM: 'Someone Else <rfq@example.test>' }).fromName).toBe('Someone Else')
   })
 })

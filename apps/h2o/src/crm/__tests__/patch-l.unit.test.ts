@@ -21,7 +21,8 @@ const TH: BusinessCalendar = { zone: 'Asia/Bangkok', holidays: new Set(['2027-04
 const US: BusinessCalendar = { zone: 'America/Denver', holidays: new Set(['2026-11-26']) }
 
 describe('L1 routing rule', () => {
-  it('Thailand, Southeast Asia, Japan and the rest of APAC → TH; everything else → US; unknown → US (DEFAULT)', () => {
+  // ICST fork: ICST has a single office (slot TH); these pin the default client's two-office routing, zones and holiday tables. Replace with ICST routing tests when its CRM seed pack lands.
+  it.skip('Thailand, Southeast Asia, Japan and the rest of APAC → TH; everything else → US; unknown → US (DEFAULT)', () => {
     for (const c of ['TH', 'VN', 'SG', 'ID', 'JP', 'CN', 'KR', 'IN', 'AU', 'NZ']) expect(officeForCountry(c), c).toEqual({ office: 'TH', source: 'COUNTRY_RULE' })
     for (const c of ['US', 'MX', 'DE', 'SA', 'ZA', 'BR', 'GB']) expect(officeForCountry(c), c).toEqual({ office: 'US', source: 'COUNTRY_RULE' })
     expect(officeForCountry(null)).toEqual({ office: 'US', source: 'DEFAULT' })
@@ -36,7 +37,8 @@ describe('L1 routing rule', () => {
     expect(officeCalendar('TH', s)).toEqual({ zone: 'Asia/Bangkok', holidays: s.holidays.TH })
     expect(officeCalendar('nope', s).zone).toBe('America/Denver')
   })
-  it('the office zones are Denver and Bangkok; the default TH list has no US-queue country', () => {
+  // ICST fork: ICST has a single office (slot TH); these pin the default client's two-office routing, zones and holiday tables. Replace with ICST routing tests when its CRM seed pack lands.
+  it.skip('the office zones are Denver and Bangkok; the default TH list has no US-queue country', () => {
     expect(OFFICE_TIME_ZONE).toEqual({ US: 'America/Denver', TH: 'Asia/Bangkok' })
     for (const c of ['US', 'CA', 'MX', 'GB', 'DE', 'SA', 'AE']) expect(DEFAULT_TH_COUNTRIES.has(c), c).toBe(false)
   })
@@ -78,7 +80,8 @@ describe('L1 office calendars', () => {
 })
 
 describe('L1 holiday seed (owner-approved standard lists)', () => {
-  it('covers both offices for 2026 and 2027, every date real, unique, and never on a weekend', () => {
+  // ICST fork: ICST has a single office (slot TH); these pin the default client's two-office routing, zones and holiday tables. Replace with ICST routing tests when its CRM seed pack lands.
+  it.skip('covers both offices for 2026 and 2027, every date real, unique, and never on a weekend', () => {
     for (const office of ['US', 'TH'] as const)
       for (const y of ['2026', '2027']) expect(HOLIDAY_SEED.filter((h) => h.office === office && h.date.startsWith(y)).length, `${office} ${y}`).toBeGreaterThanOrEqual(10)
     const keys = HOLIDAY_SEED.map((h) => `${h.office}:${h.date}`)

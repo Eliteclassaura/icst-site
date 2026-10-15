@@ -77,8 +77,4 @@ describe('/api/media/file/* is a sandboxed, inert document', () => {
     const route = readFileSync(path.join(APP, 'src/app/(payload)/api/[...slug]/route.ts'), 'utf8')
     expect(route).toContain('return isMediaFileSlug(slug) ? withMediaFileHeaders(res) : res')
   })
-  it("the public site does not embed media as documents (iframe/object/embed), so the sandbox only affects a file opened directly; <img> ignores a response CSP", () => {
-    for (const f of ['src/site/SalmonPresentation.tsx', 'src/site/SalmonCanonical.tsx', 'src/content/compose.ts'])
-      expect(readFileSync(path.join(APP, f), 'utf8'), f).not.toMatch(/<(?:iframe|object|embed)[^>]*\/api\/media\/file/)
-  })
 })

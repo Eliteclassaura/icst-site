@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { checkProfileShape, customHostPatterns, hostAllowed } from '../profiles'
 
 /** CRM-C-S1-2: a sending profile's host is default-deny. Pure rules; the DB behaviour is in c-s1-2.dbtest.ts. */
-const OK = { name: 'Workspace', preset: 'GMAIL', use: 'TRANSACTIONAL', host: 'smtp.gmail.com', port: 587, tls_servername: 'smtp.gmail.com', username: 'syed@h2ocooling.com', from_address: 'syed@h2ocooling.com', from_name: 'ICS Sales Team' }
+const OK = { name: 'Workspace', preset: 'GMAIL', use: 'TRANSACTIONAL', host: 'smtp.gmail.com', port: 587, tls_servername: 'smtp.gmail.com', username: 'syed@icsthailand.co.th', from_address: 'syed@icsthailand.co.th', from_name: 'ICST Sales Team' }
 
 describe('CRM-C-S1-2 host allowlist', () => {
   it('default deny: only the Google Workspace host passes with nothing configured', () => {

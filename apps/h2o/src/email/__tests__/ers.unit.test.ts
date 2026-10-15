@@ -18,42 +18,15 @@ import { renderTemplate, SEED_TEMPLATES } from '../templates'
  */
 const E11 = SEED_TEMPLATES.filter((t) => t.code.startsWith('E11_'))
 // Owner rule 2026-10-06: the team signature only, no phone number, no postal address.
-const SIGNATURE = 'ICS Sales Team\nsales@h2ocooling.com'
+const SIGNATURE = 'ICST Sales Team\nsales@icsthailand.co.th'
 const values = { first_name: 'Avery', rfq_reference: 'RFQ-20261005-SYN00001', missing_information_list: joinItems(['the current design specification', 'the requested project schedule']), sequence_signature: SIGNATURE }
 
-describe('copy-risk linter (ICS_COPY_RISK_LINTER_V2, frozen)', () => {
-  it('is byte-identical to the accepted package and loads all 313 rules', () => {
-    const file = readFileSync(path.join(__dirname, '..', 'data', 'ICS_COPY_RISK_LINTER_V2.json'))
-    expect(createHash('sha256').update(file).digest('hex')).toBe(LINTER_SHA256)
-    expect(ruleCount()).toBe(313)
-  })
-  it('the E1.1 copy passes at the template stage and, rendered with the owner signature, holds nothing', () => {
-    expect(E11.map((t) => t.code)).toEqual(['E11_QUAL_1', 'E11_QUAL_2', 'E11_MISS_1', 'E11_MISS_2'])
-    for (const t of E11) {
-      expect(lintCopy(t.subject, t.body, 'TEMPLATE').decision, t.code).toBe('PASS')
-      const r = renderTemplate(t, values)
-      expect(r.ok, t.code).toBe(true)
-      if (!r.ok) continue
-      const final = lintCopy(r.subject, r.text, 'FINAL')
-      expect(final.decision, t.code).toBe('PASS')
-      expect(final.hits.filter((h) => h.severity === 'BLOCK' || h.severity === 'REVIEW')).toEqual([])
-      expect(final.not_evaluated).toBe(62)
-      // Owner decision 2026-10-05: the team signs, never a person; the copy is otherwise E1.1 R2 verbatim.
-      expect(r.text).toContain(SIGNATURE)
-      expect(r.text).not.toMatch(/Rhonda/)
-      expect(r.text.split('\n').filter((l) => /^\+?[\d ()-]{7,}$/.test(l.trim()))).toEqual([]) // no phone line
-    }
-  })
-  it('holds on BLOCK and REVIEW (ruling 6); word boundaries; subject-only thread rules; unresolved placeholders', () => {
-    expect(lintCopy('Hello', 'We offer guaranteed performance on every tower.', 'FINAL')).toMatchObject({ decision: 'HOLD' })
-    expect(lintCopy('Re: your RFQ', 'Hello', 'FINAL').hits.map((h) => h.rule_id)).toContain('ICS_V2_0001')
-    expect(lintCopy('Hello', 're: in the body is fine', 'FINAL').hits.map((h) => h.rule_id)).not.toContain('ICS_V2_0001')
-    const review = lintCopy('Hello', 'You must respond by Friday.', 'FINAL')
-    expect(review.hits.find((h) => h.rule_id === 'ICS_V2_0041')?.severity).toBe('REVIEW')
-    expect(review.decision).toBe('HOLD')
-    expect(lintCopy('Hello', 'Thanks for the rebid.', 'FINAL').hits.map((h) => h.rule_id).filter((id) => lintCopy('x', 'bid', 'FINAL').hits.some((h) => h.rule_id === id))).toEqual([])
-    expect(lintCopy('Hello', 'Hi {{first_name}}', 'TEMPLATE').decision).toBe('PASS')
-    expect(lintCopy('Hello', 'Hi {{first_name}}', 'FINAL')).toMatchObject({ decision: 'HOLD', hits: [expect.objectContaining({ rule_id: 'ICS_V2_0187', severity: 'BLOCK' })] })
+describe('copy-risk linter (fork: no rule set yet, fails closed)', () => {
+  it('has no rules and holds every copy until the email lane supplies a client rule set', () => {
+    expect(ruleCount()).toBe(0)
+    const r = lintCopy('Hello', 'A perfectly ordinary message.', 'FINAL')
+    expect(r.decision).toBe('HOLD')
+    expect(r.hits.map((h) => h.rule_id)).toEqual(['NO_RULE_SET'])
   })
 })
 
@@ -109,7 +82,7 @@ describe('caps and warm-up (CT ruling 7)', () => {
   })
   it('settings from the global: empty values take the ruled defaults; the floor has no toggle', () => {
     const s = settingsFrom({ daily_cap: 40, compliance: { warmup: false } })
-    expect([s.dailyCap, s.compliance.warmup, s.signature.signer, s.signature.email]).toEqual([40, false, 'ICS Sales Team', 'sales@h2ocooling.com'])
+    expect([s.dailyCap, s.compliance.warmup, s.signature.signer, s.signature.email]).toEqual([40, false, 'ICST Sales Team', 'sales@icsthailand.co.th'])
     // Owner rule 2026-10-06: no postal-address footer toggle, and the signature has no phone option.
     expect(Object.keys(s.compliance).sort()).toEqual(['business_hours', 'warmup'])
     expect(Object.keys(s.signature).sort()).toEqual(['email', 'signer'])

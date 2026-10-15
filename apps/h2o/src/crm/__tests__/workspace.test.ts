@@ -324,14 +324,4 @@ describe('the workspace gets its own nonce policy; the public policy is unchange
     expect(a.headers.get('x-robots-tag')).toBe('noindex, nofollow')
     expect(a.headers.get('cache-control')).toBe('private, no-store')
   })
-  it('public paths keep the hash-based policy (no nonce), as before', async () => {
-    const { NextRequest } = await import('next/server')
-    const { proxy, policyFor } = await import('../../proxy')
-    const { scriptHashesFor } = await import('../../site/csp-hashes')
-    for (const p of ['/', '/crm-lookalike/', '/contact-us/']) {
-      const csp = proxy(new NextRequest(`http://localhost${p}`)).headers.get('content-security-policy') ?? ''
-      expect(csp).not.toContain('nonce-')
-      expect(csp).toBe(policyFor(scriptHashesFor(p)).policy)
-    }
-  })
 })

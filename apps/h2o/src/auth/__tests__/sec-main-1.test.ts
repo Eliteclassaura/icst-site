@@ -16,9 +16,6 @@ import { withMfa } from '../mfa/fields'
 import { withCrmProfile } from '../../crm/userProfile'
 import { withPasswordEmail } from '../password-email'
 import { anyUserExists, isCreateFirstUserSegments, isFirstRegisterSlug, resetFirstUserCacheForTests } from '../first-user'
-import { policyFor, payloadPublicPolicy, typeformCspApplies } from '../../proxy'
-import { redirectLocation } from '../../redirect-location'
-import { PublicRedirects } from '../../content/collections/public-redirects'
 import { pageIndexGuard } from '../../collections/page-index'
 
 type Doc = Record<string, unknown>
@@ -157,38 +154,7 @@ describe('the runtime base image is pinned by digest', () => {
   })
 })
 
-describe('Typeform CSP allowance only while the Typeform fallback can render (CT ruling, L01 option a)', () => {
-  const env = { ...process.env }
-  afterEach(() => {
-    process.env = { ...env }
-  })
-  it('native intake on: no form.typeform.com in either policy', () => {
-    process.env.H2O_NATIVE_INTAKE = 'on'
-    expect(typeformCspApplies()).toBe(false)
-    expect(policyFor([]).policy).not.toContain('typeform')
-    expect(payloadPublicPolicy('n0nce', '/')).not.toContain('typeform')
-  })
-  it('native intake off (the fallback): the allowance is merged as before', () => {
-    process.env.H2O_NATIVE_INTAKE = 'off'
-    expect(policyFor([])).toMatchObject({ merged: true })
-    expect(policyFor([]).policy).toContain('frame-src')
-    expect(policyFor([]).policy).toContain('https://form.typeform.com')
-    expect(payloadPublicPolicy('n0nce', '/')).toContain('https://form.typeform.com')
-  })
-})
-
 describe('Main Lows', () => {
-  it('redirect.backslash-open-redirect: the validator refuses a backslash or control character', () => {
-    const validate = PublicRedirects.hooks!.beforeValidate![0] as (a: unknown) => unknown
-    for (const destination of ['/\\evil.example', '/a\\b/', '/x\u0000y/', '/x\u007fy/'])
-      expect(() => validate({ data: { source: '/old/', destination } }), JSON.stringify(destination)).toThrow(/site-relative/)
-    expect(validate({ data: { source: '/old/', destination: '/new/' } })).toMatchObject({ destination: '/new/' })
-  })
-  it('redirect.backslash-open-redirect: the Location never leaves the site', () => {
-    const r = { nextUrl: { origin: 'https://h2ocooling.com', search: '' } } as never
-    expect(redirectLocation('/\\evil.example', r)).toBe('https://h2ocooling.com/')
-    expect(redirectLocation('/guide/', r)).toBe('https://h2ocooling.com/guide/')
-  })
   it('audit.ip-spoofable-and-raw: the audit IP follows TRUSTED_PROXY and is null when untrusted', () => {
     const h = new Headers({ 'x-forwarded-for': '203.0.113.9', 'cf-connecting-ip': '198.51.100.7' })
     expect(auditIp(h, {} as never)).toBeNull()

@@ -241,10 +241,10 @@ describe('sealed settings (H2O_SETTINGS_KEY)', () => {
 })
 
 describe('sending profiles: shape and opening', () => {
-  const ok = { name: 'Workspace', preset: 'GMAIL', use: 'TRANSACTIONAL', host: 'smtp.gmail.com', port: 587, tls_servername: 'smtp.gmail.com', username: 'sales@example.org', from_address: 'sales@h2ocooling.org', from_name: 'ICS Sales Team' }
+  const ok = { name: 'Workspace', preset: 'GMAIL', use: 'TRANSACTIONAL', host: 'smtp.gmail.com', port: 587, tls_servername: 'smtp.gmail.com', username: 'sales@example.org', from_address: 'sales@icsthailand.co.th', from_name: 'ICST Sales Team' }
   it('accepts the Google Workspace preset; sender limited to the allowed domains; submission ports only', () => {
     expect(checkProfileShape(ok, {})).toBeNull()
-    expect(checkProfileShape({ ...ok, from_address: 'sales@h2ocooling.com' }, {})).toBeNull()
+    expect(checkProfileShape({ ...ok, from_address: 'sales@icsthailand.co.th' }, {})).toBeNull()
     expect(checkProfileShape({ ...ok, from_address: 'x@example.test' }, {})?.code).toBe('PROFILE_FROM_DOMAIN_NOT_ALLOWED')
     expect(checkProfileShape({ ...ok, port: 25 }, {})?.code).toBe('PROFILE_PORT_INVALID')
     expect(checkProfileShape({ ...ok, host: '10.0.0.5' }, {})?.code).toBe('PROFILE_HOST_INVALID')
@@ -258,7 +258,7 @@ describe('sending profiles: shape and opening', () => {
       const doc = { ...ok, id: 'p1', password_set: true, password_sealed: seal('pw', passwordContext('p1')) }
       const resolve = async () => [{ address: '142.250.4.108' }]
       const r = await openProfile(doc, { resolve, env: process.env })
-      expect(r).toMatchObject({ ok: true, smtp: { host: '142.250.4.108', port: 587, user: 'sales@example.org', pass: 'pw', servername: 'smtp.gmail.com' }, fromAddress: 'sales@h2ocooling.org' })
+      expect(r).toMatchObject({ ok: true, smtp: { host: '142.250.4.108', port: 587, user: 'sales@example.org', pass: 'pw', servername: 'smtp.gmail.com' }, fromAddress: 'sales@icsthailand.co.th' })
       expect(await openProfile({ ...doc, id: 'p2' }, { resolve, env: process.env })).toMatchObject({ ok: false, code: 'PROFILE_PASSWORD_UNREADABLE' })
       expect(await openProfile(doc, { resolve, env: {} })).toMatchObject({ ok: false, code: 'SETTINGS_KEY_MISSING' })
       expect(await openProfile(doc, { resolve: async () => [{ address: '10.0.0.1' }], env: process.env })).toMatchObject({ ok: false, code: 'HOST_PRIVATE_ADDRESS' })
@@ -271,13 +271,13 @@ describe('sending profiles: shape and opening', () => {
 
 describe('templates T1–T6', () => {
   const by = (c: string) => SEED_TEMPLATES.find((t) => t.code === c)!
-  const values = { rfq_number: 'RFQ-1', customer_first_name: 'Pat', company: 'Plant (synthetic)', sales_rep_name: 'Dana', sales_rep_title: 'Sales engineer', email_signature: 'ICS Sales Team\nsales@example.test', response_sentence: responseSentence('within one business day') }
+  const values = { rfq_number: 'RFQ-1', customer_first_name: 'Pat', company: 'Plant (synthetic)', sales_rep_name: 'Dana', sales_rep_title: 'Sales engineer', email_signature: 'ICST Sales Team\nsales@example.test', response_sentence: responseSentence('within one business day') }
   it('every seed passes lint, is transactional, carries the footer and no price or promise words', () => {
     for (const t of SEED_TEMPLATES.filter((x) => /^T\d$/.test(x.code))) {
       expect(lintTemplate(t), t.code).toEqual([])
       expect(t.purpose).toBe('TRANSACTIONAL')
       // OGCS footer on T2–T6; T1 is the owner-approved wording, which has none.
-      if (t.code !== 'T1') expect(t.body).toContain('You’re receiving this email because you sent a request through h2ocooling.com.')
+      if (t.code !== 'T1') expect(t.body).toContain('You’re receiving this email because you sent a request through icsthailand.co.th.')
       expect(t.body + t.subject).not.toMatch(/\$|price|guarantee|\b(24|48) ?h/i)
       expect(t.body).not.toMatch(/@/) // no email address in any body
     }
@@ -288,7 +288,7 @@ describe('templates T1–T6', () => {
     const r = renderTemplate(t5, values, ['site visit'])
     expect(r).toMatchObject({ ok: true, subject: 'Scheduling a site visit for RFQ RFQ-1' })
     expect(r.ok && r.text).toContain("set up a site visit with your team at Plant (synthetic).")
-    expect(r.ok && r.text).toContain('Best regards,\nICS Sales Team\nsales@example.test')
+    expect(r.ok && r.text).toContain('Best regards,\nICST Sales Team\nsales@example.test')
     expect(renderTemplate(t5, values, ['phone call'])).toEqual({ ok: false, code: 'CHOICE_MISSING', missing: ['0'] })
   })
   it('fails closed: a required field without a value renders nothing', () => {

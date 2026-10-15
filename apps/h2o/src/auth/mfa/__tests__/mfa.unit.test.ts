@@ -53,7 +53,7 @@ describe('TOTP (RFC 6238 / RFC 4226)', () => {
   })
   it('otpauth URI carries the standard parameters', () => {
     expect(otpauthUri('ABCDEFGHIJKLMNOP', 'pat@example.test')).toBe(
-      'otpauth://totp/ICS%20CRM%3Apat%40example.test?secret=ABCDEFGHIJKLMNOP&issuer=ICS%20CRM&algorithm=SHA1&digits=6&period=30',
+      'otpauth://totp/CRM%3Apat%40example.test?secret=ABCDEFGHIJKLMNOP&issuer=CRM&algorithm=SHA1&digits=6&period=30',
     )
   })
   it('recovery codes: 10 distinct "xxxxx-xxxxx"; input is normalised; hashes never equal the code', () => {

@@ -81,8 +81,8 @@ describe('R2-02: the allowed kinds', () => {
     expect(kindAllowed('RFQ_CUSTOMER_ACK', readEmailConfig({ H2O_EMAIL_ALLOWED_KINDS: 'RFQ_SALES_ALERT' }))).toBe(false)
     expect(readEmailConfig({ H2O_EMAIL_MODE: 'live', H2O_EMAIL_ALLOWED_KINDS: 'RFQ_SALES_ALERT,MFA' }).errors).toContain('EMAIL_ALLOWED_KINDS_INVALID')
   })
-  it('the sales address: sales@h2ocooling.com unless configured', async () => {
-    expect(await resolveSalesAddress({} as NodeJS.ProcessEnv)).toBe('sales@h2ocooling.com')
+  it('the sales address: sales@icsthailand.co.th unless configured', async () => {
+    expect(await resolveSalesAddress({} as NodeJS.ProcessEnv)).toBe('sales@icsthailand.co.th')
     expect(await resolveSalesAddress({ H2O_RFQ_SALES_EMAIL: 'quotes@example.test' } as unknown as NodeJS.ProcessEnv)).toBe('quotes@example.test')
   })
 })
@@ -101,11 +101,11 @@ describe('system mail is not an outbox kind: the launch allowlist never blocks i
     expect(await send({ to: 'owner.synthetic@example.test', subject: 'Reset your password', html: renderPasswordReset('https://admin.example.test/admin/reset/SYNTHETIC').html })).toEqual({ sent: 1, suppressed: 0 })
     expect(sent).toHaveLength(1)
     expect(events).toEqual([expect.objectContaining({ event: 'DIRECT_SENT', kind: 'PAYLOAD_AUTH' })])
-    expect(await send({ to: 'owner.synthetic@example.test', subject: 'Security notice', text: 'Notice <script>one</script>.\n\nICS Sales Team\n' })).toEqual({ sent: 1, suppressed: 0 })
-    expect(sent[1]!.text).toBe('Notice <script>one</script>.\n\nICS Sales Team\n')
+    expect(await send({ to: 'owner.synthetic@example.test', subject: 'Security notice', text: 'Notice <script>one</script>.\n\nICST Sales Team\n' })).toEqual({ sent: 1, suppressed: 0 })
+    expect(sent[1]!.text).toBe('Notice <script>one</script>.\n\nICST Sales Team\n')
     expect(sent[1]!.html).toContain('<p style="margin:0 0 16px">Notice &lt;script&gt;one&lt;/script&gt;.</p>')
     expect(sent[1]!.html).not.toContain('<script>')
-    expect(sent[1]!.html).toContain('<p style="margin:0 0 16px">ICS Sales Team</p>')
+    expect(sent[1]!.html).toContain('<p style="margin:0 0 16px">ICST Sales Team</p>')
   })
 })
 
