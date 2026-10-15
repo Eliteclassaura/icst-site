@@ -148,9 +148,11 @@ describe('the runtime base image is pinned by digest', () => {
     expect(docker).toMatch(/^ARG NODE_IMAGE=node:22\.22\.2-bookworm-slim@sha256:[0-9a-f]{64}$/m)
     expect(docker).toContain('FROM ${NODE_IMAGE} AS base')
   })
-  it('the slim-image contract is untouched: salmon/documents stays out of the build context', () => {
+  it("the client image contract: another client's content, theme and manifest stay out of the build context (blocklists stay in for the gate)", () => {
     const ignore = readFileSync(path.join(APP, 'Dockerfile.runtime.dockerignore'), 'utf8')
-    expect(ignore).toMatch(/content\/salmon\/documents/)
+    expect(ignore).toMatch(/^clients\/\*\/content$/m)
+    expect(ignore).toMatch(/^clients\/\*\/theme$/m)
+    expect(ignore).toMatch(/^!clients\/icst\/content$/m)
   })
 })
 
@@ -163,14 +165,13 @@ describe('Main Lows', () => {
     expect(auditIp(undefined)).toBeNull()
   })
   it('catalog.page-index-link-forgeable-on-update: no hand-made page link or authority id on an unindexed record', () => {
-    const guard = pageIndexGuard({ seedOwned: ['title', 'page_route', 'source_route_id'], pageOwned: [], relations: ['page_route'], noun: 'product' })
+    const guard = pageIndexGuard({ seedOwned: ['title', 'source_route_id'], pageOwned: [], relations: [], noun: 'product' })
     const run = (data: Doc, originalDoc: Doc | undefined, operation: 'create' | 'update', context: Doc = {}) =>
       (guard as (a: unknown) => unknown)({ data, originalDoc, operation, context, req: {} })
     expect(() => run({ source_route_id: 'SALMON-x' }, { id: 1, source_route_id: null }, 'update')).toThrow(/catalog seed/)
-    expect(() => run({ page_route: 7 }, { id: 1, page_route: null }, 'update')).toThrow(/catalog seed/)
     expect(() => run({ source_route_id: 'SALMON-x' }, undefined, 'create')).toThrow(/catalog seed/)
     // an ordinary save of an unindexed record (unchanged empty link fields) and the seed itself still pass
-    expect(run({ title: 'T', source_route_id: null, page_route: null }, { id: 1, source_route_id: null }, 'update')).toMatchObject({ title: 'T' })
+    expect(run({ title: 'T', source_route_id: null }, { id: 1, source_route_id: null }, 'update')).toMatchObject({ title: 'T' })
     expect(run({ source_route_id: 'SALMON-x' }, undefined, 'create', { h2oCatalogSeed: true })).toMatchObject({ source_route_id: 'SALMON-x' })
   })
 })
