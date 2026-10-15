@@ -1,5 +1,6 @@
 import { sql } from '@payloadcms/db-postgres'
 import type { Payload } from 'payload'
+import { client } from '../../client'
 import { stepUpApp } from '../../email/sending-settings'
 import type { Outcome } from '../../crm/workspace/mutations'
 import type { CrmSession } from '../../crm/workspace/session'
@@ -52,7 +53,7 @@ export function noticeText(action: AdminMfaAction, now: Date): { subject: string
   const next = action === 'turn-off' ? 'You now sign in with your password.' : 'You will be asked to set up two-step sign-in at your next sign-in.'
   return {
     subject: `Your two-step sign-in ${what} by an administrator`,
-    text: `Your two-step sign-in ${what} by an administrator on ${date}. ${next}\n\nIf this wasn’t expected, contact your administrator.\n\nICS Sales Team\n`,
+    text: `Your two-step sign-in ${what} by an administrator on ${date}. ${next}\n\nIf this wasn’t expected, contact your administrator.\n\n${client().brandName('emailFrom')}\n`,
   }
 }
 

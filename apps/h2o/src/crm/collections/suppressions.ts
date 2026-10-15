@@ -5,6 +5,7 @@ import type {
   CollectionConfig,
 } from 'payload'
 import { ADMINS, hasRole } from '@factory/agency-core/cms/kernel'
+import { client } from '../../client'
 import { noOne } from '../access'
 import { recordActivity } from '../activity'
 import { crmCollection } from '../collection'
@@ -16,7 +17,6 @@ import {
   SUPPRESSION_REASON,
   SUPPRESSION_SCOPE,
   SUPPRESSION_SOURCE,
-  TENANT,
   options,
   type SuppressionReason,
 } from '../vocabulary'
@@ -68,7 +68,7 @@ const resolveIdentity: CollectionBeforeValidateHook = async ({ context, data, op
     )
   d.email_match_key = key
   delete d.address // the key is the identity; the raw input is not kept twice
-  d.tenant = TENANT
+  d.tenant = client().tenantKey
   d.recorded_at = new Date().toISOString()
   d.recorded_by = req.user ? req.user.id : null
   if (!isServerContext(context)) {
@@ -218,7 +218,7 @@ export const CrmSuppressions: CollectionConfig = crmCollection(
       { name: 'source_event_id', type: 'text', index: true },
       { name: 'evidence_ref', type: 'text' },
       { name: 'reason_note', type: 'textarea' },
-      { name: 'tenant', type: 'text', required: true, defaultValue: TENANT, admin: { readOnly: true } },
+      { name: 'tenant', type: 'text', required: true, defaultValue: client().tenantKey, admin: { readOnly: true } },
       { name: 'recorded_by', type: 'relationship', relationTo: 'users', admin: { readOnly: true } },
       { name: 'recorded_at', type: 'date', required: true, admin: { readOnly: true } },
     ],

@@ -1,5 +1,6 @@
 import config from '@payload-config'
 import { getPayload } from 'payload'
+import { client } from '../../../../../client'
 import { unsubscribeByToken, verifyUnsubscribeToken } from '../../../../../crm/ers/unsubscribe'
 
 /**
@@ -28,7 +29,7 @@ export async function GET(request: Request): Promise<Response> {
   if (!verifyUnsubscribeToken(t)) return page('This link is not valid', '<p>The unsubscribe link is incomplete or has been changed. Reply to the email and ask us to stop, and we will.</p>', 400)
   return page(
     'Stop these follow-up emails?',
-    `<p>You will no longer receive follow-up emails from Industrial Cooling Solutions about your request. Replies to messages you send us are not affected.</p><form method="post" action="/api/ers/unsubscribe/?t=${escapeAttr(encodeURIComponent(t))}"><button type="submit">Unsubscribe</button></form>`,
+    `<p>You will no longer receive follow-up emails from ${escapeAttr(client().brandName('site'))} about your request. Replies to messages you send us are not affected.</p><form method="post" action="/api/ers/unsubscribe/?t=${escapeAttr(encodeURIComponent(t))}"><button type="submit">Unsubscribe</button></form>`,
   )
 }
 

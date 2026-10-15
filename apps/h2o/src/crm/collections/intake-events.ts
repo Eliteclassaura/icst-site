@@ -2,7 +2,8 @@ import type { CollectionConfig } from 'payload'
 import { crmAdminField, noOne } from '../access'
 import { crmCollection } from '../collection'
 import { CrmInvariantError, isServerContext, writeOnce } from '../guards'
-import { INTAKE_PROCESSING_STATE, TENANT, options } from '../vocabulary'
+import { client } from '../../client'
+import { INTAKE_PROCESSING_STATE, options } from '../vocabulary'
 
 /**
  * Raw intake event store (E0.1 event envelope: immutable identity, idempotency, replay quarantine).
@@ -39,7 +40,7 @@ export const CrmIntakeEvents: CollectionConfig = crmCollection(
               'Intake events are written by the intake service only.',
               403,
             )
-          if (data && operation === 'create') data.tenant = TENANT
+          if (data && operation === 'create') data.tenant = client().tenantKey
           return data
         },
       ],
@@ -58,7 +59,7 @@ export const CrmIntakeEvents: CollectionConfig = crmCollection(
       ],
     },
     fields: [
-      { name: 'tenant', type: 'text', required: true, defaultValue: TENANT, admin: { readOnly: true } },
+      { name: 'tenant', type: 'text', required: true, defaultValue: client().tenantKey, admin: { readOnly: true } },
       {
         name: 'source_system',
         type: 'select',

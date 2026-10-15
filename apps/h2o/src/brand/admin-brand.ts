@@ -1,3 +1,4 @@
+import { client } from '../client'
 import { indexingPolicy } from '../content/config'
 
 /**
@@ -7,10 +8,15 @@ import { indexingPolicy } from '../content/config'
  * "· ICS admin"; everything else reads "· ICS staging admin". It used to be a fixed "· H2O staging admin" that would
  * have shipped to production.
  */
-export const ADMIN_BRAND_ALT = 'ICS Industrial Cooling Solutions'
-export const ADMIN_LOGO = { light: '/brand/ics-logo-original.webp', dark: '/brand/ics-logo-white-transparent.png', width: 1000, height: 256 } as const
-export const ADMIN_EMBLEM = { src: '/brand/ics-emblem-favicon-source.png', width: 180, height: 180 } as const
+/**
+ * KIT-0 H1: the names and logo paths come from the client manifest (`client()`); for H2O they equal the strings that used to be
+ * written here. The pixel sizes are the supplied H2O assets' and stay fixed.
+ */
+const BRAND = client().manifest
+export const ADMIN_BRAND_ALT = `${BRAND.client.shortName} ${BRAND.client.displayName}`
+export const ADMIN_LOGO = { light: BRAND.brand.logo.light, dark: BRAND.brand.logo.dark, width: 1000, height: 256 } as const
+export const ADMIN_EMBLEM = { src: BRAND.brand.logo.emblem, width: 180, height: 180 } as const
 
 /** No leading space: Payload joins the page title and `meta.titleSuffix` with one space itself (QA R17B M1: "Login  · …" had two). */
 export const adminTitleSuffix = (env: NodeJS.ProcessEnv = process.env): string =>
-  indexingPolicy(env) === 'production' ? '· ICS admin' : '· ICS staging admin'
+  indexingPolicy(env) === 'production' ? `· ${BRAND.brand.names.admin}` : `· ${BRAND.client.shortName} staging admin`

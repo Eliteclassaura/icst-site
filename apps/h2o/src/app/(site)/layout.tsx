@@ -49,6 +49,7 @@ import './design-r5.css'
 import './design-r5b.css'
 import './design-lang.css'
 import './design-articles.css'
+import {client} from '../../client'
 
 export const defaultRobots = (anyReady: boolean): Metadata['robots'] =>
   anyReady ? undefined : { follow: false, googleBot: { follow: false, index: false }, index: false }
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
   icons: {icon: [{url: '/favicon.ico', sizes: 'any'}, {url: '/icon.svg', type: 'image/svg+xml'}], apple: '/apple-touch-icon.png'},
   manifest: '/site.webmanifest',
   robots: defaultRobots(estateHasPublicationReadyRoute()),
-  title: 'Industrial Cooling Solutions',
+  title: client().brandName('site'),
 }
 
 /** Locale Part B: in payload content mode the proxy passes the page language (`x-h2o-lang`, src/content/locale-language);
