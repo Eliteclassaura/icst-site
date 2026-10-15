@@ -23,3 +23,7 @@ tools/design-bundle/.build/
 
 # TypeScript incremental build state — machine-local, churns on every build
 *.tsbuildinfo
+
+# Client media binaries are staged by tools/client-kit/bin/media-sync.ts; only MEDIA_INDEX.json is committed
+clients/*/media/wp-content/
+clients/*/media/brand/

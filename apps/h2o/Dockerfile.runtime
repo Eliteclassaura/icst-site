@@ -34,7 +34,7 @@ RUN rm -rf /repo/deploy && pnpm --filter @factory/h2o deploy --prod --legacy /re
 # ^ pnpm stamps the deploy time into .modules.yaml; pinning it makes a re-run with unchanged inputs byte-identical,
 #   so BuildKit's content-addressed COPY reuses the ~1 GB deps layer even when this stage re-executes.
 
-# ── client: the client's own folder (content, theme, manifest, rfq copy). Nothing else is data in this image.
+# ── client: the client's own folder (content, theme, manifest, rfq copy, media). Nothing else is data in this image.
 FROM base AS client
 WORKDIR /out/app
 COPY clients/icst ./clients/icst
@@ -44,6 +44,9 @@ RUN test -s clients/icst/manifest.json
 FROM deps AS build
 COPY apps/h2o ./apps/h2o
 COPY clients ./clients
+# Client media (clients/icst/media, served at /wp-content/uploads/* and /brand-media/* from the allow-list MEDIA_INDEX.json): the staged folder must
+# match its index exactly (every file listed, every hash equal, nothing unlisted) or the image is not built. Stage it first with tools/client-kit/bin/media-sync.ts.
+RUN node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tools/client-kit/bin/media-sync.ts icst x --check
 # Build-time variables. NEXT_PUBLIC_SERVER_URL is compiled into the bundle and has NO default (a deployable
 # image must name its origin). The database/secret values are placeholders: `next build` does not connect.
 ARG NEXT_PUBLIC_SERVER_URL

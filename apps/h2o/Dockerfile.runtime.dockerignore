@@ -25,6 +25,7 @@ clients/*/content
 clients/*/theme
 !clients/icst/content
 !clients/icst/theme
+# The client's media folder (staged by media-sync) is part of its folder and enters the image; the build verifies it against MEDIA_INDEX.json.
 clients/h2o/manifest.json
 clients/example-industrial/manifest.json
 clients/_template
