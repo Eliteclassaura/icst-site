@@ -12,12 +12,17 @@ import { Checker, type Issue } from './check.ts'
  */
 export const COLOR_KEYS = ['accent', 'accentDeep', 'accentOn', 'text', 'textMuted', 'surface', 'surfaceAlt', 'rule', 'success', 'warning', 'error'] as const
 export type ColorKey = (typeof COLOR_KEYS)[number]
-export type Palette = Record<ColorKey, string>
+/** A value is `null` only when listed in `pending` (observed gap awaiting the Design Director); it is then omitted from the CSS. */
+export type Palette = Record<ColorKey, string | null>
+export type Pending = { token: string; reason: string }
 export type Tokens = {
   schemaVersion: 1
   source: string
+  /** `['light']` = the client has no dark theme (dark is null and no dark CSS is emitted); never derived silently. */
+  modes: ['light'] | ['light', 'dark']
   light: Palette
-  dark: Palette
+  dark: Palette | null
+  pending: Pending[]
   radii: { control: string; card: string; cta: string }
   fonts: { body: string; display: string }
 }
@@ -52,19 +57,54 @@ const PAIRS: Array<[ColorKey, ColorKey, number, string]> = [
 
 export function validateTokens(raw: unknown): { ok: true; tokens: Tokens } | { ok: false; issues: Issue[] } {
   const c = new Checker()
-  const top = c.obj(raw, '$', ['schemaVersion', 'source', 'light', 'dark', 'radii', 'fonts'])
+  const top = c.obj(raw, '$', ['schemaVersion', 'source', 'modes', 'light', 'dark', 'pending', 'radii', 'fonts'])
   if (!top) return { ok: false, issues: c.issues }
   if (top.schemaVersion !== 1) c.fail('$.schemaVersion', 'must be 1')
   c.str(top.source, '$.source', { max: 200 })
+  const modesOk = Array.isArray(top.modes) && (top.modes.join() === 'light' || top.modes.join() === 'light,dark')
+  if (!modesOk) c.fail('$.modes', "must be ['light'] or ['light', 'dark']")
+  const hasDark = modesOk && (top.modes as string[]).includes('dark')
+  const pending = new Set<string>()
+  for (const [i, e] of c.arr(top.pending, '$.pending', { max: 50 }).entries()) {
+    const pe = c.obj(e, `$.pending[${i}]`, ['token', 'reason'])
+    if (!pe) continue
+    const t = c.str(pe.token, `$.pending[${i}].token`, { max: 60 })
+    c.str(pe.reason, `$.pending[${i}].reason`, { max: 300 })
+    if (t) pending.add(t)
+  }
+  if (modesOk && !hasDark && top.dark !== null) c.fail('$.dark', 'must be null when modes is [light]: a missing dark theme is not derived silently')
+  if (hasDark && top.dark === null) c.fail('$.dark', 'is required when modes includes dark')
   for (const mode of ['light', 'dark'] as const) {
+    if (mode === 'dark' && !hasDark) continue
     const pal = c.obj(top[mode], `$.${mode}`, COLOR_KEYS)
     if (!pal) continue
-    for (const k of COLOR_KEYS) if (k in pal) c.str(pal[k], `$.${mode}.${k}`, { pattern: HEX, what: 'a #rrggbb colour' })
-    if (c.issues.length === 0 || COLOR_KEYS.every((k) => typeof pal[k] === 'string' && HEX.test(pal[k] as string)))
-      for (const [fg, bg, min, why] of PAIRS) {
-        const r = contrast(pal[fg] as string, pal[bg] as string)
-        if (r < min) c.fail(`$.${mode}.${fg}`, `${fg} on ${bg} is ${r.toFixed(2)}:1, needs ${min}:1 (${why})`)
-      }
+    for (const k of COLOR_KEYS) {
+      if (!(k in pal)) continue
+      if (pal[k] === null) {
+        if (!pending.has(`${mode}.${k}`)) c.fail(`$.${mode}.${k}`, `is null but not listed in pending as ${mode}.${k}`)
+      } else c.str(pal[k], `$.${mode}.${k}`, { pattern: HEX, what: 'a #rrggbb colour' })
+    }
+    for (const [fg, bg, min, why] of PAIRS) {
+      const a = pal[fg]
+      const b = pal[bg]
+      if (typeof a !== 'string' || typeof b !== 'string' || !HEX.test(a) || !HEX.test(b)) continue
+      const r = contrast(a, b)
+      if (r < min) c.fail(`$.${mode}.${fg}`, `${fg} on ${bg} is ${r.toFixed(2)}:1, needs ${min}:1 (${why})`)
+    }
+  }
+  for (const mode of ['light', 'dark'] as const) {
+    const pal = top[mode] as Palette | null
+    if (!pal || typeof pal !== 'object') continue
+    const st = deriveStates(pal)
+    const surface = pal.surface
+    const on = pal.accentOn
+    if (!st || typeof surface !== 'string' || typeof on !== 'string' || !HEX.test(surface) || !HEX.test(on)) continue
+    for (const [name, where, min, why] of STATE_PAIRS) {
+      const color = st[name]
+      if (!HEX.test(color)) continue
+      const r = where === 'label' ? contrast(on, color) : contrast(color, surface)
+      if (r < min) c.fail(`$.${mode}.accentDeep`, `derived ${name} is ${r.toFixed(2)}:1, needs ${min}:1 (${why})`)
+    }
   }
   const radii = c.obj(top.radii, '$.radii', ['control', 'card', 'cta'])
   if (radii) for (const k of Object.keys(radii)) c.str(radii[k], `$.radii.${k}`, { pattern: LEN, what: 'a length like 4px or 0.5rem' })
@@ -73,18 +113,49 @@ export function validateTokens(raw: unknown): { ok: true; tokens: Tokens } | { o
   return c.issues.length ? { ok: false, issues: c.issues } : { ok: true, tokens: top as unknown as Tokens }
 }
 
+const hex2 = (n: number) => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, '0')
+/** Darken toward black by a fraction (0..1). Deterministic: used to derive the pressed state. */
+export const shade = (hex: string, f: number) => `#${rgb(hex).map((v) => hex2(v * (1 - f))).join('')}`
+
+/**
+ * Interactive states are DERIVED from the palette (client files rarely draw them): hover = accentDeep, pressed = accentDeep darkened 12%,
+ * link = accent, link hover = accentDeep, focus ring = accent. Each derived pair is contrast-checked; a failure stops the build.
+ */
+export function deriveStates(p: Palette): Record<string, string> | null {
+  if (!p.accent || !p.accentDeep) return null
+  return { accentHover: p.accentDeep, accentActive: shade(p.accentDeep, 0.12), link: p.accent, linkHover: p.accentDeep, focusRing: p.accent }
+}
+/** [state, what it sits on, minimum, why]: `label` = accentOn text on the state colour; `page` = the state colour on the page surface. */
+const STATE_PAIRS: Array<[string, 'label' | 'page', number, string]> = [
+  ['accentHover', 'label', 4.5, 'label on a hovered accent button'],
+  ['accentActive', 'label', 4.5, 'label on a pressed accent button'],
+  ['linkHover', 'page', 4.5, 'hovered link text on the page'],
+  ['focusRing', 'page', 3, 'focus ring against the page'],
+]
+
 const kebab = (k: string) => k.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)
 const block = (sel: string, p: Palette) =>
-  `${sel} {\n${COLOR_KEYS.map((k) => `  --client-${kebab(k)}: rgb(${rgb(p[k]).join(' ')});`).join('\n')}\n}\n`
+  `${sel} {\n${COLOR_KEYS.filter((k) => p[k] !== null)
+    .map((k) => `  --client-${kebab(k)}: rgb(${rgb(p[k] as string).join(' ')});`)
+    .concat(Object.entries(deriveStates(p) ?? {}).map(([k, v]) => `  --client-${kebab(k)}: rgb(${rgb(v).join(' ')});`))
+    .join('\n')}\n}\n`
 
 /** Deterministic CSS: same tokens, same bytes. Dark applies by `prefers-color-scheme` unless a theme is forced either way. */
 export function renderTokensCss(t: Tokens): string {
+  const dark = t.dark
   return [
     `/* Generated by tools/client-kit from theme/tokens.json (${t.source}). Do not edit. */`,
+    '/* Interactive states (hover, pressed, link, focus ring) are DERIVED from accent/accentDeep and contrast-checked; they are not drawn in the client file. */',
+    ...(t.pending.length ? [`/* PENDING sign-off, not emitted or not final: ${t.pending.map((p) => `${p.token} (${p.reason})`).join('; ')} */`] : []),
+    ...(dark ? [] : ['/* No dark theme: this client is light only. */']),
     block(':root', t.light),
     `:root {\n  --client-radius-control: ${t.radii.control};\n  --client-radius-card: ${t.radii.card};\n  --client-radius-cta: ${t.radii.cta};\n  --client-font-body: ${t.fonts.body};\n  --client-font-display: ${t.fonts.display};\n}\n`,
-    `@media (prefers-color-scheme: dark) {\n${block(':root:not([data-theme="light"])', t.dark).replace(/^/gm, '  ').replace(/ +$/gm, '')}}\n`,
-    block(':root[data-theme="dark"]', t.dark),
+    ...(dark
+      ? [
+          `@media (prefers-color-scheme: dark) {\n${block(':root:not([data-theme="light"])', dark).replace(/^/gm, '  ').replace(/ +$/gm, '')}}\n`,
+          block(':root[data-theme="dark"]', dark),
+        ]
+      : []),
   ].join('\n')
 }
 
