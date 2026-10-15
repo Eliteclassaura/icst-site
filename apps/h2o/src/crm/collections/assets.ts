@@ -91,7 +91,7 @@ export const CrmAssets: CollectionConfig = crmCollection(
         name: 'internal_reference',
         type: 'text',
         index: true,
-        admin: { description: 'ICS or customer tag. Not a canonical id.' },
+        admin: { description: 'the company or customer tag. Not a canonical id.' },
       },
       { name: 'manufacturer', type: 'text' },
       { name: 'model', type: 'text' },

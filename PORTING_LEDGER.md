@@ -10,7 +10,7 @@ Fork of the default site's app, 2026-10-15. **The default site is untouched; thi
 | 2 | KIT0-H3 offices slot-only | CRM Patch A | applied unchanged |
 | 3 | KIT0-H4 email identity | CRM Patch A | applied unchanged |
 | 4 | KIT0-H5FIX (Canceled spelling, synthetic client stored values) | Main, `2ddda4f` | copied (manifests, validator text), re-baked |
-| 5 | KIT0-H5 intake/vocabulary | CRM Patch A | NOT yet ported |
+| 5 | KIT0-H5 intake/vocabulary | CRM Patch A | applied unchanged |
 | 6 | ICST-HOME-N1 rev2 (mobile header, phone CTA, carousel arrows), Main-B | Main-B | NOT yet ported |
 | 7 | 1.3b chain (CRM-C: country filters, create-link polish, archive/restore UI) | CRM-C | NOT yet ported (port after 1.3b freeze) |
 
@@ -39,3 +39,16 @@ Source ratchet (fork baseline): 1,173 -> **726** hits in 95 files; 470 of them a
 3. Fonts: remote font stylesheet is correctly blocked by the CSP; Montserrat and Teko woff2 files must be self-hosted from the client folder (needs the font files, OFL, from the owner/DD or an approved package download).
 4. `Dockerfile.runtime` edit for the client (no default `public/`/`content/` COPY, layer-2 scan of `.next` as an image gate), post-migrate identity step, ICST CRM seed pack (Patch A), real `next build`, Docker, seed row scan: heavy window Sat 17 Oct 10:00 EDT onward.
 5. Port H5, Main-B N1 rev2, the 1.3b chain.
+
+
+## Pass 2 (library data, "ICS" words): done
+- Library/E1/E2 data replaced by empty-shape files (`src/crm/library/data/library-seed.json`, `source/e1-source-text.json`, `source/e2-source-text.json`); E1 markdown, E2 sources, `build-seed.mts` and the UI-string TSV removed. The library module is OFF for this client; `ers-ui-strings.json` keeps the sealed keys, with one value neutralised (`ers.persona.note`, which named a persona and the default team).
+- The copy-risk linter data (313 rules, brand-specific, SHA-pinned owner contract) is NOT carried: `email/data/client-copy-linter.json` is an empty rule set and `lintCopy` **fails closed** (every copy HOLDS with rule `NO_RULE_SET`) until the email lane supplies a rule set for this client. Sequences stay OFF anyway.
+- The bare word "ICS" removed from descriptions, comments and UI text (collections, CRM, auth, brand, rfq-native), `TENANT` constant removed (tenant comes from `client().tenantKey`), the signature fallback/hint/sample and the TOTP issuer made neutral or manifest-driven, and the event-name namespace renamed `ics.*` -> `crm.*` (fresh database, nothing reads the old names; `payload-types.ts` descriptions edited by hand, regenerate on the next build).
+- Result (bundle-audit, ICST matcher, output scope): `proxy.ts` 0 hits (2 files); `payload.config.ts` 1 hit (142 files); `(payload)` layout 1; `(crm)` layout 0; `(client)` layout 1. **The one hit in each is the "ICS group" wording in the ICST manifest `statusNote` (owner question A6); nothing else carries a default-client string.** Source ratchet baseline now 200 hits (was 1,173), almost all the `h2o` source token (CSS class names, env names, comments), which the output scope does not match.
+
+## Fonts search (no download made)
+No Montserrat or Teko font file exists in the repo, `node_modules`, the workspace or the system font folders (searched by name; only unrelated `@fontsource-variable/bodoni-moda` and `jost` packages are present). The preview keeps the system-font fallback; the CSP correctly blocks the remote Google Fonts stylesheet. Self-hosting needs the OFL font files from the owner/DD, or the owner's explicit yes to fetch `@fontsource/montserrat` and `@fontsource/teko`.
+
+## Backup plan for this repo
+Commits exist only on this Mac (`/Users/sb/icst-site`, no remote). Until a private remote exists: (1) every working day end, `git bundle create /Users/sb/Documents/ChatGPT/Agency\ codex/outputs/RELEASE_KIT0/ICST_FORK_BACKUP/icst-site-<date>.bundle --all` plus the SHA-256 (outputs/ is already backed up with the workspace); (2) the sealed patches of every ported item stay in `outputs/RELEASE_KIT0/`, so the tree can be rebuilt from the 1.3a head by applying them in the ledger order. **A private remote should exist before the Docker build window (Sat 17 Oct 10:00 EDT)**: owner creates an empty private repository (no default-site history needed; this repo keeps the 1.3a history), Main adds it as `origin` and pushes `icst-main`. CT-1: please ask the owner for it.

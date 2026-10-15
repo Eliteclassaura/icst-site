@@ -13,7 +13,7 @@ import type { Purpose, Question, Registry } from './model'
 /**
  * CT amendments to the OGCS seed: contract §1.1 (2026-10-05), and the Round 5 rulings (CT, 2026-10-05) the CRM seed will
  * serve — the privacy link text, the inline form's continue button, the intake-unavailable line, and `{{offices_link}}` in
- * place of the "call an ICS office" phrase (its link text is `offices.link_text`).
+ * place of the "call an the company office" phrase (its link text is `offices.link_text`).
  */
 export const CT_STRING_AMENDMENTS: Record<string, string> = {
   'contact.email.q': 'Email',

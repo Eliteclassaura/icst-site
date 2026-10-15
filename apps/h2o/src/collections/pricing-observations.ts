@@ -5,7 +5,7 @@ import { auditAfterChange, auditAfterDelete } from '@factory/agency-core/cms/fou
 /**
  * Pricing observations — INTERNAL_ONLY_NEVER_PUBLIC. 157 rows.
  *
- * These are observations of what other sellers publish, kept as evidence for a commercial decision ICS
+ * These are observations of what other sellers publish, kept as evidence for a commercial decision the company
  * has not made. The frozen rule is absolute: **an observation can never be rendered on a public page and
  * can never populate `public_price`.** Where prices exist at all they vary wildly by configuration and
  * condition — the same Metrix 5550 base model spans $1,073.63 to $2,399.00 — so an observed number is

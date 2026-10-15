@@ -86,7 +86,7 @@ export async function matchAccount(
   emailDomain: string,
   submittedCompany: string | null,
 ): Promise<AccountMatch> {
-  // Free mail, ICS's own domains, disposable inboxes and provider typos never match an account (CT 2026-10-05).
+  // Free mail, the company's own domains, disposable inboxes and provider typos never match an account (CT 2026-10-05).
   if (isConsumerDomain(emailDomain) || addressQualityOf(emailDomain)) return { kind: 'FREE_EMAIL_DOMAIN' }
   const res = await payload.find({
     collection: 'crm-accounts',

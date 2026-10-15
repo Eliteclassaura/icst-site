@@ -1738,7 +1738,7 @@ export interface Product {
    */
   categories?: (string | ProductCategory)[] | null;
   /**
-   * The manufacturer designation as the manufacturer publishes it. 93 were parsed from ICS prose and none is manufacturer-verified; absent means unknown, never guessed.
+   * The manufacturer designation as the manufacturer publishes it. 93 were parsed from the company prose and none is manufacturer-verified; absent means unknown, never guessed.
    */
   model_designation?: string | null;
   identifiers: {
@@ -1751,7 +1751,7 @@ export interface Product {
      */
     gtin?: string | null;
     /**
-     * ICS-assigned codes only. The 16 twelve-character hex tokens in the estate are import artefacts and are not migrated here.
+     * the company-assigned codes only. The 16 twelve-character hex tokens in the estate are import artefacts and are not migrated here.
      */
     ics_sku?: string | null;
     /**
@@ -1764,11 +1764,11 @@ export interface Product {
    */
   commerce_mode: 'QUOTE_ONLY' | 'FIXED_PRICE_PURCHASABLE' | 'REVIEW';
   /**
-   * True for the 27 vibration-instrumentation records — the only class with observable third-party pricing, and the only class ICS has not published. Carries no pricing or publication authorisation.
+   * True for the 27 vibration-instrumentation records — the only class with observable third-party pricing, and the only class the company has not published. Carries no pricing or publication authorisation.
    */
   fixed_price_research_candidate?: boolean | null;
   /**
-   * Null unless ICS has explicitly authorised a public selling price for this product.
+   * Null unless the company has explicitly authorised a public selling price for this product.
    */
   public_price?: {
     amount?: number | null;
@@ -1917,7 +1917,7 @@ export interface Product {
     hreflang_eligible?: boolean | null;
   };
   /**
-   * LEGACY_ICS names the source tier — legacy ICS content with traceable provenance. It says nothing about review; reviewer_status on the evidence records carries that.
+   * LEGACY_ICS names the source tier — legacy the company content with traceable provenance. It says nothing about review; reviewer_status on the evidence records carries that.
    */
   truth_status:
     | 'VERIFIED_MANUFACTURER'
@@ -2171,7 +2171,7 @@ export interface PricingObservation {
   createdAt: string;
 }
 /**
- * Companies ICS sells to or serves. Parent/subsidiary is a relationship, never a merge. Unknown stays unknown.
+ * Companies the company sells to or serves. Parent/subsidiary is a relationship, never a merge. Unknown stays unknown.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "crm-accounts".
@@ -2808,7 +2808,7 @@ export interface CrmAsset {
   account?: (string | null) | CrmAccount;
   asset_name?: string | null;
   /**
-   * ICS or customer tag. Not a canonical id.
+   * the company or customer tag. Not a canonical id.
    */
   internal_reference?: string | null;
   manufacturer?: string | null;

@@ -287,12 +287,12 @@ const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc
     opportunity: relId(d.opportunity),
   }
   if (operation === 'create') {
-    // E0.1: `ics.rfq.persisted` is emitted after persistence. Notification is a separate, later action —
+    // E0.1: `crm.rfq.persisted` is emitted after persistence. Notification is a separate, later action —
     // disabled in CRM-1 — and its failure could never roll this back.
     await recordActivity(req, {
       ...base,
       type: 'RFQ_CREATED',
-      event_name: 'ics.rfq.persisted',
+      event_name: 'crm.rfq.persisted',
       summary: `RFQ ${String(d.rfq_number)} persisted (${String(d.source_system)})`,
       idempotency_key: `rfq-persisted:${String(d.canonical_id)}`,
       detail: { rfq_number: d.rfq_number, source_system: d.source_system },
@@ -326,9 +326,9 @@ const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc
       type: 'RFQ_STATUS_CHANGED',
       event_name:
         d.status === 'QUALIFIED'
-          ? 'ics.rfq.qualified'
+          ? 'crm.rfq.qualified'
           : d.status === 'REJECTED_NON_CORE'
-            ? 'ics.rfq.rejected_non_core'
+            ? 'crm.rfq.rejected_non_core'
             : null,
       summary: `RFQ status ${String(p.status)} → ${String(d.status)}`,
       idempotency_key: `rfq-status:${String(d.canonical_id)}:${String(d.updatedAt)}`,
@@ -338,7 +338,7 @@ const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc
     await recordActivity(req, {
       ...base,
       type: 'RFQ_ASSIGNED',
-      event_name: 'ics.sales.owner_assigned',
+      event_name: 'crm.sales.owner_assigned',
       summary: 'RFQ assignee changed',
       idempotency_key: `rfq-assignee:${String(d.canonical_id)}:${String(d.updatedAt)}`,
       detail: { from: relId(p.assignee), to: relId(d.assignee) },

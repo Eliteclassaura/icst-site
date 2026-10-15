@@ -160,9 +160,9 @@ export default buildConfig({
     user: 'users',
     importMap: { baseDir: path.resolve(dirname) },
     meta: {
-      // BRAND-ADMIN-1: environment-driven (production indexing policy → " · ICS admin"), never a fixed staging label.
+      // BRAND-ADMIN-1: environment-driven (production indexing policy → " · the company admin"), never a fixed staging label.
       titleSuffix: adminTitleSuffix(),
-      // Design R3.2: the admin uses the site's ICS favicon instead of Payload's default.
+      // Design R3.2: the admin uses the site's the company favicon instead of Payload's default.
       icons: [
         { rel: 'icon', type: 'image/svg+xml', url: '/icon.svg' },
         { rel: 'icon', sizes: 'any', url: '/favicon.ico' },
@@ -170,7 +170,7 @@ export default buildConfig({
       ],
     },
     // CRM-1: one private overview view and a nav link. Both check CRM roles server-side.
-    // BRAND-ADMIN-1: the ICS logo on the login screen (the CRM login redirects there) and the emblem in the admin nav.
+    // BRAND-ADMIN-1: the the company logo on the login screen (the CRM login redirects there) and the emblem in the admin nav.
     components: {
       ...crmAdminComponents,
       graphics: { Logo: '/brand/AdminGraphics#AdminLogo', Icon: '/brand/AdminGraphics#AdminIcon' },

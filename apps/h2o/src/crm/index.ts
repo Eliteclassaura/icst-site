@@ -37,7 +37,7 @@ import { CrmErsSettings } from './globals/ers-settings'
 import { typeformIntakeEndpoint } from './intake/typeform/endpoint'
 
 /**
- * H2O / ICS CRM-1 — the private CRM, registered by `apps/h2o/src/payload.config.ts`.
+ * H2O / the company CRM-1 — the private CRM, registered by `apps/h2o/src/payload.config.ts`.
  *
  * Order follows the commercial hierarchy (Account → Contact → Plant/Site → Asset → Opportunity), then the
  * RFQ path, then the operational records. All slugs are `crm-`-prefixed so none can collide with the

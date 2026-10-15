@@ -86,7 +86,7 @@ const TRUTH_STATES = [
  * with no provenance cannot be saved. The 1,961 legacy prose bullets migrate as UNVERIFIED evidence
  * pointing at the legacy record; they are not silently normalised into name/value/unit.
  *
- * **`public_price` is admin-scoped and null unless ICS authorised it.** Field-level read and update are
+ * **`public_price` is admin-scoped and null unless the company authorised it.** Field-level read and update are
  * admin-only. Nothing in this collection derives a price, and `pricing-observations` can never populate it.
  *
  * Contract: PAYLOAD_PRODUCT_MODEL_CONTRACT.json -> collections[products], invariants, truth_state_mapping
@@ -189,7 +189,7 @@ export const Products: CollectionConfig = {
       type: 'text',
       admin: {
         description:
-          'The manufacturer designation as the manufacturer publishes it. 93 were parsed from ICS prose and none is manufacturer-verified; absent means unknown, never guessed.',
+          'The manufacturer designation as the manufacturer publishes it. 93 were parsed from the company prose and none is manufacturer-verified; absent means unknown, never guessed.',
       },
     },
     {
@@ -215,7 +215,7 @@ export const Products: CollectionConfig = {
           type: 'text',
           admin: {
             description:
-              'ICS-assigned codes only. The 16 twelve-character hex tokens in the estate are import artefacts and are not migrated here.',
+              'the company-assigned codes only. The 16 twelve-character hex tokens in the estate are import artefacts and are not migrated here.',
           },
         },
         {
@@ -258,7 +258,7 @@ export const Products: CollectionConfig = {
       defaultValue: false,
       admin: {
         description:
-          'True for the 27 vibration-instrumentation records — the only class with observable third-party pricing, and the only class ICS has not published. Carries no pricing or publication authorisation.',
+          'True for the 27 vibration-instrumentation records — the only class with observable third-party pricing, and the only class the company has not published. Carries no pricing or publication authorisation.',
       },
     },
     {
@@ -274,7 +274,7 @@ export const Products: CollectionConfig = {
       // no public selling price is authorized.
       access: { create: adminFieldOnly, read: adminFieldOnly, update: adminFieldOnly },
       admin: {
-        description: 'Null unless ICS has explicitly authorised a public selling price for this product.',
+        description: 'Null unless the company has explicitly authorised a public selling price for this product.',
       },
       fields: [
         { name: 'amount', type: 'number' },
@@ -406,7 +406,7 @@ export const Products: CollectionConfig = {
       access: { create: provenanceFieldWrite, update: provenanceFieldWrite },
       admin: {
         description:
-          'LEGACY_ICS names the source tier — legacy ICS content with traceable provenance. It says nothing about review; reviewer_status on the evidence records carries that.',
+          'LEGACY_ICS names the source tier — legacy the company content with traceable provenance. It says nothing about review; reviewer_status on the evidence records carries that.',
       },
     },
     {

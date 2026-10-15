@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: { default: 'Sales Workspace', template: '%s · Sales Workspace' },
   robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
   referrer: 'same-origin',
-  // Design R3.2: the same ICS favicon as the public site.
+  // Design R3.2: the same the company favicon as the public site.
   icons: {icon: [{url: '/favicon.ico', sizes: 'any'}, {url: '/icon.svg', type: 'image/svg+xml'}], apple: '/apple-touch-icon.png'},
 }
 

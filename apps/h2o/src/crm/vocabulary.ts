@@ -1,5 +1,5 @@
 /**
- * H2O / ICS CRM-1 — controlled vocabulary.
+ * H2O / the company CRM-1 — controlled vocabulary.
  *
  * Every enum here is either copied **verbatim** from an accepted Revenue Engine authority (the source is
  * named beside it) or is a CRM-1 operational taxonomy that no authority defines, in which case it says so.
@@ -10,7 +10,7 @@
  */
 
 /** Fixed tenant key. One deployment, one database per client (Factory rule); recorded for future isolation. */
-export const TENANT = 'ICS' as const
+/** (the fixed tenant constant is gone: the tenant key comes from the client manifest, `client().tenantKey`.) */
 
 /** E0.1 R1 `03_ACCOUNT_MATCHING_AND_ENRICHMENT_CONTRACT.md` — confidence vocabulary. */
 export const LINK_CONFIDENCE = ['VERIFIED', 'HIGH_CONFIDENCE', 'LOW_CONFIDENCE', 'UNKNOWN'] as const
@@ -311,8 +311,8 @@ export const SOURCE_SYSTEM = [
 ] as const
 
 /**
- * RFQ lifecycle. E1.1 names `NEW_INQUIRY`, `RFQ_RECEIVED`, `RFQ_REVIEW`; E0.1 names `ics.rfq.qualified` and
- * `ics.rfq.rejected_non_core`. The CRM record keeps those meanings; no state is entered because time passed.
+ * RFQ lifecycle. E1.1 names `NEW_INQUIRY`, `RFQ_RECEIVED`, `RFQ_REVIEW`; E0.1 names `crm.rfq.qualified` and
+ * `crm.rfq.rejected_non_core`. The CRM record keeps those meanings; no state is entered because time passed.
  */
 export const RFQ_STATUS = [
   'RECEIVED',

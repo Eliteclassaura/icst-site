@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { client } from '../../../../../../client'
 import { Fragment } from 'react'
 import { MERGE_FIELDS, choicesOf, renderTemplate, responseSentence, templateHash } from '../../../../../../email/templates'
 import { readEmailConfig } from '../../../../../../email/config'
@@ -20,7 +21,7 @@ const SAMPLE = {
   company: 'Example Plant (sample)',
   sales_rep_name: 'Your name',
   sales_rep_title: 'Your job title',
-  email_signature: 'ICS Sales Team\nsales@example.test',
+  email_signature: `${client().brandName('emailFrom')}\n${client().defaultSender.address}`,
   unsubscribe_url: 'https://example.invalid/unsubscribe',
 }
 

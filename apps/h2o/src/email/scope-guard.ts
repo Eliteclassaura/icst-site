@@ -1,5 +1,5 @@
 /**
- * T-R1 (owner condition, 2026-10-06): every email template stays **industrial cooling**. ICS sells industrial cooling
+ * T-R1 (owner condition, 2026-10-06): every email template stays **industrial cooling**. the company sells industrial cooling
  * tower parts, maintenance and repairs, dry soda blasting and new towers; no HVAC wording and no targeting of small
  * towers. These REVIEW-level rules run when a template is approved (every kind: transactional and sequence); a hit
  * refuses the approval with a message naming the term.
@@ -28,5 +28,5 @@ export function scopeHits(subject: string, body: string): ScopeHit[] {
 export function scopeRefusal(subject: string, body: string): string | null {
   const hits = scopeHits(subject, body)
   if (!hits.length) return null
-  return `This template mentions ${hits.map((h) => `“${h.term}”`).join(', ')}. ICS emails stay industrial cooling (industrial cooling tower parts, maintenance and repairs, dry soda blasting, new towers): rewrite it before approving.`
+  return `This template mentions ${hits.map((h) => `“${h.term}”`).join(', ')}. Emails stay industrial cooling (industrial cooling tower parts, maintenance and repairs, dry soda blasting, new towers): rewrite it before approving.`
 }

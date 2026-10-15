@@ -11,7 +11,7 @@ export function AdminLogo() {
   )
 }
 
-/** Admin nav icon (Payload `admin.components.graphics.Icon`): the ICS emblem. */
+/** Admin nav icon (Payload `admin.components.graphics.Icon`): the the company emblem. */
 export function AdminIcon() {
   return <img className="h2o-admin-icon" src={ADMIN_EMBLEM.src} width={28} height={28} alt={ADMIN_BRAND_ALT} decoding="async" />
 }

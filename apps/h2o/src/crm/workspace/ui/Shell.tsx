@@ -83,7 +83,7 @@ export async function Shell({
       </a>
       <nav className="c-side" aria-label="Sales Workspace">
         <div className="c-brand">
-          {/* BRAND-ADMIN-1: the ICS emblem instead of the placeholder text mark (decorative; the label names the workspace). */}
+          {/* BRAND-ADMIN-1: the the company emblem instead of the placeholder text mark (decorative; the label names the workspace). */}
           <img className="c-mark c-mark--logo" src={ADMIN_EMBLEM.src} width={24} height={24} alt="" />
           <span>Sales Workspace</span>
         </div>

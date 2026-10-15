@@ -11,7 +11,7 @@ import { PROMOTING_EVIDENCE_STATES, provenanceFieldWrite, truthPromotionWrite } 
  * claim on the site.
  *
  * `evidence_state` carries the same seven-token vocabulary as `products.truth_status`, and `LEGACY_ICS`
- * means only "legacy ICS content with traceable provenance" — it says nothing about review. That is what
+ * means only "legacy the company content with traceable provenance" — it says nothing about review. That is what
  * `reviewer_status` is for, and why the migration mapping is one-way: `LEGACY_ICS_UNVERIFIED` becomes
  * `LEGACY_ICS` **plus** `reviewer_status: UNREVIEWED`, never `VERIFIED_*`.
  *

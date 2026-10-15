@@ -514,7 +514,7 @@ async function processIntake(
     { payload },
     {
       type: 'INTAKE_RECEIVED',
-      event_name: 'ics.rfq.submitted',
+      event_name: 'crm.rfq.submitted',
       summary: src === 'TYPEFORM' ? 'Typeform submission received and verified' : src === 'NATIVE_CHAT' ? 'Website chat request received' : 'Website form request received',
       idempotency_key: `intake-received:${intakeId}`,
       rfq: rfqId,

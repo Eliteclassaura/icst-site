@@ -290,7 +290,7 @@ export async function planImport(s: CrmSession, text: string, rawMapping: unknow
   if (options.attested && (!options.source || !options.basis))
     return { error: { code: 'ATTESTATION_INCOMPLETE', message: 'An owner-attested import needs the source and the basis recorded.' } }
   if (options.createAccounts && ownEmailDomains().size === 0)
-    return { error: { code: 'OWN_DOMAINS_UNSET', message: "Set H2O_OWN_EMAIL_DOMAINS (ICS's own email domains) before creating accounts from a file." } }
+    return { error: { code: 'OWN_DOMAINS_UNSET', message: "Set H2O_OWN_EMAIL_DOMAINS (the company's own email domains) before creating accounts from a file." } }
 
   // CSV-FIX-1 (review R2-08): list every over-long cell before planning. Names are measured after the same split the
   // plan uses, so the limit applies to what would be stored.

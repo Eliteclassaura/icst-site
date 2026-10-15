@@ -36,7 +36,7 @@ export function StandardSignatureForm({ initial }: { initial: string }) {
   return (
     <ActionForm action={A.saveStandardSignatureAction} submitLabel="Save the standard signature" submitClassName="c-btn is-primary">
       <Box name="text" label="Standard signature" hint="Used for sequence emails and for anyone who has not set their own. Up to 6 short lines. Leave out phone numbers and street addresses." value={text} onChange={setText} />
-      <Preview text={text} fallback="ICS Sales Team" />
+      <Preview text={text} fallback="Sales Team" />
     </ActionForm>
   )
 }

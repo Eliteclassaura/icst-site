@@ -9,7 +9,7 @@ import { reviewGroups, type Answers } from './flow'
 import { t, tc, type Question, type Registry } from './model'
 import styles from './NativeRfq.module.css'
 
-/** The page that lists the ICS offices and their telephones ("call an ICS office"). */
+/** The page that lists the the company offices and their telephones ("call an the company office"). */
 export const OFFICES_HREF = '/contact-us/#offices'
 
 /** `live` (LEGAL-FIX-1 L08, WCAG 4.1.3): announce the error as it appears — the chat, where focus stays in the answer field.

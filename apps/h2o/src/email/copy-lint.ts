@@ -1,7 +1,7 @@
-import LINTER from './data/ICS_COPY_RISK_LINTER_V2.json'
+import LINTER from './data/client-copy-linter.json'
 
 /**
- * Revenue Engine slice 1: the frozen E1.1 R2 copy-risk linter (`ICS_COPY_RISK_LINTER_V2`, 313 rules), loaded as data,
+ * Revenue Engine slice 1: the frozen E1.1 R2 copy-risk linter (a client rule set; none is approved yet), loaded as data,
  * byte-identical to the accepted package (SHA-256 pinned below; a test recomputes it).
  *
  * Matching contract (from the rule set itself):
@@ -15,8 +15,8 @@ import LINTER from './data/ICS_COPY_RISK_LINTER_V2.json'
  * Decision (CT ruling 6, owner AUTO override): any BLOCK or REVIEW hit → HOLD (no send, a review task); WARN and INFO
  * are recorded only.
  */
-export const LINTER_ID = 'ICS_COPY_RISK_LINTER_V2'
-export const LINTER_SHA256 = '3ada7e7941e3a7d2b873afc68c91f2a76fec63e6dbbce163b65f4d869a3cddc1'
+export const LINTER_ID = 'CLIENT_COPY_RISK_LINTER_UNSET'
+export const LINTER_SHA256 = 'none'
 
 type RawRule = {
   rule_id: string
@@ -39,8 +39,8 @@ export type LintResult = {
   not_evaluated: number
 }
 
-const PLACEHOLDER_RULES = new Set(['ICS_V2_0187', 'ICS_V2_0188', 'ICS_V2_0189', 'ICS_V2_0191'])
-const SUBJECT_ONLY = new Set(['ICS_V2_0001', 'ICS_V2_0002'])
+const PLACEHOLDER_RULES = new Set(['RULE_0187', 'RULE_0188', 'RULE_0189', 'RULE_0191'])
+const SUBJECT_ONLY = new Set(['RULE_0001', 'RULE_0002'])
 export const normalise = (s: string): string => s.trim().replace(/\s+/g, ' ').toLowerCase()
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
@@ -71,6 +71,8 @@ function rules(): { list: Compiled[]; structural: number } {
 export function lintCopy(subject: string, body: string, stage: LintStage): LintResult {
   const { list, structural } = rules()
   const hits: LintHit[] = []
+  // Fail closed: a client with no approved rule set can send no sequence copy. The email lane supplies the rule set; until then everything holds.
+  if (list.length === 0 && structural === 0) hits.push({ rule_id: 'NO_RULE_SET', severity: 'BLOCK', category: 'NO_RULE_SET', field: 'body' })
   for (const c of list) {
     if (stage === 'TEMPLATE' && PLACEHOLDER_RULES.has(c.rule.rule_id)) continue
     const fields: Array<['subject' | 'body', string]> = SUBJECT_ONLY.has(c.rule.rule_id) ? [['subject', subject]] : [['subject', subject], ['body', body]]

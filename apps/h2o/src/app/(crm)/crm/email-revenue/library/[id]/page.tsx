@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { client } from '../../../../../../client'
 import { stepUpLeft } from '../../../../../../email/settings-page'
 import {
   libraryRow,
@@ -221,7 +222,7 @@ export default async function LibraryRowPage({
               </p>
               <div className="er-paper" role="group" aria-label="Email preview">
                 <p>
-                  <strong>From:</strong> ICS Sales Team
+                  <strong>From:</strong> {client().brandName('emailFrom')}
                 </p>
                 <p>
                   <strong>Subject:</strong> {merged.subject}

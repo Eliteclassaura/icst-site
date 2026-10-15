@@ -116,7 +116,7 @@
  "ers.skeleton.chip": "Skeleton · not sendable",
  "ers.skeleton.disabled_reason": "This is a skeleton. The copy is not written yet, so it can’t be simulated, sent or activated.",
  "ers.skeleton.row_action": "Preview steps",
- "ers.persona.note": "Signed “Rhonda” (persona). Sent from ICS Sales Team.",
+ "ers.persona.note": "Signed with a persona name. Sent from the team sender name.",
  "ers.catalogue.approval.auto": "Automatic sending · no per-email approval",
  "ers.catalogue.approval.required": "REQUIRED",
  "ers.approval.auto.label": "Automatic sending · no per-email approval",

@@ -195,7 +195,7 @@ const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc
     await recordActivity(req, {
       ...base,
       type: 'OPPORTUNITY_CREATED',
-      event_name: 'ics.opportunity.created',
+      event_name: 'crm.opportunity.created',
       summary: `Opportunity created (${String(d.motion)})`,
       idempotency_key: `opportunity-created:${String(d.canonical_id)}`,
       detail: { motion: d.motion, stage: d.stage },
@@ -207,7 +207,7 @@ const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc
     await recordActivity(req, {
       ...base,
       type: 'OPPORTUNITY_STAGE_CHANGED',
-      event_name: 'ics.opportunity.stage_changed',
+      event_name: 'crm.opportunity.stage_changed',
       summary: `Stage ${String(p.stage)} → ${String(d.stage)}`,
       idempotency_key: `opportunity-stage:${String(d.canonical_id)}:${String((d.last_stage_change as Doc | undefined)?.at)}`,
       detail: { from_stage: p.stage, to_stage: d.stage },
@@ -216,7 +216,7 @@ const timeline: CollectionAfterChangeHook = async ({ doc, operation, previousDoc
     await recordActivity(req, {
       ...base,
       type: 'OPPORTUNITY_OWNER_CHANGED',
-      event_name: 'ics.sales.owner_assigned',
+      event_name: 'crm.sales.owner_assigned',
       summary: 'Opportunity owner changed',
       idempotency_key: `opportunity-owner:${String(d.canonical_id)}:${String(d.updatedAt)}`,
       detail: { from_owner: relId(p.owner), to_owner: relId(d.owner) },

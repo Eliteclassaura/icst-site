@@ -133,7 +133,7 @@ export const CrmAccounts: CollectionConfig = crmCollection(
     admin: {
       useAsTitle: 'canonical_name',
       description:
-        'Companies ICS sells to or serves. Parent/subsidiary is a relationship, never a merge. Unknown stays unknown.',
+        'Companies the company sells to or serves. Parent/subsidiary is a relationship, never a merge. Unknown stays unknown.',
       defaultColumns: ['canonical_name', 'relationship_state', 'account_state', 'owner', 'updatedAt'],
       listSearchableFields: ['canonical_name', 'legal_name', 'aliases.alias', 'domains.domain'],
     },

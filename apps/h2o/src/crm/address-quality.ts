@@ -8,7 +8,7 @@ import { CONSUMER_EMAIL_DOMAINS, isConsumerDomain, registrableLabel } from './fr
  *   - DISPOSABLE    — a throwaway-inbox service ("yopmail.com").
  *   - SPAM_PATTERN  — set by the import only: a domain with no company name on any row whose shape matches spam
  *                     sign-ups (unusual TLD, a "mail" service-like name, or a subdomain on a generic TLD).
- *   - INTERNAL      — one of ICS's own domains (`H2O_OWN_EMAIL_DOMAINS`, comma-separated; config only — the CRM source
+ *   - INTERNAL      — one of the company's own domains (`H2O_OWN_EMAIL_DOMAINS`, comma-separated; config only — the CRM source
  *                     never names a production host).
  *
  * Any non-null value means: never create or match an account, never marketing-eligible, and the Revenue Engine
@@ -18,7 +18,7 @@ export const ADDRESS_QUALITY = ['SUSPECT_TYPO', 'DISPOSABLE', 'SPAM_PATTERN', 'I
 export type AddressQuality = (typeof ADDRESS_QUALITY)[number]
 
 /**
- * ICS-owned email domains, from `H2O_OWN_EMAIL_DOMAINS`. Empty when unset: the import then refuses to create accounts
+ * the company-owned email domains, from `H2O_OWN_EMAIL_DOMAINS`. Empty when unset: the import then refuses to create accounts
  * (fail closed), because an own domain must never become a customer account.
  */
 export function ownEmailDomains(): ReadonlySet<string> {

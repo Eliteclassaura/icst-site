@@ -59,7 +59,7 @@ export const CrmActivities: CollectionConfig = crmCollection(
         name: 'event_name',
         type: 'text',
         index: true,
-        admin: { description: 'E0.1 event name when this mirrors a catalog event (e.g. ics.rfq.persisted).' },
+        admin: { description: 'E0.1 event name when this mirrors a catalog event (e.g. crm.rfq.persisted).' },
       },
       {
         name: 'occurred_at',

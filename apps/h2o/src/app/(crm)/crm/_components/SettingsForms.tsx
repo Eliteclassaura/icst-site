@@ -123,7 +123,7 @@ export function ProfileForm({ values, presets }: { values: ProfileValues; preset
       <Field name="from_address" label="Send as (address)" required hint="An address at h2ocooling.com or h2ocooling.org. If it is not the mailbox above, Google may rewrite the From unless the mailbox has this address as a Send-as alias.">
         {(a) => <input className="c-input" {...a} type="email" defaultValue={values.from_address ?? ''} maxLength={254} autoComplete="off" />}
       </Field>
-      <Field name="from_name" label="Send as (name)" hint="The name customers see, e.g. ICS Sales Team.">
+      <Field name="from_name" label="Send as (name)" hint="The name customers see, e.g. Sales Team.">
         {(a) => <input className="c-input" {...a} defaultValue={values.from_name ?? ''} maxLength={80} autoComplete="off" />}
       </Field>
       <AdvancedServer values={values} />

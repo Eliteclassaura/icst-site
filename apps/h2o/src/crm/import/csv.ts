@@ -232,7 +232,7 @@ export type PhoneResult = { kind: 'E164'; value: string } | { kind: 'DROPPED'; w
  * Phone normalisation (CT ruling 2026-10-05, §8.4 — narrow): stored only as E.164.
  *   - "+…" with 8–15 digits → "+digits" (an extension is kept as " ext N");
  *   - exactly 11 digits starting with 1, or exactly 10 digits whose area code and exchange both start with 2–9
- *     (a valid North American number) → "+1…" (the file has no country column; ICS is a US business);
+ *     (a valid North American number) → "+1…" (the file has no country column; the company is a US business);
  *   - spreadsheet scientific notation ("9.17E+11") has lost digits: dropped, never reconstructed;
  *   - anything else is dropped and counted.
  */

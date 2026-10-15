@@ -1,0 +1,7 @@
+{
+ "rule_set_id": "CLIENT_COPY_RISK_LINTER_UNSET",
+ "version": "0",
+ "tenant": "UNSET",
+ "status": "NO_RULE_SET: this client has no approved copy-risk rule set yet; the lint holds everything",
+ "rules": []
+}

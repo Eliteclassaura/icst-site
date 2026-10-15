@@ -89,7 +89,7 @@ export function verifyTotp(secretB32: string, code: string, at: Date, lastStep: 
 }
 
 /** The otpauth URI authenticator apps import (also opens the app when tapped on a phone). */
-export function otpauthUri(secretB32: string, account: string, issuer = 'ICS CRM'): string {
+export function otpauthUri(secretB32: string, account: string, issuer = 'CRM'): string {
   const label = encodeURIComponent(`${issuer}:${account}`)
   return `otpauth://totp/${label}?secret=${secretB32}&issuer=${encodeURIComponent(issuer)}&algorithm=SHA1&digits=${DIGITS}&period=${STEP_SECONDS}`
 }

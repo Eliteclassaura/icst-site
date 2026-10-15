@@ -1,10 +1,10 @@
 import { client } from '../client'
 
 /**
- * BRAND-ADMIN-1 (owner request, CT 2026-10-07): the ICS brand on the admin login, the admin nav and the CRM sign-in pages,
+ * BRAND-ADMIN-1 (owner request, CT 2026-10-07): the the company brand on the admin login, the admin nav and the CRM sign-in pages,
  * from the existing site assets in /public/brand. The admin tab title follows the environment: the production indexing
  * policy (H2O_INDEXING_POLICY=production, the one switch that already separates production from staging) reads
- * "· ICS admin"; everything else reads "· ICS staging admin". It used to be a fixed "· H2O staging admin" that would
+ * "· the company admin"; everything else reads "· the company staging admin". It used to be a fixed "· H2O staging admin" that would
  * have shipped to production.
  */
 /**
