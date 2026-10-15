@@ -64,6 +64,29 @@ export function HeaderBlock({ brand, links, currentPath, cta }: HeaderProps) {
           {cta.label}
         </a>
       )}
+      {/* Narrow screens: a native disclosure menu (works without JavaScript). The desktop nav is hidden there. */}
+      <details className="blk-header__menu">
+        <summary className="blk-header__toggle">
+          <span className="blk-header__toggle-label">Menu</span>
+          <span className="blk-header__toggle-bars" aria-hidden="true" />
+        </summary>
+        <nav className="blk-header__panel" aria-label="Menu">
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              aria-current={currentPath && l.href === currentPath ? 'page' : undefined}
+            >
+              {l.label}
+            </a>
+          ))}
+          {cta && (
+            <a className="blk-header__panel-cta" href={cta.href}>
+              {cta.label}
+            </a>
+          )}
+        </nav>
+      </details>
     </header>
   )
 }
@@ -77,7 +100,7 @@ export const header = defineBlock<HeaderProps>({
     'One <header> with a labelled <nav aria-label="Primary">; links are real <a> elements (the legacy site used buttons for hash views).',
     'aria-current="page" marks the current route; the underline is a second cue, not the only one.',
     'The logo link has an explicit aria-label because the wordmark is split across spans.',
-    'The nav scrolls horizontally on narrow viewports instead of hiding items behind a JS menu, so it works without JavaScript; a disclosure menu is a Release 2 option.',
+    'On narrow viewports the links move into a native <details> menu (summary "Menu"), so it works without JavaScript and keeps every link reachable.',
   ],
   fixtures,
 })

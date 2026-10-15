@@ -1,11 +1,16 @@
 import { defineBlock } from '../types'
 import { SectionHead } from '../shared/SectionHead'
+import type { ImageRef } from '../types'
 import { fixtures } from './fixture'
 import './service-band.css'
 
 export type ServiceBandItem = {
   title: string
   text: string
+  /** Optional card image (media slot). Decorative images get an empty alt. */
+  image?: ImageRef
+  /** Optional date line above the title, e.g. "September 4, 2026". */
+  date?: string
   /** Optional destination; the card shows `label` (default "Learn more") as a link to it. */
   href?: string
   label?: string
@@ -26,6 +31,17 @@ export function ServiceBandBlock({ eyebrow, title, lede, items }: ServiceBandPro
       <ul className="blk-services__grid" role="list">
         {items.map((it, i) => (
           <li key={i} className="blk-services__item">
+            {it.image && (
+              <img
+                className="blk-services__img"
+                src={it.image.url}
+                alt={it.image.decorative ? '' : it.image.alt}
+                width={it.image.width}
+                height={it.image.height}
+                loading="lazy"
+              />
+            )}
+            {it.date && <p className="blk-services__date">{it.date}</p>}
             <h3 className="blk-services__title">{it.title}</h3>
             <p className="blk-services__text">{it.text}</p>
             {it.href && (

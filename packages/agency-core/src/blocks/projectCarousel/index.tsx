@@ -1,6 +1,7 @@
 import { defineBlock, type ImageRef } from '../types'
 import { SectionHead } from '../shared/SectionHead'
 import { fixtures } from './fixture'
+import { CarouselArrows } from './arrows'
 import './project-carousel.css'
 
 export type ProjectCard = {
@@ -19,13 +20,16 @@ export type ProjectCarouselProps = {
 
 /**
  * Horizontal project cards on a native scroll-snap track. The track is a labelled, keyboard-focusable
- * region, so every card is reachable by scrolling without JavaScript (no arrow controls are rendered).
+ * region, so every card is reachable by scrolling without JavaScript. Arrow buttons are added on mount.
  */
 export function ProjectCarouselBlock({ eyebrow, title, lede, items }: ProjectCarouselProps) {
+  // Deterministic id (same on server and client) so the arrows can find the track.
+  const trackId = `blk-projects-${(title ?? 'projects').toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
   return (
     <div className="blk-projects">
       {title && <SectionHead eyebrow={eyebrow} title={title} lede={lede} />}
-      <div className="blk-projects__track" role="region" aria-label={title ?? 'Projects'} tabIndex={0}>
+      <CarouselArrows trackId={trackId} />
+      <div id={trackId} className="blk-projects__track" role="region" aria-label={title ?? 'Projects'} tabIndex={0}>
         <ul className="blk-projects__list" role="list">
           {items.map((it, i) => (
             <li key={i} className="blk-projects__item">
@@ -62,9 +66,10 @@ export const projectCarousel = defineBlock<ProjectCarouselProps>({
   kind: 'layout',
   Component: ProjectCarouselBlock,
   fixtures,
+  interactive: true,
   a11y: [
     'The track is a labelled region with tabIndex 0, so keyboard users can scroll it; cards are not hidden behind controls.',
     'Each card title is a level-3 heading; the image is decorative (empty alt) unless the record gives alt text.',
-    'Renders fully without JavaScript; scroll-snap is CSS only.',
+    'Renders fully without JavaScript; the arrows are a client enhancement that appears only after mount (data-enhanced), and each arrow has an aria-label.',
   ],
 })

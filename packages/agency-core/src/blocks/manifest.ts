@@ -38,5 +38,9 @@ export const blockManifest: BlockManifestEntry[] = [
   entry('subNav', 'layout', fx.subNav),
   entry('offices', 'layout', fx.offices),
   entry('serviceBand', 'layout', fx.serviceBand),
-  entry('projectCarousel', 'layout', fx.projectCarousel),
+  entry('projectCarousel', 'layout', fx.projectCarousel, true),
+  entry('phoneCta', 'layout', fx.phoneCta),
+  entry('articleBody', 'layout', fx.articleBody),
+  entry('productGrid', 'layout', fx.productGrid),
+  entry('chipNav', 'layout', fx.chipNav),
 ]

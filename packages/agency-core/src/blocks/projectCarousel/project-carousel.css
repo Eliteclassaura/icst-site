@@ -78,3 +78,36 @@
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
+
+/* Arrows: hidden in the server markup; shown only after mount (CarouselArrows sets data-enhanced). */
+.blk-projects__arrows {
+  display: none;
+  justify-content: flex-end;
+  gap: var(--s-3);
+}
+
+.blk-projects__arrows[data-enhanced] {
+  display: flex;
+}
+
+.blk-projects__arrow {
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent);
+  background: var(--color-canvas);
+  color: var(--color-accent);
+  font-size: var(--fs-h4);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.blk-projects__arrow:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.blk-projects__arrow:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}

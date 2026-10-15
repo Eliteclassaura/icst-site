@@ -26,11 +26,13 @@ export default async function ClientPreviewPage({ params }: Params) {
   // The `offices` block's context comes from the manifest (public offices only). Phones are read from `client().offices[].phones`
   // (E.164 `tel` and display form), never typed into a page file.
   const offices = c.offices.filter((o) => o.publicOnSite).map((o) => ({ city: o.address.city, region: o.address.region, hours: '' }))
+  // The phoneCta block's number: the first public office phone from the manifest (the block renders nothing without it).
+  const phone = c.offices.find((o) => o.publicOnSite && o.phones.length > 0)?.phones[0] ?? null
   return (
     <>
       <HeaderBlock {...chrome.header} currentPath={currentPath} />
       <main id="main">
-        <RenderBlocks layout={page.layout} ctx={{ currentPath, offices }} />
+        <RenderBlocks layout={page.layout} ctx={{ currentPath, offices, phone }} />
       </main>
       <FooterBlock {...chrome.footer} />
     </>

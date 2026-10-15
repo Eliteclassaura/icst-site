@@ -1,0 +1,76 @@
+{
+  "title": "Parts",
+  "description": "ICST parts hub (Final 1:5168): synthetic copy until the ICST content pack arrives. RFQ-only: no prices.",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "eyebrow": "Parts",
+      "title": "Synthetic parts hub title",
+      "lede": "Synthetic copy: one paragraph introducing the parts range and how to request a quote.",
+      "cta": {
+        "primary": { "label": "Request a quote", "href": "/client-preview/" }
+      }
+    },
+    {
+      "blockType": "chipNav",
+      "label": "Parts categories",
+      "links": [
+        { "label": "Fans", "href": "/client-preview/parts/fans/" },
+        { "label": "Motors", "href": "/client-preview/parts/motors/" },
+        { "label": "Nozzles", "href": "/client-preview/parts/nozzles/" },
+        { "label": "Fill media", "href": "/client-preview/parts/fill-media/" },
+        { "label": "FRP members", "href": "/client-preview/parts/frp-members/" },
+        { "label": "Gear box", "href": "/client-preview/parts/gear-box/" },
+        { "label": "Tower hardware", "href": "/client-preview/parts/tower-hardware/" },
+        { "label": "Cooling tower fan stacks", "href": "/client-preview/parts/cooling-tower-fan-stacks/" },
+        { "label": "Drive shaft assemblies", "href": "/client-preview/parts/drive-shafts-assembles/" }
+      ],
+      "currentPath": "/client-preview/parts/"
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "Parts",
+      "title": "Explore our parts",
+      "lede": "Synthetic copy: one line about the parts range.",
+      "actionLabel": "Request a quote",
+      "items": [
+        { "title": "Product one", "text": "Synthetic product summary.", "href": "/client-preview/" },
+        { "title": "Product two", "text": "Synthetic product summary.", "href": "/client-preview/" },
+        { "title": "Product three", "text": "Synthetic product summary.", "href": "/client-preview/" },
+        { "title": "Product four", "text": "Synthetic product summary.", "href": "/client-preview/" }
+      ]
+    },
+    {
+      "blockType": "steps",
+      "eyebrow": "How to order",
+      "title": "Synthetic ordering steps",
+      "lede": "Synthetic copy: how a customer requests a part.",
+      "ordered": true,
+      "items": [
+        { "title": "Identify the part", "text": "Synthetic step text." },
+        { "title": "Send the requirement", "text": "Synthetic step text." },
+        { "title": "Receive a quotation", "text": "Synthetic step text." }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to our parts team",
+      "text": "Synthetic supporting line for the phone call-to-action."
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "Spares",
+      "title": "Reliable spare parts",
+      "lede": "Synthetic copy: one line about spares.",
+      "actionLabel": "Request a quote",
+      "items": [
+        { "title": "Spare one", "text": "Synthetic spare summary.", "href": "/client-preview/" },
+        { "title": "Spare two", "text": "Synthetic spare summary.", "href": "/client-preview/" },
+        { "title": "Spare three", "text": "Synthetic spare summary.", "href": "/client-preview/" },
+        { "title": "Spare four", "text": "Synthetic spare summary.", "href": "/client-preview/" }
+      ]
+    }
+  ]
+}

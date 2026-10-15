@@ -16,6 +16,10 @@ import { SubNavBlock, type SubNavProps } from './subNav/index'
 import { OfficesBlock, type OfficesProps } from './offices/index'
 import { ServiceBandBlock, type ServiceBandProps } from './serviceBand/index'
 import { ProjectCarouselBlock, type ProjectCarouselProps } from './projectCarousel/index'
+import { PhoneCtaBlock, type PhoneCtaProps } from './phoneCta/index'
+import { ArticleBodyBlock } from './articleBody/index'
+import { ProductGridBlock, type ProductGridProps } from './productGrid/index'
+import { ChipNavBlock, type ChipNavProps } from './chipNav/index'
 
 /** The shape of one `pages.layout` row as Payload returns it (depth ≥ 1 so uploads are populated). */
 export type LayoutBlockData = { blockType: string; id?: string | null; blockName?: string | null } & Record<
@@ -73,6 +77,8 @@ export type RenderContext = {
   offices?: OfficesProps['offices']
   /** Path of the page being rendered — for aria-current in sub navigation. */
   currentPath?: string
+  /** The client's public phone (from the manifest). The phoneCta block renders nothing without it. */
+  phone?: { display: string; tel: string } | null
 }
 
 /**
@@ -186,8 +192,78 @@ function renderOne(
         const p = b as unknown as Omit<OfficesProps, 'offices'>
         return <OfficesBlock key={key} {...p} offices={ctx.offices ?? []} />
       }
-      case 'serviceBand':
-        return <ServiceBandBlock key={key} {...(b as unknown as ServiceBandProps)} />
+      case 'phoneCta': {
+        if (!ctx.phone) return null
+        return <PhoneCtaBlock key={key} {...(b as unknown as PhoneCtaProps)} phone={ctx.phone} />
+      }
+      case 'articleBody': {
+        // Payload rows are objects (paragraph text, link label/href); the block takes plain strings and links.
+        type Row = Record<string, unknown>
+        const p = b as unknown as { meta?: string; sourceNote?: string; readMore?: unknown; sections?: Row[] }
+        const str = (v: unknown) => (typeof v === 'string' ? v : '')
+        const sections = (p.sections ?? []).map((s) => ({
+          heading: str(s.heading),
+          paragraphs: ((s.paragraphs as unknown[]) ?? []).map((x) => (typeof x === 'string' ? x : str((x as Row).text))).filter(Boolean),
+          bullets: ((s.bullets as Row[]) ?? []).map((x) => ({ lead: str(x.lead) || undefined, text: str(x.text) })),
+          numbered: ((s.numbered as Row[]) ?? []).map((x) => ({ title: str(x.title), text: str(x.text) })),
+          links: ((s.links as Row[]) ?? []).map((x) => ({ label: str(x.label), href: str(x.href) })).filter((l) => l.href),
+        }))
+        return (
+          <ArticleBodyBlock
+            key={key}
+            meta={p.meta}
+            sourceNote={p.sourceNote}
+            sections={sections}
+            readMore={linkOf(p.readMore)}
+          />
+        )
+      }
+      case 'productGrid': {
+        const p = b as unknown as Omit<ProductGridProps, 'items'> & { items: Array<Record<string, unknown>> }
+        return (
+          <ProductGridBlock
+            key={key}
+            {...p}
+            items={(p.items ?? []).map((it) => ({
+              title: String(it.title ?? ''),
+              text: String(it.text ?? ''),
+              href: typeof it.href === 'string' && it.href ? it.href : undefined,
+              image: resolveImage(it.image),
+            }))}
+          />
+        )
+      }
+      case 'chipNav': {
+        const p = b as unknown as Omit<ChipNavProps, 'links'> & { links: Array<Record<string, unknown>> }
+        return (
+          <ChipNavBlock
+            key={key}
+            label={String(p.label ?? '')}
+            currentPath={p.currentPath}
+            links={(p.links ?? [])
+              .map((l) => ({ label: String(l.label ?? ''), href: String(l.href ?? '') }))
+              .filter((l) => l.href)}
+          />
+        )
+      }
+      case 'serviceBand': {
+        // Payload rows carry the media document; the block takes an ImageRef (resolved here, like projectCarousel).
+        const p = b as unknown as Omit<ServiceBandProps, 'items'> & { items: Array<Record<string, unknown>> }
+        return (
+          <ServiceBandBlock
+            key={key}
+            {...p}
+            items={(p.items ?? []).map((it) => ({
+              title: String(it.title ?? ''),
+              text: String(it.text ?? ''),
+              href: typeof it.href === 'string' && it.href ? it.href : undefined,
+              label: typeof it.label === 'string' && it.label ? it.label : undefined,
+              date: typeof it.date === 'string' && it.date ? it.date : undefined,
+              image: resolveImage(it.image),
+            }))}
+          />
+        )
+      }
       case 'projectCarousel': {
         const p = b as unknown as Omit<ProjectCarouselProps, 'items'> & { items: Array<Record<string, unknown>> }
         return (

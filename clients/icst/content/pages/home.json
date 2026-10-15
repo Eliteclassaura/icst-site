@@ -47,6 +47,12 @@
       ]
     },
     {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line for the phone call-to-action."
+    },
+    {
       "blockType": "cta",
       "title": "Let's build efficient industrial cooling systems",
       "text": "Synthetic supporting line for the closing call to action.",

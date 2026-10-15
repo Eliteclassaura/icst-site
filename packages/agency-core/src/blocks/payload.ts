@@ -392,6 +392,8 @@ export const ServiceBandBlockConfig: Block = {
         { name: 'text', type: 'textarea', required: true },
         { name: 'href', type: 'text', admin: { description: 'Internal path or full URL. Leave empty for no link.' } },
         { name: 'label', type: 'text', admin: { description: 'Link text; defaults to "Learn more".' } },
+        { name: 'date', type: 'text' },
+        { name: 'image', type: 'upload', relationTo: 'media' },
       ],
     },
   ],
@@ -416,6 +418,104 @@ export const ProjectCarouselBlockConfig: Block = {
   ],
 }
 
+export const PhoneCtaBlockConfig: Block = {
+  slug: 'phoneCta',
+  labels: { singular: 'Phone call-to-action', plural: 'Phone call-to-actions' },
+  // The number is not a field: it comes from the client manifest through the render context.
+  fields: [
+    { name: 'eyebrow', type: 'text' },
+    { name: 'title', type: 'text', required: true },
+    { name: 'text', type: 'textarea' },
+  ],
+}
+
+const sectionItems: Field = {
+  name: 'sections',
+  type: 'array',
+  minRows: 1,
+  fields: [
+    { name: 'heading', type: 'text', required: true },
+    {
+      name: 'paragraphs',
+      type: 'array',
+      fields: [{ name: 'text', type: 'textarea', required: true }],
+    },
+    {
+      name: 'bullets',
+      type: 'array',
+      fields: [
+        { name: 'lead', type: 'text' },
+        { name: 'text', type: 'textarea', required: true },
+      ],
+    },
+    {
+      name: 'numbered',
+      type: 'array',
+      admin: { description: 'Numbered 01, 02 … by position.' },
+      fields: [
+        { name: 'title', type: 'text', required: true },
+        { name: 'text', type: 'textarea', required: true },
+      ],
+    },
+    {
+      name: 'links',
+      type: 'array',
+      fields: [
+        { name: 'label', type: 'text', required: true },
+        { name: 'href', type: 'text', required: true },
+      ],
+    },
+  ],
+}
+
+export const ArticleBodyBlockConfig: Block = {
+  slug: 'articleBody',
+  labels: { singular: 'Article body', plural: 'Article bodies' },
+  fields: [
+    { name: 'meta', type: 'text', admin: { description: 'Date, byline and source on one line.' } },
+    sectionItems,
+    { name: 'sourceNote', type: 'text' },
+    link('readMore', 'Read more link'),
+  ],
+}
+
+export const ProductGridBlockConfig: Block = {
+  slug: 'productGrid',
+  labels: { singular: 'Product grid', plural: 'Product grids' },
+  fields: [
+    ...sectionHead,
+    { name: 'actionLabel', type: 'text', admin: { description: 'Defaults to "Request a quote". Never a price.' } },
+    {
+      name: 'items',
+      type: 'array',
+      minRows: 1,
+      fields: [
+        { name: 'title', type: 'text', required: true },
+        { name: 'text', type: 'textarea', required: true },
+        { name: 'href', type: 'text' },
+        { name: 'image', type: 'upload', relationTo: 'media' },
+      ],
+    },
+  ],
+}
+
+export const ChipNavBlockConfig: Block = {
+  slug: 'chipNav',
+  labels: { singular: 'Chip navigation', plural: 'Chip navigations' },
+  fields: [
+    { name: 'label', type: 'text', required: true },
+    {
+      name: 'links',
+      type: 'array',
+      minRows: 1,
+      fields: [
+        { name: 'label', type: 'text', required: true },
+        { name: 'href', type: 'text', required: true },
+      ],
+    },
+  ],
+}
+
 /** Blocks editors can place in `pages.layout` (chrome blocks are rendered from globals, not placed). */
 export const layoutBlocks: Block[] = [
   HeroBlockConfig,
@@ -434,4 +534,8 @@ export const layoutBlocks: Block[] = [
   OfficesBlockConfig,
   ServiceBandBlockConfig,
   ProjectCarouselBlockConfig,
+  PhoneCtaBlockConfig,
+  ArticleBodyBlockConfig,
+  ProductGridBlockConfig,
+  ChipNavBlockConfig,
 ]
