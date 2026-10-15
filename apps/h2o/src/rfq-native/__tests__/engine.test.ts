@@ -173,7 +173,7 @@ describe('attribution and draft', () => {
     expect(a).toEqual({ utm_source: 'google', utm_campaign: 'q4', gclid: 'abc', landing_page: '/fans/', referrer: 'https://www.google.com/search' })
     expect(readAttribution('https://h2ocooling.com/', '', '_ga=GA1.1.123456.789012', true).ga_client_id).toBe('123456.789012')
   })
-  it('first touch (R5.1): captured on the first page load under h2o.rfq.attr.v1; later pages never overwrite it; consent is read at send, never stored', () => {
+  it('first touch (R5.1): captured on the first page load under the namespaced rfq.attr.v1 key; later pages never overwrite it; consent is read at send, never stored', () => {
     const store = new Map<string, string>()
     const sessionStorage = { getItem: (k: string) => store.get(k) ?? null, setItem: (k: string, v: string) => void store.set(k, v), removeItem: (k: string) => void store.delete(k) } as unknown as Storage
     const win = (href: string, consent?: string) => ({ location: { href }, sessionStorage, document: { referrer: 'https://www.google.com/search?q=fans', cookie: '_ga=GA1.1.1.2', documentElement: { dataset: consent ? { analyticsConsent: consent } : {} } } })
@@ -185,7 +185,7 @@ describe('attribution and draft', () => {
     expect(sessionAttribution(win('https://h2ocooling.com/b/'))).toEqual({ utm_source: 'ads', utm_campaign: 'q4', gbraid: 'g1', landing_page: '/a/', referrer: 'https://www.google.com/search' })
     expect(sessionAttribution(win('https://h2ocooling.com/b/', 'granted')).ga_client_id).toBe('1.2')
   })
-  it('the draft lives under h2o.rfq.draft.v1 and survives a blocked store', () => {
+  it('the draft lives under the namespaced rfq.draft.v1 key and survives a blocked store', () => {
     const store = new Map<string, string>()
     const s = { getItem: (k: string) => store.get(k) ?? null, setItem: (k: string, v: string) => void store.set(k, v), removeItem: (k: string) => void store.delete(k) }
     const d = { submissionId: 'id', registryVersion: reg.registryVersion, step: 'details' as const, answers: { purpose: 'parts' }, source: 'NATIVE_CHAT' as const }

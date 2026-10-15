@@ -12,13 +12,14 @@ import { clientsRoot } from './content'
  */
 export const CATEGORIES = ['essential', 'functional', 'analytics', 'marketing'] as const
 export type CookieEntry = { name: string; provider: string; purpose: string; category: (typeof CATEGORIES)[number]; duration: string; firstParty: boolean }
-export type CookieInventory = { status: 'PENDING_REAL_LIST' | 'APPROVED'; reviewedOn: string | null; cookies: CookieEntry[] }
+export const PENDING_STATUSES = ['PENDING_REAL_LIST', 'PENDING_OWNER_COUNSEL_REVIEW'] as const
+export type CookieInventory = { status: (typeof PENDING_STATUSES)[number] | 'APPROVED'; reviewedOn: string | null; cookies: CookieEntry[] }
 
 export function validateInventory(raw: unknown): { ok: true; inventory: CookieInventory } | { ok: false; issues: string[] } {
   const issues: string[] = []
   const o = raw as Record<string, unknown> | null
   if (!o || typeof o !== 'object') return { ok: false, issues: ['must be an object'] }
-  if (o.status !== 'PENDING_REAL_LIST' && o.status !== 'APPROVED') issues.push('status must be PENDING_REAL_LIST or APPROVED')
+  if (!([...PENDING_STATUSES, 'APPROVED'] as unknown[]).includes(o.status)) issues.push(`status must be one of ${[...PENDING_STATUSES, 'APPROVED'].join(', ')}`)
   if (o.reviewedOn !== null && !(typeof o.reviewedOn === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(o.reviewedOn))) issues.push('reviewedOn must be null or YYYY-MM-DD')
   if (!Array.isArray(o.cookies)) issues.push('cookies must be a list')
   const names = new Set<string>()

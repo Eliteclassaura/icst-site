@@ -5,7 +5,7 @@ import { sha256Hex, encodeKeyPath, signV4 } from './sigv4'
 /**
  * CRM-ATTACH-1: where the bytes live. Two adapters behind one interface:
  *
- *   - `r2`: Cloudflare R2 through the S3 API (private bucket `h2o-crm-files`, bucket-scoped token, SigV4 by `./sigv4`);
+ *   - `r2`: Cloudflare R2 through the S3 API (a private bucket named by H2O_ATTACH_R2_BUCKET, bucket-scoped token, SigV4 by `./sigv4`);
  *   - `volume`: a directory on this server's disk (the fallback, and what local tests use). The VPS has about 14 GB free,
  *     so this is for a small pilot only; R2 is the target.
  *
@@ -134,7 +134,10 @@ export function attachmentStoreFromEnv(env: Record<string, string | undefined>, 
     const accessKeyId = env.H2O_ATTACH_R2_ACCESS_KEY_ID ?? ''
     const secretAccessKey = env.H2O_ATTACH_R2_SECRET_ACCESS_KEY ?? ''
     if (!endpoint || !accessKeyId || !secretAccessKey) throw new StorageError('STORAGE_NOT_CONFIGURED', 'R2 endpoint and token are required')
-    return r2Store({ endpoint, bucket: env.H2O_ATTACH_R2_BUCKET || 'h2o-crm-files', accessKeyId, secretAccessKey }, fetcher)
+    const bucket = env.H2O_ATTACH_R2_BUCKET ?? ''
+    // No default bucket name: a bucket belongs to one client, so it must be named explicitly (fail closed).
+    if (!bucket) throw new StorageError('STORAGE_NOT_CONFIGURED', 'R2 bucket name is required')
+    return r2Store({ endpoint, bucket, accessKeyId, secretAccessKey }, fetcher)
   }
   throw new StorageError('STORAGE_NOT_CONFIGURED', 'H2O_ATTACH_STORE must be r2 or volume')
 }

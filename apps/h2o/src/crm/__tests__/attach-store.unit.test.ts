@@ -121,6 +121,7 @@ describe('choosing the store from the environment', () => {
         H2O_ATTACH_STORE: 'r2',
         H2O_ATTACH_R2_ENDPOINT: 'https://acct.r2.cloudflarestorage.com',
         H2O_ATTACH_R2_ACCESS_KEY_ID: 'id',
+        H2O_ATTACH_R2_BUCKET: 'synthetic-bucket',
         H2O_ATTACH_R2_SECRET_ACCESS_KEY: 'secret',
       })?.kind,
     ).toBe('r2')

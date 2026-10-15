@@ -3,6 +3,8 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { expandCookieBlocks, loadInventory, validateInventory, type CookieInventory } from '../site/cookies'
 import { listPages } from '../site/content'
+import { ATTR_KEY } from '../../rfq-native/attribution'
+import { DRAFT_KEY } from '../../rfq-native/draft'
 
 const root = path.resolve(__dirname, '../../../../../clients')
 type Section = { heading: string; paragraphs: string[]; bullets?: Array<{ text: string }> }
@@ -38,11 +40,14 @@ describe('legal pages carried from the live ICST text', () => {
 
 describe('cookie inventory', () => {
   const ok: CookieInventory = { status: 'APPROVED', reviewedOn: '2026-10-16', cookies: [{ name: 'sid', provider: 'this site', purpose: 'keeps you signed in', category: 'essential', duration: 'session', firstParty: true }] }
-  it('the committed inventory is valid and pending until the real list is confirmed', () => {
+  it('the committed inventory is valid, pending owner/counsel review, and lists exactly the storage keys the form uses (no cookies for visitors)', () => {
     const inv = loadInventory('icst', root)!
-    expect(inv.status).toBe('PENDING_REAL_LIST')
-    expect(inv.cookies).toEqual([])
-    expect(readFileSync(path.join(root, 'icst/cookies/README.md'), 'utf8')).toContain('PENDING_REAL_LIST')
+    expect(inv.status).toBe('PENDING_OWNER_COUNSEL_REVIEW')
+    expect(inv.reviewedOn).toBeNull()
+    expect(inv.cookies.map((c) => c.name).sort()).toEqual([ATTR_KEY, DRAFT_KEY].sort())
+    expect(inv.cookies.every((c) => c.provider.includes('sessionStorage'))).toBe(true)
+    expect(JSON.stringify(inv)).not.toMatch(/h2o/i)
+    expect(readFileSync(path.join(root, 'icst/cookies/README.md'), 'utf8')).toContain('PENDING')
   })
   it('validates entries: required fields, category, duplicates, and an approved list needs a review date', () => {
     expect(validateInventory(ok).ok).toBe(true)
@@ -58,6 +63,7 @@ describe('cookie inventory', () => {
     expect(JSON.stringify(t)).toContain('keeps you signed in')
     expect(JSON.stringify(expandCookieBlocks(layout, { ...ok, cookies: [] }))).toContain('sets no cookies')
     expect(JSON.stringify(expandCookieBlocks(layout, { status: 'PENDING_REAL_LIST', reviewedOn: null, cookies: [] }))).toContain('PENDING')
+    expect(validateInventory({ ...ok, status: 'PENDING_OWNER_COUNSEL_REVIEW', reviewedOn: null }).ok).toBe(true)
     expect(expandCookieBlocks([{ blockType: 'hero' }] as never, null)).toHaveLength(1)
   })
   it('under the production policy a pending inventory refuses to render', () => {

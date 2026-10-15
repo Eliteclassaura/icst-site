@@ -1,5 +1,6 @@
 import type { Payload } from 'payload'
 import { writeSecurityAudit } from './audit'
+import { client } from '../../client'
 
 /**
  * STEP-UP-1.1 (Auditor C3): five wrong passwords on a step-up lock the account, and that is what a stolen session cookie
@@ -13,7 +14,7 @@ const DEADLINE_MS = 8000
 
 export const LOCK_NOTICE_SUBJECT = 'Repeated wrong passwords on a CRM confirmation'
 export const lockNoticeText = (date: string): string =>
-  `On ${date}, a CRM account was locked for 15 minutes after five wrong passwords were entered on the “Confirm it’s you” step. This can mean someone is using a signed-in session that is not theirs.\n\nIf this was not expected, sign out everywhere, change the password, and check Settings → People and sign-in.\n\nICS Sales Team\n`
+  `On ${date}, a CRM account was locked for 15 minutes after five wrong passwords were entered on the “Confirm it’s you” step. This can mean someone is using a signed-in session that is not theirs.\n\nIf this was not expected, sign out everywhere, change the password, and check Settings → People and sign-in.\n\n${client().brandName('emailFrom')}\n`
 
 async function adminAddresses(payload: Payload): Promise<string[]> {
   try {

@@ -1,15 +1,16 @@
 /**
  * Native RFQ: first-touch attribution (contract §4 "client capture rules"; CT R5.1). On the session's FIRST page load the
  * launcher (mounted on every public page) records utm_*, gclid, gbraid, wbraid, the landing path and the referrer
- * (origin + path) in sessionStorage under `h2o.rfq.attr.v1`; "Send request" uses that record, so moving around the site
+ * (origin + path) in sessionStorage under `<namespace>.rfq.attr.v1`; "Send request" uses that record, so moving around the site
  * never loses the landing tags. Nothing is sent before submit; no localStorage, no cookie is written, no query string or
  * search term is kept. Values are trimmed and length-limited here; the server sanitises them to the contract limits.
  * The GA4 client id stays dormant (owner: no GA for now): it is read only under `<html data-analytics-consent="granted">`,
  * which nothing sets.
  */
 import type { Attribution } from './submission'
+import { STORAGE_NAMESPACE } from '../client/storage-namespace'
 
-export const ATTR_KEY = 'h2o.rfq.attr.v1'
+export const ATTR_KEY = `${STORAGE_NAMESPACE}.rfq.attr.v1`
 const TAGS: Array<[keyof Attribution, number]> = [['utm_source', 64], ['utm_medium', 64], ['utm_campaign', 128], ['utm_term', 128], ['utm_content', 128], ['gclid', 256], ['gbraid', 256], ['wbraid', 256]]
 // eslint-disable-next-line no-control-regex
 const CONTROL = /[\u0000-\u001f\u007f]/

@@ -1,5 +1,33 @@
 {
-  "status": "PENDING_REAL_LIST",
+  "status": "PENDING_OWNER_COUNSEL_REVIEW",
   "reviewedOn": null,
-  "cookies": []
+  "cookies": [
+    {
+      "name": "icst.rfq.draft.v1",
+      "provider": "this site (browser sessionStorage, not a cookie)",
+      "purpose": "keeps an unsent RFQ draft in this tab",
+      "category": "functional",
+      "duration": "this browser tab session",
+      "firstParty": true
+    },
+    {
+      "name": "icst.rfq.attr.v1",
+      "provider": "this site (browser sessionStorage, not a cookie)",
+      "purpose": "first-touch attribution (landing page, referrer, campaign tags) sent with a request, for sales follow-up",
+      "category": "analytics",
+      "duration": "this browser tab session",
+      "firstParty": true
+    }
+  ],
+  "source": "ICST_CONTENT_PACK_2026-10-15/ICST_COOKIE_INVENTORY_DRAFT.json (Corpus, 2026-10-15); only what the new site sets for public visitors is listed here. Old WordPress/WooCommerce cookies are not set by the new site.",
+  "publicCookies": "none (the new site sets no cookies for public visitors; Cloudflare Turnstile is conditional if configured: to confirm)",
+  "staffNote": "Staff-only cookies (CRM two-factor state and trusted-device cookie) are not part of the public notice.",
+  "openItems": [
+    "Owner and counsel to confirm the category and duration of each row before the notice is published.",
+    "Verify googtrans and Typeform cookie names in a real browser session (not done in this GET-only scan).",
+    "Confirm whether the GTranslate widget is active on the live site (1 of 15 pages).",
+    "Turnstile: confirm whether a key is configured; if so, add its cookies.",
+    "Staff cookie durations are not verified in this scan.",
+    "Only APPROVED rows should populate the public notice (fork: inventory.json, status APPROVED with reviewedOn)."
+  ]
 }

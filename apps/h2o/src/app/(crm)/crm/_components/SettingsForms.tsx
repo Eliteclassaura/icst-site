@@ -120,7 +120,7 @@ export function ProfileForm({ values, presets }: { values: ProfileValues; preset
       >
         {(a) => <input className="c-input" {...a} type="password" autoComplete="new-password" maxLength={256} />}
       </Field>
-      <Field name="from_address" label="Send as (address)" required hint="An address at h2ocooling.com or h2ocooling.org. If it is not the mailbox above, Google may rewrite the From unless the mailbox has this address as a Send-as alias.">
+      <Field name="from_address" label="Send as (address)" required hint="An address at your company domain. If it is not the mailbox above, Google may rewrite the From unless the mailbox has this address as a Send-as alias.">
         {(a) => <input className="c-input" {...a} type="email" defaultValue={values.from_address ?? ''} maxLength={254} autoComplete="off" />}
       </Field>
       <Field name="from_name" label="Send as (name)" hint="The name customers see, e.g. Sales Team.">
@@ -227,7 +227,7 @@ export function RoutingForm({
       <Field name="alerts_th" label="Extra recipients for the Thailand office" hint="Optional. Added to the list above for quotes that go to the Thailand office.">
         {(a) => <textarea className="c-input" {...a} defaultValue={values.alerts_th} rows={2} maxLength={4000} spellCheck={false} autoComplete="off" />}
       </Field>
-      <Field name="sales_address" label="Sales address customers see" hint={`Shown in the quote confirmation and used for replies. Must be a company address (h2ocooling.com or h2ocooling.org). Leave empty to use ${defaults.sales}. The previous address gets a notice when you change it.`}>
+      <Field name="sales_address" label="Sales address customers see" hint={`Shown in the quote confirmation and used for replies. Must be a company address on your own domain. Leave empty to use ${defaults.sales}. The previous address gets a notice when you change it.`}>
         {(a) => <input className="c-input" {...a} type="email" inputMode="email" defaultValue={values.sales_address} maxLength={254} autoComplete="off" spellCheck={false} />}
       </Field>
     </ActionForm>

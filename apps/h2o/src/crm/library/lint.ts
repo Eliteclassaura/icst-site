@@ -1,6 +1,7 @@
 import { lintCopy as contractLint, LINTER_ID } from '../../email/copy-lint'
 import { scopeHits } from '../../email/scope-guard'
 import { t } from './ui-strings'
+import { client } from '../../client'
 
 /**
  * EMAIL-LIB-1: the copy check for one Library variant. Pure; no database; it JUDGES and never rewrites.
@@ -11,7 +12,7 @@ import { t } from './ui-strings'
  *   - the industrial-only scope guard (`email/scope-guard.ts`: HVAC, small tower, residential …) as REVIEW findings;
  * and adds two owner rules the contract does not carry:
  *   - no phone number or postal address in the body (owner rule 2026-10-06) → BLOCK;
- *   - the owner-approved "– Rhonda" sign-off (ruling 2026-10-08) → an INFO note only, never a warning.
+ *   - the client's persona sign-off, when the manifest has one → an INFO note only, never a warning.
  * Structural contract rules are reported as not evaluated (never counted as a pass).
  */
 export type Severity = 'INFO' | 'WARN' | 'REVIEW' | 'BLOCK'
@@ -35,7 +36,9 @@ export type LibLint = {
 const PHONE = /(?:\+\d[\d\s().-]{7,}\d|\(\d{3}\)\s?\d{3}[-.\s]\d{4}|\b\d{3}[-.\s]\d{3}[-.\s]\d{4}\b)/
 const ADDRESS =
   /\b\d{1,5}\s+[A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+){0,3}\s+(?:Street|St|Road|Rd|Avenue|Ave|Boulevard|Blvd|Drive|Dr|Lane|Ln|Suite|Ste)\b/
-const SIGNOFF = /(?:^|[\s—–-])Rhonda\b/
+/** The client's own persona sign-off (`email.persona`), or none: a client without a persona never matches. */
+const persona = client().manifest.email.persona
+const SIGNOFF = persona ? new RegExp(`(?:^|[\\s—–-])${persona.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`) : /(?!)/
 export const SIGNOFF_NOTE = t('ers.persona.note')
 
 export function lintVariant(subject: string, body: string): LibLint {

@@ -12,6 +12,7 @@ import { NativeRfq, RFQ_OPEN_EVENT } from '../NativeRfq'
 import { NativeRfqForm } from '../NativeRfqForm'
 import { NativeRfqTrigger } from '../NativeRfqTrigger'
 import { DRAFT_KEY } from '../draft'
+import { ATTR_KEY } from '../attribution'
 
 ;(globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true
 /** RFQ-FIX-1: the send's token-age wait (R2) is skipped here; engine.test covers it with a clock. */
@@ -363,7 +364,7 @@ describe('corner panel (NATIVE_CHAT), CHAT-FLOW-1: one numbered question per ste
     const fetcher = api(() => json(200, { ok: true, rfqNumber: 'RFQ-3', replay: false }))
     window.history.replaceState(null, '', '/fans/?utm_source=ads&utm_campaign=q4&gclid=abc')
     await act(async () => root.render(<NativeRfq launcher={LAUNCHER} loader={loader} timing={NO_WAIT} fetcher={fetcher as never}/>))
-    expect(JSON.parse(sessionStorage.getItem('h2o.rfq.attr.v1')!)).toMatchObject({ utm_source: 'ads', utm_campaign: 'q4', gclid: 'abc', landing_page: '/fans/' })
+    expect(JSON.parse(sessionStorage.getItem(ATTR_KEY)!)).toMatchObject({ utm_source: 'ads', utm_campaign: 'q4', gclid: 'abc', landing_page: '/fans/' })
     expect(fetcher).not.toHaveBeenCalled() // nothing is sent before submit
     await act(async () => root.unmount())
     window.history.replaceState(null, '', '/contact-us/')

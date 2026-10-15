@@ -21,7 +21,7 @@ describe('attachStoreConfigured', () => {
   })
   it('is true for a configured volume or R2 store, and sends nothing to build the check', () => {
     expect(attachStoreConfigured({ H2O_ATTACH_STORE: 'volume', H2O_ATTACH_DIR: '/var/lib/h2o-attach' })).toBe(true)
-    expect(attachStoreConfigured({ H2O_ATTACH_STORE: 'r2', H2O_ATTACH_R2_ENDPOINT: 'https://acct.r2.cloudflarestorage.com', H2O_ATTACH_R2_ACCESS_KEY_ID: 'synthetic-id', H2O_ATTACH_R2_SECRET_ACCESS_KEY: 'synthetic-secret' })).toBe(true)
+    expect(attachStoreConfigured({ H2O_ATTACH_STORE: 'r2', H2O_ATTACH_R2_ENDPOINT: 'https://acct.r2.cloudflarestorage.com', H2O_ATTACH_R2_BUCKET: 'synthetic-bucket', H2O_ATTACH_R2_ACCESS_KEY_ID: 'synthetic-id', H2O_ATTACH_R2_SECRET_ACCESS_KEY: 'synthetic-secret' })).toBe(true)
   })
 })
 

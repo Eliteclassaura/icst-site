@@ -31,7 +31,7 @@ describe('native RFQ boundaries', () => {
   it('logs nothing; stores exactly two sessionStorage keys (the draft and first-touch attribution), never localStorage or a cookie', () => {
     expect(code(all)).not.toMatch(/console\./)
     expect(code(all)).not.toMatch(/localStorage|document\.cookie\s*=/)
-    expect([...new Set([...code(all).matchAll(/'(h2o\.rfq\.[a-z.0-9]+)'/g)].map((m) => m[1]))].sort()).toEqual(['h2o.rfq.attr.v1', 'h2o.rfq.draft.v1'])
+    expect([...new Set([...code(all).matchAll(/`\$\{STORAGE_NAMESPACE\}(\.rfq\.[a-z.0-9]+)`/g)].map((m) => m[1]))].sort()).toEqual(['.rfq.attr.v1', '.rfq.draft.v1'])
     // every sessionStorage write goes through one of the two keys
     for (const m of code(all).matchAll(/sessionStorage\?*\.setItem\(\s*([A-Z_]+)/g)) expect(['ATTR_KEY', 'DRAFT_KEY']).toContain(m[1])
   })
