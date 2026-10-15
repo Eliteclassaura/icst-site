@@ -4,7 +4,7 @@ import {pageForSegments} from './cohort'
 import {LuxuryFooter,LuxuryHeader} from './LuxuryShell'
 import {markLcpImage,renderSalmonNode,SalmonSeo} from './SalmonCanonical'
 import {HOME_CRUMB} from './breadcrumb-schema'
-import {articleByline,articleCardImage,articleDirectoryDocuments,articleDisplayTitle,articleHeadingNodes,firstText,isRecentPostsRegion,paragraphTexts,wave4LibraryItems,type Wave4Item} from './wave4'
+import {articleByline,articleCardImage,articleDirectoryDocuments,articleDisplayTitle,articleHeadingNodes,firstText,isRecentPostsRegion,LIVE_LIBRARY_ROUTES,liveLibrary,paragraphTexts,wave4LibraryItems,type Wave4Item} from './wave4'
 import {R2Discovery} from './R2Discovery'
 import {cssBackground} from './salmon-source'
 import {deliverySrc,provenanceRef} from './media-delivery'
@@ -26,29 +26,31 @@ const resourcePath=(doc:SalmonDocument)=>doc.routeId==='SALMON-pages-1761'?'/res
 const pageFor=(doc:SalmonDocument)=>pageForSegments(doc.targetPath.split('/').filter(Boolean))
 
 export function Wave4Library({doc}:{doc:SalmonDocument}){
-  const items=wave4LibraryItems(doc)
-  const title=firstText(doc,'h1')||doc.title
-  const paragraphs=paragraphTexts(doc)
+  // 1.3a-S2: the LIVE Brochures and Tools pages (shortcode text) take the R4 hub library composition, with their own wording and links.
+  const live=LIVE_LIBRARY_ROUTES.has(doc.routeId)?liveLibrary(doc):null
+  const items=live?live.items.map((item):Wave4Item=>({title:item.title,description:item.description,href:item.href,extraLinks:item.extraLinks,kind:'document'})):wave4LibraryItems(doc)
+  const title=live?(doc.seo.h1[0]||doc.title):firstText(doc,'h1')||doc.title
+  const paragraphs=live?live.outside:paragraphTexts(doc)
   const isTools=doc.routeId==='SALMON-pages-1870'
-  const lead=isTools?paragraphs[1]:paragraphs[0]
-  const intro=isTools?paragraphs[1]:paragraphs[2]
+  const lead=live?live.outside[0]:isTools?paragraphs[1]:paragraphs[0]
+  const intro=live?undefined:isTools?paragraphs[1]:paragraphs[2]
   const heading=doc.routeId==='SALMON-pages-1761'?'Cooling Tower Knowledge Center':doc.routeId==='SALMON-pages-1870'?'Industrial Cooling Tower Tools & Engineering Resources':'Cooling Tower Brochures'
   const path=resourcePath(doc)
-  const isResources=path==='/resources/'
-  const primaryItems=isTools?items.slice(0,-1):items
-  const technicalItems=isTools?items.slice(-1):[]
+  const isResources=path==='/resources/'||live!==null
+  const primaryItems=live?items:isTools?items.slice(0,-1):items
+  const technicalItems=live?[]:isTools?items.slice(-1):[]
   const renderRow=(item:Wave4Item,index:number)=>item.description?<details className="wave4-document" key={`${item.title}-${index}`} open={index===0}>
     <summary><span>{item.title}</span><span className="wave4-document-toggle" aria-hidden="true"/></summary>
-    <div className="wave4-document-body"><p>{item.description}</p>{item.href?<a href={item.href} className="wave4-document-action" type="application/pdf" {...PDF_LINK_PROPS}>View / Download <span aria-hidden="true">↗</span></a>:<span className="wave4-document-unavailable">Document currently unavailable</span>}</div>
+    <div className="wave4-document-body"><p>{item.description}</p>{item.href?<a href={item.href} className="wave4-document-action" type="application/pdf" {...PDF_LINK_PROPS}>View / Download <span aria-hidden="true">↗</span></a>:item.extraLinks?.length?null:<span className="wave4-document-unavailable">Document currently unavailable</span>}{item.extraLinks?.map((link,i)=>link.href?<a key={`${link.href}-${i}`} href={link.href} className="wave4-document-action">{link.text||link.href}</a>:<span key={`x-${i}`} className="wave4-document-unavailable">{link.text}</span>)}</div>
   </details>:<article className="wave4-document wave4-document-flat" key={`${item.title}-${index}`}>
-    <h3>{item.title}</h3>{item.href?<a href={item.href} className="wave4-document-action" type="application/pdf" {...PDF_LINK_PROPS}>View / Download <span aria-hidden="true">↗</span></a>:<span className="wave4-document-unavailable">Document currently unavailable</span>}
+    {/* live library: no section H2 (no new copy), so the document titles take outline level 2; the h3 element keeps its styling */}<h3 aria-level={live?2:undefined}>{item.title}</h3>{item.href?<a href={item.href} className="wave4-document-action" type="application/pdf" {...PDF_LINK_PROPS}>View / Download <span aria-hidden="true">↗</span></a>:item.extraLinks?.length?null:<span className="wave4-document-unavailable">Document currently unavailable</span>}{item.extraLinks?.map((link,i)=>link.href?<a key={`${link.href}-${i}`} href={link.href} className="wave4-document-action">{link.text||link.href}</a>:<span key={`x-${i}`} className="wave4-document-unavailable">{link.text}</span>)}
   </article>
   // Salmon parity: each library route shows its own held Salmon hero background (Elementor CSS).
   const salmonHero=cssBackground(doc.routeId,'8f448f5')
   // Design R4 (CT GO 2026-10-07; spec H2O_DESIGN_R4_SPEC_resources.md): /resources/ takes the shared R4 hub hero, link
   // cards and the two-column library. Same strings and document rows as before; brochures and tools are unchanged.
   if(isResources)return <div className="luxury-site figma-wave4 salmon-family salmon-family--library" data-wave4-route={path} data-r4-route={path} data-salmon-document={doc.routeId} data-salmon-source-sha256={doc.sourceIdentity.sha256}>
-    <SalmonSeo doc={doc} canonicalOverride="https://h2ocooling.com/resources/"/>
+    <SalmonSeo doc={doc} canonicalOverride={live?undefined:'https://h2ocooling.com/resources/'} breadcrumb={live?[HOME_CRUMB,{name:'Resources',path:'/resources/'}]:undefined}/>
     <LuxuryHeader page={pageFor(doc)} routePath={path}/>
     {/* DD-FIX-1 F1: the R4 content container wraps the page content only; the header and footer keep the site's full-width container */}
     <div className="dr4 dr4-resources"><main id="main" className="wave4-library dr4-library-main">
@@ -62,20 +64,22 @@ export function Wave4Library({doc}:{doc:SalmonDocument}){
         <div className="dr4-hero-corner"><a href="/contact-us/" className="dr4-btn dr4-btn--white">Contact Our Team <span className="dr4-btn-arrow" aria-hidden="true">→</span></a></div>
       </section>
       <R4LauncherReveal/>
-      <nav className="dr4-pathways" aria-label="Explore technical resources">
+      {live?null:<nav className="dr4-pathways" aria-label="Explore technical resources">
         <a href="/resources/cooling-tower-brochures/" className="dr4-pathway"><span aria-hidden="true">01 / Documents</span><strong>Brochures</strong><small>Browse the ICS brochure library.</small><em aria-hidden="true">↗</em></a>
         <a href="/resources/tools/" className="dr4-pathway"><span aria-hidden="true">02 / Engineering</span><strong>Tools</strong><small>Find engineering tools and technical charts.</small><em aria-hidden="true">↗</em></a>
         <a href="/tech-articles/" className="dr4-pathway dr4-pathway--navy"><span aria-hidden="true">03 / Reading</span><strong>Technical Articles</strong><small>Browse ICS technical articles on cooling tower design, operation and maintenance.</small><em aria-hidden="true">↗</em></a>
-      </nav>
-      <section className="dr4-library" aria-labelledby="wave4-library-heading">
+      </nav>}
+      <section className="dr4-library" aria-labelledby={live?'wave4-library-count':'wave4-library-heading'}>
         <div className="dr4-library-aside">
-          <p className="dr4-library-count">RESOURCE LIBRARY / {items.length} documents</p>
-          <h2 id="wave4-library-heading" className="dr4-h2">{heading}</h2>
+          <p className="dr4-library-count" id="wave4-library-count">RESOURCE LIBRARY / {items.length} documents</p>
+          {live?null:<h2 id="wave4-library-heading" className="dr4-h2">{heading}</h2>}
           {intro?<p className="dr4-prose">{intro}</p>:null}
-          <div className="wave4-library-crosslinks dr4-library-chips"><a href="/resources/" aria-current="page">Resources</a><a href="/resources/cooling-tower-brochures/">Brochures</a><a href="/resources/tools/">Tools</a><a href="/tech-articles/">Technical Articles</a></div>
+          {live?live.outside.slice(1).map((text,i)=><p className="dr4-prose" key={i}>{text}</p>):null}
+          <div className="wave4-library-crosslinks dr4-library-chips"><a href="/resources/" {...(live?{}:{'aria-current':'page' as const})}>Resources</a><a href="/resources/cooling-tower-brochures/" {...(path==='/resources/cooling-tower-brochures/'?{'aria-current':'page' as const}:{})}>Brochures</a><a href="/resources/tools/" {...(path==='/resources/tools/'?{'aria-current':'page' as const}:{})}>Tools</a><a href="/tech-articles/">Technical Articles</a></div>
         </div>
         <ol className="wave4-document-list dr4-library-list">{primaryItems.map((item,index)=><li key={`${item.title}-${index}`} className="dr4-library-item"><span className="dr4-library-num" aria-hidden="true">{String(index+1).padStart(2,'0')}</span>{renderRow(item,index)}</li>)}</ol>
       </section>
+      {live&&live.orphanLinks.length?<ul className="wave4-library-crosslinks" aria-label="Other links on this page">{live.orphanLinks.map((link,i)=><li key={`${link.href??'x'}-${i}`}>{link.href?<a href={link.href}>{link.text||link.href}</a>:link.text}</li>)}</ul>:null}
       <R2Discovery kind="pages"/>
     </main></div>
     <LuxuryFooter page={pageFor(doc)} routePath={path}/>
@@ -222,6 +226,8 @@ export function Wave4ArticleDetail({doc}:{doc:SalmonDocument}){
 export const LIVE_LOCATION_PATHS:ReadonlySet<string>=new Set(['/cooling-tower-construction-repair-in-singapore/','/cooling-tower-construction-repair-in-united-states/','/thailand-cooling-tower/'])
 /** R2 live-English restoration: exact source content in the accepted article shell. */
 export function LiveEnglishDetail({doc}:{doc:SalmonDocument}){
+  // 1.3a-S2: the LIVE Brochures and Tools libraries use the R4 hub library composition (the catch-all page is untouched: it reaches this component for every LIVE route)
+  if(LIVE_LIBRARY_ROUTES.has(doc.routeId))return <Wave4Library doc={doc}/>
   const isPost=doc.type==='posts'
   const isProject=doc.routeId.startsWith('LIVE-portfolio-')
   // SEO-FIX-1 (H2O_SEO_DEEP_R1 SF-5): a location page's parent is Home, not Resources.

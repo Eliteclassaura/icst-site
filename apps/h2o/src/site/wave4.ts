@@ -113,7 +113,7 @@ export function articleCardImage(doc:SalmonDocument):{src:string;alt:string;widt
   return undefined
 }
 
-export type Wave4Item={title:string;description:string;href?:string;kind:'document'|'tool'}
+export type Wave4Item={title:string;description:string;href?:string;extraLinks?:LiveLink[];kind:'document'|'tool'}
 export function descendants(node:SalmonNode,tag:string):Exclude<SalmonNode,string>[]{
   if(typeof node==='string')return []
   return [...(node.tag===tag?[node]:[]),...node.children.flatMap(child=>descendants(child,tag))]
@@ -211,4 +211,80 @@ export function wave4LibraryItems(doc:SalmonDocument):Wave4Item[]{
     return [...forms,...items]
   }
   return items
+}
+
+/**
+ * 1.3a-S2: the LIVE Brochures and Tools pages hold their accordions as WPBakery SHORTCODE TEXT (`[vc_tta_section title=”…” tab_id=”…”]` …
+ * `[/vc_tta_section]`) around plain paragraphs and download anchors, so the generic page showed builder fragments and loose links. The sections are read
+ * in document order from the text and anchor leaves. The reader fails closed: text outside a section is kept as page text, a download link that is not a
+ * held PDF is kept as a plain link on its item, and an anchor outside every section is listed under `orphanLinks`; nothing is dropped.
+ */
+export const LIVE_LIBRARY_ROUTES:ReadonlySet<string>=new Set(['LIVE-pages-2873','LIVE-pages-2852'])
+/** `href` is absent when the source URL fails the link policy: the text is then shown without a link. */
+export type LiveLink={href?:string;text:string}
+export type LiveLibraryItem={title:string;description:string;href?:string;extraLinks:LiveLink[]}
+export type LiveLibrary={outside:string[];items:LiveLibraryItem[];orphanLinks:LiveLink[]}
+type Leaf={t:'text';s:string}|{t:'a';href:string;text:string}
+const leaves=(nodes:SalmonNode[]):Leaf[]=>{
+  const out:Leaf[]=[]
+  const walk=(n:SalmonNode)=>{
+    if(typeof n==='string'){out.push({t:'text',s:n});return}
+    if(n.tag==='a'&&n.attrs.href){out.push({t:'a',href:n.attrs.href,text:salmonNodeText(n).trim().replace(/\s+/g,' ')});return}
+    n.children.forEach(walk)
+  }
+  nodes.forEach(walk)
+  return out
+}
+const SHORTCODE=/\[(\/?)(vc_[a-z_]+)([^\]]*)\]/g
+const QUOTES='\\u201c\\u201d\\u201e\\u201f\\u2033\\u2036"'
+/** Link policy for source anchors that are not held PDFs: plain http(s) or a site-relative path; nothing with a control or whitespace prefix, no other scheme. */
+export function safeLiveHref(raw:string):string|undefined{
+  const control=(c:number)=>c<=0x1f||(c>=0x7f&&c<=0x9f)
+  if(!raw||[...raw].some((ch)=>control(ch.charCodeAt(0))))return undefined
+  if(/^[\s\u200b-\u200f\ufeff]/.test(raw))return undefined
+  if(/^\/(?![/\\])/.test(raw))return raw
+  try{const u=new URL(raw);return u.protocol==='https:'||u.protocol==='http:'?raw:undefined}catch{return undefined}
+}
+export function liveLibrary(doc:SalmonDocument):LiveLibrary{
+  const title=(doc.seo.h1[0]||doc.title).trim().toLowerCase()
+  const outside:string[]=[],items:LiveLibraryItem[]=[],orphanLinks:LiveLink[]=[]
+  let cur:LiveLibraryItem|null=null
+  const text=(raw:string)=>{
+    const value=raw.replace(/[\s\u00a0]+/g,' ').trim()
+    if(!value||value.toLowerCase()===title)return
+    if(cur)cur.description=cur.description?`${cur.description} ${value}`:value
+    else outside.push(value)
+  }
+  for(const leaf of leaves(doc.children)){
+    if(leaf.t==='a'){
+      const href=verifiedLink(leaf.href)
+      if(cur){if(href&&!cur.href)cur.href=href;else cur.extraLinks.push({href:safeLiveHref(leaf.href),text:leaf.text})}
+      else orphanLinks.push({href:safeLiveHref(leaf.href),text:leaf.text})
+      continue
+    }
+    let last=0
+    for(const m of leaf.s.matchAll(SHORTCODE)){
+      text(leaf.s.slice(last,m.index))
+      last=m.index!+m[0].length
+      if(m[2]==='vc_tta_section'){
+        if(m[1]==='/'){if(cur)items.push(cur);cur=null}
+        else{
+          if(cur)items.push(cur)
+          // WordPress curly-quoted the attribute: the opening and closing marks vary (” “ " and the double prime ″ on "R0″")
+          const t=new RegExp(`title=[${QUOTES}](.*?)[${QUOTES}]?(?=\\s+[a-z_]+=|\\s*$)`).exec(m[3]??'')
+          cur={title:t?.[1]?.trim()??'',description:'',extraLinks:[]}
+        }
+      }
+    }
+    text(leaf.s.slice(last))
+  }
+  if(cur)items.push(cur)
+  // fail closed: a section without a readable title keeps its words as page text
+  const named:LiveLibraryItem[]=[]
+  for(const item of items){
+    if(item.title){named.push(item);continue}
+    if(item.description)outside.push(item.description)
+    orphanLinks.push(...(item.href?[{href:item.href,text:'Download/View'}]:[]),...item.extraLinks)
+  }
+  return {outside,items:named,orphanLinks}
 }
