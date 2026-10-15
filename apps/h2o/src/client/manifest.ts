@@ -33,7 +33,7 @@ export type Manifest = {
   routing: { unknownCountry: string; rules: Array<{ countries: string[]; office: string }>; responsePromise: string }
   email: {
     provider: 'workspace' | 'stalwart'
-    mode: 'off' | 'test' | 'live'
+    mode: 'off' | 'allowlist' | 'live'
     senders: Sender[]
     replyDomain: string
     signature: { name: string; lines: string[] }
@@ -163,7 +163,7 @@ export function validateManifest(raw: unknown): { ok: true; manifest: Manifest }
   const email = c.obj(top.email, '$.email', ['provider', 'mode', 'senders', 'replyDomain', 'signature', 'persona', 'library', 'sequences', 'inbound'])
   if (email) {
     c.oneOf(email.provider, '$.email.provider', ['workspace', 'stalwart'])
-    c.oneOf(email.mode, '$.email.mode', ['off', 'test', 'live'])
+    c.oneOf(email.mode, '$.email.mode', ['off', 'allowlist', 'live'])
     const rd = c.str(email.replyDomain, '$.email.replyDomain', { pattern: HOST, what: 'a host name' })
     if (rd) hosts.push(rd)
     for (const [i, s] of c.arr(email.senders, '$.email.senders', { min: 1, max: 10 }).entries()) {

@@ -99,3 +99,12 @@ test('an allowed overlap must carry its reason and evidence', () => {
   m.review.overlapNotes = ['shared office, see both live sites']
   assert.equal(validateManifest(m).ok, true)
 })
+
+test('email.mode uses the code vocabulary off|allowlist|live; the old "test" is refused', () => {
+  const ok = raw('example-industrial')
+  ok.email.mode = 'allowlist'
+  assert.equal(validateManifest(ok).ok, true)
+  const bad = raw('example-industrial')
+  bad.email.mode = 'test'
+  assert.ok(issues(bad).some((x) => x.startsWith('$.email.mode')))
+})
