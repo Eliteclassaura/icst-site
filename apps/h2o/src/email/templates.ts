@@ -310,7 +310,11 @@ export const SUPERSEDED_SEED_HASHES: Readonly<Record<string, readonly string[]>>
   T6: ['99b02cb25a44a5ff2aa6a63be9bfc0ffdef6fbdf6f0134c0c9c500a7c48f93ee', '75b7e9c3f8ea90a4f723405cb111c48fe1ad96f0ce772c779b9d540ed7499e72'],
 }
 
-export const SEED_TEMPLATES: Array<{ code: string; name: string; purpose: TemplatePurpose; subject: string; body: string; approved?: boolean }> = [
+/**
+ * ICST: every seed template is created UNAPPROVED. The approvals recorded below were the default site's owner decisions about its
+ * own wording; this client's owner approves its own text in the CRM (Settings → Templates) before anything can be sent.
+ */
+const SEED_TEXT: Array<{ code: string; name: string; purpose: TemplatePurpose; subject: string; body: string; approved?: boolean }> = [
   {
     // Owner-approved 2026-10-05 (recorded by Control Tower) exactly as returned with Patch L: seeded approved.
     code: 'T1',
@@ -415,7 +419,7 @@ ${FOOTER}`,
 
 Thank you for considering ${identity.shortName} for this request. After reviewing RFQ {{rfq_number}}, we don't believe we're the right fit for this particular scope, and we'd rather tell you now than slow your project down.
 
-We'd be glad to help with industrial cooling tower parts, maintenance and repairs, dry soda blasting or new towers in the future. Just reply to this email.
+We'd be glad to help with industrial cooling tower parts, maintenance and repairs, or new towers in the future. Just reply to this email.
 
 Best regards,
 ${SIGNATURE}
@@ -467,3 +471,4 @@ ${E11_SIGNATURE}`,
 ${E11_SIGNATURE}`,
   },
 ]
+export const SEED_TEMPLATES: Array<{ code: string; name: string; purpose: TemplatePurpose; subject: string; body: string; approved?: boolean }> = SEED_TEXT.map((t) => ({ ...t, approved: false }))

@@ -1,13 +1,15 @@
 import { describe, expect, it } from 'vitest'
 import { officeCalendar, EMPTY_OFFICE_SETTINGS, type OfficeSettings } from '../offices'
-import { quickDueDates } from '../workspace/time'
+import { quickDueDates, type BusinessCalendar } from '../workspace/time'
 
 /**
  * DATE-FIX-1: the quick controls on a deal form (Today, Next business day, Next week) are read in the deal's office
  * calendar. Frozen instants; both directions; weekend; differing holidays; DST. The same function the dialogs call.
  */
 const settings = (us: string[] = [], th: string[] = []): OfficeSettings => ({ ...EMPTY_OFFICE_SETTINGS, holidays: { US: new Set(us), TH: new Set(th) } })
-const DEN = (s = settings()) => officeCalendar('US', s)
+// ICST: the stored US slot is unused here (it takes the client's own zone), so the "Denver" calendar is built explicitly: the quick-date logic is
+// generic over any calendar, and this keeps both directions (an office west of the date line and one east of it) under test.
+const DEN = (s = settings()): BusinessCalendar => ({ zone: 'America/Denver', holidays: s.holidays.US })
 const BKK = (s = settings()) => officeCalendar('TH', s)
 
 describe('quick dates in the office calendar', () => {

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { client } from '../../client'
 import { officeMsBetween, replyDue, replyDueLabel, REPLY_SOON_MS } from '../workspace/replyDue'
 import { densityFrom, densityReturnPath } from '../workspace/prefs'
 import { parseInboxParams, weekStart } from '../workspace/queries'
@@ -134,18 +135,22 @@ describe('owner rule: no phone number, no postal address in any email', () => {
       expect(t.body, t.code).not.toMatch(/Synthetic Way|Street|Road|Suite|P\.?O\.? Box/i)
     }
   })
-  // ICST fork: pins the default client's approved T1 wording hash; ICST's T1 wording is not approved yet.
-  it.skip('T2–T6 render with the team signature only; T1 keeps its approved wording (hash unchanged)', () => {
-    const values = { rfq_number: 'RFQ-1', customer_first_name: 'Pat', company: 'Plant (synthetic)', email_signature: 'ICS Sales Team\nsales@example.test' }
+  // ICST: T2–T4 and T6 render with the team signature only. T1's wording is not approved yet, so its approved-hash pin is skipped below.
+  it('T2–T4 and T6 render with the client\'s team signature only (no phone)', () => {
+    const sig = `${client().defaultSender.displayName}\n${client().defaultSender.address}`
+    const values = { rfq_number: 'RFQ-1', customer_first_name: 'Pat', company: 'Plant (synthetic)', email_signature: sig }
     for (const code of ['T2', 'T3', 'T4', 'T6']) {
       const r = renderTemplate(SEED_TEMPLATES.find((t) => t.code === code)!, values, ['attached'])
       expect(r.ok, code).toBe(true)
       if (!r.ok) continue
-      expect(r.text, code).toContain('Best regards,\nICS Sales Team\nsales@example.test')
+      expect(r.text, code).toContain(`Best regards,\n${sig}`)
       expect(phoneLine(r.text), code).toEqual([])
     }
+  })
+  // ICST: pins T1's approved-wording hash once the owner approves ICST's T1 text (CT-1 / Main: ICST T1 wording tests after approval).
+  it.skip('T1 keeps its approved wording (hash unchanged)', () => {
     const t1 = SEED_TEMPLATES.find((t) => t.code === 'T1')!
-    expect(templateHash(t1)).toBe('87124e4ace9603567b1dd2a380ef1fdb37889a2edfbee621a84d8c7c7472a897') // as owner-approved 2026-10-05
+    expect(templateHash(t1)).toBe('TO-BE-PINNED-AFTER-OWNER-APPROVAL')
   })
   it('only an unedited earlier seed is superseded; the current seeds are not in the superseded list', () => {
     for (const t of SEED_TEMPLATES) expect(SUPERSEDED_SEED_HASHES[t.code] ?? [], t.code).not.toContain(templateHash(t))
@@ -189,10 +194,10 @@ describe('T-R1: approved T2–T6 and the industrial-scope guard', () => {
     expect(scopeRefusal('S', 'We do HVAC')).toMatch(/“HVAC”.*industrial cooling/)
     expect(scopeRefusal('S', 'Industrial cooling tower parts')).toBeNull()
   })
-  it('T2–T6 are seeded approved; T6 closes with the industrial-scope line; the R1.1 T6 is superseded', () => {
-    for (const code of ['T1', 'T2', 'T3', 'T4', 'T5', 'T6']) expect(SEED_TEMPLATES.find((t) => t.code === code)!.approved, code).toBe(true)
+  it('T1–T6 are seeded UNAPPROVED (this client\'s owner approves its own wording); T6 closes with the industrial-scope line; the R1.1 T6 is superseded', () => {
+    for (const code of ['T1', 'T2', 'T3', 'T4', 'T5', 'T6']) expect(SEED_TEMPLATES.find((t) => t.code === code)!.approved, code).toBe(false)
     const t6 = SEED_TEMPLATES.find((t) => t.code === 'T6')!
-    expect(t6.body).toContain("We'd be glad to help with industrial cooling tower parts, maintenance and repairs, dry soda blasting or new towers in the future. Just reply to this email.")
+    expect(t6.body).toContain("We'd be glad to help with industrial cooling tower parts, maintenance and repairs, or new towers in the future. Just reply to this email.")
     expect(SUPERSEDED_SEED_HASHES.T6).toContain('75b7e9c3f8ea90a4f723405cb111c48fe1ad96f0ce772c779b9d540ed7499e72')
   })
 })
