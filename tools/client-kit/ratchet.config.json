@@ -13,7 +13,7 @@
         "(^|/)fixtures?/",
         "payload-types\\.ts$",
         "(^|/)migrations/",
-        "(^|/)client/h2o-defaults\\.ts$"
+        "(^|/)src/client/"
       ]
     },
     {
@@ -25,7 +25,7 @@
       "include": "(^|/)__tests__/|(^|/)__dbtests__/|\\.test\\.|(^|/)fixtures?/|(^|/)test/",
       "exclude": [
         "node_modules/",
-        "(^|/)client/__tests__/"
+        "(^|/)src/client/"
       ]
     }
   ]
