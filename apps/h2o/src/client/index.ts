@@ -1,21 +1,22 @@
-import { existsSync } from 'node:fs'
-import path from 'node:path'
 import { H2O_MANIFEST } from './h2o-defaults'
-import { loadManifest, ManifestError, type Manifest, type Office, type Sender } from './manifest'
+import { ManifestError, validateManifest, type Manifest, type Office, type Sender } from './manifest'
 
 export { H2O_MANIFEST, ManifestError }
 export type { Manifest, Office, Sender }
 
 /**
- * KIT-0 H0: the app-side client accessor. SERVER ONLY (it may read `clients/<slug>/manifest.json`).
+ * KIT-0 H0: the app-side client accessor. No file system access here, so it is safe in any bundle; it is still SERVER-SIDE
+ * ONLY by rule (see below).
  *
  *   client()            the resolved client for this process (cached)
  *   client().manifest   the validated manifest
  *   client().<helpers>  the small typed accessors H1-H5 need
  *
- * Resolution: `CLIENT` env (default `h2o`). `h2o` returns `H2O_MANIFEST`, today's constants, with no file read. Any other slug
- * loads `<clients dir>/<slug>/manifest.json` and fails CLOSED: a missing folder, an invalid manifest or a slug mismatch throws
- * `ManifestError`; nothing falls back to H2O values. The clients dir is `CLIENTS_DIR` or the nearest `clients/` above `process.cwd()`.
+ * Resolution: `CLIENT` env (default `h2o`). `h2o` returns `H2O_MANIFEST`, today's constants. Any other slug needs the manifest as
+ * JSON in `CLIENT_MANIFEST_JSON` (set by the build/seed tooling from `clients/<slug>/manifest.json`; see `./load`), validated here, and
+ * fails CLOSED: a missing, invalid or mismatched manifest throws `ManifestError`; nothing falls back to H2O values.
+ *
+ * Never call `client()` in code that runs in the browser: a client bundle has no `CLIENT` and would answer with H2O. It throws there.
  */
 export const DEFAULT_CLIENT = 'h2o'
 const SLUG = /^[a-z][a-z0-9-]{1,38}[a-z0-9]$/
@@ -63,32 +64,29 @@ export function buildClient(manifest: Manifest): ClientConfig {
   }
 }
 
-function clientsDir(env: NodeJS.ProcessEnv, cwd: string): string {
-  if (env.CLIENTS_DIR) return path.resolve(env.CLIENTS_DIR)
-  let dir = cwd
-  for (let i = 0; i < 6; i++) {
-    const candidate = path.join(dir, 'clients')
-    if (existsSync(path.join(candidate, '_template'))) return candidate
-    const up = path.dirname(dir)
-    if (up === dir) break
-    dir = up
-  }
-  throw new ManifestError('clients/', [{ path: '$', message: 'no clients/ folder found above the working directory; set CLIENTS_DIR' }])
-}
-
-/** Resolve a client from an environment. Pure apart from reading the manifest file; use `client()` in app code. */
-export function resolveClient(env: NodeJS.ProcessEnv = process.env, cwd: string = process.cwd()): ClientConfig {
+/** Resolve a client from an environment. Pure; use `client()` in app code. */
+export function resolveClient(env: NodeJS.ProcessEnv = process.env): ClientConfig {
   const slug = (env.CLIENT ?? '').trim() || DEFAULT_CLIENT
   if (!SLUG.test(slug)) throw new ManifestError('CLIENT', [{ path: '$', message: `"${slug}" is not a valid client slug` }])
   if (slug === DEFAULT_CLIENT) return buildClient(H2O_MANIFEST)
-  const manifest = loadManifest(path.join(clientsDir(env, cwd), slug))
-  if (manifest.client.slug !== slug) throw new ManifestError(slug, [{ path: '$.client.slug', message: `is "${manifest.client.slug}" but CLIENT is "${slug}"` }])
-  return buildClient(manifest)
+  const json = env.CLIENT_MANIFEST_JSON
+  if (!json) throw new ManifestError(slug, [{ path: '$', message: `CLIENT=${slug} needs CLIENT_MANIFEST_JSON (the manifest of clients/${slug}); there is no fallback` }])
+  let raw: unknown
+  try {
+    raw = JSON.parse(json)
+  } catch (e) {
+    throw new ManifestError(slug, [{ path: '$', message: `CLIENT_MANIFEST_JSON is not JSON (${(e as Error).message})` }])
+  }
+  const r = validateManifest(raw)
+  if (!r.ok) throw new ManifestError(`CLIENT_MANIFEST_JSON for ${slug}`, r.issues)
+  if (r.manifest.client.slug !== slug) throw new ManifestError(slug, [{ path: '$.client.slug', message: `is "${r.manifest.client.slug}" but CLIENT is "${slug}"` }])
+  return buildClient(r.manifest)
 }
 
 let cached: ClientConfig | null = null
-/** The client for this process. Cached after the first call; throws (fail closed) if it cannot be resolved. */
+/** The client for this process. Cached after the first call; throws (fail closed) if it cannot be resolved, and in the browser. */
 export function client(): ClientConfig {
+  if (typeof window !== 'undefined') throw new Error('client() is server-side only: a browser bundle cannot know which client it belongs to')
   cached ??= resolveClient()
   return cached
 }

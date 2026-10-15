@@ -2,7 +2,8 @@
 /** node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tools/client-kit/bin/validate.ts <slug>   (KIT-0 M1) */
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { loadManifest, ManifestError } from '../src/manifest.ts'
+import { loadManifest } from '../src/load.ts'
+import { ManifestError } from '../src/manifest.ts'
 
 const out = (m: string) => process.stdout.write(`${m}\n`)
 const clients = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../clients')

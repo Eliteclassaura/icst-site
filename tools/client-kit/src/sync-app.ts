@@ -1,4 +1,4 @@
-/** Files of the manifest validator that the app carries as a generated copy. */
+/** Files of the manifest validator that the app carries as a generated copy (both are file-system free). */
 export const SYNCED = ['check.ts', 'manifest.ts'] as const
 
 export const appCopy = (source: string, file: string): string =>

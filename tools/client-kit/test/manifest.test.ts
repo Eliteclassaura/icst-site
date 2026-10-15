@@ -2,7 +2,8 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import test from 'node:test'
-import { loadManifest, validateManifest } from '../src/manifest.ts'
+import { loadManifest } from '../src/load.ts'
+import { validateManifest } from '../src/manifest.ts'
 import { clients } from './helpers.ts'
 
 const raw = (slug: string) => JSON.parse(readFileSync(path.join(clients, slug, 'manifest.json'), 'utf8'))

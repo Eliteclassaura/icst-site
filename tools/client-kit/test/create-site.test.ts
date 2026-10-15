@@ -4,7 +4,7 @@ import path from 'node:path'
 import test from 'node:test'
 import { buildMatcher, loadBlocklists } from '../src/blocklist.ts'
 import { createSite } from '../src/create-site.ts'
-import { loadManifest } from '../src/manifest.ts'
+import { loadManifest } from '../src/load.ts'
 import { scanTree } from '../src/scan.ts'
 import { clientsCopy } from './helpers.ts'
 

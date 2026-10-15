@@ -1,6 +1,6 @@
 import { cpSync, existsSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
-import { loadManifest } from './manifest.ts'
+import { loadManifest } from './load.ts'
 
 export type NewSite = { slug: string; name: string; legal: string; short: string; domain: string; tenant: string }
 

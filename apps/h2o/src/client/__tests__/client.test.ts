@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { buildClient, H2O_MANIFEST, ManifestError, resolveClient } from '../index'
+import { buildClient, client, H2O_MANIFEST, ManifestError, resetClientCache, resolveClient } from '../index'
 
 const repo = path.resolve(__dirname, '../../../../..')
 const clientsDir = path.join(repo, 'clients')
@@ -9,10 +9,10 @@ const env = (o: Record<string, string>) => ({ ...o }) as NodeJS.ProcessEnv
 
 describe('client() resolution', () => {
   it('defaults to H2O and returns exactly clients/h2o/manifest.json, with no file read', () => {
-    const c = resolveClient(env({}), '/nonexistent')
+    const c = resolveClient(env({}))
     expect(c.slug).toBe('h2o')
     expect(c.manifest).toEqual(JSON.parse(readFileSync(path.join(clientsDir, 'h2o/manifest.json'), 'utf8')))
-    expect(resolveClient(env({ CLIENT: 'h2o' }), '/nonexistent').manifest).toBe(H2O_MANIFEST)
+    expect(resolveClient(env({ CLIENT: 'h2o' })).manifest).toBe(H2O_MANIFEST)
   })
 
   it('returns today\'s H2O values: tenant ICS, origin, offices US/TH, RFQ- prefix, sender', () => {
@@ -36,25 +36,38 @@ describe('client() resolution', () => {
     expect(c.officeKeyForCountry('not a code')).toBe('US')
   })
 
-  it('loads another client from clients/<slug>/manifest.json by CLIENT=', () => {
-    const c = resolveClient(env({ CLIENT: 'example-industrial', CLIENTS_DIR: clientsDir }))
+  const fromFile = (slug: string) => JSON.stringify(JSON.parse(readFileSync(path.join(clientsDir, slug, 'manifest.json'), 'utf8')))
+
+  it('loads another client from CLIENT_MANIFEST_JSON (the build tooling puts clients/<slug>/manifest.json there)', () => {
+    const c = resolveClient(env({ CLIENT: 'example-industrial', CLIENT_MANIFEST_JSON: fromFile('example-industrial') }))
     expect(c.slug).toBe('example-industrial')
     expect(c.origin).toBe('https://example.test')
     expect(c.officeKeyForCountry('GB')).toBe('BR')
     expect(c.officeKeyForCountry('FR')).toBe('BR')
     expect(c.officeKeyForCountry('ZA')).toBe('HQ')
     expect(c.moduleOn('library')).toBe(false)
+    expect(resolveClient(env({ CLIENT: 'icst', CLIENT_MANIFEST_JSON: fromFile('icst') })).origin).toBe('https://icsthailand.co.th')
   })
 
-  it('finds clients/ above the working directory when CLIENTS_DIR is not set', () => {
-    expect(resolveClient(env({ CLIENT: 'icst' }), path.join(repo, 'apps/h2o')).origin).toBe('https://icsthailand.co.th')
-  })
-
-  it('fails closed: unknown client, invalid slug, mismatch or invalid manifest throw ManifestError and never fall back to H2O', () => {
-    expect(() => resolveClient(env({ CLIENT: 'no-such-client', CLIENTS_DIR: clientsDir }))).toThrow(ManifestError)
+  it('fails closed: no JSON, bad JSON, invalid manifest, slug mismatch or invalid slug throw ManifestError and never fall back to H2O', () => {
+    expect(() => resolveClient(env({ CLIENT: 'icst' }))).toThrow(/CLIENT_MANIFEST_JSON/)
+    expect(() => resolveClient(env({ CLIENT: 'icst', CLIENT_MANIFEST_JSON: '{nope' }))).toThrow(ManifestError)
+    expect(() => resolveClient(env({ CLIENT: 'icst', CLIENT_MANIFEST_JSON: '{}' }))).toThrow(ManifestError)
+    expect(() => resolveClient(env({ CLIENT: 'icst', CLIENT_MANIFEST_JSON: fromFile('example-industrial') }))).toThrow(/CLIENT is "icst"/)
     expect(() => resolveClient(env({ CLIENT: '../h2o' }))).toThrow(/valid client slug/)
-    expect(() => resolveClient(env({ CLIENT: 'icst', CLIENTS_DIR: '/nonexistent/clients' }))).toThrow(ManifestError)
-    expect(() => resolveClient(env({ CLIENT: 'icst' }), '/')).toThrow(/clients\//)
+  })
+
+  it('client() is cached, and refuses to answer in a browser (a client bundle would answer with H2O)', () => {
+    resetClientCache()
+    expect(client()).toBe(client())
+    resetClientCache()
+    ;(globalThis as { window?: unknown }).window = {}
+    try {
+      expect(() => client()).toThrow(/server-side only/)
+    } finally {
+      delete (globalThis as { window?: unknown }).window
+      resetClientCache()
+    }
   })
 
   it('buildClient is pure over a manifest: no routing rule means everything goes to unknownCountry', () => {

@@ -1,12 +1,10 @@
-import { readFileSync } from 'node:fs'
-import path from 'node:path'
 import { Checker, type Issue } from './check.ts'
 
 /**
  * KIT-0 M1: the client manifest. Everything a client can be, declared once (v1).
  *
  * Fail closed: unknown fields, missing fields, a secret-looking field name, a non-https origin or a dangling reference
- * all make `validateManifest` return issues, and `loadManifest` throw. There are no defaults that name a company.
+ * all make `validateManifest` return issues, and `loadManifest` (src/load.ts, the only file here that touches the file system) throw. There are no defaults that name a company.
  * Secrets are never values here: only references (`ops.secretsRef`).
  */
 export const MANIFEST_SCHEMA_VERSION = 1 as const
@@ -235,18 +233,4 @@ export class ManifestError extends Error {
     super(`Invalid manifest ${file}:\n${issues.map((i) => `  ${i.path}: ${i.message}`).join('\n')}`)
     this.issues = issues
   }
-}
-
-/** Read and validate `<clientDir>/manifest.json`. Throws `ManifestError`; never returns a partial manifest. */
-export function loadManifest(clientDir: string): Manifest {
-  const file = path.join(clientDir, 'manifest.json')
-  let raw: unknown
-  try {
-    raw = JSON.parse(readFileSync(file, 'utf8'))
-  } catch (e) {
-    throw new ManifestError(file, [{ path: '$', message: `cannot read as JSON (${(e as Error).message})` }])
-  }
-  const r = validateManifest(raw)
-  if (!r.ok) throw new ManifestError(file, r.issues)
-  return r.manifest
 }
