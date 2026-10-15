@@ -1,0 +1,81 @@
+/*
+ * ICST Contact hero (Final 1:20321, DD 2026-10-15). The three layers from the back: a solid base (#1c2b3d), the photograph, and the scrim, a
+ * linear gradient over the whole band with three stops (#0e1826 at 72%, #0a3f7c at 55%, #0e1826 at 70%). The values are the design file's
+ * own, not theme tokens, so they are defined once here. Title: white capitals, centred, 71 px line height on desktop.
+ */
+.contact-hero {
+  --hero-base: rgb(28 43 61);
+  --hero-scrim: linear-gradient(180deg, rgb(14 24 38 / 72%) 0%, rgb(10 63 124 / 55%) 50%, rgb(14 24 38 / 70%) 100%);
+
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-block-size: 560px;
+  place-items: center;
+  overflow: hidden;
+  background: var(--hero-base);
+  color: var(--client-accent-on, Canvas);
+}
+
+.contact-hero__img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.contact-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--hero-scrim);
+}
+
+.contact-hero__in {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-3, 12px);
+  max-inline-size: 760px;
+  padding: var(--s-7, 48px) var(--s-4, 16px) 176px;
+  text-align: center;
+}
+
+.contact-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--client-radius-control, 40px);
+  background: color-mix(in srgb, var(--client-accent-on, Canvas) 14%, transparent);
+  font-size: var(--fs-label, 12px);
+  font-weight: 600;
+}
+
+.contact-hero__dot {
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%;
+  background: var(--client-accent-on, Canvas);
+}
+
+.contact-hero__title {
+  margin: 0;
+  font-family: var(--client-font-body);
+  font-size: clamp(28px, 5vw, 62px);
+  font-weight: 700;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .contact-hero {
+    min-block-size: 360px;
+  }
+
+  .contact-hero__in {
+    padding-block-end: 120px;
+  }
+}

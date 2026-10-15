@@ -2,6 +2,10 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { FooterBlock, HeaderBlock, RenderBlocks } from '@factory/agency-core/blocks'
 import { client } from '../../../client'
+import { IntakeHero } from '../../../client/site/IntakeHero'
+import { IntakeSplit } from '../../../client/site/IntakeSplit'
+import { segments as splitLayout } from '../../../client/site/segments'
+import { NativeRfqFormSection } from '../../../rfq-native/NativeRfqForm'
 import { listPages, loadChrome, requestPath } from '../../../client/site/content'
 import { expandCookieBlocks, loadInventory } from '../../../client/site/cookies'
 import { canonicalUrl, indexingOn, robotsMeta, schemaGraph } from '../../../client/site/seo'
@@ -46,13 +50,26 @@ export default async function ClientPreviewPage({ params }: Params) {
   // The footer's office contact: the same public office's address lines and phone, from the manifest.
   const publicOffice = c.offices.find((o) => o.publicOnSite && o.phones.length > 0)
   const contact = publicOffice ? { lines: publicOffice.address.lines, phone: publicOffice.phones[0] ?? null } : undefined
+  // The intake section's contact card (WP-27): the same public office, with the full address and country name, from the manifest.
+  const countryName = (code: string) => new Intl.DisplayNames(['en'], { type: 'region' }).of(code) ?? code
+  const intakeContact = { phone, address: publicOffice ? { ...publicOffice.address, country: countryName(publicOffice.country) } : null }
   return (
     <>
       {/* Structured data: a data block, not executed, so the script CSP does not apply. `<` is escaped so page text can never close the tag. */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph(c.manifest, found, pages)).replace(/</g, '\\u003c') }} />
       <HeaderBlock {...chrome.header} currentPath={currentPath} />
       <main id="main">
-        <RenderBlocks layout={expandCookieBlocks(page.layout, loadInventory(c.slug))} ctx={{ currentPath, offices, phone }} />
+        {/* `intakeForm` is the native quote form's own section (WP-27): the intake engine in a card beside the contact card. Every other block
+            goes through the block library, in order. */}
+        {splitLayout(expandCookieBlocks(page.layout, loadInventory(c.slug))).map((seg, i) =>
+          seg.kind === 'hero' ? (
+            <IntakeHero key={`hero-${i}`} {...seg.props} />
+          ) : seg.kind === 'intake' ? (
+            <IntakeSplit key={`intake-${i}`} {...seg.props} form={<NativeRfqFormSection pagePath={currentPath} locale={c.manifest.locales.default} />} contact={intakeContact} />
+          ) : (
+            <RenderBlocks key={`blocks-${i}`} layout={seg.layout} ctx={{ currentPath, offices, phone }} />
+          ),
+        )}
       </main>
       <FooterBlock {...chrome.footer} contact={contact} />
     </>

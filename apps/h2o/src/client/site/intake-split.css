@@ -1,0 +1,338 @@
+/*
+ * ICST native intake skin (WP-27). Reads only the client's theme tokens (--client-*) and the design-system scale (--s-*, --fs-*), so another
+ * client gets its own look from its theme. The form's own stylesheet uses hashed class names, so the form is skinned by structure and
+ * attributes below `.intake__form`. Targets are at least 44px; no motion; light only.
+ */
+.intake {
+  /* the cards overlap the bottom of the hero photograph, as in the design */
+  position: relative;
+  z-index: 1;
+  margin-block-start: -128px;
+  padding-block: 0 var(--s-7);
+  background: transparent;
+}
+
+@media (max-width: 640px) {
+  .intake {
+    margin-block-start: -64px;
+  }
+}
+
+.intake__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  gap: var(--s-6);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .intake__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.intake__card {
+  background: var(--client-surface);
+  border: 1px solid var(--client-rule);
+  border-radius: var(--client-radius-card);
+  padding: clamp(20px, 4vw, 48px);
+}
+
+.intake__title {
+  margin: 0 0 var(--s-3);
+  color: var(--client-accent);
+  font-family: var(--client-font-body);
+  font-size: var(--fs-d3);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+}
+
+.intake__lede {
+  margin: 0 0 var(--s-5);
+  max-inline-size: 62ch;
+  color: var(--client-text-muted);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-base);
+}
+
+/* ---- the contact card ---- */
+.intake__aside {
+  display: grid;
+  gap: var(--s-4);
+  padding: var(--s-6);
+  border-radius: var(--client-radius-card);
+  background: var(--client-accent-deep);
+  color: var(--client-accent-on);
+}
+
+.intake__aside-title {
+  margin: 0 0 var(--s-1);
+  font-family: var(--client-font-body);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+}
+
+.intake__fact {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: var(--s-4);
+  align-items: start;
+  padding: var(--s-4);
+  border-radius: var(--client-radius-card);
+  background: color-mix(in srgb, var(--client-accent-on) 14%, transparent);
+}
+
+.intake__fact > div {
+  margin: 0;
+  display: grid;
+  gap: 2px;
+  color: inherit;
+}
+
+.intake__fact strong {
+  font-weight: 600;
+}
+
+.intake__fact a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.intake__fact address {
+  display: grid;
+  font-style: normal;
+}
+
+.intake__icon {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border: 1px solid color-mix(in srgb, var(--client-accent-on) 70%, transparent);
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* ---- the native form, skinned by structure ---- */
+.intake__form form,
+.intake__form > section,
+.intake__form > div {
+  max-inline-size: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.intake__form h3 {
+  margin: 0 0 var(--s-2);
+  color: var(--client-accent);
+  font-size: var(--fs-h4);
+  font-weight: 600;
+}
+
+.intake__form label,
+.intake__form legend {
+  color: var(--client-text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+}
+
+.intake__form input:not([type='radio']):not([type='checkbox']),
+.intake__form textarea,
+.intake__form select {
+  inline-size: 100%;
+  min-block-size: 50px;
+  padding: 12px 14px;
+  border: 1px solid var(--client-rule);
+  border-radius: 2px;
+  background: var(--client-surface);
+  color: var(--client-text);
+  font: inherit;
+  font-size: var(--fs-body);
+}
+
+.intake__form textarea {
+  min-block-size: 120px;
+}
+
+.intake__form [aria-invalid='true'] {
+  border-color: var(--client-error);
+}
+
+.intake__form input:focus-visible,
+.intake__form textarea:focus-visible,
+.intake__form select:focus-visible,
+.intake__form button:focus-visible {
+  outline: var(--client-focus-width, 2px) solid var(--client-focus-ring, var(--client-accent));
+  outline-offset: var(--client-focus-offset, 2px);
+}
+
+/* links inside the form's text are underlined (colour alone is not enough) */
+.intake__form p a,
+.intake__form li a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* choice groups: bordered tiles with a square box, two columns on a phone */
+.intake__form [role='radiogroup'] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.intake__form [role='radiogroup'] label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-block-size: 46px;
+  padding: 0 16px;
+  border: 1px solid var(--client-rule);
+  border-radius: 2px;
+  background: var(--client-surface);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .intake__form [role='radiogroup'] label {
+    flex: 1 1 calc(50% - 10px);
+  }
+}
+
+.intake__form input[type='radio'] {
+  appearance: none;
+  flex: none;
+  inline-size: 18px;
+  block-size: 18px;
+  margin: 0;
+  border: 1px solid var(--client-text-muted);
+  border-radius: 2px;
+  background: var(--client-surface);
+}
+
+.intake__form input[type='radio']:checked {
+  border-color: var(--client-accent);
+  background: var(--client-accent);
+  box-shadow: inset 0 0 0 3px var(--client-surface);
+}
+
+.intake__form [role='radiogroup'] label:has(input:checked) {
+  border-color: var(--client-accent);
+}
+
+/* required stars and errors */
+.intake__form [class*='requiredMark'] {
+  color: var(--client-error);
+}
+
+.intake__form [class*='error'] {
+  margin: 6px 0 0;
+  color: var(--client-error);
+  font-size: var(--fs-sm);
+}
+
+.intake__form [class*='hint'],
+.intake__form [class*='requiredNote'] {
+  color: var(--client-text-muted);
+  font-size: var(--fs-sm);
+}
+
+/* the primary button: an accent pill */
+.intake__form button[type='submit'],
+.intake__form button[class*='primary'] {
+  min-block-size: 52px;
+  padding: 0 40px;
+  border: 0;
+  border-radius: var(--client-radius-control);
+  background: var(--client-accent);
+  color: var(--client-accent-on);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.intake__form button[type='submit']:hover,
+.intake__form button[class*='primary']:hover {
+  background: var(--client-accent-hover);
+}
+
+.intake__form button[type='submit']:active,
+.intake__form button[class*='primary']:active {
+  background: var(--client-accent-active);
+}
+
+.intake__form button[class*='primary']:disabled {
+  background: var(--client-disabled-bg);
+  color: var(--client-disabled-text);
+  cursor: not-allowed;
+}
+
+@media (max-width: 560px) {
+  .intake__form button[type='submit'],
+  .intake__form button[class*='primary'] {
+    inline-size: 100%;
+  }
+}
+
+/* a refusal and the confirmation, as banners */
+.intake__form [role='alert'][class*='failure'] {
+  display: block;
+  margin: 0 0 var(--s-4);
+  padding: var(--s-4);
+  border: 1px solid var(--client-error);
+  border-radius: var(--client-radius-card);
+  background: color-mix(in srgb, var(--client-error) 8%, var(--client-surface));
+  color: var(--client-error);
+}
+
+.intake__form [class*='confirm']:not([class*='confirmHeading']) {
+  padding: var(--s-4);
+  border: 1px solid var(--client-success);
+  border-radius: var(--client-radius-card);
+  background: color-mix(in srgb, var(--client-success) 8%, var(--client-surface));
+  color: var(--client-text);
+}
+
+.intake__form [class*='confirm'] p {
+  color: var(--client-text);
+}
+
+.intake__form [class*='confirmHeading'] {
+  margin: 0 0 var(--s-2);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--client-success);
+}
+
+/* two columns where the design pairs fields (first and last name, phone and country); one column on a phone */
+@media (min-width: 640px) {
+  .intake__form form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--s-5);
+    row-gap: var(--s-5);
+    align-items: start;
+  }
+
+  .intake__form form > * {
+    grid-column: 1 / -1;
+  }
+
+  .intake__form form > [data-rfq-field='first_name'],
+  .intake__form form > [data-rfq-field='last_name'],
+  .intake__form form > [data-rfq-field='phone'],
+  .intake__form form > [data-rfq-field='country'] {
+    grid-column: auto;
+  }
+}
