@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { buildClient, client, H2O_MANIFEST, ManifestError, resetClientCache, resolveClient } from '../index'
+import { buildClient, client, H2O_MANIFEST, isBrowserBundle, ManifestError, resetClientCache, resolveClient } from '../index'
 
 const repo = path.resolve(__dirname, '../../../../..')
 const clientsDir = path.join(repo, 'clients')
@@ -57,13 +57,18 @@ describe('client() resolution', () => {
     expect(() => resolveClient(env({ CLIENT: '../h2o' }))).toThrow(/valid client slug/)
   })
 
-  it('client() is cached, and refuses to answer in a browser (a client bundle would answer with H2O)', () => {
+  it('client() is cached, and the browser guard is exact: a window WITHOUT Node throws, a window WITH Node (happy-dom tests, SSR emulation) does not', () => {
     resetClientCache()
     expect(client()).toBe(client())
-    resetClientCache()
+    expect(isBrowserBundle({ window: {}, process: undefined })).toBe(true)
+    expect(isBrowserBundle({ window: {}, process: { versions: {} } })).toBe(true)
+    expect(isBrowserBundle({ window: {}, process: { versions: { node: '24.0.0' } } })).toBe(false)
+    expect(isBrowserBundle({ process: { versions: { node: '24.0.0' } } })).toBe(false)
+    expect(isBrowserBundle({})).toBe(false)
     ;(globalThis as { window?: unknown }).window = {}
     try {
-      expect(() => client()).toThrow(/server-side only/)
+      resetClientCache()
+      expect(client().slug).toBe('h2o') // still Node: allowed
     } finally {
       delete (globalThis as { window?: unknown }).window
       resetClientCache()

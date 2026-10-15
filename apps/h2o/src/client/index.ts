@@ -16,7 +16,7 @@ export type { Manifest, Office, Sender }
  * JSON in `CLIENT_MANIFEST_JSON` (set by the build/seed tooling from `clients/<slug>/manifest.json`; see `./load`), validated here, and
  * fails CLOSED: a missing, invalid or mismatched manifest throws `ManifestError`; nothing falls back to H2O values.
  *
- * Never call `client()` in code that runs in the browser: a client bundle has no `CLIENT` and would answer with H2O. It throws there.
+ * Never call `client()` in code that runs in the browser: a client bundle has no `CLIENT` and would answer with H2O. It throws there (see `isBrowserBundle`).
  */
 export const DEFAULT_CLIENT = 'h2o'
 const SLUG = /^[a-z][a-z0-9-]{1,38}[a-z0-9]$/
@@ -83,10 +83,17 @@ export function resolveClient(env: NodeJS.ProcessEnv = process.env): ClientConfi
   return buildClient(r.manifest)
 }
 
+/**
+ * True only in a real browser bundle: a `window` AND no Node runtime. Server code under a DOM-emulating test environment (happy-dom,
+ * jsdom) has a `window` but still runs on Node, so it must be allowed to call `client()`; a browser bundle has no `process.versions.node`.
+ */
+export const isBrowserBundle = (g: { window?: unknown; process?: { versions?: { node?: string } } } = globalThis as never): boolean =>
+  typeof g.window !== 'undefined' && typeof g.process?.versions?.node === 'undefined'
+
 let cached: ClientConfig | null = null
 /** The client for this process. Cached after the first call; throws (fail closed) if it cannot be resolved, and in the browser. */
 export function client(): ClientConfig {
-  if (typeof window !== 'undefined') throw new Error('client() is server-side only: a browser bundle cannot know which client it belongs to')
+  if (isBrowserBundle()) throw new Error('client() is server-side only: a browser bundle cannot know which client it belongs to')
   cached ??= resolveClient()
   return cached
 }
