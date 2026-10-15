@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   trailingSlash: true,
+  // Dev only: hide the Next.js dev badge so review screenshots are clean. It has no effect on `next build` or production.
+  devIndicators: false,
   async headers() {
     // Payload admin is never framed (clickjacking); it opens previews in a new tab, not a live-preview iframe.
     // Everything else (CSP, robots, security headers) is decided per request by src/proxy.ts.
