@@ -1,0 +1,9 @@
+:root {
+  --client-accent: rgb(18 94 60);
+  --client-accent-deep: rgb(10 60 38);
+  --client-text: rgb(26 26 26);
+  --client-surface: rgb(255 255 255);
+  --client-radius: 4px;
+  --client-font-body: system-ui, sans-serif;
+  --client-font-display: system-ui, sans-serif;
+}
