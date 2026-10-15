@@ -64,11 +64,41 @@ test('ICST is light only: no system-dark and no forced-dark block, nothing deriv
   assert.equal(readFileSync(path.join(clients, 'icst/theme/tokens.css'), 'utf8'), css)
 })
 
-test('ICST values: error is the CT-ruled #b42318 at 6.5:1 or better; the pending warning is emitted only because it is listed', () => {
+test('ICST values are the Design Director sign-off: error #b42318, warning #92400e, radii 40/8/8, Montserrat and Teko, no provisional marks left but the light-only note', () => {
   const t = loadTokens(path.join(clients, 'icst'))
   assert.equal(t.light.error, '#b42318')
-  assert.ok(contrast('#b42318', t.light.surface as string) >= 6.5)
-  assert.ok(t.pending.some((x) => x.token === 'light.warning'))
+  assert.equal(t.light.warning, '#92400e')
+  assert.deepEqual(t.radii, { control: '40px', card: '8px', cta: '8px' })
+  assert.ok(t.fonts.body.startsWith('Montserrat') && t.fonts.display.startsWith('Teko'))
+  assert.deepEqual(t.pending.map((x) => x.token).sort(), ['breakpointTablet', 'dark'])
+  assert.ok(contrast('#92400e', t.light.surface as string) >= 7)
+})
+
+test('ICST states come from the design file, not the derivation: hover #0b4b8c, pressed #0a3f7c, 2px ring with 2px offset, disabled exempt, footer #fafafa', () => {
+  const css = renderTokensCss(loadTokens(path.join(clients, 'icst')))
+  for (const line of ['--client-accent-hover: rgb(11 75 140)', '--client-accent-active: rgb(10 63 124)', '--client-focus-width: 2px', '--client-focus-offset: 2px', '--client-disabled-bg: rgb(225 229 234)', '--client-disabled-text: rgb(107 118 128)', '--client-footer-bg: rgb(250 250 250)']) assert.ok(css.includes(line), line)
+})
+
+test('explicit states are contrast-checked too: a pale pressed colour, a faint link or a footer text on the footer fails with the ratio; disabled is exempt', () => {
+  const t = JSON.parse(readFileSync(path.join(clients, 'icst/theme/tokens.json'), 'utf8'))
+  t.states.light.accentActive = '#7aa6d6'
+  t.states.light.linkHover = '#bbccdd'
+  t.states.light.footerMuted = '#cccccc'
+  t.states.light.disabledText = '#f0f0f0'
+  const r = validateTokens(t)
+  assert.equal(r.ok, false)
+  const out = r.ok ? [] : r.issues.map((i) => i.path)
+  assert.ok(out.includes('$.light.accentActive'))
+  assert.ok(out.includes('$.light.linkHover'))
+  assert.ok(out.includes('$.states.light.footerMuted'))
+  assert.ok(!out.some((x) => x.includes('disabled')))
+})
+
+test('light-only clients cannot carry dark states', () => {
+  const t = JSON.parse(readFileSync(path.join(clients, 'icst/theme/tokens.json'), 'utf8'))
+  t.states.dark = { link: '#0c56a4' }
+  const r = validateTokens(t)
+  assert.ok(!r.ok && r.issues.some((i) => i.path === '$.states.dark'))
 })
 
 test('a null token must be listed in pending; a dark theme must match modes; dark is never derived silently', () => {
@@ -95,7 +125,7 @@ test('derived states are contrast-checked: a pale accentDeep fails with the deri
   t.light.accentDeep = '#9bbfae'
   const r = validateTokens(t)
   assert.equal(r.ok, false)
-  assert.ok(!r.ok && r.issues.some((i) => i.message.startsWith('derived ')))
+  assert.ok(!r.ok && r.issues.some((i) => i.path === '$.light.accentHover' && i.message.includes(':1')))
   const ok = renderTokensCss(loadTokens(path.join(clients, 'example-industrial')))
   for (const v of ['accent-hover', 'accent-active', 'link', 'link-hover', 'focus-ring']) assert.ok(ok.includes(`--client-${v}:`), v)
 })

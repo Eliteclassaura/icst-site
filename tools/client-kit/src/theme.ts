@@ -10,11 +10,14 @@ import { Checker, type Issue } from './check.ts'
  * Mapping these `--client-*` properties onto the CRM (`--c-accent`, `--c-accent-deep`: three definitions in crm.css today) and the
  * site token families is a later step in hot files (after the 1.3b head); this item adds only new files.
  */
+export const STATE_KEYS = ['accentHover', 'accentActive', 'link', 'linkHover', 'linkActive', 'linkVisited', 'focusRing', 'disabledBg', 'disabledText', 'footerBg', 'footerText', 'footerMuted'] as const
 export const COLOR_KEYS = ['accent', 'accentDeep', 'accentOn', 'text', 'textMuted', 'surface', 'surfaceAlt', 'rule', 'success', 'warning', 'error'] as const
 export type ColorKey = (typeof COLOR_KEYS)[number]
 /** A value is `null` only when listed in `pending` (observed gap awaiting the Design Director); it is then omitted from the CSS. */
 export type Palette = Record<ColorKey, string | null>
 export type Pending = { token: string; reason: string }
+/** Interactive and footer values a client's design file actually draws; any omitted value is derived (see `deriveStates`). */
+export type StateSet = Partial<Record<(typeof STATE_KEYS)[number], string>> & { focusWidth?: string; focusOffset?: string }
 export type Tokens = {
   schemaVersion: 1
   source: string
@@ -23,6 +26,8 @@ export type Tokens = {
   light: Palette
   dark: Palette | null
   pending: Pending[]
+  states?: { light?: StateSet; dark?: StateSet }
+  fontMap?: Record<string, string>
   radii: { control: string; card: string; cta: string }
   fonts: { body: string; display: string }
 }
@@ -57,7 +62,7 @@ const PAIRS: Array<[ColorKey, ColorKey, number, string]> = [
 
 export function validateTokens(raw: unknown): { ok: true; tokens: Tokens } | { ok: false; issues: Issue[] } {
   const c = new Checker()
-  const top = c.obj(raw, '$', ['schemaVersion', 'source', 'modes', 'light', 'dark', 'pending', 'radii', 'fonts'])
+  const top = c.obj(raw, '$', ['schemaVersion', 'source', 'modes', 'light', 'dark', 'pending', 'states', 'fontMap', 'radii', 'fonts'], ['schemaVersion', 'source', 'modes', 'light', 'dark', 'pending', 'radii', 'fonts'])
   if (!top) return { ok: false, issues: c.issues }
   if (top.schemaVersion !== 1) c.fail('$.schemaVersion', 'must be 1')
   c.str(top.source, '$.source', { max: 200 })
@@ -92,18 +97,41 @@ export function validateTokens(raw: unknown): { ok: true; tokens: Tokens } | { o
       if (r < min) c.fail(`$.${mode}.${fg}`, `${fg} on ${bg} is ${r.toFixed(2)}:1, needs ${min}:1 (${why})`)
     }
   }
+  const statesRaw = top.states === undefined ? undefined : c.obj(top.states, '$.states', ['light', 'dark'], [])
+  if (statesRaw) {
+    for (const m of ['light', 'dark'] as const) {
+      if (!(m in statesRaw)) continue
+      if (m === 'dark' && !hasDark) c.fail('$.states.dark', 'is not allowed when modes is [light]')
+      const ss = c.obj(statesRaw[m], `$.states.${m}`, [...STATE_KEYS, 'focusWidth', 'focusOffset'], [])
+      if (!ss) continue
+      for (const k of STATE_KEYS) if (k in ss) c.str(ss[k], `$.states.${m}.${k}`, { pattern: HEX, what: 'a #rrggbb colour' })
+      for (const k of ['focusWidth', 'focusOffset']) if (k in ss) c.str(ss[k], `$.states.${m}.${k}`, { pattern: /^[0-9]{1,2}px$/, what: 'a length like 2px' })
+    }
+  }
+  if (top.fontMap !== undefined) {
+    const fm = c.obj(top.fontMap, '$.fontMap', Object.keys((top.fontMap ?? {}) as object), [])
+    if (fm) for (const k of Object.keys(fm)) c.str(fm[k], `$.fontMap.${k}`, { max: 60 })
+  }
   for (const mode of ['light', 'dark'] as const) {
     const pal = top[mode] as Palette | null
     if (!pal || typeof pal !== 'object') continue
-    const st = deriveStates(pal)
     const surface = pal.surface
     const on = pal.accentOn
-    if (!st || typeof surface !== 'string' || typeof on !== 'string' || !HEX.test(surface) || !HEX.test(on)) continue
+    if (typeof surface !== 'string' || typeof on !== 'string' || !HEX.test(surface) || !HEX.test(on)) continue
+    const st = resolvedStates(top as unknown as Tokens, mode)
+    if (!st) continue
     for (const [name, where, min, why] of STATE_PAIRS) {
       const color = st[name]
-      if (!HEX.test(color)) continue
+      if (!color || !HEX.test(color)) continue
       const r = where === 'label' ? contrast(on, color) : contrast(color, surface)
-      if (r < min) c.fail(`$.${mode}.accentDeep`, `derived ${name} is ${r.toFixed(2)}:1, needs ${min}:1 (${why})`)
+      if (r < min) c.fail(`$.${mode}.${name}`, `${name} is ${r.toFixed(2)}:1, needs ${min}:1 (${why})`)
+    }
+    // footer: text and muted text on the footer background (disabled controls are WCAG-exempt and not checked)
+    if (st.footerBg) {
+      for (const k of ['footerText', 'footerMuted'] as const) {
+        const fg = st[k]
+        if (fg && HEX.test(fg) && contrast(fg, st.footerBg) < 4.5) c.fail(`$.states.${mode}.${k}`, `${k} on footerBg is ${contrast(fg, st.footerBg).toFixed(2)}:1, needs 4.5:1`)
+      }
     }
   }
   const radii = c.obj(top.radii, '$.radii', ['control', 'card', 'cta'])
@@ -118,26 +146,42 @@ const hex2 = (n: number) => Math.max(0, Math.min(255, Math.round(n))).toString(1
 export const shade = (hex: string, f: number) => `#${rgb(hex).map((v) => hex2(v * (1 - f))).join('')}`
 
 /**
- * Interactive states are DERIVED from the palette (client files rarely draw them): hover = accentDeep, pressed = accentDeep darkened 12%,
+ * Interactive states are DERIVED from the palette (client files rarely draw them; anything the file does draw wins): hover = accentDeep, pressed = accentDeep darkened 12%,
  * link = accent, link hover = accentDeep, focus ring = accent. Each derived pair is contrast-checked; a failure stops the build.
  */
 export function deriveStates(p: Palette): Record<string, string> | null {
   if (!p.accent || !p.accentDeep) return null
   return { accentHover: p.accentDeep, accentActive: shade(p.accentDeep, 0.12), link: p.accent, linkHover: p.accentDeep, focusRing: p.accent }
 }
+/** Explicit values from `states.<mode>` win; anything omitted is derived. Returns null when the palette has no accent. */
+export function resolvedStates(t: Tokens, mode: 'light' | 'dark'): Record<string, string> | null {
+  const pal = t[mode]
+  if (!pal) return null
+  const derived = deriveStates(pal)
+  if (!derived) return null
+  const given = (t.states?.[mode] ?? {}) as Record<string, string>
+  const out: Record<string, string> = { ...derived }
+  for (const [k, v] of Object.entries(given)) if (typeof v === 'string') out[k] = v
+  out.focusWidth ??= '2px'
+  out.focusOffset ??= '2px'
+  return out
+}
+
 /** [state, what it sits on, minimum, why]: `label` = accentOn text on the state colour; `page` = the state colour on the page surface. */
 const STATE_PAIRS: Array<[string, 'label' | 'page', number, string]> = [
   ['accentHover', 'label', 4.5, 'label on a hovered accent button'],
   ['accentActive', 'label', 4.5, 'label on a pressed accent button'],
+  ['link', 'page', 4.5, 'link text on the page'],
   ['linkHover', 'page', 4.5, 'hovered link text on the page'],
+  ['linkActive', 'page', 4.5, 'pressed link text on the page'],
   ['focusRing', 'page', 3, 'focus ring against the page'],
 ]
 
 const kebab = (k: string) => k.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)
-const block = (sel: string, p: Palette) =>
+const block = (sel: string, p: Palette, st: Record<string, string> | null) =>
   `${sel} {\n${COLOR_KEYS.filter((k) => p[k] !== null)
     .map((k) => `  --client-${kebab(k)}: rgb(${rgb(p[k] as string).join(' ')});`)
-    .concat(Object.entries(deriveStates(p) ?? {}).map(([k, v]) => `  --client-${kebab(k)}: rgb(${rgb(v).join(' ')});`))
+    .concat(Object.entries(st ?? {}).map(([k, v]) => (/^#/.test(v) ? `  --client-${kebab(k)}: rgb(${rgb(v).join(' ')});` : `  --client-${kebab(k)}: ${v};`)))
     .join('\n')}\n}\n`
 
 /** Deterministic CSS: same tokens, same bytes. Dark applies by `prefers-color-scheme` unless a theme is forced either way. */
@@ -145,15 +189,15 @@ export function renderTokensCss(t: Tokens): string {
   const dark = t.dark
   return [
     `/* Generated by tools/client-kit from theme/tokens.json (${t.source}). Do not edit. */`,
-    '/* Interactive states (hover, pressed, link, focus ring) are DERIVED from accent/accentDeep and contrast-checked; they are not drawn in the client file. */',
-    ...(t.pending.length ? [`/* PENDING sign-off, not emitted or not final: ${t.pending.map((p) => `${p.token} (${p.reason})`).join('; ')} */`] : []),
+    '/* Interactive and footer values come from theme/tokens.json `states` where the client file draws them; any omitted one is derived from accent/accentDeep. All are contrast-checked at generation. */',
+    ...(t.pending.length ? [`/* Open items (not applied, or not final): ${t.pending.map((p) => `${p.token} (${p.reason})`).join('; ')} */`] : []),
     ...(dark ? [] : ['/* No dark theme: this client is light only. */']),
-    block(':root', t.light),
+    block(':root', t.light, resolvedStates(t, 'light')),
     `:root {\n  --client-radius-control: ${t.radii.control};\n  --client-radius-card: ${t.radii.card};\n  --client-radius-cta: ${t.radii.cta};\n  --client-font-body: ${t.fonts.body};\n  --client-font-display: ${t.fonts.display};\n}\n`,
     ...(dark
       ? [
-          `@media (prefers-color-scheme: dark) {\n${block(':root:not([data-theme="light"])', dark).replace(/^/gm, '  ').replace(/ +$/gm, '')}}\n`,
-          block(':root[data-theme="dark"]', dark),
+          `@media (prefers-color-scheme: dark) {\n${block(':root:not([data-theme="light"])', dark, resolvedStates(t, 'dark')).replace(/^/gm, '  ').replace(/ +$/gm, '')}}\n`,
+          block(':root[data-theme="dark"]', dark, resolvedStates(t, 'dark')),
         ]
       : []),
   ].join('\n')
