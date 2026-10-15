@@ -9,10 +9,10 @@ import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { createRequire } from 'node:module'
+import type * as EsbuildModule from 'esbuild'
 import { fileURLToPath } from 'node:url'
-import { buildMatcher, loadBlocklists } from '../src/blocklist.ts'
+import { buildMatcher, loadBlocklists, scanText } from '../src/blocklist.ts'
 import { loadManifest } from '../src/load.ts'
-import { scanText } from '../src/blocklist.ts'
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..')
 const args = process.argv.slice(2)
@@ -24,7 +24,7 @@ if (!client || entries.length === 0) {
   process.exit(2)
 }
 const require = createRequire(path.join(repo, 'apps/h2o/package.json'))
-const esbuild = require('esbuild') as typeof import('esbuild')
+const esbuild = require('esbuild') as typeof EsbuildModule
 const manifest = loadManifest(path.join(repo, 'clients', client))
 const matcher = buildMatcher(loadBlocklists(path.join(repo, 'clients')).filter((l) => l.client !== client), 'output', manifest.review.allowedOverlap)
 const tmp = mkdtempSync(path.join(os.tmpdir(), 'bundle-audit-'))
