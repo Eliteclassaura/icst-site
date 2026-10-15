@@ -34,8 +34,9 @@ type FieldDef = {
 // E1 contextual facts/approved phrases remain plain text. The renderer cleans/bounds them as before;
 // the registry only declares names, and an absent value still fails closed. Resolvers/storage are later work.
 const E1_TEXT_VALUE = /\S/u
+import { RFQ_PREFIX } from '../crm/ids' // KIT-0 H5: the client's reference prefix, for the example in a field hint
 export const MERGE_FIELDS: Record<string, FieldDef> = {
-  rfq_number: { label: 'RFQ number', required: true, hint: 'The inquiry’s reference, e.g. RFQ-20261005-ABCD1234.' },
+  rfq_number: { label: 'RFQ number', required: true, hint: `The inquiry’s reference, e.g. ${RFQ_PREFIX}20261005-ABCD1234.` },
   // Only a plausible name is echoed (letters, spaces, apostrophes, periods, hyphens); anything else greets neutrally.
   customer_first_name: {
     label: 'Customer first name',

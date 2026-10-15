@@ -6,6 +6,7 @@ import { ersSettings } from '../ers/settings'
 import { signatureMergeValues } from '../settings/signatures'
 import type { Outcome } from '../workspace/mutations'
 import type { CrmSession } from '../workspace/session'
+import { RFQ_PREFIX } from '../ids'
 import {
   LIBRARY_APPROVAL,
   LIBRARY_LINT_BADGE,
@@ -177,8 +178,8 @@ export const SAMPLE_RECIPIENTS: SampleRecipient[] = [
       first_name: 'Alex',
       customer_first_name: 'Alex',
       greeting: 'Hi Alex,',
-      rfq_number: 'RFQ-SAMPLE-0001',
-      rfq_reference: 'RFQ-SAMPLE-0001',
+      rfq_number: `${RFQ_PREFIX}SAMPLE-0001`,
+      rfq_reference: `${RFQ_PREFIX}SAMPLE-0001`,
       quote_reference: 'Q-SAMPLE-0001',
       opportunity_reference: 'OPP-SAMPLE-0001',
       verified_account_name: 'Northwind Plant (sample)',
@@ -211,8 +212,8 @@ export const SAMPLE_RECIPIENTS: SampleRecipient[] = [
       first_name: 'Jordan',
       customer_first_name: 'Jordan',
       greeting: 'Hi Jordan,',
-      rfq_number: 'RFQ-SAMPLE-0002',
-      rfq_reference: 'RFQ-SAMPLE-0002',
+      rfq_number: `${RFQ_PREFIX}SAMPLE-0002`,
+      rfq_reference: `${RFQ_PREFIX}SAMPLE-0002`,
       quote_reference: 'Q-SAMPLE-0002',
       opportunity_reference: 'OPP-SAMPLE-0002',
       verified_account_name: 'Harbor Process Co (sample)',

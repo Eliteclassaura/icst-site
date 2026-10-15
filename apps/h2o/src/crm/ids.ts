@@ -1,4 +1,5 @@
 import { randomBytes } from 'node:crypto'
+import { client } from '../client'
 
 /**
  * Canonical identity (E0.1 R1 §2): "server-generated UUIDv7 stored as immutable strings; external/source
@@ -35,10 +36,18 @@ export const uuidv7Timestamp = (id: string): number => parseInt(id.replace(/-/g,
 
 const CROCKFORD = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'
 
+/** A prefix is letters and digits ending in a hyphen (it goes into a regular expression and into every customer-facing number). */
+export const RFQ_PREFIX_SHAPE = /^[A-Z][A-Z0-9]{1,5}-$/
+const prefixOf = (value: string): string => {
+  if (!RFQ_PREFIX_SHAPE.test(value)) throw new Error(`client rfqPrefix "${value}" must be 2 to 6 capital letters or digits followed by a hyphen`)
+  return value
+}
+export const RFQ_PREFIX = prefixOf(client().rfqPrefix)
+
 /**
  * `rfq_number` — the stable human reference quoted to a customer (E1.1 `{{rfq_reference}}`).
  *
- * Format `RFQ-YYYYMMDD-XXXXXXXX`: the UTC receipt date plus 40 random bits taken from the canonical UUIDv7
+ * Format `<prefix>YYYYMMDD-XXXXXXXX` (the prefix is the client's `crm.rfqPrefix`, `RFQ-` for the default client; KIT-0 H5): the UTC receipt date plus 40 random bits taken from the canonical UUIDv7
  * (Crockford base32, no I/L/O/U ambiguity). It is derived **once**, at creation, from server values only;
  * a client can never supply it, and `guards.ts` refuses any later change. Uniqueness is enforced by a
  * unique index, not assumed from randomness. The exact public numbering format is an owner input; this
@@ -55,7 +64,9 @@ export function rfqNumberFor(canonicalId: string, receivedAt: Date): string {
     n >>= 5n
   }
   const d = receivedAt.toISOString().slice(0, 10).replace(/-/g, '')
-  return `RFQ-${d}-${code}`
+  return `${RFQ_PREFIX}${d}-${code}`
 }
 
-export const RFQ_NUMBER_PATTERN = /^RFQ-\d{8}-[0-9A-HJKMNP-TV-Z]{8}$/
+/** The pattern a number made by `rfqNumberFor` matches, for a prefix (pure; tests build it for any client). */
+export const rfqNumberPattern = (prefix: string): RegExp => new RegExp(`^${prefix}\\d{8}-[0-9A-HJKMNP-TV-Z]{8}$`)
+export const RFQ_NUMBER_PATTERN = rfqNumberPattern(RFQ_PREFIX)

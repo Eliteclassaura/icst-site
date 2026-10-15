@@ -8,12 +8,13 @@ import { absoluteTime } from '../../../../../../crm/workspace/time'
 import { Shell } from '../../../../../../crm/workspace/ui/Shell'
 import { ApproveTemplateForm, TemplateForm } from '../../../_components/SettingsForms'
 import { requireCrmSession } from '../../../session'
+import { RFQ_PREFIX } from '../../../../../../crm/ids'
 
 export const metadata: Metadata = { title: 'Email template' }
 
 /** Sample values for the preview only (synthetic; never a real customer). */
 const SAMPLE = {
-  rfq_number: 'RFQ-20261005-SAMPLE01',
+  rfq_number: `${RFQ_PREFIX}20261005-SAMPLE01`,
   customer_first_name: 'Alex',
   greeting: 'Hi Alex,',
   company: 'Example Plant (sample)',

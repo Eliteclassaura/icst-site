@@ -8,6 +8,7 @@ import { REPLY_TOKEN_RE } from './reply'
 import type { Outcome } from './workspace/mutations'
 import { asUser, type CrmSession } from './workspace/session'
 import type { EmailReviewReason } from './vocabulary'
+import { RFQ_PREFIX } from './ids'
 
 /**
  * CRM email M3 — E3: customer replies thread back into the CRM.
@@ -399,12 +400,12 @@ export async function linkReviewItem(
   if (!s.isAdmin) return { ok: false, code: 'FORBIDDEN', message: 'Only an admin can link inbound email.' }
   const reviewId = typeof input.reviewId === 'string' ? input.reviewId : ''
   const number = typeof input.rfqNumber === 'string' ? input.rfqNumber.trim().toUpperCase() : ''
-  if (!/^RFQ-[A-Z0-9-]{4,40}$/.test(number))
+  if (!new RegExp(`^${RFQ_PREFIX}[A-Z0-9-]{4,40}$`).test(number))
     return {
       ok: false,
       code: 'VALIDATION',
       message: 'Enter an RFQ number.',
-      fields: { rfqNumber: 'Enter an RFQ number like RFQ-20261005-ABC123.' },
+      fields: { rfqNumber: `Enter an RFQ number like ${RFQ_PREFIX}20261005-ABC123.` },
     }
   let item: Doc
   try {
