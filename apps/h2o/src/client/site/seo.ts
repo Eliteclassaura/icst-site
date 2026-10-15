@@ -12,7 +12,7 @@ export const SITEMAP_CHUNK = 1000
 export const canonicalUrl = (origin: string, pagePath: string): string => `${origin}${pagePath}`
 const xml = (s: string) => s.replace(/[<>&'"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' })[c] as string)
 
-export const indexablePages = (pages: readonly ListedPage[]): ListedPage[] => pages.filter((p) => !p.page.noindex)
+export const indexablePages = (pages: readonly ListedPage[]): ListedPage[] => pages.filter((p) => !p.page.noindex && (!p.page.canonical || p.page.canonical === p.path))
 
 export function robotsTxt(origin: string, on: boolean): string {
   if (!on) return 'User-agent: *\nDisallow: /\n'

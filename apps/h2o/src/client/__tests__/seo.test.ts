@@ -51,6 +51,14 @@ describe('sitemaps', () => {
   })
 })
 
+describe('canonical pages', () => {
+  it('a page that canonicalises elsewhere stays out of the sitemap and llms.txt', () => {
+    const list = [page('/', 'Home'), page('/new-towers/', 'New towers'), page('/cooling-towers/', 'Air coolers', { canonical: '/new-towers/' })]
+    expect(indexablePages(list).map((p) => p.path)).toEqual(['/', '/new-towers/'])
+    expect(sitemapXml(origin, list, 'pages-1.xml', true)).not.toContain('/cooling-towers/')
+  })
+})
+
 describe('llms.txt', () => {
   it('names the site and home description; lists indexable pages only in production', () => {
     const on = llmsTxt(BAKED_MANIFEST, pages, true)

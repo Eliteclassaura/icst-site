@@ -1,1 +1,108 @@
 from	to	status	note
+/cart/	/parts/	301	CT-1 ruling: cart redirects to /parts/ (cart is noindex; not a target)
+/category/blog/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/blog/page/10/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/blog/page/12/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/blog/page/15/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/blog/page/18/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/blog/page/2/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/blog/page/20/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/blog/page/22/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/blog/page/23/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/blog/page/25/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/blog/page/3/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/blog/page/5/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/category/cooling-tower/	/tech-articles/	301	blog category archive; no /blog/ section (CT-1 ruling 7)
+/category/industrial-cooling/	/tech-articles/	301	proposal: blog archive/pagination; ICST has no /blog/ section (CT-1 ruling 7)
+/closed-circuit-cooling-towers	/closed-circuit-cooling-towers/	301	already 301 live; carried unchanged (inherited traffic)
+/con/crossflow-cooling-tower-applications	/crossflow-cooling-tower-applications/	301	already 301 live; carried unchanged (inherited traffic)
+/cooling-reference		410	no clicks, no successor; intentional 410
+/cooling-system-occupational-hazards-the-complete-safety-guide	/cooling-system-occupational-hazards-the-complete-safety-guide/	301	already 301 live; carried unchanged (inherited traffic)
+/cooling-system-technician-skill-2/		410	live 301 to home forbidden; 0 clicks; no successor
+/cooling-tower-fills-the-heart-of-efficient-industrial-cooling/	/cooling-tower-fills/	301	already 301 live; carried unchanged (inherited traffic)
+/cooling-tower-heat-transfer-principles	/cooling-tower-heat-transfer-principles/	301	already 301 live; carried unchanged (inherited traffic)
+/cooling-tower-location/		410	no clicks, no successor; intentional 410
+/cooling-tower-operator-competency-skills-training-certification/	/cooling-tower-operator-competency/	301	already 301 live; carried unchanged (inherited traffic)
+/cooling-tower-performance-cti/		410	no clicks, no successor; intentional 410
+/cooling-tower-project-financing-models-capex-vs-opex/	/cooling-tower-project-financing-models/	301	already 301 live; carried unchanged (inherited traffic)
+/cooling-tower-vs-chiller-a-guide-for-facility-managers/		410	no clicks, no successor; intentional 410
+/cooling-tower-water-distribution-system-design-guide		410	no clicks, no successor; intentional 410
+/cooling-tower-water-loss-explained-causes-calculations-smart-solutions/	/cooling-tower-water-loss/	301	already 301 live; carried unchanged (inherited traffic)
+/cooling-tower-water-loss-explained-causes-smart-solutions/		410	no clicks, no successor; intentional 410
+/cooling-towers-in-power-plants/	/15080-2cooling-towers-in-power-plants/	301	already 301 live; carried unchanged (inherited traffic)
+/evercompare/		410	CT-1 ruling: EverCompare retired
+/home.html	/parts/	301	legacy static home; redirect to home forbidden (CT rule); parts hub as provisional target
+/how-do-cooling-towers-work-with-chillers-guide-for-facility-managers		410	no clicks, no successor; intentional 410
+/iot-cooling-system-sensors-secrets/	/iot-cooling-system-sensors-2/	301	already 301 live; carried unchanged (inherited traffic)
+/natural-draft-cooling-tower-guide-choose-the-best-for-your-facility	/natural-draft-cooling-tower-guide-choose-the-best-for-your-facility/	301	already 301 live; carried unchanged (inherited traffic)
+/portfolio-category/geo-thermal/	/projects/	301	proposal: project archive; /projects/ is the index
+/portfolio/	/projects/	301	CT-1 ruling: portfolio index 301 to /projects/; /portfolio/<slug>/ slugs stay
+/product-category/cooling-tower-fan-stacks/	/cooling-tower-fan-stacks/	301	proposal: live parts-category archive; ICST parts page replaces it (cooling-tower-fan-stacks)
+/product-category/cooling-tower-fan-stacks/page/2/	/cooling-tower-fan-stacks/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/cooling-tower-fan-stacks/page/3/	/cooling-tower-fan-stacks/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/cooling-tower-fan-stacks/page/4/	/cooling-tower-fan-stacks/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/	/drive-shafts-assembles/	301	proposal: live parts-category archive; ICST parts page replaces it (drive-shafts-assemblies)
+/product-category/drive-shafts-assemblies/page/11/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/12/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/17/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/18/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/19/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/20/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/21/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/23/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/24/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/25/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/26/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/27/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/29/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/3/	/drive-shafts-assembles/	301	proposal: live parts-category archive; ICST parts page replaces it (drive-shafts-assemblies)
+/product-category/drive-shafts-assemblies/page/4/	/drive-shafts-assembles/	301	proposal: live parts-category archive; ICST parts page replaces it (drive-shafts-assemblies)
+/product-category/drive-shafts-assemblies/page/5/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/8/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/drive-shafts-assemblies/page/9/	/drive-shafts-assembles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/fans/	/fans/	301	proposal: live parts-category archive; ICST parts page replaces it (fans)
+/product-category/fans/page/10/	/fans/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/fans/page/11/	/fans/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/fans/page/2/	/fans/	301	proposal: live parts-category archive; ICST parts page replaces it (fans)
+/product-category/fans/page/3/	/fans/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/fans/page/4/	/fans/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/fans/page/6/	/fans/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/fans/page/7/	/fans/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/fans/page/9/	/fans/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/fill-media/	/fill-media/	301	proposal: live parts-category archive; ICST parts page replaces it (fill-media)
+/product-category/fill-media/page/2/	/fill-media/	301	proposal: live parts-category archive; ICST parts page replaces it (fill-media)
+/product-category/fill-media/page/3/	/fill-media/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/fill-media/page/5/	/fill-media/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/fill-media/page/9/	/fill-media/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/frp-members/	/frp-members/	301	proposal: live parts-category archive; ICST parts page replaces it (frp-members)
+/product-category/frp-members/page/2/	/frp-members/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/	/gear-box/	301	proposal: live parts-category archive; ICST parts page replaces it (gearboxes)
+/product-category/gearboxes/double-reductiongearboxes/	/gear-box/	301	proposal: live parts-category archive; ICST parts page replaces it (gearboxes)
+/product-category/gearboxes/double-reductiongearboxes/page/6/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/double-reductiongearboxes/page/8/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/10/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/12/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/14/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/15/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/16/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/19/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/2/	/gear-box/	301	proposal: live parts-category archive; ICST parts page replaces it (gearboxes)
+/product-category/gearboxes/page/20/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/3/	/gear-box/	301	proposal: live parts-category archive; ICST parts page replaces it (gearboxes)
+/product-category/gearboxes/page/4/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/5/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/6/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/7/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/gearboxes/page/8/	/gear-box/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/motors/	/motors/	301	proposal: live parts-category archive; ICST parts page replaces it (motors)
+/product-category/nozzles/counterflow/	/nozzles/	301	proposal: live parts-category archive; ICST parts page replaces it (nozzles)
+/product-category/nozzles/counterflow/page/3/	/nozzles/	301	proposal: dead pagination of a parts category; send to the category page
+/product-category/nozzles/counterflownozzles/	/nozzles/	301	proposal: live parts-category archive; ICST parts page replaces it (nozzles)
+/products.html	/parts/	301	proposal: legacy products page; parts hub
+/project-category/chemical/	/projects/	301	proposal: project archive; /projects/ is the index
+/project-category/counter-flow/	/project/counter-flow/	301	proposal: project taxonomy present in map under /project/
+/project-category/frp/	/project/frp/	301	proposal: project taxonomy present in map under /project/
+/project/	/projects/	301	proposal: project archive; /projects/ is the index
+/services/	/cooling-tower-maintenance/	301	live 301 to home is forbidden (CT rule); nearest service page; 2 clicks
+/types-of-industrial-fan-blades/	/industrial-fan-blades-3/	301	already 301 live; carried unchanged (inherited traffic)
+/what-are-industrial-cooling-systems-types-and-applications/	/industrial-cooling-systems/	301	already 301 live; carried unchanged (inherited traffic)

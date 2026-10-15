@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const found = listPages(c.slug).find((p) => p.path === here)
   if (!found) return { title: 'Page not found', robots: { index: false, follow: false } }
   const title = found.path === '/' ? found.page.title : `${found.page.title} | ${c.brandName('site')}`
-  const url = canonicalUrl(c.origin, found.path)
+  const url = canonicalUrl(c.origin, found.page.canonical ?? found.path)
   return {
     title,
     description: found.page.description,

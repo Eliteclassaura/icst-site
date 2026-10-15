@@ -22,8 +22,9 @@ export function normalisePath(p: string): string {
   return withSlash.endsWith('/') ? withSlash : `${withSlash}/`
 }
 
-export function parseLedger(tsv: string): { rows: LedgerRow[]; issues: LedgerIssue[] } {
+export function parseLedger(tsv: string): { rows: LedgerRow[]; issues: LedgerIssue[]; slashOnly: LedgerRow[] } {
   const rows: LedgerRow[] = []
+  const slashOnly: LedgerRow[] = []
   const issues: LedgerIssue[] = []
   let header = true
   tsv.split(/\r?\n/).forEach((raw, i) => {
@@ -45,9 +46,12 @@ export function parseLedger(tsv: string): { rows: LedgerRow[]; issues: LedgerIss
       issues.push({ line, from, code: 'BAD_FROM', message: 'from must be a site path starting with /' })
       return
     }
-    rows.push({ from: normalisePath(from), to: to.trim() ? normalisePath(to) : '', status: s, note: note.trim(), line })
+    const row: LedgerRow = { from: normalisePath(from), to: to.trim() ? normalisePath(to) : '', status: s, note: note.trim(), line }
+    // `/x` -> `/x/` only adds the trailing slash: the site already answers that with one permanent redirect (trailingSlash), so the row is a no-op, not a loop.
+    if (s === 301 && row.to === row.from && from.trim() !== to.trim()) slashOnly.push(row)
+    else rows.push(row)
   })
-  return { rows, issues }
+  return { rows, issues, slashOnly }
 }
 
 export function ledgerIssues(rows: readonly LedgerRow[], pages: readonly ListedPage[]): LedgerIssue[] {
@@ -80,16 +84,16 @@ export function ledgerIssues(rows: readonly LedgerRow[], pages: readonly ListedP
   return issues
 }
 
-export type RedirectIndex = { map: Map<string, { to: string; status: 301 | 410 }>; issues: LedgerIssue[] }
+export type RedirectIndex = { map: Map<string, { to: string; status: 301 | 410 }>; issues: LedgerIssue[]; slashOnly: number }
 
 /** The usable rows: those that break no rule. The issues are returned so the caller can log them once. */
 export function buildIndex(tsv: string, pages: readonly ListedPage[]): RedirectIndex {
-  const { rows, issues } = parseLedger(tsv)
+  const { rows, issues, slashOnly } = parseLedger(tsv)
   const all = [...issues, ...ledgerIssues(rows, pages)]
   const badLines = new Set(all.map((i) => i.line))
   const map = new Map<string, { to: string; status: 301 | 410 }>()
   for (const r of rows) if (!badLines.has(r.line)) map.set(r.from, { to: r.to, status: r.status })
-  return { map, issues: all }
+  return { map, issues: all, slashOnly: slashOnly.length }
 }
 
 export const ledgerFile = (slug: string, root: string = clientsRoot()): string => path.join(root, slug, 'redirects', 'ledger.tsv')
@@ -104,7 +108,7 @@ export function loadRedirects(slug: string, root: string = clientsRoot()): Redir
   const file = ledgerFile(slug, root)
   const key = `${root}|${slug}`
   if (cached?.key === key) return cached.index
-  const index = existsSync(file) ? buildIndex(readFileSync(file, 'utf8'), listPages(slug, root)) : { map: new Map(), issues: [] }
+  const index = existsSync(file) ? buildIndex(readFileSync(file, 'utf8'), listPages(slug, root)) : { map: new Map(), issues: [], slashOnly: 0 }
   if (index.issues.length) process.stderr.write(`${JSON.stringify({ level: 'error', code: 'REDIRECT_LEDGER_ROWS_DROPPED', count: index.issues.length, first: index.issues.slice(0, 3).map((i) => `${i.line}:${i.code}`) })}\n`)
   cached = { key, index }
   return index

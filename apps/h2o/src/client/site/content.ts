@@ -15,6 +15,8 @@ export type ClientPageData = {
   layout: LayoutBlockData[]
   /** Public path when it is not `/<name>/` (nested pages), always with leading and trailing slash. */
   path?: string
+  /** Canonical path when this page repeats another page's content (it stays 200 but is not listed); defaults to its own path. */
+  canonical?: string
   /** Kept out of the index, the sitemaps and llms.txt, whatever the indexing policy. */
   noindex?: boolean
   /** ISO date, for the sitemap. */
