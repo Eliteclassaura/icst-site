@@ -18,6 +18,7 @@
     "migrate:status": "payload migrate:status",
     "identity-step": "payload run src/client/identity-step.run.ts",
     "seed-pack": "payload run src/client/seed-pack.run.ts",
+    "bootstrap-admin": "payload run src/client/bootstrap-admin.run.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --max-warnings 0",
     "test": "vitest run",
