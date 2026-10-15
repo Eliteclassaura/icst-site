@@ -21,8 +21,7 @@ import { APIError, type CollectionBeforeChangeHook, type CollectionConfig, type 
  * as the frozen catalog contract defines; none of this applies to them.
  */
 export const CATALOG_SEED_CONTEXT = 'h2oCatalogSeed'
-const PAGE_LINK_FIELDS = ['page_route', 'source_route_id'] as const
-export const EDIT_PAGE_CONTENT_COMPONENT = '/collections/admin/EditPageContentLink#EditPageContentLink'
+const PAGE_LINK_FIELDS = ['source_route_id'] as const
 
 const relId = (v: unknown): unknown =>
   v && typeof v === 'object' && 'id' in (v as Record<string, unknown>) ? String((v as Record<string, unknown>).id) : v
@@ -62,7 +61,7 @@ export function pageIndexGuard(opts: {
       const o = (originalDoc ?? {}) as Record<string, unknown>
       const forged = PAGE_LINK_FIELDS.filter((k) => {
         if (!Object.prototype.hasOwnProperty.call(d, k)) return false
-        const rel = k === 'page_route'
+        const rel = false
         return JSON.stringify(comparable(d[k], rel)) !== JSON.stringify(comparable(operation === 'update' ? o[k] : undefined, rel))
       })
       if (forged.length > 0) {
@@ -106,26 +105,6 @@ const hideWhenIndexed = (f: Field): Field => {
 
 function indexFields(noun: string): Field[] {
   return [
-    {
-      name: 'edit_page_content',
-      type: 'ui',
-      admin: {
-        condition: (data) => Boolean(data?.page_route),
-        components: { Field: EDIT_PAGE_CONTENT_COMPONENT },
-      },
-    },
-    {
-      name: 'page_route',
-      type: 'relationship',
-      relationTo: 'public-routes',
-      index: true,
-      label: 'Public page',
-      admin: {
-        position: 'sidebar',
-        readOnly: true,
-        description: `The public page this ${noun} indexes. Set by the catalog seed; the page is the source of truth.`,
-      },
-    },
     {
       name: 'source_route_id',
       type: 'text',
@@ -171,9 +150,9 @@ export function productsAsPageIndex(c: CollectionConfig): CollectionConfig {
       ...c.hooks,
       beforeChange: [
         pageIndexGuard({
-          seedOwned: ['title', 'slug', 'page_route', 'source_route_id', 'legacy_urls', 'categories'],
+          seedOwned: ['title', 'slug', 'source_route_id', 'legacy_urls', 'categories'],
           pageOwned,
-          relations: ['page_route', 'categories', 'variants', 'media', 'documents', 'related_products', 'related_services'],
+          relations: ['categories', 'variants', 'media', 'documents', 'related_products', 'related_services'],
           noun: 'product',
         }),
         ...(c.hooks?.beforeChange ?? []),
@@ -199,9 +178,9 @@ export function categoriesAsPageIndex(c: CollectionConfig): CollectionConfig {
       ...c.hooks,
       beforeChange: [
         pageIndexGuard({
-          seedOwned: ['name', 'slug', 'parent', 'page_route', 'source_route_id'],
+          seedOwned: ['name', 'slug', 'parent', 'source_route_id'],
           pageOwned: [],
-          relations: ['parent', 'page_route'],
+          relations: ['parent'],
           noun: 'product category',
         }),
         ...(c.hooks?.beforeChange ?? []),
