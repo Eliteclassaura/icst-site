@@ -6,6 +6,8 @@
  */
 import { NextResponse, type NextRequest } from 'next/server'
 import { MFA_COOKIE, mfaCookieValid } from './auth/mfa/keys'
+import { client } from './client'
+import { loadRedirects, redirectFor } from './client/site/redirects'
 
 const securityHeaders = (res: NextResponse, csp: string, robots: string | null): NextResponse => {
   res.headers.set('Content-Security-Policy', csp)
@@ -115,6 +117,14 @@ export function proxy(req: NextRequest): NextResponse {
   if (mfa) return mfa
   const path = req.nextUrl.pathname
   if (/^\/_next\//.test(path)) return NextResponse.next()
+  // The client's redirect ledger, before any routing: one hop to the final page, or 410. Never for platform paths.
+  const hop = redirectFor(path, loadRedirects(client().slug))
+  if (hop) {
+    if (hop.status === 410) return securityHeaders(new NextResponse('Gone', { status: 410, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=3600' } }), "default-src 'none'", 'noindex')
+    const res = securityHeaders(NextResponse.redirect(new URL(hop.to, productionIndexing() ? client().origin : req.nextUrl.origin), 301), "default-src 'none'", null)
+    res.headers.set('Cache-Control', 'public, max-age=3600')
+    return res
+  }
   if (CRM_PATH.test(path)) return crmResponse(req)
   // Admin and API keep their own handling; they are never indexed.
   if (PRIVATE_SURFACE.test(path)) return securityHeaders(NextResponse.next(), "default-src 'self'", 'noindex, nofollow')
