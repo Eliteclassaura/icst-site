@@ -16,6 +16,7 @@
     "migrate": "payload migrate",
     "migrate:create": "payload migrate:create",
     "migrate:status": "payload migrate:status",
+    "identity-step": "payload run src/client/identity-step.run.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --max-warnings 0",
     "test": "vitest run",

@@ -8,6 +8,6 @@ describe('payload config', () => {
     const mod = await import('../payload.config')
     const config = await mod.default
     expect(config.collections.length).toBeGreaterThan(10)
-    expect(config.collections.some((c) => c.slug === 'public-routes')).toBe(false)
+    expect(config.collections.some((c) => (c.slug as string) === 'public-routes')).toBe(false)
   }, 60000)
 })
