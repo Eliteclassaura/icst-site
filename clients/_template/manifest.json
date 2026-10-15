@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "client": {
+    "slug": "__SLUG__",
+    "legalName": "__LEGAL__",
+    "displayName": "__NAME__",
+    "shortName": "__SHORT__",
+    "tenantKey": "__TENANT__"
+  },
+  "brand": {
+    "names": {
+      "site": "__NAME__",
+      "admin": "__NAME__ admin",
+      "emailFrom": "__NAME__ Sales Team",
+      "chatHeader": "Request a quote · __NAME__",
+      "crmHeader": "__NAME__ Sales Workspace"
+    },
+    "logo": {
+      "light": "/brand/example-logo.svg",
+      "dark": "/brand/example-logo-dark.svg",
+      "emblem": "/brand/example-emblem.svg",
+      "favicon": "/brand/example-favicon.svg",
+      "og": "/brand/example-og.png"
+    }
+  },
+  "domains": {
+    "canonical": "https://__DOMAIN__",
+    "aliases": [
+      "www.__DOMAIN__"
+    ],
+    "indexingPolicy": "staging"
+  },
+  "locales": {
+    "default": "en",
+    "enabled": [
+      "en"
+    ]
+  },
+  "offices": [
+    {
+      "key": "HQ",
+      "label": "Example HQ (Testville)",
+      "country": "US",
+      "address": {
+        "lines": [
+          "1 Sample Street"
+        ],
+        "city": "Testville",
+        "region": "ZZ",
+        "postalCode": "00000"
+      },
+      "phones": [
+        {
+          "display": "+1-555-0100",
+          "tel": "tel:+15550100"
+        }
+      ],
+      "timeZone": "America/Chicago",
+      "publicOnSite": true
+    },
+    {
+      "key": "BR",
+      "label": "Example Branch (Sampleton)",
+      "country": "GB",
+      "address": {
+        "lines": [
+          "2 Placeholder Road"
+        ],
+        "city": "Sampleton",
+        "region": "ZZ",
+        "postalCode": "ZZ0 0ZZ"
+      },
+      "phones": [
+        {
+          "display": "+44-555-0101",
+          "tel": "tel:+445550101"
+        }
+      ],
+      "timeZone": "Europe/London",
+      "publicOnSite": true
+    }
+  ],
+  "routing": {
+    "unknownCountry": "HQ",
+    "rules": [
+      {
+        "countries": [
+          "GB",
+          "IE",
+          "FR",
+          "DE"
+        ],
+        "office": "BR"
+      }
+    ],
+    "responsePromise": "We reply within one business day."
+  },
+  "email": {
+    "provider": "workspace",
+    "mode": "off",
+    "senders": [
+      {
+        "id": "sales",
+        "displayName": "__NAME__ Sales Team",
+        "address": "hello@__DOMAIN__"
+      }
+    ],
+    "replyDomain": "mail.__DOMAIN__",
+    "signature": {
+      "name": "__NAME__ Sales Team",
+      "lines": [
+        "__NAME__"
+      ]
+    },
+    "persona": null,
+    "library": {
+      "enabled": false
+    },
+    "sequences": {
+      "enabled": false
+    },
+    "inbound": {
+      "enabled": false
+    }
+  },
+  "crm": {
+    "pipelineStages": [
+      {
+        "key": "NEW",
+        "label": "New"
+      },
+      {
+        "key": "QUALIFYING",
+        "label": "Qualifying"
+      },
+      {
+        "key": "PROPOSAL",
+        "label": "Proposal"
+      },
+      {
+        "key": "WON",
+        "label": "Won"
+      },
+      {
+        "key": "LOST",
+        "label": "Lost"
+      }
+    ],
+    "intakePurposes": [
+      {
+        "key": "QUOTE",
+        "label": "Request a quote"
+      },
+      {
+        "key": "SERVICE",
+        "label": "Service"
+      },
+      {
+        "key": "OTHER",
+        "label": "Other"
+      }
+    ],
+    "rfqPrefix": "RFQ-",
+    "modules": {
+      "library": false,
+      "sequences": false,
+      "attachments": false,
+      "api": false,
+      "sheets": false,
+      "typeform": false
+    }
+  },
+  "site": {
+    "modules": [
+      "pages",
+      "articles",
+      "products",
+      "projects"
+    ],
+    "legal": {
+      "privacy": true,
+      "cookies": true,
+      "terms": true,
+      "accessibility": true
+    },
+    "sameAs": []
+  },
+  "seo": {
+    "rankingUrlContract": null
+  },
+  "ops": {
+    "imageName": "registry.__DOMAIN__/__SLUG__",
+    "backupTarget": "__SLUG__-backups",
+    "scannerAllowlist": "clients/__SLUG__/scan-allow.json",
+    "secretsRef": "vault:__SLUG__"
+  },
+  "review": {
+    "allowedOverlap": []
+  }
+}
