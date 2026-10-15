@@ -1,3 +1,4 @@
+import { addressLines } from '../../../client/site/address'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { FooterBlock, HeaderBlock, RenderBlocks } from '@factory/agency-core/blocks'
@@ -47,9 +48,9 @@ export default async function ClientPreviewPage({ params }: Params) {
   const offices = c.offices.filter((o) => o.publicOnSite).map((o) => ({ city: o.address.city, region: o.address.region, hours: '' }))
   // The phoneCta block's number: the first public office phone from the manifest (the block renders nothing without it).
   const phone = c.offices.find((o) => o.publicOnSite && o.phones.length > 0)?.phones[0] ?? null
-  // The footer's office contact: the same public office's address lines and phone, from the manifest.
+  // The footer's office contact: the same public office's full address (street lines, city and postcode, country) and phone, from the manifest.
   const publicOffice = c.offices.find((o) => o.publicOnSite && o.phones.length > 0)
-  const contact = publicOffice ? { lines: publicOffice.address.lines, phone: publicOffice.phones[0] ?? null } : undefined
+  const contact = publicOffice ? { lines: addressLines(publicOffice), phone: publicOffice.phones[0] ?? null } : undefined
   // The intake section's contact card (WP-27): the same public office, with the full address and country name, from the manifest.
   const countryName = (code: string) => new Intl.DisplayNames(['en'], { type: 'region' }).of(code) ?? code
   const intakeContact = { phone, address: publicOffice ? { ...publicOffice.address, country: countryName(publicOffice.country) } : null }
