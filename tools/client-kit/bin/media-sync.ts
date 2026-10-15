@@ -6,6 +6,7 @@
  * <media_import dir> holds `wp-content/uploads/...` and a `SHA256SUMS.txt` (`<sha256>  <path relative to the dir>`).
  * Every file is hash-verified at the source and again after the copy; a mismatch stops the run. Only raster images are staged
  * (jpg, jpeg, png, webp, gif). `--brand file=key` stages one hero/brand image at `media/brand/<key>`, served at `/brand-media/<key>`.
+ * `--only <list.tsv>` stages only the files whose `url` (column 1) is in the list with a `staging_status` starting with STAGED (Corpus's serving list).
  * `--check` verifies the staged folder against its index and writes nothing.
  * The binaries are not committed (the index is); the image build stages them with this tool and the layer-2 scan runs after.
  */
@@ -31,12 +32,16 @@ function main(argv: string[]): number {
   const args = argv.slice(2)
   const check = args.includes('--check')
   const brand: Array<[string, string]> = []
+  let only: Set<string> | null = null
   const rest: string[] = []
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--brand') {
       const [f, k] = (args[++i] ?? '').split('=')
       if (!f || !k) { console.error('--brand needs <file>=<key>'); return 2 }
       brand.push([f, k])
+    } else if (args[i] === '--only') {
+      const rows = readFileSync(path.resolve(args[++i] ?? ''), 'utf8').split('\n').slice(1).filter(Boolean).map((l) => l.split('\t'))
+      only = new Set(rows.filter((r) => (r[r.length - 1] ?? '').startsWith('STAGED')).map((r) => (r[0] ?? '').replace(/^\/wp-content\/uploads\//, '')))
     } else if (args[i] !== '--check') rest.push(args[i]!)
   }
   const [slug, srcDir] = rest
@@ -68,6 +73,7 @@ function main(argv: string[]): number {
     if (!m) { console.error('bad line in SHA256SUMS.txt'); return 1 }
     const [, want, rel] = m as unknown as [string, string, string]
     if (!rel.startsWith(prefix) || rel.includes('..')) { skipped.outside = (skipped.outside ?? 0) + 1; continue }
+    if (only && !only.has(rel.slice(prefix.length))) { skipped.notInList = (skipped.notInList ?? 0) + 1; continue }
     const ext = path.extname(rel).toLowerCase()
     if (!EXT.has(ext)) { skipped[ext || 'none'] = (skipped[ext || 'none'] ?? 0) + 1; continue }
     const from = path.join(src, rel)
