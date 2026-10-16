@@ -104,3 +104,12 @@ Resume list, in order:
 4. **Private remote:** the fork has no remote; request one (owner/CT-1) and push `icst-main`; until then the backup bundle is the only copy.
 5. **Saturday work (the real build window):** real `next build` for `CLIENT=icst` (output scan and bundle audit on the real output, 0 hits), Docker image with `--platform linux/amd64` and the layer-2 gate, fresh-DB proofs (migrate, identity-step, seed-pack, bootstrap-admin on a throwaway DB, db-scan 0), `LEDGER_STRICT=1` redirect ledger run (95+ targets depended on pages Main-B was still building), whole-app vitest (known: `crm/d1-due` timeout, `crm/deals-date-fix-1` date-sensitive).
 6. **Open owner/CT items:** A6 owner answer (brand-name overlap); form-notice and cookie inventory approvals (`OWNER/COUNSEL YES NEEDED` pending marker blocks the production quote form); manifest `status` provisional until confirmed; Commander prompts V1-V5 + env contract are FINAL v1 in `RELEASE_KIT0/ICST_COMMANDER_PROMPTS/` (provider, Cloudflare, R2 tokens, `icst-*` Keychain items still to be created by the owner); post-launch: `BUSINESS_TIME_ZONE` Denver fallback, `crm/workspace/mutations.ts:228` `RFQ-` hard-code (port after H2O's 1.3b freeze).
+
+
+## Light work 2026-10-16 (owner released ICST light work; heavy work still Saturday-released)
+1. **Media staged** (gitignored binaries): `media-sync.ts icst ... --only MEDIA_FILE_LIST_V2_6.tsv --brand ...` gives 957 uploads + 1 hero = 958 files, 132.98 MB, `--check` 0 problems. Corpus list and SHA256SUMS agree.
+2. **Fonts self-hosted** (Fontsource 5.3.0, OFL-1.1, variable wght): Montserrat (body) and Teko (display), latin and latin-ext woff2 in `apps/h2o/public/client-fonts/icst/` with both licence texts. `clients/icst/theme/overrides.css` carries the `@font-face` rules; families match the tokens. No remote font request: `chrome.json` `fonts` is empty and the CSP is `font-src 'self'`. Files are small (about 136 KB total) and committed.
+3. **OG card** re-rendered with Montserrat from a local OFL TTF (not woff2: no decoder on this Mac, nothing installed). Provenance sheet updated, checksums resealed. Still NOT in the fork: brand assets await DD and owner sign-off.
+4. **Not done (heavy/Saturday):** no `next build`, Docker image, database proofs or full test suite today. Glyph coverage of the Thai fallback and the rendered page were not checked in a browser.
+
+Resume list now: 1 (media) and 2 (fonts) done; open items are 3 (brand sign-off), 4 (private remote, none exists), 5 (Saturday heavy work), 6 (owner items).
