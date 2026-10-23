@@ -1,0 +1,50 @@
+{
+  "title": "Howden PRO FPX Series 22\"-9' (0.71M-2.74M) | Cooling Tower Fans",
+  "description": "Howden Pro FPX Series cooling tower fans are energy efficient and custom-fitted to the application. Cooling Tower parts from ICST.",
+  "path": "/product/pro-fpx-series-22-9-0-71m-2-74m-fans/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Howden PRO FPX Series 22\"-9' (0.71M-2.74M) | Cooling Tower Fans",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/FPXSeries.jpg",
+        "alt": "",
+        "width": 256,
+        "height": 160,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The Howden FPX Series cooling tower fans are energy efficient and deliver low-noise performance in temperatures from standard to extremely high."
+          ],
+          "bullets": [
+            {
+              "text": "Fitted to your application – gain a balance between low noise, cooling performance, and power consumption."
+            },
+            {
+              "text": "Requires little maintenance – the single-piece body of the FPX is made of fibre-reinforced polyester (FRP)"
+            },
+            {
+              "text": "Damps mechanical vibration: the FRP blades offer vibration damping and good chemical resistance."
+            },
+            {
+              "text": "Simple to assemble – FPX fans come with a tapered bushing connection as well as clear technical documentation"
+            },
+            {
+              "text": "Highly convenient – get a complete FPX cooling unit package (including fan casing, drive, and entire suspension) all from one source"
+            },
+            {
+              "text": "Applications – Field-erected cooling towers, packaged cooling towers, air-cooled condensers (ACC) and air cooled heat exchangers (ACHE)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

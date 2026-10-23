@@ -1,25 +1,18 @@
 {
   "title": "Cooling System Emergency Shutdown: Procedures & Safety Guide - ICST - Thailand",
   "description": "Learn the critical steps for a safe cooling system emergency shutdown. This guide covers isolation steps, ESD sequences, and personnel safety protocols.",
+  "path": "/cooling-system-emergency-shutdown/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Tech articles",
-          "href": "/tech-articles/"
-        }
-      ],
-      "current": "Cooling System Emergency Shutdown: Procedures & Safety Guide - ICST - Thailand"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "title": "Cooling System Emergency Shutdown: Procedures & Safety Guide - ICST - Thailand"
+      "variant": "media",
+      "title": "Cooling System Emergency Shutdown: Procedures & Safety Guide",
+      "image": {
+        "url": "/wp-content/uploads/2025/12/image-103.jpeg",
+        "alt": "Cooling System Emergency Shutdown: Procedures & Safety Guide",
+        "width": 1600,
+        "height": 900
+      }
     },
     {
       "blockType": "articleBody",
@@ -255,6 +248,26 @@
             },
             {
               "text": "Conduct training and drills: Schedule regular simulations to build muscle memory for the next cooling system emergency shutdown."
+            }
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/12/image-99-1024x576.jpeg",
+                "alt": "",
+                "width": 1024,
+                "height": 576,
+                "decorative": true
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/12/image-100-1024x576.jpeg",
+                "alt": "",
+                "width": 1024,
+                "height": 576,
+                "decorative": true
+              }
             }
           ]
         }

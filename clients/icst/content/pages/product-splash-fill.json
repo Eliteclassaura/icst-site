@@ -1,0 +1,30 @@
+{
+  "title": "Splash Fill - ICST - Thailand",
+  "description": "Splash fill comes in many basic forms and shapes, each with its own characteristics, providing years of low maintenance operations for your cooling tower.",
+  "path": "/product/splash-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Splash Fill",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/ICS_Fill_4.jpg",
+        "alt": "",
+        "width": 2272,
+        "height": 1704,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Splash fill comes in many basic forms and shapes, each with its own characteristics. When properly matched to the site and water quality conditions, it can provide many years of low maintenance operations for your cooling tower."
+          ]
+        }
+      ]
+    }
+  ]
+}

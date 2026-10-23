@@ -1,0 +1,30 @@
+{
+  "title": "Cooling Tower Offset Flute Fill - High Performance Tower Fill",
+  "description": "Cooling Tower offset flute fill is hybrid between high efficiency and fluted foul fill. It is a higher performance fill with low fouling risk. Learn more!",
+  "path": "/product/offset-flute-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Cooling Tower Offset Flute Fill - High Performance Tower Fill",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/fill2.jpg",
+        "alt": "",
+        "width": 147,
+        "height": 108,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "A hybrid between the cross fluted high efficiency fill and the fertical fluted low foul fill. As such, it offers the benefits of both, combining relatively high performance with lower fouling risk."
+          ]
+        }
+      ]
+    }
+  ]
+}

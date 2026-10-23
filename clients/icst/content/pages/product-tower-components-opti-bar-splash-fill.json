@@ -1,0 +1,30 @@
+{
+  "title": "Opti-Bar",
+  "description": "Opti-Bar splash fill provides optimum performance, optimum strength, and optimum versatility.",
+  "path": "/product/tower-components-opti-bar-splash-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Opti-Bar",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Opti-Bars.jpg",
+        "alt": "",
+        "width": 315,
+        "height": 274,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Opti-Bar splash fill is a product developed by Tower Components, Inc. in 1993, for crossflow and counterflow cooling tower heat-transfer applications. It has been installed in cooling towers servicing electrical generating plants, refineries, steel and aluminum mills, chemical plants, food processing plants, gas liquefaction processors, sugar mills, and air conditioning applications. Opti-Bar splash fill provides optimum performance, optimum strength, and optimum versatility."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Brentwood XF80MAx - Crossflow Towers Cellular DE",
+  "description": "Brentwood XF80MAx is designed for drift elimination in crossflow towers. Cellular DE increase velocity of the exit airflow to capture even the smallest droplets. Learn more!",
+  "path": "/product/brentwood-xf80max-cellular-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Brentwood XF80MAx - Crossflow Towers Cellular DE",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-XF80Max.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 195,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "XF80MAx Crossflow Cellular Drift Eliminators provide efficient drift removal. The upward flow path, steep water drainage angle, and tuned venturi section make this the ideal product for factory-built crossflow towers. The modules are constructed of a series of sinusoidal-shaped, corrugated PVC sheets that are mechanically assembled to mating sinusoidal structural waves, forming closed cells. These cells force the drift droplets being carried in the leaving airstream to make three distinct changes in direction. These forced changes to the air flow create centrifugal forces on the droplets that remove them from the air stream by causing them to impact the module walls, collect, and drain back to the wet section of the cooling tower."
+          ]
+        }
+      ]
+    }
+  ]
+}

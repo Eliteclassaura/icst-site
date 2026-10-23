@@ -1,0 +1,46 @@
+{
+  "title": "Comprehensive Cooling Tower Resources | Brochures, Glossaries & More - ICST",
+  "description": "Access a wide range of cooling tower resources, including brochures, glossaries, comparison charts, and expert guides. ICST is your trusted resource for geothermal cooling tower design, repair, and upgrades worldwide.",
+  "path": "/resources/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Cooling Tower Resources",
+      "lede": "Access various cooling tower resources including brochures, glossaries, comparison charts, and more."
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "ICST – Your Geothermal Cooling Tower Resource",
+            "ICST specializes in the design, repair, and upgrade of cooling towers for the Geothermal Power Industry worldwide.",
+            "Download/View",
+            "ICST : 2019 Brochure",
+            "ICST designs custom cooling solutions with a focus on technology and customer support, providing performance and cost-effective cooling service.",
+            "ICST: Cooling Tower Repair",
+            "ICST has the experience and expertise to repair or upgrade your water cooling tower for maximum performance with minimum downtime.",
+            "The FRP Pultrusion Process",
+            "Cooling Towers 101: Glossary of Terms",
+            "A cooling tower glossary that defines water chemistry and biological definitions, terms, and abbreviations.",
+            "FRP vs. Aluminum",
+            "Cooling Towers 101: How Does it Work?",
+            "This short primer on cooling towers explains the basic engineering, components, and functions of wet atmospheric cooling towers.",
+            "Vibration and Monitoring Terms Glossary",
+            "Vibration and monitoring terms glossary.",
+            "FRP vs. Wood Cooling Tower Structures",
+            "FRP vs. Concrete Cooling Tower Structures",
+            "This chart compares concrete and FRP according to strength, maintenance, quality, safety, fire protection, and permanence.",
+            "FRP vs. Aluminum Fan Blades",
+            "A comparison of FRP vs. Aluminum fan blades including cost, construction, longevity, balance, and energy efficiency.",
+            "FRP vs. Steel",
+            "Ashrae Psychrometric Chart no 1",
+            "The online Psychrometric chart is used to calculate heat load or cooling load, this downloadable psychrometric chart graphs thermodynamic parameters of moist air at a constant pressure."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Low Fouling Tower Fill - Film Fill Compromised Water",
+  "description": "Low fouling cooling tower is the most tolerant for contaminants, but it is a lower performance fill. Learn more about film fill for compromised water.",
+  "path": "/product/low-fouling-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Low Fouling Tower Fill - Film Fill Compromised Water",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/fill2.jpg",
+        "alt": "",
+        "width": 147,
+        "height": 108,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Low fouling fill is the lowest performance film fill but is also the most tolerant to contaminants such as high suspended solids, oils & fats or scaling and micro biological elements."
+          ]
+        }
+      ]
+    }
+  ]
+}

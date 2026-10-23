@@ -1,0 +1,44 @@
+{
+  "title": "FRP Flatsheet - ICST - Thailand",
+  "description": "Call for volume pricing!",
+  "path": "/product/frp-flatsheet/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "FRP Flatsheet",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/frp6.jpg",
+        "alt": "",
+        "width": 188,
+        "height": 160,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The primary use for fiberglass is to adhere a non-slip coating to the surface and cover FRP grating panels and structural shapes."
+          ],
+          "bullets": [
+            {
+              "text": "Fire Retardant"
+            },
+            {
+              "text": "Non corrosive"
+            },
+            {
+              "text": "Electronically non conductive"
+            },
+            {
+              "text": "USDA accepted"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

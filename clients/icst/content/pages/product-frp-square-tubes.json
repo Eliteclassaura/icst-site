@@ -1,0 +1,19 @@
+{
+  "title": "FRP Square Tubes - ICST - Thailand",
+  "description": "Lightweight, non-conductive, available in many sizes",
+  "path": "/product/frp-square-tubes/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "FRP Square Tubes",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Frp-Square-tubes.jpg",
+        "alt": "",
+        "width": 170,
+        "height": 125,
+        "decorative": true
+      }
+    }
+  ]
+}

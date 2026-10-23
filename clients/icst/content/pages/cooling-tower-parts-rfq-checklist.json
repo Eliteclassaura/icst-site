@@ -1,0 +1,267 @@
+{
+  "title": "Cooling Tower Parts RFQ Checklist for Plant Engineers",
+  "description": "Learn what to send for a cooling tower parts RFQ checklist, including tower details, part numbers, dimensions, photos, materials, quantity, and delivery needs.",
+  "path": "/cooling-tower-parts-rfq-checklist/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Cooling Tower Parts RFQ Checklist for Plant Engineers",
+      "image": {
+        "url": "/wp-content/uploads/2026/10/image.png",
+        "alt": "",
+        "width": 1920,
+        "height": 1080,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "A cooling tower parts RFQ tells the supplier exactly which replacement part you need and where it will operate. Send the tower make, model, and serial number; the part number or measured dimensions; clear photos or drawings; the current material; the operating conditions; the quantity; and the delivery location and date.",
+            "When someone modified the tower in the past, or the part has no readable number, ask an engineer to verify fit before you order. Complete data lets suppliers quote the right component the first time.",
+            "A parts request works differently, because the supplier must match one component to a tower they may never have seen.",
+            "Missing details usually lead to follow-up emails, site visits, or a part that arrives and does not fit. Each round of questions adds days to a repair window you may not have.",
+            "This guide covers what to send in a cooling tower parts RFQ for one specific replacement part. To compare the quotes you receive, use our cooling tower quotation evaluation checklist. To decide which spares to keep on the shelf, see our guide to cooling tower spare parts inventory.",
+            "The first job is to identify the equipment that contains the part. These details help the supplier catch an outdated part number before quoting.",
+            "The part number helps the supplier find a match quickly. Measured dimensions come next, and together they make the strongest request.",
+            "Copy the number from the old part, the O&M manual, or a previous purchase order. Include the source, because an old manual may not reflect what someone installed during a later repair.",
+            "Many older cooling tower components lose their labels to weather, scale, and debris. Measurements then do the work of the part number, and each part type needs different ones.",
+            "Inspect and measure only after your team isolates the fan and pumps under the site lockout procedure. Let trained personnel handle any access inside the tower.",
+            "Photos show the component in place, which matters most when no reliable part number exists.",
+            "If the existing specification names the material or grade, include it. Mention any failure on the old part, such as brittleness, corrosion, or sagging, because that history can point to a material change.",
+            "Casing panels, for example, may use FRP, galvanized steel, or stainless steel. Because the casing encloses most internal components, a new panel must match both the material and the fixing pattern.",
+            "Fill plastics differ in heat tolerance, so share the hot water temperature when you replace fill. For fill options, see our guide to cooling tower fill media types.",
+            "Operating conditions tell the supplier what demands the part must meet. Fill and nozzles need thermal data, while fans, gearboxes, and motors need mechanical data.",
+            "If a worn part has reduced performance, say so. A correctly specified replacement can help restore thermal and fan efficiency, and a balanced, correctly pitched fan helps keep vibration under control.",
+            "Some sites require parts that meet specific safety, fire, or environmental rules. List the standards, site rules, or client specifications the part must meet, and ask the supplier to confirm them before quoting.",
+            "Also list the documents you need back with the quote:",
+            "State whether you need a full cell set, a partial replacement, or single units, and add spares to the same order.",
+            "Give the full delivery address in Thailand or abroad, plus site limits such as gate hours, crane access, and the lifting elevation to the fan deck. Share your required date, such as a planned shutdown, and the planned time for removal of the old part. Ask the supplier to confirm availability and lead time in writing.",
+            "Ask a qualified engineer or the supplier’s technical team for assistance when any of these apply.",
+            "Copy this table into your cooling tower parts RFQ email or form to spot gaps before you send it.",
+            "RFQ Field",
+            "What to Send",
+            "Example Entry",
+            "Why It Matters",
+            "Priority",
+            "Tower identification",
+            "Manufacturer, model, serial, type",
+            "Links part to design",
+            "Essential",
+            "Part and location",
+            "Component, cell, position",
+            "Drift eliminator, cell 2",
+            "Prevents mix-ups",
+            "Part number",
+            "Number and source",
+            "2019 purchase order",
+            "If available",
+            "Dimensions",
+            "Key sizes with units",
+            "Fan diameter in mm",
+            "Replaces missing number",
+            "If no number",
+            "Photos",
+            "Overall, close-up, nameplate, condition",
+            "6 to 10 photos",
+            "Shows wear and fixings",
+            "Material",
+            "Current material, failures",
+            "PVC fill, brittle top layer",
+            "Guides material choice",
+            "Operating conditions",
+            "Temperatures, flow, treatment",
+            "Peak hot water temperature",
+            "Confirms suitability",
+            "Compliance and documents",
+            "Standards, datasheets, manuals",
+            "Site safety rules",
+            "Avoids rejected deliveries",
+            "When required",
+            "Quantity and delivery",
+            "Units, address, date",
+            "Sets freight and schedule",
+            "Fit verification",
+            "Reviewer and date",
+            "Site engineer before PO",
+            "Reduces mismatch risk",
+            "When risk applies",
+            "A strong cooling tower parts RFQ answers the supplier’s questions before they ask them. Identify the tower, give the part number or measurements, add photos, and state the material, operating conditions, and compliance needs.",
+            "Then confirm quantity, delivery, and timing, and ask an engineer to verify fit when the risk is high. This approach helps you get an accurate quote for the right replacement part and protects your repair schedule.",
+            "ICST provides industrial cooling solutions and parts for many tower brands. Send your details through the parts quote form on our website, or browse the cooling tower parts catalog by categories first.",
+            "A complete cooling tower parts RFQ lists the tower make, model, and serial number, the part number or measured dimensions, photos, and the current material. It also covers operating conditions, compliance needs, quantity, delivery address, and required date, so suppliers can match the replacement part with fewer follow-up questions.",
+            "Yes. Many older towers have worn or missing labels. Send measured dimensions, clear photos with a tape measure for scale, and any drawings or old purchase orders. When no number exists, ask an engineer or the supplier’s technical team to verify fit, especially for fans, gearboxes, and drive shafts.",
+            "Operating conditions show whether a material and design suit your duty. Hot water temperature affects which fill plastics work, while water quality and treatment chemicals affect clogging and corrosion. Flow and pressure help size nozzles. Without this data, a supplier can only quote a like-for-like part."
+          ],
+          "bullets": [
+            {
+              "text": "Why a Single Part Request Needs Its Own Checklist"
+            },
+            {
+              "text": "Start With the Cooling Tower Make, Model, and Configuration"
+            },
+            {
+              "text": "Provide the Part Number or Measured Dimensions"
+            },
+            {
+              "text": "When You Have a Part Number"
+            },
+            {
+              "text": "When the Part Number Is Missing"
+            },
+            {
+              "text": "Send Photos and Drawings"
+            },
+            {
+              "text": "Specify Material and Compatibility Requirements"
+            },
+            {
+              "text": "Share the Operating Conditions"
+            },
+            {
+              "text": "State Compliance and Documentation Needs"
+            },
+            {
+              "text": "Specify Quantity, Delivery Location and Timing"
+            },
+            {
+              "text": "Know When an Engineer Should Verify Fit"
+            },
+            {
+              "text": "Cooling Tower Parts RFQ Field Checklist"
+            },
+            {
+              "text": "Final Thoughts"
+            },
+            {
+              "text": "Frequently Asked Questions"
+            },
+            {
+              "text": "What should a cooling tower parts RFQ include?"
+            },
+            {
+              "text": "Can I request a replacement part without the part number?"
+            },
+            {
+              "text": "Why do suppliers ask for operating conditions?"
+            },
+            {
+              "text": "Cooling tower manufacturer: State the original brand, and note if another company rebuilt the tower later."
+            },
+            {
+              "text": "Tower model: Provide the model or equipment designation from the nameplate or original documents."
+            },
+            {
+              "text": "Serial or equipment reference: Add a serial number, asset tag, or project reference when available."
+            },
+            {
+              "text": "Tower configuration: Note crossflow or counterflow, induced or forced draft, and the affected cell."
+            },
+            {
+              "text": "Fill pack: Fill provides the surface area for heat exchange between water and air, so measure sheet size and flute spacing, and note film fill or a splash fill lattice."
+            },
+            {
+              "text": "Drift eliminators: Record module size, blade or cellular style, and supports; include any specified drift rate so the supplier can match the target for capturing water droplets."
+            },
+            {
+              "text": "Nozzles: Nozzles break warm water into droplets over the fill, so note connection size, orifice size, spray pattern, and nozzles per cell."
+            },
+            {
+              "text": "Fan: Record diameter, blade count, hub type, rotation, and pitch, plus blade material, usually FRP or aluminum for durability."
+            },
+            {
+              "text": "Air inlet louvres: Measure panel height, width, and blade spacing, and note how the louvres fix to the frame."
+            },
+            {
+              "text": "Gearboxes, motors, and drive shafts: Copy nameplate data such as ratio, power, speed, and voltage, and measure shaft spacing and coupling type."
+            },
+            {
+              "text": "Overall photo: Show where the part sits within the cooling tower."
+            },
+            {
+              "text": "Close-up photo: Capture labels, markings, connections, and mounting details."
+            },
+            {
+              "text": "Nameplate photo: Include the identification plate when available."
+            },
+            {
+              "text": "Condition photo: Show external damage, wear, or fouling that cleaning no longer removes."
+            },
+            {
+              "text": "Existing drawing: Attach the drawing, datasheet, or a dimensioned sketch, plus recent inspection notes."
+            },
+            {
+              "text": "Water temperatures: Give hot water inlet and cold water outlet temperatures at normal and peak load."
+            },
+            {
+              "text": "Flow and pressure: State the circulating water volume and, for nozzles, the header pressure if known."
+            },
+            {
+              "text": "Water quality and treatment: Describe scaling, fouling, suspended solids, and your chemical treatment program, since treatment chemicals affect which materials last."
+            },
+            {
+              "text": "Sound and vibration: State any site noise limit, and note existing vibration switches or other monitoring devices on the fan drive."
+            },
+            {
+              "text": "Duty and environment: Note running hours, dust or chemical exposure, and coastal air."
+            },
+            {
+              "text": "Datasheet: Dimensions, material, and performance data for the offered part."
+            },
+            {
+              "text": "Manuals: Installation guidance and instructions to maintain the part."
+            },
+            {
+              "text": "No part number: You rely only on field measurements."
+            },
+            {
+              "text": "Past modifications: Someone rebuilt, upgraded, or changed the tower after installation."
+            },
+            {
+              "text": "Material or design change: You want a different fill type, blade material, or nozzle style."
+            },
+            {
+              "text": "Rotating equipment: The part affects the fan, gearbox, motor, or drive shaft, where balance and alignment matter."
+            },
+            {
+              "text": "Structural load: The new part weighs more or sits differently on the structure."
+            }
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2026/10/image-1.png",
+                "alt": "",
+                "width": 1920,
+                "height": 1080,
+                "decorative": true
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2026/10/image-2.png",
+                "alt": "",
+                "width": 1920,
+                "height": 1080,
+                "decorative": true
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2026/10/image-3.png",
+                "alt": "",
+                "width": 1920,
+                "height": 1080,
+                "decorative": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Download Cooling Tower Brochures | ICST - Your Trusted Resource",
+  "description": "Access and download detailed cooling tower brochures from ICST. Get expert insights and technical information to support your geothermal cooling tower projects.",
+  "path": "/cooling-tower-brochures/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Cooling Tower Brochures",
+      "lede": "Download our brochures to learn how ICST designs custom cooling tower solutions with a focus on technology and customer support. Learn more about cooling tower safety & maintenance information."
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "ICST – Your Geothermal Cooling Tower Parts Resource",
+            "ICST specializes in the design, repair, and upgrade of cooling towers for the Geothermal Power Industry worldwide.",
+            "Download/View",
+            "ICST: 2024 Brochure",
+            "ICST designs custom cooling solutions with a focus on technology and customer support, providing performance and cost-effective cooling service.",
+            "ICST: Cooling Tower Repair",
+            "ICST has the experience and expertise to repair or upgrade your water cooling tower for maximum performance with minimum downtime."
+          ]
+        }
+      ]
+    }
+  ]
+}

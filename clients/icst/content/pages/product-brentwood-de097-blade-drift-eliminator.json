@@ -1,0 +1,30 @@
+{
+  "title": "DE097 Brentwood - Forced Draft Cooling Towers Drift Eliminators",
+  "description": "Brentwood DE097 Drift Eliminators are designed for applications with low drift levels in force draft counterflow cooling towers. Call us to learn more!",
+  "path": "/product/brentwood-de097-blade-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "DE097 Brentwood - Forced Draft Cooling Towers Drift Eliminators",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/DE097.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 204,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "DE097 Blade Drift Eliminator Modules are specifically designed for use in forced draft cooling towers. Like DE080 and DE120, these drift eliminators use a series of sinusoidal-shaped PVC (or HPVC) blades to achieve excellent drift droplet removal by forcing the leaving air to make three distinct changes of direction. Where this product differs is the additional deflector added to the discharge edge of each blade, which increases the velocity of the leaving airstream and directs it away from the intake fans when installed properly."
+          ]
+        }
+      ]
+    }
+  ]
+}

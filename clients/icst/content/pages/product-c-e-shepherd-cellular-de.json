@@ -1,0 +1,30 @@
+{
+  "title": "CE Shepard Cellular DE - Cellular Drift Eliminators",
+  "description": "CE Shepard Cellular DE's are econmical and can be used for counterflow and crossflow towers. Call to learn more about our cellular drift eliminators.",
+  "path": "/product/c-e-shepherd-cellular-de/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "CE Shepard Cellular DE - Cellular Drift Eliminators",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/cellular_drift_reduction_unit.jpg",
+        "alt": "",
+        "width": 220,
+        "height": 158,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Since the 1960’s, C. E. Shepherd Company offers a line of cooling tower components. Shepherd components resist corrosion from extended exposure to water and hostile environmental conditions better than any competitive products. We are a major supplier to new cooling tower manufacturers, companies specializing in repairs and upgrades, and maintenance groups. A single source for prompt delivery from stock streamlines purchasing, reduces costs and ensures a fully integrated system thus assuring the same high degree of reliability that cooling tower engineers, maintenance engineers and plant managers have come to expect from C. E. Shepherd Company."
+          ]
+        }
+      ]
+    }
+  ]
+}

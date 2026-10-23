@@ -1,0 +1,30 @@
+{
+  "title": "QCO",
+  "description": "Shepherd QCO Nozzles offer a diffusion plate designed to provide uniform water dispersion in all directions, as needed in a counterflow tower design.",
+  "path": "/product/c-e-shepherd-quick-change-orifice-qco-nozzles/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "QCO",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Quick-Change-Nozzle1.jpg",
+        "alt": "",
+        "width": 357,
+        "height": 361,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "Quick Change Orifice (QCO) Nozzles for Counterflow Towers",
+          "paragraphs": [
+            "Shepherd QCO Nozzles offer a diffusion plate designed to provide uniform water dispersion in all directions, as needed in a counterflow tower design. This even flow prevents streaming as the water exits the nozzle and ensures sufficient contact with fill media. The 1.5″ NPT nozzles feature a large diameter opening to preclude the build-up of silt and to allow the passage of cleaning balls. The Shepherd QCO Nozzle combines economy and quality."
+          ]
+        }
+      ]
+    }
+  ]
+}

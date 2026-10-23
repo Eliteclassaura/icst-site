@@ -1,0 +1,31 @@
+{
+  "title": "Hudson Tuf-Lite III 4000KW Series Very Low Noise | Cooling Tower Fans",
+  "description": "Hudson Tuf-Lite III 4000 KW Series Hub low-noise fan assemblies. Cooling Tower replacement parts from ICST.",
+  "path": "/product/tuf-lite-iii-4000kw-very-low-noise-series-hub-fan-assemblies/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Hudson Tuf-Lite III 4000KW Series Very Low Noise | Cooling Tower Fans",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Hudson-Tuf-Lite-III-Fans-4000-Series-Hub.jpg",
+        "alt": "",
+        "width": 985,
+        "height": 879,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Adjustable Pitch Fan Assembly 11′ Through 20′ Diameter. Blade Counts from 4 to 12.",
+            "Tuf-Lite III fan blades are constructed of light weight, corrosion resistant, fiberglass reinforced vinyl-ester resin, with materials, thickness, and processes determined from finite element analysis modeling. Tuf-Edge leading-edge erosion and UV protection come standard with this blade."
+          ]
+        }
+      ]
+    }
+  ]
+}

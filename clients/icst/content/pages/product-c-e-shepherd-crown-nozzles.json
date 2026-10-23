@@ -1,0 +1,31 @@
+{
+  "title": "Crown Nozzle",
+  "description": "Shepherd Crown Nozzles provide better water distribution at various head and flow rates, are longer lasting and fit standard 1-3/4\" deck holes.",
+  "path": "/product/c-e-shepherd-crown-nozzles/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Crown Nozzle",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Shepherd-Crown-Nozzle.jpg",
+        "alt": "",
+        "width": 372,
+        "height": 252,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "Crown Nozzles for Crossflow Towers",
+          "paragraphs": [
+            "Shepherd Crown Nozzles provide better water distribution at various head and flow rates, are longer lasting and fit standard 1-3/4″ deck holes. Crown Nozzles, available in standard 3″ x 4.6″ length size, eliminate the vortex spiral of water thus creating the same consistent uniform diffusion pattern at any height of head. The improved diffusion plate design aids water distribution, allowing uniform spread in all directions.",
+            "Lock-in tabs on the telescoping nozzles body allow for ease of installation into the hot water deck. The tabs lock into place only upon insertion of the vortex crown. The vortex crown also provides an anti-clog feature which restricts debris from entering the orifice. The fully interchangeable orifices ranging in size from 1/2″ to 1-1/4″ diameter snap securely into place allowing for changes in water flows as desired."
+          ]
+        }
+      ]
+    }
+  ]
+}

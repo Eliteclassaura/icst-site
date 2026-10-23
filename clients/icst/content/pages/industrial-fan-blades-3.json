@@ -1,21 +1,8 @@
 {
   "title": "Types of Industrial Fan Blades: Selection Guide",
   "description": "Compare types of industrial fan blades by efficiency, pressure, and noise to choose the right design for your facility's airflow needs.",
+  "path": "/industrial-fan-blades-3/",
   "layout": [
-    {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Tech articles",
-          "href": "/tech-articles/"
-        }
-      ],
-      "current": "Types of Industrial Fan Blades: Selection Guide"
-    },
     {
       "blockType": "hero",
       "variant": "plain",

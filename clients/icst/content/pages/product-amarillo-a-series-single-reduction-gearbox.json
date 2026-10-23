@@ -1,0 +1,30 @@
+{
+  "title": "AMARILLO A SERIES SINGLE REDUCTION GEARBOX - ICST - Thailand",
+  "description": "Amarillo A Series single reduction gearbox for cooling tower fan drives, built for compact installations. Get pricing from ICST.",
+  "path": "/product/amarillo-a-series-single-reduction-gearbox/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "AMARILLO A SERIES SINGLE REDUCTION GEARBOX",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/image-3.png",
+        "alt": "",
+        "width": 245,
+        "height": 239,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The AMARILLO A Series Single Reduction Gearbox is a robust and reliable solution for efficient power transmission in industrial applications. Designed with precision-engineered gears, it ensures smooth operation and minimal energy loss. Its compact and durable construction makes it ideal for heavy-duty use, while the single reduction design offers high torque output. Suitable for conveyors, mixers, and other machinery that requires consistent performance and long service life."
+          ]
+        }
+      ]
+    }
+  ]
+}

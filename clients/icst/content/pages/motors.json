@@ -1,55 +1,13 @@
 {
   "title": "Cooling Tower Motors | Reliable & Energy-Efficient - ICST - Thailand",
   "description": "ICST offers durable cooling tower motors. Built for reliability, energy efficiency, and optimal performance in industrial applications.",
+  "path": "/motors/",
   "layout": [
     {
       "blockType": "hero",
       "variant": "plain",
       "title": "Durable Cooling Tower Motors",
       "lede": "Looking for robust motors for your cooling tower? Our high-efficiency motors are built to deliver consistent performance and reliability. Keep your operations running smoothly with our premium solutions."
-    },
-    {
-      "blockType": "chipNav",
-      "label": "Parts categories",
-      "links": [
-        {
-          "label": "Fans",
-          "href": "/fans/"
-        },
-        {
-          "label": "Motors",
-          "href": "/motors/"
-        },
-        {
-          "label": "Nozzles",
-          "href": "/nozzles/"
-        },
-        {
-          "label": "Fill media",
-          "href": "/fill-media/"
-        },
-        {
-          "label": "FRP members",
-          "href": "/frp-members/"
-        },
-        {
-          "label": "Gear box",
-          "href": "/gear-box/"
-        },
-        {
-          "label": "Tower hardware",
-          "href": "/tower-hardware/"
-        },
-        {
-          "label": "Cooling tower fan stacks",
-          "href": "/cooling-tower-fan-stacks/"
-        },
-        {
-          "label": "Drive shaft assemblies",
-          "href": "/drive-shafts-assembles/"
-        }
-      ],
-      "currentPath": "/motors/"
     },
     {
       "blockType": "articleBody",
@@ -61,48 +19,40 @@
           ]
         },
         {
-          "heading": "ABB Motor Example",
+          "heading": "Baldor Motor",
           "paragraphs": [
-            "Toshiba, ABB, TECO/Westinghouse and all major brands for cooling tower applications. Shipping from global factories for quick deliveries.",
-            "Have questions on motors?"
+            "Motors"
+          ],
+          "headingLevel": 4,
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/motors.jpg",
+                "alt": "TECO / Westinghouse Motor",
+                "width": 149,
+                "height": 108
+              }
+            }
+          ]
+        },
+        {
+          "heading": "TECO / Westinghouse Motor",
+          "paragraphs": [
+            "Motors"
+          ],
+          "headingLevel": 4,
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/motors.jpg",
+                "alt": "ABB Motor",
+                "width": 149,
+                "height": 108
+              }
+            }
           ]
         }
       ]
-    },
-    {
-      "blockType": "productGrid",
-      "eyebrow": "Motors",
-      "title": "Motors we supply",
-      "lede": "Synthetic copy: one line about the products in this category.",
-      "actionLabel": "Request a quote",
-      "items": [
-        {
-          "title": "Motors product one",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        },
-        {
-          "title": "Motors product two",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        },
-        {
-          "title": "Motors product three",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        },
-        {
-          "title": "Motors product four",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        }
-      ]
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to our parts team",
-      "text": "Synthetic supporting line for the phone call-to-action."
     }
   ]
 }

@@ -1,0 +1,30 @@
+{
+  "title": "TECO / Westinghouse Motor - ICST - Thailand",
+  "description": "Quality motors for all applications, available in most specifications and IEC or NEMA standards at reasonable costs.",
+  "path": "/product/teco-westinghouse-motor-example/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "TECO / Westinghouse Motor",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/motors.jpg",
+        "alt": "",
+        "width": 149,
+        "height": 108,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Quality motors for all applications, available in most specifications and IEC or NEMA standards at reasonable costs."
+          ]
+        }
+      ]
+    }
+  ]
+}

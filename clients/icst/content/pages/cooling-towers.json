@@ -1,46 +1,95 @@
 {
-  "title": "Cooling tower services",
-  "description": "Synthetic copy: cooling tower services, until the ICST content pack arrives.",
-  "canonical": "/new-towers/",
+  "title": "Industrial Air Cooler Upgrades | Performance & Efficiency | ICST Thailand",
+  "description": "Enhance your industrial air cooler performance with ICST upgrades. Specializing in FRP fan conversions for power savings and thermal efficiency. Contact us for custom solutions!",
+  "path": "/cooling-towers/",
   "layout": [
     {
       "blockType": "hero",
       "variant": "plain",
-      "eyebrow": "Services",
-      "title": "Cooling tower services",
-      "lede": "Synthetic copy: one paragraph introducing the cooling tower services.",
-      "cta": {
-        "primary": {
-          "label": "Request a quote",
-          "href": "/parts/"
-        }
-      }
+      "title": "Air Coolers",
+      "lede": "We will work with you to develop a solution to your industrial process cooling needs. ICST services industrial air coolers of all makes for thermal upgrades, power savings, optimization and tube bundle cleaning."
     },
     {
-      "blockType": "serviceBand",
-      "eyebrow": "Options",
-      "title": "Synthetic section title",
-      "lede": "Synthetic copy: one line about the options.",
-      "items": [
+      "blockType": "articleBody",
+      "sections": [
         {
-          "title": "Synthetic service one",
-          "text": "Synthetic service summary.",
-          "href": "/parts/",
-          "label": "View service"
+          "heading": "",
+          "paragraphs": [
+            "ICST specializes in delivering industrial air cooler upgrades and custom solutions precisely engineered to your specifications. Our comprehensive service offerings in Thailand encompass everything from individual component repair and replacement to complete system reconstruction. Call ICST today to discover how we can significantly improve your industrial air cooler performance."
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Group-1-4-1.png",
+                "alt": "",
+                "width": 435,
+                "height": 390,
+                "decorative": true
+              }
+            }
+          ]
         },
         {
-          "title": "Synthetic service two",
-          "text": "Synthetic service summary.",
-          "href": "/parts/",
-          "label": "View service"
+          "heading": "AIR Cooler Performance Upgrades",
+          "paragraphs": [
+            "ICST leads the way in performance upgrades for all types of industrial air coolers used in Thailand. A particularly high-return investment offered by ICST is the replacement of outdated, low-efficiency aluminum fans with advanced, high-efficiency, long-life FRP fans. Upgrading from aluminum to a quality FRP fan through ICST immediately delivers significant benefits, including:"
+          ]
+        },
+        {
+          "heading": "Longer life without failures which aluminum blades are prone to",
+          "paragraphs": [
+            "By choosing ICST for your upgrade from Aluminum to FRP, you can achieve higher overall airflow at the same power consumption, reduce energy usage while maintaining current airflow levels, or a combination of both, tailored to your operations in Thailand. The ICST team will collaborate closely with your plant personnel to determine the right solution for your needs and help you select upgrades for your applications in Thailand.",
+            "Discover how ICST can help elevate your plant performance and reliability while simultaneously reducing operational costs through our expert industrial air cooler upgrades in Thailand."
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Group-1-1-1-1.png",
+                "alt": "",
+                "width": 392,
+                "height": 361,
+                "decorative": true
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Group-1000004061-1-1.png",
+                "alt": "",
+                "width": 273,
+                "height": 254,
+                "decorative": true
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Group-1-2-1-1.png",
+                "alt": "",
+                "width": 273,
+                "height": 246,
+                "decorative": true
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Group-1000004061-2.png",
+                "alt": "",
+                "width": 263,
+                "height": 244,
+                "decorative": true
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Group-1000004102.png",
+                "alt": "",
+                "width": 399,
+                "height": 375,
+                "decorative": true
+              }
+            }
+          ]
         }
       ]
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to an engineer",
-      "text": "Synthetic supporting line."
     }
   ]
 }

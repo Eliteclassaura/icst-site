@@ -1,0 +1,30 @@
+{
+  "title": "Brentwood AccuPac CF1900 - Cross Fluted Film Fill",
+  "description": "The Brentwood AccuPac CF1900 is cross fluted film fill designed counterflow cooling towers and can be used in crossflow towers. View other types of fill we offer!",
+  "path": "/product/brentwood-accupac-cf1900-cross-fluted-film-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Brentwood AccuPac CF1900 - Cross Fluted Film Fill",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-CF1900.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 195,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "High Efficiency Fill, also known as cross corrugated fill, is the highest performance film fill available with excellent water re-distribution properties. AccuPac® Cross-Fluted Fills improve water distribution by splitting the water stream as it descends through the fill pack. High thermal performance (high KaV/L) and low pressure drop are balanced by utilizing the engineered microstructure design and maintaining the highest manufacturing standards."
+          ]
+        }
+      ]
+    }
+  ]
+}

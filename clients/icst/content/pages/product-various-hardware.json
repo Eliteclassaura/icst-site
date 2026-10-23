@@ -1,0 +1,50 @@
+{
+  "title": "Cooling Tower Hardware | ICST",
+  "description": "ICST has all the cooling tower hardware you need to maintain and repair your existing cooling tower readily available in 304 SS, 316 SS and FRP.",
+  "path": "/product/various-hardware/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Cooling Tower Hardware",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/hw1.jpg",
+        "alt": "",
+        "width": 251,
+        "height": 200,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Cooling Tower Hardware:"
+          ],
+          "bullets": [
+            {
+              "text": "Anchors"
+            },
+            {
+              "text": "Bolts, Nuts & Washers"
+            },
+            {
+              "text": "Screws & Nails"
+            },
+            {
+              "text": "Louver Arm Supports"
+            },
+            {
+              "text": "Straps"
+            },
+            {
+              "text": "Much more…contact us!"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

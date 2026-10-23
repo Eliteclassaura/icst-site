@@ -1,0 +1,30 @@
+{
+  "title": "DekSpray",
+  "description": "Proper water distribution is critical for optimal fill performance. Brentwood's DekSpray nozzles offer multiple turbulator and orifice options to match specific water loadings.",
+  "path": "/product/brentwood-dekspray-nozzles/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "DekSpray",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-DekSpray-Nozzle.jpg",
+        "alt": "",
+        "width": 278,
+        "height": 257,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The Brentwood DekSpray Nozzle is a lightweight, corrosion-resistant, cost-effective, easy-to-install, versatile nozzle system that offers multiple turbulator and orifice options to provide optimal distribution over a wide range of water loadings. Extensive testing has shown that one DekSpray nozzle can do the job of 10-20 conventional nozzles."
+          ]
+        }
+      ]
+    }
+  ]
+}

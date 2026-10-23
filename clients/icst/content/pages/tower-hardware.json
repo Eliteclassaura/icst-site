@@ -1,6 +1,7 @@
 {
   "title": "Cooling Tower Hardware | Durable & Reliable Components - ICST - Thailand",
   "description": "Premium cooling tower hardware by ICST. Built for durability, performance, and long-lasting reliability in industrial applications.",
+  "path": "/tower-hardware/",
   "layout": [
     {
       "blockType": "hero",
@@ -9,94 +10,22 @@
       "lede": "Upgrade your cooling tower with our durable and corrosion-resistant hardware. Designed for long-lasting performance, our components ensure structural stability and efficient operation."
     },
     {
-      "blockType": "chipNav",
-      "label": "Parts categories",
-      "links": [
-        {
-          "label": "Fans",
-          "href": "/fans/"
-        },
-        {
-          "label": "Motors",
-          "href": "/motors/"
-        },
-        {
-          "label": "Nozzles",
-          "href": "/nozzles/"
-        },
-        {
-          "label": "Fill media",
-          "href": "/fill-media/"
-        },
-        {
-          "label": "FRP members",
-          "href": "/frp-members/"
-        },
-        {
-          "label": "Gear box",
-          "href": "/gear-box/"
-        },
-        {
-          "label": "Tower hardware",
-          "href": "/tower-hardware/"
-        },
-        {
-          "label": "Cooling tower fan stacks",
-          "href": "/cooling-tower-fan-stacks/"
-        },
-        {
-          "label": "Drive shaft assemblies",
-          "href": "/drive-shafts-assembles/"
-        }
-      ],
-      "currentPath": "/tower-hardware/"
-    },
-    {
       "blockType": "articleBody",
       "sections": [
         {
+          "heading": "",
+          "paragraphs": [
+            "Tower Hardware"
+          ]
+        },
+        {
           "heading": "Various Hardware",
           "paragraphs": [
-            "Stainless Steel, Galvanized, and FRP hardware materials for all applications of cooling towers.",
-            "Have Questions?"
-          ]
+            "Stainless Steel, Galvanized, and FRP hardware materials for all applications of cooling towers."
+          ],
+          "headingLevel": 4
         }
       ]
-    },
-    {
-      "blockType": "productGrid",
-      "eyebrow": "Tower hardware",
-      "title": "Tower hardware we supply",
-      "lede": "Synthetic copy: one line about the products in this category.",
-      "actionLabel": "Request a quote",
-      "items": [
-        {
-          "title": "Tower hardware product one",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        },
-        {
-          "title": "Tower hardware product two",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        },
-        {
-          "title": "Tower hardware product three",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        },
-        {
-          "title": "Tower hardware product four",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        }
-      ]
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to our parts team",
-      "text": "Synthetic supporting line for the phone call-to-action."
     }
   ]
 }

@@ -1,0 +1,45 @@
+{
+  "title": "Cooling Tower Fiberglass Fanstacks | ICST",
+  "description": "ICST supplies replacement fanstacks for all diameter and heights of fanstacks for counterflow and crossflow towers for all makes of towers.",
+  "path": "/product/fiberglass-fanstack/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Cooling Tower Fiberglass Fanstacks",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/ICS-FanStack_10ft.jpg",
+        "alt": "",
+        "width": 2272,
+        "height": 1704,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "ICST supplies replacement cooling tower fiberglass fanstacks for all diameter and heights of fanstacks for counterflow and crossflow towers for all makes of towers.",
+            "Diameter: From 12′ to 40′ (3.66M to 12.2M)",
+            "Height: 6′ to 18′ (1.83M to 5.5M)",
+            "Custom sizes and designs are available.",
+            "ICST supplied fanstacks are high quality and Replacement fan stacks are available for:"
+          ],
+          "bullets": [
+            {
+              "text": "Hudson Fans"
+            },
+            {
+              "text": "Comfimco Fans"
+            },
+            {
+              "text": "Howden Fans"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

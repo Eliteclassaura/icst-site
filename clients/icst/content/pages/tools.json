@@ -1,0 +1,30 @@
+{
+  "title": "Cooling Tower Tools & Resources | ICST - Industry Experts",
+  "description": "Explore essential cooling tower tools and resources from ICST. Access guides, charts, and technical tools to optimize your geothermal cooling tower projects.",
+  "path": "/tools/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Tools",
+      "lede": "Handy engineering tools, downloadable charts, online psychrometric chart and information graphs from ICST to help you handle on-the-job cooling tower requirements."
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Drive Shaft Inquiry Form",
+            "Download/View",
+            "Fan Inquiry Form",
+            "Gear Box Inquiry Form",
+            "New Cooling Tower Data Sheet R0",
+            "Ashrae Psychrometric Chart",
+            "The online Psychrometric chart is used to calculate heat load or cooling load, this downloadable psychrometric chart graphs thermodynamic parameters of moist air at a constant pressure."
+          ]
+        }
+      ]
+    }
+  ]
+}

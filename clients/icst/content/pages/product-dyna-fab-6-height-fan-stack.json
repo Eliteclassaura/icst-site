@@ -1,0 +1,30 @@
+{
+  "title": "Dyna-Fab 6-Foot Cooling Tower Fan Stack | ICST",
+  "description": "Dyna Fab 6 ft height fan stack for induced draft cooling towers. Get specs at ICST.",
+  "path": "/product/dyna-fab-6-height-fan-stack/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Dyna-Fab 6-Foot Cooling Tower Fan Stack",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Dynafab_FanStacks.jpg",
+        "alt": "",
+        "width": 1386,
+        "height": 676,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Dynamic Fabricators’ high quality, fiberglass reinforced, polyester fan stacks have an engineered laminate schedule manufactured to precise standards ensuring consistency and excellent quality. Each stack has a belled inlet and conical, diverging exit for reduced air pressure drop losses and pressure recovery for high fan efficiency."
+          ]
+        }
+      ]
+    }
+  ]
+}

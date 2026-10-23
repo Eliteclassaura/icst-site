@@ -1,0 +1,30 @@
+{
+  "title": "Square Pattern Nozzle",
+  "description": "Square Pattern Nozzles maximize water contact to the heat transfer media (fill).",
+  "path": "/product/c-e-shepherd-square-pattern-nozzles/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Square Pattern Nozzle",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Square-Nozzle.jpg",
+        "alt": "",
+        "width": 308,
+        "height": 302,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "Square Pattern (SP) Nozzles for Counterflow Towers",
+          "paragraphs": [
+            "SP Nozzles maximize water contact to the heat transfer media (fill). Water exits the nozzle in a uniform spray of fluidized water particles in a large surface to volume ratio. Unlike nozzles that disperse water in a circular pattern, the SP Nozzles is configured to mirror the footprint of straight sided industrial cooling towers, assuring coverage for all areas of the fill while significantly reducing water shedding on the side, partition and end walls. With proper installation, the SP Nozzles are pitched to produce overlapping individual sprays from adjacent nozzles. This design, in concert with the engineered spray of uniformly sized water droplets, achieves ideal distribution over the fill and in turn, assures maximum heat transfer within the fill system itself."
+          ]
+        }
+      ]
+    }
+  ]
+}

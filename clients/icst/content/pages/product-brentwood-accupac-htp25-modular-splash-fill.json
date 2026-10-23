@@ -1,0 +1,30 @@
+{
+  "title": "HTP25",
+  "description": "AccuPac® HTP25 (High Thermal Performance) Splash Fill is an injection-molded fill used in both counterflow and crossflow towers that produces heat transfer via droplet generation.",
+  "path": "/product/brentwood-accupac-htp25-modular-splash-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "HTP25",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-HTP25sm.jpeg",
+        "alt": "",
+        "width": 209,
+        "height": 136,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "AccuPac® HTP25 (High Thermal Performance) Splash Fill is an injection-molded fill used in both counterflow and crossflow towers that produces heat transfer via droplet generation. The highly engineered drip design provides maximum thermal performance in a compact module. HTP25’s open, offset-flute, fouling-resistant design is ideal for applications where the circulating water has very high levels of suspended solids."
+          ]
+        }
+      ]
+    }
+  ]
+}

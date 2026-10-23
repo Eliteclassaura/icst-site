@@ -1,0 +1,30 @@
+{
+  "title": "XF150MAx Brentwood - Crossflow Cellular Drift Eliminators",
+  "description": "Designed for crossflow towers, BrentwoodXF150MAx provide molded-in drainage channels to keep the water in the wet section of the tower. View our cellular drift eliminators!",
+  "path": "/product/brentwood-xf150max-cellular-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "XF150MAx Brentwood - Crossflow Cellular Drift Eliminators",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-XF150Max.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 195,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The modules are constructed of a series of sinusoidal-shaped, corrugated PVC sheets that are mechanically assembled to mating sinusoidal structural waves, forming closed cells. These cells force the drift droplets being carried in the leaving airstream to make three distinct changes in direction. These forced changes to the air flow create centrifugal forces on the droplets that remove them from the air stream by causing them to impact the module walls, collect, and drain back to the wet section of the cooling tower."
+          ]
+        }
+      ]
+    }
+  ]
+}

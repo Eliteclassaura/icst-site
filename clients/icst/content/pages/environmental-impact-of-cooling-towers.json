@@ -1,21 +1,8 @@
 {
   "title": "Environmental Impact of Cooling Towers: Risks and Solutions",
   "description": "Learn about the environmental impact of cooling towers, from water and energy consumption to air quality, and discover proven strategies to reduce it.",
+  "path": "/environmental-impact-of-cooling-towers/",
   "layout": [
-    {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Tech articles",
-          "href": "/tech-articles/"
-        }
-      ],
-      "current": "Environmental Impact of Cooling Towers: Risks and Solutions"
-    },
     {
       "blockType": "hero",
       "variant": "plain",

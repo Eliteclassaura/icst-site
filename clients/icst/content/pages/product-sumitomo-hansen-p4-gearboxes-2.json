@@ -1,139 +1,64 @@
 {
-  "title": "Synthetic product detail",
-  "description": "Synthetic product detail template (RFQ-only, no prices) until the ICST content pack arrives.",
+  "title": "Hansen P4 - Icsthailand",
+  "description": "The Hansen P4 gearboxes are customized to the specific needs of the cooling tower industry and fully comply with the Cooling Tower Institute specifications.",
+  "path": "/product/sumitomo-hansen-p4-gearboxes-2/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Parts",
-          "href": "/parts/"
-        },
-        {
-          "label": "Gear box",
-          "href": "/gear-box/"
-        }
-      ],
-      "current": "Synthetic product"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "eyebrow": "Gear box",
-      "title": "Synthetic product name",
-      "lede": "Synthetic copy: one paragraph describing the product and when to request a quote.",
-      "cta": {
-        "primary": {
-          "label": "Request a quote",
-          "href": "/parts/"
-        }
+      "variant": "media",
+      "title": "Hansen P4 - Icsthailand",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Hansen-P4-Group-Photo.jpg",
+        "alt": "Hansen P4 - icsthailand",
+        "width": 324,
+        "height": 324
       }
     },
     {
-      "blockType": "dataTable",
-      "caption": "Specifications (synthetic)",
-      "rowHeader": "Item",
-      "columns": [
+      "blockType": "articleBody",
+      "sections": [
         {
-          "label": "Value"
-        }
-      ],
-      "rows": [
-        {
-          "label": "Synthetic spec 1",
-          "cells": [
+          "heading": "",
+          "paragraphs": [
+            "The Hansen P4 gear units are customized to the specific needs of the cooling tower industry and fully comply with the Cooling Tower Institute specifications.",
+            "P4 Multistage Units",
+            "The extended bearing span of the low speed shaft has been standardized to meet the particular needs of these applications: the extended bearing span increases the dynamic stability of the gear unit. The unit’s low speed shaft bearings are selected to handle the high axial loads, i.e. the axial thrust from the fan on the low speed shaft. The lubrication system is adapted to very low operation speeds and to windmilling conditions. The overall design of this series of gear units fully complies with the Cooling Tower Institute specifications.",
+            "They are all well protected for operation in a very humid environment. The increased distance between the propeller and the high speed input shaft reduces vibrations. A motor can be connected to the outside of the cooling tower using an all-metal disc coupling at the high-speed shaft."
+          ],
+          "bullets": [
             {
-              "text": "Synthetic value"
+              "text": "Mounting pads for motor base on the top of the unit."
+            },
+            {
+              "text": "Strong oval lifting lugs for easy handling."
+            },
+            {
+              "text": "Standard fixation points for easy mounting of accessories on the side of the gearbox (e.g. cooling systems)."
+            },
+            {
+              "text": "Provisions for crowbar on smaller housing for easy alignment during installation."
+            },
+            {
+              "text": "Provision for easy removal of covers to perform service on the spot when needed."
+            },
+            {
+              "text": "The rounded external design ensures a smooth surface without dirt or moisture retaining cavities."
+            },
+            {
+              "text": "Provision for complete oil drainage = drain plug at lowest position and system of internal drain holes and channels."
+            },
+            {
+              "text": "Central filling connected to internal oil distribution system to ensure all parts are lubricated before start-up."
+            },
+            {
+              "text": "Large inspection cover with re-usable O-ring."
+            },
+            {
+              "text": "Horizontal split housing for easy maintenance."
             }
           ]
         }
       ]
-    },
-    {
-      "blockType": "dataTable",
-      "caption": "Specifications (synthetic)",
-      "rowHeader": "Item",
-      "columns": [
-        {
-          "label": "Value"
-        }
-      ],
-      "rows": [
-        {
-          "label": "Synthetic spec 2",
-          "cells": [
-            {
-              "text": "Synthetic value"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "blockType": "dataTable",
-      "caption": "Specifications (synthetic)",
-      "rowHeader": "Item",
-      "columns": [
-        {
-          "label": "Value"
-        }
-      ],
-      "rows": [
-        {
-          "label": "Synthetic spec 3",
-          "cells": [
-            {
-              "text": "Synthetic value"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "blockType": "cta",
-      "eyebrow": "Request a quote",
-      "title": "Synthetic quote call to action",
-      "text": "Synthetic supporting line. Quotations are issued on request; no prices are shown on this page.",
-      "cta": {
-        "primary": {
-          "label": "Request a quote",
-          "href": "/parts/"
-        }
-      }
-    },
-    {
-      "blockType": "productGrid",
-      "eyebrow": "Related",
-      "title": "Related parts",
-      "lede": "Synthetic copy: one line.",
-      "actionLabel": "Request a quote",
-      "items": [
-        {
-          "title": "Related part one",
-          "text": "Synthetic summary.",
-          "href": "/parts/"
-        },
-        {
-          "title": "Related part two",
-          "text": "Synthetic summary.",
-          "href": "/parts/"
-        },
-        {
-          "title": "Related part three",
-          "text": "Synthetic summary.",
-          "href": "/parts/"
-        }
-      ]
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to our parts team",
-      "text": "Synthetic supporting line."
     }
   ]
 }

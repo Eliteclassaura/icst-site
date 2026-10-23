@@ -1,0 +1,30 @@
+{
+  "title": "SUMITOMO HANSEN P4 SINGLE STAGE GEARBOX - ICST - Thailand",
+  "description": "Designed for performance and reliability in industrial cooling. High-efficiency operation with reduced energy consumption. Robust design for heavy-duty applications. Low noise and vibration levels. Easy maintenance and long lifespan.",
+  "path": "/product/sumitomo-hansen-p4-single-stage-gearbox/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "SUMITOMO HANSEN P4 SINGLE STAGE GEARBOX",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/image-1-1.png",
+        "alt": "",
+        "width": 245,
+        "height": 239,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The SUMITOMO HANSEN P4 Single Stage Gearbox is a high-performance, durable solution designed for efficient power transmission in demanding industrial environments. Featuring precision-engineered helical gears, it transmits torque with smooth operation and low noise and vibration. Its compact, robust design ensures reliability and long service life, making it ideal for applications such as conveyors, agitators, and material handling equipment."
+          ]
+        }
+      ]
+    }
+  ]
+}

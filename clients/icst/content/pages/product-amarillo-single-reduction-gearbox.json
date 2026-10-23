@@ -1,0 +1,30 @@
+{
+  "title": "AMARILLO SINGLE REDUCTION GEARBOX - ICST - Thailand",
+  "description": "Designed for performance and reliability in industrial cooling. High-efficiency operation with reduced energy consumption. Robust design for heavy-duty applications. Low noise and vibration levels. Easy maintenance and long lifespan.",
+  "path": "/product/amarillo-single-reduction-gearbox/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "AMARILLO SINGLE REDUCTION GEARBOX",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/image-2.png",
+        "alt": "",
+        "width": 245,
+        "height": 239,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Designed with precision-engineered components, it ensures reliable performance, high torque output, and smooth operation. Its robust construction and compact design make it suitable for heavy-duty applications such as agitators, mixers, and conveyors. Built to deliver long service life with minimal maintenance, the AMARILLO gearbox is a trusted choice for consistent and durable performance in various industrial settings."
+          ]
+        }
+      ]
+    }
+  ]
+}

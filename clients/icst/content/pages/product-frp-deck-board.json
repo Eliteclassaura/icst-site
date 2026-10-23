@@ -1,0 +1,50 @@
+{
+  "title": "FRP Deck Board - ICST - Thailand",
+  "description": "Call for Volume Specials! More decking and grating available.",
+  "path": "/product/frp-deck-board/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "FRP Deck Board",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/frp5.jpg",
+        "alt": "",
+        "width": 216,
+        "height": 165,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Non-skid FRP decking is designed to replace wood or other less versatile surfaces such as steel or aluminum. FRP decking is strong and non-corrosive surface providing a long-term solution for applications such as walkways, deck, systems, and roofing."
+          ],
+          "bullets": [
+            {
+              "text": "Strong"
+            },
+            {
+              "text": "Easy to install"
+            },
+            {
+              "text": "Cost effective"
+            },
+            {
+              "text": "Does not rust, rot or bow"
+            },
+            {
+              "text": "Non-conductive"
+            },
+            {
+              "text": "Direct replacement for wood decking"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

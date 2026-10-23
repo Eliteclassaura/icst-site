@@ -1,69 +1,19 @@
 {
   "title": "Mak Ban 6 - ICST - Thailand",
   "description": "See the Mak Ban 6 cooling tower project case study from ICST, covering scope, equipment, and results at the power plant.",
+  "path": "/portfolio/mak-ban-6/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Projects",
-          "href": "/projects/"
-        }
-      ],
-      "current": "Mak Ban 6"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "title": "Mak Ban 6 - ICST - Thailand"
-    },
-    {
-      "blockType": "dataTable",
-      "caption": "Project facts",
-      "rowHeader": "Fact",
-      "columns": [
-        {
-          "label": "Value"
-        }
-      ],
-      "rows": [
-        {
-          "label": "Project",
-          "cells": [
-            {
-              "text": "Mak Ban 6"
-            }
-          ]
-        },
-        {
-          "label": "Location",
-          "cells": [
-            {
-              "text": "Luzon, Philippines"
-            }
-          ]
-        },
-        {
-          "label": "Tower type",
-          "cells": [
-            {
-              "text": "6-Cell, Crossflow, Wood."
-            }
-          ]
-        },
-        {
-          "label": "Year",
-          "cells": [
-            {
-              "text": "2008"
-            }
-          ]
-        }
-      ]
+      "variant": "media",
+      "title": "Mak Ban 6",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/ICS_CoolingTowerProject_MakBan6_21-353x297-1.jpg",
+        "alt": "",
+        "width": 353,
+        "height": 297,
+        "decorative": true
+      }
     },
     {
       "blockType": "articleBody",
@@ -75,24 +25,14 @@
           ]
         }
       ]
-    },
-    {
-      "blockType": "cta",
-      "eyebrow": "Next step",
-      "title": "Synthetic call to action title",
-      "text": "Synthetic supporting line.",
-      "cta": {
-        "primary": {
-          "label": "Request a quote",
-          "href": "/parts/"
-        }
-      }
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to an engineer",
-      "text": "Synthetic supporting line."
     }
-  ]
+  ],
+  "facts": {
+    "project": "Mak Ban 6",
+    "industry": null,
+    "client": null,
+    "location": "Luzon, Philippines",
+    "tower_type": "6-Cell, Crossflow, Wood.",
+    "year": "2008"
+  }
 }

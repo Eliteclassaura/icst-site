@@ -1,0 +1,41 @@
+{
+  "title": "FRP Beams - ICST - Thailand",
+  "description": "Please call for volume pricing!",
+  "path": "/product/frp-beams/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "FRP Beams",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/FRP-Beams.jpg",
+        "alt": "",
+        "width": 144,
+        "height": 121,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "bullets": [
+            {
+              "text": "Low Thermal Expansion"
+            },
+            {
+              "text": "High Concentric Axial Stress & Centric Axial load properties"
+            },
+            {
+              "text": "High Load capacity with minimal deflection"
+            },
+            {
+              "text": "Corrosion Resistant"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

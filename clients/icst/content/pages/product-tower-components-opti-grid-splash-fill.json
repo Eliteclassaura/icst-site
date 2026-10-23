@@ -1,0 +1,33 @@
+{
+  "title": "Opti-Grid",
+  "description": "Opti-Grid is a direct replacement splash fill for use in crossflow and counterflow towers where dirty water is a concern. Optimum performance in a splash fill is the result of maximizing the number of water droplets in order to produce the highest surface area of water available to the passing air.",
+  "path": "/product/tower-components-opti-grid-splash-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Opti-Grid",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Opti-Grid.jpg",
+        "alt": "",
+        "width": 315,
+        "height": 274,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Opti-Grid is a direct replacement splash fill for use in crossflow and counterflow towers where dirty water is a concern. Optimum performance in a splash fill is the result of maximizing the number of water droplets in order to produce the highest surface area of water available to the passing air. Narrow horizontal strips, in uniformly spaced tiers throughout the heat transfer area, provide optimum efficiency.",
+            "Opti-Grid uses a patented floating hanger design that allows fill layers to float for excellent fit in slanted cross flow designs. Because of the small surface area exposed to water, it is a truly non-fouling splash fill. It is used extensively in utilities, refineries, sugar and steel mills, and food processing plants for this reason. This design offers reduced pressure drop, improved splash surface, non-fouling ability and maximum strength. Opti-Grid has proved successful in replacing wood decks and older type plastic grids.",
+            "Made of polypropylene, it is resistant to attack from acids, alkalis, hydrocarbons, and biological and chemical attack.",
+            "As an option, Opti-Grid is available with an ASTM E-84 rating of ≤ 25 using flame retardant additives."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,25 +1,18 @@
 {
   "title": "Understanding Cooling System Performance Metrics and KPIs - ICST - Thailand",
   "description": "Master essential cooling system performance metrics and KPIs to optimize industrial operations, reduce costs, and improve efficiency.",
+  "path": "/cooling-system-performance-metrics/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Tech articles",
-          "href": "/tech-articles/"
-        }
-      ],
-      "current": "Understanding Cooling System Performance Metrics and KPIs - ICST - Thailand"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "title": "Understanding Cooling System Performance Metrics and KPIs - ICST - Thailand"
+      "variant": "media",
+      "title": "Understanding Cooling System Performance Metrics and KPIs",
+      "image": {
+        "url": "/wp-content/uploads/2025/07/unnamed-1_11zon-1.jpg",
+        "alt": "Understanding Cooling System Performance Metrics and KPIs - icsthailand.co.th",
+        "width": 1600,
+        "height": 900
+      }
     },
     {
       "blockType": "articleBody",

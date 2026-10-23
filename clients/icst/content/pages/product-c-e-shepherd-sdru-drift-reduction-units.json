@@ -1,0 +1,33 @@
+{
+  "title": "SDRU Drift Eliminator - CE Shepard Drift Reduction Units",
+  "description": "CE Shepard SDRU Drift Eliminator units were designed for use in both crossflow and counterflow towers. Call to learn more about CE Shepard Drift Reduction units.",
+  "path": "/product/c-e-shepherd-sdru-drift-reduction-units/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "SDRU Drift Eliminator - CE Shepard Drift Reduction Units",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Shepherd-DDRU.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 197,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "SDRU Drift Reduction Units",
+            "Designed for both crossflow and counterflow applications, CES-DRUs (CE Shepherd Drift Reduction Units) in modules measure 12-1/2″ wide x 5-1/4″ deep. The modules nest together tongue-and-groove fashion for increased protection from drift loss. CES-DRU may also be provided in a non-nesting form (DRU 1.5N).",
+            "When water enters the plenum area, droplets are caught in the exit air stream. Propelled at high velocity, these droplets erode rotating fan blades and drive shafts, gear boxes, mechanical supports and other stationary equipment all located in the plenum chamber. As it escapes the tower, this drift is a likely cause of damage to any neighboring equipment, parking lots, roads and the like. Excess drift also increases make-up requirements, a potentially serious problem given today’s emphasis on water conservation.",
+            "The CES-DRU1.5 is an engineered solution for the removal of entrained water droplets within the exit air stream. Shepherd Drift Reduction Units provide a low pressure drop for increased air flow, reduced maintenance and prolonged operating life. Shepherd Crossflow Drift Reduction Units (Drift Eliminators)"
+          ]
+        }
+      ]
+    }
+  ]
+}

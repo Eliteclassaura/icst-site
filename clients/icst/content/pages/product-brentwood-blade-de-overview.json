@@ -1,0 +1,31 @@
+{
+  "title": "Tower Blade DE - Brentwood Cooling Tower Drift Eliminator",
+  "description": "Tower Blade DE's are designed for effective droplet capture and provide cost effective drift solutions. View the Brentwood cooling tower drift eliminators we offer.",
+  "path": "/product/brentwood-blade-de-overview/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Tower Blade DE - Brentwood Cooling Tower Drift Eliminator",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-Blade-DEs.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 267,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Blade drift eliminators allow for longer span capabilities and rugged durability due to their heavier gauge blades. They are designed for effective droplet capture and provide a cost-effective drift solution.",
+            "Drift eliminators are used to control water loss from a cooling tower by limiting the amount of circulating water droplets that are emitted with the exhaust air of the tower. Since drift droplets contain the same chemical and particulate matter of the circulating water from which they originate, they can cause numerous detrimental effects on surrounding equipment and the environment. The cooling tower industry uses drift rate to compare drift eliminator performance, a relationship that correlates droplet capture efficiency to the water circulation rate in a tower. Brentwood’s drift eliminators are specifically designed to achieve maximum drift removal efficiency in both crossflow and counterflow tower applications with various product options available to minimize pressure drop, drift loss, cost, or a combination of all three."
+          ]
+        }
+      ]
+    }
+  ]
+}

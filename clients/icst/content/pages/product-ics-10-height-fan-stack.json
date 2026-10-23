@@ -1,0 +1,30 @@
+{
+  "title": "ICST 10-Foot Cooling Tower Fan Stack",
+  "description": "10' Height replacment Fan Stack.",
+  "path": "/product/ics-10-height-fan-stack/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "ICST 10-Foot Cooling Tower Fan Stack",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/ICS-FanStack_10ft.jpg",
+        "alt": "",
+        "width": 2272,
+        "height": 1704,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "ICST Fan-Stacks are made from durable fiberglass reinforced polyester and manufactured to the highest standards providing durability and longevity. Performance tested, ICST Fan-Stacks offer everything you need in a cooling tower fan stack at a great value."
+          ]
+        }
+      ]
+    }
+  ]
+}

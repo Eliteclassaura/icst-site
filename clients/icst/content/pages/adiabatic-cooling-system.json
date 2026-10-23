@@ -1,25 +1,19 @@
 {
   "title": "Adiabatic Cooling System: Design, Benefits & ROI",
   "description": "Learn how an adiabatic cooling system works, its industrial design, cost advantages, and why it outperforms traditional cooling technologies.",
+  "path": "/adiabatic-cooling-system/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Tech articles",
-          "href": "/tech-articles/"
-        }
-      ],
-      "current": "Adiabatic Cooling System: Design, Benefits & ROI"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "title": "Adiabatic Cooling System: Design, Benefits & ROI"
+      "variant": "media",
+      "title": "Adiabatic Cooling System: Design, Benefits & ROI",
+      "image": {
+        "url": "/wp-content/uploads/2026/03/image-71.jpeg",
+        "alt": "",
+        "width": 1920,
+        "height": 1080,
+        "decorative": true
+      }
     },
     {
       "blockType": "articleBody",

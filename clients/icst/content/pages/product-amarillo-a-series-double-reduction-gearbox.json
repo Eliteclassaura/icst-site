@@ -1,0 +1,30 @@
+{
+  "title": "Amarillo A Series Double Reduction Gearbox",
+  "description": "The Amarillo A Series Double Reduction Gearbox. Cooling tower replacement parts from ICST.",
+  "path": "/product/amarillo-a-series-double-reduction-gearbox/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Amarillo A Series Double Reduction Gearbox",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/A-Series_Double_Reduction.jpg",
+        "alt": "",
+        "width": 322,
+        "height": 250,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The Double Reduction “A” Series Gear Drives for cooling towers from Amarillo Gear Company are designed as direct replacements for the Marley® right angle gear boxes. Since there are no differences in the critical mounting dimensions, the “A” Series will make Marley® gear box replacements easy."
+          ]
+        }
+      ]
+    }
+  ]
+}

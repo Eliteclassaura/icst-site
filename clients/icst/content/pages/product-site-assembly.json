@@ -1,0 +1,30 @@
+{
+  "title": "Onsite Cooling Tower Fill Assembly - Film Fill Assembly",
+  "description": "Contact us for onsite cooling tower fill assembly. Call us to learn more about assembling film fill and it's advantages.",
+  "path": "/product/site-assembly/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Onsite Cooling Tower Fill Assembly - Film Fill Assembly",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/fill.jpg",
+        "alt": "",
+        "width": 147,
+        "height": 108,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Replacement of film fill at locations far from the factory can be handled by shipping the fill sheets unassembled to reduce freight costs. If buying nested sheets, you must assemble the fill at the site. ICST qualified technicians can assemble the fill at the site for you or supervise your crew in doing the assembly. There are two basic methods of assembling the fill materials & each has its own advantages."
+          ]
+        }
+      ]
+    }
+  ]
+}

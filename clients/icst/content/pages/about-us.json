@@ -1,59 +1,48 @@
 {
   "title": "About ICST: Quality & Innovation in Thailand",
   "description": "Discover how ICST delivers innovative, customer-centric solutions tailored for the Thai market. Learn about our commitment to quality, reliability, and excellence in every project.",
+  "path": "/about-us/",
   "layout": [
     {
       "blockType": "hero",
       "variant": "plain",
-      "title": "About Us",
-      "lede": "Cooling Excellence"
+      "title": "About Us"
     },
     {
       "blockType": "articleBody",
       "sections": [
         {
-          "heading": "",
+          "heading": "About ICST",
           "paragraphs": [
-            "Engineering Innovative and Environmentally Sustainable Industrial",
-            "Cooling Solutions Worldwide"
+            "ICST designs, builds, repairs and upgrades industrial cooling towers, and supplies cooling tower parts.",
+            "Our team of cooling tower professionals handles design, engineering, procurement, construction and after-sales service.",
+            "ICST provides full technical support for new cooling towers, repair and reconstruction, and thermal and structural upgrades."
           ]
         },
         {
-          "heading": "Global Presence",
-          "paragraphs": [
-            "We are committed to serving all stakeholders, including customers, employees, suppliers, and communities."
-          ]
-        },
-        {
-          "heading": "Our Team",
-          "paragraphs": [
-            "Some of our key clients include Shell, Star Energy, Shintech, ShinETSU, TTCL, PTT Group, Pertamina, Mitsubishi, and Marubeni.",
-            "We are strongly committed to these values and seek to provide customers with a complete and innovative choice of cooling solutions for the power, geothermal, refining, petrochemical, chemical, pulp & paper, steel/metals and basic process industries.",
-            "A key component in our philosophy is the overall quality of experience our customers realize when working with us."
-          ]
-        },
-        {
-          "heading": "Global Presence, Local Expertise",
-          "paragraphs": [
-            "Delivering innovative cooling solutions across Asia.",
-            "Thailand",
-            "Japan"
-          ]
-        },
-        {
-          "heading": "ICST in Thailand",
-          "paragraphs": [
-            "The facility handles key design, engineering, procurement, and management functions, along with construction and comprehensive after-sales services.",
-            "ICST provides full technical support for new cooling towers, repair and reconstruction, as well as thermal and structural upgrades. Additionally, we offer high-quality cooling tower spare parts for all makes and models at competitive prices to support industries across Thailand and the region."
+          "heading": "Where we are",
+          "bullets": [
+            {
+              "text": "Bangkok, Thailand: 159 Serm-Mit. Phone +662-661-7723."
+            }
           ]
         },
         {
           "heading": "ICST in Japan",
           "paragraphs": [
-            "Our team specializes in design, engineering, procurement, and project management, supporting quality construction and after-sales services.",
-            "ICST Japan provides comprehensive technical support for new cooling towers, repair and reconstruction, as well as thermal and structural upgrades. We also offer a full range of cooling tower spare parts for all makes and models at highly competitive prices to meet the needs of Japan’s industrial sector.",
-            "Our team manages key design, engineering, procurement, and project execution, ensuring efficient construction and after-sales services.",
-            "Additionally, we offer high-quality cooling tower spare parts for all makes and models at competitive prices to support industries throughout the Kingdom."
+            "ICST Japan provides comprehensive technical support for new cooling towers, repair and reconstruction, as well as thermal and structural upgrades."
+          ]
+        },
+        {
+          "heading": "Who we serve",
+          "paragraphs": [
+            "We work with power, geothermal, refining, petrochemical, chemical, and pulp & paper, steel and metals customers."
+          ]
+        },
+        {
+          "heading": "",
+          "paragraphs": [
+            "Contact us at +662-661-7723 or through the request form."
           ]
         }
       ]

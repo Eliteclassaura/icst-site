@@ -1,0 +1,47 @@
+{
+  "title": "Howden PRO SX Series | Cooling Tower Fans",
+  "description": "Howden Pro SX Series cooling tower fans are touted to be so quiet that other noise-reduction methods are not necessary. Cooling Tower parts from ICST.",
+  "path": "/product/pro-sx-series-28-34-0-73m-10-36m-fans/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Howden PRO SX Series | Cooling Tower Fans",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/SX-Series.jpg",
+        "alt": "",
+        "width": 334,
+        "height": 184,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The Howden Pro SX Series cooling tower fans are often much quieter than standard cooling fans. Howden touts this fan to be so quiet that other noise-reduction methods such as sound attenuating walls and water silencers are not necessary."
+          ],
+          "bullets": [
+            {
+              "text": "Damps mechanical vibration: the FRP blades offer vibration damping and good chemical resistance."
+            },
+            {
+              "text": "Frees up space – the SX offers the opportunity to build a compact installation, occupying less space and reducing materials costs"
+            },
+            {
+              "text": "Simple to assemble and adaptable for a range of applications"
+            },
+            {
+              "text": "Enhances cooling capacity – you can increase fan speed to produce more air at noise levels which are still acceptable"
+            },
+            {
+              "text": "Applications – Field-erected cooling towers, packaged cooling towers, air-cooled condensers (ACC), air cooled heat exchangers (ACHE) and ventilation systems"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

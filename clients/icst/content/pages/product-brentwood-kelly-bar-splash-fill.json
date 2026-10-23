@@ -1,0 +1,30 @@
+{
+  "title": "Brentwood Kelly Bar Splash Fill - ICST - Thailand",
+  "description": "AccuPac® Kelly Bar is a well-known splash fill with a proven performance record.",
+  "path": "/product/brentwood-kelly-bar-splash-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Brentwood Kelly Bar Splash Fill",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-Kelly-Bar.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 195,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "AccuPac® Kelly Bar is a well-known splash fill with a proven performance record. The Kelly Bar is named after Neil Kelly, a man responsible for significant contributions in the field of crossflow wet cooling technology. This classic product is designed to maximize practicality and can be oriented either parallel or perpendicular to air flow in any standard fill arrangement, depending on thermal requirements."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Vibration Switch Example - ICST - Thailand",
+  "description": "For a full list of our vibration switches, please call or email us directly and we will be happy to all of your questions.",
+  "path": "/product/vibration-switch-example/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Vibration Switch Example",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/ICS-vibration-switch.jpg",
+        "alt": "",
+        "width": 600,
+        "height": 600,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "For a full list of our vibration switches, please call or email us directly and we will be happy to all of your questions."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "title": "Addax Drive Shaft Composite Coupling LRF375-275 | ICST",
+  "description": "Addax LRF375-275 coupling for cooling tower drive shafts. Non metallic build resists corrosion in humid plant environments. Contact ICST for pricing.",
+  "path": "/product/addax-drive-shaft-composite-coupling-lrf375-275/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Addax Drive Shaft Composite Coupling LRF375-275",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 300,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The Rexnord Addax Composite Cooling Tower Coupling delivers value to the cooling tower industry through features such as:",
+            "Low Weight Means Easy Installation"
+          ],
+          "bullets": [
+            {
+              "text": "Corrosion resistance"
+            },
+            {
+              "text": "High-misalignment capacity"
+            },
+            {
+              "text": "Excellent fatigue resistance"
+            },
+            {
+              "text": "Low weight"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

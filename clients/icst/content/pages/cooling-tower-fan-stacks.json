@@ -1,6 +1,7 @@
 {
   "title": "Cooling Tower Fan Stacks | Durable & Efficient Designs - ICST - Thailand",
   "description": "ICST offers premium cooling tower fan stacks. Designed for durability and optimal airflow performance in industrial cooling systems.",
+  "path": "/cooling-tower-fan-stacks/",
   "layout": [
     {
       "blockType": "hero",
@@ -9,55 +10,54 @@
       "lede": "Optimize airflow and performance with our durable fan stacks. Designed for maximum efficiency and easy installation, they ensure reliable operation and enhanced cooling tower functionality."
     },
     {
-      "blockType": "chipNav",
-      "label": "Parts categories",
-      "links": [
-        {
-          "label": "Fans",
-          "href": "/fans/"
-        },
-        {
-          "label": "Motors",
-          "href": "/motors/"
-        },
-        {
-          "label": "Nozzles",
-          "href": "/nozzles/"
-        },
-        {
-          "label": "Fill media",
-          "href": "/fill-media/"
-        },
-        {
-          "label": "FRP members",
-          "href": "/frp-members/"
-        },
-        {
-          "label": "Gear box",
-          "href": "/gear-box/"
-        },
-        {
-          "label": "Tower hardware",
-          "href": "/tower-hardware/"
-        },
-        {
-          "label": "Cooling tower fan stacks",
-          "href": "/cooling-tower-fan-stacks/"
-        },
-        {
-          "label": "Drive shaft assemblies",
-          "href": "/drive-shafts-assembles/"
-        }
-      ],
-      "currentPath": "/cooling-tower-fan-stacks/"
-    },
-    {
       "blockType": "articleBody",
       "sections": [
         {
           "heading": "",
           "paragraphs": [
             "Cooling Tower Fan Stacks"
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Dynafab_FanStacks-300x146.jpg",
+                "alt": "Dyna-Fab 6' Height Fan-Stack",
+                "width": 300,
+                "height": 146
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Dynafab_FanStacks-300x146.jpg",
+                "alt": "Dyna-Fab 10' Height Fan-Stack",
+                "width": 300,
+                "height": 146
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Dynafab_FanStacks-300x146.jpg",
+                "alt": "Dyna-Fab 14' Height Fan-Stack",
+                "width": 300,
+                "height": 146
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Dynafab_FanStacks-300x146.jpg",
+                "alt": "Dyna-Fab 18' Height Fan-Stack",
+                "width": 300,
+                "height": 146
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/ICS-FanStack_6ft-300x225.jpg",
+                "alt": "6' Height Fan-Stack",
+                "width": 300,
+                "height": 225
+              }
+            }
           ]
         },
         {
@@ -66,44 +66,27 @@
             "Our fiber glass FRP Fan stacks for counterflow or crossflow cooling towers are custom designed to ICST specifications, and all diameters and heights are available to fit all towers.",
             "Have questions on cooling tower fan stacks?",
             "Contact For Pricing"
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/ICS-FanStack_10ft-300x225.jpg",
+                "alt": "10' Height Fan-Stack",
+                "width": 300,
+                "height": 225
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/ICS-FanStack_14ft-300x225.jpg",
+                "alt": "14' Height Fan-Stack",
+                "width": 300,
+                "height": 225
+              }
+            }
           ]
         }
       ]
-    },
-    {
-      "blockType": "productGrid",
-      "eyebrow": "Cooling tower fan stacks",
-      "title": "Cooling tower fan stacks we supply",
-      "lede": "Synthetic copy: one line about the products in this category.",
-      "actionLabel": "Request a quote",
-      "items": [
-        {
-          "title": "Cooling tower fan stacks product one",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        },
-        {
-          "title": "Cooling tower fan stacks product two",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        },
-        {
-          "title": "Cooling tower fan stacks product three",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        },
-        {
-          "title": "Cooling tower fan stacks product four",
-          "text": "Synthetic product summary.",
-          "href": "/parts/"
-        }
-      ]
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to our parts team",
-      "text": "Synthetic supporting line for the phone call-to-action."
     }
   ]
 }

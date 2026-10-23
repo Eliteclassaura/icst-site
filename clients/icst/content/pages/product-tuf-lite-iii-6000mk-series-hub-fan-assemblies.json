@@ -1,0 +1,31 @@
+{
+  "title": "Hudson Tuf-Lite III 6000MK Series Hub | Cooling Tower Fans",
+  "description": "Hudson Tuf-Lite III 6000MK Series Hub fan assemblies offer years of cost effective, reliable service. Cooling Tower Replacement parts from ICST.",
+  "path": "/product/tuf-lite-iii-6000mk-series-hub-fan-assemblies/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Hudson Tuf-Lite III 6000MK Series Hub | Cooling Tower Fans",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Tuf-Lite-III-Fans-6000M-Series-Hub-scaled-1.jpg",
+        "alt": "",
+        "width": 2560,
+        "height": 2283,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Adjustable Pitch Fan Assembly 32.8′ or 10 Meter Diameter. Blade Counts from 6 to 20.",
+            "Hudson Tuf-Lite III 6000MK Series fan blades are of single piece fiberglass reinforced plastic (FRP) construction optimized for performance, reliability, noise, and cost effectiveness. Tuf-Lite III fan blades are constructed of light weight, corrosion resistant, fiberglass reinforced vinyl-ester resin, with materials, thickness, and processes determined from finite element analysis modeling. Tuf-Edge leading-edge erosion and UV protection come standard with this blade."
+          ]
+        }
+      ]
+    }
+  ]
+}

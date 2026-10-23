@@ -1,152 +1,87 @@
 {
-  "title": "Tech articles | Cooling tower library",
-  "description": "Industrial cooling tower articles from ICST.",
+  "title": "Cooling Tower Tech Articles | Expert Insights - ICST - Thailand",
+  "description": "Explore expert tech articles on cooling towers by ICST. Stay informed with industry trends, tips, and solutions for optimal performance.",
+  "path": "/tech-articles/",
   "layout": [
-    {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        }
-      ],
-      "current": "Tech articles"
-    },
     {
       "blockType": "hero",
       "variant": "plain",
-      "eyebrow": "Library",
-      "title": "Tech articles",
-      "lede": "Articles on cooling tower design, operation and maintenance."
+      "title": "Our Blogs",
+      "lede": "Expert Insights"
     },
     {
-      "blockType": "productGrid",
-      "title": "All articles",
-      "lede": "23 articles, most read first.",
-      "actionLabel": "Read article",
-      "items": [
+      "blockType": "articleBody",
+      "sections": [
         {
-          "title": "Cooling Tower Water Loss: Causes, Formulas & Fixes",
-          "text": "Article from the ICST library.",
-          "href": "/cooling-tower-water-loss/"
+          "heading": "",
+          "paragraphs": [
+            "Stay Informed with Expert Knowledge and Industry",
+            "Updates"
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/IMG-20240827-WA0013-1-1024x624.png",
+                "alt": "",
+                "width": 1024,
+                "height": 624,
+                "decorative": true
+              }
+            }
+          ]
         },
         {
-          "title": "Air Cooler Malfunctions: Common Problems, Causes, and Safe Fixes",
-          "text": "Article from the ICST library.",
-          "href": "/air-cooler-malfunctions/"
+          "heading": "Insights & Innovations",
+          "paragraphs": [
+            "Explore the Latest Trends, Tips, and Updates in ICST",
+            "Explore More"
+          ]
         },
         {
-          "title": "Cooling System CAD Drawings: The Complete Engineering Guide - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/cooling-system-cad-drawings/"
+          "heading": "Cooling Tower Parts RFQ Checklist: What Plant Engineers Should Send Before Requesting a Quote",
+          "paragraphs": [
+            "A cooling tower parts RFQ…"
+          ]
         },
         {
-          "title": "Environmental Impact of Cooling Towers: Risks and Solutions",
-          "text": "Article from the ICST library.",
-          "href": "/environmental-impact-of-cooling-towers/"
+          "heading": "Cooling Water Chemistry: pH Balance & Control Methods",
+          "paragraphs": [
+            "Cooling water chemistry is the…"
+          ]
         },
         {
-          "title": "Free Cooling Tower Calculators: Track Approach, Range, and Energy Loss - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/free-cooling-tower-calculators/"
+          "heading": "Cooling Tower Water Treatment: Practices and Technologies",
+          "paragraphs": [
+            "Cooling tower water treatment is…"
+          ]
         },
         {
-          "title": "Cooling Tower Performance Testing CTI: ATC-105 Guide - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/cooling-tower-performance-testing-cti/"
+          "heading": "Cooling Tower Project Financing Models: CAPEX vs OPEX",
+          "paragraphs": [
+            "Choosing between cooling tower project…"
+          ]
         },
         {
-          "title": "Fan Blade Pitch Optimization Guide | ICST",
-          "text": "Article from the ICST library.",
-          "href": "/fan-blade-pitch-optimization/"
+          "heading": "Cooling Tower Life Cycle Assessment: Environmental Impact from Cradle to Grave",
+          "paragraphs": [
+            "A cooling tower life cycle…"
+          ]
         },
         {
-          "title": "Cooling Tower Water Distribution System: Design Guide",
-          "text": "Article from the ICST library.",
-          "href": "/cooling-tower-water-distribution-system/"
+          "heading": "Cooling Tower Operator Competency: Skills, Training & Certification",
+          "paragraphs": [
+            "Cooling tower operator competency means…"
+          ]
         },
         {
-          "title": "Cooling Towers in Power Plants: Design & Maintenance Guide",
-          "text": "Article from the ICST library.",
-          "href": "/15080-2cooling-towers-in-power-plants/"
-        },
-        {
-          "title": "Industrial Fan Blade Vibration: Causes, Symptoms & Solutions - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/industrial-fan-blade-vibration/"
-        },
-        {
-          "title": "Understanding Cooling System Performance Metrics and KPIs - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/cooling-system-performance-metrics/"
-        },
-        {
-          "title": "Cooling Tower Repair: Step-by-Step Guide & Checklist",
-          "text": "Article from the ICST library.",
-          "href": "/step-by-step-cooling-tower-repair-and-maintenance-guide/"
-        },
-        {
-          "title": "Heat Exchangers: Types, Applications & Efficiency (2026)",
-          "text": "Article from the ICST library.",
-          "href": "/heat-exchangers/"
-        },
-        {
-          "title": "Oil Refinery Cooling System Design Guide | Expert Engineering - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/oil-refinery-cooling/"
-        },
-        {
-          "title": "Types of Industrial Fan Blades: Selection Guide",
-          "text": "Article from the ICST library.",
-          "href": "/industrial-fan-blades-3/"
-        },
-        {
-          "title": "Adiabatic Cooling System: Design, Benefits & ROI",
-          "text": "Article from the ICST library.",
-          "href": "/adiabatic-cooling-system/"
-        },
-        {
-          "title": "Cooling System Emergency Shutdown: Procedures & Safety Guide - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/cooling-system-emergency-shutdown/"
-        },
-        {
-          "title": "What Are Industrial Cooling Systems? Types and Applications - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/industrial-cooling-systems/"
-        },
-        {
-          "title": "Air Cooler Troubleshooting: How to Identify and Fix Common Air Cooler Malfunctions - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/air-cooler-troubleshooting/"
-        },
-        {
-          "title": "Thailand’s Industrial Cooling Policies 2026 Guide - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/thailands-industrial-cooling-policies/"
-        },
-        {
-          "title": "Fan Blade Vibration Analysis: Interpret Data & Prevent Failure - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/fan-blade-vibration/"
-        },
-        {
-          "title": "Cooling System Design Software: 2026 Guide to Efficiency - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/cooling-system-design-software-2/"
-        },
-        {
-          "title": "Common Cooling Tower Problems and How to Fix Them - ICST - Thailand",
-          "text": "Article from the ICST library.",
-          "href": "/common-cooling-tower-problems-and-how-to-fix-them/"
+          "heading": "Recents Blogs",
+          "paragraphs": [
+            "Cooling tower water treatment is the ongoing process of controlling…",
+            "Choosing between cooling tower project financing models requires evaluating upfront…",
+            "A cooling tower life cycle assessment evaluates the environmental impact…"
+          ]
         }
       ]
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to an engineer",
-      "text": "Synthetic supporting line."
     }
   ]
 }

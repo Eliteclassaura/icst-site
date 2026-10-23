@@ -1,25 +1,18 @@
 {
   "title": "What Are Industrial Cooling Systems? Types and Applications - ICST - Thailand",
   "description": "Discover key insights on industrial cooling systems to enhance efficiency and performance. Learn practices to maintain efficient operations.",
+  "path": "/industrial-cooling-systems/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Tech articles",
-          "href": "/tech-articles/"
-        }
-      ],
-      "current": "What Are Industrial Cooling Systems? Types and Applications - ICST - Thailand"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "title": "What Are Industrial Cooling Systems? Types and Applications - ICST - Thailand"
+      "variant": "media",
+      "title": "What Are Industrial Cooling Systems? Types and Applications",
+      "image": {
+        "url": "/wp-content/uploads/2025/05/What-Are-Industrial-Cooling-Systems-Types-and-Applications-icsthailand.jpg",
+        "alt": "What Are Industrial Cooling Systems Types and Applications -icsthailand",
+        "width": 1200,
+        "height": 630
+      }
     },
     {
       "blockType": "articleBody",

@@ -1,95 +1,26 @@
 {
   "title": "Cooling Tower Disaster Recovery - ICST - Thailand",
   "description": "A cooling tower disaster recovery case study from ICST, showing how fast equipment replacement got a damaged tower back online.",
+  "path": "/portfolio/cooling-tower-disaster-recovery/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Projects",
-          "href": "/projects/"
-        }
-      ],
-      "current": "Cooling Tower Disaster Recovery"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "title": "Cooling Tower Disaster Recovery - ICST - Thailand"
-    },
-    {
-      "blockType": "dataTable",
-      "caption": "Project facts",
-      "rowHeader": "Fact",
-      "columns": [
-        {
-          "label": "Value"
-        }
-      ],
-      "rows": [
-        {
-          "label": "Project",
-          "cells": [
-            {
-              "text": "Cooling Tower Disaster Recovery"
-            }
-          ]
-        },
-        {
-          "label": "Client",
-          "cells": [
-            {
-              "text": "EDC"
-            }
-          ]
-        },
-        {
-          "label": "Location",
-          "cells": [
-            {
-              "text": "Philippines"
-            }
-          ]
-        },
-        {
-          "label": "Tower type",
-          "cells": [
-            {
-              "text": "Counter flow, Wood"
-            }
-          ]
-        },
-        {
-          "label": "Year",
-          "cells": [
-            {
-              "text": "2012"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "blockType": "cta",
-      "eyebrow": "Next step",
-      "title": "Synthetic call to action title",
-      "text": "Synthetic supporting line.",
-      "cta": {
-        "primary": {
-          "label": "Request a quote",
-          "href": "/parts/"
-        }
+      "variant": "media",
+      "title": "Cooling Tower Disaster Recovery",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/ICS-cooling tower.jpg",
+        "alt": "ICS_CoolingTowerDisasterRecoveryProject_LeyteTower-After-353x297-1",
+        "width": 353,
+        "height": 297
       }
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to an engineer",
-      "text": "Synthetic supporting line."
     }
-  ]
+  ],
+  "facts": {
+    "project": "Cooling Tower Disaster Recovery",
+    "industry": null,
+    "client": "EDC",
+    "location": "Philippines",
+    "tower_type": "Counter flow, Wood",
+    "year": "2012"
+  }
 }

@@ -1,0 +1,19 @@
+{
+  "title": "Amertech ATSprayer Counterflow Nozzle | ICST",
+  "description": "ATSprayer CF counter flow style nozzle body for cooling towers.",
+  "path": "/product/amertech-atsprayer-counterflow-nozzle/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Amertech ATSprayer Counterflow Nozzle",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/ATSprayer1.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 308,
+        "decorative": true
+      }
+    }
+  ]
+}

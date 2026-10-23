@@ -1,0 +1,30 @@
+{
+  "title": "FRP Channels - ICST - Thailand",
+  "description": "High Bearing Shear Properties Design Flexibility Alternative to Beams Corrosion Resistant High Strength to weight ratio Quick Installation",
+  "path": "/product/frp-channels/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "FRP Channels",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/FRP-channels.jpg",
+        "alt": "",
+        "width": 206,
+        "height": 131,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Call for volume pricing!"
+          ]
+        }
+      ]
+    }
+  ]
+}

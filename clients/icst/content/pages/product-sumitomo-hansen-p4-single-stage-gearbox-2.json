@@ -1,0 +1,35 @@
+{
+  "title": "Hansen P4 Gearbox",
+  "description": "Sumitomo Hansen P4 single stage gearbox for cooling tower fan drives, built for compact reduction needs. Get pricing from ICST.",
+  "path": "/product/sumitomo-hansen-p4-single-stage-gearbox-2/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Hansen P4 Gearbox",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Hansen-P4-Single-Stage.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 300,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "P4 Single Stage Units",
+            "Standardized single stage gear units:",
+            "The Hansen P4 product range of single stage gear units comes in a parallel horizontal configuration. The monobloc single stage units are available in five sizes (C through G) with torque ratings from 15-75kNm and ratios between 1.2 and 5.6. The performance of single-stage P4 units is characterized by low noise, light weight, and reliability.",
+            "Standardized heavy duty single stage gear units:",
+            "With this range of heavy duty single stage gear units, HIT extends its current single stage offering further into the multi-megawatt power range. These single stage units make use of the proven Hansen P4 technology and are especially suitable to drive large pumps, blowers, compressors, refiners, etc.",
+            "The Heavy duty single stage unit is available in a parallel horizontal configuration with split housing."
+          ]
+        }
+      ]
+    }
+  ]
+}

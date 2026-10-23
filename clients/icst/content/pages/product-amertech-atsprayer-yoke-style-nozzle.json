@@ -1,0 +1,19 @@
+{
+  "title": "Amertech ATSprayer Yoke-Style Nozzle | ICST",
+  "description": "The ATSprayer uses a yoke style nozzle body manufactured by AmertechTowerServices and is used for direct replacement in cooling towers which have Research-Cottrell, Hamon Cooling Tower or Ecodyne yoke nozzle bodies.",
+  "path": "/product/amertech-atsprayer-yoke-style-nozzle/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Amertech ATSprayer Yoke-Style Nozzle",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Amertech-Yoke3.jpeg",
+        "alt": "",
+        "width": 154,
+        "height": 209,
+        "decorative": true
+      }
+    }
+  ]
+}

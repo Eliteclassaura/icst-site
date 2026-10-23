@@ -1,0 +1,31 @@
+{
+  "title": "Target Nozzle",
+  "description": "Shepherd Target Nozzles provide better water distribution at various head and flow rates, are longer lasting and fit standard 1- 5/8” inch deckholes.",
+  "path": "/product/c-e-shepherd-target-nozzles/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Target Nozzle",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Sheppherd-Target-nozzles.jpg",
+        "alt": "",
+        "width": 281,
+        "height": 283,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "Target Nozzles for Crossflow Towers",
+          "paragraphs": [
+            "Shepherd Target Nozzles provide better water distribution at various head and flow rates, are longer lasting and fit standard 1-5/8″ deck holes. They are engineered to produce maximum uniformity of water dispersion with the minimum vertical distance by deflecting water flow vertically and laterally, offering more available tower height for fill slat installation.",
+            "Target Nozzle Screens (not shown) are designed to prevent clogging of the orifice. The screens snap directly onto optional tabs on the top of a Shepherd Target Nozzle. The Nozzle Screen Assembly offers an economical solution for protecting expensive components downstream from the cooling tower."
+          ]
+        }
+      ]
+    }
+  ]
+}

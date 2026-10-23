@@ -1,0 +1,30 @@
+{
+  "title": "CF150Max Brentwood - Cellular Drift Eliminators for Cooling Towers",
+  "description": "SDRU XF Drift Reduction units are used for crossflow cooling tower applications. They ensure protection from drift loss. Call us to learn more!",
+  "path": "/product/brentwood-cf150max-cellular-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "CF150Max Brentwood - Cellular Drift Eliminators for Cooling Towers",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-CF150Max.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 195,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "CF150MAx Counterflow Cellular Drift Eliminators are a cost-effective, high efficiency drift eliminator specifically designed to maximize drift removal. The modules are constructed of a series of sinusoidal-shaped, corrugated PVC sheets that are mechanically assembled to mating sinusoidal structural waves, forming closed cells. These cells force the drift droplets being carried in the leaving airstream to make three distinct changes in direction. These forced changes to the air flow create centrifugal forces on the droplets that remove them from the air stream by causing them to impact the module walls, collect, and drain back to the wet section of the cooling tower."
+          ]
+        }
+      ]
+    }
+  ]
+}

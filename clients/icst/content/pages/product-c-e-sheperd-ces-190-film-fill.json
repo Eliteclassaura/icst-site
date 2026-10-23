@@ -1,0 +1,31 @@
+{
+  "title": "CES-190",
+  "description": "Shepherd CES-190 Filmpack Fill is a cross corrugated media manufactured with high quality polyvinylchloride sheet conforming to commercial standard ASTM D1784:12454B.",
+  "path": "/product/c-e-sheperd-ces-190-film-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "CES-190",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/CE-Sheperd-190.jpg",
+        "alt": "",
+        "width": 322,
+        "height": 209,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Efficient heat transfer in counterflow cooling towers is accomplished via cross-corrugated film-type media, or fill. This fill is thermally formed from rigid polyCellular Fillsinyl chloride (PVC), which resists decay and fungal or biological attack. CES sheets conform to the commercial standard ASTM D1784:12454B. The sheets can be shipped nested for your assembly or shipped assembled.",
+            "Assembled CES packs can be cut to fit snugly around framework while still maintaining its rigidity. A perpendicular stacking installation provides break-up points for silt allowing continual flushing of contaminates. The individual stacks allow easy removal for cleaning or replacement if required. CES Film Fill Packs significantly increases cooling tower efficiency as its expansive surface area accelerates cooling in a thin film of water. This increased efficiency translates to reduced pump head and horsepower requirements."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "title": "AccuPac VF19 Brentwood Fill - Counter Flow Tower Fill",
+  "description": "AccuPac VF19 Brentwood Fill is used for counterflow cooling towers with poor water quality. This cross corrugated fill helps improve water distributions and thermal mixing. Learn more!",
+  "path": "/product/brentwood-accupac-vf-19-plus-vertical-fluted-anti-fouling-film-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "AccuPac VF19 Brentwood Fill - Counter Flow Tower Fill",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-VF19-PLUS.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 195,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "AccuPac® Vertical-Fluted Fills feature vertical flow channels with large openings that produce the high water velocities necessary to create an anti-fouling environment in the fill. In the VF19PLUS, an engineered microstructure was added to the flutes to improve water distribution and thermal mixing."
+          ]
+        }
+      ]
+    }
+  ]
+}

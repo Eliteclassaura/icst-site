@@ -1,103 +1,27 @@
 {
   "title": "PTT GSP3 Fan Upgrade - ICST - Thailand",
   "description": "See how ICST upgraded cooling tower fans for the PTT GSP3 project, improving airflow and efficiency at the plant.",
+  "path": "/portfolio/ptt-gsp3-fan-upgrade/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Projects",
-          "href": "/projects/"
-        }
-      ],
-      "current": "PTT GSP3 Fan Upgrade"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "title": "PTT GSP3 Fan Upgrade - ICST - Thailand"
-    },
-    {
-      "blockType": "dataTable",
-      "caption": "Project facts",
-      "rowHeader": "Fact",
-      "columns": [
-        {
-          "label": "Value"
-        }
-      ],
-      "rows": [
-        {
-          "label": "Project",
-          "cells": [
-            {
-              "text": "PTT GSP3"
-            }
-          ]
-        },
-        {
-          "label": "Industry",
-          "cells": [
-            {
-              "text": "Gas Separation"
-            }
-          ]
-        },
-        {
-          "label": "Client",
-          "cells": [
-            {
-              "text": "PTT GSP3"
-            }
-          ]
-        },
-        {
-          "label": "Location",
-          "cells": [
-            {
-              "text": "Thailand"
-            }
-          ]
-        },
-        {
-          "label": "Tower type",
-          "cells": [
-            {
-              "text": "Induced Draft ACHE"
-            }
-          ]
-        },
-        {
-          "label": "Year",
-          "cells": [
-            {
-              "text": "2018"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "blockType": "cta",
-      "eyebrow": "Next step",
-      "title": "Synthetic call to action title",
-      "text": "Synthetic supporting line.",
-      "cta": {
-        "primary": {
-          "label": "Request a quote",
-          "href": "/parts/"
-        }
+      "variant": "media",
+      "title": "PTT GSP3 Fan Upgrade",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/ptt-gsp3-fan-upgrade.jpg",
+        "alt": "",
+        "width": 353,
+        "height": 297,
+        "decorative": true
       }
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to an engineer",
-      "text": "Synthetic supporting line."
     }
-  ]
+  ],
+  "facts": {
+    "project": "PTT GSP3",
+    "industry": "Gas Separation",
+    "client": "PTT GSP3",
+    "location": "Thailand",
+    "tower_type": "Induced Draft ACHE",
+    "year": "2018"
+  }
 }

@@ -1,0 +1,30 @@
+{
+  "title": "ABB Motor - ICST - Thailand",
+  "description": "Premium motors suitable for all applications, ABB motors meet all European standards and are available in all sizes and hazard classifications.",
+  "path": "/product/abb-motor-example/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "ABB Motor",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/motors.jpg",
+        "alt": "",
+        "width": 149,
+        "height": 108,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Premium motors suitable for all applications, ABB motors meet all European standards and are available in all sizes and hazard classifications."
+          ]
+        }
+      ]
+    }
+  ]
+}

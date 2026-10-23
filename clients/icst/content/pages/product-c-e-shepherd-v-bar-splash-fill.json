@@ -1,0 +1,31 @@
+{
+  "title": "V-Bar",
+  "description": "V-Bar splash bars are manufactured of extruded PVC with either carbon black or titanium dioxide as a UV inhibitor.",
+  "path": "/product/c-e-shepherd-v-bar-splash-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "V-Bar",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/ShepherdVbar2.jpeg",
+        "alt": "",
+        "width": 209,
+        "height": 146,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "V-Bar Splash Fill Slats",
+          "paragraphs": [
+            "Splash bars manufactured of extruded PVC with either carbon black or titanium dioxide as a UV inhibitor. The fill bar shall be 50 mil ( /- 0.005″) thickness with a uniform hole punch pattern surface to aid in water break-up. Bars should be supported by wire mesh grids a minimum of 24″ on center along the bar length. Splash fill bar type must have at least five (5) years installation history.",
+            "Plastic clips shall be interlocking to secure fill bars to mesh. Clips shall prevent any movement between the bar and the grid. The clips are to be made of pliable polypropylene and shall not break when bent."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "title": "Amarillo Drive Shaft Composite Coupling CF73-950X | ICST",
+  "description": "Amarillo CF73-950X drive shaft coupling for cooling tower fan drives. Composite build gives reliable torque transfer at low weight. Get pricing at ICST.",
+  "path": "/product/amarillo-drive-shaft-cf73-950x/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Amarillo Drive Shaft Composite Coupling CF73-950X",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft.jpg",
+        "alt": "",
+        "width": 1015,
+        "height": 741,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "Comparison with Steel Drive Shafts",
+          "tables": [
+            {
+              "headers": [
+                "Features",
+                "Benefits"
+              ],
+              "rows": [
+                [
+                  "High Strength to Weight Ratio",
+                  "Composite center spacer member weight is a mere fraction of the weight of a steel drive shaft center member."
+                ],
+                [
+                  "Inherent Corrosion Resistance",
+                  "Composite materials have corrosion resistance exceeding that of 316 stainless steel."
+                ],
+                [
+                  "Long Spans",
+                  "Eliminates requirement for high maintenance and costly intermediate pillow block bearings."
+                ],
+                [
+                  "Patented Composite Flex Disc",
+                  "Low maintenance; no fretting corrosion of steel “shim” packs, plus much easier installation and maintenance."
+                ],
+                [
+                  "Dimensionally Stable",
+                  "Very low Coefficient of Thermal Expansion (CTE)."
+                ],
+                [
+                  "Vibration & Shock Control",
+                  "The natural dampening of composite materials reduces the transmission of vibration throughout the power train, resulting in less wear and tear on mechanical equipment."
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Comparison with Other Composite Drive Shafts",
+          "tables": [
+            {
+              "headers": [
+                "Features",
+                "Benefits"
+              ],
+              "rows": [
+                [
+                  "Greater Misalignment Capacity",
+                  "When misalignment occurs due to mechanical equipment shifting, greater than one degree of angular misalignment per flex disc allowed."
+                ],
+                [
+                  "Composite Flex Discs",
+                  "Color coded by size for easy identification. Includes integral 316 SS bushings."
+                ],
+                [
+                  "Registered Bushings & Flanges",
+                  "Lower stress concentrations and better assurance of alignment."
+                ],
+                [
+                  "High Strength Composite Flange Hubs",
+                  "Spacer tube flange hubs are strong and corrosion resistant, while at the same time lightweight, reducing overhung loads."
+                ],
+                [
+                  "316 SS Flange Hubs",
+                  "Corrosion resistance of stainless steel for motor & gearbox hubs."
+                ],
+                [
+                  "Standard 316 SS Hardware",
+                  "Since precision hardware is not required, fasteners are easily replaced, and at lower costs. Optional monel hardware available."
+                ],
+                [
+                  "High Service Factor Rating",
+                  "Capable of withstanding repetitive high start-up torques."
+                ],
+                [
+                  "Balancing",
+                  "All drive shafts are dynamically balanced to AGMA 9000-C90, Class 9 specifications."
+                ],
+                [
+                  "Process Verification",
+                  ""
+                ],
+                [
+                  "Easier Installation",
+                  "Fewer parts required at each flex disc connection."
+                ],
+                [
+                  "Special Shipping Tubes",
+                  "Designed to give drive shaft protection for both international and domestic shipments."
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

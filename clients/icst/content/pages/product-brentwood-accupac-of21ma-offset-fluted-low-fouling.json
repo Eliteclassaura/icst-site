@@ -1,0 +1,30 @@
+{
+  "title": "Counterflow Cooling Tower Fill - Brentwood AccuPac OF21MA",
+  "description": "The Brentwood AccuPac OF21MA fill is used in counterflow cooling towers used for power, refining, chemical, steel,and food processing applications. Learn more!",
+  "path": "/product/brentwood-accupac-of21ma-offset-fluted-low-fouling/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Counterflow Cooling Tower Fill - Brentwood AccuPac OF21MA",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-OF21MA.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 195,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "AccuPac® Offset-Fluted Fill combines the low-fouling characteristics of vertical flow with the enhanced water distribution of our cross-fluted designs. The OF21MA’s high thermal performance (high KaV/L) and low pressure drop are similar to the CF1900 design but with lower potential for fouling."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,17 +1,8 @@
 {
   "title": "Cooling Tower Maintenance Thailand | ICST",
   "description": "Industrial cooling tower maintenance in Thailand: inspections, cleaning, repairs, and upgrades for FRP, wood, and concrete towers. Get a free evaluation.",
+  "path": "/cooling-tower-maintenance/",
   "layout": [
-    {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        }
-      ],
-      "current": "Cooling tower maintenance"
-    },
     {
       "blockType": "hero",
       "variant": "plain",
@@ -40,6 +31,17 @@
             {
               "text": "Bangkok regional hub serving sites across Thailand"
             }
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2026/07/WhatsApp_Image_2026-07-22_at_12.47.26_PM-removebg-preview.png",
+                "alt": "",
+                "width": 720,
+                "height": 144,
+                "decorative": true
+              }
+            }
           ]
         },
         {
@@ -64,6 +66,17 @@
           "heading": "Thermal & Performance Upgrades",
           "paragraphs": [
             "If your tower runs but underperforms, we upgrade fill media, drift eliminators, fans, and controls to restore heat transfer and save energy. A thermal upgrade often costs less than a full replacement."
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Group-1000004012.png",
+                "alt": "",
+                "width": 319,
+                "height": 338,
+                "decorative": true
+              }
+            }
           ]
         },
         {
@@ -141,6 +154,17 @@
             "Full deep cleaning and replacement of worn components",
             "We set your exact schedule during the first evaluation, based on tower type, water quality, and load.",
             "Call Our Engineers Now"
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Group-1-2-2.png",
+                "alt": "",
+                "width": 340,
+                "height": 320,
+                "decorative": true
+              }
+            }
           ]
         },
         {
@@ -262,6 +286,17 @@
           "paragraphs": [
             "Most failures build quietly until something gives. We catch them early with a full inspection and a plan tailored to your tower, so small fixes stay small.",
             "Schedule a Free Evaluation"
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Group-1-2-2.png",
+                "alt": "",
+                "width": 340,
+                "height": 320,
+                "decorative": true
+              }
+            }
           ]
         },
         {
@@ -295,24 +330,6 @@
           ]
         }
       ]
-    },
-    {
-      "blockType": "cta",
-      "eyebrow": "Next step",
-      "title": "Synthetic call to action title",
-      "text": "Synthetic supporting line.",
-      "cta": {
-        "primary": {
-          "label": "Request a quote",
-          "href": "/parts/"
-        }
-      }
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to an engineer",
-      "text": "Synthetic supporting line."
     }
   ]
 }

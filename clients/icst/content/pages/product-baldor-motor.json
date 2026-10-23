@@ -1,0 +1,30 @@
+{
+  "title": "Baldor Motor - ICST - Thailand",
+  "description": "Quality USA motors available in NEMA & IEC standards, all sizes and most hazard classifications.",
+  "path": "/product/baldor-motor/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Baldor Motor",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/motors1.jpg",
+        "alt": "",
+        "width": 149,
+        "height": 108,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Quality USA motors available in NEMA & IEC standards, all sizes and most hazard classifications."
+          ]
+        }
+      ]
+    }
+  ]
+}

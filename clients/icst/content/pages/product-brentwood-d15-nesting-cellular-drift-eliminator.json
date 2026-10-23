@@ -1,0 +1,30 @@
+{
+  "title": "D15 Nesting Brentwood - Brentwood Nesting Cellular Drift Eliminator",
+  "description": "The Brentwood nesting D15 model provides seamless drift removal by eliminating gaps between adjacent packs. Learn more about the various cellular drift eliminators we offer.",
+  "path": "/product/brentwood-d15-nesting-cellular-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "D15 Nesting Brentwood - Brentwood Nesting Cellular Drift Eliminator",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-D15-Nesting.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 195,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Brentwood’s D15 Nesting high-efficiency drift eliminators are specially designed and constructed to meet today’s demanding drift reduction requirements for crossflow cooling towers. The D15 Nesting Cellular Drift Eliminator combines high drift elimination with low pressure drop, yielding an extremely efficient drift eliminator panel. Constructed of 15-mil (after forming) PVC corrugated sheets and heavy, 30-mil stiffener sheets, the panels are designed to interlock to form a leak-tight integrated installed assembly."
+          ]
+        }
+      ]
+    }
+  ]
+}

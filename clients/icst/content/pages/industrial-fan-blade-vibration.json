@@ -1,25 +1,18 @@
 {
   "title": "Industrial Fan Blade Vibration: Causes, Symptoms & Solutions - ICST - Thailand",
   "description": "Learn to identify and solve industrial fan Blade vibration in cooling towers. Our guide covers causes, symptoms, and solutions to improve efficiency.",
+  "path": "/industrial-fan-blade-vibration/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Tech articles",
-          "href": "/tech-articles/"
-        }
-      ],
-      "current": "Industrial Fan Blade Vibration: Causes, Symptoms & Solutions - ICST - Thailand"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "title": "Industrial Fan Blade Vibration: Causes, Symptoms & Solutions - ICST - Thailand"
+      "variant": "media",
+      "title": "Industrial Fan Blade Vibration: Causes, Symptoms & Solutions",
+      "image": {
+        "url": "/wp-content/uploads/2025/08/Industrial-Fan-Blade-Vibration-Causes-Symptoms-Solutions.jpg",
+        "alt": "Industrial Fan Blade Vibration Causes, Symptoms & Solutions - icsthailand.com",
+        "width": 1600,
+        "height": 900
+      }
     },
     {
       "blockType": "articleBody",

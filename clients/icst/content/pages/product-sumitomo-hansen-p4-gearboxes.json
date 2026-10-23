@@ -1,0 +1,30 @@
+{
+  "title": "SUMITOMO HANSEN P4 GEARBOXES - ICST - Thailand",
+  "description": "Sumitomo Hansen P4 gearboxes for industrial cooling tower fan drives. Browse the P4 range and request a quote from ICST.",
+  "path": "/product/sumitomo-hansen-p4-gearboxes/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "SUMITOMO HANSEN P4 GEARBOXES",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/image-1.png",
+        "alt": "",
+        "width": 245,
+        "height": 239,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Reliable and durable gearboxes designed for maximum performance and efficiency in industrial cooling systems."
+          ]
+        }
+      ]
+    }
+  ]
+}

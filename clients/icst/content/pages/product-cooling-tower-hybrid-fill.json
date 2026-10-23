@@ -1,0 +1,40 @@
+{
+  "title": "Cooling Tower Hybrid Fill - ICST",
+  "description": "Cooling tower hybrid Fill for counterflow and crossflow cooling towers. Folds for easy shipping and can be arranged and spaced for optimal cooling performance.",
+  "path": "/product/cooling-tower-hybrid-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Cooling Tower Hybrid Fill"
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Features and Benefits:"
+          ],
+          "bullets": [
+            {
+              "text": "Cooling tower hybrid fill folds into nested bundles for easy, cost-effective shipping, storage, and installation."
+            },
+            {
+              "text": "Simple, bottom-supported installation (No field assembly or hangers required)."
+            },
+            {
+              "text": "TurboSplash PACs can be configured in various spacings and angles to optimize performance."
+            },
+            {
+              "text": "Constructed of durable, trouble-free Polyproylene Copolymer that is resistant to alkalis, acids, and oils."
+            },
+            {
+              "text": "Available in 4″ (SF100) and 6″ (SF150) pair spread configurations."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

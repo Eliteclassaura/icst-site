@@ -1,69 +1,19 @@
 {
   "title": "Lanxess - ICST - Thailand",
   "description": "",
+  "path": "/portfolio/lanxess/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Projects",
-          "href": "/projects/"
-        }
-      ],
-      "current": "Lanxess"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "title": "Lanxess - ICST - Thailand"
-    },
-    {
-      "blockType": "dataTable",
-      "caption": "Project facts",
-      "rowHeader": "Fact",
-      "columns": [
-        {
-          "label": "Value"
-        }
-      ],
-      "rows": [
-        {
-          "label": "Project",
-          "cells": [
-            {
-              "text": "Lanxess"
-            }
-          ]
-        },
-        {
-          "label": "Industry",
-          "cells": [
-            {
-              "text": "Chemical – Butyl Rubber"
-            }
-          ]
-        },
-        {
-          "label": "Location",
-          "cells": [
-            {
-              "text": "Jurong Island Singapore"
-            }
-          ]
-        },
-        {
-          "label": "Tower type",
-          "cells": [
-            {
-              "text": "4-Cell, Counterflow, FRP"
-            }
-          ]
-        }
-      ]
+      "variant": "media",
+      "title": "Lanxess",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Lanxess-side-view-scaled-2.jpg",
+        "alt": "",
+        "width": 2560,
+        "height": 1920,
+        "decorative": true
+      }
     },
     {
       "blockType": "articleBody",
@@ -78,24 +28,14 @@
           ]
         }
       ]
-    },
-    {
-      "blockType": "cta",
-      "eyebrow": "Next step",
-      "title": "Synthetic call to action title",
-      "text": "Synthetic supporting line.",
-      "cta": {
-        "primary": {
-          "label": "Request a quote",
-          "href": "/parts/"
-        }
-      }
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to an engineer",
-      "text": "Synthetic supporting line."
     }
-  ]
+  ],
+  "facts": {
+    "project": "Lanxess",
+    "industry": "Chemical – Butyl Rubber",
+    "client": null,
+    "location": "Jurong Island Singapore",
+    "tower_type": "4-Cell, Counterflow, FRP",
+    "year": null
+  }
 }

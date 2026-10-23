@@ -1,0 +1,30 @@
+{
+  "title": "Mechanical Assembly Cooling Tower Fill - Brentwood Counterflow fill",
+  "description": "Mechanical assembly cooling tower fill is slightly more expensive full but does offer less cost of supplies an and reduced installation time. Learn more about Brentwood Counterflow Film!",
+  "path": "/product/mech-assembly-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Mechanical Assembly Cooling Tower Fill - Brentwood Counterflow fill",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/fill.jpg",
+        "alt": "",
+        "width": 147,
+        "height": 108,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "A patented snap together assembly is available which requires no glue is also available. Although more expensive at first cost, the reduced time required for assembly combined with no costly glues to buy, this is an excellent choice for most sites. Additionally, it is faster to assemble, no curing time is required and it is considered environmentally friendly since there are no chemicals required to be brought to your site."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Cooling Tower Fill Assembly - Fill Assembly Tower Glue",
+  "description": "Cooling Tower glue assembly fill is a chemical weld created from contact points of the sheets and a chemical reaction that bonds them. Contact us for cooling tower fill assembly!",
+  "path": "/product/glue-assembly-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Cooling Tower Fill Assembly - Fill Assembly Tower Glue",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/fill.jpg",
+        "alt": "",
+        "width": 147,
+        "height": 108,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Glue assembly is actually a chemical weld performed when the contact points of the sheets are coated with a mixture of toluene and MEK and then pressed into a curing box to allow the chemical reaction to bond the sheets. This is done on sites where the climate is moderate and relatively controlled as the glue can be hard to manage when the conditions are too variable."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "title": "Shop the Addax Drive Shaft Composite Coupling LRA375.275",
+  "description": "Shop the Addax LRA375-275 composite drive shaft coupling, built for cooling tower fan drives with low maintenance. Request a quote from ICST.",
+  "path": "/product/addax-drive-shaft-composite-coupling-lra375-275/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Shop the Addax Drive Shaft Composite Coupling LRA375.275",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 300,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The Rexnord Addax Composite Cooling Tower Coupling delivers value to the cooling tower industry through features such as:",
+            "Low Weight Means Easy Installation"
+          ],
+          "bullets": [
+            {
+              "text": "Corrosion resistance"
+            },
+            {
+              "text": "High-misalignment capacity"
+            },
+            {
+              "text": "Excellent fatigue resistance"
+            },
+            {
+              "text": "Low weight"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

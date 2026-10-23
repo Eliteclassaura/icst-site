@@ -1,0 +1,30 @@
+{
+  "title": "Tower Blade Cellular DE - Brentwood Cooling Tower Cellular DE",
+  "description": "Brentwood Cooling Tower Cellular DE are constructed of an alternating series of corrugated and wave PVC sheets. View the tower blade DE's we offer!",
+  "path": "/product/brentwood-cellular-de-overview/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Tower Blade Cellular DE - Brentwood Cooling Tower Cellular DE",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-DEs-Cellular.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 267,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Brentwood’s cellular drift eliminators are constructed of an alternating series of corrugated and wave or flat PVC sheets, assembled to form closed cells. The closed cell structure yields the greatest surface area for droplet capture in a given volume. Our latest-generation cellular drift eliminators are engineered for either crossflow or counterflow applications to improve drift removal efficiency and reduce pressure drop."
+          ]
+        }
+      ]
+    }
+  ]
+}

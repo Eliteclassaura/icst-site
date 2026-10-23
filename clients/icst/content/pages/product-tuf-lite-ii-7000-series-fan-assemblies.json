@@ -1,0 +1,31 @@
+{
+  "title": "Hudson Tuf-Lite II 7000 Series | Cooling Tower Fans",
+  "description": "Tuf Lite II 7000 series fan assemblies for induced draft cooling towers, built for efficient airflow and low vibration. Get specs at ICST.",
+  "path": "/product/tuf-lite-ii-7000-series-fan-assemblies/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Hudson Tuf-Lite II 7000 Series | Cooling Tower Fans",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Hudson_Tuf-Lite-II_Fans-7000-Series-Hub.jpg",
+        "alt": "",
+        "width": 985,
+        "height": 787,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Adjustable Pitch Fan Assembly 34′ through 36′ Diameter. Blade Counts from 6 to 14.",
+            "Hudson Tuf-Lite II 7000 Series (White, previously Blue) fan blades are made from fiberglass-reinforced vinyl-ester resin, which offers a high strength-to-weight ratio and ultraviolet and corrosion resistance. An elastomeric blade/holder joint cover prevents moisture from entering the blade."
+          ]
+        }
+      ]
+    }
+  ]
+}

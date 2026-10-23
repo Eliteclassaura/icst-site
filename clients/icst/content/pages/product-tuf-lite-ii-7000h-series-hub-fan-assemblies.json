@@ -1,0 +1,31 @@
+{
+  "title": "Hudson TUF-LITE II 7000H Series Hub | Cooling Tower Fans",
+  "description": "Tuf Lite II 7000H series hub fan assemblies for cooling towers, a heavy duty hub variant for high load fans. Request pricing from ICST.",
+  "path": "/product/tuf-lite-ii-7000h-series-hub-fan-assemblies/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Hudson TUF-LITE II 7000H Series Hub | Cooling Tower Fans",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Hudson_Tuf-Lite-II_Fans-7000-Series-Hub.jpg",
+        "alt": "",
+        "width": 985,
+        "height": 787,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Adjustable Pitch Fan Assembly 34′ & 36′ Diameter. Blade Counts from 6 to 14.",
+            "Hudson Tuf-Lite II 7000H Series Hub (White, previously Blue) fan blades are made from fiberglass-reinforced vinyl-ester resin, which offers a high strength-to-weight ratio and ultraviolet and corrosion resistance. An elastomeric blade/holder joint cover prevents moisture from entering the blade."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "title": "Sumitomo Paramax SFC 065 cooling tower drive gearbox, built for demanding fan drive duty. Contact ICST for availability.",
+  "description": "Sumitomo Paramax SFC gearboxes are high performance, easy fit, low vibration and inexpensive.",
+  "path": "/product/sumitomo-paramax-sfc-cooling-tower-drive-065/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Sumitomo Paramax SFC 065 cooling tower drive gearbox, built for demanding fan drive duty. Contact ICST for availability.",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Sumitomo-Paramax-SFC-Series-CT-Drive-3.jpg",
+        "alt": "",
+        "width": 904,
+        "height": 913,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The three types of cooling towers that cover most applications are: wet, dry and hybrid cooling towers.",
+            "Each of these cooling tower systems utilize large fans and fan drives for which Sumitomo’s line of Paramax parallel shaft and right angle speed reducers have proven to be consistently reliable, quiet and trouble-free. Sumitomo’s Cooling Tower Fan Drives (SFC Drive) feature special vacuum degassed alloy steel helical gearing, protuberance hobbing to generate a tooth having increased helix and pressure angles and gas carburized heat treating and grinding to the highest quality standards. The result is greater capacity, smoother, quieter operation and longer, trouble-free life."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Brentwood High Efficiency Fill - Cross Corrugated Tower Fill",
+  "description": "Brentwood high efficiency fill is also commonly known as cross corrugated tower fill. It is one of the highest performance films fills with excellent water redistribution properties.",
+  "path": "/product/high-efficiency-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Brentwood High Efficiency Fill - Cross Corrugated Tower Fill",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/fill2.jpg",
+        "alt": "",
+        "width": 147,
+        "height": 108,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "High Efficiency Fill, also known as cross corrugated fill, is the highest performance film fill available with excellent water re-distribution properties."
+          ]
+        }
+      ]
+    }
+  ]
+}

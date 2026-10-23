@@ -1,0 +1,30 @@
+{
+  "title": "D15 Brentwood - Cellular DE for Cooling Towers - Brentwood",
+  "description": "The Brentwood Cellular D15 for cooling towers combine high drift elimination and low pressure drop. Call us to learn about additional DE's we offer!",
+  "path": "/product/brentwood-d15-cellular-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "D15 Brentwood - Cellular DE for Cooling Towers - Brentwood",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-D15.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 300,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The D15 Cellular Drift Eliminator combines high drift elimination with low pressure drop, yielding an extremely efficient drift eliminator panel. Pack stiffness can be varied with the addition of a number of flat, 30-mil stiffener sheets that are bonded to the corrugated sheets. The side sheets of standard packs are flat to facilitate caulking, where necessary."
+          ]
+        }
+      ]
+    }
+  ]
+}

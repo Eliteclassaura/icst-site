@@ -1,17 +1,8 @@
 {
   "title": "Disaster Recovery Services | ICST - Thailand",
   "description": "ICST specializes in disaster recovery for cooling towers, offering rapid damage assessment, emergency material sourcing, and expert rebuilding to restore operations efficiently.",
+  "path": "/disaster-recovery/",
   "layout": [
-    {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        }
-      ],
-      "current": "Disaster Recovery"
-    },
     {
       "blockType": "hero",
       "variant": "plain",
@@ -26,6 +17,17 @@
           "paragraphs": [
             "Without power on the island, conditions were rough for the locals and ICST team as well.",
             "This is how we left the towers, rebuilt, upgraded and the power plant ready to produce power."
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/03/Group-1-1-2.png",
+                "alt": "",
+                "width": 259,
+                "height": 248,
+                "decorative": true
+              }
+            }
           ]
         },
         {
@@ -40,24 +42,6 @@
           ]
         }
       ]
-    },
-    {
-      "blockType": "cta",
-      "eyebrow": "Next step",
-      "title": "Synthetic call to action title",
-      "text": "Synthetic supporting line.",
-      "cta": {
-        "primary": {
-          "label": "Request a quote",
-          "href": "/parts/"
-        }
-      }
-    },
-    {
-      "blockType": "phoneCta",
-      "eyebrow": "Call us",
-      "title": "Speak to an engineer",
-      "text": "Synthetic supporting line."
     }
   ]
 }

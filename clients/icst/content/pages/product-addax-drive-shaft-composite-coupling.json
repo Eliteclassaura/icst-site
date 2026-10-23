@@ -1,0 +1,45 @@
+{
+  "title": "Addax Drive Shaft Composite Coupling – All Sizes | ICST",
+  "description": "Addax composite drive shaft couplings for cooling tower fan drives. Browse the full size range and find your fit at ICST.",
+  "path": "/product/addax-drive-shaft-composite-coupling/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Addax Drive Shaft Composite Coupling – All Sizes",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Addax-Driveshaft-Couplings.jpg",
+        "alt": "",
+        "width": 434,
+        "height": 410,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The Rexnord Addax Composite Cooling Tower Coupling delivers value to the cooling tower industry through features such as:",
+            "Low Weight Means Easy Installation"
+          ],
+          "bullets": [
+            {
+              "text": "Corrosion resistance"
+            },
+            {
+              "text": "High-misalignment capacity"
+            },
+            {
+              "text": "Excellent fatigue resistance"
+            },
+            {
+              "text": "Low weight"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

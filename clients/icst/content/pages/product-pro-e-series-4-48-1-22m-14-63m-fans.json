@@ -1,0 +1,44 @@
+{
+  "title": "Howden PRO E-Series | Cooling Tower Fans",
+  "description": "Howden's PRO E-Series cooling tower fans are highly versatile, low-vibration and chemically resistant. Cooling Tower replacement parts by ICST.",
+  "path": "/product/pro-e-series-4-48-1-22m-14-63m-fans/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Howden PRO E-Series | Cooling Tower Fans",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/E-Series.jpg",
+        "alt": "",
+        "width": 334,
+        "height": 184,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The Howden E-Series cooling tower fans are a highly versatile that can perform in a wide range of cooling tower environments where stress on the fan may be a consideration. The E-Series is a low-vibration fan, chemically resistant with sustainability in harsh environments."
+          ],
+          "bullets": [
+            {
+              "text": "Damps mechanical vibration: the FRP blades offer vibration damping and good chemical resistance."
+            },
+            {
+              "text": "Lasts for many years the fan blade is integrated (rather than bolted on) to the shaft, so there’s not much mechanical stress at the joints"
+            },
+            {
+              "text": "Simple to assemble – E-series fans come with clear technical documentation"
+            },
+            {
+              "text": "Applications – Field-erected cooling towers, packaged cooling towers, air-cooled condensers (ACC) and air cooled heat exchangers (ACHE)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

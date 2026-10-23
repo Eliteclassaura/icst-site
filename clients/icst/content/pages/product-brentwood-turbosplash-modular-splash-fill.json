@@ -1,0 +1,30 @@
+{
+  "title": "Turbosplash",
+  "description": "TurboSplash Modular Splash Fill Media is designed for counterflow and crossflow applications in the power, refining, petrochemical, steel, chemical, pulp and paper, and food processing industries.",
+  "path": "/product/brentwood-turbosplash-modular-splash-fill/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Turbosplash",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-Turbosplash-300x216-1.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 216,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "AccuPac® TurboSplash Modular Splash Fill assemblies feature hinged panels that can be installed in both counterflow and crossflow cooling tower applications. TurboSplash was designed for high thermal performance where poor water quality does not permit the use of film fills. Each unit can be accordion-folded into a compact bundle for efficient, cost-effective storage and shipping and then unfolded in the tower for easy installation."
+          ]
+        }
+      ]
+    }
+  ]
+}

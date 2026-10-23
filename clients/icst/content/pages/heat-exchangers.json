@@ -1,25 +1,18 @@
 {
   "title": "Heat Exchangers: Types, Applications & Efficiency (2026)",
   "description": "Compare shell and tube, plate, air-cooled, and double pipe heat exchangers, their industrial applications, and how to select and maintain the right one.",
+  "path": "/heat-exchangers/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Tech articles",
-          "href": "/tech-articles/"
-        }
-      ],
-      "current": "Heat Exchangers: Types, Applications & Efficiency (2026)"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "title": "Heat Exchangers: Types, Applications & Efficiency (2026)"
+      "variant": "media",
+      "title": "Heat Exchangers: Types, Applications & Efficiency (2026)",
+      "image": {
+        "url": "/wp-content/uploads/2025/09/Heat-Exchangers.webp",
+        "alt": "Industrial large heat exchanger unit with pipes, shown alongside text \"Heat Exchangers: Types & Industrial Applications\" and a website link.",
+        "width": 1920,
+        "height": 1080
+      }
     },
     {
       "blockType": "articleBody",
@@ -30,54 +23,7 @@
             "A heat exchanger is a device that transfers heat between two fluids without letting them mix, keeping power plants, chemical plants, and food processing lines running efficiently. The right type, whether shell and tube, plate, air-cooled, or double pipe, depends on pressure, space, and fluid chemistry. Choosing incorrectly drives up operating costs and shortens service life.",
             "This guide compares each type, its industrial applications, and the maintenance practices that keep a facility running at peak performance for years instead of months.",
             "The Fundamental Principle: How Heat Exchangers Work",
-            "Heat exchangers operate on a simple thermodynamic principle: heat naturally flows from a hotter fluid, the heat source, to a cooler one. This process occurs through conduction, convection, or radiation, depending on the specific design and application.",
-            "Modern industrial processes rely on several distinct heat exchanger types. Each design offers specific advantages that make it suitable for particular applications and operating conditions.",
-            "Shell and tube heat exchangers feature a bundle of tubes housed within a large cylindrical shell. One fluid flows inside the tubes while another circulates outside them within the shell space.",
-            "These units handle extreme operating conditions with remarkable durability. They withstand high pressures and temperatures that would damage other heat exchanger types. The robust construction allows for easy tube replacement and internal inspection.",
-            "Industrial Applications:",
-            "Plate heat exchangersconsist of thin, corrugated metal plates, each a heat transfer plate stacked together with gaskets. Fluids flow through alternating channels between plates, creating multiple heat transfer surfaces in a compact design.",
-            "Air-cooled heat exchangers feature tubes with external fins that dramatically increase surface area. Fans force ambient air across the fins to remove heat from the fluid flowing inside the tubes.",
-            "A double pipe heat exchanger nests one pipe inside a larger pipe, with one fluid flowing through the inner pipe and the other through the annular space between the two. This simple design suits smaller-scale applications and processes needing a straightforward performance check.",
-            "Understanding the trade-offs between different heat exchanger types helps engineers make informed selections. Consider these key factors when evaluating options for your application:",
-            "Feature",
-            "Shell and Tube",
-            "Plate Heat Exchanger (PHE)",
-            "Air-Cooled (Finned Tube)",
-            "Upfront Cost",
-            "Moderate to High",
-            "Moderate",
-            "High",
-            "Energy Efficiency",
-            "Space Requirements",
-            "Large footprint; requires significant floor space",
-            "Compact; requires minimal floor space",
-            "Large footprint; no water needed",
-            "Maintenance & Cleaning",
-            "Difficult; requires tube removal and specialized cleaning",
-            "Easy; plates can be disassembled and cleaned",
-            "Moderate; requires fan and fin cleaning",
-            "High-pressure, high-temperature applications; large-scale processes",
-            "Food & beverage, HVAC, and pharmaceuticals; applications needing high efficiency in a compact space",
-            "Water-scarce locations; petrochemical and power plants",
-            "Primary Advantage",
-            "Highly robust and versatile for harsh conditions",
-            "Extremely efficient and compact",
-            "Eliminates water usage and associated costs",
-            "Beyond core process cooling, heat exchangers increasingly support heat recovery programs that capture waste heat and reuse it elsewhere in a facility, cutting overall energy consumption.",
-            "Effective maintenance practices determine heat exchanger performance and service life. Two primary challenges threaten optimal operation and require proactive management strategies.",
-            "Fouling occurs when unwanted deposits accumulate on heat transfer surfaces. These deposits include mineral scale, biological growth, corrosion products, and process contaminants.",
-            "The impact on system performance is immediate and measurable. Fouling reduces heat transfer efficiency by creating thermal resistance between fluids. Pressure drops increase as deposits restrict flow passages, forcing pumps and fans to work harder.",
-            "What solutions address fouling effectively?",
-            "Corrosion attacks heat exchanger materials through chemical reactions with process fluids or environmental conditions. This degradation weakens structures and creates leak paths that compromise system integrity.",
-            "How do you prevent corrosion effectively?",
-            "Selecting the optimal heat exchanger requires a systematic evaluation of application requirements and operating constraints. Ask these critical questions during the selection process.",
-            "Choosing the right heat exchanger comes down to matching shell and tube, plate, air-cooled, or double pipe designs to your fluid chemistry, pressure, and space constraints. Proactive maintenance against fouling and corrosion protects that investment far more than reactive repairs ever will, and pairing the right unit with a waste heat recovery loop cuts long-term operating costs.",
-            "Do not let inefficient thermal management compromise your operations. Contact ICST today for expert advice and a tailored solution that meets your specific industrial needs.",
-            "A heat exchanger is a device that transfers heat between two or more fluids without them ever mixing, ensuring energy flows efficiently in various industrial processes. The design varies by application, but the underlying goal stays the same across every type covered in this guide.",
-            "The four main types of heat exchangers are shell and tube, plate heat exchangers (PHE), air-cooled (finned tube), and double pipe exchangers. Each type trades off cost, footprint, and maintenance complexity differently, which is why most facilities use more than one type across their operations.",
-            "The counter-flow configuration is efficient because the hot and cold fluids move in opposite directions, maximizing the temperature difference and supporting high heat transfer rates across the full length of the unit.",
-            "Fouling is the accumulation of unwanted deposits like mineral scale and rust on heat transfer surfaces. It reduces heat transfer efficiency, increases pressure drops, and forces systems to use more energy to maintain the same output.",
-            "The primary advantage is that it eliminates the need for a water source for cooling, making it a strong fit for industrial applications in water-scarce or remote locations where water rights or supply are limited."
+            "Heat exchangers operate on a simple thermodynamic principle: heat naturally flows from a hotter fluid, the heat source, to a cooler one. This process occurs through conduction, convection, or radiation, depending on the specific design and application."
           ],
           "bullets": [
             {
@@ -88,61 +34,53 @@
             },
             {
               "text": "Cross-flow arrangements position fluids perpendicular to each other, offering a balance between efficiency and practical design that makes it popular in air conditioning and automotive applications."
+            }
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/09/image-2-1024x576.jpeg",
+                "alt": "",
+                "width": 1024,
+                "height": 576,
+                "decorative": true
+              }
             },
             {
-              "text": "The Main Types of Heat Exchangers and Their Applications"
+              "image": {
+                "url": "/wp-content/uploads/2025/09/image-1-1024x576.jpeg",
+                "alt": "",
+                "width": 1024,
+                "height": 576,
+                "decorative": true
+              }
             },
             {
-              "text": "Type 1: Shell and Tube Heat Exchangers"
-            },
-            {
-              "text": "Type 2: Plate Heat Exchangers (PHE)"
-            },
-            {
-              "text": "Type 3: Air-Cooled Heat Exchangers (Finned Tube)"
-            },
-            {
-              "text": "Type 4: Double Pipe Heat Exchangers"
-            },
-            {
-              "text": "Comparison of Common Industrial Heat Exchangers"
-            },
-            {
-              "text": "Heat Recovery and Energy Efficiency Applications"
-            },
-            {
-              "text": "Critical Maintenance: Common Challenges and Solutions"
-            },
-            {
-              "text": "Problem 1: Fouling and Scaling"
-            },
-            {
-              "text": "Problem 2: Corrosion and Leaks"
-            },
-            {
-              "text": "How to Select the Right Heat Exchanger for Your Needs"
-            },
-            {
-              "text": "Conclusion"
-            },
-            {
-              "text": "Frequently Asked Questions"
-            },
-            {
-              "text": "What is a heat exchanger?"
-            },
-            {
-              "text": "What are the main types of heat exchangers?"
-            },
-            {
-              "text": "What is an efficient heat exchanger flow configuration?"
-            },
-            {
-              "text": "What is fouling, and why is it a problem?"
-            },
-            {
-              "text": "What is the primary advantage of an air-cooled heat exchanger?"
-            },
+              "image": {
+                "url": "/wp-content/uploads/2025/09/image.jpeg",
+                "alt": "",
+                "width": 1920,
+                "height": 1080,
+                "decorative": true
+              }
+            }
+          ]
+        },
+        {
+          "heading": "The Main Types of Heat Exchangers and Their Applications",
+          "paragraphs": [
+            "Modern industrial processes rely on several distinct heat exchanger types. Each design offers specific advantages that make it suitable for particular applications and operating conditions."
+          ],
+          "headingLevel": 2
+        },
+        {
+          "heading": "Type 1: Shell and Tube Heat Exchangers",
+          "paragraphs": [
+            "Shell and tube heat exchangers feature a bundle of tubes housed within a large cylindrical shell. One fluid flows inside the tubes while another circulates outside them within the shell space.",
+            "These units handle extreme operating conditions with remarkable durability. They withstand high pressures and temperatures that would damage other heat exchanger types. The robust construction allows for easy tube replacement and internal inspection.",
+            "Industrial Applications:"
+          ],
+          "bullets": [
             {
               "text": "Chemical Processing & Oil & Gas: Refineries use shell and tube exchangers for cooling reactor effluents and condensing hydrocarbon vapors. Their ability to handle corrosive chemicals and high pressures makes them indispensable in these demanding environments."
             },
@@ -151,7 +89,17 @@
             },
             {
               "text": "Marine & Shipbuilding: Ships require reliable cooling systems for engines and auxiliary equipment. Shell and tube exchangers provide dependable service in the harsh marine environment where maintenance access is limited."
-            },
+            }
+          ],
+          "headingLevel": 3
+        },
+        {
+          "heading": "Type 2: Plate Heat Exchangers (PHE)",
+          "paragraphs": [
+            "Plate heat exchangers consist of thin, corrugated metal plates, each a heat transfer plate stacked together with gaskets. Fluids flow through alternating channels between plates, creating multiple heat transfer surfaces in a compact design.",
+            "Industrial Applications:"
+          ],
+          "bullets": [
             {
               "text": "Food & Beverage: Dairy processing relies heavily on plate heat exchangers for pasteurization and sterilization. Milk, juice, and other liquid foods require precise temperature control while maintaining sanitary conditions. The ability to disassemble plates for thorough cleaning makes PHEs ideal for these applications."
             },
@@ -160,7 +108,16 @@
             },
             {
               "text": "Pharmaceuticals: Drug manufacturing processes demand cleanliness and temperature precision. Plate heat exchangers provide the necessary control while allowing complete disassembly for validation and cleaning between batches."
-            },
+            }
+          ],
+          "headingLevel": 3
+        },
+        {
+          "heading": "Type 3: Air-Cooled Heat Exchangers (Finned Tube)",
+          "paragraphs": [
+            "Air-cooled heat exchangers feature tubes with external fins that dramatically increase surface area. Fans force ambient air across the fins to remove heat from the fluid flowing inside the tubes."
+          ],
+          "bullets": [
             {
               "text": "Petrochemical Refining: Remote processing facilities often lack adequate water supplies for conventional cooling. Air-cooled exchangers provide reliable heat removal for product cooling and vapor condensation in these challenging locations."
             },
@@ -169,7 +126,16 @@
             },
             {
               "text": "Gas Pipelines: Natural gas compression stations require cooling between compression stages. Air-cooled exchangers handle this duty reliably while minimizing environmental impact and operating costs."
-            },
+            }
+          ],
+          "headingLevel": 3
+        },
+        {
+          "heading": "Type 4: Double Pipe Heat Exchangers",
+          "paragraphs": [
+            "A double pipe heat exchanger nests one pipe inside a larger pipe, with one fluid flowing through the inner pipe and the other through the annular space between the two. This simple design suits smaller-scale applications and processes needing a straightforward performance check."
+          ],
+          "bullets": [
             {
               "text": "Small-batch chemical reactions requiring precise temperature control on a limited footprint"
             },
@@ -178,7 +144,71 @@
             },
             {
               "text": "Lines carrying corrosive fluids at low flow rates, where a simple, easily inspectable design limits maintenance risk"
-            },
+            }
+          ],
+          "headingLevel": 3
+        },
+        {
+          "heading": "Comparison of Common Industrial Heat Exchangers",
+          "paragraphs": [
+            "Understanding the trade-offs between different heat exchanger types helps engineers make informed selections. Consider these key factors when evaluating options for your application:"
+          ],
+          "headingLevel": 2,
+          "tables": [
+            {
+              "headers": [
+                "Feature",
+                "Shell and Tube",
+                "Plate Heat Exchanger (PHE)",
+                "Air-Cooled (Finned Tube)"
+              ],
+              "rows": [
+                [
+                  "Upfront Cost",
+                  "Moderate to High",
+                  "Moderate",
+                  "High"
+                ],
+                [
+                  "Energy Efficiency",
+                  "Moderate",
+                  "High",
+                  "Moderate"
+                ],
+                [
+                  "Space Requirements",
+                  "Large footprint; requires significant floor space",
+                  "Compact; requires minimal floor space",
+                  "Large footprint; no water needed"
+                ],
+                [
+                  "Maintenance & Cleaning",
+                  "Difficult; requires tube removal and specialized cleaning",
+                  "Easy; plates can be disassembled and cleaned",
+                  "Moderate; requires fan and fin cleaning"
+                ],
+                [
+                  "Applications",
+                  "High-pressure, high-temperature applications; large-scale processes",
+                  "Food & beverage, HVAC, and pharmaceuticals; applications needing high efficiency in a compact space",
+                  "Water-scarce locations; petrochemical and power plants"
+                ],
+                [
+                  "Primary Advantage",
+                  "Highly robust and versatile for harsh conditions",
+                  "Extremely efficient and compact",
+                  "Eliminates water usage and associated costs"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Heat Recovery and Energy Efficiency Applications",
+          "paragraphs": [
+            "Beyond core process cooling, heat exchangers increasingly support heat recovery programs that capture waste heat and reuse it elsewhere in a facility, cutting overall energy consumption."
+          ],
+          "bullets": [
             {
               "text": "Cooling Tower Pairing: Many shell and tube condensers work alongside a cooling tower, rejecting waste heat to the atmosphere instead of relying on a once-through water source."
             },
@@ -190,7 +220,29 @@
             },
             {
               "text": "Coolant Recirculation: Closed-loop systems recirculate coolant through the exchanger and back to equipment, reducing water use and chemical treatment costs."
-            },
+            }
+          ],
+          "headingLevel": 2
+        },
+        {
+          "heading": "Critical Maintenance: Common Challenges and Solutions",
+          "paragraphs": [
+            "Effective maintenance practices determine heat exchanger performance and service life. Two primary challenges threaten optimal operation and require proactive management strategies."
+          ],
+          "headingLevel": 2
+        },
+        {
+          "heading": "Problem 1: Fouling and Scaling",
+          "paragraphs": [
+            "Fouling occurs when unwanted deposits accumulate on heat transfer surfaces. These deposits include mineral scale, biological growth, corrosion products, and process contaminants.",
+            "The impact on system performance is immediate and measurable. Fouling reduces heat transfer efficiency by creating thermal resistance between fluids. Pressure drops increase as deposits restrict flow passages, forcing pumps and fans to work harder."
+          ],
+          "headingLevel": 3
+        },
+        {
+          "heading": "What solutions address fouling effectively?",
+          "headingLevel": 3,
+          "bullets": [
             {
               "text": "Chemical cleaning removes deposits through acid washing, alkaline cleaning, or specialized solvents matched to specific fouling types"
             },
@@ -199,7 +251,20 @@
             },
             {
               "text": "Filtration systems prevent contaminants from entering the heat exchanger, reducing fouling rates significantly"
-            },
+            }
+          ]
+        },
+        {
+          "heading": "Problem 2: Corrosion and Leaks",
+          "paragraphs": [
+            "Corrosion attacks heat exchanger materials through chemical reactions with process fluids or environmental conditions. This degradation weakens structures and creates leak paths that compromise system integrity."
+          ],
+          "headingLevel": 3
+        },
+        {
+          "heading": "How do you prevent corrosion effectively?",
+          "headingLevel": 3,
+          "bullets": [
             {
               "text": "Proper material selection matches heat exchanger construction materials to process conditions, using stainless steel, titanium, or specialized alloys as needed"
             },
@@ -208,7 +273,15 @@
             },
             {
               "text": "Effective water treatment controls pH, removes oxygen, and adds inhibitors to minimize corrosive conditions"
-            },
+            }
+          ]
+        },
+        {
+          "heading": "How to Select the Right Heat Exchanger for Your Needs",
+          "paragraphs": [
+            "Selecting the optimal heat exchanger requires a systematic evaluation of application requirements and operating constraints. Ask these critical questions during the selection process."
+          ],
+          "bullets": [
             {
               "text": "What are the fluid characteristics? Consider viscosity, corrosiveness, fouling tendency, and phase changes, since these properties directly influence material selection and design configuration."
             },
@@ -224,7 +297,51 @@
             {
               "text": "What are the maintenance requirements and budget? Consider cleaning frequency, access requirements, and skilled labor availability when evaluating different designs."
             }
-          ]
+          ],
+          "headingLevel": 2
+        },
+        {
+          "heading": "Conclusion",
+          "paragraphs": [
+            "Choosing the right heat exchanger comes down to matching shell and tube, plate, air-cooled, or double pipe designs to your fluid chemistry, pressure, and space constraints. Proactive maintenance against fouling and corrosion protects that investment far more than reactive repairs ever will, and pairing the right unit with a waste heat recovery loop cuts long-term operating costs.",
+            "Do not let inefficient thermal management compromise your operations. Contact ICST today for expert advice and a tailored solution that meets your specific industrial needs."
+          ],
+          "headingLevel": 2
+        },
+        {
+          "heading": "What is a heat exchanger?",
+          "paragraphs": [
+            "A heat exchanger is a device that transfers heat between two or more fluids without them ever mixing, ensuring energy flows efficiently in various industrial processes. The design varies by application, but the underlying goal stays the same across every type covered in this guide."
+          ],
+          "headingLevel": 3
+        },
+        {
+          "heading": "What are the main types of heat exchangers?",
+          "paragraphs": [
+            "The four main types of heat exchangers are shell and tube, plate heat exchangers (PHE), air-cooled (finned tube), and double pipe exchangers. Each type trades off cost, footprint, and maintenance complexity differently, which is why most facilities use more than one type across their operations."
+          ],
+          "headingLevel": 3
+        },
+        {
+          "heading": "What is an efficient heat exchanger flow configuration?",
+          "paragraphs": [
+            "The counter-flow configuration is efficient because the hot and cold fluids move in opposite directions, maximizing the temperature difference and supporting high heat transfer rates across the full length of the unit."
+          ],
+          "headingLevel": 3
+        },
+        {
+          "heading": "What is fouling, and why is it a problem?",
+          "paragraphs": [
+            "Fouling is the accumulation of unwanted deposits like mineral scale and rust on heat transfer surfaces. It reduces heat transfer efficiency, increases pressure drops, and forces systems to use more energy to maintain the same output."
+          ],
+          "headingLevel": 3
+        },
+        {
+          "heading": "What is the primary advantage of an air-cooled heat exchanger?",
+          "paragraphs": [
+            "The primary advantage is that it eliminates the need for a water source for cooling, making it a strong fit for industrial applications in water-scarce or remote locations where water rights or supply are limited."
+          ],
+          "headingLevel": 3
         }
       ],
       "meta": "By ICST Technical Team"

@@ -1,26 +1,39 @@
 {
   "title": "Contact ICST | Parts, New Towers and Service",
   "description": "Get in touch with our cooling tower experts at ICST. Contact us today for professional solutions, support, and expert advice.",
+  "path": "/contact-us/",
   "layout": [
     {
-      "blockType": "contactHero",
-      "eyebrow": "Contact Us",
-      "title": "Request a parts quote or contact ICST today!",
-      "image": {
-        "url": "/brand-media/hero/A_ICST-Cooling-Tower.jpg",
-        "alt": "",
-        "width": 1472,
-        "height": 832,
-        "decorative": true
-      }
+      "blockType": "hero",
+      "variant": "plain",
+      "title": "Request a Quote from ICST",
+      "lede": "ICST can help with cooling tower parts, new towers and service. Fill in the form below, or contact our Bangkok office at +662-661-7723. Thank you for your interest in ICST."
     },
     {
-      "blockType": "intakeForm",
-      "title": "Send us a message",
-      "lede": "ICST can help with your specific cooling tower parts and requirements. Please fill in the form below or call us at our listed phone number. We will get an answer back to you quickly. Thank you for your interest in ICST! We look forward to being of service to you.",
-      "asideTitle": "Hi! We are always here to help you.",
-      "hotlineLabel": "Hotline:",
-      "officeLabel": "Office:"
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "What is your email address?",
+            "Can I get your first name? *",
+            "And your last name? *",
+            "What company are you with",
+            "What are you interested in:Choose as many as you likeCooling Tower PartsAir CoolersNew and Rebuilt Cooling TowersCooling Tower Repair ServicesOther",
+            "What Part are you interested in?FansFans StacksGear BoxMotorsFill MediaNozzelsFRP MembersDrift EliminatorDrive ShaftOther",
+            "Please provide any information you have on selected part, below so we can get started on your RFQ.",
+            "Is this Urgent Part Quote Request?YesNo",
+            "Upload any relevant files, PDFs only (If needed)",
+            "Choose File",
+            "No file chosen",
+            "Delete uploaded file",
+            "Please let us know your phone number *This helps us get in touch faster.",
+            "Can you please let us know the Country of Destination?Where the part and/or cooling tower service will be installed or serviced.",
+            "Anything else you'd like us to know?",
+            "Submit"
+          ]
+        }
+      ]
     }
   ]
 }

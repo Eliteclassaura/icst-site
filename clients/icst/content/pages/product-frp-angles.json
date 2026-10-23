@@ -1,0 +1,63 @@
+{
+  "title": "FRP Angles - ICST - Thailand",
+  "description": "Please call for volume pricing!",
+  "path": "/product/frp-angles/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "FRP Angles",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Frp-Angles.jpg",
+        "alt": "",
+        "width": 199,
+        "height": 143,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "FRP is reliable, durable, and cost efficient with many advantages:",
+            "Tangential Benefits"
+          ],
+          "bullets": [
+            {
+              "text": "Inert & Inorganic"
+            },
+            {
+              "text": "Corrosion resistant"
+            },
+            {
+              "text": "Rot/decay resistant"
+            },
+            {
+              "text": "Virtually maintenance free"
+            },
+            {
+              "text": "Lighter/less transportation costs"
+            },
+            {
+              "text": "Ability to add surface treatments"
+            },
+            {
+              "text": "Fire retardant"
+            },
+            {
+              "text": "Stronger than wood"
+            },
+            {
+              "text": "More flexible to carry heavy loads/storms/ice"
+            },
+            {
+              "text": "Product Uniformity; allows for tighter tower design"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

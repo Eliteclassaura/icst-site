@@ -1,0 +1,30 @@
+{
+  "title": "CF80Max Brentwood - Cooling Tower Cellular Drift Eliminator",
+  "description": "The CF80Max Brentwood Drift Eliminator offers efficient drift removal. Our cooling tower drift eliminator are designed for counterflow towers. Learn more!",
+  "path": "/product/brentwood-cf80max-cellular-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "CF80Max Brentwood - Cooling Tower Cellular Drift Eliminator",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-CF80Max-DE.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 195,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "CF80MAx Counterflow Cellular Drift Eliminators are specifically designed to achieve maximum drift removal. Unlike dual-purpose drift eliminators designed for both counterflow and crossflow applications, Brentwood’s counterflow eliminators have significantly lower pressure drop. The modules are constructed of a series of sinusoidal-shaped, corrugated PVC sheets that are mechanically assembled to mating sinusoidal structural waves, forming closed cells. These cells force the drift droplets being carried in the leaving airstream to make three distinct changes in direction. These forced changes to the air flow create centrifugal forces on the droplets that remove them from the air stream by causing them to impact the module walls, collect, and drain back to the wet section of the cooling tower."
+          ]
+        }
+      ]
+    }
+  ]
+}

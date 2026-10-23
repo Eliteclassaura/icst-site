@@ -1,0 +1,31 @@
+{
+  "title": "Hudson Tuf-Lite II 4000H Series Hub | Cooling Tower Fans",
+  "description": "Hudson Tuf-Lite II 4000H Series Hub fan assemblies offer years of cost effective, reliable service. Cooling Tower replacement parts from ICST.",
+  "path": "/product/tuf-lite-ii-4000h-series-hub-fan-assemblies/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Hudson Tuf-Lite II 4000H Series Hub | Cooling Tower Fans",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/TL2-4000HWHub.jpg",
+        "alt": "",
+        "width": 243,
+        "height": 190,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "Adjustable Pitch Fan Assembly 15′ Through 20′ Diameter. Blade Counts from 4 to 10.",
+            "Hudson Tuf-Lite II 4000H Series Hub (White, previously Blue) fan blades are made from fiberglass-reinforced vinyl-ester resin, which offers a high strength-to-weight ratio and ultraviolet and corrosion resistance. An elastomeric blade/holder joint cover prevents moisture from entering the blade."
+          ]
+        }
+      ]
+    }
+  ]
+}

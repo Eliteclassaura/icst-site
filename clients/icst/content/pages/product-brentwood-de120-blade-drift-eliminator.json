@@ -1,0 +1,30 @@
+{
+  "title": "DE120 Brentwood - Affordable Cooling Tower DE",
+  "description": "Looking for affordable drift eliminators? The Brentwood DE120 are a popular choice for international projects due to lower freight costs. View the various cooling tower DE's we offer.",
+  "path": "/product/brentwood-de120-blade-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "DE120 Brentwood - Affordable Cooling Tower DE",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/DE120.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 195,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "DE120 Blade Drift Eliminator Modules use a series of sinusoidal-shaped PVC (or HPVC) blades to achieve excellent drift droplet removal by forcing the leaving air to make three distinct changes of direction. The 1.2-inch blade spacing allows for good performance at low pressure drop and cost, making the DE120 our most affordable drift eliminator."
+          ]
+        }
+      ]
+    }
+  ]
+}

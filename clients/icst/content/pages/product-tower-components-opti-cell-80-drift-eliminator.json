@@ -1,0 +1,30 @@
+{
+  "title": "OC 80 Cellular Drift Eliminators - Opti Cell 80 Tower Components",
+  "description": "The OC 80 is a high efficiency drift eliminator for counter flow towers. Opti Cell 80 from tower components is resistant to UV, Rot, Fungi & more. Call to learn more!",
+  "path": "/product/tower-components-opti-cell-80-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "OC 80 Cellular Drift Eliminators - Opti Cell 80 Tower Components",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/TC-OC-80.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 261,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "The OC-80 is a high efficiency cellular drift eliminator for counterflow cooling tower applications. The OC-80 is manufactured from rigid, corrugated PVC sheets resistant to UV, rot, fungi, bacteria, organic/inorganic solvents, acids, alkalis, and chemicals normally found in cooling tower waters."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "title": "OC 150 Cellular Drift Eliminators - Opti Cell 150 Tower Components",
+  "description": "OC 150 drift eliminators are designed for use in crossflow & counterflow towers. Tower Components Opti Cell 150 are resistant to various chemicals found in cooling towers. Learn more!",
+  "path": "/product/tower-components-opti-cell-150-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "OC 150 Cellular Drift Eliminators - Opti Cell 150 Tower Components",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/TC-OC-150.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 279,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "OC-150 drift eliminators are designed to remove entrained water droplets from the leaving air stream at minimum pressure losses in both counter flow and cross flow cooling towers. Manufactured from rigid PVC sheets, they are fabricated from alternating corrugated and modified sine wave sheets bonded between 1.5” wide spacer sheets. The eliminators are resistant to ultraviolet light, rot, fungus, organic and inorganic solvents, acids, alkalis and chemicals typically found in cooling tower waters."
+          ]
+        }
+      ]
+    }
+  ]
+}

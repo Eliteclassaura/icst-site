@@ -1,25 +1,18 @@
 {
   "title": "Oil Refinery Cooling System Design Guide | Expert Engineering - ICST - Thailand",
   "description": "Complete guide to oil refinery cooling system design. Learn thermal design, material selection, water treatment & energy optimization strategies.",
+  "path": "/oil-refinery-cooling/",
   "layout": [
     {
-      "blockType": "breadcrumb",
-      "trail": [
-        {
-          "label": "Home",
-          "href": "/"
-        },
-        {
-          "label": "Tech articles",
-          "href": "/tech-articles/"
-        }
-      ],
-      "current": "Oil Refinery Cooling System Design Guide | Expert Engineering - ICST - Thailand"
-    },
-    {
       "blockType": "hero",
-      "variant": "plain",
-      "title": "Oil Refinery Cooling System Design Guide | Expert Engineering - ICST - Thailand"
+      "variant": "media",
+      "title": "Oil Refinery Cooling System Design Guide | Expert Engineering",
+      "image": {
+        "url": "/wp-content/uploads/2025/10/Oil-Refinery-Cooling-System-Design-Guide-Expert-Engineering.webp",
+        "alt": "Oil Refinery Cooling System Design Guide Expert Engineering - icsthailand.co.th",
+        "width": 1920,
+        "height": 1080
+      }
     },
     {
       "blockType": "articleBody",
@@ -265,6 +258,26 @@
             },
             {
               "text": "Heat integration studies that reduce overall cooling requirements"
+            }
+          ],
+          "images": [
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/10/image-2-1024x576.jpeg",
+                "alt": "",
+                "width": 1024,
+                "height": 576,
+                "decorative": true
+              }
+            },
+            {
+              "image": {
+                "url": "/wp-content/uploads/2025/10/image-1-1024x576.jpeg",
+                "alt": "",
+                "width": 1024,
+                "height": 576,
+                "decorative": true
+              }
             }
           ]
         }

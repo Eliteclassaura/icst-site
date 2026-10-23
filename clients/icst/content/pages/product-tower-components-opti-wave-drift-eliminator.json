@@ -1,0 +1,32 @@
+{
+  "title": "Opti Wave Drift Eliminator - Tower Components Drift Eliminator",
+  "description": "Opti Wave drift eliminators minimize pollutant introduction into the atmosphere. The tower components opti wave drift eliminators are easy to install & compatible with most film fill media!",
+  "path": "/product/tower-components-opti-wave-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Opti Wave Drift Eliminator - Tower Components Drift Eliminator",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/TC-Opti-Wave.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 395,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "This provides extra stiffness for long spans with minimum deflection. Spacers secure wave sections uniformly at 2-inch increments for increased stability and modules join together with an integral locking feature that holds the assembled module grid securely. This provides for fast and efficient assembly. Modules can be cleaned if they become fouled.",
+            "Opti-Wave profiles come in any length, and are manufactured of rigid PVC. Spacers are manufactured of polypropylene.",
+            "When used in crossflow installations, the wave spacer is perforated to permit drainage of the accumulated drift back into the fill section."
+          ]
+        }
+      ]
+    }
+  ]
+}

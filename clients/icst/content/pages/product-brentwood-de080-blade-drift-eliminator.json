@@ -1,0 +1,30 @@
+{
+  "title": "DE080 Brentwood - Brentwood Blade Drift Eliminator",
+  "description": "DE080 Brentwood blade drift eliminators offer lower pressure drop. Call us to place your order today!",
+  "path": "/product/brentwood-de080-blade-drift-eliminator/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "DE080 Brentwood - Brentwood Blade Drift Eliminator",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/Brentwood-DE080.jpg",
+        "alt": "",
+        "width": 300,
+        "height": 195,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "paragraphs": [
+            "DE080 Blade Drift Eliminator Modules use a tightly spaced series of sinusoidal-shaped PVC blades that force the leaving air to make three distinct changes of direction, resulting in very efficient drift droplet removal. This performance does not come at the expense of fan energy, as the engineered flow through the DE080 achieves very low pressure drop."
+          ]
+        }
+      ]
+    }
+  ]
+}

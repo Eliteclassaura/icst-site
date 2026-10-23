@@ -1,0 +1,50 @@
+{
+  "title": "Howden PRO D-Series 26'-36' Cooling Tower Fans | ICST",
+  "description": "The Howden PRO D-Series cooling tower fans are highly efficient combining the highest aerodynamic performance with very low power consumption.",
+  "path": "/product/howden-pro-d-series-26-36-7-93m-10-98m-fans/",
+  "layout": [
+    {
+      "blockType": "hero",
+      "variant": "media",
+      "title": "Howden PRO D-Series 26'-36' Cooling Tower Fans",
+      "image": {
+        "url": "/wp-content/uploads/2025/03/D-Series.jpg",
+        "alt": "",
+        "width": 334,
+        "height": 184,
+        "decorative": true
+      }
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "",
+          "bullets": [
+            {
+              "text": "9 – 11 Blades"
+            },
+            {
+              "text": "Delivers high efficiency and reduces power consumption"
+            },
+            {
+              "text": "Boosts cooling performance designed to deliver the optimum aerodynamic performance"
+            },
+            {
+              "text": "Damps mechanical vibration: the FRP blades offer vibration damping and good chemical resistance."
+            },
+            {
+              "text": "Durability and longevity the fan blade is integrated (rather than bolted on) to the shaft, reducing mechanical stress at the joints"
+            },
+            {
+              "text": "Simple to assemble – D-series fans come with clear technical documentation"
+            },
+            {
+              "text": "Applications – Field-erected cooling towers, air-cooled condensers (ACC)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
