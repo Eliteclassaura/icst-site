@@ -38,7 +38,7 @@
             "This includes all scheduled and unscheduled service costs. It covers preventative maintenance contracts, replacement parts, and labor for repairs. A critical but often hidden factor is the cost associated with planned system downtime for maintenance and the much higher cost of an unexpected outage.",
             "Complex cooling systems require skilled staff. This dimension includes the salaries for facilities staff, IT technicians, and HPC specialists. It also accounts for recurring employee training and certification expenses required to maintain these advanced systems.",
             "The equipment requires physical space and support. These costs include rent or allocated floor space costs, insurance, and the power delivery infrastructure needed to run the units.",
-            "This dimension captures the financial mechanics of the acquisition. It includes interest paid on capital loans or the fees associated with leasing agreements. It also involves calculating the tax advantages gained through the asset’s depreciation schedule.",
+            "This dimension captures the financial mechanics of the acquisition. It includes interest paid on capital loans or the fees associated with leasing agreements. ",
             "Every asset has an end. This final dimension includes the costs for decommissioning the old system, any environmental disposal fees, and factoring in the equipment’s residual value. This is essential for planning the next replacement cycle.",
             "Presenting a credible TCO analysis to senior management requires a structured framework. The level of detail in your TCO model should correspond to the scale of the investment. Moving toward a Complex profile is an optimization requirement for justifying large capital investments.",
             "Profile",
@@ -77,9 +77,6 @@
             },
             {
               "text": "The OPEX Investment in Training:"
-            },
-            {
-              "text": "The Refrigerant Tax Arbitrage:"
             },
             {
               "text": "The 90-Foot Head Rule:"

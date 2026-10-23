@@ -1,6 +1,6 @@
 {
   "title": "Thailand’s Industrial Cooling Policies 2026 Guide - ICST - Thailand",
-  "description": "Master Thailand’s 2026 industrial cooling policies. Learn about TISI standards, energy efficiency, WUE mandates, and incentives for compliance.",
+  "description": "Master Thailand’s 2026 industrial cooling policies. ",
   "layout": [
     {
       "blockType": "breadcrumb",
@@ -28,20 +28,19 @@
           "heading": "",
           "paragraphs": [
             "The regulatory landscape for industrial operations in Thailand is undergoing a significant transformation, with Thailand’s industrial cooling policies driving new compliance standards and business opportunities. As the country moves towards a future defined by sustainability and energy efficiency, the government is shifting from voluntary energy-saving programs to mandatory compliance.",
-            "For businesses with industrial cooling needs, understanding these new policies is not just about avoiding penalties; it is about unlocking substantial financial incentives and gaining a competitive edge. The Energy Conservation Promotion Act now mandates strict adherence to “Designated Factories,” making policy alignment a critical component of operational success.",
-            "The key to thriving in this new environment is to implement systems that maximize financial feasibility through government-backed incentives. This guide provides a strategic overview of the 2026 industrial cooling policies, helping you navigate the complex requirements and capitalize on the opportunities they present.",
+            "The Energy Conservation Promotion Act now mandates strict adherence to “Designated Factories,” making policy alignment a critical component of operational success.",
+            "This guide provides a strategic overview of the 2026 industrial cooling policies, helping you navigate the complex requirements and capitalize on the opportunities they present.",
             "A major policy shift impacting the cooling sector is the introduction of the TISI 2134-2565 standard. This new regulation, taking full effect in April 2026, specifically targets room and modular industrial air conditioners. The standard establishes new Minimum Energy Performance Standards (MEPS), which means that previously acceptable equipment may no longer be compliant for new industrial permits.",
             "This mandate has several key implications for businesses:",
             "Navigating these complex rules is essential for compliance and achieving optimal performance. The focus is squarely on improving energy efficiency throughout the entire cooling system lifecycle.",
             "Thailand’s focus is expanding beyond power consumption. In drought-prone industrial zones like the Eastern Economic Corridor (EEC), the emphasis is shifting from Power Usage Effectiveness (PUE) to Water Usage Effectiveness (WUE). This pivot reflects a growing concern for the sustainable management of natural resources, particularly water.",
             "Industrial facilities must now contend with stringent effluent standards designed to protect local aquatic ecosystems from harmful discharges.",
             "Specialized cooling solutions are critical for meeting these 2026 requirements. Systems that feature low-drift and closed-loop designs minimize water consumption and waste, aligning with the country’s environmental policy and goals for sustainable economic growth.",
-            "To provide a clear overview, the following table summarizes the key cooling regulations, their governing bodies, and the associated business incentives. Understanding this framework is crucial for strategic planning and investment.",
+            "Understanding this framework is crucial for strategic planning and investment.",
             "Policy / Regulation",
             "Regulatory Body",
             "Who Applies",
             "Primary Requirement",
-            "Business Incentive / Impact",
             "Energy Conservation Act (ECA)",
             "DEDE",
             "Designated factories & large buildings",
@@ -69,7 +68,7 @@
             "Any organization",
             "Energy management system implementation",
             "ESG credibility, operational efficiency, investor confidence",
-            "The Thai government is actively encouraging the transition to green technology through powerful financial incentives. To qualify, this equipment must be operational by December 2028. This presents a time-sensitive opportunity to upgrade your cooling systems while achieving a significant return on investment.",
+            "To qualify, this equipment must be operational by December 2028. This presents a time-sensitive opportunity to upgrade your cooling systems while achieving a significant return on investment.",
             "Additionally, the Green Cooling Initiative (GCI III) provides access to funding and technical support. This project aims to help businesses transition to natural refrigerants like Ammonia (NH₃) and CO₂, which have a much lower global warming potential than traditional HFCs.",
             "Thailand has committed to ambitious climate goals, including achieving carbon neutrality by 2050 and net-zero greenhouse gas emissions by 2065.",
             "New regulations are being implemented to manage refrigerant use and reduce environmental impact:",
@@ -114,9 +113,6 @@
             },
             {
               "text": "Building Energy Code (BEC) Updates: The 2026 updates to the BEC will require integrated thermal modeling in new industrial building designs. This ensures that energy efficiency is a core component of construction from the ground up, not an afterthought."
-            },
-            {
-              "text": "Focus on Energy Consumption: The goal is a significant reduction in overall energy consumption across the industrial sector, contributing to national energy savings targets."
             },
             {
               "text": "Refrigerant Management: New safety notifications for ammonia usage are being enforced, alongside a structured phase-down of high-GWP hydrofluorocarbons (HFCs)."

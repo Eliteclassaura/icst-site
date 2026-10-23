@@ -1,6 +1,6 @@
 {
   "title": "Air-Cooled vs. Water-Cooled Chillers: Your 2026 Guide - ICST - Thailand",
-  "description": "Discover our guide to air-cooled vs. water-cooled chillers in 2026. Compare energy efficiency, costs, and BOI incentives for Thai industries.",
+  "description": "Discover our guide to air-cooled vs. water-cooled chillers in 2026. ",
   "path": "/air-cooled-vs-water-cooled-chillers/",
   "layout": [
     {
@@ -21,15 +21,15 @@
           "heading": "",
           "paragraphs": [
             "Choosing the right solution in the Air-Cooled vs. Water-Cooled Chillers debate in 2026 is no longer just an operational decision; it is a strategic financial move. New regulations and rising ambient temperatures in Thailand are forcing manufacturers to rethink their cooling strategies.",
-            "The choice between an air-cooled and a water-cooled system now directly impacts your bottom line, operational stability, and ability to claim significant government incentives. This guide will help you navigate this critical decision for your facility.",
-            "Two major factors are reshaping how Thai manufacturers approach process cooling. First, the Board of Investment (BOI) Notification No. 5/2568 has transformed energy efficiency into a direct tax asset. Investing in high-efficiency systems now yields substantial financial returns.",
+            "This guide will help you navigate this critical decision for your facility.",
+            "Two major factors are reshaping how Thai manufacturers approach process cooling. Investing in high-efficiency systems now yields substantial financial returns.",
             "Second, industrial facilities are facing the “tropical limit.” As peak ambient temperatures in regions like Bangkok continue to rise, older air-cooled systems are experiencing more frequent “thermal tripping.” This leads to production halts and costly downtime. As a result, businesses must consider more robust solutions like hybrid or water-cooled technologies to ensure stability.",
             "Air-cooled chillers function by rejecting process heat directly into the surrounding atmosphere using high-efficiency fans. This straightforward mechanism offers several advantages, particularly for facilities requiring rapid deployment and operational flexibility.",
             "A key advancement for 2026 models is the integration of adiabatic pre-cooling. These systems use fine misting pads to lower the temperature of the air entering the chiller’s coils. This process allows the air-cooled unit to mimic the performance of a water-cooled system during periods of extreme heat, but without requiring a full cooling tower infrastructure.",
             "Pros of Air-Cooled Chillers:",
             "Cons of Air-Cooled Chillers:",
             "The system operates by circulating water through a condenser loop connected to a cooling tower, where the heat is ultimately rejected through evaporation.",
-            "The most significant innovation for 2026 is the widespread adoption of oil-free magnetic levitation (Mag-Lev) compressors. This performance level has become the new benchmark for securing high-efficiency BOI certification.",
+            "The most significant innovation for 2026 is the widespread adoption of oil-free magnetic levitation (Mag-Lev) compressors. ",
             "Pros of Water-Cooled Chillers:",
             "Cons of Water-Cooled Chillers:",
             "Strategic Metric",
@@ -48,13 +48,11 @@
             "Lower (Standalone)",
             "Higher (Requires Towers/Pumps)",
             "Air-cooled chillers suit rapid expansion needs.",
-            "BOI Incentive",
             "Standard (Efficiency-based)",
-            "Tier 1 (Max Tax Exemption)",
             "High-capacity Mag-Lev units deliver maximum CIT breaks.",
             "Off-the-shelf solutions often fail to meet the unique demands of modern industrial facilities. As a regional engineering hub, ICST specializes in providing customized designs that standard vendors cannot match. Our approach focuses on tailoring systems to specific environmental and operational challenges.",
             "Selecting the right system in the Air-Cooled vs.",
-            "By understanding the latest advancements, BOI incentives, and site-specific needs, you can make a choice that delivers lasting value and sustainability. Whether your priority is energy efficiency, water conservation, or rapid scalability, this guide offers a comprehensive comparison to empower your decision.",
+            "Whether your priority is energy efficiency, water conservation, or rapid scalability, this guide offers a comprehensive comparison to empower your decision.",
             "Ready to future-proof your facility’s cooling strategy? Contact our expert team, ICST, now for a customized consultation and discover which chiller investment will drive your success through 2026 and beyond!",
             "Air-cooled chillers use fans to reject heat into the atmosphere, while water-cooled chillers use water and cooling towers for heat transfer. Water-cooled systems are more energy-efficient but require more maintenance and water resources.",
             "Yes, air-cooled chillers are well suited to water-scarce regions because they do not use water for cooling, making them suitable for industrial parks like those in Rayong.",
@@ -92,9 +90,6 @@
               "text": "Are air-cooled chillers suitable for water-scarce areas?"
             },
             {
-              "text": "What are the benefits of BOI incentives for chillers in Thailand?"
-            },
-            {
               "text": "How do adiabatic pre-cooling systems improve air-cooled chillers?"
             },
             {
@@ -111,9 +106,6 @@
             },
             {
               "text": "This can be mitigated with specialized bionic fan shrouds, but it adds to the cost."
-            },
-            {
-              "text": "Maximum Incentives: Their high efficiency allows facilities to qualify for Tier 1 BOI tax exemptions."
             },
             {
               "text": "High Water Consumption: These systems have a high Water Usage Effectiveness (WUE) and require a constant supply of makeup water."

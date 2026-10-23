@@ -21,7 +21,7 @@
           "heading": "",
           "paragraphs": [
             "The era of “ballpark” estimates for industrial cooling performance is over. With 2026 energy prices and rigorous Environmental, Social, and Governance (ESG) targets, accurate cooling tower metrics are no longer optional; they are a critical asset. Facility managers cannot afford to guess; you must operate with precision to maintain profitability and sustainability. This is where free cooling tower calculators become essential tools.",
-            "The ICST mission is to engineer innovative solutions that are both technically rugged and financially feasible. This entire process begins with acquiring the right data. At our central Bangkok Hub, we use these core metrics to dispatch engineered solutions to critical sites across ASEAN and the Middle East. Our teams can be on-site within hours, armed with precise calculations to restore or enhance your cooling system’s performance.",
+            "The ICST mission is to engineer innovative solutions that are both technically rugged and financially feasible. This entire process begins with acquiring the right data. Our teams can be on-site within hours, armed with precise calculations to restore or enhance your cooling system’s performance.",
             "To effectively manage a facility, you must understand the mathematics behind the machinery. The following calculation matrix outlines the primary formulas and strategic Key Performance Indicators (KPIs) that are fundamental to operating efficient cooling systems. Understanding these calculations helps determine your cooling tower efficiency and highlights areas for improvement.",
             "Calculator Function",
             "Primary Formula / Metric",
@@ -54,7 +54,7 @@
             "Innovation recognition comes from how you apply data to Process Refinement. Tools like LSI Insight help visualize water chemistry data. They turn abstract numbers from your calculations into actionable alerts regarding scaling or corrosion risks before they cause damage. A calculator is just a tool; innovation comes from how you use its data.",
             "Data is only valuable with correct application. We use these calculations to engineer solutions for specific challenges in demanding environments.",
             "High-salinity zones present unique risks. We use Cycles of Concentration data to prevent catastrophic scaling in systems using seawater or geothermal water. If a calculator shows high conductivity, we adjust the blowdown rate immediately. This simple step protects expensive heat exchangers from salt deposits that reduce heat transfer and tower efficiency.",
-            "Reducing energy consumption begins with the fan and pump. By accurately calculating fan power and pressure drop, ICST engineers design award-winning low-power systems. We design the system to require less pressure to move water, which allows us to specify smaller, more efficient motors and reduce the overall kW demand.",
+            "Reducing energy consumption begins with the fan and pump. By accurately calculating fan power and pressure drop, ICST engineers design low-power systems. We design the system to require less pressure to move water, which allows us to specify smaller, more efficient motors and reduce the overall kW demand.",
             "Cooling towers do not exist in a vacuum. They are integral to your facility’s broader safety and storage infrastructure. Your calculations must account for these interconnected systems.",
             "Your evaporation data directly influences your water storage needs. If your cooling tower calculator predicts high evaporation loss during summer months, you must ensure your reservoirs can handle the increased demand for makeup water. We use this evaporation data to plan storage capacity for critical thermal reserves, ensuring you never run dry during periods of high heat load.",
             "Many industrial sites utilize cooling tower basins as an emergency water source for fire protection. You must ensure your basin capacity meets both the thermal load requirements and fire safety regulations.",
@@ -176,9 +176,6 @@
             },
             {
               "text": "Metric: Energy Efficiency (PUE). This reflects the parasitic load of the cooling equipment."
-            },
-            {
-              "text": "ICST 2026 Target: We design for the lowest possible parasitic load, moving the maximum amount of air with the minimum amount of electricity."
             }
           ],
           "images": [

@@ -27,7 +27,7 @@
             "To determine actual hourly consumption, you must factor in three variables:",
             "Only when you sum these factors do you understand the true demand on the makeup line.",
             "Define your Recovery Time Objective (RTO). This objective dictates how long the plant must run autonomously.",
-            "Static calculations fail in extreme environments. In regions like the Middle East or Southeast Asia, high wet-bulb temperatures increase evaporation rates significantly. You must size your Industrial Water Storage Solutions based on seasonal peak demand, not average annual usage.",
+            "Static calculations fail in extreme environments. You must size your Industrial Water Storage Solutions based on seasonal peak demand, not average annual usage.",
             "Not all backup sources offer equal reliability. We categorize potential sources into a hierarchy of stability.",
             "This involves an internal, dedicated storage tank.",
             "This strategy utilizes existing, massive fire-suppression tanks as a secondary source.",
@@ -174,9 +174,6 @@
             },
             {
               "text": "Specialized Metallurgy: We design backup connections specifically for harsh environments. This includes using materials resistant to seawater or acidic conditions found in heavy industrial zones."
-            },
-            {
-              "text": "Global Export Expertise: We ensure specialized makeup pumps and valves reach sites in the Middle East without costly customs delays."
             }
           ],
           "images": [

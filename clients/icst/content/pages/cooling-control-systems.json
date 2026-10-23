@@ -123,7 +123,7 @@
               "text": "Control Valves: As the most common actuators in cooling systems, these valves modulate fluid flow. They can precisely open or close to increase or decrease the amount of coolant moving through a pipe, directly influencing temperature."
             },
             {
-              "text": "Variable Frequency Drives (VFDs): VFDs adjust the speed of motors that power pumps, fans, and compressors. By matching the motor speed to the actual cooling load, VFDs achieve significant energy savings compared to motors that run at a constant full speed."
+              "text": "Variable Frequency Drives (VFDs): VFDs adjust the speed of motors that power pumps, fans, and compressors. "
             },
             {
               "text": "Programmable Logic Controllers (PLCs): These are rugged, industrial-grade controllers designed for harsh environments and complex machine control. They are highly reliable and flexible, making them ideal for critical process cooling applications."

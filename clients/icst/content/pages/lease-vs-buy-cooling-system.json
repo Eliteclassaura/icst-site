@@ -1,6 +1,6 @@
 {
   "title": "Guide to Decide: Lease vs Buy Cooling System for Your Business - ICST - Thailand",
-  "description": "Lease or buy industrial cooling equipment? Our guide helps you compare costs, cash flow, and tax benefits so you can make the right decision.",
+  "description": "Lease or buy industrial cooling equipment? ",
   "path": "/lease-vs-buy-cooling-system/",
   "layout": [
     {
@@ -52,9 +52,8 @@
             "You have a permanent, long-term facility need.",
             "Budget Type",
             "You have flexibility in OPEX but strict CAPEX limits.",
-            "You need the tax benefits of asset depreciation.",
             "Ready to make a decision? Follow this step-by-step framework to build your business case.",
-            "Deciding whether to lease or buy your industrial cooling system is a strategic move that affects your facility’s resilience and your company’s bottom line. By carefully analyzing the Total Cost of Ownership, understanding the tax implications, and assessing your appetite for operational risk, you can choose the path that supports your production goals.",
+            "Deciding whether to lease or buy your industrial cooling system is a strategic move that affects your facility’s resilience and your company’s bottom line. ",
             "Don’t leave your critical infrastructure decisions to guesswork. If you need help modeling the costs or evaluating the technical specifications of your next cooling project, consider consulting with a trusted industry expert to guide your lease vs buy cooling system decision. Visit us at ICST to learn more and get started today!",
             "It depends on your cash flow, technology needs, and risk tolerance.",
             "TCO includes acquisition or lease fees, installation, energy and water consumption, maintenance, and end-of-life costs. Calculating TCO helps compare leasing vs buying accurately.",
@@ -85,9 +84,6 @@
             },
             {
               "text": "Discounted Cash Flow (DCF) Analysis"
-            },
-            {
-              "text": "Tax, Accounting, and Compliance"
             },
             {
               "text": "CAPEX vs. OPEX"
@@ -153,7 +149,7 @@
               "text": "Leasing: Preserves working capital. Cash flow remains smooth and predictable. This is ideal for companies that need to keep cash on hand for inventory or R&D."
             },
             {
-              "text": "Buying (CAPEX): The equipment is recorded as an asset on the balance sheet and depreciated over time. This can offer tax benefits through depreciation deductions (like Section 179 in the US). However, the capital approval process is often long and rigorous."
+              "text": "Buying (CAPEX): The equipment is recorded as an asset on the balance sheet and depreciated over time. However, the capital approval process is often long and rigorous."
             },
             {
               "text": "Leasing (OPEX): In many operating leases, payments are treated as operating expenses. This bypasses the complex capital budget approval process, often allowing facility managers to acquire equipment faster using their O&M (Operations and Maintenance) budget."

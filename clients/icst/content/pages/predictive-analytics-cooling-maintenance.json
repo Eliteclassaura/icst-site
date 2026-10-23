@@ -42,7 +42,7 @@
             "Extended Component & Equipment Lifespan:",
             "Proactive maintenance addresses issues before they cause catastrophic damage, extending the component lifespan and delaying premature replacements, a point emphasized by experts at HVACInformed.com and Airgas Refrigerants.",
             "Energy Efficiency & Lower Utility Costs:",
-            "The system can detect inefficiencies, such as refrigerant leaks or poor heat exchange, early on. Correcting these issues leads to significant energy savings and lower utility bills, as noted by sources like Aeropg.com.",
+            "The system can detect inefficiencies, such as refrigerant leaks or poor heat exchange, early on. ",
             "Optimized Maintenance Scheduling & Resource Allocation:",
             "Maintenance is performed only when necessary, eliminating wasted labor on redundant inspections and optimizing resource use. This efficiency gain is highlighted by field service software providers.",
             "Predictable Maintenance Budgets:",
@@ -210,9 +210,6 @@
             },
             {
               "text": "Costs: Expect recurring fees for data storage, sensor maintenance, and software subscriptions or in-house data science support."
-            },
-            {
-              "text": "Benefits: You’ll see quantifiable advantages like reduced downtime, lower emergency repair bills, significant energy savings, extended equipment life, and fewer costly emergency call-outs."
             },
             {
               "text": "High Upfront Investment: Justify the cost by starting with a pilot project on the most critical systems to demonstrate clear ROI before scaling."

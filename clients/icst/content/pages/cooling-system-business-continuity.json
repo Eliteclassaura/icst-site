@@ -38,7 +38,7 @@
             "Technology fails, and when it does, communication protocols determine the chaos level. A technical fix solves the mechanical issue, but communication solves the business issue.",
             "Who receives the first call? Automated Building Management Systems (BMS) should trigger alerts instantly. We recommend a clearly defined escalation tree.",
             "Transparency acts as a trust-builder. Attempting to hide an outage often exacerbates the issue. Notify clients promptly. Inform them of the issue, the response plan, and the expected recovery timeline. This proactive approach manages expectations and reduces panic.",
-            "Speed is essential. ICST leverages a strategic hub in Bangkok to deploy personnel across Asia within hours. For Middle East operations, we achieve same-day or next-day deployment.",
+            "Speed is essential. ICST leverages a strategic hub in Bangkok to deploy personnel across Asia within hours. ",
             "This logistical advantage ensures expert boots are on the ground before the thermal inertia serves as a destructive force.",
             "A plan that sits in a binder is a theoretical wish, not a continuity strategy. Static plans fail because they do not account for real-world variables.",
             "You must rigorously test your failover designs. We advocate for quarterly failover simulations. Force the primary system off and watch the backup engage.",

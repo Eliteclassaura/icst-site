@@ -88,7 +88,7 @@
             "Approach = Cold Water Temperature − Wet-Bulb Temperature",
             "A rising approach temperature indicates declining heat-exchange efficiency—typically caused by fouling, scaling, or biological film accumulation on fill media. Catching this trend early allows corrective action before efficiency losses translate into increased energy consumption or reduced process cooling capacity.",
             "Running cooling tower fans at fixed full speed regardless of ambient conditions wastes significant energy. Real-time weather and load telemetry fed into cloud SCADA logic allows the system to automate variable frequency drive (VFD) fan speed adjustments dynamically.",
-            "The fans deliver exactly the cooling output required at any given moment—no more, no less. Energy savings compared to fixed-speed operation are substantial, particularly during moderate ambient temperature periods.",
+            "The fans deliver exactly the cooling output required at any given moment—no more, no less. ",
             "Toroidal conductivity sensors provide continuous total dissolved solids (TDS) data, enabling precise automated blowdown management. The system triggers bleed-off cycles only when TDS levels justify it not on a fixed timer. This approach:",
             "A robust IoT cooling tower monitoring architecture is not a luxury addition for large facilities. It is a foundational requirement for any operation that takes equipment reliability, water use efficiency, and regulatory compliance seriously.",
             "Manual inspections and paper logs cannot deliver this level of control. A connected architecture can.",

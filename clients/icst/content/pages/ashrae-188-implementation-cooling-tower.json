@@ -1,12 +1,12 @@
 {
-  "title": "ASHRAE 188 Implementation Cooling Tower Guide: Stop Liability - ICST - Thailand",
+  "title": "ASHRAE 188 Implementation Cooling Tower Guide- ICST - Thailand",
   "description": "Master ASHRAE 188 implementation of cooling tower rules. Establish strict control measures, protect building water systems, and reduce Legionella risk.",
   "path": "/ashrae-188-implementation-cooling-tower/",
   "layout": [
     {
       "blockType": "hero",
       "variant": "media",
-      "title": "ASHRAE 188 Implementation Cooling Tower Guide: Stop Liability",
+      "title": "ASHRAE 188 Implementation Cooling Tower Guide",
       "image": {
         "url": "/wp-content/uploads/2026/06/image-19.jpeg",
         "alt": "ASHRAE 188 implementation cooling tower",
@@ -24,7 +24,7 @@
             "Compliance mandates continuous monitoring of disinfectant levels, strict pH regulation, and automated temperature monitoring to inhibit Legionella growth. Additionally, building owners must execute bi-annual mechanical teardowns and maintain rigorous documentation for ongoing verification. Ultimately, program success relies on independent laboratory validation testing to ensure the system suppresses waterborne pathogens and successfully protects building occupants.",
             "ASHRAE Standard 188 is written in strict, enforceable code language. The document completely replaces permissive choices with explicit commands such as “shall” and “must.”",
             "This deliberate syntax allows municipal building departments, state health boards, and federal agencies to adopt the text directly into statutory law. States like New York and Michigan have already integrated these mandates into their legal frameworks for existing buildings and new construction.",
-            "Healthcare facilities face overlapping regulatory pressure regarding water safety. The Centers for Medicare & Medicaid Services (CMS) directive legally requires an active water management plan to protect vulnerable populations from Legionnaires disease.",
+            "The Centers for Medicare & Medicaid Services (CMS) directive legally requires an active water management plan to protect vulnerable populations from Legionnaires disease.",
             "Both entities look directly to the ASHRAE Standard 188 framework as the baseline for legal execution.",
             "Federal auditors utilize the OSHA General Duty Clause to penalize facilities that neglect biological hazards. The absence of a documented, active water safety strategy during an inspection serves as evidence of a recognized hazard violation.",
             "Federal authorities will issue willful or repeated violations for these omissions.",
@@ -92,7 +92,7 @@
             "Facilities utilize independent laboratories to conduct standardized culture testing. This process verifies that the chemical parameters are achieving the desired biological control against Legionella bacteria and other waterborne pathogens.",
             "Facilities should maintain a Heterotrophic Plate Count (HPC) below 10,000 CFU/mL. Sudden spikes in general bacterial counts indicate that biofilm is insulating colonies or biocide levels are insufficient. An elevated HPC reading requires a detailed trend analysis and immediate adjustment of chemical feed rates.",
             "Legionella compliance leaves zero margin for technical or documentation errors. Developing, mapping, and implementing an ASHRAE 188 water management plan requires seamless integration across chemical water treatment, mechanical optimization, and field execution.",
-            "We help you design and deploy fully code-compliant cooling tower networks utilizing advanced structural FRP material configurations. Contact our Bangkok engineering office today to schedule your comprehensive system risk assessment and establish an effective implementation timeline.",
+            "We help you design and deploy fully code-compliant cooling tower networks utilizing advanced structural FRP material configurations. Contact ICST to discuss your system.",
             "An effective water management plan requires a multi-disciplinary team to map centralized building water systems using detailed fluid flow diagrams. Engineers must identify critical control points, analyze structural components for hazardous conditions, and establish continuous automated biocide dosing. The program must define strict control limits, routine monitoring procedures, and clear corrective actions to prevent the growth of waterborne pathogens in complex water systems.",
             "Building owners achieve compliance by executing a data-driven risk management framework. This process requires maintaining stable disinfectant levels, implementing automated temperature monitoring, and scheduling biocide telemetry adjustments. To satisfy health authorities, facility managers must maintain a retrievable documentation binder containing daily operational logs, sensor calibration certificates, and independent validation testing results to prove continuous system safety.",
             "Structural dead legs isolate water from the main circulation loop, causing chemical disinfectant levels to drop to zero. Without active biocide residuals, scale and organic sediment quickly accumulate on surfaces like FRP material. Ambient building heat warms this stagnant fluid into the ideal thermal range to promote Legionella growth, creating a biological matrix that shields bacteria from subsequent water treatment.",

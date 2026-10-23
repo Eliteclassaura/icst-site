@@ -21,7 +21,7 @@
           "heading": "",
           "paragraphs": [
             "Cooling tower heat recovery involves intercepting thermal energy before it leaves your facility. Industrial processes generate massive thermal loads continuously. Standard cooling systems dump this energy directly into the atmosphere. Capturing this resource transforms wasted energy into useful process heat.",
-            "Engineers achieve waste heat capture using a dedicated heat exchanger, a secondary thermal loop, or an industrial heat pump. Thermal recovery systems integrate smoothly into existing mechanical infrastructure. These configurations provide substantial financial and energy savings.",
+            "Engineers achieve waste heat capture using a dedicated heat exchanger, a secondary thermal loop, or an industrial heat pump. Thermal recovery systems integrate smoothly into existing mechanical infrastructure. ",
             "Cooling towers reject thermal energy through natural water evaporation. Energy leaves the mechanical system as warm exhaust air and blowdown water. Facilities lose millions of BTUs daily through these standard rejection pathways.",
             "Mechanical draft towers rely heavily on latent heat transfer. Warm condenser water sprays evenly over the fill media. Fans pull ambient air across the falling water droplets. A small portion of water evaporates, cooling the remaining volume. The system vents the absorbed thermal energy outside.",
             "Engineers find the most accessible energy inside the condenser water loop. This low-grade heat holds immense value for secondary industrial processes. Another target is the blowdown stream, which contains sensible heat before discharging to the sewer.",
@@ -189,9 +189,6 @@
             },
             {
               "text": "Achieve a Rapid ROI: Our heat pump systems typically pay for themselves within one to three years."
-            },
-            {
-              "text": "Benefit from High Utility Rates: The higher your local utility costs, the faster you’ll see a return on your investment through significant energy savings."
             },
             {
               "text": "Reduce Upfront Costs: We can lower your initial installation expenses by integrating the new system with your existing piping infrastructure."

@@ -68,7 +68,6 @@
             "12.",
             "Monitoring",
             "Dedicated Sub-Metering: Install separate flow meters on makeup and bleed lines for accurate, real-time CoC calculation.",
-            "Controllable losses, primarily blowdown and evaporation, offer the greatest opportunity for significant water savings through technical adjustments and strategic planning.",
             "Your chemical strategy is central to achieving a higher CoC. By improving water quality, you can safely concentrate the dissolved solids without risking equipment damage.",
             "While evaporation is necessary for cooling, you can optimize its efficiency. The goal is to get the most cooling “work” out of every gallon of water evaporated.",
             "Uncontrolled losses from drift, leaks, and overflow are pure waste. They provide no cooling benefit and cost you money in water, chemicals, and energy. A systematic operational checklist helps you find and fix these hidden losses.",
@@ -163,7 +162,7 @@
               "text": "Operational Tuning: Fine-tuning your cooling load and approach temperature is key. The “approach” is the difference between the cold water temperature leaving the tower and the ambient wet-bulb temperature. Minimizing this gap ensures the system is not rejecting more heat through evaporation than is necessary."
             },
             {
-              "text": "The Hybrid Solution: Hybrid cooling towers, which combine wet and dry cooling, offer a powerful conservation tool. During cooler months or periods of low load, you can operate the system in dry mode. This eliminates evaporative loss, providing significant water savings."
+              "text": "The Hybrid Solution: Hybrid cooling towers, which combine wet and dry cooling, offer a powerful conservation tool. During cooler months or periods of low load, you can operate the system in dry mode. "
             },
             {
               "text": "Drift Eliminator Inspection: Drift eliminators are designed to capture water droplets carried out by the fan’s airflow. Over time, they can warp, become fouled with scale, or suffer from misalignment. These issues compromise efficiency and lead to the loss of chemically treated water. Regular visual checks are essential for maintaining performance."

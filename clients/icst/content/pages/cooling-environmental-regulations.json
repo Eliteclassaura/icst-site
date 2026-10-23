@@ -29,7 +29,7 @@
             "Thailand has updated its Building Energy Code to enforce stricter thermal standards. These rules apply specifically to new or retrofitted facilities larger than 2,000 square meters. The 2026 update focuses heavily on the building envelope and thermal comfort.",
             "Your cooling systems play a central role here. If your cooling tower system does not meet specific energy efficiency ratings, the building will fail inspection. Compliance requires an integrated approach. The infrastructure must support the building’s total energy performance.",
             "Singapore sets the pace for the ASEAN region. This aggressive pricing signals a regional shift. Neighboring nations often follow Singapore’s regulatory lead regarding carbon emissions.",
-            "This tax renders inefficient, high-power designs obsolete. A system that was cost-effective five years ago now loses money through taxes. Industrial operators must shift toward cooling technologies that require less energy. This strategy lowers tax exposure and operational costs.",
+            "A system that was cost-effective five years ago now loses money through taxes. Industrial operators must shift toward cooling technologies that require less energy. ",
             "New rules create a complex web of requirements. We have categorized the key benchmarks that every facility manager must monitor this year.",
             "Smart operators view these regulations as an opportunity. Early adopters secure a competitive edge and avoid regulatory compliance penalties.",
             "Investing in a new HFC-based system today is a financial risk. You risk purchasing electrical equipment that will be illegal or expensive to operate soon. This is the “Stranded Asset” trap. ICST guides you toward Hydrofluoroolefins (HFOs) and natural refrigerants. These alternatives safeguard your capital investment against future bans. They also possess a low global warming potential, which protects the ozone layer and prevents ozone depletion.",
@@ -41,9 +41,9 @@
             "Energy-efficient operation in 2026 goes beyond simply buying a better motor. It requires a holistic view of the system.",
             "Static control systems cannot meet 2026 efficiency caps. Modern regulations require dynamic adjustments. We utilize AI-driven controls that optimize part-load efficiency. This is particularly vital for data centres that generate massive heat loads.",
             "AI controls adjust fan speeds and water flow to match the exact demand. This ensures you stay below new energy-intensity caps. It also extends the life of your equipment.",
-            "Every watt of power you save reduces your tax exposure. We design for the “Energy-Water Nexus.” This approach recognizes that water pumps consume substantial electricity.",
+            "We design for the “Energy-Water Nexus.” This approach recognizes that water pumps consume substantial electricity.",
             "We optimize the physical footprint and lower the required pump head. This reduces the electricity use needed to move water. This dual saving lowers your water bill and your electricity consumption simultaneously. This approach plays a crucial role in cutting greenhouse gas emissions.",
-            "Governments across the Middle East and Asia offer tax breaks for sustainable infrastructure. High-performance upgrades do not just avoid fines; they generate revenue through incentives. We help facilities structure their upgrades to qualify for “Green Building” status. This turns compliance costs into tax assets. It aids industries in reducing reliance on fossil fuels.",
+            "We help facilities structure their upgrades to qualify for “Green Building” status. It aids industries in reducing reliance on fossil fuels.",
             "Climate change and rising temperatures make water scarcity a major concern. In drought-prone regions, your access to freshwater is your “license to operate.”",
             "Regulators now demand transparency regarding water use. Facilities in water-stressed zones must disclose their Water Usage Effectiveness. High consumption can lead to caps on your production capacity.",
             "You must prepare for these mandatory disclosures now. Implementing conservation technologies today ensures your numbers look good when the regulators ask to see them. This helps countries manage their resources better.",
@@ -171,9 +171,6 @@
             },
             {
               "text": "Target: Mandatory Water Usage Effectiveness (WUE) reporting."
-            },
-            {
-              "text": "Regional Focus: Middle East and Thailand."
             },
             {
               "text": "ICST Solution: Zero Liquid Discharge (ZLD) systems. We engineer solutions that recycle water. This drastically reduces freshwater intake and prevents water loss."

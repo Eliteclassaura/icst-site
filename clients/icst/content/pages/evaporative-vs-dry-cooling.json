@@ -21,7 +21,7 @@
           "heading": "",
           "paragraphs": [
             "Industrial cooling faces a resource paradox, especially when considering evaporative vs dry cooling solutions. The global push toward Net Zero and Water Neutrality is forcing a reevaluation of traditional cooling methods. Facilities must now engineer solutions that are not only technically rugged and financially feasible but also environmentally responsible. This challenge is especially acute for operations dealing with “Critical Requirements” such as seawater, acid, and high-salinity environments.",
-            "From our Bangkok hub, ICST offers rapid deployment of cooling systems to support industrial sites across ASEAN and the Middle East, particularly during critical heat events. This guide provides a comprehensive comparison of evaporative versus dry cooling, helping you navigate the trade-offs and engineer the correct decision for your operational needs in 2026.",
+            "This guide provides a comprehensive comparison of evaporative versus dry cooling, helping you navigate the trade-offs and engineer the correct decision for your operational needs in 2026.",
             "Choosing a cooling system involves balancing power usage, water consumption, and capital expenditure. The optimal choice depends heavily on your climate and resources. Here is how evaporative (wet), dry (air-cooled), and hybrid solutions compare across key metrics.",
             "Metric",
             "Evaporative (Wet) Cooling",
@@ -49,7 +49,7 @@
             "The primary advantage of this natural process in 2026 is its cooling performance. Dry coolers simply cannot achieve this level of precise temperature control. This makes evaporative cooling systems a cost-effective choice for industrial plants in dry climates that need to absorb heat with high efficiency.",
             "However, the water evaporation process requires careful management of water quality to prevent biological growth and scaling. For applications using “dirty water” or acidic fluids, standard galvanized steel components often fail. ICST specializes in using advanced FRP and Titanium components that withstand these harsh environmental conditions, ensuring system longevity and regulatory compliance.",
             "Dry cooling systems, such as an air-cooled heat exchanger, operate on the principle of sensible heat transfer. Cooling occurs as fans move ambient air across finned coils, transferring heat through conduction and convection without any water loss.",
-            "The key benefit is water independence. This makes dry cooling towers the gold standard for facilities like data centers in water-stressed regions, such as the Middle East. Eliminating water usage also removes risks associated with water treatment, scaling, and biofouling. This significantly reduces maintenance costs related to water management.",
+            "The key benefit is water independence. Eliminating water usage also removes risks associated with water treatment, scaling, and biofouling. This significantly reduces maintenance costs related to water management.",
             "While dry cooling offers lower operating costs in terms of water, it does have a higher capital cost and higher energy consumption due to the powerful fans required. Maintenance, though simpler, still requires regular cleaning of the heat exchanger coils to remove airborne debris and maintain cooling efficiency.",
             "Hybrid systems combine the benefits of both approaches to industrial cooling. These systems are designed to operate as a dry cooler for most of the year, conserving water and reducing operational costs. This function sprays a fine mist of water onto the incoming hot air, lowering its temperature before it reaches the heat exchange coils.",
             "This process provides a temporary boost in cooling capacity, allowing the system to approach the efficiency of evaporative cooling without the constant water usage.",
@@ -101,7 +101,7 @@
               "text": "Which cooling system is suitable for humid conditions?"
             },
             {
-              "text": "Regional Technical Assistance: Our team is prepared for 24-hour personnel dispatch from our Bangkok hub. We are ready to solve critical system failures across Asia and the Middle East, minimizing downtime."
+              "text": "Regional Technical Assistance: Our team is prepared for 24-hour personnel dispatch from our Bangkok hub. "
             },
             {
               "text": "Specialized Maintenance: We understand the unique needs of hybrid systems. Our maintenance programs are designed to manage and protect these advanced systems, ensuring longevity even in high-salinity or acidic environments."
