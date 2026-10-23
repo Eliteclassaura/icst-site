@@ -144,8 +144,8 @@ describe('first-user endpoints are 404 once any user exists', () => {
 
 describe('the runtime base image is pinned by digest', () => {
   const docker = readFileSync(path.join(APP, 'Dockerfile.runtime'), 'utf8')
-  it('NODE_IMAGE defaults to node:22.22.2-bookworm-slim at a sha256 digest', () => {
-    expect(docker).toMatch(/^ARG NODE_IMAGE=node:22\.22\.2-bookworm-slim@sha256:[0-9a-f]{64}$/m)
+  it('NODE_IMAGE defaults to node:22.23.4-bookworm-slim at a sha256 digest (Node pin 23 Oct 2026, RELEASE_1.3d/NODE_BASE_PIN_22.23.4.md)', () => {
+    expect(docker).toMatch(/^ARG NODE_IMAGE=node:22\.23\.4-bookworm-slim@sha256:[0-9a-f]{64}$/m)
     expect(docker).toContain('FROM ${NODE_IMAGE} AS base')
   })
   it("the client image contract: another client's content, theme and manifest stay out of the build context (blocklists stay in for the gate)", () => {

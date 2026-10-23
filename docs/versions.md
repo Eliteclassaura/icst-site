@@ -6,7 +6,7 @@ Pinned from the C0 compatibility spike (`spike/c0-spike`, 2026-09-03). These are
 
 | Component  | Version       | Note                                                                                                                                   |
 | ---------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Node.js    | 22.22.2 (LTS) | Container base `node:22-bookworm-slim`. Next 16 requires ≥ 20.9.                                                                       |
+| Node.js    | 22.23.4 (LTS) | Container base `node:22.23.4-bookworm-slim` pinned by digest (`Dockerfile.runtime`, 23 Oct 2026). Next 16 requires ≥ 20.9.                |
 | pnpm       | 10.28.0       | Via corepack. `onlyBuiltDependencies` allow-list for `sharp`, `esbuild` in `.npmrc`.                                                   |
 | PostgreSQL | 16.13         | Compose image `postgres:16-alpine`.                                                                                                    |
 | TypeScript | **5.9.3**     | TypeScript 7.0.2 (Go-based compiler) is current on npm but untested with Payload's type generation; evaluate in Release 3, not before. |
