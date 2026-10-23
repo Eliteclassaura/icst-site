@@ -346,10 +346,33 @@ export function assertApprovedForProduction(copy: string, notice: string | undef
   if (copy.includes(PENDING_MARKER) || (notice ?? '').includes(PENDING_MARKER)) throw new Error('COPY_PENDING_APPROVAL: the quote-form notice or privacy note is not approved yet')
 }
 
+/**
+ * The owner's approval of the quote-form notice and the cookie notice (23 Oct 2026, "approved with defaults"). Production builds
+ * accept the approved text only with the approval record (clients/<slug>/APPROVALS.md) present and citing this document hash.
+ * Counsel review is not part of this record. Missing or mismatched record: refused.
+ */
+export const NOTICE_APPROVAL_DOC_SHA256 = '895da28f873fbcc5c61c8893874c152e33c300cf89e8371b31570bf409ca8c49'
+export const APPROVAL_RECORD_PATH = 'APPROVALS.md'
+export function assertApprovalRecord(record: string | undefined, env: NodeJS.ProcessEnv = process.env): void {
+  if (env.H2O_INDEXING_POLICY !== 'production') return
+  if (record === undefined) throw new Error(`COPY_PENDING_APPROVAL: APPROVAL_RECORD_MISSING (${APPROVAL_RECORD_PATH} is not in the client folder)`)
+  if (!record.includes(NOTICE_APPROVAL_DOC_SHA256) || !/Approved by: the owner, on 23 Oct 2026/.test(record)) {
+    throw new Error('COPY_PENDING_APPROVAL: APPROVAL_RECORD_MISMATCH (the record does not cite the approved document hash)')
+  }
+}
+const readOptional = (read: RegistrySource, rel: string): string | undefined => {
+  try {
+    return read(rel).toString('utf8')
+  } catch {
+    return undefined
+  }
+}
+
 export const buildRegistry = (read: RegistrySource): Registry => {
   const copy = read(copyTablePath()).toString('utf8')
   const notice = loadFormNotice(read)
   assertApprovedForProduction(copy, notice)
+  assertApprovalRecord(readOptional(read, APPROVAL_RECORD_PATH))
   return registryFromCopy(copy, notice)
 }
 
@@ -367,6 +390,7 @@ export const fixtureRegistry = (): Registry => {
   const notice = loadFormNotice(source)
   const copy = source(copyTablePath()).toString('utf8')
   assertApprovedForProduction(copy, notice)
+  assertApprovalRecord(readOptional(source, APPROVAL_RECORD_PATH))
   const reg = registryFromCopy(copy, notice)
   if (notice !== undefined) cache = reg
   return reg
