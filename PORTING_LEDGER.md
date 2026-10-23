@@ -144,3 +144,8 @@ Resume list now: 1 (media) and 2 (fonts) done; open items are 3 (brand sign-off)
   - Strict ledger zero chains; the engine's note on the signed `/home.html` alias is waived by the named exception.
 
 - **2026-10-23, final brand set placed (RELEASE_KIT0/ICST_BRAND_ASSETS/2026-10-23-final, approved by owner delegation to CT-1):** wordmark SVGs to public/brand/icst-light.svg and icst-dark.svg; droplet to icst-emblem.svg; droplet icon to icst-favicon.svg and src/app/icon.svg; og to public/brand/icst-og.png; favicon.ico and apple-icon.png in src/app; icons 32, 192 and 512 in public/brand. Every source and destination hash verified against SHA256SUMS. The stop-gap files were replaced in place (no other fallback was present). Footer: text name only. Share card: Montserrat default instance from a local OFL TTF (the fork's self-hosted Montserrat is the same family and default instance; not re-rendered). Manifest brand paths unchanged; src/client/baked.ts already matches.
+
+- **2026-10-23, CT-1 rulings (lede, notice, LFS):**
+  - thailand.json lede committed as approved: "ICST is based in Bangkok and supports industrial cooling towers, parts and service across Thailand."
+  - INTERNAL (not shown publicly): counsel clears the retention period and the privacy wording within 14 days after go-live. The public notice shows H2O's periods as final text; the note is an HTML comment in form-notice-source.md and this entry only. FORM_NOTICE_SHA256 re-pinned to a7c4d73a…; the production guard still refuses a re-added marker (tested).
+  - Repository history: 2,806 LFS pointers from the old default-site media. Objects are not uploaded; the full history including the objects is in the verified bundle icst-site-2026-10-23-i.bundle (sha256 3797d743…). No history rewrite.

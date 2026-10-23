@@ -182,7 +182,7 @@ export const CHAT_FLOW_1_STRINGS: Record<string, string> = {
  * counsel approve it (assertApprovedForProduction); after their edits, remove the marker and update this pin. Its short notice becomes
  * `privacy.note` (the link text "Privacy Notice" becomes `privacy.link_text`); its expanded notice becomes the "How we use your details" list.
  */
-export const FORM_NOTICE_SHA256 = '222a91209410b8724584ada13158c9eb2d813f099665a2b72181ce2c13a52bf8'
+export const FORM_NOTICE_SHA256 = 'a7c4d73a2072004e54df345c846c3757f437586171f20f7bd8f4580fb5653cca'
 export function formNoticeStrings(md: string): Record<string, string> {
   const section = (title: RegExp) => {
     const lines = md.split('\n')
