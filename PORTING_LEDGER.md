@@ -136,3 +136,9 @@ Resume list now: 1 (media) and 2 (fonts) done; open items are 3 (brand sign-off)
   - **M2 login routing, M10 signed-in smoke, the migrations read-back gate:** ported (see the second round). The read-back gate and the smoke are now in the V3 step 10a and the V4 smoke step (Commander prompts, resealed).
   - **M6 rest:** the intake context is cleaned and a too-deep context refused (422 through `parseEnvelope`); the typeform ingest path is off at launch and not ported.
   - **Node digest:** not yet supplied (`RELEASE_1.3d/NODE_BASE_PIN_22.23.4.md` absent).
+
+- **2026-10-23, claims and notice (CT-1 rulings; head after this commit):**
+  - Claims v1 (sha ae5bf173…, guarded): P1 247 applied (hold-owner not applied); P2 80 applied and 1 guard failure (ICSTC-0327, its sentence gone with a paragraph change). Quote and heading deleted; ASHRAE sentence neutral; "comprehensive" dropped; thailand-energy-cooling-tax-incentives retired with 301 to /cooling-system-upgrade/. Residuals not in the record: "Middle Eastern" (4 pages), "award-winning" (2 pages). Lede of thailand.json held for owner copy (draft awaiting approval).
+  - Quote-form notice and cookie notice approved with defaults (owner, 23 Oct 2026); markers removed; FORM_NOTICE_SHA256 re-pinned; inventory APPROVED; /cookie-notice/ carries the processors and effective date (2 Nov 2026).
+  - Deploy key for the private repo generated (no passphrase); not yet authorized by GitHub; push waits for the owner and for the LFS decision (2,806 LFS entries in history).
+  - Strict ledger zero chains; the engine's note on the signed `/home.html` alias is waived by the named exception.
