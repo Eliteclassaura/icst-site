@@ -21,7 +21,7 @@ import sys
 REFUSE = [
     (re.compile(r'260.?6598|\+66|661.?7723'), 'typed phone number (phones come from the manifest)'),
     (re.compile(r'\bICS\b'), 'brand "ICS" (the brand is ICST)'),
-    (re.compile(r'\bfree\b', re.I), '"free" (paid services)'),
+    (re.compile(r'(?<![-\w])free\b', re.I), '"free" as a word (paid services); hyphenated compounds such as maintenance-free are not refused'),
     (re.compile(r'hvac|air.?conditioning', re.I), 'HVAC or air-conditioning wording'),
     (re.compile('—'), 'em dash'),
 ]

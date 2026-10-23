@@ -18,6 +18,10 @@ class Guard(unittest.TestCase):
                      'air conditioning units', 'cooling — towers']:
             self.assertTrue(copy_guard.scan(text)[0], text)
 
+    def test_free_as_a_word_is_refused_but_compounds_are_not(self):
+        self.assertTrue(copy_guard.scan('Get a Free quote')[0])
+        self.assertEqual(copy_guard.scan('Virtually maintenance-free')[0], [])
+
     def test_claims_and_authority_words_are_logged_not_refused(self):
         for text in ['Reduce energy costs by 30%', 'authorized supplier of OEM parts', 'genuine spare parts', 'Middle East projects',
                      'Certified towers', 'ICST Thailand']:
