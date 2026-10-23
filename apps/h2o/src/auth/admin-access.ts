@@ -14,3 +14,12 @@ export function adminRouteDestination(user: unknown, segments: readonly string[]
   if (hasRole(req, CMS_ADMIN_ROLES) || (segments?.length === 1 && segments[0] === 'logout')) return null
   return '/crm/'
 }
+
+/**
+ * 1.3b login routing: where a person goes once sign-in (including the second step) is done. A CRM-only account always
+ * lands in the CRM; an account with a CMS role keeps the admin or CRM path it asked for (the `redirect` parameter),
+ * and a missing or unsafe one means the CRM.
+ */
+export function signInDestination(user: unknown, requested: string): string {
+  return adminRouteDestination(user, undefined) ?? requested
+}

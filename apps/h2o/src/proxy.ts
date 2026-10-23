@@ -135,11 +135,27 @@ export function nulRoute(req: NextRequest): NextResponse | null {
   return new NextResponse('Bad request', { status: 400, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } })
 }
 
+/**
+ * 1.3b login routing: the bare Payload login (what logout lands on, or a typed address) goes to the CRM sign-in; a link that carries its
+ * own `redirect` is left alone, so admins still reach /admin.
+ */
+const CRM_LOGIN_PATH = '/admin/login/?redirect=%2Fcrm%2F'
+const BARE_LOGIN = /^\/admin\/login\/?$/
+export function loginRoute(req: NextRequest): NextResponse | null {
+  if ((req.method !== 'GET' && req.method !== 'HEAD') || !BARE_LOGIN.test(req.nextUrl.pathname) || req.nextUrl.searchParams.has('redirect')) return null
+  const target = new URL(CRM_LOGIN_PATH, redirectOrigin(req))
+  const res = securityHeaders(NextResponse.redirect(target, 307), "default-src 'none'; frame-ancestors 'none'", 'noindex, nofollow')
+  res.headers.set('Cache-Control', 'no-store')
+  return res
+}
+
 export function proxy(req: NextRequest): NextResponse {
   const nul = nulRoute(req)
   if (nul) return nul
   const mfa = mfaRoute(req)
   if (mfa) return mfa
+  const login = loginRoute(req)
+  if (login) return login
   const path = req.nextUrl.pathname
   if (/^\/_next\//.test(path)) return NextResponse.next()
   // The client's redirect ledger, before any routing: one hop to the final page, or 410. Never for platform paths.

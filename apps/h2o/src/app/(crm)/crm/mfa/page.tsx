@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
+import { signInDestination } from '../../../../auth/admin-access'
 import { DEVICE_COOKIE, isRememberedDevice } from '../../../../auth/mfa/devices'
 import { emailCodeEligible, isExempt } from '../../../../auth/mfa/eligibility'
 import { pendingSession } from '../../../../auth/mfa/guard'
@@ -33,10 +34,12 @@ type SP = Record<string, string | string[] | undefined>
  */
 export default async function MfaPage({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams
-  const next = safeNext(Array.isArray(sp.next) ? sp.next[0] : sp.next)
+  const asked = safeNext(Array.isArray(sp.next) ? sp.next[0] : sp.next)
   const payload = await getPayload({ config })
   const pending = await pendingSession(payload, await headers())
-  if (!pending) redirect(`/admin/login/?redirect=${encodeURIComponent(next)}`)
+  if (!pending) redirect(`/admin/login/?redirect=${encodeURIComponent(asked)}`)
+  // 1.3b login routing: the page and both second-step forms carry the destination for this account's roles.
+  const next = signInDestination(pending.user, asked)
   // MFA-ADMIN-1: an admin turned two-step off for this person: nothing to ask, straight on.
   if (pending.verified && isExempt(pending.user)) redirect(`/crm/mfa/done/?next=${encodeURIComponent(next)}`)
   if (pending.verified)

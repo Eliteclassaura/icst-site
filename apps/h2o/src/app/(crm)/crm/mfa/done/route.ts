@@ -2,6 +2,7 @@ import config from '@payload-config'
 import { getPayload } from 'payload'
 import { mfaCookieHeader } from '../../../../../auth/mfa/endpoint'
 import { pendingSession } from '../../../../../auth/mfa/guard'
+import { signInDestination } from '../../../../../auth/admin-access'
 import { safeNext } from '../../../../../auth/mfa/next'
 
 /**
@@ -26,6 +27,7 @@ export async function GET(request: Request): Promise<Response> {
     return new Response(null, { status: 303, headers })
   }
   headers.set('set-cookie', mfaCookieHeader(pending.sid))
-  headers.set('location', next)
+  // 1.3b login routing: a CRM-only account goes straight to the CRM, never through /admin.
+  headers.set('location', signInDestination(pending.user, next))
   return new Response(null, { status: 303, headers })
 }

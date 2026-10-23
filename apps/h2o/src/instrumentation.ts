@@ -12,8 +12,8 @@
  * (./sheets/sync, SHEET-SYNC-1; off unless configured).
  *
  * `onRequestError` — production builds hide Server Component error messages from the browser (correctly);
- * this records them in the server log with the request path and digest so a failed render is diagnosable.
- * Only the error message and path are logged — never headers, cookies or bodies.
+ * this records that a request failed, with fixed fields only (method, route template, digest, class, error name: see
+ * `requestErrorLine`), so a failed render is findable by its digest. It never logs the message or any part of the path.
  */
 export async function register() {
   if (process.env.NEXT_RUNTIME !== 'nodejs') return
@@ -102,7 +102,33 @@ export async function register() {
   setInterval(() => void sweep(), Number(process.env.H2O_INTAKE_SWEEP_INTERVAL_MS) || 60_000).unref()
 }
 
-export function onRequestError(err: unknown, request: { path: string; method: string }) {
-  const e = err as { message?: string; digest?: string }
-  console.error(`[h2o] request error ${request.method} ${request.path} digest=${e.digest ?? '-'} ${String(e.message ?? err).slice(0, 300)}`)
+/**
+ * 1.3c-8: what a failed request writes to the log: FIXED, non-user-derived fields only. Never the error's message (for a database error it
+ * is the SQL and the bound text; for any other it can hold a name, an address or a token), and never any part of the request path (a
+ * public URL is attacker text, a CRM path can hold a record id). The line holds:
+ *   method    one of a fixed list, else OTHER
+ *   route     the framework's own route TEMPLATE (`/crm/contacts/[id]`, from Next's `context.routePath`), validated and bounded, else `-`
+ *   digest    Next's error digest, restricted to a short run of letters, digits, hyphen and underscore (it is a hash, not text)
+ *   class     DATABASE or OTHER (the message is read only to decide this, never logged)
+ *   name      the error's class name (`TypeError`, `DrizzleQueryError`), restricted to word characters
+ */
+const METHODS = new Set(['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'])
+const DB_ERROR = /failed query|\bparams:|\b(?:select|insert|update|delete)\b[^\n]{0,80}\b(?:from|into|set)\b|\bsyntax error at\b|\binvalid byte sequence\b|\bnull character\b|\bduplicate key value\b|violates (?:unique|foreign|check|not-null)|\brelation "[^"]*" does not exist|\bcolumn "[^"]*" does not exist/i
+const ROUTE_TEMPLATE = /^\/[A-Za-z0-9_\-.()@[\]/]{0,119}$/
+const WORDS = /^[A-Za-z0-9_]{1,60}$/
+const DIGEST = /^[A-Za-z0-9_-]{1,40}$/
+export function requestErrorLine(err: unknown, request: { path?: string; method?: string }, context?: { routePath?: unknown }): string {
+  const e = (err && typeof err === 'object' ? err : {}) as { message?: unknown; digest?: unknown; name?: unknown; constructor?: { name?: unknown } }
+  const message = typeof e.message === 'string' ? e.message : typeof err === 'string' ? err : ''
+  const nameRaw = err instanceof Error ? (e.constructor?.name ?? e.name) : undefined
+  const name = typeof nameRaw === 'string' && WORDS.test(nameRaw) ? nameRaw : 'Error'
+  const digest = typeof e.digest === 'string' && DIGEST.test(e.digest) ? e.digest : '-'
+  const method = typeof request.method === 'string' && METHODS.has(request.method.toUpperCase()) ? request.method.toUpperCase() : 'OTHER'
+  const routePath = context && typeof context.routePath === 'string' ? context.routePath : ''
+  const route = routePath && ROUTE_TEMPLATE.test(routePath) ? routePath : '-'
+  return `[h2o] request error ${method} route=${route} digest=${digest} class=${DB_ERROR.test(message) ? 'DATABASE' : 'OTHER'} name=${name}`
+}
+
+export function onRequestError(err: unknown, request: { path: string; method: string }, context?: { routePath?: unknown }) {
+  console.error(requestErrorLine(err, request, context))
 }
