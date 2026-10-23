@@ -40,14 +40,14 @@ describe('legal pages carried from the live ICST text', () => {
 
 describe('cookie inventory', () => {
   const ok: CookieInventory = { status: 'APPROVED', reviewedOn: '2026-10-16', cookies: [{ name: 'sid', provider: 'this site', purpose: 'keeps you signed in', category: 'essential', duration: 'session', firstParty: true }] }
-  it('the committed inventory is valid, pending owner/counsel review, and lists exactly the storage keys the form uses (no cookies for visitors)', () => {
+  it('the committed inventory is valid, approved by the owner on 23 Oct 2026, and lists exactly the storage keys the form uses (no cookies for visitors)', () => {
     const inv = loadInventory('icst', root)!
-    expect(inv.status).toBe('PENDING_OWNER_COUNSEL_REVIEW')
-    expect(inv.reviewedOn).toBeNull()
+    expect(inv.status).toBe('APPROVED')
+    expect(inv.reviewedOn).toBe('2026-10-23')
     expect(inv.cookies.map((c) => c.name).sort()).toEqual([ATTR_KEY, DRAFT_KEY].sort())
     expect(inv.cookies.every((c) => c.provider.includes('sessionStorage'))).toBe(true)
     expect(JSON.stringify(inv)).not.toMatch(/h2o/i)
-    expect(readFileSync(path.join(root, 'icst/cookies/README.md'), 'utf8')).toContain('PENDING')
+    expect(readFileSync(path.join(root, 'icst/cookies/README.md'), 'utf8')).toContain('PENDING_REAL_LIST')
   })
   it('validates entries: required fields, category, duplicates, and an approved list needs a review date', () => {
     expect(validateInventory(ok).ok).toBe(true)

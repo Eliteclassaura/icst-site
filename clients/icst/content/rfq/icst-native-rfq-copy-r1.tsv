@@ -58,7 +58,7 @@ contact.phone.hint	contact	hint	all		Include your country code
 contact.country.q	contact	question	all	required	Country	
 contact.country.search_ph	contact	placeholder	all		Search countries	
 contact.country.empty	contact	empty-state	all		No matching country	
-privacy.note	contact	text	all		We use these details to respond to your request, route it to the right office and keep a record of it. See our {{privacy_policy_link}}.	OWNER/COUNSEL YES NEEDED
+privacy.note	contact	text	all		We use these details to respond to your request, route it to the right office and keep a record of it. See our {{privacy_policy_link}}.	APPROVED 23 Oct 2026 (owner: approved with defaults); effective 2 Nov 2026; counsel retention review within 14 days after go-live
 honeypot.label	contact	label (hidden)	all		Leave this field empty	Hidden from people and screen readers (aria-hidden, off-screen). Never shown.
 review.heading	review	heading	all		Check your request	
 review.edit	review	link	all		Edit	Per answer group.

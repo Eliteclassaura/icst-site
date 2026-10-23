@@ -178,11 +178,11 @@ export const CHAT_FLOW_1_STRINGS: Record<string, string> = {
 /**
  * FORM-NOTICE-1: the quote-request collection notice, kept byte for byte at `clients/<slug>/content/rfq/form-notice-source.md` and pinned
  * here by SHA-256, so any change to the text is a visible decision (a changed file is used as is and logged). The pin below is the ICST
- * notice as it stands, a DRAFT: it carries the pending-approval marker, so a production deploy refuses to build the form until the owner or
+ * notice as approved by the owner on 23 Oct 2026 ("approved with defaults"; the marker is removed). Earlier, as a DRAFT, it carried the pending-approval marker, so a production deploy refuses to build the form until the owner or
  * counsel approve it (assertApprovedForProduction); after their edits, remove the marker and update this pin. Its short notice becomes
  * `privacy.note` (the link text "Privacy Notice" becomes `privacy.link_text`); its expanded notice becomes the "How we use your details" list.
  */
-export const FORM_NOTICE_SHA256 = 'fe8933923846831f0ca98172917146a8f7b7e917a00a60169abd206bc816ed2b'
+export const FORM_NOTICE_SHA256 = '222a91209410b8724584ada13158c9eb2d813f099665a2b72181ce2c13a52bf8'
 export function formNoticeStrings(md: string): Record<string, string> {
   const section = (title: RegExp) => {
     const lines = md.split('\n')

@@ -1,6 +1,6 @@
 {
-  "status": "PENDING_OWNER_COUNSEL_REVIEW",
-  "reviewedOn": null,
+  "status": "APPROVED",
+  "reviewedOn": "2026-10-23",
   "cookies": [
     {
       "name": "icst.rfq.draft.v1",
@@ -29,5 +29,6 @@
     "Turnstile: confirm whether a key is configured; if so, add its cookies.",
     "Staff cookie durations are not verified in this scan.",
     "Only APPROVED rows should populate the public notice (fork: inventory.json, status APPROVED with reviewedOn)."
-  ]
+  ],
+  "approval": "Approved by the owner on 23 Oct 2026 (\"approved with defaults\"), per RELEASE_KIT0/ICST_NOTICE_COOKIE_FOR_OWNER_APPROVAL_2026-10-24.md. Effective 2 November 2026."
 }

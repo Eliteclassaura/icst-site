@@ -112,22 +112,23 @@ describe('the form notice is pinned, parses, and cannot go to production as a dr
   it('the pin in the registry is the SHA-256 of the file as it stands', () => {
     expect(createHash('sha256').update(notice).digest('hex')).toBe(FORM_NOTICE_SHA256)
   })
-  it('parses into the form strings (short notice with the Privacy Notice link, the expanded list), and still carries the pending-approval marker', () => {
+  it('parses into the form strings (short notice with the Privacy Notice link, the expanded list), approved (no pending-approval marker)', () => {
     const s = formNoticeStrings(text)
     expect(s['privacy.note']).toContain('{{privacy_policy_link}}')
     expect(s['privacy.link_text']).toBe('Privacy Notice')
     expect(s['privacy.details.items'].split('\n').length).toBeGreaterThanOrEqual(3)
-    expect(text).toContain(PENDING_MARKER)
+    expect(text).not.toContain(PENDING_MARKER)
   })
   it('names no other client\'s company, domain, address or phone', () => {
     for (const v of [other.client.displayName, other.client.shortName === 'ICS' ? 'Industrial Cooling Solutions Inc' : other.client.shortName, other.domains.canonical.replace(/^https?:\/\//, ''), ...other.offices.flatMap((o) => o.phones.map((p) => p.display))])
       expect(new RegExp(esc(v), 'i').test(text), v).toBe(false)
     expect(/\bICS\b/.test(text)).toBe(false)
   })
-  it('PRODUCTION GATE: while the pending marker remains, the registry refuses to build under the production policy, and shows it on a private deploy', () => {
-    expect(text.includes(PENDING_MARKER)).toBe(true) // today a draft; when counsel approves, remove the marker AND update FORM_NOTICE_SHA256
+  it('PRODUCTION GATE: the approved notice builds under the production policy; a marker put back refuses it, and a private deploy shows it', () => {
+    expect(text.includes(PENDING_MARKER)).toBe(false) // approved 23 Oct 2026; a new draft must carry the marker again and FORM_NOTICE_SHA256 must change
     const prod = { H2O_INDEXING_POLICY: 'production' } as unknown as NodeJS.ProcessEnv
-    expect(() => assertApprovedForProduction(tsv, text, prod)).toThrow(/COPY_PENDING_APPROVAL/)
+    expect(() => assertApprovedForProduction(tsv, text, prod)).not.toThrow()
+    expect(() => assertApprovedForProduction(tsv, `${text}\n${PENDING_MARKER}`, prod)).toThrow(/COPY_PENDING_APPROVAL/)
     expect(() => assertApprovedForProduction(tsv, text, {} as NodeJS.ProcessEnv)).not.toThrow()
   })
 })

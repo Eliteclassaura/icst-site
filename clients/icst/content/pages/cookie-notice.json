@@ -11,6 +11,18 @@
     },
     {
       "blockType": "cookieInventory"
+    },
+    {
+      "blockType": "articleBody",
+      "sections": [
+        {
+          "heading": "Service providers and effective date",
+          "paragraphs": [
+            "This site is hosted by RackNerd (United States) and served through Cloudflare, which processes connection data to deliver and protect the site.",
+            "Effective 2 November 2026. Questions: sales@icsthailand.co.th. [COUNSEL: review within 14 days after go-live.]"
+          ]
+        }
+      ]
     }
   ]
 }
