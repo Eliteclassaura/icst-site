@@ -54,3 +54,24 @@ describe('input hardening (1.3c-8, subset): NUL and lone surrogates never reach 
     expect(requestErrorLine(new Error('x'), { method: `GET ${canary}` }, { routePath: `/a/${canary}` })).toContain('request error OTHER route=- ')
   })
 })
+
+describe('intake envelope: nested context is cleaned, and a too-deep one is refused', () => {
+  it('a NUL inside nested context is removed; a value nested too deeply makes the envelope invalid (422 at the route)', async () => {
+    const { parseEnvelope } = await import('../intake/native/normalize')
+    const base = {
+      submissionId: '2b1c3d4e-5f60-4a7b-8c9d-0e1f2a3b4c5d',
+      source: 'NATIVE_FORM',
+      registryVersion: 'r1',
+      locale: 'en',
+      answers: { name: 'Ana' },
+      attribution: {},
+      antiAbuse: { formToken: 'x', hp: '' },
+    }
+    const ok = parseEnvelope({ ...base, context: { page: { note: `a${NUL}b` } } })
+    expect(ok).not.toBeNull()
+    expect(JSON.stringify(ok!.context)).not.toContain('\\u0000')
+    let deep: unknown = 'x'
+    for (let i = 0; i < 10; i++) deep = { n: deep }
+    expect(parseEnvelope({ ...base, context: { page: deep } })).toBeNull()
+  })
+})

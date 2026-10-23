@@ -128,3 +128,11 @@ Resume list now: 1 (media) and 2 (fonts) done; open items are 3 (brand sign-off)
 - **Backup:** `RELEASE_KIT0/ICST_FORK_BACKUP/icst-site-2026-10-23-g.bundle` was taken before these commits; a new bundle of head 45c4b66 is taken at the end of this session.
 
 - **2026-10-23, second round (4cf3f42):** title ruling applied as a test only (no title edited; 0 bare ICS, 0 doubled brand, 0 titles lost " - Thailand"; 129 titles have no brand token, flagged); M2 login routing, M10 signed-in smoke script (`ops/ci/crm-smoke.mjs`, not run), M6 failed-request log line. Bundle `icst-site-2026-10-23-i.bundle`. Open: depth refusal on other intake paths; M11 role split (owner); V3/V4 smoke wording needs CT sign-off.
+
+- **2026-10-23, CT-1 rulings applied (third round):**
+  - **Copy-only fixes on the V3-layout pages:** the V2.9 change list applied to the pages kept on V3 (`scripts` in the scratch folder, proof: masked-structure equality, zero layout changes). 26 hero H1 suffix removals (exact match), 1 missing space ("exchangers consist" on heat-exchangers). Not applicable: the table row label, because the V3 heat-exchangers page has no table. No V3 text was found to differ from V2.9 before, so nothing was kept. Report: `RELEASE_KIT0/ICST_COPY_FIX_V29_ON_V3_PAGES_2026-10-23.tsv`.
+  - **Claim:** "USDA accepted" removed (its list item in `product-frp-flatsheet.json`). The OGCS scan of all 520 pages for certification-like or authority claims is pending and may produce a follow-up list.
+  - **M11 database role split: ACCEPTED RISK at launch.** The application role owns the database (single application role, `icst_app`); the read-only `icst_backup` role is unchanged. The Security Auditor will be asked to confirm, and the risk is revisited at the 30-day checkpoint.
+  - **M2 login routing, M10 signed-in smoke, the migrations read-back gate:** ported (see the second round). The read-back gate and the smoke are now in the V3 step 10a and the V4 smoke step (Commander prompts, resealed).
+  - **M6 rest:** the intake context is cleaned and a too-deep context refused (422 through `parseEnvelope`); the typeform ingest path is off at launch and not ported.
+  - **Node digest:** not yet supplied (`RELEASE_1.3d/NODE_BASE_PIN_22.23.4.md` absent).
