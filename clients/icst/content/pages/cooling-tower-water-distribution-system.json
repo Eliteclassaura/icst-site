@@ -1,19 +1,25 @@
 {
   "title": "Cooling Tower Water Distribution System: Design Guide",
   "description": "A complete guide to cooling tower water distribution system design, gravity vs. pressurized types, and maintenance for peak efficiency.",
-  "path": "/cooling-tower-water-distribution-system/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Cooling Tower Water Distribution System: Design Guide"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Cooling Tower Water Distribution System: Design Guide",
-      "image": {
-        "url": "/wp-content/uploads/2025/09/Cooling-Tower-Water-Distribution-System.webp",
-        "alt": "",
-        "width": 1920,
-        "height": 1080,
-        "decorative": true
-      }
+      "variant": "plain",
+      "title": "Cooling Tower Water Distribution System: Design Guide"
     },
     {
       "blockType": "articleBody",
@@ -231,26 +237,6 @@
             },
             {
               "text": "A tower engineered for uniform distribution loses a predictable, significant amount of water to evaporation as designed, rather than an unpredictable amount to leaks, drift, or wasted flow."
-            }
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/09/image-3.jpeg",
-                "alt": "",
-                "width": 1920,
-                "height": 1080,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/09/image-4.jpeg",
-                "alt": "",
-                "width": 1920,
-                "height": 1080,
-                "decorative": true
-              }
             }
           ]
         }

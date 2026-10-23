@@ -1,7 +1,6 @@
 {
   "title": "FRP Members for Cooling Towers | Durable & Lightweight - ICST - Thailand",
   "description": "High-quality FRP members for cooling towers by ICST. Designed for durability, corrosion resistance, and optimal performance.",
-  "path": "/frp-members/",
   "layout": [
     {
       "blockType": "hero",
@@ -10,107 +9,94 @@
       "lede": "Enhance structural integrity with our high-quality FRP members. Designed for strength, corrosion resistance, and long-lasting performance, they are the ideal choice for your cooling tower needs."
     },
     {
+      "blockType": "chipNav",
+      "label": "Parts categories",
+      "links": [
+        {
+          "label": "Fans",
+          "href": "/fans/"
+        },
+        {
+          "label": "Motors",
+          "href": "/motors/"
+        },
+        {
+          "label": "Nozzles",
+          "href": "/nozzles/"
+        },
+        {
+          "label": "Fill media",
+          "href": "/fill-media/"
+        },
+        {
+          "label": "FRP members",
+          "href": "/frp-members/"
+        },
+        {
+          "label": "Gear box",
+          "href": "/gear-box/"
+        },
+        {
+          "label": "Tower hardware",
+          "href": "/tower-hardware/"
+        },
+        {
+          "label": "Cooling tower fan stacks",
+          "href": "/cooling-tower-fan-stacks/"
+        },
+        {
+          "label": "Drive shaft assemblies",
+          "href": "/drive-shafts-assembles/"
+        }
+      ],
+      "currentPath": "/frp-members/"
+    },
+    {
       "blockType": "articleBody",
       "sections": [
         {
-          "heading": "",
-          "paragraphs": [
-            "FRP Members"
-          ]
-        },
-        {
-          "heading": "FRP Square Tubes",
-          "paragraphs": [
-            "FRP Members"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/FRP-Beams.jpg",
-                "alt": "FRP Beams",
-                "width": 144,
-                "height": 121
-              }
-            }
-          ]
-        },
-        {
-          "heading": "FRP Beams",
-          "paragraphs": [
-            "FRP Members"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Frp-Angles.jpg",
-                "alt": "FRP Angles",
-                "width": 199,
-                "height": 143
-              }
-            }
-          ]
-        },
-        {
-          "heading": "FRP Angles",
-          "paragraphs": [
-            "FRP Members"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/FRP-channels.jpg",
-                "alt": "FRP Channels",
-                "width": 206,
-                "height": 131
-              }
-            }
-          ]
-        },
-        {
-          "heading": "FRP Channels",
-          "paragraphs": [
-            "FRP Members"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/frp6.jpg",
-                "alt": "FRP Flatsheet",
-                "width": 188,
-                "height": 160
-              }
-            }
-          ]
-        },
-        {
-          "heading": "FRP Flatsheet",
-          "paragraphs": [
-            "FRP Members"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/frp5.jpg",
-                "alt": "FRP Deck Board",
-                "width": 216,
-                "height": 165
-              }
-            }
-          ]
-        },
-        {
           "heading": "FRP Deck Board",
           "paragraphs": [
+            "Have Questions?",
             "Contact For Pricing"
-          ],
-          "headingLevel": 4
+          ]
         }
       ]
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "FRP members",
+      "title": "FRP members we supply",
+      "lede": "Synthetic copy: one line about the products in this category.",
+      "actionLabel": "Request a quote",
+      "items": [
+        {
+          "title": "FRP members product one",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "FRP members product two",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "FRP members product three",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "FRP members product four",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to our parts team",
+      "text": "Synthetic supporting line for the phone call-to-action."
     }
   ]
 }

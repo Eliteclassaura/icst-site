@@ -99,11 +99,12 @@ export const normalizePhone = (v: string): string => v.normalize('NFKC').replace
 
 /**
  * RFQ-FIX-1 (audit R9): control characters never travel. C0 controls (NUL included) other than tab and newline, DEL, the C1
- * range and the bidirectional overrides/isolates are removed; CR LF and CR become LF. Client and server both apply it.
+ * range and the bidirectional overrides/isolates are removed, and so is any unpaired surrogate (1.3c-8: not valid text);
+ * CR LF and CR become LF. Client and server both apply it.
  */
 export const stripControls = (v: string): string =>
   // eslint-disable-next-line no-control-regex -- matching control characters is the point
-  v.replace(/\r\n?/g, '\n').replace(/[\u0000-\u0008\u000B-\u001F\u007F-\u009F\u202A-\u202E\u2066-\u2069]/g, '')
+  v.replace(/\r\n?/g, '\n').replace(/[\u0000-\u0008\u000B-\u001F\u007F-\u009F\u202A-\u202E\u2066-\u2069]/g, '').replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g, '')
 
 /** The error key (and placeholder values) for one answer, or null. `surface` picks the chat or form "required" wording. */
 export function validate(reg: Registry, q: Question, value: string | undefined, surface: 'chat' | 'form' = 'chat'): { key: string; values?: Record<string, string> } | null {

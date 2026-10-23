@@ -1,7 +1,6 @@
 {
   "title": "Drive Shaft Assemblies | High-Quality Solutions - ICST",
   "description": "Explore durable and precision-engineered drive shaft assemblies by ICST. Ideal for cooling towers and industrial applications.",
-  "path": "/drive-shafts-assembles/",
   "layout": [
     {
       "blockType": "hero",
@@ -10,358 +9,55 @@
       "lede": "Ensure seamless power transmission with our high-quality drive shaft assemblies. Built for durability and performance, they are a solution for your cooling tower needs."
     },
     {
+      "blockType": "chipNav",
+      "label": "Parts categories",
+      "links": [
+        {
+          "label": "Fans",
+          "href": "/fans/"
+        },
+        {
+          "label": "Motors",
+          "href": "/motors/"
+        },
+        {
+          "label": "Nozzles",
+          "href": "/nozzles/"
+        },
+        {
+          "label": "Fill media",
+          "href": "/fill-media/"
+        },
+        {
+          "label": "FRP members",
+          "href": "/frp-members/"
+        },
+        {
+          "label": "Gear box",
+          "href": "/gear-box/"
+        },
+        {
+          "label": "Tower hardware",
+          "href": "/tower-hardware/"
+        },
+        {
+          "label": "Cooling tower fan stacks",
+          "href": "/cooling-tower-fan-stacks/"
+        },
+        {
+          "label": "Drive shaft assemblies",
+          "href": "/drive-shafts-assembles/"
+        }
+      ],
+      "currentPath": "/drive-shafts-assembles/"
+    },
+    {
       "blockType": "articleBody",
       "sections": [
         {
           "heading": "",
           "paragraphs": [
             "Drive Shafts & Assemblies"
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft Composite Coupling",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF67 425L",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF67 275X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF67 275M",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF67 275L",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF60 425X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF60 425L",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF73 800X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF73 800L",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF73 600L",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF73 425X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF73 425L",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF83 950X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA650.425",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRX850.1275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRR485.425",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRX850.1025",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRR485.338",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRX850.825",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA485.338",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRX650.825",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRX450.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRR850.825",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRR450.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRR650.825",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRF485.338",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRX850.625",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRR375.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRX650.625",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRR350.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRR850.625",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA450.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRR650.625",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA375.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA850.625",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRF450.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRX650.425",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRF375.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRR485.625",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA350.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRX485.425",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRF350.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF83 600L",
-                "width": 300,
-                "height": 219
-              }
-            }
           ]
         },
         {
@@ -369,139 +65,44 @@
           "paragraphs": [
             "ICST supplies couplings for all cooling tower applications. Complete cooling tower drive shafts and assemblies to shim packs and hardware, ICST has what you need.",
             "Have questions on Drive Shafts?"
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF73 950X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF60 275X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF60 275M",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF60 275L",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF73 600X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF52 275M",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF52 275L",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF67 600X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF67 600L",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF67 425X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF83 800X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF83 800L",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF83 600X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF83 425X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amarillo-CompositeDriveShaft-300x219.jpg",
-                "alt": "Amarillo Drive Shaft CF83 1150X",
-                "width": 300,
-                "height": 219
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRR650.425",
-                "width": 300,
-                "height": 300
-              }
-            }
           ]
         }
       ]
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "Drive shaft assemblies",
+      "title": "Drive shaft assemblies we supply",
+      "lede": "Synthetic copy: one line about the products in this category.",
+      "actionLabel": "Request a quote",
+      "items": [
+        {
+          "title": "Drive shaft assemblies product one",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Drive shaft assemblies product two",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Drive shaft assemblies product three",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Drive shaft assemblies product four",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to our parts team",
+      "text": "Synthetic supporting line for the phone call-to-action."
     }
   ]
 }

@@ -1,27 +1,103 @@
 {
   "title": "Vinachem - ICST - Thailand",
   "description": "Discover expert insights and solutions on VinachemPage at ICSThailand-your trusted source for innovative chemical technologies.",
-  "path": "/portfolio/vinachem/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Projects",
+          "href": "/projects/"
+        }
+      ],
+      "current": "Vinachem"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Vinachem",
-      "image": {
-        "url": "/wp-content/uploads/2025/03/Vinachem-353x297-1.jpg",
-        "alt": "",
-        "width": 353,
-        "height": 297,
-        "decorative": true
+      "variant": "plain",
+      "title": "Vinachem - ICST - Thailand"
+    },
+    {
+      "blockType": "dataTable",
+      "caption": "Project facts",
+      "rowHeader": "Fact",
+      "columns": [
+        {
+          "label": "Value"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Project",
+          "cells": [
+            {
+              "text": "Vinachem Project"
+            }
+          ]
+        },
+        {
+          "label": "Industry",
+          "cells": [
+            {
+              "text": "Chemical – Fertilizer Production"
+            }
+          ]
+        },
+        {
+          "label": "Client",
+          "cells": [
+            {
+              "text": "Toyo Thai (TTCL)"
+            }
+          ]
+        },
+        {
+          "label": "Location",
+          "cells": [
+            {
+              "text": "Tang Loong Industrial Zone – Boa Thank District, Lao Cai Province, Vietnam"
+            }
+          ]
+        },
+        {
+          "label": "Tower type",
+          "cells": [
+            {
+              "text": "4-Cell, Concrete"
+            }
+          ]
+        },
+        {
+          "label": "Year",
+          "cells": [
+            {
+              "text": "2011"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "cta",
+      "eyebrow": "Next step",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
       }
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
     }
-  ],
-  "facts": {
-    "project": "Vinachem Project",
-    "industry": "Chemical – Fertilizer Production",
-    "client": "Toyo Thai (TTCL)",
-    "location": "Tang Loong Industrial Zone – Boa Thank District, Lao Cai Province, Vietnam",
-    "tower_type": "4-Cell, Concrete",
-    "year": "2011"
-  }
+  ]
 }

@@ -1,13 +1,48 @@
 {
   "title": "Cooling Tower Repair in Thailand | Expert Services by - ICST - Thailand",
   "description": "ICST offers complete cooling tower solutions in Thailand. From new construction to expert repair, we optimize your industrial cooling needs.",
-  "path": "/thailand/",
   "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "current": "Thailand"
+    },
     {
       "blockType": "hero",
       "variant": "plain",
       "title": "Cooling Tower Thailand Expert Solutions by ICST ​",
       "lede": "We are equipped to dispatch service personnel to any location in Asia within hours and the Middle East within a day."
+    },
+    {
+      "blockType": "serviceBand",
+      "eyebrow": "Services",
+      "title": "Synthetic services",
+      "lede": "Synthetic copy: one line on the services offered here.",
+      "items": [
+        {
+          "title": "Synthetic service one",
+          "text": "Synthetic service summary.",
+          "href": "/cooling-tower-replacement/",
+          "label": "View service"
+        },
+        {
+          "title": "Synthetic service two",
+          "text": "Synthetic service summary.",
+          "href": "/cooling-tower-maintenance/",
+          "label": "View service"
+        },
+        {
+          "title": "Synthetic service three",
+          "text": "Synthetic service summary.",
+          "href": "/thermal-upgrade/",
+          "label": "View service"
+        }
+      ]
     },
     {
       "blockType": "articleBody",
@@ -18,17 +53,6 @@
             "ICST is your go-to expert for cooling tower construction and repair across Thailand.",
             "Our services include project engineering, product procurement, sales, after-sales field support, and technical assistance to ensure the highest standards of quality and efficiency.",
             "Request a service quote today to experience the ICST difference!"
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1-4.png",
-                "alt": "",
-                "width": 347,
-                "height": 425,
-                "decorative": true
-              }
-            }
           ]
         },
         {
@@ -112,26 +136,6 @@
           "paragraphs": [
             "Real-time diagnostics monitor operational parameters, allowing for quick adjustments that improve system efficiency and performance.",
             "Ensure Year-Round Efficiency for Your Cooling Towers with ICST!"
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000004454.png",
-                "alt": "",
-                "width": 347,
-                "height": 425,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1-4.png",
-                "alt": "",
-                "width": 347,
-                "height": 425,
-                "decorative": true
-              }
-            }
           ]
         },
         {
@@ -212,17 +216,6 @@
           "paragraphs": [
             "We prioritize quality at every step and offer excellent after-sales support to keep you satisfied long after your purchase.",
             "Experience Excellence with ICST | Get Started Today!"
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000004494.png",
-                "alt": "",
-                "width": 347,
-                "height": 425,
-                "decorative": true
-              }
-            }
           ]
         },
         {
@@ -288,6 +281,23 @@
           ]
         }
       ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
+    },
+    {
+      "blockType": "cta",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
     }
   ]
 }

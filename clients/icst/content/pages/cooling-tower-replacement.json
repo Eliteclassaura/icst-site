@@ -1,8 +1,17 @@
 {
   "title": "Cooling Tower Replacement – Enhance Efficiency & Reduce Costs | ICST",
   "description": "Upgrade your cooling tower in Thailand with ICST’s expert replacement services. Enhance efficiency, reduce costs, and extend the lifespan of your cooling system.",
-  "path": "/cooling-tower-replacement/",
   "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "current": "Cooling Tower Replacement"
+    },
     {
       "blockType": "hero",
       "variant": "plain",
@@ -59,26 +68,6 @@
           "paragraphs": [
             "Corrosion, scale buildup, leaks, and physical wear can compromise both the safety and performance of your cooling system.",
             "A professional cooling tower replacement is more than a repair, it’s a strategic upgrade that improves long-term reliability, safety, and energy efficiency."
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000004162.png",
-                "alt": "",
-                "width": 271,
-                "height": 384,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000004163.png",
-                "alt": "",
-                "width": 271,
-                "height": 384,
-                "decorative": true
-              }
-            }
           ]
         },
         {
@@ -104,17 +93,6 @@
           "paragraphs": [
             "Our replacement solutions include upgraded components such as high-performance fill media, motors, and fans, built for long-term use with minimal maintenance needs.",
             "With fewer breakdowns, reduced maintenance, and longer equipment lifespan, a cooling tower replacement offers a high return on investment and lower total cost of ownership over time."
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000004179.png",
-                "alt": "",
-                "width": 615,
-                "height": 300,
-                "decorative": true
-              }
-            }
           ]
         },
         {
@@ -176,17 +154,6 @@
           "paragraphs": [
             "Significant improvement in cooling system efficiency Noticeable reduction in energy consumption Extended system life with reduced maintenance requirements",
             "This project demonstrates ICST’s expertise in executing complex cooling tower replacement projects efficiently, safely, and with long-term performance in mind, even under tight deadlines."
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000004520.png",
-                "alt": "",
-                "width": 409,
-                "height": 354,
-                "decorative": true
-              }
-            }
           ]
         },
         {
@@ -212,26 +179,6 @@
           "paragraphs": [
             "We serve industries ranging from geothermal and oil & gas to power generation, delivering solutions with a local touch.",
             "Need help choosing the right system? Contact our engineers for a free consultation."
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000004162.png",
-                "alt": "",
-                "width": 271,
-                "height": 384,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000004163.png",
-                "alt": "",
-                "width": 271,
-                "height": 384,
-                "decorative": true
-              }
-            }
           ]
         },
         {
@@ -273,6 +220,24 @@
           ]
         }
       ]
+    },
+    {
+      "blockType": "cta",
+      "eyebrow": "Next step",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
     }
   ]
 }

@@ -1,18 +1,25 @@
 {
   "title": "Cooling Tower Water Loss: Causes, Formulas & Fixes",
   "description": "Learn what causes cooling tower water loss: evaporation, drift, and blowdown with formulas, worked examples, and proven ways to cut water waste.",
-  "path": "/cooling-tower-water-loss/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Cooling Tower Water Loss: Causes, Formulas & Fixes"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Cooling Tower Water Loss: Causes, Formulas & Fixes",
-      "image": {
-        "url": "/wp-content/uploads/2025/05/cooling-tower-water-loss-causes-and-solutions.jpg-1.webp",
-        "alt": "Title graphic reading 'Cooling Tower Water Loss: Causes, Calculations, and Smart Solutions' by Thailand, set against a background of an industrial power plant emitting steam into the sky.",
-        "width": 1920,
-        "height": 1080
-      }
+      "variant": "plain",
+      "title": "Cooling Tower Water Loss: Causes, Formulas & Fixes"
     },
     {
       "blockType": "articleBody",
@@ -43,19 +50,21 @@
             "Evaporation",
             "0.00085 × 1.8 × Flow Rate × (Th − Tc)",
             "Worked example inputs: flow rate, hot-water temperature (Th) and cold-water temperature (Tc).",
+            "See the labelled example below",
             "Drift",
             "Drift % × Flow Rate",
             "Drift inputs: flow rate and the drift rate from the eliminator data sheet.",
+            "See the labelled example below",
             "Blowdown",
             "Evaporation Loss ÷ (C.O.C. − 1)",
             "Evaporation inputs: heat load and cycles of concentration (C.O.C.).",
             "Blowdown result: the blowdown rate for the chosen cycles of concentration.",
             "Key: Th = hot water temperature (°C) · Tc = cold water temperature (°C) · C.O.C. = cycles of concentration",
             "The worked example below uses the same method for a tower at the chosen flow and temperatures.",
-            "0.00085 × 1.8 × 12,000 × (47 − 36) =",
+            "Hypothetical example, assumed inputs only: 0.00085 × 1.8 × 12,000 × (47 − 36) = 202.68 m³/h. This shows the method. It is not a measured result or an ICST performance figure.",
             "Evaporation is then calculated from the heat load and the cooling range.",
             "For a tower at the chosen flow rate, with the drift rate from the eliminator data:",
-            "10,000 × 0.00004 =",
+            "Hypothetical example, assumed inputs only: 10,000 × 0.00004 = 0.4 m³/h. This shows the method. It is not a measured result or an ICST performance figure.",
             "With the evaporation loss and the chosen cycles of concentration:",
             "Blowdown is calculated as evaporation divided by (C.O.C. minus 1), which gives the blowdown rate.",
             "Total makeup water requirement = Evaporation + Drift + Blowdown. Tracking each component separately is what makes it possible to target the right fix — raising C.O.C. addresses blowdown, while upgrading eliminators addresses drift; neither improves evaporation, which is inherent to the cooling process.",
@@ -67,8 +76,6 @@
             "4. Maintain the system on schedule. A single clogged nozzle, stuck valve, or fouled fill can spike water loss without any alarm being triggered. Regular maintenance, nozzle checks, fill inspection, and eliminator condition catches these issues before they escalate into measurable losses or unexpected downtime.",
             "5. Recover and reuse water where possible. Treated greywater or reclaimed wastewater can serve as makeup water in many systems, reducing dependence on fresh water sourcing and the pumping energy that goes with it, supporting a more water-efficient, eco-friendly operation and broader industrial water usage reduction targets.",
             "If drift and blowdown losses stay high even after maintenance, worn components are usually the underlying cause — a targeted cooling tower upgrade to the fill, eliminators, or fan assembly typically resolves this without needing a full unit replacement.",
-            "Actions taken:",
-            "The improvement came entirely from addressing controllable losses (drift and blowdown); evaporation loss was unchanged, as expected.",
             "High ambient temperature and humidity increase cooling load and raise the risk of scaling, algae growth, and corrosion, all of which push blowdown and maintenance requirements higher. Counter-flow towers, where airflow moves opposite to water flow, generally maintain better thermal efficiency in these conditions and are a common design choice for tropical industrial sites.",
             "Regardless of tower type, consistent water treatment and inspection schedules matter more in tropical climates, since fouling and biological growth progress faster in warm, humid air.",
             "Understanding cooling tower water loss, including evaporation, drift, and blowdown, is essential for controlling operating costs and protecting equipment life. Evaporation can’t be reduced, but drift and blowdown respond well to proper maintenance, optimized cycles of concentration, and upgraded drift eliminators.",
@@ -79,8 +86,7 @@
             "Water is lost through three mechanisms: evaporation (intentional, produces the cooling effect), drift (unevaporated droplets escaping in the exhaust air), and blowdown (deliberate discharge to control dissolved solids and prevent scaling).",
             "The two controllable losses, drift and blowdown, respond to upgraded drift eliminators, safely optimized cycles of concentration, automated water treatment monitoring, and routine maintenance. Evaporation loss cannot be reduced without reducing cooling capacity.",
             "Evaporation from the heat-rejection process, drift from damaged or under-performing eliminators, and blowdown discharged to manage dissolved solids concentration are the three root causes.",
-            "Evaporation Loss = 0.00085 × 1.8 × Flow Rate × (Th − Tc). Drift Loss = Drift % × Flow Rate. Blowdown = Evaporation Loss ÷ (C.O.C. − 1). Total makeup water demand is the sum of all three.",
-            "1. Add FAQ Schema (JSON-LD) — paste in the page’s or via the SEO plugin’s custom schema field: 2. Add HowTo Schema (JSON-LD) — paste alongside the FAQ schema above:"
+            "Evaporation Loss = 0.00085 × 1.8 × Flow Rate × (Th − Tc). Drift Loss = Drift % × Flow Rate. Blowdown = Evaporation Loss ÷ (C.O.C. − 1). Total makeup water demand is the sum of all three."
           ],
           "bullets": [
             {
@@ -172,15 +178,6 @@
             },
             {
               "text": "Why it matters: Blowdown is the one loss mechanism you can directly tune. Raising the C.O.C. safely reduces blowdown volume and cuts both water and makeup water treatment chemical consumption."
-            },
-            {
-              "text": "Replaced worn drift eliminators with high-performance units"
-            },
-            {
-              "text": "Raised cycles of concentration from 2 to 4"
-            },
-            {
-              "text": "Installed automated water treatment monitoring"
             }
           ]
         }

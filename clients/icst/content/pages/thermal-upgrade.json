@@ -1,8 +1,17 @@
 {
   "title": "Cooling Tower Thermal Upgrade Services in Thailand",
   "description": "Cooling Tower Thermal Upgrade by ICST improves heat transfer, cooling tower efficiency, and reliability while reducing energy and maintenance costs.",
-  "path": "/thermal-upgrade/",
   "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "current": "Thermal Upgrade"
+    },
     {
       "blockType": "hero",
       "variant": "plain",
@@ -39,26 +48,6 @@
             },
             {
               "text": "Rising maintenance costs to hit the same heat load targets"
-            }
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/Cooling-Tower-Material-1024x768.png",
-                "alt": "",
-                "width": 1024,
-                "height": 768,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/88e2cdb4700cf5f738ab7332d65b6ae73f39cf6f.jpg",
-                "alt": "",
-                "width": 832,
-                "height": 565,
-                "decorative": true
-              }
             }
           ]
         },
@@ -102,17 +91,6 @@
             {
               "text": "Other site-specific factors, such as space, water source, and access for maintenance"
             }
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/70b12adc2504e127f68c7b77d93c0594a24ded97-1024x862.png",
-                "alt": "",
-                "width": 1024,
-                "height": 862,
-                "decorative": true
-              }
-            }
           ]
         },
         {
@@ -123,6 +101,24 @@
           ]
         }
       ]
+    },
+    {
+      "blockType": "cta",
+      "eyebrow": "Next step",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
     }
   ]
 }

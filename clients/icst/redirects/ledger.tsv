@@ -106,8 +106,8 @@ from	to	status	note
 /product-sitemap.xml	/sitemap_index.xml	301	CT-1 signed: old WP child sitemap 301 to the sitemap index (0 clicks). NAMED EXCEPTION 'sitemap index target': /sitemap_index.xml returns 200 with X-Robots-Tag noindex
 /products.html	/parts/	301	proposal: legacy products page; parts hub
 /project-category/chemical/	/projects/	301	proposal: project archive; /projects/ is the index
-/project-category/counter-flow/	/project/counter-flow/	301	proposal: project taxonomy present in map under /project/
-/project-category/frp/	/project/frp/	301	proposal: project taxonomy present in map under /project/
+/project-category/counter-flow/	/projects/	301	CT strict run 2026-10-23: /project/counter-flow/ exists nowhere in the pages; the projects hub is the closest live page (no per-category page in the V2.9 set)
+/project-category/frp/	/projects/	301	CT strict run 2026-10-23: /project/frp/ exists nowhere in the pages; the projects hub is the closest live page (no per-category page in the V2.9 set)
 /project/	/projects/	301	proposal: project archive; /projects/ is the index
 /services/	/cooling-tower-maintenance/	301	live 301 to home is forbidden (CT rule); nearest service page; 2 clicks
 /types-of-industrial-fan-blades/	/industrial-fan-blades-3/	301	already 301 live; carried unchanged (inherited traffic)

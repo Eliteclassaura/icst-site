@@ -1,18 +1,25 @@
 {
   "title": "Fan Blade Vibration Analysis: Interpret Data & Prevent Failure - ICST - Thailand",
   "description": "Learn how to interpret fan blade vibration using frequency analysis. Discover how predictive maintenance prevents failure and extends equipment life.",
-  "path": "/fan-blade-vibration/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Fan Blade Vibration Analysis: Interpret Data & Prevent Failure - ICST - Thailand"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Fan Blade Vibration Analysis: Interpret Data & Prevent Failure",
-      "image": {
-        "url": "/wp-content/uploads/2026/02/image-61.jpeg",
-        "alt": "Fan Blade Vibration",
-        "width": 1600,
-        "height": 900
-      }
+      "variant": "plain",
+      "title": "Fan Blade Vibration Analysis: Interpret Data & Prevent Failure - ICST - Thailand"
     },
     {
       "blockType": "articleBody",
@@ -281,25 +288,6 @@
             },
             {
               "text": "Sudden Amplitude Spikes: The machine’s behavior changed overnight without a clear cause."
-            }
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/02/image-60-1024x576.jpeg",
-                "alt": "Identifying Common Fan Blade Vibration Patterns in the Frequency Spectrum",
-                "width": 1024,
-                "height": 576
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/02/image-59-1024x576.jpeg",
-                "alt": "",
-                "width": 1024,
-                "height": 576,
-                "decorative": true
-              }
             }
           ]
         }

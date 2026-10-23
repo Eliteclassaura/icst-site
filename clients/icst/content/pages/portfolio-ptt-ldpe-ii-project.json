@@ -1,26 +1,103 @@
 {
   "title": "PTT LDPE II Project - ICST - Thailand",
   "description": "The PTT LDPE II project case study from ICST, covering the cooling tower equipment and scope delivered for the plant.",
-  "path": "/portfolio/ptt-ldpe-ii-project/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Projects",
+          "href": "/projects/"
+        }
+      ],
+      "current": "PTT LDPE II Project"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "PTT LDPE II Project",
-      "image": {
-        "url": "/wp-content/uploads/2025/03/PTT-LLDPE2-scaled-1.jpg",
-        "alt": "PTT-LLDPE2-scaled - icsthailand",
-        "width": 2560,
-        "height": 1920
+      "variant": "plain",
+      "title": "PTT LDPE II Project - ICST - Thailand"
+    },
+    {
+      "blockType": "dataTable",
+      "caption": "Project facts",
+      "rowHeader": "Fact",
+      "columns": [
+        {
+          "label": "Value"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Project",
+          "cells": [
+            {
+              "text": "PTT LDPE II Project"
+            }
+          ]
+        },
+        {
+          "label": "Industry",
+          "cells": [
+            {
+              "text": "Petrochemical"
+            }
+          ]
+        },
+        {
+          "label": "Client",
+          "cells": [
+            {
+              "text": "TTCL Corp/PTT"
+            }
+          ]
+        },
+        {
+          "label": "Location",
+          "cells": [
+            {
+              "text": "Rayong, Thailand"
+            }
+          ]
+        },
+        {
+          "label": "Tower type",
+          "cells": [
+            {
+              "text": "8-Cell, Concrete Counterflow"
+            }
+          ]
+        },
+        {
+          "label": "Year",
+          "cells": [
+            {
+              "text": "2011"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "cta",
+      "eyebrow": "Next step",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
       }
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
     }
-  ],
-  "facts": {
-    "project": "PTT LDPE II Project",
-    "industry": "Petrochemical",
-    "client": "TTCL Corp/PTT",
-    "location": "Rayong, Thailand",
-    "tower_type": "8-Cell, Concrete Counterflow",
-    "year": "2011"
-  }
+  ]
 }

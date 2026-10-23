@@ -1,27 +1,95 @@
 {
   "title": "Palinpinon 3 - ICST - Thailand",
   "description": "The Palinpinon 3 cooling tower project case study from ICST, covering equipment supplied for the geothermal power plant.",
-  "path": "/portfolio/palinpinon-3/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Projects",
+          "href": "/projects/"
+        }
+      ],
+      "current": "Palinpinon 3"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Palinpinon 3",
-      "image": {
-        "url": "/wp-content/uploads/2025/03/images.jpeg",
-        "alt": "",
-        "width": 245,
-        "height": 206,
-        "decorative": true
+      "variant": "plain",
+      "title": "Palinpinon 3 - ICST - Thailand"
+    },
+    {
+      "blockType": "dataTable",
+      "caption": "Project facts",
+      "rowHeader": "Fact",
+      "columns": [
+        {
+          "label": "Value"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Project",
+          "cells": [
+            {
+              "text": "Palinpinon 3"
+            }
+          ]
+        },
+        {
+          "label": "Industry",
+          "cells": [
+            {
+              "text": "Geothermal"
+            }
+          ]
+        },
+        {
+          "label": "Client",
+          "cells": [
+            {
+              "text": "EDC"
+            }
+          ]
+        },
+        {
+          "label": "Location",
+          "cells": [
+            {
+              "text": "Philippines"
+            }
+          ]
+        },
+        {
+          "label": "Year",
+          "cells": [
+            {
+              "text": "2012-2013"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "cta",
+      "eyebrow": "Next step",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
       }
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
     }
-  ],
-  "facts": {
-    "project": "Palinpinon 3",
-    "industry": "Geothermal",
-    "client": "EDC",
-    "location": "Philippines",
-    "tower_type": null,
-    "year": "2012-2013"
-  }
+  ]
 }

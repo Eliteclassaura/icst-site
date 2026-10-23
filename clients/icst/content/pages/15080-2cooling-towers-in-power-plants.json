@@ -1,8 +1,21 @@
 {
   "title": "Cooling Towers in Power Plants: Design & Maintenance Guide",
   "description": "Learn how natural draft and mechanical draft cooling towers in power plants manage heat, water, and maintenance for reliable operation.",
-  "path": "/15080-2cooling-towers-in-power-plants/",
   "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Cooling Towers in Power Plants: Design & Maintenance Guide"
+    },
     {
       "blockType": "hero",
       "variant": "plain",
@@ -18,7 +31,7 @@
             "Two primary designs dominate this application: natural draft cooling towers, which rely on natural convection and moist air buoyancy to move air without fans, and mechanical draft cooling towers, which use large fans to force air and water flow through the fill.",
             "A single tower failure can force an entire generating unit offline, so design precision and rigorous maintenance directly protect both plant output and revenue.",
             "Power plant cooling towers serve a mission-critical function that directly impacts both operational efficiency and environmental compliance. These systems reject waste heat from steam condensers, maintaining the vacuum conditions necessary for optimal turbine performance across thermal power stations of every fuel type.",
-            "The scale of operation sets power plant cooling towers apart from their commercial counterparts. A standard 500-megawatt coal power plant produces about 1,000 megawatts of excess heat that needs to be consistently dissipated.",
+            "The scale of operation sets power plant cooling towers apart from cooling towers in other industries. A large coal power plant rejects a very large amount of waste heat that must be dissipated continuously. This load requires recirculating cooling water systems that move very large water flows while holding precise temperature differences.",
             "The relationship between cooling tower performance and overall plant efficiency is direct and measurable. Every degree of improvement in heat transfer efficiency translates to enhanced condenser vacuum, improved turbine efficiency, and increased power output, which is exactly why maintaining operational efficiency stays a constant priority for plant engineers.",
             "Cooling towers serve two critical environmental functions:",
             "Every power plant cooling tower operates using the same principle: evaporative cooling. This natural heat transfer process keeps power plants running efficiently by lowering the temperature of water before it returns to the condenser.",
@@ -41,7 +54,7 @@
             "These large cooling tower systems trade higher energy consumption for tighter control over airflow, which matters most at sites with limited natural wind exposure or unusually high heat loads.",
             "Natural Draft Towers (Hyperboloid)",
             "Natural draft towers represent the pinnacle of large-scale cooling technology for base-load power generation, and they remain the most recognizable structures associated with nuclear power plants and large coal stations alike.",
-            "As of the most recent industry record, the world’s tallest cooling tower stands at roughly 228 meters, built at the Jinshan Second Thermal Power Branch in Hohhot, Inner Mongolia, China, in 2023, surpassing earlier record holders in India and Germany.",
+            "Natural draft towers can be very tall; their height is set by the design and the site.",
             "The demanding environment of power plant cooling towers requires component selection and design that goes beyond standard industrial practices. How do engineers ensure reliable performance under these extreme conditions?",
             "Drift elimination takes on critical importance in power plant applications due to the massive air and water volumes involved. Even small drift rates can result in significant water losses and potential environmental compliance issues.",
             "Gravity-fed distribution basins with precisely engineered orifices provide reliable, low-maintenance operation compared to pressure spray systems.",
@@ -257,7 +270,7 @@
               "text": "Induced draft cooling towers: These designs are widely used in power plant applications due to their performance characteristics, reduced recirculation potential, and better protection of mechanical components from corrosive environments."
             },
             {
-              "text": "Multi-cell design: Large power plants typically employ 6 to 12 cooling cells per unit to provide operational flexibility, maintenance access, and redundancy during peak demand periods."
+              "text": "Multi-cell design: Large power plants typically employ several cooling cells per unit to provide operational flexibility, maintenance access, and redundancy during peak demand periods."
             },
             {
               "text": "Fan and drive systems: Heavy-duty fans of large diameter move massive air volumes, requiring robust gearboxes rated for continuous operation and variable frequency drives for energy optimization."

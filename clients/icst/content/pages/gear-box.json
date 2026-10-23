@@ -1,12 +1,54 @@
 {
   "title": "Cooling Tower Gearbox | Reliable & High-Performance - ICST - Thailand",
   "description": "Explore durable and high-performance cooling tower gearboxes by ICST. Engineered for efficiency and reliability in industrial applications.",
-  "path": "/gear-box/",
   "layout": [
     {
       "blockType": "hero",
       "variant": "plain",
       "title": "Efficient Cooling Tower"
+    },
+    {
+      "blockType": "chipNav",
+      "label": "Parts categories",
+      "links": [
+        {
+          "label": "Fans",
+          "href": "/fans/"
+        },
+        {
+          "label": "Motors",
+          "href": "/motors/"
+        },
+        {
+          "label": "Nozzles",
+          "href": "/nozzles/"
+        },
+        {
+          "label": "Fill media",
+          "href": "/fill-media/"
+        },
+        {
+          "label": "FRP members",
+          "href": "/frp-members/"
+        },
+        {
+          "label": "Gear box",
+          "href": "/gear-box/"
+        },
+        {
+          "label": "Tower hardware",
+          "href": "/tower-hardware/"
+        },
+        {
+          "label": "Cooling tower fan stacks",
+          "href": "/cooling-tower-fan-stacks/"
+        },
+        {
+          "label": "Drive shaft assemblies",
+          "href": "/drive-shafts-assembles/"
+        }
+      ],
+      "currentPath": "/gear-box/"
     },
     {
       "blockType": "articleBody",
@@ -16,724 +58,63 @@
           "paragraphs": [
             "Ensure smooth and reliable operation with our high-performance gearboxes.",
             "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 2,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-1713W",
-                "width": 300,
-                "height": 299
-              }
-            }
           ]
         },
         {
           "heading": "Amarillo Right Angle Gear Drives – Double Reduction-1713W",
           "paragraphs": [
             "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Single_Reduction.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Single Reduction-155",
-                "width": 301,
-                "height": 250
-              }
-            }
           ]
         },
         {
           "heading": "Amarillo Right Angle Gear Drives – Single Reduction-155",
           "paragraphs": [
             "Double Reduction"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-1814",
-                "width": 300,
-                "height": 299
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Double Reduction-1814",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Single_Reduction.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Single Reduction-175",
-                "width": 301,
-                "height": 250
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Single Reduction-175",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-2016",
-                "width": 300,
-                "height": 299
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Double Reduction-2016",
-          "paragraphs": [
-            "Double Reduction"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-1008",
-                "width": 300,
-                "height": 299
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Double Reduction-1008",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Sumitomo-Paramax-SFC-Series-CT-Drive-3-300x303.jpg",
-                "alt": "Sumitomo Paramax SFC Cooling Tower Drives",
-                "width": 300,
-                "height": 303
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Sumitomo Paramax SFC Cooling Tower Drives",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/SingleReduction-e1638559713507.jpg",
-                "alt": "Amarillo Single Reduction Gearbox",
-                "width": 78,
-                "height": 90
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Single Reduction Gearbox",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Gearbox-Amarillo-Double-Reduction__31735.1405410698.1280.1280.jpg",
-                "alt": "Amarillo Double Reduction Gearbox",
-                "width": 279,
-                "height": 265
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Double Reduction Gearbox",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Hansen-P4-Single-Stage.jpg",
-                "alt": "Sumitomo Hansen P4 Single Stage Gearbox",
-                "width": 300,
-                "height": 300
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Sumitomo Hansen P4 Single Stage Gearbox",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-1110",
-                "width": 300,
-                "height": 299
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Double Reduction-1110",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Single_Reduction.jpg",
-                "alt": "Amarillo A Series Single Reduction Gearbox",
-                "width": 301,
-                "height": 250
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo A Series Single Reduction Gearbox",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-1311",
-                "width": 300,
-                "height": 299
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Double Reduction-1311",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Hansen-P4-Group-Photo-300x300.jpg",
-                "alt": "Hansen P4 - icsthailand",
-                "width": 300,
-                "height": 300
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Sumitomo Hansen P4 Gearboxes",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-1311W",
-                "width": 300,
-                "height": 299
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Double Reduction-1311W",
-          "paragraphs": [
-            "Double Reduction"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-1712",
-                "width": 300,
-                "height": 299
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Double Reduction-1712",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-1712.5",
-                "width": 300,
-                "height": 299
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Double Reduction-1712.5",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-1712.5W",
-                "width": 300,
-                "height": 299
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Double Reduction-1712.5W",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-1713",
-                "width": 300,
-                "height": 299
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Double Reduction-1713",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Double_Reduction-300x233.jpg",
-                "alt": "Amarillo A Series Double Reduction Gearbox",
-                "width": 300,
-                "height": 233
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo A Series Double Reduction Gearbox",
-          "paragraphs": [
-            "Double Reduction"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Double_Reduction-300x233.jpg",
-                "alt": "Amarillo A Series Fan Drives - A38/A40",
-                "width": 300,
-                "height": 233
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo A Series Fan Drives – A38/A40",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Double_Reduction-300x233.jpg",
-                "alt": "Amarillo A Series Fan Drives - A36",
-                "width": 300,
-                "height": 233
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo A Series Fan Drives – A36",
-          "paragraphs": [
-            "Double Reduction"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Double_Reduction-300x233.jpg",
-                "alt": "Amarillo A Series Fan Drives - A34",
-                "width": 300,
-                "height": 233
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo A Series Fan Drives – A34",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Double_Reduction-300x233.jpg",
-                "alt": "Amarillo A Series Fan Drives - A32",
-                "width": 300,
-                "height": 233
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo A Series Fan Drives – A32",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Single_Reduction.jpg",
-                "alt": "Amarillo A Series Fan Drives - A27",
-                "width": 301,
-                "height": 250
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo A Series Fan Drives – A27",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Single_Reduction.jpg",
-                "alt": "Amarillo A Series Fan Drives-A22",
-                "width": 301,
-                "height": 250
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo A Series Fan Drives-A22",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Single_Reduction.jpg",
-                "alt": "Amarillo A Series Fan Drives-A20",
-                "width": 301,
-                "height": 250
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo A Series Fan Drives-A20",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Sumitomo-Paramax-SFC-Series-CT-Drive-3-300x303.jpg",
-                "alt": "Sumitomo Paramax SFC Cooling Tower Drive 045",
-                "width": 300,
-                "height": 303
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Sumitomo Paramax SFC Cooling Tower Drive 045",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Single_Reduction.jpg",
-                "alt": "Amarillo Right Angle Gear Drive - Single Reduction-135",
-                "width": 301,
-                "height": 250
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drive – Single Reduction-135",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Single_Reduction.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Single Reduction-110",
-                "width": 301,
-                "height": 250
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Single Reduction-110",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Single_Reduction.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Single Reduction-85",
-                "width": 301,
-                "height": 250
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Single Reduction-85",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Single_Reduction.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Single Reduction-65A",
-                "width": 301,
-                "height": 250
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Single Reduction-65A",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Sumitomo-Paramax-SFC-Series-CT-Drive-3-300x303.jpg",
-                "alt": "Sumitomo Paramax SFC Cooling Tower Drive 060",
-                "width": 300,
-                "height": 303
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Sumitomo Paramax SFC Cooling Tower Drive 060",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Sumitomo-Paramax-SFC-Series-CT-Drive-3-300x303.jpg",
-                "alt": "Sumitomo Paramax SFC Cooling Tower Drive 055",
-                "width": 300,
-                "height": 303
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Sumitomo Paramax SFC Cooling Tower Drive 055",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Sumitomo-Paramax-SFC-Series-CT-Drive-3-300x303.jpg",
-                "alt": "Sumitomo Paramax SFC Cooling Tower Drive 075",
-                "width": 300,
-                "height": 303
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Sumitomo Paramax SFC Cooling Tower Drive 075",
-          "paragraphs": [
-            "Double Reduction"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Sumitomo-Paramax-SFC-Series-CT-Drive-3-300x303.jpg",
-                "alt": "Sumitomo Paramax SFC Cooling Tower Drive 070",
-                "width": 300,
-                "height": 303
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Sumitomo Paramax SFC Cooling Tower Drive 070",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Sumitomo-Paramax-SFC-Series-CT-Drive-3-300x303.jpg",
-                "alt": "Sumitomo Paramax SFC Cooling Tower Drive 065",
-                "width": 300,
-                "height": 303
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Sumitomo Paramax SFC Cooling Tower Drive 065",
-          "paragraphs": [
-            "Double Reduction | Gearboxes"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/RightAngleDoubleWeb-300x299.jpg",
-                "alt": "Amarillo Right Angle Gear Drives - Double Reduction-1712W",
-                "width": 300,
-                "height": 299
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Amarillo Right Angle Gear Drives – Double Reduction-1712W",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/image-2.png",
-                "alt": "AMARILLO SINGLE REDUCTION GEARBOX",
-                "width": 245,
-                "height": 239
-              }
-            }
-          ]
-        },
-        {
-          "heading": "AMARILLO SINGLE REDUCTION GEARBOX",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/image-1-1.png",
-                "alt": "SUMITOMO HANSEN P4 SINGLE STAGE GEARBOX",
-                "width": 245,
-                "height": 239
-              }
-            }
-          ]
-        },
-        {
-          "heading": "SUMITOMO HANSEN P4 SINGLE STAGE GEARBOX",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/image-3.png",
-                "alt": "AMARILLO A SERIES SINGLE REDUCTION GEARBOX",
-                "width": 245,
-                "height": 239
-              }
-            }
-          ]
-        },
-        {
-          "heading": "AMARILLO A SERIES SINGLE REDUCTION GEARBOX",
-          "paragraphs": [
-            "GEARBOXES"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/image-1.png",
-                "alt": "SUMITOMO HANSEN P4 GEARBOXES",
-                "width": 245,
-                "height": 239
-              }
-            }
           ]
         },
         {
           "heading": "SUMITOMO HANSEN P4 GEARBOXES",
           "paragraphs": [
-            "All sizes and ratios. Special order gears and parts are welcome."
-          ],
-          "headingLevel": 4
+            "Amarillo, Sumitomo, Hansen and most major brands. All sizes and ratios. Special order gears and parts are welcome.",
+            "Have questions on gearboxes?"
+          ]
         }
       ]
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "Gear box",
+      "title": "Gear box we supply",
+      "lede": "Synthetic copy: one line about the products in this category.",
+      "actionLabel": "Request a quote",
+      "items": [
+        {
+          "title": "Gear box product one",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Gear box product two",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Gear box product three",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Gear box product four",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to our parts team",
+      "text": "Synthetic supporting line for the phone call-to-action."
     }
   ]
 }

@@ -1,4 +1,5 @@
 import type { Where } from 'payload'
+import { stripControls } from '../../rfq-native/flow'
 import { activeFromLedger, type LedgerRow } from '../suppression'
 import { OPEN_RFQ_STATUSES, ACTIVE_RFQ_STATUSES } from './labels'
 import {
@@ -35,7 +36,8 @@ export const DIRECTORY_PAGE_SIZE = 50
 const one = (v: string | string[] | undefined): string | null => (Array.isArray(v) ? (v[0] ?? null) : (v ?? null))
 const pageOf = (v: string | string[] | undefined) => Math.max(1, Math.min(1000, Number.parseInt(one(v) ?? '1', 10) || 1))
 /** Escape LIKE wildcards; the term is matched literally. */
-export const likeTerm = (q: string) => q.replace(/[%_]/g, ' ').trim()
+// 1.3c-8: a NUL or a lone surrogate never reaches a LIKE pattern either (every directory and picker uses this)
+export const likeTerm = (q: string) => stripControls(q).replace(/[%_]/g, ' ').trim()
 
 // ────────────────────────────────────────────── accounts ──
 

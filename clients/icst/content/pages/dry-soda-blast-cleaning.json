@@ -1,8 +1,17 @@
 {
   "title": "Dry Soda Blast Cleaning Services Thailand | ICST Thailand",
   "description": "Professional dry soda blast cleaning in Thailand for ACHEs, fin-fan coolers, and industrial heat exchangers. Request your cleaning assessment today.",
-  "path": "/dry-soda-blast-cleaning/",
   "layout": [
+    {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "current": "Dry Soda Blast Cleaning"
+    },
     {
       "blockType": "hero",
       "variant": "plain",
@@ -21,17 +30,6 @@
             "Keeping your ACHE bundle clean directly protects output and energy costs.",
             "Eco-friendly, non-destructive cleaning for ACHEs, machinery, and delicate equipment.",
             "ICST offers advanced Dry Soda Blast Cleaning Services to improve and optimize the operation of your air-cooled heat exchangers (ACHE). Our techniques support cooling efficiency, help minimize downtime, and enhance system performance."
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/Group-1000003425.jpg",
-                "alt": "",
-                "width": 277,
-                "height": 273,
-                "decorative": true
-              }
-            }
           ]
         },
         {
@@ -77,16 +75,6 @@
             {
               "text": "Fire Restoration: Clears soot and smoke damage from walls and ceilings with minimal impact, ideal for post-fire recovery."
             }
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1-7.png",
-                "alt": "Reasons for A Cooling Tower Replacement​ -icsthailand",
-                "width": 318,
-                "height": 313
-              }
-            }
           ]
         },
         {
@@ -95,16 +83,6 @@
             "Replacing a fouled cooler is rarely the first option worth considering. ICST offers a dry soda blast cleaning process built specifically around soda blasting media and modern soda blasting equipment, engineered for the tight fin spacing found in industrial heat transfer systems.",
             "Fin rows that look clean from a distance often carry light surface rust, dried residue, and embedded particulate that quietly restrict airflow. Our technicians run compressed air through calibrated nozzles, keeping blast pressure low enough to protect bare aluminum and copper while still effectively removing contaminants from every row of the bundle.",
             "Need even more performance?"
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000004188.png",
-                "alt": "Our Dry Soda Blast Cleaning Process​ -icsthailand",
-                "width": 477,
-                "height": 416
-              }
-            }
           ]
         },
         {
@@ -147,24 +125,6 @@
           "heading": "Measurable Airflow and Thermal Gains After Every Clean",
           "paragraphs": [
             "Our field data consistently shows improved airflow and heat transfer once a bundle has been through our dry soda blasting service. Facilities typically regain lost capacity by clearing grease film, oxide buildup, and breakdown layers left behind by older rust inhibitor coatings."
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/image-234.png",
-                "alt": "Soda Blasting -icsthailand",
-                "width": 425,
-                "height": 381
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000004194-1.png",
-                "alt": "Soda Blasting - icsthailand",
-                "width": 336,
-                "height": 381
-              }
-            }
           ]
         },
         {
@@ -272,6 +232,24 @@
           ]
         }
       ]
+    },
+    {
+      "blockType": "cta",
+      "eyebrow": "Next step",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
     }
   ]
 }

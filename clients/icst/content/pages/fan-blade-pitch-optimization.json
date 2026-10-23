@@ -1,18 +1,25 @@
 {
   "title": "Fan Blade Pitch Optimization Guide | ICST",
   "description": "Learn fan blade pitch optimization for cooling towers — angle calibration, motor amperage limits, and VFD tuning. Engineering guide by ICST.",
-  "path": "/fan-blade-pitch-optimization/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Fan Blade Pitch Optimization Guide | ICST"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Fan Blade Pitch Optimization Guide",
-      "image": {
-        "url": "/wp-content/uploads/2026/04/fan-blade-pitch-optimization-engineering-guide.jpg.webp",
-        "alt": "Title slide reading 'Fan Blade Pitch Optimization: A Complete Engineering Guide' by Thailand, featuring a close-up macro view of fan blade mounting assembly hardware and mechanical components.",
-        "width": 1920,
-        "height": 1080
-      }
+      "variant": "plain",
+      "title": "Fan Blade Pitch Optimization Guide | ICST"
     },
     {
       "blockType": "articleBody",
@@ -238,26 +245,6 @@
             },
             {
               "text": "Cold-water temperature validated against target"
-            }
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/04/image-1024x576.png",
-                "alt": "",
-                "width": 1024,
-                "height": 576,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/04/image-1-1024x576.png",
-                "alt": "",
-                "width": 1024,
-                "height": 576,
-                "decorative": true
-              }
             }
           ]
         }

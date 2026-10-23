@@ -1,13 +1,55 @@
 {
   "title": "Cooling Tower Fans | Efficient & Reliable Solutions - ICST - Thailand",
   "description": "High-quality cooling tower fans by ICST. Engineered for optimal performance, durability, and energy efficiency in industrial applications.",
-  "path": "/fans/",
   "layout": [
     {
       "blockType": "hero",
       "variant": "plain",
       "title": "Efficient Cooling Fans",
       "lede": "Need reliable cooling tower fans?"
+    },
+    {
+      "blockType": "chipNav",
+      "label": "Parts categories",
+      "links": [
+        {
+          "label": "Fans",
+          "href": "/fans/"
+        },
+        {
+          "label": "Motors",
+          "href": "/motors/"
+        },
+        {
+          "label": "Nozzles",
+          "href": "/nozzles/"
+        },
+        {
+          "label": "Fill media",
+          "href": "/fill-media/"
+        },
+        {
+          "label": "FRP members",
+          "href": "/frp-members/"
+        },
+        {
+          "label": "Gear box",
+          "href": "/gear-box/"
+        },
+        {
+          "label": "Tower hardware",
+          "href": "/tower-hardware/"
+        },
+        {
+          "label": "Cooling tower fan stacks",
+          "href": "/cooling-tower-fan-stacks/"
+        },
+        {
+          "label": "Drive shaft assemblies",
+          "href": "/drive-shafts-assembles/"
+        }
+      ],
+      "currentPath": "/fans/"
     },
     {
       "blockType": "articleBody",
@@ -20,353 +62,48 @@
           ]
         },
         {
-          "heading": "TUF-LITE II – 7000 Series Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/TL2-3000H.jpg",
-                "alt": "TUF-LITE II - 3000HC Series",
-                "width": 241,
-                "height": 164
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE II – 3000HC Series",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/E-Series-300x165.jpg",
-                "alt": "PRO E-Series 4'-48' (1.22M-14.63M) Fans",
-                "width": 300,
-                "height": 165
-              }
-            }
-          ]
-        },
-        {
-          "heading": "PRO E-Series 4′-48′ (1.22M-14.63M) Fans",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/D-Series-300x165.jpg",
-                "alt": "Howden PRO D-Series 26'-36' (7.93M-10.98M) Fans",
-                "width": 300,
-                "height": 165
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Howden PRO D-Series 26′-36′ (7.93M-10.98M) Fans",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/D-Series1-300x165.jpg",
-                "alt": "PRO D-Series 30'-36' (9.14M-10.98M) Fans",
-                "width": 300,
-                "height": 165
-              }
-            }
-          ]
-        },
-        {
-          "heading": "PRO D-Series 30′-36′ (9.14M-10.98M) Fans",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Hudson_Tuf-Lite-II-Fans-3000HC_Series-Hub1-300x209.jpg",
-                "alt": "TUF-LITE II - 3000 Series Fan Assemblies",
-                "width": 300,
-                "height": 209
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE II – 3000 Series Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/FPXSeries.jpg",
-                "alt": "PRO FPX Series 22\"-9' (0.71M-2.74M) Fans",
-                "width": 256,
-                "height": 160
-              }
-            }
-          ]
-        },
-        {
-          "heading": "PRO FPX Series 22″-9′ (0.71M-2.74M) Fans",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Tuf-Lite-II-Fans-8000-Series-Hub1-300x230.jpg",
-                "alt": "TUF-LITE II - 8000H Series Hub Fan Assemblies",
-                "width": 300,
-                "height": 230
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE II – 8000H Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Hudson_Tuf-Lite-II_Fans-7000-Series-Hub-300x240.jpg",
-                "alt": "TUF-LITE II - 7000H Series Hub Fan Assemblies",
-                "width": 300,
-                "height": 240
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE II – 7000H Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Tuf-Lite-II-Fans-6000M-Series-Hub3-300x231.jpg",
-                "alt": "TUF-LITE II - 6000MH Series Hub Fan Assemblies",
-                "width": 300,
-                "height": 231
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE II – 6000MH Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Tuf-Lite-II-Fans-6000-Series-Hub1-300x228.jpg",
-                "alt": "TUF-LITE II - 6000H Series Hub Fan Assemblies",
-                "width": 300,
-                "height": 228
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE II – 6000H Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Tuf-Lite-II-Fans-5000-Series-Hub1-300x230.jpg",
-                "alt": "TUF-LITE II - 5000H Series Hub Fan Assemblies",
-                "width": 300,
-                "height": 230
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE II – 5000H Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/TL2-4000HWHub.jpg",
-                "alt": "TUF-LITE II - 4000H Series Hub Fan Assemblies",
-                "width": 243,
-                "height": 190
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE II – 4000H Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Hudson_Tuf-Lite-II-Fans-3000HC_Series-Hub-300x209.jpg",
-                "alt": "TUF-LITE II - 3000HC Low Noise Series Hub Fan Assemblies",
-                "width": 300,
-                "height": 209
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE II – 3000HC Low Noise Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/TL2-3000H.jpg",
-                "alt": "TUF-LITE II - 3000H Series Hub Fan Assemblies",
-                "width": 241,
-                "height": 164
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE II – 3000H Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Tuf-Lite-III-Fans-6000M-Series-Hub-scaled-1-300x268.jpg",
-                "alt": "TUF-LITE III - 6000MK Series Hub Fan Assemblies",
-                "width": 300,
-                "height": 268
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE III – 6000MK Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Hudson_Tuf-Lite_III-Fans-6000K_series_Hub-300x275.jpg",
-                "alt": "TUF-LITE III - 6000K Series Hub Fan Assemblies",
-                "width": 300,
-                "height": 275
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE III – 6000K Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Hudson-Tuf-Lite-II-Fans-5000-Series-Hub-300x272.jpg",
-                "alt": "TUF-LITE III - 5000K Series Hub Fan Assemblies",
-                "width": 300,
-                "height": 272
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE III – 5000K Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Hudson-Tuf-Lite-III-Fans-4000-Series-Hub-300x268.jpg",
-                "alt": "TUF-LITE III - 4000KW Very Low Noise Series Hub Fan Assemblies",
-                "width": 300,
-                "height": 268
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE III – 4000KW Very Low Noise Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Hudson-Tuf-Lite-II-Fans-3000-Series-Hub1-300x214.jpg",
-                "alt": "TUF-LITE III - 3000K Series Hub Fan Assemblies",
-                "width": 300,
-                "height": 214
-              }
-            }
-          ]
-        },
-        {
-          "heading": "TUF-LITE III – 3000K Series Hub Fan Assemblies",
-          "paragraphs": [
-            "Fans"
-          ],
-          "headingLevel": 4,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/SX-Series-300x165.jpg",
-                "alt": "PRO SX Series 28\"-34' (0.73M-10.36M) Fans",
-                "width": 300,
-                "height": 165
-              }
-            }
-          ]
-        },
-        {
           "heading": "PRO SX Series 28″-34′ (0.73M-10.36M) Fans",
           "paragraphs": [
-            "Fiberglass and aluminum blades for low power, low noise for cooling towers, heat exchangers and air cooled condensers."
-          ],
-          "headingLevel": 4
+            "Hudson, Howden and other manufacturers, factory direct. Fiberglass and aluminum blades for low power, low noise for cooling towers, heat exchangers and air cooled condensers.",
+            "Have Questions?"
+          ]
         }
       ]
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "Fans",
+      "title": "Fans we supply",
+      "lede": "Synthetic copy: one line about the products in this category.",
+      "actionLabel": "Request a quote",
+      "items": [
+        {
+          "title": "Fans product one",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Fans product two",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Fans product three",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Fans product four",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to our parts team",
+      "text": "Synthetic supporting line for the phone call-to-action."
     }
   ]
 }

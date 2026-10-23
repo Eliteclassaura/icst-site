@@ -1,13 +1,55 @@
 {
   "title": "Cooling Tower Nozzles | Precision Engineering - ICST - Thailand",
   "description": "High-performance cooling tower nozzles by ICST. Designed for efficient water distribution and durability in industrial systems.",
-  "path": "/nozzles/",
   "layout": [
     {
       "blockType": "hero",
       "variant": "plain",
       "title": "Miscellaneous Nozzles",
       "lede": "Enhance your cooling tower’s efficiency with our precision-engineered nozzles. Designed for optimal water distribution and durability, our nozzles ensure consistent performance. Upgrade your system today!"
+    },
+    {
+      "blockType": "chipNav",
+      "label": "Parts categories",
+      "links": [
+        {
+          "label": "Fans",
+          "href": "/fans/"
+        },
+        {
+          "label": "Motors",
+          "href": "/motors/"
+        },
+        {
+          "label": "Nozzles",
+          "href": "/nozzles/"
+        },
+        {
+          "label": "Fill media",
+          "href": "/fill-media/"
+        },
+        {
+          "label": "FRP members",
+          "href": "/frp-members/"
+        },
+        {
+          "label": "Gear box",
+          "href": "/gear-box/"
+        },
+        {
+          "label": "Tower hardware",
+          "href": "/tower-hardware/"
+        },
+        {
+          "label": "Cooling tower fan stacks",
+          "href": "/cooling-tower-fan-stacks/"
+        },
+        {
+          "label": "Drive shaft assemblies",
+          "href": "/drive-shafts-assembles/"
+        }
+      ],
+      "currentPath": "/nozzles/"
     },
     {
       "blockType": "articleBody",
@@ -17,80 +59,12 @@
           "paragraphs": [
             "Counterflow|Nozzles",
             "Counterflow"
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ATSprayer-Counterflow-Nozzle-2-300x300.jpg",
-                "alt": "Counterflow Nozzles",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ATSprayer1.jpg",
-                "alt": "Amertech ATSprayer Counterflow Nozzle",
-                "width": 300,
-                "height": 308
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Quick-Change-Nozzle1-300x303.jpg",
-                "alt": "C.E. Shepherd Quick Change Orifice (QCO) Nozzles",
-                "width": 300,
-                "height": 303
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Square-Nozzle-300x294.jpg",
-                "alt": "C.E. Shepherd Square Pattern Nozzles",
-                "width": 300,
-                "height": 294
-              }
-            }
           ]
         },
         {
           "heading": "C.E. Shepherd Square Pattern Nozzles",
           "paragraphs": [
             "Crossflow"
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Shepherd-Crown-Nozzle-300x203.jpg",
-                "alt": "C.E. Shepherd Crown Nozzles",
-                "width": 300,
-                "height": 203
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Sheppherd-Target-nozzles.jpg",
-                "alt": "C.E. Shepherd Target Nozzles",
-                "width": 281,
-                "height": 283
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Brentwood-DekSpray-Nozzle.jpg",
-                "alt": "Brentwood DekSpray Nozzles",
-                "width": 278,
-                "height": 257
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Amertech-Yoke3.jpeg",
-                "alt": "Amertech ATSprayer Yoke Style Nozzle",
-                "width": 154,
-                "height": 209
-              }
-            }
           ]
         },
         {
@@ -102,6 +76,41 @@
           ]
         }
       ]
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "Nozzles",
+      "title": "Nozzles we supply",
+      "lede": "Synthetic copy: one line about the products in this category.",
+      "actionLabel": "Request a quote",
+      "items": [
+        {
+          "title": "Nozzles product one",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Nozzles product two",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Nozzles product three",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Nozzles product four",
+          "text": "Synthetic product summary.",
+          "href": "/parts/"
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to our parts team",
+      "text": "Synthetic supporting line for the phone call-to-action."
     }
   ]
 }

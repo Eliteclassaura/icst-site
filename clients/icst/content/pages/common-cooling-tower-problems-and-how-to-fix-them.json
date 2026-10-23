@@ -1,18 +1,25 @@
 {
   "title": "Common Cooling Tower Problems and How to Fix Them - ICST - Thailand",
   "description": "Learn to identify and fix common cooling tower problems with expert tips for efficient system maintenance from icsthailand.com.",
-  "path": "/common-cooling-tower-problems-and-how-to-fix-them/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Common Cooling Tower Problems and How to Fix Them - ICST - Thailand"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Common Cooling Tower Problems and How to Fix Them",
-      "image": {
-        "url": "/wp-content/uploads/2025/05/Common-Cooling-Tower-Problems-and-How-to-Fix-Them-icsthailand.com_.webp",
-        "alt": "Common Cooling Tower Problems and How to Fix Them - icsthailand.com",
-        "width": 1200,
-        "height": 630
-      }
+      "variant": "plain",
+      "title": "Common Cooling Tower Problems and How to Fix Them - ICST - Thailand"
     },
     {
       "blockType": "articleBody",

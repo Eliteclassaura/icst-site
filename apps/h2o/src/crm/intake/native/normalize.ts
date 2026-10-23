@@ -1,3 +1,4 @@
+import { cleanDeep } from '../clean'
 import { createHash } from 'node:crypto'
 import { displayValue, normalizePhone, questionText, questionsFor, stripControls, validate, type Surface } from '../../../rfq-native/flow'
 import type { Registry } from '../../../rfq-native/model'
@@ -51,6 +52,15 @@ export function parseEnvelope(body: unknown): NativeRequest | null {
   if (!isObj(answers) || Object.keys(answers).length > 40) return null
   if (Object.values(answers).some((v) => typeof v !== 'string')) return null
   if (!isObj(antiAbuse)) return null
+  // 1.3c-8: attribution is cleaned like every other string (a NUL or a lone surrogate in one field failed the whole submission); too deep is refused
+  let attributionClean: Record<string, unknown> = {}
+  if (isObj(attribution)) {
+    try {
+      attributionClean = cleanDeep(attribution)
+    } catch {
+      return null
+    }
+  }
   return {
     submissionId: submissionId.toLowerCase(),
     source,
@@ -61,7 +71,7 @@ export function parseEnvelope(body: unknown): NativeRequest | null {
     // RFQ-FIX-1 (audit R9): control characters (NUL included) and bidi overrides are removed before anything else reads them
     answers: legacyName(Object.fromEntries(Object.entries(answers as Record<string, string>).map(([k, v]) => [k, stripControls(v)]))),
     context: isObj(context) ? Object.fromEntries(Object.entries(context).map(([k, v]) => [k, typeof v === 'string' ? stripControls(v) : v])) : {},
-    attribution: isObj(attribution) ? attribution : {},
+    attribution: attributionClean,
     antiAbuse: { formToken: antiAbuse.formToken, hp: antiAbuse.hp },
   }
 }

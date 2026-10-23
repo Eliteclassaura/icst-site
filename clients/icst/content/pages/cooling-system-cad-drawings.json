@@ -1,18 +1,25 @@
 {
   "title": "Cooling System CAD Drawings: The Complete Engineering Guide - ICST - Thailand",
   "description": "Master your thermal designs. Discover where to find, how to use, and how to manage cooling system CAD drawings for efficient engineering workflows.",
-  "path": "/cooling-system-cad-drawings/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Cooling System CAD Drawings: The Complete Engineering Guide - ICST - Thailand"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Cooling System CAD Drawings: The Complete Engineering Guide",
-      "image": {
-        "url": "/wp-content/uploads/2026/01/image-30.jpeg",
-        "alt": "Cooling System CAD Drawings: The Complete Engineering Guide",
-        "width": 1600,
-        "height": 900
-      }
+      "variant": "plain",
+      "title": "Cooling System CAD Drawings: The Complete Engineering Guide - ICST - Thailand"
     },
     {
       "blockType": "articleBody",
@@ -252,26 +259,6 @@
             },
             {
               "text": "Discipline Clashes (Parts Overlapping): A common mistake is finishing a design only to realize a pipe is running straight through a structural beam. Prevent this by setting a weekly “Clash Check” where you merge the mechanical and structural models to find and fix these overlapping parts before they reach the construction site."
-            }
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/01/image-32-1024x576.jpeg",
-                "alt": "",
-                "width": 1024,
-                "height": 576,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/01/image-31-1024x576.jpeg",
-                "alt": "",
-                "width": 1024,
-                "height": 576,
-                "decorative": true
-              }
             }
           ]
         }

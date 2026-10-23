@@ -1,7 +1,6 @@
 {
   "title": "ICST in Asia | Projects Portfolio",
   "description": "Explore ICST’s expertise in industrial cooling solutions across Asia. Discover our projects in Thailand, Malaysia, Vietnam, and more. Contact us for sustainable, efficient cooling systems tailored to your needs.",
-  "path": "/projects/",
   "layout": [
     {
       "blockType": "hero",
@@ -33,6 +32,80 @@
           ]
         }
       ]
+    },
+    {
+      "blockType": "productGrid",
+      "title": "Selected projects",
+      "lede": "Synthetic copy: one line per project.",
+      "actionLabel": "View project",
+      "items": [
+        {
+          "title": "Cawayan BacMan 3",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/cawayan-bacman-3/"
+        },
+        {
+          "title": "Cooling Tower Disaster Recovery",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/cooling-tower-disaster-recovery/"
+        },
+        {
+          "title": "Cooling Tower Replacement",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/cooling-tower-replacement/"
+        },
+        {
+          "title": "EDC N2N Relocation Project",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/edc-n2n-relocation-project/"
+        },
+        {
+          "title": "Keramasan Power Project",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/keramasan-power-project/"
+        },
+        {
+          "title": "Lanxess",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/lanxess/"
+        },
+        {
+          "title": "Mak Ban 6",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/mak-ban-6/"
+        },
+        {
+          "title": "Palinpinon 3",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/palinpinon-3/"
+        },
+        {
+          "title": "PTT Cracker Project",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/ptt-cracker-project/"
+        },
+        {
+          "title": "PTT GSP3 Fan Upgrade",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/ptt-gsp3-fan-upgrade/"
+        },
+        {
+          "title": "PTT LDPE II Project",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/ptt-ldpe-ii-project/"
+        },
+        {
+          "title": "Vinachem",
+          "text": "Synthetic project summary.",
+          "href": "/portfolio/vinachem/"
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
     }
   ]
 }

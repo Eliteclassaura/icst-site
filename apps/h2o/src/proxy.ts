@@ -97,13 +97,25 @@ function sidOf(token: string): string | null {
     return null
   }
 }
+/**
+ * M1b (port of 1.3c-8/S1 bind-address class): an absolute Location must never name the server's bind address (the standalone server
+ * reports 0.0.0.0 or ::). Such a request is answered with the configured public origin instead.
+ */
+export function redirectOrigin(req: NextRequest): string {
+  const host = req.nextUrl.hostname
+  if (host === '0.0.0.0' || host === '::' || host === '[::]') {
+    return new URL(process.env.NEXT_PUBLIC_SERVER_URL || client().origin).origin
+  }
+  return req.nextUrl.origin
+}
+
 export function mfaRoute(req: NextRequest): NextResponse | null {
   const path = req.nextUrl.pathname
   if (!MFA_GUARDED.test(path) || MFA_OPEN.test(path)) return null
   const token = req.cookies.get('payload-token')?.value
   const sid = token ? sidOf(token) : null
   if (!sid || mfaCookieValid(req.cookies.get(MFA_COOKIE)?.value, sid)) return null
-  const target = new URL('/crm/mfa/', req.nextUrl.origin)
+  const target = new URL('/crm/mfa/', redirectOrigin(req))
   if (SAFE_NEXT.test(path) && !path.includes('//') && !path.includes('..')) target.searchParams.set('next', path)
   // R2.5a (CT 2026-10-05): a protected-surface response is noindex in every policy and carries the standard security headers,
   // the two-factor redirect included (it is returned before the payload/static branches).
@@ -112,7 +124,20 @@ export function mfaRoute(req: NextRequest): NextResponse | null {
   return res
 }
 
+/**
+ * 1.3c-8: a NUL in a URL (`%00`, also in the query string) is never a real address. The database refuses it, and the error it raises
+ * carries the SQL and the bound text, so it is answered here with a plain 400 before anything reads it. `%2500` (an encoded percent
+ * sign followed by "00") is not a NUL and is left alone.
+ */
+export function nulRoute(req: NextRequest): NextResponse | null {
+  const raw = `${req.nextUrl.pathname}${req.nextUrl.search}`
+  if (!/%00/i.test(raw.replace(/%25/gi, '')) && !raw.includes('\u0000')) return null
+  return new NextResponse('Bad request', { status: 400, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } })
+}
+
 export function proxy(req: NextRequest): NextResponse {
+  const nul = nulRoute(req)
+  if (nul) return nul
   const mfa = mfaRoute(req)
   if (mfa) return mfa
   const path = req.nextUrl.pathname
@@ -121,7 +146,7 @@ export function proxy(req: NextRequest): NextResponse {
   const hop = redirectFor(path, loadRedirects(client().slug))
   if (hop) {
     if (hop.status === 410) return securityHeaders(new NextResponse('Gone', { status: 410, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=3600' } }), "default-src 'none'", 'noindex')
-    const res = securityHeaders(NextResponse.redirect(new URL(hop.to, productionIndexing() ? client().origin : req.nextUrl.origin), 301), "default-src 'none'", null)
+    const res = securityHeaders(NextResponse.redirect(new URL(hop.to, productionIndexing() ? client().origin : redirectOrigin(req)), 301), "default-src 'none'", null)
     res.headers.set('Cache-Control', 'public, max-age=3600')
     return res
   }

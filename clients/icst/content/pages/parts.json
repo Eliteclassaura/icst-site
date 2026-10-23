@@ -1,7 +1,6 @@
 {
   "title": "Cooling Tower Parts | Durable Components - ICST - Thailand",
   "description": "Find premium cooling tower parts by ICST. High-quality components designed for reliability and performance in industrial systems.",
-  "path": "/parts/",
   "layout": [
     {
       "blockType": "hero",
@@ -10,121 +9,197 @@
       "lede": "Explore our cooling tower products designed for efficiency, durability, and performance."
     },
     {
+      "blockType": "chipNav",
+      "label": "Parts categories",
+      "links": [
+        {
+          "label": "Fans",
+          "href": "/fans/"
+        },
+        {
+          "label": "Motors",
+          "href": "/motors/"
+        },
+        {
+          "label": "Nozzles",
+          "href": "/nozzles/"
+        },
+        {
+          "label": "Fill media",
+          "href": "/fill-media/"
+        },
+        {
+          "label": "FRP members",
+          "href": "/frp-members/"
+        },
+        {
+          "label": "Gear box",
+          "href": "/gear-box/"
+        },
+        {
+          "label": "Tower hardware",
+          "href": "/tower-hardware/"
+        },
+        {
+          "label": "Cooling tower fan stacks",
+          "href": "/cooling-tower-fan-stacks/"
+        },
+        {
+          "label": "Drive shaft assemblies",
+          "href": "/drive-shafts-assembles/"
+        }
+      ],
+      "currentPath": "/parts/"
+    },
+    {
       "blockType": "articleBody",
       "sections": [
         {
           "heading": "Explore Our Advanced Gearbox Solutions",
           "paragraphs": [
-            "Engineered for reliability and performance, our gearboxes are tailored to meet the demands of modern industrial cooling systems."
-          ],
-          "headingLevel": 2,
-          "images": [
+            "Engineered for reliability and performance, our gearboxes are tailored to meet the demands of modern industrial cooling systems.",
+            "Clear",
+            "Search"
+          ]
+        },
+        {
+          "heading": "All Categories",
+          "paragraphs": [
+            "Nozzles",
+            "Fill Media",
+            "Gear Box",
+            "Fans",
+            "Motors",
+            "FRP Members",
+            "Cooling Tower Fan Stacks",
+            "Tower Hardware",
+            "Drive Shafts Assembles"
+          ]
+        },
+        {
+          "heading": "ABB Motor Example",
+          "bullets": [
             {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000003712-1.png",
-                "alt": "",
-                "width": 64,
-                "height": 63,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/motors.jpg",
-                "alt": "ABB Motor",
-                "width": 149,
-                "height": 108
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft-Couplings-300x283.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling",
-                "width": 300,
-                "height": 283
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA350.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA375.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA450.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA485.338",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA650.425",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRA850.625",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRF350.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRF375.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRF450.275",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Addax-Driveshaft.jpg",
-                "alt": "Addax Drive Shaft Composite Coupling LRF485.338",
-                "width": 300,
-                "height": 300
-              }
+              "text": "Rated 5.00 out of 5"
             }
           ]
+        },
+        {
+          "heading": "Addax Drive Shaft Composite Coupling LRF485.338",
+          "bullets": [
+            {
+              "text": "1"
+            },
+            {
+              "text": "2"
+            },
+            {
+              "text": "3"
+            },
+            {
+              "text": "4"
+            },
+            {
+              "text": "…"
+            },
+            {
+              "text": "14"
+            },
+            {
+              "text": "15"
+            },
+            {
+              "text": "16"
+            },
+            {
+              "text": "→"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "Parts",
+      "title": "Explore our parts",
+      "lede": "Synthetic copy: one line about the parts range.",
+      "actionLabel": "Request a quote",
+      "items": [
+        {
+          "title": "Product one",
+          "text": "Synthetic product summary.",
+          "href": "/"
+        },
+        {
+          "title": "Product two",
+          "text": "Synthetic product summary.",
+          "href": "/"
+        },
+        {
+          "title": "Product three",
+          "text": "Synthetic product summary.",
+          "href": "/"
+        },
+        {
+          "title": "Product four",
+          "text": "Synthetic product summary.",
+          "href": "/"
+        }
+      ]
+    },
+    {
+      "blockType": "steps",
+      "eyebrow": "How to order",
+      "title": "Synthetic ordering steps",
+      "lede": "Synthetic copy: how a customer requests a part.",
+      "ordered": true,
+      "items": [
+        {
+          "title": "Identify the part",
+          "text": "Synthetic step text."
+        },
+        {
+          "title": "Send the requirement",
+          "text": "Synthetic step text."
+        },
+        {
+          "title": "Receive a quotation",
+          "text": "Synthetic step text."
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to our parts team",
+      "text": "Synthetic supporting line for the phone call-to-action."
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "Spares",
+      "title": "Reliable spare parts",
+      "lede": "Synthetic copy: one line about spares.",
+      "actionLabel": "Request a quote",
+      "items": [
+        {
+          "title": "Spare one",
+          "text": "Synthetic spare summary.",
+          "href": "/"
+        },
+        {
+          "title": "Spare two",
+          "text": "Synthetic spare summary.",
+          "href": "/"
+        },
+        {
+          "title": "Spare three",
+          "text": "Synthetic spare summary.",
+          "href": "/"
+        },
+        {
+          "title": "Spare four",
+          "text": "Synthetic spare summary.",
+          "href": "/"
         }
       ]
     }

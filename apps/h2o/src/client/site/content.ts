@@ -59,8 +59,21 @@ function readPage(file: string): ClientPageData {
 
 export type ListedPage = { name: string; path: string; page: ClientPageData }
 
-/** Every page of the client with its public path (`home` is `/`, others `/<name>/` unless the page sets `path`). Sorted by path. */
+// M15 (port of the availability finding in the port matrix): every public page view called listPages twice, which parsed all page
+// files each time. The parsed index is kept per process (the content folder is part of the image and does not change while it runs).
+const pageIndex = new Map<string, ListedPage[]>()
+
+/** Every page of the client with its public path (`home` is `/`, others `/<name>/` unless the page sets `path`). Sorted by path. Cached per process. */
 export function listPages(slug: string, root: string = clientsRoot()): ListedPage[] {
+  const key = `${root}\0${slug}`
+  const hit = pageIndex.get(key)
+  if (hit) return hit
+  const index = readPageIndex(slug, root)
+  pageIndex.set(key, index)
+  return index
+}
+
+function readPageIndex(slug: string, root: string): ListedPage[] {
   const dir = path.join(root, slug, 'content', 'pages')
   if (!existsSync(dir)) return []
   const out: ListedPage[] = []

@@ -1,19 +1,25 @@
 {
   "title": "Cooling Tower Repair: Step-by-Step Guide & Checklist",
   "description": "Complete cooling tower repair guide covering diagnosis, step-by-step fixes, costs, and preventive maintenance to keep your system running.",
-  "path": "/step-by-step-cooling-tower-repair-and-maintenance-guide/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Cooling Tower Repair: Step-by-Step Guide & Checklist"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Cooling Tower Repair: Step-by-Step Guide & Checklist",
-      "image": {
-        "url": "/wp-content/uploads/2025/05/324.webp",
-        "alt": "",
-        "width": 1920,
-        "height": 1080,
-        "decorative": true
-      }
+      "variant": "plain",
+      "title": "Cooling Tower Repair: Step-by-Step Guide & Checklist"
     },
     {
       "blockType": "articleBody",

@@ -1,19 +1,85 @@
 {
   "title": "EDC N2N Relocation Project - ICST - Thailand",
   "description": "The EDC N2N relocation project case study from ICST, covering equipment moved and the cooling tower work involved.",
-  "path": "/portfolio/edc-n2n-relocation-project/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Projects",
+          "href": "/projects/"
+        }
+      ],
+      "current": "EDC N2N Relocation Project"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "EDC N2N Relocation Project",
-      "image": {
-        "url": "/wp-content/uploads/2025/03/ICS_CoolingTowerProject_N2N_CoolingTowerSide1-353x297-1.jpg",
-        "alt": "",
-        "width": 353,
-        "height": 297,
-        "decorative": true
-      }
+      "variant": "plain",
+      "title": "EDC N2N Relocation Project - ICST - Thailand"
+    },
+    {
+      "blockType": "dataTable",
+      "caption": "Project facts",
+      "rowHeader": "Fact",
+      "columns": [
+        {
+          "label": "Value"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Project",
+          "cells": [
+            {
+              "text": "EDC N2N Relocation Project"
+            }
+          ]
+        },
+        {
+          "label": "Industry",
+          "cells": [
+            {
+              "text": "Geothermal"
+            }
+          ]
+        },
+        {
+          "label": "Client",
+          "cells": [
+            {
+              "text": "EDC"
+            }
+          ]
+        },
+        {
+          "label": "Location",
+          "cells": [
+            {
+              "text": "Philippines"
+            }
+          ]
+        },
+        {
+          "label": "Tower type",
+          "cells": [
+            {
+              "text": "6-Cell, Counterflow"
+            }
+          ]
+        },
+        {
+          "label": "Year",
+          "cells": [
+            {
+              "text": "2011"
+            }
+          ]
+        }
+      ]
     },
     {
       "blockType": "articleBody",
@@ -25,14 +91,24 @@
           ]
         }
       ]
+    },
+    {
+      "blockType": "cta",
+      "eyebrow": "Next step",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
     }
-  ],
-  "facts": {
-    "project": "EDC N2N Relocation Project",
-    "industry": "Geothermal",
-    "client": "EDC",
-    "location": "Philippines",
-    "tower_type": "6-Cell, Counterflow",
-    "year": "2011"
-  }
+  ]
 }

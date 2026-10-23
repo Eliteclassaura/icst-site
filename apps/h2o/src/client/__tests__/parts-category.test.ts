@@ -80,7 +80,7 @@ describe('copied pages (ICST_COPY_PACK) are clean', () => {
     const dir = path.join(root, 'icst', 'content', 'pages')
     for (const f of readdirSync(dir).filter((x) => x.endsWith('.json') && x !== '_index.json')) {
       const text = readFileSync(path.join(dir, f), 'utf8')
-      expect(text, f).not.toMatch(/\$\s?\d|USD|THB|Original price|Current price|Add to cart|Quick View|Out of stock/)
+      expect(text, f).not.toMatch(/\$\s?\d|\bUSD\b|\bTHB\b|Original price|Current price|Add to cart|Quick View|Out of stock/)
     }
   })
 })

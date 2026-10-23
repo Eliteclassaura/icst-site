@@ -1,18 +1,25 @@
 {
   "title": "Cooling Tower Performance Testing CTI: ATC-105 Guide - ICST - Thailand",
   "description": "CTI ATC-105 cooling tower performance testing. Learn to verify thermal capability, apply curves, and ensure compliance for your cooling assets.",
-  "path": "/cooling-tower-performance-testing-cti/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Cooling Tower Performance Testing CTI: ATC-105 Guide - ICST - Thailand"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Cooling Tower Performance Testing CTI: ATC-105 Guide",
-      "image": {
-        "url": "/wp-content/uploads/2026/05/image-17.jpeg",
-        "alt": "cooling tower performance testing CTI",
-        "width": 1920,
-        "height": 1080
-      }
+      "variant": "plain",
+      "title": "Cooling Tower Performance Testing CTI: ATC-105 Guide - ICST - Thailand"
     },
     {
       "blockType": "articleBody",
@@ -135,26 +142,6 @@
             },
             {
               "text": "Fan Motor Power (kW)"
-            }
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/05/image-18-1024x576.jpeg",
-                "alt": "",
-                "width": 1024,
-                "height": 576,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/05/image-19-1024x576.jpeg",
-                "alt": "",
-                "width": 1024,
-                "height": 576,
-                "decorative": true
-              }
             }
           ]
         }

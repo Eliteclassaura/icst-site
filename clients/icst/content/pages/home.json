@@ -1,7 +1,6 @@
 {
   "title": "ICST Thailand | Expert Services",
   "description": "ICST provides industrial cooling solutions in Thailand. Specializing in cooling towers, repair, and maintenance for diverse industries.",
-  "path": "/",
   "layout": [
     {
       "blockType": "hero",
@@ -13,273 +12,179 @@
       "blockType": "articleBody",
       "sections": [
         {
-          "heading": "ICST Co.,Ltd.",
+          "heading": "ICST",
           "paragraphs": [
-            "ICST was founded with the mission to create value for our customers by engineering, developing and implementing innovative ICST Co.,Ltd. that are financially and technically feasible yet environmentally sustainable world wide."
-          ],
-          "headingLevel": 2,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000003712.png",
-                "alt": "",
-                "width": 76,
-                "height": 74,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1-1.png",
-                "alt": "Co.,Ltd.​ - icsthailand.com",
-                "width": 454,
-                "height": 441
-              }
-            }
+            "ICST was founded with the mission to create value for our customers by engineering, developing and implementing innovative cooling solutions that are financially and technically feasible yet environmentally sustainable.",
+            "Located in Bangkok, we are able to dispatch personnel to any location in Asia within hours."
           ]
         },
         {
           "heading": "Recent Projects",
           "paragraphs": [
             "Innovative Cooling Solutions Tailored for Efficiency and Sustainability"
-          ],
-          "headingLevel": 2,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ICS_CoolingTowerProject_MakBan6_21-353x297-1.jpg",
-                "alt": "",
-                "width": 353,
-                "height": 297,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ICS_CoolingTowerProject_MakBan6_21-353x297-1.jpg",
-                "alt": "",
-                "width": 353,
-                "height": 297,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ptt-gsp3-fan-upgrade.jpg",
-                "alt": "",
-                "width": 353,
-                "height": 297,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ptt-gsp3-fan-upgrade.jpg",
-                "alt": "",
-                "width": 353,
-                "height": 297,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ICS-cooling tower.jpg",
-                "alt": "ICS_CoolingTowerDisasterRecoveryProject_LeyteTower-After-353x297-1",
-                "width": 353,
-                "height": 297
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ICS-cooling tower.jpg",
-                "alt": "ICS_CoolingTowerDisasterRecoveryProject_LeyteTower-After-353x297-1",
-                "width": 353,
-                "height": 297
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ICS_CoolingTowerProject_N2N_CoolingTowerSide1-353x297-1.jpg",
-                "alt": "",
-                "width": 353,
-                "height": 297,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ICS_CoolingTowerProject_N2N_CoolingTowerSide1-353x297-1.jpg",
-                "alt": "",
-                "width": 353,
-                "height": 297,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Lanxess-side-view-scaled-2-1920x1440.jpg",
-                "alt": "",
-                "width": 1920,
-                "height": 1440,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Lanxess-side-view-scaled-2-1920x1440.jpg",
-                "alt": "",
-                "width": 1920,
-                "height": 1440,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/images.jpeg",
-                "alt": "",
-                "width": 245,
-                "height": 206,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ICS_CoolingTowerProject_BacMan3_321-353x297-1.jpg",
-                "alt": "Cawayan BacMan 3 - icsthailand",
-                "width": 353,
-                "height": 297
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ICS_CoolingTowerProject_BacMan3_321-353x297-1.jpg",
-                "alt": "Cawayan BacMan 3 - icsthailand",
-                "width": 353,
-                "height": 297
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ICS_CoolingTowerProject_PalinpinonGeothermal_95411-353x297-1-1.jpg",
-                "alt": "",
-                "width": 353,
-                "height": 297,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/ICS_CoolingTowerProject_PalinpinonGeothermal_95411-353x297-1-1.jpg",
-                "alt": "",
-                "width": 353,
-                "height": 297,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1-1-1.png",
-                "alt": "Cooling Towers - icsthailand.com",
-                "width": 268,
-                "height": 279
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1-3.png",
-                "alt": "Repair, Upgrade & Maintenance - icsthailand.com",
-                "width": 268,
-                "height": 279
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1-2-1.png",
-                "alt": "Parts - icsthailand.com",
-                "width": 268,
-                "height": 279
-              }
-            }
           ]
         },
         {
           "heading": "Some Spare Parts",
           "paragraphs": [
             "View all"
-          ],
-          "headingLevel": 2,
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/image-1.png",
-                "alt": "",
-                "width": 245,
-                "height": 239,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/image-3.png",
-                "alt": "",
-                "width": 245,
-                "height": 239,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/image-1-1.png",
-                "alt": "",
-                "width": 245,
-                "height": 239,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/image-2.png",
-                "alt": "",
-                "width": 245,
-                "height": 239,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Hansen-P4-Group-Photo-300x300.jpg",
-                "alt": "Hansen P4 - icsthailand",
-                "width": 300,
-                "height": 300
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/A-Series_Single_Reduction.jpg",
-                "alt": "Amarillo A Series Single Reduction Gearbox",
-                "width": 301,
-                "height": 250
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Hansen-P4-Single-Stage.jpg",
-                "alt": "Sumitomo Hansen P4 Single Stage Gearbox",
-                "width": 300,
-                "height": 300
-              }
-            }
           ]
         },
         {
           "heading": "Happy to serve with willingness",
           "paragraphs": [
-            "ICST Co.,Ltd.",
-            "ICST was founded with the mission to create value for our customers by engineering, developing and implementing innovative ICST Co.,Ltd.."
-          ],
-          "headingLevel": 2
+            "ICST was founded with the mission to create value for our customers by engineering, developing and implementing innovative cooling solutions that are financially and technically feasible yet environmentally sustainable worldwide."
+          ]
         }
       ]
+    },
+    {
+      "blockType": "chipNav",
+      "label": "Parts catalog",
+      "links": [
+        {
+          "label": "Fans",
+          "href": "/fans/"
+        },
+        {
+          "label": "Motors",
+          "href": "/motors/"
+        },
+        {
+          "label": "Nozzles",
+          "href": "/nozzles/"
+        },
+        {
+          "label": "Fill media",
+          "href": "/fill-media/"
+        },
+        {
+          "label": "FRP members",
+          "href": "/frp-members/"
+        },
+        {
+          "label": "Gear box",
+          "href": "/gear-box/"
+        },
+        {
+          "label": "Tower hardware",
+          "href": "/tower-hardware/"
+        },
+        {
+          "label": "Fan stacks",
+          "href": "/cooling-tower-fan-stacks/"
+        },
+        {
+          "label": "Drive shafts",
+          "href": "/drive-shafts-assembles/"
+        }
+      ]
+    },
+    {
+      "blockType": "productGrid",
+      "eyebrow": "Parts catalog",
+      "title": "Browse by category",
+      "lede": "Synthetic copy: one line on the catalog.",
+      "actionLabel": "Request a quote",
+      "items": [
+        {
+          "title": "Catalog item one",
+          "text": "Synthetic catalog summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Catalog item two",
+          "text": "Synthetic catalog summary.",
+          "href": "/parts/"
+        },
+        {
+          "title": "Catalog item three",
+          "text": "Synthetic catalog summary.",
+          "href": "/parts/"
+        }
+      ]
+    },
+    {
+      "blockType": "projectCarousel",
+      "eyebrow": "Engineered. Delivered. Proven.",
+      "title": "Selected projects",
+      "lede": "Synthetic copy: one line on how projects are delivered.",
+      "items": [
+        {
+          "title": "Project one",
+          "text": "Synthetic project summary.",
+          "href": "/"
+        },
+        {
+          "title": "Project two",
+          "text": "Synthetic project summary.",
+          "href": "/"
+        },
+        {
+          "title": "Project three",
+          "text": "Synthetic project summary.",
+          "href": "/"
+        },
+        {
+          "title": "Project four",
+          "text": "Synthetic project summary."
+        }
+      ]
+    },
+    {
+      "blockType": "serviceBand",
+      "eyebrow": "What we do",
+      "title": "End-to-end cooling tower services",
+      "lede": "Synthetic copy: one line describing the service range.",
+      "items": [
+        {
+          "title": "Cooling towers",
+          "text": "Synthetic service summary.",
+          "href": "/",
+          "label": "View service"
+        },
+        {
+          "title": "Repair and upgrade",
+          "text": "Synthetic service summary.",
+          "href": "/",
+          "label": "View service"
+        },
+        {
+          "title": "Cooling tower components",
+          "text": "Synthetic service summary."
+        }
+      ]
+    },
+    {
+      "blockType": "takeawayList",
+      "label": "Why industrial operators choose us",
+      "items": [
+        {
+          "lead": "Synthetic reason one.",
+          "text": "Synthetic supporting sentence for reason one."
+        },
+        {
+          "lead": "Synthetic reason two.",
+          "text": "Synthetic supporting sentence for reason two."
+        }
+      ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line for the phone call-to-action."
+    },
+    {
+      "blockType": "cta",
+      "title": "Let’s Build Reliable Cooling Together",
+      "text": "Synthetic supporting line for the closing call to action.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/"
+        }
+      }
     }
   ]
 }

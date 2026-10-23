@@ -1,18 +1,25 @@
 {
   "title": "Air Cooler Troubleshooting: How to Identify and Fix Common Air Cooler Malfunctions - ICST - Thailand",
   "description": "Learn how to diagnose and fix common air cooler problems with this step-by-step air cooler troubleshooting guide for industrial and commercial systems.",
-  "path": "/air-cooler-troubleshooting/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Air Cooler Troubleshooting: How to Identify and Fix Common Air Cooler Malfunctions - ICST - Thailand"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Air Cooler Troubleshooting: How to Identify and Fix Common Air Cooler Malfunctions",
-      "image": {
-        "url": "/wp-content/uploads/2026/03/image-27.jpeg",
-        "alt": "Air Cooler Troubleshooting",
-        "width": 1600,
-        "height": 900
-      }
+      "variant": "plain",
+      "title": "Air Cooler Troubleshooting: How to Identify and Fix Common Air Cooler Malfunctions - ICST - Thailand"
     },
     {
       "blockType": "articleBody",
@@ -335,26 +342,6 @@
             },
             {
               "text": "Clean the cooler before peak seasons: Remove stored dust and debris, replace aging pads, and verify pump and electrical function before the system faces sustained operational demand."
-            }
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/03/image-29-1024x576.jpeg",
-                "alt": "",
-                "width": 1024,
-                "height": 576,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/03/image-28-1024x576.jpeg",
-                "alt": "",
-                "width": 1024,
-                "height": 576,
-                "decorative": true
-              }
             }
           ]
         }

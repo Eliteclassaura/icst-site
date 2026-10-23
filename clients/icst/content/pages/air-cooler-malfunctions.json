@@ -1,19 +1,25 @@
 {
   "title": "Air Cooler Malfunctions: Common Problems, Causes, and Safe Fixes",
   "description": "Learn what causes common air cooler problems like weak cooling, dry pads, leaks, and odors, and which checks are safe before calling a technician.",
-  "path": "/air-cooler-malfunctions/",
   "layout": [
     {
+      "blockType": "breadcrumb",
+      "trail": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Tech articles",
+          "href": "/tech-articles/"
+        }
+      ],
+      "current": "Air Cooler Malfunctions: Common Problems, Causes, and Safe Fixes"
+    },
+    {
       "blockType": "hero",
-      "variant": "media",
-      "title": "Air Cooler Malfunctions: Common Problems, Causes, and Safe Fixes",
-      "image": {
-        "url": "/wp-content/uploads/2025/08/WhatsApp-Image-2026-10-07-at-8.01.32-PM.jpeg",
-        "alt": "",
-        "width": 1600,
-        "height": 900,
-        "decorative": true
-      }
+      "variant": "plain",
+      "title": "Air Cooler Malfunctions: Common Problems, Causes, and Safe Fixes"
     },
     {
       "blockType": "articleBody",

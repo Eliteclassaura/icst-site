@@ -1,379 +1,62 @@
 {
-  "title": "New Cooling Tower Thailand | Industrial Cooling Systems",
-  "description": "Discover new cooling tower Thailand solutions by ICST. Custom industrial cooling towers engineered for efficiency, durability, and reliable performance.",
-  "path": "/new-towers/",
+  "title": "New cooling towers",
+  "description": "Synthetic copy: new cooling tower systems, until the ICST content pack arrives.",
   "layout": [
     {
       "blockType": "hero",
       "variant": "plain",
-      "title": "New Cooling Tower Solutions in Thailand"
+      "eyebrow": "Cooling towers",
+      "title": "New cooling towers",
+      "lede": "Synthetic copy: one paragraph introducing new cooling tower systems.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
     },
     {
-      "blockType": "articleBody",
-      "sections": [
+      "blockType": "serviceBand",
+      "eyebrow": "Options",
+      "title": "Synthetic section title",
+      "lede": "Synthetic copy: one line about the options.",
+      "items": [
         {
-          "heading": "What is a Cooling Tower?",
-          "paragraphs": [
-            "A cooling tower is an industrial system that removes excess heat by lowering water temperature through evaporation or air cooling.",
-            "ICST specializes in new cooling tower projects in Thailand, engineered to enhance efficiency and optimize industrial cooling processes. As a trusted Thai cooling tower provider, we tailor every solution to the client’s operational needs.",
-            "Our solutions include both evaporative and dry cooling towers, tailored to diverse industry requirements."
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/c719de674aa8a1c77b1c0867a14932fc2607d626-2-1024x768.png",
-                "alt": "",
-                "width": 1024,
-                "height": 768,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/ae3342d7463719cdc172fbfef4d2e5fe839d7c63-1024x768.webp",
-                "alt": "",
-                "width": 1024,
-                "height": 768,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/57505568b043567c1e4418c53d8f2273075add38-1024x768.webp",
-                "alt": "",
-                "width": 1024,
-                "height": 768,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/d2ceaf783af64a25f5fc4969496f11bcfc051d21-1024x768.webp",
-                "alt": "",
-                "width": 1024,
-                "height": 768,
-                "decorative": true
-              }
-            }
-          ]
+          "title": "Synthetic option one",
+          "text": "Synthetic service summary.",
+          "href": "/parts/",
+          "label": "View service"
         },
         {
-          "heading": "How Do Cooling Towers Work?",
-          "paragraphs": [
-            "A cooling tower transfers heat from heated water to the atmosphere. Water is distributed through spray nozzles, forming a fine mist that interacts with ambient air to extract heat through evaporation.",
-            "Every new cooling tower project in Thailand from ICST incorporates high-efficiency designs for optimal heat dissipation and performance.",
-            "Cooled water collects in a basin and recirculates to support continuous industrial operations, while air is discharged at high velocity."
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/Ellipse-181.jpg",
-                "alt": "",
-                "width": 32,
-                "height": 32,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/c719de674aa8a1c77b1c0867a14932fc2607d626-1024x768.webp",
-                "alt": "",
-                "width": 1024,
-                "height": 768,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/Ellipse-183.jpg",
-                "alt": "",
-                "width": 328,
-                "height": 305,
-                "decorative": true
-              }
-            }
-          ]
+          "title": "Synthetic option two",
+          "text": "Synthetic service summary.",
+          "href": "/parts/",
+          "label": "View service"
         },
         {
-          "heading": "Cooling Tower Services",
-          "paragraphs": [
-            "ICST is a provider of new cooling towers, offering full-cycle engineering, construction, and maintenance services for customers across power, process, and heavy industry."
-          ],
-          "bullets": [
-            {
-              "text": "Turnkey Construction Reliable, end-to-end solutions covering new cooling tower engineering, structures, repair, and parts — built around each client's operational needs."
-            },
-            {
-              "text": "Complete System Supply Civil design, civil works and piling, pumps, piping, cable trays, and auxiliary equipment — delivered as one integrated package."
-            },
-            {
-              "text": "General Contracting For existing or expansion projects, ICST acts as General Contractor, managing design, engineering, procurement, supply, and installation for the entire cooling tower block."
-            },
-            {
-              "text": "Full-Service Delivery Seamless execution for new installations and system upgrades alike, from civil works through to final commissioning."
-            }
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/Ellipse-181.jpg",
-                "alt": "",
-                "width": 32,
-                "height": 32,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-199.png",
-                "alt": "",
-                "width": 379,
-                "height": 393,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/Ellipse-181.jpg",
-                "alt": "",
-                "width": 32,
-                "height": 32,
-                "decorative": true
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Power Generation",
-          "paragraphs": [
-            "Counterflow and crossflow (cross flow) cooling towers for coal, gas, geothermal, and biomass plants — customized for low noise and low fouling applications, with a tower model matched to each plant's requirements."
-          ]
-        },
-        {
-          "heading": "GEOTHERMAL",
-          "paragraphs": [
-            "Engineered for high durability and efficiency in extreme environments, with advanced designs that maximize operational reliability."
-          ]
-        },
-        {
-          "heading": "FERTILIZER",
-          "paragraphs": [
-            "Robust forced-draft cooling towers are built for demanding applications like acid plants, where corrosion resistance is critical."
-          ]
-        },
-        {
-          "heading": "CHEMICAL",
-          "paragraphs": [
-            "High-performance cooling solutions paired with water treatment systems that extend equipment life and improve efficiency."
-          ]
-        },
-        {
-          "heading": "METALS/MINING",
-          "paragraphs": [
-            "Customized cooling solutions that keep operations running uninterrupted, boosting productivity across metal and mining facilities."
-          ]
-        },
-        {
-          "heading": "INDUSTRIAL PROCESS",
-          "paragraphs": [
-            "Stable, reliable cooling performance across energy production and general industrial applications."
-          ]
-        },
-        {
-          "heading": "Steam cracking",
-          "paragraphs": [
-            "Cooling solutions engineered to support this critical petrochemical process, keeping cracking complexes running safely and efficiently."
-          ]
-        },
-        {
-          "heading": "REFINING",
-          "paragraphs": [
-            "New towers and upgrades that cool the hot water essential to refining operations — reducing downtime and sustaining continuous production."
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/Ellipse-181.jpg",
-                "alt": "",
-                "width": 32,
-                "height": 32,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/Group-1000003425.jpg",
-                "alt": "",
-                "width": 277,
-                "height": 273,
-                "decorative": true
-              }
-            }
-          ]
-        },
-        {
-          "heading": "COUNTERFLOW:",
-          "paragraphs": [
-            "Available in induced draft, forced draft, concrete, FRP, and wood structures, with splash fill, film fill, and low-fouling fill options."
-          ]
-        },
-        {
-          "heading": "CROSSFLOW:",
-          "paragraphs": [
-            "Built to the same demanding standards, in induced draft, forced draft, concrete, FRP, and wood construction — a proven tower model for high-throughput operations."
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/70b12adc2504e127f68c7b77d93c0594a24ded97-1024x862.png",
-                "alt": "",
-                "width": 1024,
-                "height": 862,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/Ellipse-185.jpg",
-                "alt": "",
-                "width": 127,
-                "height": 119,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/IMG-20240827-WA0010.png",
-                "alt": "",
-                "width": 296,
-                "height": 367,
-                "decorative": true
-              }
-            }
-          ]
-        },
-        {
-          "heading": "FORCED DRAFT vs. INDUCED DRAFT",
-          "paragraphs": [
-            "Forced-draft towers place fans at the base, pushing air through, ideal for corrosive environments where mechanical equipment needs to stay out of the airstream.",
-            "Induced draft towers place fans at the top, pulling air upward against water flow, efficient and compact for heavy industrial cooling."
-          ]
-        },
-        {
-          "heading": "MECHANICAL DRAFT",
-          "paragraphs": [
-            "Natural draft towers use convection instead of fans, making them energy-efficient, eco-friendly, and cost-effective to operate. Mechanical draft towers use fans for controlled, consistent air movement.",
-            "ICST utilizes high-quality materials, including FRP, stainless steel, and concrete, ensuring longevity, fire resistance, and minimal maintenance. Our modern designs offer durability and efficiency. Water Treatment & Filtration Solutions ICST provides comprehensive cooling tower water treatment services, including:"
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/IMG-20240827-WA0016-1.png",
-                "alt": "",
-                "width": 296,
-                "height": 268,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/Ellipse_181-removebg-preview.png",
-                "alt": "",
-                "width": 32,
-                "height": 32,
-                "decorative": true
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Materials & Construction",
-          "paragraphs": [
-            "ICST builds every new cooling tower installation in Thailand with high-quality materials — FRP, stainless steel, and concrete — for longevity, fire resistance, and minimal maintenance."
-          ]
-        },
-        {
-          "heading": "Fiberglass Reinforced Polymer (FRP)",
-          "paragraphs": [
-            "FRP is reliable, durable, and cost-efficient with many advantages:"
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000003448.png",
-                "alt": "",
-                "width": 277,
-                "height": 273,
-                "decorative": true
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Concrete",
-          "paragraphs": [
-            "Depending on the country, location within the country, and availability of other materials, concrete may or may not be cost-effective when measured against importing other media. Concrete may have higher initial costs but continues to be a good choice for projects in many countries and has these benefits:"
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/Group-1000003448-1.png",
-                "alt": "",
-                "width": 278,
-                "height": 273,
-                "decorative": true
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Water treatment services",
-          "paragraphs": [
-            "Filtration is often required to keep water conditions manageable for modern film, low-clog, and low-fouling fill materials, complementing fill selection and water treatment to reduce maintenance needs."
-          ],
-          "images": [
-            {
-              "image": {
-                "url": "/wp-content/uploads/2025/03/IMG-20240827-WA0010-1.png",
-                "alt": "",
-                "width": 527,
-                "height": 539,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/d20dada96fb9158f5b4345310098aa1724b6a545-1024x460.png",
-                "alt": "",
-                "width": 1024,
-                "height": 460,
-                "decorative": true
-              }
-            },
-            {
-              "image": {
-                "url": "/wp-content/uploads/2026/06/1abc1d2c82813754b9893d54b8994dc713cfc46a-1024x516.png",
-                "alt": "",
-                "width": 1024,
-                "height": 516,
-                "decorative": true
-              }
-            }
-          ]
-        },
-        {
-          "heading": "Sidestream filtration",
-          "paragraphs": [
-            "Have an old Marley or an underperforming tower? Call ICST for a total solution built around your water conditions."
-          ]
-        },
-        {
-          "heading": "Have any questions regarding cooling tower engineering & construction?",
-          "paragraphs": [
-            "Submit"
-          ]
+          "title": "Synthetic option three",
+          "text": "Synthetic service summary.",
+          "href": "/parts/",
+          "label": "View service"
         }
       ]
+    },
+    {
+      "blockType": "phoneCta",
+      "eyebrow": "Call us",
+      "title": "Speak to an engineer",
+      "text": "Synthetic supporting line."
+    },
+    {
+      "blockType": "cta",
+      "title": "Synthetic call to action title",
+      "text": "Synthetic supporting line.",
+      "cta": {
+        "primary": {
+          "label": "Request a quote",
+          "href": "/parts/"
+        }
+      }
     }
   ]
 }
