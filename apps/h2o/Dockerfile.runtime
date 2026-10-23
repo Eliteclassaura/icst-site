@@ -3,7 +3,7 @@
 # (there are none in this tree) and the build FAILS if the compiled output carries another client's strings (layer-2 gate below).
 #
 # Build from the REPOSITORY ROOT:
-#   docker build -f apps/h2o/Dockerfile.runtime \
+#   docker buildx build --platform linux/amd64 -f apps/h2o/Dockerfile.runtime \
 #     --build-arg NEXT_PUBLIC_SERVER_URL=https://<host> --build-arg H2O_REVISION=$(git rev-parse HEAD) -t icst-runtime:<commit> .
 #
 # One image, three roles (same bytes, different command/env): web `node server.js`; runner `node server.js` with H2O_PUBLISHING_RUNNER=1
